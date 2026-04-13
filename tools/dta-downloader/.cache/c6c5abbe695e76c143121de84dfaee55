@@ -1,0 +1,961 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.deutschestextarchiv.de/basisformat.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">     <teiHeader>
+<fileDesc>
+<titleStmt>
+<title type="main">Das Pfennig-Magazin für Belehrung und Unterhaltung</title>
+<title type="sub">Dritte Folge, Zweiter Jahrgang, Nr. 89</title>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/115266127">
+<surname>Geyken</surname>
+<forename>Alexander</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1222198746">
+<surname>Haaf</surname>
+<forename>Susanne</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1019062681">
+<surname>Jurish</surname>
+<forename>Bryan</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Boenig</surname>
+<forename>Matthias</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Thomas</surname>
+<forename>Christian</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Wiegand</surname>
+<forename>Frank</forename>
+</persName>
+</editor>
+<respStmt>
+<orgName>Institut für Deutsche Sprache, Mannheim</orgName>
+<resp>
+<note type="remarkResponsibility">Bereitstellung der Bilddigitalisate und TEI
+Transkription</note>
+<ref target="http://hdl.handle.net/10932/00-01B8-B0AC-5D9F-FE01-3"/>
+</resp>
+</respStmt>
+<respStmt>
+<persName>
+<forename>Peter</forename>
+<surname>Fankhauser</surname>
+</persName>
+<resp>
+<note type="remarkResponsibility">
+Transformation von TUSTEP nach TEI P5.
+Transformation von TEI P5 in das DTA TEI P5 Format.
+</note>
+</resp>
+</respStmt>
+<respStmt>
+<orgName ref="https://www.bbaw.de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<resp>
+<note type="remarkResponsibility">Langfristige Bereitstellung der DTA-Ausgabe</note>
+<ref target="https://www.bbaw.de"/>
+</resp>
+</respStmt>
+</titleStmt>
+<editionStmt><edition>Vollständige digitalisierte Ausgabe.</edition></editionStmt>
+<extent>
+<measure type="images">8</measure>
+<measure type="tokens">5688</measure>
+<measure type="types">2315</measure>
+<measure type="characters">38263</measure>
+</extent>
+<publicationStmt>
+<publisher xml:id="DTACorpusPublisher">
+<email>dta@bbaw.de</email>
+<orgName role="project">Deutsches Textarchiv</orgName>
+<orgName role="hostingInstitution" xml:lang="en">Berlin-Brandenburg Academy of Sciences and Humanities (BBAW)</orgName>
+<orgName role="hostingInstitution" xml:lang="de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<address>
+<addrLine>Jägerstr. 22/23, 10117 Berlin</addrLine>
+<country>Germany</country>
+</address>
+</publisher>
+<pubPlace>Berlin</pubPlace>
+<date type="publication">2025-10-24T08:35:14Z</date>
+<availability>
+<licence target="http://creativecommons.org/publicdomain/zero/1.0/">
+<p>Dieses Werk steht unter der "Creative Commons Namensnennung -
+Nicht kommerziell 3.0 Deutschland Lizenz" (CC BY-NC).</p>
+</licence>
+</availability>
+<idno>
+<idno type="URLWeb">https://www.deutschestextarchiv.de/nn_pfennig089_1854</idno>
+<idno type="URLXML">https://www.deutschestextarchiv.de/book/download_xml/nn_pfennig089_1854</idno>
+<idno type="URLHTML">https://www.deutschestextarchiv.de/book/download_html/nn_pfennig089_1854</idno>
+<idno type="URLText">https://www.deutschestextarchiv.de/book/download_text/nn_pfennig089_1854</idno>
+<idno type="DTADirName">nn_pfennig089_1854</idno>
+<idno type="DTAID">34739</idno>
+<idno type="URN">urn:nbn:de:kobv:b4-34739-2</idno>
+</idno>
+</publicationStmt>
+<sourceDesc>
+<bibl type="J">Das Pfennig=Magazin für Belehrung und Unterhaltung. Dritte Folge, Zweiter Jahrgang, Nr. 89. Leipzig (Sachsen), 7. September 1854.</bibl>
+<biblFull>
+<titleStmt>
+<title level="m" type="main">Das Pfennig-Magazin für Belehrung und Unterhaltung</title>
+<title level="m" type="sub">Dritte Folge, Zweiter Jahrgang, Nr. 89</title>
+</titleStmt>
+<editionStmt>
+<edition n="1"/>
+</editionStmt>
+<publicationStmt>
+<publisher/>
+<pubPlace>Leibzig (Sachsen)</pubPlace>
+<date type="publication">1854</date>
+</publicationStmt>
+</biblFull>
+<msDesc>
+<msIdentifier/>
+<physDesc>
+<typeDesc>
+<p>Fraktur</p>
+</typeDesc>
+</physDesc>
+</msDesc>
+</sourceDesc>
+</fileDesc>
+<encodingDesc>
+<editorialDecl>
+<p>
+<![CDATA[
+<p>Siehe Dokumentation</p>
+]]>
+</p>
+</editorialDecl>
+<tagsDecl>
+<rendition scheme="css" xml:id="aq">font-family:sans-serif</rendition>
+<rendition scheme="css" xml:id="b">font-weight:bold</rendition>
+<rendition scheme="css" xml:id="blue">color:blue</rendition>
+<rendition scheme="css" xml:id="c">display:block; text-align:center</rendition>
+<rendition scheme="css" xml:id="et">display:block; margin-left:2em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et2">display:block; margin-left:4em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et3">display:block; margin-left:6em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="f">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="fr">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="g">letter-spacing:0.125em</rendition>
+<rendition scheme="css" xml:id="i">font-style:italic</rendition>
+<rendition scheme="css" xml:id="in">font-size:150%</rendition>
+<rendition scheme="css" xml:id="k">font-variant:small-caps</rendition>
+<rendition scheme="css" xml:id="larger">font-size:larger</rendition>
+<rendition scheme="css" xml:id="red">color:red</rendition>
+<rendition scheme="css" xml:id="right">display:block; text-align:right</rendition>
+<rendition scheme="css" xml:id="s">text-decoration:line-through</rendition>
+<rendition scheme="css" xml:id="smaller">font-size:smaller</rendition>
+<rendition scheme="css" xml:id="sub">vertical-align:sub; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="sup">vertical-align:super; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="u">text-decoration:underline</rendition>
+<rendition scheme="css" xml:id="uu">border-bottom:double 3px #000</rendition>
+</tagsDecl>
+</encodingDesc>
+<profileDesc>
+<langUsage>
+<language ident="deu">(Früh-)Neuhochdeutsch</language>
+<language ident="deu">German</language>
+</langUsage>
+<textClass>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1main">Gebrauchsliteratur</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1sub">Zeitschrift</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">ready</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">mkhz1</classCode>
+</textClass>
+</profileDesc>
+</teiHeader>
+<text>     <front>
+<pb facs="#f0001" n="[289]"/>
+<titlePage type="heading"><docTitle><titlePart type="main"><hi rendition="#c #fr">Das Pfennig=Magazin<lb/>
+für<lb/>
+<hi rendition="#g">Belehrung und Unterhaltung</hi>.</hi></titlePart></docTitle><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<docImprint><hi rendition="#fr">Nr</hi>. 89. ]                <hi rendition="#c">Dritte Folge. Zweiter Jahrgang.</hi>                <docDate><hi rendition="#right">[ 7. <hi rendition="#g">September</hi> 1854.</hi></docDate>              </docImprint></titlePage><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+</front>     <body>       <div n="1" type="jArticle"><head><hi rendition="#fr">Telemachos.</hi></head><lb/>
+<figure/><lb/>
+<cb type="start"/>
+<p><hi rendition="#in">T</hi>elemachos, des Ulysses und der Penelope Sohn, wird<lb/>
+in Homer's &#x201E;Odyssee&#x201C; als ein edler, trefflicher Jüng-<lb/>
+ling geschildert, der trotz seiner Jugend seiner Mutter<lb/>
+gegen die während der fortdauernden Abwesenheit seines<lb/>
+Vaters immer übermüthiger auftretenden Freier treulich<lb/>
+beistand und sich endlich aufmachte, seinen Vater auf-<lb/>
+zusuchen oder doch über sein Schicksal Kunde einzuholen.<lb/>
+<cb n="2"/>
+Während seiner Abwesenheit langt endlich Ulysses nach<lb/>
+langen Jrrfahrten auf Jthaka an und sondirt nun erst<lb/>
+sorgfältig das alte und ihm doch fast neu gewordene<lb/>
+Terrain. Er kehrt zu diesem Zwecke unter der Gestalt<lb/>
+eines Bettlers bei dem alten Eumäos ein, der unter<lb/>
+ihm und seinem Vater Laertes gedient und ihre zahl-<lb/>
+reichen Heerden &#x2014; den Hauptbestandtheil des Reich-<lb/>
+<cb type="end"/>
+<pb facs="#f0002" n="290"/>
+<fw place="top" type="pageNum">290</fw><cb type="start"/>
+thums der damaligen Zeit &#x2014; in Obhut und Pflege<lb/>
+hatte. Auch unerkannt wird Ulysses von dem gut-<lb/>
+müthigen Hirten gastfrei aufgenommen. Er erzählt ihm<lb/>
+Mancherlei von dem greisen Laertes, von der treuen<lb/>
+Penelope und von dem Jünglinge Telemachos, sowie<lb/>
+von den Freiern, die er einzeln ihm namhaft macht<lb/>
+und nach ihren Eigenthümlichkeiten schildert; auch von<lb/>
+der Dienerschaft im Hause des Königs erzählt er, wer<lb/>
+von denselben mit den Freiern es halte und sich der<lb/>
+Abwesenheit des Königs freute, und wer noch treu an<lb/>
+Ulysses hinge und seiner Heimkehr, wenn auch hoff-<lb/>
+nungslos, harre.</p><lb/>
+<p>Am zweiten Morgen, als sie wieder plaudernd bei-<lb/>
+sammensaßen vor der Hütte des Hirten, sahen sie plötz-<lb/>
+lich einen schönen Jüngling auf sich zukommen, welchen<lb/>
+die Hunde nicht verkündet hatten, indem sie ihn feind-<lb/>
+lich anbellten, sondern den dieselben freudig umsprangen,<lb/>
+mit den Schwänzen wedelnd und ihm die Hände leckend.<lb/>
+Freudig sprang Eumäos auf, küßte dem Jünglinge<lb/>
+Hände und Haupt und schloß ihn in seine Arme, in-<lb/>
+dem er vor Schluchzen und Weinen keine Worte fand.<lb/>
+Der Jüngling war Telemachos, welcher auf die War-<lb/>
+nung des treuen Hirten, die ihn zur rechten Zeit ge-<lb/>
+troffen, an einer ungewöhnlichen Stelle von den Seinen<lb/>
+sich hatte ans Land setzen lassen, um die Pläne der Freier<lb/>
+gegen ihn zu vereiteln. Als Ulysses aus den Reden<lb/>
+und dem Benehmen des Hirten errieth, daß der Jüng-<lb/>
+ling sein heißgeliebter einziger Sohn sei, da wollte ihm<lb/>
+das Herz vor Freuden hoch aufjauchzen; aber er hielt<lb/>
+sich zurück und seiner angenommenen Gestalt getreu, be-<lb/>
+grüßte er den Königssohn als ein demüthiger Bettler.<lb/>
+Dieser aber verstand das Alter zu ehren und hieß ihn<lb/>
+freundlich sich wieder hinsetzen, wo er gesessen, und ließ<lb/>
+sich selbst von Eumäos einen Platz neben dem Fremd-<lb/>
+ling am Tische bereiten. Er ließ sich von Eumäos be-<lb/>
+richten, wie es während seiner Abwesenheit in Jthaka<lb/>
+zugegangen und bedauerte gegen den Fremden, dessen<lb/>
+Schicksale ihm Eumäos kurz mittheilte, daß er nicht<lb/>
+Macht genug habe, in seinem eigenen Hause ihn auf-<lb/>
+zunehmen. Dafür befahl er dem treuen Eumäos, für<lb/>
+den unglücklichen Fremden aufs beste in seinem Namen<lb/>
+zu sorgen. Nachdem sie zusammen den Jmbiß genom-<lb/>
+men, befahl Telemachos dem Eumäos in den Palast zu<lb/>
+gehen und seiner Mutter seine glückliche Heimkehr zu<lb/>
+melden, auch dem bekümmerten Großvater Laertes Nach-<lb/>
+richt zukommen zu lassen, aber Alles dies heimlich, da-<lb/>
+mit die bösen Freier es nicht vorschnell erführen.</p><lb/>
+<p>Eumäos machte sich alsbald auf den Weg. Ulys-<lb/>
+ses aber schlich sich aus der Hütte, langte aus dem<lb/>
+unscheinbaren Ränzel, welches er mitgebracht hatte, ein<lb/>
+kostbares Gewand hervor, wusch sein Angesicht und<lb/>
+glättete sein Haar, und sich aufrichtend in seiner gan-<lb/>
+zen Größe und Heldengestalt trat er wieder hinein, an-<lb/>
+gethan als Held und König, vor seinen Sohn Tele-<lb/>
+machos. Dieser erkannte zwar den Gast, verwunderte<lb/>
+sich aber über die mit ihm vorgegangene Veränderung<lb/>
+und fragte ihn, wer er wäre. Da schloß ihn Ulysses<lb/>
+zärtlich in seine Arme, reichliche Thränen stürzten ihm<lb/>
+aus den Augen und er nannte ihm seinen Namen,<lb/>
+sagte ihm, daß er sein Vater sei. Mit zweifelndem<lb/>
+Staunen blickte ihn Telemachos an; aber Ulysses sagte<lb/>
+ihm mit eilenden Worten so Vieles, was aber nur er<lb/>
+allein und sein Vater wissen konnte, daß jener sich<lb/>
+bald überzeugte, daß der langersehnte, so oft heiß von<lb/>
+ihm beweinte, hochberühmte und geliebte Vater nach<lb/>
+zwanzigjähriger Abwesenheit leibhaftig vor seinen ver-<lb/>
+wunderten Augen stehe. Da fiel auch er weinend ihm<lb/>
+um den Hals und heiße Thränen des Jammers um<lb/>
+<cb n="2"/>
+das harte Geschick des Geliebten mischten sich mit seli-<lb/>
+gen Thränen der Freude über das endliche unverhoffte<lb/>
+Wiedersehen.</p><lb/>
+<p>Sie hatten viel, viel miteinander zu reden. Der<lb/>
+kluge Ulysses gab dem Jünglinge Rathschläge, wie<lb/>
+sie Alles ordnen wollten, damit die Freier besiegt und<lb/>
+die rechtmäßige Herrschaft in Palast und Königthum<lb/>
+wiederhergestellt würde. Da sahen sie von Ferne den<lb/>
+Eumäos zurückkehren und Ulysses eilte wieder die<lb/>
+Gestalt des hülflosen Bettlers anzunehmen. Denn wie<lb/>
+treu und brav sich der alte Diener auch bewiesen, wie<lb/>
+sehr Ulysses auch auf ihn rechnete für die Stunde<lb/>
+der Gefahr, so fürchtete er doch, die unwillkürliche<lb/>
+Freude des Alten könnte ihn vor der Zeit seinen Fein-<lb/>
+den verrathen.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle" xml:id="Eppelin2"><head><hi rendition="#fr">Eppelin und sein Roß.</hi><lb/>
+<ref target="nn_pfennig088_1854#Eppelin1"> ( Beschluß. )</ref></head><lb/>
+<p><hi rendition="#in">D</hi>ie arme Hedwig ergab sich denn in ihr trauriges<lb/>
+Schicksal. Sie legte mit ihren drei Söhnen dunkle<lb/>
+Kleider an und erschien häufig im Thale, um den ein-<lb/>
+samen Mauern von Gailenreuth zu entfliehen, zwischen<lb/>
+denen es ihr so unheimlich, so bange wurde. Kam sie<lb/>
+nun zu den wenigen Leuten, die im Thale wohnten,<lb/>
+so trauerten diese mit ihr, denn sie war so sanft, so<lb/>
+mild, daß man oft nicht glauben konnte, sie sei des<lb/>
+wilden Eppelin Gattin. Diesen mochten darum die<lb/>
+Leute nur deshalb die Freiheit wünschen, damit seiner<lb/>
+Frau der Friede des Herzens wiederkehre.</p><lb/>
+<p>Der liebste Ort, den sich Hedwig zu ihrer stillen<lb/>
+Trauer ausgesucht hatte, war im Thale an der Wiesent-<lb/>
+brücke, wo der bewaldete Berg sich abdachte und eine<lb/>
+kleine Mühle von dem silberhellen Wasser getrieben<lb/>
+wurde. Hier saß die Trauernde alle Tage bis zum<lb/>
+Sonnenuntergang im Schatten des Gebüsches und seufzte<lb/>
+und weinte, während ihre Kinder, die von ihrem Schmerze<lb/>
+noch keinen Begriff hatten, lustig umhersprangen.</p><lb/>
+<p>Hüpft nur umher, sprach sie oft für sich, wenn sie<lb/>
+mit Mutterliebe die Lust der Knaben schaute, seid mun-<lb/>
+ter, wie die Lämmlein! Jhr Kinder habt ja noch kein<lb/>
+dauernd Mitgefühl für den Schmerz Anderer und eure<lb/>
+Thränen verrinnen so bald! Ach, wüßtet ihr, was eure<lb/>
+Mutter leidet und wo euer Vater schmachtet! Viel-<lb/>
+leicht &#x2014; vielleicht ist es mit ihm schon vorüber, vielleicht<lb/>
+schlug ihm schon die furchtbare Stunde!</p><lb/>
+<p>Einst saß die Burgfrau auch an ihrem Lieblingsorte<lb/>
+und dachte an Eppelin und sein Schicksal, da rauschte<lb/>
+es im Gebüsch, als suche ein scheues Wild die Flucht.<lb/>
+Ein Mann war es, welcher sich durch das Dickicht<lb/>
+Bahn brach. Sein Gesicht sah verstört und bleich, seine<lb/>
+Brust keuchte nach Athem, sein ungeordnetes Kleid war<lb/>
+blutig. Er stürzte mit Hast der Mühle zu, donnerte<lb/>
+an den Laden und rief: &#x201E;Müllerin, mach' auf!&#x201C;</p><lb/>
+<p>Die Müllerin öffnete und auf ihre Frage: &#x201E;Was<lb/>
+gibt es?&#x201C; antwortete der eilige Mann: &#x201E;Schaff' mir<lb/>
+ein Stück Brot, ein Maß Wein; gib auch ein Hemd<lb/>
+oder ein Stück Linnen, um Wunden zu verbinden!<lb/>
+Erbarme dich, Müllerin, zögere nicht, jeder Augenblick<lb/>
+Verzug bringt den Tod!&#x201C;</p><lb/>
+<p>Die Müllersfrau ging, das Verlangte zu holen,<lb/>
+während Hedwig durchs Gebüsch den Mann betrachtete,<lb/>
+denn sie hörte aus seinem Munde bekannte Töne und<lb/>
+glaubte in seinem Gesichte liebe Züge zu erkennen.<lb/>
+<cb type="end"/>
+<pb facs="#f0003" n="291"/>
+<fw place="top" type="pageNum">291</fw><cb type="start"/>
+Schnell raffte sie sich auf und eilte zu dem Manne hin.<lb/>
+Sie hatte sich nicht getäuscht; Eppelin war es. Jm<lb/>
+Übermaß der Freude konnte sie nicht sprechen, sondern<lb/>
+nur höchstens seinen Namen rufen. Sie sank zu seinen<lb/>
+Füßen nieder, umschlang seine Knie und hielt ihn fest,<lb/>
+hochbeglückt durch das Wonnegefühl des Wiedersehens.<lb/>
+Jhre Kinder gesellten sich zu ihr und drängten sich eben-<lb/>
+falls mit Freuden an den Vater an. Dieser aber er-<lb/>
+hielt zu gleicher Zeit das von der Müllerin Erbetene.</p><lb/>
+<p>Kinder, sprach er, indem er sich von den Seinen<lb/>
+losmachte, Kinder, laßt mich! und haftig jagte er wie-<lb/>
+der der Waldung zu.</p><lb/>
+<p>Dieses Benehmen war der Burgfrau höchst räthsel-<lb/>
+haft; sie rief ihm nach: &#x201E;Eppelin, Eppelin! Willst du<lb/>
+Weib und Kind verlassen?&#x201C;</p><lb/>
+<p>Nein, nein! antwortete der Ritter und eilte unauf-<lb/>
+haltsam weiter. Hedwig und ihre Kinder folgten aber<lb/>
+seinen hastigen Schritten bis tief in den Wald hinein,<lb/>
+wo eine Straße vorüberführte. Hier sahen sie Eppelin<lb/>
+sich auf einem freien Grasplatze niederbeugen und mit<lb/>
+einem Körper ämsig beschäftigen. Als sie nahe hinzu-<lb/>
+traten, bemerkten sie ein schwarzes Roß unter den Hän-<lb/>
+den des Ritters, das eben verenden zu wollen schien.</p><lb/>
+<p>Eppelin gab sich alle Mühe, dem Thiere das Leben<lb/>
+zu retten; denn es war ja sein treuer Rappe, welcher<lb/>
+ihn über den Burggraben zu Nürnberg und, der Frei-<lb/>
+heit entgegen, bis an die Stelle getragen hatte, wo er<lb/>
+eben niedergesunken war. Seine Füße bluteten und<lb/>
+seine Brust bewegte sich nur noch wenig, sodaß man<lb/>
+kaum noch sein Athmen bemerken konnte; die Augen<lb/>
+waren halb gebrochen.</p><lb/>
+<p>Der Ritter hatte in seinen frühern Kämpfen durch<lb/>
+die erhaltenen Wunden so manchen Schmerz erlitten,<lb/>
+aber so tief war dieser ihm nicht ans Herz gegangen,<lb/>
+als der Schmerz des Mitleids beim Anblicke seines<lb/>
+Rosses. Er nahm Wein und bestrich den Rappen die<lb/>
+Nüstern und das Maul, er schob ihm benetzte Stück-<lb/>
+chen Brot zwischen die Zähne, er verband ihm mit be-<lb/>
+feuchteten Lappen die Füße, er klopfte und streichelte<lb/>
+seinen Hals und überhäufte es mit Liebkosungen; aber<lb/>
+Alles war umsonst, die Lebensgeister des Thieres wichen<lb/>
+immer mehr.</p><lb/>
+<p>Da weinte der sonst so wilde Mann.</p><lb/>
+<p>Hedwig und die Knaben hatten die Scene in der<lb/>
+Entfernung still betrachtet. Sie traten näher und die<lb/>
+Burgfrau sprach: &#x201E;Eppelin! Wir sind da, wir, die dir<lb/>
+am treuesten sind auf Erden!&#x201C;</p><lb/>
+<p>Der Ritter sprang auf im Gefühle von Schmerz<lb/>
+und Freude, umhalste die Seinen und rief: &#x201E;Ach, ver-<lb/>
+zeiht, wenn ich euch in dem ersten Augenblicke des<lb/>
+Wiedersehens nicht beachtete und die Minuten nützen<lb/>
+mußte, um hier für meinen Retter, mein liebes Roß,<lb/>
+das Möglichste zu thun! Jch sehe aber, ich soll mich<lb/>
+seiner nicht mehr freuen, denn bald wird es den letzten<lb/>
+Athemzug thun!&#x201C;</p><lb/>
+<p>Bei diesen Worten fielen Eppelin's Augen wieder<lb/>
+auf den Rappen. Er athmete noch einmal recht schwer;<lb/>
+er blickte noch mit seinen matten, gutmüthigen Augen<lb/>
+nach seinem Herrn, dann brachen ihm diese und der<lb/>
+Tod kam über ihn. Ein Zucken der Glieder noch, dann<lb/>
+war es mit dem Rosse vorbei.</p><lb/>
+<p>Seht, er stirbt! jammerte Eppelin und setzte hinzu:<lb/>
+So wisset denn, meine Lieben, daß er mich über den<lb/>
+Burggraben von Nürnberg getragen und bis hierher zu<lb/>
+euch gebracht hat, daß er mein Lebensretter war in<lb/>
+demselben Augenblicke, als ich dem Henker überliefert<lb/>
+werden sollte! Seinesgleichen ist nicht mehr. Traure<lb/>
+mit mir, meine Hedwig, beklagt ihn mit mir, meine<lb/>
+<cb n="2"/>
+Söhne; er war mein treuester Freund auf Erden! Nie<lb/>
+wollen wir seiner vergessen; ein schönes Grab soll ihm<lb/>
+werden und ein würdiges Denkmal soll den Hügel zie-<lb/>
+ren, unter welchem mein liebes Roß schlafen wird!</p><lb/>
+<p>Eppelin konnte sich schwer von dem todten Rappen<lb/>
+trennen. Er streichelte ihn noch lange, dann bedeckte<lb/>
+er ihn mit grünen Zweigen und wendete sich in Gesell-<lb/>
+schaft seines Weibes und seiner Söhne der Burg Gailen-<lb/>
+reuth zu, wo er sicher sein konnte vor der Verfolgung<lb/>
+seiner Feinde. Das Erste aber, was er that, war dies,<lb/>
+daß er Diener absendete nach dem Walde und dort ein<lb/>
+großes Grab, mit Tannenzweigen ausgeschlagen, machen<lb/>
+ließ, in welches das treue Roß gelegt wurde. Bald<lb/>
+darauf meiselte man einen großen Stein und setzte ihn<lb/>
+auf den Hügel, dem Rappen Eppelin's zum ewigen<lb/>
+Andenken.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Benjamin Franklin und die Pfeife.</hi></head><lb/>
+<p><hi rendition="#in">F</hi>ranklin war ein Knabe von sieben Jahren, als er<lb/>
+durch die Güte seiner Verwandten an einem Festtage<lb/>
+mit verschiedenen Geschenken erfreut wurde, welche er<lb/>
+in seine Tasche steckte, um sich in einem Kaufladen so-<lb/>
+gleich verschiedenes Spielzeug einzukaufen. Ehe Franklin<lb/>
+noch an dem Laden ankam, begegnete ihm ein Knabe,<lb/>
+welcher eine Pfeife in dem Munde hatte, der er ver-<lb/>
+schiedene Töne zu entlocken wußte. Die Pfeife und der<lb/>
+Ton derselben gefielen dem jungen Franklin so sehr, daß<lb/>
+er dem fremden Knaben sofort seine ganze Baarschaft<lb/>
+anbot, indem er diesen bat, ihm die schöne Pfeife zu<lb/>
+überlassen. Der schlaue Knabe fand den Handel höchst<lb/>
+angenehm, legte augenblicklich die Pfeife, die ihm nur<lb/>
+wenige Pfennige kostete, in Franklin's Hand und nahm<lb/>
+dafür schmunzelnd dessen ganze Baarschaft in Empfang,<lb/>
+welche das Vierfache des Werthes betrug. Franklin war<lb/>
+überglücklich mit seiner Pfeife. Er kam mit ihr nach<lb/>
+Hause und pfiff seinen Angehörigen die Ohren so voll,<lb/>
+daß man das Pfeifen bald sehr lästig fand. Natürlich<lb/>
+wurde der kleine Musikant mit seiner schrillenden Musik<lb/>
+von einem Orte zum andern geschickt, denn wo er musi-<lb/>
+cirte, da gellten den Zuhörern die Ohren. Zuletzt frag-<lb/>
+ten die Verwandten und Geschwister den kleinen Ben-<lb/>
+jamin, wie er zu seiner Pfeife gekommen sei, und der<lb/>
+Befragte erzählte treuherzig und mit einer gewissen<lb/>
+Selbstzufriedenheit, auf welche Weise er das in seinen<lb/>
+Augen so schätzbare Jnstrument erworben habe. Als<lb/>
+man ihm aber vorstellte, daß er für die werthlose, un-<lb/>
+nütze Pfeife dem fremden Knaben viel zu viel gezahlt<lb/>
+hätte, daß er betrogen worden sei, und als man ihn<lb/>
+deshalb tüchtig auslachte, da bereute Franklin den Han-<lb/>
+del; er fing an zu weinen und ärgerte sich, daß er für<lb/>
+so vieles Geld nicht besseres Spielzeug eingekauft hätte.<lb/>
+So schmerzlich anfangs der Handel für Franklin war,<lb/>
+so nützlich wurde er ihm für die Zukunft, denn die<lb/>
+Geschichte mit der Pfeife machte auf Franklin einen so<lb/>
+bleibenden Eindruck, daß er sich sein ganzes Leben lang<lb/>
+daran erinnerte und bei jeder Versuchung zu unnöthigem<lb/>
+Aufwande bei sich dachte: &#x201E;Die Pfeife ist zu theuer!<lb/>
+Gib nicht zu viel für die Pfeife!&#x201C; So lernte Franklin<lb/>
+frühzeitig sparsam sein. Sah er nun einen seiner Mit-<lb/>
+menschen Geld an unnütze Dinge verschwenden, dann<lb/>
+rief er aus: &#x201E;Der gibt zu viel für seine Pfeife!&#x201C;</p><lb/>
+<p>Wie oft Franklin seiner Pfeife gedachte, davon er-<lb/>
+zählt er selbst in seinem Leben unter Anderm Folgendes:</p><lb/>
+<cb type="end"/>
+<pb facs="#f0004" n="292"/>
+<fw place="top" type="pageNum">292</fw>       <cb type="start"/>
+<p>&#x201E;Sah ich einen Geizhals, der sich selbst jede Ge-<lb/>
+mächlichkeit des Lebens versagte, der auf das Vergnügen,<lb/>
+Andern Gutes zu thun, und auf die Achtung seiner<lb/>
+Mitbürger gänzlich verzichtete, der die Freuden wohl-<lb/>
+wollender Freundschaft dem Durst, Schätze zu häufen,<lb/>
+aufopferte &#x2014; armer Mann, sagte ich, fürwahr, du be-<lb/>
+zahlst zu viel für deine Pfeife!</p><lb/>
+<p>&#x201E;Traf ich auf einen Freudenjäger, der blos um<lb/>
+sinnlicher Genüsse willen jede löbliche Verbesserung sei-<lb/>
+nes Geistes und Vermögens versäumte, so dachte ich:<lb/>
+Betrogener Mann, du schaffst dir selbst Schmerz statt<lb/>
+Vergnügen; du gibst zu viel für deine Pfeife!</p><lb/>
+<p>&#x201E;Sehe ich einen Menschen, der an schönen Kleidern,<lb/>
+schönen Möbeln, schöner Equipage über sein Vermögen<lb/>
+<cb n="2"/>
+hängt, für die er Schulden macht und seine Laufbahn<lb/>
+im Gefängnisse beschließt &#x2014; ach! sage ich dann, der<lb/>
+hat seine Pfeife theuer, sehr theuer bezahlt!</p><lb/>
+<p>&#x201E;Kurz ich glaubte zu bemerken, daß die Menschen<lb/>
+selbst sich den größten Theil ihrer Übel durch die falsche<lb/>
+Schätzung des Werthes der Dinge und dadurch zu-<lb/>
+ziehen, daß sie immer zu viel für ihre Pfeifen geben.&#x201C;</p><lb/>
+<p>Wie Recht hatte doch der große Franklin, dessen thä-<lb/>
+tiges, vielbewegtes Leben Tausenden ein Vorbild sein<lb/>
+sollte!</p><lb/>
+<p>Jhr aber, lieben Leser, bedenkt ja, daß manche Lieb-<lb/>
+lingssache, die ihr oft überschätzt, für euch eine Frank-<lb/>
+lin 'sche Pfeife ist! Denkt an diese Pfeife in euerm<lb/>
+Leben und zahlet nie zu viel für eure Pfeife!</p></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1"><figure><head><hi rendition="#fr">Kamin im Saale der Katharina von Medici im Louvrepalast zu Paris.</hi></head></figure></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<lb/>
+<pb facs="#f0005" n="293"/>
+<fw place="top" type="pageNum">293</fw><lb/>
+<div n="1"><figure><head><hi rendition="#fr">Londonbrücke im Jahre</hi> 1599.</head></figure></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Erloschene deutsche Vulkane.</hi></head>       <cb type="start"/>
+<p><hi rendition="#in">J</hi>n den frühesten Zeiten, in welche zurück keines Men-<lb/>
+schen Gedächtniß reicht, hat es auch in unserm Vater-<lb/>
+lande an zahlreichen feuerspeienden Bergen nicht gefehlt.<lb/>
+Noch jetzt sind die Spuren von ihnen deutlich vorhanden.</p><lb/>
+<p>Das eigentliche vulkanische Gebiet in Deutschland ist<lb/>
+die jetzt sogenannte Eifel, ein Landstrich, den ein Hoch-<lb/>
+plateau zwischen den Flüssen Rhein, Mosel, Roer und<lb/>
+Sauer bildet, also im rhein=westfälischen Gebirge.</p><lb/>
+<p>Besonders ist die Niedereifel, wie man sie nennt,<lb/>
+an vulkanischen Bildungen so reich, daß man hier etwa<lb/>
+20 Krater bestimmt erkannt hat.</p><lb/>
+<p>Der größte ehemalige Eruptionskrater ist der Mosen-<lb/>
+berg bei Bettenfeld, nicht allzu weit von Manderscheid.<lb/>
+Aus der Ferne erscheint er als ein drei= bis fünf-<lb/>
+gipfeliger Berg; die Gipfel sind die Ringe seiner Kra-<lb/>
+ter. Ganz deutlich sind noch die Spuren eines Lava-<lb/>
+stroms zu erkennen, der in einer Breite von etwa<lb/>
+100 Fuß eine halbe Stunde weit am östlichen Abhange<lb/>
+verfolgt werden kann.</p><lb/>
+<p>Anderwärts sind die Spuren solcher ehemaligen vul-<lb/>
+kanischen Ausrüstung jener ganzen Gegend weniger deut-<lb/>
+lich und sie aufzufinden, sind die Augen guter Geolo-<lb/>
+gen nöthig, welche namentlich in der Neuzeit jenen Land-<lb/>
+strich fleißig bereist und untersucht haben.</p><lb/>
+<p>Es sei gestattet, aus einem größern Aufsatze über<lb/>
+erloschene Vulkane am Rheine einige Bruchstücke her-<lb/>
+überzunehmen.</p><lb/>
+<p>Auf die Frage: Zu welcher Zeit die Glutsteine jener<lb/>
+Feuerberge ihren Kratern entflossen und ihre Aschen-<lb/>
+und Bimssteinregen herausgeschleudert wurden, kann kein<lb/>
+<cb n="2"/>
+Mensch Auskunft ertheilen. Nach den Lagerungsver-<lb/>
+hältnissen der vulkanischen Gebilde können wir annehmen,<lb/>
+daß dieselben nach der Bildung der Braunkohlenforma-<lb/>
+tion und der der Flußgeschiebe zu einer Zeit ihren An-<lb/>
+fang genommen haben, als die Gegend bereits im We-<lb/>
+sentlichen ihre jetzige Physiognomie angenommen hatte.<lb/>
+Berge und Thäler, mit Ausnahme der vulkanischen,<lb/>
+waren bereits gebildet und die Vegetation der jetzigen<lb/>
+ähnlich, vielleicht völlig dieselbe; ja die Bimsteineruptio-<lb/>
+nen hätten sich vielleicht selbst in historischer Zeit zu-<lb/>
+tragen können, wenn für die Rheingegenden dieselbe<lb/>
+weiter, wie bis zu der Zeit der Römer zurückgriffe.<lb/>
+Eine Zeit lang glaubte man sogar, daß eine Stelle in<lb/>
+den Annalen des römischen Schriftstellers Tacitus auf<lb/>
+einen vulkanischen Ausbruch zur Zeit der Römer hin-<lb/>
+deutete. Er schreibt:</p><lb/>
+<p>&#x201E;Aber auch die mit uns verbündete Völkerschaft der<lb/>
+Juhonen wurde durch ein unvermuthetes Unglück heim-<lb/>
+gesucht. Denn Feuer, die aus der Erde schlugen, er-<lb/>
+griffen hin und wieder Landhäuser, Fluren und Dörfer,<lb/>
+und erreichten sogar die Mauern der neuangelegten<lb/>
+Pflanzstadt ( Köln oder Andernach? ) . Sie waren nicht<lb/>
+zu löschen, weder wenn Platzregen fiel, noch durch Fluß-<lb/>
+wasser oder durch andere Flüssigkeit, bis einige Land-<lb/>
+leute, in Ermangelung aller Hülfe und aus Zorn über<lb/>
+ihren Verlust, von fern her Steine auf die Flammen<lb/>
+warfen, und als diese sich hierauf legten, näher hinzu-<lb/>
+gehend, sie mit Prügeln und andern Schlägen wie<lb/>
+wilde Thiere abwehrten. Zuletzt riß man die Kleider<lb/>
+vom Leibe und warf sie hinein, die, je mehr sie ver-<lb/>
+<cb type="end"/>
+<pb facs="#f0006" n="294"/>
+<fw place="top" type="pageNum">294</fw><cb type="start"/>
+unreinigt und durch den Gebrauch beschmuzt waren, um<lb/>
+so besser die Flammen dämpften.&#x201C;</p><lb/>
+<p>Die gründlichen Untersuchungen von Nees von Esen-<lb/>
+beck und <hi rendition="#aq">Dr</hi>. Nöggerath haben jedoch dargethan, daß<lb/>
+diese Stelle des Tacitus als ein geschichtlicher Beweis für<lb/>
+die vulkanischen Ausbrüche am Rhein und in der Eifel<lb/>
+von durchaus keinem Werthe sei, indem darin höchst<lb/>
+wahrscheinlich nur von einem in der Gegend von Köln<lb/>
+vorgefallenen Haide= oder Moorbrande die Rede sei.<lb/>
+Jst nun aber auch diese Stelle nicht durch eine vulka-<lb/>
+nische Eruption zu erklären, so finden wir doch in ge-<lb/>
+wissen Lagerungsverhältnissen der vulkanischen Asche und<lb/>
+des Bimsteins Beweise genug, um anzunehmen, daß<lb/>
+die letzten Eruptionen von vulkanischer Asche erfolgt sind,<lb/>
+als die Gegend schon von Menschen bevölkert war.</p><lb/>
+<p>Als ein noch gegenwärtig thätiger und letzter Act<lb/>
+der vulkanischen Wirksamkeit erscheinen die vielen Sauer-<lb/>
+quellen, die in der ganzen vulkanischen Eifel, besonders<lb/>
+aber in der Umgebung des Sees von Laach vorkommen.<lb/>
+Sie werden gebildet, indem die in den Klüften des Schiefer-<lb/>
+gebirges emporsteigende Kohlensäure sich in den obern<lb/>
+Teufen mit dem Wasser der Quellen vereinigt, und<lb/>
+geben durch ihr Aufsprudeln die Entwickelung der<lb/>
+Kohlensäure zu erkennen. Jn der Umgebung jenes<lb/>
+Sees und im Brohlthale entspringen allein mehr als<lb/>
+1000 solcher Säuerlinge. Besonders merkwürdig unter<lb/>
+ihnen sind der Brudeldreis am Kyllfluß und der Waller-<lb/>
+born bei Hetzerath, wo die Kohlensäure aus Spalten<lb/>
+des Grauwackengebirges wie aus einem Blasebalge durch<lb/>
+das sie gewöhnlich sperrende Wasser mit solcher Heftig-<lb/>
+keit ausströmt, daß man das Geräusch mehre hundert<lb/>
+Schritte weit hört. An zahllosen Punkten entwickelt<lb/>
+sich auch das Gas unmittelbar aus dem Boden, z. B.<lb/>
+im Thale von Burgbrohl, herab. Hier findet man in<lb/>
+den kleinen Vertiefungen am Gehänge stets todte Vögel,<lb/>
+Mäuse und andere Thiere vom ausströmenden Gase er-<lb/>
+stickt. Auf den Feldern gedeiht hier und da die Vege-<lb/>
+tation nicht; aus dem Bache steigen ununterbrochen die<lb/>
+Gasblasen auf, und einzelne Keller unter den Häusern<lb/>
+von Burgbrohl sind so überfüllt mit Kohlensäure, daß<lb/>
+sich die Eigenthümer nicht hineinwagen. Solche Punkte,<lb/>
+wo dieses Gas unsichtbar aus dem Boden emporsteigt,<lb/>
+nennt man Mofetten. Bekannt ist diejenige am nörd-<lb/>
+lichen Ufer des Sees von Laach, welche eine 3 Fuß tiefe und<lb/>
+ungefähr 7 Fuß weite Grube bildet, in der ebenfalls<lb/>
+fortwährend todte Thiere liegen. Auf dem Wehrer<lb/>
+Bruch, eine Meile von jenem See entfernt, sind so<lb/>
+zahlreiche Mofetten, daß man bei feuchter Jahreszeit<lb/>
+sich nicht dahin begeben darf, und in Hanebach, unweit<lb/>
+des Perler Kopfes, sind Fälle vorgekommen, daß Vieh<lb/>
+in den Ställen durch Kohlensäureentwickelung gestorben<lb/>
+ist. Wie ungeheuer die Menge des ausströmenden Ga-<lb/>
+ses ist, läßt sich daraus abnehmen, daß eine einzige<lb/>
+Quelle von Burgbrohl in 24 Stunden 6146 Kubikfuß,<lb/>
+und bei Nauheim 10,000 Centner Gas in einem Jahre<lb/>
+liefert.</p><lb/>
+<p>Es mögen nun noch einige merkwürdige vulkanische<lb/>
+Eigenthümlichkeiten jener Gegend erwähnt werden.</p><lb/>
+<p>Eine der Vordereifel ganz besonders zukommende<lb/>
+Erscheinung, die der dortigen Gegend einen eigenthüm-<lb/>
+lich schwermüthigen Charakter verleiht, sind die soge-<lb/>
+nannten Maare. Obwol dieselben keine Hügel bilden,<lb/>
+und nur selten anstehende vulkanische Gesteinsmassen und<lb/>
+Lavaströme besitzen, so sind sie doch offenbar Producte<lb/>
+vulkanischer Eruptionen. Sie bilden gewöhnlich voll-<lb/>
+kommen kreisrunde, kesselförmige Einsenkungen in dem<lb/>
+Grauwackenschiefer und zeigen nur an ihrem Rande, der<lb/>
+gewöhnlich von einem Kraterwalle bedeckt ist, welcher<lb/>
+<cb n="2"/>
+aus Schlacken, Lapilli und andern vulkanischen Aus-<lb/>
+würflingen besteht, die Spuren früherer vulkanischer Thä-<lb/>
+tigkeit. Oft sind diese Kessel außerordentlich tief unter<lb/>
+die Oberfläche des Schieferplateau eingesenkt, und es<lb/>
+sammeln sich daher die Wasser der benachbarten Quellen<lb/>
+in ihnen an und bilden so kleine Seen in der Tiefe,<lb/>
+die man hier Maare, gewöhnlich aber Kraterseen ( <hi rendition="#aq">cra-<lb/>
+tères lacs</hi> ) nennt. Jhre Entstehung erklärt Naumann<lb/>
+in seiner Geognosie auf folgende Weise:</p><lb/>
+<p>&#x201E;Wenn in einer Gegend bei dem plötzlichen Durch-<lb/>
+bruche der vulkanischen Thätigkeit Spalten gebildet wur-<lb/>
+den, so ist es sehr wohl denkbar, wie an einzelnen offen<lb/>
+gebliebenen Punkten dieser Spalten die Dämpfe augen-<lb/>
+blicklich mit solcher Heftigkeit nach außen explodirten,<lb/>
+daß sie in den obersten Theilen der Erdkruste, welche<lb/>
+ihrer Gewalt nicht zu widerstehen vermochten, den Effect<lb/>
+einer Pulvermühle ausübten, und folglich das um ihren<lb/>
+Ausströmungspunkt anstehende Gestein zerschmetterten,<lb/>
+pulverisirten und nach allen Richtungen hinausschleuder-<lb/>
+ten. Dadurch entstand zuvörderst eine kesselförmige Ver-<lb/>
+tiefung, an deren Rande die zurückfallenden Gesteins-<lb/>
+trümmer aufgehäuft wurden; war nun zugleich die Lava<lb/>
+in der Spalte hoch genug heraufgetrieben, so werden<lb/>
+auch Schlacken und andere Auswürflinge mit heraus-<lb/>
+geflogen sein, welche gleichzeitig mit den Bruchstücken<lb/>
+des Wandgesteins der Ringe zum Niederfallen gelang-<lb/>
+ten, auch wol nach der ersten Explosion noch in größerer<lb/>
+Menge aufgehäuft werden konnten.&#x201C;</p><lb/>
+<p>Das schönste dieser Maare ist das Pulvermaar bei<lb/>
+Gillenfeld, zwei Stunden von Daun. Es liegt am<lb/>
+nördlichen Abhange eines erloschenen Vulkans und bil-<lb/>
+det eine äußerst regelmäßige Vertiefung von 6500 Fuß<lb/>
+Umfang. Jn der Tiefe breitet sich der schöne Wasser-<lb/>
+spiegel eines ovalen Sees aus, der eine beträchtliche<lb/>
+Tiefe hier haben soll. Der Thonschiefer, in dem das<lb/>
+Maar eingesenkt ist, wird rund um dasselbe von aschen-<lb/>
+artigen Sandschichten bedeckt, und nur an einer Stelle,<lb/>
+dicht am Rande des Sees, steht etwas feste Lava in<lb/>
+ganzen Felsen an.</p><lb/>
+<p>Sehr interessant ist auch das Meerfelder Maar am<lb/>
+Fuße des Mosenbergs, des schönsten Vulkans der Eifel.<lb/>
+Dieser Schlackenhügel hat eine Höhe von 1,600 Fuß<lb/>
+über dem Meere und erhebt sich steil, aber nicht bedeu-<lb/>
+tend, höchstens 2 &#x2014; 300 Fuß über das ihn umgebende<lb/>
+Schieferplateau. Fünf Hügel bilden die Begrenzungen<lb/>
+seiner Krater, die ihn zu dem interessantesten Berge des<lb/>
+vulkanischen Rheindistricts machen. Der Graf von<lb/>
+Montlosier, einer der ausgezeichnetsten Kenner der Vul-<lb/>
+kane, sagt, er habe nie einen so schönen Berg gesehen,<lb/>
+und er könne in die Reihe der schönsten Piks der Au-<lb/>
+vergne treten. Auf einen engen Raum zusammenge-<lb/>
+drängt, enthält er drei kleine deutliche Krater, die von<lb/>
+Süd nach Nord liegen und von denen der mittlere, jetzt<lb/>
+bis zu einer gewissen Höhe mit Wasser erfüllt, außer-<lb/>
+ordentlich wohl erhalten, rund und von schroffen Schlacken-<lb/>
+wänden umgeben ist. Der wichtigste ist jedoch der süd-<lb/>
+liche; dieser ist an der Südseite von einem basaltischen<lb/>
+mit Felsblöcken bedeckten Lavastrome durchbrochen, der<lb/>
+sich kaum 100 Schritte breit über den Berg nach Süd-<lb/>
+osten eine halbe Stunde lang hinabschlängelt und in ein<lb/>
+schluchtiges Thal fließt, mit welchem er südöstlich in den<lb/>
+Horngraben sich senkt. Wo das Thal beginnt, ist er<lb/>
+sehr niedrig; er erhebt sich aber bald und zieht als ein<lb/>
+langer Felsrücken durch die Mitte des Thals, sodaß sich<lb/>
+nun auf seinen beiden Seiten ein schmales Nebenthal<lb/>
+befindet. Wo der Berg in der Nähe des Horngrabens<lb/>
+steilern Abfall hat, senkt sich der Strom ganz und bil-<lb/>
+det auf eine ziemliche Strecke eine trockene Wiese, wirft<lb/>
+<cb type="end"/>
+<pb facs="#f0007" n="295"/>
+<fw place="top" type="pageNum">295</fw><cb type="start"/>
+sich dann im Horngraben in zerrissenen steilen Basalt-<lb/>
+wänden auf und man sieht noch seine letzten Spuren<lb/>
+auf der andern Seite des Bachs, hoch oben am Berge<lb/>
+auf dem Schiefer sitzen. Das Meerfelder Maar, wel-<lb/>
+ches 700 Fuß unter dem Mosenberge liegt, ist eines<lb/>
+der größten der Eifel, denn es hat beinahe eine halbe<lb/>
+Stunde im Umfange. Es wird ringsum von steilen<lb/>
+zusammenhängenden, mehre hundert Fuß hohen Grau-<lb/>
+wackenhöhen umgeben. Sein Boden ist jedoch nur zur<lb/>
+Hälfte mit Wasser bedeckt; die andere Hälfte bildet eine<lb/>
+ebene Wiese, auf welcher das Dorf Meerfelden liegt.</p><lb/>
+<p>Nur einige Stunden von dem Mosenberge entfernt<lb/>
+liegt ein anderer wichtiger vulkanischer Punkt bei Daun.<lb/>
+Es ist derselbe ein Berg ganz aus Grauwackenschiefer<lb/>
+von 1673 Fuß Höhe, auf dessen Gipfel von West nach<lb/>
+Ost drei Maare kraterförmig eingesenkt sind. Das west-<lb/>
+lichste hat von dem Dorfe Gemünden den Namen; es<lb/>
+ist das kleinste unter allen dreien, macht aber, sowol<lb/>
+durch seine Tiefe, als auch durch die Schroffheit seiner<lb/>
+aus Grauwackenschiefer bestehenden Wände, sowie durch<lb/>
+die Bewaldung derselben einen höchst überraschenden<lb/>
+Eindruck. Auf dieses folgt das Weinfelder Maar. Dies<lb/>
+ist ebenfalls kreisrund und ringsum von einem steil ab-<lb/>
+fallenden Ufer umgeben, an welchem man den Grau-<lb/>
+wackenschiefer in senkrechten Schichten anstehend sieht;<lb/>
+doch ragen am westlichen Ufer auch Felsen eines braun-<lb/>
+rothen Schlackenconglomerats auf. Da der Wall die-<lb/>
+ses Maares von aller Baumvegetation entblößt ist, so<lb/>
+gewährt es mit der einsamen Kirche an seinem Rande<lb/>
+und dem kreisrunden See in der Tiefe einen ganz eigen-<lb/>
+thümlichen Anblick. Nur durch einen Kraterrand ist es<lb/>
+von dem Schalkenmehrner Maare getrennt, welches zwar<lb/>
+größer, aber weniger regelmäßig als das vorige, und<lb/>
+in der Tiefe um den See mit Feldern bedeckt ist. Der<lb/>
+Kraterwall, welcher beide Maare trennt, wird von vul-<lb/>
+kanischem Sande gebildet und ist wie übersäet mit<lb/>
+Schlacken, Lapilli, vulkanischen Bomben und andern<lb/>
+Auswürflingen.</p><lb/>
+<p>Einer der wichtigsten Punkte endlich in der Vorder-<lb/>
+eifel ist der vulkanische Berg bei Gerolstein. Er bildet<lb/>
+auf seinem Gipfel ein großes, breites Plateau, das sich<lb/>
+nach allen Seiten um eine einzige große Vertiefung in<lb/>
+der Mitte etwas erhebt, deren längste Achse von Ost<lb/>
+<cb n="2"/>
+nach West gekehrt ist. Jn ihr liegt ein runder, sehr<lb/>
+viel tieferer Krater, der, bei weitem kleiner, einen voll-<lb/>
+kommen geschlossenen Rand hat und auf der Nordost-<lb/>
+seite mit hohen Schlackenfelsen umgeben ist; eine noch<lb/>
+kleinere runde Vertiefung liegt in diesem Krater, als<lb/>
+der Ort, aus welchem der letzte Schlackenauswurf statt-<lb/>
+fand. Der Rand der Vertiefung ist gegen Nordwest<lb/>
+von einem Basaltstrome durchbrochen worden, welcher<lb/>
+ganz schmal beginnt, über einen halb zerstörten kleinen<lb/>
+Krater fließt und sich dann in ein großes Thal ergießt.<lb/>
+Hier fließt er, an beiden Seiten durch hohe Kalkfelsen<lb/>
+eingeengt, in einem weiten Bogen bis hinunter an die<lb/>
+Kill, wo er sich, durch gegenüberstehende Felsen aufge-<lb/>
+halten, nach beiden Seiten ausbreitet. Überall bezeich-<lb/>
+nen 5 &#x2014; 10 Fuß hohe, unregelmäßig oder säulenförmig<lb/>
+gespaltene Massen, welche über die Dammerde in die<lb/>
+Höhe stehen, den Weg, den er genommen hat und zwi-<lb/>
+schen den Kalkfelsen, wo das Regenwasser die Damm-<lb/>
+erde hinweggespült hat, zeigt sich die höckerig geflossene<lb/>
+Masse so frisch und so schön, als wäre sie eben erst<lb/>
+in feurigem Strome dem Krater entquollen.</p><lb/>
+<p>An der Nordseite des Berges erhebt sich die roman-<lb/>
+tische Kasselburg mit ihren vielen Thürmen. Auch in<lb/>
+ihrer Nähe finden sich mehre Krater, umgeben von halb<lb/>
+verglasten Schlacken und sie selbst steht auf Lava= und<lb/>
+Basaltströmen, die aber durch herrliche dichte Buchen-<lb/>
+wälder dem Auge entzogen werden. Die furchtbaren<lb/>
+Wirkungen jedoch, welche sie auf den Berg ausübten,<lb/>
+dessen Schooße sie entstiegen, können wir vom Thale<lb/>
+aus bemerken, und hier bietet sich allerdings ein im-<lb/>
+posanter Anblick dar. Die ganze lange Seite des Bergs<lb/>
+besteht aus hohen, seltsam zerrissenen, schroffen Felsen-<lb/>
+massen, die bis Lissingen und Gerolstein isolirt und wie<lb/>
+hingezaubert, durch das Killthal ziehen, um sich noch<lb/>
+an den Bergen, die auf der andern Seite liegen, wie<lb/>
+Ruinen zu erheben. Schlackenkrater mit wunderbar zer-<lb/>
+klüfteten Schlackenfelsen erheben sich überall und die<lb/>
+hohen, zu merkwürdigen Gruppen vereinigten Basalt-<lb/>
+säulen, die dem Boden entsteigen, versetzen den Be-<lb/>
+schauer eher in die Trümmer einer untergegangenen<lb/>
+Weltstadt, als in den Wirkungskreis eines erloschenen<lb/>
+Vulkans.</p></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1"><figure><head><hi rendition="#fr">Riesenhaifisch.</hi></head></figure></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<pb facs="#f0008" n="296"/>
+<fw place="top" type="pageNum">296</fw><lb/>
+<div n="1" type="jVarious"><head><hi rendition="#fr"><hi rendition="#g">Mannichfaltiges</hi>.</hi></head><lb/>
+<cb type="start"/>
+<div n="2" type="jArticle"><p>Ein Sonnenuntergang auf dem Mittelländischen<lb/>
+Meere. &#x201E;Als ich &#x2014; schreibt Moritz Hartmann in seinem<lb/>
+Tagebuche aus Languedoc &#x2014; auf die Platform des Felsens<lb/>
+( bei Marseille ) trat, der die Kapelle von Notre Dame de la<lb/>
+Garde trägt, lag die Sonne schon als ungeheure Kugel auf<lb/>
+dem äußersten Rande des Horizonts. Hafen und Stadt deckte<lb/>
+bereits webende Dämmerung; die Leuchtthürme waren ange-<lb/>
+zündet. Über der Bläue des Meeres zitterte ein bräunlicher<lb/>
+Schleier. Aber die Spitzen der Berge leuchteten und die<lb/>
+Kuppen, die gleich einem gewaltigen Candelaber die Sonne<lb/>
+in ihren Armen festzuhalten schienen, sprühten und brannten<lb/>
+wie weißglühendes Metall. Langsam begann nun das Rücken<lb/>
+und Sinken des großen Erleuchters; die Strahlen verloren<lb/>
+ihre Kraft, man konnte dem Scheidenden ruhig ins Ange-<lb/>
+sicht schauen, das unverhüllt dem Zurückbleibenden lächelte.<lb/>
+Endlich lag nur noch ein schmaler Kranz wie ein Golddiadem<lb/>
+auf dem höchsten der Berghäupter; endlich verschwand auch<lb/>
+er. Die Sonne versank und in diesem Augenblicke flogen<lb/>
+nach rechts und links, wie zwei purpurne Schlangen, die tief-<lb/>
+getränkten Lichtstreifen hin am ganzen westlichen Horizont;<lb/>
+sie blitzten auf und verbreiteten sich als dunkelglühende Abend-<lb/>
+röthe über das halbe Firmament. Ein leiser Wind erhob sich<lb/>
+und sanft lispelte und murmelte das Meer, wie ein Kind im<lb/>
+Einschlafen.&#x201C;</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Die Zahl der Juden in der Türkei gibt Ubicini auf<lb/>
+150,000 an, von denen etwas weniger als die Hälfte in der<lb/>
+europäischen Türkei wohnt, der vierte Theil etwa in Kon-<lb/>
+stantinopel. Nach der Hauptstadt kommen dann Salonichi,<lb/>
+Smyrna, Brussa, Jerusalem. Die meisten Juden in der Tür-<lb/>
+kei sind Talmudisten und stecken voller Aberglauben. Es gibt<lb/>
+unter ihnen nur wenige Karaiten, die den Talmud verwerfen<lb/>
+und sich blos an das Alte Testament, vorwaltend an die fünf<lb/>
+Bücher Moses halten. So sind die Karaiten gewissermaßen<lb/>
+die Protestanten unter den Juden. Zu Konstantinopel be-<lb/>
+finden sich etwa 40 karaitische Familien, die im Dorfe Khas-<lb/>
+Köi am Goldenen Horn eine eigene Synagoge haben. Eine<lb/>
+besondere Kaste von Juden haust in Salonichi. Hier wohnen<lb/>
+mehr als 6000 zum Jslam bekehrte Juden, die öffentlich alle<lb/>
+Gebräuche des Jslam mitmachen, im Geheimen aber noch dem<lb/>
+Judenthume anhängen, sich durchaus nur unter sich verhei-<lb/>
+rathen und ganz abgesondert leben.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Die frische Banane nennt Bogumil Goltz ein &#x201E; Myste-<lb/>
+rium der himmlischen Conditorei&#x201C;. Von der Schale befreit<lb/>
+ist sie einer kleinen Gurke ähnlich. Die Farbe des Fleisches<lb/>
+ist blässer wie das der Apfelsine, fast chamois; der Geschmack<lb/>
+überaus fein, ein mildes Gemisch von Apfelsine und Citrone,<lb/>
+die mit Zucker, Mehl und Butter zu einer feinen Teigmasse<lb/>
+geknetet sind. Für 70 Para ( == 4 Ngr. ) kauft man in<lb/>
+Alexandrien eine Mandel Bananen.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Amerikanische Entscheidung. &#x201E;Jch sah &#x2014; schrieb ein<lb/>
+Auswanderer unter Anderm in die Heimat &#x2014; im Garten<lb/>
+eines reichen Amerikaners einen prachtvollen Pfirsichbaum,<lb/>
+mit halbreifen Früchten dermaßen behangen, daß ich zu einem<lb/>
+Anbringen von Stützen rieth, damit der schöne Baum nicht<lb/>
+breche. «Fällt mir nicht ein», sagte der Amerikaner. «Hat<lb/>
+der Baum so viel aufgeladen, mag er auch zusehen, wie er<lb/>
+die Last trägt.»&#x201C;</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Nussische Sprüchwörter. Lobe den Apfel erst, wenn<lb/>
+er zerschnitten ist. &#x2014; Wenn der Hahn ein Messer ausscharrt,<lb/>
+soll er es nicht in die Küche tragen. &#x2014; Der Wind weht,<lb/>
+aber die Welle meint sich selbst zu erheben. &#x2014; Wenn es Ru-<lb/>
+bel regnet, fehlt es an einem Sacke; wenn der Sack da ist,<lb/>
+regnet es keine Rubel. &#x2014; Weil der Pfeffer den Zahn nicht<lb/>
+beißen kann, so beißt er die Zunge. &#x2014; Willst du hier schon<lb/>
+wie im Himmel sein, so mache dich zuvor zum Engel. &#x2014;<lb/>
+Wer zur Maus bestimmt ist, ist für die Katze geboren. &#x2014;<lb/>
+Vom Liegen rostet das Beil. &#x2014; Es ist Mancher so faul, er<lb/>
+möchte gleich Butter melken von der Kuh. &#x2014; Man kann auch<lb/>
+<cb n="2"/>
+mit kleiner Axt große Späne hauen. &#x2014; Der Kiesel nennt<lb/>
+den Diamanten seine Mutter. &#x2014; Wenn der Schneider nicht<lb/>
+von der Elle redet, so redet er vom Tuch. &#x2014; Jm Sommer<lb/>
+lobt Jeder die Kälte des Winters. &#x2014; Eine leere Flasche ist<lb/>
+nur ein Scherben. &#x2014; Ehre ist wie ein Glasschuh, man muß<lb/>
+vorsichtig darin auftreten. &#x2014; Der Eine zieht die Melonen,<lb/>
+der Andere ißt sie. &#x2014; Des Tischlers Familie ißt an einem<lb/>
+wackeligen Tische. &#x2014; Ein eigener Kaftan wärmt mehr, als<lb/>
+ein fremder Bärenpelz. &#x2014; Der Hase ist sicher, nach dem zehn<lb/>
+Jäger schießen.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Der große Bienenkorb &#x2014; ( <hi rendition="#aq">the great beehive</hi> ) &#x2014; ist<lb/>
+die passende aus mächtig großen eisernen Buchstaben zusammen-<lb/>
+gefügte Jnschrift eines Fabrikhauses in Manchester, in wel-<lb/>
+chem täglich etwa 1200 männliche Arbeiter beschäftigt sind<lb/>
+und außer ihnen in langen Sälen mehr als 500 Frauen und<lb/>
+Mädchen sitzen und Baumwollengarn haspeln.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Das Haus des ehemaligen Bildhauers Nik. Bachelier<lb/>
+am Dreieinigkeitsplatze in Toulouse, ein zweistöckiges Gebäude<lb/>
+von drei Fenstern Front, ist von unten bis oben mit Bild-<lb/>
+nissen, Medaillons und Jnschriften bedeckt. Ebenso ist der<lb/>
+Hof, den eine Mauer umzieht, geschmückt. Unter den Jn-<lb/>
+schriften zeichnet sich die über dem Brunnen aus. Sie lautet<lb/>
+in altem Französisch also:</p><lb/>
+<quote corresp="IN02" xml:id="IN01" xml:lang="lat">           <lg type="poem">             <l><hi rendition="#aq">Cil qui boyra de l'eau de ce puyts</hi></l><lb/>
+<l><hi rendition="#aq">Soif encor aura depuys,</hi></l><lb/>
+<l><hi rendition="#aq">Mais cil qui boyra l'eau divine,</hi></l><lb/>
+<l><hi rendition="#aq">Tousiours et mounde et cristalline,</hi></l><lb/>
+<l><hi rendition="#aq">A jamais en son coeur aura</hi></l><lb/>
+<l><hi rendition="#aq">Source, qui point ne tarira.</hi></l></lg></quote><lb/>
+<quote type="translation" corresp="#IN01" xml:id="IN02">             <lg type="poem">               <l>( Wer trinkt von diesem Born allein,</l><lb/>
+<l>Wird auch nachher noch durstig sein;</l><lb/>
+<l>Doch wer am Quell der Gnade trinket,</l><lb/>
+<l>Der immer klar und lauter blinket,</l><lb/>
+<l>Wird haben auf immer im Herzensgrund</l><lb/>
+<l>Wasser, das fließet zu jeder Stund '. )</l></lg></quote></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Der Talabaum ( Talapat, Schirmpalme, <hi rendition="#aq">Corypha<lb/>
+umbraculifera</hi> ) auf Ceylon und Malabar ist Gegenstand der<lb/>
+Bewunderung aller Reisenden. Einen 140&#x2014;150 Fuß hohen<lb/>
+Schaft krönt ein Kranz von Blättern, deren ein einziges ge-<lb/>
+wöhnlich einen Umfang von 25&#x2014;30 Fuß hat. Ein nach Eng-<lb/>
+land gebrachtes Blatt dieses Baumes mißt 11 Fuß Höhe,<lb/>
+16 Fuß Breite und hat einen Umfang von 38&#x2014;40 Fuß, so-<lb/>
+daß es eine Tafel von sechs Personen vor der Sonne beschattet.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Die Segel auf den Seeschiffen führen im Munde der<lb/>
+Matrosen, die sie zu bedienen haben, oft sonderbare Namen.<lb/>
+Eines der obersten Segel heißt der &#x201E;Menschenquäler&#x201C;, ein<lb/>
+anderes der &#x201E;Sternengucker&#x201C;, ein anderes der &#x201E;Missethäter&#x201C;,<lb/>
+wieder eines der &#x201E;Obenaus und Nirgends an &#x201C;.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Der Krystallpalast von Sydenham, das achte Wun-<lb/>
+der der Welt, übertrifft die sieben andern an Größe ebenso<lb/>
+sehr, als unsere Civilisation die der Assyrer, Ägyptier und<lb/>
+Griechen übertrifft. Während z. B. die Pyramiden Millionen<lb/>
+armer Menschen das Leben kosteten, freut man sich, daß der<lb/>
+Bau des Sydenhampalastes Tausende von Arbeitern nährte<lb/>
+und daß sein Bau für alle Classen der englischen Gesellschaft<lb/>
+und für die fremden Besucher eine Quelle fortdauernder Be-<lb/>
+lehrung über Vergangenheit und Gegenwart sein wird. Der<lb/>
+erste Gedanke des Sydenhampalastes ward im Schooße der<lb/>
+Gesellschaft für Künste, Jndustrie und Handel gefaßt, der in<lb/>
+London besteht und vor kurzem seinen hundertsten Gründungs-<lb/>
+tag im Palast selbst gefeiert hat. Wirft man einen aufmerk-<lb/>
+samen Blick rückwärts, so findet man, daß fast alles Große<lb/>
+dieses Jahrhunderts von Privatgesellschaften ausgegangen ist.<lb/>
+Nichts ist natürlicher, denn die intellectuelle Stärke wie die<lb/>
+materielle Macht beruhen in der Association.</p></div></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/><lb/>
+</body>     <back><div n="1" type="imprint"><p><hi rendition="#c">Verantwortlicher Redacteur: <hi rendition="#aq">M</hi>. J. E. Volbeding. &#x2014; Druck und Verlag von F. A. Brockhaus in Leipzig.</hi></p></div>     </back>   </text> </TEI>

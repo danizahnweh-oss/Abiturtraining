@@ -1,0 +1,839 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.deutschestextarchiv.de/basisformat_ms.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">     <teiHeader>
+<fileDesc>
+<titleStmt>
+<title type="main">Humbolds Vorlesungen</title>
+<author>
+<persName ref="http://d-nb.info/gnd/117394572">
+<surname>Willisen</surname>
+<forename>Friedrich Adolf von</forename>
+</persName>
+</author>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/115266127">
+<surname>Geyken</surname>
+<forename>Alexander</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1222198746">
+<surname>Haaf</surname>
+<forename>Susanne</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1019062681">
+<surname>Jurish</surname>
+<forename>Bryan</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Boenig</surname>
+<forename>Matthias</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Thomas</surname>
+<forename>Christian</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Wiegand</surname>
+<forename>Frank</forename>
+</persName>
+</editor>
+<respStmt>
+<persName xml:id="CT">
+<forename>Christian</forename>
+<surname>Thomas</surname>
+</persName>
+<resp>
+<note type="remarkResponsibility">Herausgeber</note>
+</resp>
+</respStmt>
+<respStmt>
+<persName>
+<forename>Christian</forename>
+<surname>Thomas</surname>
+</persName>
+<resp>
+<note type="remarkResponsibility">Transkription, Annotation</note>
+</resp>
+</respStmt>
+<respStmt>
+<orgName ref="http://www.hu-berlin.de/">Humboldt-Universität zu Berlin</orgName>
+<resp>
+<note type="remarkResponsibility">Projektträger</note>
+</resp>
+</respStmt>
+<respStmt>
+<orgName ref="http://www.culture.hu-berlin.de/hidden-kosmos">Hidden Kosmos: Reconstructing A. v. Humboldt&#x2019;s »Kosmos-Lectures« (Leitung Prof. Dr. Christian Kassung)</orgName>
+<resp>
+<note type="remarkResponsibility">Finanzierung der Bild- und Volltextdigitalisierung</note>
+</resp>
+</respStmt>
+<respStmt>
+<orgName ref="http://www.gsta.spk-berlin.de/" xml:id="GSTA">Geheimes Staatsarchiv Preußischer Kulturbesitz</orgName>
+<resp>
+<note type="remarkResponsibility">Bereitstellen der Digitalisierungsvorlage; Bilddigitalisierung</note>
+</resp>
+</respStmt>
+<respStmt>
+<orgName ref="https://www.bbaw.de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<resp>
+<note type="remarkResponsibility">Langfristige Bereitstellung der DTA-Ausgabe</note>
+<ref target="https://www.bbaw.de"/>
+</resp>
+</respStmt>
+</titleStmt>
+<editionStmt><edition>Vollständige digitalisierte Ausgabe.</edition></editionStmt>
+<extent>
+<measure type="images">25</measure>
+<measure type="tokens">4630</measure>
+<measure type="types">1631</measure>
+<measure type="characters">32078</measure>
+</extent>
+<publicationStmt>
+<publisher xml:id="DTACorpusPublisher">
+<email>dta@bbaw.de</email>
+<orgName role="project">Deutsches Textarchiv</orgName>
+<orgName role="hostingInstitution" xml:lang="en">Berlin-Brandenburg Academy of Sciences and Humanities (BBAW)</orgName>
+<orgName role="hostingInstitution" xml:lang="de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<address>
+<addrLine>Jägerstr. 22/23, 10117 Berlin</addrLine>
+<country>Germany</country>
+</address>
+</publisher>
+<pubPlace>Berlin</pubPlace>
+<date type="publication">2025-10-24T08:37:38Z</date>
+<availability>
+<licence target="http://creativecommons.org/licenses/by/4.0/deed.de">
+<p>Namensnennung 4.0 International (CC BY 4.0)</p>
+</licence>
+</availability>
+<idno>
+<idno type="URLWeb">https://www.deutschestextarchiv.de/willisen_humboldt_1827</idno>
+<idno type="URLXML">https://www.deutschestextarchiv.de/book/download_xml/willisen_humboldt_1827</idno>
+<idno type="URLHTML">https://www.deutschestextarchiv.de/book/download_html/willisen_humboldt_1827</idno>
+<idno type="URLText">https://www.deutschestextarchiv.de/book/download_text/willisen_humboldt_1827</idno>
+<idno type="DTADirName">willisen_humboldt_1827</idno>
+<idno type="DTAID">32208</idno>
+<idno type="URN">urn:nbn:de:kobv:b4-32208-5</idno>
+</idno>
+</publicationStmt>
+<sourceDesc>
+<bibl type="MAN">Willisen, Friedrich Adolf von: Humbolds Vorlesungen. [Berlin], [1827/28]. [= Nachschrift der &#x201A;Kosmos-Vorträge&#x201B; Alexander von Humboldts in der Berliner Universität, 3.11.1827&#x2013;26.4.1828.]</bibl>
+<biblFull>
+<titleStmt>
+<title level="m" type="main">Humbolds Vorlesungen</title>
+<author>
+<persName ref="http://d-nb.info/gnd/117394572">
+<surname>Willisen</surname>
+<forename>Friedrich Adolf von</forename>
+</persName>
+</author>
+</titleStmt>
+<editionStmt>
+<edition n="1">1</edition>
+</editionStmt>
+<publicationStmt>
+<publisher/>
+<pubPlace>Berlin</pubPlace>
+<date type="publication">1828</date>
+</publicationStmt>
+</biblFull>
+<msDesc>
+<msIdentifier>
+<repository>Geheimes Staatsarchiv Preußischer Kulturbesitz</repository>
+<idno>
+<idno type="shelfmark">VI. HA, Nl Willisen, A., Nr. 83</idno>
+<idno type="URLCatalogue">https://www.deutsche-digitale-bibliothek.de/item/UUHC4SBVHG2HDR345O3AOPYCEJLHWQO2</idno>
+</idno>
+</msIdentifier>
+<physDesc>
+<typeDesc>
+<p>Handschrift</p>
+</typeDesc>
+</physDesc>
+</msDesc>
+</sourceDesc>
+</fileDesc>
+<encodingDesc>
+<editorialDecl>
+<p>
+<![CDATA[
+<p>
+Diese Archivalie stammt aus dem Nachlass des preußischen Generals (Friedrich) Adolf von Willisen (1798&#x2013;1864) aus dem Geheimen Staatsarchiv Preußischer Kulturbesitz (GStA-PK). In einem blauen Papierumschlag, beschriftet mit dem Titel "Humbolds Vorlesungen", enthält das Konvolut Fragmente einer bzw. zweier Nachschriften der 1827/28 in Berlin gehaltenen Kosmos-Vorträge Alexander von Humboldts an der Berliner Universität.
+</p>
+<p>
+Das Fragment besteht offensichtlich aus drei (wahrscheinlich unabhängig voneinander entstandenen) Teilen: Der erste Teil, Bl. [1r] bis Bl. [8v], setzt unter der Überschrift "Die flü&#x017F;&#x017F;igen Hüllen des Starren" unvermittelt gegen Ende der 3. Vorlesung ein, die Humboldt am 10. November 1827 gehalten hatte. Der Text gibt den Abschluss der 3. Vorlesung und anschließend den Inhalt der gesamten 4. Vorlesung vom 14. November 1827 wieder sowie den Beginn der 5. Vorlesung vom 17. November 1827. Der Text von Bl. [1r] bis einschließlich der ersten zwei Drittel von Bl. [6v] wurde vermutlich von F. A. Willisen selbst geschrieben. Der Text vom unteren Drittel des Bl. [6v] bis einschließlich Bl. [8v] wurde in einer zweiten, von der zuvor genannten abweichenden Handschrift verfasst, stammt offenbar also von einem anderen, namentlich nicht bekannten Schreiber. Die folgenden beiden Blätter, Bl. [9r] bis [10v], weisen ein anderes Format und anderes Papier auf. Sie sind in einer dritten, von den beiden zuvor genannten abweichenden Handschrift verfasst; der Text dieser beiden Blätter gehört inhaltlich allerdings nicht zu den Kosmos-Vorträgen. Sie sind wohl nur versehentlich in der mit "Humbolds Vorlesungen" beschrifteten Mappe abgelegt worden und werden daher hier nicht wiedergegeben.
+</p>
+<p>
+Ab Blatt [11r] ist eine weitere, von den drei anderen abweichende Handschrift erkennbar. Dieser Teil gibt Humboldts Kosmos-Vorträge wieder, allerdings einen sehr viel späteren Teil als die übrigen dazugehörigen Blätter des Konvoluts: Der Text setzt erst mit dem Beginn der 49. Vorlesung, die Humboldt am 9. April 1828 hielt, (wieder) ein. Bis zum letzten Blatt des Konvoluts, Bl. [14v], gibt der Text den Inhalt der gesamten 49. Vorlesung wieder und bricht dann ab. Weitere, zu diesem Fragment gehörende Teile konnten im Nachlass Willisens bisher nicht ermittelt werden.
+</p>
+]]>
+</p>
+</editorialDecl>
+<tagsDecl>
+<rendition scheme="css" xml:id="aq">font-family:sans-serif</rendition>
+<rendition scheme="css" xml:id="b">font-weight:bold</rendition>
+<rendition scheme="css" xml:id="blue">color:blue</rendition>
+<rendition scheme="css" xml:id="c">display:block; text-align:center</rendition>
+<rendition scheme="css" xml:id="et">display:block; margin-left:2em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et2">display:block; margin-left:4em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et3">display:block; margin-left:6em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="f">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="fr">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="g">letter-spacing:0.125em</rendition>
+<rendition scheme="css" xml:id="i">font-style:italic</rendition>
+<rendition scheme="css" xml:id="in">font-size:150%</rendition>
+<rendition scheme="css" xml:id="k">font-variant:small-caps</rendition>
+<rendition scheme="css" xml:id="larger">font-size:larger</rendition>
+<rendition scheme="css" xml:id="red">color:red</rendition>
+<rendition scheme="css" xml:id="right">display:block; text-align:right</rendition>
+<rendition scheme="css" xml:id="s">text-decoration:line-through</rendition>
+<rendition scheme="css" xml:id="smaller">font-size:smaller</rendition>
+<rendition scheme="css" xml:id="sub">vertical-align:sub; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="sup">vertical-align:super; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="u">text-decoration:underline</rendition>
+<rendition scheme="css" xml:id="uu">border-bottom:double 3px #000</rendition>
+</tagsDecl>
+</encodingDesc>
+<profileDesc>
+<langUsage>
+<language ident="deu">(Früh-)Neuhochdeutsch</language>
+<language ident="deu">German</language>
+</langUsage>
+<textClass>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1main">Wissenschaft</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1sub">Naturwissenschaft</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">ready</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">avhkv</classCode>
+</textClass>
+</profileDesc>
+</teiHeader>
+<text>
+<pb facs="#f0001"/>
+<front>             <titlePage type="main">                 <titlePart type="main"><persName resp="#CT" ref="http://www.deutschestextarchiv.de/kosmos/person#gnd-118554700 http://d-nb.info/gnd/118554700">Humbold</persName><unclear reason="illegible" cert="low" resp="#CT">s</unclear> Vorle&#x017F;ungen</titlePart>             </titlePage>         </front>
+<pb facs="#f0002" n="[1r]"/>
+<body>             <gap reason="lost"/><note type="editorial">Der Text des Fragments setzt mit diesem Blatt, inhaltlich gegen Ende der 3. Kosmos-Vorlesung Alexander von Humboldts an der Berliner Universität, gehalten am 10.11.1827, ein. Eine nicht genauer bestimmbare Anzahl vorhergehender Seiten fehlt demnach im Konvolut <ref target="https://www.deutsche-digitale-bibliothek.de/item/UUHC4SBVHG2HDR345O3AOPYCEJLHWQO2">GSTA, VI. HA, Nl Willisen, A., Nr. 83</ref>.<lb/>
+</note><lb/>
+<div type="session" n="3">                 <head><supplied resp="#CT">3. Vorlesung, <ref target="http://www.deutschestextarchiv.de/kosmos/gliederung"><date when="1827-11-10">10. November 1827</date></ref></supplied></head><lb/>
+<div>                     <gap reason="lost"/>                 </div>                 <div>                 <head>Die flü&#x017F;&#x017F;igen Hüllen des Starren.</head><lb/>
+<p>Sie &#x017F;ind entweder tropfbar oder luftförmig, das Wa&#x017F;&#x017F;er<lb/>
+<choice><abbr>u</abbr><expan resp="#CT">und</expan></choice> der Dun&#x017F;tkreis, <choice><abbr>u</abbr><expan resp="#CT">und</expan></choice> beziehen &#x017F;ich auf die oceani&#x017F;chen u me-<lb/>
+t<del rendition="#s"><unclear reason="illegible" cert="high" resp="#CT">h</unclear></del>eorologi&#x017F;chen Verhältni&#x017F;&#x017F;e. Die Quantität des durch die<lb/>
+Luft verbreiteten Sauer&#x017F;toffs i&#x017F;t ½, zwar <subst><del rendition="#ow"><gap reason="illegible" unit="chars" quantity="2"/></del><add place="across">ver</add></subst>&#x017F;chieden in ver&#x017F;chie-<lb/>
+denen Jahreszeiten, aber die&#x017F;elbe in allen <unclear reason="illegible" cert="high" resp="#CT">R</unclear>äumen, &#x017F;elb&#x017F;t auf<lb/>
+den höch&#x017F;ten Gebirgen. Der Luftocean &#x017F;chlägt Wellen nach<lb/>
+oben <choice><abbr>u</abbr><expan resp="#CT">und</expan></choice> bringt die Barometerveränderungen hervor. Es i&#x017F;t aber<lb/>
+in dem&#x017F;elben noch eine andere Bewegung, die die &#x017F;tündlichen<lb/>
+Variationen erzeugt<unclear reason="illegible" cert="low" resp="#CT">:</unclear> Wo eine vollkommene Ruhe im<lb/>
+Verlauf der Er&#x017F;cheinungen herr&#x017F;cht, kann man am Barome-<lb/>
+ter die Stunde erkennen, wie an der Uhr. Man bemerkt<lb/>
+2 Ebben <choice><abbr>u</abbr><expan resp="#CT">und</expan></choice> 2 Fluthen in der Luft. Das Sinken dauert über<lb/>
+Mittag bis 4½ Uhr, wo es den niedrig&#x017F;ten Stand hat. Dann<lb/>
+beginnt das Steigen <choice><abbr>u</abbr><expan resp="#CT">und</expan></choice> wieder ein Sinken. Die 2<hi rendition="#sup"><hi rendition="#uu">te</hi></hi> Höhe des<lb/>
+Standpunktes am Barometer ist 9½ Uhr des Morgens<unclear reason="illegible" cert="low" resp="#CT">.</unclear> Die&#x017F;e<lb/>
+Ebben <choice><abbr>u</abbr><expan resp="#CT">und</expan></choice> Fluthen werden &#x017F;elb&#x017F;t durch Stürme <choice><abbr>u</abbr><expan resp="#CT">und</expan></choice> Erdbeben<lb/>
+nicht unterbrochen. Zur Beobachtung der&#x017F;elben werden in den<lb/>
+ver&#x017F;chiedenen Gegenden mehr oder weniger Tage gefordert. Um<lb/>
+die mittleren Zahlen zu finden, reichen in Frankreich nicht<lb/>
+volle 20 Tage; im Norden wird eine größere Menge von<lb/>
+Beobachtungen <subst><del rendition="#s">gefordert </del><add place="intralinear">nöthig &#x017F;ein</add></subst>, um die Veränderungen<lb/>
+<pb facs="#f0003" n="[1v]"/>
+des Luftmeeres zu erkennen. &#x2014; Das Quantu<unclear reason="illegible" cert="high" resp="#CT">m</unclear> des Regens<lb/>
+i&#x017F;t &#x017F;ehr ver&#x017F;chieden<choice><orig><unclear reason="illegible" cert="low" resp="#CT">~</unclear></orig><reg resp="#CT">:</reg></choice> Wenn unter den Tropen 120&#x2013;130&#x2033; Was-<lb/>
+&#x017F;er in einem Jahre fallen, &#x017F;o &#x017F;ind es in un&#x017F;ern Gegenden<lb/>
+nur 15&#x2013;20 Zoll, in England 30. &#x2014; Das Klima i&#x017F;t abhän-<lb/>
+gig, nicht bloß von den Bewegungen der Luft,<lb/>
+&#x017F;ondern wird vornehmlich modificirt durch das Verhält-<lb/>
+niß zwi&#x017F;chen Meer <choice><abbr>u</abbr><expan resp="#CT">und</expan></choice> Continent. Die Temperatur i&#x017F;t<lb/>
+eine Folge der Verhältni&#x017F;&#x017F;e zwi&#x017F;chen den festen,<lb/>
+mehr Wärme erzeugenden <choice><abbr>u</abbr><expan resp="#CT">und</expan></choice> den mehr flü&#x017F;&#x017F;igen Thei-<lb/>
+len des Planeten. <choice><sic><unclear reason="illegible" cert="low" resp="#CT">Eurpas</unclear></sic><corr resp="#CT">Europas</corr></choice> Temperatur hängt <subst><del rendition="#ow"><gap reason="illegible" unit="chars" quantity="2"/></del><add place="across">w</add></subst>e&#x017F;entlich<lb/>
+davon ab, daß es we&#x017F;tlich liegt. Alle<choice><orig><del rendition="#s"><gap reason="illegible" unit="chars" quantity="1"/></del></orig><reg resp="#CT"> </reg></choice>we&#x017F;tlichen Kü&#x017F;ten<lb/>
+&#x017F;ind wärmer als die ö&#x017F;tlichen, weil die We&#x017F;twinde vom<lb/>
+Meere erwärmt werden; die O&#x017F;twinde über den im<lb/>
+Winter mit Schnee bedeckten Continent &#x017F;teigen. Jn<lb/>
+Amerika hat <hi rendition="#aq">Californien</hi> die Temperatur von <hi rendition="#aq">Europa</hi>,<lb/>
+aber zwi&#x017F;chen den we&#x017F;tlichen Kü&#x017F;ten Europas <choice><abbr>u</abbr><expan resp="#CT">und</expan></choice> dem ö&#x017F;tlichen<lb/>
+Theile des we&#x017F;tlichen Fe&#x017F;tlandes i&#x017F;t ein Unter&#x017F;chied<lb/>
+von vielen Graden. Es i&#x017F;t eine läng&#x017F;t gemachte Entdeckung,<lb/>
+daß Amerika unter gleicher Breite kälter als <hi rendition="#aq">Europa</hi><lb/>
+<pb facs="#f0004" n="[2r]"/>
+i&#x017F;t. <hi rendition="#aq">China</hi> i&#x017F;t unter der&#x017F;elben Breite noch kälter, als der<lb/>
+ö&#x017F;tliche Theil von Amerika. Europa verdankt sein ge-<lb/>
+mäßigtes Klima, welches auf &#x017F;ein Fort&#x017F;chreiten in jeder<lb/>
+Bildung &#x017F;o mächtig gewirkt hat, dem Um&#x017F;tande we&#x017F;tliche,<lb/>
+<choice><abbr>u</abbr><expan resp="#CT">und</expan></choice> nicht ö&#x017F;tliche Kü&#x017F;te zu &#x017F;ein. <choice><orig>Dann&#xFFFC;</orig><reg resp="#CT">Dann</reg></choice>, daß &#x017F;üdlich von Europa<lb/>
+unter der&#x017F;elben Länge noch ein Continent i&#x017F;t. A&#x017F;ien i&#x017F;t<lb/>
+kälter, weil unter der&#x017F;elben Länge der Aequator nur<lb/>
+wenig Land berührt, größtentheils ins Wa&#x017F;&#x017F;er fällt.<lb/>
+Das Licht wird vom Wa&#x017F;&#x017F;er ab&#x017F;orbirt; da erzeugt &#x017F;ich<lb/>
+weniger Wärme, als in den opacen Theilen. Die &#x017F;üdlichen<lb/>
+Wa&#x017F;&#x017F;erma&#x017F;&#x017F;en bringen keine Wärme hervor, wie die<lb/>
+Wü&#x017F;te von <subst><del rendition="#ow"><gap reason="illegible" unit="chars" quantity="1"/></del><add place="across">A</add></subst>frica, <choice><abbr>u</abbr><expan resp="#CT">und</expan></choice> nicht <unclear reason="illegible" cert="low" resp="#CT">grade</unclear> die Wü&#x017F;te, <gap reason="illegible" unit="words" quantity="1"/><lb/>
+daß es ein Continent i&#x017F;t. Der Aequator geht<add place="superlinear"> <unclear reason="illegible" cert="low" resp="#CT">für</unclear> Europa</add> durch<lb/>
+den Continent, darum i&#x017F;t Europa wärmer als A&#x017F;ien. Der<lb/>
+Grund &#x017F;eines gema<supplied>&#x0308;</supplied>ßigten Klimas <choice><sic><unclear reason="illegible" cert="low" resp="#CT">liegtan</unclear></sic><corr resp="#CT">liegt</corr></choice> 3<hi rendition="#sup #uu">tens</hi> in &#x017F;ei-<lb/>
+nem Verhältni&#x017F;&#x017F;e gegen den Nordpol. Alle andern<lb/>
+Continente reichen weiter <choice><abbr>u</abbr><expan resp="#CT">und</expan></choice> in größerer Ausbreitung<lb/>
+nach dem Norden hin. Dazu lieg<subst><del rendition="#ow"><gap reason="illegible" unit="chars" quantity="2"/></del><add place="across">t</add></subst> im Norden der unge-<lb/>
+bildeten Theile von A&#x017F;ien <choice><abbr>u</abbr><expan resp="#CT">und</expan></choice> Ameri<subst><del rendition="#ow">c</del><add place="across">k</add></subst>a ein ungeheu-<lb/>
+rer Archipelagus von Jn&#x017F;eln, was wir gewöhnlich Grön-<lb/>
+land nennen. Jn Europa i&#x017F;t zwi&#x017F;chen dem Pole <choice><abbr>u</abbr><expan resp="#CT">und</expan></choice><lb/>
+<pb facs="#f0005" n="[2v]"/>
+dem nördlich gelegenen fe&#x017F;ten Lande, ein freies Meer.<lb/>
+Die Nordwinde, die von einem mit Jn&#x017F;eln <choice><abbr>u</abbr><expan resp="#CT">und</expan></choice> Eis bedek-<lb/>
+ten Lande kommen, &#x017F;ind kälter, als die vom offenen Meere.<lb/>
+<add place="superlinear"><metamark/>Auch </add><choice><orig>Das</orig><reg resp="#CT">das</reg></choice> Zufließen des wärmeren Wa&#x017F;&#x017F;ers &#x017F;chmilzt das<lb/>
+Eis, was &#x017F;ich im Norden erzeugt. &#x2014; Die Vertheilung<lb/>
+des Wärme&#x017F;toffes über den Erdkörper würde eine ganz<lb/>
+andere &#x017F;ein, wenn er eine gleichmäßig fe&#x017F;te oder flü&#x017F;&#x017F;ige<lb/>
+Decke hätte <choice><abbr><unclear reason="illegible" cert="low" resp="#CT">od</unclear></abbr><expan resp="#CT">oder</expan></choice> wenn Ruhe im Luftmeere herr&#x017F;chte.<lb/>
+Die Erwärmung hängt a<subst><del rendition="#ow"><unclear reason="illegible" cert="low" resp="#CT">m</unclear></del><add place="across">b</add></subst> vom Einfallswinkel der Son-<lb/>
+nen&#x017F;trahlen; nur durch Absorbtion erregen &#x017F;ie die<lb/>
+Wärme; je größer der Winkel i&#x017F;t, de&#x017F;to weniger<lb/>
+Strahlen fallen auf die Fläche. Wenn der Winkel &#x017F;chon<lb/>
+&#x017F;ehr beträchtlich wird, &#x017F;ind die Unter&#x017F;chiede des<lb/>
+Klimas &#x017F;ehr gering, wie die Wärme unter dem Ae-<lb/>
+quator &#x017F;elb&#x017F;t nur wenig abweicht von der Tempe-<lb/>
+ratur des 10<hi rendition="#sup #uu"><choice><abbr>&#xFFFC;</abbr><expan resp="#CT">ten</expan></choice></hi> bis 15<hi rendition="#sup #uu"><choice><abbr>&#xFFFC;</abbr><expan resp="#CT">ten</expan></choice></hi> Grades der Breite<choice><orig><unclear reason="illegible" cert="low" resp="#CT"> <subst><del rendition="#ow">&#x2013;</del><add place="across">~</add></subst></unclear></orig><reg resp="#CT">. </reg></choice> Der Ocean<lb/>
+hat eine andere Temperatur als das fe&#x017F;te Land. Die durch-<lb/>
+&#x017F;ichtigen Theile erwärmen &#x017F;ich anders, als die dunklen.<lb/>
+Die kalten Theile &#x017F;ind &#x017F;chwerer; die wärmeren erheben<lb/>
+&#x017F;ich zur Oberfläche <choice><abbr>u</abbr><expan resp="#CT">und</expan></choice> &#x017F;elb&#x017F;t über die&#x017F;elbe. Daher i&#x017F;t im<lb/>
+Meere &#x017F;elb&#x017F;t eine dreifache Temperatur, die von der Ober-<lb/>
+<pb facs="#f0006" n="[3r]"/>
+fläche gegen die Tiefe hin Abnimmt. Jm tief&#x017F;ten Meere unter<lb/>
+dem Aequator i&#x017F;t eine Polarkälte. Ver&#x017F;chieden daran i&#x017F;t 2<hi rendition="#sup #uu">tens</hi><lb/>
+die Temperatur der Untiefen, der Gebirge im Meere. <persName resp="#CT" ref="http://www.deutschestextarchiv.de/kosmos/person#gnd-118534912 http://d-nb.info/gnd/118534912">Franklin</persName><lb/>
+hat die wichtige Entdeckung gemacht, wie man nach dem<lb/>
+Thermometer der Nähe oder Entfernung der Untiefen inne wer-<lb/>
+den kann; die tieferen Wa&#x017F;&#x017F;er&#x017F;chichten<add place="superlinear"> nämlich</add> &#x017F;ind kälter, die obe-<lb/>
+ren wärmer. Die 3<hi rendition="#sup #uu">te</hi> Ver&#x017F;chiedenheit bewirkt die Strömung<lb/>
+des Meeres, welche die Temperatur ver&#x017F;chiedener geogra-<lb/>
+phi&#x017F;cher Breiten mi&#x017F;cht. Der Golf&#x017F;trom hat &#x017F;eine Richtung<lb/>
+gegen die ö&#x017F;tliche Kü&#x017F;te von Amerika, in den J&#x017F;thmus von<lb/>
+Panama, we&#x017F;twärts von <hi rendition="#aq">Cuba</hi>, wo er einen Wirbel bil-<lb/>
+det <choice><abbr>u</abbr><expan resp="#CT">und</expan></choice> &#x017F;ich zurückwindet nach <hi rendition="#aq">Jrland</hi> <choice><abbr>u</abbr><expan resp="#CT">und</expan></choice> <hi rendition="#aq">Schottland</hi> hin.<lb/>
+Er führt nach den Kü&#x017F;ten die&#x017F;er Länder die Tropenprodukte<lb/>
+der Antillen. Es i&#x017F;t möglich <choice><abbr>u</abbr><expan resp="#CT">und</expan></choice> nicht unwahr&#x017F;cheinlich, daß<lb/>
+der indi&#x017F;che König &#x2014; die <subst><del rendition="#ow">a</del><add place="across">A</add></subst>lten nannten alle Jndier, die<lb/>
+von dunkelerer Farbe waren, als die <hi rendition="#aq">Europäer</hi> &#x2014; de&#x017F;&#x017F;en<lb/>
+<persName resp="#CT" ref="http://www.deutschestextarchiv.de/kosmos/person#gnd-118747681 http://d-nb.info/gnd/118747681">Nepos</persName> gedenkt <choice><abbr>u</abbr><expan resp="#CT">und</expan></choice> der 1000 Jahre vor der er&#x017F;ten Ent-<lb/>
+deckung der neuen Welt durch die Normannen von We&#x017F;ten<lb/>
+her an die <hi rendition="#aq">&#x017F;candinavi&#x017F;chen</hi> Kü&#x017F;ten getrieben &#x017F;ein<lb/>
+&#x017F;oll, ein in &#x017F;einem Boote ver&#x017F;chlagener Eskimo gewe-<lb/>
+&#x017F;en.</p><lb/>
+</div>             </div>             <div type="session" n="4">                 <head><supplied resp="#CT">4. Vorlesung, <ref target="http://www.deutschestextarchiv.de/kosmos/gliederung"><date when="1827-11-14">14. November 1827</date></ref></supplied></head><lb/>
+<div>                     <p>Von der Betrachtung des <subst><del rendition="#ow"><unclear reason="illegible" cert="low" resp="#CT">an</unclear></del><add place="across">Un</add></subst>organi&#x017F;chen &#x2014; Starren <choice><abbr>u</abbr><expan resp="#CT">und</expan></choice> Flü&#x017F;&#x017F;igen &#x2014;<lb/>
+<pb facs="#f0007" n="[3v]"/>
+wenden wir uns nun zum</p><lb/>
+</div>             <div>                 <head>Organi&#x017F;chen.</head><lb/>
+<p>Jm er&#x017F;ten Aufkeimen der organi&#x017F;chen Materie ist<lb/>
+eine Ungewißheit, ob &#x017F;ie der Pflanzen- <choice><abbr><unclear reason="illegible" cert="high" resp="#CT">odr</unclear></abbr><expan resp="#CT">oder</expan></choice> Thierwelt<lb/>
+zugehöre. Man hat mannigfaltige Ver&#x017F;uche gemacht, <subst><del rendition="#ow">über</del><add place="across">um</add></subst><lb/>
+die <persName resp="#CT" ref="http://www.deutschestextarchiv.de/kosmos/person#gnd-118793357 http://d-nb.info/gnd/118793357"><subst><del rendition="#ow">p</del><add place="across">P</add></subst>rie&#x017F;tle<subst><del rendition="#ow">i</del><add place="across">y</add></subst></persName>&#x017F;che Materie, einen grünen Stoff in allen<lb/>
+Wa&#x017F;&#x017F;ern, in der Hin&#x017F;icht zu be&#x017F;timmen. Alle Jnfu-<lb/>
+&#x017F;ionsthierchen haben die&#x017F;e Zwitternatur. Es i&#x017F;t eine allge-<lb/>
+meine Meinung gewe&#x017F;en, daß Licht nöthig &#x017F;ei zur Ent-<lb/>
+wickelung des organi&#x017F;chen Stoffes. Die Mythe von <hi rendition="#aq">Pro-<lb/>
+metheus</hi>, der das Licht vom Himmel entwendet, um die<lb/>
+Organi&#x017F;ation der Materie hervorzurufen, hat man<lb/>
+mehr &#x017F;innreich, als wahr hierher bezogen. Wir kennen<lb/>
+organi&#x017F;che Stoffe tief im Jnnern<add place="superlinear"><metamark/> der</add> Erde; nicht nur in<lb/>
+Bergwerken, wohin eine Möglichkeit des Zuganges für<lb/>
+das Licht wäre, &#x017F;ondern in ver&#x017F;chlo&#x017F;&#x017F;enen Höhlen, hat man<lb/>
+Vegetation gefunden. <choice><orig>Eben &#x017F;o</orig><reg resp="#CT">Eben&#x017F;o</reg></choice> exi&#x017F;tieren im Jnnern des<lb/>
+Meeres, nicht nur allgemein thieri&#x017F;che und vegetabili-<lb/>
+&#x017F;che Stoffe; die letzteren haben &#x017F;elbst ganz grüne Farbe.<lb/>
+<choice><abbr>H.</abbr><expan resp="#CT">Herr</expan></choice> <persName resp="#CT" ref="http://www.deutschestextarchiv.de/kosmos/person#gnd-118554700 http://d-nb.info/gnd/118554700">v. H.</persName> hat in einer Tiefe Ver&#x017F;uche gemacht, in welche<lb/>
+kein Lichtstrahl mehr dringt. Eben&#x017F;o leben die Eingeweide-<lb/>
+<pb facs="#f0008" n="[4r]"/>
+würmer &#x2014; es &#x017F;ind ihrer 1000 Species &#x2014; fern von<lb/>
+allem Lichte. <hi rendition="#aq"><persName resp="#CT" ref="http://www.deutschestextarchiv.de/kosmos/person#gnd-115526641 http://d-nb.info/gnd/115526641">Rudolphi</persName></hi> hat die merkwürdige Entdeckung<lb/>
+gemacht, daß in ver&#x017F;chiedenen Thierarten z. B<choice><orig>:</orig><reg resp="#CT">.</reg></choice> un&#x017F;ern<lb/>
+Rehen <choice><abbr>u</abbr><expan resp="#CT">und</expan></choice> den afrikani&#x017F;chen Gazellen, die&#x017F;elben Eingewei-<lb/>
+dewürmer gefunden werden. Eine merkwürdige Er&#x017F;cheinung<lb/>
+i&#x017F;t der rothe Schnee, der aus Polargegenden zu uns<lb/>
+gebracht worden i&#x017F;t. Es &#x017F;ind kleine organi&#x017F;che Kör<subst><del rendition="#ow"><unclear reason="illegible" cert="low" resp="#CT">p</unclear></del><add place="across">n</add></subst>er,<lb/>
+(<hi rendition="#aq">Uredo <subst><del rendition="#erased"><unclear reason="illegible" cert="low" resp="#CT">R</unclear></del><add place="across">n</add></subst>ivalis</hi>) &#x017F;ie vegetiren unter dem Schnee, unter<lb/>
+dem Gefrierpunkte. Jm Contra&#x017F;t hingegen &#x017F;tehen die<lb/>
+organi&#x017F;chen Bildungen in heißen Quellen von 65° <hi rendition="#aq">R</hi><choice><orig>:</orig><reg resp="#CT">.</reg></choice><lb/>
+E<subst><del rendition="#ow"><unclear reason="covered" cert="high" resp="#CT">in</unclear></del><add place="across">s</add></subst><add place="superlinear"><metamark/> i&#x017F;t ein</add> ähnlicher Ab&#x017F;tand zwi&#x017F;chen die&#x017F;en Anfängen der Or-<lb/>
+gani&#x017F;ation <choice><abbr>u</abbr><expan resp="#CT">und</expan></choice> den zu&#x017F;ammenge&#x017F;etzten Pflanzen, <subst><del rendition="#ow"><gap reason="illegible" unit="words" quantity="1"/></del><add place="across">wie</add></subst><lb/>
+de<subst><del rendition="#ow"><gap reason="illegible" unit="chars" quantity="1"/></del><add place="across">r</add></subst> zwi&#x017F;chen<del rendition="#erased">,</del> der Kleinheit mikroskopi&#x017F;cher Gegen&#x017F;tände<lb/>
+<choice><abbr>u</abbr><expan resp="#CT">und</expan></choice> den Palmen von 280&#x2013;300&#x2033; Höhe. Die&#x017F;e außeror-<lb/>
+dentliche Vegetation i&#x017F;t nicht nur den Tropen eigen,<lb/>
+&#x017F;ie reicht in Amerika in gleiche Breite mit dem nörd-<lb/>
+lichen Deut&#x017F;chland, wo Zapfenbäume von 300&#x2033; wach-<lb/>
+&#x017F;en. Es herr&#x017F;cht eine &#x017F;olche Einheit in der Natur,<lb/>
+daß man durch die Multiplication der Zahl einer<lb/>
+bekannten Species, die Zahl anderer Species finden<lb/>
+kann. Fehlen gewi&#x017F;&#x017F;e Arten in der einen Familie,<lb/>
+<pb facs="#f0009" n="[4v]"/>
+&#x017F;o werden &#x017F;ie an der Zahl durch andere er&#x017F;etzt. Die&#x017F;e<lb/>
+numeri&#x017F;chen Verhältni&#x017F;&#x017F;e &#x017F;ind um &#x017F;o merkwürdiger,<lb/>
+weil &#x017F;ie &#x017F;ich nicht auf Jndividuen<add place="across"><metamark/> beziehen</add>; deren Zahl i&#x017F;t ganz gleich-<lb/>
+gültig. Es betrifft allein die Zahl der Formen. Die<lb/>
+Formen haben &#x017F;ich gegen&#x017F;eitig limitiert. Jn den ver-<lb/>
+&#x017F;chiedenen Zonen herr&#x017F;cht ein Verhältniß der ent-<lb/>
+gegenge&#x017F;etzten Bildungen. Gewi&#x017F;&#x017F;e Familien können Nor-<lb/>
+di&#x017F;ch genannt werden, andere tropi&#x017F;ch; die einen haben<lb/>
+ihr Maximum am Pole, die andern am Aequator.<lb/>
+Der Unter&#x017F;chied i&#x017F;t be<subst><del rendition="#ow"><unclear reason="covered" cert="high" resp="#CT">m</unclear></del><add place="across">a</add></subst>chtungswerth, welcher &#x017F;ich zwi&#x017F;chen<lb/>
+Pflanzenarten ver&#x017F;chiedener Gegenden von gleicher<lb/>
+Breite findet. Die Vegetation von Nord-Amerika<lb/>
+i&#x017F;t ganz ver&#x017F;chieden von der europäi&#x017F;chen, nicht weil<lb/>
+die Wärme <choice><sic>auf der</sic><corr resp="#CT">an den</corr></choice> ö&#x017F;tlichen Kü&#x017F;ten eine andere i&#x017F;t,<lb/>
+&#x017F;ondern auch da, wo kaum Temperaturver&#x017F;chiedenheit<lb/>
+i&#x017F;t. Der Pflanzengattungen &#x017F;ind weit über 60,000. Jn<lb/>
+einem Herbarium in England &#x2014; dem größten, wel-<lb/>
+ches exi&#x017F;tirt, &#x017F;ind 30000 Phanerogamen zu&#x017F;ammen-<lb/>
+ge&#x017F;tellt; wie die Jn&#x017F;ecten einige vereinzelt leben,<lb/>
+andere ge&#x017F;ellig, &#x017F;o auch die Pflanzen. Jm Norden i&#x017F;t die<lb/>
+einfache Frage, aus welcher Baumart ein Wald be&#x017F;teht,<lb/>
+<pb facs="#f0010" n="[5r]"/>
+ein Wald am Amazonen-Strome hingegen zeigt in jeder Mei-<lb/>
+lenentfernung andere Baumarten. Die Abwe&#x017F;enheit der ge-<lb/>
+&#x017F;elligen Pflanzen hat einen höch&#x017F;t wichtigen Einfluß auf die<lb/>
+Bildung der Völker gehabt. Für Europa i&#x017F;t es ein we&#x017F;ent-<lb/>
+licher Grund &#x017F;einer alle andern Erdglieder über&#x017F;chreitend<add place="sublinear">en</add> Bildung<lb/>
+gewe&#x017F;en, daß es keine baumlo&#x017F;en Strecken in ihm giebt,<lb/>
+wie im ö&#x017F;tlichen A&#x017F;ien;<add place="superlinear"> in</add> der Abwe&#x017F;enheit von hohen Bäumen<add place="right"> <choice><abbr>u</abbr><expan resp="#CT">und</expan></choice> größeren Gruppen</add><lb/>
+beruht das Leben in beweglichen Zelten. Ein intere&#x017F;&#x017F;anter Um-<lb/>
+&#x017F;tand, be&#x017F;onders für den Anblick der Natur i&#x017F;t, daß, wo eine<lb/>
+ärmere Vegetation gefunden wird, wir auf hohen Bergen bei<lb/>
+der geringen Anzahl von Jndividuen, dennoch eine <subst><del rendition="#ow">m</del><add place="across">M</add></subst>annig-<lb/>
+faltigkeit der Arten &#x017F;ich zeigt, &#x017F;o daß der hohe Norden die-<lb/>
+&#x017F;elbe Zahl von Species <choice><abbr>u</abbr><expan resp="#CT">und</expan></choice> Ver&#x017F;chiedenheit der Form hat, wie<lb/>
+die reich&#x017F;ten Gegenden der Alpen.</p><lb/>
+</div>             <div>                 <head>Das Animali&#x017F;che.</head><lb/>
+<p>Die Thiere &#x017F;ind beweglicher, als die Pflanzen. Sie haben &#x017F;chon<lb/>
+Bewegung in der Zeit, wo ihr Bau noch am zarte&#x017F;ten i&#x017F;t.<lb/>
+Jn der Lokomotivität der Thiere, die man nicht immer zum<lb/>
+triftigen Unterscheidungszeichen gemacht hat, i&#x017F;t ein großer<lb/>
+Unter&#x017F;chied. Sie hängt nicht immer mit der größeren Aus-<lb/>
+bildung der Organe zusammen. Die kopflo&#x017F;en Molusken<lb/>
+z. B<choice><orig>:</orig><reg resp="#CT">.</reg></choice> <choice><abbr>u</abbr><expan resp="#CT">und</expan></choice> die zwei&#x017F;chaligen Conchilien, die &#x017F;ich an die Fel-<lb/>
+&#x017F;en anhängen, haben nur eine geringe Bewegung. Die See-<lb/>
+igel hingegen <hi rendition="#aq">echinus</hi>, bewegen sich vollkommen durch<lb/>
+<pb facs="#f0011" n="[5v]"/>
+membran<subst><del rendition="#erased"><unclear reason="covered" cert="high" resp="#CT">i&#x017F;che</unclear></del><add place="across">ö&#x017F;e</add></subst> Füße, auch noch mit einem andern Or-<lb/>
+gan<add place="intralinear">,</add> <choice><abbr>u</abbr><expan resp="#CT">und</expan></choice> welcher Unter&#x017F;chied der Ausbildung zwi&#x017F;chen<lb/>
+den Akephalen <choice><abbr>u</abbr><expan resp="#CT">und</expan></choice> dem Echinus<subst><del rendition="#ow">,</del><add place="across">!</add></subst> <choice><orig>die</orig><reg resp="#CT">Die</reg></choice> letzteren gehören zu<lb/>
+den Zoophyten &#x2014; die Thiere &#x017F;ind anders klimati&#x017F;ch<lb/>
+vertheilt<del rendition="#erased">,</del> als die Pflanzen; der Unter&#x017F;chied der Klimata<lb/>
+i&#x017F;t weniger bei ihnen auffallend. Man findet Fi&#x017F;che in<lb/>
+einer großen Menge von Species von den Säulen des<lb/>
+Hercules 35° <choice><abbr>nördl.</abbr><expan resp="#CT">nördlicher</expan></choice> B<subst><del rendition="#ow"><gap reason="illegible" unit="chars" quantity="2"/></del><add place="across">re</add></subst>ite, <del rendition="#s">wie</del> b<subst><del rendition="#ow"><unclear reason="covered">ei</unclear></del><add place="across">is</add></subst><add place="superlinear"><metamark/><choice><sic> zur</sic><corr resp="#CT"> zu</corr></choice></add> der Mündung des<lb/>
+<hi rendition="#aq">Senegal</hi> <choice><abbr>u</abbr><expan resp="#CT">und</expan></choice> &#x017F;elb&#x017F;t dem Vorgebirge der guten Hoffnung.<lb/>
+Bei den Fi&#x017F;chen i&#x017F;t dieß um &#x017F;o möglicher, da ihr Element<lb/>
+in den ver&#x017F;chiedenen Tiefen ver&#x017F;chiedener Temperatur hat,<lb/>
+wie die Men&#x017F;chen &#x017F;ich von den Höhen der Berge nach den tie-<lb/>
+fen Ebenen herab durch alle Temperaturen <subst><del rendition="#ow"><gap reason="illegible" unit="chars" quantity="1"/></del><add place="across">b</add></subst>ewegen können.<lb/>
+Die Zahl der be&#x017F;chriebenen Thierarten beläuft &#x017F;ich auf 60,000<lb/>
+<choice><abbr>u</abbr><expan resp="#CT">und</expan></choice> zwar der Jn&#x017F;ecten 45000, der Vögel 5000, der Fi&#x017F;che 3000<lb/>
+<choice><abbr>u</abbr><expan resp="#CT">und</expan></choice> der Säugethiere 900. Es fällt dabei das Verhältniß<lb/>
+auf zwi&#x017F;chen Säugethieren <choice><abbr>u</abbr><expan resp="#CT">und</expan></choice> Vögeln. Jn den mei&#x017F;ten<lb/>
+Gegenden, <choice><abbr>u</abbr><expan resp="#CT">und</expan></choice> zwar in den ver&#x017F;chiedenen Zonen &#x017F;ind<lb/>
+die Säugethiere &#x2155; der Vögel. Eine &#x017F;olche Ungleichheit<lb/>
+hat nicht immer Statt gehabt. Es i&#x017F;t eine große Ma&#x017F;&#x017F;e<lb/>
+von Säugethieren verloren gegangen, weniger Vögel,<lb/>
+welche &#x017F;ich der vernichtenden Kata&#x017F;trophe haben ent-<lb/>
+<pb facs="#f0012" n="[6r]"/>
+ziehen können. Es dominirten ehedem von den Säugethieren<choice><sic>-</sic><corr resp="#CT"/></choice><lb/>
+die Schweine-<choice><orig/><reg resp="#CT">,</reg></choice> Rhinoceros-<choice><orig/><reg resp="#CT">,</reg></choice> Elephanten-<choice><orig/><reg resp="#CT">,</reg></choice> Pferde-<subst><del rendition="#ow"><unclear reason="covered" cert="low" resp="#CT">a</unclear></del><add place="across">A</add></subst>rtigen. Die vorhan-<lb/>
+denen Re&#x017F;te einer untergegangenen Thierwelt zeigen wunder-<lb/>
+bare Ge&#x017F;talt <choice><abbr>u</abbr><expan resp="#CT">und</expan></choice> Größe. Von einzelnen Theilen des Orga-<lb/>
+ni<subst><del rendition="#ow">s</del><add place="across">ß</add></subst>mus &#x2014; eine &#x017F;olche Einheit i&#x017F;t in organi&#x017F;chen Bildungen!<lb/>
+&#x2014; läßt &#x017F;ich zur Vor&#x017F;tellung des ge&#x017F;ammten Baues <choice><abbr>u</abbr><expan resp="#CT">und</expan></choice><lb/>
+des Gebrauches der einzelnen Glieder kommen. Der Mega-<lb/>
+lo&#x017F;aurus hatte eine Länge von 60&#x2013;70&#x2032; gehabt, die Höhe<lb/>
+eines Och&#x017F;en. Der Plei&#x017F;io&#x017F;au<del rendition="#erased"><gap reason="illegible" unit="chars" quantity="1"/></del>r i&#x017F;t ein Krokodil mit ei-<lb/>
+nem Schwanenhals; es hat am Ufer gelegen, lauernd,<lb/>
+den Kopf unter dem Wa&#x017F;&#x017F;er, die Füße zurückgezo-<lb/>
+gen, in die letzte Hälfte des Körpers. Der Jchthyo-<lb/>
+&#x017F;au<del rendition="#erased"><gap reason="illegible" unit="chars" quantity="1"/></del>r, ein Krokodil mit Fi&#x017F;chaugen, das gewöhnliche hat<lb/>
+Schweinsaugen. Für den Geogra<subst><del rendition="#ow">f</del><add place="across">p</add></subst>hen hat die Geogra-<lb/>
+phie der Thiere ein großes Jntere&#x017F;&#x017F;e. Er erkennt aus der-<lb/>
+&#x017F;elben den Zu&#x017F;ammenhang der Länder <choice><abbr>u</abbr><expan resp="#CT">und</expan></choice> den Unter&#x017F;chied der<lb/>
+Jn&#x017F;eln, die früher eine Verbindung mit dem fe&#x017F;ten Lande ge-<lb/>
+habt haben, oder er&#x017F;t &#x017F;päter über die Meeresfläche aufge&#x017F;tie-<lb/>
+gen &#x017F;ind. <persName resp="#CT" ref="http://www.deutschestextarchiv.de/kosmos/person#gnd-116817569 http://d-nb.info/gnd/116817569"><hi rendition="#aq">Leopold</hi> von <hi rendition="#aq">Buch</hi></persName> nennt <del rendition="#s">man</del> die nordi&#x017F;chen<lb/>
+Skären nur Fortpflanzung des nahen <choice><orig>Continent</orig><reg resp="#CT">Continents</reg></choice>. Jn den Süd-<lb/>
+&#x017F;eein&#x017F;eln leben nur kleine Thiere; im indi&#x017F;chen Ocean die-<lb/>
+&#x017F;elben großen Gestalt<add place="sublinear">en</add> wie im Continent von Africa.
+<pb facs="#f0013" n="[6v]"/>
+Das Tiefereindringen in Borneo, Sumatra hat zu<lb/>
+wichtigen Entdeckungen in die&#x017F;er Beziehung geführt. Man<lb/>
+hat 2 Rhinocerosarten gefunden, das eine mit einem<lb/>
+Doppelhorn; auch einen merkwürdigen Tapir tief in <hi rendition="#aq">Suma-<lb/>
+tra</hi>, al&#x017F;o in den Jn&#x017F;eln die Bewohner von America.</p><lb/>
+<p>Das höch&#x017F;te Ziel aller Naturbetrachtung be&#x017F;teht in der kla-<lb/>
+ren Erkenntniß un&#x017F;erer eigenen Natur; darum schließt<lb/>
+&#x017F;ich das Naturgemälde mit der Betrachtung aller Men-<lb/>
+&#x017F;chenra<subst><del rendition="#ow"><unclear reason="covered" cert="low" resp="#CT">ß</unclear></del><add place="across">sc</add></subst>en. Man i&#x017F;t unbe&#x017F;timmt gewe&#x017F;en, ob der Knochen-<lb/>
+bau, die Hautfarbe, das Haar, de&#x017F;&#x017F;en Feinheit oder ver-<lb/>
+&#x017F;chiedene Krümmung zum Eintheilungsgrund der Men&#x017F;chen-<lb/>
+<choice><orig>rascen</orig><reg resp="#CT">raçen</reg></choice> <subst><del rendition="#s">ge</del><add place="superlinear">zu </add></subst>mach<subst><del rendition="#erased">t</del><add place="across">en</add></subst> <del rendition="#s">worden</del> &#x017F;ei. <hi rendition="#aq"><persName resp="#CT" ref="http://www.deutschestextarchiv.de/kosmos/person#gnd-118677578 http://d-nb.info/gnd/118677578">Cuvier</persName></hi> ve<subst><del rendition="#ow"><gap reason="illegible" unit="chars" quantity="2"/></del><add place="across">rt</add></subst>heilt das ganze<lb/>
+Ge&#x017F;chlecht nach der Farbe in 3 Ra<subst><del rendition="#ow"><unclear reason="covered" cert="low" resp="#CT"/>sc</del><add place="across">ç</add></subst>en<subst><del rendition="#ow">:</del><add place="across">;</add></subst> die weiße, gel-<lb/>
+be <choice><abbr>u</abbr><expan resp="#CT">und</expan></choice> &#x017F;chwarze. <persName resp="#CT" ref="http://www.deutschestextarchiv.de/kosmos/person#gnd-116208503 http://d-nb.info/gnd/116208503">Blumenbach</persName> hat 2 Eintheilungen hinzuge&#x017F;etzt; die ma-<lb/>
+laii&#x017F;che <choice><abbr>u</abbr><expan resp="#CT">und</expan></choice> americani&#x017F;che. Die&#x017F;e Eintheilungen &#x017F;ind<lb/>
+&#x017F;ehr &#x017F;chwankend. Die Alten kannten nur eine Art<lb/>
+der Schwarzen, die Aethiopen und hielten dafür, daß<lb/>
+die drei Phänomene, die <unclear reason="illegible" cert="high" resp="#CT">Far</unclear>be, die häßliche Na&#x017F;e, das<lb/>
+Haar zu&#x017F;ammengehörten; man hat aber &#x017F;päter ent-<lb/>
+deckt, daß es Neger giebt, die nur einen jener<lb/>
+Charaktere zeigen. <unclear reason="illegible" cert="low" resp="#CT">Da</unclear> hat man dann andere Unter-<lb/>
+<pb facs="#f0014" n="[7r]"/>
+&#x017F;chiede ge&#x017F;ucht und &#x017F;ie in den Sprachen finden wollen.<lb/>
+Die Sprache hat aber ihren Ur&#x017F;prung in der gei&#x017F;tigen<lb/>
+Natur des Men&#x017F;chen und <choice><abbr>H&#x0FFC;.</abbr><expan resp="#CT">Herrn</expan></choice> <persName resp="#CT" ref="http://www.deutschestextarchiv.de/kosmos/person#gnd-118554727 http://d-nb.info/gnd/118554727">W. v. <hi rendition="#aq">Humboldt</hi></persName>&#x2019;s Unter-<lb/>
+&#x017F;uchungen über die Sprache haben gelehrt, daß<lb/>
+<subst><del rendition="#erased">&#x017F;</del><add place="across">d</add></subst>ie <add place="superlinear"><metamark/><choice><orig>Sprache</orig><reg resp="#CT">Sprachen</reg></choice>, Jdiome </add>keineswegs nationenwei&#x017F;e vertheilt &#x017F;ind,<lb/>
+&#x017F;ondern daß bei aller Ungleichheit des &#x017F;innlichen<lb/>
+Elements <add place="superlinear"><metamark/>der Sprache </add>unter den ver&#x017F;chiedenen Völkern <choice><abbr>u</abbr><expan resp="#CT">und</expan></choice> Raçen<lb/>
+&#x017F;ich die be&#x017F;timmte&#x017F;ten Analogi<subst><del rendition="#ow"><unclear reason="covered" cert="low" resp="#CT">e</unclear></del><add place="superlinear">en</add></subst> <add place="superlinear"><metamark/>im Bau </add>erkennen la&#x017F;&#x017F;en,<lb/>
+und wieder in einer <choice><abbr>u</abbr><expan resp="#CT">und</expan></choice> der&#x017F;elben Raçe unter den ver-<lb/>
+&#x017F;chiedenen Stäm&#x0303;en große Abweichungen vorkommen.<lb/>
+Die überein&#x017F;tim&#x0303;ende Sprachbildung zeigt eine Gleichheit<lb/>
+der Anlage; nicht jede Raçe hat ihre Eigenthümlich-<lb/>
+keit in die&#x017F;er, &#x017F;ondern Nationen der ver&#x017F;chieden&#x017F;ten<lb/>
+Raçen kommen <add place="intralinear">in </add><subst><del rendition="#ow"><gap reason="illegible" unit="chars" quantity="1"/></del><add place="across">g</add></subst><add place="sublinear">ewi&#x017F;&#x017F;en</add> Merkmalen die&#x017F;er Erzeugni&#x017F;&#x017F;e<lb/>
+des Gei&#x017F;tes überein, wie <choice><orig>z.B</orig><reg resp="#CT">z. B.</reg></choice> die Neger von Coongo <choice><abbr>u</abbr><expan resp="#CT">und</expan></choice><lb/>
+die Basken. Man wird die großen Unter&#x017F;chiede,<lb/>
+die hier bisher gegolten haben, eben &#x017F;o verla&#x017F;&#x017F;en<lb/>
+müßten, wie es in anderen Theilen der Naturge&#x017F;chichte<lb/>
+ge&#x017F;chehen i&#x017F;t. So lange nur allgemeine An&#x017F;ichten<lb/>
+<pb facs="#f0015" n="[7v]"/>
+Statt gefunden haben, hat man geglaubt &#x017F;ich an<lb/>
+große Gruppen halten zu mü&#x017F;&#x017F;en; je weiter<lb/>
+man fort&#x017F;chreitet in der Erkenntniß des<lb/>
+be&#x017F;onderen, de&#x017F;to mehr &#x017F;ieht man, wie die Abthei-<lb/>
+lungen nach großen Gruppen unbequem <choice><abbr>u</abbr><expan resp="#CT">und</expan></choice><lb/>
+unzuverlä&#x017F;&#x017F;ig &#x017F;ind. Die Namen &#x017F;ind eben<lb/>
+&#x017F;o unbequem, als es die Unter&#x017F;cheidungsmerk-<lb/>
+male &#x017F;ind. Der gelehrte <hi rendition="#aq"><persName resp="#CT" ref="http://www.deutschestextarchiv.de/kosmos/person#gnd-116863498 http://d-nb.info/gnd/116863498">Meiners</persName></hi> &#x017F;etzte die Celti-<lb/>
+&#x017F;che, Jberi&#x017F;che, <choice><orig><unclear reason="illegible" cert="low" resp="#CT">Ai</unclear>ri&#x017F;che</orig><reg resp="#CT">Ari&#x017F;che</reg></choice> Sprache in Verbindung<lb/>
+mit de<subst><del rendition="#ow">r</del><add place="across">n</add></subst> <subst><del rendition="#ow">&#x017F;</del><add place="across">S</add></subst>emiti&#x017F;chen (Aramäi&#x017F;ch, Hebräi&#x017F;ch, <unclear reason="illegible" cert="high" resp="#CT">Arab</unclear>i&#x017F;ch)<lb/>
+und theilte die Men&#x017F;chen ein in häßliche oder unvoll-<lb/>
+kommene Nationen, zu denen er die Neger, <choice><sic>Mogolen</sic><corr resp="#CT">Mongolen</corr></choice>,<lb/>
+Chine&#x017F;en, Jndier, trotz ihrer Philo&#x017F;ophie <choice><abbr>u</abbr><expan resp="#CT">und</expan></choice> Literatur<lb/>
+zählte und die &#x017F;chönen, edlen, unter welchen er<lb/>
+die Semiten und Europäer <unclear reason="illegible" cert="low" resp="#CT">be&#x017F;etzte</unclear>: beide Raçen<lb/>
+&#x017F;ollten dem Ur&#x017F;prung nach ver&#x017F;chieden &#x017F;ein und<lb/>
+wie Pflanzen und Thiere vom er&#x017F;ten Sitz aus &#x017F;ich<lb/>
+über ihre &#x017F;päteren Wohnungen verbreitet haben. Die<lb/>
+unvollkommene brachte es nur auf den Altai, die<lb/>
+edle auf den <gap reason="illegible" unit="words" quantity="1"/> zurück. Er hat &#x017F;eine Mei-<lb/>
+<pb facs="#f0016" n="[8r]"/>
+nung kurz vor &#x017F;einem Tode verla&#x017F;&#x017F;en.</p><lb/>
+<p>Hiermit haben wir das Naturgemälde geschlo&#x017F;&#x017F;en.<lb/>
+Die Hauptzüge de&#x017F;&#x017F;elben bilde die Abtheilungen des Vortrags<choice><orig/><reg resp="#CT">:</reg></choice>                     <list>                         <item>1, die phy&#x017F;i&#x017F;che A&#x017F;tronomie</item><lb/>
+<item>2, die Geogno&#x017F;ie; die &#x017F;tarren Theile der Erde.</item><lb/>
+<item>3, Meteorologie <choice><abbr>u</abbr><expan resp="#CT">und</expan></choice> Klimatologie; die flü&#x017F;&#x017F;igen<lb/>
+Hüllen, der Ocean <choice><abbr>u</abbr><expan resp="#CT">und</expan></choice> das Luftmeer.</item><lb/>
+<item>4., Geographie der Pflanzen.</item><lb/>
+<item>5, Geographie der Thiere</item><lb/>
+<item>6, Verbreitung des Men&#x017F;chenge&#x017F;chlechts.</item><lb/>
+</list></p><lb/>
+</div>             </div>                 <div type="session" n="5">                     <head><supplied resp="#CT">5. Vorlesung, <ref target="http://www.deutschestextarchiv.de/kosmos/gliederung"><date when="1827-11-17">17. November 1827</date></ref></supplied></head><lb/>
+<p>Von den er&#x017F;ten <add place="superlinear"><metamark/>kaum </add>erkennbaren Anfängen der himm-<lb/>
+li&#x017F;chen Räume wird heraufge&#x017F;tiegen zu dem Men-<lb/>
+&#x017F;chen und dem Erzeugniß &#x017F;eines Gei&#x017F;tes; eine<lb/>
+Art von <hi rendition="#aq #k">Mikrokosmos</hi>.</p><lb/>
+<p><choice><sic>Die&#x017F;e</sic><corr resp="#CT">Die&#x017F;er</corr></choice> Jnhalt könnte eine Encyclopädie zu ver-<lb/>
+&#x017F;prechen &#x017F;cheinen; allein von die&#x017F;er i&#x017F;t die Welt-<lb/>
+be&#x017F;chreibung ern&#x017F;tlich verschieden. Als eine<lb/>
+<pb facs="#f0017" n="[8v]"/>
+Encyclopädie würde der Vortrag &#x017F;ehr unbe&#x017F;tim&#x0303;te<lb/>
+Gr<unclear reason="illegible" cert="high" resp="#CT">ä</unclear>nzen haben, es würde &#x017F;chwierig &#x017F;ein zu be-<lb/>
+&#x017F;tim&#x0303;en, wie weit man in die&#x017F;em <choice><abbr>u</abbr><expan resp="#CT">und</expan></choice> jenem gehen<lb/>
+müßte; das würde mit großem Nachtheil zur<lb/>
+Oberflächlichkeit führen. Jn der Weltbe&#x017F;chreibung<lb/>
+kommt es darauf an den Zu&#x017F;ammenhang der<lb/>
+Kräfte und ihre gegen&#x017F;eitigen Einwirkungen<lb/>
+nachzuwei&#x017F;en. Hier &#x017F;ind der Wi&#x017F;&#x017F;en&#x017F;chaft be&#x017F;tim&#x0303;tere<lb/>
+Gränzen ge&#x017F;etzt. Der mündliche Vortrag kann übrigens<lb/>
+nicht in der Strenge des &#x017F;chriftlichen ge&#x017F;chehen; er<lb/>
+behauptet eine eigenthümliche Freiheit. Es i&#x017F;t<lb/>
+&#x017F;chon unmöglich dabei die&#x017F;elbe Stim&#x0303;ung zu<lb/>
+behalten, es wird aber auch <unclear reason="illegible" cert="high" resp="#CT">zweck</unclear>mäßig &#x017F;ein,<lb/>
+bei dem einen mehr ins Einzelne zu gehen,<lb/>
+bei anderm eine größere Allgemeinheit zu<lb/>
+behaupten. Einem Vorurtheil i&#x017F;t zu begegnen,<lb/>
+als &#x017F;ei es &#x017F;chwierig in einer Wi&#x017F;&#x017F;en&#x017F;chaft, wenn<lb/>
+&#x017F;ie im Fort&#x017F;chritt i&#x017F;t, wie die von der Natur, einen<lb/>
+kurzen Vortrag zu halten. Vielmehr je be&#x017F;tim&#x0303;ter<lb/>
+die Erkenntniß, je inniger der Zu&#x017F;am&#x0303;enhang i&#x017F;t<lb/>
+<gap reason="lost"/><note resp="#CT" type="editorial">Der Text des Fragments bricht an dieser Stelle unvermittelt ab, eine unbestimmbare Anzahl Seiten fehlt im Anschluss.<lb/>
+</note></p><lb/>
+</div>                 <gap reason="insignificant" unit="pages" quantity="4"/><note resp="#CT" type="editorial">Die folgenden vier Seiten des Konvoluts, d. h. Bl. [9r], [9v], [10r] und [10v] gehören inhaltlich nicht zu den Kosmos-Vorträgen Humboldts, die auf den übrigen Seiten des Konvoluts wiedergegeben werden. Sie wurden daher nicht transkribiert und werden hier nicht dargestellt.<lb/>
+</note><lb/>
+<pb facs="#f0018" n="[11r]"/>
+<fw place="top" type="pageNum"><hi rendition="#right">1.</hi></fw><lb/>
+<gap reason="lost"/><note resp="#CT" type="editorial">Auf diesem Blatt beginnt erneut eine Nachschrift der Kosmos-Vorträge Humboldts an der Berliner Universität; der Text setzt hier mit dem Beginn der 49. Vorlesung, gehalten am 09.04.1828, wieder ein. Eine nicht genauer bestimmbare Anzahl vorhergehender Seiten fehlt im Konvolut <ref target="https://www.deutsche-digitale-bibliothek.de/item/UUHC4SBVHG2HDR345O3AOPYCEJLHWQO2">GSTA, VI. HA, Nl Willisen, A., Nr. 83</ref>.<lb/>
+</note><lb/>
+<div type="session" n="49">                 <head><supplied resp="#CT">49. Vorlesung, <ref target="http://www.deutschestextarchiv.de/kosmos/gliederung"><date when="1828-04-09">9. April 1828</date></ref></supplied></head><lb/>
+<p><hi rendition="#in">E</hi>he ich im Verfolge von Betrachtungen der ver&#x017F;chiedenen<lb/>
+Temperaturen, der athmosphäri&#x017F;chen Umhüllung un&#x017F;eres Planeten<lb/>
+weiter gehe, erlaube ich mir noch einmal der Deutlichkeit wegen<lb/>
+eine allgemeine Rückerinnerung des Gewe&#x017F;enen in die&#x017F;er Be-<lb/>
+ziehung, damit die Verfolgung des Weiteren mehr Einheit<lb/>
+und Anhalt des Zu&#x017F;ammenhanges erlangen möge.</p><lb/>
+<p>Wir haben die Athmosphäre des Erdkörpers in ihren<lb/>
+Analogien und ihren Kontra&#x017F;ten und das <hi rendition="#aq">Minimum</hi> einer &#x017F;olchen<lb/>
+Umhüllung unter&#x017F;ucht, &#x017F;owohl früher bei einzelnen Planeten,<lb/>
+in&#x017F;onderheit des Mondes, als jetzt bei un&#x017F;erem eigenen Erd-<lb/>
+körper. Den anderen Kontra&#x017F;t einer athmosphäri&#x017F;chen oder ihr<lb/>
+ähnlichen Umhüllung bilden die Kometen, deren einzelne wie<lb/>
+ich &#x017F;chon früher erwähnt &#x017F;elb&#x017F;t keinen Schweif erkennen la&#x017F;&#x017F;en; &#x2014;<lb/>
+einer von die&#x017F;en i&#x017F;t &#x017F;elb&#x017F;t der <hi rendition="#aq"><persName resp="#CT" ref="http://www.deutschestextarchiv.de/kosmos/person#gnd-116164603 http://d-nb.info/gnd/116164603">Biela</persName></hi>&#x017F;che, der einzige welcher<lb/>
+der Erde gefährlich werden könnte, indem er die Erdbahn<lb/>
+durch&#x017F;chneidet. Die&#x017F;er Komet de&#x017F;&#x017F;en sehr kleiner Kern kaum<lb/>
+15 bis 24 Meilen im Durchme&#x017F;&#x017F;er hat, al&#x017F;o noch weniger als die<lb/>
+Hälfte des der <hi rendition="#aq">Vesta</hi>; <metamark>|:</metamark> 60 Meilen <choice><abbr>Durchm</abbr><expan resp="#CT">Durchme&#x017F;&#x017F;er</expan></choice> <metamark>:<subst><del rendition="#ow">:</del><add place="across">|</add></subst></metamark> dagegen i&#x017F;t in<lb/>
+die&#x017F;em Kern keine mehr bewegbare Materie. Seine Dun&#x017F;t-<lb/>
+hülle umfaßt 4&#x2154; Erdhalbme&#x017F;&#x017F;er, &#x017F;o daß <add place="superlinear"><metamark/>die </add>ihm eigene <choice><orig>Athmos</orig><reg resp="#CT">Athmos-</reg></choice><lb/>
+phäre, wenn wir &#x017F;ie mit die&#x017F;em Namen belegen, 10 mal &#x017F;o viel<lb/>
+Raum nimmt als der Kern.</p><lb/>
+<p>Die Erdathmosphäre i&#x017F;t nicht immer in dem&#x017F;elben Zu-<lb/>
+&#x017F;tande gewe&#x017F;en, gleich wie die der Kometen in der Dun&#x017F;t-<lb/>
+hülle Veränderungen erlitten, &#x017F;o i&#x017F;t auch &#x017F;ie gewiß die&#x017F;en<lb/>
+unterworfen gewe&#x017F;en. &#x2014; Wir haben die&#x017F;elbe nach ihrer<lb/>
+Ausdehnung betrachtet <add place="superlinear"><metamark/>die </add>in einer Weite von 10 Meilen &#x017F;ich er-<lb/>
+&#x017F;treckt, welche nach der Dämmerung berechnet i&#x017F;t: &#x2014; noch<lb/>
+<fw place="bottom" type="catch">aber</fw><lb/>
+<pb facs="#f0019" n="[11v]"/>
+<fw place="top" type="pageNum">2.</fw><lb/>
+aber i&#x017F;t in einer weiteren Ferne von 30 Meilen ein Sauer-<lb/>
+&#x017F;toff, eine &#x017F;ehr dünne Athmosphäre, die bei dem Er&#x017F;cheinen<lb/>
+von <hi rendition="#aq">Aerolyten</hi> durch Leuchten d<subst><del rendition="#ow"><unclear reason="covered" cert="low" resp="#CT">er</unclear></del><add place="across">er</add></subst>&#x017F;elbe<subst><del rendition="#s"><gap reason="illegible" unit="chars" quantity="1"/></del><add place="intralinear">n</add></subst> ihre Grenzen anzu-<lb/>
+geben &#x017F;cheint. Ferner haben wir die Umhüllung nach ihrem<lb/>
+Drucke, nach der hygrometri&#x017F;chen Be&#x017F;chaffenheit betrachtet, die<lb/>
+uns auf die Wa&#x017F;&#x017F;ermeteore &#x017F;elb&#x017F;t geführt haben, von w<subst><del rendition="#ow"><gap reason="illegible" unit="chars" quantity="2"/></del><add place="across">el-</add></subst><lb/>
+chen wir dann zur Climathologie übergingen. Hier sahen<lb/>
+wir gleich&#x017F;am eine ab&#x017F;teigende <choice><orig>Thermometer Scala</orig><reg resp="#CT">Thermometer-Scala</reg></choice> in<lb/>
+den Naturerzeugni&#x017F;&#x017F;en des Zuckerrohrs, des Oelbaum,<lb/>
+dem Weinbau und endlich den fruchtreichen Gewäch&#x017F;en.</p><lb/>
+<p>Die große Menge von That&#x017F;achen, welche in neue-<lb/>
+rer Zeit den Temperatur-Beobachtungen zu Hülfe ge-<lb/>
+kommen &#x017F;ind, erlauben die Climathologie be&#x017F;&#x017F;er ordnen<lb/>
+zu können; &#x2014; in die&#x017F;er ergiebt &#x017F;ich die&#x017F;elbe oder be&#x017F;&#x017F;er<lb/>
+die Luft einzeln betrachtet auf den Kontinenten und dem<lb/>
+Meere. Jn den Er&#x017F;teren erfordert die&#x017F;elbe die Unter-<lb/>
+&#x017F;uchung der unteren Schichten der Ebenen als für &#x017F;ich, und<lb/>
+der oberen oder der Höhen. Die Be&#x017F;chaffenheit äußert<lb/>
+den wichtig&#x017F;ten Einfluß, in ihr i&#x017F;t wieder das Ruhen auf<lb/>
+den flü&#x017F;&#x017F;igen Theilen, von dem auf dem &#x017F;tarren<choice><orig/><reg resp="#CT">,</reg></choice> dem Ei&#x017F;e<lb/>
+zu unter&#x017F;cheiden. Jn dem er&#x017F;ten Ab&#x017F;chnitte habe ich  nach den<lb/>
+räumlichen Verhältni&#x017F;&#x017F;en des Erdkörpers abgehandelt<lb/>
+die Jntensität des Lichts, den Einfluß der Berge, nach<lb/>
+der Farbe und dem Ar<unclear reason="illegible" cert="low" resp="#CT">p</unclear>entikularen System, der Wir-<lb/>
+kung der Sonnen&#x017F;trahlen eines dun&#x017F;tigen oder wolkenfrei-<lb/>
+en Himmel. Die Strahlung aber wird durch die Winde<lb/>
+vermindert. Fünftens hängt die Ver&#x017F;chiedenheit der Wär-<lb/>
+me-Entwicklung ab, je nachdem der Himmel mit Wol-<lb/>
+ken, je nachdem er nicht damit bedeckt i&#x017F;t; hier finden<lb/>
+&#x017F;ich in&#x017F;onderheit die Unter&#x017F;chiede zwi&#x017F;chen direktem Sonnen-<lb/>
+<fw place="bottom" type="catch">lichte</fw><lb/>
+<pb facs="#f0020" n="[12r]"/>
+<fw place="top" type="pageNum"><hi rendition="#right">3.</hi></fw><lb/>
+<choice><sic>Sonnen</sic><corr resp="#CT"/></choice>lichte und reflectirtem Licht. Aus den &#x017F;chon früher ange-<lb/>
+gebenen Ver&#x017F;uchen den Herrn <hi rendition="#aq"><persName resp="#CT" ref="http://www.deutschestextarchiv.de/kosmos/person#gnd-118716581 http://d-nb.info/gnd/118716581">Gaylus&#x017F;ac</persName></hi> mü&#x017F;&#x017F;en die direkten<lb/>
+Strahlen einen unmeßbaren Einfluß haben. &#x2014; Die&#x017F;em reiht<lb/>
+&#x017F;ich die Betrachtung des Kü&#x017F;ten- und Jnnern-Klimas an, wo<lb/>
+die Temperatur der Er&#x017F;teren im Sommer geringer als<lb/>
+die der Letzteren i&#x017F;t. Die Andeutungen der Thermometer<lb/>
+&#x017F;ind zu dem Gefühle &#x017F;ehr gering, denn die direckten Sonnen-<lb/>
+&#x017F;trahlen &#x017F;ind es nur allein welche im Parentina dem <choice><sic>Z<unclear reason="illegible" cert="high" resp="#CT">o</unclear>ll</sic><corr resp="#CT">Zell</corr></choice>-<lb/>
+gewebe der Pflanzen höch&#x017F;t einflußreich &#x017F;ind. Eben darum<lb/>
+auch der Weinbau &#x017F;ich bis zu den Höhen hinaufzieht; denn<lb/>
+wenn man eine &#x017F;olche korrespondirende Wärme vergleicht,<lb/>
+&#x017F;o &#x017F;teigt &#x017F;ie weit höher als man nach dem Thermometer glau-<lb/>
+ben &#x017F;ollte. Auf den Höhen aber i&#x017F;t eine dünne, trockene<lb/>
+weniger feuchte Luft, welche die Entwickelungen der Wär-<lb/>
+me be&#x017F;chleunigen.</p><lb/>
+<p>Ein &#x017F;ech&#x017F;ter Moment i&#x017F;t die Kälte welche erregt wird,<lb/>
+wenn trockene Luft&#x017F;chichten &#x017F;ich in eine feuchte ergießen.<lb/>
+<choice><abbr>H&#x0FFC;.</abbr><expan resp="#CT">Herr</expan></choice> <hi rendition="#aq"><persName resp="#CT" ref="http://www.deutschestextarchiv.de/kosmos/person#gnd-118716581 http://d-nb.info/gnd/118716581">Gaylus&#x017F;ac</persName></hi> fand als er einen Thermometer auf ein<lb/>
+feuchtes in trockener Luft &#x017F;eiendes Papier legte eine Er-<lb/>
+kältung von 10° beträchtlicher als Herr <hi rendition="#aq"><persName resp="#CT" ref="http://www.deutschestextarchiv.de/kosmos/person#gnd-124462286 http://d-nb.info/gnd/124462286">Huentz</persName></hi> durch Aus-<lb/>
+&#x017F;trahlung gefunden hat. Etwas ähnliches haben wir von<lb/>
+dem inneren Afrikas aus den Berichten von <hi rendition="#aq"><persName resp="#CT" ref="http://www.deutschestextarchiv.de/kosmos/person#gnd-117632368 http://d-nb.info/gnd/117632368">Denham</persName></hi> und<lb/>
+<hi rendition="#aq"><persName resp="#CT" ref="http://www.deutschestextarchiv.de/kosmos/person#gnd-119426943 http://d-nb.info/gnd/119426943">Clapperton</persName></hi>, wo ein Theil der Kälte nicht durch den<lb/>
+Nordwind, &#x017F;ondern einem Gemi&#x017F;che &#x017F;ehr feuchter Luft zu-<lb/>
+zu&#x017F;chreiben i&#x017F;t, wo durch die Mi&#x017F;chung eine Ausdehnung<lb/>
+ent&#x017F;teht welche die Kälte vermehrt. Jn Afrika &#x017F;inkt je-<lb/>
+desmal wenn der <hi rendition="#aq">Harmatha</hi> weht das Thermometer<lb/>
+um <choice><orig>15°.R.</orig><reg resp="#CT">15° R.</reg></choice> Siebentens habe ich den Unter&#x017F;chied des Kon-<lb/>
+tinental- und Kü&#x017F;ten-Klimas, den Unter&#x017F;chied der O&#x017F;t-<lb/>
+<fw place="bottom" type="catch">und</fw><lb/>
+<pb facs="#f0021" n="[12v]"/>
+<fw place="top" type="pageNum">4.</fw><lb/>
+und We&#x017F;tkü&#x017F;ten betrachtet, wo wir wahrnahmen daß die Ober-<lb/>
+fläche des Ozeans eine be&#x017F;tändige Tendenz von Wärme hat,<lb/>
+wie es beim atlanti&#x017F;chen Meere 7° R. &#x017F;ind. <hi rendition="#aq"><persName resp="#CT" ref="http://www.deutschestextarchiv.de/kosmos/person#gnd-116048166 http://d-nb.info/gnd/116048166">Parry</persName></hi> der den Ein-<lb/>
+fluß des Meeres auf die Kontinente, in&#x017F;onderheit durch die<lb/>
+We&#x017F;twinde auf die We&#x017F;tkü&#x017F;ten nicht geahndet hat, führt an<lb/>
+daß an der <hi rendition="#aq">Baffinsbay</hi> die O&#x017F;tkü&#x017F;te kälter als die We&#x017F;t-<lb/>
+kü&#x017F;te &#x017F;ey, und er &#x017F;chreibt es fäl&#x017F;chlicher Wei&#x017F;e der Rota-<lb/>
+tion der Erde zu. &#x2014; Die&#x017F;e Ver&#x017F;chiedenheit hat uns auf<lb/>
+die Jdee der J&#x017F;otherm-Linien geführt. Wir haben er&#x017F;e-<lb/>
+hen warum Amerika kälter i&#x017F;t, oder warum die Linien<lb/>
+gleicher Wärme weder Paralellkrei&#x017F;e noch unter &#x017F;ich pa-<lb/>
+ralell &#x017F;ind. Das Kontinentalklima hat die Eigenthüm-<lb/>
+lichkeit daß die Winter &#x017F;ehr kalt, die Sommer &#x017F;ehr heiß<lb/>
+&#x017F;ind. Jn <hi rendition="#aq">Neujorck</hi> welches &#x017F;üdlicher als <hi rendition="#aq">Neapel</hi> i&#x017F;t i&#x017F;t im<lb/>
+Sommer 21° R. mittlere Wärme, dagegen die großen<lb/>
+Ströme da&#x017F;elb&#x017F;t <add place="superlinear"><metamark/>3&#x2013;</add>4 Monate gefriert bleiben<subst><del rendition="#ow">.</del><add place="across">;</add></subst> &#x2014; anders<lb/>
+aber i&#x017F;t es wenn man über das <choice><orig><hi rendition="#aq">Aligani</hi> Gebirge</orig><reg resp="#CT"><hi rendition="#aq">Aligani</hi>-Gebirge</reg></choice> in die<lb/>
+großen Ebenen des <hi rendition="#aq">Mis&#x017F;i&#x017F;pi</hi> geht. Ja man hat an der<lb/>
+we&#x017F;tlichen Kü&#x017F;te von Amerika noch eine größere Wär-<lb/>
+me als unter den&#x017F;elben Breiten in Europa. <choice><orig>Nimt</orig><reg resp="#CT">Nim&#x0303;t</reg></choice> man<lb/>
+<del rendition="#s">dagegen</del> <hi rendition="#aq">Berlin</hi> an &#x017F;o muß man dagegen an der O&#x017F;t-<lb/>
+kü&#x017F;te A&#x017F;iens <hi rendition="#aq">Pecking</hi> nehmen und gegen We&#x017F;ten <hi rendition="#aq">Paris</hi><lb/>
+al&#x017F;o einen <choice><orig>Convexen</orig><reg resp="#CT">convexen</reg></choice> Scheitel &#x017F;ich findet in<lb/>
+denjenigen Punkt wo man zu geringer Breite herab-<lb/>
+&#x017F;teigen muß um zu gleicher Wärme zu &#x017F;teigen. Die<lb/>
+Zunahme der Wärme giebt eine arithmeti&#x017F;che Progre&#x017F;&#x017F;ion<lb/>
+bei welcher das <hi rendition="#aq">Maximum</hi> hier um 2½ Uhr eintritt, und <choice><sic>die des</sic><corr resp="#CT">das</corr></choice><lb/>
+<hi rendition="#aq">Minimum</hi> gleich vor Sonnen-Aufgang; &#x017F;o daß wir al&#x017F;o an<lb/>
+jedem Tage zwei Beobachtungen haben; <choice><orig>nimt</orig><reg resp="#CT">nim&#x0303;t</reg></choice> man aber die<lb/>
+<fw place="bottom" type="catch">des</fw>
+<pb facs="#f0022" n="[13r]"/>
+<fw place="top" type="pageNum"><hi rendition="#right">5.</hi></fw><lb/>
+des Mittags oder eine andere dritte, dividirt die&#x017F;e durch 3, &#x017F;o ent&#x017F;teht<lb/>
+eine größere mittlere Wärme als eigentlich die Temperatur<lb/>
+ergiebt. Da dies unbequem i&#x017F;t, &#x017F;o hat man die Stunde des Tages<lb/>
+ge&#x017F;ucht, welche die mittlere Temperatur des des Tages ergiebt; den<lb/>
+Tag ge&#x017F;ucht welcher die mittlere Temperatur des Monats be-<lb/>
+&#x017F;timmt, und den Monat welcher die des Jahres bezeichnet. So<lb/>
+i&#x017F;t &#x017F;ie in <hi rendition="#aq">Edinburg</hi> um 9 Uhr des Abends oder 8 Uhr des Morgens;<lb/>
+jedoch gilt dies nicht für alle Orte unter gleichen oder wenig<lb/>
+ver&#x017F;chiedenen Breiten; denn nach den Beobachtungen in <hi rendition="#aq">Paris</hi> muß<lb/>
+man 8½ Uhr beobachten. Um die des Monats zu finden muß man<lb/>
+in <hi rendition="#aq">Mailand</hi> und <hi rendition="#aq">Wien</hi> vom 15 bis 20<hi rendition="#sup"><choice><abbr>t</abbr><expan resp="#CT">ten</expan></choice></hi> Aprill und 15&#x2013;20 October ver-<lb/>
+gleichen.</p><lb/>
+<p>Auch läßt &#x017F;ich auf die mittlere Temperatur des Orts aus<lb/>
+der Quellenwärme &#x017F;chließen, noch be&#x017F;&#x017F;er aber aus Bohrlöchern, wo<lb/>
+bei letzteren Ver&#x017F;uchen in Frankreich &#x017F;ie &#x017F;ich bei 32&#x2032; <choice><sic>tiefe</sic><corr resp="#CT">Tiefe</corr></choice> ergiebt.<lb/>
+Die Oberflächen-Wärme des Meeres unter den&#x017F;elben Breiten<lb/>
+giebt die mittlere Temperatur des Orts; aber in der Regel<lb/>
+etwas weniges höher. Ein anderes Mittel welches von <hi rendition="#aq"><persName resp="#CT" ref="http://www.deutschestextarchiv.de/kosmos/person#gnd-118618806 http://d-nb.info/gnd/118618806">Strabo</persName></hi><lb/>
+angiebt i&#x017F;t das durch die Kultur des Bodens und der Früchte.<lb/>
+Die jährliche mittlere Temperatur von <hi rendition="#aq">Berlin</hi> i&#x017F;t fa&#x017F;t 7° R.<lb/>
+d. h. die Ma&#x017F;&#x017F;e der Wärme übers ganze Jahr verbreitet<lb/>
+würde 7° R. geben; dagegen i&#x017F;t im wärm&#x017F;ten Monat die&#x017F;es<lb/>
+Orts im <hi rendition="#aq">August</hi> die mittlere Temperatur zwi&#x017F;chen 14 <choice><abbr>u</abbr><expan resp="#CT">und</expan></choice> 15° R. &#x2014;<lb/>
+Die Kultur der Tropenzone i&#x017F;t &#x017F;o &#x017F;tark daß &#x017F;ie die Dattel-<lb/>
+palme in wahrer Schönheit hervorbringt; hier i&#x017F;t eine mittlere<lb/>
+jährige Temperatur von 18° nöthig; &#x2014; dagegen um einen<lb/>
+bloßen Wald von Palmen ohne Früchte hervorzubringen,<lb/>
+wie man es we&#x017F;tlich von <hi rendition="#aq">Genua</hi> &#x017F;ieht, gehört noch die mittlere<lb/>
+Temperatur von 14° R. &#x2014; Citronenbäume wenn &#x017F;ie in freyer<lb/>
+<fw place="bottom" type="catch">Luft</fw><lb/>
+<pb facs="#f0023" n="[13v]"/>
+<fw place="top" type="pageNum">6.</fw><lb/>
+Luft &#x017F;tehen, und nicht wie bei uns wo &#x017F;ie gleich&#x017F;am i<subst><del rendition="#ow">m</del><add place="across">n</add></subst> Hospitälern<lb/>
+gepflegt werden, können 6° R. unter dem Gefrierpunkt ertragen.<lb/>
+Die mittlere Temperatur der Citronenbäume aber i&#x017F;t 13½°. Die<lb/>
+des Oelbaum der in Europa zwi&#x017F;chen 36 und 44° <choice><abbr>Nbr</abbr><expan resp="#CT">Nordbreite</expan></choice><add place="superlinear"><metamark/> wäch&#x017F;t</add>, erfordert<lb/>
+eine mittlere jährige Wärme von 11½ bis 15° R.; hier kommt<lb/>
+es aber auf die kälte&#x017F;ten Monate haupt&#x017F;ächlich an, welche<lb/>
+nicht unter 4½ <subst><del rendition="#ow"><unclear reason="covered" cert="low" resp="#CT">wir</unclear></del><add place="across">&#x017F;in</add></subst>d. &#x2014; Guter trinkbarer Wein erfordert<lb/>
+eine jährliche <choice><abbr>mittl:</abbr><expan resp="#CT">mittlere</expan></choice> Wärme von 7&#x2013;8° R.; was aber das<lb/>
+Wichtig&#x017F;te i&#x017F;t hier die Temperatur der 3 Wintermonate<lb/>
+welche mittlere nicht unter <choice><sic>dem</sic><corr resp="#CT">den</corr></choice> Gefrierpunkt &#x017F;inken darf.<lb/>
+Die Sommerwärme dagegen <choice><abbr>mittl:</abbr><expan resp="#CT">mittlere</expan></choice> <choice><abbr>temp</abbr><expan resp="#CT">Temperatur</expan></choice> von 15° R. haben<lb/>
+muß; &#x2014; dies i&#x017F;t in <hi rendition="#aq">Europa</hi> bis 50° <choice><abbr>Nbr</abbr><expan resp="#CT">Nordbreite</expan></choice> in <hi rendition="#aq">Amerika</hi> aber<lb/>
+&#x017F;chon mit dem 40° aufhört. Die Wintermonate wenn &#x017F;ie<lb/>
+bei den guten Weinen nur <hi rendition="#aq">minus</hi> ½° R. haben und die Som-<lb/>
+mermonate etwas über 14° &#x017F;o gedeiht er vollkommen.<lb/>
+Ja die Cerealien werden noch gebaut wo die Wintermo-<lb/>
+nate eine mittlere Temperatur von 1½° R. <choice><abbr>unt:</abbr><expan resp="#CT">unter</expan></choice> <choice><abbr>d.</abbr><expan resp="#CT">dem</expan></choice> <choice><abbr>Gefrierpkt</abbr><expan resp="#CT">Gefrierpunkt</expan></choice><lb/>
+haben; wenn nur die Sommermonate eine mittlere Tempe-<lb/>
+ratur von <subst><del rendition="#s">1½° R. <choice><abbr>unt:</abbr><expan resp="#CT">unter</expan></choice></del><add place="intralinear">7 bis 8° über</add></subst> <choice><abbr>d.</abbr><expan resp="#CT">dem</expan></choice> <choice><abbr>Gefrierpkt</abbr><expan resp="#CT">Gefrierpunkt</expan></choice> zeigen, eine<lb/>
+Wärme welche die Birken zu ihrer Entwickelung bedürfen<choice><sic/><corr resp="#CT">.</corr></choice></p><lb/>
+<p>Die&#x017F;es Erwachen der Natur im Frühjahr i&#x017F;t &#x017F;ehr merk-<lb/>
+würdig, und hat mir in&#x017F;onderheit zu vielfältigen Beobachtun-<lb/>
+gen Anlaß gegeben. Das &#x017F;chnelle Erwachen der Natur<lb/>
+beruht darauf daß in kurzer Epoche die Wärme bedeutend<lb/>
+<choice><orig>zunimt</orig><reg>zunim&#x0303;t</reg></choice>. Pfir&#x017F;iche blühen bei 4½° R., Birken &#x017F;chlagen bei<lb/>
+8&#x2013;9° aus. Jn <hi rendition="#aq">Rom</hi> tritt die&#x017F;e Zeit im <hi rendition="#aq">März</hi> ein i<subst><del rendition="#ow">m</del><add place="across">n</add></subst> <hi rendition="#aq">Berlin</hi><lb/>
+im Anfang <hi rendition="#aq">May</hi>, <hi rendition="#aq">Up&#x017F;ala</hi> Mitte <hi rendition="#aq">Junius</hi>. Die Vegetations-<lb/>
+zeit i&#x017F;t das Wichtig&#x017F;te, im &#x017F;üdlichen Frankreich dauert &#x017F;ie<lb/>
+270 Tage wo die mittlere <choice><abbr>Temp.</abbr><expan resp="#CT">Temperatur</expan></choice> 9° R. i&#x017F;t; in <hi rendition="#aq">Petersburg</hi> nur<lb/>
+<fw place="bottom" type="catch">120</fw><lb/>
+<pb facs="#f0024" n="[14r]"/>
+<fw type="pageNum" place="top"><hi rendition="#right">7.</hi></fw><lb/>
+120 Tage. Ger&#x017F;te wird noch gebaut wo 90 Tage 7° mittlere Tempe-<lb/>
+ratur haben. Nach ihr fängt der Kartoffelbau an.</p><lb/>
+<p>Wenn wir die Wärme betrachten &#x017F;o i&#x017F;t in <hi rendition="#aq">Berlin</hi> der<lb/>
+größt möglich&#x017F;te Unter&#x017F;chied der&#x017F;elben zwi&#x017F;chen Monat <hi rendition="#aq">März</hi> und<lb/>
+<hi rendition="#aq">Aprill</hi> wo er 4½° R. ver&#x017F;chieden i&#x017F;t, &#x017F;chon geringer tritt er vom<lb/>
+Monat <hi rendition="#aq">Aprill</hi> zum <hi rendition="#aq">May</hi> ein wo er 3<formula notation="TeX">\nicefrac{2}{10}</formula>° R. beträgt. Nicht &#x017F;o<lb/>
+i&#x017F;t das im Norden, hier i&#x017F;t <subst><del rendition="#s">er</del><add place="across">in</add></subst> <hi rendition="#aq">Petersburg</hi> im <hi rendition="#aq">Aprill</hi> <choice><abbr>u</abbr><expan resp="#CT">und</expan></choice> <hi rendition="#aq">May</hi><lb/>
+7¾° R. der größt möglich&#x017F;te Unter&#x017F;chied. Für das Gefühl<lb/>
+äußert &#x017F;ich der Einfluß der Wärme je nachdem die ab&#x017F;o-<lb/>
+lute Wärme ver&#x017F;chieden i&#x017F;t. Jn <hi rendition="#aq">Petersburg</hi> findet oft ein<lb/>
+plötzliches Steigen von 3 bis 10° &#x017F;tatt. Jn <hi rendition="#aq">Süd-Amerika</hi> muß<lb/>
+man &#x017F;ich in einigen Gegenden fürchten zu erkälten, wenn man<lb/>
+von der Sonne in den Schatten übergeht. &#x2014;</p><lb/>
+<p>Nun wollen wir uns zu den allgemeinen Re&#x017F;ultaten<lb/>
+wenden.</p><lb/>
+<p>1, Abnahme der mittleren jährigen Temperatur vom<lb/>
+Aequator bis zu den Polen; &#x2014; bloß von der Ebene und den<lb/>
+Kontinenten.</p><lb/>
+<p>Hier in der temperirten Zone werde ich die Zwi&#x017F;chenpunk-<lb/>
+te annehmen. Es i&#x017F;t &#x017F;ehr viel über die Temperatur unter<lb/>
+dem Aequator ge&#x017F;tritten. <hi rendition="#aq"><persName resp="#CT" ref="http://viaf.org/viaf/218581457">Acquini&#x017F;hon</persName></hi> hat &#x017F;ie zu 24° R. be-<lb/>
+&#x017F;tim&#x0303;t,<note resp="#BF" type="editorial">Vgl. <bibl>Atkinson, Henry: On Astronomical and other Refractions; with a connected Inquiry into the Law of Temperature in different Latitudes and at different Altitudes. In: Memoirs of the [Royal] Astronomical Society of London. 2. Band (1826), 1. Teil. London 1826, S. 137-260.</bibl> Online verfügbar: <ref target="http://adsabs.harvard.edu/full/1826MmRAS...2..137A">SAO/NASA Astrophysics Data System (ADS) (Harvard), abgerufen am 12.01.2016</ref>.<lb/>
+</note> es <choice><sic/><corr resp="#CT">i&#x017F;t</corr></choice> aber die <choice><abbr>mittl:</abbr><expan resp="#CT">mittlere</expan></choice> der&#x017F;elben nicht mehr wie 22<formula notation="TeX">\nicefrac{2}{10}</formula>° R. Die<lb/>
+Beobachtungen von <hi rendition="#aq">Ceylon</hi> ergeben 21<formula notation="TeX">\nicefrac{7}{10}</formula>° R. <hi rendition="#aq">Batavia</hi> 21<formula notation="TeX">\nicefrac{2}{10}</formula><choice><sic/><corr resp="#CT">°</corr></choice> R. Die<lb/>
+mittlere Wärme des Aequators i&#x017F;t &#x017F;o 1½° R. wärmer als in<lb/>
+<subst><del rendition="#s"><hi rendition="#aq">Paris</hi></del><add place="intralinear"><hi rendition="#aq">Neapel</hi></add></subst> und 7° R. wärmer als in <hi rendition="#aq">Paris</hi>. Gegen die<lb/>
+Wendekrei&#x017F;e <choice><orig>nimt</orig><reg resp="#CT">nim&#x0303;t</reg></choice> &#x017F;ie ab, obgleich die Gewäch&#x017F;e beinah die&#x017F;elben<lb/>
+bleiben; hier fällt die mittlere Temperatur zwi&#x017F;chen 19 <choice><abbr>u</abbr><expan resp="#CT">und</expan></choice> 22° R.<lb/>
+in <hi rendition="#aq">Havanna</hi> 20½°, in <hi rendition="#aq">Makao</hi> fa&#x017F;t 19°, weil hier die ö&#x017F;tliche Kü&#x017F;te,<lb/>
+&#x017F;o daß es im Winter &#x017F;elb&#x017F;t friert. <hi rendition="#aq">Rio Janeiro</hi> 19° <choice><abbr>mittl</abbr><expan resp="#CT">mittlere</expan></choice> Wärme.<lb/>
+Ein Zwi&#x017F;chenpunkt von die&#x017F;er i&#x017F;t von Herrn <persName resp="#CT" ref="http://www.deutschestextarchiv.de/kosmos/person#gnd-116817569 http://d-nb.info/gnd/116817569"><choice><abbr>v</abbr><expan resp="#CT">von</expan></choice> <hi rendition="#aq">Buch</hi></persName> in<lb/>
+<fw type="catch" place="bottom">den</fw><lb/>
+<pb facs="#f0025" n="[14v]"/>
+<fw place="top" type="pageNum">8.</fw><lb/>
+<choice><sic>in </sic><corr resp="#CT"/></choice>den <hi rendition="#aq">Canari&#x017F;chen Jn&#x017F;eln</hi> unter 28° Breite gefunden, wo &#x017F;ie 18<formula notation="TeX">\nicefrac{2}{10}</formula> i&#x017F;t.<lb/>
+al&#x017F;o 11° höher als die von <hi rendition="#aq">Berlin</hi>. Jn Afrika unter den&#x017F;elben<lb/>
+Graden i&#x017F;t &#x017F;ie im Nilthale etwas höher. Die <choice><abbr>mittl:</abbr><expan resp="#CT">mittlere</expan></choice> Tempera-<lb/>
+tur der Wärme von <hi rendition="#aq">Mailand</hi> bis <hi rendition="#aq">Paris</hi> liegt <choice><abbr>zw:</abbr><expan resp="#CT">zwi&#x017F;chen</expan></choice> 7 bis 10°<lb/>
+in <hi rendition="#aq">Mailand</hi> i&#x017F;t &#x017F;ie 10° in <hi rendition="#aq">Paris</hi> 7½°. Je weiter gegen We&#x017F;ten<lb/>
+je bedeutender erhält &#x017F;ie &#x017F;ich im Verhältniß zu den O&#x017F;tkü&#x017F;ten.<lb/>
+So i&#x017F;t in <hi rendition="#aq">Stockholm</hi> 4½° in <hi rendition="#aq">Finnland</hi> 4°, <hi rendition="#aq">Petersburg</hi> 2½° <choice><abbr>mittl</abbr><expan resp="#CT">mittlere</expan></choice><lb/>
+<choice><abbr>Temp</abbr><expan resp="#CT">Temperatur</expan></choice>. Jn <hi rendition="#aq">Berlin</hi> wird &#x017F;ie gefunden durch den <hi rendition="#aq">Aprill</hi><lb/>
+in <hi rendition="#aq">Paris</hi> durch Anfang <hi rendition="#aq">May</hi>. &#x2014;</p><lb/>
+<p>Dem Pole fehlen Orte um &#x017F;ie hier zu be&#x017F;tim&#x0303;en. <hi rendition="#aq"><persName resp="#CT" ref="http://www.deutschestextarchiv.de/kosmos/person#gnd-117654167 http://d-nb.info/gnd/117654167">Scoresby</persName></hi><lb/>
+<metamark>|:</metamark>der berühmte Wallfi&#x017F;chfänger<metamark>:|</metamark> fand unter 78° <choice><abbr>Nbr</abbr><expan resp="#CT">Nordbreite</expan></choice> die <choice><abbr>mittl</abbr><expan resp="#CT">mittlere</expan></choice> <choice><abbr>temp.</abbr><expan resp="#CT">Temperatur</expan></choice><lb/>
+<hi rendition="#aq">minus</hi> 5½° in <hi rendition="#aq">Lappland</hi> i&#x017F;t dies auch <choice><abbr>d</abbr><expan resp="#CT">der</expan></choice> Fall, <choice><abbr>u</abbr><expan resp="#CT">und</expan></choice> in <hi rendition="#aq">Amerika</hi> unter<lb/>
+67° <choice><abbr>Nbr</abbr><expan resp="#CT">Nordbreite</expan></choice> in <hi rendition="#aq">Labrador</hi> al&#x017F;o in der Breite von <hi rendition="#aq">Königsberg</hi>. Das<lb/>
+<hi rendition="#aq">Fort Enterprei&#x017F;e</hi> die kälte&#x017F;te Gegend unter 64° <choice><abbr>Nbr</abbr><expan resp="#CT">Nordbreite</expan></choice><choice><orig>;</orig><reg resp="#CT"/></choice> im Lande<lb/>
+der <choice><orig>Kupfer Jndianer</orig><reg resp="#CT">Kupfer-Jndianer</reg></choice> i&#x017F;t die <choice><abbr>mittl</abbr><expan resp="#CT">mittlere</expan></choice> <choice><abbr>Temp</abbr><expan resp="#CT">Temperatur</expan></choice> 7½° <choice><abbr>unt</abbr><expan resp="#CT">unter</expan></choice> <choice><abbr>d.</abbr><expan resp="#CT">dem</expan></choice> Gefrierpunkt.</p><lb/>
+<p>Kapitain <hi rendition="#aq"><persName resp="#CT" ref="http://www.deutschestextarchiv.de/kosmos/person#gnd-116048166 http://d-nb.info/gnd/116048166">Parry</persName></hi> der genöthigt war die &#x017F;echs Winter-<lb/>
+monate auf den <hi rendition="#aq"><choice><orig>Melvills Jn&#x017F;eln</orig><reg resp="#CT">Melvills-Jn&#x017F;eln</reg></choice></hi> zuzubringen, fand hier in<lb/>
+allen &#x017F;echs Monaten 25° <choice><abbr>unt:</abbr><expan resp="#CT">unter</expan></choice> <choice><abbr>d.</abbr><expan resp="#CT">dem</expan></choice> Gefrierpunkt be&#x017F;tim&#x0303;t.<lb/>
+Die größte Kälte i&#x017F;t aber we&#x017F;tlich von der <hi rendition="#aq">Lena</hi> in den<lb/>
+knochenreichen Jn&#x017F;eln. &#x2014; Merkwürdig genug i&#x017F;t es daß der<lb/>
+berühmte A&#x017F;tronom <hi rendition="#aq"><persName resp="#CT" ref="http://www.deutschestextarchiv.de/kosmos/person#gnd-118579576 http://d-nb.info/gnd/118579576">Tobias Meyer</persName></hi> &#x017F;ich über die Abnahme<lb/>
+der Wärme geirrt hat, und ich glaube, daß man hier wohl<lb/>
+mit der allgemeinen Betrachtung &#x017F;chließen kann, daß die<lb/>
+<choice><abbr>mittl</abbr><expan resp="#CT">mittlere</expan></choice> <choice><abbr>Temp.</abbr><expan resp="#CT">Temperatur</expan></choice> des Poles &#x017F;o viel unter dem Gefrierpunkt be-<lb/>
+trägt als die des Aequators über dem Gefrierpunkt angiebt.</p><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<gap reason="lost"/><note resp="#CT" type="editorial">An dieser Stelle, mit dem Ende der 49. Kosmos-Vorlesung Alexander von Humboldts an der Berliner Universität, bricht die fragmentarische Nachschrift ab. Eine nicht genauer bestimmbare Anzahl folgender Seiten fehlt im Konvolut <ref target="https://www.deutsche-digitale-bibliothek.de/item/UUHC4SBVHG2HDR345O3AOPYCEJLHWQO2">GSTA, VI. HA, Nl Willisen, A., Nr. 83</ref>. Weitere, zu diesem Fragment gehörende Seiten konnten im Nachlass Willisens nicht ermittelt werden.<lb/>
+</note><lb/>
+</div>         </body>     </text> </TEI>

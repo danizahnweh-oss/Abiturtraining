@@ -1,0 +1,1472 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+<teiHeader>
+<fileDesc>
+<titleStmt>
+<title type="main">Allgemeine Zeitung</title>
+<title type="sub">Nr. 47</title>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/115266127">
+<surname>Geyken</surname>
+<forename>Alexander</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1222198746">
+<surname>Haaf</surname>
+<forename>Susanne</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1019062681">
+<surname>Jurish</surname>
+<forename>Bryan</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Boenig</surname>
+<forename>Matthias</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Thomas</surname>
+<forename>Christian</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Wiegand</surname>
+<forename>Frank</forename>
+</persName>
+</editor>
+<respStmt>
+<orgName>Institut für Deutsche Sprache, Mannheim</orgName>
+<resp>
+<note type="remarkResponsibility">Bereitstellung der Bilddigitalisate und TEI
+Transkription</note>
+<ref target="http://hdl.handle.net/10932/00-01B8-AEE5-B4D7-8D01-D"/>
+</resp>
+</respStmt>
+<respStmt>
+<persName>
+<forename>Peter</forename>
+<surname>Fankhauser</surname>
+</persName>
+<resp>
+<note type="remarkResponsibility">
+Transformation von TUSTEP nach TEI P5.
+Transformation von TEI P5 in das DTA TEI P5 Format.
+</note>
+</resp>
+</respStmt>
+<respStmt>
+<orgName ref="https://www.bbaw.de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<resp>
+<note type="remarkResponsibility">Langfristige Bereitstellung der DTA-Ausgabe</note>
+<ref target="https://www.bbaw.de"/>
+</resp>
+</respStmt>
+</titleStmt>
+<editionStmt><edition>Vollständige digitalisierte Ausgabe.</edition></editionStmt>
+<extent>
+<measure type="images">8</measure>
+<measure type="tokens">11663</measure>
+<measure type="types">4439</measure>
+<measure type="characters">85034</measure>
+</extent>
+<publicationStmt>
+<publisher xml:id="DTACorpusPublisher">
+<email>dta@bbaw.de</email>
+<orgName role="project">Deutsches Textarchiv</orgName>
+<orgName role="hostingInstitution" xml:lang="en">Berlin-Brandenburg Academy of Sciences and Humanities (BBAW)</orgName>
+<orgName role="hostingInstitution" xml:lang="de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<address>
+<addrLine>Jägerstr. 22/23, 10117 Berlin</addrLine>
+<country>Germany</country>
+</address>
+</publisher>
+<pubPlace>Berlin</pubPlace>
+<date type="publication">2025-10-24T08:31:57Z</date>
+<availability>
+<licence target="http://creativecommons.org/licenses/by-nc/3.0/de/">
+<p>Dieses Werk steht unter der "Creative Commons Namensnennung - Nicht kommerziell 3.0 Deutschland Lizenz" (CC BY-NC).</p>
+</licence>
+</availability>
+<idno>
+<idno type="URLWeb">https://www.deutschestextarchiv.de/nn_augsburg47_1871</idno>
+<idno type="URLXML">https://www.deutschestextarchiv.de/book/download_xml/nn_augsburg47_1871</idno>
+<idno type="URLHTML">https://www.deutschestextarchiv.de/book/download_html/nn_augsburg47_1871</idno>
+<idno type="URLText">https://www.deutschestextarchiv.de/book/download_text/nn_augsburg47_1871</idno>
+<idno type="DTADirName">nn_augsburg47_1871</idno>
+<idno type="DTAID">31004</idno>
+<idno type="URN">urn:nbn:de:kobv:b4-31004-3</idno>
+</idno>
+</publicationStmt>
+<sourceDesc>
+<bibl type="J">Allgemeine Zeitung. Nr. 47. Augsburg (Bayern), 16. Februar 1871.</bibl>
+<biblFull>
+<titleStmt>
+<title level="m" type="main">Allgemeine Zeitung</title>
+<title level="m" type="sub">Nr. 47</title>
+</titleStmt>
+<editionStmt>
+<edition n="1"/>
+</editionStmt>
+<publicationStmt>
+<publisher/>
+<pubPlace>Augsburg (Bayern)</pubPlace>
+<date type="publication">1871</date>
+</publicationStmt>
+</biblFull>
+<msDesc>
+<msIdentifier>
+</msIdentifier>
+<physDesc>
+<typeDesc>
+<p>Fraktur</p>
+</typeDesc>
+</physDesc>
+</msDesc>
+</sourceDesc>
+</fileDesc>
+<encodingDesc>
+<editorialDecl>
+<p>
+<![CDATA[
+<p>Siehe Dokumentation</p>
+]]>
+</p>
+</editorialDecl>
+<tagsDecl>
+<rendition scheme="css" xml:id="aq">font-family:sans-serif</rendition>
+<rendition scheme="css" xml:id="b">font-weight:bold</rendition>
+<rendition scheme="css" xml:id="blue">color:blue</rendition>
+<rendition scheme="css" xml:id="c">display:block; text-align:center</rendition>
+<rendition scheme="css" xml:id="et">display:block; margin-left:2em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et2">display:block; margin-left:4em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et3">display:block; margin-left:6em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="f">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="fr">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="g">letter-spacing:0.125em</rendition>
+<rendition scheme="css" xml:id="i">font-style:italic</rendition>
+<rendition scheme="css" xml:id="in">font-size:150%</rendition>
+<rendition scheme="css" xml:id="k">font-variant:small-caps</rendition>
+<rendition scheme="css" xml:id="larger">font-size:larger</rendition>
+<rendition scheme="css" xml:id="red">color:red</rendition>
+<rendition scheme="css" xml:id="right">display:block; text-align:right</rendition>
+<rendition scheme="css" xml:id="s">text-decoration:line-through</rendition>
+<rendition scheme="css" xml:id="smaller">font-size:smaller</rendition>
+<rendition scheme="css" xml:id="sub">vertical-align:sub; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="sup">vertical-align:super; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="u">text-decoration:underline</rendition>
+<rendition scheme="css" xml:id="uu">border-bottom:double 3px #000</rendition>
+</tagsDecl>
+</encodingDesc>
+<profileDesc>
+<langUsage>
+<language ident="deu">(Früh-)Neuhochdeutsch</language>
+<language ident="deu">German</language>
+</langUsage>
+<textClass>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1main">Zeitung</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">ready</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">mkhz1</classCode>
+</textClass>
+</profileDesc>
+</teiHeader>
+<text>
+<front>
+<div>
+<pb facs="#f0001"/>
+<p rendition="#c">
+<hi rendition="#fr">Allgemeine Zeitung.</hi>
+</p>
+<p>
+<hi rendition="#fr">Nr. 47.</hi> <hi rendition="#c">
+<hi rendition="#fr">Augsburg, Donnerstag, 16 Februar</hi>
+</hi> <hi rendition="#right">1871.</hi>
+</p>
+<p rendition="#c">Verlag der J. G. <hi rendition="#g">Cotta'</hi> schen Buchhandlung. Für die Redaction verantwortlich: <hi rendition="#aq">Dr</hi>. J. v. <hi rendition="#g">Gosen</hi>. </p>
+<cb type="start"/>
+<p><hi rendition="#aq">Das Abonnement beträgt vierteljährlich</hi>: <hi rendition="#aq">bei den Postämtern des deutsch-<lb/>
+<space dim="horizontal"/>österreichischen Postvereins fl. 4. -- oder Rthlr. 2. 8 Sgr. 7 Pf. excl. Stempelsteuer. <lb/>
+bei den Postämtern der Schweiz.... Fr. 12. 40 Cts. ( halbjährl. Fr. 24. 20 Cts. ) <lb/>
+&#x201E; dem preuss. Postamt in Köln für die <hi rendition="#g">Vereinigten Staaten</hi> <lb/>
+<space dim="horizontal"/>von Nord-Amerika................. Rthlr. 9. 14 Sgr. <lb/>
+&#x201E; demselben für <hi rendition="#g">England</hi> <hi rendition="#sup">*</hi> ) .............. Rthlr. 3.22 1 / 2 Sgr. <lb/>
+&#x201E; dem k. k. Postamt in Triest für Konstantinopel...... Oe. W. fl. 5. 62 Nkr. <lb/>
+&#x201E; den Herren A. Detken u. Rocholl in Neapel, H. Löscher in Turin, <lb/>
+<space dim="horizontal"/>Florenz und Rom, H. F. Münster in Verona und Venedig, Giusto <lb/>
+<space dim="horizontal"/>Ebhardt in Venedig, Valentiner und Mues, U. Hoepli in Mailand, <lb/>
+<space dim="horizontal"/>J. Spithoever in Rom für <hi rendition="#g">Italien</hi> <hi rendition="#sup">**</hi> ) .......... ( in Papier ) Fr</hi>. 46.</p>
+<cb/>
+<p>
+<hi rendition="#aq">bei Hrn. G. Alexandre <hi rendition="#sup">***</hi> ) ( <hi rendition="#g">Paris,</hi> Cour du Commerce, St.-André-<lb/>
+<space dim="horizontal"/>des-Arts, 2, <hi rendition="#g">Strassburg,</hi> rue brûlée, 5 ) für <hi rendition="#g">Frankreich</hi> und <lb/>
+<space dim="horizontal"/> <hi rendition="#g">Algerien</hi> ganz franco................<space dim="horizontal"/>Fr. 18. -- Cts <lb/>
+&#x201E; demselben für <hi rendition="#g">Spanien</hi> und <hi rendition="#g">Portugal</hi> frankirt bis zur französ. <lb/>
+<space dim="horizontal"/>Austrittsgränze...............<space dim="horizontal"/>Fr. 28. -- Cts. <lb/>
+&#x201E;<space dim="horizontal"/>&#x201E;<space dim="horizontal"/>für <hi rendition="#g">England</hi> über Belgien, franco bis z. Bestimmungsort<space dim="horizontal"/>Fr. 14. -- Cts. <lb/>
+&#x201E;<space dim="horizontal"/>&#x201E;<space dim="horizontal"/>franco wie oben für <hi rendition="#g">Aegypten, Konstantinopel</hi> <lb/>
+<space dim="horizontal"/>und <hi rendition="#g">Griechenland</hi>............<space dim="horizontal"/>Fr. 24. 25 Cts. <lb/>
+&#x201E;<space dim="horizontal"/>&#x201E;<space dim="horizontal"/>für <hi rendition="#g">Amerika</hi> frankirt bis zum Landungshafen...<space dim="horizontal"/>Fr. 24. 50 Cts. <lb/>
+&#x201E;<space dim="horizontal"/>&#x201E;<space dim="horizontal"/>für die <hi rendition="#g">französischen</hi> und <hi rendition="#g">englischen über-<lb/>
+<space dim="horizontal"/>seeischen Colonien, Brasilien, Mexico</hi> und <lb/>
+<space dim="horizontal"/> <hi rendition="#g">China</hi> frankirt bis zum Landungshafen.....<space dim="horizontal"/>Fr. 27. 75 Cts.</hi>
+</p>
+<cb type="end"/>
+<note place="foot">
+<p><hi rendition="#sup">*</hi> ) <hi rendition="#aq">Für England auch bei Hrn. A. Siegle, 110 Leadenhall Street E. C. in London.</hi> </p>
+<p><hi rendition="#sup">**</hi> ) <hi rendition="#aq">Für Italien auch bei den Herren Gebr. Bocca in Florenz und Turin für Fr. 13. 70 Cent.</hi> </p>
+<p><hi rendition="#sup">***</hi> ) <hi rendition="#aq">Für Spanien, Frankreich und Portugal abonnirt man auch bei Hrn. Klincksieck Nr. 11, rue de Lille in Paris.</hi> </p>
+</note>
+<p rendition="#c"><hi rendition="#aq">Kreuzbandsendungen befördert auf Bestellung die Expedition der &#x201E;Allgemeinen Zeitung</hi>.&#x201C;</p>
+<cb type="start"/>
+<p>
+<hi rendition="#aq">Die Francatur hiefür beträgt innerhalb des <hi rendition="#g">ganzen deutsch-österreichi-<lb/>
+<space dim="horizontal"/>schen Postvereins</hi> für eine gewöhnliche Nummer mit Beilage == 2 Loth 4 kr. p. N.</hi>
+</p>
+<cb/>
+<p><hi rendition="#aq">nach andern Ländern, und zwar nach <hi rendition="#g">Belgien</hi> und <hi rendition="#g">Italien</hi>.... 2 kr. p. N. <lb/>
+<space dim="horizontal"/> <hi rendition="#g">Frankreich</hi> und <hi rendition="#g">Niederlande</hi> </hi>.. 3 &#x201E; &#x201E; &#x201E;</p>
+<cb type="end"/>
+<p>
+<lb/>
+<figure/>
+</p>
+<p rendition="#c">
+<hi rendition="#aq">Preis der einzelnen Nummer mit Beilage 6 kr. oder 2 Ngr. für ganz Deutschland.</hi>
+</p>
+<p>
+<lb/>
+<figure/>
+</p>
+</div>
+</front>
+<body>
+<cb type="start"/>
+<p rendition="#c">
+<hi rendition="#fr">Uebersicht.</hi>
+</p><lb/>
+<p>Der Krieg und die deutsche Marine.</p><lb/>
+<p>Der Krieg.</p><lb/>
+<p>Deutsches Reich. <hi rendition="#g">München:</hi> Audienzen. Eine ministerlose Zukunft.<lb/>
+Die Candidaturen für den deutschen Reichstag. Mandatsablehnungen.<lb/>
+Spende für Militärfamilien. Preßproceß. Spitalzüge. <hi rendition="#g">Stuttgart:</hi><lb/>
+Die Reichsrathswahlen. Die Ulm=Heidenheimer Eisenbahn. <hi rendition="#g">Berlin:</hi><lb/>
+Fortdauer der Rüstungen. Sterblichkeit unter den Gefangenen. Still-<lb/>
+stand der Jndustrie. Wahlbewegung.</p><lb/>
+<p>Oesterreichisch=ungarische Monarchie. <hi rendition="#g">Wien:</hi> Officiöse<lb/>
+Dementis. Zum Programm des neuen Ministeriums. Ein Erlaß an<lb/>
+die Landeschefs. Erzherzogin Marie Annunziata. Die Stellung des<lb/>
+Grafen Beust. Die Veränderungen im ungarischen Ministerium.<lb/>
+Oesterreich und Rom. <hi rendition="#g">Pest:</hi> Der Ministerwechsel in Ungarn und in<lb/>
+Cisleithanien.</p><lb/>
+<p>Schweiz. <hi rendition="#g">Bern:</hi> Truppen=Entlassung. Officielle Angabe über die An-<lb/>
+zahl der internirten Franzosen. Die 15 Millionen=Anleihe. Jesuiten-<lb/>
+Umtriebe. Eine Eisenbahncommission.</p><lb/>
+<p>Frankreich. <hi rendition="#g">Aus dem Elsaß:</hi> Presse und käufliche Stellen.</p><lb/>
+<p>Jtalien. <hi rendition="#g">Florenz:</hi> Die Lage in Nizza. Verlegenheit der italienischen<lb/>
+Regierung. <hi rendition="#g">Rom:</hi> Zur städtischen Verwaltung. Lamarmora. Der<lb/>
+Papst. Eröffnung des Carnevals.</p><lb/>
+<p>Verschiedenes.</p><lb/>
+<p>Jndustrie, Handel und Verkehr.</p><lb/>
+<p>Neueste Posten. <hi rendition="#g">Agram:</hi> Neuwahlen für den Landtag. <hi rendition="#g">Madrid:</hi><lb/>
+Aus den Antillen. <hi rendition="#g">Konstantinopel:</hi> Die armenischen Dissenter.<lb/>
+Der neue diplomatische Agent für Rumänien. Die Fregatte &#x201E; Armo-<lb/>
+rique.&#x201C; Ueberschwemmung in Smyrna.</p><lb/>
+<p>Außerordentliche Beilage. Nr. 26.</p><lb/>
+<p rendition="#c">Telegraphische Berichte.</p><lb/>
+<p>× München, 15 Febr. Die &#x201E;Correspondenz Hoffmann&#x201C; meldet<lb/>
+daß durch königl. Entschließung der Landtag bis zum 18 Febr. verlän-<lb/>
+gert ist.</p><lb/>
+<p><hi rendition="#sup">*</hi> Karlsruhe, 15 Febr. Die &#x201E;Karlsruher Zeitung&#x201C; bringt folgen-<lb/>
+des Telegramm des Etappencommando's in Mülhausen an das badische<lb/>
+Kriegsministerium: <hi rendition="#g">Belfort hat einen Waffenstillstand abge-<lb/>
+schlossen und will capituliren.</hi></p><lb/>
+<p><hi rendition="#sup">*</hi> Berlin, 15 Febr. Das Generalvostamt verfügt daß von jetzt<lb/>
+ab auch verschlossene gewöhnliche Briefe nach Paris befördert werden<lb/>
+dürfen. Die Taxe ist dieselbe wie vor Ausbruch des Kriegs. Die Ver-<lb/>
+sendung recommandirter Briefe ist nicht zulässig.</p><lb/>
+<p><hi rendition="#sup">*</hi> London, 14 Febr. Jm <hi rendition="#g">Unterhaus</hi> erwiederte <hi rendition="#g">Enfield,</hi><lb/>
+Unterstaatssecretär des Auswärtigen, auf eine Jnterpellation von Smith:<lb/>
+Graf Bismarck werde versprochenermaßen die Eigenthümer der versenkten<lb/>
+Seine=Schiffe nach erledigter Feststellung der Thatsachen entschädigen. --<lb/>
+Jm <hi rendition="#g">Oberhaus</hi> erwiederte <hi rendition="#g">Granville,</hi> von Lord Cairns interpellirt:<lb/>
+die amerikanisch=englische Commission werde sämmtliche schwebenden Streit-<lb/>
+fragen erörtern, damit ein Schlußvertrag zuwege komme; die Veröffent-<lb/>
+lichung ihrer Jnstructionen sei vorerst unstatthaft. Wiederum von Lord<lb/>
+Cairns interpellirt, bestätigte Granville die Aussage Gladstone's: daß<lb/>
+Palmerston und Clarendon der Neutralisirung des Schwarzen Meeres nur<lb/>
+geringe Bedeutung beimaßen, und daß beide, seit die Pforte eine gewaltige<lb/>
+Flotte besaß, eine Modificirung des Vertrags vorhersahen. Weitere Aus-<lb/>
+lassungen betreffs der Conferenz verweigerte Granville.</p><lb/>
+<cb/>
+<p><hi rendition="#sup">*</hi> Lille, 14 Febr. Der &#x201E;Propagateur de Lille&#x201C; zieht bei Besprechung<lb/>
+der Pariser Wahlen den Schluß: daß es in Zukunst nöthig sein werde<lb/>
+daß die Nationalversammlung nicht mehr in Paris tage, damit Sicherheit<lb/>
+gegen Wiederholung des 4 September erlangt werde.</p><lb/>
+<p>&#x2642; Nizza, 15 Febr. Zehntausend Mann sind hier eingetroffen.<lb/>
+Alle Verhafteten sind auf einer Panzerfregatte nach Toulon gebracht wor-<lb/>
+den. Die Verkäufer des Blattes &#x201E;Voix de Nice&#x201C; wurden verhaftet, das<lb/>
+Blatt selbst unterdrückt, 5 Redactionsmitglieder eingesperrt. Ein Präfec-<lb/>
+turanschlag verhängt den Kriegszustand. Der Aufstand der Jtaliener<lb/>
+ist vollständig niedergeworfen. Zwei Panzerfregatten kreuzen vor der<lb/>
+Stadt.</p><lb/>
+<p>( <hi rendition="#sup">*</hi> ) Brüssel, 14 Febr. Wie in diplomatischen Kreisen verlautet, ist<lb/>
+das vom englischen Cabinet gestellte Ansuchen um Mittheilung der von<lb/>
+deutscher Seite in Aussicht genommenen Friedensbedingungen für Frank-<lb/>
+reich deutscherseits unter Bezugnahme auf frühere diplomatische Aeuße-<lb/>
+rungen in dieser Angelegenheit ablehnend beantwortet worden.</p><lb/>
+<p><hi rendition="#sup">*</hi> Brüssel, 14 Febr. Das &#x201E;Echo&#x201C; meldet: Algier und die an-<lb/>
+gränzenden Districte sind durch Decret vom 1 Februar in Belagerungs-<lb/>
+stand erklärt.</p><lb/>
+<p><hi rendition="#sup">*</hi> Brüssel, 15 Febr. Die hier eingetroffene &#x201E;Correspondance<lb/>
+Havas&#x201C; vom 10 d. meldet: Der ehemalige Präsident Schneider ist in<lb/>
+Paris eingetroffen. Dem Pariser Blatt &#x201E;Le Soir&#x201C; zufolge soll General<lb/>
+Chanzy die Fortsetzung des Krieges für absolut unmöglich erklärt habn.<lb/>
+Die Anzahl der ausgefertigten Geleitscheine beläuft sich auf 140,000.</p><lb/>
+<p><hi rendition="#sup">*</hi> London, 14 Febr. Schlußcurse: Consols92 1 / 16; 1882er Amerikaner<lb/>
+91 1 / 4; Türken42 1 / 8; Lombarden --; Jtaliener --.</p><lb/>
+<p>&#x2051; Liverpool, 14 Febr. <hi rendition="#g">Baumwollenbericht.</hi> Tagesumsatz 12,000 B.,<lb/>
+zur Ausfuhr verkauft 2000 B. Stimmung: unverändert. Orleans7 15 / 16. Die<lb/>
+Preise der übrigen Sorten unverändert. Tagesimport 34,000 B., davon indische<lb/>
+1000 B., amerikanische 29,000 Ballen.</p><lb/>
+<p rendition="#c">Der Krieg und die deutsche Marine.</p><lb/>
+<p><lb/>
+<abbr>sym3</abbr> Die neue Reichsverfassung ist, was auch ihre Mängel sein mögen,<lb/>
+glücklicherweise doch in so weit einheitlich und geschlossen ausgefallen, daß<lb/>
+kein Theil von Deutschland an den Lasten und Ehren der gemeinschaftlichen<lb/>
+Vaterlandsvertheidigung minder betheiligt als ein anderer erscheint. Man<lb/>
+darf daher in einem innerhalb Bayerns erscheinenden Blatte von der deut-<lb/>
+schen Kriegsmarine reden ohne sich ausschließlich oder vornehmlich an die<lb/>
+nichtbayerischen Leser zu wenden. Es kann vielmehr mit der erfreulichen<lb/>
+Hoffnung geschehen dieser Reichsangelegenheit ein frisches Jnteresse aus<lb/>
+Gegenden und Kreisen zu gewinnen denen sie bisher verfassungsmäßig so-<lb/>
+wohl als thatsächlich ferner stand.</p><lb/>
+<p>Bis vor kurzem drohten die Ergebnisse und Eindrücke des gegenwärti-<lb/>
+gen Kriegs für die Entwicklung unserer Flotte verhängnißvoll zu werden.<lb/>
+Während das Heer so große Dinge that, leistete sie gar nichts positives<lb/>
+Sie hielt bloß den Feind mit ab sich unsern Küsten und Häfen allzu zärt-<lb/>
+lich zu nahen -- eine Aufgabe für welche die Natur indessen schon mehr<lb/>
+gethan hat als menschlicher Kunst zu thun übrig bleibt. Die blokirenden<lb/>
+feindlichen Panzergeschwader zu verjagen oder auch nur ernstlich zu stören,<lb/>
+schien sie nicht im Stande. Den französischen Seehandel zu beunruhigen<lb/>
+hatte eine ebenso weise und voraussichtige wie menschlich hochherzige Politik<lb/>
+untersagt; aber geraume Zeit geschah auch nicht einmal etwas um die<lb/>
+höchst schwunghaft betriebene Waffen= und Proviant=Zufuhr der französi-<lb/>
+schen Hafenplätze zu hemmen.</p><lb/>
+<cb type="end"/>
+<pb n="782" facs="#f0002"/>
+<cb type="start"/>
+<p>Die Ueberlegenheit der feindlichen Flotte, einer Flotte ersten Rangs,<lb/>
+über die unsrige, welche erst auf dem Wege war eine Flotte zweiten Rangs<lb/>
+zu werden, und sich ein höheres Ziel bisher überhaupt niemals gesteckt hat,<lb/>
+erklärt einiges, jedoch bei weitem nicht alles. Ein unglücklicher Zufall<lb/>
+war es natürlich daß in dem stärksten unserer Panzerschiffe, dem &#x201E;König<lb/>
+Wilhelm,&#x201C; ein Cylinder brach, und so seine Schnelligkeit von 14 auf 9<lb/>
+Seemeilen herabgesetzt wurde, gerade als der Krieg ausbrach; wodurch das<lb/>
+einzige jedem französischen Panzerschiff einzeln gewachsene oder überlegene<lb/>
+Schiff, das wir besaßen, für die Dauer des Kriegs zur Unthätigkeit verur-<lb/>
+theilt ward. Das gleiche widerfuhr dem einen der beiden Panzerschiffe<lb/>
+zweiten Kalibers, dem &#x201E;Prinz Friedrich Karl,&#x201C; später mit der Schraube,<lb/>
+und er liegt noch gegenwärtig zu Wilhelmshafen im Dock. Dieses Dock<lb/>
+dagegen, welches so wichtig werden sollte, hätte wohl etwas früher fertig<lb/>
+werden können. Und besser vorbereitet auf den Krieg hätte die Holzflotte<lb/>
+im allgemeinen sein sollen, jene schnellen Kriegsdampfer deren einer schon<lb/>
+-- wie die schönen Erfolge der &#x201E;Augusta&#x201C; zeigen -- dem Waffenschmuggel<lb/>
+sein Spiel gar sehr hätte verderben können, wenn er rechtzeitig halb unter<lb/>
+Dampf, halb unter Segel, zum Kreuzen in den Atlantischen Ocean hinaus-<lb/>
+gegangen wäre. Als Capitän Weikhmanns Glück diese Bahn zum Ruhm<lb/>
+geöffnet hatte, traf die Waffenstillstandsnachricht das nachgesandte, nun<lb/>
+endlich ausgerüstete Geschwader noch östlich vom Sunde. Es war aber<lb/>
+doch nichts so ganz neues daß die wesentliche Wirksamkeit kleiner Marinen<lb/>
+gegen große oft in einzelnen schnellen und gutgeführten Schiffen liegt.<lb/>
+Während des amerikanischen Bürgerkriegs hatten die &#x201E;Alabama&#x201C; und die<lb/>
+&#x201E;Shenandoah&#x201C; der Secessionisten diese Lehre eindringlich genug gepredigt.</p><lb/>
+<p>Ob für diese Vernachlässigung eines wichtigen Theils der nationalen<lb/>
+Wehrkraft einzelne Personen haftbar zu machen sein mögen, oder nicht, ist<lb/>
+ziemlich einerlei. Gewiß erscheint daß sie aus keinem andern Grunde mit<lb/>
+der wundervollen Vorbereitung und Fertigkeit der Armee so scharf contra-<lb/>
+stirt als weil in Berlin für die Flotte von jeher weniger Geld, Aufmerk-<lb/>
+samkeit und Geisteskraft verfügbar gewesen. Das preußische Heer steht<lb/>
+auf einer hundert= oder zweihundertjährigen Tradition; das hat seine Be-<lb/>
+deutung, auch wenn heute kein Handgriff mehr so geschieht und kein Buch-<lb/>
+stabe in den Reglements mehr so lautet wie zu des großen Kurfürsten<lb/>
+oder selbst zu Friedrichs des Großen Zeit. Die Flotte dagegen zählt erst<lb/>
+etwa zwei Jahrzehnte. Jhrer Jdee nach ist sie eine revolutionäre Schö-<lb/>
+pfung. Als der regierende Monarch seine militärischen Studien machte,<lb/>
+galt eine Flotte für der Natur des preußischen Staats zuwider; und als<lb/>
+sie dann doch aus dem spröden Boden hervorbrach, ein unglaublich zartes<lb/>
+Pflänzchen, konnten selbst so entschiedene Fortschrittsmänner wie Varnha-<lb/>
+gen ( s. die Tagebücher 13. und 14. Band ) nicht genug über ihre Anma-<lb/>
+ßung herrvorzukommen den Kopf schütteln. Daher mag man auch zweifeln<lb/>
+ob es den schwachen Keim anfänglich nicht mehr beschützt als verkümmern<lb/>
+zu lassen gedient hat daß General v. Roon, einer der beschäftigtsten und<lb/>
+angestrengtesten Kriegsminister aller Zeiten, das Marineministerium noch<lb/>
+mitübernahm. Aber freilich mußte unter allen Umständen einmal der<lb/>
+Punkt erreicht werden wo der vorher erwünschte und förderliche Schutz in<lb/>
+den Nachtheil mangelnder Hingebung, Aufmerksamkeit und Sachkenntniß<lb/>
+umschlug. Auch aus andern Gründen als militärischen ist es im Laufe<lb/>
+dieses wechselreichen Krieges beklagt worden daß, während der Kriegsmini-<lb/>
+ster wie billig dem großen Hauptquartier in den Krieg folgte, der Marine-<lb/>
+minister nicht zur beständigen Observation und Action auf seinem wei-<lb/>
+ten Feld in Deutschland bleiben konnte; allein es scheint daß sich das<lb/>
+gleiche Bedauern aus einer Vergleichung des Fertigkeitsstandes der Armee<lb/>
+und der Flotte beim Kriegsausbruch ebenfalls ergibt. Auf Hrn. v. Roons<lb/>
+unsterbliche Verdienste fällt damit kein Schatten. Es entsteht nur der ge-<lb/>
+rechte Wunsch daß wenigstens für die Zukunft nicht zweier ganzer Männer<lb/>
+höchste Leistung von <hi rendition="#g">einem</hi> möge verlangt und erwartet werden.</p><lb/>
+<p>Soweit die vorhandenen Kräfte jetzt reichen, läßt man es in der Ma-<lb/>
+rine so wenig als im Heerwesen noch während des Kriegs an eifriger<lb/>
+Fortentwicklung fehlen. Eine Commission von Capitänen ist vor kurzem<lb/>
+niedergesetzt worden, um zu prüfen wie sich die Anstalten zum Schutze der<lb/>
+Nordseeküsten bewährt haben, und danach neue erweiterte Vorschläge für<lb/>
+diesen Theil des allgemeinen Küstenschutzes zu machen. Jhre Vorschläge<lb/>
+gehen, wie man hört, im allgemeinen dahin: neben den Maßregeln zur<lb/>
+Sperre der Strommündungen für jede derselben ( d. h. Elbe, Weser und<lb/>
+Jahde, die Emsmündung bleibt als zur Hälfte niederländisch einstweilen<lb/>
+außer Betracht ) ein halbes Duzend Torpedo = Boote aufzustellen, welche<lb/>
+sich einem doch etwa durchbrechenden Feinde nach Art der alten Brander an<lb/>
+die Ferse zu hängen hätten; ferner ein Duzend Panzerschiffe von der Mo-<lb/>
+nitor = Sorte zum Angriff auf blokirende Geschwader, nicht zur Lieferung<lb/>
+von Schlachten in entlegenen Gewässern zu bauen, und endlich schnelle<lb/>
+Holzdampfer in genügender Zahl zur Beunruhigung blokirender feind-<lb/>
+licher Flotten, Abschneidung ihrer Zufuhren, Verhinderung des Waf-<lb/>
+fenschmuggels u. dgl. bereit zu halten. Von diesen Maßregeln ist die erste,<cb/>
+<lb/>
+einfachste und zugleich dringlichste, durch Bestellungen in Spandau und<lb/>
+Bremen bereits in der Ausführung begriffen. Die andern warten wohl<lb/>
+auf die völlige Herstellung des Friedens.</p><lb/>
+<p>Wenn die Reichsregierung alsdann an die Nationalvertretung ihre<lb/>
+Forderungen stellt, so mag es der Entwicklung der Marine zu statten kom-<lb/>
+men daß sie doch nicht völlig unwirksam im Kriege geblieben ist, auch ab-<lb/>
+gesehen von ihrer mehr passiven Leistung für die Sicherheit der Häfen<lb/>
+und Küsten. Noch durchschlagender aber wird es ihr hoffentlich frommen<lb/>
+daß nun ganz Deutschlands Kräfte und Triebe an ihre Ausbildung ge-<lb/>
+setzt werden können, da sie schon häufig erfahren hat daß, wenn der Sinn<lb/>
+für ihren Werth im Binnenlande nur erst einmal wach geworden ist, der<lb/>
+dort ausbrechende feurige Enthusiasmus die gelassene, auf Gewohnheit be-<lb/>
+ruhende und durch Gewohnheit abgestumpfte Sympathie des Küstenan-<lb/>
+wohners weit übertrifft.</p><lb/>
+<p rendition="#c">Der Krieg. <hi rendition="#g">Die Belagerung von Belfort.</hi></p><lb/>
+<p>&#x2627; Petit Croix, 11 Febr. Es dürfte vielleicht nicht ohne Jn-<lb/>
+teresse sein etwas näheres von der Action zu erfahren die, unberührt durch<lb/>
+den Waffenstillstand der im größten Theile Frankreichs abgeschlossen,<lb/>
+ihren Fortgang nimmt, wir meinen die Belagerung von Belfort.</p><lb/>
+<p>Schon bei Beginn dieses Feldzugs waren aller Augen auf die Be-<lb/>
+lagerung einer großen Festung, auf die Straßburgs, gerichtet, und man<lb/>
+war entzückt als diese alte Veste der deutschen Kunst nicht länger wider-<lb/>
+stehen konnte. Man hielt die Action gegen Straßburg für ein Meisterstück<lb/>
+des Artilleristen und des Jngenieurs, und hielt sie für die schwierigste Un-<lb/>
+ternehmung die man sich denken konnte. Und doch war die Belage-<lb/>
+rung von Straßburg ein Kinderspiel gegen die von Belfort! Eine Festung,<lb/>
+nach den alten Grundsätzen gebaut, in der Ebene gelegen, ohne besondere<lb/>
+casemattirte Räume, dagegen mit einer zahlreichen Bevölkerung versehen,<lb/>
+wie lange kann diese im Stande sein bei einer engen Cernirung dem auf der<lb/>
+Höhe der Zeit besindlichen Geschütz unserer Armee Widerstand zu leisten?<lb/>
+Jch dächte nach dem Falle von Paris müsse man hierüber alle Jllusionen<lb/>
+schwinden lassen!</p><lb/>
+<p>Wie ganz anders sind die Verhältnisse aber bei Belfort gestaltet!<lb/>
+Als Mittelpunkt der Befestigung kann man den Rocher oder das Ch<hi rendition="#aq">â</hi>teau<lb/>
+von Belfort betrachten, ein Gebilde wie es wohl selten die Laune der so<lb/>
+mannichfach schaffenden Natur hervorgebracht hat: ein riesiger Felsen, der<lb/>
+auf der der Stadt zugekehrten Seite steil abfällt, und dem auf der entgegen-<lb/>
+gesetzten etwas flachern durch etagenförmiges Mauerwerk die Kunst das<lb/>
+gegeben woran es die Natur fehlen ließ. Jmponirt diese Citadelle schon<lb/>
+durch ihre Form, so gewinnt sie durch ihre Lage zu den übrigen Befesti-<lb/>
+gungswerken noch mehr an Bedeutung. Von Norden und Westen her<lb/>
+gegen Belfort vorgehend erblickt man wohl die Rückseite dieses Felsen-<lb/>
+kolosses, allein wenn auch alles andere weggedacht wäre, so ist doch eine ge-<lb/>
+deckte Annäherung der vielen Wasseradern halber unmöglich. Von Süden<lb/>
+und Osten aus ist das Schloß erst zu sehen wenn man sich demselben<lb/>
+schon sehr genähert hat. Daß dieß nicht zu früh geschehe, dafür sorgen la<lb/>
+Justice und la Miotte, auf stolzer Bergeshöhe gelegen, jedes für sich eine<lb/>
+gewaltige Festung: zu allem Ueberflusse haben die Franzosen noch die<lb/>
+beiden provisorischen Werke Haute und Basse Perche angelegt, welche dem<lb/>
+Angriffe sehr wesentliche Hindernisse bereiteten.</p><lb/>
+<p>Die Stadt selbst ist klein und nur von Westen und Norden her ge-<lb/>
+fährdet, während das Ch<hi rendition="#aq">â</hi>teau und die Höhen daneben sie gegen Süden<lb/>
+und Osten decken. Außer ihrer günstigen Lage schützen sie die Kanonen von<lb/>
+Miotte, Barres und verschiedenen Werken die zwischen Barres und Miotte<lb/>
+angelegt sind. Ein verschanztes Lager zwischen den Vorwerken und der<lb/>
+Stadt würde dem Gros eines tüchtigen Heers einen sichern Aufenthalt ge-<lb/>
+währen, während seine Vortruppen, in den Dörfern um Belfort vertheilt,<lb/>
+diese unter Beihülfe der Kanonen der Festung gegen jeden nicht mit allzu<lb/>
+großer Uebermacht anrückenden Feind vertheidigen könnten. Rechnet man<lb/>
+zu dem bereits Gesagten noch die Schwierigkeiten die ein felsiger Boden<lb/>
+Angriffsarbeiten entgegensetzt, so kann man sich ungefähr eine Vorstellung<lb/>
+machen von dieser durch Natur und Kunst zu einem Platz ersten Ranges<lb/>
+gemachten Festung! Es ist für das Auge eines Jngenieurs oder eines<lb/>
+Artilleristen wirklich ein Genuß diese mit aller Kunst und allem Fleiß<lb/>
+angelegten Werke zu betrachten, die von einem verständigen Commandanten<lb/>
+zudem ganz vorzüglich armirt sind. Allerdings gesellt sich zu dem Gefühle<lb/>
+der Befriedigung über die Anlage auch -- für uns wenigstens -- der<lb/>
+Aerger sich sagen zu müssen daß wir diesen Werken verhältnißmäßig noch<lb/>
+sehr wenig gethan haben.</p><lb/>
+<p>Letzteres hat außer der unendlich günstigen Lage des Platzes noch<lb/>
+einen weitern Grund. Wenn man die ungeheuern Mittel sah welche man<lb/>
+auf die Belagerung von Straßburg verwendete, so kann man sich eines be-<lb/>
+dauerlichen mitleidigen Kopfschüttelns nicht erwehren wenn man einen Blick
+<pb n="783" facs="#f0003"/>
+<cb/>
+auf die hier zu Gebote stehenden wirft. Es sieht beinahe wie Hohn aus wenn<lb/>
+man die wenigen Geschütze betrachtet, deren Mündungen, wie bei einem com-<lb/>
+petenteren Richter protestirend, gen Himmel schauen, um auf die riesigen<lb/>
+Distancen ihre Geschosse in die so hoch über ihnen liegenden Werke zu<lb/>
+schleudern. Geschieht das, dann blitzt es hie und da in den dunklen Linien<lb/>
+auf, und eines der riesigen Geschosse fährt wie zürnend in die überall ein-<lb/>
+gesehenen Angriffsbatterien. Der hohe Wartthurm auf la Miotte gibt der<lb/>
+Besatzung die Möglichkeit alles was um sie herum vorgeht genau zu be-<lb/>
+obachten, und kaum erhebt sich eine weiße Dampfwolke in irgendeiner Bat-<lb/>
+terie, so hört man auch schon den warnenden Ruf einer Trompete vom<lb/>
+Thurme herab, welche die Bedienung aufmerksam macht daß ein Schuß<lb/>
+kommt.</p><lb/>
+<p>Dieser Wartthurm ist überhaupt der Aerger der Artilleristen. Auf<lb/>
+die großen Entfernungen konnte man ihm nichts anhaben, und von<lb/>
+welcher Seite man auch kommen mag, ein treuer eifriger Wächter<lb/>
+steht er vor einem, jede Bewegung genau beobachtend. Wird dann eine<lb/>
+seiner Seiten von einem sich durchstehlenden Sonnenstrahl hell beleuchtet,<lb/>
+so sieht es fast aus als wie wenn sich der graue verwitterte Geselle lustig<lb/>
+machte über die tief unten herumkrabbelnde Sippe, die wie der Maulwurf<lb/>
+in dem Boden wühlt um ihre Bewegungen zu verbergen! Seitdem aber unsere<lb/>
+Batterien immer näher und näher herankommen, kann auch er sich nicht<lb/>
+verhehlen daß auf der Welt niemand unantastbar ist und das Recht hat<lb/>
+die andern zu belachen, wenigstens müssen ihn einige in seine Seiten ge-<lb/>
+schleuderten 24Pfünder=Granaten davon zu überzeugen versucht haben.</p><lb/>
+<p>Bei Beginn der Operationen gegen Belfort handelte es sich natürlich<lb/>
+darum einen Cernirungskreis um dasselbe zu bilden, der ihm alle Hülfe<lb/>
+von außen entziehen und es lediglich auf seine eigenen Kräfte beschränken<lb/>
+sollte. Doch war dieß nicht etwa eine leichte Aufgabe, denn die umliegen-<lb/>
+den Ortschaften waren alle besetzt, und können, wie jetzt der Augenschein<lb/>
+lehrt, sehr wirksam von der Festung bestrichen werden. Unsere wackere Jn-<lb/>
+fanterie aber warf den Feind nach und nach aus allen Positionen, und<lb/>
+nunmehr sind es nur noch zwei Orte welche von unserer Seite nicht besetzt<lb/>
+sind, Vetrigne und Offemont, die gleichsam als neutral betrachtet werden,<lb/>
+denn auch der Feind hat keine eigentliche Besatzung darin, sondern schickt<lb/>
+nur hie und da eine Feldwache hinein. Beide Orte liegen dicht unter La<lb/>
+Miotte, so daß sie von uns nicht gehalten werden könnten. Alle die<lb/>
+Kämpfe um die Ortschaften schwächten die Jnfanterie der Besatzung, aber<lb/>
+es ist dieser Abbruch, sowie das zahlreiche Ueberlaufen beinahe als eine<lb/>
+Säuberung der belagerten Streitkräfte zu betrachten; denn die Jnfanterie-<lb/>
+besatzung ist jedenfalls die Schwäche der Festung, welche Behauptung<lb/>
+wohl hinlänglich ihren Beweis darin findet daß sie es nicht wagte einen<lb/>
+kräftigen Ausfall zu machen zu der Zeit als Bourbaki's Armee nur wenige<lb/>
+Kilometer von der Festung entfernt war, und die Kräfte unserer numerisch so<lb/>
+schwachen Truppen so sehr in Anspruch nahm. Genug hievon; ist auch<lb/>
+mancher brave deutsche Soldat dabei gefallen oder kampfuntauglich gewor-<lb/>
+den, die Ueberlegenheit war auf unserer Seite.</p><lb/>
+<p>Anders sieht es mit dem artilleristischen Angriff aus. Jm kleinen<lb/>
+begonnen, konnte er zu keinem Resultat führen, um so weniger<lb/>
+als die Besatzungsartillerie ganz das Gegentheil der Besatzungsinfan-<lb/>
+terie ist -- eine gut geschulte Kerntruppe. Die wenigen Batterien mit<lb/>
+welchen man -- verwöhnt durch Straßburg, Schlettstadt und Breisach --<lb/>
+den Angriff im Westen begann, waren natürlich nicht im Stande das Feuer<lb/>
+der wohlarmirten Werke zum Schweigen zu bringen, wohl aber zogen sie<lb/>
+dasselbe so sehr auf sich, daß wir manchen empfindlichen Verlust zu be-<lb/>
+klagen haben.</p><lb/>
+<p>Die Besatzungsartillerie schießt vorzüglich, und wenn sie ein Vorwurf<lb/>
+trifft, so ist es der daß sie mit ihrer Munition etwas zu verschwenderisch<lb/>
+umgieng, ohne gerade viel zu erreichen. Das Zusammenschießen von Dör-<lb/>
+fern genügt nicht allein den Feind daraus zu vertreiben; unsere wackern<lb/>
+Leute zogen von Haus zu Haus wenn das Feuer zu lästig wurde, verlassen<lb/>
+wurde aber deßhalb kein Dorf. Nach und nach langten Verstärkungen vor<lb/>
+Belfort an, es trafen noch württembergische und bayerische Batterien ein,<lb/>
+so daß Artillerie aus Preußen, Bayern, Württemberg und Baden vereint<lb/>
+den Feind zu bekämpfen suchte.</p><lb/>
+<p>Das war wahrlich keine leichte Aufgabe! Man rückte nach und nach<lb/>
+mit dem Angriffe gegen Osten. Die große Tragweite und das präcise<lb/>
+Schießen der französischen schweren Festungsgeschütze machte die Anlegung<lb/>
+von Batterien in größerer Nähe unmöglich. Die ersten Batterien wurden<lb/>
+auf ungeheure Distanzen angelegt, und man versuchte von hier aus Justice<lb/>
+und Miotte und das Ch<hi rendition="#aq">â</hi>teau niederzuhalten, die Percher Schanzen aber<lb/>
+zu bekämpfen. Dieß gelang in so weit daß die schweren Geschütze zum<lb/>
+Schweigen gebracht wurden, und nur noch Feldgeschütze unserm Feuer<lb/>
+antworteten. Man hielt es an der Zeit aus den mittlerweile vorgetrie-<lb/>
+benen Angriffsarbeiten vorzubrechen und einen Sturm zu wagen, der aber<lb/>
+fehlschlug. Das ganze Unternehmen war verrathen, man schlug im Platze<cb/>
+<lb/>
+schon viel früher Allarm, und unsere in den tiefen Graben hinabgesprun-<lb/>
+gene Jnfanterie wurde mit Rollbomben und Handgranaten derart über-<lb/>
+schüttet und von überlegenen Kräften umzingelt, daß nur <hi rendition="#g">ein</hi> Weg übrig<lb/>
+blieb: sich zu ergeben, da die steilen Grabenböschungen jeden andern ver-<lb/>
+sperrten.</p><lb/>
+<p>Nach dieser etwas schmerzlichen Lection gieng man mit dem regel-<lb/>
+mäßigen Angriff <hi rendition="#sup">*</hi> ) vor, und es gelang die beiden Schanzen zu nehmen.<lb/>
+Dieß war kaum geschehen, so richtete der Feind ein so fürchterliches<lb/>
+Feuer dahin wie ich es nie gehört habe. Es fielen etwa 80 Schüsse in der<lb/>
+Minute. Unsere Jnfanterie konnte sich nur mit Mühe in den Werken be-<lb/>
+haupten, und der Batteriebau war unermeßlich schwierig. Auch hier haben<lb/>
+wir manchen wackern Cameraden zu beklagen!</p><lb/>
+<p>Die Erstürmung der Perchen ist jedoch ein bedeutender Schritt vor-<lb/>
+wärts. Während die Angriffsarbeiten gegen diese Schanzen vorgetrieben<lb/>
+wurden, erbaute die bayerische Artillerie in nächster Nähe drei 24Pfünder<lb/>
+Batterien, die der Feind offenbar für Jnfanterie=Emplacements hielt, sonst<lb/>
+hätte er wohl ein lebhafteres Feuer darauf gerichtet. Hiemit sind wir der<lb/>
+Festung näher auf den Leib gerückt, und es ist wohl nicht zu viel gesagt<lb/>
+wenn ich behaupte: daß der Angriff jetzt in ein Stadium getreten das<lb/>
+wenigstens Aussicht auf Erfolg verspricht -- auf Erfolg, jedoch nicht in<lb/>
+der kürzesten Zeit, sondern erst nach Ueberwindung zahlloser Schwierig-<lb/>
+keiten! ( S. dagegen das Karlsruher Telegramm. D. R. )</p><lb/>
+<p>Brauche ich nach dem Gesagten wohl noch einige Worte an jene zu<lb/>
+richten die, durch die Erfolge der deutschen Waffen verwöhnt, immer und<lb/>
+immer die größten Errungenschaften in rascher Reihenfolge herbeiwün-<lb/>
+schen? Jst dieß erforderlich, so mögen sie mir glauben daß die Anstren-<lb/>
+gungen unserer Truppen unmenschliche genannt zu werden verdienen. Das<lb/>
+bergige Terrain, die durch den Transport der schweren Lasten ausgefahre-<lb/>
+nen Wege, der durch die strenge Kälte und die Felsen fast unbearbeitbare<lb/>
+Boden, der jetzt durch das Thauwetter grundlose Schmutz in den Tran-<lb/>
+scheen, das alles sind Factoren die eine Reibung erzeugen von welcher man<lb/>
+sich nur einen Begriff machen kann wenn man mit eigenen Augen beobach-<lb/>
+tet hat, und zu deren Ueberwindung eine moralische wie physische Kraft<lb/>
+gehört die mit Necht unser Staunen erregt! Nur eine übermenschliche Ge-<lb/>
+duld und Ausdauer kann uns auf normalem Wege die Festung überlie-<lb/>
+fern; anders wäre es wenn Mangel an Lebensmitteln oder sonstige unvor-<lb/>
+hergesehene Ereignisse die Capitulation herbeiführten.</p><lb/>
+<p>Gestatten Sie mir deßhalb zum Schluß in der &#x201E;Allg. Zeitung&#x201C; die<lb/>
+Bitte auszusprechen daß unsere Landsleute ein Aeußerstes leisten möchten<lb/>
+um unsere arg mitgenommenen Truppen, die bei dem fürchterlichen<lb/>
+Schmutz bald nicht mehr wissen was sie anziehen sollen, nach Thunlichkeit<lb/>
+zu unterstützen.</p><lb/>
+<p rendition="#c">
+<hi rendition="#g">Ein Besuch in Asni<hi rendition="#aq">è</hi>res.</hi>
+</p><lb/>
+<p><lb/>
+<abbr>sym3</abbr> Versailles, 11 Febr. Da ich bis jetzt die Erlaubniß zu einem,<lb/>
+allerdings noch gefahrvollen, Besuch in Paris unter keinem plausiblen Vor-<lb/>
+wande zu erlangen wußte, entschloß ich mich gestern, um der Hauptstadt etwas<lb/>
+näher zu sein, mit einem Proviantzuge nach Asni<hi rendition="#aq">è</hi>res hinauf zu fahren, wo<lb/>
+am diesseitigen Ende der Eisenbahnbrücke unsere deutschen Vorposten stehen,<lb/>
+während auf der andern Seite der Brücke die französischen Vorposten auf-<lb/>
+gestellt sind. Die Bahn führt am rechten Seine=Ufer über Ville d'Avray,<lb/>
+St. Cloud, Suresnes, Puteaux und Courbevoie nach Asni<hi rendition="#aq">è</hi>res, von wo<lb/>
+sie, den Fluß überschreitend, durch Clichy und die Vorstadt Les Batignolles<lb/>
+bis zum Bahnhofe der Rue St. Lazare hinunter läuft. Jm Vorbeifahren<lb/>
+sah ich in Courbevoie das leere Postament auf welchem unlängst noch die<lb/>
+alte Napoleonsstatue im grauen Rock und dreieckigen Hute gestanden,<lb/>
+welche der Neffe von der Höhe der Vend<hi rendition="#aq">ô</hi>mesäule herabnehmen und durch<lb/>
+ein Standbild im Kaisermantel und mit einem Lorbeerkranz ersetzen ließ.<lb/>
+Man hat die weltbekannte Statue, welche mit dem Gesichte dem Triumph-<lb/>
+bogen an der Avenue de la Grande=Arm<hi rendition="#aq">é</hi>e zugekehrt stand, neuerdings von<lb/>
+ihrem Postament in Courbevoie entfernt und sie nach Paris in Sicherheit<lb/>
+gebracht. Die hübschen Landhäuser in Asni<hi rendition="#aq">è</hi>res, welche meistens nur<lb/>
+zur Sommerszeit bewohnt sind, waren jetzt großentheils verlassen, aber<lb/>
+mit wenigen Ausnahmen in wohlerhaltenem Zustande, da die Stadt unter<lb/>
+dem Schutze der Kanonen der Umwallungsmauer von Paris gegen feind-<lb/>
+liche Angriffe gesichert war. Es ist daher schwer begreiflich weßhalb die<lb/>
+Franzosen die Pfeiler sämmtlicher drei Steinbrücken die hier über die Seine<lb/>
+führen an beiden Ufern gesprengt haben. Auch die Eisenbahnbrücke war<lb/>
+unterminirt; doch ist sie glücklicherweise nicht zerstört worden. Mit eben so un-<lb/>
+nützem Vandalismus haben die Franzosen den herrlichen Park von As-<lb/>
+ni <hi rendition="#aq">è</hi>res, in welchem die berühmten Sommerbälle stattfanden, und sämmt-<lb/>
+liche Alleebäume am Bahnhofe gefällt. Auch die aus den &#x201E;Geheimnissen<lb/>
+von Paris&#x201C; bekannte &#x201E;Jle des Ravageurs,&#x201C; welche der Rendezvousplatz der<lb/>
+Canotiers und mit dichtem Gebüsch überdeckt war, ist völlig abgeholzt,<note place="foot"><p><hi rendition="#sup">*</hi> ) Das Zeichen einer gewiß energischen Vertheidigung wenn provisorische An-<lb/>
+lagen offene Laufgräben erfordern.</p><lb/>
+</note>
+<pb n="784" facs="#f0004"/>
+<cb/>
+und nur die kahlen Stümpfe ragen noch einige Zoll hoch über der Erde<lb/>
+empor.</p><lb/>
+<note place="foot">
+<p><hi rendition="#sup">*</hi> ) Das Zeichen einer gewiß energischen Vertheidigung wenn provisorische An-<lb/>
+lagen offene Laufgräben erfordern.</p><lb/>
+</note>
+<p>Der Bahnzug hielt auf der Brücke an und konnte ungehindert passi-<lb/>
+ren, nachdem die zehn oder zwölf Passagiere welche gleich mir im Gepäck-<lb/>
+wagen Aufnahme gefunden, ihre Geleitscheine vorgezeigt hatten. Jch<lb/>
+selber verließ den Wagen mit meinem Reisegefährten, dem Corresponden-<lb/>
+ten der &#x201E;Kölnischen Zeitung,&#x201C; <hi rendition="#aq">Dr</hi>. Arthur Levysohn, welcher bis zu seiner<lb/>
+gewaltsamen Austreibung am 19 Juli vorigen Jahrs in Asni<hi rendition="#aq">è</hi>res ge-<lb/>
+wohnt, und sich kaum drei Monate vor Ausbruch des Krieges in einem<lb/>
+großen Hause der Rue du Chemin Vert völlig neu eingerichtet hatte. Seine<lb/>
+junge Frau, die erst kürzlich vom Wochenbett aufgestanden, war mit ihrem<lb/>
+Kind einstweilen in Asni<hi rendition="#aq">è</hi>res zurückgeblieben -- hatte doch damals nie-<lb/>
+mand geglaubt daß über Frauen und Kinder gleichfalls das Loos der Aus-<lb/>
+treibung verhängt werden würde. Nach dem famosen &#x201E;Siege von Saar-<lb/>
+brücken &#x201C; ertheilte ihr der Maire den Befehl zur Feier des glorreichen Er-<lb/>
+eignisses eine französische Fahne auszuhängen und die Fenster ihres Hau-<lb/>
+ses festlich zu illuminiren. Da sie sich als Deutsche weigerte diesen Befehl<lb/>
+zu erfüllen, wurden ihr von den Einwohnern von Asni<hi rendition="#aq">è</hi>res allabendlich<lb/>
+Katzenmusiken gebracht, und nach Verlauf von acht Tagen wurde sie zu<lb/>
+einer so beschleunigten Abreise gezwungen, daß man ihr nicht einmal ge-<lb/>
+stattete aus ihrer Wohnung einige Werthsachen und Kleidungsstücke mit-<lb/>
+zunehmen. Ein befreundeter Schweizer versuchte nach ihrer Abreise an-<lb/>
+fangs die Wohnung gegen die Wuth des Pöbels zu schützen, der alles zer-<lb/>
+trümmernd in dieselbe eindrang; aber er vermochte sich nur mit Lebens-<lb/>
+gefahr vor der fanatisirten Bande zu retten. <hi rendition="#aq">Dr</hi>. Levysohn hatte ge-<lb/>
+ringe Hoffnung noch einen Rest seines Besitzthums vorzufinden; aber<lb/>
+der Anblick des verwüsteten Hauses übertraf selbst unsere schlimmsten<lb/>
+Befürchtungen. Weder in dem freundlichen Musiksaale, noch in dem<lb/>
+Speisesaale, im Wohn = und Empfangszimmer fanden wir, außer zwei<lb/>
+zerstampften Strohstühlen und den Fragmenten eines Gartentisches,<lb/>
+eine Spur von Mobiliar mehr vor. Ein kostbarer Erard'scher Flügel, die<lb/>
+großen Oelbilder an den Wänden, die nach künstlerischen Zeichnungen ge-<lb/>
+schnitzten Stühle, die schweren Damastgardinen, alles war von räuberischen<lb/>
+Händen fortgeschleppt. Sogar die Kaminroste waren gewaltsam zertrüm-<lb/>
+mert und die eisernen Splitter in den Garten hinab geschleudert. Jn den<lb/>
+oberen Etagen das gleiche Bild der Zerstörung! Bettgestelle und Bettzeug,<lb/>
+Schränke, Stühle, Wäsche und Silbergeräth waren aus den Zimmern ver-<lb/>
+schwunden; nur das Bruchstück eines Waschtisches, aus welchem die Mar-<lb/>
+morplatte herausgebrochen, war in den leeren Räumen zu erblicken. Die<lb/>
+ganze Bibliothek war verschwunden; von einem herrlichen Porcellan=Ser-<lb/>
+vice fanden wir in der Küche einzig die Reste einer zertrümmerten Schale,<lb/>
+im Weinkeller nur noch geleerte Flaschen; in einem Zimmer einen Haufen<lb/>
+zerrissener und verbrannter Kleidungsstücke; im Garten ein zertretener<lb/>
+Kanarienvogelkäfig und Hunderte grüner Correspondenz=Couverts der<lb/>
+&#x201E;Kölnischen Zeitung&#x201C; umhergestreut! Der Platzcommandant, Hr. Major<lb/>
+v. d. Lochau vom dritten preußischen Garderegiment zu Fuß, welcher uns<lb/>
+aufs liebenswürdigste empfieng, war so freundlich durch seinen Adjutanten,<lb/>
+Hrn. Premierlieutenant v. Cramm, eine Besichtigung des Hauses vor-<lb/>
+nehmen zu lassen, und den völlig verwüsteten und ausgeplünderten Zustand<lb/>
+desselben amtlich zu bescheinigen. Während wir uns mit dem feingebil-<lb/>
+deten zuvorkommenden Herrn unterhielten, hatten wir Gelegenheit seine<lb/>
+Geduld und Urbanität gegenüber der Ungeschliffenheit und Aufdringlich-<lb/>
+keit der Franzosen, welche ihn mit allen erdenklichen Anliegen behelligten, zu<lb/>
+bewundern. Kaum einer der nicht erst aufgefordert werden mußte die<lb/>
+Thür hinter sich zu schließen und die Mütze im wohlgeheizten Zimmer vom<lb/>
+Kopfe zu nehmen. Die meisten waren Pariser, welche sich erkundigen<lb/>
+wollten wie sie in die Hauptstadt zurück gelangen könnten. Es wurde<lb/>
+ihnen stets der Bescheid ertheilt daß sie entweder eines Regierungspasses<lb/>
+vom General Trochu oder eines Geleitscheines von dem in St. Germain<lb/>
+stationirten französischen Commissär bedürften, und daß in beiden Fällen<lb/>
+der Geleitschein von dem preußischen General v. Kessel in der All<hi rendition="#aq">é</hi>e de<lb/>
+Courbevoie zu Asni<hi rendition="#aq">è</hi>res abzustempeln sei. Trotz dieser deutlichen Erklä-<lb/>
+rung waren die schwatzhaften Leute meistens nicht zum Fortgehen zu be-<lb/>
+wegen ehe man ihnen die Thür öffnete. Der Maire von Asni<hi rendition="#aq">è</hi>res hatte<lb/>
+sich anfangs sehr renitent gezeigt. Er behauptete daß weder Wein noch<lb/>
+sonstige Lebensmittel in dem Orte vorhanden seien; sobald er jedoch die<lb/>
+Drohung vernahm daß man solchen Falls in den Häusern selbst nachsuchen<lb/>
+werde, versprach er alles Verlangte zu liefern, und hielt auch Wort.</p><lb/>
+<p>Als wir Abends den Bahnhof erreichten, ward uns die unangenehme<lb/>
+Nachricht daß vor heute Morgens kein Zug mehr nach Versailles gehe.<lb/>
+Durch die Freundlichkeit einiger Gardesoldaten, die uns eines ihrer Betten<lb/>
+für die Nacht abtraten, fanden wir noch ein Unterkommen in einem ver-<lb/>
+lassenen hübsch möblirten Hause. Sogar ein elegantes Pianino war dort<lb/>
+zurück geblieben, und wir sangen mit unseren neuen Cameraden bis tief in<lb/>
+die Nacht hinein deutsche Lieder, die ein Soldat mit großem Geschick auf<cb/>
+<lb/>
+dem Claviere begleitete. Eine französische Bäckersfamilie, die im Nachbar-<lb/>
+hause wohnte, lud uns ein ihr Abendessen zu theilen. Die guten Leute<lb/>
+tischten auf was sie irgend noch besaßen: eine schmackhafte Bouillon, ein<lb/>
+Stück Rindfleisch, Sardinen, Wurst, Früchte und trefflichen Rothwein.<lb/>
+Der Mann hatte in der berittenen Nationalgarde gedient und alle Leiden<lb/>
+der Belagerung in Paris mit durchgemacht. Sein Pferd, das er sich für<lb/>
+2000 Francs angeschafft, war ihm abrequirirt und nur mit 840 Francs<lb/>
+bezahlt worden. Er hatte das Fleisch von Pferden, Maulthieren, Eseln,<lb/>
+Hunden, Katzen und Elephanten verspeist -- am erträglichsten fand er das<lb/>
+Esels= und Hundefleisch, dessen zarten Geschmack er rühmte. Jm Anfange<lb/>
+der Belagerung hatte er die großen Spiegelscheiben seines Ladens und des<lb/>
+dahinterliegenden Eßzimmers nach Paris geschafft, um sie vor Zertrümme-<lb/>
+rung zu schützen. Jn Folge dessen saßen wir zähneklappernd bei Tische,<lb/>
+während der Wind durch die offenen Fensterhöhlen heulte und die flackernde<lb/>
+Lampe jeden Augenblick zu erlöschen drohte.</p><lb/>
+<p>Heute Morgens kehrte ich mit einem Personenzuge, deren fortan bis<lb/>
+auf weiteres täglich zwei zwischen Paris und Versailles fahren, hieher zu-<lb/>
+rück. Der Personenverkehr ist jedoch sehr beschränkt worden, da man in<lb/>
+Erfahrung gebracht daß viele französische Officiere in Civilkleidung Paris<lb/>
+verlassen um sich nach dem Süden durchzuschleichen. Bei der Ankunft in<lb/>
+Versailles wurde jeder Ankömmling aufs genaueste examinirt, um seine<lb/>
+Jdentität festzustellen, und mancher konnte erst den Bahnhof verlassen<lb/>
+nachdem er von dem anwesenden französischen Commissär oder von herbei<lb/>
+gerufenen Bekannten recognoscirt worden war.</p><lb/>
+<p rendition="#c">*</p><lb/>
+<p>Aus den Hauptquartieren in Versailles vom 8 Febr. wird dem &#x201E;St. -<lb/>
+Anz.&#x201C; berichtet: &#x201E;Es läßt sich schon jetzt übersehen daß der Zug von der Pro-<lb/>
+vinz nach Paris hinein ein bei weitem geringerer ist als umgekehrt. So viele<lb/>
+Jnteressen, namentlich pecuniärer Natur, die Leute aus den nächstgelegenen<lb/>
+Districten an Paris fesseln, von wo sie ihre Renten beziehen, so fürchtet<lb/>
+man doch die große Stadt, deren Gesundheitszustand sich nur allmählich<lb/>
+in Folge des Ravitaillement bessern wird. Die Zahl der Kranken in den<lb/>
+Hospitälern ist eine wahrhaft erschreckende: so befinden sich z. B. in der<lb/>
+großen Krankenanstalt unterhalb Bic<hi rendition="#aq">ê</hi>tre nicht weniger als 1200 Personen<lb/>
+die an den Pocken krank liegen. Durch den Johanniter Grafen Maltzan<lb/>
+ist schon vor einigen Tagen mit der internationalen Gesellschaft in Paris<lb/>
+verhandelt worden. Man hat die deutschen Verwundeten die sich in Paris<lb/>
+befanden diesseits übernommen. Die Pariser Regierung hat ferner ein-<lb/>
+gewilligt daß zum Transport verwundeter deutscher Krieger, die nach<lb/>
+Lagny evacuirt werden sollen, die Pariser Gürtelbahn benutzt werden darf. --<lb/>
+9 <hi rendition="#g">Febr.</hi> Der Prinz Friedrich Karl hat sich gestern Morgen über Orleans<lb/>
+ins Hauptquartier Tours zurückbegeben. Der Prinz nahm am letzten Tag<lb/>
+seiner Anwesenheit das Mahl bei Sr. Maj. ein, und verweilte den Abend<lb/>
+über beim Kronprinzen in der Villa &#x201E;Les Ombrages.&#x201C; Die Fügung hat<lb/>
+gewollt daß dieselben Truppentheile des 5. preußischen Armeecorps die im<lb/>
+Verein mit den Bayern die kriegerischen Operationen der 3. Armee bei<lb/>
+Weißenburg so glücklich begannen, auch das letzte Gefecht, das vor Paris<lb/>
+stattfand, bestehen mußten. Das 5. Corps war während des ganzen Kriegs<lb/>
+dem Oberbefehl des Kronprinzen unterstellt gewesen, es nahm an dem Vor-<lb/>
+postendienst auf der Westfront von Paris in hervorragender Weise theil,<lb/>
+indem es gerade die vom Mont Val<hi rendition="#aq">é</hi>rien am meisten gefährdeten Stellen,<lb/>
+zwischen Sèvres und Rocquencourt, inne hatte. Das Commando des<lb/>
+5. Corps lag in Versailles, der Stab der 9. Division ebendaselbst, der der<lb/>
+10. im Schlosse Beauregard,2 1 / 2 Kilometer von Versailles, auf der Straße<lb/>
+zwischen Rocquencourt und St. Cloud.&#x201C;</p><lb/>
+<p>Wie die Pariser &#x201E;Presse&#x201C; mittheilt, ist eine Commission in Ver-<lb/>
+sailles damit beauftragt die nicht vorhergesehenen oder nicht angedeute-<lb/>
+ten Details der Convention vom 28 Januar zu regeln. Diese Commission,<lb/>
+welche seit dem 9 d. functionirt, ist aus sechs Mitgliedern gebildet, je drei<lb/>
+für Frankreich und für Deutschland. Die drei Franzosen sind: de Ring,<lb/>
+vom Ministerium des Aeußern, der Cabinetschef des Polizeipräfecten und<lb/>
+ein Oberst des Generalstabs vom Kriegsministerium. Die drei deutschen<lb/>
+Commissäre sind den entsprechenden administrativen Stellungen ent-<lb/>
+nommen.</p><lb/>
+<p><hi rendition="#sup">*</hi> Der Präfect von Lyon, Challemel Lacour, hat seine Entlassung<lb/>
+eingereicht, und ist durch Valentin, den ehemaligen Präfecten von Straß-<lb/>
+burg, ersetzt worden. Jn einer Sitzung des Stadtraths vom 7 erstatteten<lb/>
+die HH. H<hi rendition="#aq">é</hi>non, Barodet und Vallier Bericht über ihre Sendung nach<lb/>
+Bordeaux, um den Krieg bis aufs äußerste zu verlangen, doch verlautet<lb/>
+nichts über den Jnhalt desselben. Am nämlichen Tage wurden den drei<lb/>
+Legionen des Elsaßes und Lothringens die Fahnen verliehen, dieselben<lb/>
+sind von den Damen der Departements Ober= und Niederrhein und Mosel<lb/>
+gefertigt worden. Die in Lyon anwesenden Elsäßer und Lothringer mach-<lb/>
+ten dabei eine Demonstration, indem sie eine Fahne mit der Jnschrift<lb/>
+&#x201E;Elsaß und Lothringen bleiben französisch&#x201C; vor sich hertrugen. Als die<lb/>
+Fahne der 2. Legion durch den Unterpräfecten Heinrich von Mülhausen<lb/>
+mit dem Bemerken überreicht wurde daß sie von den Damen Colmars ge-<lb/>
+arbeitet sei, leisteten die Officiere mit lauter Stimme einen Eid diese Fahne<lb/>
+nach Colmar zurückzutragen. Wie zahlreich diese Legionen sind, ist nicht<lb/>
+gesagt, doch scheinen auch andere den Elsäßern mehr oder minder verwandte
+<pb n="785" facs="#f0005"/>
+<cb/>
+Elemente diesen Truppen beigefügt zu sein: so sind der 3. Legion die Frei-<lb/>
+schützen von Constantine einverleibt.</p><lb/>
+<p rendition="#c">Deutsches Reich.</p><lb/>
+<p><hi rendition="#sup">*</hi> München, 14 Febr. Se. Maj. der König hat im Laufe des<lb/>
+heutigen Nachmittags zahlreiche Audienzen ertheilt. -- Wie mehrere<lb/>
+Blätter mittheilen, werden die Minister Graf Bray und Frhr. v. Pranckh<lb/>
+wieder nach Versailles gehen, sobald Aussicht auf das Zustandekommen<lb/>
+von Friedensunterhandlungen geboten ist. Da gleichzeitig die drei Mi-<lb/>
+nister v. Lutz, v. Schlör und v. Pfretschner im deutschen Bundesrath zu<lb/>
+Berlin beschäftigt sind, bliebe also in diesem Fall nur der einzige Mini-<lb/>
+ster des Jnnern, Hr. v. Braun, in München und in thatsächlicher Aus-<lb/>
+übung seiner Functionen. -- Allmählich treten die hauptsächlichsten<lb/>
+Candidaturen für die Reichstagswahl bestimmter hervor. Die Münchener<lb/>
+Candidaturen verzeichnet unsere <abbr>sym5</abbr> Correspondenz. Das auch in der &#x201E;A. Z.&#x201C;<lb/>
+Nr. 41 Beil. erwähnte Programm der liberalen Partei fand in einer gestern<lb/>
+abgehaltenen größeren Parteiversammlung entschiedene Billigung. Ueber die<lb/>
+Wahlbestrebungen in Mittelfranken bringt der &#x201E;Fränk. Kurier&#x201C; einen Be-<lb/>
+richt. Danach ist für Nürnberg von einer Versammlung dortiger Ver-<lb/>
+trauensmänner Karl Crämer als Candidat aufgestellt worden. Jm Wahl-<lb/>
+bezirk Rothenburg wünscht ein Theil der fortschrittlichen Wähler <hi rendition="#aq">Dr</hi>. M.<lb/>
+Barth, ein anderer den Bürgermeister Grieninger von Uffenheim zum<lb/>
+Vertreter. Jm Wahlbezirk Eichstätt = Weißenburg dürfte der entgegen-<lb/>
+stehenden katholisch = patriotischen Bestrebungen wegen der Kampf kein<lb/>
+leichter sein. Ober=Staatsanwalt Hohenadel hat die Candidatur abge-<lb/>
+lehnt; ein großer Theil der liberalen Wähler hat sich für Staats-<lb/>
+anwalt Wülfert in München entschieden. Jm Wahlkreis Erlangen-<lb/>
+Fürth spalten sich die Sympathien noch zwischen Prof. Marquardsen<lb/>
+von Erlangen und Advocat Frankenburger von Nürnberg. Jm Wahl-<lb/>
+kreis Dinkelsbühl=Gunzenhausen lenken sich die Stimmen der Fort-<lb/>
+schrittspartei ungetheilt dem Rechtsanwalt Erhard, dem Vertreter des Bezirks<lb/>
+im Zollparlament, zu. Jn Ansbach=Schwabach scheint man noch keine Wahl<lb/>
+getroffen zu haben, ein großer Theil der Wähler möchte Prof. Marquardsen<lb/>
+gewinnen. Es verdient Erwähnung daß mehrere, namentlich patriotische,<lb/>
+Candidaten, wie z. B. Advocat Freytag, der für Amberg ausersehen war,<lb/>
+sowie Frhr. v. Ow für Landshut, <hi rendition="#aq">Dr</hi>. Jörg für Neumarkt in der Oberpfalz,<lb/>
+kategorisch jede Candidatur für die bevorstehenden Reichstagswahlen abge-<lb/>
+lehnt haben. Jn gleicher Weise hat, der &#x201E;Augsburger Abendztg.&#x201C; zu-<lb/>
+folge, der gegenwärtige Kammerpräsident <hi rendition="#aq">Dr</hi>. Weis die Erklärung<lb/>
+abgegeben unter keinen Umständen eine Wahl für den Reichstag an-<lb/>
+nehmen zu wollen. Dem genannten Blatte wird versichert daß Hr. <hi rendition="#aq">Dr</hi>. Weis, wie schon früher verlautet hatte, wirklich zum Präsidenten<lb/>
+des Appellgerichts in Zweibrücken ernannt worden, aber diesen<lb/>
+Posten nicht eher antreten werde als bis er durch den Schluß des Land-<lb/>
+tags von den Geschäften des Präsidiums befreit sei. Auch Abg. Behrmühler<lb/>
+( liberal ) , welcher von vielen Seiten für den Wahlkreis Rosenheim als<lb/>
+Candidat für den Reichstag in Aussicht genommen war, hat sich entschie-<lb/>
+den dahin erklärt daß er eine auf ihn fallende Wahl nicht annehmen<lb/>
+werde. -- Se. Maj. der König hat von dem ihm zur Verfügung stehen-<lb/>
+den Gewinn=Antheile der München=Aachener=Mobiliar=Feuerversicherungs-<lb/>
+Gesellschaft einen Beitrag von 3000 Gulden dem Staatsministerium<lb/>
+des Jnnern zur Vertheilung an hülfsbedürftige Familien verheiratheter<lb/>
+bayerischer Reservisten und Landwehrmänner überwiesen. -- Das &#x201E;Fürther<lb/>
+Tagblatt&#x201C; ist jüngst, wegen eines Jnserats in welchem zu einer Wahlver-<lb/>
+sammlung der social=demokratischen Arbeiterpartei eingeladen war, mit Be-<lb/>
+schlag belegt worden. Von Seiten des Fürther Bezirksgerichts ist nun<lb/>
+gegen die Redaction des Blattes, sowie gegen den Unterzeichner jenes Jn-<lb/>
+serats, Hrn. Löwenstein, strafrechtliche Untersuchung auf Grund des Art.<lb/>
+118 des Strafgesetzbuches eingeleitet worden.</p><lb/>
+<p><lb/>
+<abbr>sym5</abbr> Munchen, 14 Febr. Dem für die bevorstehenden Wahlen<lb/>
+zum Reichstage für den Wahlbezirk München <hi rendition="#aq">I</hi> von liberaler Seite als<lb/>
+Candidaten aufgestellten Abg. Frhrn. v. Stauffenberg ist jetzt von der Cen-<lb/>
+trumsfraction der patriotischen Partei der Abg. Radspieler als Gegen-<lb/>
+candidat gegenüber gestellt. Für München <hi rendition="#aq">II</hi> stellt die liberale Partei<lb/>
+den Abg. Stadtrichter Kastner auf, während sich die Centrumsfraction<lb/>
+über einen Gegencandidaten erst noch schlüssig machen will. -- Bei eini-<lb/>
+gen Spitalzügen die von hier nach Frankreich abgiengen, sollen, nach Mit-<lb/>
+theilungen die kürzlich der &#x201E;Volksbote&#x201C; brachte, sehr bedenkliche Unregel-<lb/>
+mäßigkeiten u. s. w. vorgekommen sein, und es hat sich, wie wir verneh-<lb/>
+men, das k. Kriegsministerium veranlaßt gesehen eine Untersuchung in<lb/>
+dieser Beziehung einleiten zu lassen, deren Ergebniß selbstverständlich ab-<lb/>
+zuwarten ist.</p><lb/>
+<p><lb/>
+<abbr>sym22</abbr> Stuttgart, 14 Febr. Die Bewegung durch die Reichstags-<lb/>
+wahlen ist nunmehr im vollen Gang. Jn Stuttgart selbst verspüren wir<lb/>
+zwar wenig davon, da hier eine Gegencandidatur gegen den nationalen<lb/>
+Bewerber nicht ernstlich aufgestellt worden ist. Der nationale Candidat<lb/>
+Kaufmann Gustav Müller hatte zur Zeit der Zollparlamentswahl, wo er<lb/>
+gleichfalls als Bewerber auftrat, den Fabricanten Commercienrath Knosp<lb/>
+gegen sich, einen sehr beliebten Geschäftsmann von großem Ruf, welcher<cb/>
+<lb/>
+auch die Mehrzahl der Stimmen auf sich vereinigte. Dießmal hat Hr.<lb/>
+Knosp eine Candidatur abgelehnt; ebenfalls Commercienrath v. Hallberger,<lb/>
+von dem gleichfalls die Rede war. Ein Wahlkampf besteht also nicht, so<lb/>
+wenig als im zweiten Wahlkreise, wo Professor Reyscher zu Canstatt, und<lb/>
+im dritten, wo Staatsrath Goppelt ( Märzminister der Finanzen ) zu Heil-<lb/>
+bronn aufgestellt wurde. Jm vierten Wahlkreise, der aus den Oberamts-<lb/>
+bezirken Böblingen, Leonberg, Maulbronn und Vaihingen gebildet ist, ist<lb/>
+von den Nationalen <hi rendition="#aq">Dr</hi>. Otto Elben aufgestellt. Staatsminister Frhr.<lb/>
+v. Neurath, der im Wahlkreise begütert ist und ins Zollparlament gewählt<lb/>
+war, hat öffentlich erklärt eine Wahl nicht annehmen zu können. Ob<lb/>
+Staatsminister Frhr. v. Varnbüler, der gleichfalls im Bezirk begütert ist<lb/>
+und von dem gesprochen wurde, als Wahlbewerber auftritt, ist zur Zeit<lb/>
+noch unbekannt. Jm fünften Wahlbezirk ist der Director der großen Ma-<lb/>
+schinenfabrik zu Eßlingen Emil v. Keßler als Candidat aufgestellt; früher<lb/>
+wurde auch Oberstaatsanwalt Lenz genannt. Jm sechsten Wahlkreise,<lb/>
+Neutlingen, Rottenburg, Tübingen, hat der frühere Kriegsminister Frhr.<lb/>
+v. Wagner zu Frommenhausen bis jetzt keinen Gegner. Dagegen hat der<lb/>
+siebente Wahlkreis ( Calw, Herrenberg, Nagold, Neuenbürg ) zwei Candi-<lb/>
+daten. Von nationaler Seite bewirbt sich Commercienrath Chevalier in<lb/>
+Stuttgart, die Großdeutschen und die Volkspartei werden auf den k. nie-<lb/>
+derländischen Generalconsul Emil v. Georgii, Theilhaber des Bankhauses<lb/>
+Dörtenbach und Comp., stimmen, welcher namentlich im Oberamtsbezirk<lb/>
+Calw großen Anhang hat. Jm achten Wahlkreise ( Freudenstadt, Horb,<lb/>
+Oberndorf, Sulz ) werden nicht weniger als vier Candidaten genannt. Eine<lb/>
+Versammlung in Sulz hat sich auf Oberstudienrath Frisch geeinigt, den<lb/>
+Rector der hiesigen Realanstalt, welcher den Bezirk schon 1848 und 1849<lb/>
+in Frankfurt a. M. vertreten hatte. Außerdem sind noch vorgeschlagen:<lb/>
+Staatsminister v. Linden und Frhr. Hans v. Ow d. Jung. auf Wachen-<lb/>
+dorf, beide im Bezirk begütert, und endlich Oberamtsrichter Wirth. Jm<lb/>
+neunten Wahlkreis ( Balingen, Rottweil, Spaichingen, Tuttlingen ) sind<lb/>
+drei Candidaten genannt: seitens der Nationalen der frühere Kriegs-<lb/>
+minister Frhr. v. Wiederhold, seitens der Großdeutschen und Klerikalen<lb/>
+Graf Cajetan v. Bissingen=Nippenburg, diese beiden im Bezirk als Ritter-<lb/>
+gutsbesitzer, und Pfarrer <hi rendition="#aq">Dr</hi>. Ruckgaber in Wurmlingen. Jm 10., 11.,<lb/>
+12., 14. und 15. sind bis jetzt nur je ein Bewerber genannt, und zwar<lb/>
+seitens der Nationalen <hi rendition="#aq">Dr</hi>. Hölder und Obertribunalrath v. Weber in<lb/>
+Stuttgart, der Fürst v. Hohenlohe=Langenburg, Prof. Römer in Tübingen<lb/>
+und Stadtschultheiß Schmid in Munderkingen. Jm 13. ( Aalen, Ell-<lb/>
+wangen, Gaildorf, Neresheim ) stehen dem Großdeutschen Moriz Mohl die<lb/>
+beiden Nationalen Kreisgerichtsrath Streich in Ellwangen und Frhr. Georg<lb/>
+v. Wöllwarth, im 16. ( Biberach, Leutkirch, Waldsee, Wangen ) dem Groß-<lb/>
+deutschen Rechtsanwalt <hi rendition="#aq">Dr</hi>. Probst in Stuttgart der Fürst v. Waldburg-<lb/>
+Zeil und Rechtsanwalt Schnitzer gegenüber. Jm 17. Wahlkreis ist bis<lb/>
+jetzt nur Staatsminister Frhr. v. Linden genannt. -- Mit den Vorarbeiten<lb/>
+der wichtigen Bahnstrecke Heidenheim=Ulm ( deren voller Ausbau zur Zeit<lb/>
+noch, und bis 1875, durch Staatsvertrag mit Bayern von der Zustimmung<lb/>
+des letzteren Staats abhängig ist ) soll in nächster Zeit begonnen werden,<lb/>
+da nun ein Theil des auf der untern Jagstbahn ( Strecke Jagstfeld=Oster-<lb/>
+bucken ) verwendeten Baupersonals entbehrlich und beschäftigungslos ge-<lb/>
+worden ist. Es soll den Sitz in Giengen a. d. Brenz erhalten. Zunächst<lb/>
+dürfte es sich nur um Terrainaufnahmen zwischen Heidenheim und Sont-<lb/>
+heim a. d. Brenz handeln.</p><lb/>
+<p>( -- ) Berlin, 13 Febr. Trotz der Zuversicht mit der man im<lb/>
+Hauptquartier dem baldigen Zustandekommen des Friedens entgegensieht,<lb/>
+dauern die Beförderungen an Ersatzmannschaften und Armeematerial nach<lb/>
+dem Kriegsschauplatz ununterbrochen fort, und werden die Aushebungen<lb/>
+in einem Umfange betrieben als ob wir noch lange nicht mit dem Kriege<lb/>
+zu Ende wären. Auch sind in einzelnen Provinzen, namentlich in Schle-<lb/>
+sien, die sistirt gewesenen Barackenbauten seit einigen Tagen wieder auf-<lb/>
+genommen. Jm Publicum erregen diese Thatsachen vielfach eine gewisse<lb/>
+Beunruhigung, die man jedoch in unseren politischen Kreisen durchaus<lb/>
+nicht theilt. Allem Anschein nach haben auch jene Anordnungen nur die<lb/>
+Bedeutung von Vorsichtsmaßregeln. -- Unter den französischen Kriegs-<lb/>
+gefangenen ist die Sterblichkeit eine ganz enorme, und je weiter nach Nor-<lb/>
+den hinauf nimmt sie an Ausdehnung zu -- ein neuer Beweis wie wenig<lb/>
+die zarte Natur der Franzosen dem rauhen Klima unseres Nordens zu wi-<lb/>
+derstehen vermag. -- Jn der allgemeinen Wahlbewegung haben sich die<lb/>
+Conservativen bis jetzt äußerlich am lässigsten, die Katholiken dagegen<lb/>
+am regsamsten gezeigt. Dem Programm der letzteren hat sich jetzt auch der<lb/>
+frühere preußische Gesandte in Madrid, Graf Galen, angeschlossen, der<lb/>
+sich auf Grund dieses politisch=religiösen Glaubensbekenntnisses im Wahl-<lb/>
+kreis Brilon=Lippstadt um ein Mandat bewirbt. Denselben Wahlkreis<lb/>
+vertrat der Graf im verfassungberathenden Reichstag. Seitdem hatte<lb/>
+er eine Wiederwahl abgelehnt, die er jedoch heut' unter veränderten Ver-<lb/>
+hältnissen wünscht, da es sich jetzt um die Befestigung des glorreich neu
+<pb n="786" facs="#f0006"/>
+<cb/>
+erstandenen deutschen Reichs auf der Grundlage des Rechts und der Frei-<lb/>
+heit in kirchlicher wie in politischer Beziehung handle.</p><lb/>
+<p rendition="#c">Oesterreichisch=ungartsche Monarchie.</p><lb/>
+<p><hi rendition="#sup">*</hi> Wien, 14 Febr. Die officiöse &#x201E;W. Abendpost&#x201C; veranstaltet eine<lb/>
+Auswahl von Aeußerungen der Provincialpresse welche dem neuen Mini-<lb/>
+sterium mehr oder weniger günstig lauten. Wie uns geschrieben wird, hat<lb/>
+die eigentliche Redaction des officiösen Blattes an diesem Florilegium kei-<lb/>
+nen Antheil genommen. Außerdem bringt die &#x201E;W. Abendpost&#x201C; ein Mit-<lb/>
+getheilt, worin die in der &#x201E;Allg. Ztg.&#x201C; Nr. 42 gebrachten Enthüllungen<lb/>
+über die Entstehungsgeschichte des Ministeriums Hohenwart als &#x201E; willkür-<lb/>
+liche Erfindungen&#x201C; charakterisirt werden. Bezüglich der Angabe unseres<lb/>
+Gewährmannes daß der gegenwärtige Handelsminister <hi rendition="#aq">Dr</hi>. Schäffle die<lb/>
+bekannten ( gegen den Reichskanzler Grafen Beust gerichteten ) diffamiren-<lb/>
+den Artikel des &#x201E;Oekonomist&#x201C; geschrieben habe, erklärt die &#x201E;W. Abendp.&#x201C;<lb/>
+auf das bestimmteste &#x201E;daß der Handelsminister jede Beziehung zur Autor-<lb/>
+schaft der betreffenden Artikel mit seinem Ehrenwort abgelehnt habe.&#x201C; Es<lb/>
+kommt der Redaction der &#x201E;Allg. Ztg.&#x201C; begreiflicherweise nicht bei ein so<lb/>
+bestimmtes und augenscheinlich autorisirtes Dementi anzuzweifeln. Unsere<lb/>
+Quelle mag in diesem Punkt einer irrthümlichen Muthmaßung zu kategorischen<lb/>
+Ausdruck gegeben haben; im übrigen aber müssen wir, durch vielfältige Er-<lb/>
+fahrungen gegen officiöse Abläugnungen mißtrauisch gemacht, es unserem als<lb/>
+zuverlässig erprobten Bürgen überlassen ob er sich selbst zu dementiren innere<lb/>
+Nöthigung empfindet. -- Wie man dem &#x201E;Pester Lloyd&#x201C; schreibt, soll Graf<lb/>
+Hohenwart gegenüber dem Präsidenten des Abgeordnetenhauses sich<lb/>
+geäußert haben wie wünschenswerth es sei daß das Parlament seine Ar-<lb/>
+beiten möglichst beschleunige und so rasch als denkbar mit dem Budget zu<lb/>
+Ende komme. Es handle sich dabei in vorderster Reihe um die Delega-<lb/>
+tionen, die bereits im Mai d. J. zusammentreten sollen um rechtzeitig mit<lb/>
+dem gemeinsamen Budget für 1872 zu Stande zu kommen. Dieser Termin<lb/>
+-- fügte der Minister hinzu -- gehöre mit zu den von der Regierung auf-<lb/>
+gestellten Principien, und bilde einen der Punkte des Regierungsprogramms<lb/>
+das vom Kaiser die Genehmigung erhalten. -- Das Abendblatt der amt-<lb/>
+lichen &#x201E;Grazer Ztg.&#x201C; veröffentlicht ein Circular des Ministerpräsidenten<lb/>
+Grafen Hohenwart an die Landeschefs. Dasselbe betont die Fernhaltung<lb/>
+von dem Parteigetriebe, eine wahrhaft freisinnige Politik, die strenge<lb/>
+Durchführung der Gesetze und die Wahrung der Gesetzes=Autorität. --<lb/>
+Auf den 19 war schon seit längerer Zeit eine Versammlung der Verfassungs-<lb/>
+partei nach Linz anberaumt gewesen. Wegen des am 20 Febr. erfolgenden<lb/>
+Zusammentritts des Reichsraths und vorher nothwendiger Clubbesprechun-<lb/>
+gen ist dieser Parteitgag nunmehr auf den 26 d. M. nach Wien verlegt<lb/>
+worden. -- Die Erzherzogin Marie Annunziata ist an einem Lungenlei-<lb/>
+den so schwer erkrankt, daß das amtliche Bulletin ernsten Befürchtun-<lb/>
+gen Raum gibt. Die Kräfte seien in Folge intensiven Fiebers mehr und<lb/>
+mehr im Sinken.</p><lb/>
+<p><lb/>
+<abbr>sym13</abbr> Wten, 14 Febr. Die Stellung des Leiters der auswärtigen<lb/>
+Politik erscheint für den Augenblick wohl als eine unerquickliche, aber nicht<lb/>
+als bedroht; das könnte sie erst dann werden wenn sich ergeben sollte --<lb/>
+wofür bis jetzt alle Anhaltspunkte fehlen -- daß die Wendung der Dinge<lb/>
+im Jnnern auch die Kreise der auswärtigen Politik zu stören berechnet sei.<lb/>
+Daß freilich diese Wendung im Jnnern größere Kreise zu ziehen beginnt,<lb/>
+wird weiter durch die Ernennung T<hi rendition="#aq">ó</hi>ths in Ungarn zum Minister des<lb/>
+Jnnern, Paulers zum Cultus= und Unterrichtsminister und Pejacsevichs<lb/>
+zum croatisch=slavonischen Minister bestätigt; denn obgleich nur drei neue<lb/>
+Mitglieder des Cabinets, nicht ein neues Cabinet geschaffen worden, leidet<lb/>
+es doch keinen Zweifel daß dieselben ein Pfahl im Fleische der Deak-<lb/>
+Partei sind, und daß sie die bisher nur langsam vorschreitende Zerbröcke-<lb/>
+lung dieser Partei und der aus ihr hervorgegangenen Regierung wesent-<lb/>
+lich beschleunigen werden und vielleicht sollen. -- Eine Aeußerung aus<lb/>
+Florenz, welche der Besorgniß Raum gegeben daß der Cabinetswechsel in<lb/>
+Oesterreich eine Aenderung in der Stellung der Monarchie zur römischen<lb/>
+Frage in sich schließen möchte, ist dem Vernehmen nach sofort mit der be-<lb/>
+stimmten Erklärung beantwortet worden: daß Graf Trauttmansdorff keine<lb/>
+anderen Jnstructionen erhalten habe, und erhalten werde, als durch den in<lb/>
+den Depeschen des Rothbuchs genau bezeichneten Standpunkt bedingt<lb/>
+erscheinen.</p><lb/>
+<p><hi rendition="#aq">B</hi>. Pest, 12 Febr. Die Ministerernennungen welche das heutige<lb/>
+ungarische Amtsblatt veröffentlicht, entsprechen vollkommen dem System das<lb/>
+sich Andr<hi rendition="#aq">á</hi>ssy gebildet hat, und das er folgerichtig durchzuführen bestrebt ist,<lb/>
+so oft ein Ministerportefeuille vergeben werden soll, dem System nämlich<lb/>
+nur von ihm abhängige, politisch wenig bedeutende Männer in das Mini-<lb/>
+sterium aufzunehmen, wie schon merkwürdigerweise die Vorschläge an den<lb/>
+Monarchen zur Besetzung der Ministerposten durchaus nicht im Minister-<lb/>
+rath, wie man wohl glauben sollte, berathen werden, sondern einfach durch<lb/>
+den Ministerpräsidenten erfolgen. Graf Pejacsevich, zum Minister für<lb/>
+Croatien ernannt, ist ein liebenswürdiger Cavalier, dem Hause Andr<hi rendition="#aq">á</hi>ssy<lb/>
+höchst befreundet, bis jetzt aber mehr auf dem Felde des Sport als dem<lb/>
+der Politik heimisch. Hr. v. T<hi rendition="#aq">ó</hi>th, der bis jetzt Unterstaatssecretär im Mi-<lb/>
+nisterium, des Jnnern gewesen, tritt nunmehr an die Spitze dieses Mini-<lb/>
+steriums das er seit der Erkrankung des Ministers Rajner ohnedieß eigent-<cb/>
+<lb/>
+lich geleitet hat. Seine rasche Laufbahn verdankt er einzig und allein dem<lb/>
+Grafen Andr<hi rendition="#aq">á</hi>ssy, im Abgeordnetenhause steht er an der Spitze der ministe-<lb/>
+riellen Partei, der Mameluken, wie er denn überhaupt Parteimann im<lb/>
+strengsten Sinn des Wortes ist, so daß ihm die Existenz der Linken allein<lb/>
+schon ein Verbrechen scheint. T<hi rendition="#aq">ó</hi>th besitzt viel parlamentarische Beredsam-<lb/>
+keit, einen gewissen nüchternen Verstand mit lebhaftem Sinn für das prak-<lb/>
+tische Geschäft. Das Municipalgesetz stammte aus seiner Feder, nur hätte<lb/>
+er dem Comitat noch etwas weniger Autonomie gewähren mögen. Er ist<lb/>
+der Ansicht, die er einmal im Parlament ausgesprochen, daß der Centra-<lb/>
+lismus für die Regierung sehr bequem sei. Wie von T<hi rendition="#aq">ó</hi>th wird Graf An-<lb/>
+dr <hi rendition="#aq">á</hi>ssy auch von dem neuernannten Cultus = und Unterrichtsminister Hrn.<lb/>
+Pauler keine Opposition in der hohen Politik zu gewärtigen haben. Ein<lb/>
+tüchtiger, etwas trockener akademischer Lehrer wie er ist, mit einer Kathe-<lb/>
+derberedsamkeit die lebhaft an jene Hasners erinnert, hält man nicht viel<lb/>
+von der Energie und Unabhängigkeit Paulers gegenüber dem hohen Kle-<lb/>
+rus. Pauler scheint uns entschieden klerikal gefärbt zu sein; er wußte die<lb/>
+Pester Universität bis heut' in den Banden der alten Bestimmungen aus<lb/>
+der Concordatszeit zu erhalten, und was er in dem Katholikencongreß<lb/>
+gesprochen, war gerade auch nicht im Sinne der liberalen Laienwelt.<lb/>
+Diese klerikale Färbung scheint jedoch eben den Grafen Andr<hi rendition="#aq">á</hi>ssy zur Wahl<lb/>
+Paulers bestimmt zu haben, gilt es doch in dem gegenwärtigen Augen-<lb/>
+blick, wo die Klerikalen wieder vordrängen, auch mit diesem Lager Füh-<lb/>
+lung zu behalten. Jedenfalls wird der katholische Klerus mit der Ernen-<lb/>
+nung Paulers einverstanden sein, weniger die liberale öffentliche Mei-<lb/>
+nung, noch weniger die Protestanten. Für Eötvös einen würdigen Nach-<lb/>
+folger zu finden war eben nicht leicht, aber etwas mehr hätte sich Graf An-<lb/>
+dr <hi rendition="#aq">á</hi>ssy schon anstrengen dürfen. Nun besitzt das ungarische Ministerium<lb/>
+nur noch zwei unabhängige Mitglieder, Horv<hi rendition="#aq">á</hi>th und Gorove; die übri-<lb/>
+gen sind bereits sämmtlich Geschöpfe Andr<hi rendition="#aq">á</hi>ssy 's und ihm ergeben. Auf<lb/>
+diese Art gelangen wir bald zu einem Ministerium aus <hi rendition="#g">einem</hi> Guß, d. h.<lb/>
+zu einer Regierung wo Andr<hi rendition="#aq">á</hi>ssy allein noch Minister, der Rest aber zu<lb/>
+Bureauchefs, die man artigerweise Minister nennt, herabgesunken sein<lb/>
+wird. Mit Bezug auf das Land scheint es uns etwas gefährlich das ganze<lb/>
+System auf <hi rendition="#g">einen</hi> Mann und <hi rendition="#g">einen</hi> Kopf zu concentriren. Mit dem<lb/>
+Sturz dieses einen fällt dann auch das ganze System. -- Die Vorgänge<lb/>
+jenseits der Leitha werden natürlich hier viel besprochen, im ganzen ziem-<lb/>
+lich objectiv. Ungarn wird auch in seiner Objectivität verharren solange<lb/>
+drüben nichts gegen Ungarn geplant wird. Ungarn in den Kreis ihrer<lb/>
+politischen Reconstructionen einzubeziehen mögen sich jedoch die Herren<lb/>
+drüben wohl hüten, es könnte hier ein Sturm losbrechen stärker als jener<lb/>
+letzte, dessen Erinnerung aus dem Gedächtniß mancher Planmacher in Wien<lb/>
+bereits verschwunden zu sein scheint.</p><lb/>
+<p rendition="#c">Schweiz.</p><lb/>
+<p>&#x2A01; Bern, 13 Febr. Jn seiner heutigen Sitzung beschloß der<lb/>
+Bundesrath auf Antrag des Militärdepartements den General Herzog zur<lb/>
+Entlassung der aufgebotenen eidgenössischen Truppen bis auf zwei Brigaden,<lb/>
+welche unter das Commando des Obersten Meier von Bern gestellt sind,<lb/>
+zu ermächtigen. Da es sich augenblicklich nur noch um die Handhabung<lb/>
+des Polizeidienstes an der Westgränze von St. Cergues bis Genf handelt,<lb/>
+sind zwei Brigaden vollständig ausreichend. Die Entlassung des großen<lb/>
+Stabes ist dem Ermessen des Generals Herzog anheimgestellt. -- Endlich<lb/>
+hat man über die Zahl der internirten Mannschaften der Ostarmee be-<lb/>
+stimmte Angaben. Die vom eidgenössischen Militärdepartement entworfene<lb/>
+Liste der Jnternirten zeigt -- vertheilt auf die Kantone -- folgende Zahlen:<lb/>
+Officiere: Zürich 392, St. Gallen 150, Luzern 539, Baden 364, Jnter-<lb/>
+laken 290, Freiburg 53, im ganzen 1788. Mannschaften: Zürich 8857,<lb/>
+Bern 21,328, Luzern 5086, Uri 383, Schwyz 911, Obwalden 350, Nied-<lb/>
+walden 359, Glarus 607, Zug 640, Freiburg 4426, Solothurn 2263,<lb/>
+Baselstadt 1309, Baselland 1412, Schaffhausen 1057, Appenzell<lb/>
+A. Rh. 1191, St. Gallen 5692, Graubünden 1025, Aargau 6392,<lb/>
+Thurgau 3200, Waadt 10,000, Wallis 1060, Neuenburg 1092,<lb/>
+Genf 1149, im ganzen 79,789 -- also zusammen 81,577 Mann.<lb/>
+Demnach ist die bei dem Conventionsabschluß am 1 Febr. angenommene An-<lb/>
+zahl von ungefähr 84,000 Mann schließlich doch noch fast erreicht worden.<lb/>
+Gewiß keine geringe Last! Trotz den großen Schwierigkeiten welche die Jn-<lb/>
+ternirung namentlich zur jetzigen Jahreszeit machen mußte, ist dieselbe<lb/>
+jedoch in bester Ordnung vor sich gegangen, was der Umsichtigkeit und der<lb/>
+organisatorischen Fähigkeit der eidgenössischen Militärverwaltung, an deren<lb/>
+Spitze Bundesrath Welti steht, alle Ehre macht. Ein auf der Kanzlei dieses<lb/>
+Departements eingerichtetes &#x201E;Auskunftsbureau,&#x201C; das mit Vermittlung<lb/>
+der Correspondenz der Jnternirten beauftragt ist, wird noch eine Liste der-<lb/>
+selben mit ihrem Namen, Geburtsorten <abbr>ec.</abbr> ausarbeiten. -- Von der 15 Mil-<lb/>
+lionen=Anleihe sind bis heute 7 Millionen gedeckt worden. -- Aus dem<lb/>
+Kanton Wallis berichtet man dem Bundesrath über neue Umtriebe der<lb/>
+Jesuiten. Jn Fully sollen sie eine Mission abhalten. Die dortige Regie-
+<pb n="787" facs="#f0007"/>
+<cb/>
+rung ist zur Berichterstattung aufgefordert worden. -- Heute hat der Bun-<lb/>
+desrath eine Commission, bestehend aus Landammann Heer, Nationalrath<lb/>
+Stämpfli, Jngenieur Koller, Director Stoll und Director Grandjean, für<lb/>
+Berathung eines vom eidgenössischen Departement des Jnnern ausgearbei-<lb/>
+teten Gesetzentwurfs über den Betrieb und Vau von Eisenbahnen ein-<lb/>
+gesetzt. Bekanntlich hat die Bundesversammlung die Vorlage eines solchen<lb/>
+Gesetzes beantragt.</p><lb/>
+<p rendition="#c">Frankreich.</p><lb/>
+<p>#./ Aus dem Elsaß, 14 Febr. Unsere Presse müht sich sichtlich<lb/>
+ab einen localeren Charakter zu gewinnen. Die von den Ereignissen un-<lb/>
+berührt gebliebenen Blätter sind noch ebenso abgeschmackt und leer wie<lb/>
+früher; die von den deutschen Behörden beeinflußten werden von den Ein-<lb/>
+heimischen, die ja allein über die vorübergehenden und örtlichen Jnteressen<lb/>
+zu berichten vermögen, nur selten einer Correspondenz gewürdigt. Doch<lb/>
+ist im ganzen ein Fortschritt bemerkbar, und namentlich der &#x201E;Straßburger<lb/>
+Zeitung,&#x201C; dem officiösen Organ, ist es gelungen die Rubrik &#x201E;Locales,&#x201C;<lb/>
+unter der sie anfangs nur von Diebstählen, Betrunkenen und Selbstmor-<lb/>
+den zu berichten hatte, jetzt regelmäßig mit kleinen Mittheilungen aus<lb/>
+Mülhausen, Zabern, Weißenburg u. s. w. auszufüllen. Cine Angelegen-<lb/>
+heit die sie neulich angeregt hat, ist auch für weitere Kreise von Jnteresse.<lb/>
+Von der früher in Frankreich allgemeinen Käuflichkeit der Aemter ist ein<lb/>
+Rest noch in Geltung, die Käuflichkeit der Stellen der Notare, Anwälte,<lb/>
+Gerichtschreiber und Gerichtsvollzieher. Der Mißbrauch wurde im Jahr<lb/>
+1816 neu sanctionirt, als die französische Regierung zur Bezahlung der<lb/>
+von den deutschen Mächten geforderten Contribution Geld brauchte, zu<lb/>
+diesem Zweck die Cautionen der genannten und einiger weiteren Katego-<lb/>
+rien erhöhte, und ihnen die Verkäuflichkeit ihrer Plätze als Aequivalent<lb/>
+gewährte. Der Gesammtwerth dieser Stellen in dem an Deutschland ab-<lb/>
+zutretenden Gebiete wird auf fünf Millionen Franken veranschlagt -- eine<lb/>
+Summe die erklärlich macht wenn die Elsäßer der Entscheidung, ob bei der zu<lb/>
+erwartenden Abschaffung der Käuflichkeit den jetzigen Besitzern Entschädigung<lb/>
+geleistet werde, mit Spannung entgegensehen. Von einer Pflicht zur Abfin-<lb/>
+dung seitens Deutschlands kann wohl nicht die Rede sein, da in Deutschland<lb/>
+die Ernennung der Beamten als ein unveräußerliches Souveränetätsrecht an-<lb/>
+gesehen wird, und die deutsche Regierung das Veräußerungsrecht der der-<lb/>
+maligen Stellenbesitzer als gültig nicht anerkennen kann. Zweifelhafter<lb/>
+liegt die Zweckmäßigkeitsfrage. Die Bedrohten haben die Stellen alle in<lb/>
+gutem Glauben gekauft, dafür ihr Vermögen ganz oder größtentheils hin-<lb/>
+gegeben, und bilden eine zahlreiche und einflußreiche Classe, die man nicht<lb/>
+gern zum Feinde hat. Daneben kann aber nicht übersehen werden daß ge-<lb/>
+rade die Classe der Anwälte, Notare u. s. w. es ist welche der deutschen<lb/>
+Verwaltung bisher die consequenteste Opposition gemacht hat, und voraus-<lb/>
+sichtlich unter allen Umständen auch fernerhin machen wird. Wenn die<lb/>
+Gerichtssprache deutsch wird, werden diese Herren, die der deutschen Sprache<lb/>
+nur unvollkommen mächtig sind, von vielen Clienten ihren aus dem Reich<lb/>
+herüberkommenden Concurrenten bald nachgesetzt, und dadurch in ihrem<lb/>
+von der Mehrzahl der Gebildeten gehegten Zorn über Deutschland noch<lb/>
+bestärkt werden. Die fähigsten Oppositionsmitglieder stellt der Juristen-<lb/>
+stand überall und in Frankreich vorab. Es könnte der Fall eintreten daß<lb/>
+die Entschädigungsgelder zur politischen Agitation verwendet werden, und<lb/>
+die Abfindung käme dann darauf hinaus daß, um einer antideutschen<lb/>
+kleinen Classe eine Wohlthat zu erweisen, den uns geneigten Bauern und<lb/>
+überhaupt der Masse der Bevölkerung, die den Mißstand lange genug ge-<lb/>
+tragen hat, in Form von Steuern das dazu nöthige Geld abgenommen<lb/>
+werden müßte. Solche Erwägungen könnten es rechtfertigen wenn ein-<lb/>
+fach der Rechtsstandpunkt festgehalten, und den Betheiligten überlassen<lb/>
+würde ihre Entschädigungsansprüche bei der französischen Regierung anzu-<lb/>
+bringen oder in das französisch bleibende Gebiet überzusiedeln.</p><lb/>
+<p rendition="#c">Jtalien.</p><lb/>
+<p><lb/>
+<abbr>sym7</abbr> Florenz, 12. Febr. Die Zeitungen, zumal die radicalen, bringen<lb/>
+Telegramme aus Nizza, wonach der Conflict zwischen der italienisch ge-<lb/>
+sinnten Bürgerschaft und den französischen Behörden bereits zu Blutver-<lb/>
+gießen geführt hat. Letztere hatten das secessionistische Blatt &#x201E;Jl Diritto,&#x201C;<lb/>
+worin die in meinem Briefe vom 7 d. erwähnte Adresse der Nizzarden an<lb/>
+Garibaldi erschienen war, unterdrückt, und dadurch kam es zum Losbruch.<lb/>
+Die Nachrichten über den Ausfall der nizzardischen Wahlen lauten wider-<lb/>
+sprechend. Die ersten Telegramme berichteten daß die vier Candidaten<lb/>
+der Secessionisten, darunter Garibaldi, gewählt worden, und daß der fran-<lb/>
+zösische Candidat Dufraisse durchgefallen sei. Heute aber ist ein anderes<lb/>
+Telegramm angelangt, wonach neben drei Namen der secessionistischen Liste,<lb/>
+worunter Garibaldi, auch Dufraisse gesiegt hätte. Jedenfalls werden wir<lb/>
+in der nächsten Zeit viel von Nizza hören. Garibaldi, der in das Verblei-<lb/>
+ben seiner Vaterstadt unter französischer Herrschaft sich wohl geschickt hätte<lb/>
+wenn diese Herrschaft nur den Namen der Republik trug, dürfte plötzlich<lb/>
+wieder ein eifriger Nizzarder Localpatriot werden, wenn die Dinge in<cb/>
+<lb/>
+Frankreich die Richtung der Wiederherstellung der Monarchie einschlagen<lb/>
+sollten. Und das scheint ja in der That der Fall zu sein, wofern man nach<lb/>
+den bis jetzt bekannt gewordenen Wahlergebnissen urtheilen darf. Auch<lb/>
+müssen die paar tausend rothbehemdeten Jtaliener nicht vergessen werden<lb/>
+welche noch in Frankreich stehen, und denen es leicht einfallen könnte, sich<lb/>
+für die Enttäuschungen die sie als Frankreichs Verbündete haben schlucken<lb/>
+müssen, durch die Vefreiung Nizza's vom französischen Joch entschädigen<lb/>
+zu wollen. Die italienische Regierung befindet sich in sehr ungemüthlicher<lb/>
+Stimmung. Sie möchte gern wie der Vogel Strauß den Kopf unter die<lb/>
+Flügel stecken, um nur von dieser dummen nizzardischen Geschichte nichts<lb/>
+zu sehen. Es ist aber auch eine Schmach und Schande: haben diese Niz-<lb/>
+zarden vor kaum zehn Jahren ihre heißen Wünsche für die Vereinigung<lb/>
+mit Frankreich kund gegeben, kund gegeben in untrüglichem Plebiscit, und<lb/>
+nun kommen sie plötzlich und behaupten sie wollten nicht zu Frankreich gehören,<lb/>
+sie seien Jtaliener. Und das eben in dem Augenblick da Hr. Bonghi ( in dem<lb/>
+schon erwähnten Aufsatz über den &#x201E;Bismarckismo&#x201C; ) nachweist daß die Ab-<lb/>
+tretung Nizza's an Frankreich die edelste Bethätigung gewesen sei jenes<lb/>
+neuen von den lateinischen Nationen geschaffenen Rechtes friedlicher An-<lb/>
+nexionen und aus der Tiefe des Volksgewissens hervorgehender Plebiscite<lb/>
+-- eines Rechtes welches die alles Gerechtigkeitssinnes baren Germanen<lb/>
+nicht durch freiwillige Abtretung des linken Rheinufers haben anerkennen<lb/>
+wollen.</p><lb/>
+<p>== Rom, 11 Febr. Prinz Humbert ist als Befehlshaber des hier<lb/>
+und in den Provinzen garnisonirenden ersten Armeecorps so thätig wie<lb/>
+der k. Commissarius Gadda als Civilgouverneur. Dieser hat in einem<lb/>
+Aufrufe die Römer um ein vertrauensvolles Entgegenkommen und ein-<lb/>
+müthiges Zusammenwirken für denselben Zweck ersucht, dann werde alles<lb/>
+gut gehen. Lamarmora's Abgang wird von keiner Partei bedauert -- <hi rendition="#aq">oleum et operam perdidit</hi> -- er will künftig seine Zeit militärischen Stu-<lb/>
+dien widmen, besonders einer Geschichte der Taktik, vor allem aber einen<lb/>
+ausführlichen Bericht über die Schlacht bei Custoza beendigen, da<lb/>
+seine damalige Vefehlsführung nun schon seit fünf Jahren der Gegenstand<lb/>
+bitterer Kritik gewesen ist. Die Klerikalen haben er und seine Räthe am<lb/>
+wenigsten befriedigt; der &#x201E;Osservatore Romano&#x201C; vom 9 Febr. betheuert:<lb/>
+&#x201E;Die piemontesischen Proconsuln schädigten Rom in allen seinen Jnter-<lb/>
+essen und immer mit dem erlogenen Namen von Freiheit auf den Lippen;<lb/>
+sie haben mehr geschadet als die Barbaren, die es in den vergangenen<lb/>
+Jahrhunderten einnahmen und ausplünderten.&#x201C; Auch die &#x201E;Perseveranza&#x201C;<lb/>
+kann nicht begreifen wie die Vertreter der Regierung in Rom so viele Menschen<lb/>
+von der Liebe zu der neuen Verfassung in so kurzer Frist abwendig machen konn-<lb/>
+ten. Der neueste Fehlgriff Sella's ist die an die Vertreter des Municipiums<lb/>
+gerichtete Forderung von 3,300,000 Lire als jährliche Consumtionssteuer. Eine<lb/>
+nach Florenz gesandte Deputation, bei welcher sich der jüdische Kaufmann<lb/>
+Alatri befand, hat mit ihren Gegenvorstellungen nichts ausgerichtet, denn<lb/>
+dort braucht man Geld, viel Geld. -- Kaum hatte der Papst das Decret<lb/>
+vom 3 d. M. über die Verlegung der Hauptstadt hierher in der officiellen<lb/>
+Zeitung gelesen, als er die um ihn waren entließ. Es scheint er wollte sich<lb/>
+in der Einsamkeit gegen seine Gewohnheit ganz dem Schmerze überlassen.<lb/>
+Am nächstfolgenden Tage war er bei Tische so schweigsam daß es auffiel,<lb/>
+nur kurze Bemerkungen fielen von seinem Munde, denen man anmerkte<lb/>
+daß die Seele Fassung suchte. Als das von Monsignor Charvaz ihm ver-<lb/>
+machte Dintenfaß, dessen Pius <hi rendition="#aq">VI</hi> sich während seiner Gefangenschaft in<lb/>
+Valence bediente, neulich überbracht wurde, erinnerte er an das Diptychon<lb/>
+desselben Papstes, dessen Anblick ihn 1848 zu der Reise nach Ga<hi rendition="#aq">ë</hi>ta be-<lb/>
+stimmte. Pius <hi rendition="#aq">IX</hi> würde zweifelsohne auch jetzt noch die Stadt verlassen,<lb/>
+wenn er in seinem Siechthum hoffen könnte einige hundert Meilen auf der<lb/>
+Eisenbahn und eine Strecke Meeres ohne Gefahr zurückzulegen. -- Jch hatte<lb/>
+gehofft heute am Eröffnungstag Jhren Lesern eine glänzende Carnevals-<lb/>
+scene vorzuführen, denn die dazu gemachten Vorbereitungen waren außer-<lb/>
+ordentliche. Lange vorher war die Parole des Tags gegeben: &#x201E; <hi rendition="#aq">il primo<lb/>
+carnevale di Roma libera</hi>,&#x201C; ein Fasching des freigewordenen Roms;<lb/>
+solche Schlagworte verfehlten hier nie ihre Wirkung. Gestern strahlte die<lb/>
+Stadt im goldenen Sonnenschein, warum sollte man gleiches nicht auch<lb/>
+heute erwarten? Allein schon vor Tagesanbruch öffneten sich wasserschwere<lb/>
+Wolken, es regnete ohne aufzuhören, die Freude war für heute vereitelt.<lb/>
+Die Klerikalen reiben sich die Hände und lachen dazu wie Kinder. Ein<lb/>
+Nachtrag des Quästors verbietet das Tragen der Gesichtsmasken in den<lb/>
+Straßen während der Nacht.</p><lb/>
+<p rendition="#c">Verschiedenes.</p><lb/>
+<p>&#x25EC; München, 14 Febr. Se. Maj. der König hat bereits mehrfach<lb/>
+Veranlassung genommen der opferwilligen Theilnahme welche in allen Kreisen<lb/>
+der Bevölkerung zu Gunsten der im Felde stehenden deutschen Krieger sich kund-<lb/>
+gegeben hat, den huldvollen Ausdruck allerhöchster Anerkennung zuzuwenden.<lb/>
+Neuerdings wurde dieselbe der Frau Gräfin v. <hi rendition="#g">Bernstorff</hi> zutheil, welche für<lb/>
+die in den Festungen und auf den Jnseln der Westküste Frankreichs internirten
+<pb n="788" facs="#f0008"/>
+<cb/>
+bayerischen Kriegsgefangenen in aufopfernder erfolgreicher Thätigkeit Erleichte-<lb/>
+rung in jeglicher Weise verschaffte. Das bezügliche königl. Handschreiben lautet:<lb/>
+&#x201E;An Frau Gräfin v. Bernstorff, Gemahlin des Gesandten des Norddeutschen<lb/>
+Bundes in London. Frau Gräfin v. Bernstorff! Von mehreren Seiten er-<lb/>
+halte Jch Berichte über die höchst erfolgreiche Wirksamkeit welche Sie zu Gun-<lb/>
+sten der in Kriegsgefangenschaft gerathenen bayerischen Soldaten entwickeln.<lb/>
+Diese edelmüthige Theilnahme an dem Loose jener Unglücklichen hat Mich tief<lb/>
+gerührt, und es gereicht Mir zur lebhaften Freude Jhnen für die werkthätige<lb/>
+Kundgabe Jhrer Sympathien Meinen und des Landes wärmsten Dank ent-<lb/>
+gegenzubringen. Noch späte Jahrhunderte werden mit Bewunderung nicht nur<lb/>
+auf die heldenmüthige Tapferkeit der deutschen Heere, sondern ebenso sehr auf<lb/>
+die hochherzige Opferwilligkeit der deutschen Frauen zurückblicken. Jch verbleibe<lb/>
+unter der Versicherung besonderen Wohlwollens -- München, 7 Febr. 1871 --<lb/>
+Jhr sehr geneigter ( gez. ) <hi rendition="#g">Ludwig.</hi> &#x201C;</p><lb/>
+<p><hi rendition="#sup">*</hi> München, 11 Febr. Der Privatdocent an der hiesigen Universität <hi rendition="#aq">Dr</hi>. Eichler, in den weitesten Kreisen als Herausgeber der von Martius begrün-<lb/>
+deten Flora Brasiliensis bekannt, in welcher er verschiedene Monographien ge-<lb/>
+schrieben, hat einen ehrenvollen Ruf als Professor der Botanik an die <hi rendition="#g"> tech-<lb/>
+nische Hochschule</hi> ( nicht an die Universität, wie es in der &#x201E;Südd. Pr.&#x201C; hieß ) ,<lb/>
+mit der Verpflichtung zu gewissen Vorlesungen an der Universität, sowie<lb/>
+als Director des botanischen Gartens in <hi rendition="#g">Graz</hi> erhalten und angenommen;<lb/>
+er wird schon im nächsten Semester seine Lehrthätigkeit daselbst antreten.</p><lb/>
+<p>München, 8 Febr. Die in Bayern internirten <hi rendition="#g">französischen<lb/>
+Kriegsgefangenen</hi> ( nunmehr nahezu 36,000 Mann mit mehr als 500 Offi-<lb/>
+cieren ) sind auf folgende 24 Depots vertheilt: Jngolstadt, Germersheim, Ulm,<lb/>
+Würzburg, Wülzburg, Passau, Augsburg, Lechfeld, Burghausen, Dillingen,<lb/>
+Eichstädt, Freising, Landshut, München, Neuburg, Regensburg, Straubing,<lb/>
+Ansbach, Bayreuth, Zweibrücken, Bamberg, Nürnberg, Amberg, Roggenburg.<lb/>
+Die meisten Officiere befinden sich in Würzburg, Bayreuth und Neuburg, und<lb/>
+jedes dieser drei Depots enthält deren über 100; die größte Anzahl der Mann-<lb/>
+schaft, über 9000, ist in Jngolstadt internirt, dann folgen die Depots auf dem<lb/>
+Lechfeld und in München, wovon ersteres über 4000, letzteres 3375 Mann<lb/>
+zählt. ( A. Abdztg. )</p><lb/>
+<p>München, 14 Febr. Seit einigen Tagen befindet sich, nach der &#x201E;Augsb.<lb/>
+Abdztg.,&#x201C; ein von der französischen Regierung abgesandter Professor der Univer-<lb/>
+sität Lyon hier, der beauftragt ist in Bayern alle Orte in welchen <hi rendition="#g"> franzö-<lb/>
+sische Kriegsgefangene</hi> internirt sind zu bereisen, sich von den Verhält-<lb/>
+nissen seiner Landsleute zu unterrichten, und, wo nöthig, diese mit Geld oder<lb/>
+Kleidungsstücken zu unterstützen. Der Delegirte, welcher vom bayerischen Kriegs-<lb/>
+ministerium auf das entgegenkommendste und bereitwilligste aufgenommen wurde,<lb/>
+hat schon einen größeren Theil der bayerischen Jnternirungsorte besucht, und<lb/>
+spricht sich sehr lobend und anerkennend über die den Gefangenen zutheil ge-<lb/>
+wordene und zutheil werdende Unterkunft, Behandlung und Verpflegung aus;<lb/>
+mit Geldmitteln reichlich versehen, hat er mit mehreren Geschäftsleuten Ver-<lb/>
+träge zur Lieferung von Beschuhung und Kleidung abgeschlossen. Lebhaft be-<lb/>
+dauert er daß das unbotmäßige Benehmen einzelner Gefangenen Veranlassung<lb/>
+gab einige standgerichtliche Urtheile fällen und vollziehen lassen zu müssen.</p><lb/>
+<p><hi rendition="#sup">*</hi> Jn mehreren Blättern sind Mittheilungen über die <hi rendition="#g">Verluste der nord-<lb/>
+deutschen Armee</hi> im gegenwärtigen Kriege gemacht worden, welche nur an-<lb/>
+nähernd richtig sind. Die bisher veröffentlichten 193 Listen umfassen nach der<lb/>
+&#x201E;C. St.&#x201C; die 12 norddeutschen Armeecorps nach der Friedensformation und<lb/>
+die badische Division, und constatiren an Todten: 2 Generale, 72 Stabsoffi-<lb/>
+ciere, 791 Hauptleute und Lieutenants; 240 Feldwebel, Vicefeldwebel, Wacht-<lb/>
+meister, Vicewachtmeister, Stabstrompeter, Fähnriche, 1275 Sergeanten, Unter-<lb/>
+officiere, Trompeter, Hautboisten, Oberjäger, 11,567 Gefreite, Spielleute und<lb/>
+Gemeine, 1 Geistlichen und 16 Aerzte <abbr>ec.</abbr>, Summa 865 Officiere und 13,099<lb/>
+Mann ( nicht 977 Officiere und 12,865 Mann ) . -- An Verwundeten 14 Generale,<lb/>
+192 Stabsofficiere, 2674 Subalternofficiere, 997 Feldwebel <abbr>ec.</abbr>, 5681 Unter-<lb/>
+officiere <abbr>ec.</abbr>, 57,832 Gefreite <abbr>ec.</abbr>, 2 Geistliche, 1 Roßarzt, 1 Büchsenmacher,<lb/>
+107 Aerzte <abbr>ec.</abbr>, 16 Krankenträger, Summa 2880 Officiere und 64,637 Mann<lb/>
+( nicht 3050 Officiere und 61,426 Mann ) . An Vermißten: 46 Officiere,<lb/>
+281 Unterofficiere, 6 Fähnriche, 12 Feldwebel, 5 Vicefeldwebel, 1 Wachtmei-<lb/>
+ster, 1 Reg.=Tambour, 1 Bataillons=Tambour, 17 Aerzte, 37 Lazarethgehülfen,<lb/>
+32 Kranken= resp. Verbandzeugsträger, 2 Roßärzte, 1 Zahlmeister, 7041 Ge-<lb/>
+freite <abbr>ec.</abbr> Summa 46 Officiere und 7437 Mann ( nicht 65 Officiere und 9768<lb/>
+Mann ) . Der Gesammtabgang stellt sich demnach auf 3791 Officiere und<lb/>
+85173 Mann ( nicht 4092 Officiere und 84,069 Mann ) . Unter den 193<lb/>
+Listen befinden sich mehrere welche Berichtigungen enthalten. Leute die<lb/>
+ursprünglich als todt aufgeführt waren sind nur verwundet; Leute die man<lb/>
+vermißt hatte haben sich in den Lazarethen vorgefunden, oder sind zum Regi-<lb/>
+ment, resp. zum Ersatzbataillon, zurückgekehrt. Diese Kategorien von Berichti-<lb/>
+gungen sind in obigen Berechnungen berücksichtigt.</p><lb/>
+<p><hi rendition="#sup">*</hi> So eben erscheint in der beliebten Würzburger Volksausgabe eine<lb/>
+Sammlung <hi rendition="#g">der deutschen Reichsgesetze,</hi> welche sich insbesondere durch<lb/>
+große Vollständigkeit und billigen Preis auszeichnet. Das erste uns vorliegende<lb/>
+Heft umfaßt die Reichsverfassung nebst der königl. Declaration und den sehr<lb/>
+zweckmäßig den betreffenden Artikeln in Anmerkungen beigegebenen Sonder-<lb/>
+bestimmungen für Bayern, Württemberg, Baden und Hessen. -- Das zweite<lb/>
+Heft enthält das Wahlgesetz für den deutschen Reichstag, nebst dem Reglement<lb/>
+zur Ausführung desselben. -- Jn gleicher Ausgabe ist auch das neueste Gesetz<lb/>
+über die Jntercessionen erschienen.</p><lb/>
+<cb/>
+<p><hi rendition="#sup">*</hi> Hr. <hi rendition="#g">Gerhard Rohlfs</hi> theilt uns mit daß das in diesen Tagen bei<lb/>
+Kühtmann in Bremen verlegte und von ihm verfaßte Werk über <hi rendition="#g">Cyrenaica,</hi><lb/>
+welches Sr. Maj. dem Kaiser von Deutschland gewidmet ist, keineswegs Be-<lb/>
+ziehung hat zu den von Salingr <hi rendition="#aq">é</hi> in Cyrenaica aufgenommenen Photographien.<lb/>
+Rohlfs steht in keiner Beziehung zum Verleger dieser Photographien, und sein<lb/>
+Reisewerk wird <hi rendition="#g">besonders</hi> zu dem von Kühtmann festgesetzten Preise verkauft.<lb/>
+Rohlfs wurde veranlaßt zu dieser Veröffentlichung, weil in Riga sein Werk<lb/>
+zusammen mit den Photographien zu 54 Rubeln ausgeboten wurde.</p><lb/>
+<p rendition="#c">Jndustrie, Handel und Verkehr.</p><lb/>
+<p>Berlin, 13 Febr. Die <hi rendition="#g">Börse</hi> hatte im gestrigen Privatverkehr bei im<lb/>
+ganzen herrschender Festigkeit nur geringes Leben entwickelt; auch heute war das<lb/>
+Geschäft geringfügig, und die Curse der fremden Speculationspapiere blieben gegen<lb/>
+Sonnabend wenig verändert. Jtaliener, Türken, Amerikaner sind etwas besser<lb/>
+und ziemlich belebt, Rumänen steigend in sehr starkem Verkehr. Eisenbahnen fest,<lb/>
+aber wenig belebt, ebenso Banken; Bankactien zum Theil etwas höher. Die<lb/>
+anhaltische Landesbank gibt, wie heute telegraphisch gemeldet wurde, 9 Procent<lb/>
+Dividende. Jnländische Fonds waren behauptet, von deutschen die Bundesanleihe<lb/>
+und Schatzanweifungen etwas höher, beide mäßig belebt. Von Ruffen waren<lb/>
+englische etwas höher gefragt, besonders 1870er lebhaft. Prämien= Anleihen ver-<lb/>
+nachlässigt, Bodencredit höher und sehr belebt. Jnländische Prioritäten fest; ein<lb/>
+Theil der 5= und3 1 / 2 procentigen gut zu lassen, österreichische unverändert matt,<lb/>
+Ostbahn und Nordostbahn, sowie im allgemeinen die neueren in großen Posten<lb/>
+offerirt, russische sehr fest, amerikanische steigend. Jn ungarischen Loosen wurde etwas<lb/>
+zu<gap reason="illegible"/> gehandelt. -- Die Subscription auf die Oldenburger Anleihe ergab heut<lb/>
+am ersten Tage schon eine so rege Betheiligung aus allen Kreise, daß man eine<lb/>
+starke Ueberzeichnung erwartet.</p><lb/>
+<p><hi rendition="#sup">*</hi> Paris, 10 Febr. Die heutige &#x201E;Amtszeitung&#x201C; der französischen Republik<lb/>
+publicirt ein Decret durch welches vom 13 März an die alte Frist für <hi rendition="#g"> Wechsel-<lb/>
+proteste </hi> und Recurshandlungen wieder hergestellt wird. Jn demselben heißt es:<lb/>
+Die Frist in welcher alle Proteste und Recurshandlungen, laut den oben angeführten<lb/>
+Decreten ( Gesetz v. 13 Aug. 1870. Decreie v. 10 Sept., 11 Oct., 10 Nov., 12 Dec<lb/>
+1870, 12 und 27 Jan. 1871 ) gemacht werden sollen, ist auf einen Monat, vom<lb/>
+13 Febr. an, verlängert worden. Die Zinsen werden vom Verfalltag an gerech-<lb/>
+net. Die andern Verfügungen des Gesetzes vom 13 Aug. 1870 sind nicht ab-<lb/>
+geschafft. Dieses Decret ist auf Algier anzuwenden. Alle diesen Bestimmungen<lb/>
+in andern Decreten widersprechenden Anordnungen sind und bleiben nichtig.</p><lb/>
+<p><hi rendition="#g">Rumänische Eisenbahn=Obligationen.</hi> Dem &#x201E;Bresl. Handelsblatt&#x201C;<lb/>
+schreibt man aus Breslau, 10 Febr.: &#x201E;Auf unsere erneute Aufforderung sind be-<lb/>
+reits aus Breslau und der Provinz Schlesien von mehreren hundert Jnteressenten<lb/>
+Anmeldungen in der Höhe von mehr als 1 Million Thalern rumänischer Eisenbahn-<lb/>
+Obligationen eingegangen, welche Summe sich bei dem allseitigen Einverständniß<lb/>
+mit dem Vorgehen des hier gebildeten Comit <hi rendition="#aq">é</hi> 's noch bedeutend erhöhen würde.<lb/>
+Wir ersuchen jedoch alle Besitzer welche sich noch nicht gemeldet haben ihren Beitritt<lb/>
+keinesfalls zu verzögern, da von der Höhe der zu vertretenden Summe ein günstiger<lb/>
+Erfolg bei unserer Regierung abhängig sein dürfte. Wir schätzen das in Breslau<lb/>
+und Schlesien im Besitze des Privatpublicums befindliche Capital von rumänischen<lb/>
+Eisenbahn Obligationen auf etwa 20 Millionen Thaler, so daß es bei entsprechend<lb/>
+zahlreicher Vertretung leicht gelingen dürfte unserm Reichskanzler Grafen v. Bismarck<lb/>
+die Gewichtigkeit der bedrohten Vermögensobjecte aller durch den Krieg schon schwer<lb/>
+genug geprüften Jnteressenten klar zu legen.&#x201C; Wir sind hingegen der Ansicht daß<lb/>
+es die rumänischen HH. Actionäre in Deutschland sich selber zuzuschreiben haben wenn<lb/>
+sie zu Schaden kommen; an rechtzeitigen Warnungen vor ausländischen Specula-<lb/>
+tionspapieren hat es nie gefehlt. Wer in der Lotterie spielt, darf sich nicht bekla-<lb/>
+gen wenn ihm das große Loos nicht in den Schooß fällt.</p><lb/>
+<p rendition="#c">
+<hi rendition="#fr"><hi rendition="#g">Neueste Posten</hi>.</hi>
+</p><lb/>
+<p>Agram, 11 Febr. Die Ausschreibung der Neuwahlen für den<lb/>
+croatischen Landtag wird nach dem Amtsantritte des Ban Bedekovic er-<lb/>
+folgen. ( T. N. )</p><lb/>
+<p>Madrid, 12 Febr. Aus Habana wird telegraphirt: &#x201E;Der Com-<lb/>
+mandant der französischen Schiffsdivision in den Antillen hat von den<lb/>
+Behörden die Erlaubniß verlangt den während des Waffenstillstandes aus-<lb/>
+laufenden deutschen Kriegsschiffen zur Ueberwachung derselben folgen zu<lb/>
+dürfen.&#x201C; ( T. N. )</p><lb/>
+<p>Konstantinopel, 8 Febr. Die Pforte hat in Sachen der arme-<lb/>
+nischen Katholiken Daud Pascha beauftragt einen Versuch zur Versöhnung<lb/>
+zwischen den Dissenters die sich von Rom abgewandt haben und dem päpst-<lb/>
+lichen Stuhl, bezw. dem Vertreter des letzteren, Msgr. Hassun, zu Stande<lb/>
+zu bringen. Diese religiösen Zwistigkeiten haben noch in neuester Zeit<lb/>
+wieder zu mehrfachen Thätlichkeiten geführt. Da die Dissenters von Msgr.<lb/>
+Hassun absolut nichts wissen und ihn nicht einmal als Patriarchen von<lb/>
+Cilicien anerkennen wollen, wird auch dieser Vermittlungsversuch wahr-<lb/>
+scheinlich erfolglos bleiben. -- Der neue politische Agent für Rumänien,<lb/>
+Hr. Balatschano, ist in der Hauptstadt angekommen und hat dem Groß-<lb/>
+vezier seine Creditive überreicht. -- Die Vertretung des Norddeutschen<lb/>
+Bundes in Konstantinopel hat bei der türkischen Regierung Beschwerde dar-<lb/>
+über geführt daß der französischen Fregatte &#x201E;Armorique&#x201C; zu wiederholten-<lb/>
+malen gestattet wurde sich in Smyrna mit dem nöthigen Proviant und<lb/>
+Brennstoff zu versehen. Die Hafenbehörde wurde angewiesen die Gesetze<lb/>
+der Neutralität streng einzuhalten, und in Folge dessen dürfte die &#x201E; Armo-<lb/>
+rique &#x201C; nicht mehr zur Einnahme von Kohlen in Smyrna zugelassen werden.<lb/>
+-- Die smyrniotischen Blätter bringen Details über die Ueberschwemmung<lb/>
+von welcher die Stadt und Umgebung am 29 Jänner heimgesucht wurden.<lb/>
+Vier Stadtviertel waren besonders schwer getroffen; mehrere Personen er-<lb/>
+tranken. ( Oest. Bl. )</p><lb/>
+<cb type="end"/>
+</body>
+</text>
+</TEI>

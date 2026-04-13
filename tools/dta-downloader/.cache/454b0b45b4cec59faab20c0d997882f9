@@ -1,0 +1,673 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="de" lang="de">
+<head>
+  <title>Deutsches Textarchiv</title>
+  <base href="https://www.deutschestextarchiv.de/" />
+
+  <link rel="alternate" type="application/atom+xml" title="Deutsches Textarchiv: Neue Werke" href="https://www.deutschestextarchiv.de/api/recent"/>
+  <link rel="alternate" type="application/atom+xml" title="Deutsches Textarchiv: Neuigkeiten" href="https://www.deutschestextarchiv.de/api/news"/>
+
+  
+    <link rel="shortcut icon" href="https://www.deutschestextarchiv.de/static/images/favicon.ico" type="image/x-icon" />
+  
+
+  <link rel="stylesheet" type="text/css" href="static/jquery/jquery-ui-1.8.1.custom.css" />
+  <script src="static/jquery/jquery-1.8.2.min.js" type="text/javascript"></script>
+  <!-- <script src="static/jquery/jquery-3.2.0.min.js" type="text/javascript"></script> -->
+
+  <script src="static/menu.js" type="text/javascript"></script>
+  <script src="static/dta-web.js?v=15" type="text/javascript"></script>
+
+  <script type="text/javascript" src="static/jquery/jquery-ui-1.8.24.custom.min.js"></script>
+  <script type="text/javascript" src="static/jquery/iviewer/jquery.mousewheel.min.js"></script>
+  <script type="text/javascript" src="static/jquery/iviewer/github.jquery.iviewer.min.js"></script>
+  <script type="text/javascript" src="static/jquery/jquery.twinkle-0.2.min.js"></script>
+
+  
+  <script src="static/hc/highcharts.js" type="text/javascript"></script>
+  <script src="static/hc/modules/exporting.js" type="text/javascript"></script>
+  
+
+  <link rel="stylesheet" type="text/css" href="static/dtaq.css?v=3" />
+  
+  
+    <link rel="stylesheet" type="text/css" href="static/dta.css?v=4" />
+  
+  <link rel="stylesheet" type="text/css" href="static/dta-web.css?v=6" />
+  
+  <link href="static/xmlsh.css" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" media="print, embossed" type="text/css" href="https://www.deutschestextarchiv.de/static/print.css" />
+  <link rel="stylesheet" type="text/css" href="static/jquery/iviewer/jquery.iviewer.css" />
+
+  
+
+  <script type="text/javascript">
+    base    = 'https://www.deutschestextarchiv.de/';
+    book    = '';
+    dirname = '';
+    page    = '';
+    fpage   = '';
+  </script>
+
+  
+  <link rel="stylesheet" type="text/css" href="static/jquery/jquery.ui.autocomplete.css" />
+  <script type="text/javascript">
+    /* http://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array */
+    function shuffle(array) {
+      var currentIndex = array.length
+        , temporaryValue
+        , randomIndex;
+
+      while (0 !== currentIndex) {
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+        temporaryValue = array[currentIndex];
+        array[currentIndex] = array[randomIndex];
+        array[randomIndex] = temporaryValue;
+      }
+
+      return array;
+    }
+
+    var random_snippets = {
+      ddc:      [["*zeit with $p=NN","Nomen, die auf \"zeit\" enden"],["\"$p=ADJA Leser\"","attributives Adjektiv gefolgt von einer Form von \"Leser\""],["\"$p=ADJA Werkstoff|gn-asi\"","attributives Adjektiv gefolgt von einem Wort, was einen Werkstoff beschreibt"],["$con=/cit/ #has[dtadir,'mendelssohn_jerusalem_1783']","Suche alle Zitate in Mendelssohn, Moses: Jerusalem oder über religiöse Macht und Judenthum. Berlin, 1783."],["Seuche #has[textClassDTA,/Medizin/] #less_by_date[1790,1820]","Alle Formen des Begriffs \"Seuche\" in Texten, die a) dem Genre \"Wissenschaft::Medizin\" zugeordnet sind und b) zwischen 1790 und 1820 erschienen sind"],["ehelichen with $p=VVINF","\"ehelichen\" in seiner Verwendung als Verb"],["ehelich with $p=ADJA","\"ehelich\" in seiner Verwendung als attributives Adjektiv"],["\"@gefunden #2 @werden\" #random","exakte Zeichenfolge der Terme \"gefunden\" und \"werden\" mit einem Abstand von maximal 2 Tokens"],["$l=Erkenntnis","alle Begriffe, denen das Lemma \"Erkenntnis\" zugeordnet wurde"],["Kamel && Nadel*","Sätze, die den Begriff \"Kamel\" und einen mit \"Nadel\" beginnenden Begriff enthalten"],["\"Auge um\" && \"Zahn um\"","Sätze, die die Wortfolgen \"Auge um\" und \"Zahn um\" enthalten"],["@versprechend && !viel","Sätze, die die exakte Zeichenfolge \"versprechend\" aber keine Form von \"viel\" enthalten (Negation mit dem Operator \"!\")"],["{Gott,Herr} && \"das ewige Leben #2 geben\"","Sätze, die die Terme \"Gott\" oder \"Herr\" sowie die Wortgruppe \"das ewige Leben geben\" enthalten"],["\"$p=PPOSAT blass with $p=ADJA $p=NN\"","attribuierendes Possessivpronomen gefolgt von einer Form von \"blass\" als attributives Adjektiv gefolgt von einem normalen Nomen"],["faktisch #less_by_date","alle Formen von \"faktisch\", Suchergebnisse nach Publikationsjahren aufsteigend geordnet"],["\"$p=ADJA {Witwe,Wittib,Witwer}\" #less_by_date","attributives Adjektiv gefolgt von einer Form von \"Witwe\", \"Wittib\" oder \"Witwer\""],["Pferd with $r=/b/","alle Formen von \"Pferd\", die fett gedruckt sind"],["Pferd with $con=/head/","alle Formen von \"Pferd\", die in (Kapitel-)Überschriften stehen"],["NEAR(Gott, \"die Welt\", 1)","Sätze, die den Term \"Gott\" so wie die Phrase \"die Welt\" enthalten mit einem Abstand von maximal 2 Tokens"]],
+      metadata: [["api/pnd/118540238","Werke von J. W. v. Goethe"],["api/pnd/118607626","Werke von Schiller"],["api/pnd/118554700","Werke von Alexander von Humboldt"],["search/metadata?select-1=place;search-1=Breslau;search=1","Druckort: Breslau"],["search/metadata?search=1;font=handschrift","Handschriften"],["search/metadata?year=1850-;search=1","Werke nach 1850"],["search/metadata?year=-1650;search=1","Werke bis 1650"],["search/metadata?year=1848;search=1","Werke von 1848"],["list/browse?genre=Gebrauchsliteratur#Kochbuch","Kochbücher"],["list/browse?genre=Belletristik#Reiseliteratur","Reiseliteratur"],["list/browse?genre=Belletristik#Autobiographie","Autobiographien"],["list/browse?genre=Belletristik#Drama","Dramen"],["list/browse?genre=Belletristik#Lyrik","Lyrik"],["list/browse?genre=Belletristik#Roman","Romane"],["list/browse?genre=Wissenschaft#Architektur","Architektur"],["list/browse?genre=Wissenschaft#Biologie","Biologie"],["list/browse?genre=Wissenschaft#Chemie","Chemie"],["list/browse?genre=Wissenschaft#Geographie","Geographie"],["list/browse?genre=Wissenschaft#Geologie","Geologie"],["list/browse?genre=Wissenschaft#Jura","Jura"],["list/browse?genre=Wissenschaft#Kunstgeschichte","Kunstgeschichte"],["list/browse?genre=Wissenschaft#Landwirtschaft","Landwirtschaft"],["list/browse?genre=Wissenschaft#Mathematik","Mathematik"],["list/browse?genre=Wissenschaft#Medizin","Medizin"],["list/browse?genre=Wissenschaft#Ökonomie","Ökonomie"],["list/browse?genre=Wissenschaft#Philosophie","Philosophie"],["list/browse?genre=Wissenschaft#Physik","Physik"],["list/browse?genre=Wissenschaft#Psychologie","Psychologie"],["list/browse?genre=Wissenschaft#Sprachwissenschaft","Sprachwissenschaft"],["list/browse?genre=Wissenschaft#Technik","Technik"],["list/browse?genre=Wissenschaft#Theologie","Theologie"],["list/browse?genre=Wissenschaft#Zoologie","Zoologie"]]
+    };
+    var random_title = 'Beispielanfragen: ';
+
+    $( function() {
+      $( '#in-title' ).change( function() {
+        $( '#random-snippets' ).html( '' );
+        var els = shuffle( random_snippets["metadata"] );
+        var out = new Array();
+        for ( var i = 0; i < 3; i++ ) {
+          var span = $( '<span/>' ).css({
+            'fontFamily' : 'monospace',
+            'background' : '#f0f0f0'
+          });
+          var a = $( '<a/>' ).attr( 'href', base + els[i][0] ).html( els[i][1] );
+          span.append( a );
+          out.push( span.html() );
+        }
+        $('#random-snippets').html( random_title + out.join('&nbsp;&nbsp;&nbsp;') );
+        
+        $('#random-snippets').append( '<p style="margin-top:5px !important"><i>Hinweis: weitere Texte finden Sie in <a href="https://www.deutschestextarchiv.de/dtaq">DTAQ</a>.</i></p>' );
+      });
+
+      $( '#in-text' ).change( function() {
+        $( '#random-snippets' ).html( '' );
+        var els = shuffle( random_snippets["ddc"] );
+        var out = new Array();
+        for ( var i = 0; i < 3; i++ ) {
+          var span = $( '<span/>' ).css({
+            'fontFamily' : 'monospace',
+            'background' : '#f0f0f0'
+          });
+          var a = $( '<a/>' ).attr({
+            'href' : base + 'search?in=text;q=' + encodeURIComponent(els[i][0]),
+            'title': els[i][1]
+          }).html( els[i][0] );
+          span.append( a );
+          out.push( span.html() );
+        }
+        $('#random-snippets').html( random_title + out.join('&nbsp;&nbsp;&nbsp;') );
+      });
+
+      $( '#in-dtadoc' ).change( function() {
+        $( '#random-snippets' ).html( '&nbsp;' );
+      });
+
+      $( 'input[name="in"]:checked' ).trigger( 'change' );
+    });
+  </script>
+
+
+<link rel="stylesheet" type="text/css" href="https://www.deutschestextarchiv.de/static/slick/slick.css"/>
+<link rel="stylesheet" type="text/css" href="https://www.deutschestextarchiv.de/static/slick/slick-theme.css"/>
+
+  
+</head>
+
+<body>
+
+<noscript>
+  <div style="border:1px solid red; padding:10px; margin:10px; color:red; background:#fff">
+    Diese Webseite nutzt Javascript, um Inhalte benutzerfreundlich darstellen zu können.
+    Um also alle Funktionen nutzen zu können, sollten Sie Javascript in ihrem Browser anschalten.
+  </div>
+</noscript>
+
+
+
+<div id="main" style="min-width:1200px">
+  <div id="topnav">
+    <table width="100%">
+      <tr>
+        <td style="text-align:left;padding-left:7px">
+          <a href="https://www.deutschestextarchiv.de/dtaq">Anmelden (DTAQ)</a>
+        </td>
+        <td style="text-align:right">
+          <span style="font-family:Arial;font-size:8pt">
+            <a href="https://www.dwds.de/">DWDS</a>
+            &nbsp;&nbsp;&nbsp;
+            <a href="http://www.dlexdb.de/">dlexDB</a>
+            &nbsp;&nbsp;&nbsp;
+            <a href="https://clarin.bbaw.de/">CLARIN-D</a>
+          </span>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <div id="nav">
+    <table width="100%">
+      <tr>
+        
+          <td><a href="https://www.deutschestextarchiv.de/"><img src="static/images/logo.png" alt="Deutsches Textarchiv &ndash; Logo" title="Deutsches Textarchiv" /></a></td>
+        
+        <td>
+          <ul id="dtanav">
+            <li>
+              <a href="https://www.deutschestextarchiv.de/list">Texte ▼</a>
+              <ul>
+                <li><a href="https://www.deutschestextarchiv.de/list">Verfügbar</a></li>
+                <li><a href="https://www.deutschestextarchiv.de/list/timeline">Zeitleiste</a></li>
+                <li><a href="https://www.deutschestextarchiv.de/doku/nutzungsbedingungen">Nutzungsbedingungen</a></li>
+                <li><a href="https://www.deutschestextarchiv.de/download">Download</a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="https://www.deutschestextarchiv.de/doku/ueberblick">Projekt ▼</a>
+              <ul>
+                <li><a href="https://www.deutschestextarchiv.de/doku/ueberblick">Projektüberblick</a></li>
+                <li><a href="https://www.deutschestextarchiv.de/doku/team">Team</a></li>
+                <li><a href="https://www.deutschestextarchiv.de/news">Aktuelles</a></li>
+                <li><a href="https://www.deutschestextarchiv.de/veranstaltungen">Veranstaltungen</a></li>
+                <li><a href="https://www.deutschestextarchiv.de/doku/kooperationen">Kooperationen</a></li>
+                <li><a href="https://www.deutschestextarchiv.de/doku/publikationen">Publikationen</a></li>
+                <li><a href="https://www.deutschestextarchiv.de/doku/impressum#kontakt">Kontakt</a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="https://www.deutschestextarchiv.de/doku">Dokumentation ▼</a>
+              <ul>
+                <li><a href="https://www.deutschestextarchiv.de/doku/leitlinien">DTA-Leitlinien</a></li>
+                <li><a href="https://www.deutschestextarchiv.de/doku/textauswahl">DTA-Textauswahl</a></li>
+                <li><a href="https://www.deutschestextarchiv.de/doku/textquellen">Textquellen</a></li>
+                <li><a href="https://www.deutschestextarchiv.de/doku/workflow">Digitalisierungsworkflow</a></li>
+                <li><a href="https://www.deutschestextarchiv.de/dtae">DTAE</a></li>
+                <li><a href="https://www.deutschestextarchiv.de/doku/richtlinien">DTA-Richtlinien zur Texterfassung</a></li>
+                <li><a href="https://www.deutschestextarchiv.de/doku/basisformat">DTA-Basisformat</a></li>
+                <li><a href="https://www.deutschestextarchiv.de/doku/DDC-suche_hilfe">Linguistische Suche</a></li>
+                <li><a href="https://www.deutschestextarchiv.de/doku/software">Software</a></li>
+                <li><a href="https://www.deutschestextarchiv.de/api">APIs</a></li>
+                <li><a href="https://www.deutschestextarchiv.de/doku">Hilfe</a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="https://www.deutschestextarchiv.de/doku/impressum">Impressum</a>
+            </li>
+          </ul>
+          
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <div id="content" class="web">
+    
+      <table width="100%">
+        <tr>
+          <td></td>
+          <td id="content-middle" class="web">
+
+<form method="get" action="https://www.deutschestextarchiv.de/search" id="dta-index-form">
+  <table id="searchbox">
+    <tr>
+      <td><input name="q" id="main-search-field" type="text" /></td>
+      <td><input style="width:7em" type="submit" value="suchen" /></td>
+    </tr>
+    <tr>
+      <td style="text-align:left; white-space:nowrap" colspan="2">
+        <span style="white-space:nowrap" title="Suche in den bibliographischen Angaben der im DTA enthaltenen Werke"><input id="in-title" name="in" type="radio" value="metadata" />&nbsp;<label for="in-title">in den Titeldaten</label></span>
+        <span style="white-space:nowrap" title="Suche in den Volltexten der im DTA enthaltenen Werke"><input value="text" checked="checked" type="radio" name="in" id="in-text" />&nbsp;<label for="in-text">im Korpus</label></span>
+        
+        <span class="small" style="padding-left:2em">
+          <a href="https://www.deutschestextarchiv.de/doku/DDC-suche_hilfe">Hilfe</a>
+        </span>
+      </td>
+    </tr>
+  </table>
+</form>
+
+<div id="random-snippets" class="small" style="text-align:center"></div>
+
+<br /><br />
+
+<div id="start-page">
+  <h1>Deutsches Textarchiv (DTA)</h1>
+  <p>
+  Das DTA stellt auf seiner Plattform disziplinen- und gattungsübergreifende
+  Sammlungen und Korpora von deutschsprachigen Texten bereit. Als Grundlage für
+  ein Referenzkorpus der neuhochdeutschen Sprache steht das rund 1500 Titel
+  umfassende <a href="https://www.dwds.de/d/korpora/dtak">DTA-Kernkorpus</a> im
+  Zentrum.
+</p>
+
+<p>
+  Dieses zeichnet sich aus durch: eine ausbalancierte <a
+  href="https://deutschestextarchiv.de/doku/textauswahl">Textauswahl</a> in den
+  Textsorten, einen Publikationszeitraum, der ab dem frühen 17. Jahrhundert
+  beginnt und bis zum frühen 20. Jahrhundert reicht, die <a
+  href="https://deutschestextarchiv.de/doku/leitlinien#auswahl_der_zug">Verwendung
+  von Erstausgaben</a> bei der Digitalisierung, die Wahrung des Sprachstandes
+  sowie adäquater Textstrukturierung bei der Transkription.
+</p>
+
+<h2 style="border-bottom:none">DTA-Erweiterungen</h2>
+
+<p>
+  Daneben wurden im Rahmen des Moduls DTA-Erweiterungen (DTAE) digitalisierte
+  historische Quellen aus externen Projekten entsprechend den Richtlinien des
+  DTA aufbereitet und in das DTA integriert. Die vorhandene Sammlung des
+  DTA-Kernkorpus wurde so um ein ca. 4.000 Quellen starkes
+  DTA-Erweiterungskorpus, wiederum schwerpunktmäßig aus Quellen des 17. bis 19.
+  Jhs., ergänzt. 
+</p>
+
+<h2 style="border-bottom:none">Status quo</h2>
+
+<p>
+  Aktuell dient das DTA im Rahmen der <a href="https://www.nfdi.de/">Nationalen
+  Forschungsdateninfrastruktur (NFDI)</a> im Konsortium <a
+  href="https://www.text-plus.org/">Text+</a> als Repositorium für
+  strukturierte, historische Texte. Zudem stellt das DTA historische
+  Textkorpora für die Wörterbucharbeit im Projekt <a
+  href="https://adw-goe.de/forschung/weitere-forschungsprojekte/wortgeschichte-digital-teilprojekt-im-zdl/">Wortgeschichte
+  digital</a> – einem Teilprojekt des sich im Aufbau befindenden Zentrum für
+  digitale Lexikographie der deutschen Sprache (<a
+  href="https://www.zdl.org/">ZDL</a>) – zur Verfügung.
+</p>
+
+<h2 style="border-bottom:none">Zugänglichkeit und Nachnutzbarkeit</h2>
+
+<p>
+  Die elektronischen Volltexte sind frei zugänglich und dank ihrer Aufbereitung
+  durch (computer-)linguistische Methoden schreibweisentolerant über den
+  gesamten Bestand durchsuchbar. Eine Textanalyse wird sowohl durch über das <a
+  href="https://www.dwds.de/">DWDS</a> bereitgestellte Tools wie <a
+  href="https://www.dwds.de/d/ressources#wortverlauf">Wortverlaufskurven</a>
+  oder <a href="https://www.dwds.de/d/ressources#diacollo">DiaCollo</a>, also
+  auch über die Anbindung externer Analysetools wie bspw. die <a
+  href="https://voyant-tools.org/">Voyant Tools</a> oder das <a
+  href="https://switchboard.clarin.eu/">Language Resource Switchboard (LRS)</a>
+  realisiert.
+</p>
+
+<p>
+  Alle Texte und Korpora des DTA-Grundbestandes (DTA-Kernkorpus und
+  DTA-Erweiterungskorpus) sind entsprechend dem umfassend dokumentierten
+  TEI-P5-Format <a
+  href="https://www.deutschestextarchiv.de/doku/basisformat">DTABf</a>
+  aufbereitet und stehen über eine Text-Bild-Ansicht auf der DTA-Website sowie
+  <a href="https://www.deutschestextarchiv.de/download">zum Download</a> zur
+  Verfügung.
+</p>
+
+<hr/>
+
+<p>
+  Neben den auf dieser Seite verfügbaren Texten bieten wir Zugang zu
+  weiteren Ressourcen:
+</p>
+
+<style>
+  .table-corpora { width:auto }
+  .table-corpora td, .table-corpora th { padding:3px }
+  .table-corpora tr:nth-child(even) { background-color:#f2f2f2 }
+</style>
+
+<table class="table-corpora">
+  <thead>
+    <tr>
+      <th>Korpus</th>
+      <th>Zugang</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Polytechnisches Journal</td>
+      <td>
+        <a href="https://dingler.bbaw.de/">Projektseite</a>,
+        <a href="https://github.com/deutschestextarchiv/dingler">Quellen</a>,
+        <a href="https://www.dwds.de/d/korpora/dingler">Korpussuche im DWDS</a>
+      </td>
+    </tr>
+    <tr>
+      <td>Soldatenbriefe (1745–1872)</td>
+      <td>
+        <a href="https://github.com/deutschestextarchiv/soldatenbriefe">Quellen</a>,
+        <a href="https://www.dwds.de/d/korpora/soldatenbriefe">Korpussuche im DWDS</a>
+      </td>
+    </tr>
+    <tr>
+      <td>Korpus Patiententexte (1834–1957)</td>
+      <td>
+        <a href="https://www.deutschestextarchiv.de/copadocs/">Projektseite</a>,
+        <a href="https://github.com/deutschestextarchiv/copadocs">Quellen</a>,
+        <a href="https://www.dwds.de/d/korpora/copadocs">Korpussuche im DWDS</a>
+      </td>
+    </tr>
+    <tr>
+      <td>A. v. Humboldts Publizistik (dt., 1790–1859)</td>
+      <td>
+        <a href="https://humboldt.unibe.ch/text">Projektseite</a>,
+        <a href="https://github.com/avh-bern-berlin/avh-texts/">Quellen</a>,
+        <a href="https://www.dwds.de/d/korpora/avh-bern">Korpussuche im DWDS</a>
+      </td>
+    </tr>
+    <tr>
+      <td>Nachrichten aus der Brüdergemeine (1819–1894)</td>
+      <td>
+        <a href="https://www.dwds.de/d/korpora/bruedergemeine">Korpussuche im DWDS</a>
+      </td>
+    </tr>
+    <tr>
+      <td>Der Neue Pitaval (1842–1890)</td>
+      <td>
+        <a href="https://www.dwds.de/d/korpora/pitaval">Korpussuche im DWDS</a>
+      </td>
+    </tr>
+    <tr>
+      <td>Briefe von Jean Paul (1780–1825)</td>
+      <td>
+        <a href="https://www.jeanpaul-edition.de/">Projektseite</a>,
+        <a href="https://www.dwds.de/d/korpora/jean_paul">Korpussuche im DWDS</a>
+      </td>
+    </tr>
+    <tr>
+      <td>Deutsche Kunst und Dekoration (1897–1932)</td>
+      <td>
+        <a href="https://www.dwds.de/d/korpora/dekude">Korpussuche im DWDS</a>
+      </td>
+    </tr>
+    <tr>
+      <td>Neuer Deutscher Novellenschatz (1884–1887)</td>
+      <td>
+        <a href="https://github.com/deutschestextarchiv/nschatz_deu">Quellen</a>,
+        <a href="https://www.dwds.de/d/korpora/nschatz_deu">Korpussuche im DWDS</a>
+      </td>
+    </tr>
+    <tr>
+      <td>stimm-los – Wiedergefundene Perlen der Literatur</td>
+      <td>
+        <a href="https://github.com/deutschestextarchiv/stimm-los">Quellen</a>,
+        <a href="https://www.dwds.de/d/korpora/stimm-los">Korpussuche im DWDS</a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+  
+</div>
+
+
+</td>
+          <td id="content-right">
+<div style="padding:0 10px; margin-top:20px">
+  <h3>Das DTA in Zahlen</h3>
+  <div style="margin-left:20px; line-height:1.5em">
+    Sie können in 5 482 Werken <a href="https://www.deutschestextarchiv.de/list">recherchieren</a>.<br />
+    Weitere Zahlen finden Sie <a href="https://www.deutschestextarchiv.de/doku/ueberblick">hier</a>.
+    
+  </div>
+</div>
+
+
+
+<div style="padding:0 10px; margin-top:20px">
+  <h3>Neue Werke im DTA</h3><br />
+  <div style="text-align:center">
+  
+    <a href="https://www.deutschestextarchiv.de/book/show/weiss_frauenberuf_1892" title="Weiß, Johannes: Frauenberuf. Ein Beitrag zur Frauenfrage. Leipzig, 1892 (= Evangelisch-soziale Streitfragen: 7)."><img src="https://www.deutschestextarchiv.de/media/images/weiss_frauenberuf_1892/weiss_frauenberuf_1892_0003_160px.jpg" style="width:80px; padding:0 10px 5px 0" /></a>
+    
+    
+  
+    <a href="https://www.deutschestextarchiv.de/book/show/bluhm_frauenstudium_1895" title="Bluhm, Agnes: Die Entwickelung und der gegenwärtige Stand des medicinischen Frauenstudiums in den europäischen und aussereuropäischen Ländern. In: Deutsche medizinische Wochenschrift (1895), S. 648–650."><img src="https://www.deutschestextarchiv.de/media/images/bluhm_frauenstudium_1895/bluhm_frauenstudium_1895_0001_160px.jpg" style="width:80px; padding:0 10px 5px 0" /></a>
+    
+    
+  
+    <a href="https://www.deutschestextarchiv.de/book/show/buchner_hygiene_1900" title="Buchner, Hans: Hygiene und Frauengymnasium. München, 1900."><img src="https://www.deutschestextarchiv.de/media/images/buchner_hygiene_1900/buchner_hygiene_1900_0001_160px.jpg" style="width:80px; padding:0 10px 5px 0" /></a>
+    <br />
+    
+  
+    <a href="https://www.deutschestextarchiv.de/book/show/stelzner_frauenuniversitaeten_1898" title="Stelzner, Helene Friederike: Frauenuniversitäten? In: Der Türmer (1898/99), S. 112–123."><img src="https://www.deutschestextarchiv.de/media/images/stelzner_frauenuniversitaeten_1898/stelzner_frauenuniversitaeten_1898_0001_160px.jpg" style="width:80px; padding:0 10px 5px 0" /></a>
+    
+    
+  
+    <a href="https://www.deutschestextarchiv.de/book/show/herkner_nationaloekonomie_1899" title="Herkner, H.: Das Frauenstudium der Nationalökonomie. Berlin, 1899."><img src="https://www.deutschestextarchiv.de/media/images/herkner_nationaloekonomie_1899/herkner_nationaloekonomie_1899_0001_160px.jpg" style="width:80px; padding:0 10px 5px 0" /></a>
+    
+    
+  
+    <a href="https://www.deutschestextarchiv.de/book/show/bistram_frauenbildung_1900" title="Bistram, Ottilie von: Frauenbildung – Frauenstudium. Elberfeld, 1900."><img src="https://www.deutschestextarchiv.de/media/images/bistram_frauenbildung_1900/bistram_frauenbildung_1900_0001_160px.jpg" style="width:80px; padding:0 10px 5px 0" /></a>
+    <br />
+    
+  </div>
+  <p style="text-align:right"><i><a href="https://www.deutschestextarchiv.de/list">alle Titel &hellip;</a></i> &nbsp;&nbsp;&nbsp; <a href="https://www.deutschestextarchiv.de/api/recent"><img src="static/images/social-rss-box-orange-icon.png" align="top" /></a></p>
+</div>
+
+<div>
+  <h3>Stöbern im DTA</h3>
+  <ul>
+    
+    <li style="margin-top:5px">
+      Textgattungen/-kategorien:
+      <ul>
+        <li><a href="https://www.deutschestextarchiv.de/list/browse?genre=Belletristik">Belletristik</a></li>
+        <li><a href="https://www.deutschestextarchiv.de/list/browse?genre=Gebrauchsliteratur">Gebrauchsliteratur</a></li>
+        <li><a href="https://www.deutschestextarchiv.de/list/browse?genre=Wissenschaft">Wissenschaft</a></li>
+        <li><a href="https://www.deutschestextarchiv.de/list/browse?genre=Zeitung">Zeitung</a></li>
+      </ul>
+    </li>
+    <li style="margin-top:5px">
+      Veröffentlichungszeit:
+      <ul>
+        <li><a href="https://www.deutschestextarchiv.de/list/browse?century=17">17. Jahrhundert</a></li>
+        <li><a href="https://www.deutschestextarchiv.de/list/browse?century=18">18. Jahrhundert</a></li>
+        <li><a href="https://www.deutschestextarchiv.de/list/browse?century=19">19. Jahrhundert</a></li>
+        <li><a href="https://www.deutschestextarchiv.de/list/browse?century=20">20. Jahrhundert</a></li>
+      </ul>
+    </li>
+  </ul>
+</div>
+
+<div>
+  <h3>Teilprojekte</h3>
+  <ul>
+    <li><a href="https://www.deutschestextarchiv.de/dtae">DTA-Erweiterungen (DTAE)</a></li>
+    <li><a href="https://www.deutschestextarchiv.de/cab/">Linguistische Analyse historischer Texte (CAB)</a></li>
+    <li><a href="https://clarin-d.de/de/kollokationsanalyse-in-diachroner-perspektive">DiaCollo: Kollokationsanalyse in diachroner Perspektive</a></li>
+    <li><a href="https://www.deutschestextarchiv.de/doku/clarin_kupro_index">CLARIN-D: Kurationsprojekt 1 der F-AG 1</a></li>
+    <li><a href="https://www.deutschestextarchiv.de/dtae/metadaten">Metadatenformular zur Aufnahme einzelner Ressourcen</a></li>
+    <!-- <li><a href="https://www.deutschestextarchiv.de/dtae/submit/wikisource">Tool zur Konvertierung von Wikisource-Dokumenten</a></li> -->
+  </ul>
+</div>
+
+<div>
+  <h3>Download</h3>
+  <p>
+    Alle im DTA angebotenen Texte sind unter einer Creative-Commons-Lizenz
+    zum <a href="https://www.deutschestextarchiv.de/download">Download</a> verfügbar.
+  </p>
+</div>
+
+<script>
+  $( function() {
+    $('.slider').slick({
+      dots: true
+    });
+  });
+</script>
+
+<style>
+  .slider { width:auto }
+
+  .slick-prev, .slick-next { width:40px; height:40px }
+
+  .slick-prev { left:10px; z-index:100 }
+  .slick-next { right:10px; z-index:100 }
+
+  .slick-prev:before,
+  .slick-next:before { color:#666; font-size:40px }
+
+  .slick-dots { bottom:-30px }
+
+  .embed-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    max-width: 100%;
+    height: auto;
+    margin:1em 0 1.5em 0;
+ }
+
+  .embed-container iframe,
+  .embed-container object,
+  .embed-container img,
+  .embed-container embed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+</style>
+
+<div>
+  <h3>Videos zum DTA</h3>
+
+  <section class="slider">
+    
+      <div class="item">
+        <div class="embed-container">
+          <a href="https://www.youtube.com/watch?v=q6rPFypzJaE" target="_blank"><img src="https://www.deutschestextarchiv.de/static/images/videos/q6rPFypzJaE.jpg"/></a>
+        </div>
+      </div>
+    
+      <div class="item">
+        <div class="embed-container">
+          <a href="https://www.youtube.com/watch?v=oMEC_rKTsX0" target="_blank"><img src="https://www.deutschestextarchiv.de/static/images/videos/oMEC_rKTsX0.jpg"/></a>
+        </div>
+      </div>
+    
+      <div class="item">
+        <div class="embed-container">
+          <a href="https://www.youtube.com/watch?v=N-UCmus6kjM" target="_blank"><img src="https://www.deutschestextarchiv.de/static/images/videos/N-UCmus6kjM.jpg"/></a>
+        </div>
+      </div>
+    
+      <div class="item">
+        <div class="embed-container">
+          <a href="https://www.youtube.com/watch?v=q_CcSq-004I" target="_blank"><img src="https://www.deutschestextarchiv.de/static/images/videos/q_CcSq-004I.jpg"/></a>
+        </div>
+      </div>
+    
+      <div class="item">
+        <div class="embed-container">
+          <a href="https://www.youtube.com/watch?v=6ry_aAgxRhA" target="_blank"><img src="https://www.deutschestextarchiv.de/static/images/videos/6ry_aAgxRhA.jpg"/></a>
+        </div>
+      </div>
+    
+      <div class="item">
+        <div class="embed-container">
+          <a href="https://www.youtube.com/watch?v=yqKL7aSFZu4" target="_blank"><img src="https://www.deutschestextarchiv.de/static/images/videos/yqKL7aSFZu4.jpg"/></a>
+        </div>
+      </div>
+    
+      <div class="item">
+        <div class="embed-container">
+          <a href="https://www.youtube.com/watch?v=wgmzrT9UJxQ" target="_blank"><img src="https://www.deutschestextarchiv.de/static/images/videos/wgmzrT9UJxQ.jpg"/></a>
+        </div>
+      </div>
+    
+  </section>
+
+  <p style="text-align:center; color:#333">
+    Klicken Sie auf ein Vorschaubild, um zum Video zu gelangen.
+  </p>
+</td>
+        </tr>
+      </table>
+    
+    
+  </div>
+
+  <div id="foot">
+    <table width="100%">
+      <tr>
+        <td style="vertical-align:middle">
+          <table>
+            <tr>
+              <td><a href="https://creativecommons.org/licenses/by-sa/4.0/deed.de"><img src="static/images/cc-by-sa.svg" alt="cc-by-sa 4.0" style="opacity:0.5" align="top" /></a></td>
+              <td>
+                Alle Inhalte dieser Seite unterstehen, soweit nicht anders gekennzeichnet, einer
+                <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.de">Creative-Commons-Lizenz</a>.
+                Die Rechte an den angezeigten Bilddigitalisaten, soweit nicht anders gekennzeichnet, liegen bei den besitzenden Bibliotheken.
+                Weitere Informationen finden Sie in den <a href="https://www.deutschestextarchiv.de/doku/nutzungsbedingungen">DTA-Nutzungsbedingungen</a>.
+              </td>
+            </tr>
+          </table>
+          <p style="max-width:80%">
+            Insbesondere im Hinblick auf die §§ 86a StGB und 130 StGB wird festgestellt, dass die auf
+            diesen Seiten abgebildeten Inhalte weder in irgendeiner Form propagandistischen Zwecken
+            dienen, oder Werbung für verbotene Organisationen oder Vereinigungen darstellen, oder
+            nationalsozialistische Verbrechen leugnen oder verharmlosen, noch zum Zwecke der
+            Herabwürdigung der Menschenwürde gezeigt werden.
+            Die auf diesen Seiten abgebildeten Inhalte (in Wort und Bild) dienen im Sinne des
+            § 86 StGB Abs. 3 ausschließlich historischen, sozial- oder kulturwissenschaftlichen
+            Forschungszwecken. Ihre Veröffentlichung erfolgt in der Absicht, Wissen zur Anregung
+            der intellektuellen Selbstständigkeit und Verantwortungsbereitschaft des Staatsbürgers zu
+            vermitteln und damit der Förderung seiner Mündigkeit zu dienen.
+          </p>
+          <br />
+          <p>
+            2007&ndash;2026 Deutsches Textarchiv, Berlin-Brandenburgische Akademie der Wissenschaften
+            (<a href="https://www.deutschestextarchiv.de/doku/impressum#kontakt">Kontakt</a>).<br /><br />
+            Zitierempfehlung: <i>Deutsches Textarchiv. Grundlage für ein Referenzkorpus der neuhochdeutschen Sprache. Herausgegeben von der Berlin-Brandenburgischen Akademie der Wissenschaften, Berlin 2026. URL: https://www.deutschestextarchiv.de/.</i>
+          </p>
+        </td>
+        <td style="text-align:right">
+          <div style="position:relative">
+            <span style="position:absolute;bottom:10px;right:185px"><a href="https://gepris.dfg.de/gepris/projekt/37149321"><img src="static/images/dfg_logo_schwarz.jpg" style="width:45px;opacity:0.5" alt="DFG-Logo" /></a></span>
+            <a href="https://www.bbaw.de/" style="padding-left:15px"><img src="static/images/bbaw.png" style="height:80px;opacity:0.7" alt="BBAW-Logo" /></a>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+</div>
+
+<!-- Matomo -->
+<script>
+  var _paq = window._paq = window._paq || [];
+  /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="https://stats.dwds.de/";
+    _paq.push(['setTrackerUrl', u+'matomo.php']);
+    _paq.push(['setSiteId', '4']);
+    _paq.push(['enableLinkTracking']);
+    _paq.push(['trackPageView']);
+    _paq.push(['trackVisibleContentImpressions']);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<noscript><p><img src="https://stats.dwds.de/matomo.php?idsite=4&amp;rec=1" style="border:0" alt="" /></p></noscript>
+<!-- // Matomo -->
+
+<script type="text/javascript" src="https://www.deutschestextarchiv.de/static/slick/slick.min.js"></script>
+</body>
+</html>

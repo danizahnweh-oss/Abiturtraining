@@ -1,0 +1,994 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.deutschestextarchiv.de/basisformat.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">     <teiHeader>
+<fileDesc>
+<titleStmt>
+<title type="main">Ideen zu einer Physiognomik der Gewächse</title>
+<author>
+<persName ref="http://d-nb.info/gnd/118554700">
+<surname>Humboldt</surname>
+<forename>Alexander von</forename>
+</persName>
+</author>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/115266127">
+<surname>Geyken</surname>
+<forename>Alexander</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1222198746">
+<surname>Haaf</surname>
+<forename>Susanne</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1019062681">
+<surname>Jurish</surname>
+<forename>Bryan</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Boenig</surname>
+<forename>Matthias</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Thomas</surname>
+<forename>Christian</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Wiegand</surname>
+<forename>Frank</forename>
+</persName>
+</editor>
+<respStmt>
+<orgName>gutenberg.org</orgName>
+<resp>
+<note type="remarkResponsibility">Bereitstellung der Texttranskription und Auszeichnung in HTML.</note>
+<note type="remarkRevisionDTA">Bitte beachten Sie, dass die aktuelle Transkription (und Textauszeichnung) mittlerweile nicht mehr dem Stand zum Zeitpunkt der Übernahme aus gutenberg.org entsprechen muss.</note>
+<ref target="https://web.archive.org/web/20180111010110/http://www.gutenberg.org/ebooks/22761"/>
+<date type="importDTA">2012-11-06T13:54:31Z</date>
+</resp>
+</respStmt>
+<respStmt>
+<orgName>SUB Göttingen</orgName>
+<resp>
+<note type="remarkResponsibility">Bereitstellung der Bilddigitalisate</note>
+<ref target="http://resolver.sub.uni-goettingen.de/purl?PPN534402593"/>
+<date type="importDTA">2012-11-06T13:54:31Z</date>
+</resp>
+</respStmt>
+<respStmt>
+<persName>
+<forename>Frank</forename>
+<surname>Wiegand</surname>
+</persName>
+<resp>
+<note type="remarkResponsibility">Konvertierung von HTML nach XML/TEI gemäß DTA-Basisformat.</note>
+<date type="importDTA">2012-11-06T13:54:31Z</date>
+</resp>
+</respStmt>
+<respStmt>
+<orgName ref="https://www.bbaw.de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<resp>
+<note type="remarkResponsibility">Langfristige Bereitstellung der DTA-Ausgabe</note>
+<ref target="https://www.bbaw.de"/>
+</resp>
+</respStmt>
+</titleStmt>
+<editionStmt><edition>Vollständige digitalisierte Ausgabe.</edition></editionStmt>
+<extent>
+<measure type="images">28</measure>
+<measure type="tokens">5074</measure>
+<measure type="types">2098</measure>
+<measure type="characters">37409</measure>
+</extent>
+<publicationStmt>
+<publisher xml:id="DTACorpusPublisher">
+<email>dta@bbaw.de</email>
+<orgName role="project">Deutsches Textarchiv</orgName>
+<orgName role="hostingInstitution" xml:lang="en">Berlin-Brandenburg Academy of Sciences and Humanities (BBAW)</orgName>
+<orgName role="hostingInstitution" xml:lang="de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<address>
+<addrLine>Jägerstr. 22/23, 10117 Berlin</addrLine>
+<country>Germany</country>
+</address>
+</publisher>
+<pubPlace>Berlin</pubPlace>
+<date type="publication">2025-10-24T10:14:17Z</date>
+<availability>
+<licence target="https://web.archive.org/web/20180927123034/http://www.gutenberg.org/wiki/Gutenberg:The_Project_Gutenberg_License">
+<p>Distributed under the Project Gutenberg License.</p>
+</licence>
+</availability>
+<idno>
+<idno type="URLWeb">https://www.deutschestextarchiv.de/humboldt_physiognomik_1806</idno>
+<idno type="URLXML">https://www.deutschestextarchiv.de/book/download_xml/humboldt_physiognomik_1806</idno>
+<idno type="URLHTML">https://www.deutschestextarchiv.de/book/download_html/humboldt_physiognomik_1806</idno>
+<idno type="URLText">https://www.deutschestextarchiv.de/book/download_text/humboldt_physiognomik_1806</idno>
+<idno type="DTADirName">humboldt_physiognomik_1806</idno>
+<idno type="DTAID">30038</idno>
+<idno type="URN">urn:nbn:de:kobv:b4-30038-1</idno>
+</idno>
+</publicationStmt>
+<sourceDesc>
+<bibl type="M">Humboldt, Alexander von: Ideen zu einer Physiognomik der Gewächse. Tübingen, 1806.</bibl>
+<biblFull>
+<titleStmt>
+<title level="m" type="main">Ideen zu einer Physiognomik der Gewächse</title>
+<author>
+<persName ref="http://d-nb.info/gnd/118554700">
+<surname>Humboldt</surname>
+<forename>Alexander von</forename>
+</persName>
+</author>
+</titleStmt>
+<editionStmt>
+<edition n="1"/>
+</editionStmt>
+<publicationStmt>
+<publisher><name>Cotta</name></publisher>
+<pubPlace>Tübingen</pubPlace>
+<date type="publication">1806</date>
+</publicationStmt>
+</biblFull>
+<msDesc>
+<msIdentifier>
+</msIdentifier>
+<physDesc>
+<typeDesc>
+<p>Antiqua</p>
+</typeDesc>
+</physDesc>
+</msDesc>
+</sourceDesc>
+</fileDesc>
+<encodingDesc>
+<editorialDecl>
+<p>
+<![CDATA[
+<p>Anmerkungen zur Transkription:</p>
+<ul>
+<li>Schreibweise und Interpunktion des Originaltextes wurden übernommen.</li>
+<li>Der Zeilenfall wurde beibehalten, die Silbentrennung aber wurde aufgehoben.</li>
+</ul>
+]]>
+</p>
+</editorialDecl>
+<tagsDecl>
+<rendition scheme="css" xml:id="aq">font-family:sans-serif</rendition>
+<rendition scheme="css" xml:id="b">font-weight:bold</rendition>
+<rendition scheme="css" xml:id="blue">color:blue</rendition>
+<rendition scheme="css" xml:id="c">display:block; text-align:center</rendition>
+<rendition scheme="css" xml:id="et">display:block; margin-left:2em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et2">display:block; margin-left:4em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et3">display:block; margin-left:6em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="f">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="fr">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="g">letter-spacing:0.125em</rendition>
+<rendition scheme="css" xml:id="i">font-style:italic</rendition>
+<rendition scheme="css" xml:id="in">font-size:150%</rendition>
+<rendition scheme="css" xml:id="k">font-variant:small-caps</rendition>
+<rendition scheme="css" xml:id="larger">font-size:larger</rendition>
+<rendition scheme="css" xml:id="red">color:red</rendition>
+<rendition scheme="css" xml:id="right">display:block; text-align:right</rendition>
+<rendition scheme="css" xml:id="s">text-decoration:line-through</rendition>
+<rendition scheme="css" xml:id="smaller">font-size:smaller</rendition>
+<rendition scheme="css" xml:id="sub">vertical-align:sub; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="sup">vertical-align:super; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="u">text-decoration:underline</rendition>
+<rendition scheme="css" xml:id="uu">border-bottom:double 3px #000</rendition>
+</tagsDecl>
+</encodingDesc>
+<profileDesc>
+<langUsage>
+<language ident="deu">(Früh-)Neuhochdeutsch</language>
+<language ident="deu">German</language>
+</langUsage>
+<textClass>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1main">Wissenschaft</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1sub">Biologie</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">ready</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">gutenberg_org</classCode>
+</textClass>
+</profileDesc>
+</teiHeader>
+<text>     <front>
+<pb n="[1]" facs="#f0001"/>
+<titlePage type="main">         <titlePart type="main">           <hi rendition="#g">Ideen</hi><lb/>
+zu einer<lb/>
+<hi rendition="#g">Physiognomik<lb/>
+der<lb/>
+Gewächse</hi>,<lb/>
+</titlePart>         <byline>           von<lb/>
+<docAuthor><persName ref="http://d-nb.info/gnd/118554700">Alexander von Humboldt</persName></docAuthor>.         </byline>         <lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<docImprint>           <pubPlace><placeName>Tübingen</placeName></pubPlace><lb/>
+in der J. G. Cotta'schen Buchhandlung.<lb/>
+<docDate>1806</docDate>.<lb/>
+</docImprint>       </titlePage>
+<pb n="[2]" facs="#f0002"/>
+</front>
+<pb n="[3]" facs="#f0003"/>
+<body>       <div n="1">       <p><hi rendition="#in">W</hi>enn der Mensch mit regsamem Sinne die Natur<lb/>
+durchforscht, oder in seiner Phantasie die weiten<lb/>
+Räume der organischen Schöpfung mi&#x017F;st, so wirkt unter<lb/>
+den vielfachen Eindrücken, die er empfängt, keiner<lb/>
+so tief und mächtig als der, welchen die allverbreitete<lb/>
+Fülle des Lebens erzeugt. Ueberall, selbst<lb/>
+am beeisten <placeName>Pol</placeName>, ertönt die Luft von dem Gesange der<lb/>
+Vögel, wie von dem Sumsen schwirrender Insecten.<lb/>
+Nicht die unteren Schichten allein, in welchen die<lb/>
+verdichteten Dünste schweben, auch die oberen ätherischreinen,<lb/>
+sind belebt. Denn so oft man den Rücken<lb/>
+der <placeName>Peruanischen Cordilleren</placeName>, oder, südlich vom<lb/>
+<placeName>Leman-See</placeName>, den Gipfel des <placeName>Wei&#x017F;sen-Berges</placeName> bestieg,<lb/>
+hat man selbst in diesen Einöden noch Thiere entdeckt.<lb/>
+Am <placeName>Chimborazo</placeName>, sechsmal höher als der <placeName>Brokken</placeName>,<lb/>
+sahen wir Schmetterlinge und andere geflügelte<lb/>
+Insecten. Wenn auch, von senkrechten Luftströmen<lb/>
+getrieben, sie sich dahin, als Fremdlinge, verirrten,<lb/>
+wohin unruhige Forschbegier des Menschen sorgsame<lb/>
+Schritte leitet; so beweiset ihr Daseyn doch, da&#x017F;s die<lb/>
+biegsamere animalische Schöpfung ausdauert, wo die<lb/>
+vegetabilische längst ihre Grenze erreicht hat. Höher,<lb/>
+<pb n="4" facs="#f0004"/>
+als der <placeName>Kegelberg</placeName> von <placeName>Teneriffa</placeName> auf den <placeName>Aetna</placeName> gethürmt;<lb/>
+höher, als alle Gipfel der <placeName>Andeskette</placeName>, schwebte<lb/>
+oft über uns der Cundur, der Riese unter den Geiern.<lb/>
+Raubsucht und Nachstellung der zartwolligen<lb/>
+Vikunnas, welche gemsenartig und heerdenweise in<lb/>
+den beschneiten Grasebenen schwärmen, locken den<lb/>
+mächtigen Vogel in diese Region.<lb/>
+</p> <p>Zeigt nun schon das unbewafnete Auge den ganzen<lb/>
+Luftkreis belebt, so enthüllt noch grö&#x017F;sere Wunder<lb/>
+das bewafnete Auge. Räderthiere, Brachionen,<lb/>
+und eine Schaar mikroskopischer Geschöpfe heben die<lb/>
+Winde aus den troknenden Gewässern empor. Unbeweglich<lb/>
+und in Scheintod versenkt, schweben sie vielleicht<lb/>
+Jahrelang in den Lüften, bis der Thau sie zur<lb/>
+Erde zurükführt, die Hülle löst, die ihren durchsichtigen<lb/>
+wirbelnden Körper einschlie&#x017F;st, und (wahrscheinlich<lb/>
+durch den Lebensstoff, den alles Wasser<lb/>
+enthält) den Organen neue Erregbarkeit einhaucht.<lb/>
+</p> <p>Neben den entwickelten Geschöpfen trägt der<lb/>
+Luftkreis auch zahllose Keime künftiger Bildungen,<lb/>
+Insecten-Eier und Eier der Pflanzen, die durch Haar-<lb/>
+und Feder-Kronen zur langen Herbstreise geschikt<lb/>
+sind. Selbst den belebenden Staub, den, bei getrennten<lb/>
+Geschlechtern, die männlichen Blüthen ausstreuen,<lb/>
+tragen Winde und geflügelte Insecten über Meer und<lb/>
+Land den einsamen weiblichen zu. Wohin der Blick<lb/>
+des Naturforschers dringt, ist Leben, oder Keim zum<lb/>
+Leben, verbreitet.<lb/>
+</p> <p>Dient aber auch das bewegliche Luftmeer, in das<lb/>
+wir getaucht sind, und über dessen Oberfläche wir<lb/>
+<pb n="5" facs="#f0005"/>
+uns nicht zu erheben vermögen, vielen organischen<lb/>
+Geschöpfen zur nothwendigsten Nahrung; so bedürfen<lb/>
+dieselben dabei doch noch einer gröberen Speise,<lb/>
+welche nur der Boden dieses gasförmigen Oceans darbietet.<lb/>
+Dieser Boden ist zwiefacher Art. Den kleineren<lb/>
+Theil bildet die trockene Erde, unmittelbar von<lb/>
+Luft umflossen; den grö&#x017F;seren Theil bildet das Wasser,<lb/>
+vielleicht einst vor Jahrtausenden durch elektrisches<lb/>
+Feuer aus luftförmigen Stoffen zusammengeronnen,<lb/>
+und jezt unaufhörlich in der Werkstatt der Wolken,<lb/>
+wie in den pulsirenden Gefä&#x017F;sen der Thiere und Pflanzen,<lb/>
+zersezt.<lb/>
+</p> <p>Unentschieden ist es, wo grö&#x017F;sere Lebensfülle<lb/>
+verbreitet sey; ob auf dem Continent, oder in dem<lb/>
+unergründeten Meere. In diesem erscheinen gallertartige<lb/>
+Seegewürme, bald lebendig, bald abgestorben,<lb/>
+als leuchtende Sterne. Ihr Phosphorlicht wandelt die<lb/>
+grünliche Fläche des unerme&#x017F;slichen Ozeans in ein<lb/>
+Feuermeer um. Unauslöschlich wird mir der Eindruck<lb/>
+jener stillen Tropen-Nächte der <placeName>Südsee</placeName> bleiben,<lb/>
+wo aus der duftigen Himmelsbläue das hohe Sternbild<lb/>
+des Schiffes und das gesenkt untergehende Kreuz ihr<lb/>
+mildes planetarisches Licht ausgossen, und wo zugleich<lb/>
+in der schäumenden Meeresfluth die Delphine<lb/>
+ihre leuchtenden Furchen zogen.<lb/>
+</p> <p>Aber nicht der Ozean allein, auch die Sumpfwasser<lb/>
+verbergen zahllose Gewürme von wunderbarer Gestalt.<lb/>
+Unserem Auge fast unerkennbar sind die Cyclidien,<lb/>
+die gefranzten Trichoden und das Heer der Naiden,<lb/>
+theilbar durch Aeste, wie die Lemna, deren<lb/>
+<pb n="6" facs="#f0006"/>
+Schatten sie suchen. Von mannichfaltigen Luftgemengen<lb/>
+umgeben, und mit dem Lichte unbekannt, athmen:<lb/>
+die geflekte Askaris, welche die Haut des Regenwurms,<lb/>
+die silberglänzende Leukophra, welche das<lb/>
+Innere der Ufer-Naide, und der Echynorynchus, welcher<lb/>
+die weitzellige Lunge der tropischen Klapperschlange<lb/>
+bewohnt. So sind auch die verborgensten<lb/>
+<choice><sic>Bäume</sic><corr>Räume</corr></choice> der Schöpfung mit Leben erfüllt. Wir wollen<lb/>
+hier bescheiden bei den Geschlechtern der Pflanzen<lb/>
+verweilen; denn auf ihrem Daseyn beruht das Daseyn<lb/>
+der thierischen Schöpfung. Unablä&#x017F;sig sind sie bemüht,<lb/>
+den rohen Stoff der Erde organisch an einander zu<lb/>
+reihen, und vorbereitend, durch lebendige Kraft, zu<lb/>
+mischen, was nach tausend Umwandlungen zur regsamen<lb/>
+Nervenfaser veredelt wird. Derselbe Blick,<lb/>
+den wir auf die Verbreitung der Pflanzendecke heften,<lb/>
+enthüllt uns die Fülle des thierischen Lebens, das von<lb/>
+jener genährt und erhalten wird.<lb/>
+</p> <p>Ungleich ist der Teppich gewebt, den die blüthenreiche<lb/>
+Flora über den nakten Erdkörper ausbreitet;<lb/>
+dichter, wo die Sonne höher an dem nie bewölkten<lb/>
+Himmel emporsteigt; lockerer gegen die trägen<lb/>
+Pole hin, wo der wiederkehrende Frost bald die entwickelte<lb/>
+Knospe tödtet, bald die reifende Frucht erhascht.<lb/>
+Doch überall darf der Mensch sich der nährenden<lb/>
+Pflanzen erfreuen. Trennt im Meeresboden<lb/>
+ein Vulkan die kochende Fluth, und schiebt plözlich<lb/>
+(wie einst zwischen den <placeName>griechischen Inseln</placeName>) einen<lb/>
+schlackigen Fels empor; oder erheben (um an eine<lb/>
+friedlichere Naturerscheinung zu erinnern) die einträchtigen<lb/>
+<pb n="7" facs="#f0007"/>
+Nereiden ihre zelligen Wohnungen, bis sie<lb/>
+nach Jahrtausenden über den Wasserspiegel hervorragend,<lb/>
+absterben, und ein flaches Corallen-Eiland bilden:<lb/>
+so sind die organischen Kräfte sogleich bereit,<lb/>
+den todten Fels zu beleben. Was den Saamen so<lb/>
+plözlich herbeiführt: ob wandernde Vögel, oder Winde,<lb/>
+oder die Wogen des Meeres; ist bei der gro&#x017F;sen<lb/>
+Entfernung der Küsten schwer zu entscheiden. Aber<lb/>
+auf dem nakten Steine, sobald ihn zuerst die Luft<lb/>
+berührt, bildet sich in den nordischen Ländern ein<lb/>
+Gewebe sammtartiger Fasern, die dem unbewafneten<lb/>
+Auge als farbige Flecken erscheinen. Einige sind<lb/>
+durch hervorragende Linien bald einfach bald doppelt<lb/>
+begränzt; andere sind in Furchen durchschnitten und<lb/>
+in Fächer getheilt. Mit zunehmendem Alter verdunkelt<lb/>
+sich ihre lichte Farbe. Das fernleuchtende<lb/>
+Gelb wird braun, und das bläuliche Grau der Leprarien<lb/>
+verwandelt sich nach und nach in ein staubartiges<lb/>
+Schwarz. Die Gränzen der alternden Decke flie&#x017F;sen<lb/>
+in einander, und auf dem dunkeln Grunde bilden sich<lb/>
+neue zirkelrunde Flechten von blendender Wei&#x017F;se.<lb/>
+So lagert sich schichtenweise ein organisches Gewebe<lb/>
+auf das andere; und wie das sich ansiedelnde Menschengeschlecht<lb/>
+bestimmte Stufen der sittlichen Kultur<lb/>
+durchlaufen mu&#x017F;s, so ist die allmählige Verbreitung<lb/>
+der Pflanzen an bestimmte physische Geseze gebunden.<lb/>
+Wo jezt hohe Waldbäume ihre Gipfel luftig erheben,<lb/>
+da überzogen einst zarte Flechten das erdenlose Gestein.<lb/>
+Laubmoose, Gräser, krautartige Gewächse und<lb/>
+Sträucher, füllen die Kluft der langen aber ungemessenen<lb/>
+<pb n="8" facs="#f0008"/>
+Zwischenzeit aus. Was im Norden Flechten<lb/>
+und Moose, das bewirken in den Tropen <hi rendition="#i">Portulacca</hi>,<lb/>
+<hi rendition="#i">Gomphrenen</hi> und andere niedrige Uferpflanzen. Die<lb/>
+Geschichte der Pflanzendecke, und ihre allmählige<lb/>
+Ausbreitung über die öde Erdrinde, hat ihre Epochen,<lb/>
+wie die Geschichte des spätern Menschengeschlechts.<lb/>
+</p> <p>Ist aber auch Fülle des Lebens überall verbreitet;<lb/>
+ist der Organismus auch unablässig bemüht, die durch<lb/>
+den Tod entfesselten Elemente zu neuen Gestalten zu<lb/>
+verbinden: so ist diese Lebensfülle und ihre Erneuerung<lb/>
+doch nach Verschiedenheit der Himmelsstriche<lb/>
+verschieden. Periodisch erstarrt die Natur in der kalten<lb/>
+Zone; denn Flüssigkeit ist Bedingni&#x017F;s zum Leben.<lb/>
+Thiere und Pflanzen (Laubmoose und andre Cryptogamen<lb/>
+abgerechnet) liegen hier viele Monate hindurch<lb/>
+im Winterschlaf vergraben. In einem gro&#x017F;sen Theile<lb/>
+der Erde haben daher nur solche organische Wesen<lb/>
+sich entwickeln können, welche einer beträchtlichen<lb/>
+Entziehung von Wärmestoff widerstehen, oder einer<lb/>
+langen Unterbrechung der Lebensfunctionen fähig sind.<lb/>
+Je näher dagegen den Tropen, desto mehr nimmt Mannichfaltigkeit<lb/>
+der Bildungen, Anmuth der Form und<lb/>
+des Farbengemisches, ewige Jugend und Kraft des organischen<lb/>
+Lebens zu.<lb/>
+</p> <p>Diese Zunahme kann leicht von denen bezweifelt<lb/>
+werden, welche nie unsern Welttheil verlassen, oder<lb/>
+das Studium der allgemeinen Erdkunde vernachlässigt<lb/>
+haben. Wenn man aus unsern dicklaubigen Eichenwäldern<lb/>
+über die <placeName>Alpen-</placeName> oder <placeName>Pyrenäen-Kette</placeName> nach<lb/>
+<placeName>Welschland</placeName> oder <placeName>Spanien</placeName> hinabsteigt; wenn man gar<lb/>
+<pb n="9" facs="#f0009"/>
+seinen Blick auf die <placeName>afrikanischen Küstenländer</placeName> des<lb/>
+<placeName>Mittelmeeres</placeName> richtet: so wird man leicht zu dem<lb/>
+Fehlschlusse verleitet, als sei Baumlosigkeit der Charakter<lb/>
+hei&#x017F;ser Klimate. Aber man vergi&#x017F;st, da&#x017F;s das<lb/>
+südliche <placeName>Europa</placeName> eine andere Gestalt hatte, als pelasgische<lb/>
+oder carthagische Pflanzvölker sich zuerst darinn<lb/>
+festsezten; man vergi&#x017F;st, da&#x017F;s frühere Bildung des<lb/>
+Menschengeschlechts die Waldungen verdrängt, und<lb/>
+da&#x017F;s der umschaffende Geist der Nazionen der Erde allmählig<lb/>
+den Schmuck raubt, der uns in dem Norden<lb/>
+erfreut, und der (mehr, als alle Geschichte) die Jugend<lb/>
+unserer sittlichen Kultur anzeigt. Die gro&#x017F;se Katastrophe,<lb/>
+durch welche das <placeName>Mittelmeer</placeName> sich gebildet,<lb/>
+indem es, ein anschwellendes Binnenwasser, die<lb/>
+Schleusen der <placeName>Dardanellen</placeName> und die <placeName>Säulen des Herkules</placeName><lb/>
+durchbrochen, diese Katastrophe scheint die angränzenden<lb/>
+Länder eines gro&#x017F;sen Theils ihrer Dammerde<lb/>
+beraubt zu haben. Was bei den griechischen<lb/>
+Schriftstellern von den Samothracischen Sagen erwähnt<lb/>
+wird, deutet die Neuheit dieser zerstörenden Naturveränderung<lb/>
+an. Auch ist in allen Ländern, welche<lb/>
+das <placeName>Mittelmeer</placeName> begränzt, und welche die Kalkformation<lb/>
+des Jura charakterisirt, ein gro&#x017F;ser Theil der Erdoberfläche<lb/>
+nackter Fels. Das Mahlerische italienischer<lb/>
+Gegenden beruht vorzüglich auf diesem lieblichen<lb/>
+Kontraste zwischen dem unbelebten öden Gestein<lb/>
+und der üppigen Vegetation, welche inselförmig darinn<lb/>
+aufspro&#x017F;st. Wo dieses Gestein, minder zerklüftet,<lb/>
+die Wasser auf der Oberfläche zusammen hält,<lb/>
+wo diese mit Erde bedeckt ist, (wie an den reizenden<lb/>
+<pb n="10" facs="#f0010"/>
+Ufern des <placeName>Albaner Sees</placeName>) da hat selbst <placeName>Italien</placeName> seine<lb/>
+Eichenwälder, so schattig und grün, als der Bewohner<lb/>
+des Norden sie wünscht.<lb/>
+</p> <p>Auch die Wüsten jenseits des <placeName>Atlas</placeName>, und die unerme&#x017F;slichen<lb/>
+Ebenen oder Steppen von <placeName>Süd-Amerika</placeName>,<lb/>
+sind als blo&#x017F;se Lokalerscheinungen zu betrachten. Diese<lb/>
+findet man, in der Regenzeit wenigstens, mit Gras<lb/>
+und niedrigen, fast krautartigen, Mimosen bedeckt;<lb/>
+jene sind Sand-Meere im Innern des <placeName>alten Continents</placeName>,<lb/>
+gro&#x017F;se pflanzenleere Räume, mit ewiggrünen waldigen<lb/>
+Ufern umgeben. Nur einzeln stehende Fächerpalmen<lb/>
+erinnern den Wanderer, da&#x017F;s diese Einöden Theile<lb/>
+einer belebten Schöpfung sind. Im trügerischen Lichtspiele,<lb/>
+das die strahlende Wärme erregt, sieht man<lb/>
+bald den Fu&#x017F;s dieser Palmen frei in der Luft schweben,<lb/>
+bald ihr umgekehrtes Bild in den wogenartig-zitternden<lb/>
+Luftschichten wiederholt. Auch westlich von der<lb/>
+<placeName>peruanischen Andeskette</placeName>, an den Küsten des <placeName>stillen<lb/>
+Meeres</placeName>, haben wir Wochen gebraucht, um solche<lb/>
+wasserleere Wüsten zu durchstreichen. Der Ursprung<lb/>
+derselben, diese Pflanzenlosigkeit gro&#x017F;ser Erdstrecken,<lb/>
+in Gegenden, wo umher die kraftvolleste Vegetation<lb/>
+herrscht, ist ein wenig beachtetes geognostisches Phänomen,<lb/>
+welches sich unstreitig in alten Naturrevoluzionen<lb/>
+(in Ueberschwemmungen, oder vulkanischen<lb/>
+Umwandelungen der Erdrinde) gründet. Hat eine<lb/>
+Gegend einmal ihre Pflanzendecke verloren, ist der<lb/>
+Sand beweglich und quellenleer, hindert die hei&#x017F;se,<lb/>
+senkrecht aufsteigende Luft den Niederschlag der<lb/>
+Wolken: so vergehen Jahrtausende, ehe von den grünen<lb/>
+<pb n="11" facs="#f0011"/>
+Ufern aus organisches Leben in das Innere der<lb/>
+Einöde dringt.<lb/>
+</p> <p>Wer demnach die Natur mit Einem Blicke zu umfassen,<lb/>
+und von Lokalphänomenen zu abstrahiren<lb/>
+wei&#x017F;s, der sieht, wie mit Zunahme der belebenden<lb/>
+Wärme, von den <placeName>Polen</placeName> zum Aequator hin, sich auch<lb/>
+allmählig organische Kraft und Lebensfülle vermehren.<lb/>
+Aber bei dieser Vermehrung sind doch jedem<lb/>
+Erdstriche besondere Schönheiten vorbehalten: den<lb/>
+Tropen Mannichfaltigkeit und Grö&#x017F;se der Pflanzenformen;<lb/>
+dem Norden der Anblick der Wiesen, und das<lb/>
+periodische Wiedererwachen der Natur beim ersten<lb/>
+Wehen der Frühlingslüfte. Jede Zone hat au&#x017F;ser den<lb/>
+ihr eigenen Vorzügen auch ihren eigenthümlichen<lb/>
+Character. So wie man an einzelnen organischen Wesen<lb/>
+eine bestimmte Physiognomie erkennt; wie beschreibende<lb/>
+Botanik und Zoologie, im engern Sinne<lb/>
+des Worts, fast nichts als Zergliederung der Thier- und<lb/>
+Pflanzenformen ist: so giebt es auch eine gewisse Naturphysiognomie,<lb/>
+welche jedem Himmelsstriche ausschlie&#x017F;slich<lb/>
+zukommt.<lb/>
+</p> <p>Was der Mahler mit den Ausdrücken schweizer<lb/>
+Natur, italienischer Himmel, bezeichnet, gründet sich<lb/>
+auf das dunkle Gefühl dieses lokalen Naturcharakters.<lb/>
+Himmelsbläue, Beleuchtung, Duft, der auf der Ferne<lb/>
+ruht, Gestalt der Thiere, Saftfülle der Kräuter, Glanz<lb/>
+des Laubes, Umri&#x017F;s der Berge &#x2014; alle diese Elemente<lb/>
+bestimmen den Totaleindruck einer Gegend. Zwar<lb/>
+bilden unter allen Zonen dieselben Gebirgsarten Felsgruppen<lb/>
+von einerlei Physiognomie. Die Grünsteinklippen<lb/>
+<pb n="12" facs="#f0012"/>
+in <placeName>Süd-Amerika</placeName> und <placeName>Mexiko</placeName> gleichen denen<lb/>
+des deutschen <placeName>Fichtelgebirges</placeName>, wie unter den Thieren<lb/>
+die Form des Alco oder der ursprünglichen Hunderace<lb/>
+des <placeName>neuen Continents</placeName>, mit der der europäischen Race<lb/>
+genau übereinstimmt. Denn die unorganische Rinde<lb/>
+der Erde ist gleichsam unabhängig von klimatischen<lb/>
+Einflüssen; sey es, da&#x017F;s der Unterschied der Klimate<lb/>
+neuer als das Gestein ist; sei es, da&#x017F;s die erhärtende,<lb/>
+Wärme-entbindende Erdmasse sich selbst ihre Temperatur<lb/>
+gab, statt sie von au&#x017F;sen zu empfangen. Alle<lb/>
+Formationen sind daher allen Weltgegenden eigen,<lb/>
+und in allen gleichgestaltet. Ueberall bildet der Basalt<lb/>
+Zwillings-Berge und abgestumpfte Kegel; überall <choice><sic>er-<lb/>
+cheint</sic><corr>er-<lb/>
+scheint</corr></choice> der Trapporphyr in grotesken Felsmassen, der<lb/>
+Granit in sanftrundlichen Kuppen. Auch ähnliche<lb/>
+Pflanzenformen, Tannen und Eichen, bekränzen die<lb/>
+Berggehänge in <placeName>Schweden</placeName>, wie die des südlichsten<lb/>
+Theils von <placeName>Mexiko</placeName>. Und bei aller dieser Uebereinstimmung<lb/>
+in den Gestalten, bei dieser Gleichheit der<lb/>
+einzelnen Umrisse, nimmt die Gruppirung derselben<lb/>
+zu einem Ganzen doch den verschiedensten Charakter<lb/>
+an.<lb/>
+</p> <p>So wie die Kenntni&#x017F;s der Fossilien sich von der<lb/>
+Gebirgslehre unterscheidet; so ist von der individuellen<lb/>
+Naturbeschreibung die allgemeine, oder die Physiognomik<lb/>
+der Natur, verschieden. <persName ref="http://d-nb.info/gnd/118534416">Georg Forster</persName> in<lb/>
+seinen Reisen und in seinen kleinen Schriften; <persName ref="http://d-nb.info/gnd/118540238">Göthe</persName><lb/>
+in den Naturschilderungen, welche so manche seiner<lb/>
+unsterblichen Werke enthalten; <persName ref="http://d-nb.info/gnd/118549553">Herder</persName>, <persName ref="http://d-nb.info/gnd/118517252">Büffon</persName>, <persName ref="http://d-nb.info/gnd/118604945">Bernardin<lb/>
+de St. Pierre</persName>, und selbst <persName ref="http://d-nb.info/gnd/118520237">Chateaubriand</persName>, haben<lb/>
+<pb n="13" facs="#f0013"/>
+mit unnachahmlicher Wahrheit den Charakter einzelner<lb/>
+Himmelsstriche geschildert. Solche Schilderungen<lb/>
+sind aber nicht blos dazu geeignet, dem Gemüthe einen<lb/>
+Genu&#x017F;s der edelsten Art zu verschaffen; nein,<lb/>
+die Kenntni&#x017F;s von dem Naturcharakter verschiedener<lb/>
+Weltgegenden ist mit der Geschichte des Menschengeschlechtes,<lb/>
+und mit der seiner Kultur, aufs innigste<lb/>
+verknüpft. Denn wenn auch der Anfang dieser Kultur<lb/>
+nicht durch physische Einflüsse allein bestimmt<lb/>
+wird; so hangt doch die Richtung derselben, so hängen<lb/>
+Volkscharacter, düstere oder heitere Stimmung<lb/>
+der Menschheit, gro&#x017F;sentheils von klimatischen Verhältnissen<lb/>
+ab. Wie mächtig hat der griechische Himmel<lb/>
+auf seine Bewohner gewirkt! Wie sind nicht in<lb/>
+dem schönen und glücklichen Erdstriche zwischen dem<lb/>
+<placeName>Oxus</placeName>, dem <placeName>Tigris</placeName>, und dem <placeName>ägeischen Meere</placeName>, die<lb/>
+sich ansiedelnden Völker zuerst zu sittlicher Anmuth<lb/>
+und zarteren Gefühlen erwacht? Und haben nicht,<lb/>
+als <placeName>Europa</placeName> in neue Barbarei versank, und religiöse<lb/>
+Begeisterung plözlich den heiligen <placeName>Orient</placeName> öfnete, unsere<lb/>
+Vorältern aus jenen milden Thälern von neuem<lb/>
+mildere Sitten heimgebracht! Die Dichterwerke der<lb/>
+Griechen und die rauheren Gesänge der nordischen Urvölker<lb/>
+verdankten grö&#x017F;stentheils ihren eigenthümlichen<lb/>
+Charakter der Gestalt der Pflanzen und Thiere,<lb/>
+den Gebirgsthälern, die den Dichter umgaben, und<lb/>
+der Luft, die ihn umwehte. Wer fühlt sich nicht,<lb/>
+um selbst nur an nahe Gegenstände zu erinnern, anders<lb/>
+gestimmt, in dem dunkeln Schatten der Buchen,<lb/>
+oder auf Hügeln, die mit einzeln stehenden Tannen<lb/>
+<pb n="14" facs="#f0014"/>
+bekränzt sind; oder auf der Grasflur, wo der Wind in<lb/>
+dem zitternden Laube der Birken säuselt! Melancholische,<lb/>
+ernsterhebende, oder fröhliche Bilder rufen<lb/>
+diese <choice><sic>vaterländische</sic><corr>vaterländischen</corr></choice> Pflanzengestalten in uns hervor.<lb/>
+Der Einflu&#x017F;s der physischen Welt auf die moralische,<lb/>
+dies geheimni&#x017F;svolle Ineinander-Wirken des Sinnlichen<lb/>
+und Au&#x017F;sersinnlichen, giebt dem Naturstudium, wenn<lb/>
+man es zu höheren Gesichtspunkten erhebt, einen eigenen,<lb/>
+noch zu wenig gekannten Reiz.<lb/>
+</p> <p>Wenn aber auch der Charakter verschiedener Weltgegenden<lb/>
+von allen äu&#x017F;seren Erscheinungen zugleich<lb/>
+abhängt; wenn Umri&#x017F;s der Gebirge, Physiognomie der<lb/>
+Pflanzen und Thiere, wenn Himmelsbläue, Wolkengestalt<lb/>
+und Durchsichtigkeit des Luftkreises, den Totaleindruk<lb/>
+bewirken; so ist doch nicht zu läugnen,<lb/>
+da&#x017F;s das Hauptbestimmende dieses Eindrucks die<lb/>
+Pflanzendecke ist. Dem thierischen Organismus fehlt<lb/>
+es an Masse, und die Beweglichkeit der Individuen<lb/>
+entzieht sie oft unsern Blicken. Die Pflanzenschöpfung<lb/>
+dagegen wirkt durch stetige Grö&#x017F;se auf unsere Einbildungskraft.<lb/>
+Ihre Masse bezeichnete ihr Alter, und in<lb/>
+den Gewächsen allein ist Alter und Ausdruck stets<lb/>
+sich erneuernder Kraft mit einander gepaart. Der riesenförmige<lb/>
+Drachenbaum, den ich auf den <placeName>kanarischen<lb/>
+Inseln</placeName> sah, und der 16 Schuh im Durchmesser hat,<lb/>
+trägt noch immerdar (gleichsam in ewiger Jugend)<lb/>
+Blüthe und Frucht. Als französische Abentheurer,<lb/>
+die <persName ref="http://d-nb.info/gnd/12452396X">Bethencourts</persName>, im vierzehnten Jahrhundert die<lb/>
+<placeName>glücklichen Inseln</placeName> eroberten, war der Drachenbaum<lb/>
+von <placeName><choice><sic>Oratava</sic><corr>Orotava</corr></choice></placeName> (den Eingeborenen heilig wie der Oelbaum<lb/>
+<pb n="15" facs="#f0015"/>
+in der Burg zu <placeName>Athen</placeName>, oder die nordische Esche,<lb/>
+unter der Odin und Asi zusammenkamen) von eben<lb/>
+der kolossalen Stärke als jezt. In den Tropen ist ein<lb/>
+Wald von Hymeneen und Caesalpinien vielleicht das<lb/>
+Denkmal von einem Jahrtausend.<lb/>
+</p> <p>Umfa&#x017F;st man die verschiedenen Pflanzenarten,<lb/>
+welche bereits auf dem Erdboden entdeckt sind, und<lb/>
+von denen <hi rendition="#g"><persName ref="http://d-nb.info/gnd/117387436">Willdenow's</persName></hi> gro&#x017F;ses Werk allein über<lb/>
+20,000 genau zergliedert, mit Einem Blick; so erkennt<lb/>
+man in dieser wundervollen Menge wenige<lb/>
+Hauptformen, auf welche sich alle andere zurückführen<lb/>
+lassen. Zur Bestimmung dieser Formen, von deren<lb/>
+individueller Schönheit, Vertheilung und Gruppirung<lb/>
+die Physiognomie der Vegetation eines Landes<lb/>
+abhängt, mu&#x017F;s man nicht (wie in den botanischen<lb/>
+Systemen aus andern Beweggründen geschieht) auf<lb/>
+die kleinsten Theile der Blüthen und Früchte, sondern<lb/>
+nur auf das Rücksicht nehmen, was durch Masse<lb/>
+den Totaleindruck einer Gegend individualisirt. Unter<lb/>
+den Hauptformen der Vegetation giebt es allerdings<lb/>
+ganze Familien der sogenannten natürlichen Systeme.<lb/>
+Bananengewächse und Palmen werden auch in diesen<lb/>
+einzeln aufgeführt. Aber der botanische Systematiker<lb/>
+trennt eine Menge von Pflanzengruppen, welche<lb/>
+der Physiognomiker sich gezwungen sieht, mit einander<lb/>
+zu verbinden. Wo die Gewächse sich als Massen<lb/>
+darstellen, flie&#x017F;sen Umrisse und Vertheilung der Blätter,<lb/>
+Gestalt der Stämme und Zweige, in einander.<lb/>
+Der Mahler (und gerade dem feinen Naturgefühle des<lb/>
+Künstlers kommt hier der Ausspruch zu!) unterscheidet<lb/>
+in dem Mittel- und Hintergrunde einer Landschaft<lb/>
+<pb n="16" facs="#f0016"/>
+Tannen- oder Palmengebüsche von <choice><orig>Büchen</orig><reg>Buchen</reg></choice>, nicht aber<lb/>
+diese von andern Laubholzwäldern!<lb/>
+</p> <p>Sechszehn Pflanzenformen bestimmen hauptsächlich<lb/>
+die Physiognomie der Natur. Ich zähle nur diejenigen<lb/>
+auf, welche ich bei meinen Reisen durch beide<lb/>
+Welttheile, und bei einer vieljährigen Aufmerksamkeit<lb/>
+auf die Vegetation der verschiedenen Himmelsstriche<lb/>
+zwischen dem 55sten Grade nördlicher und dem<lb/>
+12ten Grade südlicher Breite, beobachtet habe. Die<lb/>
+Zahl dieser Formen wird gewi&#x017F;s ansehnlich vermehrt<lb/>
+werden, wenn man einst in das Innere der Continente<lb/>
+tiefer eindringt, und neue Pflanzengattungen entdeckt.<lb/>
+Im südöstlichen <placeName>Asien</placeName>, im Inneren von <placeName>Afrika</placeName><lb/>
+und <placeName>Neuholland</placeName>, in <placeName>Süd-Amerika</placeName> vom <placeName>Amazonenstrome</placeName><lb/>
+bis zum Gebirge <placeName>Chiquitos</placeName> hin, ist uns die Vegetation<lb/>
+noch völlig unbekannt. Wie, wenn man gar<lb/>
+ein Land entdeckte, in welchem holzige Schwämme,<lb/>
+z. B. <choice><sic>Calvarien</sic><corr>Clavarien</corr></choice> oder Moose, hohe Bäume bildeten?<lb/>
+Nekera dendroïdes, ein deutsches Laubmoos, ist in<lb/>
+der That baumartig, und die tropischen Farrenkräuter,<lb/>
+oft höher als unsere Linden und Erlen, sind für den<lb/>
+Europäer noch jezt ein eben so überraschender Anblick,<lb/>
+als dem ersten Entdecker ein Wald hoher Laubmoose<lb/>
+seyn würde! Grö&#x017F;se und Entwickelung der<lb/>
+Organe hangt von der Begünstigung klimatischer<lb/>
+Verhältnisse ab. Die kleine, aber schlanke Form unserer<lb/>
+Eidechse dehnt sich im Süden zu dem kolossalen<lb/>
+und gepanzerten Körper furchtbarer Crocodyle aus. In<lb/>
+den ungeheuern Katzen von <placeName>Afrika</placeName> und <placeName>Amerika</placeName>, im<lb/>
+Tiger, im Löwen und Jaguar, ist die Gestalt eines<lb/>
+<pb n="17" facs="#f0017"/>
+unserer kleinsten Hausthiere nach einem grö&#x017F;seren<lb/>
+Maasstabe wiederholt. Dringen wir gar in das Innere<lb/>
+der Erde, durchwühlen wir die Grabstätte der Pflanzen<lb/>
+und Thiere, so verkündigen uns die Versteinerungen<lb/>
+nicht blo&#x017F;s eine Vertheilung der Formen,<lb/>
+die mit den jetzigen Klimaten in Widerspruch steht;<lb/>
+nein, sie zeigen uns auch kolossale Gestalten, welche<lb/>
+mit den kleinlichen, die uns gegenwärtig umgeben,<lb/>
+nicht minder contrastiren, als die einfache Heldennatur<lb/>
+der Griechen gegen die Charaktergrö&#x017F;se neuerer<lb/>
+Zeit. Hat die Temperatur des Erdkörpers beträchtliche,<lb/>
+vielleicht periodisch wiederkehrende Veränderungen<lb/>
+erlitten; ist das Verhältni&#x017F;s zwischen Meer<lb/>
+und Land, ja selbst die Höhe des Luftozeans und<lb/>
+sein Druck nicht immer derselbe gewesen: so mu&#x017F;s<lb/>
+die Physiognomie der Natur, so müssen Grö&#x017F;se und<lb/>
+Gestalt des Organismus, ebenfalls schon manchem<lb/>
+Wechsel unterworfen gewesen sein. Unfähig, diese<lb/>
+Physiognomie des alternden Planeten nach ihren gegenwärtigen<lb/>
+Zügen vollständig zu schildern, wage<lb/>
+ich nur diejenigen Charaktere auszuheben, welche<lb/>
+jeder Pflanzengruppe vorzüglich zukommen. Bei<lb/>
+allem Reichthum und aller Biegsamkeit unserer vaterländischen<lb/>
+Sprache, ist es ein schwieriges Unternehmen,<lb/>
+mit Worten zu bezeichnen, was eigentlich<lb/>
+nur der nachahmenden Kunst des Malers darzustellen<lb/>
+geziemt. Auch wünschte ich, das Ermüdende<lb/>
+des Eindrucks zu vermeiden, das jede Aufzählung<lb/>
+einzelner Formen unausbleiblich erregen<lb/>
+mu&#x017F;s.<lb/>
+</p>
+<pb n="18" facs="#f0018"/>
+<p>Wir beginnen mit den <hi rendition="#g">Palmen</hi>, der höchsten<lb/>
+und edelsten aller Pflanzengestalten. Denn ihr haben<lb/>
+stets die Völker (und die früheste Menschenbildung<lb/>
+war in der asiatischen Palmenwelt, oder in dem Erdstriche,<lb/>
+der zunächst an die Palmenwelt gränzt) den<lb/>
+Preis der Schönheit zuerkannt. Hohe, schlanke, geringelte,<lb/>
+bisweilen stachliche Schäfte mit anstrebendem,<lb/>
+glänzendem, bald gefächertem, bald gefiedertem<lb/>
+Laube. Die Blätter sind oft grasartig gekräuselt.<lb/>
+Der glatte Stamm erreicht bis 180 Fu&#x017F;s Höhe. Die<lb/>
+Palmenform nimmt an Pracht und Grö&#x017F;se ab, vom<lb/>
+Aequator gegen die gemä&#x017F;sigte Zone hin. <placeName>Europa</placeName> hat<lb/>
+unter seinen einheimischen Gewächsen nur einen Repräsentanten<lb/>
+dieser Form, die zwergartige Küstenpalme,<lb/>
+den Chamaerops, der in <placeName>Spanien</placeName> und <placeName>Italien</placeName><lb/>
+sich nördlich bis zum 44sten Breitengrade erstreckt.<lb/>
+Das eigentliche Palmenklima der Erde hat 21°<choice><orig>.</orig><reg/></choice> mittlerer<lb/>
+Wärme. Aber die aus <placeName>Afrika</placeName> zu uns gebrachte<lb/>
+Dattelpalme, welche minder schön als andere Arten<lb/>
+dieser Gruppen ist, vegetirt noch im südlichen <placeName>Europa</placeName><lb/>
+in Gegenden, deren mittlere Temperatur 14°<choice><orig>.</orig><reg/></choice><lb/>
+also mehr als doppelt grö&#x017F;ser, als die von <placeName>Berlin</placeName>, ist.<lb/>
+Palmenstämme und Elephantengerippe liegen im nördlichen<lb/>
+<placeName>Deutschlande</placeName> im Inneren der Erde vergraben,<lb/>
+und ihre Lage macht es wahrscheinlich, da&#x017F;s sie nicht<lb/>
+von den Tropen her gegen Norden geschwemmt wurden;<lb/>
+sondern, da&#x017F;s in den gro&#x017F;sen Revoluzionen unseres<lb/>
+Planeten die Klimate, wie die durch sie bestimmte<lb/>
+Physiognomie der Natur, vielfach verändert<lb/>
+worden sind.<lb/>
+</p>
+<pb n="19" facs="#f0019"/>
+<p>Zu den Palmen gesellt sich in allen Welttheilen<lb/>
+die Pisang oder <hi rendition="#i">Bananenform</hi>, die Scitamineen der<lb/>
+Botaniker, <hi rendition="#i">Heliconia</hi>, <hi rendition="#i">Amomum</hi>, <hi rendition="#i">Strelitzia</hi>. Ein<lb/>
+niedriger aber saftreicher, fast krautartiger Stamm,<lb/>
+an dessen Spitze sich dünn und lokkergewebte, zartgestreifte,<lb/>
+seidenartig-glänzende Blätter erheben.<lb/>
+Pisanggebüsche sind der Schmuck feuchter Gegenden.<lb/>
+Auf ihrer Frucht beruht die Nahrung aller Bewohner<lb/>
+des hei&#x017F;sen Erdgürtels. Wie die mehlreichen Cerealien<lb/>
+oder Getreidearten des Nordens, so begleiten Pisangstämme<lb/>
+den Menschen seit der frühesten Kindheit<lb/>
+seiner Kultur. Asiatische Mythen setzen die<lb/>
+ursprüngliche Heimath dieser nährenden Tropenpflanze<lb/>
+an den <placeName>Euphrat</placeName>, oder an den Fu&#x017F;s des <placeName>Himalus</placeName><lb/>
+in <placeName>Indien</placeName>. Griechische Sagen nennen die Gefilde<lb/>
+von <placeName>Enna</placeName> als das glückliche Vaterland der Cerealien.<lb/>
+Wenn diese, durch die Kultur über die nördliche Erde<lb/>
+verbreitet, und dort einförmige weitgedehnte Grasfluren<lb/>
+bildend, wenig den Anblick der Natur verschönern,<lb/>
+so vervielfacht dagegen der sich ansiedelnde<lb/>
+Tropenbewohner durch Pisangpflanzungen<lb/>
+eine der herrlichsten und edelsten Gestalten.<lb/>
+</p> <p><hi rendition="#g">Malvenform</hi>, <hi rendition="#i">Sterculia</hi>, <hi rendition="#i">Hibiscus</hi>, <hi rendition="#i">Lavatera</hi>,<lb/>
+<hi rendition="#i">Ochroma</hi>. Kurze aber kolossalisch dikke Stämme<lb/>
+mit zartwolligen, gro&#x017F;sen, herzförmigen, oft eingeschnittenen<lb/>
+Blättern, und prachtvollen oft purpurrothen<lb/>
+Blüthen. Zu dieser Pflanzengruppe gehört<lb/>
+der Affenbrodbaum, <hi rendition="#i">Adansonia digitata</hi>, der bei<lb/>
+32 Fu&#x017F;s Höhe 30 Fu&#x017F;s Durchmesser hat, und der wahrscheinlich<lb/>
+das grö&#x017F;ste und älteste organische Denkmahl<lb/>
+<pb n="20" facs="#f0020"/>
+auf unserm Planeten ist. In <placeName>Italien</placeName> fängt die<lb/>
+Malvenform bereits an, der Vegetation einen eigenthümlichen<lb/>
+südlichen Charakter zu geben.<lb/>
+</p> <p>Dagegen entbehret unsere gemä&#x017F;sigte Zone im<lb/>
+alten Continent leider ganz die zartgefiederten Blätter,<lb/>
+die <hi rendition="#g">Form der Mimosen</hi>, <hi rendition="#i">Gleditsia</hi>, <hi rendition="#i">Porleria</hi>,<lb/>
+<hi rendition="#i">Tamarindus</hi>. Den <placeName>vereinigten Staaten von Nord-Amerika</placeName>,<lb/>
+in denen unter gleicher Breite die Vegetation<lb/>
+mannichfaltiger und üppiger als in <placeName>Europa</placeName> ist,<lb/>
+fehlt diese schöne Form nicht. Bei den Mimosen ist<lb/>
+eine schirmartige Verbreitung der Zweige, fast wie<lb/>
+bei den italienischen Pinien, gewöhnlich. Die tiefe<lb/>
+Himmelsbläue des Tropenklimas durch die zartgefiederten<lb/>
+Blätter schimmernd, ist von überaus malerischem<lb/>
+Effekte.<lb/>
+</p> <p>Eine meist afrikanische Pflanzengruppe sind die<lb/>
+<hi rendition="#g">Heidekräuter</hi>; dahin gehören auch die <hi rendition="#i">Andromeda</hi>,<lb/>
+<hi rendition="#i">Passerinen</hi> und <hi rendition="#i">Gnidien</hi>, eine Gruppe, die<lb/>
+mit der der Nadelhölzer einige Aehnlichkeit hat, und<lb/>
+eben deshalb mit dieser durch die Fülle glokkenförmiger<lb/>
+Blüthen, desto reizender contrastirt. Die baumartigen<lb/>
+Heidekräuter, wie einige andere afrikanische<lb/>
+Gewächse, erreichen das nördliche Ufer des <placeName>Mittelmeers</placeName>.<lb/>
+Sie schmükken <placeName>Welschland</placeName> und die Cistus-Gebüsche<lb/>
+des südlichen <placeName>Spaniens</placeName>. Am üppigsten<lb/>
+wachsend habe ich sie auf den <placeName>afrikanischen Inseln</placeName>,<lb/>
+am Abhange des <placeName><hi rendition="#g">Pics</hi> von <hi rendition="#g">Teyde</hi></placeName> gesehen. Bei uns<lb/>
+in den <placeName>baltischen Ländern</placeName>, und noch nördlicher hin,<lb/>
+ist diese Pflanzenform gefürchtet, Dürre und Unfruchtbarkeit<lb/>
+verkündigend. Unsere Heidekräuter, <hi rendition="#i">Erica
+<pb n="21" facs="#f0021"/>
+vulgaris</hi> und <hi rendition="#i">tetralix</hi> sind gesellschaftlich lebende<lb/>
+Gewächse, gegen deren fortschreitenden Zug die akkerbauenden<lb/>
+Völker seit Jahrhunderten mit wenigem<lb/>
+Glükke ankämpfen. Sonderbar, da&#x017F;s der Hauptrepräsentant<lb/>
+dieser Form blos einer Seite unsers Planeten<lb/>
+eigen ist. Von den 137 jezt bekannten Arten von<lb/>
+<hi rendition="#i">Erica</hi> findet sich auch nicht eine einzige im <placeName>neuen<lb/>
+Continent</placeName> von <placeName>Pensilvanien</placeName> und <placeName>Labrador</placeName> bis gegen<lb/>
+<placeName>Nootka</placeName> und <placeName>Alaschka</placeName> hin.<lb/>
+</p> <p>Dagegen ist blo&#x017F;s dem <placeName>neuen Continent</placeName> eigenthümlich<lb/>
+die <hi rendition="#g">Cactusform</hi>, bald kugelförmig, bald<lb/>
+gegliedert, bald in hohen, vielekkigen Säulen, wie<lb/>
+Orgelpfeifen, aufrechtstehend. Diese Gruppe bildet<lb/>
+den höchsten Contrast mit der Gestalt der Liliengewächse<lb/>
+und der Bananen. Sie gehört zu den Pflanzen,<lb/>
+welche <hi rendition="#i"><persName ref="http://d-nb.info/gnd/118604945">Bernardin de St. Pierre</persName></hi> sehr glücklich<lb/>
+die vegetabilischen Quellen der Wüste nennt. In den<lb/>
+wasserleeren Ebenen von <placeName>Südamerika</placeName> suchen die von<lb/>
+Durst geängsteten Thiere den <hi rendition="#i">Melonen-Cactus</hi>, eine<lb/>
+kugelförmige, halb im dürren Sande verborgene<lb/>
+Pflanze, deren saftreiches Innere unter furchtbaren<lb/>
+Stacheln versteckt ist. Die säulenförmigen Cactus-Stämme<lb/>
+erreichen bis 30 Fu&#x017F;s Höhe und candelaberartig<lb/>
+getheilt, haben sie eine auffallende Aehnlichkeit<lb/>
+der Physiognomie mit einigen afrikanischen Euphorbien.<lb/>
+</p> <p>Wie diese grüne <choice><sic>Wasen</sic><corr>Oasen</corr></choice> in den pflanzenleeren<lb/>
+Wüsten bilden, so beleben die <hi rendition="#g">Orchideen</hi> den vom<lb/>
+Licht verkohlten Stamm der Tropenbäume und die<lb/>
+ödesten Felsenritzen. Die Vanillenform zeichnet sich<lb/>
+<pb n="22" facs="#f0022"/>
+durch hellgrüne saftvolle Blätter und durch vielfarbige<lb/>
+Blüthen von wunderbarem Baue aus. Diese Blüthen<lb/>
+gleichen bald den geflügelten Insekten, bald den zarten<lb/>
+Vögeln, welche der Duft der Honiggefä&#x017F;se anlokket.<lb/>
+Das Leben eines Malers wäre nicht hinlänglich,<lb/>
+um alle die prachtvollen Orchideen abzubilden,<lb/>
+welche die tiefausgefurchten Gebirgsthäler der <placeName>peruanischen<lb/>
+Andeskette</placeName> zieren.<lb/>
+</p> <p>Blattlos, wie fast alle Cactusarten, ist die <hi rendition="#g">Form<lb/>
+der Casuarinen</hi>, einer Pflanzengestalt, blo&#x017F;s der<lb/>
+<placeName>Südsee</placeName> und <placeName>Ostindien</placeName> eigen. Bäume mit schachtelhalmähnlichen<lb/>
+Zweigen. Doch finden sich auch in<lb/>
+andern Weltgegenden Spuren dieses mehr sonderbaren<lb/>
+als schönen Typus. <hi rendition="#g"><persName ref="http://d-nb.info/gnd/100259022">Plumier's</persName></hi> <hi rendition="#i">Equisetum altissimum</hi>,<lb/>
+die Ephedra aus <placeName>Nord-Afrika</placeName>, die peruanischen<lb/>
+Colletien und das sibirische Calligonum Pallasia,<lb/>
+sind der Casuarinenform nahe verwandt.<lb/>
+</p> <p>So wie in den Pisanggewächsen die höchste Ausdehnung,<lb/>
+so ist in den Casuarinen und in den <hi rendition="#g">Nadelhölzern</hi> die höchste Zusammenziehung der<lb/>
+Blattgefä&#x017F;se. Tannen, Thuja und Cypressen bilden<lb/>
+eine nordische Form, die in den Tropen selten ist.<lb/>
+Ihr ewig-frisches Grün erheitert die öde Winter-Landschaft.<lb/>
+Es verkündigt gleichsam den Polarvölkern,<lb/>
+da&#x017F;s, wenn Schnee und Eis den Boden bedekken,<lb/>
+das innere Leben der Pflanzen, wie das Prometheische<lb/>
+Feuer, nie auf unserm Planeten erlischt.<lb/>
+</p> <p>Parasitisch wie bei uns Moose und Flechten, überziehen<lb/>
+in der Tropenwelt au&#x017F;ser den Orchideen auch<lb/>
+die <hi rendition="#g">Pothosgewächse</hi> den alternden Stamm der<lb/>
+<pb n="23" facs="#f0023"/>
+Waldbäume. Saftige, krautartige Stengel mit gro&#x017F;sen,<lb/>
+bald pfeilförmigen, bald gefingerten, bald länglichen<lb/>
+aber stets dik-adrigen Blättern. Blumen in Scheiden.<lb/>
+<hi rendition="#i">Pothos</hi>, <hi rendition="#i">Dracontium</hi>, <hi rendition="#i">Arum</hi>, leztere dem Norden<lb/>
+fehlend, aber in <placeName>Spanien</placeName> und <placeName>Italien</placeName> mit saftvollem<lb/>
+Huflattig, hohen Distelstauden und <hi rendition="#i">Acanthus</hi>, die<lb/>
+Ueppigkeit des südlichen Pflanzenwuchses bezeichnend.<lb/>
+</p> <p>Zu dieser <hi rendition="#g">Arumform</hi> gesellt sich die Form der<lb/>
+<hi rendition="#g">Lianen</hi>, beide in hei&#x017F;sen Erdstrichen von <placeName>Süd-Amerika</placeName><lb/>
+in vorzüglicher Kraft der Vegetation. <hi rendition="#i">Paullinia</hi>,<lb/>
+<hi rendition="#i">Banisteria</hi>, <hi rendition="#i">Bignonien</hi>. Unser rankender<lb/>
+Hopfen und unsere Weinreben erinnern an diese<lb/>
+Pflanzengestalt der Tropenwelt. Am <placeName>Orinoco</placeName> haben<lb/>
+die blattlosen Zweige der <hi rendition="#i">Bauhinien</hi> oft 40 Fu&#x017F;s<lb/>
+Länge. Sie fallen theils senkrecht aus dem Gipfel<lb/>
+hoher Swietenien herab; theils sind sie schräg wie<lb/>
+Masttaue ausgespannt, und die Tigerkatze hat eine<lb/>
+bewundernswürdige Geschiklichkeit, daran auf- und<lb/>
+abzuklettern.<lb/>
+</p> <p>Mit den biegsamen sich rankenden Lianen, mit<lb/>
+ihrem frischen und leichten Grün, kontrastirt die<lb/>
+selbstständige Form der bläulichen <hi rendition="#g">Aloegewächse</hi>;<lb/>
+Stämme, wenn sie vorhanden sind, fast ungetheilt,<lb/>
+enggeringelt und schlangenartig gewunden. An dem<lb/>
+Gipfel sind saftreiche, fleischige, lang-zugespitzte<lb/>
+Blätter stralenartig zusammengehäuft. Die hochstämmigen<lb/>
+Aloegewächse bilden nicht Gebüsche, wie andere<lb/>
+gesellschaftlich lebende Pflanzen. Sie stehen einzeln<lb/>
+in dürren Ebenen, und geben der Tropengegend<lb/>
+<pb n="24" facs="#f0024"/>
+dadurch oft einen eigenen melancholischen (man<lb/>
+möchte sagen afrikanischen) Charakter.<lb/>
+</p> <p>Wie die Aloeform sich durch ernste Ruhe und<lb/>
+Festigkeit, so charakterisirt sich die <hi rendition="#g">Grasform</hi>, besonders<lb/>
+die Physiognomie der baumartigen Gräser,<lb/>
+durch den Ausdruck fröhlicher Leichtigkeit und beweglicher<lb/>
+Schlankheit. Bambusgebüsche bilden schattige<lb/>
+Bogengänge in beiden <placeName>Indien</placeName>. Der glatte, oft<lb/>
+geneigt-hinschwebende Stamm der Tropen-Gräser<lb/>
+übertrift die Höhe unserer Erlen und Eichen. Schon<lb/>
+in <placeName>Italien</placeName> fängt im <hi rendition="#i">Arundo Donax</hi> diese Form an,<lb/>
+sich vom Boden zu erheben, und durch Höhe und<lb/>
+Masse den Naturcharakter des Landes zu bestimmen.<lb/>
+</p> <p>Mit der Gestalt der Gräser ist auch die der <hi rendition="#g">Farrenkräuter</hi><lb/>
+in den hei&#x017F;sen Erdstrichen veredelt.<lb/>
+Baumartige, oft 35 Fu&#x017F;s hohe Farrenkräuter haben<lb/>
+ein palmenartiges Ansehen; aber ihr Stamm ist minder<lb/>
+schlank, kürzer, schuppig-rauher als der der<lb/>
+Palmen. Das Laub ist zarter, lokker gewebt, durchscheinend,<lb/>
+und an den Rändern sauber ausgezakt.<lb/>
+Diese kolossalen Farrenkräuter sind fast ausschlie&#x017F;slich<lb/>
+den Tropen eigen, aber in diesen ziehen sie ein<lb/>
+gemä&#x017F;sigtes Klima dem ganz hei&#x017F;sen vor. Da nun die<lb/>
+Milderung der Hitze blo&#x017F;s eine Folge der Höhe ist;<lb/>
+so darf man Gebirge, die 2 bis 3000 Fu&#x017F;s über dem<lb/>
+Meere erhaben sind, oder die Höhe unsers deutschen<lb/>
+<placeName>Brokkens</placeName>, als den Hauptsiz dieser Form nennen.<lb/>
+Hochstämmige Farrenkräuter begleiten in <placeName>Süd-Amerika</placeName><lb/>
+den wohlthätigen Baum, der die heilende Fieberrinde<lb/>
+darbietet. Beide bezeichnen die glükliche Region<lb/>
+<pb n="25" facs="#f0025"/>
+der Erde, in der ewige Milde des Frühlings<lb/>
+herrscht.<lb/>
+</p> <p>Noch nenne ich die Form der <hi rendition="#g">Liliengewächse</hi>,<lb/>
+(<hi rendition="#i">Amaryllis</hi>, <hi rendition="#i">Pancratium</hi>) mit schilfartigen Blättern<lb/>
+und prachtvollen Blüthen, eine Form, deren Hauptvaterland<lb/>
+<placeName>das südliche Afrika</placeName> ist; ferner die <hi rendition="#g">Weidenform</hi>,<lb/>
+in allen Welttheilen einheimisch; und<lb/>
+wo <hi rendition="#i">Salix</hi> fehlt, in den <hi rendition="#i">Banksien</hi> und einigen <hi rendition="#i">Proteen</hi><lb/>
+wiederholt; <hi rendition="#g">Myrthengewächse</hi>, (<hi rendition="#i">Metrosideros<lb/>
+Eucalyptus</hi>, <hi rendition="#i">Escallonia</hi>) <hi rendition="#g">Melastomen-</hi> und<lb/>
+<hi rendition="#g">Lorbeerform</hi>.<lb/>
+</p> <p>Es wäre ein Unternehmen, eines gro&#x017F;sen Künstlers<lb/>
+werth, den Charakter aller dieser Pflanzengruppen<lb/>
+nicht in Treibhäusern oder in den Beschreibungen<lb/>
+der Botaniker, sondern in der gro&#x017F;sen Tropen-Natur<lb/>
+selbst, zu studiren. Wie interessant und lehrreich<lb/>
+für den Landschaftsmaler wäre ein Werk, welches<lb/>
+dem Auge die aufgezählten sechszehn Hauptformen,<lb/>
+erst einzeln, und dann in ihrem Contraste<lb/>
+gegen einander, darstellte. Was ist malerischer,<lb/>
+als baumartige Farrenkräuter, die ihre zartgewebten<lb/>
+Blätter über die Mexikanischen Lorbeereichen ausbreiten!<lb/>
+Was reizender, als Pisanggebüsche von hohen<lb/>
+Bambusgräsern umschattet! Dem Künstler ist es<lb/>
+gegeben, die Gruppen zu zergliedern, und unter seiner<lb/>
+Hand löst sich (wenn ich den Ausdruk wagen<lb/>
+darf) das gro&#x017F;se Zauberbild der Natur, gleich den geschriebenen<lb/>
+Werken der Menschen, in wenige einfache<lb/>
+Züge auf!<lb/>
+</p> <p>Am glühenden Sonnenstral des tropischen Himmels<lb/>
+<pb n="26" facs="#f0026"/>
+gedeihen die herrlichsten Gestalten der Pflanzen. Wie<lb/>
+im kalten Norden die Baumrinde mit dürren Flechten<lb/>
+und Laubmoosen bedekt ist, so beleben dort Cymbidium<lb/>
+und duftende Vanille den Stamm der Anacardien<lb/>
+und der riesenmä&#x017F;sigen Feigenbäume. Das frische<lb/>
+Grün der Pothosblätter und der Dracontien kontrastirt<lb/>
+mit den vielfarbigen Blüthen der Orchideen. Rankende<lb/>
+Bauhinien, Passifloren und gelbblühende Banisterien<lb/>
+umschlingen den Stamm der Waldbäume.<lb/>
+Zarte Blumen entfalten sich aus den Wurzeln der<lb/>
+<hi rendition="#i">Theobroma</hi>, wie aus der dichten und rauhen Rinde<lb/>
+der Crescentien und der <hi rendition="#i">Gustavia</hi>. Bei dieser Fülle<lb/>
+von Blüthen und Blättern, bei diesem üppigen<lb/>
+Wuchse und der Verwirrung rankender Gewächse,<lb/>
+wird es dem Naturforscher oft schwer zu erkennen,<lb/>
+welchem Stamme Blüthen und Blätter zugehören.<lb/>
+Ein einziger Baum mit Paullinien, Bignonien und<lb/>
+Dendrobium geschmükt, bildet eine Gruppe von Pflanzen,<lb/>
+welche, von einander getrennt, einen beträchtlichen<lb/>
+Erdraum bedekken würden.<lb/>
+</p> <p>In den Tropen sind die Gewächse saftstrotzender,<lb/>
+von frischerem Grün, mit grö&#x017F;seren und glänzenderen<lb/>
+Blättern geziert, als in den nördlichern Erdstrichen.<lb/>
+Gesellschaftlich lebende Pflanzen, welche die europäische<lb/>
+Vegetation so einförmig machen, fehlen am<lb/>
+Aequator beinah gänzlich. Bäume, fast zweimal so<lb/>
+hoch als unsere Eichen, prangen dort mit Blüthen,<lb/>
+welche gro&#x017F;s und prachtvoll wie unsere Lilien sind.<lb/>
+An den schattigen Ufern des <placeName>Madalenenflusses</placeName> in <placeName>Süd-Amerika</placeName><lb/>
+wächst eine rankende Aristolochia, deren<lb/>
+<pb n="27" facs="#f0027"/>
+Blume, von vier Fu&#x017F;s Umfang, sich die indischen<lb/>
+Knaben in ihren Spielen über den Scheitel ziehen.<lb/>
+</p> <p>Die au&#x017F;serordentliche Höhe, zu welcher sich unter<lb/>
+den Wendekreisen nicht blos einzelne Berge, sondern<lb/>
+ganze Länder erheben, und die Kälte, welche Folge<lb/>
+dieser Höhe ist, gewähren dem Tropen-Bewohner<lb/>
+einen seltsamen Anblik. <choice><sic>Ausser</sic><corr>Au&#x017F;ser</corr></choice> den Palmen und Pisanggebüschen<lb/>
+umgeben ihn auch die Pflanzenformen,<lb/>
+welche nur den nordischen Ländern anzugehören<lb/>
+scheinen. Cypressen, Tannen und Eichen, Berberissträucher<lb/>
+und Erlen (nahe mit den unsrigen verwandt)<lb/>
+bedekken die Gebirgsebenen im südlichen<lb/>
+<placeName>Mexiko</placeName>, wie die <placeName>Andeskette</placeName> unter dem Aequator.<lb/>
+So hat die Natur dem Menschen in der hei&#x017F;sen Zone<lb/>
+verliehen, ohne seine Heimath zu verlassen, alle<lb/>
+Pflanzengestalten der Erde zu sehen; wie das Himmelsgewölbe<lb/>
+von <placeName>Pol</placeName> zu <placeName>Pol</placeName> ihm keine seiner leuchtenden<lb/>
+Welten verbirgt.<lb/>
+</p> <p>Diesen und so manchen andern Naturgenu&#x017F;s entbehren<lb/>
+die nordischen Völker. Viele Gestirne und<lb/>
+viele Pflanzenformen, von diesen gerade die schönsten,<lb/>
+(Palmen und Pisanggewächse, baumartige Gräser<lb/>
+und feingefiederte Mimosen) bleiben ihnen ewig<lb/>
+unbekannt. Die krankenden Gewächse, welche unsere<lb/>
+Treibhäuser einschlie&#x017F;sen, gewähren nur ein<lb/>
+schwaches Bild von der Majestät der Tropenvegetation.<lb/>
+Aber in der Ausbildung unserer Sprache, in<lb/>
+der glühenden Phantasie des Dichters, in der darstellenden<lb/>
+Kunst der Maler, ist uns eine reiche Quelle<lb/>
+des Ersatzes geöfnet. Aus ihr schöpft unsere Einbildungskraft<lb/>
+<pb n="28" facs="#f0028"/>
+die lebendigen Bilder einer exotischen<lb/>
+Natur. Im kalten Norden, in der öden Heide, kann<lb/>
+der einsame Mensch sich aneignen, was in den fernsten<lb/>
+Erdstrichen erforscht wird, und so in seinem<lb/>
+Innern eine Welt sich schaffen, welche das Werk<lb/>
+seines Geistes, frei und unvergänglich, wie dieser,<lb/>
+ist.<lb/>
+</p>       </div>     </body>   </text> </TEI>

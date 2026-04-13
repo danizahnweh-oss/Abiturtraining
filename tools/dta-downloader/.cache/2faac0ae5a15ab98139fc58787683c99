@@ -1,0 +1,429 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">       <teiHeader>
+<fileDesc>
+<titleStmt>
+<title type="main">Neue Rheinische Zeitung</title>
+<title type="sub">Organ der Demokratie</title>
+<title type="sub">Nr. 231, Sonntag, 25. Februar 1849</title>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/115266127">
+<surname>Geyken</surname>
+<forename>Alexander</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1222198746">
+<surname>Haaf</surname>
+<forename>Susanne</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1019062681">
+<surname>Jurish</surname>
+<forename>Bryan</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Boenig</surname>
+<forename>Matthias</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Thomas</surname>
+<forename>Christian</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Wiegand</surname>
+<forename>Frank</forename>
+</persName>
+</editor>
+<respStmt xml:id="textsource-1" corresp="#availability-textsource-1">
+<orgName>Marx-Engels-Gesamtausgabe</orgName>
+<resp>
+<note type="remarkResponsibility">Bereitstellung der Texttranskription.</note>
+<note type="remarkRevisionDTA">Bitte beachten Sie, dass die aktuelle Transkription (und Textauszeichnung) mittlerweile nicht mehr dem Stand zum Zeitpunkt der Übernahme des Werkes in das DTA entsprechen muss.</note>
+<ref target="http://mega.bbaw.de/"/>
+<date type="importDTA">2017-03-20T13:08:10Z</date>
+</resp>
+</respStmt>
+<respStmt>
+<persName ref="http://d-nb.info/gnd/120127911">
+<surname>Herres</surname>
+<forename>Jürgen</forename>
+</persName>
+<resp>
+<note type="remarkResponsibility">Konvertierung TUSTEP nach XML</note>
+<date type="importDTA">2017-03-20T13:08:10Z</date>
+</resp>
+</respStmt>
+<respStmt>
+<persName>
+<surname>Ermakova</surname>
+<forename>Maria</forename>
+</persName>
+<persName>
+<surname>Fiechter</surname>
+<forename>Benjamin</forename>
+</persName>
+<persName ref="http://d-nb.info/gnd/1018099549">
+<surname>Haaf</surname>
+<forename>Susanne</forename>
+</persName>
+<persName>
+<surname>Wiegand</surname>
+<forename>Frank</forename>
+</persName>
+<resp>
+<note type="remarkResponsibility">Konvertierung XML nach DTA-Basisformat</note>
+<date type="importDTA">2017-03-20T13:08:10Z</date>
+</resp>
+</respStmt>
+<respStmt>
+<orgName ref="https://www.bbaw.de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<resp>
+<note type="remarkResponsibility">Langfristige Bereitstellung der DTA-Ausgabe</note>
+<ref target="https://www.bbaw.de"/>
+</resp>
+</respStmt>
+</titleStmt>
+<editionStmt><edition>Vollständige digitalisierte Ausgabe.</edition></editionStmt>
+<extent>
+<measure type="images">4</measure>
+<measure type="tokens">7341</measure>
+<measure type="types">3167</measure>
+<measure type="characters">51201</measure>
+</extent>
+<publicationStmt>
+<publisher xml:id="DTACorpusPublisher">
+<email>dta@bbaw.de</email>
+<orgName role="project">Deutsches Textarchiv</orgName>
+<orgName role="hostingInstitution" xml:lang="en">Berlin-Brandenburg Academy of Sciences and Humanities (BBAW)</orgName>
+<orgName role="hostingInstitution" xml:lang="de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<address>
+<addrLine>Jägerstr. 22/23, 10117 Berlin</addrLine>
+<country>Germany</country>
+</address>
+</publisher>
+<pubPlace>Berlin</pubPlace>
+<date type="publication">2025-10-24T08:34:40Z</date>
+<availability>
+<licence target="http://creativecommons.org/licenses/by-nc/3.0/de/">
+<p>Distributed under the Creative Commons Attribution-NonCommercial 3.0 Unported License.</p>
+</licence>
+</availability>
+<idno>
+<idno type="URLWeb">https://www.deutschestextarchiv.de/nn_nrhz231_1849</idno>
+<idno type="URLXML">https://www.deutschestextarchiv.de/book/download_xml/nn_nrhz231_1849</idno>
+<idno type="URLHTML">https://www.deutschestextarchiv.de/book/download_html/nn_nrhz231_1849</idno>
+<idno type="URLText">https://www.deutschestextarchiv.de/book/download_text/nn_nrhz231_1849</idno>
+<idno type="DTADirName">nn_nrhz231_1849</idno>
+<idno type="DTAID">31593</idno>
+<idno type="URN">urn:nbn:de:kobv:b4-31593-1</idno>
+</idno>
+</publicationStmt>
+<sourceDesc>
+<bibl type="J">Neue Rheinische Zeitung. Nr. 231. Köln, 25. Februar 1849.</bibl>
+<biblFull>
+<titleStmt>
+<title level="m" type="main">Neue Rheinische Zeitung</title>
+<title level="m" type="sub">Organ der Demokratie</title>
+<title level="m" type="sub">Nr. 231, Sonntag, 25. Februar 1849</title>
+</titleStmt>
+<editionStmt>
+<edition n="1"/>
+</editionStmt>
+<publicationStmt>
+<publisher><name>Clouth</name></publisher>
+<pubPlace>Köln</pubPlace>
+<date type="publication">1848</date>
+</publicationStmt>
+</biblFull>
+<msDesc>
+<msIdentifier>
+<repository>Russisches Staatsarchiv für sozio-politische Geschichte</repository>
+<idno>
+<idno type="shelfmark">RGASPI, Moskau, f. 1, op. 1, d. 268</idno>
+<idno type="URLCatalogue">http://rgaspi.org/</idno>
+</idno>
+</msIdentifier>
+<physDesc>
+<typeDesc>
+<p>Fraktur</p>
+</typeDesc>
+</physDesc>
+</msDesc>
+</sourceDesc>
+</fileDesc>
+<encodingDesc>
+<editorialDecl>
+<p>
+<![CDATA[
+<p>Die angegebenen Seitenzahlen beziehen sich auf die Ausgabe: Neue Rheinische Zeitung. Organ der Demokratie. Bd. 2 (Nummer 184 bis Nummer 301) Köln, 1. Januar 1849 bis 19. Mai 1849. Glashütten im Taunus, Verlag Detlev Auvermann KG 1973.</p>
+]]>
+</p>
+</editorialDecl>
+<tagsDecl>
+<rendition scheme="css" xml:id="aq">font-family:sans-serif</rendition>
+<rendition scheme="css" xml:id="b">font-weight:bold</rendition>
+<rendition scheme="css" xml:id="blue">color:blue</rendition>
+<rendition scheme="css" xml:id="c">display:block; text-align:center</rendition>
+<rendition scheme="css" xml:id="et">display:block; margin-left:2em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et2">display:block; margin-left:4em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et3">display:block; margin-left:6em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="f">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="fr">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="g">letter-spacing:0.125em</rendition>
+<rendition scheme="css" xml:id="i">font-style:italic</rendition>
+<rendition scheme="css" xml:id="in">font-size:150%</rendition>
+<rendition scheme="css" xml:id="k">font-variant:small-caps</rendition>
+<rendition scheme="css" xml:id="larger">font-size:larger</rendition>
+<rendition scheme="css" xml:id="red">color:red</rendition>
+<rendition scheme="css" xml:id="right">display:block; text-align:right</rendition>
+<rendition scheme="css" xml:id="s">text-decoration:line-through</rendition>
+<rendition scheme="css" xml:id="smaller">font-size:smaller</rendition>
+<rendition scheme="css" xml:id="sub">vertical-align:sub; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="sup">vertical-align:super; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="u">text-decoration:underline</rendition>
+<rendition scheme="css" xml:id="uu">border-bottom:double 3px #000</rendition>
+</tagsDecl>
+</encodingDesc>
+<profileDesc>
+<langUsage>
+<language ident="deu">(Früh-)Neuhochdeutsch</language>
+<language ident="deu">German</language>
+</langUsage>
+<textClass>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1main">Zeitung</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">ready</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">nrhz</classCode>
+</textClass>
+</profileDesc>
+</teiHeader>
+<text>
+<pb facs="#f0001" n="1267"/>
+<front>          <titlePage type="heading">             <titlePart type="main">Neue Rheinische Zeitung</titlePart>             <titlePart type="sub">Organ der Demokratie.</titlePart>             <docImprint>                <docDate>No. 231. Köln, Sonntag den 25. Februar. 1849.</docDate>             </docImprint>          </titlePage>       </front>         <body>              <div type="jExpedition">             <p>Vierteljähriger Abonnementspreis in Köln 1 Thlr. 7 1/2 Sgr., bei allen preußischen Postanstalten 1 Thlr. 17 Sgr. &#x2012; Im Auslande wende man sich: in Belgien an die betreffenden Postanstalten; in London an W. Thomas, 21 Catherine-Street, Strand; in Paris an W. Thomas, 38 Rue Vivienne, und an A. Havas, 3 Rue Jean Jacques Reusseau.</p>             <p>Insertionen werden mit 18 Pf. die Petitzeile oder deren Raum berechnet.</p>             <p>Auskunft, Annahme und Abgabe chiffrirter Briefe gratis. Nur frankirte, Briefe werden angenommen. Expedition Unter Hutmacher Nro.17.</p>          </div>          <div n="1" type="contents">             <head>Uebersicht.</head>             <p>                <hi rendition="#g">Deutschland.</hi> Köln. (Der Prozeß gegen den rheinischen Kreisausschuß der Demokraten). Düsseldorf. (Croaten. &#x2012; Die suspendirten Regierungsräthe). Berlin. (Eine königl. Rede an die Truppen. &#x2012; Börse. &#x2012; Linde und Hedern. &#x2012; Gerichtsorganisation. &#x2012; Helds Lokomotive). Wien. (Kossuths Banknoten). Frankfurt. (National-Versammlung). Kiel. (Rüstung.) Schleswig. (Anfrage).</p>             <p>                <hi rendition="#g">Polen.</hi> Lemberg (Russische Gränzsperre).</p>             <p>                <hi rendition="#g">Ungarn.</hi> (Näheres über die Magyaren. &#x2012; Sieg an der Theiß. &#x2012; Brutalität der Oestreicher. &#x2012; Lage des Kriegs im Allgemeinen). Agram. (Volksversammlung).</p>             <p>                <hi rendition="#g">Italien.</hi> Florenz. (Akte der provisorischen Regierung.) Rom. (Sitzung der Konstituante.) Turin. (Keine Intervention. &#x2012; Neueste italienische Nachrichten.)</p>             <p>                <hi rendition="#g">Schweiz.</hi> Schaffhausen. (Die deutschen Flüchtlinge.) Luzern. (Neapolitanische Werbung.)</p>             <p>                <hi rendition="#g">Franz. Republik.</hi> Paris. (Die Mörder Breas. &#x2012; Die Bürgerartillerie. &#x2012; Absetzungen. &#x2012; Politik gegen Italien. &#x2012; Louis Bonaparte &#x2012; Das Elend des Volkes. &#x2012; Vermischtes. &#x2012; Nationalversammlung.)</p>             <p>                <hi rendition="#g">Großbritannien.</hi> London. (Vermischtes.)</p>          </div>          <div n="1">             <head>Deutschland.</head>      <div type="jArticle" xml:id="ar231_001_c">         <note type="editorial">Edition: <bibl>Karl Marx: Verteidigungsrede im Prozess gegen den Rheinischen Kreisausschuß der Demokraten, vorgesehen für: MEGA<hi rendition="#sup">2</hi>, I/8.         </bibl>                </note>                <head>                   <bibl>                      <author>*</author>                   </bibl> Köln, 24. Februar.</head>                <gap reason="copyright"/>             </div>          </div>
+<div n="1" type="jFeuilleton">
+<div type="jArticle" xml:id="ar231_001a">                <head>Venus und Adonis <note place="foot" n="*)">Siehe &#x201E;N. Rh. Ztg.&#x201C; Nro. 131 u. 141. &#x2012; Die Fortsetzungen dieser Uebertragung werden sich von nun an in kurzen Zwischenräumen folgen.</note>                </head>                <p>                   <hi rendition="#g">Von Shakspeare.</hi>                </p>                <p>Uebersetzt von F. Freiligrath.</p>                <p>                   <ref type="link">(Fortsetzung.)</ref>                </p>                <lg type="poem">
+<lg n="1">                      <l>Ganz freundlich nun ergreift sie seine Hand;</l>                      <lb/>
+<l>'S ist eine Lilie, rings von Schnee umzäunt;</l>                      <lb/>
+<l>'S ist Elfenbein, das Marmor licht umspannt:</l>                      <lb/>
+<l>So weißen Feind umfängt so weiß ein Freund.</l>                      <lb/>
+<l>Dies schöne Kämpfen, dieses süße Rauben,</l>                      <lb/>
+<l>Dem Schnäbeln gleicht es zweier Silbertauben.</l>                      <lb/>
+</lg>
+<lg n="2">                      <l>Und noch einmal jetzt hebt sie stürmend an:</l>                      <lb/>
+<l>&#x201E;Du schönster Wandler auf dem ird'schen Runde!</l>                      <lb/>
+<l>Wär'st du, wie ich, doch! wär' doch ich ein Mann!</l>                      <lb/>
+<l>Wär' mein Herz heil, und trügest du das wunde!</l>                      <lb/>
+<l>                         <hi rendition="#g">Ein</hi> süßer Blick &#x2012; und Rath wollt' ich dir geben,</l>                      <lb/>
+<l>Müßt' ich dich retten auch mit meinem Leben!&#x201C;</l>                      <lb/>
+</lg>
+<lg n="3">                      <l>&#x201E;Die Hand,&#x201C; spricht er, &#x201E;wozu mich länger quälen?&#x201C;</l>                      <lb/>
+<l>&#x201E;Dein Herz!&#x201C; spricht sie, &#x201E;und gleich sollst du sie haben!</l>                      <lb/>
+<l>O lasse dein Herz meines nicht verstählen!</l>                      <lb/>
+<l>Zu hart ja würd' es, Seufzer drein zu graben!</l>                      <lb/>
+<l>Des Fleh'ns der Liebe hätt' ich nimmer Acht,</l>                      <lb/>
+<l>Wenn stählern dein Herz meines hart gemacht!&#x201C;</l>                      <lb/>
+</lg>
+<lg n="4">                      <l>&#x201E;Schmach!&#x201C; ruft er aus, &#x201E;was hältst du mich gefangen?</l>                      <lb/>
+<l>Hin ist mein Tag! mein Renner jagt im Hain!</l>                      <lb/>
+<l>Nur deine Schuld ist's, daß er durchgegangen!</l>                      <lb/>
+<l>Fort, sag' ich, fort! und laß mich hier allein!</l>                      <lb/>
+<l>Denn nicht gedenk' ich heut noch andrer Dinge,</l>                      <lb/>
+<l>Als wie zurück ich meinen Flüchtling bringe!</l>                      <lb/>
+</lg>
+<lg n="5">                      <l>So ihr Erwidern: &#x201E;Zürne nicht den Pferden!</l>                      <lb/>
+<l>Der Brunst zu folgen ist des Thieres Pflicht.</l>                      <lb/>
+<l>Lieb' ist die Kohle, die gekühlt muß werden,</l>                      <lb/>
+<l>Soll sie das Herz in Flammen setzen nicht!</l>                      <lb/>
+<l>Die See hat Gränzen, keine das Verlangen:</l>                      <lb/>
+<l>Warum denn staunen, daß dein Roß gegangen?</l>                      <lb/>
+</lg>
+<lg n="6">                      <l>&#x201E;Wie stand dein Zelter mährengleich und trübe,</l>                      <lb/>
+<l>Als ihn dein Leder fest noch hielt am Baum!</l>                      <lb/>
+<l>Doch als er nahn sah seine stolze Liebe,</l>                      <lb/>
+<l>Ha, wie zerriß er trotzig da den Zaum!</l>                      <lb/>
+<l>Wie flog sein Haar, wie schnob er wild und bräuend,</l>                      <lb/>
+<l>Genick und Nacken, Maul und Brust befreiend!</l>                      <lb/>
+</lg>
+<lg n="7">                      <l>&#x201E;Wer die Geliebte sieht in ihren Kissen,</l>                      <lb/>
+<l>Nackt, weißer schimmernd, als des Lagers Lein:</l>                      <lb/>
+<l>Mag der vom Schwelgen nur des Auges wissen?</l>                      <lb/>
+<l>Er lodert <hi rendition="#g">ganz,</hi> will ihrer <hi rendition="#g">ganz</hi> sich freun.</l>                      <lb/>
+<l>Wer ist so muthlos, der nicht auch so kühn,</l>                      <lb/>
+<l>Bei Frost zu rühren an der Flamme Glühn?</l>                      <lb/>
+</lg>
+<lg n="8">                      <l>&#x201E;Laß mich entschuld'gen deinen Renner, Knabe!</l>                      <lb/>
+<l>Und lern' von ihm, ich bitt' dich herzlich drum,</l>                      <lb/>
+<l>Wie du benutzest dargebotne Gabe!</l>                      <lb/>
+<l>Dies Eine lehr' ich dich, und wär' ich stumm:</l>                      <lb/>
+<l>O, lerne Lieben! leicht ja ist die Müh',</l>                      <lb/>
+<l>Und kannst du's einmal, du verlernst es nie!&#x201C;</l>                      <lb/>
+</lg>
+<lg n="9">                      <l>&#x201E;Ich will's nicht lernen!&#x201C; ruft er, &#x201E;wär's ein Schwein,</l>                      <lb/>
+<l>Ein Eber noch: dann wollt' ich's jagen gehen!</l>                      <lb/>
+<l>Es ist ein Borgen &#x2012; ich mag nichts entleihn!</l>                      <lb/>
+<l>Meine Lieb' zur Lieb' ist Lieb' nur, Lieb zu schmähen!</l>                      <lb/>
+<l>Im Tod ein Leben ist sie, sagt man mir,</l>                      <lb/>
+<l>Das lacht und weint in Einem Athem schier.</l>                      <lb/>
+</lg>
+<lg n="10">                      <l>&#x201E;Wer legt ein Kleid auch unvollendet an?</l>                      <lb/>
+<l>Wer bricht die Knospe, eh' sie Blätter kerben?</l>                      <lb/>
+<l>Wird Keimendem ein Jott nur abgethan,</l>                      <lb/>
+<l>So muß es kläglich schon als Keim verderben.</l>                      <lb/>
+<l>Das Pferd, das man zu früh ritt und belud,</l>                      <lb/>
+<l>Verliert den Stolz, bleibt ewig ohne Muth!</l>                      <lb/>
+</lg>
+<lg n="11">                      <l>&#x201E;Du ringst die Hand mir aus! Auf, uns zu trennen!</l>                      <lb/>
+<l>Dein nutzlos Reden, laß es endlich sein!</l>                      <lb/>
+<l>Hör' endlich auf, die Brust mir zu berennen &#x2012;</l>                      <lb/>
+<l>Nie durch ihr Thor doch zieht die Liebe ein!</l>                      <lb/>
+<l>Fort deine Heuchelthränen, dein Gewäsche!</l>                      <lb/>
+<l>Mein Herz ist hart &#x2012; sie machen keine Bresche!&#x201C;</l>                      <lb/>
+</lg>
+<lg n="12">                      <l>Sie drauf: &#x201E;Du sprichst? Was, hast du eine Zunge?</l>                      <lb/>
+<l>Es sei! doch wär' ich jetzt nur ohne Ohr!</l>                      <lb/>
+<l>Denn wie Sirenen redest du mein Junge!</l>                      <lb/>
+<l>Zwiefach jetzt duld' ich, duldend schon zuvor!</l>                      <lb/>
+<l>Melod'scher Mißlaut! Himmelslied voll Strenge!</l>                      <lb/>
+<l>Herztödtende, tiefsüße Erdenklänge!</l>                      <lb/>
+</lg>
+<lg n="13">                      <l>&#x201E;Hätt' ich nicht Augen: jene ungeseh'ne</l>                      <lb/>
+<l>Inwend'ge Schönheit hörend würd' ich lieben;</l>                      <lb/>
+<l>Taub aber, fühlt' ich deine äußre Schöne</l>                      <lb/>
+<l>Mit jedem Theile, dem Gefühl geblieben.</l>                      <lb/>
+<l>Ohn' Aug' und Ohr in Liebe würd' ich sein,</l>                      <lb/>
+<l>Und nach dir lechzen &#x2012; durch's Gefühl allein!</l>                      <lb/>
+</lg>                </lg>             </div>          </div>
+<pb facs="#f0002" n="1268"/>
+<div n="1">             <head>[Deutschland]</head>
+     <div type="jArticle" xml:id="ar231_002_c">         <note type="editorial">Edition: <bibl>Karl Marx: Verteidigungsrede im Prozess gegen den Rheinischen Kreisausschuß der Demokraten, vorgesehen für: MEGA<hi rendition="#sup">2</hi>, I/8.         </bibl>                </note>                <gap reason="copyright"/>             </div>             <div type="jArticle" xml:id="ar231_003">                <head>                   <bibl>                      <author>Z</author>                   </bibl> Düsseldorf, 24. Febr.</head>                <p>Wir leben hier unter dem Schutze eines &#x201E;wohlgeregelten&#x201C; Polizeistaates so sicher, daß wir <hi rendition="#g">Dolche</hi> nachtragen müssen. Nur einige Beispiele, wie es hier jetzt zugeht: Drei Herren kehren Montag Nacht mit zwei Damen vom Balle heim. An der Neustraßenecke werden sie von vier Soldaten, welche den Säbel blank unter dem Mantel halten, angefallen, ohne daß die Bürger auch nur ein Wort gesagt hätten. Der erste wird auf den Kopf geschlagen und fällt; die Damen fliehen, der zweite folgt ihnen zu ihrem Schutze; der dritte jedoch wirft sich auf einen Soldaten, stürzt mit ihm nieder, und während die übrigen zwei Soldaten ihrem Kameraden zu Hülfe kommen, erscheint zum Glücke ein junger Mann, eben, als ein Soldat schrie: &#x201E;wie, Ihr wollt das Militär anfallen?!&#x201C; &#x2012; Beim Erscheinen des erwähnten Herrn nehmen die vier Helden, zwei Musketiere und zwei Jäger, die Flucht, und der Hinzugekommene erzählt jetzt, wie er den vieren nachgegangen sei, indem er schon <hi rendition="#g">fünfmal</hi> diese Nacht Zeuge gewesen, wie sie <hi rendition="#g">einzelne</hi> Bürger angefallen hätten. Die Sache wurde angezeigt, und obschon einer der Musketiere einen Biß in die Nase erhalten hat, was wird die Strafe der Wegelagerer sein?</p>                <p>Den andern Tag dringen vier Jäger in einen Laden vor dem Benrather Thor und verlangen, was nicht da ist. Sie werden grob und als die Frau ihnen derbe antwortet, zieht man blank und versetzt der einzelnen Frau einen Hieb in's Gesicht, daß die blutende Wange herabhängt; die Wange mußte zusammengenäht werden; die Helden flohen, was wird ihre Strafe sein? &#x2012; Wieder kömmt ein Schiffer allein und stille durch die Hochstraße; drei Jäger &#x2012; unter diesen sind überhaupt die tapfersten Helden mit Gott für König und Vaterland &#x2012; fallen den erstaunten Bürger mit dem Ausrufe &#x201E;ein Demokrat, es ist einer davon!&#x201C; an, ziehen blank und versetzen ihm einen gefährlichen Hieb über den Kopf. &#x2012; Ich könnte ihnen beinahe Dutzendweise solcher Auftritte erzählen, <hi rendition="#g">welche die volle Wahrheit sind,</hi> aber sie sind Einer wie der Andere.</p>             </div>             <div type="jArticle" xml:id="ar231_004">                <head>                   <bibl>                      <author>*</author>                   </bibl> Berlin, 22. Februar.</head>                <p>Unsere letzthin gemachte Mittheilung, daß die beiden Musketier-Bataillone des 24. Regiments nur deshalb nach Stettin versetzt werden, weil sie soviel mißliebige Elemente enthalten, hat gestern eine Allerhöchste Bestätigung durch eine Königliche Rede erhalten. Vor ihrem Abmarsch nach Stettin nahm nähmlich der König den beiden Bataillonen in Charlottenburg Parade ab, und hielt nach derselben eine Anrede an sie, worin er ihnen Vorwürfe über den schlechten Geist machte, der in ihren Reihen herrsche. Sie hätten der Verführung nicht zu widerstehen vermocht und müßten daher von Berlin entfernt und durch andere zuverlässigere, treuere Truppen ersetzt werden. Er hoffe übrigens, sie würden sich fortan besser benehmen und gutmachen, was sie bisher gefehlt hätten.</p>                <p>An unserer Börse herrscht schon seit einigen Tagen eine sehr gedrückte Stimmung, die in Befürchtungen nah bevorstehender politischer Katastrophen und in dem allgemeinen Gefühl der Unsicherheit unserer politischen Zustände ihren Grund hat. Auch trägt man sich mit allerhand kriegerischen Gerüchten die namentlich gegen Oestreich gerichtet sind. So behauptet man sogar seit gestern, der östreichische Gesandte habe sich zur Abreise vorbereitet. Heute hat sich diese gedrückte Stimmung noch stärker kund gegeben und sind fast sämmtliche Effekten bedeutend gewichen.</p>                <p>Als zwei fleißige Mitarbeiter des Berliner Zuschauers der Neuen Preußischen Zeitung bezeichnet man uns die Herren Linde und Heder. Ersterer soll wiederholentlich und für längere Zeit intime Bekanntschaft mit dem Spandauer Zuchthause gemacht haben und die Verkürzung seines letzten Aufenthalts daselbst von 4 auf 1 1/2 Jahre den Bemühungen der Missionäre verdanken, die an ihm eine schätzenswerthe Acquisition für das Christenthum gemacht hatten. Letzterer war früher Wachtmeister bei dem 3. Dragonerregiment. Jeder von diesen Herren erhält ein monatliches Honorar von 30 Thalern; ihr Hauptgeschäft ist an allen öffentlichen Orten umher zu spioniren, und die Gespräche der Gäste zu belauschen.</p>                <p>Es sind, in Folge der Gesetze vom 2. und 3. Januar, wegen Reorganisation der Justizverwaltung, vielfach Besorgnisse unter den Justizbeamten laut geworden, daß eine große Masse von richterlichen Kräften dadurch entbehrlich werden möchte, wodurch denn namentlich die jüngern Justizbeamten betrogen werden würden. Man sprach bereits von der theilweisen Auflösung der Obergerichte und von dem Eintreten der Obergerichtsräthe in die Untergerichts-Kollegien, was denn allerdings, zurückwirkend, eine Anzahl richterlicher Personen überflüssig machen müßte. Diese Besorgnisse scheinen jedoch nicht begründet, wenigstens gewiß übertrieben zu sein, sofern man dabei nicht bedacht hat, daß künftig die Appellationsgerichte jedenfalls ein größeres Richterpersonal absorbiren werden, als bisher. Von einer Verminderung des kammergerichtlichen Personals ist z. B. wie der Publicist meldet, so wenig die Rede, daß bei der Reorganisation noch die Besetzung von einer, seit längerer Zeit vakanten, Richterstelle erfolgen soll. Das Kammergericht soll nämlich künftig aus drei Senaten bestehen, jeder Senat unter dem Vorsitze eines Präsidenten. Aehnlich wird es sich auch wohl in den Provingen gestalten, daß in Provinzen, wo bis jetzt drei, vier Obergerichte bestehen die Zahl vermindert, dagegen an den bestehenbleibenden des Richterpersonal vermehrt werden wird.</p>                <p>Während der Zeit wo der bekannte <hi rendition="#g">Held</hi> mehr auf Erfolg durch seine Rednergabe und seine persönliche Erscheinung als durch seine schriftstellerische Thätigkeit rechnete, eine Rechnung die freilich ohne den Wirth gemacht war, redigirte er sein jetzt verbotenes Tagesblatt &#x201E;die Locomotive&#x201C; selbst gar nicht, überließ deren Redaktion vielmehr einigen seiner früheren Mitarbeiter. In dieser Zeit erschien in der Locomotive ein Aufsatz betitelt &#x201E;An den Tyrannen&#x201C; der allen Tyrannen den Tod nicht nur vorhersagte, sondern auch zu deren Ermordung aufforderte. Dieser Artikel, der mit <hi rendition="#g">Robert Springer</hi> unterzeichnet war, erregte die Aufmerksamkeit des Staatsanwalts und wurden wegen desselben zuerst <hi rendition="#g">Held</hi> zur Verantwortung gezogen, da dieser jedoch seine Nichtbetheiligung an demselben vollständig erwiesen hat, so soll jetzt die Anklage wegen Majestätsbeleidigung &#x2012; der Staatsanwalt bezieht nemlich den Artikel auf den König von Preußen &#x2012; gegen den Verfasser erhoben worden sein.</p>             </div>             <div type="jArticle" xml:id="ar231_005">                <head>Wien, 18. Febr.</head>                <p>                   <hi rendition="#g">(Die Silbernoth)</hi> wächst; im Caffehaus, wie auch im Kaufladen erhält man statt einigen Kreuzern den vierten, resp. achten Theil einer Banknote; das einzige Mittel den Verkehr zu erhalten. Trotzdem auch die Erfahrung gelehrt hat, welch unzulängliches Mittel das Silberausfuhrverbot ist, beharrt die Regierung doch dabei. Zur Erleichterung des Verkehrs mit dem Auslande, das unsere Papiere nur gegen bedeutenden Verlust *)<note place="foot">In Breslau gegen 8 2/3 Pct. Verlust.</note> nimmt, ist die Bestimmung erlassen worden, daß östreichische Kaufleute gegen Vorzeigung der ausländischen Rechnungen einen Paß für das auszusendende Silbergeld erhalten. Zwanziger haben jetzt hier im Verhältniß zu Papier ein Agio von 9 Procent. &#x2012; Kossuth-Banknoten sind hier zwar selten, werden aber von vielen Bankiers mit kleinem Verlust an Zahlungsstatt angenommen. Die Bestimmung, daß dieses ungarische Papier in den kleinern Points 1, 2-4 Gulden bei den k. k. Kassen angenommen werden soll, ist auf 5 und 10 Gulden-Banknoten ausgedehnt worden.</p>                <bibl>(A. O. Z.)</bibl>             </div>             <div type="jArticle" xml:id="ar231_006">                <head>                   <bibl>                      <author>!!!</author>                   </bibl> Frankfurt, 22. Febr.</head>                <p>National-Versammlung. Simson eröffnet Punkt 9 Uhr die Sitzung. Tagesordnung: Wahlgesetz § 3 ff.</p>                <p>Unterstaatssekretär <hi rendition="#g">Wiedenmann</hi> verliest Namens des Justizministers eine Gesetzvorlage in 12 langen Artikeln, betreffend die Vollstreckung gerichtlicher Urtheile aller deutschen Gerichte. &#x2012; Das Gesetz wird gedruckt; dann gebe ich es Ihnen. Der Hauptzweck ist der, in keinem deutschen Einzelstaate irgend einem Deutschen noch ferner Schutz zu geben gegen ein erlassenes Urtheil eines andern Einzelstaates, z. B. den Wiener Flüchtlingen keinen Schutz mehr in Frankfurt oder Leipzig zu geben.</p>                <p>Wenn es die Polizeieinheit Deutschlands gilt, ist niemand schneller als das Reichsministerium, aber sonst! Kurz, man sieht der Bundestag ist wieder vollständig da.</p>                <p>Das Gesetz geht an den Gesetzgebungsausschuß.</p>                <p>                   <hi rendition="#g">Venedey</hi> und <hi rendition="#g">Eisenstuck</hi> interpelliren das Reichsministerium.</p>                <p>Die Ministerbänke sind leer.</p>                <p>Die Tagesordnung führt zum Wahlgesetz:</p>                <p>§ 3.</p>                <p>Als bescholten, also von der Berechtigung zum Wählen ausgeschlossen sollen angesehen werden:</p>                <p>1) Personen, welche wegen Diebstahls, Betrugs oder Unterschlagung, oder welche wegen eines anderen Verbrechens zu einer Zuchthaus-, Arbeitshaus-, Festungsarbeitsstrafe oder zum Verlust der     staats- <ref type="link_fsg">[Fortsetzung]</ref>                 </p>             </div>          </div>
+<div n="1" type="jFeuilleton">                          <div type="jArticle" xml:id="ar231_007">                <p>                   <ref type="link_fsg">[Fortsetzung]</ref>                </p>                <lg type="poem">                   <lg n="14">                      <l>Selbst, hätt' ich eingebüßt des Fühlens Sinn;</l>                      <lb/>
+<l>Könnt' ich nicht sehn, nicht fühlen und nicht hören;</l>                      <lb/>
+<l>Wär' jeder Sinn, nur der Geruch nicht, hin:</l>                      <lb/>
+<l>Doch würde wanklos meine Liebe währen!</l>                      <lb/>
+<l>Denn auf von deinem holden Antlitz steigt</l>                      <lb/>
+<l>Dein Odem ja, der duftend Liebe zeugt.</l>                      <lb/>
+</lg>                   <lg n="15">                      <l>&#x201E;Doch welch ein Mahl wär'st dem Geschmacke du,</l>                      <lb/>
+<l>Der Amm' und Nährer ist der andern Viere!</l>                      <lb/>
+<l>Sie würden's endlos wünschen! &#x201E;Zwiefach zu,&#x201C;</l>                      <lb/>
+<l>Hieß' es zum Argwohn, ,riegle Thor und Thüre!</l>                      <lb/>
+<l>Damit nicht Eifersucht, die saure, herbe,</l>                      <lb/>
+<l>In's Haus sich schleichend, unser Fest verderbe!&#x201C;</l>                      <lb/>
+</lg>                   <lg n="16">                      <l>Aufgeht noch einmal das Rubinportal,</l>                      <lb/>
+<l>Durch dessen Honig seine Rede gleitet;</l>                      <lb/>
+<l>Ein rother Morgen scheint's, der allemal</l>                      <lb/>
+<l>Wrack dem Matrosen, Sturm der Flur bedeutet;</l>                      <lb/>
+<l>Den Schäfern Leid, den kleinen Vögeln Weh',</l>                      <lb/>
+<l>Den Heerden aber Hagelwind und Schnee.</l>                      <lb/>
+</lg>                   <lg n="17">                      <l>Sie merkt das böse Zeichen mit Bedacht: &#x2012;</l>                      <lb/>
+<l>Wie sich der Wind legt, eh' der Regen fällt,</l>                      <lb/>
+<l>Und wie das Obst platzt, eh' es Flecken macht,</l>                      <lb/>
+<l>Und wie der Wolf den Zahn weist, eh' er bellt,</l>                      <lb/>
+<l>Und wie die Kugel, eh' sie tödtet, singt:</l>                      <lb/>
+<l>Ahnt sie sein Meinen, eh' sein Wort es bringt.</l>                      <lb/>
+</lg>                   <lg n="18">                      <l>Und flach vor seinem Blicke fällt sie nieder,</l>                      <lb/>
+<l>Denn Liebe stirbt und wird belebt durch Blicke:</l>                      <lb/>
+<l>Ein Grollen schlägt, ein Lächeln heilt sie wieder &#x2012;</l>                      <lb/>
+<l>Bankbrüchig jetzt, ist sie erst recht im Glücke.</l>                      <lb/>
+<l>Der dumme Knabe meint, sie wäre todt;</l>                      <lb/>
+<l>Er klopft ihr bleich Gesicht &#x2012; und klopft es roth.</l>                      <lb/>
+</lg>                   <lg n="19">                      <l>Und unterläßt nun, voll von Angst und Staunen,</l>                      <lb/>
+<l>Was er gewollt: mit Tadel sie bestürmen;</l>                      <lb/>
+<l>Zuvorkommt Liebe listig seinen Launen &#x2012;</l>                      <lb/>
+<l>O Heil der List, die so sich weiß zu schirmen:</l>                      <lb/>
+<l>Denn wie erschlagen liegt sie auf dem Rasen,</l>                      <lb/>
+<l>Bis er ihr athmend Leben eingeblasen.</l>                      <lb/>
+</lg>                   <lg n="20">                      <l>Er drückt die Nas' ihr, gibt ihr Backenschläge,</l>                      <lb/>
+<l>Krümmt ihre Finger, ruft: &#x201E;o, woll' erwachen!&#x201C;</l>                      <lb/>
+<l>Reibt ihre Lippen, sinnt auf tausend Wege,</l>                      <lb/>
+<l>Was er verdorben, wieder gut zu machen;</l>                      <lb/>
+<l>Küßt sie &#x2012; und sie, geschäh' nur ihr Gelüste,</l>                      <lb/>
+<l>Erhöbe nie sich, daß er immer küßte.</l>                      <lb/>
+</lg>                   <lg n="21">                      <l>Zum Tage jetzo wird des Kummers Nacht;</l>                      <lb/>
+<l>Matt ihre blauen Fenster hebt sie beide,</l>                      <lb/>
+<l>Der Sonne gleich, wenn in erneuter Pracht</l>                      <lb/>
+<l>Sie grüßt den Morgen, aller Welt zur Freude;</l>                      <lb/>
+<l>Und wie die Sonne hehr durchstrahlt die Welt,</l>                      <lb/>
+<l>So wird ihr Antlitz ganz vom Aug' erhellt:</l>                      <lb/>
+</lg>                   <lg n="22">                      <l>Das auf das seine heftet all' sein Flammen,</l>                      <lb/>
+<l>Als ob von dem nur Gluth und Schein ihm kämen;</l>                      <lb/>
+<l>Vier solche Kerzen brannten nie zusammen,</l>                      <lb/>
+<l>Nur daß die seinen wolkt ein stilles Grämen;</l>                      <lb/>
+<l>Doch ihre, deren Strahl durch Thränen bricht,</l>                      <lb/>
+<l>Sprühn, wie bei Nacht im Wasser Mondenlicht.</l>                      <lb/>
+</lg>                   <lg n="23">                      <l>&#x201E;Bin ich im Himmel oder noch auf Erden?&#x201C;</l>                      <lb/>
+<l>Ruft sie, &#x201E;der Fluth, dem Feuer preisgegeben?</l>                      <lb/>
+<l>Ist's müder Abend, will es Morgen werden?</l>                      <lb/>
+<l>Schwelg' ich im Tode? wünsch' ich noch zu leben?</l>                      <lb/>
+<l>Erst eben lebt' ich &#x2012; ach in Sterbeleide!</l>                      <lb/>
+<l>Starb eben erst &#x2012; und Tod war Lebensfreude!</l>                      <lb/>
+</lg>                   <lg n="24">                      <l>&#x201E;O, du erschlugst mich! thu' es noch einmal!</l>                      <lb/>
+<l>Das schlau den Lehrer deiner Augen macht,</l>                      <lb/>
+<l>Dein hartes Herz hat so zu meiner Qual</l>                      <lb/>
+<l>Erzogen sie, daß meins sie umgebracht!</l>                      <lb/>
+<l>Und meine Augen &#x2012; nie mehr sahn die armen,</l>                      <lb/>
+<l>Trug nicht dein Mund ein wonnevoll Erbarmen!</l>                      <lb/>
+</lg>                   <lg n="25">                      <l>&#x201E;Drum mögen lang sich deine Lippen küssen!</l>                      <lb/>
+<l>O, mög' ihr Purpur nun und nie erbleichen!</l>                      <lb/>
+<l>Sie sollen blühn, und alle Seuche müssen</l>                      <lb/>
+<l>Dem unheildroh'nden Jahre sie verscheuchen!</l>                      <lb/>
+<l>Daß angeführt der Sternendeuter sage,</l>                      <lb/>
+<l>Durch deinen Odem sei gebannt die Plage.</l>                      <lb/>
+</lg>                   <lg n="26">                      <l>&#x201E;O, wie als Siegel deine Lippen frei</l>                      <lb/>
+<l>Die meinen preßten! Sprich, was muß ich geben,</l>                      <lb/>
+<l>Daß sie es wieder thun? Mich selbst? Es sei,</l>                      <lb/>
+<l>Dafern du ehrlich zahlst und handelst eben!</l>                      <lb/>
+<l>Willst du den Kauf? Wohl denn, besiegl' ihn stracks</l>                      <lb/>
+<l>Auf meiner Lippen rothem Siegelwachs!</l>                      <lb/>
+</lg>                   <lg n="27">                      <l>&#x201E;Nicht, tausend Küsse kauft mein Herz von mir?</l>                      <lb/>
+<l>Du zahlst sie wieder, ganz wie dein Verlangen.</l>                      <lb/>
+<l>O sprich, was sind zehnhundert Küsse dir?</l>                      <lb/>
+<l>Sind sie nicht rasch gezählt und rasch gegangen?</l>                      <lb/>
+<l>Sag', daß Nicht-Zahlung sie verdoppeln müsse &#x2012;</l>                      <lb/>
+<l>Sind solche Müh' denn zwanzighundert Küsse?&#x201C;</l>                      <lb/>
+</lg>                   <lg n="28">                      <l>So Er: &#x201E;Wenn du mich lieb hast &#x2012; immer nenne</l>                      <lb/>
+<l>Mich blöd, doch halt' es meinem Flaum zu gut!</l>                      <lb/>
+<l>Willst du mich kennen, eh' ich selbst mich kenne?</l>                      <lb/>
+<l>Fängt denn der Fischer auch die zarte Brut?</l>                      <lb/>
+<l>Abfallen reife, nimmer grüne Pflaumen,</l>                      <lb/>
+<l>Und brichst du sie, so sind sie herb dem Gaumen.</l>                      <lb/>
+</lg>                </lg>             </div>          </div>
+<pb facs="#f0003" n="1269"/>
+<div n="1">             <head>[Deutschland]</head>             <div type="jArticle" xml:id="ar231_008">                <p>                   <ref type="link_fsg">[Fortsetzung]</ref> bürgerlichen Rechte durch rechtskräftiges Erkenntniß verurtheilt und in ihre Rechte nicht wieder eingesetzt worden sind;</p>                <p>2) Personen, welche des Rechts zum Wählen rechtskräftig für verlustig erklärt worden sind.</p>                <p>Minoritätsantrag I:</p>                <p>&#x201E;Ferner sind ausgeschlossen alle rechtskräftig zu einer Strafe Verurtheilten, welche nach den Gesetzen des Landes, in dem das Urtheil erging, den Verlust staatsbürgerlicher Rechte nach sich zieht, sowie alle wegen Diebstahls, Betrugs oder Unterschlagung zu einer andern Strafe Verurtheilten, welche nach dem Gesetze des Landes nicht bloß eine polizeiliche Strafe ist. (Mittermaier. Schreiner. Römer. Gülich. Ahrens. Reh. Zell. Schüler. H. Simon. Fr. Wigard.)</p>                <p>Minoritätsantrag II:</p>                <p>Wird der Minoritätsantrag I. angenommen, so wünschen die Unterzeichneten folgenden Zusatz: &#x201E; Strafen wegen politischer Verbrechen ziehen den Verlust des Wahlrechts niemals nach sich.&#x201C; (Tellkampf, H. Simon. Schüler. Fr. Wigard. Ahrens. Reh.)</p>                <p>Minoritätsantrag III. Weiterer Zusatz zum Minoritätsantrag I.:</p>                <p>&#x201E;Die im vorigen Satze bezeichneten Personen können dann Wähler sein, wenn seit der Verbüßung der erkannten oder durch Begnadigung herabgesetzten oder ganz erlassenen Strafe ein fünfjähriger Zeitraum verflossen ist oder früher die Wiederbefähigung ausgesprochen worden ist.&#x201C; (Mittermaier. Römer. Schreiner. Schüler. H. Simon. Reh. Wigard.)</p>                <p>                   <hi rendition="#g">Mittermaier:</hi> Man möge vorsichtig sein in der Feststellung der Personen die bescholten sein sollen, z. B. seien Arbeitshaus- und Festungsstrafe in den verschiedenen Staaten sehr verschiedener Art. In dem einen Staat entehrend, im andern nicht. &#x2012; M. spricht für die Minoritätserachten I u. III. &#x2012; Besonders warm empfiehlt er das dritte Minoritätserachten, damit nicht ein Mensch, der einmal ein Verbrechen beging, sein Leben lang die Schmach des Ausschlusses vom ersten Bürgerrecht erleiden möge. Schlüßlich giebt M. eine neue und bessere Fassung der beiden von ihm gezeichneten Minoritätserachten.</p>                <p>                   <hi rendition="#g">Sturm,</hi> Assessor aus Sorau (Preußen), homo novus; ist nur theilweise mit dem Entwurf einverstanden. Soll heißen, der Entwurf ist ihm zu milde. Ist so ein Assessor à la Piathner und Wichmann! &#x2012; Man solle im § ja keine Ausnahme machen zu Gunsten politischer Verbrecher. (Braver Mann!!) Er schließt mit den Worten: &#x201E;Man solle vor allen Dingen im Volk den Sinn für Ehre erwecken.</p>                <p>                   <hi rendition="#g">Esterle</hi> aus Calavese gegen den Entwurf. &#x2012; Der Verbrecher höre nie auf Mensch zu sein, und müsse stets Gelegenheit haben, in die Gesellschaft zurückzukehren. Die kleinen Diebe hänge man und die großen lasse man laufen, und versieht sie bisweilen mit Stern und Ordensband; (mach: sie auch zu Abgeordneten.) &#x2012; Ein Arbeiter dagegen, der ein Brod stiehlt, ist von allen Staatsrechten für immer ausgeschlossen. &#x2012; Was nun gar politische Verbrecher anlangt, so sitzen politische Verbrecher in dieser Versammlung, die ich um ihre Verbrechen beneide. In der Politik giebt es nur ein Verbrechen, nur eine Schande &#x2012; seine Ansicht zu verkaufen und seine Sache zu verrathen. (Bravo links und Gallerien.) Er empfiehlt einen Antrag, der den Verlust des Wahlrechts nicht über die Dauer der Strafzeit hinausschiebt. &#x2012;</p>                <p>Nauwerk und andere reichen einen Antrag ein, &#x201E;wonach das Wahlrecht nur während der Strafdauer ruhen darf.&#x201C;</p>                <p>                   <hi rendition="#g">Zimmermann</hi> von Stuttgart. Er ist für den Entwurf eingeschrieben und beginnt so: &#x201E;M. H.! Sie wundern sich, daß ich für den Entwurf eingeschrieben bin, aber ich werde das was ich an den Vorschlägen des Verfassungs-Ausschusses billige (und dessen ist sehr wenig), stillschweigend übergehen, und über das sprechen, was ich nicht billige und das ist so ziemlich erklecklich. Eigentlich spreche ich für die Minoritätserachten I und III.&#x201C; (Große Heiterkeit) Auch er spricht energisch gegen das drakonische Gesetz: &#x201E;ehrlos und bescholten für immer!!&#x201C; &#x2012; Was die politischen Verbrecher angeht, ist schon gesagt worden, daß viele davon in diesem Haus sitzen, und merkwürdigerweise sitzen die Meisten auf der Rechten. (Jordan von Marburg und Arndt klatschen Beifall.) Das Volk will grade die politischen Verbrecher zu seinen Vertretern.</p>                <p>Die Debatte wird geschlossen und Berichterstatter Scheller spricht für den Ausschuß. Er ist noch hohler und lederner als Beseler.</p>                <p>Bei der Abstimmung wird zuerst Punkt 1 § 3 (S. oben) mit 220 Stimmen gegen 198 verworfen. (Bravo links.)</p>                <p>Ein Antrag von <hi rendition="#g">Schubert:</hi>                </p>                <p>&#x201E;Als bescholten sind von der Wahlberechtigung ausgeschlossen, Personen, denen durch rechtskräftiges Erkenntniß nach den Gesetzen des Einzelstaats, worin das Urtheil erging, entweder unmittelbar oder mittelbar der Vollgenuß der staatsbürgerlichen Rechte entzogen ist, sofern sie in diese Rechte nicht wieder eingesetzt worden sind,&#x201C;</p>                <p>wurde mit 227 Stimmen gegen 196 angenommen.</p>                <p>Hierauf wird das II. Minoritätserachten (S. o.) in namentlicher Abstimmung mit 244 Stimmen gegen 181 verworfen. (Pfui!)</p>                <p>Die früher eingesperrten Märtyrer à la Arndt stimmten dagegen. &#x2012;</p>                <p>Ebenso der von deutschen Almosen erhaltene Beseler aus Schleswig, einer der ärgsten Reaktionärs.</p>                <p>Minoritätserachten III. kommt gar nicht zur Abstimmung.</p>                <p>Die Freude über § 1 und 2 war etwas vorschnell! § 3 ist wieder total jämmerlich ausgefallen.</p>                <p>§ 4.</p>                <p>Mit dem Verlust des Rechts zu wählen für eine Zeit von vier bis zwölf Jahren, außer den durch die Strafgesetze bestimmten oder zu bestimmenden Strafen, ist zu belegen: wer bei den Wahlen Stimmen erkauft, seine Stimme verkauft, oder mehr als einmal bei der für einen und denselben Zweck bestimmten Wahl seine Stimme abgegeben, oder als Beamter seine Stellung zur Einwirkung auf die Wahlen mißbraucht hat.</p>                <p>Gegen den § sprechen Golz und Zimmermann von Stuttgart. Die ausgezeichnete Rede des letzteren brachte die Rechte zu den gewöhnlichen flegelhaften Unterbrechungen, wodurch sich besonders der hohlköpfige Schneer aus Breslau, das flachste, fadeste und unverschämteste Mitglied der Rechten auszeichnet.</p>                <p>Der Berichterstatter Scheller wurde ausgelacht und von Links verhöhnt. Der Ausschußantrag wurde verworfen, statt dessen ein Compositum von <hi rendition="#g">Arntz</hi> aus München und von <hi rendition="#g">Linde</hi> aus Mainz angenommen des Inhalts:</p>                <p>&#x201E;Des Rechts zu wählen, soll unbeschadet der sonst verwirkten Strafen auf eine Zeit von 4-12 Jahren durch strafgerichtliches Erkenntniß verlustig erklärt werden, wer bei den Wahlen Stimmen erkauft, seine Stimme verkauft, oder mehr als einmal bei der für einen und denselben Zweck bestimmten Wahl seine Stimme abgegeben, oder zur Einwirkung auf die Wahl überhaupt gesetzlich unzulässige Mittel angewendet hat&#x201C;</p>                <p>Hiernach wurde um 1/2 2 Uhr die Sitzung geschlossen.</p>                <p>Morgen Fortsetzung.</p>             </div>             <div type="jArticle" xml:id="ar231_009">                <head>Kiel, 19. Fbr.</head>                <p>Die hier niedergesetzte Marine-Commission ist auf Auswahl der Offiziere und Unteroffizier bedacht gewesen, so wie darauf, wie die 720 Mann Seesoldaten zu verwenden seien. Mehrere auszurüstende Dampfschiffe und Kanonenböte sind ihr zur Verfügung gestellt. Die in Lüttich bestellten 60-Pfünder sind auch theilweise schon unterwegs.</p>                <p>&#x2012; Aus einer, unter den Bekanntmachungen des Itzehoer Wochenblatts enthaltenen Aufforderung der Itzehoer Stadtbehörde geht hervor, daß bis zum 10. März 3500 Recruten ausgehoben werden sollen.</p>                <bibl>(K. C. Bl.)</bibl>             </div>             <div type="jArticle" xml:id="ar231_010">                <head>Schleswig, 17. Febr.</head>                <p>Der im Frühjahre v. J. eingesetzten Verpflegungs-Commission, ist in diesen Tagen in Veranlassung einer deßfälligen Vorfrage des Reichskriegsministeriums die Aufgabe geworden, sich darüber zu äußern, ob im Laufe des bevorstehenden Früjahrs und Sommers eine Armee von 80,000 Mann in hiesigen Landen verpflegt werden könne. Die Commission, soll sich dahin erklärt haben, daß sie im Stande sein werde, eine Truppenzahl von 80,000 Mann während 7 Monaten und allenfalls noch länger hier im Lande mit den nöthigsten Lebensmitteln zu versorgen. Auch zeigt sich in der That nirgends eine Spur davon, daß der Wohlstand gelitten hätte, obgleich doch die Bewohner der Herzogthümer im vorigen Jahre durch sehr bedeutende Fuhrleistungen, Lieferungen von Lebensmitteln und Zahlung außerordentlicher Kriegssteuern erhebliche Opfer haben bringen müssen.</p>                <bibl>(Han. Ztg.)</bibl>             </div>          </div>          <div n="1">             <head>Polen.</head>             <div type="jArticle" xml:id="ar231_011">                <head>                   <bibl>                      <author>X</author>                   </bibl> Lemberg, 17. Febr.</head>                <p>In der offiziellen Gazetta Lwowska (Lemberger Ztg.), dem einzigen Blatt, das seit dem Belagerungszustand in Lemberg erscheinen darf, werden alle östreichischen Staatsbür gerbelehrt, daß die russische Regierung nur denjenigen Personen den Eintritt ins Land gestatte, welche ihre Reisepässe früher bei der russischen Gesandtschaft visiren ließen und dieser Belehrung wird die gewiß nicht weniger heilsame Bemerkung beigefügt, &#x201E;daß es dem Nachbarstaate <hi rendition="#g">gewiß nicht zu verargen</hi> ist, wenn er Fremden, die sich demselben <hi rendition="#g">eben nicht durch ihre Ordnungs- und Friedensliebe empfohlen haben,</hi> den Eintritt nicht gestattet.&#x201C; Dieser kurze aber höchst deutliche Artikel in der Gazetta Lwowska ist also die einzige Antwort, die unser Ministerium auf die wiederholten Petitionen über die Bedrückungen der Grenzsperre uns zu bieten gesonnen scheint!!</p>             </div>          </div>          <div n="1">             <head>Ungarn.</head>      <div type="jArticle" xml:id="ar231_012_c">         <note type="editorial">Edition: <bibl>Friedrich Engels: Näheres über die Magyaren, vorgesehen für: MEGA<hi rendition="#sup">2</hi>, I/8.         </bibl>                </note>                <gap reason="copyright"/>             </div>             <div type="jArticle" xml:id="ar231_013">                <head>Agram, 9. Febr.</head>                <p>Zu der Volksversammlung, welche die Agramer Slowanska Lipa ausgeschrieben, strömten die Bürger Agran's und die Bewohner der Umgegend in großen Massen. Der Hauptredner führte das Thema aus: &#x201E;Die Kroaten, die Südslaven müssen jetzt neuerdings alle ihre Kräfte aufbieten, um dem Verfalle ihrer Freiheiten zu wehren, indem sie sehen, daß nichts als Verrath und wieder nur Verrath sie verfolgt. Wir müssen den Landtag einberufen. Unser Landtag, der nur des ausgebrochenen Krieges mit den Magyaren halber vertagt werden mußte, hat ohnedem seine Arbeiten noch nicht beendigt; es handelt sich daher nur um die Einberufung der bereits gewählten Vertreter, damit sie das begonnene Werk fortsetzen, vor allem andern aber, damit sie klar und deutlich auf Grund unserer historischen Rechte das Verhältniß unseres Vaterlandes zur Gesammtmonarchie aussprechen, auf daß wir, in den Gränzen der Unbestimmtheit nicht schwankend, jeden Eingriff in unsere Rechte alsogleich vernichten, möge er kommen, woher er wolle.&#x201C; Ein nicht enden wollender Zivioruf begleitete die Schlußworte dieser Rede, und der Vorschlag &#x2012; den Landtag sofort einzuberufen &#x2012; wurde einstimmig angenommen. Man sieht, wie die antiöstreichische Bewegung unter den Südslaven zunimmt.</p>             </div>          </div>          <div n="1">             <head>Schweiz.</head>             <div type="jArticle" xml:id="ar231_014">                <head>Schaffhausen.</head>                <p>Die Schaffh. Ztg. schreibt: Dem Vernehmen nach ist Seitens der badischen Regierung an die hiesige ein Begehren auf Ausweisung der sich hier aufhaltenden politischen Flüchtlinge Willmann und Mögling gestellt worden. Wir zweifeln nicht daran, daß unsere Regierung nicht von sich aus hierüber entschieden, sondern den Bundesrath hiervon in Kenntniß gesetzt haben wird. Wir wollen nicht hoffen, daß derselbe auch hier wieder fügsam in Bezug auf beiderlei Begehren entsprechen werde; (warum nicht!) insbesondere gegenüber dem seit dem ersten Freischaarenzug ruhig sich in der Schweiz aufhaltenden Willmann läßt sich schlechterdings kein vernünftiger Grund dafür denken. Die Regierung, resp. Hr. Polizeidirektor Bollier von Zürich, gewährt den Flüchtlingen das Asylrecht mit der Beschränkung, daß sie denselben eine kleine <hi rendition="#g">Geldkaution von 400 Fl. abfordert</hi> (welche Infamie!); in diesem humanen Sinne das Asylrecht zu interpretiren, müssen wir freilich erst noch von unsern mit ihrem Liberalismus sich brüstenden Nachbarn lernen.</p>                <bibl>(Schw. Bl.)</bibl>             </div>             <div type="jArticle" xml:id="ar231_015">                <head>Luzern.</head>                <p>Am 17. ist hier eine neue Werbung für die neapolitanischen Regimenter eröffnet worden, indem man noch immer über hundert Mann braucht, um die letzten Verluste in denselben zu ersetzen. Die Unteroffiziere, welche die letzten Züge, bei 190 Mann in 5 Abtheilungen, nach Neapel geleiteten, sind dieser Tage wieder zurückgekehrt.</p>                <bibl>(Schw. Bl.)</bibl>             </div>          </div>          <div n="1">             <head>Italien.</head>             <div type="jArticle" xml:id="ar231_016">                <head>                   <bibl>                      <author>*</author>                   </bibl> Florenz, 14. Febr.</head>                <p>Die toskanische provisorische Regierung hat sich binnen wenigen Tagen die Unterwerfung und Eidesleistung der Armee zu verschaffen gewußt. Nur wenige einzelne Soldaten und Offiziere haben sich geweigert und sich in die Citadelle von Florenz vor den Mißhandlungen des Volks geflüchtet; doch sind sie indeß durch ihre eigenen Kameraden zurückgewiesen worden.</p>                <p>                   <ref type="link">(Siehe den Verfolg in der Beilage.)</ref>                </p>             </div>          </div>          <div n="1" type="jFeuilleton">                          <div type="jArticle" xml:id="ar231_017">                <p>                   <ref type="link_fsg">[Fortsetzung]</ref>                </p>                 <lg type="poem">                   <lg n="29">                      <l>&#x201E;O sieh', wie müd die Sonne niedergeht;</l>                      <lb/>
+<l>Ihr heißes Tagwerk endigt sie im West.</l>                      <lb/>
+<l>Die Eule kreischt, Herold der Nacht; 's wird spät;</l>                      <lb/>
+<l>Zum Pferch das Lamm, der Vogel eilt zum Nest.</l>                      <lb/>
+<l>Kohlschwarz Gewölk verhüllt den Himmel weit,</l>                      <lb/>
+<l>Und ruft: Gut' Nacht nun! es ist Scheidenszeit!</l>                      <lb/>
+</lg>                   <lg n="30">                      <l>&#x201E;Drum gute Nacht! und sag' auch du gut' Nacht!</l>                      <lb/>
+<l>Ein Kuß, wenn du es sagst, wird noch gezollt!&#x201C;</l>                      <lb/>
+<l>&#x201E;Gut' Nacht!&#x201C; ruft sie, und eh' er auf sich macht,</l>                      <lb/>
+<l>Reicht er ihr dar des Scheidens Honigsold.</l>                      <lb/>
+<l>Um seinen Hals die Arme schlägt sie dicht,</l>                      <lb/>
+<l>Sie scheinen Eins, Gesicht wächst an Gesicht.</l>                      <lb/>
+</lg>                </lg>                <p>                   <ref type="link">(Fortsetzung folgt)</ref>                </p>             </div>             <div type="jArticle" xml:id="ar231_017a">                <p>Folgendes sind die neuesten wahrhaftigen Nachrichten der N. Preuß. Staatswächterin über die große Verschwörung der Polen, Juden und Demokraten, welche binnen wenigen Tagen losbrechen wird. Man höre wie die Wühler sich von allen Seiten rüsten:</p>                <p>Im Großherzogthum Posen &#x201E;braust's wieder!&#x201C; Zurückkehrende Reisende versichern, daß man in den kleinen Städten wieder die vornehmen Polen mit Sechsen in Masse einfahren sahen zu Meetings, die nach der bisherigen Erfahrung ein sicherer Vorbote eines Sturmes sind.</p>                <p>Auf dem Köpniker Felde verhafteten Schutzmannschaften einen Mann, der eben 6 Gewehre aus der Erde gegraben hatte.</p>                <p>In Potsdam verkehren neuerdings wieder viele Polen und christliche und nicht christliche Wühler.</p>                <p>&#x2012; Eine Gesellschaft Marokkaner (echte oder unechte) producirt jetzt hier ihre Kunststücke. &#x2012; Auch ist gleichzeitig ein lebendiger Elephant in diesen Tagen einpassirt. </p>             </div>          </div>
+<pb facs="#f0004" n="1270"/>
+<div n="1" type="jAnnouncements">                          <div type="jAn">                <p>Brodpreis der Stadt Köln.</p>                <p>Vom 25. Febr bis zum 3. März 1849.</p>                <p>Ein Schwarzbrod von 8 Pfd. soll kosten 4 Sgr 3 Pf.</p>                <p>Köln, 25 Febr. 1849</p>                <p>Der Polizei-Direktor, Geiger.</p>             </div>             <div type="jAn">                <p>Verhandlungen des Gemeinderathes zu Köln. Sitzung vom 22. Februar 1849.</p>                <p>Die Niederlassungs-Gesuche von Franz Joseph Olivier Büchsenmacher-Gehülfe aus Masa<gap reason="illegible"/>c in Belgien. Johann Philipp Kremer aus Rudolph<gap reason="illegible"/>hahn in Kurhessen und Christian Unkelbach aus Wiesbaden werden genehmigt. Der Gemeinderath entscheidet, daß insofern die von dem Königlichen Proviant-Amte im Lagerhause Ahren aufgespeicherten Früchte, wegen Mangel an Räumlichkeit zur Niederlage ausländischer Waaren, während des Pachtjahres weggeschafft werden müßten, die desfallsigen Kosten, welche jedoch den laufenden Miethbetrag nicht übersteigen dürfen, von der Stadt getragen werden.</p>                <p>Das Gesuch mehrerer Einwohner, wonach die Befürwortung des Gemeinderathes in Anspruch genommen wird, um bei den höhern Behörden von den in den letzten Jahren in der Stadt neu erbauten Häusern, eine Ermäßigung der Grundsteuer zu erwirken, wird einer besondern Kommission unter dem Vorsitze des Beigeordneten Schenk zur Berichterstattung überwiesen, wozu die Herrn Böcker, Riffart, Stupp, Hölterhoff und Guilleaume gewählt wurden.</p>                <p>Der Gemeinderath entscheidet, daß bei der Anlage des neuen Hafens der Art. 30. des Gesetzes vom 16 Dezbr. 1807, wonach die Besitzer der in der Nähe solcher Anlage gelegenen Grundstücke, nach Maßgabe der sich hieraus für dieselben gestaltenden Vortheile, zu den Kosten herangezogen werden können, nöthigenfalls in Anwendung kommen soll. Der Entwurf der revidirten Marktordnung wird verlesen und begutachtet. Derselbe soll gedruckt und und zum fernerweiten Vortrage gebracht werden.</p>                <p>Das Gesuch von Flimm und Nießen um das Wasser aus ihrer in der Lunggasse gelegenen Stärkefabrik in den nach dem Stadtgraben zuführenden städtischen Kanal ableiten zu dürfen, wird abgelehnt.</p>             </div>             <div type="jAn">                <p>Bekannmachung.</p>                <p>Eine aus der Weihnachtszeit in Berlin übrig gebliebene Kiste in Wachsleinwand Ch. W. Grober und C. G. # 4 gezeichnet, 4 Pfd. 12 Loth schwer ohne Ortsbezeichnung, ist von dort hierher &#x2012; als an den muthmaßlichen Absendungsort &#x2012; zurückgesandt worden.</p>                <p>Der unbekannte Absender, vermuthlich &#x201E;Grober&#x201C; wird aufgefordert, eine Duplikat-Adresse dem hiesigen Ober-Post-Amte zur Absendung der Kiste zu übergeben oder anderweit darüber zu verfügen.</p>                <p>Köln, den 23. Februar 1849.</p>                <p>Der Ober-Post-Direktor, Rehfeldt.</p>             </div>             <div type="jAn">                <p>Bekanntmachung.</p>                <p>Sämmtliche Fabrikherren hiesiger Stadt und der Bürgermeistereien Deuz, Rondorf, Longerich und Müngersdorf, sowie alle innerhalb dieses Sprengels ihr Gewerbe treibenden Handwerker, welche wenigstens acht Thaler Gewerbesteuer jährlich entrichten, imgleichen alle in diesem Sprengel beschäftigten Werkmeister werden hiermit benachrichtigt, daß am Donnerstag, 15. März dieses Jahres, Morgens 10 Uhr, in dem großen Saale des hiesigen Rathhauses behufs der theilweisen Erneuerung der Mitglieder des Königlichen Gewerbegerichts hierselbst zur Wahl</p>                <p>1) Eines Mitgliedes unter den Professionisten oder Werkmeistern ohne Rücksicht auf's Gewerbe,<lb/>
+2) eines Mitgliedes unter den Werkmeistern, Webern und Färbern oder Druckern der Seiden-, Baumwollen- und Leinen-Manufakturen und Spinnereien,<lb/>
+3) eines Mitgliedes unter den Modearbeitern, Schneidern, Kürschnern, Handschuh-, Hut-, Kappen-, Schuh- und Stiefelmachern, Haararbeitern, Band- und Seidenwebern,<lb/>
+4) eines Mitgliedes unter den Fabrikherren der Stärke-, Tapeten-, Nadel-, Porzellan-, Wagen-, Metallrohr-, Maschinen-, Neusilber-, Siegellack- und Buntpapierfabriken, sowie der Eisengießereien,<lb/>
+5) eines Mitgliedes unter den Fabrikherren der Tabakfabriken,<lb/>
+6) eines Stellvertreters unter den Fabrikherren ohne Rücksicht auf's Gewerbe,<lb/>
+7) eines Stellvertreters unter den Professionisten oder Werkmeistern ohne Rücksicht auf das Gewerbe geschritten werden soll.</p>                <p>Die Eingangs bezeichneten Stimmberechtigten werden daher eingeladen, an gesagtem Tage und Stunde zur Wahl sich einzufinden, vorher aber in das auf dem Rathhause hierselbst offen liegende Register sich einschreiben zu lassen und über die Entrichtung der Gewerbsteuer in der oben angegebenen Höhe oder über ihre Eigenschaft als Werkmeister sich auszuweisen.</p>                <p>Köln, am 17. Februar 1849.</p>                <p>Der kommiss. Ober-Bürgermeister, Graeff.</p>             </div>             <div type="jAn">                <p>Bekanntmachung.</p>                <p>Dienstag den 27. Februar 1849, Vormittags eilf Uhr, sollen auf dem Marktplatze in der Apostelnstraße zu Köln, mehrere Tische, Komoden, Schränke, ein Spiegel, ein Oelkasten mit zwei Einsätzen von Blech etc., gegen baare Zahlung versteigert werden.</p>                <p>Brochhausen, Gerichtsvollzieher.</p>             </div>             <div type="jAn">                <p>Etwas Erbauliches aus der jüngsten Karnevalszeit.</p>                <p>Als ich am Karnevals-Dienstag, während des Theaterballes mit einem Freunde in die Prosce<gap reason="illegible"/>iums-Loge gehen will, wurde von innen die Thüre geöffnet, aber auch in demselben Augenblick wieder heftig zugeworfen. &#x2012; Dem Fremden, einem Freunde von mir, dem durch das unverständige Zuwerfen der Thüre, beinahe die Hand wäre gequetscht worden, wollte die in der Loge Anwesenden, nämlich die Herren Rösner und Fürth, über ihr brutales Benehmen zu R de stellen, worauf ich erwi<gap reason="illegible"/>derte: mir solches zu überlassen, weil mir beide Personen bekannt seien. &#x2012; Als ich den genannten Herren hierauf ihr Betragen verwies, schlug Fürth mich sofort ins Gesicht und zerriß meinen Rock. &#x2012; Zugleich fiel eine Maske in einem sehr gewöhnlichen Anzuge, (von Kaffeballen etc.) mit roth angestrichenem Gesicht, heftig über mich her, und zerriß mir mit einem gewandten Griff gewaltsam das Hemde an der Brust, an welchem eine kostbare Vorstecknadel gut befestigt war. &#x2012; &#x2012; &#x2012; Gleich darauf vermißte ich die Nadel &#x2012; &#x2012; &#x2012; und später auch eine goldene Damenuhr &#x2012; &#x2012; &#x2012; die ich in der Westentasche zu tragen pflegte.</p>                <p>Das Signalement beider Gegenstände, lasse ich hier folgen: Die vermißte goldene Nadel ist rund herum mit ächten Perlen besetzt und inwendig blau emaillirt. In der Mitte der Nadel befindet sich ein Kupido, künstlich geschnitzt, der eine Blumenguirlande in Händen hält. Am Fuße des Kupido, ist ein Blumenkörbchen angebracht; alles von Elfenbein geschnitzt.</p>                <p>Die vermißte goldene Damenuhr, hat die Größe eines Dreipfennigsstücks, und ist an Stelle eines Glases mit einem goldenen Deckel versehen. Im Boden dieser Uhr sind folgende Worte und Buchstaben eingravirt:</p>                <p>&#x201E;Andenken von der Königin M. F. A. von G.&#x201C;</p>                <p>Derjenige, welcher sichere Auskunft über diese Gegenstände, so wie über den Besitzer derselben angeben kann, erhält eine Belohnung von 25 Thlrn.</p>                <p>Köln, den 23. Februar 1849.</p>                <p>Servaz Recker.</p>             </div>             <div type="jAn">                <p>Unterzeichnete empfiehlt sich einem geehrten Publikum in Anfertigung von Matratzen und Federbetten, in chemischer Reinigung der Bettfedern und Pferdehaaren, Neuwaschen der Bettzeuge und gestickten Bettdecken, wie in allen in dieses Fach einschlagenden Arbeiten. Durch reelle und prompte Bedienung werde ich mich Allen bestens zu empfehlen suchen.</p>                <p>Cath. Nettesheim, Sachsenhausen Nr. 9.</p>             </div>             <div type="jAn">                <p>Gesuch einee Comptoir oder Reisestelle.</p>                <p>Ein solider junger Mann, der seine Lehrzeit in einem hiesigen bedeutenden Wein- und Kommissions-Geschäfte bestanden, und mehrere Jahre in einer hiesigen Kolonial-Waaren-Handlung als Reisender servirte, wünscht baldmöglichst ein anderweitiges Engagement. Die Expedition gibt nähere Auskunft.</p>             </div>             <div type="jAn">                <p>In Verlage von Emil Baensch in Magdeburg erschien so eben:</p>                <p>Die Vorwürfe, welche der Preußischen National-Versammlung gemacht sind, so wie die Stellung ihrer Mitglieder zu der Verfassung vom 5. und den Wahlgesetzen vom 6. Dezember 1848, beleuchtet vom Justiz-Kommissarius F. F. Weichsel, welcher als Abgeordneter den Berathungen in Berlin ununterbrochen beiwohnte. 8. Geheftet.</p>                <p>7 1/2 Sgr.</p>                <p>Vorräthig in der ganzen Rheinprovinz und Westphalen. In Köln bei:</p>                <p>Adolph Bädeker, Hochstraße 134A.</p>             </div>             <div type="jAn">                <p>Ausgezeichnete Punsch-Essenz, Rum, die große Flasche 17 1/2 Sgr. Die halbe 9 Sgr. Arrac, die große Flasche 22 1/2 Sgr. Die halbe 11 1/2 Sgr. bei G. Tonger, Pauluswache.</p>             </div>             <div type="jAn">                <p>Annonce!</p>                <p>Warnung für Auswanderer.</p>                <p>Antwerpen, 22. Februar 1849.</p>                <p>Die unterzeichneten deutschen Auswanderer haben leider die traurige Erfahrung machen müssen, daß sie in ihren Ackorden für die Ueberfahrt nach Amerika sich betrogen sahen, denn sie wurden allenthalben geprellt. Die Lebensmittel, die man von Haus aus vorschriftmäßig mitnimmt, sind entweder nicht nach vorgeschriebener Art, oder aber, was bei Allen der Fall war, um einen großen Theil zu wenig, denn was hier nach Klgr., also zwei Pfund, berechnet wird, heißt bei uns blos Pfund. Wenn daher in unseren Ackorden stand: 36 Pfund gedörrtes Gemüse oder 110 Pfd. Kartoffeln, so verdoppelte sich das erstere auf 72 Pfd. und aus dem oder muß ein und gemacht werden mit noch so viel Kartoffeln. Im Schiffe selbst sind zwar die Lagerstätten frei, gleichwohl aber weiß man hierfür Gelder zu erheben. Der Auswanderer wird wie eine Sache betrachtet, mit der man nach Belieben verfahren darf. Es gereicht den Agenten keineswegs zur Ehre, uns in einer Weise behandelt zu haben, als gehörten wir blos zu jenen Menschen, von welchen die Anderen leben; wir hatten eine humane Behandlung erwartet, die uns aber nicht zu Theil wurde. Wir glaubten, unseren Brüdern in Deutschland diese Notizen geben zu müssen, damit sie bei ihrem Nachzuge nicht in den Nachtheil gerathen, wie wir; setzen zugleich hiefür einige Regeln fest als:</p>                <p>1) Schließet keine Ackorde mit den Unteragenten in Deutschland, denn sie taugen alle nichts, sie nehmen Euer Geld und verkaufen Euch an einen weiteren Agenten. Daraus folgt<lb/>
+2) Reiset ohne einen Ackord in irgend einen Seehafen und schließet da den Ueberfahrtspreis ab, es ist mit weniger Kosten und Umständen verbunden; aber ebendarum nehmt<lb/>
+3) Nichts mit Euch als Kleidungsstücke, etwas Fleisch und Butter; alles andere erhaltet Ihr hier z. B. wohlfeiler und besser. Dadurch seid Ihr der Mühe überhoben, auf das Gepäck acht zu haben und dasselbe zu verzollen.<lb/>
+4) Wendet Euch in dieser Beziehung an das Magazin des Schiffes, mit welchem Ihr die Ueberfahrt macht, denn die Magazine wollen geleert sein, darum sind die mitgebrachten Eßwaaren entweder nicht rechter Art oder aber viel zu wenig Der Auswanderer wird noch vollends ausgesogen, ehe er Europa verläßt. Darum nehmt Euch in acht, daß dies nicht geschehe und befolgt obige Punkte.<lb/>
+5) Nehmt Geld genug mit, denn dieses ist das erste und schnellste Beförderungsmittel in die neue Welt. Alles hebt die Hände auf, um es zu empfangen.</p>                <p>G. Würmle, weiland Redakteur des Kreuznacher &#x201E;Demokraten&#x201C; Georg Jakob Leumann, Buchbinder. Friedrich Uebel, Wagner. Philippina Schneberger, Näherin. Johannes Koßmann, Zimmermann. Jakob Christmann. Joseph Hätz. Susanna Wagner. Christina Wagner. Friedrich Ackermann, Bäcker. Mendel Grünebaum, Metzger von Cleeberg. Philipp Keller, Bauer, Simmern unter Gauc. Ferdinand Nickel, Schreiner. Julie Cullmann von Gaun. Joseph Korp, Schuster, Rheinkreis Baiern. Philipp Stoffel, Schuster, in Simmern unter Gaun. Heinrich Hirtz, Schmidt in Gaun. Philipp Hirtz, Hammerschmidt in Gaun. Jakob Jung, Wendelsheim, Rheinhessen. Barbara Jung und Johannes Jung. Reinhardt Ferber, Färbermeister, Calw. Würtenberg. Ph. Baeder aus Kreuznach. Adam Euler, aus dito. Val. Prior. Karl Prior. Johann Prior. Philipp Gastroph aus Meisenheim. Philipp Kärcker. Elisabetha Mathes.</p>             </div>             <div type="jAn">                <p>Unserem treuen Freunde und Mitgliede Hrn. Schmidt sagen wir bei seiner Abreise nach Amerika ein herzliches Lebewohl.</p>                <p>Köln, im Febr. 1849.</p>                <p>Die Mitglieder der Gesellschaft &#x201E;Orpheus.&#x201C;</p>             </div>             <div type="jAn">                <p>Coblenzer Fastenbrezeln äglich frisch bei J Haupt, Columbastraße Nr. 3.</p>             </div>             <div type="jAn">                <p>Zu sehr billigen Preisen wird verkauft:</p>                <p>Westenstoffe, neueste Muster, in Wolle, Seide, Cashemir, Sammet, die vollkommene Weste 8 Silbergroschen bis 2 Thaler; feinste Tuch und Burking, die vollkommene Hose 2 Thlr. bis 4 Thlr. Sommerburking, die ganze Hose 20 Sgr. bis 2 Thlr. Stoffe zu Sommerröcke, die Elle 5 Sgr. bis 15 Sgr. Regenschirme in schwerer Seide, pr. Stück 2 Thlr. bis 3 Thlr. 15 Silbergroschen. Regenschirme in feinem Zeug, pr. Stück 22 Sgr. bis 1 Thlr. 15 Sgr. Große Reisesäcke mit starkem Bügel und Schloß, pr. Stück 25 Sgr. bis 2 1/2 Thlr. Crawatten in Atlas und Lasting, pr. Stück 10 Sgr. bis 1 Thlr. Herrenbinden in Wolle und Seide, pr. Stück 10 Sgr. bis 1 Thlr. 15 Sgr. Aecht ostindische Foulards, pr. Stück 18 Sgr. bis 1 Thlr. 15 Sgr. Unterhosen und Unterjacken, pr. Stück 14 Sgr. bis 1 Thlr. Gummihosenträger, sehr elastisch, das Paar 3 Sgr. bis 20 Sgr. Ferner Porte Monnaie, Cigarren-Etuis, Börsen u. s. w.</p>                <p>Haus- und Schlafröcke, gut wattirt, per Stück 2 Thlr. bis 6 Thlr.</p>                <p>Joseph Sacks aus Frankfurt a. M., im Hause des Herrn Johann Maria Farina, gegenüber dem Jülichsplatz.</p>             </div>             <div type="jAn">                <p>OSTENDER-AUSTERN-DEPOT für Deutschland, große Budengasse Nr. 1 in Köln.</p>                <p>Außer ganz frischen Austern per 100 Stück<lb/>
+à 25 Sgr. die kleine Sorte,<lb/>
+à 1 1/4 Thlr. die Mittelsorte,<lb/>
+à 2 Thlr. die grösste gemästete, ditto sind auch fortwährend daselbst neben einer Auswahl vorzüglicher in- und ausl. Weine, viele feine geräucherte und gesalzene Seefisch-Arten, Gothaer Servelat-Wurst, pommersche Gänsebrüste, so wie mehrere Sorten Käse, worunter Fromage de Brie und Fromage de Neufchatel als etwas ganz Vorzügliches noch besonders empfohlen werden dürfen, sowohl in- als außer dem Hause zu haben.</p>             </div>             <div type="jAn">                <p>Das Sprech- und Lesezimmer der demokratischen Gesellschaft ist von Montag den 26. Februar an, bei Werner an der Rechtsschule Nr. 24.</p>             </div>             <div type="jAn">                <p>Bürgerlicher Dombau-Verein.</p>                <p>Heute Abend außerordentliche musikalische, theatralische und deklamatorische Abend-Unterhaltung im Vereins-Lokal, Löwengasse Nr. 11, wozu um zahlreiches Erscheinen bittet Der Vorstand.</p>             </div>             <div type="jAn">                <p>Geselliger Cuniberts Bau-Verein.</p>                <p>Morgen Abend 7 Uhr bei Herrn Nakatenus Eigelstein.</p>             </div>             <div type="jAn">                <p>Minoriten Reparatur Bau-Verein.</p>                <p>Bei Jüsgen, jeden Dienstag Abend Versammlung</p>             </div>             <div type="jAn">                <p>Vereinigter 1. und 2. gesell. Dombau-Verein.</p>                <p>Heute Abend 7 Uhr Versammlung Breitstraße bei Menzen, im Palast.</p>                <p>Theatralische Abend-Unterhaltung.</p>             </div>             <div type="jAn">                <p>Fröhlicher St. Cuniberts-Bau-Verein.</p>                <p>Heute Abend theatralisch-deklamatorische Abend-Unterhaltung bei Herrn Kleefisch, Eigelstein 51.</p>             </div>             <div type="jAn">                <p>Missions-Verein Sternengasse Nr. 30.</p>                <p>Heute Sonntag Abend, 7 Uhr, Versammlung, wozu alle Mitglieder und Freunde höflichst eingeladen werden</p>                <p>Der Vorstand.</p>             </div>             <div type="jAn">                <p>Bürger- u. Handwerker-Gesang-Verein.</p>                <p>Versammlung heute Nachmittags 2 Uhr, Mühlengasse Nr. 1.</p>                <p>pr. Direktion:</p>                <p>W. Herz, Lehrer.</p>             </div>             <div type="jAn">                <p>Herrenkleider werden gewaschen und reparirt. Herzogstraße Nr. 11.</p>             </div>             <div type="jAn">                <p>Mobilar-Verkauf.</p>                <p>Am Mttiwoch den 28. Februar 1849, Mittags 12 Uhr, sollen auf dem Marktplatze in der Apostelnstraße zu Köln, mehre Mobilar-Gegenstände, als Tische, Stühle, Sopha's, Kommoden, Spiegel, Schränke, Oefen, Gemälde, Vorhänge, eine Hausuhr etc. etc., gegen gleich baare Zahlung öffentlich an den Meistbietenden verkauft werden.</p>                <p>Fr. Happel, Gerichtsvollzieher.</p>             </div>             <div type="jAn">                <p>Coaks ist wieder in sehr guter Qualität vorräthig, in der Gas-Erleuchtungs Anstalt, Buschgasse 11.</p>             </div>             <div type="jAn">                <p>In einem wohlhabenden Orte von circa 3000 Seelen wo auch eine Apotheke, wird die Niederlassung eines promov. Arztes dringend gewünscht und seinem Fortkommen aller Vorschub geleistet. Frank. Offerten unter Lit. D. C. 15 bes. d. Exp.</p>             </div>             <div type="jAn">                <p>Dem Publikum vorläufig zur Nachricht, daß ich</p>                <p>a) mit dem Georg Berg nie in irgend einem Verhältnisse gestanden,<lb/>
+b) daß ich sein Inserat in der Beilage zu Nro. 221 der Neuen Rheinischen Zeitung vom 14. dieses sowohl dem höchsten Chef der Justiz, Herrn Minister Rinteln, Excellenz in Berlin, als auch der mir zunächst vorgesetzten Aufsichtsbehörde, dem Königlichen Justiz-Senat dahier, mitgetheilt &#x2012; und<lb/>
+c) daß ich bei dem Ober-Prokurator am Königlichen Landgerichte zu Köln Untersuchung und Bestrafung des Georg Berg beantragt habe. Den Erfolg werde ich seiner Zeit öffentlich bekannt machen.</p>                <p>Ehrenbreitstein, den 20. Februar 1849.</p>                <p>Nenmann, Justiz-Amtmann.</p>             </div>             <div type="jAn">                <p>Der Eigenthümer des großen Monster-Elephanten, welcher hier auf dem Martinsplatz gezeigt wird, zeigt hiermit an, daß derselbe nur noch einige Tage zu sehen ist. Die Fütterung findet alle Stunde, und um 5 und 6 Uhr eine Hauptfütterung statt.</p>                <p>M. Hutter.</p>             </div>             <div type="jAn">                <p>Bei Jos. La Ruelle in Aachen erschien so eben, und ist durch alle Post-Anstalten und Buchhandlungen zu beziehen:</p>                <p>Karrikaturen-Album.</p>                <p>Wöchentlich ein Heft in gr. 4, enth. 2 große Karrikaturen, so wie Text mit kleineren humoristischen Figuren. Ungemein billiger Preis per Quartal (13 Hefte) 15 Sgr.</p>             </div>             <div type="jAn">                <p>Schöne Aussicht am Holzthor.</p>                <p>Heute Sonntag Kaffeegesellschaft und frischer Maiwein.</p>                <p>Cath. Fühling.</p>             </div>             <div type="jAn">                <p>Für eine Tapetenfabrik in Münster wird ein junger Mann gesucht, der mit diesem Artikel vertraut, auch Reisen besorgen kann.</p>                <p>Das Nähere auf frankirte Briefe unter Lit. M. durch die Expedition dieser Ztg</p>             </div>             <div type="jAn">                <p>Ein durchaus erfahrener und fleißiger Tischlergeselle findet dauernde Beschäftigung. Die Exped. s. w.</p>             </div>             <div type="jAn">                <p>Eine hübsche Bel-Etage nebst Garten und sonstigen Bequemlichkeiten, an einem freien und lebhaften Platze gelegen, an eine stille Familie zu vermiethen. D. E. s. w.</p>             </div>             <div type="jAn">                <p>Wein-Verkauf außer dem Hause.</p>                <p>Reingehaltener Moselwein per Quart 2, 2 1/2, 3 und 3 1/2 Sgr..</p>                <p>Johannisstraße Nr. 48.</p>             </div>             <div type="jAn">                <p>VAN EETEN &amp; Cmp. in Antwerpen.</p>                <p>Nachfolger des Herrn JULES VAN EETEN.</p>                <p>Bureau zur Beförderung Auswanderer nach Amerika.</p>                <p>Regelmässige Schifffahrt zwischen Antwerpen und New-York für Passagiere und Güter, durch schöne, gekupferte und kupferfeste gut seegelnde Dreimast-Schiffe, deren Namen zur Zeit werden angezeigt werden.</p>                <p>Die Abfahrten von Antwerpen sind auf den 1., 10. und 20. jeden Monats bestimmt, und nehmen vom 1. März 1849 Anfang</p>                <p>Diese Gesellschaft übernimmt den Transport der Auswanderer nach Amerika mit oder ohne Beköstigung für jede oben erwähnte Abfahrt während 1849, liefert Contrakte für alle Plätze im Inneren der Vereinigten Staaten per Eisenbahn und Dampfschiffe, und expedirt ebenfalls Schiffe nach Baltimore, New-Orleans, Galveston, Rio-Grande, Rio-Janeiro etc. und zwar unter den vortheilhaftesten Bedingungen u. zu den billigst möglichsten Preisen.</p>                <p>Nähere Nachricht ertheilen auf frankirte Anfragen die Herren VAN EETEN et Comp. in Antwerpen, und alle Agenten dieser Gesellschaft in Deutschland.</p>                <p>Antwerpen, den 27. December 1848.</p>                <p>VAN EETEN et Comp</p>             </div>             <div type="jAn">                <p>In der Hutfabrik von Mertés an den vier Winden können noch 3 Arbeiter: 1 Galettier und 2 Monteurs, wovon der eine auch façonniren kann, dauernde Beschäftigung finden.</p>             </div>             <div type="jAn">                <p>Vertilgungsfutter gegen Mäuse, Ratten und Schwaben, Thurnmarkt Nr. 39.</p>             </div>             <div type="jAn">                <p>General-Versammlung des Arbeiter-Vereins Sonntag den 25. Februar, Nachmittags präzise 2 Uhr, im Dickopf-(Eiser'schen) Saale.</p>                <p>Kassenöffnung 1 Uhr.</p>                <p>Das Comite.</p>             </div>             <div type="jAn">                <p>Puppentheater.</p>                <p>Sonntag den 25. Februar:</p>                <p>Zur Extra-Vorstellung der ewige Geldsack.</p>                <p>Lustspiel vom Henneschen. &#x2012; Anfang halb 7 Uhr.</p>                <p>Montag den 26. Februar: Auf Begehren Der arme Poet.</p>                <p>Lustspiel. &#x2012; Anfang 7 Uhr.</p>             </div>             <div type="jAn">                <p>Theater-Anzeige.</p>                <p>Sonntag den 25. Februar:</p>                <p>Die Hugenotten.</p>                <p>Große Oper in 5 Akten von Meyerbeer.</p>             </div>          </div>          <div type="imprint">             <p>Der Gerant Korff.<lb/>
+Druck von J. W. Dietz, unter Hutmacher 17.</p>          </div>       </body>     </text> </TEI>

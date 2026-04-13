@@ -1,0 +1,977 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.deutschestextarchiv.de/basisformat.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">     <teiHeader>
+<fileDesc>
+<titleStmt>
+<title type="main">Das Pfennig-Magazin der Gesellschaft zur Verbreitung gemeinnütziger Kenntnisse</title>
+<title type="sub">Nr. 153</title>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/115266127">
+<surname>Geyken</surname>
+<forename>Alexander</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1222198746">
+<surname>Haaf</surname>
+<forename>Susanne</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1019062681">
+<surname>Jurish</surname>
+<forename>Bryan</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Boenig</surname>
+<forename>Matthias</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Thomas</surname>
+<forename>Christian</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Wiegand</surname>
+<forename>Frank</forename>
+</persName>
+</editor>
+<respStmt>
+<orgName>Institut für Deutsche Sprache, Mannheim</orgName>
+<resp>
+<note type="remarkResponsibility">Bereitstellung der Bilddigitalisate und TEI
+Transkription</note>
+<ref target="http://hdl.handle.net/10932/00-01B8-B049-62BE-6701-A"/>
+</resp>
+</respStmt>
+<respStmt>
+<persName>
+<forename>Peter</forename>
+<surname>Fankhauser</surname>
+</persName>
+<resp>
+<note type="remarkResponsibility">
+Transformation von TUSTEP nach TEI P5.
+Transformation von TEI P5 in das DTA TEI P5 Format.
+</note>
+</resp>
+</respStmt>
+<respStmt>
+<orgName ref="https://www.bbaw.de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<resp>
+<note type="remarkResponsibility">Langfristige Bereitstellung der DTA-Ausgabe</note>
+<ref target="https://www.bbaw.de"/>
+</resp>
+</respStmt>
+</titleStmt>
+<editionStmt><edition>Vollständige digitalisierte Ausgabe.</edition></editionStmt>
+<extent>
+<measure type="images">8</measure>
+<measure type="tokens">5789</measure>
+<measure type="types">2363</measure>
+<measure type="characters">39913</measure>
+</extent>
+<publicationStmt>
+<publisher xml:id="DTACorpusPublisher">
+<email>dta@bbaw.de</email>
+<orgName role="project">Deutsches Textarchiv</orgName>
+<orgName role="hostingInstitution" xml:lang="en">Berlin-Brandenburg Academy of Sciences and Humanities (BBAW)</orgName>
+<orgName role="hostingInstitution" xml:lang="de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<address>
+<addrLine>Jägerstr. 22/23, 10117 Berlin</addrLine>
+<country>Germany</country>
+</address>
+</publisher>
+<pubPlace>Berlin</pubPlace>
+<date type="publication">2025-10-24T08:35:16Z</date>
+<availability>
+<licence target="http://creativecommons.org/publicdomain/zero/1.0/">
+<p>Dieses Werk steht unter der "Creative Commons Namensnennung -
+Nicht kommerziell 3.0 Deutschland Lizenz" (CC BY-NC).</p>
+</licence>
+</availability>
+<idno>
+<idno type="URLWeb">https://www.deutschestextarchiv.de/nn_pfennig153_1836</idno>
+<idno type="URLXML">https://www.deutschestextarchiv.de/book/download_xml/nn_pfennig153_1836</idno>
+<idno type="URLHTML">https://www.deutschestextarchiv.de/book/download_html/nn_pfennig153_1836</idno>
+<idno type="URLText">https://www.deutschestextarchiv.de/book/download_text/nn_pfennig153_1836</idno>
+<idno type="DTADirName">nn_pfennig153_1836</idno>
+<idno type="DTAID">34754</idno>
+<idno type="URN">urn:nbn:de:kobv:b4-34754-0</idno>
+</idno>
+</publicationStmt>
+<sourceDesc>
+<bibl type="J">Das Pfennig=Magazin der Gesellschaft zur Verbreitung gemeinnütziger Kenntnisse. Nr. 153. Leipzig (Sachsen), 5. März 1836.</bibl>
+<biblFull>
+<titleStmt>
+<title level="m" type="main">Das Pfennig-Magazin der Gesellschaft zur Verbreitung gemeinnütziger Kenntnisse</title>
+<title level="m" type="sub">Nr. 153</title>
+</titleStmt>
+<editionStmt>
+<edition n="1"/>
+</editionStmt>
+<publicationStmt>
+<publisher/>
+<pubPlace>Leibzig (Sachsen)</pubPlace>
+<date type="publication">1836</date>
+</publicationStmt>
+</biblFull>
+<msDesc>
+<msIdentifier/>
+<physDesc>
+<typeDesc>
+<p>Fraktur</p>
+</typeDesc>
+</physDesc>
+</msDesc>
+</sourceDesc>
+</fileDesc>
+<encodingDesc>
+<editorialDecl>
+<p>
+<![CDATA[
+<p>Siehe Dokumentation</p>
+]]>
+</p>
+</editorialDecl>
+<tagsDecl>
+<rendition scheme="css" xml:id="aq">font-family:sans-serif</rendition>
+<rendition scheme="css" xml:id="b">font-weight:bold</rendition>
+<rendition scheme="css" xml:id="blue">color:blue</rendition>
+<rendition scheme="css" xml:id="c">display:block; text-align:center</rendition>
+<rendition scheme="css" xml:id="et">display:block; margin-left:2em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et2">display:block; margin-left:4em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et3">display:block; margin-left:6em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="f">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="fr">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="g">letter-spacing:0.125em</rendition>
+<rendition scheme="css" xml:id="i">font-style:italic</rendition>
+<rendition scheme="css" xml:id="in">font-size:150%</rendition>
+<rendition scheme="css" xml:id="k">font-variant:small-caps</rendition>
+<rendition scheme="css" xml:id="larger">font-size:larger</rendition>
+<rendition scheme="css" xml:id="red">color:red</rendition>
+<rendition scheme="css" xml:id="right">display:block; text-align:right</rendition>
+<rendition scheme="css" xml:id="s">text-decoration:line-through</rendition>
+<rendition scheme="css" xml:id="smaller">font-size:smaller</rendition>
+<rendition scheme="css" xml:id="sub">vertical-align:sub; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="sup">vertical-align:super; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="u">text-decoration:underline</rendition>
+<rendition scheme="css" xml:id="uu">border-bottom:double 3px #000</rendition>
+</tagsDecl>
+</encodingDesc>
+<profileDesc>
+<langUsage>
+<language ident="deu">(Früh-)Neuhochdeutsch</language>
+<language ident="deu">German</language>
+</langUsage>
+<textClass>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1main">Gebrauchsliteratur</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1sub">Zeitschrift</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">ready</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">mkhz1</classCode>
+</textClass>
+</profileDesc>
+</teiHeader>
+<text>     <front>
+<pb facs="#f0001" n="[73]"/>
+<titlePage type="heading"><docTitle><titlePart type="main"><hi rendition="#c #fr">Das Pfennig=Magazin<lb/>
+<hi rendition="#g">der</hi><lb/>
+Gesellschaft zur Verbreitung gemeinnütziger Kenntnisse.</hi></titlePart></docTitle><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<docImprint><hi rendition="#fr">Nr</hi>. 153. ]              <hi rendition="#c">Erscheint jeden Sonnabend.</hi>              <docDate><hi rendition="#right">[<hi rendition="#g">März</hi> 5, 1836.</hi></docDate>            </docImprint></titlePage><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+</front>     <body>       <div n="1" type="jArticle"><head><hi rendition="#fr"><hi rendition="#g">Die Jnsel Jschia</hi>.</hi></head><lb/>
+<figure/><lb/>
+<cb type="start"/>
+<p><hi rendition="#in">D</hi>er Golf von Neapel wird an seinen beiden End-<lb/>
+punkten, den Vorgebirgen Miseno und Campanella, von<lb/>
+zwei Jnseln geschlossen oder auch fortgesetzt: Capri<note place="foot" n="*)">Über diese Jnsel vergleiche Pfennig=Magazin Nr 99.</note> im<lb/>
+Süden und Jschia gegen Norden runden und vollenden<lb/>
+so das unvergleichlichste Bild, das die Natur uns bietet.</p><lb/>
+<p>Von Neapel ist Jschia gegen fünf Meilen entfernt,<lb/>
+doch die vielbesuchten Reize von Bajä, Cuma und Fu-<lb/>
+saro bringen uns ihr etwa bis auf eine Meile näher.<lb/>
+Die Schönheit dieser Jnsel, die Reinheit ihrer Luft, der<lb/>
+Ruf ihrer Mineralquellen, ihrer Bäder, ihrer Früchte<lb/>
+und ihres Weins locken selbst den Neapolitaner herbei,<lb/>
+der unter allen Menschen am wenigsten reiselustig ist<lb/>
+und fürwahr auch die meiste Entschuldigung für diese<lb/>
+Unlust hat. Wo könnte er die Natur größer und schö-<lb/>
+ner sehen als in seiner Heimat? Die Natur hat diese<lb/>
+Jnsel, deren Ansicht von Süden unsere Abbildung zeigt,<lb/>
+mit Wundern umgeben und mit Wundern erfüllt. Ha-<lb/>
+ben wir die kleine und verhältnißmäßig flache Jnsel Pro-<lb/>
+cida und den öden Fels von Vivara umschifft, so stellt<lb/>
+sich uns ein herrlicher Anblick dar. Grade vor uns<lb/>
+hebt sich kühn und majestätisch der zweizackige Gipfel<lb/>
+des Epomeo wie eine Krone der Jnsel zu den Wol-<lb/>
+ken empor. Nirgend glänzt der Morgenstrahl schöner,<lb/>
+nirgend haftet der letzte Abendsonnenblick länger und ro-<lb/>
+siger als an den glänzenden Spitzfelsen dieses Berges.<lb/>
+<cb n="2"/>
+Auf der Mitte seiner Seiten beginnen grüne Waldun-<lb/>
+gen von Steineichen und Kastanien; weiter abwärts be-<lb/>
+decken Orangengärten und Weinberge, von weißen Land-<lb/>
+sitzen, zierlichen Dörfern und der kleinen Stadt Casa-<lb/>
+miccio unterbrochen, alles Land; die Ebene ist mit Lust-<lb/>
+schlössern, Dörfern, Meiereien, Städte, durch Haine von<lb/>
+Südfrüchten, Maisfelder, Oliven= und Weingärten, von<lb/>
+Myrthen= und Aloehecken eingeschlossen, bunt und man-<lb/>
+nichfaltig durcheinander bebaut, das Ganze mit unbe-<lb/>
+schreiblich frischen und glänzenden Farben geschmückt.</p><lb/>
+<note place="foot">         <p><hi rendition="#sup">*</hi> ) Über diese Jnsel vergleiche Pfennig=Magazin Nr 99.</p>       </note>       <lb/>
+<p>Jschia war einst der Fuß eines mächtigen Vul-<lb/>
+kans und Alles umher zeigt die Wirkung eines<lb/>
+solchen. Lavaschichten, wild übereinander gethürmt,<lb/>
+und lange Strecken, mit Tuff, Bimsstein, Asche<lb/>
+und Schwefel bedeckt, nehmen drei Viertel des Rau-<lb/>
+mes der Jnsel ein. Der Epomeo, jetzt Monte San<lb/>
+Nicolo genannt, war eines von den Gliedern der<lb/>
+großen Kette feuerspeiender Krater, welche Agnano,<lb/>
+die Astroni, die Solfatara, der Averno und Vesuv<lb/>
+auf dem Festlande, Vendotena, Ponza, Palmarola<lb/>
+und zehn kleinere Krater, Stromboli, die Liparen<lb/>
+und endlich der ungeheure Ätna im Meere bildeten.<lb/>
+Welche erschütternde Naturereignisse mochten hier zur<lb/>
+Schau gestellt sein, ehe die reizende Stille, die schöne<lb/>
+Ruhe einheimisch wurde, welche jetzt den Reiz dieser<lb/>
+Landschaft ausmacht! Die Üppigkeit des Bodens der<lb/>
+Jnsel ist die Frucht dieser gewaltigen Naturwirkungen.<lb/>
+<cb type="end"/>
+<pb facs="#f0002" n="74"/>
+<fw place="top" type="header"> <hi rendition="#g">Das Pfennig=Magazin.</hi> </fw><cb type="start"/>
+Ersteigen wir zuerst den Gipfel des Epomeo, ohne uns<lb/>
+von dem steilen und rauhen Pfade abschrecken zu lassen,<lb/>
+der etwa 3500 Fuß hoch zu ihm hinaufführt. Der<lb/>
+Anblick, welcher uns dort entzückt, belohnt reichlich die<lb/>
+mühsame Stunde. Welch ein reiches Gemälde! Fast<lb/>
+die volle Hälfte der Südküste Jtaliens liegt vor uns<lb/>
+ausgebreitet, begrenzt von der langen, grauen Kette der<lb/>
+Apenninen, die sich ihr entlang ziehen. Der halbe<lb/>
+Schauplatz der Odyssee und der Äneide umgibt uns,<lb/>
+Tasso's Geburtsort, Sorrent, liegt uns gegenüber. Hier<lb/>
+winkt das Vorgebirge der Circe, dort locken die Felsen der<lb/>
+Sirenen, das Cap, wo Äneas seinen Schiffsherold begrub.<lb/>
+Hier ist die einsame Küste, wo Scipio starb, wo Ma-<lb/>
+rius, im Sumpf verborgen, auf den Sturz des Feindes<lb/>
+sann, wo Cicero getödtet ward; dort Nisida, wo Bru-<lb/>
+tus die edle Gattin verließ, Miseno, wo durch Au-<lb/>
+gustulus Tod das tausendjährige römische Reich sein<lb/>
+Ende fand und Plinius seinen ruhmvollen Tod. Welche<lb/>
+Erinnerungen! Unfern von uns sehen wir den nun schwei-<lb/>
+genden Krater des Berges. Doch der letzte Ausbruch, wel-<lb/>
+cher Jschia 1302 erschütterte und verwüstete, mag aus ei-<lb/>
+nem der tiefer liegenden Schlünde hervorgebrochen sein.<lb/>
+Städte und Dörfer begrub er unter seinen Lavawogen, die<lb/>
+sich wüthend in die Fluten stürzten und dort jene langen,<lb/>
+schwarzen Felsdämme bildeten, welche ihre klippigen Spi-<lb/>
+tzen nun schon 500 Jahre lang aus dem Meeresschaume<lb/>
+erheben. Die ganze Nordspitze der Jnsel ist mit ihren<lb/>
+starren und düstern Wogen bedeckt. Nicht fern von ih-<lb/>
+nen liegt Foria, die bevölkertste Stadt der Jnsel, die<lb/>
+mit ihren weißen, zierlichen Häusern grell gegen die<lb/>
+schwarzen Klippen absticht, welche sie umgeben. Hier<lb/>
+wohnt die fischende und schiffende Bevölkerung der Jn-<lb/>
+sel. Jschia, die Hauptstadt, liegt am Südende, dem<lb/>
+Felsen von Vivara gegenüber. Ein altes Schloß, ma-<lb/>
+lerisch auf einem abgesonderten Felsen sich erhebend, den<lb/>
+eine schmale Kiesbank mit der Küste verbindet, beschützt<lb/>
+den Hafen. Hier landet der Fremde, der von Neapel<lb/>
+und Procida kommt. Casamiccio, durch seine Mineral-<lb/>
+und Moorbäder berühmt, verbirgt sich halb im Schat-<lb/>
+ten wunderschöner Wälder am Saume des Epomeo.<lb/>
+Ponza, die vierte Stadt der Jnsel, verbindet sich durch<lb/>
+eine Reihe von Landhäusern mit ihr. Die Jnsel hat<lb/>
+etwa vier Meilen im Umfange und 25,000 Einwohner.<lb/>
+Selbst in den Spalten der Felsen grünen Wälder und<lb/>
+hier finden sich jene unvergleichlichen kühlen Lustsitze, welche<lb/>
+der Fremde wie der Einheimische aufsucht, wenn die Hitze<lb/>
+des Hochsommers ihn aus Neapel verscheucht. Friede,<lb/>
+entzückende Kühlung, Stille und Gesundheit haben hier<lb/>
+ihren Sitz und unzählige Leidende finden hier Genesung,<lb/>
+besonders von Hautübeln und Gicht, durch Heilquellen<lb/>
+und durch die reinste Luft.</p><lb/>
+<p>Die Jschioten, Fischer, Schiffer und Weinbauer,<lb/>
+sind ein kräftiger, gutgearteter, froher Menschenschlag;<lb/>
+die Schönheit des weiblichen Geschlechts wird durch eine<lb/>
+seltene Grazie der Bewegungen und eine malerische, der<lb/>
+altgriechischen ähnliche Tracht erhöht, ist hervorstechend<lb/>
+und zeigt ein reineres, unvermischteres Blut, als die Küste<lb/>
+des Festlandes es bewahrte. Von Jschia und seinem<lb/>
+Epomeo, nicht vom Vesuv, kommen jene Dosen, Pa-<lb/>
+pierhalter u. s. w. von grüner Lava, welche in Neapel<lb/>
+verkauft werden; denn die Lava des Vesuv ist schwarz,<lb/>
+röthlich oder grau, nie aber grün.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr"><hi rendition="#g">Über die Cultur des Thees</hi>.</hi></head><lb/>
+<p><hi rendition="#in">W</hi>ir haben zwar schon verschiedene Male ( vergleiche<lb/>
+Pfennig=Magazin Nr. 22 und 59 ) ausführlich über<lb/>
+den Thee, dessen Nutzen und Anbau gesprochen, doch<lb/>
+<cb n="2"/>
+können die nachstehenden Angaben über den Bau die-<lb/>
+ser Pflanze als eine nicht überflüssige Ergänzung frü-<lb/>
+herer Mittheilungen angesehen werden.</p><lb/>
+<p>Die Theepflanze ist ein buschiger, immergrüner<lb/>
+Strauch, der, wenn er seine natürliche Größe erreicht,<lb/>
+8 &#x2014; 12 Fuß hoch wird. Die Pflanzen, welche eines-<lb/>
+theils grünen und anderntheils schwarzen Thee lie-<lb/>
+fern, sind nur bleibende Abarten, die durch langen An-<lb/>
+bau entstanden sind. Die Theepflanze wird in China seit<lb/>
+undenklichen Zeiten angebaut. Am besten gedeiht sie von<lb/>
+23 &#x2014; 30° nördlicher Breite; sie wird aus Samen gezogen<lb/>
+und gibt in zwei bis drei Jahren die erste Ernte. Die<lb/>
+Pflanze wird sorgfältig beschnitten und darauf gesehen, daß<lb/>
+sie nicht höher wächst als zwei bis drei Fuß. Die Erzeu-<lb/>
+gung eines guten Thees hängt, wie bei dem Wein von<lb/>
+dem Boden, der Örtlichkeit und der Jahreszeit ab. Auch<lb/>
+wechselt die Güte desselben ebenso nach der größern oder<lb/>
+geringern Sorgfalt, womit er gesammelt und zubereitet<lb/>
+wird. Jede Pflanze gibt in der Regel jährlich drei<lb/>
+Ernten, die aber nicht immer von gleicher Güte sind. Je<lb/>
+jünger die Blätter sind, um so vorzüglicher ist der Ge-<lb/>
+schmack. Die früheste Ernte findet mit dem Anfang<lb/>
+des Frühlings, die letzte im August statt. Der Anbau<lb/>
+desjenigen Thees, der seinen schönen Geruch eine be-<lb/>
+trächtliche Zeit beibehält und deshalb sich zur Ausfuhr be-<lb/>
+sonders eignet, war lange Zeit auf zwei Provinzen be-<lb/>
+schränkt, deren eine nur schwarzen, die andere nur<lb/>
+grünen Thee lieferte. Seit einigen Jahren ist indeß wegen<lb/>
+des großen Verbrauchs von Thee in Europa und Amerika<lb/>
+die Cultur desselben noch auf drei andere Provinzen aus-<lb/>
+gedehnt worden. Die beiden erstgenannten Provinzen er-<lb/>
+zeugen jedoch immer noch den besten. Der schlechteste kommt<lb/>
+aus dem District Wopring in der Provinz Kanton.</p><lb/>
+<p>Jn China ist der Boden Privateigenthum und in<lb/>
+sehr kleine Theile getheilt. Die Theeblätter werden von<lb/>
+der Familie des Anbauers eingesammelt und in frischem<lb/>
+Zustande auf den Markt gebracht, wo sie von einer<lb/>
+besondern Classe von Handelsleuten gekauft werden.<lb/>
+Diese trocknen die Blätter unter einem Dache an der<lb/>
+Luft und verkaufen sie an eine vornehmere Classe von<lb/>
+Kaufleuten, welche den Thee nach seiner Güte sondern,<lb/>
+ihn völlig zubereiten und dann in Kisten verpacken.<lb/>
+Der Thee kommt etwa um die Mitte des Octobers in<lb/>
+Kanton an, und von dieser Zeit bis Ende Decembers<lb/>
+ist der Handel am lebhaftesten. Die mit schwarzem Thee<lb/>
+handelnden Kaufleute sind weniger zahlreich, aber wohl-<lb/>
+habender als diejenigen, die mit grünem Handel treiben.<lb/>
+Sie begleiten ihre Kisten, die meistentheils von Menschen<lb/>
+getragen werden, mehre hundert Meilen weit bis Kanton.<lb/>
+Zur Ausfuhr sind nicht über 15 verschiedene Sorten be-<lb/>
+stimmt, wovon etwa 8 &#x2014; 9 schwarz und sechs grün sind.<lb/>
+Der Preis wechselt von 1 / 6 bis 5 / 6 Thaler für das Pfund.</p><lb/>
+<p>Alle Völker Asiens, östlich von Siam und Cam-<lb/>
+bodscha, sind seit undenklichen Zeiten leidenschaftliche<lb/>
+Theetrinker. Bei den Chinesen ist, ohne Unterschied des<lb/>
+Geschlechts, Alters und Standes, der Theekessel vom<lb/>
+frühen Morgen bis in die späte Nacht in beständiger<lb/>
+Bewegung. Sie trinken den Thee immer ohne Milch<lb/>
+und häufig ohne Zucker. Nimmt man an, was keines-<lb/>
+wegs zu viel ist, daß jeder Chinese zweimal so viel Thee<lb/>
+trinkt als ein Engländer, so würde der jährliche Verbrauch<lb/>
+in China an Gewicht eine halbe Million Tonnen betra-<lb/>
+gen. Jn Europa begann der Gebrauch des Thees etwa<lb/>
+um die Mitte des 17. Jahrhunderts und seit dieser Zeit<lb/>
+ist der Verbrauch bis auf beinahe 30,000 Tonnen ge-<lb/>
+stiegen. Jn England wird mehr Thee verbraucht als<lb/>
+im ganzen übrigen Europa und in Amerika zusammen-<lb/>
+genommen. Man hat die Frage aufgeworfen, ob<lb/>
+<cb type="end"/>
+<pb facs="#f0003" n="75"/>
+<fw place="top" type="header"><hi rendition="#g">Das Pfennig=Magazin.</hi> </fw><cb type="start"/>
+China dem immer steigenden Bedürfnisse in der Folge<lb/>
+werde genügen können. Dies leidet jedoch keinen Zwei-<lb/>
+fel. Der Thee wird nämlich meist in bergigem und<lb/>
+hügeligem Lande angebaut, das nicht besonders fruchtbar<lb/>
+und zum Getreidebau nicht geeignet ist, und hiervon ist<lb/>
+in China, ungeachtet der großen Cultur in den Ebenen<lb/>
+und Thälern, noch sehr viel unbenutzt. Jn einigen<lb/>
+Gegenden Ostindiens hat man in der neuesten Zeit ge-<lb/>
+lungene Versuche mit dem Anbau des Thees gemacht,<lb/>
+nachdem man in der Provinz Assam eine wildwachsende<lb/>
+Theepflanze entdeckt hatte. Noch erfolgreicher hat sich<lb/>
+bereits die von der holländischen Regierung angelegte<lb/>
+Anpflanzung auf der Jnsel Java gezeigt. Jm November<lb/>
+1835 wurde in Amsterdam eine Sendung dieses Java-<lb/>
+thees verkauft und man fand die meisten Sorten sehr gut.</p><lb/>
+<p>Der Thee verdankt unstreitig seiner gelinde erre-<lb/>
+genden Wirkung auf den menschlichen Körper seine so<lb/>
+allgemein gewordene Anwendung. Jm Geschmack der<lb/>
+verschiedenen Sorten herrscht eine ebenso große Mannichfal-<lb/>
+tigkeit als bei dem Wein. Die Chinesen, und überhaupt<lb/>
+die Morgenländer, bedienen sich fast ausschließend des<lb/>
+schwarzen Thees. Die Engländer verbrauchen auf vier<lb/>
+Theile schwarzen einen Theil grünen Thee und die Ameri-<lb/>
+kaner einen Theil schwarzen auf zwei Theile grünen Thee.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr"><hi rendition="#g">Beobachtungen über Taucher</hi>.</hi></head><lb/>
+<p><hi rendition="#in">D</hi>er französische Schiffswundarzt Lefèvre wurde durch<lb/>
+die große Verschiedenheit der Angaben über die Zeit,<lb/>
+welche ein Mensch unter dem Wasser zubringen kann, um<lb/>
+daselbst irgend eine Arbeit zu verrichten, zu interessanten<lb/>
+Beobachtungen veranlaßt, deren Ergebniß er mitgetheilt<lb/>
+hat. Jene Verschiedenheit ist in der That höchst auf-<lb/>
+fallend, wenn man die Berichte älterer und neuerer<lb/>
+Schriftsteller vergleicht. Ohne der Sage zu erwähnen,<lb/>
+die von einem frommen Einsiedler in Brasilien erzählt,<lb/>
+der drei Viertelstunden unter dem Wasser blieb, um<lb/>
+sein Brevier zu beten, lesen wir in der Naturgeschichte<lb/>
+Jndiens von dem Portugiesen Joseph d'Acosta, daß<lb/>
+Taucher eine halbe Stunde unter dem Wasser bleiben<lb/>
+konnten. Pison erzählt in seiner Geschichte Brasiliens,<lb/>
+ein Eingeborener des Landes habe 60 Minuten unter<lb/>
+dem Wasser zugebracht. Andere ältere Schriftsteller be-<lb/>
+stimmen die Zeit sogar auf vier Stunden, einen Tag,<lb/>
+ja drei Tage. Diese und andere minder auffallende An-<lb/>
+gaben von sonst glaubwürdigen Reisenden, z. B. von<lb/>
+Chardin, nach welchem die Perlenfischer eine halbe Viertel-<lb/>
+stunde unter dem Wasser bleiben können, veranlaßten den<lb/>
+berühmten Haller in seinem Werke über die Physiologie<lb/>
+zu dem Ausspruche, daß sie von Männern herrühren,<lb/>
+die entweder schlecht beobachtet haben oder durch unwis-<lb/>
+sende Menschen zum Jrrthum verleitet worden sind.<lb/>
+Neuere Reisende schienen der Wahrheit näher zu kom-<lb/>
+men. Der Engländer Percival, der Ceylon bereiste, er-<lb/>
+zählt, daß die Perlenfischer bis auf 70 Fuß ins Meer<lb/>
+untertauchen und von Kindheit an geübt, gewöhnlich<lb/>
+zwei Minuten im Wasser verweilen. Wenn sie wieder<lb/>
+auftauchen, setzt er hinzu, kommt zuweilen Blut aus<lb/>
+Mund, Ohren und Nase. Sie können täglich 40&#x2014;50<lb/>
+Mal untertauchen. Einige reiben sich den Leib mit Öl<lb/>
+ein und verstopfen Nase und Ohren, um das Eindrin-<lb/>
+gen des Wassers zu verhindern.</p><lb/>
+<p>Diese Berichte kommen den Beobachtungen nahe,<lb/>
+die Lefèvre vor einigen Jahren im griechischen Jnsel-<lb/>
+meere zu machen Gelegenheit hatte. Nach den Zeug-<lb/>
+nissen, welche schon die Alten von der Geschicklichkeit<lb/>
+der griechischen Taucher geben, mußte er erwarten, daß<lb/>
+sich auf die Küstenbewohner die Kunstfertigkeit ihrer<lb/>
+<cb n="2"/>
+Vorfahren vererbt habe. Er erinnerte sich der Berichte<lb/>
+der griechischen Geschichtschreiber, die unter Anderm von<lb/>
+Tauchern erzählen, welche unter dem Wasser schwam-<lb/>
+men und an einer Leine Schläuche, mit Lebensmitteln<lb/>
+gefüllt, nachschleppten, um einer belagerten Stadt Zu-<lb/>
+fuhr zu bringen, oder bei der Belagerung von Syrakus<lb/>
+sich in das Meer stürzten, um die Pfähle abzusägen,<lb/>
+welche die Belagerten eingerammt hatten, den atheni-<lb/>
+schen Schiffen den Zugang zu verwehren. Er wußte,<lb/>
+was der Franzose Thevenot im 17. Jahrhundert von<lb/>
+der Jnsel Nicaria erzählte, wo die besten Schwimmer<lb/>
+Schwämme auf dem Meeresboden suchten oder auch<lb/>
+wol Schiffstrümmer heraufholten, und die jungen Leute<lb/>
+einen Wettkampf anstellten, um die Hand eines reichen<lb/>
+Mädchens zu erhalten, die nur Demjenigen zu Theil<lb/>
+wurde, welcher am längsten unter dem Wasser blieb.</p><lb/>
+<p>Als Lefèvre sich auf der Rhede von Navarin be-<lb/>
+fand, überzeugte er sich, daß die Neugriechen als ge-<lb/>
+schickte Schwimmer ihren Vorfahren nicht nachstehen.<lb/>
+Die Türken hatten, so lange sie in Morea blieben, we-<lb/>
+nig daran gedacht, die Rhede von den Schiffstrümmern<lb/>
+zu befreien, die in der großen Seeschlacht am 20. Oc-<lb/>
+tober 1827 waren versenkt worden. Bald nach der<lb/>
+Ankunft des französischen Heers ward eine Compagnie<lb/>
+griechischer Taucher ermächtigt, die Trümmer der tür-<lb/>
+kisch=ägyptischen Flotte aufzusuchen. So oft sie eine<lb/>
+Kanone, einen Anker oder sonst einen Gegenstand von<lb/>
+einigem Werthe heraufholten, wurde der Fund geschätzt<lb/>
+und an Kaufleute aus Marseille verkauft. Die Tau-<lb/>
+cher erhielten ein Drittheil des Werthes und zwei<lb/>
+Drittheile wurden unter die Matrosen der Flotte ver-<lb/>
+theilt. Fast alle Taucher waren aus dem griechischen<lb/>
+Jnselmeere, mehre aus Kalymnos. Die meisten waren<lb/>
+rüstige Leute und hatten gewöhnlich eine vollkommen<lb/>
+entwickelte Muskelkraft. Sie gewöhnen sich von Ju-<lb/>
+gend auf, unterzutauchen und lange Zeit unter dem<lb/>
+Wasser zu bleiben. Lefèvre sah sie Kanonen heraufho-<lb/>
+len und Kupferbeschläge von den Schiffstrümmern in<lb/>
+einer Tiefe von 100&#x2014;120 Fuß abreißen, und in glei-<lb/>
+cher Tiefe holten sie aus einem Wrack auch kleinere Ge-<lb/>
+genstände, z. B. Pistolen, einen kostbar gebundenen Ko-<lb/>
+ran, eine Wasserpfeife ( Kaliuhn ) mit der Bernsteinspitze.<lb/>
+Ehe sie untertauchten, kauerten sie einige Augenblicke am<lb/>
+Bord des Kahnes, der sie auf die Stelle gebracht hatte<lb/>
+wo sie ein Wrack suchen wollten. Jn dieser Stellung<lb/>
+stützten sie die Ellbogen auf die Knie und athmeten oft<lb/>
+und schnell ein, während sie zugleich sich häufig bekreuz-<lb/>
+ten. Jn dem Augenblicke, wo sie untertauchen woll-<lb/>
+ten, thaten sie noch einmal einen tiefen Athemzug und<lb/>
+stürzten sich dann mit dem Kopfe zuerst in das Meer.<lb/>
+Befand sich der gesuchte Gegenstand in beträchtlicher<lb/>
+Tiefe, so steckten sie den Daumen der rechten Hand in<lb/>
+eine Schlinge an dem Ende einer Leine, die den im<lb/>
+Kahne zurückgebliebenen Schiffern dazu diente, den<lb/>
+Taucher heraufzuziehen, wenn ihm das Athemholen<lb/>
+schwer wurde. Sie wird zugleich gebraucht, andern Lei-<lb/>
+nen eine Richtung zu geben, an welchen man schwerere<lb/>
+Gegenstände heraufzieht. Zur Bestimmung der Dauer des<lb/>
+Untertauchens zeichnete Lefèvre drei Reihen von Beob-<lb/>
+achtungen auf, die er im Jahre 1829 bei mehren Tau-<lb/>
+chern machte, indem er nach einer Secundenuhr die<lb/>
+Zeit des Aufenthalts unter dem Wasser bei Jedem be-<lb/>
+merkte. Die Tiefe, in welcher die Gegenstände gesucht<lb/>
+wurden, betrug 100 Fuß und die Temperatur der äu-<lb/>
+ßern Luft war 24° Réaumur. Die kürzeste Zeitdauer<lb/>
+war 50, die längste 98, folglich die mittlere Zeit für<lb/>
+jeden 76 Secunden, und nicht so lange, als Percival<lb/>
+angegeben hat. Wenn die Taucher wieder heraufka-<lb/>
+<cb type="end"/>
+<pb facs="#f0004" n="76"/>
+<fw place="top" type="header"> <hi rendition="#g">Das Pfennig=Magazin.</hi> </fw><cb type="start"/>
+men, war ihr Gesicht fast immer stark von Blutandrang<lb/>
+gefärbt und oft hatten sie Nasenbluten. Jn einigen<lb/>
+Fällen sah Lefèvre Blut aus Augen und Ohren drin-<lb/>
+gen. Sobald sie aus dem Wasser waren, hüllten sie<lb/>
+sich in einen weiten, wollenen Mantel und warteten, bis<lb/>
+die Reihe wieder an sie kam. Sie konnten das Untertau-<lb/>
+<cb n="2"/>
+chen ohne Nachtheil viermal in einer Stunde wiederholen.<lb/>
+Aus diesen Beobachtungen zieht Lefèvre den Schluß, daß<lb/>
+ein Aufenthalt von zwei Minuten unter dem Wasser,<lb/>
+die kürzeste Zeitangabe, die wir in den verschiedenen Reise-<lb/>
+berichten finden, schon sehr lang ist, und daß nur we-<lb/>
+nige geschickte Taucher so viel zu wagen im Stande sind.</p></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr"><hi rendition="#g">Der Palast der Thermen in Paris</hi>.</hi></head><lb/>
+<figure/><lb/>
+<cb type="start"/>
+<p><hi rendition="#in">D</hi>ie Sitte der Griechen, öffentliche Bäder anzulegen,<lb/>
+ahmten die Römer schon frühzeitig nach und verwende-<lb/>
+ten auf dieselben, besonders während der üppigen Kaiser-<lb/>
+zeit, eine Pracht, die alle Begriffe übersteigt. Solche<lb/>
+Bäder hatten gewöhnlich zwei Abtheilungen, eine für<lb/>
+Frauen, die andere für Männer. Jn jeder konnte man<lb/>
+kalt und warm baden. Jn der Mitte des Gebäudes,<lb/>
+gewöhnlich im Kellergeschoß, befand sich das Heizzim-<lb/>
+mer und über diesem ein Gemach, wo in der Regel<lb/>
+drei große Kessel übereinander eingemauert waren, sodaß<lb/>
+der untere unmittelbar über dem Feuer, der zweite über<lb/>
+diesem und der dritte über dem zweiten stand. Auf diese<lb/>
+Weise hatte man zugleich heißes, laues und kaltes Was-<lb/>
+ser. Durch besondere, mit Hähnen versehene Röhren<lb/>
+wurde das Wasser in die Badezimmer geführt, und<lb/>
+aus einem großen Wasserbehälter die Kessel sogleich wie-<lb/>
+der gefüllt. Neben dem Heizzimmer lagen gewöhnlich<lb/>
+drei besondere Zimmer, für das heiße, laue und kalte<lb/>
+<cb n="2"/>
+Bad. Die Badestuben hatten im Fußboden ein ge-<lb/>
+mauertes Becken, um welches eine Galerie und Sitze<lb/>
+liefen, wo sich die Badenden, ehe sie ins Bad stiegen,<lb/>
+und die Bedienung aufhielten. Außerdem gab es noch<lb/>
+ein eignes Zimmer zum Schwitzbade, welches durch<lb/>
+Röhren geheizt wurde. Mittels Klappen an der Decke,<lb/>
+die man öffnete und wieder schloß, konnte man die<lb/>
+Hitze beliebig vermindern. Zum Auskleiden und Aufbe-<lb/>
+wahren der Kleider und zum Salben nach dem Bade<lb/>
+gab es ebenfalls eigne Zimmer. Auch durften bei ei-<lb/>
+nem Bade bedeckte Spaziergänge, Säle zu Ballspielen<lb/>
+und Gärten nicht fehlen, damit man sich nach dem<lb/>
+Bade die gehörige Bewegung machen konnte. Dabei<lb/>
+waren die Zimmer prachtvoll mit Allem, was nur<lb/>
+irgend zur Annehmlichkeit gehörte, ausgestattet, und<lb/>
+ein solches Bad glich mit allen seinen Nebengebäuden<lb/>
+einem weitläufigen Palaste. Ja der Luxus der Rö-<lb/>
+mer ging so weit, daß sie eigne Wasserleitungen oft<lb/>
+<cb type="end"/>
+<pb facs="#f0005" n="77"/>
+<fw place="top" type="header"><hi rendition="#g">Das Pfennig=Magazin.</hi> </fw><cb type="start"/>
+aus einer Entfernung von mehren Meilen anlegten, die<lb/>
+klares Flußwasser oder das stärkende Meerwasser in die<lb/>
+Bäder führten, wol auch den Schnee von Gebirgen be-<lb/>
+nutzten und überhaupt diese Anstalten auf eine Weise<lb/>
+erweiterten, daß sie noch heute in ihren Trümmern Er-<lb/>
+staunen und Bewunderung erregen. Da, wo die Römer<lb/>
+auf ihren Eroberungszügen hinkamen und sich nieder-<lb/>
+ließen, gründeten sie auch sogleich dergleichen Bäder,<lb/>
+und Trümmer derselben finden sich noch in verschie-<lb/>
+denen ehemaligen Römerniederlassungen. So sieht man<lb/>
+die Überreste eines solchen Römerbades, bekannt unter<lb/>
+dem Namen des Palastes der Thermen, d. h. warmen<lb/>
+Bäder, oder der Bäder des Julian, noch jetzt zu Pa-<lb/>
+ris. Sie bestehen aus festen, 40 Fuß hohen Gewölben,<lb/>
+sind aber nur die unbedeutendern Trümmer vom Erd-<lb/>
+geschoß eines ungeheuern Palastes, der hier zur Römer-<lb/>
+zeit und noch lange nachher stand. Kaiser Julian er-<lb/>
+baute diesen Palast und bestimmte ihn zur Residenz<lb/>
+seiner Statthalter; zu verschiedenen Zeiten bewohnten<lb/>
+ihn auch die spätern römischen Kaiser, ebenso König<lb/>
+Clodwig zu Ende des 5. Jahrhunderts, nachdem er<lb/>
+Paris zur Hauptstadt des Frankenreichs erhoben hatte,<lb/>
+und nach ihm noch andere fränkische Könige, und<lb/>
+Karl der Große soll noch bedeutende Kosten auf die<lb/>
+innere Ausschmückung desselben gewendet haben. Nach<lb/>
+mehr als tausend Jahren sind aber jene fürstlichen<lb/>
+Zimmer, die die obern Stockwerke dieses Palastes bil-<lb/>
+deten, verschwunden und eine starke Erdschicht liegt über<lb/>
+der Decke der Gewölbe und bildet einen angenehmen<lb/>
+Garten. Von diesen Gewölben aber ist bei den Ver-<lb/>
+<cb n="2"/>
+änderungen, welche benachbarte Baue nöthig machten,<lb/>
+nur noch ein sehr kleiner Theil stehen geblieben, doch<lb/>
+ist dieser großartig genug, um unsere Bewunderung<lb/>
+zu erregen. Wie groß aber der Palast gewesen<lb/>
+sein muß, beweist der Umstand, daß sich nicht allein in<lb/>
+den meisten Häusern der Straße, wo er liegt, sondern<lb/>
+auch in einigen der Nebenstraßen unverkennbare Spuren<lb/>
+dieser Gewölbe in mehr und weniger veränderter Gestalt<lb/>
+vorfinden, und theilweise wegen ihrer Festigkeit zu<lb/>
+Grundmauern der Häuser benutzt worden sind. Glück-<lb/>
+licherweise hat man aber grade den Theil der Gewölbe<lb/>
+verschont, welcher die Badesäle des Palastes bildete.<lb/>
+Einer derselben, welcher noch wenig Spuren eines tau-<lb/>
+sendjährigen Alters an sich trägt, ist auf vorstehender<lb/>
+Abbildung dargestellt. Aus der ganzen Bauart dieses<lb/>
+Saales geht hervor, daß er für warme Bäder bestimmt<lb/>
+war. Man findet in ihm noch das ausgemauerte Ba-<lb/>
+debecken, noch die Spuren der Röhren, durch welche<lb/>
+das Wasser vertheilt wurde; eine kleine Treppe führt<lb/>
+aus ihm zum Kellergeschoß, wo noch Ofentrümmer um-<lb/>
+herliegen, und ein anstoßender zweiter Saal enthält ein<lb/>
+großes Bassin, worein das Wasser mittels eines Aquä-<lb/>
+ducts geleitet wurde, dessen Trümmer noch heute ange-<lb/>
+staunt werden. Diese Wasserleitung nahm nicht etwa<lb/>
+unmittelbar das Wasser der nahen Seine auf, das dem<lb/>
+üppigen Römer zu trübe und schlammig war, sondern<lb/>
+es wurde vier Meilen weit hergeführt, bis zum Dorfe<lb/>
+Arcueil, wo die Wasserleitung die schönen Quellen von<lb/>
+Rungis aufnahm und nach Paris in den Palast der<lb/>
+Thermen leitete.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<cb type="end"/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Die</hi> <hi rendition="#aq"><hi rendition="#g">Magna charta</hi>.</hi></head><lb/>
+<figure/><lb/>
+<cb type="start"/>
+<p><hi rendition="#in">D</hi>ie Angelsachsen, ein deutscher Volksstamm, der bei<lb/>
+dem Verfall der römischen Herrschaft in England das<lb/>
+Land sich unterwarf, hatte altdeutsche Einrichtungen<lb/>
+eingeführt und die Verhältnisse des Grundbesitzes und<lb/>
+das gesellschaftliche Leben nach den Gesetzen und Ge-<lb/>
+wohnheiten seiner Heimat geordnet. Aber auch ihre<lb/>
+Macht verfiel, und innere Zerrüttungen machten es dem<lb/>
+kriegerischen Herzog von der Normandie, Wilhelm dem<lb/>
+Eroberer, möglich, England 1066 nach einer siegreichen<lb/>
+Schlacht zu unterwerfen. Er brachte die von der an-<lb/>
+gelsächsischen Verfassung verschiedenen Einrichtungen sei-<lb/>
+nes Vaterlandes mit, verlieh einen großen Theil der<lb/>
+Ländereien der Besiegten seinen Waffengefährten, führte<lb/>
+das Lehnwesen ein, wodurch die Besitzer der Güter in<lb/>
+<cb n="2"/>
+ein abhängiges Verhältniß zu dem Könige kamen, und<lb/>
+gab überhaupt der königlichen Gewalt eine größere Aus-<lb/>
+dehnung. Dies geschah auch durch die Beschränkung<lb/>
+der Jagdbefugnisse der Ländereibesitzer, indem große Land-<lb/>
+striche zu königlichen Forsten gemacht und die Übertre-<lb/>
+ter der zu Gunsten der Krone erlassenen strengen Jagd-<lb/>
+gesetze mit schweren Strafen bedroht wurden. Es blieb<lb/>
+jedoch, ungeachtet dieser Beschränkungen, noch viel von<lb/>
+den freien Einrichtungen der Engländer übrig, besonders<lb/>
+auch in der Verwaltung der Gemeinden und in der<lb/>
+Ausübung des alten Rechts, in Versammlungen der<lb/>
+Stände sich über die Angelegenheiten des Landes zu be-<lb/>
+rathen. So konnte Wilhelm der Eroberer um so we-<lb/>
+niger eine unumschränkte Herrschaft gründen, als es<lb/>
+<cb type="end"/>
+<pb facs="#f0006" n="78"/>
+<fw place="top" type="header"> <hi rendition="#g">Das Pfennig=Magazin.</hi> </fw><cb type="start"/>
+ihm daran liegen mußte, die Engländer mit seiner Herr-<lb/>
+schaft zu versöhnen, sie mit den normannischen Ein-<lb/>
+wanderern zu verschmelzen und sie mit seinen neuen<lb/>
+Einrichtungen zu befreunden. Die normannischen Lehns-<lb/>
+besitzer, die eine neue Heimat in England gefunden hat-<lb/>
+ten, erhielten bald gleiches Jnteresse mit den alten Be-<lb/>
+wohnern des Landes, und sie wurden eifersüchtig auf<lb/>
+jede Ausdehnung der Gewalt der Krone, welche ihr Ei-<lb/>
+genthumsrecht und ihren Einfluß auf die öffentlichen<lb/>
+Angelegenheiten beschränken mußte. Wilhelm's Sohn,<lb/>
+Heinrich <hi rendition="#aq">I</hi>., der seinem Bruder Wilhelm <hi rendition="#aq">II</hi>. 1100 in<lb/>
+der Regierung folgte, mußte bei seiner Thronbesteigung<lb/>
+den mächtigen Lehnsleuten mehre Bewilligungen gewäh-<lb/>
+ren, um den Vorzug vor seinem ältern Bruder zu er-<lb/>
+langen. Seine Nachfolger sahen sich um so mehr ge-<lb/>
+nöthigt, ähnliche Rechte zu verleihen, wenn sie zweifel-<lb/>
+hafte Ansprüche auf den Thron durch Gewinnung von<lb/>
+Anhängern unterstützen mußten, wie es bei den Köni-<lb/>
+gen Stephan und Heinrich <hi rendition="#aq">II</hi>. der Fall war. Hein-<lb/>
+rich <hi rendition="#aq">II</hi>. jüngerer Sohn, Johann ohne Land, der 1199<lb/>
+seinem Bruder Richard Löwenherz auf dem Throne<lb/>
+folgte, bei aller Schwäche seines Charakters eigenmäch-<lb/>
+tig und willkürlich, machte das Volk abwendig, da er<lb/>
+nicht nur den Verdacht gegen sich erregte, den Sohn<lb/>
+eines ältern Bruders, den nächsten Thronerben, aus<lb/>
+dem Wege geräumt zu haben, sondern auch die alten<lb/>
+Stammländer in Frankreich verlor und selbst die Unab-<lb/>
+hängigkeit Englands aufopferte, indem er es dem römi-<lb/>
+schen Stuhle als Lehn übertrug. Es bildete sich eine<lb/>
+mächtige Partei gegen ihn, welche 1215 die Waffen<lb/>
+ergriff, und Johann sah sich genöthigt, im Junius auf<lb/>
+der großen Ebene Runnymede an der Themse Unter-<lb/>
+handlungen anzuknüpfen, die am 19. desselben Monats<lb/>
+zu dem Abschlusse eines Vergleichs mit den Unzufriedenen<lb/>
+führten. Die Urkunde, welche die Vertragsbedingungen<lb/>
+enthielt und die Anerkennung der bereits in frühern Ver-<lb/>
+willigungen gegründeten Rechte aussprach, wurde <hi rendition="#aq">Magna<lb/>
+charta</hi>, der große Freiheitsbrief, genannt. Eine Urschrift<lb/>
+wird in dem britischen Museum zu London aufbewahrt, und<lb/>
+nach dieser ist die vorstehend gegebene Abbildung des Sie-<lb/>
+gels gemacht. Später milderte Johann auch die strengen<lb/>
+Jagdgesetze, noch wichtiger aber war die Bewilligung,<lb/>
+die sein Sohn Heinrich <hi rendition="#aq">III</hi>. dem Adel, der Geistlichkeit<lb/>
+und dem Bürgerstande in dem 1224 ausgestellten Frei-<lb/>
+heitsbriefe <gap reason="illegible" unit="chars" quantity="8"/>gewährte, welcher die lehnsherrlichen Rechte<lb/>
+des Königs genau bestimmte und mehren früher statt-<lb/>
+gefundenen Bedrückungen abhalf. Unter die durch jene<lb/>
+Freiheitsbriefe begründeten gesetzlichen Einrichtungen ge-<lb/>
+hört vorzüglich, daß Geldhülfen der Lehnsleute nur in<lb/>
+drei anerkannten Fällen gefodert, daß Niemand ohne<lb/>
+gerichtliche Entscheidung mit Geldstrafen belegt werden<lb/>
+solle; vorzüglich wichtig aber war die Bestimmung, kein<lb/>
+freier Mann solle verhaftet, eingekerkert, seines Lehn-<lb/>
+guts, seiner erworbenen Rechte beraubt, geächtet, aus<lb/>
+dem Lande verwiesen oder auf irgend eine Art in das<lb/>
+Verderben gebracht werden, noch wolle der König seine<lb/>
+Macht gegen ihn gebrauchen oder gebrauchen lassen, an-<lb/>
+ders als nach gesetzmäßigem Ausspruche von Männern<lb/>
+seines Gleichen oder nach den Gesetzen des Landes, und<lb/>
+er wolle Niemand sein Recht verkaufen, Niemand es<lb/>
+versagen oder verzögern. Auf diese alten Freiheitsbriefe<lb/>
+gründen sich die wichtigsten der noch bestehenden Ein-<lb/>
+richtungen der englischen Verfassung.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr"><hi rendition="#g">Frucht der Anstrengung</hi>.</hi></head><lb/>
+<p><hi rendition="#in">E</hi>dmund Stone, ein 1768 verstorbener berühmter Ma-<lb/>
+thematiker, ist ein merkwürdiges Beispiel, wie durch Aus-<lb/>
+<cb n="2"/>
+dauer und Fleiß gründliche Kenntnisse erlangt werden<lb/>
+können. Sein Vater war Gärtner des Herzogs von Argyle<lb/>
+in Schottland. Der junge Stone war acht Jahre alt,<lb/>
+ehe er lesen lernte. Ein Diener des Herzogs machte<lb/>
+ihn mit den Buchstaben des Alphabets bekannt, und der<lb/>
+Geist des Knaben brauchte nicht mehr als dies, sich zu<lb/>
+entfalten. Er legte sich auf das Studium, und als er<lb/>
+18 Jahre alt war, hatte er ohne Lehrer eine vollkom-<lb/>
+mene Kenntniß der Geometrie erlangt. Der Herzog von<lb/>
+Argyle, der mit seinen kriegerischen Talenten wissenschaft-<lb/>
+liche Bildung verband, sah einst in seinem Garten eine<lb/>
+lateinische Ausgabe von Newton's berühmtem Werke über<lb/>
+die Naturwissenschaft im Grase liegen. Er befahl sei-<lb/>
+nem Diener, das Buch aufzunehmen und in seine Biblio-<lb/>
+thek zu bringen, wohin es, wie er glaubte, gehörte. Der<lb/>
+junge Gärtner sagte ihm, das Buch wäre sein Eigen-<lb/>
+thum. &#x201E;Dein Eigenthum?&#x201C; fragte der Herzog. &#x201E; Ver-<lb/>
+stehst du Geometrie, Latein, Newton?&#x201C; &#x201E;Jch verstehe<lb/>
+ein bischen davon&#x201C;, antwortete der Jüngling mit einem<lb/>
+schlichten Wesen, das aus seiner Unbekanntschaft mit<lb/>
+seinen Talenten und Kenntnissen hervorging. Der über-<lb/>
+raschte Herzog ließ sich in ein Gespräch mit dem jungen<lb/>
+Manne ein, richtete verschiedene Fragen an ihn und war<lb/>
+erstaunt über die Kraft, Genauigkeit und Offenheit der<lb/>
+Antworten, die er erhielt. &#x201E;Aber wie bist du zu der<lb/>
+Kenntniß von diesen Dingen gekommen?&#x201C; fragte er.<lb/>
+&#x201E;Einer von Jhren Leuten, gnädiger Herr, hat mich vor<lb/>
+zehn Jahren lesen gelernt&#x201C;, erwiderte Stone. &#x201E;Was<lb/>
+braucht man mehr zu kennen als die Buchstaben, um<lb/>
+Alles zu lernen, was man wünscht?&#x201C; Des Herzogs Neu-<lb/>
+gier wurde noch lebhafter erregt, und er bat den jungen<lb/>
+Mann, ihm zu erzählen, wie er es angefangen habe, so<lb/>
+viel zu lernen. &#x201E;Jch lernte zuerst lesen&#x201C;, erwiderte<lb/>
+Stone. &#x201E;Die Maurer waren zu jener Zeit in Jhrem Hause<lb/>
+beschäftigt. Jch trat eines Tags zu ihnen und sah, daß<lb/>
+der Baumeister Lineal und Cirkel brauchte und Berech-<lb/>
+nungen machte. Jch fragte, was diese Dinge bedeuten<lb/>
+und nützen sollten, und ich erfuhr, es gebe eine Wissen-<lb/>
+schaft, genannt Arithmetik. Jch kaufte ein Buch über<lb/>
+Arithmetik und lernte sie. Dann hörte ich, es gebe eine<lb/>
+andere Wissenschaft, genannt Geometrie. Jch kaufte mir<lb/>
+Lehrbücher und lernte Geometrie. Beim Lesen fand ich,<lb/>
+daß es viele gute Bücher über diese Wissenschaft in<lb/>
+lateinischer Sprache gebe. Jch kaufte ein Wörterbuch<lb/>
+und lernte Latein. Dann erfuhr ich, es gebe gute Bü-<lb/>
+cher über diese Dinge in französischer Sprache. Jch<lb/>
+kaufte ein Wörterbuch und lernte Französisch. Dies ist<lb/>
+Alles, was ich gethan habe, gnädiger Herr. Jch denke,<lb/>
+man kann Alles lernen, wenn man einmal die Buch-<lb/>
+staben kennt.&#x201C; Der Herzog war hocherfreut über diese<lb/>
+Mittheilung und er gab dem Jünglinge eine Beschäfti-<lb/>
+gung, die ihm hinlängliche Muße ließ, seinen Lieblings-<lb/>
+neigungen nachzugehen, denn er entdeckte in ihm dieselbe<lb/>
+Anlange zur Musik, Malerei, Baukunst und zu allen<lb/>
+Wissenschaften, die von Berechnungen und Verhältnissen<lb/>
+abhangen.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle" xml:id="Hogarth1"><head><hi rendition="#fr"><hi rendition="#g">Hogarth's Werke.<lb/>
+10. Die Parlamentswahl</hi>.</hi><lb/>
+1. <hi rendition="#g">Der Wahlschmaus.</hi></head><lb/>
+<p><hi rendition="#in">D</hi>ie vier folgenden Blätter unsers Meisters, welche wir<lb/>
+unsern Lesern mittheilen wollen, gehören zusammen und bil-<lb/>
+den in ihrer Reihenfolge eine Satire auf die englischen<lb/>
+Wahlen im Allgemeinen und auf die besondern Eigenthüm-<lb/>
+<cb type="end"/>
+<pb facs="#f0007" n="79"/>
+<fw place="top" type="header"><hi rendition="#g">Das Pfennig=Magazin.</hi> </fw><cb type="start"/>
+lichkeiten, welche dabei bis auf die neuesten Zeiten statt-<lb/>
+fanden. Sie gehören zu den besten Arbeiten Hogarth's,<lb/>
+und in ihnen ist eine reiche Fülle von Witz und guter<lb/>
+Laune niedergelegt. Das erste stellt einen Schmaus dar,<lb/>
+den ein junger Gentleman, der sich Hoffnung macht,<lb/>
+zum Parlamentsglied gewählt zu werden, Denjenigen<lb/>
+zum Besten gibt, deren Stimmen er theils schon gewiß<lb/>
+ist, theils noch zu erhalten hofft. Wahrscheinlich ist die<lb/>
+Mehrzahl dieser Gäste schon durch klingende Mittel ge-<lb/>
+wonnen, und hier werden sie abermals durch eine gute<lb/>
+Mahlzeit und allerlei treffliche Weine gewonnen.</p><lb/>
+<p>Jn der Fülle frappanter und charakteristischer Gesich-<lb/>
+ter, welche das Bild darbietet, fällt es einigermaßen schwer,<lb/>
+Denjenigen hervorzusuchen, welcher der Freudenspender<lb/>
+dieses Tages ist. Wir entdecken ihn endlich zur linken<lb/>
+Seite am Ende der Tafel, mit feingepudertem Haare,<lb/>
+Haarbeutel und Manschetten, wie er eben beschäftigt ist,<lb/>
+mit großer Seelenruhe die Liebkosungen einer corpulen-<lb/>
+ten Dame zu erdulden, welche ihm wahrscheinlich ver-<lb/>
+sichern will, daß seine Weine vortrefflich gewesen und er<lb/>
+ein allerliebster, charmanter Mensch ist. Über dieses sehr<lb/>
+verschiedenartige Paar hat sich ein lustiger Vogel hin-<lb/>
+gebeugt, der die brennende Pfeife auf des jungen<lb/>
+Herrn Haupt hält, wahrscheinlich in der feindseligen<lb/>
+Absicht, seine Perücke in Brand zu stecken und so im<lb/>
+eigentlichsten Sinne feurige Kohlen auf sein Haupt zu<lb/>
+sammeln. Vor dem Paar steht ein Kerl, der Cocar-<lb/>
+den, Handschuhe und dergleichen verkauft, und jetzt eben<lb/>
+mit Prüfung einer Banknote beschäftigt ist, die ihm<lb/>
+wahrscheinlich einer der Gäste eingehändigt hat.</p><lb/>
+<p>Unweit der Glasthüre stellt sich eine verliebte Scene<lb/>
+dar, zwischen einem jungen Mädchen und einem Offi-<lb/>
+zier; hinter dem erstern steht ein &#x2014; wie wenigstens seine<lb/>
+verschobene Perücke zeigt &#x2014; vom Wein etwas erhitzter<lb/>
+Notarius, welcher die heimliche Verlobung mit einem<lb/>
+vollen Champagnerglas besiegelt. Der Mann, welcher<lb/>
+dicht hinter dem Gastgeber sitzt, ist sein Geschäftsführer,<lb/>
+er hält einen Brief in der Hand und zeigt unter allen<lb/>
+Anwesenden das verdrießlichste Gesicht. Auch hat er<lb/>
+dazu guten Grund, denn er befindet sich in einer eben-<lb/>
+so eingeengten Lage als sein Herr, indem ihm sein<lb/>
+Nachbar, dem der Wein bereits arg zugesetzt, nächst ei-<lb/>
+ner brünstigen Umarmung auch die unangenehmen<lb/>
+Dämpfe seiner Tabackspfeife zukommen läßt. Dieses<lb/>
+Leiden bemerkt ein Anderer, der dem Geängstigten für<lb/>
+seine Herablassung die Hand drückt.</p><lb/>
+<p>Zur Seite dieses Mitleidigen, um Lichtenberg's<lb/>
+Worte zu gebrauchen, sitzt, wie der volle Mond unter<lb/>
+den kleinen Gestirnen, der Herr Pastor. Er hat ge-<lb/>
+gessen und getrunken, daß ihm selbst der rasirte Kopf<lb/>
+davon raucht. Er nimmt daher die Perücke in die<lb/>
+Hand und wischt sich das Haupt mit dem Taschentuch.<lb/>
+Er ist nicht von hohem Rang, wie man aus der Pe-<lb/>
+rücke sehen kann, welche allmälig anfängt, den Mangel<lb/>
+selbst zu leiden, den sie verdecken soll. Da bei einem<lb/>
+so jungen Candidaten die Gelegenheit so zu schmau-<lb/>
+sen vermuthlich erst nach sieben magern Jahren ( so<lb/>
+lange dauert bekanntlich ein Parlament ) wiederkom-<lb/>
+men möchte, so nutzt er sie aufs Äußerste und auf eine<lb/>
+sich auszeichnende Weise, denn er ist wirklich der Ein-<lb/>
+zige, der in der ganzen Gesellschaft, die nur noch trinkt,<lb/>
+noch allein ißt, und zwar hat er mit der ausgelernten<lb/>
+Vorsicht eines wahren Gourmands ein Feuerbecken vor<lb/>
+sich, auf welchem er sich den Rest einer Rehkeule<lb/>
+wärmt. Zur Rechten steht eine Flasche Champagner<lb/>
+und zur Linken ein Saucennapf.</p><lb/>
+<p>Der Vordergrund enthält eine Scene, welche nicht<lb/>
+sogleich verständlich ist. Ein auf einem Stuhle sitzender<lb/>
+<cb n="2"/>
+Fleischer, dessen Kopf selbst verbunden ist, verbindet einen<lb/>
+Freund, der vor ihm auf einem kleinen Tritt sitzt, und seiner<lb/>
+erhaltenen Kopfwunde ungeachtet, den Appetit an den Li-<lb/>
+queuren des Wahlschmauses noch nicht verloren hat. Wahr-<lb/>
+scheinlich hatten diese beiden Helden einen kleinen Abstecher<lb/>
+auf die Straße gemacht, wo sie im Übermuthe des Weins<lb/>
+mit einigen Andern ihres Zeichens in Händel geriethen,<lb/>
+welche, wie man sieht, zum Nachtheil unserer Gäste<lb/>
+abgelaufen sind. Zu den Füßen Dessen, der verbunden<lb/>
+wird, liegt eine Fahne, worauf die Worte stehen: &#x201E; <hi rendition="#aq">Give<lb/>
+us our eleven days</hi> &#x201C; ( Gebt uns unsere elf Tage wieder ) .<lb/>
+Als nämlich 1752 der gregorianische Kalender in Eng-<lb/>
+land eingeführt wurde, und also elf Tage aus dem<lb/>
+Kalender ausfielen, so sah dies ein Theil des Pöbels<lb/>
+für einen außerordentlichen Verlust an, und es fehlte<lb/>
+nicht, daß sich Einige mit Pöbeleifer der Sache annah-<lb/>
+men. Die Vertheidiger des alten Kalenders rotteten sich<lb/>
+daher unter dieser Fahne zusammen, auf welcher die Bitt-<lb/>
+schrift gleich mit deutlichen Worten geschrieben stand.<lb/>
+Was diese Fahne eigentlich bei diesem Gastmahl für<lb/>
+eine Rolle gespielt hat, ist nicht leicht zu ermitteln, un-<lb/>
+streitig aber stehen die beiden Verwundeten mit ihr in<lb/>
+näherer Verbindung, und vielleicht soll die Fahne sie<lb/>
+nur als Anhänger des alten Kalenderstyls und nebenbei<lb/>
+des Pöbels bezeichnen. Feinen Leuten gleichen sie aller-<lb/>
+dings nicht.</p><lb/>
+<p>An der linken Seite der runden Tafel sitzen drei<lb/>
+Gäste, deren Mienen und Geberden hinlänglich für sich<lb/>
+selbst sprechen. Sie haben Burgunder vor sich stehen<lb/>
+und lachen dabei über ein Possenspiel, das ein irländi-<lb/>
+scher Procurator, Namens Parnel, der wegen seines mun-<lb/>
+tern Geistes und seiner unerschöpflichen Laune damals be-<lb/>
+rühmt und allgemein beliebt war, ihnen vormacht. Das<lb/>
+Spiel, welches er vornimmt, wird dem größten Theil<lb/>
+unserer Leser bekannt sein. Er schlägt nämlich um<lb/>
+seine Faust ein weißes Taschentuch so herum, daß<lb/>
+ein Menschengesicht herauskommt, welches, um der<lb/>
+Einbildungskraft zu Hülfe zu kommen, mittels einer<lb/>
+Kohle mit Augen, Augenbrauen und Nase versehen<lb/>
+wird. Das Hauptsächlichste dabei aber ist der Mund,<lb/>
+der dadurch hervorgebracht wird, daß das Tuch zwi-<lb/>
+schen das untere Paar Finger eingeklemmt wird, wo-<lb/>
+durch er dann durch Auf= und Zuthun der Finger Be-<lb/>
+weglichkeit erhält und zu sprechen scheint. Was er<lb/>
+sprechen soll, spricht hier Herr Parnel. Auf alle Fälle<lb/>
+sind seine Witze abgesehen auf seinen Nachbar zur Lin-<lb/>
+ken, in dessen schrecklich saurer Miene sich die höchste<lb/>
+Verdrießlichkeit ausspricht.</p><lb/>
+<p>An der rechten Seite der Tafel sehen wir eine<lb/>
+Sterbescene. Ein Gentleman nämlich ißt sich zu<lb/>
+Tode an Austern, deren er eine noch auf der Gabel<lb/>
+hält, indem ihn schon der Tod übereilt. Der Chirur-<lb/>
+gus hat ihm eine Ader geöffnet, die nicht mehr fließen<lb/>
+will, hält die Lanzette im Munde und wischt dem Ster-<lb/>
+benden den Todesschweiß vom Gesichte. Hinter diesem<lb/>
+rührenden Auftritt, der das letzte Ende aller Dinge be-<lb/>
+rührt, ereignet sich eine Bestechungsscene. Ein metho-<lb/>
+distischer Schneider nämlich, der ebenfalls eine Stimme<lb/>
+zu vergeben hat, wird hier von einem Agenten des<lb/>
+Wahlbewerbers stark in Versuchung geführt. Der Agent<lb/>
+bietet ihm nämlich eine Hand voll Gold an; sein<lb/>
+kleiner Junge zeigt ihm, daß er keine Schuhe und<lb/>
+nicht die besten Strümpfe habe. Zwischen diesen über-<lb/>
+zeugenden Beweggründen und seinem eignen Gewissen<lb/>
+steht nun der arme Schneider, so rathlos wie Hercules<lb/>
+am Scheidewege. Seine Frau, welche diese Zweifel zu<lb/>
+bemerken scheint, sucht durch ein leises Zupfen an sei-<lb/>
+nem Haar ihren Ehemann für das klingende Argument<lb/>
+<cb type="end"/>
+<pb facs="#f0008" n="80"/>
+<fw place="top" type="header"> <hi rendition="#g">Das Pfennig=Magazin.</hi> </fw><cb type="start"/>
+zu entscheiden, und die immer bedenklicher werdende<lb/>
+Miene des gewissenhaften Mannes scheint zu bestätigen,<lb/>
+daß die dreifache Überredung ihren Zweck bald erreichen<lb/>
+wird.</p><lb/>
+<p>Noch ist zu bemerken die zur Linken des sterben-<lb/>
+den Alderman rücklings mit Verlust der Perücke um-<lb/>
+sinkende Person. Diese Person ist ein Stimmensamm-<lb/>
+ler, dem ein Stein durchs Fenster an den Kopf fliegt,<lb/>
+<cb n="2"/>
+welcher von der Gegenpartei des Wahlcandidaten her-<lb/>
+rührt, die eben tumultuarisch auf der Straße vorbeizieht.<lb/>
+Diese trägt auf einer Bahre einen ausgestopften Juden<lb/>
+mit einem Zettel auf der Brust, auf welchem die Worte<lb/>
+stehen: Keine Juden! Es waren nämlich eben zu jener<lb/>
+Zeit einige den Juden günstige Gesetze durchgegangen,<lb/>
+welche hier und da unter dem Volke Misfallen erregten.</p><lb/>
+<p><ref target="nn_pfennig155_1836#Hogarth2"><hi rendition="#c">( Die Fortsetzung folgt in Nr. 155. )</hi></ref></p>       <cb type="end"/>
+<figure>         <head>  Der Wahlschmaus.  </head>       </figure></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+</body>     <back><div n="1" type="imprint"><p><hi rendition="#c">Verantwortliche Herausgeber: <hi rendition="#g">Friedrich Brockhaus</hi> in <hi rendition="#g">Leipzig</hi> und <hi rendition="#aq">Dr</hi>. C. <hi rendition="#g">Dräxler=Manfred</hi> in <hi rendition="#g">Wien.</hi><lb/>
+Verlag von F. A. <hi rendition="#g">Brockhaus</hi> in Leipzig.</hi></p></div>     </back>   </text> </TEI>

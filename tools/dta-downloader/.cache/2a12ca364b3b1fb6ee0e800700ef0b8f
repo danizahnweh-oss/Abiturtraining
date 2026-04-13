@@ -1,0 +1,1177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.deutschestextarchiv.de/basisformat.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">     <teiHeader>
+<fileDesc>
+<titleStmt>
+<title type="main">Das Pfennig-Magazin für Belehrung und Unterhaltung</title>
+<title type="sub">Neue Folge, Erster Jahrgang, Nr. 24</title>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/115266127">
+<surname>Geyken</surname>
+<forename>Alexander</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1222198746">
+<surname>Haaf</surname>
+<forename>Susanne</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1019062681">
+<surname>Jurish</surname>
+<forename>Bryan</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Boenig</surname>
+<forename>Matthias</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Thomas</surname>
+<forename>Christian</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Wiegand</surname>
+<forename>Frank</forename>
+</persName>
+</editor>
+<respStmt>
+<orgName>Institut für Deutsche Sprache, Mannheim</orgName>
+<resp>
+<note type="remarkResponsibility">Bereitstellung der Bilddigitalisate und TEI
+Transkription</note>
+<ref target="http://hdl.handle.net/10932/00-01B8-B080-C28F-5101-1"/>
+</resp>
+</respStmt>
+<respStmt>
+<persName>
+<forename>Peter</forename>
+<surname>Fankhauser</surname>
+</persName>
+<resp>
+<note type="remarkResponsibility">
+Transformation von TUSTEP nach TEI P5.
+Transformation von TEI P5 in das DTA TEI P5 Format.
+</note>
+</resp>
+</respStmt>
+<respStmt>
+<orgName ref="https://www.bbaw.de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<resp>
+<note type="remarkResponsibility">Langfristige Bereitstellung der DTA-Ausgabe</note>
+<ref target="https://www.bbaw.de"/>
+</resp>
+</respStmt>
+</titleStmt>
+<editionStmt><edition>Vollständige digitalisierte Ausgabe.</edition></editionStmt>
+<extent>
+<measure type="images">8</measure>
+<measure type="tokens">7285</measure>
+<measure type="types">2782</measure>
+<measure type="characters">48604</measure>
+</extent>
+<publicationStmt>
+<publisher xml:id="DTACorpusPublisher">
+<email>dta@bbaw.de</email>
+<orgName role="project">Deutsches Textarchiv</orgName>
+<orgName role="hostingInstitution" xml:lang="en">Berlin-Brandenburg Academy of Sciences and Humanities (BBAW)</orgName>
+<orgName role="hostingInstitution" xml:lang="de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<address>
+<addrLine>Jägerstr. 22/23, 10117 Berlin</addrLine>
+<country>Germany</country>
+</address>
+</publisher>
+<pubPlace>Berlin</pubPlace>
+<date type="publication">2025-10-24T08:35:11Z</date>
+<availability>
+<licence target="http://creativecommons.org/publicdomain/zero/1.0/">
+<p>Dieses Werk steht unter der "Creative Commons Namensnennung -
+Nicht kommerziell 3.0 Deutschland Lizenz" (CC BY-NC).</p>
+</licence>
+</availability>
+<idno>
+<idno type="URLWeb">https://www.deutschestextarchiv.de/nn_pfennig024_1843</idno>
+<idno type="URLXML">https://www.deutschestextarchiv.de/book/download_xml/nn_pfennig024_1843</idno>
+<idno type="URLHTML">https://www.deutschestextarchiv.de/book/download_html/nn_pfennig024_1843</idno>
+<idno type="URLText">https://www.deutschestextarchiv.de/book/download_text/nn_pfennig024_1843</idno>
+<idno type="DTADirName">nn_pfennig024_1843</idno>
+<idno type="DTAID">34716</idno>
+<idno type="URN">urn:nbn:de:kobv:b4-34716-1</idno>
+</idno>
+</publicationStmt>
+<sourceDesc>
+<bibl type="J">Das Pfennig=Magazin für Belehrung und Unterhaltung. Neue Folge, Erster Jahrgang, Nr. 24. Leipzig (Sachsen), 17. Juni 1843.</bibl>
+<biblFull>
+<titleStmt>
+<title level="m" type="main">Das Pfennig-Magazin für Belehrung und Unterhaltung</title>
+<title level="m" type="sub">Neue Folge, Erster Jahrgang, Nr. 24</title>
+</titleStmt>
+<editionStmt>
+<edition n="1"/>
+</editionStmt>
+<publicationStmt>
+<publisher/>
+<pubPlace>Leibzig (Sachsen)</pubPlace>
+<date type="publication">1843</date>
+</publicationStmt>
+</biblFull>
+<msDesc>
+<msIdentifier/>
+<physDesc>
+<typeDesc>
+<p>Fraktur</p>
+</typeDesc>
+</physDesc>
+</msDesc>
+</sourceDesc>
+</fileDesc>
+<encodingDesc>
+<editorialDecl>
+<p>
+<![CDATA[
+<p>Siehe Dokumentation</p>
+]]>
+</p>
+</editorialDecl>
+<tagsDecl>
+<rendition scheme="css" xml:id="aq">font-family:sans-serif</rendition>
+<rendition scheme="css" xml:id="b">font-weight:bold</rendition>
+<rendition scheme="css" xml:id="blue">color:blue</rendition>
+<rendition scheme="css" xml:id="c">display:block; text-align:center</rendition>
+<rendition scheme="css" xml:id="et">display:block; margin-left:2em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et2">display:block; margin-left:4em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et3">display:block; margin-left:6em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="f">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="fr">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="g">letter-spacing:0.125em</rendition>
+<rendition scheme="css" xml:id="i">font-style:italic</rendition>
+<rendition scheme="css" xml:id="in">font-size:150%</rendition>
+<rendition scheme="css" xml:id="k">font-variant:small-caps</rendition>
+<rendition scheme="css" xml:id="larger">font-size:larger</rendition>
+<rendition scheme="css" xml:id="red">color:red</rendition>
+<rendition scheme="css" xml:id="right">display:block; text-align:right</rendition>
+<rendition scheme="css" xml:id="s">text-decoration:line-through</rendition>
+<rendition scheme="css" xml:id="smaller">font-size:smaller</rendition>
+<rendition scheme="css" xml:id="sub">vertical-align:sub; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="sup">vertical-align:super; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="u">text-decoration:underline</rendition>
+<rendition scheme="css" xml:id="uu">border-bottom:double 3px #000</rendition>
+</tagsDecl>
+</encodingDesc>
+<profileDesc>
+<langUsage>
+<language ident="deu">(Früh-)Neuhochdeutsch</language>
+<language ident="deu">German</language>
+</langUsage>
+<textClass>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1main">Gebrauchsliteratur</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1sub">Zeitschrift</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">ready</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">mkhz1</classCode>
+</textClass>
+</profileDesc>
+</teiHeader>
+<text>     <front>
+<pb facs="#f0001" n="[185]"/>
+<titlePage type="heading"><docTitle><titlePart type="main"><hi rendition="#c #fr">Das Pfennig=Magazin<lb/>
+für<lb/>
+<hi rendition="#g">Belehrung und Unterhaltung</hi>.</hi></titlePart></docTitle><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<docImprint><hi rendition="#fr">Nr</hi>. 24. ]                <hi rendition="#c">Neue Folge. Erster Jahrgang.</hi>                <docDate><hi rendition="#right">[ 17. <hi rendition="#g">Juni</hi> 1843.</hi></docDate>              </docImprint></titlePage><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+</front>     <body>       <div n="1" type="jArticle"><head><hi rendition="#fr">Neufundland.</hi></head><lb/>
+<figure>         <head>  Stadt und Hafen St.=Johns.  </head>       </figure><lb/>
+<cb type="start"/>
+<p><hi rendition="#in">D</hi>er Name der Jnsel Neufundland, welche mit der<lb/>
+Halbinsel Labrador und einigen kleinen Nebeninseln ein<lb/>
+eigenes Gouvernement bildet, rührt von den britischen<lb/>
+Ansiedlern her, welche sich hier im J. 1583 niederließen.<lb/>
+Die Franzosen, welche sich später auch daselbst nieder-<lb/>
+ließen, nannten sie <hi rendition="#aq">Terre neuve</hi> oder Neuland. Sie<lb/>
+liegt vor dem großen St.=Lorenzbusen zwischen 46° 30'<lb/>
+und 51° 57' nördl. Br. und zwischen 51° 30' und<lb/>
+59° 22' westlich von Greenwich und hat folglich unter<lb/>
+allen britisch=amerikanischen Besitzungen die geringste Ent-<lb/>
+fernung von Europa, denn der Weg von der Westküste<lb/>
+Jrlands bis zur Ostküste Neufundlands beträgt nicht<lb/>
+über 370 Meilen. Jm Nordwesten wird sie durch die<lb/>
+drei Meilen breite Belleisle=Straße von Labrador, im<lb/>
+Süden durch die Straße Cap Breton von der Jnsel<lb/>
+Breton getrennt. An ihrer Südostspitze liegt die berühmte,<lb/>
+180 Meilen lange und in der Mitte 60 Meilen breite<lb/>
+Neufundlandsbank, welche zu den merkwürdigsten Punk-<lb/>
+ten der Erdoberfläche gehört, denn hier findet schon seit<lb/>
+dem Ende des 15. Jahrhunderts der Kabeljau= oder Stock-<lb/>
+fischfang statt, der Tausende von Schiffen beschäftigt.<lb/>
+Jm J. 1829 verwendeten allein die Vereinigten Staa-<lb/>
+ten 1500 Schiffe zu diesem Fange, wozu noch 608<lb/>
+englische kamen. Diese 2108 Fahrzeuge hatten eine Be-<lb/>
+mannung von 24,110 Mann, fingen über zwei Millio-<lb/>
+nen Centner Fische und bereiteten daraus 17,730 Fässer<lb/>
+Leberthran, dessen niedrigster Preis eine Summe von<lb/>
+<gap reason="illegible"/> Millionen Thaler gab Auch Frankreich nimmt an<lb/>
+dieser Fischerei bedeutenden Antheil, denn 1826 liefen 530<lb/>
+<cb n="2"/>
+ranzösische Schiffe mit einer Bemannung von 10,199<lb/>
+Mann aus und brachten gegen 220,000 Centner Fische<lb/>
+nach Hause, welche ungefähr zwei Millionen Thaler<lb/>
+werth waren.</p><lb/>
+<p>Die Jnsel wurde vor dem 10. Jahrhunderte von<lb/>
+den Norwegern entdeckt, aber in den Stürmen der Zeit<lb/>
+wieder vergessen, bis sie 1497 John Cabot, damals in<lb/>
+Diensten Heinrich's <hi rendition="#aq">VII</hi>., wieder entdeckte. Sein Bericht<lb/>
+über den Reichthum an Fischen, den die Küsten der Jnsel<lb/>
+böten, bewog einige unternehmende Privatleute schon im<lb/>
+J. 1500, Schiffe dahin abzusenden und 1536 versuchte<lb/>
+bereits ein Kaufmann von London, mit der Bemannung<lb/>
+seines Schiffs den Winter auf der Jnsel zuzubringen, aber<lb/>
+die Mühseligkeiten, die sie auszustehen hatten, bewogen sie,<lb/>
+nach England zurückzukehren, noch ehe der Winter vor-<lb/>
+über war. Jm J. 1553 erhielt Sir Humphrey Gil-<lb/>
+bert, der Halbbruder Sir Walter Raleigh's, eine Kü-<lb/>
+stenstrecke von etwa 100 Meilen, um darauf eine Nie-<lb/>
+derlassung zu gründen. Er landete mit fünf kleinen<lb/>
+Schiffen und 200 Colonisten und ließ sich am Meer-<lb/>
+busen von St.=Johns nieder; aber bald brachen Unei-<lb/>
+nigkeiten unter den Ansiedlern aus. Einige kehrten nach<lb/>
+England zurück und von den Bleibenden gingen über<lb/>
+100 auf einer Untersuchungsfahrt bei einem entstande-<lb/>
+nen Sturme an der Südspitze der Jnsel unter. Die<lb/>
+Niederlassung war nun so gut als vernichtet. Nach-<lb/>
+dem noch einige andere Versuche ebenfalls fehlgeschlagen<lb/>
+waren, gründete Sir George Canteret, später Lord Bal-<lb/>
+timore genannt, im Südwesten der Jnsel eine Colonie,<lb/>
+<cb type="end"/>
+<pb facs="#f0002" n="186"/>
+<fw place="top" type="pageNum">186</fw><cb type="start"/>
+welche er Avalon nannte. Zehn Jahre darauf folgte<lb/>
+Lord Falkland und diesem Sir David Kirk. Die Fran-<lb/>
+zosen hatten in dieser Zeit ebenfalls eine Niederlassung<lb/>
+gegründet, aber sie konnten nicht recht aufkommen, weil<lb/>
+sie fünf Procent von ihrem Fange an die britische Re-<lb/>
+gierung abtreten mußten, als Anerkennung ihrer Ober-<lb/>
+herrlichkeit über die Jnsel. Als Karl <hi rendition="#aq">II</hi>. den Franzo-<lb/>
+sen im J. 1675 diesen Tribut erließ, nahm die fran-<lb/>
+zösische Fischerei einen reißenden Aufschwung. Die engli-<lb/>
+schen und französischen Fischer waren aber immer mitein-<lb/>
+ander in Streit und ihre Häkeleien gehörten zu den Veran-<lb/>
+lassungen des Kriegs, den endlich Wilhelm <hi rendition="#aq">III</hi>. Frankreich<lb/>
+erklärte und der den englischen wie den französischen<lb/>
+Niederlassungen verderblich war. Jm J. 1708 wurde<lb/>
+St.=John beinahe zerstört und fast alle englischen Be-<lb/>
+sitzungen sielen in französische Hände, aber im utrechter<lb/>
+Frieden, vom Jahre 1714, wurde die Oberherrlichkeit<lb/>
+Englands wieder anerkannt. Die Franzosen durften da-<lb/>
+für die kleinen Jnseln St.=Pierre und Miquelon am<lb/>
+Placentiabusen jede mit 50 Mann besetzen; das Recht<lb/>
+der Fischerei sollte ihnen unter gewissen Einschränkungen<lb/>
+zustehen, die aber bis auf den heutigen Tag streitig<lb/>
+geblieben sind.</p><lb/>
+<p>Neufundland ist größer als England und Wales zu-<lb/>
+sammen. Das Jnnere ist wenig bekannt. Die Küsten<lb/>
+sind von tiefen Meerbusen zerschnitten, welche 8&#x2014;10<lb/>
+Meilen ins Land hineinreichen. Die Ostküste ist fast<lb/>
+überall rauh und gebirgig, aber die Westseite besteht nur<lb/>
+aus niedrigen Hügeln. Das Klima ist feucht und vor-<lb/>
+züglich zu Anfang und Ende des Winters unangenehm,<lb/>
+ebenso wenn die von Norden nach Süden schwimmen-<lb/>
+den Eisfelder an den Küsten vorüberziehen und der Wind<lb/>
+von der See kommt. Dies geschieht immer im April<lb/>
+und Mai. Jm Sommer ist die Hitze sehr groß.</p><lb/>
+<p>Der Ackerbau wird nie bedeutend werden, obgleich<lb/>
+es an den Flußufern große Strecken fruchtbaren ange-<lb/>
+schwemmten Landes gibt, denn der Fischfang an den<lb/>
+Küsten wirft weit mehr ab, als der mühsame Anbau<lb/>
+eines im Ganzen unwirthlichen Bodens.</p><lb/>
+<p>Wenn der Fischfang nicht so gewinnreich wäre, so<lb/>
+würde die Jnsel wahrscheinlich gar keine Niederlassungen<lb/>
+haben, auch kommen die meisten Menschen hier während<lb/>
+der Fischzeit zusammen. Die Bevölkerung findet sich<lb/>
+übrigens nur auf den Küsten, die zahlreichste auf der<lb/>
+Halbinsel Avalon, welche durch eine kaum1 1 / 2 Stunde<lb/>
+breite Landenge mit dem Körper der Jnsel in Verbin-<lb/>
+dung steht. Die einzelnen Niederlassungen haben äu-<lb/>
+ßerst wenig Verkehr mit einander, daher es in jeder<lb/>
+anders aussieht. Die Sitten und Einrichtungen der er-<lb/>
+sten Ansiedler, welche aus Jersey, England, Jrland,<lb/>
+Schottland oder Frankreich hierherkamen, gehen von<lb/>
+einer Generation auf die andere über; an ein Fortschrei-<lb/>
+ten ist nicht zu denken, wol aber ist die Verwilderung<lb/>
+in Folge des Mangels an Unterricht an vielen Orten<lb/>
+so groß, daß sich die Ansiedler wenig von wirklichen<lb/>
+Wilden unterscheiden. An manchen Orten weiß man<lb/>
+nicht mehr, an welchen Wochentagen man lebt und es<lb/>
+werden auf der Jnsel alle Tage der Woche als Sonn-<lb/>
+tage gefeiert, hier der eine, dort der andere.</p><lb/>
+<p>Die Hauptstadt Neufundlands, von welcher wir um-<lb/>
+stehend eine Abbildung erblicken, ist St.=Johns. Sie<lb/>
+befindet sich auf der äußersten Südspitze der Halbinsel<lb/>
+Avalon und ist der Sitz des Gouverneurs. Sie besteht<lb/>
+aus einer einzigen, fast eine halbe Stunde langen Straße,<lb/>
+welche nördlich um den Hafen herumläuft, und hat im<lb/>
+Winter an 15,000 Einwohner, von denen über 2000<lb/>
+im Sommer mit Fischfang beschäftigt sind. Der hiesige<lb/>
+Hafen ist einer der besten auf der ganzen Jnsel. Der<lb/>
+<cb n="2"/>
+Eingang dazu ist so eng, daß kaum zwei Schiffe zu-<lb/>
+gleich einlaufen können. Der Hafen selbst ist sehr ge-<lb/>
+räumig, auf allen Seiten durch hohe Felsen geschützt<lb/>
+und durch die unangreifbaren Forts Amherst, Townsend<lb/>
+und William vertheidigt. Nur wenige der Häuser sind<lb/>
+von Stein oder Ziegeln, die meisten von Holz. Das<lb/>
+Hauptgewerbe der Einwohner ist hier, wie überall auf<lb/>
+der Jnsel, das Trocknen des Kabeljaus, zu welchem<lb/>
+Zwecke ganz besonders die zahlreichen Klippen benutzt<lb/>
+werden.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Hochzeitsgebräuche in der Umgegend von<lb/>
+Peterwardein.</hi></head><lb/>
+<p><hi rendition="#in">H</hi>ier befragt der heirathslustige Bursche das Mädchen<lb/>
+um ihre Zuneigung nicht selbst, sondern wählt sich einen<lb/>
+Vermittler ( <hi rendition="#aq">Snohok</hi> ) , dem die Gewählte entweder die<lb/>
+Heirath zusagt oder sich auf die Einwilligung der Ältern<lb/>
+beruft. Zeigen sich diese zu solchem Schritte geneigt,<lb/>
+dann wird auch der Tag festgesetzt, am welchem der<lb/>
+Bräutigam mit seinem Beistand ( <hi rendition="#aq">Kum</hi> ) oder dem leibli-<lb/>
+chen Vater zum Mädchen geht, um sie offen zum Weibe<lb/>
+zu begehren. Die Einleitung bildet die Rücksprache über<lb/>
+das Ausstattungsgut des Mädchens und des Burschen,<lb/>
+sei es einstweilen oder zur gänzlichen Abfertigung. Erst<lb/>
+wenn das Materielle der Verbindung zur gegenseitigen<lb/>
+Zufriedenheit abgemacht ist, wird das Herz des Mädchens<lb/>
+zu Rathe gezogen. Jst dieses dem Burschen geneigt,<lb/>
+dann bekommt es von ihm einen Dukaten oder einige<lb/>
+Thaler als Daraufgabe ( <hi rendition="#aq">Kapara</hi> ) . Während des darauf<lb/>
+folgenden Mahls wird über die Art und Zeit des Hei-<lb/>
+rathscontractes, den Ankauf des Brautkleides ( <hi rendition="#aq">Kruvo ) ,</hi><lb/>
+die Bestreitung der Hochzeitsunkosten und Anzahl der<lb/>
+Gäste entschieden. Zur Zeit der kirchlichen Verkündi-<lb/>
+gung geschehen die beiderseitigen Ankäufe und die Wahlen<lb/>
+zweier Brautführer mit ebenso vielen Kranzjungfern. Am<lb/>
+dritten Verkündigungstage begeben sich die Gewählten<lb/>
+zur Braut. Der Anzug der Brautführer ist der Natio-<lb/>
+naltracht ganz entfremdet und zeigt, daß den östlichen<lb/>
+Saum Slavoniens nur der riesige Donauspiegel vom<lb/>
+Ungarlande scheidet. Sie bekommen bei der Braut zwei<lb/>
+Blumensträuße, welche einem am linken, dem andern am<lb/>
+rechten Arme mit schönen Bändern befestigt werden, große<lb/>
+seidene Tücher und eine mit Wein gefüllte Csutura, welche<lb/>
+die Braut mit einem Rosmarinkranze schmückt. Nach<lb/>
+dieser Ausrüstung geschieht die Einladung der Hochzeits-<lb/>
+gäste. Einige Pistolenschüsse geben das Signal, daß sich<lb/>
+der Wagen in Bewegung setze, und die Einladung ge-<lb/>
+schieht mit folgenden Worten, die sich durch gewissenhafte<lb/>
+Tradition vom Vater auf den Sohn fortpflanzen und<lb/>
+gleichsam stereotyp geworden sind: Gelobt sei Jesus! Es<lb/>
+grüßen Euch Braut und Bräutigam, damit Jhr sie zur<lb/>
+Verlobung und von der Verlobung nach Haus geleitet,<lb/>
+daß Jhr kommt auf einen Löffel Fleisch und eine Gabel<lb/>
+Suppe, auf ein Paar Gespräche und Tänze, wie es<lb/>
+unser christlicher Glaube mit sich bringt. Darauf reichen<lb/>
+sie die Csutura den Hausgenossen mit der Auffoderung:<lb/>
+Trinket, noch unter dem Brautkranze! Am Abende<lb/>
+vor dem Verlobungstage kommen die Brautführer und<lb/>
+Kranzjungfern mit einigen Freundinnen bei der Braut<lb/>
+zusammen, um für den Bräutigam den Rosmarinkranz<lb/>
+zu winden. Die Wechselgesänge, welche diesen Act be-<lb/>
+gleiten, stimmen die Gesellschaft so lustig, daß sie oft<lb/>
+der Tagesanbruch noch bei der Braut überrascht.</p><lb/>
+<p>Am Hochzeitstage finden sich die vom Bräutigam<lb/>
+eingeladenen Gäste zur verabredeten Zeit in dessen Woh-<lb/>
+<cb type="end"/>
+<pb facs="#f0003" n="187"/>
+<fw place="top" type="pageNum">187</fw><cb type="start"/>
+nung ein und begeben sich unter Musik und lauten<lb/>
+Freudenäußerungen zur Braut, wo sie die dort harrenden<lb/>
+Gäste jauchzend empfangen. Nachdem dort die Braut-<lb/>
+führer die in einem besondern Gemache versteckte Braut<lb/>
+ausgelöst und herbeigeführt haben, bewegt sich, nach Ver-<lb/>
+theilung des Rosmarins an sämmtliche Gäste und der<lb/>
+Segnung der Braut von Seite ihrer Ältern, der Hoch-<lb/>
+zeitszug in folgender Ordnung in die Kirche. Die Mu-<lb/>
+sikanten gehen an der Spitze, ihnen nach die zwei Braut-<lb/>
+führer unter lautem Aufjauchzen und Tanzen, die zwei<lb/>
+Beistände, der Bräutigam, die zwei Kranzjungfern, die<lb/>
+Braut in ihrer Mitte, und am Schlusse die übrigen<lb/>
+Gäste. Diese Anordnung wagt man nie zu überschrei-<lb/>
+ten, dagegen herrscht bei der Rückkehr aus der Kirche<lb/>
+kein Ordnungszwang. Wenn die Gäste zum Hause der<lb/>
+Braut gelangen, findet ein Gebrauch statt, der unstrei-<lb/>
+tig von der Angrenzung an die Donau den Ursprung<lb/>
+herleitet. Dies ist die sogenannte Überfuhr über die<lb/>
+Schwelle der Küchenthür, an welcher die Köchin mit<lb/>
+dem Ruder in der Hand bei einer mit Wasser gefüllten<lb/>
+Mulde steht, um das Charons=Geschäft gegen Bezah-<lb/>
+lung zu übernehmen. Die Braut, für welche der Braut-<lb/>
+führer das Fahrtgeld entrichtet, eröffnet die Überfuhr<lb/>
+und wird in der Küche von der Schwiegermutter mit<lb/>
+einem Laib Brot und Salz empfangen. Nach geschehe-<lb/>
+nem Handkusse wird ihr Beides gereicht, als Sinnbild,<lb/>
+daß sich das neue Ehepaar wie Brot und Salz verei-<lb/>
+nigen möge. Während die Gäste der Braut folgen,<lb/>
+tanzen die Brautführer vor dem Hause und stoßen, wenn<lb/>
+auf sie die Reihe folgt, die Mulde weg</p><lb/>
+<p>Nun beginnt der Schmaus, das Hauptstück in den<lb/>
+slawischen Hochzeitssitten. Nach Anordnung des Haus-<lb/>
+vaters sitzt der Bräutigam in der Mitte zwischen den<lb/>
+beiden Beiständen oben an, neben diesem die Brautmut-<lb/>
+ter, und in ihrer Mitte die Kranzjungfern mit der<lb/>
+Braut; die übrigen Gäste vertheilt der Zufall und per-<lb/>
+sönliche Zuneigung. Die Brautführer fungiren als Auf-<lb/>
+wärter, soweit es zulässig unter Tanz und Gesang.<lb/>
+Wenn schon der Braten aufgetragen ist, trinken die<lb/>
+Brautführer folgendermaßen die Gesundheiten: Auf die<lb/>
+Gesundheit der zwei Brautstände, der Braut und des<lb/>
+Bräutigams, unsers Hausvaters, der sämmtlichen Gäste<lb/>
+und unserer Musikanten! und legen nach Verabredung<lb/>
+der Musikanten den Letztern einen Zwanziger ein, um<lb/>
+dadurch die übrigen Gäste anzufeuern. Die gefüllten<lb/>
+Gläser machen jetzt die Runde durch alle Gäste, von<lb/>
+den Beiständen angefangen, wobei Jeder nach seiner<lb/>
+Art Gesundheit trinkt und den Musikanten auf einem<lb/>
+dazu bestimmten Teller sein Geldopfer darbringt. Dar-<lb/>
+auf geht auch die Köchin mit verbundener Hand, als<lb/>
+ob diese abgebrüht wäre, den Kochlöffel als ihr Symbol<lb/>
+herumtragend, in Begleitung eines Brautführers, als<lb/>
+Supplicantin von Gast zu Gast, und wenn endlich auch<lb/>
+die Brautführer dem Magen ihren Tribut gezollt, be-<lb/>
+ginnt der Tanz.</p><lb/>
+<p>Der ältere Brautführer eröffnet ihn mit der Braut,<lb/>
+gibt sie dann dem jüngern und aus seiner Hand geht<lb/>
+sie an den Beistand und Bräutigam und endlich nach<lb/>
+Belieben an die übrigen Gäste über, von denen sie einige<lb/>
+nach allen Seiten beleuchten, ob sie nicht etwas schief<lb/>
+gewachsen sei. Als Tänze kommen der deutsche, unga-<lb/>
+rische und Poltertanz am meisten vor. Nach Beendi-<lb/>
+gung derselben wird mitten ins Zimmer ein Sessel ge-<lb/>
+stellt, die Braut darauf gesetzt und ihr eine Haube auf-<lb/>
+gesetzt oder ein Tuch um den Kopf geschlungen, als Zei-<lb/>
+chen, daß sie jetzt eine Frau ist. Nach dieser Ceremo-<lb/>
+nie beginnt der Tanz, der Gesang und das Trinken von<lb/>
+neuem und erst der Tagesanbruch macht dem tollen Trei-<lb/>
+<cb n="2"/>
+ben ein Ende. Nach dem Frühstücke gehen die Be-<lb/>
+gleitungen an. Diese Ehre widerfährt zuerst den Bei-<lb/>
+ständen und endlich jedem Gaste, der etwas zum Be-<lb/>
+sten gibt. Damit ist aber die Feier noch nicht geschlos-<lb/>
+sen; denn nach der Rückkehr folgt die Fortsetzung nur in<lb/>
+einem kleinen Kreise und geht oft auf den nächsten Tag<lb/>
+über, wenn Keller und Küche noch nicht erschöpft sind</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Schiffbruch des &#x201E;Donners</hi>.&#x201C;</head><lb/>
+<p><hi rendition="#in">A</hi>m 3. April 1843 bemerkte die Handelsbrigg &#x201E;le Fu-<lb/>
+ret &#x201C; in der Nähe der canarischen Jnseln ein fast völlig<lb/>
+unter Wasser gesetztes Schiff ohne Masten. Nur der<lb/>
+Vordertheil ragte ein wenig aus dem Wasser. Um den<lb/>
+Stumpf des Fockmastes war ein zerfetztes Zelt und dar-<lb/>
+unter waren acht Männer oder vielmehr acht Skelette,<lb/>
+welche jeden Augenblick eine neue Welle über ihre von<lb/>
+langen Leiden abgehagerten Körper gehen sahen. Dieses<lb/>
+schwimmende Wrack hätte beinahe einen Schiffbruch der<lb/>
+Brigg veranlaßt, dem sie nur durch eine schnelle und<lb/>
+geschickte Wendung entging. Das Wetter erlaubte nicht,<lb/>
+ohne Gefahr dem Wrack zu nahen, an welches sich die<lb/>
+acht Menschengerippe mit der Kraft der Verzweiflung<lb/>
+festhielten. Das Meer ging hohl. Bei Erblickung der<lb/>
+Brigg hoben die acht Unglücklichen, welche, so zu sagen,<lb/>
+über den Wogen schwebten und an den Maststumpf,<lb/>
+der allein aus dem Wasser hervorragte, gelehnt waren,<lb/>
+ihre Arme zum Himmel und schrieen, ihre letzten Kräfte<lb/>
+anstrengend: Ein Boot! Rettet uns! Von den acht<lb/>
+Leuten, welche die Mannschaft der Brigg ausmachten,<lb/>
+lagen sechs am Fieber krank und konnten ihre Hängemat-<lb/>
+ten nicht verlassen, aber das hielt den Capitain nicht<lb/>
+ab, einen Versuch zur Rettung der Unglücklichen zu<lb/>
+machen; er ließ sogleich ein Boot aussetzen und war so<lb/>
+glücklich, die sämmtlichen Schiffbrüchigen an Bord der<lb/>
+Brigg zu bringen.</p><lb/>
+<p>Seit 46 Tagen befanden diese sich in der schreckli-<lb/>
+chen Lage, welcher sie jetzt glücklich entrissen wurden.<lb/>
+Jhr Schiff, &#x201E;der Donner&#x201C; genannt, war mit einer La-<lb/>
+dung Breter von Portland in den Vereinigten Staaten<lb/>
+nach Madeira abgegangen, am 16. Februar aber von<lb/>
+einem wüthenden Sturme überfallen und in den schreck-<lb/>
+lichen Zustand versetzt worden, in welchem es die Brigg<lb/>
+traf. Durch ein unerwartetes Glück war ein Theil des<lb/>
+Vordertheils ihres Schiffs über dem Wasser geblieben,<lb/>
+doch so, daß sie weder vorwärts noch rückwärts konnten<lb/>
+und mit dem Unterkörper größtentheils im Wasser stehen<lb/>
+mußten. Die ersten zwei Tage blieben sie ohne alle<lb/>
+Nahrung, da gesellte sich zu ihren Leiden die furchtbare<lb/>
+Qual des Hungers. Jn dieser Noth tauchte einer in den<lb/>
+untern Schiffsraum und brachte glücklich zwei Fäßchen<lb/>
+Pökelfleisch heraus. Zu dieser Nahrung fügten die Un-<lb/>
+glücklichen die Fische, welche sie mittels eines gebogenen<lb/>
+Nagels fingen. Um ihren Durst zu löschen, sammelten<lb/>
+sie das Regenwasser, so gut es ging. Wenn sie schla-<lb/>
+fen wollten, banden sie sich vor allen Dingen an den<lb/>
+Maststumpf fest, um nicht von dem Wasser, in welchem<lb/>
+sie dann mit dem größern Theile des Körpers lagen und<lb/>
+das auch von Zeit zu Zeit über ihre Köpfe wegschlug,<lb/>
+ins Meer gerissen zu werden. So lebten sie, Rettung<lb/>
+nur durch ein Wunder erwartend, 46 Tage.</p><lb/>
+<p>Einige Tage vor dem Erscheinen der Brigg erhellte<lb/>
+ein Hoffnungsstrahl einen Augenblick ihr trauriges Da-<lb/>
+sein, indem sich am Horizonte zwei Schiffe zeigten. Sie<lb/>
+streckten ihre Hände nach ihnen, befestigten einen Flag-<lb/>
+genfetzen an eine Stange, um sich den fernen Schiffen<lb/>
+<cb type="end"/>
+<pb facs="#f0004" n="188"/>
+<fw place="top" type="pageNum">188</fw><cb type="start"/>
+bemerkbar zu machen. Auch schien es wirklich, als wür-<lb/>
+den sie bemerkt, aber bald mußten sie in ihrem unsagli-<lb/>
+chen Elende auch noch den Schmerz der getäuschten Hoff-<lb/>
+nung empfinden, denn die Schiffe verschwanden plötz-<lb/>
+lich ihren Augen.</p><lb/>
+<p>Wenig Tage darauf trafen sie mit der Brigg zu-<lb/>
+sammen, von welcher sie aber die Bewegung des Meeres<lb/>
+und die Unzulänglichkeit der Rettungsmittel ohne die Ent-<lb/>
+schlossenheit des Capitains auch bald getrennt hätte. Die<lb/>
+Magerkeit der Unglücklichen und ihr leidendes Aussehen<lb/>
+erregte das Mitleid der Bemannung auf das lebhafteste,<lb/>
+denn in ihren Zügen malten sich die Leiden, die sie in<lb/>
+den 46 Tagen zu erdulden gehabt hatten.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Die Arrakatscha.</hi></head><lb/>
+<figure/><lb/>
+<p><hi rendition="#in">D</hi>ie Arrakatscha ist ein Doldengewächs, wie die Möhre<lb/>
+und die Pastinake. Sie hat mit dem Schierling große<lb/>
+Ähnlichkeit, ohne jedoch dessen giftige Eigenschaft zu thei-<lb/>
+len und mit der Kartoffel gleiches Vaterland, denn<lb/>
+sie findet sich am häufigsten an dem Andengebirge in<lb/>
+Südamerika, besonders in den Provinzen von Santa<lb/>
+Fé und Bogota, doch soll sie auch am Atlasgebirge vor-<lb/>
+kommen. Der Umstand, daß sie mit der Kartoffel das<lb/>
+Vaterland theilt, hat die Handelsgärtner verleitet, ihren<lb/>
+Namen auf eine kleine, längliche Frühkartoffel überzu-<lb/>
+tragen, was aber ziemlich allgemein wieder abgekommen<lb/>
+ist, seit man die eigentliche Arrakatscha näher kennen ge-<lb/>
+lernt und eingesehen hat, daß es keine verschiedenern<lb/>
+Pflanzen geben kann als die Arrakatscha und die Kar-<lb/>
+toffel sind.</p><lb/>
+<p>Jn England hat man zuerst Versuche gemacht, sie<lb/>
+anzubauen, und von da ist sie auch nach Deutschland<lb/>
+gekommen, wo sie sich aber erst an das Klima wird ge-<lb/>
+wöhnen müssen und daher zunächst nur im Süden ge-<lb/>
+deihen möchte. Doch liebt sie keineswegs sehr heiße Ge-<lb/>
+genden, sondern ein gemäßigtes Klima, wenn sie nicht<lb/>
+zu sehr in Blätter und Stengel schießen soll.</p><lb/>
+<cb n="2"/>
+<p>Was der Pflanze ihren Werth gibt ist die weiße,<lb/>
+gelbe, oft auch purpurrothe Wurzel, welche die Eigen-<lb/>
+schaften der Kartoffel besitzt und diese noch bei weitem<lb/>
+übertrifft. Zu ihrer Anpflanzung bedarf man einen tie-<lb/>
+fen, leichten, schwarzen Boden. Jn diesen legt man<lb/>
+die in mehre Stücke zerschnittene Wurzel, nicht allzu<lb/>
+tief. Wenn man dafür gesorgt hat, daß jedes Stück<lb/>
+ein Auge behielt, so bildet sich aus jedem Auge eine<lb/>
+Pflanze, welche nach drei bis vier Monaten eine genieß-<lb/>
+bare Wurzel getrieben hat, die an Gestalt und Größe<lb/>
+einem Kuhhorn gleicht. Läßt man die Wurzel noch<lb/>
+länger in der Erde, so wird sie noch viel größer, ohne<lb/>
+deshalb das Geringste von ihrem guten Geschmacke zu<lb/>
+verlieren. Sie gleicht an Festigkeit den besten Wallnüs-<lb/>
+sen, wird wie die Kartoffel zubereitet und ist, ohne so<lb/>
+mehlig zu sein wie diese, eine sehr wohlschmeckende und<lb/>
+dabei leichte und gesunde Speise. Zu Brei gekocht und<lb/>
+der Gährung ausgesetzt, gibt sie ein magenstärkendes<lb/>
+Getränk.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Vergiftung des Biers durch Wasser.</hi></head><lb/>
+<p><hi rendition="#in">L</hi>äßt man ein beliebiges Quantum gutes, reines Braun-<lb/>
+bier auf einem Porzellanteller an der Luft verdampfen,<lb/>
+so bleibt zuletzt ein kleiner Rest von syrupartiger Con-<lb/>
+sistenz zurück, welcher nicht bitter schmeckt und nicht<lb/>
+narkotisch, nicht betäubend ist; läßt man dagegen von<lb/>
+demselben Biere ein mit einem Drittheil frischen Brun-<lb/>
+nenwassers versetztes Quantum auf dieselbe Weise ver-<lb/>
+dampfen, so erhält man einen Rückstand, welcher höchst<lb/>
+bitter schmeckt und betäubend ist. Der Wasserzusatz<lb/>
+hat also das Bier nicht blos geschwächt, sondern<lb/>
+auch verstärkt, geschwächt in seiner wohlthätigen nähren-<lb/>
+den, verstärkt in seiner verderblichen betäubenden Eigen-<lb/>
+schaft. Der Grund dieser Erscheinung ist folgender: Das<lb/>
+Narkotische und Bittere des Hopfens steht in einem gut-<lb/>
+gebrauten Biere mit dem unvergohrenen, durch den Brau-<lb/>
+proceß aus dem Stärkemehl der Gerste entstandenen<lb/>
+Malzzucker und Malzgummi in einer innigen, chemischen<lb/>
+Verbindung. Durch das zugesetzte Brunnenwasser wird<lb/>
+aber diese Verbindung zersetzt, das Narkotische und Bit-<lb/>
+tere folglich wieder frei. Der Verkäufer eines durch Was-<lb/>
+ser verdünnten Biers ist also nicht blos ein Betrüger, er<lb/>
+ist auch ein Vergifter der Gesundheit seiner Mitmenschen.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Hausirhandel der Slowaken des thuroczer<lb/>
+Comitats.</hi></head><lb/>
+<p><hi rendition="#in">D</hi>ie Slowaken aus dem thuroczer Comitat in Ungarn<lb/>
+( im Nordwesten von Ungarn, nördlich von Kremnitz )<lb/>
+treiben einen ausgebreiteten und großartigen Hausirhan-<lb/>
+del mit östreichischen Naturerzeugnissen nicht nur nach<lb/>
+den Ländern an der untern Donau, sondern sogar über<lb/>
+Trapezunt nach Persien, den trans= und ciskaukasischen<lb/>
+Provinzen Rußlands und einem großen Theile des asia-<lb/>
+tischen und europäischen Rußlands. Mit ihrem Kram<lb/>
+auf dem Rücken durchziehen sie die genannten Länder.<lb/>
+Sie sind ein kraftvoller Menschenschlag, ausdauernd,<lb/>
+nüchtern und ganz für dies Geschäft geboren. Sie woh-<lb/>
+nen sämmtlich im thuroczer Comitat und bilden je nach<lb/>
+den Ortschaften verschiedene Handelscompagnien, deren<lb/>
+jeder ein eigenes Land, wo sie ihren Hausirhandel trei-<lb/>
+ben, angewiesen ist, sodaß sie einander nicht im Wege<lb/>
+sind. Sie stehen aber stets in wechselseitiger Verbindung<lb/>
+und haben auch in den entferntesten Ländern gewisse<lb/>
+<cb type="end"/>
+<pb facs="#f0005" n="189"/>
+<fw place="top" type="pageNum">189</fw><cb type="start"/>
+Vereinigungspunkte, wo sie ihre Niederlagen halten und<lb/>
+sich über ihre Unternehmungen verständigen. Die Slo-<lb/>
+waken aus dem Marktflecken Zneo=Varalya und einigen<lb/>
+umliegenden Dörfern verlassen jährlich ihre Heimat mit<lb/>
+400 Wagen, deren jeder eine Waarenladung im Werthe<lb/>
+von 4000 Thalern und darüber enthält. Die Waaren,<lb/>
+ausschließlich wiener Fabrikate, werden von den Hau-<lb/>
+sirern selbst in Wien angekauft und umfassen Seiden-<lb/>
+stoffe, glatte gewebte Wollenwaaren, echte und unechte<lb/>
+Granaten, Decken, Zwirnspitzen, Tüll, Seidenbänder,<lb/>
+Heiligenbilder und Kupferstiche, Canevas, Rasirmesser,<lb/>
+Shawls, Organtine, feine Leinwand, schwarze, seidene<lb/>
+Halstücher. Galacz ist die erste Station, wo sich ein<lb/>
+Theil der Hausirer nach Trapezunt einschifft, um von<lb/>
+da seine Wanderungen nach den russisch=asiatischen Pro-<lb/>
+vinzen fortzusetzen. Die slowakischen Hausirer werden<lb/>
+in Rußland gern gesehen, weil sie sich in ihrem slavi-<lb/>
+schen Jdiom leicht verständlich machen können. Der<lb/>
+Zoll an der russischen Grenze ist sehr hoch, denn ein<lb/>
+Pfund Seide ist z. B. mit 16 Silberrubeln besteuert.<lb/>
+Man kann darnach leicht ermessen, wie theuer die Waa-<lb/>
+ren bezahlt werden müssen, wenn den Slowaken nach<lb/>
+Abzug des Zolls und allen Spesen noch ein Gewinn<lb/>
+in baarem Gelde bleiben soll. Glatte und gewirkte<lb/>
+Seidenstoffe werden in den asiatischen Provinzen ge-<lb/>
+wöhnlich mit dem Vierfachen des Ankaufspreises bezahlt.<lb/>
+Einen bedeutenden Gewinn werfen die falschen böhmischen<lb/>
+Granaten ab, welche vorzüglich in Jmeretien, Georgien<lb/>
+u. s. w. sehr geschätzt sind.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Wirkung des aufgehobenen Negerhandels.</hi></head><lb/>
+<p><hi rendition="#in">D</hi>ie englische Civilisationsgesellschaft hat nach dem Mis-<lb/>
+lingen der Nigerexpedition den Beschluß gefaßt, zur Cul-<lb/>
+tivirung des Jnnern von Afrika die gegenwärtig unter<lb/>
+der Leitung von Methodisten=Missionaren an den Mün-<lb/>
+dungen des Niger stattfindenden Ackerbauversuche zu un-<lb/>
+terstützen, willige und taugliche Neger aus Westindien in<lb/>
+mechanischen Künsten, im Gebrauche des Pflugs und<lb/>
+vorzüglich in der Arzneiwissenschaft unterrichten zu lassen,<lb/>
+baldigst eine eigene Niederlassung für sie auf der afrika-<lb/>
+nischen Küste zu gründen und von da aus schwarze Leh-<lb/>
+rer in das Jnnere zu senden. Die Könige von Barra<lb/>
+und Kombo am Gambia, sowie der König von Ashanti<lb/>
+haben bereits dem Sklavenhandel entsagt und suchen sich<lb/>
+durch Landesproducte zu verschaffen, was sie sonst durch<lb/>
+Sklaven erlangten. Statt der Sklavenkaravanen sieht<lb/>
+man jetzt große Züge von Palmölverkäufern an den Ni-<lb/>
+ger kommen. Jm J. 1842 kamen 500,000 Centner<lb/>
+Palmöl nach England, 1827 nur 98,070.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle" xml:id="Saebel5"><head><hi rendition="#fr">Der heilbringende Säbel.</hi><lb/>
+( Fortsetzung aus Nr. 23. )<note type="editorial">Die Ausgabe, die den 4. Teil, des Artikel enthält, fehlt. <ref target="nn_pfennig022_1843#Saebel3">Die Ausgabe mit dem 3. Teil ist vorhanden.</ref></note></head><lb/>
+<p><hi rendition="#in">M</hi>artha kehrte nun in ihr Dorf zurück. Aber hier<lb/>
+sah es traurig aus. Obgleich es nicht abgebrannt war,<lb/>
+so war doch nichts von ihm übriggeblieben als die<lb/>
+Mauern. Alles Übrige hatte man ins russische Lager<lb/>
+geschleppt und dort verbrannt. Was nicht verbrannt<lb/>
+worden war, hatten die gleich nach der Schlacht in das<lb/>
+Dorf zurückgekehrten Landleute wieder aus dem Lager<lb/>
+geholt und sich daraus Hütten aufgebaut, die an die<lb/>
+Baukunst der Urzeit erinnerten, wo man bei seinen<lb/>
+Bauten keinen andern Zweck hatte, als sich vor Wind,<lb/>
+Wetter und wilden Thieren zu schützen. Martha nahm<lb/>
+<cb n="2"/>
+ihre Wohnung in der bedacht gebliebenen Mühle, deren<lb/>
+Besitzer ihr gleich nach der Schlacht verschiedene Grund-<lb/>
+stücke abgekauft, aber noch nicht bezahlt hatte. Das war<lb/>
+eine große Wohlthat für sie, denn sie wäre schwerlich<lb/>
+mit einer Hütte zu Stande gekommen, da fremde<lb/>
+Hände schwer zu haben waren und ihre eigene Kraft<lb/>
+nicht hinreichte. Das wenige Geld, über das sie verfü-<lb/>
+gen konnte, wendete sie zur Anschaffung von Spinnrä-<lb/>
+dern an.</p><lb/>
+<p>Der Müller hatte ihr ein großes Zimmer mit einer<lb/>
+daranstoßenden großen Kammer eingeräumt, aber sowol<lb/>
+im Zimmer als in der Kammer fehlten die Dielen,<lb/>
+ebenso alle möglichen Möbeln. An Tische, Stühle und<lb/>
+Bettstellen war nicht zu denken. Doch in Kurzem war<lb/>
+Stube und Kammer mit Allem, was sie bedurfte, ver-<lb/>
+sehen; freilich sah es nicht elegant aus, aber es ent-<lb/>
+sprach seinem Zwecke. Jn einem Winkel ihres Kellers<lb/>
+waren einige alte Sauerkrautfässer stehen geblieben und<lb/>
+auf dem feuchten Boden desselben fanden sich noch ei-<lb/>
+nige Breter. Davon errichtete sie ihren Sitzapparat.<lb/>
+Die alten Fässer wurden in die Stube gebracht, die<lb/>
+Breter gereinigt, getrocknet und dann auf die Fässer<lb/>
+gelegt und boten so einem ganzen Dutzend von Perso-<lb/>
+nen Plätze zum Sitzen. Ebenso sinnreich wurde der Bo-<lb/>
+den der Kammer eingerichtet: ein Dutzend Körbe Moos,<lb/>
+das ihr die Kinder aus dem Walde holten, einige<lb/>
+Schütten Stroh, darüber ein Betttuch und darauf ei-<lb/>
+nige Federbetten reichten hin, ein Lager zu Stande zu<lb/>
+bringen, auf dem sie mit ihren Kindern sanfter schlief<lb/>
+als mancher Graf und Fürst auf sybaritischen Flaumen-<lb/>
+pfühlen. Ein paar irdene Töpfe und Schüsseln und<lb/>
+fünf blecherne Löffel machten das Küchen= und Tafelge-<lb/>
+schirr aus; die Bank mußte zugleich die Stelle des Ti-<lb/>
+sches vertreten. Zur Fristung des Lebens ist in der<lb/>
+That nicht so viel nöthig als man glaubt, wenn man<lb/>
+sich in die Umstände zu schicken weiß. Das erkannte<lb/>
+Martha jetzt klarer als je. Der Verkauf des Gespinn-<lb/>
+stes, das sie mit ihren fünf Kindern wöchentlich zusam-<lb/>
+menspann, deckte alle ihre Bedürfnisse. Die Kinder ge-<lb/>
+diehen jetzt nicht minder, als in der Zeit, wo sie noch<lb/>
+auf schön gearbeiteten eichenen Stühlen um den mit<lb/>
+blauem Zwillich gedeckten großen Tisch täglich ihren Ma-<lb/>
+gen füllten, und ihre Herzen waren nicht ärmer gewor-<lb/>
+den an Genüssen. Mit mehr Recht hätte man sagen<lb/>
+können, daß sie reicher geworden wären, denn so manche<lb/>
+Beschäftigung, zu der sie die Noth zwang, erwies sich<lb/>
+für sie als eine Quelle der höchsten Genüsse. Solche<lb/>
+Beschäftigungen hatten immer den Zweck, das Haus<lb/>
+mit Vorräthen zu versorgen. Erst suchten sie Moos,<lb/>
+später Heidelbeeren, Pilze und Holz für den Winter.<lb/>
+Welch eine Lust, wenn eins in seinen Nachforschungen<lb/>
+besonders glücklich war. Das gab Wochen lang Stoff zu<lb/>
+den angenehmsten Erinnerungen. Und wie behagte ih-<lb/>
+nen das Lager, das Essen, die Wärme, wenn sie daran<lb/>
+dachten, daß es ohne ihre Beihülfe bei weitem nicht so<lb/>
+gut ausgefallen sein würde.</p><lb/>
+<p>Einst, es war bereits der Herbst eingetreten, schweifte<lb/>
+Handri im Walde umher und suchte Pilze und dürre<lb/>
+Reiser; da trat er auf etwas Hartes. Die Härte war<lb/>
+ganz eigenthümlich. Es konnte weder Holz noch Stein<lb/>
+sein. Er untersuchte und fand einen Säbel mit einem<lb/>
+schönen vergoldeten Griffe, auf dem feingearbeiteten<lb/>
+Korbe waren allerlei Figuren eingegraben und die Klinge<lb/>
+noch so blank, als wenn sie eben erst aus der Scheide<lb/>
+gezogen worden wäre. Handri jubelte hoch auf über<lb/>
+den glänzenden Fund und begann als ein zweiter Bra-<lb/>
+marbas, mit der langarmigen Nachbarschaft einen bluti-<lb/>
+gen Kampf. So wahr ist es, daß das Werkzeug zum<lb/>
+<cb type="end"/>
+<pb facs="#f0006" n="190"/>
+<fw place="top" type="pageNum">190</fw><cb type="start"/>
+Werke reizt. Der sanfte Handri war auf einmal wie<lb/>
+umgewandelt. Seine Phantasie erhitzte sich. Die Sträu-<lb/>
+cher bekamen Leben, Gestalt, Willen. Jhre Äste schie-<lb/>
+nen ihm Arme, die Zweige daran Schwerter zu sein.<lb/>
+Das Flüstern des Windes mit den Blättern nahm er<lb/>
+als drohende Herausfoderung, als Verhöhnung seiner<lb/>
+Kleinheit, als Spott über sein Schwert. Er konnte<lb/>
+nicht anders, er mußte sich rächen, mußte den übermü-<lb/>
+thigen Feinden zeigen, was er vermöge, und er hieb<lb/>
+darum unbarmherzig darein, daß die abgeschlagenen<lb/>
+Glieder bald fußhoch die Erde bedeckten. Als er end-<lb/>
+lich seine Schmach hinlänglich abgewaschen zu haben<lb/>
+schien, steckte er sein Schwert in die Scheide, d. h. er<lb/>
+ließ es ruhen, denn die Scheide fehlte ihm, und ging<lb/>
+nach Hause, aber ohne Pilze und ohne dürre Reiser.<lb/>
+Er schien sich vor dem Schwerte zu schämen, es zum<lb/>
+Vertrauten so niedriger Beschäftigungen zu machen. Un-<lb/>
+terwegs ging er nicht Schritt für Schritt, wie ein zwei-<lb/>
+beiniges Wesen, sondern er hüpfte und sprang, wie ein<lb/>
+Pferd, und bildete sich ein, daß er zu Rosse säße. Da-<lb/>
+bei schwang er unablässig das Schwert durch die Luft,<lb/>
+als wäre er im wüthendsten Reiterkampfe.</p><lb/>
+<p>Als er nach Hause kam, trat er in stolzer Haltung<lb/>
+vor Martha hin und sagte mit unaussprechlicher Selig-<lb/>
+keit: Martha, seht, was ich gefunden habe; jetzt braucht<lb/>
+Jhr Euch vor keiner Plünderung mehr zu fürchten.</p><lb/>
+<p>Das thue ich auch nicht, sagte Martha ruhig; wo<lb/>
+nichts ist, kann nicht geplündert werden.</p><lb/>
+<p>Handri stutzte über diese Antwort und sah sich über-<lb/>
+rascht um. Schade, fuhr er fort, daß ich den Säbel<lb/>
+nicht früher gefunden habe. Jn Dehlen hätte ich ihn<lb/>
+brauchen können.</p><lb/>
+<p>Jch glaube gar, du meinst, es könne sich eine Katze<lb/>
+vor dir fürchten.</p><lb/>
+<p>Jch meine, es könnte sich mehr vor mir fürchten,<lb/>
+z. B. ein Soldat, oder zwei, oder drei, oder &#x2014;</p><lb/>
+<p>Halt ein! ist dir der Kopf verdreht, Junge? Du<lb/>
+siehst in der That fürchterlich aus! Gut, daß eben Sol-<lb/>
+daten kommen, da kannst du gleich einen Beweis dei-<lb/>
+ner Tapferkeit ablegen, aber hüte dich, daß sie dich nicht<lb/>
+bei den Ohren fassen. Wie Kindern keine Scheere ge-<lb/>
+hört, so gehört ihnen noch weniger ein Schwert.</p><lb/>
+<p>Als Handri die Soldaten erblickte, wurde er auf<lb/>
+einmal kleinlaut. Das Feuer seiner Phantasie war wie<lb/>
+mit kaltem Wasser übergossen worden, und er fühlte<lb/>
+sich wieder so winzigklein, daß ihm die Soldaten wie<lb/>
+Riesen erschienen.</p><lb/>
+<p>Sie werden mir doch den schönen Säbel nicht neh-<lb/>
+men? fragte er ängstlich.</p><lb/>
+<p>Wer weiß, Soldaten können keine Waffen in Hän-<lb/>
+den sehen, in die sie nicht gehören.</p><lb/>
+<p>Jan hatte vor dem Kriege doch auch einen Säbel,<lb/>
+und den hat ihm Niemand genommen.</p><lb/>
+<p>Das ist kein Wunder, Jan's Säbel war ja von<lb/>
+Holz, war ein bloßes Spielwerk, aber deiner ist ein<lb/>
+wirklicher Säbel.</p><lb/>
+<p>Da will ich den Säbel doch schnell verstecken.</p><lb/>
+<p>Mit diesen Worten lief Handri in die Stuben-<lb/>
+kammer, steckte sein Schwert unter das Stroh seines<lb/>
+Nachtlagers und da die Soldaten den Weg nach der<lb/>
+Mühle einschlugen, setzte er sich zu seinem Rade und<lb/>
+spann so aufmerksam an seinem Rocken, wie seit lan-<lb/>
+gen Zeiten nicht.</p><lb/>
+<p>Jn diesem Augenblicke kamen die übrigen vier Kin-<lb/>
+der ins Zimmer gestürmt und schrieen fast außer Athem<lb/>
+und um die Wette: der kranke Offizier kommt.</p><lb/>
+<p>Jn der That trat einige Minuten darauf der Oberst<lb/>
+Dolgoruki ins Zimmer und reichte Marthen herzlich die<lb/>
+<cb n="2"/>
+Hand. Jch muß Euch noch einmal sehen, bevor ich<lb/>
+sterbe, sagte er, Marthen freundlich die Hand drückend.</p><lb/>
+<p>Jhr seht nicht so aus, als sollte es zum Tode gehen,<lb/>
+gnädiger Herr, erwiderte Martha. Jhr seht nach dem<lb/>
+glücklich bestandenen gefährlichen Fieber besser aus, als<lb/>
+ich hätte erwarten können. Jch freue mich, Euch so<lb/>
+wohlauf zu sehen.</p><lb/>
+<p>Das ist bloßer Schein, ich bin viel kränker, als ich<lb/>
+in dem gefährlichen Fieber war.</p><lb/>
+<p>Jch begreife Euch nicht. Gefährlicher krank kann<lb/>
+man nicht sein, als Jhr wart.</p><lb/>
+<p>Und doch ist's so. Der Mensch ist nicht blos Leib,<lb/>
+der Mensch ist auch Seele, Geist, Gemüth. Wenn die<lb/>
+Krankheit in der Seele ihren Sitz aufschlägt, da ist der<lb/>
+Mensch gefährlicher krank als in irgend einer leiblichen<lb/>
+Krankheit.</p><lb/>
+<p>Aber wie könnt Jhr in der Seele krank sein? Jhr<lb/>
+habt ja kein böses Gewissen, Jhr seid so fromm und<lb/>
+so gut.</p><lb/>
+<p>Jhr werdet mich verstehen, Martha, wenn ich Euch<lb/>
+sage, daß mich meine Braut verstoßen hat, von der ich<lb/>
+in meinem Fieber so glückliche Träume träumte.</p><lb/>
+<p>O glaubet ihr nicht. Wie kann eine Braut, und<lb/>
+wäre sie eine Fürstin, einen solchen Bräutigam ver-<lb/>
+stoßen?</p><lb/>
+<p>Es ist in der Welt Manches möglich, was der<lb/>
+schlichte Sinn der Naturkinder für unmöglich hält.<lb/>
+Habt Jhr nie die Eifersucht gekannt?</p><lb/>
+<p>O ja, wenn mein Mann mit Andern tanzte und<lb/>
+ihn eine anlachte, da fuhr mirs immer wie ein Dolch<lb/>
+durch die Seele und ich that dann böse, war's aber<lb/>
+doch nicht. Das wird bei Eurer Braut auch so sein.</p><lb/>
+<p>Es kommt auf die Veranlassung an. Wenn Jhr<lb/>
+geglaubt hättet, daß Euer Mann eine Andere liebte,<lb/>
+während er sich um Eure Hand bewarb, und daß er<lb/>
+sich um Eure Hand blos darum bewarb, weil mit Eu-<lb/>
+rer Hand ein großes Vermögen verbunden war &#x2014;</p><lb/>
+<p>Dann &#x2014; dann hätte ich ihm den Laufpaß ge-<lb/>
+geben.</p><lb/>
+<p>Und was glaubt Jhr wol, daß Euer Mann gefühlt<lb/>
+hätte, wenn ihn ein solches Schicksal bei der innigsten<lb/>
+Liebe zu Euch, also unschuldig getroffen hätte?</p><lb/>
+<p>Das würde ihm freilich großes Herzeleid bereitet<lb/>
+haben.</p><lb/>
+<p>Nun seht, mit solchem Herzeleid gehe ich jetzt aufs<lb/>
+Neue in die Schlacht. Jch werde hoffentlich nicht wie-<lb/>
+der daraus zurückkehren.</p><lb/>
+<p>Aber was hat denn Eure Braut auf so arge Ge-<lb/>
+danken gebracht?</p><lb/>
+<p>Jch begreife es selbst nicht. Ein gefangener Sachse<lb/>
+hat ihr einen Ring zum Verkauf angeboten; wie sie<lb/>
+den Ring besieht, findet sie meinen Namen darauf. Sie<lb/>
+erschrickt und fragt, wie der Ring in seine Hände ge-<lb/>
+kommen sei. Er antwortet, den Ring habe er seiner<lb/>
+Schwester genommen, um ihr die Erinnerung an den<lb/>
+Geber desselben zu benehmen, der sie ja doch nicht hei-<lb/>
+rathen könne. Diese Worte haben sie auf ein Bild<lb/>
+von meinem Lebenswandel geführt, das mich in ihren<lb/>
+Augen ihrer Liebe unwürdig macht.</p><lb/>
+<p>Jetzt erzählte Martha, wie der Beutel, den sie von<lb/>
+dem Obersten empfangen habe, als sie noch in Dehlen<lb/>
+war, einen Ring enthalten und mit dem Ringe verlo-<lb/>
+ren gegangen sei.</p><lb/>
+<p>Dolgoruki gereichte das eben nicht sehr zum Troste,<lb/>
+denn er sah darin kein Mittel, seine Unschuld an den<lb/>
+Tag zu bringen, wol aber ein Spiel des Teufels, der<lb/>
+oft aus den besten Handlungen des Menschen ein Werk-<lb/>
+zeug zu seinem Unglücke macht, um dem Egoismus<lb/>
+<cb type="end"/>
+<pb facs="#f0007" n="191"/>
+<fw place="top" type="pageNum">191</fw><cb type="start"/>
+über das gute Herz den Sieg zu verschaffen; er war<lb/>
+jedoch zu edel, um jene für ihn so unglücklich abgelau-<lb/>
+fene gute Handlung unmännlich zu bereuen; er erinnerte<lb/>
+sich vielmehr an die Verpflichtungen, die er gegen Mar-<lb/>
+tha hatte und zog eilig seine Börse aus der Tasche,<lb/>
+um sie Martha als eine kleine Entschädigung für die<lb/>
+mit ihm gehabte Mühe zu überreichen. Martha machte<lb/>
+keine Umstände, sondern nahm die Börse dankbar an<lb/>
+und sagte tröstend zu dem Offizier:</p><lb/>
+<p>Seid nur gutes Muthes, der liebe Gott wird noch<lb/>
+Alles wieder gut machen. Opfert Euer Leben nicht<lb/>
+muthwillig auf, damit Jhr Gelegenheit behaltet, noch<lb/>
+viel Gutes zu thun.</p><lb/>
+<p>Wie Gott will, sagte der Offizier; mein Leben ge-<lb/>
+hört nicht mehr mir, es gehört dem großen Befreiungs-<lb/>
+kampfe, der nun bald entschieden werden muß. Sterb'<lb/>
+ich, so werde ich dem Himmel dafür danken; sterb' ich<lb/>
+nicht, nun so werde ich das Leben wie ein nothwendi-<lb/>
+ges Übel zu ertragen wissen.</p><lb/>
+<p>Handri war während der Unterredung Marthen's<lb/>
+mit dem Obersten schon mehrmals auf dem Sprunge<lb/>
+gewesen, aber immer hatte er sich wieder gesetzt. Er<lb/>
+kämpfte offenbar mit sich selber. Ein edler Entschluß<lb/>
+wollte verwirklicht sein, aber eine innere mächtige Stimme<lb/>
+war dagegen. Als aber der Offizier von dem großen<lb/>
+Befreiungskampfe sprach, da flog er auf einmal in die<lb/>
+Kammer und kam mit seinem eben gefundenen Säbel<lb/>
+heraus.</p><lb/>
+<p>Hier bring' ich Euch zu Eurem edlen Kampfe einen<lb/>
+Säbel, der seines Gleichen sucht, sagte er mit Thränen<lb/>
+in den Augen.</p><lb/>
+<p>Der Oberst wollte seinen Augen nicht trauen. Er<lb/>
+sah bald den Säbel, bald den Jungen an, der seiner-<lb/>
+seits nicht wußte, was er glauben sollte.</p><lb/>
+<p>Junge, wo hast du diesen Säbel her? fragte er mit<lb/>
+einer Simme, in welcher eine Welt entgegengesetzter<lb/>
+Gefühle zu Tage trat; das ist der Säbel meines theuer-<lb/>
+sten Freundes, des einzigen Schutzengels meiner Liebe,<lb/>
+dessen Einfluß der letzte Stern meiner Hoffnung war.<lb/>
+Jetzt ist auch dieser Stern erloschen und ich bin ganz<lb/>
+unglücklich.</p><lb/>
+<p>Mein Gott, sagte Handri, seid nur nicht böse auf<lb/>
+mich; ich wollte Euch nicht kränken, ich wollte Euch<lb/>
+ein Werkzeug in die Hände geben, mit dem Jhr die<lb/>
+Franzosenköpfe abmähen solltet, wie ich die Distelköpfe.<lb/>
+Glaubt mir, es schneidet wie Gift. Man braucht die<lb/>
+Schärfe einem Distelhalse nur nahe zu bringen, so liegt<lb/>
+der Kopf auch schon auf der Erde. Jch glaube, Jhr<lb/>
+könnt damit ein ganzes Regiment in die Flucht jagen.</p><lb/>
+<p>Jch zweifle nicht daran, mein Sohn, und wäre<lb/>
+auch ganz zufrieden mit deiner Gabe, wenn sie nur nicht<lb/>
+so schreckliche Ahnungen in mir rege machte, sagte Dol-<lb/>
+goruki mit einer Empfindung, die durch die Worte<lb/>
+Handri's offenbar eine lichtere Farbe bekommen hatte.</p><lb/>
+<p>Was für schreckliche Ahnungen könnten denn wol<lb/>
+mit dem armen Säbel in Verbindung stehen? Jch habe<lb/>
+ihn im benachbarten Walde unter hohem Grase hervor-<lb/>
+gezogen, damit er nicht unthätig bleibe, sondern zu der<lb/>
+Franzosenvertreibung das Seinige beitrage. Offenbar<lb/>
+will Gott, daß Jhr den Säbel gebrauchen sollt, darum<lb/>
+lenkte er gerade heute meine Schritte zu der Stelle, wo<lb/>
+er verborgen lag, und ließ mich darauf treten und Un-<lb/>
+tersuchung halten, damit er ja nicht verborgen bliebe.<lb/>
+Freut Euch also lieber, Herr Offizier, daß Euch Gott<lb/>
+so sichtbar zu seinem Werkzeug erwählt hat, und traut<lb/>
+Euren schrecklichen Ahnungen nicht. Jch wollte, ich<lb/>
+wäre alt genug, Euch in den Kampf zu begleiten, denn<lb/>
+der alte Hans sagt, es wäre das ein heiliger Kampf<lb/>
+<cb n="2"/>
+und wer in ihm fiele, würde schnurstracks zum Himmel<lb/>
+auffahren und dort vom lieben Gott selber die Strah-<lb/>
+lenkrone des Verdienstes aufgesetzt erhalten, und wen<lb/>
+das Schwert nicht fressen würde, der würde die Frei-<lb/>
+heit neu geboren und durch die Bluttaufe für ewige Zei-<lb/>
+ten erstarkt sehen; sie würde ihren Sitz in ganz Europa<lb/>
+aufschlagen und mit dem ewigen Frieden zusammenwoh-<lb/>
+nen. Da würden denn Dinge geschehen, die wir uns<lb/>
+jetzt nicht träumen ließen, die er aber nicht mehr erle-<lb/>
+ben würde.</p><lb/>
+<p>Dein alter Hans hat Recht, sagte hier der Oberst,<lb/>
+durch die vernommenen Worte wie umgewandelt, von<lb/>
+dem bevorstehenden Kampfe hängt das Schicksal Euro-<lb/>
+pas ab. Es ist der wichtigste Kampf, der je auf Er-<lb/>
+den gekämpft worden ist, und Unrecht, wenn Jemand<lb/>
+nur an sich denkt und nicht freudig Gut und Blut der<lb/>
+großen Sache zum Opfer bringt. Jch nehme deinen<lb/>
+Säbel als Unterpfand, daß die gute Sache siegen werde,<lb/>
+mein lieber Junge, und wenn ich nicht bestimmt bin,<lb/>
+mein Blut zu der Taufe herzugeben, durch welche die<lb/>
+europäische Freiheit erstarken soll, werde ich dich und<lb/>
+deine Lehren nicht vergessen.</p><lb/>
+<p>Hiermit drückte er Marthen, die über das dreiste<lb/>
+Wesen Handri's völlig sprachlos geworden war und<lb/>
+lange nicht recht wußte, ob sie ihn anklagen oder ent-<lb/>
+schuldigen sollte, einen zweiten vollen Beutel in die Hand<lb/>
+und ging mit dem Säbel davon.</p><lb/>
+<p><ref target="nn_pfennig_025_1843#Saebel6"><hi rendition="#c">( Fortsetzung folgt in Nr. 25. )</hi></ref></p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Die Kathedrale von Sevilla.</hi><lb/>
+Nach der neuesten Schilderung von einem Franzosen.</head><lb/>
+<p><hi rendition="#in">S</hi>ie ist ein hohler Berg, ein umgestürztes Thal; die<lb/>
+pariser Notre=Dame könnte im Mittelschiff mit erhobe-<lb/>
+nem Haupte spazieren gehen; die thurmstarken Pfeiler,<lb/>
+welche so schwach erscheinen, daß ihr Anblick ein unwill-<lb/>
+kürliches Zittern erregt, erheben sich von dem Boden<lb/>
+oder senken sich von dem Gewölbe, wie die Stalaktiten<lb/>
+einer Riesengrotte. Die vier Seitenschiffe, obgleich we-<lb/>
+niger hoch als das Mittelschiff, könnten recht gut Kir-<lb/>
+chen sammt ihren Thürmen aufnehmen. Der Retablo<lb/>
+oder Hauptaltar mit seinen Treppen, seinen architektoni-<lb/>
+schen Überbauen, seinen etagenweise über einandergestell-<lb/>
+ten Säulenreihen ist für sich allein ein unermeßliches<lb/>
+Gebäude. Er steigt fast bis zum Gewölbe empor. Die<lb/>
+Osterkerze, groß wie ein Schiffsmast, wiegt 2050 Cent-<lb/>
+ner. Der eherne Leuchter, welcher sie trägt, ist eine<lb/>
+Art Vendômesäule; er ist nach dem Leuchter des Tem-<lb/>
+pels zu Jerusalem gearbeitet. Alles Übrige ist in dem-<lb/>
+selben Verhältnisse grandios.</p><lb/>
+<p>Man verbrennt in der Kathedrale jährlich 20,000<lb/>
+Pfund Wachs und ebenso viel Öl; der Wein, den der<lb/>
+Meßdienst erfodert, beläuft sich auf 18,750 Litres, denn<lb/>
+man liest täglich an 80 Altären gegen 500 Messen.</p><lb/>
+<p>Der Katafalk der Charwoche, das sogenannte Mo-<lb/>
+nument, ist gegen 100 Fuß hoch. Die Orgelpfeifen<lb/>
+haben das Ansehen der Basaltsäulen der Fingalshöhle,<lb/>
+und doch scheinen die Orkane und Donner, welche aus<lb/>
+den Pfeifen wie aus den Siegeskanonen herauskommen,<lb/>
+nur melodisches Gemurmel, liebliches Vögelgezwitscher<lb/>
+und himmlische Seraphmusik. Man zählt darin 83<lb/>
+Fenster mit Glasmalereien, nach den Cartons von Mi-<lb/>
+chel Angelo, Rafael, Dürer, Peregrino, Tibaldi und Lu-<lb/>
+cas Cambiaso; die ältesten und schönsten sind von dem<lb/>
+berühmten Glasmaler Arnold aus Flandern ausgeführt.<lb/>
+Die jüngern, welche von 1819 herrühren, zeigen, wie<lb/>
+<cb type="end"/>
+<pb facs="#f0008" n="192"/>
+<fw place="top" type="pageNum">192</fw><cb type="start"/>
+die Kunst seit dem 16. Jahrh. ausgeartet ist. Das<lb/>
+Chor ist im gothischen Style gebaut und dermaßen ver-<lb/>
+ziert, daß die Einbildungskraft über der Masse der Ver-<lb/>
+zierungen in Verwirrung geräth.</p><lb/>
+<p>Der Versuch, die Reichthümer der Kathedrale nach<lb/>
+einander zu beschreiben, wäre eine auffallende Thorheit,<lb/>
+denn könnte man auch ein ganzes Jahr auf ihre Be-<lb/>
+sichtigung verwenden und besichtigte vom Morgen bis<lb/>
+Abend, so hätte man am Ende desselben doch noch nicht<lb/>
+Alles gesehen. Ganze Bände reichten nicht hin, um die<lb/>
+Merkwürdigkeiten darin nur aufzuzählen. Die Schnitz-<lb/>
+werke und Gemälde der größten Meister haben kaum<lb/>
+Platz in den vielen Sakristeien, Kapellen u. s. w.</p><lb/>
+<p>Man erliegt unter den Herrlichkeiten und Meister-<lb/>
+werken, mit denen jeder Winkel vollgestopft ist; man<lb/>
+weiß nicht, wo man den Kopf hinwenden soll; das Ver-<lb/>
+langen und die Unmöglichkeit, Alles zu sehen, verursa-<lb/>
+chen einem eine Art Fieberschwindel; man will nichts<lb/>
+vergessen und man fühlt in jeder Minute, daß hier ein<lb/>
+Name dem Gedächtniß entfallen, dort ein Zug in der<lb/>
+Einbildung verwischt oder ein Gemälde an die Stelle<lb/>
+eines andern getreten ist. Man zerbricht sich das Ge-<lb/>
+hirn, empfiehlt den Augen, keinen Blick zu verlieren<lb/>
+und gibt der Einbildungskraft mehr zu tragen als sie<lb/>
+tragen kann. Die geringste Ruhe, die Stunden der<lb/>
+Mahlzeit und des Schlafens scheinen ein Diebstahl<lb/>
+an sich selbst; denn die gebieterische Nothwendigkeit reißt<lb/>
+einen fort und bald muß man abreisen.</p><lb/>
+<p>Da ich nicht von Allem sprechen kann, will ich mich<lb/>
+auf die Erwähnung des heiligen Antonius von Padua<lb/>
+von Murillo beschränken. Dieses Gemälde, das an Magie<lb/>
+der Wirkung nicht seines Gleichen haben kann, schmückt<lb/>
+die Taufkapelle. Der Heilige liegt in Verzückung auf<lb/>
+den Knieen, mitten in seiner Zelle, deren Einzelnheiten<lb/>
+alle mit jener kräftigen Wahrheit wiedergegeben sind,<lb/>
+durch welche sich die spanische Schule auszeichnet. Durch<lb/>
+die halbgeöffnete Thüre sieht man einen jener zur Träu-<lb/>
+merei so einladenden langen weißen, auf Arkaden ruhen-<lb/>
+den Kreuzgänge. Den obern in ein weißes, durchsich-<lb/>
+tiges, duftiges Licht getauchten Theil des Gemäldes neh-<lb/>
+men Engelgruppen von wahrhaft idealer Schönheit ein.<lb/>
+Durch die Macht des Gebets angezogen, steigt das Je-<lb/>
+suskind von Wolke zu Wolke in die Arme des Heiligen<lb/>
+herab, dessen Haupt mit strahlendem Lichte umgeben und<lb/>
+zum Himmel erhoben ist.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Der Regenbogen.</hi></head><lb/>
+<p><hi rendition="#in">D</hi>er Regenbogen ist in Jndien der Bogen des Regen-<lb/>
+gottes Jndra; in China die Stütze des Himmelsgewöl-<lb/>
+bes. Jn Peru ist ihm ein Tempel geweiht, bei den<lb/>
+Karaiben besteht aus ihm das Diadem des Meergottes,<lb/>
+bei den Esthen die Sichel des Donnergottes, bei den<lb/>
+Litthauern der bunte Gürtel der Göttin Laima. Die<lb/>
+Deutschen machten daraus eine Brücke zwischen Him-<lb/>
+mel und Erde, die Griechen eine Götterbotin. Nach<lb/>
+biblischen Vorstellungen ist der Regenbogen ein Bundes-<lb/>
+zeichen, in der katholischen Kirche ein Sinnbild der<lb/>
+Dreieinigkeit auch der Jungfrau Maria.</p></div><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<div n="1" type="jVarious"><head><hi rendition="#fr">Miscellen.</hi></head><lb/>
+<div n="2" type="jArticle"><p>Sidi=Ben=Aissa, Sohn des ehemaligen Khalifen des Sa-<lb/>
+hel, der seinem zu den Galeeren verurtheilten Vater nach   <lb/>
+<cb n="2"/>
+Frankreich folgte und durch unermüdete Anstrengung endlich<lb/>
+die Freilassung desselben bewirkte, macht gegenwärtig viel Auf-<lb/>
+sehen in Paris. Seit einem Jahre daselbst, spricht er das<lb/>
+Französische mit einer bewundernswürdigen Geläufigkeit; er<lb/>
+hat die arabische Tracht abgelegt und trägt lackirte Stiefeln<lb/>
+und Glacéhandschuhe, einen Paletot und einen Kastorhut, stu-<lb/>
+dirt aber auch mit großem Erfolge Mathematik, Geographie,<lb/>
+Geschichte, Ökonomie u. s. w. Jn den Soirées umringt man<lb/>
+ihn als das Wunder des Tages, besonders werden die Damen<lb/>
+nicht müde, Fragen an ihn zu stellen und sich an seinen tref-<lb/>
+fenden Antworten zu ergötzen. So fragte ihn neulich die Grä-<lb/>
+fin Montalivet, was er von Frankreich denke? Die Musel-<lb/>
+männer, antwortete er rasch, haben ein Paradies im Himmel,<lb/>
+die Franzosen haben es schon auf Erden. Als man ihn fragte,<lb/>
+was er mehr liebe, Afrika oder Paris? sagte er mit geistrei-<lb/>
+chem Lächeln: Afrika ist meine Mutter, Paris meine Geliebte.   </p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Lieutenant M'Mundo hat vom Capitain Roß, der sich<lb/>
+bekanntlich auf einer Südpolexpedition befindet, gute Nachrich-<lb/>
+ten nach London gebracht. Die Schiffe Terror und Erebus<lb/>
+unter Capitain Crozier gingen auf ihrer zweiten Fahrt süd-<lb/>
+wärts und untersuchten, sich wie früher zwischen 177° und<lb/>
+180° L. haltend, noch einmal das früher entdeckte Land, das<lb/>
+in einen hohen Berg ausläuft. Man vermuthet, daß sie da<lb/>
+den magnetischen Pol entdeckten und eine Breite von 80°<lb/>
+südl. Br. erreichten.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Jn Norwegen ist die Consumtion des Kaffees seit 1825<lb/>
+von einer Million auf vier Millionen gestiegen.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Der berühmte Fußreisende Mensen Ernst, der sich vorge-<lb/>
+nommen hatte, die Quellen des weißen Nils aufzusuchen,<lb/>
+wurde von der Ruhr befallen und starb zu Ende Januars<lb/>
+in Syene.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p><hi rendition="#g">Gußeiserne Eisenbahn.</hi> Die beabsichtigte Verbin-<lb/>
+dung der liverpool=manchester Eisenbahn bei Hunts=Bank legt<lb/>
+der Bolton=Eisenbahngesellschaft die Verbindlichkeit auf, eine<lb/>
+2&#x2014;300 Ellen lange Strecke auszuführen. Sie wird durchaus<lb/>
+von Gußeisen hergestellt, und zwar wird die Bahn 18 Fuß<lb/>
+hoch über dem Pflaster gelegt, zu welchem Behufe man 51<lb/>
+gußeiserne Balken, jeden von 7 Tonnen, und eine gleiche An-<lb/>
+zahl Säulen, jede von 5 Tonnen Last, nöthig hat. Überdies<lb/>
+erhält die Straße in ihrer ganzen Länge und Breite einen<lb/>
+gußeisernen Boden. Das Ganze wird ein Gewicht von 1030<lb/>
+Tonnen haben, ohne die Schienen und das Stabeisen. Die<lb/>
+Eisenbahn soll die Mitte der Straße einnehmen und läßt auf<lb/>
+jeder Seite einen Fahrweg frei.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Während den Dampfschiffen nachgesagt wurde, daß sie<lb/>
+die Fische auf ihrem Fahrwasser vertreiben, gehen die Vögel<lb/>
+den Locomotiven zu Liebe. Auf dem berlin=anhaltschen Bahn-<lb/>
+hofe hat sich ein Haubenlerchenpaar hart an der innern Seite<lb/>
+einer Bahnschiene ein Nest erbaut. Trotz der fortwährend<lb/>
+darüber hindonnernden und brausenden Locomotiven hat das<lb/>
+Weibchen vier Eier ausgebrütet und die Jungen wachsen und<lb/>
+gedeihen.</p></div></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jAn"><head><hi rendition="#fr">Literarische Anzeige.</hi></head><lb/>
+<p>Bei August Hirschwald in Berlin ist soeben er-<lb/>
+schienen und in allen Buchhandlungen zu haben:   </p><lb/>
+<p><hi rendition="#fr #b #larger #c">Schwimm= und Sprung-<lb/>
+Gymnastik.</hi><lb/>
+<hi rendition="#c"><hi rendition="#fr">Beschrieben und bildlich dargestellt</hi><lb/>
+von <lb/>
+<hi rendition="#aq">Herm. Otto Kluge.</hi> <lb/>
+<hi rendition="#fr">Mit 53 Tafeln Abbildungen.</hi><lb/>
+Gr. 12. Velinpapier. Cartonnirt. Preis 1 Thlr. 10 Sgr.</hi></p></div><lb/>
+<cb type="end"/>
+<milestone unit="section" rendition="#hr"/><lb/>
+</body>     <back><div n="1" type="imprint"><p><hi rendition="#c">Herausgegeben unter Verantwortlichkeit der Verlagshandlung F. A. <hi rendition="#g">Brockhaus</hi> in <hi rendition="#g">Leipzig</hi>.</hi></p></div>     </back>   </text> </TEI>

@@ -1,0 +1,948 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.deutschestextarchiv.de/basisformat.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">     <teiHeader>
+<fileDesc>
+<titleStmt>
+<title type="main">Das Pfennig-Magazin der Gesellschaft zur Verbreitung gemeinnütziger Kenntnisse</title>
+<title type="sub">Nr. 154</title>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/115266127">
+<surname>Geyken</surname>
+<forename>Alexander</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1222198746">
+<surname>Haaf</surname>
+<forename>Susanne</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1019062681">
+<surname>Jurish</surname>
+<forename>Bryan</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Boenig</surname>
+<forename>Matthias</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Thomas</surname>
+<forename>Christian</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Wiegand</surname>
+<forename>Frank</forename>
+</persName>
+</editor>
+<respStmt>
+<orgName>Institut für Deutsche Sprache, Mannheim</orgName>
+<resp>
+<note type="remarkResponsibility">Bereitstellung der Bilddigitalisate und TEI
+Transkription</note>
+<ref target="http://hdl.handle.net/10932/00-01B8-B04C-CEEE-6F01-6"/>
+</resp>
+</respStmt>
+<respStmt>
+<persName>
+<forename>Peter</forename>
+<surname>Fankhauser</surname>
+</persName>
+<resp>
+<note type="remarkResponsibility">
+Transformation von TUSTEP nach TEI P5.
+Transformation von TEI P5 in das DTA TEI P5 Format.
+</note>
+</resp>
+</respStmt>
+<respStmt>
+<orgName ref="https://www.bbaw.de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<resp>
+<note type="remarkResponsibility">Langfristige Bereitstellung der DTA-Ausgabe</note>
+<ref target="https://www.bbaw.de"/>
+</resp>
+</respStmt>
+</titleStmt>
+<editionStmt><edition>Vollständige digitalisierte Ausgabe.</edition></editionStmt>
+<extent>
+<measure type="images">8</measure>
+<measure type="tokens">5671</measure>
+<measure type="types">2117</measure>
+<measure type="characters">39189</measure>
+</extent>
+<publicationStmt>
+<publisher xml:id="DTACorpusPublisher">
+<email>dta@bbaw.de</email>
+<orgName role="project">Deutsches Textarchiv</orgName>
+<orgName role="hostingInstitution" xml:lang="en">Berlin-Brandenburg Academy of Sciences and Humanities (BBAW)</orgName>
+<orgName role="hostingInstitution" xml:lang="de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<address>
+<addrLine>Jägerstr. 22/23, 10117 Berlin</addrLine>
+<country>Germany</country>
+</address>
+</publisher>
+<pubPlace>Berlin</pubPlace>
+<date type="publication">2025-10-24T08:35:16Z</date>
+<availability>
+<licence target="http://creativecommons.org/publicdomain/zero/1.0/">
+<p>Dieses Werk steht unter der "Creative Commons Namensnennung -
+Nicht kommerziell 3.0 Deutschland Lizenz" (CC BY-NC).</p>
+</licence>
+</availability>
+<idno>
+<idno type="URLWeb">https://www.deutschestextarchiv.de/nn_pfennig154_1836</idno>
+<idno type="URLXML">https://www.deutschestextarchiv.de/book/download_xml/nn_pfennig154_1836</idno>
+<idno type="URLHTML">https://www.deutschestextarchiv.de/book/download_html/nn_pfennig154_1836</idno>
+<idno type="URLText">https://www.deutschestextarchiv.de/book/download_text/nn_pfennig154_1836</idno>
+<idno type="DTADirName">nn_pfennig154_1836</idno>
+<idno type="DTAID">34755</idno>
+<idno type="URN">urn:nbn:de:kobv:b4-34755-5</idno>
+</idno>
+</publicationStmt>
+<sourceDesc>
+<bibl type="J">Das Pfennig=Magazin der Gesellschaft zur Verbreitung gemeinnütziger Kenntnisse. Nr. 154. Leipzig (Sachsen), 12. März 1836.</bibl>
+<biblFull>
+<titleStmt>
+<title level="m" type="main">Das Pfennig-Magazin der Gesellschaft zur Verbreitung gemeinnütziger Kenntnisse</title>
+<title level="m" type="sub">Nr. 154</title>
+</titleStmt>
+<editionStmt>
+<edition n="1"/>
+</editionStmt>
+<publicationStmt>
+<publisher/>
+<pubPlace>Leibzig (Sachsen)</pubPlace>
+<date type="publication">1836</date>
+</publicationStmt>
+</biblFull>
+<msDesc>
+<msIdentifier/>
+<physDesc>
+<typeDesc>
+<p>Fraktur</p>
+</typeDesc>
+</physDesc>
+</msDesc>
+</sourceDesc>
+</fileDesc>
+<encodingDesc>
+<editorialDecl>
+<p>
+<![CDATA[
+<p>Siehe Dokumentation</p>
+]]>
+</p>
+</editorialDecl>
+<tagsDecl>
+<rendition scheme="css" xml:id="aq">font-family:sans-serif</rendition>
+<rendition scheme="css" xml:id="b">font-weight:bold</rendition>
+<rendition scheme="css" xml:id="blue">color:blue</rendition>
+<rendition scheme="css" xml:id="c">display:block; text-align:center</rendition>
+<rendition scheme="css" xml:id="et">display:block; margin-left:2em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et2">display:block; margin-left:4em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et3">display:block; margin-left:6em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="f">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="fr">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="g">letter-spacing:0.125em</rendition>
+<rendition scheme="css" xml:id="i">font-style:italic</rendition>
+<rendition scheme="css" xml:id="in">font-size:150%</rendition>
+<rendition scheme="css" xml:id="k">font-variant:small-caps</rendition>
+<rendition scheme="css" xml:id="larger">font-size:larger</rendition>
+<rendition scheme="css" xml:id="red">color:red</rendition>
+<rendition scheme="css" xml:id="right">display:block; text-align:right</rendition>
+<rendition scheme="css" xml:id="s">text-decoration:line-through</rendition>
+<rendition scheme="css" xml:id="smaller">font-size:smaller</rendition>
+<rendition scheme="css" xml:id="sub">vertical-align:sub; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="sup">vertical-align:super; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="u">text-decoration:underline</rendition>
+<rendition scheme="css" xml:id="uu">border-bottom:double 3px #000</rendition>
+</tagsDecl>
+</encodingDesc>
+<profileDesc>
+<langUsage>
+<language ident="deu">(Früh-)Neuhochdeutsch</language>
+<language ident="deu">German</language>
+</langUsage>
+<textClass>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1main">Gebrauchsliteratur</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1sub">Zeitschrift</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">ready</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">mkhz1</classCode>
+</textClass>
+</profileDesc>
+</teiHeader>
+<text>     <front>
+<pb facs="#f0001" n="[81]"/>
+<titlePage type="heading"><docTitle><titlePart type="main"><hi rendition="#c #fr">Das Pfennig=Magazin<lb/>
+<hi rendition="#g">der</hi><lb/>
+Gesellschaft zur Verbreitung gemeinnütziger Kenntnisse.</hi></titlePart></docTitle><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<docImprint><hi rendition="#fr">Nr</hi>. 154. ]              <hi rendition="#c">Erscheint jeden Sonnabend.</hi>              <docDate><hi rendition="#right">[<hi rendition="#g">März</hi> 12, 1836.</hi></docDate>            </docImprint></titlePage><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+</front>     <body>       <div n="1" type="jArticle"><head><hi rendition="#fr"><hi rendition="#g">Leonardo da Vinci und sein Abendmahl</hi>.</hi></head><lb/>
+<figure/><lb/>
+<cb type="start"/>
+<p><hi rendition="#in">L</hi>eonardo da Vinci, dessen ausdrucksvolles Bildniß wir<lb/>
+hier in der Abbildung mittheilen, der berühmte Stifter<lb/>
+der florentinischen Malerschule, ward um 1450 in dem<lb/>
+Flecken Vinci unweit Florenz geboren. Er beschäftigte<lb/>
+sich schon in früher Jugend mit Malerei, Bildhauerei,<lb/>
+Baukunst, Poesie und Musik, und wurde noch sehr<lb/>
+jung von dem Herzog Sforza nach Mailand be-<lb/>
+rufen. Hier stiftete er eine Zeichnenakademie, und er-<lb/>
+warb sich auch als einsichtsvoller Baumeister große Ver-<lb/>
+dienste, ging aber 1499 nach Florenz zurück, erwarb<lb/>
+sich dort, fleißig arbeitend, durch seine herrlichen Ge-<lb/>
+mälde ein beträchtliches Vermögen, und sein Haus stand<lb/>
+an Pracht der Einrichtung den Palästen der Fürsten nicht<lb/>
+nach; er hielt sich, wie diese, Pagen und eine ansehn-<lb/>
+liche Dienerschaft, und war geehrt und geliebt von Al-<lb/>
+len, die ihn kannten. Von Florenz ging er nach Rom,<lb/>
+wo er jedoch nicht lange verweilte, und 1515 folgte er<lb/>
+einer Einladung des Königs Franz <hi rendition="#aq">I</hi>. nach Frankreich,<lb/>
+hier aber beschäftigte er sich fast nur mit Alchemie und<lb/>
+starb daselbst 1519, nicht aber, wie bisher angenommen<lb/>
+wurde, in den Armen seines königlichen Freundes.</p><lb/>
+<p>Leonardo da Vinci war ein Meister, der seiner<lb/>
+Kunst sein ganzes Leben hindurch das tiefste Studium<lb/>
+widmete. Die höchste Wahrheit in der Darstellung war<lb/>
+das Ziel, das er sich vorgesteckt hatte. Darum war<lb/>
+der verschiedenartige Ausdruck im menschlichen Charakter<lb/>
+für ihn ein Gegenstand unausgesetzter Beobachtungen.<lb/>
+Er pflegte deshalb selbst Menschen aus den niedern<lb/>
+Ständen um sich zu versammeln, die er durch Wein<lb/>
+<cb n="2"/>
+und Scherze aufregte, bis sie sich in ihrer frohen Laune<lb/>
+ohne Rückhalt gehen ließen. Alsdann zeichnete Leo-<lb/>
+nardo die ausdrucksvollsten Gesichter der lustigen Gesell-<lb/>
+schaft für seine Studien. Oft begleitete er auch Ver-<lb/>
+brecher zum Richtplatz und studirte auf ihren bleichen<lb/>
+Gesichtern die allmälige Steigerung der Todesangst.<lb/>
+Stets trug er ein Taschenbuch bei sich, in welches er<lb/>
+jede auffallende Gestalt, besonders ausdrucksvolle Köpfe<lb/>
+mit wenigen kühnen Zügen zeichnete. Aus diesen flüch-<lb/>
+tigen Skizzen ist die Sammlung von Caricaturen entstan-<lb/>
+den, welche bald nach seinem Tode bekannt gemacht wurde.</p><lb/>
+<p>Das berühmteste Gemälde dieses Meisters ist das auf<lb/>
+S. 88 dargestellte Abendmahl des Herrn im ehemaligen<lb/>
+Refectorium der Dominikaner von Sta. <gap reason="illegible" unit="chars" quantity="6"/>=Maria delle Grazie<lb/>
+zu Mailand. Der Maler hat zu seiner Darstellung den<lb/>
+Augenblick gewählt, wo Christus die Worte spricht: Einer<lb/>
+unter Euch wird mich verrathen! Er hat den Gesichtszügen<lb/>
+der Apostel mit bewunderungswürdiger Kunst einen Aus-<lb/>
+druck gegeben, in welchem Neugier, Furcht und das<lb/>
+Verlangen, ihre Unschuld an den Tag zu legen, sich<lb/>
+vermischen. Der Kopf des Judas machte dem Künst-<lb/>
+ler die meiste Schwierigkeit, da er demselben den Aus-<lb/>
+druck der höchsten Bosheit und Treulosigkeit zu geben<lb/>
+bemüht war; daß er aber, wie wol erzählt wird, in<lb/>
+seinem Judaskopf den Prior des Klosters abgebildet<lb/>
+habe, ist eine Fabel. Ebenso ungegründet ist es, wenn<lb/>
+Einige erzählen, daß Leonardo da Vinci, so viele Ver-<lb/>
+suche er auch gemacht habe, nie den Kopf des Heilandes<lb/>
+habe vollenden können, weil es ihm unmöglich geschie-<lb/>
+<cb type="end"/>
+<pb facs="#f0002" n="82"/>
+<fw place="top" type="header"> <hi rendition="#g">Das Pfennig=Magazin.</hi> </fw><cb type="start"/>
+nen, die Göttlichkeit in der menschlichen Gestalt auszu-<lb/>
+drücken, vielmehr versichern uns ältere Kunstschriftstel-<lb/>
+ler, daß der Kopf Christi in dem Bilde auf bewun-<lb/>
+derungswürdige Weise vollendet gewesen sei. Durch die<lb/>
+Länge der Zeit und bei der unverzeihlichen Nachlässig-<lb/>
+keit, womit die Mönche das Gemälde behandelten, wurde<lb/>
+jener Kopf jedoch verwischt. Das Frescobild, welches schon<lb/>
+in frühern Zeiten außerordentlich gelitten hatte, da es<lb/>
+auf eine feuchte, viel Salpeter absetzende Wand ge-<lb/>
+malt war, wurde 1726 durch einen mailändischen Ma-<lb/>
+ler, welcher das Geheimniß zu besitzen vorgab, verbli-<lb/>
+chene Farben wiederherstellen zu können, sehr verderbt,<lb/>
+wozu noch kam, daß das Refectorium längere Zeit als<lb/>
+Heu= und Strohmagazin benutzt ward, und so das<lb/>
+Gemälde dem Muthwillen der Soldaten preisgegeben<lb/>
+wurde. Man besitzt jedoch zahlreiche Copien dieses herrli-<lb/>
+chen Bildes, von welchen die vorzüglichsten von Leonardo's<lb/>
+Schülern herrühren, und da diese mit der größten Ge-<lb/>
+nauigkeit ausgeführt sind und sich sehr gut erhalten ha-<lb/>
+ben, so sind sie gegenwärtig zur Beurtheilung des Werks<lb/>
+fast wichtiger als das Original selbst. Um dieses er-<lb/>
+warb sich seit Aufhebung des Klosters die Behörde da-<lb/>
+durch ein besonderes Verdienst, daß sie es gegen weite-<lb/>
+res Verderben so viel möglich schützte und für die Be-<lb/>
+schauer zugänglicher machte.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr"><hi rendition="#g">Die Bereitung des Schweizerkäses</hi>.</hi></head><lb/>
+<p><hi rendition="#in">D</hi>ie Bereitung des so allgemein gesuchten Schweizer-<lb/>
+käses ist so einfach, daß man sie ohne große Schwie-<lb/>
+rigkeit überall nachmachen kann, wo Käse überhaupt be-<lb/>
+reitet wird. Wenn auch der Geschmack des nach unten<lb/>
+beschriebener Schweizerart bereiteten Käses nicht der sein<lb/>
+sollte, welchen der Käse, den wir unmittelbar aus der<lb/>
+Schweiz beziehen, besitzt, so liegt es vielleicht nicht so-<lb/>
+wol in der falschen Bereitung, sondern wol meist in der<lb/>
+Beschaffenheit der Milch unserer Kühe, die aus weniger<lb/>
+kräftigen und gedeihlichen Kräutern erzeugt wird, wäh-<lb/>
+rend die der Kühe in der Schweiz vermöge ihrer ganz<lb/>
+andern Lebensweise, die bedeutenden Einfluß auf die Milch<lb/>
+äußert, eine weit fettigere und eigenthümliche Milch geben.</p><lb/>
+<p>Für Diejenigen, welche mit dem Gegenstande nur im<lb/>
+Allgemeinen bekannt sind, diene vorher folgende Erläu-<lb/>
+terung. Die Kuhmilch, woraus wir verschiedene Käse<lb/>
+bereiten, enthält als Bestandtheile: Wasser, Käsestoff,<lb/>
+verschiedene Fettarten, Butter u. s. w., Milchzucker,<lb/>
+Milchsäure, Salze und einige wenige Extractivstoffe.<lb/>
+Woher es nun aber kommt, daß man blos aus<lb/>
+Milch Käse bereiten kann, liegt eben darin, weil keine<lb/>
+andere Flüssigkeit Käsestoff enthält. Der Käsestoff wird<lb/>
+bei der Milcherzeugung vermehrt, wenn man den Kühen<lb/>
+viel Kleber und eiweißstoffhaltige Pflanzen füttert; der<lb/>
+Gehalt des Fettes oder Rahms nimmt zu, wenn man<lb/>
+ihnen Öl führende Samen gibt. Jm Allgemeinen ge-<lb/>
+ben Kühe vom vierten bis zehnten Lebensjahre die beste<lb/>
+und reichste, jüngere nur wenig, ältere nicht so viel kä-<lb/>
+sestoffhaltige Milch. Milch von erhitzten oder kranken<lb/>
+Kühen taugt nicht zur Käsebereitung. Ehe wir den<lb/>
+in der Milch enthaltenen Käsestoff zur Käsebereitung<lb/>
+gewinnen können, bedürfen wir noch eines zweiten Stof-<lb/>
+fes, einer Säure; gewöhnlich bedient man sich des La-<lb/>
+bes, um den mit den übrigen Stoffen der Milch ge-<lb/>
+bundenen Käsestoff auszuscheiden, wodurch er zum Ge-<lb/>
+rinnen gebracht wird. Die Zubereitung des Labes ist<lb/>
+nicht überall gleich; das Wesentliche und Wirksamste be-<lb/>
+steht aber in dem Safte aus dem vierten Magen, näm-<lb/>
+lich dem Lab= oder Gerinnmagen eines gesunden Kalbes.<lb/>
+Die Schweizer wählen Kälber von zwei bis vier Wochen,<lb/>
+<cb n="2"/>
+welche hauptsächlich mit Milch genährt worden sind. Der<lb/>
+Jnhalt des Magens wird ausgeleert und, ohne ihn<lb/>
+auszuwaschen, in mäßiger Wärme getrocknet, worauf er<lb/>
+dann Jahre lang aufbewahrt werden kann. Einige<lb/>
+Tage vor dem Gebrauche wird der Magen zerschnitten<lb/>
+und in zwei Pfund Molken eingeweicht, auch etwas<lb/>
+Salz zugesetzt, und diese dadurch erhaltene Flüssigkeit ist<lb/>
+das Lab. Statt der Molken mit etwas Salz kann auch<lb/>
+blos laues Wasser genommen werden; die Schweizer<lb/>
+ziehen aber das erstere vor, weil dadurch das Lab kräf-<lb/>
+tiger wirkt und nicht so leicht fault, wodurch es un-<lb/>
+wirksam wird. Die vielen Surrogate, die man statt<lb/>
+des Labes vorgeschlagen, gepriesen und angewandt hat,<lb/>
+erfüllen beiweitem nicht den Zweck; denn durch ihn<lb/>
+allein erhält man guten Käse.</p><lb/>
+<p>Wollen wir nun der Qualität des Schweizerkäses<lb/>
+nur einigermaßen nahe kommen, so muß die Milch ( gute<lb/>
+und fette ) , die zum Verkäsen verwendet werden und die<lb/>
+nicht von selbst gerinnen soll, entweder von der Kuh weg,<lb/>
+frisch gemolken sein, oder wenn sie es nicht ist, wieder<lb/>
+über dem Feuer zu jenem Wärmegrade, der ungefähr<lb/>
+20&#x2014;22° R. beträgt, gebracht werden. Noch besser ist<lb/>
+es aber, diesen Wärmegrad zu erreichen, indem man<lb/>
+die Erhitzung unmittelbar über dem Feuer ganz und gar<lb/>
+vermeidet und das Gefäß, worin sich die zu verkäsende<lb/>
+Milch befindet, in einen warmen Raum bringt, der aber<lb/>
+wo möglich schon vorher durch darunter angebrachtes<lb/>
+Feuer erwärmt sein muß, z. B. auf einer eisernen,<lb/>
+durch darunter angebrachtes Feuer erhitzten Platte, oder<lb/>
+daß man das Käfegefäß in ein anderes größeres, mit<lb/>
+erwärmtem Wasser gefülltes Gefäß hängt. Auf diese Art<lb/>
+wird die Milch am gleichmäßigsten erwärmt, worauf bei der<lb/>
+Käsebereitung viel ankommt. Jst nun die Milch kuhwarm<lb/>
+oder hat sie durch Feuer diesen Wärmegrad erhalten, so<lb/>
+wird in dieselbe eine angemessene Menge von Lab, in war-<lb/>
+mem Wasser aufgelöst, gegossen und bisweilen auch dieser<lb/>
+Labauflösung etwas Orlean oder Safran, der Farbe we-<lb/>
+gen, beigemengt. Ein Theelöffel voll solcher Labauflö-<lb/>
+sung auf 10&#x2014;12 Kannen Milch ist vollkommen hin-<lb/>
+reichend, dieselbe zum Gerinnen zu bringen. Jn diesem<lb/>
+Zustande bleibt nun die Milch so lange, gewöhnlich<lb/>
+ein bis zwei Stunden, stehen, bis sie ganz geron-<lb/>
+nen ist, worauf sie mit einer hölzernen Schaufel, ei-<lb/>
+nem knotigen Stocke, oder auch einem Quirle, oder<lb/>
+bei kleinen Massen auch mit der Hand so lange um-<lb/>
+gerührt wird, bis die geronnenen Käsetheile auf das<lb/>
+Feinste wieder zertheilt worden sind, eine Arbeit, wor-<lb/>
+auf man die größte Aufmerksamkeit verwenden muß.<lb/>
+Jst dies geschehen, so läßt man die so zubereitete Milch<lb/>
+stehen, damit sich die in derselben befindlichen Käsetheile<lb/>
+vollkommen setzen können, und erwärmt darauf die Milch,<lb/>
+ohne sie auf irgend eine andere Art in ihrem Nie-<lb/>
+derschlagszustande zu stören, durch ein rasches Feuer<lb/>
+bis 40° R., um sie etwas körnig zu machen. Es<lb/>
+dürfen aber diese niedergeschlagenen Käsetheile nur kurze<lb/>
+Zeit der Hitze ausgesetzt werden, dauert es länger, so<lb/>
+wird der Käse spröde und geschmacklos, weshalb man<lb/>
+auch bei kleinen Massen, woraus feiner Käse berei-<lb/>
+tet werden soll, das Erhitzen lieber ganz unterläßt.<lb/>
+Dann werden die Käsetheile am Boden des Gefäßes,<lb/>
+worin das Erwärmen geschehen ist, in einen Ballen<lb/>
+zusammengedrückt, bei kleinen Massen mit Hülfe eines<lb/>
+durchlöcherten blechernen Kochlöffels, bei großen Massen<lb/>
+mittels eines darunter weggezogenen leinenen Tuches<lb/>
+aus dem Gefäße herausgehoben und in die durch-<lb/>
+löcherten hölzernen Formen gebracht, deren eine Seite<lb/>
+offen ist, und die, wenn die Käsemasse sich darin befindet,<lb/>
+vermöge eines darauf passenden Deckels beschwert wer-<lb/>
+<cb type="end"/>
+<pb facs="#f0003" n="83"/>
+<fw place="top" type="header"><hi rendition="#g">Das Pfennig=Magazin.</hi> </fw><cb type="start"/>
+den können. Nachdem nun die Käsemasse zwei bis drei<lb/>
+Tage ( den ersten Tag aber wo möglich gepreßt ) oder<lb/>
+so lange in der Form gestanden hat, bis sich die<lb/>
+Molken völlig daraus verloren haben, so wird sie<lb/>
+herausgenommen und auf einen durchlöcherten oder<lb/>
+mit Stroh bedeckten Tisch gelegt, wo der Käse nach<lb/>
+Verhältniß seiner Größe drei bis sechs Wochen liegen<lb/>
+bleibt, täglich gewendet und auf seiner Oberfläche mit<lb/>
+Salz eingerieben wird. Hierauf kann er nun an sei-<lb/>
+nen Aufbewahrungsort, in eine luftige, nicht dumpfige,<lb/>
+frische, nicht ausdörrende Käsekammer gebracht werden, wo<lb/>
+er jedoch, wenn er lange liegt, von Zeit zu Zeit noch mit<lb/>
+Salz eingerieben werden muß. Jn dieser Gestalt ist er<lb/>
+nun genießbar, und ob er gut sei, muß der Geschmack<lb/>
+beurtheilen. Ein für allemal gilt indeß bei der Käse-<lb/>
+bereitung die Regel, je weniger warm die Milch ist,<lb/>
+wenn ihr das Lab zugesetzt wird, desto langsamer ge-<lb/>
+rinnt sie, und um so zarter wird die Masse; je weni-<lb/>
+ger Lab man zusetzt, desto feiner wird der Geschmack<lb/>
+des Käses, und je geringer die Hitze ist, der man die ge-<lb/>
+ronnenen Käsetheile aussetzt, desto weicher wird der Käse. <note place="foot" n="*)">Vergl. über die Bereitung des grünen Schweizerkäses<lb/>
+Pfennig=Magazin Nr. 116.</note></p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Die neuesten Entdeckungsreisen in den nördlichen<lb/>
+Polargegenden.</hi></head><lb/>
+<p><hi rendition="#in">S</hi>eit mehr als dritthalbhundert Jahren haben sich<lb/>
+mehre Seemächte und die größten Seefahrer mit der<lb/>
+Lösung der Aufgabe beschäftigt, ob es möglich sei, in<lb/>
+den großen Ocean oder die Südsee auf einem kürzern<lb/>
+Wege schiffen zu können, als auf dem kostspieligen, ge-<lb/>
+fahrvollen, beschwerlichen und großen Umwege durch<lb/>
+den atlantischen Ocean, längs der Ostküste von Süd-<lb/>
+amerika hin und durch die Magellanstraße oder die<lb/>
+Meerenge von Patagonien an der südlichsten Spitze<lb/>
+von Amerika hindurch. Ein nördlicher Weg wäre<lb/>
+ungleich kürzer und vielleicht weniger gefahrvoll ge-<lb/>
+wesen. Man hatte keine andere Wahl, als von Eu-<lb/>
+ropa aus nach Nordwesten zu steuern und zu versu-<lb/>
+chen, ob man um Nordamerika herumfahren könne.<lb/>
+Vor drittehalbhundert Jahren war aber der Nordpol<lb/>
+noch in tiefes Dunkel gehüllt; das Eis des Polarmee-<lb/>
+res hielt man für undurchdringlich und es mußte da-<lb/>
+her dort noch Vieles entdeckt werden, ehe man nur an<lb/>
+die Möglichkeit des glücklichen Erfolgs einer solchen Fahrt<lb/>
+glauben konnte. Man wußte noch nicht, ob sich um<lb/>
+den Nordpol ein großes Land ausdehne, und ob Nord-<lb/>
+amerika mit diesem irgendwo zusammenhange oder nicht;<lb/>
+denn nur im letztern Falle war die Durchfahrt zwischen<lb/>
+Nordamerika und dem Polarlande möglich. Der Ruhm,<lb/>
+diese Zweifel gehoben und die große Aufgabe, wiewol<lb/>
+nach ungeheuern Opfern, endlich gelöst zu haben, gebührt<lb/>
+zunächst den Engländern. Sie haben uns das mit ewigem<lb/>
+Eis umlagerte Land und Meer im äußersten Norden<lb/>
+Amerikas enthüllt, und der Leser findet die bis auf un-<lb/>
+sere Tage seit Ende des 16. Jahrhunderts dort ge-<lb/>
+machten Entdeckungen auf beifolgender Polkarte genau<lb/>
+und theilweise mit Buchstaben bemerkt.</p><lb/>
+<p>Nachdem bereits 1495 Sebastian Cabot eine nordwest-<lb/>
+liche Fahrt unternommen hatte, um auf einem kürzern<lb/>
+Wege nach Jndien zu gelangen, und der britische Seemann<lb/>
+Frobisher 1577 eine der Einfahrten in das Binnenmeer der<lb/>
+Hudsonsbai durchschifft hatte, unternahm die erste glück-<lb/>
+liche Fahrt 1585 der Engländer Davis; er entdeckte die<lb/>
+nach ihm benannte Davisstraße zwischen der Westküste von<lb/>
+Grönland und der Ostküste von Nordamerika. Ein ande-<lb/>
+<cb n="2"/>
+rer Engländer, Hudson, fand 1611 die Hudsonsbai. Die-<lb/>
+ser hochverdiente Mann wurde auf seiner letzten Reise,<lb/>
+wo er diese Bai näher untersuchen wollte, in Folge ei-<lb/>
+ner Meuterei, mit seinem Sohne und mehren Gefähr-<lb/>
+ten in der Hudsonsbai ans Land gesetzt und verschwand<lb/>
+seitdem spurlos. Nach ihm verfolgte der Engländer<lb/>
+Baffin 1614 und 1615 die Davisstraße und fuhr<lb/>
+zuerst in die Baffinsbai und in die auf unserer Karte<lb/>
+mit <hi rendition="#aq">m</hi> bezeichnete schmale Straße, die damals der Lan-<lb/>
+castersund genannt wurde, aber, wie später entdeckt<lb/>
+wurde, kein Sund, sondern eine Straße ist. Die Ent-<lb/>
+deckung der Beringsstraße zwischen der Westküste von<lb/>
+Nordamerika und der Ostküste von Asien, die der rus-<lb/>
+sische Seefahrer Bering 1728 machte, hatte indeß die<lb/>
+schon 1648 durch die Fahrt des Kosacken Deschnew<lb/>
+wahrscheinlich gewordene Thatsache bestätigt, daß Ame-<lb/>
+rika und Asien geschieden sind. Lange, bis zum Jahre<lb/>
+1765, versuchten die Engländer vergebens, im Norden<lb/>
+weiter vorzudringen, mehre Fahrten verunglückten gänz-<lb/>
+lich in Sturm und Eis; der 80jährige Engländer Knight<lb/>
+kam 1741 in der Hudsonsbai mit seiner ganzen Mann-<lb/>
+schaft jämmerlich um. Der Zweck aller dieser Unter-<lb/>
+nehmungen war, eine Durchfahrt nach Westen zu fin-<lb/>
+den. Ein von dem britischen Parlamente auf die Lö-<lb/>
+sung dieser Aufgabe gesetzter Preis veranlaßte 1746 eine<lb/>
+neue Reise, die Ellis unternahm. Zu Lande drangen<lb/>
+später Hearne ( 1771 ) und Mackenzie ( 1780 ) nach Nor-<lb/>
+den vor und entdeckten unter dem 69.&#x2014;71. Breiten-<lb/>
+grade das nördliche Eismeer, in welches zwei Flüsse,<lb/>
+der Kupferminenfluß und der Mackenziestrom, sich ergie-<lb/>
+ßen. Der Engländer Barrington hatte indeß in einer<lb/>
+eignen Schrift zu beweisen gesucht, daß das Polarmeer<lb/>
+in gewissen Jahreszeiten von Eis frei und die Annä-<lb/>
+herung an den Pol dann möglich wäre. Die englische<lb/>
+Regierung wurde dadurch veranlaßt, im Jahre 1773<lb/>
+den Capitain Phipps mit zwei Schiffen nach Spitz-<lb/>
+bergen zu senden; er ward aber, als er über den 80.<lb/>
+Breitengrad gekommen war, durch Eisfelder zum Um-<lb/>
+kehren genöthigt. Auch Cook wurde 1778, als er<lb/>
+aus der Beringsstraße bis zum Eiscap, der nörd-<lb/>
+lichsten Spitze der Westküste Nordamerikas, gekom-<lb/>
+men war, durch Eis gehemmt. Diese und andere Ver-<lb/>
+suche schienen zu beweisen, daß eine nordöstliche Durch-<lb/>
+fahrt aus dem atlantischen Meere in das stille Meer,<lb/>
+oder ein Weg um die Nordküste Asiens in die Be-<lb/>
+ringsstraße nicht vorhanden sei. Man hoffte dagegen,<lb/>
+daß man einen kürzern nordwestlichen Weg aus der<lb/>
+Baffinsbai um die Nordküste Amerikas bis zum Eis-<lb/>
+cap und der Beringsstraße finden werde, und mehre<lb/>
+Beobachtungen schienen es wahrscheinlich zu machen,<lb/>
+daß der kürzeste Weg durch das zwischen Grönland und<lb/>
+Spitzbergen sehr tiefe Polarmeer selbst, nicht durch Eis-<lb/>
+massen gehemmt sei. Man glaubte, das Mislingen frü-<lb/>
+herer Unternehmungen sei in dem Umstande gegründet,<lb/>
+daß sich die Seefahrer immer zu nahe an den von Eis-<lb/>
+massen umgebenen Küsten gehalten hätten. Zu neuen<lb/>
+Unternehmungen schien auch die Thatsache ermuntern<lb/>
+zu können, daß sich große Eismassen in der Gegend<lb/>
+von Grönland, sei es durch Erderschütterungen oder<lb/>
+durch den Einfluß mehrer gelinden Winter, gelöst hat-<lb/>
+ten, und seit 1815 Eisberge und Eisinseln bis zum<lb/>
+40. Breitengrade herabgekommen waren. Jndem nun<lb/>
+auf diese und andere Umstände die Vermuthung gestützt<lb/>
+wurde, daß das Eis im Polarmeere, wie es sich früher<lb/>
+gesammelt habe, auch wieder abnehmen und den Weg<lb/>
+nach dem Nordpole wieder öffnen könne, daß Grön-<lb/>
+land eine Jnsel sei, und daß die Baffinsbai nach<lb/>
+dem Eismeere hin eine Durchfahrt habe, beschloß die<lb/>
+<cb type="end"/>
+<pb facs="#f0004" n="84"/>
+<fw place="top" type="header"> <hi rendition="#g">Das Pfennig=Magazin.</hi> </fw>       <figure>         <head>  Karte vom Nordpol.  </head>       </figure><lb/>
+<cb type="start"/>
+britische Regierung, Entdeckungsfahrten im Polarmeere<lb/>
+zu unternehmen. Das Parlament versprach dem ersten<lb/>
+Seefahrer, der die nordwestliche Durchfahrt in das stille<lb/>
+Meer auffände, eine Belohnung von 140,000 Thalern,<lb/>
+demjenigen, der den Nordpol erreichte, 35,000 Thaler,<lb/>
+und der damalige Prinz Regent setzte noch besondere<lb/>
+Preise von 35,000&#x2014;105,000 Thalern für Diejenigen aus,<lb/>
+welche bis zu gewissen Punkten in dem Polarmeere vor-<lb/>
+dringen würden. Jm Jahre 1818 ließ die britische<lb/>
+Regierung eine doppelte Fahrt nach dem Nordpol un-<lb/>
+ternehmen. Der Capitain Buchan sollte mit zwei<lb/>
+Schiffen zwischen Spitzbergen und Nowaja Semlja die<lb/>
+Durchfahrt über den Pol in das stille Meer versuchen<lb/>
+und Capitain Roß, den der damalige Lieutenant Parry<lb/>
+begleitete, gleichzeitig mit zwei Fahrzeugen die nord-<lb/>
+westliche Durchfahrt aus der Davisstraße und der<lb/>
+Baffinsbai von Nordwesten her einen Weg in die<lb/>
+Beringsstraße aufsuchen. Buchan kam über Spitz-<lb/>
+bergen hinaus bis zu 80° 31' und mußte im Som-<lb/>
+mer 1818, durch Eismassen gehemmt, wieder umkeh-<lb/>
+ren. Roß aber, der besonders die Westküste der Baf-<lb/>
+finsbai untersuchen sollte, drang bis gegen den 76.<lb/>
+Breitengrad vor, wo er die Westküste Grönlands un-<lb/>
+tersuchte und die Nordküste dieses Landes entdeckte, die<lb/>
+er das arktische Hochland nannte. Er erreichte die nörd-<lb/>
+lichste Grenze der Baffinsbai unter 77° 40' und be-<lb/>
+<cb n="2"/>
+stimmte die Lage dieser Bai genauer. Er hatte sich in<lb/>
+der Meinung befestigt, daß keine Durchfahrt aus der<lb/>
+Davisstraße und der Baffinsbai in das Eismeer vorhan-<lb/>
+den sei; da er aber den Lancastersund und eine Strecke,<lb/>
+wo sich eine Strömung zeigte, die ein offenes Meer<lb/>
+andeutete, nicht genau hatte untersuchen können, so<lb/>
+sandte die englische Regierung nach seiner Rückkehr<lb/>
+den Lieutenant Parry im Jahre 1819 mit zwei<lb/>
+Schiffen ab, um die Bafsinsbai genauer erforschen zu<lb/>
+lassen. Vom Lancastersund, der nach seinen Entdeckun-<lb/>
+gen eine Straße ist, kam er durch die von ihm zuerst<lb/>
+beschiffte Barrowstraße in das Polarmeer, überwinterte<lb/>
+im Hafen der Melville=Jnsel, entdeckte die auf der Karte<lb/>
+mit <hi rendition="#aq">d</hi> bezeichnete Küste Banksland, mußte aber unter<lb/>
+74° 27', durch Eisfelder gehemmt, im August 1820<lb/>
+umkehren. Das Ergebniß war, daß eine Durchfahrt<lb/>
+aus der Baffinsbai ( ein Meer, keine Bai ) möglich, und<lb/>
+daß Grönland eine Jnsel sei. Jm Mai 1821 trat<lb/>
+Parry seine zweite Reise an, zwar ohne eine Durch-<lb/>
+fahrt zu finden, aber nicht ohne die Erdkunde durch ge-<lb/>
+nauere Beschreibung der Küsten zu bereichern. Die<lb/>
+dritte Reise unternahm er 1824 in Begleitung von<lb/>
+Capitain Lyon. Sie überwinterten im Hafen Bowen<lb/>
+in der Prinz=Regent=Bai. Eismassen hinderten weiteres<lb/>
+Vordringen. Jm Mai 1827 segelte er mit einem treff-<lb/>
+lich ausgerüsteten Schiffe nach der Richtung von Spitz-<lb/>
+<cb type="end"/>
+<pb facs="#f0005" n="85"/>
+<fw place="top" type="header"><hi rendition="#g">Das Pfennig=Magazin.</hi> </fw>       <figure>         <head>  Ansicht der Eisberge im Polarmeer.  </head>       </figure><lb/>
+<cb type="start"/>
+bergen. Unter 82° 45' nördlicher Breite ( der schwarze<lb/>
+Punkt auf der Karte bezeichnet die Stelle ) mußte er,<lb/>
+durch Eismassen aufgehalten, umkehren. Durch seine<lb/>
+Fahrten ist das Meer bis zum 115. Längengrade voll-<lb/>
+kommen bekannt geworden, und es sind nur noch 11<lb/>
+Grade bis zum Eiscap unbekannt.<note place="foot" n="*)">Vergl. Pfennig=Magazin Nr. 79.</note> Während Parry's<lb/>
+Reisen hatte auch der hochverdiente Capitain Franklin<lb/>
+durch zwei Landreisen in den Jahren 1819&#x2014;22 und<lb/>
+1825&#x2014;27 bedeutende Küstenstrecken von Nordamerika<lb/>
+untersucht; er kam nach zehnmonatlicher Überwinterung<lb/>
+1821 zum Kupferminenfluß und dann bis zu dem Punkte,<lb/>
+welcher auf unserer Karte mit <hi rendition="#aq">p</hi> bezeichnet ist, nannte das<lb/>
+dabei liegende Cap Turnagain, und untersuchte auf der<lb/>
+zweiten Reise vom Mackenzieflusse aus die Küste westwärts.<lb/>
+Gleichzeitig schickte die britische Regierung den Capitain<lb/>
+Beechey, der 1819 Parry's Begleiter gewesen war, mit<lb/>
+einem Schiffe um das Cap Horn, der äußersten Spitze<lb/>
+Südamerikas. Nordwärts durch das stille Meer fahrend,<lb/>
+sollte er am Eiscap eine östliche Durchfahrt suchen und<lb/>
+zugleich Parry und Franklin, wenn sie im glücklichen<lb/>
+Falle die offene See in der Beringsstraße erreichten,<lb/>
+Vorräthe zuführen. Er segelte aus dem Kotzebuesund<lb/>
+nordwärts und drang gegen 30 Meilen jenseit des Eis-<lb/>
+caps vor, wo er vergebens auf Capitain Franklin war-<lb/>
+tete, der auf der Nordwestküste Amerikas dahin gelangen<lb/>
+sollte, und mußte im October 1826 umkehren, wie Frank-<lb/>
+lin, der sich dem Eiscap und Beechey's Schiffe bis auf<lb/>
+ungefähr 36 Meilen genähert hatte, durch die Sorge für<lb/>
+die Erhaltung seiner Leute zur Rückkehr genöthigt wurde.</p><lb/>
+<p>Nach diesen Entdeckungen kann an einer nörd-<lb/>
+lichen Durchfahrt nicht mehr gezweifelt werden. Die<lb/>
+Erdkunde hat mit ihnen einen mächtigen Schritt vorwärts<lb/>
+gethan. Grönland ist eine Jnsel und die ganze Nord-<lb/>
+küste Amerikas von der Davis= bis zur Beringsstraße<lb/>
+bespült das Polarmeer, aber ebenso gewiß ist wol, daß<lb/>
+diese höchst gefahrvolle Straße zur Fahrt in die Süd-<lb/>
+see nie wird benutzt werden können, selbst wenn auch<lb/>
+einem kühnen Seemann die Durchfahrt gelänge. Die-<lb/>
+ses zu versuchen unternahm 1829 der Capitain Roß<lb/>
+auf seine und seiner Freunde Kosten. Er verließ mit<lb/>
+<cb n="2"/>
+dem Dampfschiffe Victory und mit Lebensmitteln auf drei<lb/>
+Jahre versehen England im Mai jenes Jahres, um von<lb/>
+dem Lancastersund und der Prinz=Regent=Einfahrt aus<lb/>
+die Nordküste von Amerika westwärts zu untersuchen.<lb/>
+Nachdem er vier Winter in den Polargegenden zuge-<lb/>
+bracht und im Mai 1832 sein Schiff verloren hatte,<lb/>
+setzte er in Booten seine Fahrt fort, bis endlich ein<lb/>
+Schiff von Hull ihn und seine Gefährten aufnahm.<lb/>
+Besorgt um die Reisenden, schickte die geographische Ge-<lb/>
+sellschaft zu London im Mai 1833 den Capitain Back<lb/>
+ab, der von Montreal in Canada zu Lande bis zum<lb/>
+Sklavensee vordringen und Roß aufsuchen sollte, als<lb/>
+dieser im October 1833 unerwartet in England an-<lb/>
+kam. <note place="foot" n="*)">Vergl. Pfennig=Magazin Nr. 65 und 71.</note> Die Resultate seiner Reise sind, daß die Prinz-<lb/>
+Regent=Einfahrt im Süden verschlossen sei und die nord-<lb/>
+westliche Spitze Amerikas sich in eine Halbinsel ( <hi rendition="#aq">c</hi> ) en-<lb/>
+dige. Back ist im J. 1835 gleichfalls nach England<lb/>
+zurückgekehrt. Eine neue Fahrt in das Eismeer wurde<lb/>
+zu Anfange dieses Jahres beschlossen, nachdem die Nach-<lb/>
+richt eingetroffen war, daß mehre auf den Walfischfang<lb/>
+ausgegangene Schiffe von dem Eise eingeschlossen wären.<lb/>
+James Roß, ein Verwandter des Capitains und dessen<lb/>
+Begleiter auf der letzten Polarreise, erhielt die Leitung<lb/>
+dieses Unternehmens, das aber unterblieb, als im Januar<lb/>
+die Grönlandfahrer glücklich nach England zurückkehrten.</p><lb/>
+<p>Die russische Regierung veranstaltete in demselben<lb/>
+Zeitraume, wo die britischen Seefahrer so thätig waren,<lb/>
+mehre Entdeckungsreisen, deren Zweck war, theils die<lb/>
+Küsten Kamtschatkas und des nordwestlichen Amerikas,<lb/>
+theils die Nordküste Asiens und Nowaja Semlja zu<lb/>
+untersuchen. Das Ergebniß dieser, von Otto von Kotze-<lb/>
+bue, dem Baron von Wrangel, dem Capitain Was-<lb/>
+siljeff, dem Lieutenant Lasareff, dem Lieutenant Lawroff<lb/>
+und dem Capitain Lieutenant Lütke von 1814&#x2014;26<lb/>
+unternommenen Reisen war, daß Asien im Norden nicht<lb/>
+mit Amerika zusammenhängt, und überdies wurde die<lb/>
+Kunde von Nowaja Semlja und den Küsten Lapp-<lb/>
+lands durch diese Reisen bereichert.</p><lb/>
+<p>Einen Begriff von der wunderbaren und für die<lb/>
+Schiffahrt im Polarmeere höchst gefährlichen Bildung der<lb/>
+<cb type="end"/>
+<pb facs="#f0006" n="86"/>
+<fw place="top" type="header"> <hi rendition="#g">Das Pfennig=Magazin.</hi> </fw><cb type="start"/>
+Eisberge wird sich der Leser nach einer der Natur entnom-<lb/>
+menen und auf S. 85 beigefügten Abbildung machen<lb/>
+können.<note place="foot" n="*)">Wir werden künftig in einem besondern Aufsatze ein<lb/>
+allgemeines Naturgemälde des Nordpolarlandes nach den neue-<lb/>
+sten Entdeckungen geben.</note></p></div><lb/>
+<div n="1" type="jArticle" xml:id="Mexico1"><head><hi rendition="#fr"><hi rendition="#g">Mexico</hi>.</hi><lb/>
+<hi rendition="#aq">I.</hi></head><lb/>
+<p><hi rendition="#in">D</hi>ie älteste Geschichte der Bewohner der großen Länder-<lb/>
+gebiete auf der Nordhälfte des amerikanischen Festlandes,<lb/>
+die jetzt unter dem Namen Mexico verbunden sind, ist noch<lb/>
+in Dunkel gehüllt. Die Überreste des Alterthums, die man<lb/>
+in neuern Zeiten in Guatemala entdeckt hat, scheinen auf<lb/>
+phönizische Ansiedelungen hinzuweisen; Sagen, Denkmale<lb/>
+und andere Spuren deuten auf eine Einwanderung von<lb/>
+Osten, und nicht unbegründet ist die Vermuthung, daß na-<lb/>
+mentlich Mexico durch einen aus der Tatarei oder China<lb/>
+ausgewanderten Stamm sei bevölkert worden, der sich<lb/>
+100 Jahre nach Christus gegen Nordosten wendete.<lb/>
+Jm 7. Jahrhundert kamen aus einem Lande nördlich<lb/>
+von Mexico die Tolteken, welchen andere Stämme<lb/>
+folgten, bis im 12. Jahrhundert die Azteken Mexico<lb/>
+oder Anahuac, wie es in ihrer Sprache hieß, besetzten<lb/>
+und im 14. Jahrhundert die alte Stadt Mexico grün-<lb/>
+deten. Als die Spanier im 16. Jahrhundert in das<lb/>
+Land eindrangen, fanden sie die Bewohner auf ei-<lb/>
+ner solchen Stufe der Gesittung, daß das Recht des<lb/>
+Privateigenthums anerkannt, eine auf bestimmte Gesetze<lb/>
+gegründete Staatsordnung eingeführt war, gesonderte<lb/>
+Gewerke und Unterschied der Stände bestanden, und die<lb/>
+Künste mit Erfolg gepflegt wurden. Es wurden Steuern<lb/>
+vom Grundbesitz, von Gewerben und von Waaren be-<lb/>
+zahlt, aber, da die Mexicaner kein Geld kannten und<lb/>
+nur Cacaobohnen ein beschränktes Tauschmittel waren,<lb/>
+in Naturerzeugnissen, die in Vorrathshäusern aufbe-<lb/>
+wahrt wurden, aus welchen der Beherrscher seine Die-<lb/>
+ner im Frieden und seine Heere im Kriege versorgte.<lb/>
+Menschen aus den niedern Volksclassen, die kein Eigen-<lb/>
+thum besaßen und kein Gewerbe trieben, mußten, statt<lb/>
+Steuern zu bezahlen, persönliche Dienste leisten und des<lb/>
+Königs Ländereien bearbeiten oder bei öffentlichen Bau-<lb/>
+ten helfen. Es waren Eilboten in bestimmten Entfer-<lb/>
+nungen angestellt, um Nachrichten von einem Theile des<lb/>
+Landes zu dem andern zu bringen. Die Straßen der<lb/>
+Städte wurden in der Nacht von Wächtern durchzogen<lb/>
+und durch Feuer erleuchtet. Die Mexicaner verstanden<lb/>
+die Kunst, Metalle zu gießen, sie bearbeiteten Steine,<lb/>
+selbst den härtesten Basalt, mit großer Feinheit der<lb/>
+Ausführung zu Bildsäulen, bauten Mais und Baumwolle<lb/>
+an und errichteten kunstvolle Pyramiden, von welchen die<lb/>
+größte, die Pyramide von Cholula, bereits in Nr. 113<lb/>
+des Pfennig=Magazins beschrieben worden ist. Die<lb/>
+Sternkunde der Azteken scheint auf Überlieferung gegrün-<lb/>
+det gewesen zu sein. Jhr Sonnenjahr bestand, wie bei<lb/>
+den alten Ägyptern, aus 365 Tagen und ward in 18<lb/>
+Monate, jeder von 20 Tagen, eingetheilt. Die fünf<lb/>
+Überschußtage wurden für Unglückstage gehalten, wo<lb/>
+man weder arbeitete noch heilige Gebräuche verrichtete,<lb/>
+sondern sich blos dem Vergnügen hingab. Nach 52<lb/>
+Jahren wurden 13 Tage eingeschaltet, wodurch die Zeit-<lb/>
+berechnung mit der julianischen Jahresbestimmung von<lb/>
+365 Tagen und 6 Stunden in Einklang kam. Die<lb/>
+Religion der alten Mexicaner war Götzendienst, und sie<lb/>
+verehrten zahlreiche Götter unter verschiedenen, zum Theil<lb/>
+<cb n="2"/>
+furchtbaren Gestalten. Den Altären sich nähernd, be-<lb/>
+spritzten sie dieselben mit dem Blute, das sie aus ihren<lb/>
+Adern ließen. Menschenopfer waren gewöhnlich, und<lb/>
+die Köpfe und Herzen der Kriegsgefangenen wurden den<lb/>
+Göttern dargebracht. Die Götterbilder besiegter Völker<lb/>
+wurden in einem eignen Gebäude wie in einem Ge-<lb/>
+fängnisse aufbewahrt. Jn einem andern befanden sich<lb/>
+die Köpfe der geopferten Krieger, und sobald ein Schä-<lb/>
+del bei einem ihrer Götzenbilder vor Alter morsch zu<lb/>
+werden anfing, ward er durch einen andern Kopf aus<lb/>
+jenem Vorrathe ersetzt. Den Köpfen gemeiner Krieger<lb/>
+wurde die Haut abgezogen, die Köpfe der Vornehmen<lb/>
+aber suchte man mit Haut, Bart und Haupthaar auf-<lb/>
+zubewahren, und sie machten die Siegesdenkmale nur<lb/>
+noch furchtbarer. Die alten Mexicaner hatten so wenig<lb/>
+als ein anderes Urvolk Amerikas ein Alphabet. Jhre<lb/>
+Schrift war theils Bilderschrift, welche sinnlich wahr-<lb/>
+nehmbare Gegenstände durch Abbildungen darstellte, theils<lb/>
+eine sinnbildliche Schrift, welche die nicht sinnlich dar-<lb/>
+stellbaren Begriffe durch willkürliche Zeichen oder ein-<lb/>
+fache Hieroglyphen ausdrückte. Solche Zeichen, die der<lb/>
+Abbildung eines Ereignisses hinzugefügt wurden, deute-<lb/>
+ten sinnreich an, ob die Handlung bei Tage oder bei<lb/>
+Nacht stattgefunden hatte, wie alt die dargestellten Per-<lb/>
+sonen gewesen waren, ob sie miteinander gesprochen und<lb/>
+wer am meisten geredet hatte. Die Mexicaner waren<lb/>
+aber noch einen Schritt weiter gegangen, und gebrauch-<lb/>
+ten auch Zeichen, bei welchen das Bild der Bedeutung<lb/>
+des Wortes, womit der dargestellte Gegenstand bezeich-<lb/>
+net war oder der Ähnlichkeit des Lautes entsprach, wo-<lb/>
+durch dem Beschauer dieses Wort vor die Seele ge-<lb/>
+bracht wurde. So war z. B. die wörtliche Bedeutung<lb/>
+des Namens eines alten mexicanischen Königs &#x201E; Wasser-<lb/>
+gesicht &#x201C;, und eines andern &#x201E;ein die Luft durchfliegender<lb/>
+Pfeil&#x201C;, und um diese Könige darzustellen, verband der<lb/>
+Maler die Hieroglyphen von Wasser und Luft oder die<lb/>
+zur Bezeichnung dieser Gegenstände üblichen willkürlichen<lb/>
+Zeichen mit der Figur eines Kopfes und eines Pfeils.<lb/>
+Die Namen zweier Städte bedeuteten &#x201E;Adlerhaus&#x201C; und<lb/>
+&#x201E;Spiegelplatz&#x201C;, und um sie auszudrücken, ward ein<lb/>
+Haus, aus welchem ein Adlerkopf hervorblickte, und ein<lb/>
+Spiegel von Obsidian gemalt.</p><lb/>
+<p>Diese Bilderschrift war beiweitem nicht so ausge-<lb/>
+bildet als die Hieroglyphen der Ägypter, und die Ge-<lb/>
+mälde waren von sehr roher Art und höchst unbestimmt<lb/>
+in der Bezeichnung von Ereignissen. Die einfachsten<lb/>
+Hieroglyphen bezeichnen z. B. eine Stadt durch ein<lb/>
+Haus mit gewissen Sinnbildern, die bald natürliche<lb/>
+Gegenstände, bald künstliche Figuren sind, um sie von<lb/>
+andern Städten zu unterscheiden. Ein König, der sein<lb/>
+Gebiet durch Waffengewalt vergrößert hat, wird durch<lb/>
+einen mit Pfeilen bemalten Schild bezeichnet, der zwi-<lb/>
+schen seiner Gestalt und den Sinnbildern der von ihm<lb/>
+bezwungenen Städte steht. Um Zahlen zu bezeichnen,<lb/>
+waren die Mexicaner einen Schritt über die herkömmli-<lb/>
+chen Zeichen hinausgegangen. Kleine Zahlen wurden<lb/>
+durch so viele Punkte oder Kugeln bezeichnet, als die<lb/>
+Zahl Einheiten hatte. Für große Zahlen gab es be-<lb/>
+sondere Zeichen, z. B. für 400 eine Kornähre, eine<lb/>
+Ananas oder einen Federkiel, worin Goldstaub aufbe-<lb/>
+wahrt wurde, für 8000 einen Beutel, weil man ge-<lb/>
+wöhnlich so viele Cacaobohnen in einen Beutel that.<lb/>
+Die Angaben der Jahre sind neben der bildlichen Dar-<lb/>
+stellung des Ereignisses angebracht, und die darauf sich<lb/>
+beziehenden Zeichen in eine Art von Rahmen einge-<lb/>
+schlossen. Die mexicanischen Schriftmalereien wurden<lb/>
+auf Häute, auf Baumrinden, auf Baumwollenzeuch oder<lb/>
+auf einen, aus den Fasern der Aloe bereiteten Stoff<lb/>
+<cb type="end"/>
+<pb facs="#f0007" n="87"/>
+<fw place="top" type="header"><hi rendition="#g">Das Pfennig=Magazin.</hi> </fw><cb type="start"/>
+aufgetragen. Solche Handschriften, deren es in mehren<lb/>
+europäischen Sammlungen gibt, bestehen nicht aus<lb/>
+Blättern oder Rollen, sondern sind zickzackartig wie Fä-<lb/>
+cher zusammengelegt. Die Farben der Bilder sind un-<lb/>
+gemein lebhaft, aber die Figuren meist zwerghaft und<lb/>
+sehr verzeichnet. Die Köpfe sind ungeheuer groß, die<lb/>
+Leiber sehr kurz und die Füße gleichen mit ihren langen<lb/>
+Zehen Klauen. Das Gesicht ist gewöhnlich im Profil<lb/>
+gezeichnet, aber das Auge so gestellt, als ob das Gesicht<lb/>
+in der vollen Ansicht sich zeigte, und die Nase von un-<lb/>
+verhältnißmäßiger Größe. Viele dieser Überreste des Al-<lb/>
+terthums wurden als Denkmale eines Götzendienstes<lb/>
+von dem blinden Eifer der spanischen Eroberer gesam-<lb/>
+melt, und sie waren ungemein glücklich in ihren Be-<lb/>
+mühungen, da es sehr viele Malereien dieser Art in<lb/>
+Mexico gab, die Zahl der Maler sehr ansehnlich war<lb/>
+und fast nichts ungemalt blieb. Die spanischen Prie-<lb/>
+ster sammelten so viele Bilder blos in der Provinz Tez-<lb/>
+cuco, daß sie, wie ein Berichterstatter erzählt, auf dem<lb/>
+Marktplatze zu Mexico einem kleinen Berge glichen.<lb/>
+Alles ward angezündet und auf diese Weise manches<lb/>
+Denkmal merkwürdiger Ereignisse in Asche verwandelt.<lb/>
+Mehre dieser Überreste wurden jedoch dem Untergange<lb/>
+entrissen, und unter diesen war eine für Karl <hi rendition="#aq">V</hi>. be-<lb/>
+stimmte Sammlung, die auf dem Meere von einem<lb/>
+französischen Schiffe erbeutet ward und später in die<lb/>
+Hände eines englischen Gelehrten kam, der sie in Abbildun-<lb/>
+gen bekannt machte. Sie besteht aus drei Abtheilungen.<lb/>
+Die erste schildert in Bildern die Geschichte der mexica-<lb/>
+nischen Könige bis auf den Einfall der Spanier, die<lb/>
+zweite enthält ein Verzeichniß der Tribute, die ihnen<lb/>
+von jeder Provinz und jeder Stadt dargebracht wurden,<lb/>
+und die dritte zeigt uns die häuslichen Einrichtungen<lb/>
+des Volkes. Die erste Bilderreihe eröffnen die zehn<lb/>
+Häuptlinge, die das Reich der Azteken gründeten, und<lb/>
+über ihren Köpfen sieht man die hieroglyphischen Sinn-<lb/>
+bilder ihrer Namen. Sie stoßen auf einen Adler und<lb/>
+einen Cactus, welche die Stelle bezeichnen, wo die Wan-<lb/>
+derungen der Azteken endigen sollten und die Stadt<lb/>
+Mexico erbaut wurde, die ein Haus sinnbildlich bezeich-<lb/>
+net, wie ein Schild mit Pfeilen die Bezwingung der-<lb/>
+selben durch Waffengewalt. Jn der zweiten Abtheilung<lb/>
+sehen wir die Steuern, welche jede Stadt dem königli-<lb/>
+chen Schatze oder gewissen Tempeln bringt und die<lb/>
+sämmtlich in Naturerzeugnissen oder Kunstarbeiten be-<lb/>
+stehen, z. B. Gold, Silber, Edelsteine, Waffen, Mat-<lb/>
+ten, Mänteln, vierfüßigen Thieren und Vögeln, Federn,<lb/>
+Cacao, Mais, buntem Papier, Salz u. s. w. Diese<lb/>
+Gegenstände werden entweder durch wirkliche Abbildun-<lb/>
+gen derselben oder durch die Dinge, worin sie gewöhn-<lb/>
+lich enthalten waren, z. B. Körbe, Beutel, Kisten, dar-<lb/>
+gestellt, und die Menge derselben bezeichnen Zahlzeichen<lb/>
+von der oben angegebenen Art. Die dritte Abtheilung<lb/>
+zeigt uns das ganze Leben des Bürgers in einer Dar-<lb/>
+stellung aller von den Gesetzen vorgeschriebenen Hand-<lb/>
+lungen. Auf dem ersten Bilde sehen wir die bei der<lb/>
+Geburt eines Kindes üblichen Feierlichkeiten. Die Äl-<lb/>
+tern bringen es in der Wiege vor den Oberpriester und<lb/>
+vor den Lehrer, der in dem Gebrauche der Waffen un-<lb/>
+terrichtete. Die nächsten Bilder sind Darstellungen der<lb/>
+Erziehung des Kindes bis zum 15. Jahre, und zwar<lb/>
+jedesmal in einem doppelten Bilde, wo auf der einen<lb/>
+Seite der Vater den Knaben, auf der andern die Mut-<lb/>
+ter das Mädchen unterrichtet. Die Menge der Nah-<lb/>
+rung ist genau angegeben und für beide Geschlechter<lb/>
+gleich. Ein Kuchen ist hinreichend, bis das Kind sechs<lb/>
+Jahre alt ist, später anderthalb Kuchen. Kleine Kreise<lb/>
+auf dem Bilde bezeichnen das Alter. Mit dem fünf-<lb/>
+<cb n="2"/>
+ten Jahre trägt der Knabe Lasten und das Mädchen<lb/>
+steht bei der spinnenden Mutter. Jm sechsten Jahre<lb/>
+spinnt das Mädchen selber und der Knabe wird im Ge-<lb/>
+brauche des Fischernetzes unterrichtet. Jm achten Jahre<lb/>
+werden die Werkzeuge der Züchtigung den Trägen oder<lb/>
+Ungehorsamen zur Abschreckung gezeigt, und aus dem<lb/>
+Munde der Ältern kommen Worte der Ermahnung, die<lb/>
+durch eine Reihe kleiner Zungen angedeutet werden. Die<lb/>
+Folgsamkeit der Kinder wird durch ihre flehende Stel-<lb/>
+lung und durch Thränen auf ihren Wangen bezeichnet.<lb/>
+Jm neunten Jahre wird die Züchtigung wirklich ver-<lb/>
+hängt. Der Knabe ist an Händen und Füßen gebun-<lb/>
+den und liegt auf den scharfen Stacheln von Aloeblät-<lb/>
+tern, während der Vater ihm den Leib damit kitzelt. Das<lb/>
+Mädchen wird nur am Handgelenke gestachelt. Jm zehn-<lb/>
+ten Jahre härtere Züchtigungen; Knaben und Mädchen<lb/>
+werden geprügelt. Ein Jahr später werden noch härtere<lb/>
+und empfindlichere Strafen aufgelegt, indem den Kin-<lb/>
+dern, die weder durch Worte noch durch Schläge sich<lb/>
+bessern lassen, der scharfe Dampf von Piment in die<lb/>
+Nase gebracht wird. Sie erhalten immer nur noch an-<lb/>
+derthalb Kuchen, weil sie nicht gefräßig werden sollen.<lb/>
+Jm zwölften Jahre eine neue Steigerung der Züchti-<lb/>
+gung; der Vater legt den nackten, an Händen und<lb/>
+Füßen gebundenen Knaben in einen Pfuhl, wo er ei-<lb/>
+nen ganzen Tag liegen muß. Jm 13. und 14. Jahre<lb/>
+theilen Knabe und Mädchen die Arbeiten ihrer Ältern;<lb/>
+sie rudern, fischen, kochen oder weben. Jm 15. Jahre<lb/>
+werden zwei Knaben, der eine dem Oberpriester, der<lb/>
+andere dem Lehrer der Waffenübungen übergeben, da<lb/>
+dies das Alter ist, wo sie ihren Lebensberuf wählen.<lb/>
+Die Mädchen werden verheirathet. Von dieser Zeit an<lb/>
+werden die Lebensjahre nicht mehr bezeichnet. Wir se-<lb/>
+hen den jungen Mann dem Priester oder dem Krieger<lb/>
+folgen, Unterricht empfangen und Züchtigungen erleiden.<lb/>
+Er erhält die Ehrenbezeigungen, die er in seinem Be-<lb/>
+rufe verdient: bemalte Schilde, den Lohn edler Thaten,<lb/>
+das rothe Stirnband, das die Tapferkeit eines jungen<lb/>
+Kriegers belohnt, und andere Auszeichnungen, die der<lb/>
+König den Tapfern gewährt, je nach der Zahl der von<lb/>
+ihnen gefangenen Feinde. Auf dem letzten Bilde wird<lb/>
+der Befehlshaber einer Provinz erwürgt, weil er sich<lb/>
+gegen den König empört hat. Wir sehen die Misse-<lb/>
+that des Verbrechers, die Bestrafung seiner ganzen Fa-<lb/>
+milie und die Rache, die seine Untergebenen an den<lb/>
+Boten ausüben, welche die Befehle des Königs über-<lb/>
+bringen. Staatsboten, Kundschafter, Gerichtsdiener, das<lb/>
+Reichsgericht und endlich der König selber auf dem<lb/>
+Throne erscheinen auf dem Schauptatze.</p><lb/>
+<p>Hieroglyphische Gemälde sind jetzt in Mexico sel-<lb/>
+ten, wo es überhaupt, außer den Pyramiden, nur we-<lb/>
+nige Denkmale der Vorzeit gibt. Die Spanier zerstör-<lb/>
+ten die Tempel, zerbrachen die Götterbilder und begru-<lb/>
+ben die Steinblöcke, die zu groß waren, als daß man<lb/>
+sie hätte zerschlagen können. Alles, was sich auf die<lb/>
+alten Gebräuche bezog, sollte vor den Augen des Vol-<lb/>
+kes verborgen werden. Einige jener ungeheuern Stein-<lb/>
+blöcke sind erst in neuern Zeiten wieder aufgegraben<lb/>
+worden, unter andern einer, der mit mehren auf den<lb/>
+Kalender sich beziehenden Bildwerken bedeckt war und zu<lb/>
+Ende des 18. Jahrhunderts unter den Trümmern eines<lb/>
+alten Tempels in Mexico gefunden ward. Er hatte ein<lb/>
+Gewicht von 24 Tonnen, und da kein Berg in einer<lb/>
+Entfernung von acht bis zehn Stunden ähnlichen Por-<lb/>
+phyr lieferte, so mußte es unermeßliche Arbeit gekostet<lb/>
+haben, ihn bis zu dem Tempel zu schaffen.</p><lb/>
+<p><ref target="nn_pfennig155_1836#Mexico2"><hi rendition="#c">( Die Fortsetzung folgt in Nr. 155. )</hi></ref></p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<cb type="end"/>
+<pb facs="#f0008" n="88"/>
+<fw place="top" type="header"> <hi rendition="#g">Das Pfennig=Magazin.</hi> </fw>       <div n="1"><figure>         <head>  Das Abendmahl von Leonardo da Vinci.  </head>       </figure></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+</body>     <back><div n="1" type="imprint"><p><hi rendition="#c">Verantwortliche Herausgeber: <hi rendition="#g">Friedrich Brockhaus</hi> in <hi rendition="#g">Leipzig</hi> und <hi rendition="#aq">Dr</hi>. C. <hi rendition="#g">Dräxler=Manfred</hi> in <hi rendition="#g">Wien.</hi><lb/>
+Verlag von F. A. <hi rendition="#g">Brockhaus</hi> in Leipzig.</hi></p></div>     </back>   </text> </TEI>

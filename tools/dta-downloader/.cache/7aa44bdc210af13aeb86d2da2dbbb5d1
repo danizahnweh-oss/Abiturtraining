@@ -1,0 +1,951 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.deutschestextarchiv.de/basisformat.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">     <teiHeader>
+<fileDesc>
+<titleStmt>
+<title type="main">Das Pfennig-Magazin für Belehrung und Unterhaltung</title>
+<title type="sub">Dritte Folge, Zweiter Jahrgang, Nr. 98</title>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/115266127">
+<surname>Geyken</surname>
+<forename>Alexander</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1222198746">
+<surname>Haaf</surname>
+<forename>Susanne</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1019062681">
+<surname>Jurish</surname>
+<forename>Bryan</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Boenig</surname>
+<forename>Matthias</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Thomas</surname>
+<forename>Christian</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Wiegand</surname>
+<forename>Frank</forename>
+</persName>
+</editor>
+<respStmt>
+<orgName>Institut für Deutsche Sprache, Mannheim</orgName>
+<resp>
+<note type="remarkResponsibility">Bereitstellung der Bilddigitalisate und TEI
+Transkription</note>
+<ref target="http://hdl.handle.net/10932/00-01B8-B0B3-E160-1C01-0"/>
+</resp>
+</respStmt>
+<respStmt>
+<persName>
+<forename>Peter</forename>
+<surname>Fankhauser</surname>
+</persName>
+<resp>
+<note type="remarkResponsibility">
+Transformation von TUSTEP nach TEI P5.
+Transformation von TEI P5 in das DTA TEI P5 Format.
+</note>
+</resp>
+</respStmt>
+<respStmt>
+<orgName ref="https://www.bbaw.de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<resp>
+<note type="remarkResponsibility">Langfristige Bereitstellung der DTA-Ausgabe</note>
+<ref target="https://www.bbaw.de"/>
+</resp>
+</respStmt>
+</titleStmt>
+<editionStmt><edition>Vollständige digitalisierte Ausgabe.</edition></editionStmt>
+<extent>
+<measure type="images">8</measure>
+<measure type="tokens">5398</measure>
+<measure type="types">2396</measure>
+<measure type="characters">36969</measure>
+</extent>
+<publicationStmt>
+<publisher xml:id="DTACorpusPublisher">
+<email>dta@bbaw.de</email>
+<orgName role="project">Deutsches Textarchiv</orgName>
+<orgName role="hostingInstitution" xml:lang="en">Berlin-Brandenburg Academy of Sciences and Humanities (BBAW)</orgName>
+<orgName role="hostingInstitution" xml:lang="de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<address>
+<addrLine>Jägerstr. 22/23, 10117 Berlin</addrLine>
+<country>Germany</country>
+</address>
+</publisher>
+<pubPlace>Berlin</pubPlace>
+<date type="publication">2025-10-24T08:35:15Z</date>
+<availability>
+<licence target="http://creativecommons.org/publicdomain/zero/1.0/">
+<p>Dieses Werk steht unter der "Creative Commons Namensnennung -
+Nicht kommerziell 3.0 Deutschland Lizenz" (CC BY-NC).</p>
+</licence>
+</availability>
+<idno>
+<idno type="URLWeb">https://www.deutschestextarchiv.de/nn_pfennig098_1854</idno>
+<idno type="URLXML">https://www.deutschestextarchiv.de/book/download_xml/nn_pfennig098_1854</idno>
+<idno type="URLHTML">https://www.deutschestextarchiv.de/book/download_html/nn_pfennig098_1854</idno>
+<idno type="URLText">https://www.deutschestextarchiv.de/book/download_text/nn_pfennig098_1854</idno>
+<idno type="DTADirName">nn_pfennig098_1854</idno>
+<idno type="DTAID">34743</idno>
+<idno type="URN">urn:nbn:de:kobv:b4-34743-1</idno>
+</idno>
+</publicationStmt>
+<sourceDesc>
+<bibl type="J">Das Pfennig=Magazin für Belehrung und Unterhaltung. Dritte Folge, Zweiter Jahrgang, Nr. 98. Leipzig (Sachsen), 16. November 1854.</bibl>
+<biblFull>
+<titleStmt>
+<title level="m" type="main">Das Pfennig-Magazin für Belehrung und Unterhaltung</title>
+<title level="m" type="sub">Dritte Folge, Zweiter Jahrgang, Nr. 98</title>
+</titleStmt>
+<editionStmt>
+<edition n="1"/>
+</editionStmt>
+<publicationStmt>
+<publisher/>
+<pubPlace>Leibzig (Sachsen)</pubPlace>
+<date type="publication">1854</date>
+</publicationStmt>
+</biblFull>
+<msDesc>
+<msIdentifier/>
+<physDesc>
+<typeDesc>
+<p>Fraktur</p>
+</typeDesc>
+</physDesc>
+</msDesc>
+</sourceDesc>
+</fileDesc>
+<encodingDesc>
+<editorialDecl>
+<p>
+<![CDATA[
+<p>Siehe Dokumentation</p>
+]]>
+</p>
+</editorialDecl>
+<tagsDecl>
+<rendition scheme="css" xml:id="aq">font-family:sans-serif</rendition>
+<rendition scheme="css" xml:id="b">font-weight:bold</rendition>
+<rendition scheme="css" xml:id="blue">color:blue</rendition>
+<rendition scheme="css" xml:id="c">display:block; text-align:center</rendition>
+<rendition scheme="css" xml:id="et">display:block; margin-left:2em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et2">display:block; margin-left:4em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et3">display:block; margin-left:6em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="f">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="fr">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="g">letter-spacing:0.125em</rendition>
+<rendition scheme="css" xml:id="i">font-style:italic</rendition>
+<rendition scheme="css" xml:id="in">font-size:150%</rendition>
+<rendition scheme="css" xml:id="k">font-variant:small-caps</rendition>
+<rendition scheme="css" xml:id="larger">font-size:larger</rendition>
+<rendition scheme="css" xml:id="red">color:red</rendition>
+<rendition scheme="css" xml:id="right">display:block; text-align:right</rendition>
+<rendition scheme="css" xml:id="s">text-decoration:line-through</rendition>
+<rendition scheme="css" xml:id="smaller">font-size:smaller</rendition>
+<rendition scheme="css" xml:id="sub">vertical-align:sub; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="sup">vertical-align:super; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="u">text-decoration:underline</rendition>
+<rendition scheme="css" xml:id="uu">border-bottom:double 3px #000</rendition>
+</tagsDecl>
+</encodingDesc>
+<profileDesc>
+<langUsage>
+<language ident="deu">(Früh-)Neuhochdeutsch</language>
+<language ident="deu">German</language>
+</langUsage>
+<textClass>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1main">Gebrauchsliteratur</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1sub">Zeitschrift</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">ready</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">mkhz1</classCode>
+</textClass>
+</profileDesc>
+</teiHeader>
+<text>     <front>
+<pb facs="#f0001" n="[361]"/>
+<titlePage type="heading"><docTitle><titlePart type="main"><hi rendition="#c #fr">Das Pfennig=Magazin<lb/>
+für<lb/>
+<hi rendition="#g">Belehrung und Unterhaltung</hi>.</hi></titlePart></docTitle><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<docImprint><hi rendition="#fr">Nr</hi>. 98. ]              <hi rendition="#c">Dritte Folge. Zweiter Jahrgang.</hi>              <docDate><hi rendition="#right">[ 16. <hi rendition="#g">November</hi> 1854.</hi></docDate>            </docImprint></titlePage><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+</front>     <body>       <div n="1" type="jArticle"><head><hi rendition="#fr">Jean Sylvain Bailly.</hi></head><lb/>
+<figure/><lb/>
+<cb type="start"/>
+<p><hi rendition="#in">J</hi>ean Sylvain Bailly, geboren zu Paris am 15. Sep-<lb/>
+tember 1736, war zum Maler bestimmt; er folgte<lb/>
+aber lieber seiner Neigung zu literarischen Beschäfti-<lb/>
+gungen und infolge der Bekanntschaft mit dem Astro-<lb/>
+nomen Lacaille ergab er sich ganz dem Studium der<lb/>
+Mathematik und Astronomie. Bald that er sich in<lb/>
+diesem Fache als Schriftsteller hervor und ward Mit-<lb/>
+glied der französischen Akademie der Wissenschaften.<lb/>
+Die Revolution riß ihn aus seiner friedlichen Laufbahn.<lb/>
+Erst nur Deputirter der Stadt Paris, ward er schon<lb/>
+<cb n="2"/>
+im Jahre 1789 Präsident der Nationalversammlung<lb/>
+und nach der Einnahme der Bastille Maire von Pa-<lb/>
+ris. Auch in der Verwaltung dieser Stelle zeichnete<lb/>
+er sich durch Geschick und Rechtschaffenheit aus. Als<lb/>
+seine Stellung immer schwieriger ward, ließ er sich<lb/>
+durch Pétion ersetzen und zog sich von allen Geschäf-<lb/>
+ten zurück, ward aber in der Schreckenszeit angeklagt<lb/>
+und verhaftet und endete mit der Fassung eines Phi-<lb/>
+losophen am 12. September 1793 auf der Guillotine.</p></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<pb facs="#f0002" n="362"/>
+<fw place="top" type="pageNum">362</fw><lb/>
+<cb type="start"/>
+<div n="1" type="jArticle" xml:id="Waise3"><head><hi rendition="#fr"><hi rendition="#g">Die Waise</hi>.</hi><lb/>
+<ref target="nn_pfennig097_1854#Waise2">( Fortsetzung. )</ref></head><lb/>
+<div n="2"><p><hi rendition="#in">W</hi>eißt du was, Bube, begann der Schleifer nach<lb/>
+einigem Besinnen, ich will dich als eigen annehmen,<lb/>
+wenn du brav bist, und dich mein Gewerbe lehren.<lb/>
+Schau, ich habe weder Kind noch Kegel, und du kannst<lb/>
+einmal meine Stütze und auch mein Erbe sein, wenn du<lb/>
+wacker bleibst! Albert nickte freundlich und Beide<lb/>
+gingen vergnügt und zufrieden miteinander nach dem<lb/>
+Dorfe Gießhübel, wo der Schleifer Jgnaz Schickedanz<lb/>
+wohnte.</p><lb/>
+<p>Eine alte Magd mußte das Geschäft übernehmen,<lb/>
+Albert vom Kopf bis zum Fuß zu reinigen, dann be-<lb/>
+kam er andere Kleider und ward fortan als ein Glied<lb/>
+des Hauses angesehen. Anfangs konnte sich der Knabe<lb/>
+durchaus nicht an die warmen Speisen, an die Stuben-<lb/>
+luft und Betten gewöhnen; ein Stück trocken Brot<lb/>
+und Käse zog er allen Suppen und dergleichen vor,<lb/>
+und zu seiner Schlafstelle wählte er am liebsten den<lb/>
+Stall, wo er vergnügt bei dem Karrenhunde schlief, der<lb/>
+auch bald sein Liebling wurde und die besten Brocken<lb/>
+von ihm erhielt. Jn kurzer Zeit lernte er auch die<lb/>
+Haupthandgriffe der Schleiferkunst und zog nun mit<lb/>
+seinem Pflegevater, der den anstelligen und gutmüthi-<lb/>
+gen Knaben täglich lieber gewann, von Ort zu Ort,<lb/>
+das Gewerbe zu treiben. Darüber verging der Som-<lb/>
+mer, und als nun der Winter kam, wo das Geschäft<lb/>
+ruhte, machte ihm sein Pflegevater als guter Christ<lb/>
+ernste Vorstellungen, auch Gottes Wort zu lernen. So<lb/>
+wenig Verlangen aber Albert auch hiernach bezeigte,<lb/>
+so mußte er sich endlich doch bequemen, den Religions-<lb/>
+unterricht des Pfarrers zu besuchen. Mit dem Lernen<lb/>
+der Sprüche und Gebete wollte es aber anfangs gar<lb/>
+nicht gehen; dazu kam auch noch, daß er in der<lb/>
+dunstigen Schulstube nie lange auszudauern vermochte<lb/>
+und oft halb ohnmächtig sie verlassen mußte. Daher<lb/>
+schüttelte der eifrige Pfarrer oftmals den Kopf über<lb/>
+ihn und prophezeite nichts Gutes; inzwischen prägte<lb/>
+sich Albert doch mit der Zeit das Nöthigste ein und<lb/>
+konnte endlich mit seinem Pflegevater, der sehr gottes-<lb/>
+fürchtig war, zusammen beten, worüber dieser eine in-<lb/>
+nige Freude empfand.</p><lb/>
+<p>Acht Jahre brachte Albert auf diese Weise bei dem<lb/>
+guten Scherenschleifer zu, ohne daß besondere Ereignisse<lb/>
+aufs neue störend in das Leben des Knaben eingriffen.<lb/>
+Während des Sommers betrieb er die Schleiferkunst,<lb/>
+in der er es bald zu einer nicht gewöhnlichen Fer-<lb/>
+tigkeit brachte, im Winter aber ward er zu häus-<lb/>
+lichen Geschäften angehalten. Bald galt er in der<lb/>
+ganzen Umgegend für den schmucksten und flinksten<lb/>
+Burschen und Alle rühmten ihm nach, wie treu er<lb/>
+seinen Pflegevater liebe, dessen Stütze er denn auch,<lb/>
+bei der zunehmenden Hinfälligkeit des bejahrten Man-<lb/>
+nes, mehr und mehr ward. Eine besondere Neigung<lb/>
+zeigte er stets zur Jagd, und gar manches Wild er-<lb/>
+legte er an arbeitsfreien Tagen heimlich im Walde,<lb/>
+worüber ihn der alte Schickedanz oftmals derb aus-<lb/>
+schalt. Jede Elster, die im Winter auf dem Zaune<lb/>
+saß, ward seine Beute und die Buben im Dorfe lie-<lb/>
+fen ihm darum nach, wenn sie ihn mit der Flinte<lb/>
+nach dem Walde schleichen sahen.</p><lb/>
+<p>Unter den Ortschaften, welche die beiden Schleifer<lb/>
+alljährlich mit ihrem Karren aufzusuchen pflegten, be-<lb/>
+fand sich auch das Dörfchen Lobenhain, woselbst eine<lb/>
+alte Base des Meisters Schickedanz, eine Witwe, mit<lb/>
+einer sehr hübschen Tochter wohnte. Das rosenwan-<lb/>
+gige Käthchen sah den schmucken, bescheidenen Albert<lb/>
+<cb n="2"/>
+jedes mal für ihr Leben gern kommen und stets<lb/>
+hatte sie vollauf Arbeit für ihn. Bald war ihre Näh-<lb/>
+schere, bald dieses oder jenes Messer stumpf, dann<lb/>
+wieder sollte er ihr Blumen pflanzen oder Leinwand<lb/>
+auf der Bleiche ausspannen helfen, genug, sie suchte<lb/>
+ihn auf alle Weise für sich zu beschäftigen. Albert<lb/>
+war ihr nun zwar auch in Allem gefällig, zeigte aber,<lb/>
+eine natürliche Folge seines frühern Entwickelungsgan-<lb/>
+ges, immer eine gewisse Blödigkeit und Scheu gegen<lb/>
+das Mädchen und ward roth und verlegen, wenn seine<lb/>
+und Käthchen's Hände sich bei den kleinen Arbeiten<lb/>
+zufällig einmal berührten. Die Bleiche war indeß sein<lb/>
+Lieblingsplatz. Manche Nacht schlief er daselbst unter<lb/>
+dem Laubdache einer majestätischen Eiche, in deren<lb/>
+Nähe ehemals eine Kapelle gestanden haben sollte, und<lb/>
+mit rührender Jnnigkeit bat er um Schonung des herr-<lb/>
+lichen Baums, als eines Tages die Rede davon war,<lb/>
+denselben zu fällen, weil er zu viel Schatten gäbe. Jn<lb/>
+Folge dieses Vorgangs hieß der Baum zuletzt allgemein<lb/>
+&#x201E;die Albertseiche&#x201C; und die Mädchen des Dorfs, welche<lb/>
+mit Käthchen dort die Leinwand begossen, suchten<lb/>
+fortan um so lieber Schutz gegen die Schwüle des<lb/>
+Tages unter ihr, sangen Lieder und zogen Käthchen<lb/>
+mit Albert auf. Erröthete erstere nun zwar auch dar-<lb/>
+über, so fragte sie selbst sich doch oft zweifelnd und<lb/>
+seufzend, ob Albert sie wol auch gern hätte!</p><lb/>
+<p>Der Jüngling war aber viel zu scheu; er hatte<lb/>
+keine Romane gelesen und sein bewegtes Jugendleben<lb/>
+hatte ihm weder Zeit noch Gelegenheit geboten, Be-<lb/>
+kanntschaft mit Frauen anzuknüpfen.</p><lb/>
+<p>Alle Versuche Käthchen's, ihn für sich zu gewin-<lb/>
+nen, misglückten und in der Verzweiflung wandte sie<lb/>
+endlich ihre Liebe Joseph, dem Sohne des Meßners,<lb/>
+zu, der ihr schon lange auf Schritt und Tritt nach-<lb/>
+schlich. Als daher Albert im Sommer 1812 mit sei-<lb/>
+nem Pflegevater wieder nach Lobenhain kam, war<lb/>
+Joseph Hahn im Korbe, und nun erst fühlte der be-<lb/>
+scheidene Jüngling, wie sehr lieb ihm Käthchen war<lb/>
+und manche Thräne über den schmerzlichen Verlust<lb/>
+stahl sich heimlich über seine Wangen. Käthchen be-<lb/>
+lauschte ihn oft, allein es war zu spät! Joseph wollte<lb/>
+und konnte sein Recht behaupten und fing schon im<lb/>
+Geheimen an, recht eifersüchtig auf Albert zu werden.<lb/>
+Dieser bemerkte kaum den verhaltenen Widerwillen sei-<lb/>
+nes alten Bekannten gegen ihn, als er beschloß, das<lb/>
+Mädchen sorgfältig zu meiden, um ja keinen Anlaß<lb/>
+zu Zwistigkeiten unter den Brautleuten zu geben.<lb/>
+Käthchen hingegen schrieb sein nunmehriges Benehmen<lb/>
+der wiedererwachten, ihr unbegreiflichen Kälte seines<lb/>
+Herzens zu, die sie so oft bei ihm verwünscht hatte.<lb/>
+Auf diese Weise entfernten sich die Beiden, die doch<lb/>
+füreinander bestimmt gewesen zu sein schienen, immer<lb/>
+weiter voneinander, und so oft Albert es nicht ver-<lb/>
+meiden konnte, in Käthchen's und ihres Verlobten<lb/>
+Nähe zu sein, fühlte er sich durch ihren gegenseitigen<lb/>
+ungezwungenen Umgang schmerzlich berührt; es gab<lb/>
+ihm immer einen Stich ins Herz. Zuletzt ward er<lb/>
+immer schwermüthiger, wozu er von jeher große Nei-<lb/>
+gung gehabt hatte und sprach oft von seinem baldigen<lb/>
+Tode, der ihm von klugen Frauen wiederholt schon<lb/>
+aus dem erzählten Gesicht mit dem Taufengel ge-<lb/>
+weissagt worden war. Das muthwillige Käthchen lä-<lb/>
+chelte dann wol spöttisch zu seiner Rede und sagte mit<lb/>
+großer Bereitwilligkeit zu, ihm den Todtenkranz zu<lb/>
+winden, den er sich von ihrer Hand erbat, wenn jene<lb/>
+Vorherverkündigung eintreffen würde. Der eifersüch-<lb/>
+tige Joseph aber dachte in seinem Herzen: &#x201E;Lieber heute<lb/>
+als morgen!&#x201C; Die andern Dirnen blickten verstohlen<lb/>
+<cb type="end"/>
+<pb facs="#f0003" n="363"/>
+<fw place="top" type="pageNum">363</fw><cb type="start"/>
+nach Albert hin und Viele wünschten sich seinen Be-<lb/>
+sitz, besonders da es bekannt war, daß er dermaleinst<lb/>
+seinen wohlhabenden Pflegevater beerben würde. Er<lb/>
+aber beachtete das Treiben um ihn her ganz und gar<lb/>
+nicht und bald betheuerten die Mädchen bei allen Zu-<lb/>
+sammenkünften, sein Herz müsse so hart und so kalt<lb/>
+wie sein Schleifstein sein.</p></div><lb/>
+<div n="2"><head><hi rendition="#aq">IV.</hi></head><lb/>
+<p>So standen die Sachen Albert's und Käthchen's,<lb/>
+als der Winter eintrat und den alten Schleifer eine<lb/>
+Krankheit befiel, die er sich durch Erkältung auf sei-<lb/>
+ner letzten Reise zugezogen hatte. Albert wich nicht<lb/>
+von seinem Lager. Der Kranke ward indeß immer<lb/>
+schwächer, fühlte den Tod herannahen und machte sein<lb/>
+Testament, in welchem er Albert zum alleinigen Er-<lb/>
+ben seines Vermögens einsetzte. Mit dem wiederkeh-<lb/>
+renden Frühlinge verschied der Greis in den Armen<lb/>
+seines Pflegesohns, der ihm unter heißen Thränen<lb/>
+dankbarster Liebe die Augen zudrückte.</p><lb/>
+<p>Nun im Besitze eines nicht unbedeutenden Vermö-<lb/>
+gens war Albert's erster Gedanke, es mit der alten<lb/>
+Base des Entschlafenen redlich zu theilen, da er sich<lb/>
+ein Gewissen daraus machte, ihr als der nächsten Ver-<lb/>
+wandten desselben die Erbschaft entzogen zu haben.<lb/>
+Groß war die Überraschung Käthchen's und ihrer Mut-<lb/>
+ter, als Albert, dem die Botschaft von dem Ableben<lb/>
+seines Pflegevaters schon vorausgeeilt war, eines Abends<lb/>
+in Lobenhain eintraf und den beiden Freundinnen er-<lb/>
+öffnete, weshalb er gekommen sei. Sie wollten an-<lb/>
+fangs das mit so seltener Uneigennützigkeit Dargebotene<lb/>
+schlechterdings nicht annehmen und es bedurfte der<lb/>
+ganzen Überredungskunst des Jünglings, das Wider-<lb/>
+streben Beider zu besiegen. Joseph aber erfuhr vor<lb/>
+der Hand nicht das Geringste von dieser Angelegenheit.<lb/>
+Jhm hing der Himmel voll Geigen und schon zählte<lb/>
+er in Gedanken oftmals die Tage, die noch vergehen<lb/>
+müßten, bis er Käthchen zum Traualtar führte.</p><lb/>
+<p>Der Mai war eben herangekommen, als eines<lb/>
+Abends die Bursche und Mädchen von Lobenhain un-<lb/>
+ter der großen Linde des Dorfs beisammensaßen, Lied-<lb/>
+chen sangen und vom Kriege plauderten, dessen Schlach-<lb/>
+tendonner selbst bis in die stillen Thäler Böhmens<lb/>
+dröhnte, als der Schulze des Orts in ihre Mitte trat<lb/>
+und die jungen Bursche, welche das zum Eintritt in<lb/>
+das Militär erfoderliche Maß und Alter hätten, auf<lb/>
+morgen zum Aufschreiben in seine Wohnung beschied,<lb/>
+weil binnen kurzem die Loosung zur Completirung der<lb/>
+Armee vor sich gehen solle.</p><lb/>
+<p><ref target="nn_pfennig099_1854#Waise4"><hi rendition="#c">( Beschluß folgt. )</hi></ref></p></div></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Michael Stifel.</hi></head><lb/>
+<p><hi rendition="#in">J</hi>m Jahre 1487, am 18. Januar, wurde in Eßlin-<lb/>
+gen ein Mann geboren, dessen sonderbare Schwärme-<lb/>
+reien auf dem Boden der Wissenschaft ihn zu allerhand<lb/>
+Jrrthümern führten. Er hieß Michael Stifel. Seine<lb/>
+Bildung erlangte er im Augustinerkloster seiner Ge-<lb/>
+burtsstadt, wo er sich der Theologie zu widmen be-<lb/>
+schloß. Dieses Ziel verfolgend, suchte er auf dem<lb/>
+wissenschaftlichen Felde nach Möglichkeit heimisch zu<lb/>
+werden und so warf er sich auch auf Mathematik,<lb/>
+welche zuletzt sein liebstes Studium wurde, denn seine<lb/>
+Neigung zu Grübeleien führte ihn nun bald auf Ge-<lb/>
+<cb n="2"/>
+danken über den Ursprung der Welt und die Erschei-<lb/>
+nungen am Sternenhimmel. So ward aus ihm ein<lb/>
+Astrolog, als welcher er sich berufen glaubte, die Zu-<lb/>
+kunft zu erforschen, indem er in den Sternen las und<lb/>
+es wagte, den Weltuntergang zu verkünden, den er<lb/>
+am nächtlichen Himmel und am Kreuze Christi erken-<lb/>
+nen wollte.</p><lb/>
+<p>Stifel gefiel seinen Ordensbrüdern in Eßlingen<lb/>
+durchaus nicht, da seine Ansichten mit den ihrigen<lb/>
+nicht übereinstimmten; er wurde deshalb im Jahre<lb/>
+1525 genöthigt, seine Vaterstadt zu verlassen und wen-<lb/>
+dete sich nun nach Östreich, wo er als Prediger eine<lb/>
+Anstellung fand. Hier war man mit seinen Ansichten<lb/>
+aber auch nicht einverstanden, daher verjagte man ihn<lb/>
+nach zweijähriger Amtsthätigkeit ebenfalls. Zuletzt wen-<lb/>
+dete sich Stifel nach Sachsen. Besondere Empfehlun-<lb/>
+gen verschafften ihm die Pfarrstelle zu Lochau, jetzt<lb/>
+Annaburg. Auch in seiner neuen Stellung konnte er<lb/>
+von seinem eingesogenen Wahne nicht lassen. Er saß<lb/>
+Tag und Nacht über seinen astrologischen Studien und<lb/>
+rechnete und rechnete, bis er endlich soviel herausge-<lb/>
+rechnet hatte, daß der 3. October, nämlich der 292.<lb/>
+Tag des Jahres 1533 der Tag sein müsse, an wel-<lb/>
+chem der Welt Ende und das Jüngste Gericht erschei-<lb/>
+nen werde. Von dem Resultate seines Nachdenkens<lb/>
+machte er gegen Andere gar kein Geheimniß, denn er<lb/>
+selbst glaubte steif und fest daran. Jn seinen Predig-<lb/>
+ten feuerte er die Glieder der Kirchengemeinde zur<lb/>
+Buße an; er bezeichnete die achte Morgenstunde als<lb/>
+den Beginn der großen Entscheidung und legte Allen<lb/>
+dringend ans Herz, für das Heil ihrer Seelen zu<lb/>
+sorgen.</p><lb/>
+<p>So mancher dummgläubige Zuhörer nahm Stifel's<lb/>
+Versicherung für Wahtheit an. Der Eine bestellte sein<lb/>
+Haus, um den letzten Dingen bußfertig entgegenzuge-<lb/>
+hen, der Andere jagte und tanzte vor der ernsten<lb/>
+Stunde und der Dritte ging jede Woche zum Beicht-<lb/>
+stuhle, um des Himmels Gnade zu erringen; aber es<lb/>
+gab auch Viele, welche das Leben der Erde noch im<lb/>
+Vollgenusse schmecken wollten, daher sie ihr Hab und<lb/>
+Gut verkauften, dem üppigen Leben sich hingaben und<lb/>
+in Lust und Schwelgerei ihre Erdenpilgerfahrt zu be-<lb/>
+schließen gedachten.</p><lb/>
+<p>Je näher der 3. October rückte, desto öfter wies<lb/>
+Stiefel in seinen Vorträgen auf die Entscheidungs-<lb/>
+stunde hin. Er erging sich dabei in Schilderungen,<lb/>
+die er dem Volke als Resultat seiner Forschungen und<lb/>
+als Deutung prophetischer Schriften gab. Sein Got-<lb/>
+teshaus war stets von Zuhörern überfüllt, denn Hun-<lb/>
+derte kamen von nah und fern, um sich von dem<lb/>
+Manne erbauen zu lassen und Näheres über die letz-<lb/>
+ten Dinge zu erfahren.</p><lb/>
+<p>Der gefürchtete Tag brach endlich an. Viele glaub-<lb/>
+ten ihr Haus auf rechte Weise bestellt und durch Buß-<lb/>
+fertigkeit ihre Seelenseligkeit gewahrt zu haben; Manche<lb/>
+hatten aber auch in ihrem Hange zur Erdenlust Alles<lb/>
+vergeudet. Mit frühem Morgen versammelte Stifel seine<lb/>
+Gemeinde in der Kirche zu Gebet und Gesang. Die<lb/>
+Andächtigen lagen auf ihren Knien und harrten mit<lb/>
+Bangigkeit des achten Stundenschlags. Der Augen-<lb/>
+blick rückte heran; Befreundete und Verwandte nah-<lb/>
+men Abschied voneinander &#x2014; es schlug 8 Uhr. Alle<lb/>
+waren im tiefen Schweigen des Kommenden gewärtig<lb/>
+&#x2014; doch es kam nichts. Man wartete noch längere<lb/>
+Zeit, denn der Prediger meinte sich in der Stunde ver-<lb/>
+rechnet zu haben; man ließ den Mittag heraufkommen,<lb/>
+aber die Ordnung der Welt blieb ungestört. Jetzt ver-<lb/>
+loren Einige die Geduld, Andere bekamen Hunger und<lb/>
+<cb type="end"/>
+<pb facs="#f0004" n="364"/>
+<fw place="top" type="pageNum">364</fw><cb type="start"/>
+bald löste sich die Versammlung in der Kirche bis auf<lb/>
+einige Gläubige auf. Am schlimmsten erging es nun<lb/>
+dem armen Propheten. Nicht nur, daß Spott und<lb/>
+Hohn ihn traf, nein, auch unzählige Vorwürfe mußte<lb/>
+er von solchen Leuten anhören, welche ihr Hab und<lb/>
+Gut hingegeben hatten und nun verarmt dastanden.<lb/>
+Er aber blieb noch immer auf der Kanzel stehen, denn<lb/>
+er glaubte seiner Sache ganz gewiß zu sein, doch die<lb/>
+Erbitterung der Gemeindeglieder wuchs. Sie stürmten<lb/>
+endlich auf den Prediger ein, zogen ihn von der Kan-<lb/>
+zel herab, banden ihn und schleppten ihn nach Wit-<lb/>
+tenberg, um ihn als einen falschen Propheten der<lb/>
+<cb n="2"/>
+Strafe der höhern Behörden zu überliefern. Das Ge-<lb/>
+richt war nicht so streng, als es die Ankläger begehr-<lb/>
+ten. Stifel wurde zwar auf längere Zeit seines Am-<lb/>
+tes entsetzt, damit er seinen Jrrwahn vergessen lernen<lb/>
+sollte; aber später machte man ihn zum Prediger in<lb/>
+Holzdorf bei Schweinitz. Hier begann er seine astro-<lb/>
+logischen Studien aufs neue, prophezeite wiederholt<lb/>
+allerlei und wurde abermals verjagt. Doch fand er<lb/>
+wieder eine Anstellung als Pfarrer in Habestrom bei Kö-<lb/>
+nigsberg und endlich wendete er sich, als sein Lebens-<lb/>
+abend kam, nach Jena, wo er, 81 Jahre alt, im<lb/>
+Jahre 1567 starb.</p></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Mandrills.</hi></head><lb/>
+<figure/><lb/>
+<cb type="start"/>
+<p><hi rendition="#in">D</hi>er Mandrill bietet eine höchst widerwärtige Ver-<lb/>
+mengung von thierischen und menschlichen Formen dar<lb/>
+und erreicht die bedeutende Höhe von3 1 / 2 &#x2014; 5 Fuß.<lb/>
+Jn seinem massenhaften Körper wohnt eine entspre-<lb/>
+chende Kraft, aber auch eine höchst gefahrdrohende<lb/>
+Wildheit. Die Eingeborenen von Guinea und der<lb/>
+Westküste Afrikas überhaupt fürchten ihn in hohem<lb/>
+Grade. Jn seinen Wäldern lebt er in Truppen ver-<lb/>
+einigt, die jedem andern wilden Thiere die Spitze zu<lb/>
+bieten vermögen und, häufig in Felder und Gärten<lb/>
+einbrechend, Plünderungen und Verwüstungen unge-<lb/>
+straft vornehmen. Er bewegt sich auf ebener Erde<lb/>
+mit mehr Sicherheit und Leichtigkeit als die übrigen<lb/>
+Affen, indessen springt und klettert er auch mit vieler<lb/>
+Gewandtheit. Seine Stimme klingt hohl und tief in<lb/>
+Kehltönen, jedoch infolge eines den Ton schwächen-<lb/>
+den Kehlsacks niemals sehr laut; sie drückt großen Zorn<lb/>
+und Bosheit aus, wenn sie in abgebrochene Laute<lb/>
+<cb n="2"/>
+übergeht. Daß die Mandrills im westlichen Afrika<lb/>
+häufig sein müssen, folgert man aus der großen Zahl<lb/>
+von jungen, von Zeit zu Zeit nach Europa gebrach-<lb/>
+ten Jndividuen, die jedoch selten alt werden, in-<lb/>
+dem der Zahnwechsel, der mit der erwähnten bedeu-<lb/>
+tenden körperlichen Entwickelung verbunden ist, ihnen<lb/>
+gewöhnlich tödtlich wird. Jn der Gefangenschaft sind<lb/>
+sie sehr bösartig und pflegen alle Thiere der Mena-<lb/>
+gerie zu tödten, die in ihren Bereich kommen. Jn der<lb/>
+berühmten Menagerie von Croß in London befand sich<lb/>
+vor einigen Jahren ein Mandrill, der, in einem Arm-<lb/>
+stuhle sitzend, mit großem Ernste aus einem Kruge<lb/>
+Porterbier trank und Taback rauchte, indessen von un-<lb/>
+gemein heftigem Temperament war und durch die<lb/>
+kleinste Beleidigung in solche Wuth versetzt wurde, daß<lb/>
+sein Anblick dann dem Kühnsten Furcht einflößte und<lb/>
+der stärkste Mann, wenn er unbewaffnet sich mit ihm<lb/>
+eingelassen hätte, besiegt worden sein würde.</p></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<pb facs="#f0005" n="365"/>
+<fw place="top" type="pageNum">365</fw><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Baddeley's Feuerspritze.</hi></head><lb/>
+<cb type="start"/>
+<p><hi rendition="#in">D</hi>ie hier eingedruckten Holzschnitte Fig. 1, 2 und 3<lb/>
+stellen eine von W. Baddeley, einem der geschick-<lb/>
+testen Civilingenieure zu London, welcher in dem &#x201E; <hi rendition="#aq">Me-<lb/>
+chanics ' Magazine</hi> &#x201C; viele neue Erfindungen mitgetheilt<lb/>
+hat, nach dem Grundsatze von De la Hire's doppelt<lb/>
+wirkender Pumpe eingerichtete Feuerspritze dar, von<lb/>
+welcher er glaubt, daß sie eine der festesten, immer<lb/>
+gleich kräftigen ist. Feuerspritzen, deren Stempel wage-<lb/>
+recht arbeiteten, sind 1654 zu Nürnberg im Gebrauche<lb/>
+gewesen, aber von ihrem innern Baue ist bis auf diese<lb/>
+Zeit nichts weiter bekannt geworden. Die Form, welche<lb/>
+<cb n="2"/>
+Baddeley für die Maschine angenommen hat, kommt<lb/>
+der von Braithwaith's Feuerspritze am nächsten; es<lb/>
+ist jedoch ein beträchtlicher Unterschied zwischen beiden.<lb/>
+Baddeley's Maschine besitzt mehre Eigenthümlichkeiten<lb/>
+der Anordnung, welche durch Hinweisung auf die Zeich-<lb/>
+nung verstanden werden können. Fig. 1 ist eine An-<lb/>
+sicht von hinten. Fig. 2 ist eine Seitenansicht von<lb/>
+den arbeitenden Theilen der Maschine und Fig. 3 ist<lb/>
+ein Seitendurchschnitt. Es sind bei allen dieselben<lb/>
+Buchstaben zur Bezeichnung ähnlicher Theile gewählt.</p><lb/>
+<p><hi rendition="#aq">A</hi> ist der Stiefel mit einem Deckel an jedem Ende       <cb type="end"/>
+<figure>         <head>  Fig. 1. </head></figure><lb/>
+<figure><head> Fig. 2.</head></figure><lb/>
+<pb facs="#f0006" n="366"/>
+<fw place="top" type="pageNum">366</fw>       <cb type="start"/>
+und vier Ventildeckklappen <hi rendition="#aq">bbbb</hi>. Das Register oder<lb/>
+Zapfenlager <hi rendition="#aq">c</hi> für die Hauptachse ist an dem Stiefel<lb/>
+angegossen. <hi rendition="#aq">DD</hi> ist die durch Lederbüchsen in den End-<lb/>
+oder Deckelplatten des Stiefels gehende Stempel= oder<lb/>
+Kolbenstange. <hi rendition="#aq">e</hi> ist der Stempel oder Kolben. <hi rendition="#aq">ff</hi> sind<lb/>
+die zwei Einlaß= und <hi rendition="#aq">gg</hi> die Ausgangsventile. Die<lb/>
+Saugröhre ist bei <hi rendition="#aq">h</hi> angeschraubt. <hi rendition="#aq">KK</hi> sind zwei Se-<lb/>
+ctoren, auf jeder Seite einer; sie drehen sich mit der<lb/>
+Hauptachse bei <hi rendition="#aq">c</hi> und bewegen sich durch die Hebel <hi rendition="#aq">bb.</hi><lb/>
+Die Sectoren theilen durch Ketten, die wie die in den<lb/>
+Uhren zusammengesetzt sind, dem daran befestigten Rah-<lb/>
+mengestelle <hi rendition="#aq">mm</hi> Bewegung mit und bewegen so die<lb/>
+Stempel= oder Kolbenstange. <hi rendition="#aq">NN</hi> sind die Handha-<lb/>
+ben, deren abwechselnde Auf= und Niederbewegung die<lb/>
+Stempel= oder Kolbenstange in dem Stiefel rückwärts<lb/>
+und vorwärts zieht; jede wechselseitige Bewegung der-<lb/>
+selben leert beinahe den ganzen Jnhalt des Stiefels<lb/>
+aus, indem er aufwärts durch die Ventile <hi rendition="#aq">gg</hi> und<lb/>
+durch die Ausgangsröhre <hi rendition="#aq">i</hi> ausgetrieben wird. Das<lb/>
+Luftgefäß <hi rendition="#aq">o</hi> macht den Strom vollkommen gleich und<lb/>
+regelmäßig. Jn obiger Skizze der Maschine ist sie mit<lb/>
+einem von Borton's dehnbaren metallenen Stempeln<lb/>
+oder Kolben dargestellt. Die Ventile sind von Kupfer,<lb/>
+mit Charnieren an ihren Stellen befestigt und es ist<lb/>
+kein einziges Stückchen Leder an der ganzen Maschine.<lb/>
+Daher kann eine so gebaute Maschine noch so lange<lb/>
+<cb n="2"/>
+bei Seite gestellt und vernachlässigt werden, ohne daß<lb/>
+sie auf irgend eine Weise mangelhaft wird.</p><lb/>
+<p>Ein aus Leder zusammengesetzter Stempel kann,<lb/>
+wenn er vorgezogen wird, leicht angenommen werden,<lb/>
+und er ist vielleicht für eine beständig im Gebrauche<lb/>
+seiende Maschine vortheilhafter, weil ein metallener<lb/>
+Stempel weit mehr das Einschmieren erfodert, als be-<lb/>
+quem und wirksam gewährt werden kann. Durch eine<lb/>
+Oeffnung am Obertheile des Stiefels, die außerdem<lb/>
+durch eine kleine Handschraube verschlossen ist, kann<lb/>
+gelegentlich Öl eingegossen werden. Außer der festen<lb/>
+und dichten Beschaffenheit dieser Feuerspritze ist sie auch<lb/>
+leichter und aus weniger Theilen zusammengesetzt als<lb/>
+jede andere von gleicher Wirksamkeit. Die Ein= und<lb/>
+Auslaßwassergänge werden von gewalztem Kupferbleche<lb/>
+gemacht und zusammengelöthet, wodurch Stärke und<lb/>
+Leichtigkeit mit dem freiesten Wasserlaufe verbunden<lb/>
+wird. Der letztere Umstand ist ein Punkt von großer<lb/>
+Wichtigkeit, den man aber dennoch bei dem Bau der<lb/>
+hydraulischen Maschinen nicht hinreichend beachtet hat.<lb/>
+Blos der arbeitende Theil der Maschine ist in den<lb/>
+Holzschnitten dargestellt; er kann in einen Wasserbe-<lb/>
+hälter von gewöhnlicher Form und Größe gesetzt wer-<lb/>
+den, in welchem er einen geringen Raum einnehmen<lb/>
+wird. Der Stiefel hat 7 Zoll im Durchmesser und<lb/>
+der Zug des Stempels in demselben ist 6 Zoll.</p>       <cb type="end"/>
+<figure>         <head>  Fig. 3.   </head>       </figure></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Die Zeitungen von ehedem und heute.</hi></head><lb/>
+<cb type="start"/>
+<p><hi rendition="#in">J</hi>n der kaiserlichen Bibliothek zu Wien, berichtet das<lb/>
+&#x201E;Weimarische Jahrbuch für deutsche Sprache, Literatur<lb/>
+und Kunst&#x201C; ( Hannover 1854 ) , befinden sich unter den<lb/>
+während des Dreißigjährigen Kriegs von den Fuggers<lb/>
+zu Augsburg für 15,000 Fl. erkauften Bücherschätzen<lb/>
+auch 28 Bände einer handschriftlichen, politischen Zei-<lb/>
+tung, der <hi rendition="#g">ersten,</hi> welche überhaupt in Deutschland<lb/>
+geschrieben ist und die Jahre 1568&#x2014;1604 umfaßt.</p><lb/>
+<p>Bekanntlich gelangte das Haus der reichen Fugger<lb/>
+<cb n="2"/>
+schon im 15. Jahrhundert zu großer Bedeutung und zu<lb/>
+seinem über die ganze Welt verbreiteten Rufe, um die<lb/>
+Mitte des 16. Jahrhunderts aber wehte die Fugger' -<lb/>
+sche Flagge auf allen Meeren, in Ost= und Westin-<lb/>
+dien blühten ihre Factoreien und in allen wichtigen<lb/>
+See= und Handelsstädten besaßen sie Agenturen. Jn-<lb/>
+zwischen hatte sich schon damals die Familie in mehre<lb/>
+Linien getheilt, nichtsdestoweniger aber umschlang ein<lb/>
+gewisses Band der Gemeinsamkeit alle einzelnen Glie-<lb/>
+<cb type="end"/>
+<pb facs="#f0007" n="367"/>
+<fw place="top" type="pageNum">367</fw><cb type="start"/>
+der und Augsburg blieb fort und fort wie Haup si<lb/>
+der Familie, so auch Mittelpunkt des gemeinsamen<lb/>
+Geschäfts. Dort mußte also der Überblick gewahrt<lb/>
+werden, dort liefen alle Fäden zusammen, dorthin<lb/>
+flossen aus allen Ländern die Nachrichten, welche auf<lb/>
+die Handelsunternehmungen Einfluß haben konnten,<lb/>
+und dort entstanden auf diese Weise unter den Augen<lb/>
+des Hauses Fugger die ersten deutschen Zeitungen.</p><lb/>
+<p>Doch, was sagen wir: die ersten <hi rendition="#g">deutschen</hi> Zeitun-<lb/>
+gen! Trifft doch diese Bezeichnung hier nur insofern<lb/>
+zu, als allerdings deutsche Jnteressen zumeist den Ge-<lb/>
+genstand ihres Jnhalts bilden; da aber die hier zusam-<lb/>
+mengestellten Nachrichten größtentheils von Handels-<lb/>
+häusern ausgingen, so waren sie auch in der damals<lb/>
+üblichen Handelssprache italienisch abgefaßt. Seltener<lb/>
+schon sind die französischen und spanischen Correspon-<lb/>
+denzen, wohingegen wiederum die Zahl der lateini-<lb/>
+schen, meist von Geistlichen und Gelehrten herrühren-<lb/>
+den Briefe nicht unbedeutend vorwiegt. Die übrigen<lb/>
+deutsch geschriebenen Berichte endlich erfahren seitens<lb/>
+unsers Gewährsmanns eine wenig günstige Kritik, nach<lb/>
+welcher sie im Allgemeinen den Stempel großer Unbe-<lb/>
+holfenheit und unerquicklicher Breite ohne Leben und<lb/>
+Frische tragen. Etwas höher stellt berselbe in sprach-<lb/>
+licher Hinsicht die in der Zeitung mitgetheilten deut-<lb/>
+schen Reime, meist satirischen Jnhalts.</p><lb/>
+<p>Der Umstand nun, daß die Zeitung, wie eben<lb/>
+nachgewiesen, in mehren Sprachen geschrieben wurde,<lb/>
+weist schon auf einen beschränkten Leserkreis hin, und<lb/>
+dazu kam fernerweit, daß das Jnteresse an den Welt-<lb/>
+händeln ja auch noch wenig verbreitet war, ebenso we-<lb/>
+nig wie das, um sie zu verfolgen, erfoderliche Ver-<lb/>
+ständniß. Hierin und in der Langsamkeit, mit wel-<lb/>
+cher die Nachrichten eingingen, liegt der wichtigste Un-<lb/>
+terschied des Zeitungswesens von damals und von heute.<lb/>
+Was auf dem gewöhnlichen Verkehrswege und an den<lb/>
+regelmäßigen Posttagen einging, wurde als &#x201E; <hi rendition="#aq">ordinari</hi>-<lb/>
+Zeitungen&#x201C; zusammengestellt, neben denen dann Beila-<lb/>
+gen mit den &#x201E;extraordinari&#x201C; ausgegeben wurden. Aus<lb/>
+einer Rechnung, welche Jeremias Krasser, Mitbürger<lb/>
+und Zeitungsschreiber in Augsburg, dem Herrn Phi-<lb/>
+lipp Eduard Fugger im Jahre 1588 vorlegte, ergibt<lb/>
+sich, daß der Schreiber <hi rendition="#aq">pro</hi> Bogen vier Kreuzer er-<lb/>
+hielt. Dieser Preis scheint indeß dem reichen Kauf-<lb/>
+herrn zu hoch angesetzt gewesen zu sein, denn Krasser<lb/>
+hält ihm vor, daß viele andere Herren, die er anführt<lb/>
+( Namen aus Augsburg und der Umgegend ) ihm Dasselbe<lb/>
+zahlen, selbst wenn nicht das ganze Blatt beschrieben<lb/>
+ist. Uebrigens erbietet er sich die <hi rendition="#aq">ordinari</hi>-Zeitungen<lb/>
+für 14 Gulden jährlich zu liefern und die <hi rendition="#aq">extra-or-<lb/>
+dinari</hi> für je vier Kreuzer oder will auch alle Zeitun-<lb/>
+gen für 25 &#x2014; 30 Gulden jährlich schreiben und ins<lb/>
+Haus schicken. Rücksichtlich ihrer Hauptanlage, der<lb/>
+Ausführlichkeit und Wahrheitstreue der Nachrichten und<lb/>
+der Mannichfaltigkeit des Stoffs jedoch entsprachen jene<lb/>
+uralten Zeitungen dem Bedürfnisse des nach Neuigkei-<lb/>
+ten lüsternen Lesers beinahe besser, als dies gegenwär-<lb/>
+tig mit den unserigen der Fall ist.</p><lb/>
+<p>Einige Proben des Jnhalts jener interessanten Zei-<lb/>
+tungssammlung dürften wol von unsern Lesern willkom-<lb/>
+men geheißen werden, indem sich aus denselben am be-<lb/>
+sten der Vergleich mit unserer heutigen Tagespresse ergibt.</p><lb/>
+<p>Den Hintergrund der politischen Begebenheiten bil-<lb/>
+deten gegen Ende des 16. Jahrhunderts die religiösen<lb/>
+Bewegungen in Deutschland, gleichzeitig aber waren<lb/>
+Aller Augen auf die unglücklichen Niederlande gerich-<lb/>
+tet, deren blutige Kämpfe gegen spanische Tyrannei in<lb/>
+naher Berührung zur Handelswelt standen. So füllen die<lb/>
+<cb n="2"/>
+tragischen Ereignisse jener Zeit, welche uns Goethe's und<lb/>
+Schiller's Dramen vorführen, viele Blätter aus; mehre<lb/>
+Berichterstatter erzählen die Hinrichtung von Egmont<lb/>
+und Hoorn und was sie geredet haben; ebenso den Tod<lb/>
+der Maria Stuart, die Ermordung Posa's, die Vor-<lb/>
+gänge bei und nach dem Tode des Don Carlos u. s. w.</p><lb/>
+<p>Ein ganz besonderes Jnteresse gewinnt gerade jetzt<lb/>
+eine in dem Jahrgange 1585 enthaltene Notiz über<lb/>
+einen russischen Gesandten am kaiserlichen Hofe zu<lb/>
+Wien, der um jene Zeit in ähnlicher Weise wie jüngst-<lb/>
+hin sein College Menschikoff bei der Hohen Pforte von<lb/>
+sich reden machte. Die Zeitung erzählt nämlich: &#x201E;Der<lb/>
+Gesandte des Moskowiters stellte sich gestern Sr. Ma-<lb/>
+jestät vor. Er hatte drei rothe Kappen auf und nahm<lb/>
+von denselben, als er sprach, nur zwei ab. Darüber<lb/>
+zur Rede gestellt, daß er die dritte vor dem Kaiser<lb/>
+aufbehalte, erklärte er, diese nur vor seinem Herrn<lb/>
+abnehmen zu wollen.&#x201C;</p><lb/>
+<p>Aus der Türkei sind in einigen Jahrgängen der<lb/>
+Zeitung gegen 100 Briefe aufgenommen, die von Kon-<lb/>
+stantinopel bis Wien in der Regel 40 &#x2014; 50 Tage un-<lb/>
+terwegs waren; von den außereuropäischen Correspon-<lb/>
+denzen aber erwähnen wir insbesondere die Berichte<lb/>
+aus Amerika, Ostindien, Persien, China und Japan.<lb/>
+Soviel von dem politischen Theile der Zeitungen jener<lb/>
+Tage, neben welchem man auch literarischen Notizen<lb/>
+aller Art eine ziemliche Ausdehnung vergönnte, indem<lb/>
+unter andern &#x201E;Tractätlein an die Fürsten gegen böse<lb/>
+Weiber und Hexen&#x201C;, ferner &#x201E;Fliegende Blätter&#x201C; und<lb/>
+dergleichen mehr der Zeitung als Beilage mitgegeben<lb/>
+wurden. Ebenso brachten die Zeitungen auch damals<lb/>
+schon eine Art Feuilleton, als: landschaftliche Schilde-<lb/>
+rungen, Beschreibungen von Festen, Aufzügen und<lb/>
+Volkssitten, Proceß= und andere sogenannte vermischte<lb/>
+Nachrichten, welche nicht selten ein schlagendes Licht<lb/>
+auf die socialen Zustände des 16. und 17. Jahrhun-<lb/>
+derts zu werfen geeignet sind. Das üppige, prahleri-<lb/>
+sche Leben der Fürsten und adeligen Herren, das trau-<lb/>
+rig gegen die Finanznoth im Staatswesen absticht,<lb/>
+wird besonders häufig geschildert. So wird von einer<lb/>
+zu Prag gefeierten Hochzeit eines Herrn von Rosen-<lb/>
+berg mitgetheilt, was Alles dabei aufgegangen sei,<lb/>
+nämlich: 38 Hirsche, 1300 Hasen, 15,000 Krammets-<lb/>
+vögel, 20,000 Eier, 500 Kapaunen, 5000 Hennen,<lb/>
+1300 Gänse, 800 Schöpse, 50 westfälische Schinken,<lb/>
+17 Centner Schmalz, 7000 Fische, 5 Tonnen Au-<lb/>
+stern, 318 Faß Wein, 170 Faß Bier u. s. w.</p><lb/>
+<p>Schließlich wollen wir noch einer Correspondenz<lb/>
+aus Komorn vom Jahre <gap reason="illegible" unit="chars" quantity="4"/>1595 gedenken, in welcher<lb/>
+nachstehendes ( politisches ) Lied an &#x201E;Kaiser Rudolfus&#x201C;<lb/>
+enthalten ist:</p><lb/>
+<lg>         <l>O römischer Kaiser Rudolph der ander,</l><lb/>
+<l>Wie ser last du so gar deine erblander,</l><lb/>
+<l>Regierst sie nicht nach deiner pflicht....</l><lb/>
+<l>Jch rat Dir, thue recht zur sachen schauen,</l><lb/>
+<l>Thue nicht Deinem nechsten rat alles vertrauen!</l><lb/>
+<l>Wilt Du behalten land und leut,</l><lb/>
+<l>Mach Dich bald uf Wien, es ist große zeit....</l><lb/>
+<l>Halt <hi rendition="#aq">justitia</hi> im regiment!</l><lb/>
+<l>Wirstu solches nit thuen und außbleiben,</l><lb/>
+<l>Wirst Dich nit lang könig in Ungarn schreiben,</l><lb/>
+<l>So wol von Österreich desgleichen,</l><lb/>
+<l>Es wirt warlich von Dir müßen weichen.</l><lb/>
+<l>Was werden die Behaim <note place="foot" n="*)">Böhmen.</note> darzue sagen?</l><lb/>
+<l>Thuen zuvor nit viel nach Dir fragen u. s. w.</l></lg></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<cb type="end"/>
+<pb facs="#f0008" n="368"/>
+<fw place="top" type="pageNum">368</fw><lb/>
+<div n="1" type="jVarious"><head><hi rendition="#fr"><hi rendition="#g">Mannichfaltiges</hi>.</hi></head><lb/>
+<cb type="start"/>
+<div n="2" type="jArticle"><p>Cochenillezucht in Europa wird Vielen etwas ganz<lb/>
+Neues sein. Roßmäßler lernte sie auf seinen Reisen in Spa-<lb/>
+nien kennen und besuchte in der Umgegend von Malaga so-<lb/>
+genannte Nopalgärten. Nopal ist aber bekanntlich die indi-<lb/>
+sche Benennung der <hi rendition="#aq">Opuntia coccinellisera</hi>, auf welcher die<lb/>
+Cochenillewürmer gezogen werden. Unser Landsmann erzählt:<lb/>
+&#x201E;Jch besuchte einen großen Nopalgarten, in welchem die<lb/>
+Pflanzen ungefähr vier Fuß hoch waren; sie standen in Rei-<lb/>
+hen auf gezogenen Dämmchen, zwischen denen sie bewässert<lb/>
+werden konnten, etwa wie unsere Kartoffeln, aber statt de-<lb/>
+ren große Cactuspflanzen &#x2014; ein wahrhaft fremdartiger An-<lb/>
+blick. Die Cochenille gehört in eine Jnsektenfamilie, aus der<lb/>
+auch bei uns sehr viele Arten auf den Pflanzen schmarotzen,<lb/>
+nur daß sie nicht den prächtig rothen Saft in ihren Leibern<lb/>
+tragen und höchstens das Ansehen unserer Zier= und Zucht-<lb/>
+pflanzen verderben.&#x201C; Es ist die Jnsektenfamilie, die wir<lb/>
+Blatt= oder Pflanzenläuse zu nennen pflegen. Die Coche-<lb/>
+nilleblattlaus, welche den herrlichen Färbestoff liefert, ist<lb/>
+etwa so groß wie ein Wickenkorn, fast ebenso rund und dick.<lb/>
+Mit seinen sechs kleinen Füßchen und seinem Saugrüssel hef-<lb/>
+tet sich das Thierchen an einen Punkt des Nopalblattes fest<lb/>
+und bringt in dieser Stellung eine zahlreiche Nachkommen-<lb/>
+schaft zur Welt. Nach und nach wimmelt es auf den Blät-<lb/>
+tern, die Thierchen sehen granatroth aus, hängen etwa drei<lb/>
+Wochen fest, lassen dann los und fallen zu Boden. Man<lb/>
+muß diesen Zeitpunkt genau beobachten und dann die aus-<lb/>
+gewachsenen Thierchen zur Gewinnung des kostbaren Färbe-<lb/>
+stoffs sammeln. </p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Australiens Boden. Längs seinen großen, oft auf<lb/>
+lange Strecken schiffbaren Flüssen besitzt das Land einen hin-<lb/>
+länglich fruchtbaren Boden, für alle Producte der Erde<lb/>
+geeignet. Gegen Nord wachsen Bananen, Ananas, Feigen,<lb/>
+Apfelsinen, Zuckerrohr und alle die ausgezeichnetsten Frucht-<lb/>
+arten der tropischen Gegenden. Dort hat man in der spä-<lb/>
+tern Zeit auch angefangen, Baumwolle zu erbauen, die an<lb/>
+Güte fast alle bisher bekannten Arten übertrifft und eins<lb/>
+von Neuhollands wichtigsten Producten zu werden verspricht.<lb/>
+Die mittelsten und südlichen Striche sind zum Kornbau be-<lb/>
+sonders passend, sodaß man schon jetzt fast soviel Korn pro-<lb/>
+ducirt, als das Land gebraucht. Wenn die Arbeitskraft,<lb/>
+welche jetzt beinahe ausschließend auf das Goldgraben gerich-<lb/>
+tet ist, in den natürlichen Strom zurückkehrt, wird die un-<lb/>
+endliche Fruchtbarkeit gewiß zu noch größerm Segen für die<lb/>
+Menschen sich benutzen lassen und Australien dann eine Korn-<lb/>
+kammer für die übrige Welt werden.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Die Elementarschulen in Rußland sind nicht sehr<lb/>
+zahlreich. Jn runder Zahl betragen sie kaum 3000 und das<lb/>
+gibt das Verhältniß zur Bevölkerung, die im ganzen Reiche<lb/>
+etwa 65 Millionen <gap reason="illegible" unit="chars" quantity="7"/>beträgt. Jn den Elementarschulen wird<lb/>
+nichts als Schreiben und Lesen gelehrt; sie bestehen nur in<lb/>
+den Städten, in den Dörfern hängen sie rein von der Will-<lb/>
+kür der Adeligen ab. Besser sind schon die sogenannten<lb/>
+Kreisschulen; sie erhalten meist ihre Lehrkräfte von den Uni-<lb/>
+versitäten. Freilich sind die Lehrer meist zur Strafe da; es<lb/>
+sind nämlich solche Kronstudenten, welche, zu Diensten ver-<lb/>
+pflichtet, diese in ihrem eigentlichen Fache nicht leisten konn-<lb/>
+ten und dann im Lehrfache zur Strafe verbraucht werden,<lb/>
+damit die Krone ihre Auslagen für die gewährte Erziehung<lb/>
+nicht ganz verliere.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Die australischen Urwälder zeigen nicht die tropische,<lb/>
+schwellende, saftige Natur, nicht die breiten Blätter und<lb/>
+riesigen Bäume, aber doch auch eine merkwürdige Größe<lb/>
+und Pracht &#x2014; Gummibäume von 200 Fuß Höhe und oft<lb/>
+drei Ellen im Durchmesser, ungeheure Feigenbäume mit gro-<lb/>
+ßen Luftwurzeln, die sich aus den von Lianen durchflochtenen<lb/>
+Zweigen herabsenken und bis zur Mitte des Stamms mit<lb/>
+Schwammgewächsen, welche Ameisenhügeln oder übermäßigen<lb/>
+Vogelnestern gleichen, bedeckt sind, dichte Haine von 100<lb/>
+<cb n="2"/>
+Fuß hohen Palmen und 20&#x2014;30 Fuß hohen palmenähnlichen<lb/>
+Farrn mit ihren reizend geformten Blattkronen, bis zum<lb/>
+Gipfel von einer Schar schönblühender Schlingpflanzen um-<lb/>
+wunden.   </p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Sprüchwörter der Odschi=Neger. Des Armen El-<lb/>
+fenbein ist ein Eberzahn. &#x2014; Ein Fehltritt des Mundes ist<lb/>
+schlimmer als des Fußes. &#x2014; Ein Dummkopf, dessen Schaf<lb/>
+zwei mal ausreißt. &#x2014; Niemand läßt ab, einen Elefanten zu<lb/>
+verfolgen und setzt einem Sperlinge nach. &#x2014; Leg drauf!<lb/>
+Leg drauf! macht endlich eine Last. &#x2014; Jm Ohr ist kein<lb/>
+Kreuzweg. &#x2014; Wenn du nicht tanzen kannst, sagst du: Jch<lb/>
+mag die Trommel nicht. &#x2014; Einer allein ist kein Held. &#x2014;<lb/>
+Des Todes Hippe mäht nicht in <hi rendition="#g">einer</hi> Gegend blos. &#x2014;<lb/>
+Wenn ein Sklave frei wird, nennt er sich selbst einen Edel-<lb/>
+mann. &#x2014; Wenn Jemand dich haßt, schlägt er dein Vieh. &#x2014;<lb/>
+Wenn ein Vogel in der Schlinge ist, tönt sein Geschrei an-<lb/>
+ders als sonst. &#x2014; Wenn dein Verwandter stirbt, stirbst du<lb/>
+darum nicht; aber wenn er Schande auf sich ladet, trifft<lb/>
+dich die Schande mit.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Vor dem Monte Rosa. Otto Roquette, der seine<lb/>
+Besteigung des Monte Rosa sehr ansprechend erzählt<lb/>
+hat, beschreibt uns den Anblick desselben vom sogenannten<lb/>
+Moropaß aus also: &#x201E;Welch ein Anblick wartete hier unser!<lb/>
+Jch habe das Schneegebilde der Jungfrau, die Kette der<lb/>
+Berner Alpen vom Faulhorn aus und den Montblanc gese-<lb/>
+hen und keins dieser Bilder kommt dem des Monte Rosa<lb/>
+vom Moropaß gleich. Sollte man aufjauchzen vor Entzücken<lb/>
+oder in die Knie sinken vor diesem ergreifenden Gebilde der<lb/>
+Schöpfung? Ein Gemisch von Freude und Andacht erfüllte<lb/>
+die Brust, und je länger der Blick umherschweifte, desto be-<lb/>
+deutsamer und ernsthafter wurde der Eindruck. Hier in der<lb/>
+Region des Schnees grünte auf Stunden weit kein Blatt,<lb/>
+kein Halm. Kein Felsen zeigte sich mehr in seiner dunkeln<lb/>
+Farbe, der ewige Winter starrte um uns her und tiefblau<lb/>
+lag der Himmel darüber. Vom Kopf bis zu Fuß im wei-<lb/>
+ßen Gewande stand der Monte Rosa da, vier seiner Spitzen<lb/>
+hoben sich in den kalten Aether und seine Gletscher griffen,<lb/>
+vielfach gewunden, wie riesenhafte Eichenwurzeln in die<lb/>
+Grundfeste der Alpenberge. Klar stand die Sonne am Him-<lb/>
+mel, aber eisig wehte die Luft über das unabsehbare Gefilde<lb/>
+des Schnees; kein lebendes Wesen außer uns war zu er-<lb/>
+blicken. Wir athmeten im Reiche der todten Erstarrung,<lb/>
+der ewigen Ruhe und Unveränderlichkeit.&#x201C;</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Nov=Antik. Als der Mathematiker Jacobi aus Kö-<lb/>
+nigsberg von London zu Schiffe nach Edinburg reiste, zün-<lb/>
+dete er sich ganz ruhig seine Pfeife an, indem er Stahl,<lb/>
+Stein und Schwamm hervorholte. Neugierig sammelten sich<lb/>
+um ihn einige Yankees aus Neuyork und Boston, folgten ge-<lb/>
+spannt seiner Manipulation und bewunderten die ingeniöse<lb/>
+Methode als eine neue Erfindung.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Dringend. &#x201E;Komm doch ja recht bald wieder!&#x201C; sagt<lb/>
+Julchen zu Minchen. &#x2014; &#x201E;Jch komme, sobald ich kann.&#x201C; &#x2014;<lb/>
+&#x201E;Könntest du denn nicht noch etwas früher kommen?&#x201C;</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Die Verwechseluug. Von einer Dame, die als gute<lb/>
+Hausfrau und erfahrene Wirthschafterin in Ruf stand, er-<lb/>
+bat sich eine Bekannte, deren Kinder von den Masern zu ge-<lb/>
+nesen anfingen, ein Verhaltungsrecept. Es ward ihr ver-<lb/>
+sprochen. Die schriftstellerische Martha hat nach mehren Sei-<lb/>
+ten hin Depeschen auszufertigen und schickt der Mutter der<lb/>
+kleinen Patienten ein Recept, von dem diese mit ziemlich ver-<lb/>
+blüfftem Gesicht Kenntniß nimmt; denn es hieß darin: &#x201E;Sie<lb/>
+werden gebrüht, geschält, mit Salz bestreut und dann in<lb/>
+kochenden Weinessig geworfen.&#x201C; Die Rathgeberin hatte sich<lb/>
+vergriffen und ein Recept, Zwiebeln einzumachen, geschickt.</p></div></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/><lb/>
+</body>     <back><div n="1" type="imprint"><p><hi rendition="#c">Verantwortlicher Redacteur: <hi rendition="#aq">M</hi>. J. E. Volbeding. &#x2014; Druck und Verlag von F. A. Brockhaus in Leipzig.</hi></p></div>     </back>   </text> </TEI>

@@ -1,0 +1,1136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.deutschestextarchiv.de/basisformat.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">     <teiHeader>
+<fileDesc>
+<titleStmt>
+<title type="main">Das Pfennig-Magazin für Belehrung und Unterhaltung</title>
+<title type="sub">Neue Folge, Erster Jahrgang, Nr. 26</title>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/115266127">
+<surname>Geyken</surname>
+<forename>Alexander</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1222198746">
+<surname>Haaf</surname>
+<forename>Susanne</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1019062681">
+<surname>Jurish</surname>
+<forename>Bryan</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Boenig</surname>
+<forename>Matthias</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Thomas</surname>
+<forename>Christian</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Wiegand</surname>
+<forename>Frank</forename>
+</persName>
+</editor>
+<respStmt>
+<orgName>Institut für Deutsche Sprache, Mannheim</orgName>
+<resp>
+<note type="remarkResponsibility">Bereitstellung der Bilddigitalisate und TEI
+Transkription</note>
+<ref target="http://hdl.handle.net/10932/00-01B8-B084-77FF-6101-F"/>
+</resp>
+</respStmt>
+<respStmt>
+<persName>
+<forename>Peter</forename>
+<surname>Fankhauser</surname>
+</persName>
+<resp>
+<note type="remarkResponsibility">
+Transformation von TUSTEP nach TEI P5.
+Transformation von TEI P5 in das DTA TEI P5 Format.
+</note>
+</resp>
+</respStmt>
+<respStmt>
+<orgName ref="https://www.bbaw.de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<resp>
+<note type="remarkResponsibility">Langfristige Bereitstellung der DTA-Ausgabe</note>
+<ref target="https://www.bbaw.de"/>
+</resp>
+</respStmt>
+</titleStmt>
+<editionStmt><edition>Vollständige digitalisierte Ausgabe.</edition></editionStmt>
+<extent>
+<measure type="images">8</measure>
+<measure type="tokens">6882</measure>
+<measure type="types">2627</measure>
+<measure type="characters">46211</measure>
+</extent>
+<publicationStmt>
+<publisher xml:id="DTACorpusPublisher">
+<email>dta@bbaw.de</email>
+<orgName role="project">Deutsches Textarchiv</orgName>
+<orgName role="hostingInstitution" xml:lang="en">Berlin-Brandenburg Academy of Sciences and Humanities (BBAW)</orgName>
+<orgName role="hostingInstitution" xml:lang="de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<address>
+<addrLine>Jägerstr. 22/23, 10117 Berlin</addrLine>
+<country>Germany</country>
+</address>
+</publisher>
+<pubPlace>Berlin</pubPlace>
+<date type="publication">2025-10-24T08:35:11Z</date>
+<availability>
+<licence target="http://creativecommons.org/publicdomain/zero/1.0/">
+<p>Dieses Werk steht unter der "Creative Commons Namensnennung -
+Nicht kommerziell 3.0 Deutschland Lizenz" (CC BY-NC).</p>
+</licence>
+</availability>
+<idno>
+<idno type="URLWeb">https://www.deutschestextarchiv.de/nn_pfennig026_1843</idno>
+<idno type="URLXML">https://www.deutschestextarchiv.de/book/download_xml/nn_pfennig026_1843</idno>
+<idno type="URLHTML">https://www.deutschestextarchiv.de/book/download_html/nn_pfennig026_1843</idno>
+<idno type="URLText">https://www.deutschestextarchiv.de/book/download_text/nn_pfennig026_1843</idno>
+<idno type="DTADirName">nn_pfennig026_1843</idno>
+<idno type="DTAID">34718</idno>
+<idno type="URN">urn:nbn:de:kobv:b4-34718-0</idno>
+</idno>
+</publicationStmt>
+<sourceDesc>
+<bibl type="J">Das Pfennig=Magazin für Belehrung und Unterhaltung. Neue Folge, Erster Jahrgang, Nr. 26. Leipzig (Sachsen), 1. Juli 1843.</bibl>
+<biblFull>
+<titleStmt>
+<title level="m" type="main">Das Pfennig-Magazin für Belehrung und Unterhaltung</title>
+<title level="m" type="sub">Neue Folge, Erster Jahrgang, Nr. 26</title>
+</titleStmt>
+<editionStmt>
+<edition n="1"/>
+</editionStmt>
+<publicationStmt>
+<publisher/>
+<pubPlace>Leibzig (Sachsen)</pubPlace>
+<date type="publication">1843</date>
+</publicationStmt>
+</biblFull>
+<msDesc>
+<msIdentifier/>
+<physDesc>
+<typeDesc>
+<p>Fraktur</p>
+</typeDesc>
+</physDesc>
+</msDesc>
+</sourceDesc>
+</fileDesc>
+<encodingDesc>
+<editorialDecl>
+<p>
+<![CDATA[
+<p>Siehe Dokumentation</p>
+]]>
+</p>
+</editorialDecl>
+<tagsDecl>
+<rendition scheme="css" xml:id="aq">font-family:sans-serif</rendition>
+<rendition scheme="css" xml:id="b">font-weight:bold</rendition>
+<rendition scheme="css" xml:id="blue">color:blue</rendition>
+<rendition scheme="css" xml:id="c">display:block; text-align:center</rendition>
+<rendition scheme="css" xml:id="et">display:block; margin-left:2em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et2">display:block; margin-left:4em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et3">display:block; margin-left:6em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="f">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="fr">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="g">letter-spacing:0.125em</rendition>
+<rendition scheme="css" xml:id="i">font-style:italic</rendition>
+<rendition scheme="css" xml:id="in">font-size:150%</rendition>
+<rendition scheme="css" xml:id="k">font-variant:small-caps</rendition>
+<rendition scheme="css" xml:id="larger">font-size:larger</rendition>
+<rendition scheme="css" xml:id="red">color:red</rendition>
+<rendition scheme="css" xml:id="right">display:block; text-align:right</rendition>
+<rendition scheme="css" xml:id="s">text-decoration:line-through</rendition>
+<rendition scheme="css" xml:id="smaller">font-size:smaller</rendition>
+<rendition scheme="css" xml:id="sub">vertical-align:sub; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="sup">vertical-align:super; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="u">text-decoration:underline</rendition>
+<rendition scheme="css" xml:id="uu">border-bottom:double 3px #000</rendition>
+</tagsDecl>
+</encodingDesc>
+<profileDesc>
+<langUsage>
+<language ident="deu">(Früh-)Neuhochdeutsch</language>
+<language ident="deu">German</language>
+</langUsage>
+<textClass>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1main">Gebrauchsliteratur</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1sub">Zeitschrift</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">ready</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">mkhz1</classCode>
+</textClass>
+</profileDesc>
+</teiHeader>
+<text>     <front>
+<pb facs="#f0001" n="[201]"/>
+<titlePage type="heading"><docTitle><titlePart type="main"><hi rendition="#c #fr">Das Pfennig=Magazin<lb/>
+für<lb/>
+<hi rendition="#g">Belehrung und Unterhaltung</hi>.</hi></titlePart></docTitle><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<docImprint><hi rendition="#fr">Nr</hi>. 26. ]                <hi rendition="#c">Neue Folge. Erster Jahrgang.</hi>                <docDate><hi rendition="#right">[ 1. <hi rendition="#g">Juli</hi> 1843.</hi></docDate>              </docImprint></titlePage><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+</front>     <body>       <div n="1" type="jArticle"><head><hi rendition="#fr">Das Felsenschloss.</hi></head><lb/>
+<figure/><lb/>
+<cb type="start"/>
+<p><hi rendition="#in">D</hi>as sogenannte Felsenschloß liegt in der Bretagne un-<lb/>
+gefähr eine halbe Stunde von Vitré und wird mit au-<lb/>
+ßerordentlicher Sorgfalt in seinem ursprünglichen Zu-<lb/>
+<cb n="2"/>
+stande erhalten. Hier lebte vor 200 Jahren die be-<lb/>
+rühmte Frau von Sévigné, und schrieb hier auch ihre<lb/>
+bekannten &#x201E;Briefe&#x201C;.</p></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Der heilbringende Säbel.</hi><lb/>
+( Beschluß aus Nr. 25. )</head><lb/>
+<cb type="start"/>
+<p><hi rendition="#in">N</hi>un folgte eine Scene, die wir am besten ungeschil-<lb/>
+dert lassen, da jede Schilderung doch nur ein Schatten-<lb/>
+bild von ihr geben würde. Jürge befand sich in der<lb/>
+That im Himmel, als er die Seinigen nach so langer<lb/>
+Trennung wieder umarmen konnte. Sprachlos stand er<lb/>
+unter ihnen und große Thränen rollten über sein gebleich-<lb/>
+tes Gesicht, das zum Glück für die Seinigen wegen des<lb/>
+tiefen Dunkels, das im Zimmer herrschte, nicht gesehen<lb/>
+werden konnte. Die Thränen Martha's, Hanka's und<lb/>
+Jan's waren daher nur Thränen der Freude. Die Mi-<lb/>
+nuten schwanden den Glücklichen wie Augenblicke, die<lb/>
+Stunden wie Minuten, und wären Hans und die drei<lb/>
+andern Kinder nicht gewesen, so möchte wol die ganze<lb/>
+<cb n="2"/>
+Nacht vorübergegangen sein, ohne daß Jemand an Licht<lb/>
+und Speise gedacht hätte. Hans aber hatte sich, nach-<lb/>
+dem er von seiner Überraschung zu sich gekommen, aus der<lb/>
+Stube geschlichen und kam bald darauf mit dem Lämp-<lb/>
+chen und einem Kruge Bier zurück. Martha kam nun auch<lb/>
+wieder zu sich, holte Butter, Brot und Käse, und es begann<lb/>
+auf dem kleinen Tische, den Hans fabricirt hatte, das<lb/>
+seligste Mahl, welches man sich denken kann.</p><lb/>
+<p>Jürge erzählte, wie man ihm vor einigen Tagen er-<lb/>
+öffnet habe, der Regierung seien über seine Person und<lb/>
+die traurige Begebenheit, die ihn um seine Freiheit ge-<lb/>
+bracht habe, Berichte zugekommen, denen zufolge sie ge-<lb/>
+nöthigt sei, ihm seine Freiheit wieder zu geben. Martha<lb/>
+<cb type="end"/>
+<pb facs="#f0002" n="202"/>
+<fw place="top" type="pageNum">202</fw><cb type="start"/>
+hatte darüber eine doppelte Freude, denn sie sah daraus,<lb/>
+daß Dolgoruki lebte und für sie thätig gewesen war.<lb/>
+Sie erzählte nun ihre Schicksale, und Jürge wurde von<lb/>
+aufrichtiger Dankbarkeit gegen die Vorsehung erfüllt, die<lb/>
+ihm auf so wunderbare Weise wieder zu seiner Freiheit<lb/>
+verholfen hatte.</p><lb/>
+<p>Komm her, mein lieber Weißkopf, sagte er zu Handri,<lb/>
+laß dich umarmen; du hast auch Antheil an meiner Be-<lb/>
+freiung. Jch werde hinfort dein Vater sein und du sollst<lb/>
+nie einen Anlaß haben, über mich zu klagen.</p><lb/>
+<p>Und ich werde Euch keine Gelegenheit zur Unzufrie-<lb/>
+denheit geben, erwiderte Handri, herantretend. Auch<lb/>
+meine Schwestern will ich Euch empfohlen haben.<lb/>
+Kommt und gebt Herrn Jürge die Hand, daß ihr brav<lb/>
+sein wollt, sagte er zu ihnen.</p><lb/>
+<p>Marja und Lena traten nun ebenfalls heran und gaben<lb/>
+ihm mit gesenkten Blicken die Hand, doch nicht ohne<lb/>
+einen innern Kampf zu bestehen, der Jürgen nicht ent-<lb/>
+ging. Das Unglück macht den Menschen scharfsichtig,<lb/>
+und wer sich etwas vorzuwerfen hat, sieht die Vorwürfe,<lb/>
+die er sich selbst macht, in fremden Mienen sogar dann,<lb/>
+wenn sie nicht darin sind, um wie viel mehr dann, wenn<lb/>
+sie sich wirklich darin aussprechen.</p><lb/>
+<p>Zürnt ihr mir noch, meine Kinder, daß ich eins der<lb/>
+Werkzeuge in der Hand Gottes war, durch die er die<lb/>
+Sterblichen abruft von dieser Erde?</p><lb/>
+<p>Nein, sagte Marja, wir wissen wohl, daß ein Mis-<lb/>
+verständniß Schuld an allem Übel ist und daß Gott Alles<lb/>
+zum Besten wendet. Hans, der Pastor und Martha<lb/>
+haben uns darüber hinlänglich belehrt.</p><lb/>
+<p>Nun, so erfahrt auch, daß ich euch für meine Kin-<lb/>
+der ansehe und für euch sorgen werde, wie für Jan und<lb/>
+Hanka. Geht, umarmt eure Schwestern, sagte er zu<lb/>
+Jan und Hanka.</p><lb/>
+<p>Die Lena will ich wol als meine Schwester ansehen,<lb/>
+sagte Jan, aber die Marja nicht.</p><lb/>
+<p>Warum denn? Was hat sie dir zu Leide gethan?<lb/>
+fragte Jürge erstaunt.</p><lb/>
+<p>Sie hat mir nichts zu Leide gethan, aber ich mag<lb/>
+sie nicht zur Schwester haben, sagte Jan trotzig.</p><lb/>
+<p>Er glaubt, sagte hier Hanka, eine Schwester dürfe<lb/>
+man nicht heirathen, und deshalb will er Marja nicht<lb/>
+zur Schwester haben.</p><lb/>
+<p>Willst du denn schon heirathen, mein Sohn? fragte<lb/>
+Jürge lächelnd.</p><lb/>
+<p>Jetzt nicht, aber wenn ich groß, wenn ich Pastor<lb/>
+bin, antwortete Jan mit strahlenden Augen.</p><lb/>
+<p>Diese Antwort gab dem Gespräche eine neue Wen-<lb/>
+dung, welche endlich allgemeine Heiterkeit verbreitete.</p><lb/>
+<p>Am folgenden Tage hatte Jürge nichts Angelegent-<lb/>
+licheres zu thun, als Käufer für sein Bauergut zu suchen,<lb/>
+denn er wollte nicht im Dorfe bleiben, wo ihn jeder<lb/>
+Stein an eine Begebenheit erinnerte, an die er nie ohne<lb/>
+tiefen Schmerz denken konnte. Auch hatte er in der<lb/>
+That die Absicht, seinen Jan dem Dienste Gottes zu<lb/>
+widmen. Es dauerte nicht lange, so fand sich ein Käu-<lb/>
+fer, mit dem er handelseins wurde. Er zog hierauf in<lb/>
+die Stadt und schickte daselbst Jan und Handri auf die<lb/>
+sogenannte große Schule. Beide hatten von Hans die<lb/>
+nöthige Vorbereitung erhalten und lernten um die Wette <lb/>
+<hi rendition="#aq">mensa</hi> decliniren und <hi rendition="#aq">amo</hi> conjugiren.</p><lb/>
+<p>Während Jürge und Martha mit ihren Kindern in<lb/>
+die Stadt zogen, eilte Dolgoruki nach Rußland. Die<lb/>
+tapfern Thaten, welche ihm den Generalstitel ver-<lb/>
+schafft, hatten versöhnend auf die Braut gewirkt und sie<lb/>
+hörte mit Vergnügen die Aufklärung über den verhäng-<lb/>
+nißvollen Ring. Aber der Vater war desto trauriger und<lb/>
+Dolgoruki, ahnend, woher die Traurigkeit stammte, wagte<lb/>
+<cb n="2"/>
+daher lange nicht, nach seinem theuren Freunde zu fra-<lb/>
+gen. Endlich aber mußte es geschehen und da erfuhr er<lb/>
+denn Folgendes:</p><lb/>
+<p>Der junge Fürst war in der Schlacht bei Bautzen<lb/>
+zu einem Rückzuge über Hals und Kopf genöthigt und<lb/>
+dabei von den Seinigen getrennt worden, die Feinde wa-<lb/>
+ren ihm auf dem Nacken gewesen und der Arme hatte<lb/>
+aus Besorgniß für das größte Heiligthum seiner Familie,<lb/>
+das ihm in seinem Säbel anvertraut war, mit dem<lb/>
+seine Vorfahren so manche Schlacht gewonnen hatten,<lb/>
+sein trauriges Schicksal über sich gebracht. Jn seiner<lb/>
+Familie herrschte der Glaube, daß der Säbel, den er<lb/>
+trug, der Träger der Größe seines Hauses sei, daß er<lb/>
+aber einst auf einer Flucht verloren gehen und dann die<lb/>
+Familie untergehen werde, wenn sie nicht ein Reis aus<lb/>
+fremdem Blute auf ihren Stammbaum pfropfe. Dem<lb/>
+jungen Rapaki fiel auf seiner Flucht diese Sage ein und<lb/>
+er glaubte das Palladium nicht besser bewahren zu kön-<lb/>
+nen, als wenn er es in dem dichten Walde, in welchem<lb/>
+er sich befand, so lange sorgfältig versteckte, bis er sicher<lb/>
+wäre, entkommen zu können; aber das Entkommen ge-<lb/>
+lang ihm nicht: er fiel in die Hände der Franzosen. Er<lb/>
+wurde zwar nach dem abgeschlossenen Waffenstillstande<lb/>
+gegen gefangene Franzosen ausgewechselt, konnte aber<lb/>
+eines hitzigen Fiebers wegen nicht von der Stelle geschafft<lb/>
+werden. Als er wieder genesen war, waren die Feind-<lb/>
+seligkeiten zwischen Frankreich und Rußland wieder aus-<lb/>
+gebrochen und man hielt ihn widerrechtlich in der Ge-<lb/>
+fangenschaft zurück, was ihm einen Rückfall des kaum<lb/>
+überwundenen Fiebers zuzog und am Ende seinen Tod<lb/>
+herbeiführte. Kurz vor seiner zweiten Krankheit hatte er<lb/>
+einen Brief an seinen Vater niedergeschrieben, worin er<lb/>
+ihm die Stelle des verborgenen Säbels so genau als<lb/>
+möglich bezeichnete und sein trauriges Schicksal mit den<lb/>
+lebhaftesten Farben beschrieb. Als er sich seinem Tode<lb/>
+nahe fühlte, übergab er den Brief einem Leidensgenos-<lb/>
+sen, der einige Zeit darauf Gelegenheit bekam, seinem<lb/>
+Gefängnisse zu entrinnen und dem Fürsten den Brief<lb/>
+nebst der Nachricht von dem Tode des Verfassers dessel-<lb/>
+ben überbrachte. Der alte Fürst schickte sogleich vertraute<lb/>
+Diener ab, den verloren gegangenen Säbel wieder aufzu-<lb/>
+suchen und keine Summen zu schonen, wenn durch sie<lb/>
+der Säbel wieder zu erlangen sein sollte, und glaubte,<lb/>
+als dieselben unverrichteter Sache zurückkamen, die Fa-<lb/>
+miliensage durch die in Erfüllung gegangene Prophe-<lb/>
+zeiung über jeden Zweifel erhaben.</p><lb/>
+<p>Er klagte, daß mit dem Verluste des Säbels der<lb/>
+Untergang seines Hauses begonnen habe und daß derselbe<lb/>
+Alles ins Verderben ziehen werde, was mit demselben<lb/>
+in Verbindung stände; das Glück seiner Vorfahren sei<lb/>
+nur darum so groß gewesen, damit das Unglück seiner<lb/>
+Nachkommen desto größer sei; er könne nicht zugeben,<lb/>
+daß seine Tochter heirathe, damit er nicht frevelnd die<lb/>
+Zahl der Opfer vermehre; er könne sein Herz der Freude<lb/>
+nicht mehr öffnen, denn auch dem Vaterlande drohe ein<lb/>
+großes Unglück. Peter der Große, erzählte er, habe den<lb/>
+Säbel in seiner Todesstunde dem Stifter seines Hauses<lb/>
+mit den Worten gegeben: es sei ein Säbel, welcher tau-<lb/>
+send Wunder gethan und ihm hundert Mal das Leben<lb/>
+gerettet habe; es sei ein heiliges Vermächtniß der Vor-<lb/>
+zeit, das, seitdem er es zum Gebrauch gezogen, die<lb/>
+Größe des Vaterlandes wunderbar gefördert habe und<lb/>
+weiter fördern werde, so lange es in den Händen eines<lb/>
+treuen Vaterlandssohnes sein werde.</p><lb/>
+<p>Dolgoruki konnte bei diesen Worten nicht umhin,<lb/>
+seinen Säbel zu entblößen, um durch seinen Anblick den<lb/>
+bekümmerten Greis wieder aufzurichten.</p><lb/>
+<p>Mein Sohn, warum hast du mir diesen Anblick<lb/>
+<cb type="end"/>
+<pb facs="#f0003" n="203"/>
+<fw place="top" type="pageNum">203</fw><cb type="start"/>
+so lange vorenthalten? fragte der Fürst, sichtbar er-<lb/>
+heitert.</p><lb/>
+<p>Jch wußte nichts von all den Dingen, die Sie mir<lb/>
+eben berichtet haben, ich wußte nur, daß ich den Säbel Mi-<lb/>
+chael 's besitze und harrte auf eine Gelegenheit, Jhnen den-<lb/>
+selben auszuliefern, ohne Jhnen durch die traurigen Erin-<lb/>
+nerungen, die er in Jhnen wecken muß, allzu weh zu thun.</p><lb/>
+<p>Nun, ich mache dir keine Vorwürfe darüber, du bist<lb/>
+in meinem Herzen an Michael's Stelle getreten; durch<lb/>
+die Wiedererlangung des durch ihn verlorenen Säbels<lb/>
+hast du dir Rechte auf meine ganze Dankbarkeit erwor-<lb/>
+ben; wollte Gott, ich könnte dir lohnen, wie ich wollte.<lb/>
+Aber ich bin mit furchtbaren Eiden gebunden, gegen<lb/>
+meine Neigung zu handeln.</p><lb/>
+<p>Sie wollen mir Jhre Tochter auch jetzt noch versa-<lb/>
+gen? fiel hier Dolgoruki gekränkt ein.</p><lb/>
+<p>Nein, das nicht, seit der Säbel wieder in meinen<lb/>
+Händen, ist das Schwert des Verderbens, welches ich<lb/>
+über den Häuptern der Meinigen schweben sah, verschwun-<lb/>
+den, aber ich kann dich nicht zum Träger meines Namens,<lb/>
+zum Erben meiner Güter machen, wie ich es wünsche.<lb/>
+Siehe, Michael war nicht mein Sohn, ich erzog ihn<lb/>
+aber als solchen, als ich sah, daß mir der Himmel einen<lb/>
+Leibeserben versagt habe; aber der Himmel hat ihn ver-<lb/>
+worfen, weil russisches Blut in seinen Adern floß. Jch<lb/>
+muß der Vorschrift streng genügen, die in einem alten<lb/>
+Documente meines Familienarchivs enthalten ist.</p><lb/>
+<p>Bei diesen Worten ergriff der alte Fürst Dolgoruki's<lb/>
+Hand und führte ihn in das Familienarchiv. Hier öff-<lb/>
+nete er einen köstlichen Juwelenschrank und langte eine<lb/>
+goldene Kapsel hervor, in dem sich ein Pergament be-<lb/>
+fand, auf welchem folgende Worte standen: &#x201E;Peter der<lb/>
+Große erhob mich wenige Stunden vor seinem Tode für<lb/>
+den Eifer, den ich stets für ihn an den Tag gelegt<lb/>
+hatte, durch Einhändigung seines Säbels zum Fürsten.<lb/>
+Jch mußte ihm schwören, den Säbel immer auf den Erst-<lb/>
+geborenen des Hauses vererben zu lassen; wenn aber einst<lb/>
+ein Erbe keinen männlichen Nachkommen haben würde,<lb/>
+sollte er ein Kind der Fremde adoptiren und in den<lb/>
+Grundsätzen erziehen, welche die Rapaki's zu. <gap reason="illegible" unit="chars" quantity="5"/>allen Zei-<lb/>
+ten ausgezeichnet haben.&#x201C;</p><lb/>
+<p>Dieses Pergament war von dem jedesmaligen Erben<lb/>
+des Säbels und durch diesen des Rapaki'schen Fürstenti-<lb/>
+tels und Fürstenreichthums mit zugefügtem Schwure un-<lb/>
+terschrieben. Michael war der letzte der Unterschriebenen;<lb/>
+seine Stelle auszufüllen, mußte nun eine neue Wahl<lb/>
+getroffen werden.</p><lb/>
+<p>Als Dolgoruki dem Greise die Geschichte der Auffin-<lb/>
+dung des Säbels erzählt hatte, ließ sich Letzterer eine<lb/>
+genaue Beschreibung von der Person des Auffinders geben.</p><lb/>
+<p>Meine Wahl ist getroffen, rief er, als ihm Dolgo-<lb/>
+ruki so umständlich, als es möglich war, die Geschichte<lb/>
+des Knaben geliefert hatte. Der Knabe ist meinem ver-<lb/>
+storbenen Feodor ähnlich und durch die Auffindung des<lb/>
+Säbels zu seinem Stellvertreter auf Erden vom Him-<lb/>
+mel selbst ausersehen. Der Umstand, daß er völlig ver-<lb/>
+waist ist, spricht auch für ihn. Kurz, ich möchte ihn<lb/>
+lieber heute als morgen hier haben.</p><lb/>
+<p>Dolgoruki, welcher der Pflege Martha's sein Leben<lb/>
+und Handri durch den Säbel sein Erdenglück verdankte<lb/>
+und überdies einer der edelsten Menschen war, war weit<lb/>
+entfernt, dem Greise seinen Entschluß auszureden. Er<lb/>
+machte sich einige Tage darauf auf den Weg, um den<lb/>
+Erwählten selbst zu holen, und kam gerade an dem<lb/>
+Tage, wo er das Jahr vorher von Handri den heilbrin-<lb/>
+genden Säbel empfangen hatte, in Martha's Dorf.<lb/>
+Aber die Vögel, die er suchte, waren ausgeflogen und<lb/>
+hatten ihr Nest wo anders gebaut. Glücklicherweise wußte<lb/>
+<cb n="2"/>
+alle Welt, wo das neue Nest war, und es waren keine<lb/>
+zwei Stunden verflossen, so stand Dolgoruki mitten un-<lb/>
+ter Martha's Familie und zwei Tage darauf war Handri<lb/>
+bereits mit ihm auf dem Rückwege nach Rußland. Die<lb/>
+Reise ging glücklich von statten und die Reisenden kamen<lb/>
+wohlbehalten an Ort und Stelle an. Hans, welcher<lb/>
+aus Liebe zu Handri Martha in die Stadt gefolgt<lb/>
+war, war von Dolgoruki mitgenommen worden, weil er<lb/>
+russisch verstand und der bisherige Erzieher Handri's ge-<lb/>
+wesen war. Er machte sich bei dem alten Rapaki bald<lb/>
+beliebt, durfte als ein mit mannichfachen Kenntnissen<lb/>
+versehener Mann auch ferner mit seinem bisherigen Zög-<lb/>
+linge umgehen und trug nicht wenig zu der glücklichen<lb/>
+Entfaltung desselben bei.</p><lb/>
+<p>Wenige Jahre waren vergangen, so hatte sich der<lb/>
+junge Fürst alle die feinen Formen angeeignet, welche<lb/>
+das Leben der höhern Stände auszeichnen. Der alte<lb/>
+Rapaki, welcher in der That viele Ähnlichkeiten mit sei-<lb/>
+nem frühzeitig verstorbenen Sohne Feodor in ihm und<lb/>
+an ihm fand, gewann ihn in kurzer Zeit sehr lieb und<lb/>
+hörte ihn mit Vergnügen von seinem unfürstlichen Leben<lb/>
+im Hause seiner Mutter Hanna und seiner Pflegemutter<lb/>
+Martha erzählen. Die Familie der Letztern wurde mit<lb/>
+reichen Geschenken überschüttet, sodaß Jürge nach einigen<lb/>
+Jahren im Stande war, den Traum, den er vor dem<lb/>
+Eintritte der schrecklichen Katastrophe, deren am Ein-<lb/>
+gange dieser Geschichte gedacht worden ist, zu verwirkli-<lb/>
+chen: er kaufte sich ein kleines Rittergut in der Nähe<lb/>
+der Stadt. Jan bezog im J. 1822 die Universität Leip-<lb/>
+zig und wurde sechs Jahre darauf in dem Dorfe, wo er<lb/>
+das Licht der Welt erblickt hatte, wohlbestallter Pfarrer<lb/>
+und mit Marja vermählt. Hanka und Lena hatten eine<lb/>
+glänzendere Bestimmung. Lena wurde von Dolgoruki<lb/>
+und seiner Gemahlin ins Haus genommen und als sie<lb/>
+keine Kinder bekamen, an Kindesstatt angenommen und<lb/>
+später an einen vornehmen Russen verheirathet; Hanka<lb/>
+aber wurde die Gemahlin des jungen Fürsten Rapaki,<lb/>
+zu dem sie schon in ihrer frühesten Jugend so viele Nei-<lb/>
+gung gezeigt hatte. Alles war, weil das Glück auf das<lb/>
+Unglück folgte, doppelt glücklich.</p><lb/>
+<p>Somit hat der verhängnißvolle Säbel, der alles die-<lb/>
+ses Glück veranlaßte, sein Prädicat gerechtfertigt und wir<lb/>
+schließen unsere Erzählung mit dem Wunsche, daß un-<lb/>
+sere Leser zur Belohnung für ihre Geduld in Zeiten der<lb/>
+Noth ebenfalls mit einem solchen wunderthätigen Säbel<lb/>
+in Berührung kommen mögen.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr"><hi rendition="#g">Ölmesser</hi>.</hi></head><lb/>
+<p><hi rendition="#in">B</hi>ei der Temperatur des siedenden Wassers zeigen die<lb/>
+verschiedenen Öle ein sehr verschiedenes Gewicht. Darauf<lb/>
+gründet Launot einen eigenen Ölmesser, welcher aus einem<lb/>
+Aräometer ( Dichtigkeitsmesser ) , einem Thermometer und<lb/>
+einem Kännchen aus Weißblech besteht, in welches man<lb/>
+das zu prüfende Öl in einem hohlen Cylinder von Weiß-<lb/>
+blech bringt. Das Aräometer hat einen sehr dünnen<lb/>
+Stengel, sodaß er die kleinsten Unterschiede in der Dich-<lb/>
+tigkeit oder dem specifischen Gewichte bemerkbar machen<lb/>
+muß. Er ist für diesen Zweck mit einer Scala versehen,<lb/>
+die 200° über 0 uud 25 darunter umfaßt. Will man<lb/>
+nun ein Öl prüfen, so bringt man das Weißblechkänn-<lb/>
+chen über das Feuer, thut das Thermometer in den Öl-<lb/>
+cylinder und wartet, bis das Öl 101 Grad Wärme hat.<lb/>
+Jetzt taucht man das Aräometer in das Öl. Jst es<lb/>
+Rüböl, so bleibt der Messer bei 0° stehen, in Leinöl<lb/>
+sinkt es bis zu 210°, in Dotteröl bis zu 124°, in<lb/>
+Fischthran bis zu 83°, in Hanföl bis 136°.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<cb type="end"/>
+<pb facs="#f0004" n="204"/>
+<fw place="top" type="pageNum">204</fw><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Bandwürmer.</hi></head><lb/>
+<figure>         <head>  Der langgliedrige und der breitgliedrige Bandwurm.  </head>       </figure><lb/>
+<cb type="start"/>
+<p><hi rendition="#in">D</hi>ie wunderbaren Geschöpfe, welche zu dem zahlreichen<lb/>
+Geschlechte der Bandwürmer gehören, leben in den Ein-<lb/>
+geweiden der Menschen und Thiere und nehmen darin<lb/>
+ihren Anfang aus einem sehr kleinen Punkte. Sie ha-<lb/>
+ben am Kopfe vier Saugblasen oder Sauger und da-<lb/>
+zwischen einen doppelten Hakenkranz, der den Mund bil-<lb/>
+det und zwei aufeinanderliegenden Sternen gleicht. Jhr<lb/>
+Körper ist platt und besteht meist aus ineinander gelenk-<lb/>
+ten Gliedern, die gleichsam eine Kette ausmachen.</p><lb/>
+<p>Linné sagt, daß diese Würmer nach Art der Quecken<lb/>
+fortwachsen, wie die Polypen, deshalb sind sie ihm Pflan-<lb/>
+zenthiere. Sie finden sich nicht nur in den Eingewei-<lb/>
+den der Menschen, sondern auch in denen der Thiere,<lb/>
+z. B. in Pferden, Schafen, Robben, Hunden, Katzen,<lb/>
+Schnepfen, Rebhühnern, Weißfischen, Lachsen u. s. w.<lb/>
+Man theilt sie in Darmbandwürmer, welche nur in<lb/>
+Därmen vorkommen, und in Eingeweidebandwürmer,<lb/>
+welche in sehr verschiedenen Theilen der Eingeweide woh-<lb/>
+nen, nur nicht in den eigentlichen Eingeweiden.</p><lb/>
+<p>Von den im menschlichen Körper vorkommenden Ar-<lb/>
+ten des Darmbandwurms sind auf unserer Abbildung<lb/>
+zwei dargestellt, der langgliedrige unten, der breitglie-<lb/>
+drige oben.</p><lb/>
+<p>Der langgliedrige Bandwurm ( <hi rendition="#aq">Taenia solium</hi> ) heißt<lb/>
+bei Linné der einmündige, weil er an jedem Gliede nur<lb/>
+ein Loch hat und zwar abwechselnd an einem Gliede<lb/>
+rechts, am andern Gliede links. Jn der neuern Zeit<lb/>
+hat man sich überzeugt, daß diese Löcher nicht Münde,<lb/>
+sondern Behältnisse für Eierstöcke sind, welche bei den<lb/>
+verschiedenen Bandwürmern verschiedene Gestalt haben.<lb/>
+So z. B. unterscheidet sich der langgliederige Bandwurm,<lb/>
+der im Menschen vorkommt, von dem, der im Hunde<lb/>
+vorkommt, nur durch die Gestalt der Eierstöcke, welche<lb/>
+bei letzterm kuglig, bei ersterm zweigförmig ist. Der<lb/>
+Kopf desselben ist mehr breit als lang und auf unserer<lb/>
+Abbildung unter der Ziffer 3 in vergrößertem Maßstabe<lb/>
+dargestellt. Die Buchstaben <hi rendition="#aq">a</hi> bezeichnen die vier Sau-<lb/>
+ger, welche nach Oken Münde sind, und <hi rendition="#aq">b</hi> den Mund<lb/>
+oder die sogenannte Keule. Die Glieder werden nach<lb/>
+dem Schwanze zu immer größer bis zu einem Zoll.<lb/>
+Wenn man sich eine lange Reihe plattgedrückter und<lb/>
+<cb n="2"/>
+ineinandergesteckter Kürbiskerne denkt, von denen einer<lb/>
+immer größer wird als der andere, so hat man ein Bild<lb/>
+von diesem Wurme, der daher auch der Kürbiskernwurm<lb/>
+heißt. Er wird 2&#x2014;10, ja 30 Ellen lang und kommt<lb/>
+vorzüglich in Deutschland vor.</p><lb/>
+<p>Ehemals glaubte man, daß der Mensch nur einen<lb/>
+solchen Wurm bei sich haben könne, daher bekam er den<lb/>
+Namen Einsiedler; aber die Erfahrung hat das Gegen-<lb/>
+theil bewiesen, indem man schon 6&#x2014;7 solche Einsiedler<lb/>
+in einem Körper gefunden hat.</p><lb/>
+<p>Jn der Schweiz kommt fast nur der breite vor, da-<lb/>
+gegen im übrigen Deutschland fast nur der langglie-<lb/>
+drige und zwar in Sachsen vorzugsweise beim weiblichen<lb/>
+Geschlechte.</p><lb/>
+<p>Der breitgliedrige Bandwurm unterscheidet sich sehr<lb/>
+von dem vorigen, nicht nur durch die Gestalt seiner<lb/>
+Glieder, die mehr breit als lang sind, sondern auch durch<lb/>
+eine andere Beschaffenheit des Kopfs, welchem die Haken-<lb/>
+keule ganz abgeht, daher er denn viel leichter abzutrei-<lb/>
+ben ist. Linné unterscheidet davon noch den gemeinen<lb/>
+oder häutigen, der auf der Fläche jedes seiner Glieder<lb/>
+zwei Münde oder Eierlöcher hat, daher er von ihm der<lb/>
+zweimündige genannt wird. Weil er sich in Schweden<lb/>
+häufiger findet als alle andern, so heißt er auch der ge-<lb/>
+meine Bandwurm, obgleich er im Allgemeinen viel sel-<lb/>
+tener vorkommt als die beiden andern. Übrigens unter-<lb/>
+scheidet er sich so wenig von dem breitgliedrigen, daß ihn<lb/>
+Oken mit demselben zusammenwirft.</p><lb/>
+<p>Die Eingeweidebandwürmer, die sich unter einer Blase<lb/>
+aufhalten und selbst an ihrem Körper eine große Blase<lb/>
+haben, besitzen, ganz wie die langgliedrigen Bandwür-<lb/>
+mer, vier Saugwerkzeuge am Kopfe und in der Mitte<lb/>
+derselben einen vorspringenden Rüssel mit einem doppel-<lb/>
+ten Kranze kleiner Häkchen, und bilden daher mit Recht<lb/>
+ein Geschlecht mit ihnen.</p><lb/>
+<p>Von diesen Blasenbandwürmern findet sich der erbs-<lb/>
+förmige in der Leber des Hasen, gewöhnlich zu Hunder-<lb/>
+ten beisammen unter der die Leber umgebenden Haut;<lb/>
+jeder bildet eine weißbläuliche durchsichtige Blase, welche<lb/>
+einer Erbse gleicht und von der Größe eines Nadelkopfs<lb/>
+bis zur Größe einer Haselnuß wächst. Manche Leute<lb/>
+<cb type="end"/>
+<pb facs="#f0005" n="205"/>
+<fw place="top" type="pageNum">205</fw><cb type="start"/>
+halten diese erbsförmigen Blasen für Geschwüre und nen-<lb/>
+nen sie Franzosen oder Pocken. Ebenso sind die Finnen<lb/>
+der Schweine keine Geschwüre, sondern Wasserzellen für<lb/>
+eine kleine Art Blasenbandwürmer, welche, wenn das<lb/>
+Fleisch der geschlachteten Schweine erkaltet ist, in weiße,<lb/>
+harte, undurchsichtige Klümpchen zusammenschrumpfen.</p><lb/>
+<p>Der vielköpfige Blasenbandwurm findet sich im Hirn-<lb/>
+marke der Schafe, oft in Massen von 3&#x2014;500 zusam-<lb/>
+men. Es sind weiße, runzlige Würmchen, welche frei<lb/>
+in der Hirnhöhle liegen und die Drehkrankheit der Schafe<lb/>
+verursachen.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Länder= und Völkerkunde.</hi></head><lb/>
+<p><hi rendition="#in">D</hi>ie Slawen zerfallen der Sprache nach in zwei Haupt-<lb/>
+stämme: den südöstlichen ( Russen, Bulgaren, Serben ) ,<lb/>
+und den westlichen ( Czechen, Polen und Luschitschanen ) ,<lb/>
+der Zahl nach im Ganzen 78,691,000 Jndividuen, von<lb/>
+denen auf die Russen 51,184,000, Bulgaren 3,587,000,<lb/>
+Serben 7,246,000, Polen 9,365,000, Czechen 7,167,000,<lb/>
+Luschitschanen 142,000 kommen. Hiervon leben in der<lb/>
+russischen Monarchie 53,502,000 ( 4,912,000 Polen<lb/>
+mit inbegriffen ) , in Östreich 16,791,000, in Preußen<lb/>
+2,108,000, in der Türkei 6,100,000, in Sachsen<lb/>
+60,000, in Krakau 130,000. Der russisch=griechi-<lb/>
+schen Kirche gehören 54,011,000, der griechisch=unirten<lb/>
+2,990,000, der römisch=katholischen 19,359,000, der<lb/>
+protestantischen 1,531,000, dem Jslam 800,000 an.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Mistress Fry.</hi></head><lb/>
+<p><hi rendition="#in">D</hi>iese berühmte Quäkerin, welche sich gegenwärtig in<lb/>
+Paris aufhält, um auch hier ihrer erhabenen Lebensauf-<lb/>
+gabe: die moralische Besserung der weiblichen Gefange-<lb/>
+nen, genug zu thun, wurde 1780 geboren. Sie beglei-<lb/>
+tete eines Tages ihren Vater in ein Gefängniß, und der<lb/>
+Eindruck, den dieser Besuch in ihr hinterließ, war der<lb/>
+Schöpfer ihres würdigen Entschlusses. Sie gründete zuerst<lb/>
+im Hause ihres Vaters eine Schule für 80 arme Kin-<lb/>
+der. Wenige Jahre nach ihrer Verheirathung mit Herrn<lb/>
+Fry, die im Jahre 1800 stattfand, besuchte sie zum er-<lb/>
+sten Male das Gefängniß Newgate zu London, in dessen<lb/>
+dumpfen Gewölben sie eine Menge Frauen fand, die<lb/>
+ohne Unterschied des Verbrechens zusammengesperrt wa-<lb/>
+ren. Weder die Roheit noch die Frechheit dieser Ver-<lb/>
+wilderten schreckte sie zurück; sie redete milde zu ihnen,<lb/>
+fragte sie sorglich nach ihren Bedürfnissen und schlug ih-<lb/>
+nen endlich vor, ein Capitel aus der Bibel vorzulesen,<lb/>
+wozu sie das 15. Capitel des Evangeliums Lucas wählte.<lb/>
+Der Eindruck auf diese unglücklichen Geschöpfe war groß<lb/>
+und sie betrachteten die Fremde mit Zutrauen und als<lb/>
+eine Freundin. Dieser Besuch erneuerte sich mehrmals,<lb/>
+der gute Same trug reiche Frucht und Mistreß Fry<lb/>
+bildete endlich einen Verein von Frauen, welche sich ver-<lb/>
+bindlich machten, abwechselnd das Gefängniß zu besu-<lb/>
+chen. Die erste Sorge des Vereins war nun, eine<lb/>
+Schule für die Kinder zu errichten. Sie ließ die Ge-<lb/>
+fangenen unter sich selbst Diejenige wählen, welche sie<lb/>
+am geeignetsten zur Vorsteherin der Schule hielten, die<lb/>
+Regierung gab ein passendes Local dazu her und die<lb/>
+Schule war gegründet. So war ein großer Schritt ge-<lb/>
+than, aber das war noch nicht genug: man mußte Mit-<lb/>
+tel finden, die Gefangenen ihrer Trägheit zu entreißen.<lb/>
+Der Verein versammelte sich demgemäß im Gefängnisse,<lb/>
+<cb n="2"/>
+eine der Frauen sprach mit den Gefangenen von dem<lb/>
+Segen der Mäßigkeit und der Arbeitsamkeit, sie schilderte<lb/>
+ihnen die Freuden eines Lebens, das sich der Religion<lb/>
+und der Tugend weiht, und las zuletzt ein Reglement<lb/>
+vor, das von den Gefangenen nach vorhergegangener<lb/>
+Abstimmung angenommen wurde. Dieses Reglement<lb/>
+enthielt Bestimmungen über die Wahl einer obersten<lb/>
+Vorsteherin, über die Theilung in mehre Classen, über<lb/>
+die Wahl von Rathgeberinnen, für je zwölf Gefangene<lb/>
+eine, über die Ordnung der Arbeiten und das Lesen in<lb/>
+der heiligen Schrift. Spiel und Trunk, Lügen, das<lb/>
+Lesen schlechter Bücher und Fluchen waren verboten.</p><lb/>
+<p>Das begonnene Werk wurde mit unendlicher Geduld<lb/>
+und Ausdauer verfolgt und bald traten an die Stelle<lb/>
+der Unordnung, der Verwünschungen und der Trägheit<lb/>
+Ruhe, Zucht und Fleiß. Um das gute Werk zu ver-<lb/>
+vollständigen, erhielt Mistreß Fry von der Regierung die<lb/>
+Mittel, Zufluchtshäuser zu gründen, worein die Gefan-<lb/>
+genen gebracht wurden, deren aufrichtige Reue ihre Bes-<lb/>
+serung versprach und die dem bösen Beispiele des Ge-<lb/>
+fängnisses entzogen werden mußten. Erstaunt über den<lb/>
+Erfolg unter diesen Frauen, übernahm die Stadt London<lb/>
+die Ausgaben des Vereins und gab Mistreß Fry Voll-<lb/>
+macht, die Gefangenschaft zu verkürzen oder zu verlängern</p><lb/>
+<p>Aber auch auf die Schiffe der Deportirten erstreckte<lb/>
+sich die Sorgfalt des Vereins. Eine Kajüte des Schiffs<lb/>
+ist zu einer Schule bestimmt, eine der Deportirten wird<lb/>
+zur Lehrerin gewählt und der Verein gibt ihr einen Ge-<lb/>
+halt. Für Arbeit ist während der ganzen Fahrt gesorgt<lb/>
+und bei der Landung werden Diejenigen, welche sich gut<lb/>
+betragen haben, mit neuen Kleidern beschenkt. Dieses<lb/>
+Verfahren hat schon die schönsten Erfolge gehabt.</p><lb/>
+<p>Mistreß Fry ist einer der schönsten Charaktere unse-<lb/>
+rer Zeit. Voll Vertrauen auf Gott, sieht man sie, jung,<lb/>
+schön, reich, die Freuden der Welt verachten und sich<lb/>
+mit dem Auswurfe ihres Geschlechts in die Gefängnisse<lb/>
+einschließen, um diese entarteten Seelen der Tugend wie-<lb/>
+der zu gewinnen. Selbst das Alter hat ihren Eifer nicht<lb/>
+vermindert. Trotzdem daß ihre zahlreiche Familie ihrer<lb/>
+Fürsorge bedarf, sieht man sie jeden Freitag nach den<lb/>
+Gefängnissen von Newgate wandeln, wohin sie Worte<lb/>
+des Friedens und des Trostes bringt.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Aus der Chronik des Monats Mai.</hi></head><lb/>
+<p><hi rendition="#in">Z</hi>u Anfange des Monats hätte die freie Stadt Frank-<lb/>
+furt a. M. leicht das Schicksal haben können, welches<lb/>
+voriges Jahr um dieselbe Zeit ihre freie Schwester Ham-<lb/>
+burg getroffen. Am 1. Mai Nachmittags war nämlich<lb/>
+in der verschlossenen Werkstätte eines Zimmermeisters,<lb/>
+dicht vor dem Obermainthore, ein Feuer ausgebrochen,<lb/>
+das gegen Abend erst bemerkt wurde, als es bereits die<lb/>
+Werkstätte verzehrt und die großen Holzvorräthe sowie<lb/>
+ein auf dem Zimmerhofe befindliches Dielenlager ergrif-<lb/>
+fen hatte. Das Feuer wuchs zu einer furchtbaren Höhe,<lb/>
+an Löschen war nicht zu denken und erst gegen Morgen<lb/>
+des 2. konnte man ihm die weitere Nahrung entreißen.<lb/>
+Glücklicherweise trieb der Wind die Flamme nach dem<lb/>
+Maine zu.</p><lb/>
+<p>Am 1. hielt in Exeter=Hall die kirchliche Missions-<lb/>
+gesellschaft ihre Jahresversammlung. Jhre vorjährige<lb/>
+Einnahme betrug 115,000 Pf. St., etwa 700,000 Thlr.</p><lb/>
+<p>Am 2. wurde zu Paris ein neuer Komet entdeckt<lb/>
+und in der Nacht vom 25. auf den 26. auch in Wien<lb/>
+aufgefunden.</p><lb/>
+<p>An demselben Tage Abends wurden bei den Befe-<lb/>
+<cb type="end"/>
+<pb facs="#f0006" n="206"/>
+<fw place="top" type="pageNum">206</fw><cb type="start"/>
+stigungsarbeiten von Paris am Mont Valérien gegen<lb/>
+30 Arbeiter verschüttet und 11 getödtet, die übrigen<lb/>
+lebend hervorgezogen.</p><lb/>
+<p>An demselben Tage wurde die Eisenbahn von Paris<lb/>
+nach Orleans, am 3. die von Paris nach Rouen eröffnet.</p><lb/>
+<p>Der 3. war durch das in Nr. 23 dieser Blätter<lb/>
+ausführlich beschriebene Unglück auf der Eisenbahn von<lb/>
+Lüttich nach Brüssel merkwürdig.</p><lb/>
+<p>Am 4. Nachmittags um 2 Uhr hatte man zu Hel-<lb/>
+singör das seltene Schauspiel einer sehr großartigen Fata<lb/>
+Morgana. Die ganze schwedische Küste sah man hoch<lb/>
+über den gewöhnlichen Horizont gehoben und alle hohen<lb/>
+Gegenstände, wie Mühlen und Thürme, waren in um-<lb/>
+gekehrter Stellung in der Luft abgespiegelt.</p><lb/>
+<p>Am 5. ( dem Todestage Napoleon's ) bekam die Ven-<lb/>
+d <hi rendition="#aq">ô</hi>mesäule zu Paris unerwartet zwei neue, sehr schön<lb/>
+gearbeitete Schilderhäuser. Die Träger setzten sie an der<lb/>
+Säule unter dem Vorwande nieder, daß sie ihnen zu<lb/>
+schwer wären, und entfernten sich, um einen Wagen<lb/>
+zu holen, kamen aber nicht wieder.</p><lb/>
+<p>Am 6. fuhren, festlich geschmückt, unter angemesse-<lb/>
+ner Feierlichkeit und Kanonendonner die ersten Schiffe<lb/>
+auf dem Ludwigskanal mit voller Güterladung von Bam-<lb/>
+berg nach Nürnberg ab und eröffneten somit die Schiff-<lb/>
+fahrt auf der Kanalstrecke zwischen Bamberg, Forchheim,<lb/>
+Erlangen und Nürnberg.</p><lb/>
+<p>An demselben Tage wurde in Nürnberg kurz vor<lb/>
+der Ankunft des ersten Kanalschiffs aus Bamberg in<lb/>
+einer der lebhaftesten Passagen, hart am Kornmarkte,<lb/>
+mit unerhörter Keckheit ein Einbruch vollbracht. Die<lb/>
+Bewohner des Hauses waren ausgegangen, nur die Magd<lb/>
+war zu Hause. Diese wurde von einer von zwei Jun-<lb/>
+gen begleiteten Weibsperson überfallen und gemishandelt.<lb/>
+Sie entging zwar durch die Flucht weitern Mishandlun-<lb/>
+gen und holte Hülfe, aber bei ihrer Rückkehr war bereits<lb/>
+alles Geld und Silberzeug gestohlen und die Diebe über<lb/>
+alle Berge.</p><lb/>
+<p>Am 9. wurde in Domrémy, dem Geburtsorte der<lb/>
+Jungfrau von Orleans, die Bildsäule dieser Heldin ein-<lb/>
+geweiht. Sie ist von Bronze nach der von der verstor-<lb/>
+benen Prinzessin Marie von Orleans gefertigten Statue<lb/>
+gegossen und vom Könige dem Orte geschenkt worden.</p><lb/>
+<p>Jn der Nacht vom 12. auf den 13. stürzten zu<lb/>
+Bellai im Departement der obern Vienne, als Alles im<lb/>
+tiefsten Schlafe lag, zwei nebeneinander liegende Häuser<lb/>
+ein. Nach vielen und beschwerlichen Versuchen gelang<lb/>
+es, von sieben die beiden Häuser bewohnenden Personen<lb/>
+vier lebendig aus ihren Betten zu ziehen; die andern<lb/>
+drei waren von den einstürzenden Trümmern zerquetscht<lb/>
+worden.</p><lb/>
+<p>Am 13. Mai wurde der Jngenieur Brunnel von<lb/>
+dem Goldstück ( einem halben Sovereign ) befreit, das<lb/>
+ihm vor sechs Wochen bei der Ausführung eines scherz-<lb/>
+haften Kunststücks in die Luftröhre geschlüpft war, und<lb/>
+zwar nicht mit Hülfe der Kunst, welche ihre Einschnitte<lb/>
+in die Kehle wiederholt vergeblich gemacht hatte, sondern<lb/>
+in Folge eines natürlichen Hustens. Merkwürdigerweise<lb/>
+hat das Goldstück weder das Athmen gehindert noch eine<lb/>
+Entzündung erzeugt.</p><lb/>
+<p>Jn der Nacht vom 16. auf den 17. wurde auf<lb/>
+einer Ziegelei bei Manchester in England ein grober Fre-<lb/>
+vel verübt. Der Besitzer der Ziegelei hatte vor einigen<lb/>
+Monaten neue Arbeiter angenommen, weil ihm die al-<lb/>
+ten in Folge einer Streitigkeit ihre fernern Dienste ver-<lb/>
+sagten. Das erregte nun eine gewaltige Wuth der letz-<lb/>
+tern gegen die erstern und veranlaßte sie zu allerlei Dro-<lb/>
+hungen und Gewaltthätigkeiten. Jn der erwähnten<lb/>
+Nacht machten sie endlich gar einen Angriff in Masse<lb/>
+<cb n="2"/>
+auf die Ziegelei, auf welcher der Aufseher und Geschäfts-<lb/>
+führer wohnte. 3&#x2014;400 Menschen drangen wie wüthend<lb/>
+in das Ziegelfeld, zerschlugen die Ziegel, zerstörten, was sie<lb/>
+erreichen konnten und stürzten endlich auf die Wohnung<lb/>
+des Geschäftsführers los. Hier entspann sich ein wü-<lb/>
+thender Kampf zwischen den Angreifern und den Leuten<lb/>
+des Geschäftsführers, welche mit Flinten und Pistolen<lb/>
+bewaffnet waren. Die Angreifer theilten sich nun in<lb/>
+zwei Haufen, von denen der eine in die Wohnung<lb/>
+drang, die Frauen darin arg mishandelte und Alles zer-<lb/>
+schlug und zertrümmerte, während der andere die Ver-<lb/>
+theidiger der Besiegung nahe brachte. Glücklicherweise<lb/>
+zogen sie sich zurück, als die Vertheidiger ihre letzte La-<lb/>
+dung verschossen hatten und schon rettungslos verloren<lb/>
+zu sein glaubten. Auch der erste Haufe erreichte seinen<lb/>
+Hauptzweck nicht; der Versuch, das Haus in Brand zu<lb/>
+stecken, konnte noch zeitig genug fruchtlos gemacht wer-<lb/>
+den. Die Nacht hatte übrigens auch das Jhrige zum<lb/>
+Schutze der Vertheidiger gethan, denn nur zwei von ih-<lb/>
+nen wurden gefährlich verwundet.</p><lb/>
+<p>Am 17. wurde zu London in einer Bücherauction<lb/>
+ein Autograph William Shakspeare's zum Kauf ausge-<lb/>
+boten und für die Bibliothek der City in Guildhall um<lb/>
+145 Pf. St. ( gegen 1000 Thlr. ) erstanden.</p><lb/>
+<p>Am 18. wurde zu Paris das Leben eines hohen<lb/>
+Beamten durch eine feuchte Serviette gerettet. Es trat<lb/>
+nämlich, als er sich gerade rasirte, ein von ihm sehr be-<lb/>
+günstigter Unterbeamter, welcher vor einiger Zeit ver-<lb/>
+geblich um eine Versetzung nach Paris gebeten hatte,<lb/>
+plötzlich in sein Zimmer und schoß, als er ihn noch im-<lb/>
+mer seinen Wünschen abgeneigt fand, ein Pistol auf ihn<lb/>
+ab, verursachte ihm aber nur eine starke Contusion, da<lb/>
+die feuchte Serviette die Kugel auffing und ihre Kraft<lb/>
+lähmte.</p><lb/>
+<p>Am 19. kam zu Gent wegen Ableitung der Gewäs-<lb/>
+ser Flanderns durch das holländische Gebiet ins Meer<lb/>
+zwischen Holland und Belgien eine Übereinkunft zu<lb/>
+Stande, wegen der man sich im 17. und 18. Jahr-<lb/>
+hundert vergeblich bemüht hatte.</p><lb/>
+<p>Am 20. starb zu London eine Dame an den Fol-<lb/>
+gen unvorsichtigen Briefsiegelns einen sehr schmerzhaften<lb/>
+Tod. Während des Siegelns hatte sich an dem Lichte,<lb/>
+das man ihr zu ihrem Zwecke gebracht hatte, ihr Kleid<lb/>
+entzündet und war dermaßen in Flammen gerathen, daß<lb/>
+sie nicht mehr gerettet werden konnte und nach zwölf<lb/>
+Stunden starb.</p><lb/>
+<p>Am 21.&#x2014;23. wurde zu Schulpforta das 400jäh-<lb/>
+rige Stiftungsfest dieser berühmten gelehrten Schule<lb/>
+gefeiert.</p><lb/>
+<p>Am 22. früh kam in Köln die Schnellpost von<lb/>
+Koblenz an, der man unterwegs das Brieffelleisen mit <lb/>
+<hi rendition="#aq">circa</hi> 2000 Briefen gestohlen hatte. Am nächsten Tage<lb/>
+wurde es im Rheine gefunden.</p><lb/>
+<p>Am 24. sah man zu Köln einen Mann auf dem<lb/>
+obersten Thurmgesimse sitzen. Der Polirer ging mit eini-<lb/>
+gen Gendarmen und Arbeitern hinauf und machte den<lb/>
+Mann auf die große Gefahr aufmerksam. Als ihm einer<lb/>
+der Arbeiter Hülfe leisten wollte, stürzte er sich von einer<lb/>
+Höhe von 180 Fuß auf das Straßenpflaster und war<lb/>
+auf der Stelle todt.</p><lb/>
+<p>Am 25. Nachmittags verunglückten sechs junge Leute<lb/>
+aus Stettin, während sie in einer Schaluppe eine Spa-<lb/>
+zierfahrt auf dem Parnitzstrome unternahmen. Jn der<lb/>
+Nähe der parnitzer Brücke fiel einem der jungen Leute<lb/>
+die Mütze ins Wasser; um sie wieder zu erlangen, neigte<lb/>
+sich die Mehrzahl so über Bord, daß die Schaluppe<lb/>
+umschlug.</p><lb/>
+<p>Jn der Nacht vom 25. auf den 26. fiel zwischen<lb/>
+<cb type="end"/>
+<pb facs="#f0007" n="207"/>
+<fw place="top" type="pageNum">207</fw><cb type="start"/>
+Schleiz und dem Dorfe Lössau ein Wolkenbruch, der<lb/>
+eine solche Flut erzeugte, daß der einspännige Postkarren,<lb/>
+welcher mit dem Brieffelleisen eben nach Greiz unter-<lb/>
+wegs war, umgeworfen wurde, das Pferd ertrank und<lb/>
+der Postillon nur durch Schwimmen sein Leben rettete.<lb/>
+Das Felleisen wurde aus dem Kasten herausgespült und<lb/>
+von der Flut fortgeführt.</p><lb/>
+<p>Am 26. war der Tag, an welchem vor 25 Jahren<lb/>
+die bairische Verfassung ins Leben trat.</p><lb/>
+<p>Am 27. zog sich über Paris ein so schwarzes Unge-<lb/>
+witter zusammen, daß die Deputirtenkammer ihre Sitzung<lb/>
+aufheben mußte, weil es nicht möglich war, Geschriebe-<lb/>
+nes zu lesen.</p><lb/>
+<p>An demselben Tage gab sich auf der Rheinischen Eisen-<lb/>
+bahn ein junger Mann freiwillig dadurch den Tod, daß<lb/>
+er sich beim Herannahen der Locomotive quer über die<lb/>
+Bahn warf.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Stärkegummibereitung.</hi></head><lb/>
+<p><hi rendition="#in">E</hi>in wohlfeiles, das theure Senegalgummi vollkommen<lb/>
+ersetzendes Gummi ist nur aus Stärke darzustellen. Man<lb/>
+hat bis jetzt vorzugsweise zwei Wege eingeschlagen, um<lb/>
+die Stärke in kaltem Wasser auflöslich oder zu Gummi<lb/>
+zu machen: den Weg des Röstens und den des Kochens<lb/>
+mit Säuren.</p><lb/>
+<p>Wenn man Stärke in einem offenen Gefäße im<lb/>
+Sandbade unter Umrühren gelinde erhitzt, so nimmt sie<lb/>
+eine graue Farbe an und löst sich, mit kaltem Wasser<lb/>
+angerührt, zum Theil darin auf. Setzt man das Rö-<lb/>
+sten so lange fort, bis sie zu dampfen anfängt, einen<lb/>
+Geruch nach gebranntem Mehl verbreitet und eine braune<lb/>
+Farbe bekommt, so ist sie vollkommen im Wasser auf-<lb/>
+löslich, also in Gummi verwandelt. Die Auflösung ist<lb/>
+aber nicht so schleimig wie das durch Säuren dargestellte<lb/>
+Gummi, und es ist sehr schwer, den Punkt zu treffen,<lb/>
+wo das Rösten aufhören muß.</p><lb/>
+<p>Durch Kochen mit Säuren, namentlich mit Schwe-<lb/>
+felsäure, wird aus der Stärke ein Gummi von hellgel-<lb/>
+ber Farbe erzeugt. Je mehr Säure und je weniger<lb/>
+Wasser man anwendet, desto schneller erfolgt die Um-<lb/>
+wandlung. Ein Gemenge von 100 Pf. Stärke, 24 Pf.<lb/>
+Schwefelsäure und 278 Pf. Wasser darf nur sehr kurze<lb/>
+Zeit kochen, um die Gummibildung zu veranlassen. Die<lb/>
+Probe derselben ist ein auf eine Glasplatte gebrachter<lb/>
+Tropfen, der nach der Erkaltung klar und flüssig bleibt<lb/>
+und nicht gerinnt. Durch 30 Pf. Schlemmkreide wird<lb/>
+die Schwefelsäure gesättigt, die abgeklärte Flüssigkeit<lb/>
+wird nun verdunstet und gibt nach vorherigem Abschei-<lb/>
+den des Gypses durch langsames Abdampfen das Gummi.<lb/>
+Diese Gummidarstellung ist aber gewaltig umständlich<lb/>
+und liefert trotz der vielen Apparate des Kochens, Filtri-<lb/>
+rens und Abdampfens doch ein ungleiches Product, in-<lb/>
+dem es entweder unveränderte Stärke oder Zucker ent-<lb/>
+hält, je nachdem die Säure zu kurze oder zu lange Zeit<lb/>
+eingewirkt hat. Das durch Rösten dargestellte Gummi<lb/>
+enthält ebenfalls entweder noch unveränderte Stärke oder<lb/>
+ist verbrannt, weil es sehr schwierig ist, den nöthigen<lb/>
+Hitzgrad längere Zeit gleichmäßig darauf einwirken zu<lb/>
+lassen. Jm günstigsten Falle ist sie zu dunkel.</p><lb/>
+<p>Wenn man dagegen beide Processe verbindet, d. h.<lb/>
+die Säure mit der trockenen Hitze zugleich auf die Stärke<lb/>
+wirken läßt, erhält man ein genügendes Resultat. Es<lb/>
+werden nach diesem Verfahren 200 Pf. Kartoffelstärke,<lb/>
+1 Pf. Schwefelsäure und 78 Pf. Wasser auf das in-<lb/>
+nigste untereinander gemengt, dann auf Horden ausge-<lb/>
+<cb n="2"/>
+breitet und bei 20&#x2014;30° R. getrocknet. Hierdurch wird<lb/>
+jedes Stärketheilchen mit so viel Schwefelsäure durch-<lb/>
+drungen als nöthig ist, um es bei einer Hitze von 80°<lb/>
+Réaumur in Gummi zu verwandeln. Für diesen Zweck<lb/>
+wird das getrocknete Gemenge zerrieben, gesiebt, in eine<lb/>
+breite, sehr flache zinnerne Pfanne gethan, die einen<lb/>
+zweiten Boden hat, unter welchem Dampf durchströmt,<lb/>
+und darin unter öfterm Umrühren so lange erhitzt, bis<lb/>
+sich das Pulver vollkommen im kalten Wasser auflöst.<lb/>
+Dies geschieht um so eher, je weniger gesäuerte Stärke<lb/>
+man auf einmal in Arbeit nimmt, so z. B. in einer<lb/>
+Stunde, wenn der Boden der Pfanne nur 1 / 8 Zoll be-<lb/>
+deckt ist.</p><lb/>
+<p>Wenn die Stärke in der Pfanne zu lange erhitzt<lb/>
+wird, so nimmt sie eine graue Farbe an, die von der<lb/>
+verkohlenden Wirkung der Schwefelsäure herrührt. Bei<lb/>
+Anwendung der Salzsäure geschieht dies nicht so leicht,<lb/>
+obwol sie die Gummibildung unter denselben Umständen<lb/>
+bewirkt; die Salzsäure verdient daher den Vorzug, doch<lb/>
+muß man zu derselben Menge Stärke und Wasser dop-<lb/>
+pelt so viel starke Salzsäure nehmen als Schwefelsäure<lb/>
+nöthig war.</p><lb/>
+<p>Bei diesem Processe ist man des Kochens, Filtrirens<lb/>
+und Abdampfens völlig überhoben. Das in Form eines<lb/>
+feinen Pulvers erhaltene Gummi kann ohne weiteres ge-<lb/>
+braucht werden. Die geringe Menge Säure, welche es<lb/>
+enthält, schadet keiner Beize; fürchtet man sie jedoch, so<lb/>
+braucht man das Pulver nur mit Ammoniakgas in Be-<lb/>
+rührung zu bringen, von welchem das trockne Pulver<lb/>
+dann so viel aufnimmt, daß die Säure gesättigt wird.</p><lb/>
+<p>Bei dieser Umwandlung der Stärke in Gummi<lb/>
+scheint gar keine Formveränderung der Stärke statt zu<lb/>
+finden, da das Pulver nach wie vor das bekannte glän-<lb/>
+zende Aussehen der Kartoffelstärkekörner behält.</p><lb/>
+<p>Ob dieses Gummi durch Schwefelsäure oder Salz.<lb/>
+säure gewonnen worden ist, erkennt man daran, daß er-<lb/>
+steres, auf einem Stück Papier an die Flammen gehal-<lb/>
+ten, schwarz wird, ohne zu brennen, letzteres aber in<lb/>
+einem solchen Falle unter Kochen mit Flammen verbrennt.</p><lb/>
+<p>Das Stärkegummi hat keine so große Verdickungs-<lb/>
+fähigkeit wie das Senegalgummi, denn zum Verdicken von<lb/>
+12 Pf. Eisenbeize Nr. 1, wozu 6 Pf. Senegalgummi hin-<lb/>
+reichen, sind 9 Pf. Stärkegummi erfoderlich, und ver-<lb/>
+hält sich auch chemisch anders, indem es z. B. die Far-<lb/>
+ben aus Eisenoxyd nicht so dunkel macht und keine che-<lb/>
+mischen Wirkungen auf die Metallsalze ausübt. Dieser<lb/>
+Umstand macht es ganz vortrefflich geeignet zur Ver-<lb/>
+dickung der Auflösungen schwefelsaurer Salze, z. B. des<lb/>
+Alauns, des Eisen=, Kupfer=, Manganvitriols, insofern<lb/>
+man sie, nach dem Aufdrucke, durch ein Alkali zersetzen<lb/>
+und das Oxyd auf die Zeugfaser niederschlagen will.</p><lb/>
+<p>Zur Verdickung von Tafeldruckfarben taugt dieses<lb/>
+Gummi aber ebenso wenig als das Senegalgummi, weil<lb/>
+sie durch beide zu sehr verdünnt, d. h. zu blaß werden.<lb/>
+Hier ist Traganth und Salep unentbehrlich.</p><lb/>
+<p>Das Stärkegummi hat auch die Eigenschaft, die<lb/>
+Einwirkung des Sauerstoffs auf die Beizen zu verhin-<lb/>
+dern, zu deren Verdickung es angewendet wird. Es hält<lb/>
+so vollständig die Luft ab, daß selbst nach einem mehr-<lb/>
+tägigen Hängen des Gedruckten das Oxydul nicht in<lb/>
+Oxyd übergeht, denn wenn man dasselbe in eine Am-<lb/>
+moniakflüssigkeit eintaucht, bekommt das Eingetauchte<lb/>
+nicht eine rostgelbe, sondern eine grüne Farbe.</p><lb/>
+<p>Die Stärkegummibereitung läßt sich sehr gut mit<lb/>
+einer Kartoffelstärkefabrikation vereinigen. Der Stärke-<lb/>
+fabrikant würde so dem Drucker in die Hände arbeiten<lb/>
+und hätte vor dem Drucker den Vortheil voraus, daß<lb/>
+er die Stärke, sowie sie fertig geworden ist, gleich im<lb/>
+<cb type="end"/>
+<pb facs="#f0008" n="208"/>
+<fw place="top" type="pageNum">208</fw><cb type="start"/>
+nassen Zustande verwenden könnte. Man brauchte blos,<lb/>
+wenn das überschüssige Wasser gehörig abgelaufen ist,<lb/>
+den Wassergehalt der nassen Stärke durch gelindes Trock-<lb/>
+nen einer gewogenen Menge zu bestimmen, um danach<lb/>
+den nöthigen Zusatz von Schwefelsäure oder Salzsäure<lb/>
+zu berechnen.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Seltsames Ereigniss.</hi></head><lb/>
+<p><hi rendition="#in">D</hi>ie schwedische Zeitung &#x201E; <hi rendition="#aq">Swenska Biet</hi> &#x201C; theilt folgende<lb/>
+seltsame Erzählung nach einem Berichte des Pfarrers<lb/>
+Hammar mit:</p><lb/>
+<p>Am 12. Dec. v. J. standen im Kirchsprengel Näsby<lb/>
+in dem Dorfe Oestad zwei Knechte auf der Tenne und<lb/>
+draschen Getreide. Um 8 Uhr hörten sie mit der Arbeit<lb/>
+auf und der eine, Nils Andersson, ging nach dem<lb/>
+Stalle, um den Pferden Nachfutter zu geben, während<lb/>
+der andere, Sven, in der Thür der Tenne, dem Stalle<lb/>
+gegenüber stand, die Rückkunft seines Kameraden abwar-<lb/>
+tend. Als Nils die Stallthür öffnete, fuhr sie mit der<lb/>
+größten Heftigkeit auf, als würde sie durch einen überaus<lb/>
+starken Orkan getrieben, wiewol doch das Wetter ganz<lb/>
+still war, und schlug mit großem Geräusch an die Wand;<lb/>
+in demselben Augenblicke sah Sven, denn der Mond<lb/>
+schien hell, seinen Kameraden wie eine Bombe hoch in<lb/>
+der Luft über den Hof, über einen da stehenden Apfel-<lb/>
+baum und über die Umzäunung des Hofes auf das be-<lb/>
+nachbarte Feld geschleudert. Erschreckt und bestürzt eilte<lb/>
+Sven ins Wohnhaus, wo er zwei Gäste, den Drago-<lb/>
+ner Blücher und den Schmied Söderberg, vorfand. Als<lb/>
+er die wunderliche Begebenheit ihnen erzählt hatte, gin-<lb/>
+gen alle Drei hinaus, um Nils zu helfen, den sie vom<lb/>
+Falle sehr beschädigt oder vielleicht todt wähnten. Auf<lb/>
+dem Felde angekommen, konnten sie ihn nirgend er-<lb/>
+blicken; jedoch fanden sie seine Mütze und dann, etwa<lb/>
+50 Ellen weiter, seine Holzschuhe. Endlich hörten sie<lb/>
+in einem benachbarten Brunnen eine hohle Stimme; sie<lb/>
+gingen dahin, sahen hinunter und hörten Nils allerlei<lb/>
+unvernünftiges Zeug heftig sprechen, z. B. &#x201E;Laßt mich<lb/>
+herauf!&#x201C; &#x201E;Gebt mich los!&#x201C; als zanke er mit einem leben-<lb/>
+den Wesen. Einer der Drei stieg jetzt in den 13 Ellen<lb/>
+tiefen, bei der damaligen langen Dürre wasserlosen Brun-<lb/>
+nen, traf den Nils körperlich ganz unverletzt, aber übri-<lb/>
+gens sehr sinnesverwirrt an. Er band nun ein Seil<lb/>
+um ihn und ließ ihn heraufwinden. Nils konnte übri-<lb/>
+gens weiter nichts mittheilen, als daß die Thür des<lb/>
+Stalls wie von einem heftigen Windstoße aufgesprungen<lb/>
+wäre, wußte aber nicht, was ihm weiter widerfahren<lb/>
+war. Am andern Morgen war er völlig bei Sinnen,<lb/>
+wußte jedoch auch nichts weiter über die Erscheinung<lb/>
+mitzutheilen.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jVarious"><head><hi rendition="#fr">Miscellen.</hi></head><lb/>
+<div n="2" type="jArticle"><p><hi rendition="#g">Für Auswanderer.</hi> Bekanntlich ist ein Unternehmen<lb/>
+im Werke, welches deutsche Auswanderer nach <hi rendition="#g">Tejas</hi> führen<lb/>
+soll. Ein Menschenfreund, gestützt auf genaue und zuverläs-<lb/>
+sige Angaben über dieses Land, beeilt sich, seinen Landsleuten<lb/>
+davon dringend abzurathen. &#x201E;Das Klima ist positiv schlecht&#x201C;,<lb/>
+sagt er, &#x201E;nämlich außerordentlich heiß und feucht, daher dort<lb/>
+fortwährend Fieber und Ruhr herrschen. Bei den Wirren<lb/>
+zwischen Mejico und Tejas ist auch alle persönliche Sicherheit<lb/>
+vielfach bedroht, und die neuen Ankömmlinge würden sofort<lb/>
+zum Kriegsdienste verwendet werden.&#x201C; &#x2014; Die Regierung des   <lb/>
+<cb n="2"/>
+badischen Oberrheinkreises macht für <hi rendition="#g">Auswanderer nach<lb/>
+Nordamerika</hi> bekannt, daß die Obrigkeit der Stadt Bre-<lb/>
+men Anordnungen für reichliche Verproviantirung der Schiffe<lb/>
+und für Sicherstellung der Überfahrtsgelder für die ganze See-<lb/>
+reise getroffen hat; daß die Abgeordneten der in Cincinnati<lb/>
+( im Staate Ohio ) bestehenden Gesellschaft zur Unterstützung<lb/>
+deutscher Auswanderer Bremen als Einschiffungsort namentlich<lb/>
+aus dem Grunde empfehlen, weil die Auswanderer von dort<lb/>
+aus fast immer mit deutschen Schiffen und Capitainen fahren,<lb/>
+und daß endlich das Handlungshaus Lüdering und Comp. in<lb/>
+Bremen sich zur billigsten und besten Beförderung der badi-<lb/>
+schen Auswanderer nach den nordamerikanischen Freistaaten er-<lb/>
+boten hat.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p><hi rendition="#g">Gartencultur.</hi> Man hat die Erfahrung gemacht, daß<lb/>
+heißes Wasser, welches alle Morgen auf die um den Stamm<lb/>
+der Bäume und Pflanzen aufgehäufelte Erde gegossen wird,<lb/>
+den Pflanzen in wenigen Tagen ein herrliches Grün und bald<lb/>
+darauf die vollkommene Blüte entlockt. Diese Methode sei um<lb/>
+so praktischer, weil die Pflanzen in jeder Lage und an jedem<lb/>
+Standorte blühen.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p><hi rendition="#g">Rettung der Feldtauben.</hi> Seit Jahren wird auf<lb/>
+Verminderung dieser Thiere in dem Wahne hingearbeitet, daß<lb/>
+sie sehr verderbliche Getreidenäscher seien. Ein tüchtiger Or-<lb/>
+nitholog hat nach fleißigen Versuchen gefunden, daß die Feld-<lb/>
+tauben drei Viertheile im Jahre meist von Unkrautsamen,<lb/>
+Würmern und Raupen leben und daß ihr Futter, welches sie<lb/>
+zur Zeit der Saaten und Ernten verzehren, kaum zur Hälfte<lb/>
+aus Getreidekörnern besteht. Vielleicht wird uns die ebenso<lb/>
+nahrhafte als schmackhafte Kost der Feldtauben erhalten.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Jn Jerusalem erscheint seit einiger Zeit eine Zeitung in<lb/>
+englischer, hebräischer und &#x201E;preußischer&#x201C; Sprache, wie uns eng-<lb/>
+lische Blätter mittheilen.</p></div></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jAn"><head><hi rendition="#fr">Literarische Anzeige.</hi></head><lb/>
+<p><hi rendition="#aq #c">Schriften von Karl von Raumer.</hi></p><lb/>
+<p>Bei mir ist neu erschienen und durch alle Buchhandlun-<lb/>
+gen zu erhalten:</p><lb/>
+<p><hi rendition="#c"><hi rendition="#fr #larger">Beiträge zur</hi><lb/>
+<hi rendition="#b #fr #larger">biblischen Geographie.</hi></hi></p><lb/>
+<p><hi rendition="#c #fr">Nebst einem Höhendurchschnitte.</hi></p><lb/>
+<p><hi rendition="#c">Beilage zu des Verfassers &#x201E;Palästina&#x201C;.<lb/>
+Gr. 8. Geh. 15 Ngr.</hi></p><lb/>
+<p><hi rendition="#c">Von dem Verfasser erschien früher ebendaselbst:</hi></p><lb/>
+<p>Palästina. <hi rendition="#g">Zweite</hi> vermehrte Aufl. Mit einem<lb/>
+Plane von Jerusalem, einer Karte der Umgegend von<lb/>
+Sichem und dem Grundrisse der Kirche des heiligen<lb/>
+Grabes. Gr. 8. 1838. 1 Thlr. 20 Ngr.</p><lb/>
+<p>Der Zug der Jsraeliten aus Ägypten<lb/>
+nach Kanaan. Beilage zu des Verfassers &#x201E; Pa-<lb/>
+lästina &#x201C;. Mit einer Karte. Gr. 8. 1837. 15 Ngr.</p></div><lb/>
+<div><head>Die Karte von Palästina einzeln 8 Ngr.</head><lb/>
+<p>Lehrbuch der allgemeinen Geographie. <lb/>
+<hi rendition="#g">Zweite</hi> Aufl. Mit 6 Kupfert. Gr. 8. 1835.<lb/>
+1 Thlr. 15 Ngr.</p><lb/>
+<p>Beschreibung der Erdoberfläche. Eine Vor-<lb/>
+schule der Erdkunde. <hi rendition="#g">Dritte</hi> verb. Aufl. Gr. 8.<lb/>
+1838. 5 Ngr.</p><lb/>
+<p>Leipzig, im Juli 1843.</p><lb/>
+<p><space dim="horizontal"/><hi rendition="#fr">F. A. Brockhaus.</hi></p></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/><lb/>
+</body>     <back><div n="1" type="imprint"><p><hi rendition="#c">Herausgegeben unter Verantwortlichkeit der Verlagshandlung F. A. <hi rendition="#g">Brockhaus</hi> in <hi rendition="#g">Leipzig</hi>.</hi></p></div>     </back>   </text> </TEI>

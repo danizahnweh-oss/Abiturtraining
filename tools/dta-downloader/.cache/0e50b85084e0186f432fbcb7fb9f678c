@@ -1,0 +1,977 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.deutschestextarchiv.de/basisformat.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">     <teiHeader>
+<fileDesc>
+<titleStmt>
+<title type="main">Das Pfennig-Magazin der Gesellschaft zur Verbreitung gemeinnütziger Kenntnisse</title>
+<title type="sub">Nr. 175</title>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/115266127">
+<surname>Geyken</surname>
+<forename>Alexander</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1222198746">
+<surname>Haaf</surname>
+<forename>Susanne</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1019062681">
+<surname>Jurish</surname>
+<forename>Bryan</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Boenig</surname>
+<forename>Matthias</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Thomas</surname>
+<forename>Christian</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Wiegand</surname>
+<forename>Frank</forename>
+</persName>
+</editor>
+<respStmt>
+<orgName>Institut für Deutsche Sprache, Mannheim</orgName>
+<resp>
+<note type="remarkResponsibility">Bereitstellung der Bilddigitalisate und TEI
+Transkription</note>
+<ref target="http://hdl.handle.net/10932/00-01B8-B06B-48DE-EE01-2"/>
+</resp>
+</respStmt>
+<respStmt>
+<persName>
+<forename>Peter</forename>
+<surname>Fankhauser</surname>
+</persName>
+<resp>
+<note type="remarkResponsibility">
+Transformation von TUSTEP nach TEI P5.
+Transformation von TEI P5 in das DTA TEI P5 Format.
+</note>
+</resp>
+</respStmt>
+<respStmt>
+<orgName ref="https://www.bbaw.de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<resp>
+<note type="remarkResponsibility">Langfristige Bereitstellung der DTA-Ausgabe</note>
+<ref target="https://www.bbaw.de"/>
+</resp>
+</respStmt>
+</titleStmt>
+<editionStmt><edition>Vollständige digitalisierte Ausgabe.</edition></editionStmt>
+<extent>
+<measure type="images">8</measure>
+<measure type="tokens">5669</measure>
+<measure type="types">2180</measure>
+<measure type="characters">39404</measure>
+</extent>
+<publicationStmt>
+<publisher xml:id="DTACorpusPublisher">
+<email>dta@bbaw.de</email>
+<orgName role="project">Deutsches Textarchiv</orgName>
+<orgName role="hostingInstitution" xml:lang="en">Berlin-Brandenburg Academy of Sciences and Humanities (BBAW)</orgName>
+<orgName role="hostingInstitution" xml:lang="de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<address>
+<addrLine>Jägerstr. 22/23, 10117 Berlin</addrLine>
+<country>Germany</country>
+</address>
+</publisher>
+<pubPlace>Berlin</pubPlace>
+<date type="publication">2025-10-24T08:35:19Z</date>
+<availability>
+<licence target="http://creativecommons.org/publicdomain/zero/1.0/">
+<p>Dieses Werk steht unter der "Creative Commons Namensnennung -
+Nicht kommerziell 3.0 Deutschland Lizenz" (CC BY-NC).</p>
+</licence>
+</availability>
+<idno>
+<idno type="URLWeb">https://www.deutschestextarchiv.de/nn_pfennig175_1836</idno>
+<idno type="URLXML">https://www.deutschestextarchiv.de/book/download_xml/nn_pfennig175_1836</idno>
+<idno type="URLHTML">https://www.deutschestextarchiv.de/book/download_html/nn_pfennig175_1836</idno>
+<idno type="URLText">https://www.deutschestextarchiv.de/book/download_text/nn_pfennig175_1836</idno>
+<idno type="DTADirName">nn_pfennig175_1836</idno>
+<idno type="DTAID">34772</idno>
+<idno type="URN">urn:nbn:de:kobv:b4-34772-0</idno>
+</idno>
+</publicationStmt>
+<sourceDesc>
+<bibl type="J">Das Pfennig=Magazin der Gesellschaft zur Verbreitung gemeinnütziger Kenntnisse. Nr. 175. Leipzig (Sachsen), 6. August 1836.</bibl>
+<biblFull>
+<titleStmt>
+<title level="m" type="main">Das Pfennig-Magazin der Gesellschaft zur Verbreitung gemeinnütziger Kenntnisse</title>
+<title level="m" type="sub">Nr. 175</title>
+</titleStmt>
+<editionStmt>
+<edition n="1"/>
+</editionStmt>
+<publicationStmt>
+<publisher/>
+<pubPlace>Leibzig (Sachsen)</pubPlace>
+<date type="publication">1836</date>
+</publicationStmt>
+</biblFull>
+<msDesc>
+<msIdentifier/>
+<physDesc>
+<typeDesc>
+<p>Fraktur</p>
+</typeDesc>
+</physDesc>
+</msDesc>
+</sourceDesc>
+</fileDesc>
+<encodingDesc>
+<editorialDecl>
+<p>
+<![CDATA[
+<p>Siehe Dokumentation</p>
+]]>
+</p>
+</editorialDecl>
+<tagsDecl>
+<rendition scheme="css" xml:id="aq">font-family:sans-serif</rendition>
+<rendition scheme="css" xml:id="b">font-weight:bold</rendition>
+<rendition scheme="css" xml:id="blue">color:blue</rendition>
+<rendition scheme="css" xml:id="c">display:block; text-align:center</rendition>
+<rendition scheme="css" xml:id="et">display:block; margin-left:2em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et2">display:block; margin-left:4em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et3">display:block; margin-left:6em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="f">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="fr">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="g">letter-spacing:0.125em</rendition>
+<rendition scheme="css" xml:id="i">font-style:italic</rendition>
+<rendition scheme="css" xml:id="in">font-size:150%</rendition>
+<rendition scheme="css" xml:id="k">font-variant:small-caps</rendition>
+<rendition scheme="css" xml:id="larger">font-size:larger</rendition>
+<rendition scheme="css" xml:id="red">color:red</rendition>
+<rendition scheme="css" xml:id="right">display:block; text-align:right</rendition>
+<rendition scheme="css" xml:id="s">text-decoration:line-through</rendition>
+<rendition scheme="css" xml:id="smaller">font-size:smaller</rendition>
+<rendition scheme="css" xml:id="sub">vertical-align:sub; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="sup">vertical-align:super; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="u">text-decoration:underline</rendition>
+<rendition scheme="css" xml:id="uu">border-bottom:double 3px #000</rendition>
+</tagsDecl>
+</encodingDesc>
+<profileDesc>
+<langUsage>
+<language ident="deu">(Früh-)Neuhochdeutsch</language>
+<language ident="deu">German</language>
+</langUsage>
+<textClass>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1main">Gebrauchsliteratur</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1sub">Zeitschrift</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">ready</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">mkhz1</classCode>
+</textClass>
+</profileDesc>
+</teiHeader>
+<text>     <front>
+<pb facs="#f0001" n="[249]"/>
+<titlePage type="heading"><docTitle><titlePart type="main"><hi rendition="#c #fr">Das Pfennig=Magazin<lb/>
+<hi rendition="#g">der</hi><lb/>
+Gesellschaft zur Verbreitung gemeinnütziger Kenntnisse.</hi></titlePart></docTitle><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<docImprint><hi rendition="#fr">Nr</hi>. 175. ]              <hi rendition="#c">Erscheint jeden Sonnabend.</hi>              <docDate><hi rendition="#right">[<hi rendition="#g">August</hi> 6, 1836.</hi></docDate>            </docImprint></titlePage><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+</front>     <body>       <div n="1" type="jArticle"><head><hi rendition="#fr"><hi rendition="#g">Evora</hi>.</hi></head>       <figure>         <head>  Der Dianentempel in Evora.  </head>       </figure><lb/>
+<cb type="start"/>
+<p><hi rendition="#in">E</hi>vora ist die Hauptstadt der schönen portugiesischen<lb/>
+Provinz Alemtejo. Die alte Stadt stand wahrscheinlich<lb/>
+schon zu der Zeit, wo die Phönizier auf der pyrenäischen<lb/>
+Halbinsel angesiedelt waren, und als 80 Jahre v. Chr. der<lb/>
+Römer Quintus Sertorius, welcher vor dem in Rom all-<lb/>
+mächtigen Sylla fliehen mußte, in Spanien und Portugal<lb/>
+eine unabhängige Herrschaft zu gründen suchte, befestigte er<lb/>
+Evora und zierte es mit mehren öffentlichen Gebäuden.<lb/>
+Julius Cäsar vergrößerte die Stadt, die den Namen Libe-<lb/>
+ralitas Julia erhielt, gewöhnlich aber von den Römern<lb/>
+Ebura genannt wurde. Sie wurde 715 von den Ara-<lb/>
+bern, den Eroberern der pyrenäischen Halbinsel, unter-<lb/>
+worfen, 1166 von den Christen unter Giraldo, dem<lb/>
+Ritter ohne Furcht, wiedergenommen, dessen Bild, zu<lb/>
+Pferde mit dem Schwerte in einer und zwei Mauren-<lb/>
+köpfen in der andern Hand, noch das Stadtwappen ist.</p><lb/>
+<p>Die Stadt liegt 15 Meilen von Lissabon reizend<lb/>
+an einer Anhöhe, die fast ganz mit Orangenbäumen,<lb/>
+Ölbäumen, Reben und Obstbäumen bedeckt ist, während<lb/>
+am Fuße des Hügels lachende Getreidefelder sich aus-<lb/>
+breiten, die in der Ferne von alten Korkeichen begrenzt<lb/>
+werden. Sie hat gegen 10,000 Einwohner und ist der<lb/>
+Sitz eines Erzbischofs. Merkwürdig sind besonders ihre<lb/>
+<cb n="2"/>
+Denkmale aus der Römerzeit. Zuerst zieht unsere Blicke<lb/>
+bei dem Eintritte in die Stadt der Dianentempel an.<lb/>
+Die sechs Säulen der Vorderseite von korinthischer Ord-<lb/>
+nung haben nur wenig von der Zeit und von Men-<lb/>
+schenhänden gelitten. Das Gebälke aber ist fast ganz<lb/>
+zerstört. Die spitzigen Zinnen am obern Theile des Ge-<lb/>
+bäudes, wie wir auf vorstehender Abbildung sehen, wur-<lb/>
+den von den Mauren hinzugefügt, die es nie verstan-<lb/>
+den, ihren schönen, aber ganz verschiedenartigen Bauge-<lb/>
+schmack dem Style der Griechen und Römer anzupassen.<lb/>
+Die übrigen Theile des Bauwerkes, das aus feinkörni-<lb/>
+gem harten Granit besteht, haben sich ebenfalls trefflich<lb/>
+erhalten, obgleich wahrscheinlich 18 Jahrhunderte ver-<lb/>
+flossen sind, seit es errichtet wurde. Die Einwohner<lb/>
+haben jedoch das Jnnere des schönen Tempels entweiht,<lb/>
+indem sie es in ein Schlachthaus verwandelten.</p><lb/>
+<p>Noch großartiger aber ist die römische Wasserleitung<lb/>
+unweit der Stadt, von welcher unsere Abbildung ( S. 256 )<lb/>
+den Theil darstellt, der nach der Stadt hin sich mit einem<lb/>
+runden Castell endigt. Solche Castelle hatten verschie-<lb/>
+dene Zwecke. Sie waren bei langen Wasserleitungen<lb/>
+an verschiedenen Stellen errichtet und mehre derselben<lb/>
+enthielten Quartiere für Soldaten, die zur Beschützung<lb/>
+<cb type="end"/>
+<pb facs="#f0002" n="250"/>
+<fw place="top" type="header"> <hi rendition="#g">Das Pfennig=Magazin.</hi> </fw><cb type="start"/>
+und Bewachung des Werkes bestimmt waren. Jn ei-<lb/>
+nigen wohnten Maurer und Werkmeister, um bei irgend<lb/>
+einer Beschädigung der Wasserleitung gleich zur Hand<lb/>
+zu sein, während andere blos als Behältnisse dienten,<lb/>
+aus welchen das Wasser durch Röhren und Hähne<lb/>
+herbeigeschafft werden konnte. Das Castell auf un-<lb/>
+serer Abbildung ist von dieser Art. Jm Jnnern sieht<lb/>
+man ein Behältniß, welches einen Theil des Was-<lb/>
+sers aufnimmt, das über die Wasserleitung geführt wird,<lb/>
+andere unterirdische Röhren aber leiten das Wasser in<lb/>
+verschiedene Springbrunnen und Cisternen der Stadt.<lb/>
+Jn Spanien, Jtalien, Dalmatien und andern Ländern,<lb/>
+wo die Römer ähnliche unvergängliche Denkmale ihrer<lb/>
+Herrschaft zurückgelassen haben, sind sie verfallen und<lb/>
+unbrauchbar geworden, in Evora aber hat sich die Was-<lb/>
+serleitung wie das Castell vollkommen erhalten, und die<lb/>
+Bewohner der Stadt trinken noch dasselbe Wasser, das<lb/>
+ihren Vätern vor 1800 Jahren zugeführt wurde. Die<lb/>
+Wasserleitung besteht aus Steinen, die mit einem mar-<lb/>
+morharten Mörtel zusammengefügt sind. Das Castell<lb/>
+ist sehr zierlich von Ziegeln gebaut und mit dem fast<lb/>
+unzerstörbaren römischen Gypsüberzuge bekleidet. Jene<lb/>
+römischen Backsteine sind ganz verschieden von den un-<lb/>
+serigen, flach wie die zum Pflastern gebrauchten Ziegel,<lb/>
+selten über zwei Zoll dick und ungemein fest gebrannt.<lb/>
+Sie wurden horizontal oder auf die flachen Seiten ge-<lb/>
+legt und der dazwischen befindliche Mörtel verbindet sie<lb/>
+auf das festeste. Man findet Mauern und Gewölbe<lb/>
+von solchen Ziegeln oft in dem vollkommensten Zustande,<lb/>
+während benachbarte von Steinen errichtete Bauwerke<lb/>
+verfallen sind. Das runde Castell hat ohne die Säu-<lb/>
+len 38 Fuß im Umfange. Die acht Säulen sind von<lb/>
+lonischer Ordnung. Jn jeder Säulenweite befindet sich<lb/>
+eine Nische und eine Thüre, und in einer derselben ist<lb/>
+der Zugang zu dem Wasserbehältnisse und dem Jnnern.<lb/>
+Das obere Stockwerk ist mit ionischen Pilastern ver-<lb/>
+ziert, zwischen welchen sich Öffnungen befinden, die Luft<lb/>
+und Licht einlassen.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr"><hi rendition="#g">Wanderungen einiger Pflanzen</hi>.</hi></head><lb/>
+<p><hi rendition="#in">A</hi>us Konstantinopel sind 1554 die ersten Trauben-<lb/>
+hyacinthen, 1570 die Sternhyacinthen, 1590 die Kai-<lb/>
+serkronen in unsere Gegenden gekommen. Auch die<lb/>
+Ranunkeln haben wir aus Konstantinopel erhalten. Die<lb/>
+Tulpen sind 1559 aus Kappadocien zu uns gebracht wor-<lb/>
+den. Die Sammet= oder Winterrose ist aus den Gärten<lb/>
+von Tunis in unsere Gegenden gekommen, als Kaiser<lb/>
+Karl <hi rendition="#aq">V</hi>. von daher zurückkehrte; sie wird deshalb auch<lb/>
+noch wol die afrikanische Blume genannt. Aus Ame-<lb/>
+rika haben wir die Tuberosen, Sonnenblumen, Cardi-<lb/>
+nalblume, Passionsblume, gelben Weidrich, indianische<lb/>
+Kresse und die Amaryllis. Die erste große amerikanische<lb/>
+Aloe kam 1561 aus Mexico nach Jtalien. Die mei-<lb/>
+sten Obstbäume sind zuerst aus den Morgenländern nach<lb/>
+Griechenland, von da nach Jtalien und so in die übri-<lb/>
+gen Länder Europas gekommen. Die besten Äpfel und<lb/>
+Birnen stammen aus Ägypten, Syrien und Griechen-<lb/>
+land. Nach Rom kamen von dort her die ersten<lb/>
+Äpfelbäume. Die Aprikosen sind aus Epirus, und<lb/>
+die welschen Nüsse wurden zur Zeit der römischen Kö-<lb/>
+nige aus Persien nach Jtalien gebracht. Die besten<lb/>
+Haselnüsse hießen in Rom von ihrem Stammlande<lb/>
+( Pontus in Kleinasien ) noch pontische Nüsse. Die<lb/>
+Feigen kamen auch aus Asien. Kaiser Julian brachte<lb/>
+sie im 4. Jahrhundert zuerst nach Frankreich. Die<lb/>
+<cb n="2"/>
+Olivenbäume sind von der Jnsel Cypern nach Griechen-<lb/>
+land, und von da nach Jtalien gekommen.</p><lb/>
+<p>Auch der Wein stammt aus dem mittlern Asien. Der<lb/>
+Roßkastanienbaum ist aus dem nördlichen Asien nach<lb/>
+Europa gekommen um 1550. Die Apfelsinenbäume<lb/>
+sind aus China nach Portugal und von da nach Jtalien<lb/>
+gebracht worden. Der Hirse ist aus Jndien und das Hai-<lb/>
+dekorn oder der Buchweizen vor 300 Jahren aus Asien<lb/>
+durch die Türkei und Griechenland nach Jtalien und von<lb/>
+hier nach den übrigen Ländern Europas gekommen. Der<lb/>
+Reis, der aus Asien stammt und seit den ältesten Zei-<lb/>
+ten auf den indischen Jnseln und in China gebaut wird,<lb/>
+wurde seit 1696 in Nordamerika, und zwar zuerst in<lb/>
+Carolina, bekannt. Die Saubohnen kamen vom kaspi-<lb/>
+schen Meere. Die Erbsen wie die gewöhnliche Bohne<lb/>
+( <hi rendition="#aq">Vicia faba</hi> ) stammen aus Ägypten und Syrien.<lb/>
+Jn England wurden sie schon durch die Römer ein-<lb/>
+geführt. Die Scorzonere stammt zunächst aus Spa-<lb/>
+nien, wohin sie die Mauren aus Afrika brach-<lb/>
+ten. Man benutzte sie anfänglich wegen ihrer angeb-<lb/>
+lichen Heilkräfte gegen den Biß einer giftigen Schlange,<lb/>
+Scurzo genannt, woher sie seit dem 16. Jahrhundert<lb/>
+den Namen erhielt. Jn Spanien ward sie auch zuerst<lb/>
+gegessen und kam von dort nach Frankreich. Der Hanf<lb/>
+stammt aus Ostindien und der Flachs ist aus dem mit-<lb/>
+tägigen Europa zu uns gekommen. Die Zwiebel stammt<lb/>
+aus Afrika und war in den ältesten Zeiten schon in Ägyp-<lb/>
+ten bekannt. Der Knoblauch stammt aus dem Morgen-<lb/>
+lande und der Schnittlauch aus Sibirien. Die Scha-<lb/>
+lotten haben ihren Namen von der Stadt Askalon in<lb/>
+Palästina. Die Kartoffeln sind im südlichen Amerika<lb/>
+( Chile, Peru ) zu Hause und wurden im 16. Jahrhun-<lb/>
+dert nach Europa verpflanzt. Der Spargel, schon den<lb/>
+Griechen und Römern bekannt, ist erst im 18. Jahr-<lb/>
+hundert aus Jtalien nach Deutschland gekommen. Die<lb/>
+Artischocke, eigentlich eine Seepflanze, stammt wahr-<lb/>
+scheinlich von den Küsten des mittelländischen Meeres,<lb/>
+und wurde schon im 15. Jahrhundert in Jtalien ge-<lb/>
+baut. Sie kam zu Anfang des 16. Jahrhunderts nach<lb/>
+Frankreich, bald nachher auch nach England, und ist seit<lb/>
+dem 17. Jahrhundert auch in Deutschland bekannt. Die<lb/>
+ersten Safranzwiebeln brachte ein Pilger aus dem Mor-<lb/>
+genlande unter Eduard <hi rendition="#aq">III</hi>. nach England. Der Kerbel ist<lb/>
+aus Jtalien, der Dill aus Spanien, der Fenchel von<lb/>
+den kanarischen Jnseln, der Thymian aus Spanien, der<lb/>
+Majoran aus Griechenland, die Petersilie aus Ägypten,<lb/>
+der Portulak, schon im 17. Jahrhundert in Europa ein-<lb/>
+geführt, aus Südamerika, die Krausemünze aus Sibi-<lb/>
+rien, der Rettig und das Radieschen aus China, die<lb/>
+Schminkbohne aus Ostindien, der Kürbis aus dem asia-<lb/>
+tischen Rußland und die Melone aus der Kalmückei zu<lb/>
+uns gekommen. Der Spinat stammt aus dem west-<lb/>
+lichen Asien, wird zuerst in den Schriften arabischer<lb/>
+Ärzte erwähnt und in Spanien eingeführt, woher er<lb/>
+schon im 14. Jahrhundert in das übrige Europa kam.<lb/>
+Die Endivie stammt wahrscheinlich aus China und Ja-<lb/>
+pan und kam früh im 16. Jahrhundert nach Europa.<lb/>
+Das Vaterland der Kresse ist Persien. Man baute sie<lb/>
+schon in der Mitte des 16. Jahrhunderts in Europa.<lb/>
+Der erste Same von Blumenkohl wurde aus der Jnsel<lb/>
+Cypern gebracht und schon zu Anfang des 17. Jahr-<lb/>
+hunderts in England angebaut.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Die Geschichte und Verfertigung des Glases.</hi></head><lb/>
+<p><hi rendition="#in">E</hi>s gibt keine bestimmten Angaben über die Zeit, wo<lb/>
+die Herstellung des jetzt allgemein benutzten und bekann-<lb/>
+<cb type="end"/>
+<pb facs="#f0003" n="251"/>
+<fw place="top" type="header"><hi rendition="#g">Das Pfennig=Magazin.</hi> </fw><cb type="start"/>
+ten Glases zuerst gelang. Nach der Erzählung des äl-<lb/>
+tern Plinius, welcher im 1. Jahrhundert lebte und ei-<lb/>
+ner der gelehrtesten Römer war, vermittelte der Zufall<lb/>
+die Entdeckung desselben. Phönizische Seeleute sollen<lb/>
+nämlich eines Tages unweit des Berges Karmel an dem<lb/>
+sandigen Ufer des Flusses Belus im heutigen Syrien<lb/>
+gelandet sein und dort Feuer angezündet haben, um<lb/>
+sich ihr Essen zu kochen. Da sie keine großen Steine<lb/>
+in der Nähe fanden, um mittels derselben ihre Koch-<lb/>
+geschirre über das Feuer setzen zu können, holten sie da-<lb/>
+zu vom Schiffe große Stücke Salpeter, woraus ihre<lb/>
+Ladung bestand. Am Feuer schmolz nun ein Theil die-<lb/>
+ses Salpeters und bildete durch seine Vermischung mit<lb/>
+der Asche und dem Sande nach dem Verlöschen des<lb/>
+Feuers eine Masse, welche nichts Anderes als ein un-<lb/>
+reines Glas war. Die vollkommenere Bereitung des-<lb/>
+selben wurde hierauf von den Phöniziern bald aufgefun-<lb/>
+den, und die Bewohner von Sidon erlangten darin be-<lb/>
+sondern Ruf; doch wird die Kunst, das Glas durch<lb/>
+Blasen und Schneiden beliebig zu formen, als eine spä-<lb/>
+tere Erfindung der Ägypter betrachtet. Übrigens bewei-<lb/>
+sen die Glasstücke und Scherben, welche man in den<lb/>
+alten ägyptischen Gräbern und andern verfallenen Ge-<lb/>
+bäuden des Alterthums gefunden hat, daß die Ent-<lb/>
+deckung des Glases jedenfalls in eine sehr frühe Zeit<lb/>
+und wol über 1000 Jahre v. Chr. zu versetzen ist.</p><lb/>
+<p>Nach Jtalien und Rom scheint die Glasmacher-<lb/>
+kunst zu Anfang der christlichen Zeitrechnung gebracht,<lb/>
+dort weiter vervollkommnet und von da nach den römi-<lb/>
+schen Provinzen im westlichen Europa verbreitet worden<lb/>
+zu sein. Über die früheste Anwendung des Glases zu<lb/>
+Fenstern herrscht ebenfalls Ungewißheit; zuverlässig ist<lb/>
+jedoch, daß schon im 3. Jahrhundert einige Kirchen des<lb/>
+südlichen Europas bunte Glasfenster erhielten. Früher<lb/>
+bediente man sich dazu des Marienglases, der Hornplat-<lb/>
+ten, dünn geschabter Häute und ähnlicher Dinge.</p><lb/>
+<p>Noch im Jahre 674 mußte man bei Erbauung einer<lb/>
+neuen Abtei in England sich Glasmacher aus Frankreich<lb/>
+kommen lassen, um die Kirche mit Glasfenstern zu ver-<lb/>
+sehen, und erst zu Ende des 10. Jahrhunderts fingen<lb/>
+die Vornehmen an, sich Glasfenster machen zu lassen.<lb/>
+Bis zum 17. Jahrhundert scheint aber dessenungeachtet<lb/>
+dort die Glasbereitung auf sehr niedriger Stufe gestan-<lb/>
+den zu haben, und hob sich auch dann nur durch die<lb/>
+aus Venedig berufenen Arbeiter, wo berühmte Glas-<lb/>
+fabriken damals bestanden. Jn Frankreich nahm die<lb/>
+Glasfabrikation zu Anfang des 14. Jahrhunderts einen<lb/>
+bedeutenden Aufschwung und wurde so werth gehalten, daß<lb/>
+nur Leute adeliger Herkunft sich damit beschäftigen durf-<lb/>
+ten, daher auch noch im 17. Jahrhundert die Arbeiter<lb/>
+in den Glasfabriken vor allen andern die Herren oder<lb/>
+die adeligen Glasmacher genannt wurden. Dort wurde<lb/>
+auch 1688 durch Abraham Thewart das Gießen großer<lb/>
+Spiegelgläser erfunden, und die damals errichtete Fabrik<lb/>
+zu St.=Gobin im Aisnedepartement gehört noch zu den<lb/>
+vorzüglichsten. Jn Portugal wurde die erste Glas-<lb/>
+fabrik zu Anfang des 18. Jahrhunderts von Englän-<lb/>
+dern, in Schweden 1641 vermuthlich von Deutschen<lb/>
+angelegt.</p><lb/>
+<p>Jn Deutschland selbst scheinen Glasarbeiten schon<lb/>
+vor dem 8. Jahrhundert nicht unbekannt gewesen zu<lb/>
+sein, indessen finden sich die ersten Nachrichten von<lb/>
+bunten Glasfenstern in Kirchen erst im 10. Jahr-<lb/>
+hundert, und noch um das Jahr 1458 rühmt es der Car-<lb/>
+dinal Äneas Sylvius unter den Herrlichkeiten der Stadt<lb/>
+Wien, daß die meisten Häuser Glasfenster hatten. Da-<lb/>
+bei darf man übrigens nicht an unsere großen und hel-<lb/>
+len Fensterscheiben denken, sondern nur an jene kleinen<lb/>
+<cb n="2"/>
+runden, in Blei gefaßten, welche sich noch hin und<lb/>
+wieder in alten Gebäuden finden. Jm 18. und 19.<lb/>
+Jahrhundert hat jedoch die Glasfabrikation in Deutsch-<lb/>
+land eine Ausdehnung und Vollkommenheit, namentlich<lb/>
+im Königreiche Böhmen, erlangt, welche ihren Erzeug-<lb/>
+nissen Absatz nach allen Weltgegenden sichert und ihr mit<lb/>
+der englischen zu wetteifern erlaubt.</p><lb/>
+<p>Was nun die Bereitung des Glases selbst anlangt,<lb/>
+so wird diese durch Verschmelzung von Kieselerde, dem<lb/>
+Hauptbestandtheile des Glases, der gewöhnlich als Quarz<lb/>
+oder Quarzsand angewendet wird, mit kleinen Mengen<lb/>
+von Glaubersalz, Pottasche, Kochsalz, Kalk, Salpeter,<lb/>
+Bleiglätte und Mennig, und alten Glasscherben, so-<lb/>
+genannten Bruchglase, wodurch der Schmelzproceß sehr<lb/>
+beschleunigt wird. Alle diese Stoffe werden mehr und<lb/>
+weniger gereinigt und gepulvert, je nachdem eine bessere<lb/>
+oder geringere Sorte Glas bereitet werden soll, deren<lb/>
+schlechteste das Bouteillenglas ist. Früher wurden die<lb/>
+sorgfältig gemengten Materialien oder der sogenannte<lb/>
+Glassatz, in einem besondern Ofen vor dem Schmelzen<lb/>
+erst gefrittet, d. h. in einem Schmelztiegel bis fast zum<lb/>
+Schmelzen erhitzt, um etwa die darin vorhandene Wasser-<lb/>
+und Kohlensäure zu verflüchtigen und verbrennliche Stoffe<lb/>
+zu zerstören. Diesem Fritten des Glassatzes im Gan-<lb/>
+zen zieht man aber jetzt das abgesonderte Glühen der<lb/>
+etwa unreinen Zusätze vor.</p><lb/>
+<p>Das Schmelzen geschieht in eignen, theils runden,<lb/>
+theils viereckigen Öfen, von denen die der Wirkung<lb/>
+des Feuers unmittelbar ausgesetzten innern Theile aus<lb/>
+dem feuerbeständigsten Material, nämlich aus einem<lb/>
+für sich im Ofenfeuer unschmelzbaren Thone hergestellt<lb/>
+werden, da sie einer Hitze von 3500 &#x2014; 8000° wi-<lb/>
+derstehen müssen, und wo möglich über ein Jahr lang<lb/>
+ohne Unterbrechung geheizt werden. Jm untern Theile<lb/>
+des Ofens liegen einander gegenüber die zum Herde füh-<lb/>
+renden Öffnungen, zwischen denselben aber sind über<lb/>
+dem Herde die ungefähr eine Elle tiefen und breiten,<lb/>
+runden oder viereckigen Schmelzhäfen angebracht, die<lb/>
+ebenfalls aus jenem feuerbeständigen Thone bestehen und<lb/>
+für deren jeden der Ofen an der Seite, wo er sich be-<lb/>
+findet, eine verschließbare Öffnung hat.</p><lb/>
+<p>Erst nachdem diese Schmelzhäfen bis zum Weiß-<lb/>
+glühen erhitzt sind, wird der Glassatz mittels eiserner<lb/>
+Schaufeln hineingethan, und gelangt nun binnen 15&#x2014;<lb/>
+24 Stunden in den Zustand völliger Flüssigkeit. Sind<lb/>
+noch Theile darin enthalten, welche in die Glasbildung<lb/>
+nicht eingehen, so sammeln sich diese als dünnflüssige<lb/>
+Masse, Glasgalle genannt, an der Oberfläche und wer-<lb/>
+den mittels eiserner Löffel entfernt. Jst aber endlich<lb/>
+die Glasmasse hinlänglich geläutert, so wird die bis-<lb/>
+herige höchste Hitze etwas vermindert, damit die Masse<lb/>
+dickflüssiger und zum Verarbeiten geschickt werde. Jm<lb/>
+Allgemeinen begreift man die daraus gefertigten Artikel<lb/>
+unter dem Gesammtnamen Tafelglas, gewöhnlich zu<lb/>
+Fensterscheiben, Hohlglas oder gläsernen Gefäßen aller Art<lb/>
+und Spiegelglas.</p><lb/>
+<p>Das Tafelglas pflegt besondere Härte zu besitzen<lb/>
+und wird auf doppelte Weise, nämlich als Mondglas,<lb/>
+in England Crownglas genannt, und als Walzenglas<lb/>
+bereitet. Bei der ersten und ältern nimmt der Arbeiter<lb/>
+die zu jeder Tafel nöthige Glasmasse aus den Glas-<lb/>
+häfen mit der sogenannten Pfeife, einem eisernen, oben<lb/>
+mit einem hölzernen Griffe, unten mit einem kegelför-<lb/>
+migen Ansatze versehenen Blasrohre, das er eintaucht,<lb/>
+wie Kinder die Thonpfeifen in Seifenschaum, wenn<lb/>
+sie Seifenblasen machen. Hat er genug Masse, so gibt<lb/>
+er derselben durch Rollen auf einer glatten eisernen Ta-<lb/>
+fel ( Abbild. 1 ) eine regelmäßige Gestalt, und bläst sie<lb/>
+<cb type="end"/>
+<pb facs="#f0004" n="252"/>
+<fw place="top" type="header"> <hi rendition="#g">Das Pfennig=Magazin.</hi> </fw>       <cb type="start"/>
+<figure><head><hi rendition="#aq #c">I.</hi></head></figure><lb/>
+dann mittels des Rohrs birnförmig auf ( Abbild. 2 ) ,<lb/>
+<figure><head><hi rendition="#aq">II.</hi></head></figure><lb/>
+wobei er die Form durch Auflegen auf eine eiserne Rolle<lb/>
+zu verlängern sucht, die auf eine Art Bank befestigt ist.<lb/>
+Es versteht sich übrigens, daß, während dieses und des<lb/>
+folgenden Verfahrens, die Masse durch wiederholtes An-<lb/>
+wärmen am Feuer in dehnbarem Zustande erhalten wird.<lb/>
+Jst die Masse hinlänglich aufgeblasen, so wird sie vor<lb/>
+einer dazu bestimmten größern Öffnung des Ofens mit-<lb/>
+tels der Pfeife, die dann auf einem zum Schutze der Ar-<lb/>
+beiter gegen die Hitze angebrachten Mauerschirm auf-<lb/>
+liegt, in eine schnelle drehende Bewegung gebracht ( Ab-<lb/>
+bild. 3 ) , wodurch sich die der Pfeife entgegengesetzte<lb/>
+<figure><head><hi rendition="#aq">III.</hi></head></figure><lb/>
+Fläche, gleichsam der Boden der Blase, platt zieht. An<lb/>
+diese Fläche setzt nun ein zweiter Arbeiter das sogenannte<lb/>
+Hefteisen an, das vorher erwärmt und in die Glas-<lb/>
+masse getaucht worden ist ( Abbild. 4 ) , und nur so fest<lb/>
+<figure><head><hi rendition="#aq">IIII.</hi></head></figure><lb/>
+<cb n="2"/>
+wie die Pfeife haftet. Letztere aber wird jetzt abgeschnit-<lb/>
+ten und die Umdrehung mittels des Hefteisens vor dem<lb/>
+Ofen fortgesetzt ( Abbild. 5 ) , bis sich die noch erhabene<lb/>
+<figure><head><hi rendition="#aq">V.</hi></head></figure><lb/>
+Seite immer mehr verflacht ( Abbild. 6 ) und endlich das<lb/>
+<figure><head><hi rendition="#aq">VI.</hi></head></figure><lb/>
+Ganze durch die Schwungkraft in eine nur in der Mitte<lb/>
+noch etwas stärkere, sonst gleichmäßige Scheibe verwan-<lb/>
+delt ( Abbild. 7 ) worden ist. Nunmehr wird dieselbe<lb/>
+<figure><head><hi rendition="#aq">VII.</hi></head></figure><lb/>
+auf ein Lager heißer Asche in die Nähe des mit dem<lb/>
+Schmelzofen gewöhnlich in Verbindung stehenden Kühl-<lb/>
+ofens gelegt, und von da, nachdem das Hefteisen ent-<lb/>
+fernt worden, mittels einer Gabel senkrecht in den Kühl-<lb/>
+ofen gestellt ( Abbild. 8 ) . Jn diesem erkaltet das<lb/>
+<figure><head><hi rendition="#aq">VIII.</hi></head></figure><lb/>
+Glas allmälig, was bei sehr großen Gläsern zuweilen<lb/>
+Wochen dauert, denn durch plötzliches Abkühlen würde<lb/>
+es viel zu spröde werden. Später werden die oft mehre<lb/>
+<cb type="end"/>
+<pb facs="#f0005" n="253"/>
+<fw place="top" type="header"><hi rendition="#g">Das Pfennig=Magazin.</hi> </fw><cb type="start"/>
+Fuß im Durchmesser haltenden Scheiben, mit Entfer-<lb/>
+nung des mittlern Theiles, in zwei halbkreisförmige<lb/>
+Theile geschnitten, woher der Name Mondglas rührt.</p><lb/>
+<p>Die Verfertigung des Walzenglases ist eine deutsche<lb/>
+Erfindung und erfodert ebenfalls, daß die Glasmasse<lb/>
+zuerst walzen= oder birnförmig aufgeblasen ( Fig. 9 ) werde.<lb/>
+Hierauf wird der Boden der Blase mit einem Eisen<lb/>
+durchbrochen ( Fig. 10 ) , allmälig erweitert ( Fig. 11 ) ,<lb/>
+dann an der Seite aufgeschnitten ( Fig. 12 ) in Walzen-<lb/>
+form gebracht und das Glas auf eine eiserne Tafel ge-<lb/>
+legt ( Fig. 13 ) , wo es die letzte Form erhält.</p><lb/>
+<figure/><lb/>
+<p>Das Spiegelglas wird vorzüglich sorgfältig theils<lb/>
+wie das Tafelglas verfertigt, theils gegossen, indem man<lb/>
+die geschmolzene Glasmasse auf eine kupferne oder bron-<lb/>
+zene Tafel leitet, die an den Seiten mit Metallleisten<lb/>
+versehen ist, deren Höhe der gewünschten Dicke des Gla-<lb/>
+ses gleich kommt. Damit sich aber die Glasmasse gleich-<lb/>
+mäßig verbreite, läßt man auf den Leisten noch eine<lb/>
+glatte Metallwalze über den Guß hinlaufen. Jst die<lb/>
+Glastafel fest genug, so wird sie wie das auf andere<lb/>
+Weise verfertigte Tafelglas im Kühlofen aufgestellt, um<lb/>
+allmälig ganz zu verhärten.</p><lb/>
+<p>Am Mannichfaltigsten sind die Formen des Hohl-<lb/>
+glases, bei deren Darstellung vielerlei Handgriffe, Übung<lb/>
+u. s. w. sehr in Betracht kommen. Das Meiste wird<lb/>
+geblasen. Man benutzt jetzt aber auch thönerne und<lb/>
+metallene Formen dabei und vermag nämentlich mittels<lb/>
+letzterer den darin gegossenen Gefäßen ein Ansehen zu<lb/>
+geben, das dem der geschliffenen Glaswaaren sehr ähn-<lb/>
+lich ist. Zu den letzten wird vorzugsweise Krystallglas<lb/>
+genommen, das weniger hart als Tafelglas ist, allein<lb/>
+bei gewöhnlich ansehnlicher Dicke die Durchsichtigkeit des<lb/>
+Krystalls besitzt, wegen einer stärkern Beimischung von<lb/>
+Blei aber auch sehr schwer ist. Durch Zusatz von an-<lb/>
+dern metallischen Theilen kann das Glas verschiedenartig<lb/>
+gefärbt werden, welche Kunst schon in älterer Zeit be-<lb/>
+kannt war und neuerdings wieder sehr vervollkommt<lb/>
+worden ist; auch werden auf diesem Wege die künstli-<lb/>
+chen Edelsteine hervorgebracht, welche nichts Anderes sind,<lb/>
+als bleihaltiges Glas, welches durch Verbindung mit<lb/>
+gewissen Metalloxyden, z. B. durch Kupferoxyd grün,<lb/>
+Kobaltoxyd blau, gefärbt worden ist.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr"><hi rendition="#g">Erinnerung aus der Perückenzeit</hi>.</hi></head><lb/>
+<p><hi rendition="#in">D</hi>er ehemalige speiersche Leibarzt, Johann Peter Frank,<lb/>
+sagt in seinem schätzbaren System der medicinischen<lb/>
+Policei ( dritter Band, Seite 208 ) , welches 1783 er-<lb/>
+schien: &#x201E;Wie elend kommt es doch heraus, wenn<lb/>
+man eine ganze Nation mit weißgepuderten Köpfen in<lb/>
+Fehljahren den Himmel über Fruchtmangel laut anklagen<lb/>
+hört, da doch eine ganze Provinz eben von dem nahr-<lb/>
+haften Staube schicklich zu leben hätte, mit welchem<lb/>
+so viele tausend Perückenmacher sich zu Lungensüchtigen<lb/>
+stäuben, indem sie das feinste Mehl in die Luft streuen<lb/>
+<cb n="2"/>
+und dem hungrigen Bürger entziehen.&#x201C; An solche<lb/>
+Äußerungen muß man Diejenigen erinnern, welche die<lb/>
+Gegenwart zu sehr herabsetzen. Wir sind durch die<lb/>
+allgemeine Verbreitung der Kartoffeln mehr als unsere<lb/>
+Großväter vor Hungersnoth gesichert, streuen aber den-<lb/>
+noch kein Weizenmehl in die Haare und haben nicht<lb/>
+mehr viele tausend Perückenmacher.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Züge aus dem Leben König Karl</hi> <hi rendition="#aq">XII.</hi>         <lb/>
+<hi rendition="#fr"><hi rendition="#g">von Schweden</hi>.</hi></head><lb/>
+<p><hi rendition="#in">N</hi>ach der Schlacht bei Clissow, welche Karl <hi rendition="#aq">XII</hi>. am<lb/>
+9. Juli 1702 gegen den König August von Polen ge-<lb/>
+wann, fielen den Schweden, welche nur 700 männ-<lb/>
+liche Gefangene gemacht hatten, noch 500 Frauenzim-<lb/>
+mer in die Hände, welche dem feindlichen Heere gefolgt<lb/>
+waren, und unter denen sich auch einige von Stande<lb/>
+befanden. Karl, der bekanntlich aller Frivolität höchst<lb/>
+abhold war, mochte diese weibliche Cohorte weder in<lb/>
+seinem Lager behalten, noch sie unbeschützt dem Feinde<lb/>
+nachsenden, zumal da sie große Furcht vor dem Muth-<lb/>
+willen der polnischen Bauern hegten. Er gab ihnen<lb/>
+also einige Schwadronen zur Bedeckung mit, welche den<lb/>
+strengsten Befehl hatten, ihren Schützlingen weder etwas<lb/>
+zu entfremden, noch ihnen sonst die geringste Ungebühr<lb/>
+zuzufügen. Diese Schonung gefiel dem Könige Au-<lb/>
+gust so wohl, daß er seinem Gegner eine Höflichkeit<lb/>
+schuldig zu sein glaubte. Ein schwedischer Rittmeister<lb/>
+war in der Schlacht von seinem wild gewordenen<lb/>
+Pferde mitten unter die Sachsen getragen worden, wel-<lb/>
+che ihn gefangen nahmen. August ließ ihn auf das<lb/>
+Beste bewirthen und schickte ihn dann dem Könige<lb/>
+zurück. Aber Karl war nicht der Mann, um irgend<lb/>
+Jemand etwas schuldig zu bleiben. Kaum hatte der<lb/>
+Rittmeister das Geschehene berichtet, als er 25 gefangene<lb/>
+sächsische Offiziere auf das Beste mit Speise und Trank<lb/>
+versehen ließ und ihnen dann, ohne das damals noch<lb/>
+übliche Lösegeld, die Freiheit gab.</p><lb/>
+<p>Bei der Belagerung von Thorn 1703 hatte der<lb/>
+König sein Zelt an einem so gefährlichen Orte aufschla-<lb/>
+gen lassen, daß unaufhörlich Kugeln in seiner Nähe<lb/>
+niederfielen. Vergebens suchte man ihn zu bewegen,<lb/>
+daß er entweder einen andern Ort wählen, oder doch<lb/>
+einen Wall von Erde vor seinem Zelte möchte aufführen<lb/>
+lassen. Endlich entschloß sich der Graf Piper, in der<lb/>
+Abwesenheit des Königs einen großen Haufen Heu vor<lb/>
+dessen Zelt bringen zu lassen. Kaum aber war der<lb/>
+König zurück, als man augenblicklich das Heu wieder<lb/>
+wegschaffen mußte. Jndeß gestattete er doch, daß andere<lb/>
+Personen, und namentlich auch seine Trabanten, ihre<lb/>
+Heuhaufen behalten durften.</p><lb/>
+<p>Als der König Thorn erobert hatte, schenkte er die<lb/>
+Glocken in den Kirchen und Klöstern der Stadt seinen<lb/>
+Artillerieoffizieren, und zwar weil man während der<lb/>
+Belagerung geläutet hatte, statt nach Kriegsgebrauch<lb/>
+eine gänzliche Stille herrschen zu lassen. Die Offiziere<lb/>
+verkauften ihr Geschenk theils an die Stadt wieder,<lb/>
+theils an den König selbst, der sie baar bezahlte und<lb/>
+die Glocken nach Schweden schickte.</p><lb/>
+<p>Eine Fürstin Lubomirska, welche mit bedeutenden<lb/>
+Schätzen Polen verlassen und sich nach Sachsen begeben<lb/>
+wollte, war von einem schwedischen Oberstlieutenant an der<lb/>
+Grenze angehalten worden. Auf den Bericht davon schrieb<lb/>
+Karl eigenhändig zurück: &#x201E;Der Oberstlieutenant hat au-<lb/>
+genblicklich seine Gefangene loszugeben, mit Allem, was<lb/>
+ihr zugehört, indem Wir nicht gesonnen sind, mit<lb/>
+<cb type="end"/>
+<pb facs="#f0006" n="254"/>
+<fw place="top" type="header"> <hi rendition="#g">Das Pfennig=Magazin.</hi> </fw><cb type="start"/>
+Frauenzimmern Krieg zu führen. Wenn sie sich wegen<lb/>
+der bevorstehenden Reise nicht völlig sicher achten sollte,<lb/>
+so kann sie der Oberstlieutenant bis an die sächsischen<lb/>
+Grenzen begleiten.&#x201C;</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle" xml:id="Blind1"><head><hi rendition="#fr">Über Blinde, Blindenunterricht und Blinden-<lb/>
+anstalten.</hi><lb/>
+<hi rendition="#aq">I</hi>. <hi rendition="#fr"><hi rendition="#g">Von den Blinden überhaupt</hi>.</hi></head><lb/>
+<p><hi rendition="#in">Z</hi>u denjenigen Classen von Menschen, welche die stärk-<lb/>
+sten Ansprüche auf unser Mitleid und eine thätige Bei-<lb/>
+hülfe haben, gehören ohne Zweifel die Blinden. Ein blin-<lb/>
+der Mann, sagt mit dem vollsten Rechte ein altes<lb/>
+Sprüchwort, ein armer Mann! arm nämlich, wenn er<lb/>
+auch Millionen besäße. Denn kann er etwa durch diese<lb/>
+sich die tausendfältigen Genüsse und Freuden, welche uns<lb/>
+Sehenden durch unser Augenlicht täglich zu Theil wer-<lb/>
+den, ersetzen? Kann irgend ein fremdes Auge den Dienst<lb/>
+des eignen ihm leisten? Und wer von uns wollte sich<lb/>
+seiner Augen berauben lassen, auch wenn ihm der Besitz<lb/>
+eines ganzen Königreichs dafür geboten würde? Ent-<lb/>
+nehmen wir hieraus, wie schlimm erst diejenigen Blin-<lb/>
+den daran sind, die keine Reichthümer haben, die in<lb/>
+Verhältnissen leben, in welchen sie sogar bei dem Be-<lb/>
+sitze ihrer Augen sich nur durch Anstrengung aller ihrer<lb/>
+Kräfte den nöthigen Lebensunterhalt von einem Tage<lb/>
+zum andern erwerben könnten. Wie schrecklich, wie an<lb/>
+Verzweiflung grenzend muß das Schicksal der Erblin-<lb/>
+dung nicht erst in solcher Lage werden!</p><lb/>
+<p>Unter die Blinden aber ist Jeder zu rechnen, der<lb/>
+entweder gar kein Augenlicht hat, oder dessen Augenlicht<lb/>
+so schwach ist, daß es nicht hinreicht, die im gemei-<lb/>
+nen Leben vorkommenden Geschäfte ohne Anstoß, Auf-<lb/>
+enthalt und Gefahr zu verrichten. Manche haben noch<lb/>
+so viel Schein, daß sie nicht nur Tag und Nacht un-<lb/>
+terscheiden, größere Gegenstände wahrnehmen, sondern<lb/>
+manche erkennen auch die Hauptfarben. Gleichwol sind<lb/>
+alle diese mit Recht unter die Blinden zu rechnen, wenn<lb/>
+sie nicht so viel Schein haben, daß sie gewöhnlichen<lb/>
+Druck lesen, schreiben und andere kleine Gegenstände<lb/>
+mittels der Augen unterscheiden können. Denn da fast<lb/>
+bei allen Beschäftigungen des häuslichen und bürger-<lb/>
+lichen Lebens Fälle vorkommen, wo ein ungeschwächtes<lb/>
+Augenlicht erfoderlich ist, so wird ein Solcher in allen<lb/>
+diesen Fällen so lange ganz unbrauchbar sein, bis er,<lb/>
+ebenso wie der ganz Blinde, den fehlenden Gesichtssinn<lb/>
+durch Übertragung auf andere Sinneswerkzeuge zu er-<lb/>
+setzen gelernt hat.</p><lb/>
+<p>Eigentlich Blindgeborene, d. h. solche, welche ohne<lb/>
+Augen oder ganz ohne Empfänglichkeit für die Licht-<lb/>
+strahlen geboren werden, sind sehr selten. Desto öfter<lb/>
+geschieht es, daß Neugeborene einen Fehler an den<lb/>
+Augen, oder eine Krankheit derselben mit auf die Welt<lb/>
+bringen.</p><lb/>
+<p>Die meisten Derer, die für Blindgeborene gelten,<lb/>
+sind es durch unvorsichtige und fehlerhafte Behandlung<lb/>
+in der ersten Zeit ihres Daseins geworden. Wenn z. B.<lb/>
+die Augen des Kindes gleich nach der Geburt dem unge-<lb/>
+wohnten hellen Tageslicht an den Fenstern, wol gar<lb/>
+dem Sonnenschein ausgesetzt werden, so muß dieser starke<lb/>
+Lichtreiz auf das dazu nicht vorbereitete Auge des Kin-<lb/>
+des sehr nachtheilig wirken, und kann ganz gesunde Au-<lb/>
+gen für alle Zukunft verderben. Das Kind bekommt<lb/>
+dadurch sehr leicht die höchst gefährliche Augenentzündung<lb/>
+der Neugeborenen, und wenn dieselbe sehr heftig ist, oder<lb/>
+sonst nachtheilige Einflüsse auf dasselbe einwirken, so<lb/>
+<cb n="2"/>
+kann es ganz erblinden. Andere Veranlassungen zu dem<lb/>
+frühzeitigen Erblinden geben außer mehren Ausschlags-<lb/>
+krankheiten besonders die Masern, welche schon bei re-<lb/>
+gelmäßigem Verlaufe die Augen angreifen und ein Ge-<lb/>
+röthetsein, ein Thränen und Hitze derselben veranlassen.<lb/>
+Durch Verletzungen und durch heftige Augenentzündun-<lb/>
+gen kann in jedem Alter das Augenlicht erlöschen.</p><lb/>
+<p>Aber die wirklich Blindgeborenen oder die ihnen<lb/>
+gleichzusetzenden in den ersten Lebensjahren Erblindeten,<lb/>
+sind sehr verschieden von denen, die später das Augen-<lb/>
+licht verloren haben, sowol in Rücksicht ihrer Eigenschaf-<lb/>
+ten, ihrer Denk= und Handlungsart, als in der Weise,<lb/>
+wie sie behandelt werden müssen, um nützlich auf sie<lb/>
+zu wirken.</p><lb/>
+<p>Wer das Unglück hat, nach völliger Verstandes-<lb/>
+reife, nach einem geführten thätigen Leben das Augen-<lb/>
+licht zu verlieren, wer folglich mit dem Bewußtsein vor-<lb/>
+hergegangener Anschauungen in den Zustand der Blind-<lb/>
+beit übertritt, der wird, auch wenn der erste Jammer<lb/>
+vorüber ist, und das Gemüth wieder einige Ruhe er-<lb/>
+langt hat, dennoch in jedem einzelnen Falle eine trau-<lb/>
+rige Vergleichung seines jetzigen mit seinem vorigen Zu-<lb/>
+stande anstellen, die bei dem früh Erblindeten zu seinem<lb/>
+Glücke nicht möglich ist. Er sieht sich auf einmal los-<lb/>
+gerissen von andern Menschen, mit denen er in man-<lb/>
+nichfacher Berührung stand. Er wird von ehemaligen<lb/>
+Freunden und Bekannten in Geschäften und Unterhal-<lb/>
+tungen getrennt, daher kälter, nicht selten auch nach-<lb/>
+lässig behandelt, und sieht sich verlassen zu einer Zeit,<lb/>
+wo er ihrer Hülfe am meisten bedarf. Was Wunder,<lb/>
+wenn ein solcher Unglücklicher trübsinnig, verlassen und<lb/>
+mistrauisch wird und sich manchmal nachtheilige und<lb/>
+harte Urtheile über Andere erlaubt!</p><lb/>
+<p>Ein Blinder hingegen, welcher das Augenlicht schon<lb/>
+sehr frühe und zu einer Zeit verloren hat, wo er sich<lb/>
+der sinnlichen Anschauung entweder gar noch nicht deut-<lb/>
+lich bewußt war, oder wo diese wenigstens keine blei-<lb/>
+benden Eindrücke bei ihm zurückließen, ist den Blind-<lb/>
+geborenen gleich zu rechnen. Die Zeit, wo diese Ein-<lb/>
+drücke bleibend werden, und also in den Zustand der<lb/>
+Blindheit mit übergehen, hängt von der frühern oder<lb/>
+spätern Verstandesentwickelung ab; doch finden sich bei<lb/>
+Solchen, die vor dem zehnten Jahre blind werden, we-<lb/>
+nige Spuren von deutlichem Bewußtsein ehemaliger An-<lb/>
+schauungen. Ein solcher schließt sich innig einigen We-<lb/>
+nigen an, die mit ihm gleich denken, oder die sich frei-<lb/>
+willig ihm und seinem Schicksale widmen; die übrige<lb/>
+Welt berührt ihn nur historisch. Was ihm Angeneh-<lb/>
+mes widerfährt oder aufstößt, ist ihm gleichsam neu und<lb/>
+unverwürzt, und macht ihm ein Leben lieb, an dessen<lb/>
+ruhigen gleichförmigen Gang er von Jugend auf ge-<lb/>
+wöhnt ist. Er vertraut Jedem, weil er selbst ohne<lb/>
+Falsch ist, und weil er außerdem bei seinem Zustande<lb/>
+sich jeden Augenblick dem Betrug ausgesetzt denken<lb/>
+müßte.</p><lb/>
+<p>Ob im Allgemeinen der Blinde oder der Taub-<lb/>
+stumme unglücklicher sei, läßt sich schwer bestimmen, da<lb/>
+dies von dem innern Gefühle des Gebrechlichen abhängt.<lb/>
+Fragt man sie selbst, so behauptet Jeder, daß er besser<lb/>
+daran sei, als der Andere, und bemitleidet denselben,<lb/>
+wiewol ihm selbst das Bejammern unangenehm ist. Zur<lb/>
+Beantwortung der obigen Frage könnte man mit eini-<lb/>
+gem Rechte anführen, daß bei Armuth die Taubheit,<lb/>
+bei Reichthum die Blindheit erträglicher sei. Jst näm-<lb/>
+lich der Blinde arm, so kann er verhältnißmäßig weni-<lb/>
+ger erwerben, und hat doch mehr Bedürfnisse, z. B.<lb/>
+das eines Führers; ist er reich, so kann er sich Vor-<lb/>
+leser, Gesang, Tonspiel und erheiternde Umgebung ver-<lb/>
+<cb type="end"/>
+<pb facs="#f0007" n="255"/>
+<fw place="top" type="header"><hi rendition="#g">Das Pfennig=Magazin.</hi> </fw><cb type="start"/>
+schaffen. Jst der Taubstumme arm, so kann er sich<lb/>
+durch Erlernung eines Handwerks ernähren; ist er reich,<lb/>
+so kann er sich durch alle seinen Reichthum grade die<lb/>
+angenehmsten Freuden, die eines belebten Gesprächs,<lb/>
+nicht erkaufen.</p><lb/>
+<p>Das mehr oder weniger häufige Vorkommen der<lb/>
+Blindheit ist in den verschiedenen Erdstrichen und bei<lb/>
+den verschiedenen Völkern sehr verschieden, und nimmt<lb/>
+im Allgemeinen von den Wendekreisen hin nach den<lb/>
+Polen zu ab. Namentlich gibt es in Afrika unter den<lb/>
+Weißen fünfmal mehr Blinde als unter den Negern.<lb/>
+Jn Ägypten mag etwa der hundertste, in Japan der<lb/>
+dreihundertste Mensch blind sein. Jm mittlern Europa<lb/>
+ist im Durchschnitt unter 800 Menschen einer als<lb/>
+blind zu rechnen. Jm Canton Zürich befanden sich<lb/>
+früher unter 194,913 Einwohnern 261 Blinde, sodaß<lb/>
+auf 747 Seelen deren einer kam. 1831 waren im<lb/>
+Preußischen Staate unter 13,038,960 Einwohnern<lb/>
+9212 Blinde, also unter 1415 Seelen einer. Jn Sach-<lb/>
+sen sind bei der Zählung des Jahres 1832 unter<lb/>
+1,558,153 Einwohnern 424 Blindgeborene, bei der zu<lb/>
+Ende 1834 aber vorgenommenen unter 1,595,668 Ein-<lb/>
+wohnern nur 324 Blindgeborene angegeben. Dieser sehr<lb/>
+große Unterschied läßt sich nur darauf erklären, daß<lb/>
+man bei den Zählungen statt der Blinden, nur die<lb/>
+Blindgeborenen gezählt hat, für welche aber die Zahl<lb/>
+324 viel zu hoch ist; für alle Blinde hingegen dürfte<lb/>
+die Zahl 424 wieder auch viel zu niedrig sein.</p><lb/>
+<p>Von der immer noch sehr bedeutenden Anzahl Blin-<lb/>
+der kann man etwa die Hälfte als früh erblindet, nicht<lb/>
+aber blind geboren, annehmen, während die andere Hälfte<lb/>
+durch spätere Verletzungen, Krankheiten oder Augen-<lb/>
+schwäche ihr Gesicht verloren haben.</p><lb/>
+<p>Jm 19. Jahrhundert hat sich nun zwar durch die<lb/>
+Einimpfung der Kuhpocken und durch eine zweckmäßigere<lb/>
+Behandlung der Augenentzündungen und der an Aus-<lb/>
+schlagskrankheiten Leidenden, die Blindheit gegen früher<lb/>
+sehr vermindert, und es finden sich jetzt daher weniger<lb/>
+Blinde als Taubstumme, während früher die Zahl der-<lb/>
+selben ziemlich gleich war.</p><lb/>
+<p>Vernachlässigung kleiner Augenübel und dadurch<lb/>
+entstehende wirkliche Blindheit, Vorurtheile und verkehrte<lb/>
+Behandlung, besonders bei der Pockenkrankheit, Ver-<lb/>
+wahrlosung und Unglücksfälle, endlich starke Anstrengung<lb/>
+der Augen beim Arbeiten, wovon manche diesem Organ<lb/>
+an und für sich nachtheilig und verderblich sind, erzeu-<lb/>
+gen zwar in den niedern, von Handarbeit lebenden,<lb/>
+Ständen immer eine größere Anzahl von Blinden; aber<lb/>
+auch in den höhern Ständen und unter Vermögenden<lb/>
+gibt es mehr Blinde, als man gewöhnlich glaubt, weil<lb/>
+man sie weniger zu sehen bekommt, als die Blinden<lb/>
+aus niedern Ständen. Außer den natürlichen Ursachen,<lb/>
+welche schon von Geburt an oder später Blindheit er-<lb/>
+zeugen, kommen in der Lebensart der höhern Stände<lb/>
+Gebräuche und Gewohnheiten vor, welche den Augen<lb/>
+sehr nachtheilig sind. Dahin gehört viel Lesen und<lb/>
+Schreiben, besonders beim Licht.</p><lb/>
+<p>Das Loos der Blindheit ist für beide Geschlech-<lb/>
+ter gewiß gleich traurig. Die Natur des männlichen<lb/>
+Geschlechts fodert mehr nach außen zu wirken, seine<lb/>
+Neigung sowie sein künftiger Beruf treiben ihn in<lb/>
+die Welt. Sein Leben ist rege Thätigkeit, und frühe<lb/>
+schon geht sein Streben nach eigner Existenz und Unab-<lb/>
+hängigkeit. Alle diese Hoffnungen und Wünsche sind<lb/>
+durch die Blindheit größtentheils abgeschnitten, wenig-<lb/>
+stens sehr beschränkt. Dagegen leidet der stille Beruf<lb/>
+des Mädchens, der von Natur engere Kreis seiner Wirk-<lb/>
+samkeit und seiner Aussichten, keine so große Verände-<lb/>
+<cb n="2"/>
+rung durch die Blindheit als beim männlichen Geschlecht.<lb/>
+Hieraus sollte man schließen, daß die Blinden des männ-<lb/>
+lichen Geschlechts ihr Unglück stärker fühlen, und daß<lb/>
+sich die vom andern Geschlecht leichter in ihren Zustand<lb/>
+finden werden. Die Erfahrung bestätigt dies jedoch nicht.<lb/>
+Blindgeborene und Solche, welche von der ersten Jugend<lb/>
+an blind sind, haben zwar zu ihrem Glück in beiden<lb/>
+Geschlechtern einen heiterern und leichtern Sinn und ein<lb/>
+zufriedenes Gemüth; dagegen findet man unter den spä-<lb/>
+ter Erblindeten beim männlichen Geschlecht mehr Stre-<lb/>
+ben nach Hülfsmitteln zur Erleichterung ihres Zustan-<lb/>
+des als bei Blinden vom weiblichen Geschlechte.</p><lb/>
+<p>Am auffallendsten ist dieser Unterschied bei der Er-<lb/>
+ziehung blinder Knaben und Mädchen. Letztere sind<lb/>
+schwerer zur körperlichen und geistigen Thätigkeit zu brin-<lb/>
+gen und machen wenigere und langsamere Fortschritte<lb/>
+als blinde Knaben. Die Gründlichkeit, welche sowol<lb/>
+die eigne Belehrung als fremder Unterricht beim Zu-<lb/>
+stande der Blindheit fodert, findet ein Hinderniß in dem<lb/>
+gewöhnlichen Leichtsinn und dem Hang zur Oberfläch-<lb/>
+lichkeit bei den Mädchen. Die mächtigste Triebfeder die-<lb/>
+ses Geschlechts, der Wunsch zu gefallen, wird durch die<lb/>
+Blindheit gehemmt; dennoch verleugnet sich auch in die-<lb/>
+sem wie in andern Stücken das Geschlecht nicht ganz.<lb/>
+Blinde Mädchen haben häufig einen Hang zum Em-<lb/>
+pfindeln und Schwärmen, halten viel auf Putz und schöne<lb/>
+Kleider, reden viel und bekümmern sich gern um fremde<lb/>
+Angelegenheiten. Aber von Natur gutmüthig und ver-<lb/>
+träglich sind auch die Blinden dieses Geschlechts. Be-<lb/>
+sonders trifft man unter den gebildeten Ständen blinde<lb/>
+Frauenzimmer an, welche schöne Ausnahmen von der<lb/>
+bisherigen allgemeinen Schilderung machen, und welche<lb/>
+die ihrem Geschlecht eigne Sanftmuth, Geduld und<lb/>
+Überwindungsgabe dazu benutzen, die Schwierigkeiten zu<lb/>
+besiegen, welche ihr Zustand erzeugt.</p><lb/>
+<p>Wenn man bedenkt, wie viel von Dem, was man<lb/>
+im gewöhnlichen Umgang für schicklich oder unschicklich,<lb/>
+für gute Lebensart und Beweis von Bildung hält, nicht<lb/>
+sowol auf Vernunftregeln als auf willkürlicher Con-<lb/>
+venienz und hergebrachten Gewohnheiten, sehr häufig auch<lb/>
+auf bloßer Nachahmung Anderer beruht, so darf man<lb/>
+sich nicht wundern, daß ein Blinder, der hierin Andern<lb/>
+nichts absehen und ablernen kann, schon um deswillen<lb/>
+in seinem Benehmen weniger Bekanntschaft mit den Sitten<lb/>
+und Gebräuchen des gesellschaftlichen Umganges und da-<lb/>
+gegen eine gewisse Steifheit und Verlegenheit zeigt. Da-<lb/>
+zu kommt, daß bei dem Vorurtheile gegen die Lernfähig-<lb/>
+keit des Blinden man es versäumt, ihn frühe genug<lb/>
+auf solche Gegenstände aufmerksam zu machen.</p><lb/>
+<p>Der in dem Blinden wie in jedem andern Men-<lb/>
+schen wohnende Trieb zur Thätigkeit veranlaßt ihn zur<lb/>
+Bewegung des Körpers. Die Furcht, sich zu beschädi-<lb/>
+gen, und die Erfahrung, leicht anzustoßen, verhindern<lb/>
+ihn, seine körperlichen Bewegungen auf die gewöhnliche<lb/>
+Art vorzunehmen. Aus dieser Ursache bewegen sich blinde<lb/>
+Kinder meistens in kleinen Kreisen, oder sie bewegen<lb/>
+den Körper im Sitzen oder Stehen sehr oft nach einer-<lb/>
+lei Richtung, oder sie gesticuliren mit Händen und Fü-<lb/>
+ßen, was ihnen oft ein auffallendes Ansehen gibt.</p><lb/>
+<p>Blinde Kinder, besonders solche, deren Augen nicht<lb/>
+ganz zerstört sind, haben auch sehr häufig die Gewohn-<lb/>
+heit, daß sie mit dem Finger in das Auge greifen und<lb/>
+oft neben dem Augapfel bis auf den Grund der Augen-<lb/>
+höhle dringen. Dies thun sie am meisten, wenn sie auf<lb/>
+irgend einen äußern Gegenstand vorzüglich aufmerksam<lb/>
+sind, und es scheint, daß sie durch eine solche Berüh-<lb/>
+rung der noch vorhandenen Theile des Auges oder des<lb/>
+Sehnerven, den abhängigen Sinn oder vielmehr die<lb/>
+<cb type="end"/>
+<pb facs="#f0008" n="256"/>
+<fw place="top" type="header"> <hi rendition="#g">Das Pfennig=Magazin.</hi> </fw><cb type="start"/>
+unterbrochene Verbindung mit den übrigen Sinnen zu<lb/>
+ersetzen suchen.</p><lb/>
+<p>Solche Blinde, denen noch einiger Schein des<lb/>
+Augenlichtes übrig geblieben ist, suchen sorgfältig, so<lb/>
+viel es ihnen möglich ist, auf diesem engen Wege Licht<lb/>
+einzusaugen. Sie drehen den Kopf beständig nach dem<lb/>
+<cb n="2"/>
+Lichte, suchen sorgfältig jeden Sonnenstrahl auf und<lb/>
+pflegen mit der Hand oder irgend einem Jnstrumente<lb/>
+sehr schnelle Bewegungen vor den Augen zu machen,<lb/>
+um die ihnen angenehme Abwechselung von Schatten<lb/>
+und Licht zu genießen.</p><lb/>
+<p><ref target="nn_pfennig176_1836#Blind2"><hi rendition="#c">( Fortsetzung folgt in Nr. 176. )</hi></ref></p></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1"><figure><head><hi rendition="#fr"><hi rendition="#g">Römische Wasserleitung zu Evora</hi>.</hi></head></figure></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+</body>     <back><div n="1" type="imprint"><p><hi rendition="#c">Verantwortliche Herausgeber: <hi rendition="#g">Friedrich Brockhaus</hi> in <hi rendition="#g">Leipzig</hi> und <hi rendition="#aq">Dr</hi>. C. <hi rendition="#g">Dräxler=Manfred</hi> in <hi rendition="#g">Wien.</hi><lb/>
+Verlag von F. A. <hi rendition="#g">Brockhaus</hi> in Leipzig.</hi></p></div>     </back>   </text> </TEI>

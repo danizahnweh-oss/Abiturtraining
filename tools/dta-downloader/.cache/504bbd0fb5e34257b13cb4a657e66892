@@ -1,0 +1,968 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.deutschestextarchiv.de/basisformat.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">     <teiHeader>
+<fileDesc>
+<titleStmt>
+<title type="main">Allgemeine Auswanderungs-Zeitung</title>
+<title type="sub">Organ für Kunde aus deutschen Ansiedlungen, für Rath und That zu Gunsten der fortziehenden Brüder, sowie für Oeffentlichkeit in Auswanderungssachen überhaupt.</title>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/115266127">
+<surname>Geyken</surname>
+<forename>Alexander</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1222198746">
+<surname>Haaf</surname>
+<forename>Susanne</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1019062681">
+<surname>Jurish</surname>
+<forename>Bryan</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Boenig</surname>
+<forename>Matthias</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Thomas</surname>
+<forename>Christian</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Wiegand</surname>
+<forename>Frank</forename>
+</persName>
+</editor>
+<respStmt>
+<orgName>Institut für Deutsche Sprache, Mannheim</orgName>
+<resp>
+<note type="remarkResponsibility">Bereitstellung der Bilddigitalisate und TEI
+Transkription</note>
+<ref target="http://hdl.handle.net/10932/00-01B8-AEE3-DC57-8101-4"/>
+</resp>
+</respStmt>
+<respStmt>
+<persName>
+<forename>Peter</forename>
+<surname>Fankhauser</surname>
+</persName>
+<resp>
+<note type="remarkResponsibility">
+Transformation von TUSTEP nach TEI P5.
+Transformation von TEI P5 in das DTA TEI P5 Format.
+</note>
+</resp>
+</respStmt>
+<respStmt>
+<orgName ref="https://www.bbaw.de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<resp>
+<note type="remarkResponsibility">Langfristige Bereitstellung der DTA-Ausgabe</note>
+<ref target="https://www.bbaw.de"/>
+</resp>
+</respStmt>
+</titleStmt>
+<editionStmt><edition>Vollständige digitalisierte Ausgabe.</edition></editionStmt>
+<extent>
+<measure type="images">7</measure>
+<measure type="tokens">6823</measure>
+<measure type="types">2643</measure>
+<measure type="characters">47050</measure>
+</extent>
+<publicationStmt>
+<publisher xml:id="DTACorpusPublisher">
+<email>dta@bbaw.de</email>
+<orgName role="project">Deutsches Textarchiv</orgName>
+<orgName role="hostingInstitution" xml:lang="en">Berlin-Brandenburg Academy of Sciences and Humanities (BBAW)</orgName>
+<orgName role="hostingInstitution" xml:lang="de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<address>
+<addrLine>Jägerstr. 22/23, 10117 Berlin</addrLine>
+<country>Germany</country>
+</address>
+</publisher>
+<pubPlace>Berlin</pubPlace>
+<date type="publication">2025-10-24T08:32:00Z</date>
+<availability>
+<licence target="http://creativecommons.org/licenses/by-nc/3.0/de/">
+<p>Dieses Werk steht unter der "Creative Commons Namensnennung - Nicht kommerziell 3.0 Deutschland Lizenz" (CC BY-NC).</p>
+</licence>
+</availability>
+<idno>
+<idno type="URLWeb">https://www.deutschestextarchiv.de/nn_auswanderer25_1848</idno>
+<idno type="URLXML">https://www.deutschestextarchiv.de/book/download_xml/nn_auswanderer25_1848</idno>
+<idno type="URLHTML">https://www.deutschestextarchiv.de/book/download_html/nn_auswanderer25_1848</idno>
+<idno type="URLText">https://www.deutschestextarchiv.de/book/download_text/nn_auswanderer25_1848</idno>
+<idno type="DTADirName">nn_auswanderer25_1848</idno>
+<idno type="DTAID">32433</idno>
+<idno type="URN">urn:nbn:de:kobv:b4-32433-4</idno>
+</idno>
+</publicationStmt>
+<sourceDesc>
+<bibl type="J">Allgemeine Auswanderungs-Zeitung. Nr. 25. Rudolstadt, 19. Juni 1848.</bibl>
+<biblFull>
+<titleStmt>
+<title level="m" type="main">Allgemeine Auswanderungs-Zeitung</title>
+<title level="m" type="sub">Organ für Kunde aus deutschen Ansiedlungen, für Rath und That zu Gunsten der fortziehenden Brüder, sowie für Oeffentlichkeit in Auswanderungssachen überhaupt.</title>
+</titleStmt>
+<editionStmt>
+<edition n="1"/>
+</editionStmt>
+<publicationStmt>
+<publisher/>
+<pubPlace>Rudolstadt (Thüringen)</pubPlace>
+<date type="publication">1848</date>
+</publicationStmt>
+</biblFull>
+<msDesc>
+<msIdentifier/>
+<physDesc>
+<typeDesc>
+<p>Fraktur</p>
+</typeDesc>
+</physDesc>
+</msDesc>
+</sourceDesc>
+</fileDesc>
+<encodingDesc>
+<editorialDecl>
+<p>
+<![CDATA[
+<p>Siehe Dokumentation</p>
+]]>
+</p>
+</editorialDecl>
+<tagsDecl>
+<rendition scheme="css" xml:id="aq">font-family:sans-serif</rendition>
+<rendition scheme="css" xml:id="b">font-weight:bold</rendition>
+<rendition scheme="css" xml:id="blue">color:blue</rendition>
+<rendition scheme="css" xml:id="c">display:block; text-align:center</rendition>
+<rendition scheme="css" xml:id="et">display:block; margin-left:2em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et2">display:block; margin-left:4em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et3">display:block; margin-left:6em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="f">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="fr">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="g">letter-spacing:0.125em</rendition>
+<rendition scheme="css" xml:id="i">font-style:italic</rendition>
+<rendition scheme="css" xml:id="in">font-size:150%</rendition>
+<rendition scheme="css" xml:id="k">font-variant:small-caps</rendition>
+<rendition scheme="css" xml:id="larger">font-size:larger</rendition>
+<rendition scheme="css" xml:id="red">color:red</rendition>
+<rendition scheme="css" xml:id="right">display:block; text-align:right</rendition>
+<rendition scheme="css" xml:id="s">text-decoration:line-through</rendition>
+<rendition scheme="css" xml:id="smaller">font-size:smaller</rendition>
+<rendition scheme="css" xml:id="sub">vertical-align:sub; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="sup">vertical-align:super; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="u">text-decoration:underline</rendition>
+<rendition scheme="css" xml:id="uu">border-bottom:double 3px #000</rendition>
+</tagsDecl>
+</encodingDesc>
+<profileDesc>
+<langUsage>
+<language ident="deu">(Früh-)Neuhochdeutsch</language>
+<language ident="deu">German</language>
+</langUsage>
+<textClass>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1main">Zeitung</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">ready</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">mkhz1</classCode>
+</textClass>
+</profileDesc>
+</teiHeader>
+<text>     <front>
+<pb facs="#f0001"/>
+<titlePart type="main" xml:id="tpm1" next="#tpm2">         <hi rendition="#c #fr">Allgemeine Auswanderungs = Zeitung.</hi></titlePart><lb/>
+<cb type="start"/>
+<titlePart type="sub"><hi rendition="#fr">Organ</hi><lb/>
+für<lb/>
+<hi rendition="#fr">Kunde aus deutschen Ansiedlungen,</hi><lb/>
+für Rath und That<lb/>
+zu Gunsten der fortziehenden Brüder,<lb/>
+sowie für<lb/>
+Oeffentlichkeit in Auswanderungs-<lb/>
+sachen überhaupt.</titlePart><lb/>
+<titlePart type="sub"><hi rendition="#aq">BREMEN:</hi><lb/>
+C. Schünemann's Buchhandlung</titlePart> <lb/>
+<cb/>
+<figure/><lb/>
+<cb/>
+<titlePart type="desc"><hi rendition="#c"><hi rendition="#fr">Mit<lb/>
+Karten, Plänen und<lb/>
+Jllustrationen,</hi><lb/>
+sowie mit einem<lb/>
+<hi rendition="#fr">Jntelligenzblatte</hi><lb/>
+für Bekanntmachungen von<lb/>
+Behörden u. Privaten.<lb/>
+<hi rendition="#aq">NEW-YORK:</hi><lb/>
+Helmich &amp; Co., 421 <hi rendition="#aq">Broadway</hi>, für die Ver.<lb/>
+Staaten Nord=Amerika's.<lb/>
+William Radde. 322 <hi rendition="#aq">Broadway.</hi></hi></titlePart> <lb/>
+<cb type="end"/>
+<cb type="start"/>
+<titlePart type="price"><hi rendition="#c">Pränumerationspreis des halben Jahrgangs bei allen<lb/>
+Buchhandlungen und Fürstl. Thurn und Tarischen<lb/>
+Postanstalten 1 1 / 6 <abbr>Rl</abbr> == 2 <abbr>fl</abbr> 6 <abbr>Xr.</abbr></hi></titlePart> <lb/>
+<cb/>
+<titlePart type="main" xml:id="tpm2" prev="#tpm1">         <hi rendition="#c">N<hi rendition="#sup">ro</hi> 25.</hi></titlePart><lb/>
+<docDate><hi rendition="#c">Montag, 19. Juni 1848.</hi></docDate><lb/>
+<cb/>
+<byline><hi rendition="#c">Unter Mitwirkung der Herren<lb/>
+<hi rendition="#aq">Dr</hi>. Büttner, G. M. von Roß, G. F. Streckfuß<lb/>
+und anderer Autoritäten herausg. von</hi> <docAuthor><hi rendition="#c">G. Froebel.</hi></docAuthor></byline> <lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<cb type="start"/>
+<div type="contents"><p>Jnhalt: Eine Uebersiedelung nach Amerika ( Briefe eines Arztes <hi rendition="#aq">II. ) </hi><lb/>
+-- Statut des Vereins zum Ankauf der Cumingschen Hacienda, von L.<lb/>
+<hi rendition="#g">Constant.</hi> -- Präsident <hi rendition="#g">Ludewigs</hi> Bericht ( Schluß ) . -- Empfohlene<lb/>
+Schiffe. -- Auswanderungsverein in Leipzig. </p></div><lb/>
+<milestone rendition="#hr" unit="section"/>     </front><lb/>
+<body> <div n="1">         <head><hi rendition="#b #c"><hi rendition="#fr">Eine Uebersiedelung nach Amerika.</hi><lb/>
+<hi rendition="#aq">II.</hi></hi><note place="foot" n="* )"> Vgl. in Nr. 21 dies. Z. den <hi rendition="#aq">I</hi>. Brief.   </note> </head><lb/>
+<space dim="horizontal"/>   <div n="2">       <opener><dateline>Auf der hohen Nordsee, 14. Juni 1847.</dateline></opener><lb/>
+<p>Um mit dem Euch versprochenen Tagebuche nicht zu sehr<lb/>
+in Rückhalt zu kommen, beginne ich es heute gleich. Wann und<lb/>
+wie wir diesen Morgen von <hi rendition="#g">Glückstadt</hi> abgegangen sind, habe<lb/>
+ich Euch bereits in dem Briefe gemeldet, den der Lootse mitgenommen<lb/>
+hat. Bei prächtigem Wetter und günstigem Winde aus Südost<lb/>
+fuhren wir langsam die Elbe hinab, indem uns beide Ufer schöne<lb/>
+Aussichten auf Städte, Dörfer und fruchtbare Gefilde eröffneten;<lb/>
+es war das Letzte, was das Vaterland mir bot, die letzte heimat-<lb/>
+liche Erde, die ich auf lange Zeit vielleicht sehen sollte; um<lb/>
+so mehr hatte ich Ursache, sie mit den Augen festzuhalten, mich<lb/>
+an ihrem Anblicke noch zu erfreuen. <hi rendition="#g">Cuxhaven</hi> erreichten wir<lb/>
+gegen 8 Uhr; ein hübsches Städtchen längs dem Ufer hin, das<lb/>
+sich von der See aus mit seinem Leuchtthurm, Telegraphen und<lb/>
+freundlichen Häusern sehr nett macht; seine Ufer begleiteten uns<lb/>
+viel weiter, als das rechte Elbufer, das bald unsern Blicken ent-<lb/>
+schwand; endlich waren es nur noch Dünen und Sandbänke, die<lb/>
+wir sahen, bewohnt von Seemöven und Ottern; endlich -- Nichts<lb/>
+als Wasser und Himmel. Wir waren auf hoher See. Sie ist<lb/>
+mir nicht etwas ganz Neues, und doch hat es immer einen neuen<lb/>
+Reiz für mich, in die grüne Salzfluth zu schauen, die sich mit<lb/>
+wildem Gebrause und schneeigem Schaume am Vordertheil unseres<lb/>
+Schiffes bricht. Dicht am Schiffe sieht das Meer köstlich grün<lb/>
+<cb/>
+aus, bald hell bald dunkel schimmernd, nach der Sonne zu, wie<lb/>
+ein flüssiges Goldmeer, nach der entgegengesetzten Seite dunkel-<lb/>
+blau, bis es nach dem Horizonte zu in hellblau übergeht und<lb/>
+mit dem Himmel sich verbindet. Die erste Jnsel, welche wir<lb/>
+erblickten, war <hi rendition="#g">Neuwerk,</hi> klein, mit elenden Fischerhütten und<lb/>
+einem Leuchtthurme. Sie blieb links liegen, ungefähr 1 Meile<lb/>
+hinter Curhaven. Jm Beschauen derselben ward ich durch eine<lb/>
+Hannoveranerin gestört, die von einem Zahn befreit sein wollte;<lb/>
+schnell war die Operation vorüber, und bald saß ich wieder mit<lb/>
+meinem Fernrohr auf der Planke. Hier verließ uns auch der<lb/>
+Lootse. Gegen Mittag fuhren wir 9 engl. Meilen links von<lb/>
+<hi rendition="#g">Helgoland</hi> vorbei, welches wie ein graurother Fels in weiter<lb/>
+Ferne aus dem Meere hervortaucht und durch das Fernrohr sich<lb/>
+recht schön macht, mit dessen Hülfe ich auch sein Felsenthor mit<lb/>
+der Kluft mir recht nahe rückte. Nachmittag studirte oder saß<lb/>
+ich mit meinem Kammergenossen, dem Theologen auf dem schrägen<lb/>
+Bogspriet am Vordertheil des Schiffes, das weit in die See<lb/>
+hinausreicht. Ein köstlicher Platz! Jn einem Wunsche vereinigten<lb/>
+wir uns wenigstens beide, den, unsere Lieben bei uns zu haben.</p>     </div><lb/>
+<div n="2">      <space dim="horizontal"/> <opener><dateline>Den 15. Juni.</dateline></opener> <lb/>
+<p>Heute bis Mittag hatten wir starken Wind mit Regen.<lb/>
+Die Seekrankheit hatte sich gestern schon gezeigt, war heute aber<lb/>
+fast allgemein; nur Wenige, unter denen auch ich, sind ihr bis<lb/>
+jetzt entgangen, doch fühle ich mich etwas unbehaglich. An jeder<lb/>
+Oeffnung stehen Einige und opfern ihren Zoll, in allen Ecken<lb/>
+und Betten liegen sie herum mit erbärmlichen Gesichtern. Auf<lb/>
+dem Deck ist schon schwer gehen, man taumelt rechts und links.<lb/>
+Nach Tische ward wieder heiterer Himmel. Wir fahren übrigens<lb/>
+nicht zwischen England und Frankreich hindurch, sondern oben um<lb/>
+Schottland herum, weil uns der Wind für diesen Weg günstiger<lb/>
+ist, 2 Tage aber, d. h. 100 Meilen, ist dieser Weg länger. Wir<lb/>
+befinden uns jetzt schon ziemlich hoch in der Nordsee.</p>     </div><lb/>
+<pb facs="#f0002"/>
+<cb n="387"/>
+<div n="2">       <space dim="horizontal"/> <opener><dateline>Den 16. Juni.</dateline></opener><lb/>
+<p>Das Wetter war heute schön und unser Schiff segelt ruhig<lb/>
+Schottlands Nordspitze zu. Heute Morgen gab es zuerst tüchtigen<lb/>
+Lärm, und zwar -- erschreckt nicht -- wegen Läuse. Bei mehren<lb/>
+Familien hatte man nämlich bemerkt, daß diese freundlichen Thier-<lb/>
+chen Quartier genommen und wie Abrahams Same sich ver-<lb/>
+mehrt hatten; nun entstand Lärm und Fluchen; Jene mußten mit<lb/>
+Bett und allen ihren Sachen herauf auf's Deck und sich säubern,<lb/>
+wobei sie fast ganz entkleidet wurden. Nachher wollten ihre Nach-<lb/>
+barn sie nicht wieder aufnehmen, und wo anders fand diese Ko-<lb/>
+lonie ebensowenig Zulaß; endlich, nachdem sich die Gemüther etwas<lb/>
+beruhigt, kamen sie an ihren alten Platz. Aber das Toben<lb/>
+und Lärmen bei all diesen Sachen ist für den Neutralen zum<lb/>
+Todtlachen. Ob ich selbst übrigens, trotz aller Vorsicht, von diesem<lb/>
+&#x201E;Marschir langsam&#x201C; befreit bleiben werde, muß ich dahingestellt<lb/>
+sein lassen, zumal ich in meiner Stellung als Arzt mit Allen ver-<lb/>
+kehren muß. Mein Freund und Gönner, der Theolog, ist in Folge<lb/>
+der Seekrankheit leidend und gedrückt, und wandelt in seinem<lb/>
+rothen Schlafrock wie ein schwindsüchtiger Mephisto umher. Einen<lb/>
+zweiten Crawall gab es zu Mittag. Es gab nämlich wieder<lb/>
+Erdäpfel mit Häring, deren erstere so wenig waren, daß 90 Per-<lb/>
+sonen nichts erhielten; diese sollten nun zur Entschädigung Kaffee<lb/>
+bekommen, der aber in Folge der fast ausgebrannten, nicht ge-<lb/>
+mahlenen, sondern nur grob gestoßenen Bohnen, ungenießbar war.<lb/>
+Die auf diese Weise Hungrigen tobten und fluchten, bis sie end-<lb/>
+lich einsahen, daß sie dadurch nichts ändern könnten. Unser Wasser<lb/>
+fängt jetzt schon an, schlecht zu werden, so daß es ohne Zuthat<lb/>
+kaum hinunter will.</p>     </div><lb/>
+<div n="2">       <space dim="horizontal"/> <opener><dateline>Den 17. Juni.</dateline></opener><lb/>
+<p>Schon fürchtete ich, daß mir der Stoff vor der Hand aus-<lb/>
+gehen würde, doch findet sich immer noch etwas, wenn Jhr vor-<lb/>
+lieb nehmt. Gestern Abend hatte ich noch den prächtigen Anblick<lb/>
+der bei ganz heiterem Himmel in die Nordsee untergehenden Sonne;<lb/>
+es war unbeschreiblich schön, aber, weiß Gott, wäre es möglich<lb/>
+gewesen, ich hätte sie weit lieber mit Euch, wie es so oft gesche-<lb/>
+hen, von unsern Fenstern aus untergehen sehen. Eben ist wieder<lb/>
+Revolution auf unserem Schiffe, und die Ursachen sind meist der<lb/>
+tristesten Art. Jeder Mann erhält nämlich Vormittags ein Glas<lb/>
+Kümmel, das, gleich mir, Viele aufbewahren, um später das<lb/>
+Trinkwasser dadurch vielleicht genießbarer zu machen. Letzte Nacht<lb/>
+hatten nun mehrere Matrosen die Vorräthe einiger Passagiere<lb/>
+erhalten, waren betrunken worden und hatten in Folge dessen die<lb/>
+ganze Nacht hindurch Scandal und Unsinn getrieben. Hiergegen<lb/>
+herrscht natürlich das strengste Verbot, und um Wiederholungen<lb/>
+zu vermeiden, war anbefohlen worden, das Glas gleich beim<lb/>
+Empfange auszutrinken. Jm Grunde ein feiner Kniff des Ca-<lb/>
+pitains, da er auf diese Weise die Vorräthe für sich behält.</p>     </div><lb/>
+<div n="2">       <space dim="horizontal"/> <opener><dateline>Den 18. Juni.</dateline></opener> <lb/>
+<p>Früh 3 Uhr schon weckte uns der Ruf &#x201E;Land!&#x201C; Wir warfen<lb/>
+uns also schnell in unsere Gewänder, und sahen zur Rechten,<lb/>
+etwa 1 / 2 Meile von uns, die nördlichste der <hi rendition="#g">Faröer</hi>inseln &#x201E; <hi rendition="#g">Fairo</hi> &#x201C;<lb/>
+<cb n="388"/>
+mit ihren steilen, grauen Felsen vor uns liegen, sie wird von<lb/>
+Fischern, 215 Köpfe stark, bewohnt; kaum hatten sie unser Schiff<lb/>
+bemerkt, als sie trotz der stürmischen See mit 2 kleinen Böten zu<lb/>
+uns herankamen und uns Schellfische, Eier und Schleifsteine in<lb/>
+Tauschhandel anboten; sie scheinen auf einer sehr niedrigen Stufe<lb/>
+der Cultur zu stehen, da sie Geld weder kennen noch annehmen;<lb/>
+Kleidungsstücke, Brod, Fleisch, Tabak und Schnaps war Alles,<lb/>
+was sie begehrten. Fische und Eier nahm sogleich der Capitän<lb/>
+für sich in Beschlag. Die Jnsel <hi rendition="#g">Sandey</hi> blieb wegen des<lb/>
+Morgennebels links liegen. Es war regnigt und trübe, daher<lb/>
+man sich nach diesem Jntermezzo bis 8 Uhr, wo der Ruf &#x201E;Kaffee&#x201C;<lb/>
+Leben ins Unterdeck brachte, wieder auf die Matratze begab. Jm<lb/>
+Laufe des heutigen Tages haben wir nun auch die Nordsee ver-<lb/>
+lassen und sind in den atlantischen Ocean eingelaufen. Eine<lb/>
+wirthschaftliche Erfahrung machte ich gleichfalls, daß nämlich unsre<lb/>
+gewöhnliche Seife im Meerwasser nicht zu gebrauchen ist, da sie<lb/>
+nichts ablöst. Da ich nun wie Jeder gezwungen bin, selbst zu-<lb/>
+weilen Wäsche zu halten, würde es mir schlecht ergehen, hätte<lb/>
+mir nicht eine mitleidige Seele ein Stück &#x201E; <hi rendition="#g">Seeseife</hi> &#x201C; zum Ge-<lb/>
+schenk gemacht. Das merkt Euch Alle, die Jhr einmal eine Reise<lb/>
+durch die salzige Meerfluth machen wollt. Solche Wäsche ist<lb/>
+übrigens sehr einfach: man durchstreicht das Zeug mit Seife und<lb/>
+läßt es an einem Strick in die Fluth, die es rein spült, wäh-<lb/>
+rend nachher die Sonne bleicht und trocknet.</p>     </div><lb/>
+<div n="2">       <space dim="horizontal"/> <opener><dateline>Den 20. Juni.</dateline></opener> <lb/>
+<p>Der Wind war gestern schwach, das Meer spiegelglatt, so<lb/>
+daß Fische und Seehunde in unserer Nähe vielfach auf die Ober-<lb/>
+fläche kamen. Unsere Fahrt geht jetzt immer nach Südwest, und<lb/>
+die Segel müssen sehr schräg gestellt werden, den Wind aus<lb/>
+N. N. W. zu benutzen; denn unser Capitain lavirt gar nicht, son-<lb/>
+dern fährt immer in der einen Richtung fort, oder liegt ganz still,<lb/>
+wenn der Wind durchaus ungünstig ist. Heute Morgen sahen<lb/>
+wir links die unbewohnte Felseninsel <hi rendition="#g">Kona,</hi> die 2 hohe Felsen-<lb/>
+kegel zum Himmel streckt, sie liegt links von den <hi rendition="#g">Orkney</hi>inseln.<lb/>
+Dieß langsame Fahren ist erschrecklich langweilig und erinnert<lb/>
+mich an unsere Familienfahrten im märkischen Sande; ich und<lb/>
+Viele sehnen uns nachgerade nach Sturm, damit dieses ewige Einer-<lb/>
+lei aufhört. Jnzwischen studire ich tüchtig in meiner Maulwurfs-<lb/>
+höhle, denn auf dem Deck ist es kalt und langweilig. Ein Glück<lb/>
+für mich, daß die ganze Besatzung nur englisch spricht, da mir<lb/>
+dieß die beste Gelegenheit zum Sprechen gibt. Von meinen Schick-<lb/>
+salsgefährten scheinen nur sehr wenige daran zu denken, daß ihnen<lb/>
+unter allen Umständen nichts nöthiger als die Kenntniß der eng-<lb/>
+lischen Sprache ist.</p>     </div><lb/>
+<div n="2">       <space dim="horizontal"/> <opener><dateline>Den 22. Juni.</dateline></opener> <lb/>
+<p>Seit vorgestern Nacht haben wir, Dank dem Himmel, tüch-<lb/>
+tigen Wind, so daß unser Segler in der Stunde 3 deutsche M.<lb/>
+macht. Heute früh erblickten wir auch ein Schiff am Horizonte,<lb/>
+das uns jetzt ( 11 Uhr ) zur Seite ist, und Auswanderer nach<lb/>
+Quebek führt. Am Vordertheil des Schiffes brechen sich die<lb/>
+Wellen am gewaltigsten; dort sitze ich auch am liebsten, und wenn<lb/>
+<pb facs="#f0003"/>
+<cb n="389"/>
+auch nicht so sicher, wie auf unsern Oderkähnen, doch bedeutend<lb/>
+romantischer, denn unter mir toben die brausenden, schaumgekrönten<lb/>
+Wogen. Zuweilen zwar ist es nicht gut sitzen dort; denn Welle<lb/>
+und Schaum gehen oft darüber hinweg und man läuft Gefahr,<lb/>
+von diesem Sitze Pythia's einem Haifische direct ins Maul ge-<lb/>
+worfen zu werden. Diese Kerle begleiten uns oft, um Jedem,<lb/>
+der lebendig oder todt ins Wasser fällt, sogleich die letzte Oelung<lb/>
+zu geben. Von ihrem Körper selbst sieht man in dem fortwäh-<lb/>
+renden Schwung der Wellen wenig; aber der Wasserstrahl, den<lb/>
+sie hoch in die Luft werfen, zeigt sich häufig. Wenn wir stets<lb/>
+solchen Sturm wie heute haben, sind wir in 14 Tagen in Amerika;<lb/>
+wir haben immer 12 bis 16 Segel aufgespannt. Heute schwankt<lb/>
+es ungeheuer, so daß man kaum gehen kann, auch ist die See-<lb/>
+krankheit wieder stark vorhanden; nur ich bin verschont davon.<lb/>
+Hielten die Leute <hi rendition="#g">eine größere Diät,</hi> das beste Heilmittel,<lb/>
+so würden auch sie davon verschont bleiben.</p>   </div><lb/>
+<div n="2">       <space dim="horizontal"/> <opener><dateline>Den 24. Juni.</dateline></opener> <lb/>
+<p>Viel ist nicht zu bemerken, aber wenig. Jch habe fortwäh-<lb/>
+rend mit vielen Kranken zu thun. Gestern ist auch wieder ein<lb/>
+Kind geboren worden, bei dem aber der Vater, ein Bauer aus<lb/>
+dem Salzburgischen, mir schändlicherweise ( vielleicht aus Eifersucht )<lb/>
+so ins Handwerk gepfuscht hat, daß mir fast nur das Nachsehen<lb/>
+blieb. Das hat mein edles Gemüth aber nicht abgehalten, für<lb/>
+die Mutter aus des Capitäns Küche eine stärkende Weinsago-<lb/>
+suppe zu besorgen. Ueberhaupt habe ich mit dem Capitain ein<lb/>
+langes Zwiegespräch über die Verabreichung der Lebensmittel ge-<lb/>
+halten, in Folge dessen einige Verbesserungen stattfinden werden;<lb/>
+auch soll jetzt Jeder täglich eine Portion Essig erhalten, was mit<lb/>
+Zucker und Wasser ein ebenso nützliches als angenehmes Getränk<lb/>
+gibt. Gestern Abend wurden Wind und Wellen noch so stark,<lb/>
+daß man vor Schaukeln nicht einschlafen konnte, das ganze Schiff<lb/>
+knitterte und knatterte durch und durch, so daß man jeden Augen-<lb/>
+blick befürchten zu müssen glaubte, es würde auseinander gehen.<lb/>
+Dazu erschreckten zuweilen umstürzende Koffer und zusammen-<lb/>
+fallende Küchengeräthschaften. Am Ende erbarmte sich doch Mor-<lb/>
+pheus, und führte mich und vielleicht Manchen in seinen Armen<lb/>
+zu ruhigeren Gefilden.<space dim="horizontal"/> <ref>( Fortsetzung folgt. )</ref> </p>     </div>   </div><lb/>
+<div type="letter">       <head><hi rendition="#c"><hi rendition="#fr #b">Brief</hi><lb/>
+eines in Wisconsin lebenden Holsteiners.</hi></head><lb/>
+<space dim="horizontal"/><opener><dateline><hi rendition="#g">Milwaukee,</hi> den 20. März 1848.</dateline></opener><lb/>
+<p>Ueber den gegenwärtigen Zustand Wisconsin's spricht der<lb/>
+Gouverneur in der Botschaft vom 7. Febr. 1848 sich folgender-<lb/>
+maßen aus: &#x201E;Die reichen Quellen des Ackerbaues in Wisconsin<lb/>
+haben sich geöffnet. Fülle im verflossenen Jahr war die Beloh-<lb/>
+nung des Bauers, und in keinem Theil der Vereinigten Staaten<lb/>
+war das Volk weniger heimgesucht von Krankheiten. Vor 12<lb/>
+Jahren waren Wisconsins Felder kaum dem Ackerbau zugänglich;<lb/>
+<cb n="390"/>
+wo sich damals Wildnisse und ununterbrochene Prärien ausdehnten,<lb/>
+da sieht man jetzt wogende Felder mit allen Arten Früchte; wo<lb/>
+damals die Wigwams der Wilden rauchten, stehen jetzt volkreiche<lb/>
+Städte und Dörfer; des Wilden Kriegstanz hat den Tönen und<lb/>
+Segnungen der Civilisation Platz gemacht, und das Murmeln<lb/>
+der Ströme, an deren Ufer die Jndianer ruhten, verliert sich in<lb/>
+dem Gesumme der Maschinen. Wisconsin wird in wenigen Jahren<lb/>
+eine der großen Vorrathskammern des Westens sein. Durch die große<lb/>
+Zunahme an Bevölkerung seit den letzten 2 Jahren wird es nöthig<lb/>
+sein, Gesetze örtlicher Natur zu erlassen. Die Hauptrichtung und<lb/>
+Endzweck aller Gesetzgebung sollte sein, jeden Bürger in seiner<lb/>
+Person, seinem Eigenthum und seinen persönlichen Rechten zu<lb/>
+schützen, indem sie Jedermann und jedem Jnteresse Schutz unter<lb/>
+den Gesetzen gibt, ausschließliche Privilegien aber Niemandem.<lb/>
+Häfen, welche an geeigneten Punkten am Westufer des Michigan-<lb/>
+Sees liegen, bilden als Schutz des stark erweiterten Seehandels<lb/>
+einen Gegenstand großer Wichtigkeit für das Volk von Wisconsin.<lb/>
+Jch hegte stets die Meinung, daß die Häfen des Territoriums<lb/>
+am westlichen Ufer des Michigansees Werke nationalen Jnteresses<lb/>
+seien; dieser Meinung bin ich jetzt noch. Der Handel des Michi-<lb/>
+gansees hat in einem Verhältnisse zugenommen, das wohl den<lb/>
+jedes andern Jnlandwassers der Ver. St. weit übertrifft. Wenn<lb/>
+die nördlichen Counties des Territoriums so angebaut sind, wie<lb/>
+die südlichen Counties, so wird die Ausfuhr verhältnißmäßig<lb/>
+wachsen; die nördlichen Counties sind im raschen Wachsen be-<lb/>
+griffen und werden daher bald einen Ueberfluß von Ackerbau-<lb/>
+producten für den östlichen Markt haben. Vermessungen und<lb/>
+Schätzungen für Häfen sind an der Mündung des Sheboygan-<lb/>
+und Manitouwoc = Flusses unter Leitung des Kriegsdepartements<lb/>
+gemacht worden. Häfen an der Mündung dieser Flüsse würden<lb/>
+der gegenwärtigen wie der künftigen Bevölkerung im Jnnern jener<lb/>
+Gegend, vom Seeufer nach dem <hi rendition="#g">For-</hi>Flusse, sehr zu Statten<lb/>
+kommen. <hi rendition="#g">Port Washington</hi> ist ein bedeutender Platz am<lb/>
+Mich. See, dessen Ansprüche auf einen Hafen nicht zu übersehen<lb/>
+sind.<note place="foot" n="* )"> Jm Gegentheil, P. Wash. ist sehr unbedeutend, obwohl es in einer<lb/>
+sehr fruchtbaren County liegt und County=City ist, weßhalb die Bewohner<lb/>
+dieser County fast sämmtlich eine andere Stadt zur County=City wünschen;<lb/>
+es mündet kein Fluß bei Port Wash., und die Anlage eines Hafens daselbst<lb/>
+würde bedeutende Summen kosten.      </note> &#x201C; Von unserer Constitution theile ich jetzt nichts mit, weil<lb/>
+ich Dir nächstens einige Exemplare zusenden werde. Aus dem<lb/>
+vorstehenden Auszuge wirst Du einigermaßen den blühenden Zu-<lb/>
+stand Wisconsins beurtheilen können, und in der That keiner der<lb/>
+Unions=Staaten, wohin noch Einwanderung in größerem Maß-<lb/>
+stabe stattfinden kann, bietet einen solchen Verein von günstigen<lb/>
+Verhältnissen als Wisconsin. Das Klima ist gemäßigt, und der<lb/>
+Unterschied zwischen der größten Wärme und Kälte weniger be-<lb/>
+deutend, als in den übrigen Staaten des Ostens und Westens,<lb/>
+weßhalb Europäern besonders zusagend. Es gibt hier weder große<lb/>
+Sümpfe, noch sind die Flußufer so niedrig, um die Flüsse über-<lb/>
+treten zu lassen, wie es z. B. der Fall ist in Ohio und noch mehr<lb/>
+in den andern westlichen Staaten, wo die Flüsse die Ufer weithin<lb/>
+<pb facs="#f0004"/>
+<cb n="391"/>
+überschwemmend, eine Menge von Thier= und Pflanzenstoffen zurück-<lb/>
+lassen, die beim Verfaulen, für die ganze Umgegend ein Heer<lb/>
+von Krankheiten nach sich ziehend, die Benutzung der Flüsse durch<lb/>
+unmittelbares Daranwohnen zum Theil unmöglich machen. Wäh-<lb/>
+rend nun die höheren Flußufer Wisconsins diese Nachtheile nicht<lb/>
+haben, sind sie besonders geeignet zur Anlegung von Wasserfällen<lb/>
+und Maschinen aller Art zu treiben, wo nicht schon von Natur<lb/>
+die Flüsse hinreichenden Fall haben, um jede Nachhülfe menschlicher<lb/>
+Hand unnöthig zu machen. Blei, Eisen, Kupfer enthält W. in<lb/>
+außerordentlichen Massen, und die Fruchtbarkeit des Bodens selbst<lb/>
+dieser Mineralgegenden steht der keines andern Staates nach; den<lb/>
+besten Weizen der Union liefert W. schon jetzt, und Klima sowohl<lb/>
+als Boden eignen sich für diese Frucht besonders; während die<lb/>
+Küste W's. durch ihre überaus günstige Lage bestimmt ist, den<lb/>
+einstigen Handel aller Länder westlich von ihr bis zum Felsen-<lb/>
+gebirge mit dem östlichen Markte zu vermitteln. Eine gleichgün-<lb/>
+stige Lage für den Absatz seiner Producte, hat keiner der mittleren<lb/>
+oder westlichen Staaten aufzuweisen. Sobald eine Verbindung<lb/>
+des Michigansee's mit dem Mississippi durch Canal, Eisenbahn<lb/>
+oder Plankwege hergestellt ist, wird ein bedeutender Theil der<lb/>
+Ackerbauproducte <hi rendition="#g">Jowa's</hi> über W. nach dem Osten gehen;<lb/>
+freilich erhält der dortige Landmann für seine Producte um so<lb/>
+viel weniger, als der hiesige, und der Transport derselben bis<lb/>
+hierher kosten wird. Dennoch aber wird Jowa mehr nach <hi rendition="#g">New-<lb/>
+York </hi> versenden, als nach <hi rendition="#g">New=Orleans,</hi> weil letzterer Markt<lb/>
+bedeutend schlechter ist. Butter, Speck, Schinken leiden bei der<lb/>
+Versendung über New = Orleans außerdem durch die Wärme an<lb/>
+Qualität. Wenn nun auch die schnelle Bevölkerung W. in<lb/>
+der Geschichte selbst der westlichen Staaten beispiellos ist, so con-<lb/>
+centrirt sich die deutsche Einwanderung doch noch nicht so sehr auf<lb/>
+W., als es im Jnteresse der einwandernden Deutschen zu wün-<lb/>
+schen wäre. Jm Staat Jowa, wohin nächst W. die meisten<lb/>
+Deutschen gehen, sind alle Producte des Landmannes billiger als<lb/>
+in Wisconsin; Weizen meist 25 -- 40%; zu gleicher Zeit, wo<lb/>
+die Blätter von <hi rendition="#g">Blomington, Burlington</hi> nnd <hi rendition="#g">Jowa</hi> den<lb/>
+Weizen zu 45 Cts. notirten, galt er in Milwaukee 60 Cts. und<lb/>
+wiederum als jene Blätter zu 60 C. notirten, galt er hier 100 C.;<lb/>
+der Arbeitslohn dagegen und die Waaren, welche der Bauer<lb/>
+kaufen muß, sind nicht wohlfeiler als hier. Außerdem hat der<lb/>
+Deutsche in keinem andern Staate die Aussicht, so schnell deutsche<lb/>
+Schulen und Kirchen zu bekommen, -- weil in den neuern Staa-<lb/>
+ten nirgend so viel Deutsche wohnen und einwandern -- als hier.<lb/>
+Daß durch die schnellere Zunahme einer thätigen Bevölkerung<lb/>
+dieses Staates auch die Wohlhabenheit hier schneller wächst, ver-<lb/>
+steht sich von selbst. -- Da mehrere Personen meine Meinung<lb/>
+wünschten über ihre Absicht, sich hier als Bauern anzusiedeln, so<lb/>
+ersuche ich Dich, falls dieselben sich bei Dir deßhalb melden,<lb/>
+solchen Familien, die nicht tüchtige körperliche Arbeit gewohnt sind,<lb/>
+das Auswandern entschieden abzurathen; ich kenne zwar mehrere<lb/>
+Personen der Art, die in der Absicht herüberkamen, hier Ackerbau<lb/>
+zu treiben und denen es sämmtlich sehr wohl geht; diese haben<lb/>
+aber alle nach kürzerer oder längerer Zeit die Landwirthschaft<lb/>
+<cb n="392"/>
+aufgegeben und waren ohne Familie herübergekommen. Gewiß,<lb/>
+ist es für einen jungen Mann auch durchaus nicht schwierig, sein<lb/>
+Fortkommen hier zu sichern, sobald er nur kein Bedenken trägt,<lb/>
+eine jede Arbeit, die sich ihm darbietet, anzunehmen, bis er eine<lb/>
+Beschäftigung findet, die seiner Neigung und seinen Fähigkeiten<lb/>
+angemessen ist, und meistens wird er die bald finden. -- Noch<lb/>
+muß ich darauf aufmerksam machen, daß Milwaukie durchaus<lb/>
+kein geeigneter Landungsplatz mehr ist für die große Masse der<lb/>
+Einwanderer, die Land zu1 1 / 4 Doll. wünschen; diese muß schon<lb/>
+seit beinahe 2 Sommern wieder bis Sheboygan zurückreisen, da<lb/>
+natürlich im weiten Umkreise einer Stadt von 14,000 Einwohnern<lb/>
+solches Land nicht mehr zu finden ist. Eine solche vergebliche<lb/>
+Reise kommt einer Familie wegen des Brückengeldes, verlängerten<lb/>
+Aufenthalts im Wirthshause, Transport der meist zahlreichen<lb/>
+Kisten und Kasten oft gegen 30 D. und höher zu stehen; dieses<lb/>
+Geld wäre den Leuten erspart worden, wenn sie seit 2 Jahren<lb/>
+bei Sheboygan ausgestiegen wären. Jetzt ist Sh. in einem Um-<lb/>
+kreise von ca. 20 engl. M. angesiedelt und seit vorigem Spät-<lb/>
+herbst geht die Einwanderung nach <hi rendition="#g">Manitouwoc,</hi> wohin sie<lb/>
+noch 2 -- 3 Jahre gehen wird; weßhalb ich Manitouwoc zum<lb/>
+Landungsplatz für solche Leute empfehle, die Land suchen zu1 1 / 4<lb/>
+bis 3 Doll. pr. Acre, Sheboygan für solche, die 4 -- 8 D. und<lb/>
+Milwaukie nur für die, welche 12--20 D. pr. Acre geben können<lb/>
+und wollen. Daß die Küste so rasch bevölkert wird, hat seinen<lb/>
+Grund darin, daß sich der hiesige Markt nach dem Newyorker<lb/>
+richtet; wohnt daher ein Landmann mehr als 20 Meilen von<lb/>
+einer Seestadt, so braucht er mit seinem Ochsenfuhrwerk bei den<lb/>
+Wegen, wie sie jetzt hier sind und immer in einer neuen Land-<lb/>
+schaft sein werden, 2 Tage von seinem Lande nach der Seestadt<lb/>
+und zurück; dieses ist der Grund, weßhalb die Einwanderung<lb/>
+sich jetzt schon von Sheboygan County nach der Manitouwoc<lb/>
+County wendet. Abrathen muß ich davon, sich mit <hi rendition="#g">vielem<lb/>
+Gepäck</hi> zu versehen, da das <hi rendition="#g">dafür ausgegebene Geld<lb/>
+immer ein todtes Capital ist.</hi> </p>   </div><lb/>
+<div n="1">      <head><hi rendition="#c"><hi rendition="#fr">Statut</hi><lb/>
+des Vereins zum Ankauf der Cumingschen Hacienda.</hi></head><lb/>
+<p>§. 1. Wer die Mitgliedschaft zu erwerben wünscht, hat sich<lb/>
+mindestens mit 500 Morgen<note place="foot" n="* )"> Es fragt sich hier, ob ein solcher Morgen == 1 nordam. Acre? D. H.        </note> Land bei dem Geschäfte zu betheiligen<lb/>
+und mir diesen Wunsch schriftlich kund zu geben. §. 2. Nach Em-<lb/>
+pfang dieser Anzeige wird davon Vermerk genommen und darüber,<lb/>
+daß es geschehen, empfängt der Besteller sofort schriftlich Anzeige, und<lb/>
+er ist Mitglied der Gesellschaft, sobald er die Bedingung des §. 3<lb/>
+erfüllt hat. §. 3. Der Morgen Land wird mit 1 Thlr. Courant<lb/>
+bezahlt und nach empfangener Anzeige über stattgehabte Eintragung<lb/>
+der bestellten Landquote, hat der Theilnehmer 20% von der Summe<lb/>
+wozu er sich verpflichtet hat, an den Banquier Salomon <hi rendition="#g">Heine</hi> in<lb/>
+Hamburg, oder an ein sonst sicheres Haus dieser Stadt einzusenden,<lb/>
+wobei er denselben gleichzeitig beauftragt, mir anzuzeigen, daß die<lb/>
+Deposite für den Ankauf der Ländereien des General Portes in Texas<lb/>
+eingegangen ist. Nach geschehener Einsendung und Anzeige davon,<lb/>
+ist der Vertrag als vollständig abgeschlossen zu betrachten, und die<lb/>
+<pb facs="#f0005"/>
+<cb n="393"/>
+Mitgliedschaft erworben. §. 4. Vor Ende des Monats September<lb/>
+1848 kann kein Mitglied die Einlage von 20% von dem Hause,<lb/>
+wohin sie gemacht ward, zurückziehen, und nur wenn eine von dem<lb/>
+Vereine abgeordnete Commission von dem General=Consul der Verein.<lb/>
+Staaten von Nordamerika zu Hamburg, oder von einem bekannten<lb/>
+Bürger dieser Stadt, legitimirt, sich bis Ende des Monats September<lb/>
+1848, zum Einziehen der Depositen bei den Banquiers einstellt, sollen<lb/>
+diese das Recht haben, die Gelder auszuhändigen. §. 5. Wäre die<lb/>
+Gesellschaft bis Ende 1848 nicht constituirt, oder nicht reisefertig, so<lb/>
+kann sich jedes Mitglied als allen Verpflichtungen überhoben ansehen,<lb/>
+woraus das natürliche Recht entspringt, daß alsdann ein Jeder seine<lb/>
+gemachten Einzahlungen ohne Weiteres zurückziehen kann. §. 6. Wenn<lb/>
+nicht gewichtige Zwischenfälle eintreten, so geht die Gesellschaft im<lb/>
+Laufe des Monats August in See und wird einem jeden Mitgliede<lb/>
+durch Circular Tag und Stunde angegeben, wo es sich in ein zu be-<lb/>
+stimmendes öffentliches Local zu Hamburg einzufinden hat. §. 7. Jst<lb/>
+die Gesellschaft beisammen, so erwählt sie eine Commission, aus min-<lb/>
+destens 6 Mitgliedern bestehend. Diese Commission besorgt folgende<lb/>
+Geschäfte: <hi rendition="#aq">a</hi>) Sie kauft eine eiserne Geldkiste mit mehreren verschieden-<lb/>
+artigen Schlössern versehen und repartirt den Betrag für die Kiste<lb/>
+unter den Mitgliedern. <hi rendition="#aq">b</hi>) Sie läßt sich bei den Banquiers legiti-<lb/>
+miren und zieht die Depositen ein. <hi rendition="#aq">c</hi>) Sie begibt sich mit den ein-<lb/>
+gezogenen Depositen an Bord des Schiffes der Gesellschaft und legt<lb/>
+nach richtigem Befunde die Depositen in die Kiste nieder, worauf jedes<lb/>
+Mitglied den Betrag von 80% derjenigen Summe, wozu es sich ver-<lb/>
+pflichtet hat, an die Casse einzahlt. <hi rendition="#aq">d</hi>) Nach beendeter Einzahlung<lb/>
+wird eine Abschrift dieses Gesellschaftsvertrages, mit den Unterschriften<lb/>
+sämmtlicher Mitglieder versehen und vom amerikan. Generalconsul be-<lb/>
+glaubigt, in die Kiste gelegt und diese nun allerorts verschlossen, wo-<lb/>
+nach diejenigen Mitglieder erwählt werden, welche je Einer, mit einem<lb/>
+Cassenschlüssel betraut werden sollen. <hi rendition="#aq">e</hi>) Die Commission behändigt<lb/>
+alsdann die Kiste nebst Jnhalt dem Capitain des Schiffes gegen Em-<lb/>
+pfangschein und es bleibt der Gesellschaft überlassen, ob sie das Geld<lb/>
+bei einer Assecuranz = Gesellschaft versichern will oder nicht. </p><lb/>
+<lb/>
+<p>Vor Galveston angelangt, hält sich die Gesellschaft nicht länger<lb/>
+auf, als die Mauthrevision es bedingt. Nach Beendigung derselben<lb/>
+werden die Effecten nach dem Dampfboote übergelegt und die Gesell-<lb/>
+schaft begibt sich mit dieser Gelegenheit nach Houston. Jn Houston<lb/>
+versehen sich diejenigen, welche Wagen haben, mit Zugvieh, und der<lb/>
+übrige Theil nimmt Lohnfuhrwerk an. Sind diese Reisevorkehrungen<lb/>
+beendet, so macht sich die Gesellschaft auf den Weg nach der Hacienda,<lb/>
+und daselbst angelangt, schlägt sie ihre Zelte in der Nähe meines Hauses auf.   </p><lb/>
+<p>Eine Besichtigung des Gebiets wird ergeben: 1 ) ob das Wald-<lb/>
+land mit den bezeichneten Hölzern vorhanden ist; 2 ) ob sich die Sa-<lb/>
+vanne zu Zucker, Tabak, Mais <abbr>ec.</abbr> eignet; 3 ) ob der Mil=Creek das<lb/>
+Gebiet durchschneidet und in den Brazos fällt; 4 ) ob das Gebiet in<lb/>
+der Wellenregion gelegen ist.   </p><lb/>
+<p>Erklärt sich die Majorität der Gesellschaft, daß dem so ist, wie<lb/>
+in der Einleitung angegeben ward, und die vorhergehenden 4 Paragraphen<lb/>
+wiederholen, so begibt sich die Gesellschaft oder eine Commission der-<lb/>
+selben zu dem General Portes, und ich bezahle ihm, gegen Auslieferung<lb/>
+des Besitztitels, die Summe von 18,360 Dollars. Wäre der Titel<lb/>
+nicht sofort von den Behörden zu erlangen, so behält die Gesellschaft<lb/>
+ihr Geld bis zum Tage der Lieferung, falls die Portes'schen Eheleute<lb/>
+nicht Bürgschaft zum erweislichen Werthe von 36,720 Doll. inzwischen<lb/>
+stellen können oder wollen. Schiebt sich die Lieferung des Titels bis<lb/>
+auf Wochen hinaus, so bleibt es der Gesellschaft überlassen, ob sie ihr<lb/>
+Capital bei sich behalten will, oder es vorzieht, es inzwischen bei der<lb/>
+Gerichtsbehörde der Provinz zu deponiren.   </p><lb/>
+<p>Ergibt sich, daß das Land nicht von der Beschaffenheit ist, wie<lb/>
+es die vorhergehenden 4 §§. wiederholen, und eine Majorität der<lb/>
+Stimmen bestätigt dieß, so öffnen die Schlüsselinhaber die Geldkiste,  <lb/>
+<cb n="394"/>
+und ich zahle einem jeden Mitgliede seine gemachte Einlage gegen<lb/>
+Rückgabe der Quittung zurück.   </p><lb/>
+<p>Die Erfahrung hat gelehrt, daß eine längere Seereise nicht selten<lb/>
+zu Spaltungen und zum Wechseln der Ansichten Veranlassung gibt,<lb/>
+daß der Egoismus Einzelner den Zerfall der vernünftigsten Verträge<lb/>
+mit sich geführt hat; und läßt sich nun auch hoffen, daß derartige<lb/>
+Mißharmonieen bei dem Vereine ausbleiben werden, so muß man doch<lb/>
+auf alle Fälle gerüstet sein. Es tritt daher folgende Bestimmung in<lb/>
+Kraft. Jst nach der Abstimmung für oder wider den Ankauf des<lb/>
+Landes die eine oder die andere Minorität mit dem Ausspruch der<lb/>
+Majorität unzufrieden, so ruft sie eine unparteiische Jury aus 10<lb/>
+Bürgern von Texas bestehend, zusammen und trägt dieser ihre Klagen<lb/>
+vor. Nach Prüfung der Sache spricht dieselbe ihr Urtheil aus und<lb/>
+diesem Urtheilsspruch hat sich sowohl die Majorität als Minorität ohne<lb/>
+weiteres zu fügen. Mit einem solchen Ultimatum wird jeder Cabale<lb/>
+und Jntrigue ein sicherer Damm gesetzt.   </p><lb/>
+<p>Nach stattgefundener Zahlung und Erweis, daß der Besitztitel<lb/>
+gesichert ist, beginnt der Feldmesser seine Arbeit, und er wird dabei<lb/>
+jedesmal von denjenigen 4 Mitgliedern unterstützt, deren Parcellen<lb/>
+hintereinander zur Vermessung kommen.   </p><lb/>
+<p>Die Vermessung selbst findet nach folgendem Modus statt: 1 ) Es<lb/>
+werden Loose von <hi rendition="#aq">No</hi>. 1 bis zur Zahlenhöhe der Mitglieder ange-<lb/>
+fertigt. Diese Loose werden in ein verdecktes Gefäß gethan und nun<lb/>
+zieht jedes Mitglied ein Loos. Auf der darin enthaltenen Numer<lb/>
+wird es eingewiesen. 2 ) Sollten Freunde und Verwandte sich dem<lb/>
+Vereine anzuschließen wünschen, und wollen sie in Texas nahe bei-<lb/>
+sammen leben; so wird dieß nur sicher zu erreichen sein, wenn sie sich<lb/>
+über den Bedarf an Land verständigen und diesen zusammen für ein<lb/>
+Loos einschreiben lassen. Hiermit wird freilich nur 1 Stimme in Ver-<lb/>
+einssachen erzielt, doch kann für solche Zwecke ein anderer Modus ohne<lb/>
+Nachtheile für Andere nicht eintreten. 3 ) die Vermessung findet in<lb/>
+folgender Reihenfolge statt. <hi rendition="#aq">a</hi>) der Feldmesser beginnt die Vermessung<lb/>
+im Westen des Gebiets auf dem rechten Ufer des Flusses, neben der<lb/>
+Landgrenze der Herren Bolten &amp; Hagemann. <hi rendition="#aq">b</hi>) Er fängt von der<lb/>
+äußersten, südlichen Landgrenze an und mißt bis zum Ufer des<lb/>
+Flusses, und ganz in derselben Ordnung fährt er fort bis zur än-<lb/>
+ßersten Grenze des rechten Ufers in Osten. <hi rendition="#aq">c</hi>) Auf der linken Seite<lb/>
+des Flusses fängt der Feldmesser in Osten, neben dem Besitz von <hi rendition="#g">Kykendal</hi><lb/>
+an und mißt stets von der äußersten Landgrenze im Norden bis zum<lb/>
+Ufer des Flusses und fährt in gleicher Ordnung fort, bis bei J. Nichols<lb/>
+Besitzgrenze die 32,320 Morgen vermessen sind. </p><lb/>
+<p>Eine bloße Vermessung nach laufenden Nummern, ohne Berück-<lb/>
+sichtigung der Territorial = Verhältnisse, findet nicht statt, weil dabei auf<lb/>
+dem einem Loose nur Wald, auf dem Anderen nur offenes Land fallen<lb/>
+könnte. Um dergleichen zu vermeiden, wurde eine unparteiische Ver-<lb/>
+messungs = Commission aus drei Personen zur Ueberwachung ernannt,<lb/>
+welche sich jedesmal mit dem Feldmesser über eine bestimmte Anzahl<lb/>
+Loose, welche zuerst in &#x25A1; vermessen werden sollen, zu verständigen hat.<lb/>
+Solche &#x25A1; werden nachher bonitirt, womit einem jeden Mitgliede nicht<lb/>
+nur im richtigen Verhältnisse Wald und offene Savanne zufallen wird,<lb/>
+sondern auch Boden von verschiedener Güte, welches wohl in Betracht<lb/>
+zu ziehen ist, da eine Wirthschaft mit nur schwerem Boden eben so<lb/>
+beschränkend zu betreiben sein würde, als eine andere mit nur leichtem<lb/>
+Boden. -- Um das Vermessungsgeschäft schneller zu fördern, werden<lb/>
+2 Feldmesser thätig sein, wovon der Eine das Vermessen der &#x25A1; be-<lb/>
+sorgt, der Andere hingegen das Geschäft des Bonitirens.   </p><lb/>
+<space dim="horizontal"/><lb/>
+<p>Wie schon anderweit bemerkt wurde, bezahlt die Gesellschaft für<lb/>
+32,320 Morgen Land 27,540 Thlr. Court., folglich für den Morgen<lb/>
+weniger als 1 <abbr>Rl.</abbr> Jedes Mitglied legt jedoch für den Morgen 1 <abbr>Rl.</abbr><lb/>
+an, wobei ein Ueberschuß von 4780 <abbr>Rl.</abbr> entsteht. Hiervon zahlt die<lb/>
+Gesellschaft dem Unternehmer für seine gehabten Mühen und Arbeiten<lb/>
+1000 <abbr>Rl</abbr>, und der Rest von 3780 <abbr>Rl.</abbr> kommt in folgender Weise  <lb/>
+<pb facs="#f0006"/>
+<cb n="395"/>
+zur Verwendung: 1 ) Jm Centrum des Gebiets wird eine Schule<lb/>
+errichtet und die Kolonie besoldet aus ihrer Casse den dabei anzu-<lb/>
+stellenden Lehrer im ersten Jahre mit 300 <abbr>Rl.</abbr> Der Staat hat diese<lb/>
+Schule mit 7 engl. &#x25A1; Meilen Land zu dotiren und aus dem Ertrage<lb/>
+desselben, sowie aus den im zweiten Jahre schon zu zahlenden Schul-<lb/>
+geldern, wird fernerhin die Schule ohne Zuschüsse bestehen. 2 ) Es<lb/>
+wird eine Kirche nach landesüblicher Art erbaut, in welcher der Reihen-<lb/>
+folge nach eine <hi rendition="#g">jede</hi> religiöse Gemeinschaft das Recht hat, ihren Gottes-<lb/>
+dienst zu halten. 3 ) Es wird an geeigneter Stelle eine Brücke über<lb/>
+den Milcreek geschlagen oder eine Fähre darauf angelegt. 4 ) Jedes<lb/>
+Mitglied der Ueberwachungs=Commission bei der Landvermessung, bezieht<lb/>
+aus der Vereins=Casse täglich 1 Dollar; die Feldmesser werden von<lb/>
+den Mitgliedern nach Abkommen oder Taxe honorirt.   </p><lb/>
+<p>Der Rest des Geldes dient zur Gründung einer Kolonie=Kranken-<lb/>
+und Unterstützungs=Casse, und um diesen Fond so günstig als möglich<lb/>
+anzulegen, wird eine <hi rendition="#g">Stuterei</hi> damit geschaffen, welche durchschnittlich<lb/>
+40% pr. Jahr abwirft.   </p><lb/>
+<p>Da es vorkommen kann, daß ein Familienvater der Gesellschaft<lb/>
+früher verstirbt, als seine Hinterbliebenen sich selbst zu ernähren im<lb/>
+Stande sind, so schließt die Gesellschaft einen auf Gegenseitigkeit be-<lb/>
+ruhenden Vertrag während oder vor der Reise ab, worin diejenigen<lb/>
+Unterstützungsmittel festgestellt sein müssen, welche Waisen und arbeits-<lb/>
+unfähige Wittwen vor aller und jeder Noth sicher stellen.   </p><lb/>
+<p>Der Einwanderer muß sich mit einem zureichenden Zelte ver-<lb/>
+sehen, da man in Teras zu Anfang nicht im Freien bivouakiren darf.<lb/>
+Subjecte, welche während der Reise ihre Unmoralität durch bestimmte<lb/>
+Zeichen ihres früheren Wandels ablegen, werden aus der Gesellschaft<lb/>
+im Galopp expedirt und empfangen nur 2 / 3 der gemachten Einlagen zu-<lb/>
+rück; der Refervefonds deckt den Ausfall für solchen Auswurf.   </p><lb/>
+<dateline> <hi rendition="#g">Berlin,</hi> den 2. Juni 1848.</dateline><space dim="horizontal"/><byline><docAuthor>L. Constant.</docAuthor></byline>       </div><lb/>
+<div n="1">       <head><hi rendition="#fr">Das Auswanderungswesen in Deutschland.</hi><lb/>
+<hi rendition="#g">Bericht</hi> an den deutschen Volksverein zu New = York, von dessen erstem<lb/>
+Vice=Präsidenten <hi rendition="#g">Hermann</hi> C. <hi rendition="#g">Ludewig</hi> erstattet in der<lb/>
+Generalversammlung vom 2. März 1848.<lb/>
+<ref>( <hi rendition="#g">Schluß</hi>. )</ref> </head><lb/>
+<p>&#x201E; Es ist die vorstehende Aufzählung das Ergebniß einer nur ober-<lb/>
+flächlichen Durchsicht deutscher Zeitblätter und Flugschriften, und würde<lb/>
+sich leicht um das Doppelte vermehren lassen, wollte man sich die Zeit<lb/>
+nehmen, tiefer in derartige Forschungen einzugehen. Für unser neues<lb/>
+Vaterland, die Vereinigten Staaten, würde sich die Zahl der ange-<lb/>
+priesenen Landspeculationen sogar um das Hundertfache vermehren, da<lb/>
+wir mit denselben in allen Theilen der Union bis zum Ueberfluß ge-<lb/>
+segnet sind. Bei den mehrsten dieser Unternehmungen aber finden wir<lb/>
+leider einseitige marktschreierische Anpreisungen der in den Markt ge-<lb/>
+brachten Ländereien den betreffenden Ansiedelungs = und Ankaufsaner-<lb/>
+bietungen zu Grunde gelegt. Fast jedes Project sucht sich auf Kosten<lb/>
+der andern zu heben und rechnet dabei in der Regel auf eine Unkenntniß<lb/>
+geographischer und statistischer Verhältnisse der betreffenden Ländereien,<lb/>
+welche im grellsten Widerspruche mit der sonst so gewissenhaften Bildung<lb/>
+der Deutschen, gerade in diesen Fächern der Wissenschaft, steht.&#x201C;</p><lb/>
+<p>&#x201E; Wie viel Unheil durch solche einseitige und mithin stets gewissenlose<lb/>
+Anpreisungen, zumal wenn dieselben in dem hier, in Folge unserer<lb/>
+freiesten Concurrenz nach und nach eingeführten marktschreierischen Tone<lb/>
+-- der hier freilich Niemand mehr täuscht, -- abgefaßt sind, ange-<lb/>
+stiftet wird, läßt sich gar nicht ermessen. Die beiden Universalmittel<lb/>
+gegen die Folgen solcher Schamlosigkeiten: sich entweder immer nur<lb/>
+auf das Schlimmste gefaßt zu machen, oder selbst zu sehen oder zu<lb/>
+prüfen, ehe man sich ansiedelt, scheinen in Deutschland nur in sehr<lb/>
+wenig Ausnahmsfällen Anwendung zu finden. <hi rendition="#g">Eben darum sollte</hi><lb/>
+<cb n="396"/>
+es aber desto mehr Sache der dortigen Vereine sein,<lb/>
+durch Veranlassung oder Vornahme der zuverlässigsten<lb/>
+Prüfungen von Seiten befähigter und unbetheiligter<lb/>
+Männeran Ort und Stelle ihrenauswandern den Lands-<lb/>
+leuten die Mittel an die Hand zu geben, den muthmaß-<lb/>
+lich wichtigsten Schritt ihres Lebens mit besonnener<lb/>
+Ueberlegung zu thun.&#x201C; <note place="foot" n="* )"> Auf dieses Hanpterforderniß zum bestmöglichen Gedeihen größerer<lb/>
+Ansiedlungs = Pläne ist in diesen Blättern sowohl als auch bei jeder anderen<lb/>
+passenden Gelegenheit von mir hingewiesen worden.<space dim="horizontal"/>D. <hi rendition="#g">Herausg</hi>.</note></p><lb/>
+<p>&#x201E; Die Beantwortung der Frage: in wie fern die in Deutschland<lb/>
+bestehenden und sich gebildet habenden Gesellschaften dieser Verpflichtung<lb/>
+in letzterer Zeit nachgekommen sind? führt uns zu einer kurzen Uebersicht<lb/>
+dieser Gesellschaften, soweit die uns vorliegenden Quellen eine solche<lb/>
+gestatten. Die Aufgabe, welche sich derartige Gesellschaften in Deutsch-<lb/>
+land zu stellen pflegen, ist entweder Beförderung oder Ansiedelung von<lb/>
+Auswanderern oder beides zusammen.&#x201C;</p><lb/>
+<p>&#x201E; Von Beförderungsgesellschaften befindet sich ein in Würtemberg<lb/>
+concessionirter &#x201E;Verein zur Beförderung deutscher Auswanderer nach<lb/>
+Amerika&#x201C; erwähnt. Jst dieser Verein ein und derselbe, mit der von<lb/>
+dem Hause Outendirk und Comp. in Antwerpen gegründeten &#x201E; Gesell-<lb/>
+schaft zum Schutze und zur Beförderung der Auswanderer,&#x201C; so hat<lb/>
+das Schicksal des Chefs dieses Hauses, welcher in Folge von bei Be-<lb/>
+förderung von Auswanderern nach Guatemala verübten Betrügereien<lb/>
+in Criminal=Untersuchung gezogen, schuldig befunden und bestraft wurde,<lb/>
+seine Tendenz hinreichend an das Licht gebracht.&#x201C;</p><lb/>
+<p>&#x201E; Mit Kolonisationsplänen beschäftigen sich: der naturforschende<lb/>
+Verein und der Adelsverein für <hi rendition="#g">Texas,</hi><note place="foot" n="** )"> Letzterer hat sich nunmehr durch Veräußerung seiner Besitzungen<lb/>
+aufgelöst. <hi rendition="#aq">De mortuis nil nisi bene.</hi></note> der von <hi rendition="#g">Bromme</hi> und<lb/>
+<hi rendition="#g">Rau</hi> in <hi rendition="#g">Stuttgart</hi> gegründete Kolonisationsverein und der <hi rendition="#g">Etzlersche</hi><lb/>
+Verein zur Auswanderung nach Venezuela, dessen Statuten auch der<lb/>
+illustrirte Kalender für 1848 giebt, dessen Plänen aber -- ganz ab-<lb/>
+gesehen von dessen Ausführbarkeit im Allgemeinen -- die neuern Vor-<lb/>
+fälle in Venezuela zu einer gar übeln Empfehlung dienen. Jn wiefern<lb/>
+sich ein in <hi rendition="#g">Chur</hi> in <hi rendition="#g">Graubündten</hi> im März vorigen Jahres sich ge-<lb/>
+bildet haben sollender Nationalverein zur Ansiedelung bisher wirksam<lb/>
+gezeigt hat; in wiefern die Aufforderung der Loge Carl und Char-<lb/>
+lotte zu Treue in <hi rendition="#g">Offenbach</hi> an alle deutsche Freimaurerlogen, zur<lb/>
+Betheiligung an dem Auswanderungswesen, Erfolg gehabt, war aus<lb/>
+den zu Gebote stehenden Quellen nicht zu ermitteln.&#x201C;</p><lb/>
+<p>&#x201E; Dasselbe war bezüglich des Ebner'schen Vereins gegen Auswan-<lb/>
+derung und zum Schutz der Auswanderung der Fall, welcher gleich-<lb/>
+zeitig mit dem Schweizerverein zu Stuttgart angeregt oder gestiftet wurde.&#x201C;</p><lb/>
+<p>&#x201E; Am bedeutendsten scheint jedenfalls der <hi rendition="#g">Darmstädter Natio-<lb/>
+nalverein </hi> werden zu wollen, dessen Gründung und Statuten im<lb/>
+Darmstädter &#x201E;Auswanderer&#x201C; ausführlich berichtet werden. Doch<lb/>
+soll sich derselbe mit Beförderung von Auswanderern und An-<lb/>
+siedelungsprojecten beschäftigen; wenigstens wird gemeldet, daß er in<lb/>
+Bezug auf Ersteres im Hessen = darmstädtischen gegen Caution obrig-<lb/>
+keitliche Erlaubniß gesucht und erlangt hat.<note place="foot" n="*** )"> S. Nr. 2. S. 27 dies. Ztg. <hi rendition="#aq">a. c.</hi>         </note> Ob dieß der richtigen<lb/>
+Stellung eines den Auswanderer schützen wollenden Vereins ange-<lb/>
+messen ist, steht dahin, dürfte aber jedenfalls in Bezug auf die durch<lb/>
+den Verein selbst zur Beförderung und Ansiedelung übernommenen<lb/>
+Auswanderer in Zweifel zu ziehen sein. Ueberraschend ist es, daß<lb/>
+diese deutschen Vereine mit den hiesigen Vereinen, deren Erfahrungen<lb/>
+für sie vielleicht nicht ganz ohne Jnteresse sein dürften, wenn sie auch<lb/>
+deren Mitwirkung nicht für ihre Hauptzwecke brauchen sollten, sich auf<lb/>
+keine Weise in Verbindung gesetzt haben.&#x201C; ( !!! ) </p><lb/>
+<p>&#x201E; Die hiesigen Vereine aber, und hier mag schließlich der letzte<lb/>
+Vergleichungspunkt amerikanisch = deutscher und deutscher Thätigkeit in<lb/>
+<pb facs="#f0007"/>
+<cb n="397"/>
+Bezug auf Auswanderungswesen aufgestellt werden, haben alle eine<lb/>
+durchaus praktische, von fern also vielleicht zu bescheiden erscheinende<lb/>
+Tendenz, und diese Tendenz ist es, welche wir dem durch und durch<lb/>
+praktischen Leben in unserem großen neuen Vaterlande verdanken. Was<lb/>
+New = York anlangt, so haben weder die deutsche Gesellschaft, noch der<lb/>
+Volksverein, sich irgendwie mittelbar oder unmittelbar bei Beförderungs-<lb/>
+oder Ansiedelungsprojecten betheiligt, und darin liegt der hauptsächlichste<lb/>
+Grund des Segensreichen ihres Wirkens.&#x201C;</p><lb/>
+<lb/>
+<p>&#x201E; Wenn wir die Ausführung derartiger Projecte, wenn wir das<lb/>
+Einwanderungswesen in unserer Stadt unausgesetzt und streng über-<lb/>
+wachen; wenn wir überall und zu jeder Zeit bemüht sind, die Ein-<lb/>
+wanderer recht und gewissenhaft zu berichten, wenn wir nie und nirgends<lb/>
+in die rechtliche Erwerbssphäre unserer Mitbürger concurrirend eingreifen;<lb/>
+wenn wir stets darauf halten, die Einwanderer in Bezug auf ihre<lb/>
+besonderen Jnteressen nur an bewährte Männer zu verweisen, und<lb/>
+darauf, daß diese Männer stets in den Grenzen des Rechts und der<lb/>
+Billigkeit bleiben, fortwährend und unerbittlich Acht haben, dann werden<lb/>
+wir zwar weniger glänzende Hoffnungen erwecken, aber auch keine bittere<lb/>
+Täuschungen verursachen, und die einwandernden Deutschen werden es<lb/>
+uns, wenn nicht sofort, so doch, wenn sie überseeisches Leben kennen<lb/>
+gelernt haben, Dank wissen, daß wir ihr Wohl ohne eigenes, und<lb/>
+mithin lediglich in ihrem Jnteresse wahrhaft beförderten. Die<lb/>
+Wirksamkeit der Deutschen Gesellschaft und des Volksvereins für die<lb/>
+letztverflossenen Gesellschaftsjahre liegen dem Publikum in ausführ-<lb/>
+lichen Berichten vor, und diese geben den schönsten Beweis uneigen-<lb/>
+nützigster, ja oft sogar aufopfernder Thätigkeit. Die Erfolge derselben<lb/>
+sind nicht ausgeblieben und täglich werden wir mit der Erfüllung unserer<lb/>
+Aufgabe vertrauter. Den ankommenden Einwanderer, den in das Jn-<lb/>
+land Reisenden, sind beide Gesellschaften zu schützen bemüht, und was<lb/>
+die Belehrung des Einwanderers über die Wahl seines Ansiedelungs-<lb/>
+ortes anlangt, so hat der Volksverein zwar den mehrfach bei ihm<lb/>
+zur Sprache gekommenen und berathenen Plan eines hier herauszu-<lb/>
+gebenden Einwandererblattes noch nicht in das Leben rufen können, es<lb/>
+hat aber dagegen die mit Landkauf und Kolonisations = Anerbietungen<lb/>
+immer mehr und mehr bestürmte Deutsche Gesellschaft, durch Verweisung<lb/>
+derselben an das von ihr anempfohlene, auch bei dem Volksverein schon<lb/>
+oft lobend besprochene Ansiedelungsbureau des Hrn. <hi rendition="#g">Fleischmann</hi><note place="foot" n="* )"> Vgl. Ausw. Ztg. Nr. 46. vor. J. Jnt. Bl. <hi rendition="#aq">sub</hi> 2) .</note> das Jnteresse der Einwanderer auf das Gewissenhafteste zu wahren<lb/>
+gesucht. Auch wird das binnen Kurzem erscheinende Werk des genannten<lb/>
+Herrn: &#x201E;der amerikanische Landwirth,&#x201C; der bisher so oft einseitigen und<lb/>
+entweder nur zur Anlockung von Auswanderern geschriebenen oder ohne<lb/>
+alle tiefere Local = und Sachkenntnisse aus anderen Büchern zusammen-<lb/>
+getragenen Auswanderungsliteratur gegenüber, sich gar bald als die<lb/>
+werthvollste Anleitung des Ansiedlers geltend machen; und so würde<lb/>
+denn New = York es sein, dessen deutsche Vereine in bescheidener, aber<lb/>
+durch und durch praktischer Weise allen den aus Deutschland Einwan-<lb/>
+dernden mit Rath und That beistehen, welche sich nur an sie wenden<lb/>
+und ihnen vertrauen wollen.&#x201C;</p>         </div><lb/>
+<div n="1"> <head><hi rendition="#fr">Empfohlene Schiffe.</hi></head>       <lb/>
+<div n="2">             <p>16 ) Hamburger Postschiff Brarens, Cpt. P. Nienburg. Fol-<lb/>
+gendes an die Herren Expedienten adressirtes Zeugniß (<hi rendition="#aq">d. d</hi>. New-<lb/>
+york 14. Mai 1848 ) gereicht demselben zu besonderer Empfehlung:<lb/>
+&#x201E;Soeben in Newyork angekommen, beeile ich mich, Jhnen im Auf-<lb/>
+trage sämmtlicher Passagiere des <hi rendition="#g">Brarens,</hi> sowohl der Cajüte als<lb/>
+des Zwischendecks, unsere innige Erkenntlichkeit auszudrücken für die vor-<lb/>
+zügliche Weise, in der Sie für die Ausrüstung des Schiffes gesorgt,<lb/>
+eine Ausrüstung, die sowohl Jhre uns in Hamburg gegebenen Ver-<lb/>
+sprechen, als auch unsere Erwartungen übertroffen hat. Für die aus-<lb/>
+nehmende Freundlichkeit und Zuvorkommenheit der Besatzung und in-<lb/>
+<cb n="398"/>
+sonderheit unsers lieben Capitains P. Nienburg sind wir dem Letztern<lb/>
+ganz besonders zu innigem Danke verpflichtet. -- Es freut uns daher,<lb/>
+unsern etwa nachfolgenden Landsleuten Jhre Beförderung als eine solche,<lb/>
+die alle vernünftigen Erwartungen mehr als erfüllt, anempfehlen zu<lb/>
+können, und lieb würde es uns sein, wenn Sie auf irgend eine Weise<lb/>
+diese Kunde unsern Landsleuten auf dem Wege der Oeffentlichkeit zu-<lb/>
+kommen lassen wollten.</p><byline>Jm Auftrage <hi rendition="#g">sämmtlicher</hi> 198 <hi rendition="#g">Passa-<lb/>
+giere </hi> geschrieben von<space dim="horizontal"/><docAuthor>W. <hi rendition="#g">Ostenfeldt</hi></docAuthor>.&#x201C;</byline>             </div><lb/>
+<div n="2">      <lb/>
+<p>17 ) Hamburger Postschiff Leibnitz, Cpt. C. Jörgensen. Die<lb/>
+Passagiere <hi rendition="#g">Charles Fr. Bode, Ferd. Pauly, Paul Weitsch,<lb/>
+Charles</hi> T. <hi rendition="#g">Melms,</hi> C. A. W. <hi rendition="#g">Nasser,</hi> W. <hi rendition="#g">Meyer</hi> ( genannt W.<lb/>
+F. H. Krult v. d. K. B. ) haben unterm 20. April <hi rendition="#aq">a. c</hi>. folgende uns im<lb/>
+Original vorliegende Dank = Adresse an den betreffenden Capitän ge-<lb/>
+richtet: &#x201E;Wir Endesunterschriebenen erfüllen nur eine uns dringend ob-<lb/>
+liegende Pflicht gegen den Hrn. Capitän H. <hi rendition="#g">Jörgensen,</hi> wenn wir<lb/>
+dankend seiner Verdienste gedenken, welche er sich um uns auf unserer<lb/>
+Reise von Hamburg nach Newyork erwarb, wenn wir mit gebührender<lb/>
+Achtung seine vorzüglichen Leistungen als erfahrener und bewährter<lb/>
+Seemann anerkennen. -- Jn beiden Beziehungen konnte er nie sein<lb/>
+edles Menschengefühl verleugnen, wiewohl er auch in entscheidenden<lb/>
+Momenten strenge Gerechtigkeit übte. -- Wir empfehlen daher diesen<lb/>
+einsichtsvollen und braven Mann aus voller Ueberzeugung Jedem, der<lb/>
+seine Verdienste zu würdigen weiß, richten aber an ihn selbst die freund-<lb/>
+liche Bitte, daß er dieß Document als einen schwachen Beweis unserer<lb/>
+Erkenntlichkeit annehmen und bewahren möge.&#x201C;</p><lb/>
+<p>( Beide Schiffe wurden von <hi rendition="#g">Knorr</hi> &amp; <hi rendition="#g">Janßen</hi> in Hamburg,<lb/>
+dieses Ende Februar, jenes Anfangs April expedirt. ) </p>         </div>           </div><lb/>
+<div n="1">         <head><hi rendition="#fr"><hi rendition="#g">Vermischte Nachrichten</hi>.</hi></head>       <lb/>
+<div n="2">       <p>Nach mehreren schon früher aufgetauchten, bisher aber erfolglos<lb/>
+gebliebenen Versuchen constituirte sich am Abend des 15. Juni in<lb/>
+Leipzig ein <hi rendition="#g">Auswanderungs=Verein,</hi> und zwar auf Grund<lb/>
+von <hi rendition="#g">Statuten,</hi> die alle Bedingnisse zu erfüllen scheinen, um die<lb/>
+möglichst größte und wohlthätigste Wirksamkeit anzubahnen. Diese<lb/>
+Statuten gehen zunächst von 2 Männern aus, die sich der Gesellschaft<lb/>
+nur aus Theilnahme für die gute Sache thatkräftig angeschlossen haben,<lb/>
+und demnach nicht zu Section <hi rendition="#aq">II</hi>. des Vereins, d. h. zu denjenigen,<lb/>
+welche wirklich auswandern wollen, sondern zu Section <hi rendition="#aq">I</hi>., d. h. zu<lb/>
+denen gehören, welche die Auswanderung nach ihren besten Kräften<lb/>
+zum allgemeinen Wohle zu fördern wünschen. Die Versammlung be-<lb/>
+stand aus Leuten verschiedener Schichten, unter denen freilich die so-<lb/>
+genannte Bourgeoisie ziemlich unvertreten erschien. Gleichwohl bewegten<lb/>
+sich die lebhaften Debatten, abgesehen von einer durch einen Einzelnen<lb/>
+veranlaßten Störung, in den Schranken der parlamentarischen Ordnung.<lb/>
+Zum Präsidenten der Versammlung und des &#x201E;provisorischen Ausschusses&#x201C;<lb/>
+war der Advocat <hi rendition="#g">Grahl</hi> erwählt worden. Außer den Mißverhält-<lb/>
+nissen der Zeit trug auch die Thätigkeit eines vorzüglich vertrauens-<lb/>
+würdigen Mitbürgers, Hrn. J. E. <hi rendition="#g">Weigels,</hi> welcher ein Auswan-<lb/>
+derungsburean eröffnet, mehrere auf Auswanderung bezügliche lehrreiche<lb/>
+Einzelschriften herausgegeben und durch Aufsätze in Localblättern den Ge-<lb/>
+danken einer deutschen, beziehentlich sächsischen Kolonisation in Nordamerika<lb/>
+angeregt hatte, wesentlich zur Begründung dieses Vereins bei. ( L. A. Z ) </p>           </div><lb/>
+<div n="2">       <p>Von Helgoland wird der Weserzeitung unterm 7. Juni ge-<lb/>
+schrieben: &#x201E;Wie ich soeben erfahre, werden Bremer Schiffe mit Aus-<lb/>
+wanderern <hi rendition="#g">keineswegs geschont</hi>.&#x201C;</p>           </div><lb/>
+<div n="2">       <p>Die Kunde von der französischen Revolution hat in Rio Ja-<lb/>
+neiro große Bestürzung erregt. Der Kaiser hält täglich Berathung<lb/>
+mit seinen Ministern. Der frühere Minister des Auswärtigen, <hi rendition="#g">Sa-<lb/>
+turnino,</hi> ist gestorben ( 24. April ) . </p>         </div>       </div><lb/>
+<cb type="end"/>
+</body>   </text> </TEI>

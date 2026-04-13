@@ -1,0 +1,902 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.deutschestextarchiv.de/basisformat.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">     <teiHeader>
+<fileDesc>
+<titleStmt>
+<title type="main">Das Pfennig-Magazin für Belehrung und Unterhaltung</title>
+<title type="sub">Dritte Folge, Zweiter Jahrgang, Nr. 85</title>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/115266127">
+<surname>Geyken</surname>
+<forename>Alexander</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1222198746">
+<surname>Haaf</surname>
+<forename>Susanne</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1019062681">
+<surname>Jurish</surname>
+<forename>Bryan</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Boenig</surname>
+<forename>Matthias</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Thomas</surname>
+<forename>Christian</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Wiegand</surname>
+<forename>Frank</forename>
+</persName>
+</editor>
+<respStmt>
+<orgName>Institut für Deutsche Sprache, Mannheim</orgName>
+<resp>
+<note type="remarkResponsibility">Bereitstellung der Bilddigitalisate und TEI
+Transkription</note>
+<ref target="http://hdl.handle.net/10932/00-01B8-B0A6-08DF-E001-A"/>
+</resp>
+</respStmt>
+<respStmt>
+<persName>
+<forename>Peter</forename>
+<surname>Fankhauser</surname>
+</persName>
+<resp>
+<note type="remarkResponsibility">
+Transformation von TUSTEP nach TEI P5.
+Transformation von TEI P5 in das DTA TEI P5 Format.
+</note>
+</resp>
+</respStmt>
+<respStmt>
+<orgName ref="https://www.bbaw.de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<resp>
+<note type="remarkResponsibility">Langfristige Bereitstellung der DTA-Ausgabe</note>
+<ref target="https://www.bbaw.de"/>
+</resp>
+</respStmt>
+</titleStmt>
+<editionStmt><edition>Vollständige digitalisierte Ausgabe.</edition></editionStmt>
+<extent>
+<measure type="images">8</measure>
+<measure type="tokens">5117</measure>
+<measure type="types">2172</measure>
+<measure type="characters">34761</measure>
+</extent>
+<publicationStmt>
+<publisher xml:id="DTACorpusPublisher">
+<email>dta@bbaw.de</email>
+<orgName role="project">Deutsches Textarchiv</orgName>
+<orgName role="hostingInstitution" xml:lang="en">Berlin-Brandenburg Academy of Sciences and Humanities (BBAW)</orgName>
+<orgName role="hostingInstitution" xml:lang="de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<address>
+<addrLine>Jägerstr. 22/23, 10117 Berlin</addrLine>
+<country>Germany</country>
+</address>
+</publisher>
+<pubPlace>Berlin</pubPlace>
+<date type="publication">2025-10-24T08:35:14Z</date>
+<availability>
+<licence target="http://creativecommons.org/publicdomain/zero/1.0/">
+<p>Dieses Werk steht unter der "Creative Commons Namensnennung -
+Nicht kommerziell 3.0 Deutschland Lizenz" (CC BY-NC).</p>
+</licence>
+</availability>
+<idno>
+<idno type="URLWeb">https://www.deutschestextarchiv.de/nn_pfennig085_1854</idno>
+<idno type="URLXML">https://www.deutschestextarchiv.de/book/download_xml/nn_pfennig085_1854</idno>
+<idno type="URLHTML">https://www.deutschestextarchiv.de/book/download_html/nn_pfennig085_1854</idno>
+<idno type="URLText">https://www.deutschestextarchiv.de/book/download_text/nn_pfennig085_1854</idno>
+<idno type="DTADirName">nn_pfennig085_1854</idno>
+<idno type="DTAID">34735</idno>
+<idno type="URN">urn:nbn:de:kobv:b4-34735-5</idno>
+</idno>
+</publicationStmt>
+<sourceDesc>
+<bibl type="J">Das Pfennig=Magazin für Belehrung und Unterhaltung. Dritte Folge, Zweiter Jahrgang, Nr. 85. Leipzig (Sachsen), 10. August 1854.</bibl>
+<biblFull>
+<titleStmt>
+<title level="m" type="main">Das Pfennig-Magazin für Belehrung und Unterhaltung</title>
+<title level="m" type="sub">Dritte Folge, Zweiter Jahrgang, Nr. 85</title>
+</titleStmt>
+<editionStmt>
+<edition n="1"/>
+</editionStmt>
+<publicationStmt>
+<publisher/>
+<pubPlace>Leibzig (Sachsen)</pubPlace>
+<date type="publication">1854</date>
+</publicationStmt>
+</biblFull>
+<msDesc>
+<msIdentifier/>
+<physDesc>
+<typeDesc>
+<p>Fraktur</p>
+</typeDesc>
+</physDesc>
+</msDesc>
+</sourceDesc>
+</fileDesc>
+<encodingDesc>
+<editorialDecl>
+<p>
+<![CDATA[
+<p>Siehe Dokumentation</p>
+]]>
+</p>
+</editorialDecl>
+<tagsDecl>
+<rendition scheme="css" xml:id="aq">font-family:sans-serif</rendition>
+<rendition scheme="css" xml:id="b">font-weight:bold</rendition>
+<rendition scheme="css" xml:id="blue">color:blue</rendition>
+<rendition scheme="css" xml:id="c">display:block; text-align:center</rendition>
+<rendition scheme="css" xml:id="et">display:block; margin-left:2em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et2">display:block; margin-left:4em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et3">display:block; margin-left:6em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="f">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="fr">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="g">letter-spacing:0.125em</rendition>
+<rendition scheme="css" xml:id="i">font-style:italic</rendition>
+<rendition scheme="css" xml:id="in">font-size:150%</rendition>
+<rendition scheme="css" xml:id="k">font-variant:small-caps</rendition>
+<rendition scheme="css" xml:id="larger">font-size:larger</rendition>
+<rendition scheme="css" xml:id="red">color:red</rendition>
+<rendition scheme="css" xml:id="right">display:block; text-align:right</rendition>
+<rendition scheme="css" xml:id="s">text-decoration:line-through</rendition>
+<rendition scheme="css" xml:id="smaller">font-size:smaller</rendition>
+<rendition scheme="css" xml:id="sub">vertical-align:sub; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="sup">vertical-align:super; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="u">text-decoration:underline</rendition>
+<rendition scheme="css" xml:id="uu">border-bottom:double 3px #000</rendition>
+</tagsDecl>
+</encodingDesc>
+<profileDesc>
+<langUsage>
+<language ident="deu">(Früh-)Neuhochdeutsch</language>
+<language ident="deu">German</language>
+</langUsage>
+<textClass>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1main">Gebrauchsliteratur</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1sub">Zeitschrift</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">ready</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">mkhz1</classCode>
+</textClass>
+</profileDesc>
+</teiHeader>
+<text>     <front>
+<pb facs="#f0001" n="[257]"/>
+<titlePage type="heading"><docTitle><titlePart type="main"><hi rendition="#c #fr">Das Pfennig=Magazin<lb/>
+für<lb/>
+<hi rendition="#g">Belehrung und Unterhaltung</hi>.</hi></titlePart></docTitle><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<docImprint><hi rendition="#fr">Nr</hi>. 85. ]                <hi rendition="#c">Dritte Folge. Zweiter Jahrgang.</hi>                <docDate><hi rendition="#right">[ 10. <hi rendition="#g">August</hi> 1854.</hi></docDate>              </docImprint></titlePage><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+</front>     <body>       <div n="1"><figure><head><hi rendition="#fr">Der Kreml in Moskau.</hi></head><lb/>
+<p>Vergleiche Pfennig=Magazin, Jahrgang 1834, Nr. 63; Jahrgang 1836, Nr. 169; Jahrgang 1842, Nr. 491.</p></figure></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle" xml:id="Spute3"><head><hi rendition="#fr"><hi rendition="#g">Spute dich</hi>!</hi><lb/>
+<ref target="nn_pfennig084_1854#Spute2">( Fortsetzung.)</ref></head><lb/>
+<cb type="start"/>
+<p><hi rendition="#in">K</hi>arl 's Handel ging einige Wochen lang noch ausge-<lb/>
+zeichnet; fast zehn Thaler hatte er in seiner Sparbüchse.<lb/>
+<cb n="2"/>
+Die leeren Beete wurden bepflanzt und trugen für<lb/>
+Kohlrabi, Blumenkohl u. dgl. späterhin noch manchen<lb/>
+<cb type="end"/>
+<pb facs="#f0002" n="258"/>
+<fw place="top" type="pageNum">258</fw><cb type="start"/>
+Groschen ein. Auch wurden von den Blumenpflanzen<lb/>
+einige gepflegt, um für nächstes Jahr sogleich den Sa-<lb/>
+men zu erzielen.</p><lb/>
+<p>Als der Herbst kam, hatte sich Karl im Verein<lb/>
+mit seiner Mutter nicht blos Kenntniß von den Pflan-<lb/>
+zen und ihrer Abwartung gesammelt, sondern auch<lb/>
+durch Samenstauden schon wieder für die Bedürfnisse<lb/>
+des nächsten Frühlings gesorgt, um sein Geschäft von<lb/>
+neuem zu beginnen. Ein besonderes Vergnügen für<lb/>
+ihn waren die schönen Thaler, welche er durch eigene<lb/>
+Thätigkeit erworben hatte. Er überließ das Geld sei-<lb/>
+ner Mutter und bat sie um die Erlaubniß, zum Weih-<lb/>
+nachtsheiligabend Herrn Zillmer fünf Thaler als Pacht-<lb/>
+geld überbringen zu dürfen, was er denn auch that,<lb/>
+als das Fest erschien. Er hatte sich eine ähnliche List<lb/>
+ausgesonnen, wie sie Zillmer gebrauchte, um ihn und<lb/>
+seine Mutter ins Haus aufzunehmeu. Als nämlich die<lb/>
+Christnacht erschienen war, wurden Frau Wirker und<lb/>
+Karl von Zillmer mit zur Christbescherung eingeladen,<lb/>
+von welcher sie nicht leer ausgingen, da ihr Wohlthä-<lb/>
+ter vorgab, er stehe bei ihnen in Schuld wegen der<lb/>
+über den Garten so gewissenhaft geführten Aufsicht und<lb/>
+den Dank sprach er noch obendrein aus, damit Frau<lb/>
+Wirker ja nicht auf einen Gedanken fallen könne, als<lb/>
+werde sie lästig oder als komme sie tiefer in Schuld<lb/>
+bei Zillmer.</p><lb/>
+<p>Die Christgeschenke waren sämmtlich vertheilt, da<lb/>
+trat Karl seinem edlen Pfleger näher und begann seine<lb/>
+klug ersonnene Rede also: &#x201E;Herr Zillmer! Sie haben<lb/>
+mir schon unzählige Wohlthaten erwiesen. Aber doch<lb/>
+komme ich heute, nachdem Sie mich beschenkt haben,<lb/>
+mit einer Bitte um eine große Gefälligkeit. Jch hoffe,<lb/>
+Sie werden mir deshalb nicht zürnen!&#x201C;</p><lb/>
+<p>Weshalb die Umwege, Karl? rief Zillmer. Heraus<lb/>
+mit der Sprache! Jch versichere dich, daß ich deine<lb/>
+Bitte erfüllen werde, wenn ich kann; übrigens kenne<lb/>
+ich dich schon, du foderst nichts Unrechtes!</p><lb/>
+<p>Sie waren so gut, setzte Karl nun fort, mir Beete<lb/>
+aus Jhrem Garten zur Benutzung zu überlassen. Jch<lb/>
+habe dadurch mit meinem Mütterchen einen hübschen<lb/>
+Thaler Geld verdient, wofür wir uns Manches an-<lb/>
+schaffen konnten, was wir im Hause nothwendig brauch-<lb/>
+ten. Fünf blanke Thaler sind nun übriggeblieben &#x2014;<lb/>
+er hielt sie zwischen den Fingern &#x2014; und ich ersuche<lb/>
+Sie, diese fünf Thaler als Pachtgeld für die Beete<lb/>
+und als Entschädigung für den mir gekauften Samen<lb/>
+anzunehmen. Was ich zum nächsten Jahre kaufen<lb/>
+muß, dazu habe ich noch Geld in meiner Sparbüchse!</p><lb/>
+<p>Zillmer lachte laut auf, strich Karl, indem er das<lb/>
+Geld annahm, die Backen und sprach: &#x201E;Bist ein ge-<lb/>
+wissenhafter Mensch! Hast aber auch Recht: Ordnung<lb/>
+will sein im Leben, wenn wir bestehen sollen; Waare<lb/>
+gegen Geld und Geld gegen Waare! Es freut mich,<lb/>
+daß du unerinnert deiner Pflicht nachgekommen bist<lb/>
+und nun sollst du auch im nächsten Jahre von mir<lb/>
+doppelt soviel Beete in Pacht bekommen.</p><lb/>
+<p>Zillmer stellte sich dabei so ganz ernst und strich<lb/>
+mit so großer Sicherheit das Geld ein, daß Mutter<lb/>
+und Sohn wirklich froh waren, die fünf Thaler ihm<lb/>
+angeboten zu haben, da er nach ihrer Ansicht jeden-<lb/>
+falls eine kleine Entschädigung erwartet hatte. Hätten<lb/>
+sie freilich in das Herz ihres Wohlthäters sehen kön-<lb/>
+nen, so würde ihre Meinung sich sofort geändert ha-<lb/>
+ben. Zillmer ging nämlich gleich nach den Feiertagen<lb/>
+in die Stadt und legte die fünf Thaler in der dorti-<lb/>
+gen Sparkasse nieder, wogegen er ein Buch erhielt,<lb/>
+auf welchem mit großen Buchstaben &#x201E;Karl Wirker&#x201C;<lb/>
+als Eigenthümer bezeichnet war.</p><lb/>
+<cb n="2"/>
+<p>Es kann dem Jungen, dachte Zillmer, zu seiner<lb/>
+Zeit auch etwas nützen, wenn er einige Thaler zu ir-<lb/>
+gend einem Anfange hat und darum mag er immer<lb/>
+im nächsten Jahre wieder Pachtgeld zahlen!</p><lb/>
+<p>Der kommende Winter wurde bei Karl vorzüglich<lb/>
+zu seiner geistigen Ausbildung und zur Handreichung<lb/>
+in Zillmer's Oekonomie verwendet. Mit dem nächsten<lb/>
+Frühjahre begann Karl sein Pflanzengeschäft auf 10<lb/>
+Beeten in vergrößertem Maßstabe und sein Reinertrag<lb/>
+wurde bedeutender, daher er Herrn Zillmer acht Tha-<lb/>
+ler Pacht zahlen konnte, welche ebenfalls in die Spar-<lb/>
+kasse wanderten. So erweiterte sich der Geschäftskreis<lb/>
+Karl's alljährlich, bis er aus der Schule entlassen<lb/>
+wurde. Ueber 30 Thaler lagen in der Sparkasse.</p><lb/>
+<p>Zu seinem Confirmationstage wurde Karl von sei-<lb/>
+nem treuen Pfleger mit einem neuen Anzuge beschenkt<lb/>
+und als er mit seiner Mutter in feierlicher Stimmung<lb/>
+aus der Kirche nach Hause kam, überreichte ihm der<lb/>
+vorausgegangene Zillmer unter den väterlichsten Ermah-<lb/>
+nungen das Sparkassenbuch nebst den im Laufe der<lb/>
+Zeit erwachsenen Zinsen als einen Anfang zu seinem<lb/>
+künftigen Berufe.</p><lb/>
+<p>Heiße Thränen des Dankes flossen in dieser frohen<lb/>
+Stunde; doch die Freude eines treuen Mutterherzens<lb/>
+über ein wohlgerathenes Kind in Stunden heiliger<lb/>
+Weihe läßt sich nicht mit Worten ausdrücken.</p><lb/>
+<p>Bald nach der Confirmation sprachen Zillmer und<lb/>
+Frau Wirker mit Karl über die Wahl seines künftigen<lb/>
+Berufs. Dieser war schon einig mit sich. Er hatte<lb/>
+bei seinem Wohlthäter die Landwirthschaft schon ziem-<lb/>
+lich genau kennen lernen und hing ihr mit großem Ei-<lb/>
+fer an. Sein Plan war, noch einige Zeit Gärtne-<lb/>
+rei zu treiben, sich etwas zu verdienen und dann ein<lb/>
+kleines Landgütchen zu pachten, um als Ökonom zu<lb/>
+leben. Seine Mutter kannte seinen Plan schon und<lb/>
+sie sowol als auch Zillmer stimmten vollkommen mit<lb/>
+demselben überein.</p><lb/>
+<p>Jn seinem 15. Jahre benutzte Karl noch Zillmer's<lb/>
+Garten. Darauf aber fand er Gelegenheit, die größere<lb/>
+Hälfte des im Dorfe befindlichen Rittergutsgartens<lb/>
+billig zu erpachten und nun konnte er die Pflanzen-<lb/>
+zucht um desto eifriger und mit größerm Erfolge betreiben.</p><lb/>
+<p>Karl war endlich 20 Jahre alt geworden. Das<lb/>
+Glück brachte ihm bei der Militärstellung ein Freiloos.<lb/>
+Durch Mühe und Sparsamkeit hatte er sich schon ein<lb/>
+kleines Sümmchen Geld erworben, womit er etwas an-<lb/>
+fangen konnte, aber er wurde durch Zillmer stets zur<lb/>
+Vorsicht angehalten und seine Mutter rief ihm zwar<lb/>
+immer noch zu: &#x201E;Spute dich!&#x201C; jedoch sie warnte auch<lb/>
+oft in Hinblick auf mögliche Unglücksfälle: Geh' nur<lb/>
+in der Welt recht vorsichtig zu Werke! Daher kam<lb/>
+es, daß Karl nicht gleich zu neuen Unternehmungen<lb/>
+griff, sondern lieber sein Gärtnergeschäft noch einige<lb/>
+Jahre forttrieb.</p><lb/>
+<p>Karl hatte schon das 24. Lebensjahr überschritten,<lb/>
+als er sich verheirathete. Von den fünf Töchtern sei-<lb/>
+nes edlen Pflegers Zillmer hatte er die älteste, Johanna<lb/>
+mit Namen, näher kennen gelernt. Sie war ein fleißiges,<lb/>
+geschicktes, <gap reason="illegible" unit="chars" quantity="11"/>seelengutes Mädchen. Zillmer konnte sei-<lb/>
+nen Kindern zwar keinen großen Reichthum mitgeben,<lb/>
+aber sie war trefflich erzogen, zu jeder Art Arbeit an-<lb/>
+gehalten und darum bei allen guten Nachbarn des<lb/>
+Dorfs wohlgelitten. Dies erkennend, wünschte sich<lb/>
+Karl kein anderes Mädchen zur Frau als die achtbare<lb/>
+Johanna.</p><lb/>
+<p>Zillmer gab ihm seine Tochter sehr gern, denn er<lb/>
+wußte, daß sie keinen bessern Mann bekommen konnte<lb/>
+als Karl.</p><lb/>
+<cb type="end"/>
+<pb facs="#f0003" n="259"/>
+<fw place="top" type="pageNum">259</fw>       <cb type="start"/>
+<p>Johanna erhielt 350 Thaler als erste Aussteuer<lb/>
+von ihrem Vater, welcher ihr zugleich andeutete, daß<lb/>
+er ihr, so lange er lebe, nichts weiter geben könne,<lb/>
+wolle er nicht sich und den übrigen Kindern Schaden<lb/>
+thun. Karl war es nicht in den Sinn gekommen,<lb/>
+außer einer einfachen Ausstattung fürs Haus noch ein<lb/>
+kleines Capital zu erwarten. Darum bat er, als er<lb/>
+von den 350 Thalern hörte, seinen Schwiegervater<lb/>
+Zillmer, sich ja nicht Schaden zu thun, denn er hoffe<lb/>
+auch ohne die Mitgift mit der geschickten und ge-<lb/>
+wandten Johanna vorwärts zu kommen. Zillmer aber<lb/>
+meinte, soviel Geld entbehren zu können und sprach:<lb/>
+&#x201E;Liebster Karl! Bist ja von Jugend auf so gut wie<lb/>
+mein Sohn gewesen; nun bist du es wirklich, da will<lb/>
+ich nun auch für dich sorgen wie für mein eigenes<lb/>
+Kind!&#x201C;</p><lb/>
+<p>Karl durfte kein Wort mehr erwidern und es blieb<lb/>
+bei Zillmer's Willen.</p><lb/>
+<p>Nach der einfachen Hochzeitsfeier zog Johanna in<lb/>
+die Gärtnerwohnung, welche der Rittergutsbesitzer Karl<lb/>
+aus besonderm Wohlwollen überlassen hatte. Jhr Ge-<lb/>
+schäft erweiterte sich immer mehr und brachte erwünsch-<lb/>
+ten Gewinn. Mit Johanna war doppelter Segen ein-<lb/>
+gezogen. Das junge Ehepaar sputete sich vom Mor-<lb/>
+gen bis zum Abend und Beide thaten es gern, denn<lb/>
+Alles, was sie unternahmen, brachte ihnen Glück ins<lb/>
+Haus. Die alternde Frau Wirker sah mit Freuden<lb/>
+die erfolgreiche Thätigkeit ihrer Kinder, konnte es aber<lb/>
+noch immer nicht lassen, ihren alten Zuruf zu wieder-<lb/>
+holen: &#x201E;Spute dich!&#x201C; Auch Karl und Johanna hat-<lb/>
+ten sich das vielsagende Wort angewöhnt und rie-<lb/>
+fen es sich sehr oft in sanftem, wohlmeinenden Tone<lb/>
+zu. Der Zuruf wurde selbst auf ihre Kinder fort-<lb/>
+geerbt, weil er, wohl aufgefaßt und verstanden, einen<lb/>
+großen Einfluß auszuüben vermochte.</p><lb/>
+<p>Zillmer und sein Haus blieb mit Frau Wirker und<lb/>
+den Kindern in engster Verbindung. Was die Einen<lb/>
+thaten, mußten die Andern wissen; Freud und Leid<lb/>
+theilten sie miteinander, die Liebe und Treue hatte un-<lb/>
+ter ihnen Wohnung genommen. Und Das war es,<lb/>
+was die Familie so sehr glücklich machte.</p><lb/>
+<p>Drei Jahre waren wieder ins Land gegangen, da<lb/>
+bot sich für Karl eine treffliche Gelegenheit, seine Lieb-<lb/>
+lingsidee, eine Landwirthschaft zu besitzen, auszufüh-<lb/>
+ren, womit seine Johanna vollkommen übereinstimmte.<lb/>
+Es war nämlich ein sogenannter kleiner Bauer gestor-<lb/>
+ben. Derselbe hinterließ viel Kinder, weshalb sein<lb/>
+Gütchen zum Verkauf ausgeboten werden mußte. Va-<lb/>
+ter Zillmer kannte das Besitzthum genau und konnte<lb/>
+es seinen Kindern, als diese ihn um Rath fragten,<lb/>
+getrost empfehlen. Es gehörten zwar nicht viel Grund-<lb/>
+stücke zu dem Gute, aber sie waren in gutem Zu-<lb/>
+stande; sie konnten die Glieder einer Familie, wenn<lb/>
+sie sich sputeten, recht leicht ernähren.</p><lb/>
+<p>Karl überrechnete nun sein Vermögen, indem er<lb/>
+zugleich überschlug, wie viel er, falls er das Gut an-<lb/>
+kaufen würde, an der Kaufsumme abzahlen und in die<lb/>
+Wirthschaft werde verwenden können. Er kam zu<lb/>
+einem recht erfreulichen Resultate. Ohne Zögern ging<lb/>
+er in Begleitung Zillmer's zu den Erben des verstor-<lb/>
+benen Bauers, denen Käufer sehr willkommen waren,<lb/>
+da sie im Begriff standen, das Gütchen öffentlich aus-<lb/>
+zubieten.</p><lb/>
+<p>Der Handel war bald abgeschlossen. Karl zahlte<lb/>
+vor Gericht einen Theil der Kaufsumme und das Gut<lb/>
+wurde ihm verschrieben. Vater Zillmer war als Ge-<lb/>
+richtsschöppe dabei. Nach dem Schlusse des Termins<lb/>
+ging er auf seinen Schwiegersohn Karl zu, drückte ihm<lb/>
+<cb n="2"/>
+freundlich die Hand und sprach: &#x201E;Mein Karl! Viele<lb/>
+hundert mal war ich als Schöppe in der Gerichtsstube<lb/>
+als Zeuge der Verhandlungen zugegen, aber kein ein-<lb/>
+ziges mal stand ich mit so großer Freude dabei. Segne<lb/>
+euch Gott im neuen Besitze und sputet euch, wie die<lb/>
+Mutter sagt, um vorwärts zu kommen! Lange Er-<lb/>
+mahnungen halte ich für unnöthig; ihr habt euch ja<lb/>
+bisher wacker gesputet!&#x201C;</p><lb/>
+<p>Eben wollten Käufer und Verkäufer die Gerichts-<lb/>
+stube verlassen, da trat der Gerichtsherr, ein alter er-<lb/>
+grauter Major, in dieselbe ein. Alle standen ehrerbie-<lb/>
+tig auf, als das greise Haupt erschien. Der Major<lb/>
+<gap reason="illegible" unit="chars" quantity="7"/>wendete sich an Karl, drückte ihm die Hand und<lb/>
+sprach: &#x201E;Höre, Freund, du hast dich durch eigene<lb/>
+Kraft und eigenen Fleiß aus den dürftigsten Verhält-<lb/>
+nissen emporgearbeitet; du bist ein treuer Sohn und<lb/>
+ein ehrenwerther Dorfbewohner gewesen; in deinem<lb/>
+Hause herrscht Liebe und Freude, die du dir selbst ge-<lb/>
+schaffen; das Alles hat mir Freude gemacht, wenn ich<lb/>
+es so still beobachtet habe. Jch komme deshalb heute<lb/>
+selbst in die Gerichtsstube, um dir meine Anerkennung<lb/>
+auszusprechen und zu deinem Gutskaufe Glück zu wün-<lb/>
+schen. Du hast hier&#x201C; &#x2014; sein Blick fiel auf die ge-<lb/>
+zahlte Geldsumme, welche noch auf dem Tische lag &#x2014;<lb/>
+&#x201E;Richtigkeit gemacht, wobei jedenfalls auch das mir<lb/>
+zukommende Lehngeld bezahlt worden ist. Jch will<lb/>
+aber von dir kein Lehngeld nehmen; ich schenke es dir<lb/>
+als Beihülfe zum Anfange in der neuen Wirthschaft.<lb/>
+Du wirst auch gern in dein Eigenthum einziehen<lb/>
+wollen, darum glaube nicht, daß ich dich wegen des<lb/>
+Pachtjahrs, das du in meinem Gartengrundstücke noch<lb/>
+auszuhalten hast, halten werde. Hebe den Pacht auf,<lb/>
+wenn es dir beliebt!&#x201C;</p><lb/>
+<p>Karl wollte dem edlen Herrn danken, aber dieser<lb/>
+empfahl sich schnell und rief freundlich, indem er den<lb/>
+Kopf durch die Thür steckte: &#x201E;Schon gut; 's ist gern<lb/>
+geschehen! Spute dich nur ferner auch, wie deine Mut-<lb/>
+ler sagt!&#x201C;</p><lb/>
+<p>Als der Major weg war, strich der Gerichtsdirector<lb/>
+das Lehngeld weg und übergab es Karl, dann zog<lb/>
+er noch ein kleines Häuflein Thaler bei Seite, drückte<lb/>
+sie dem Käufer in die Hand und sprach: &#x201E;Da Sie,<lb/>
+lieber Mann, ein so achtungswerthes Vorbild der Ge-<lb/>
+meinde sind, so gebe ich Jhnen hiermit auch einen<lb/>
+kleinen Beitrag zum Anfange Jhrer Wirthschaft; es<lb/>
+sind die mir zukommenden Gerichtskosten, die ich Jh-<lb/>
+nen mit Vergnügen schenke.&#x201C;</p><lb/>
+<p>Zillmer und Wirker waren aufs herzlichste bewegt<lb/>
+und verließen mit innigen Dankgefühlen die für Viele<lb/>
+so ernste und furchterweckende Gerichtsstube.</p><lb/>
+<p>Der Richter und der zweite Schöppe erzählten noch<lb/>
+an demselben Tage in dem Dorfe, wie der alte Herr<lb/>
+und sein Gerichtsdirector Karl Wirker so sehr ausge-<lb/>
+zeichnet hatten. Dies machte großen Eindruck auf die<lb/>
+Dorfbewohner. Die Guten unter ihnen nahmen an<lb/>
+dem Glück Karl's den frohesten Antheil und die Übel-<lb/>
+gesinnten, welche Karl mit Ungunst und Neid behan-<lb/>
+delt hatten, schienen sich ihm mehr zu nähern, da sie<lb/>
+wohl erwarteten, daß Karl bald zu den angesehensten,<lb/>
+wenn auch nicht zu den reichsten Bauern des Dorfs<lb/>
+gehören und sich, wie bisher, auch ferner wenig um<lb/>
+sie kümmern werde, wenn sie seine Gunst nicht selbst<lb/>
+zu erstreben versuchen würden.</p><lb/>
+<p><ref target="nn_pfennig086_1854#Spute4">( Fortsetzung folgt. )</ref></p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<cb type="end"/>
+<pb facs="#f0004" n="260"/>
+<fw place="top" type="pageNum">260</fw><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Die Handeck.</hi></head><lb/>
+<figure/><lb/>
+<cb type="start"/>
+<p><hi rendition="#in">D</hi>iesen Namen trägt ein Gebirgszug in der Schweiz,<lb/>
+welcher sich etwa auf dem halben Wege nach dem<lb/>
+Grimselhospiz abzweigt und abwechselnd durch seine<lb/>
+Wildheit und Lieblichkeit den Wanderer schreckt und<lb/>
+erfreut. Der berühmte Wassersturz der Handeck hat<lb/>
+das Eigenthümliche, daß man ihn von oben her zu<lb/>
+betrachten pflegt. Ein schwach=zerbrechlicher Steg er-<lb/>
+scheint wie hinübergeworfen über den tosenden Schlund.<lb/>
+Von diesem Stege aus sieht man zwei stolze Alpen-<lb/>
+ströme mit weißer Mähne von Schaum sich jäh von<lb/>
+der Bergeshöhe herabstürzen; wo der Fall entsteht,<lb/>
+vereinigen sie sich und verbunden stürzen sie sich wü-<lb/>
+thend in das hochaufschäumende Becken. Während das<lb/>
+Auge sich mit Schrecken in das Chaos dieser sich bre-<lb/>
+<cb n="2"/>
+chenden, brandenden, Wogen= und Wassergarben und<lb/>
+Schaum aufstrudelnden Gewässer versenkt, erhebt sich<lb/>
+aus diesen Tiefen ein dumpfer, majestätischer Tumult;<lb/>
+feuchte Dünste steigen empor zum Licht, funkeln und<lb/>
+glitzern in den Strahlen der Sonne und spenden der<lb/>
+ringsum üppig sprossenden Pflanzenwelt die Wohlthat<lb/>
+eines ewigen Thaus. Unbewegt kann Niemand diesem<lb/>
+Schauspiele beiwohnen; ja ein Mensch, in dessen Seele<lb/>
+nie der Begriff des Erhabenen gekommen war &#x2014; hier<lb/>
+könnte er ihn zuerst empfinden. Übrigens ist der<lb/>
+Standpunkt so schwindelerregend, der Steg ist so<lb/>
+schmal und wackelig, daß man das geringste Ungeschick<lb/>
+oder noch mehr die geringste Verwegenheit leicht mit<lb/>
+seinem Leben bezahlen kann.</p></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#aq">Wellingtonia gigantea</hi> <hi rendition="#fr">aus Californien.</hi></head><lb/>
+<cb type="start"/>
+<p><hi rendition="#in">D</hi>ouglas berichtete in einem Briefe an William Hoo-<lb/>
+ker von diesem riesengroßen Taxodium, dem König der<lb/>
+californischen Wälder, der sich 270 Fuß hoch und bei<lb/>
+3 Fuß Abstand vom Boden 32 Fuß im Umfange hal-<lb/>
+tend in einem einsamen District an den Quellen des<lb/>
+S.=Antonioflusses im 38. Grade nördlicher Breite und<lb/>
+120. Grade westlicher Länge auf Bergabhängen der<lb/>
+Sierra Nevada fand. Der Botaniker Lobb fand dort<lb/>
+80&#x2014;90 Stämme, alle im Umkreis einer ( englischen )<lb/>
+Meile und 250&#x2014;320 Fuß hoch und 10&#x2014;20 Fuß im<lb/>
+<cb n="2"/>
+Durchmesser. Jhr Wuchs ähnelt der <hi rendition="#aq">Scquoia ( Taxo-<lb/>
+dium ) sempervirens</hi>. Manche standen einzeln, andere<lb/>
+paarweise, manche auch, und das nicht selten, standen<lb/>
+zu drei und vier zusammen. Ein frisch gefällter Baum<lb/>
+maß etwa 300 Fuß Länge bei einem Durchmesser ( die<lb/>
+Rinde mitgerechnet ) von 29 Fuß 2 Zoll über dem<lb/>
+Grunde. Bei 18 Fuß Abstand vom Erdboden betrug<lb/>
+der Durchmesser noch 14 Fuß 6 Zoll und bei 200<lb/>
+Fuß 5 Fuß 5 Zoll. Die Rinde ist blaß zimmetbraun<lb/>
+und 12&#x2014;15 Zoll dick. Die Aeste sind rund, zum<lb/>
+<cb type="end"/>
+<pb facs="#f0005" n="261"/>
+<fw place="top" type="pageNum">261</fw><cb type="start"/>
+Theil herabhängend und ähnlich denen der Cypresse oder<lb/>
+des Wachholders. Die Blätter sind blaß grasgrün,<lb/>
+an jungen Bäumen breit mit einer scharfen Stachel-<lb/>
+spitze. Die Fruchtzapfen sind etwa2 1 / 2 Zoll lang und<lb/>
+halten 2 Zoll im dicksten Durchmesser. Der Stamm<lb/>
+<cb n="2"/>
+des hier abgebildeten Baums war vollkommen solid vom<lb/>
+Splint bis zum Kern und zeigte, nach den Jahres-<lb/>
+ringen berechnet, ein Alter von 3000 Jahren. Er<lb/>
+muß also, wenn auch als kleines Pflänzchen, doch schon<lb/>
+gelebt haben, als Simson die Philister schlug, als der<lb/>
+<cb type="end"/>
+<figure/><lb/>
+<pb facs="#f0006" n="262"/>
+<fw place="top" type="pageNum">262</fw>       <cb type="start"/>
+treulose Paris, das Gastrecht misbrauchend, Helenen<lb/>
+entführte, und als der fromme Held Aeneas seinen<lb/>
+Vater Anchises aus dem brennenden Troja rettete. Das<lb/>
+Holz der Wellingtonia ist leicht, weich und von röth-<lb/>
+licher Farbe, ähnlich dem Brasilienholz oder dem des <lb/>
+<hi rendition="#aq">Taxodium sempervirens</hi>. Vom untern Theile jenes<lb/>
+Baums wurde 21 Fuß lang die Rinde abgenommen<lb/>
+und nach S.=Francisco zur Ausstellung gebracht. Dort<lb/>
+bildet sie in ihrem natürlichen Zustande einen Teppich,<lb/>
+groß genug, um ein Piano und Sitzplätze für 40 Per-<lb/>
+sonen aufzunehmen. Bei einer Gelegenheit wurden<lb/>
+140 Kinder darauf mit Bequemlichkeit untergebracht.</p><lb/>
+<p>Aus der vollständigen Beschreibung dieses Baums<lb/>
+durch Herrn Veitch in Chelsea geht hervor, daß <gap reason="illegible" unit="chars" quantity="13"/>Wel-<lb/>
+lingtonia eine ganz neue Gattung bildet, die von allen<lb/>
+bisher bekannten vollständig zu unterscheiden ist. Vom<lb/>
+Standpunkte der Parkanlagen betrachtet, kann sie nicht<lb/>
+hoch genug geschätzt werden; denn der Baum, der im-<lb/>
+mer grün ist, ohne Zweifel in der Jugend schnell wächst,<lb/>
+unser strenges Klima ( wie das englische ) gut verträgt,<lb/>
+gewährt einen wahrhaft majestätischen Anblick.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Dietrich Kagelwit.</hi></head><lb/>
+<p><hi rendition="#in">D</hi>ietrich Kagelwit, der bekannte Günstling Kaiser<lb/>
+Karl's <hi rendition="#aq">IV</hi>., durch dessen Einfluß er zuletzt ( im Jahre<lb/>
+1361 ) unter dem Namen Theodoricus auf den erz-<lb/>
+bischöflichen Stuhl von Magdeburg erhoben wurde, ge-<lb/>
+hörte unstreitig zu den bedeutendsten Männern seiner<lb/>
+Zeit. Mönch und Erzbischof, Landwirth und Reichs-<lb/>
+verweser, Feldherr und Friedensstifter &#x2014; zu all diesen<lb/>
+Ämtern und Würden vereinigte Dietrich die vortreff-<lb/>
+lichsten Eigenschaften in gleich hohem Grade in sich!</p><lb/>
+<p>Ueber seinen Namen sowol wie über seine eigent-<lb/>
+liche Herkunft ist von jeher viel gestritten worden. Böh-<lb/>
+mische Autoren insbesondere sind es, welche aus dem<lb/>
+Familiennamen des von ihnen Hochgefeierten seine böh-<lb/>
+mische Abkunft zu erweisen versucht haben, indem sie<lb/>
+das Schloß Kagelwit oder Kugelweit im Bechiner<lb/>
+Kreise Böhmens als seine Geburtsstätte bezeichnen.<lb/>
+Merkwürdig bleibt ferner auch die in einigen Chroni-<lb/>
+ken sich findende Herleitung des Namens Kagelwit von<lb/>
+der Mönchskutte Dietrich's, nach welcher ihm jener<lb/>
+Name um deshalb gegeben worden sei, &#x201E;weilen er eine<lb/>
+weite Kogel, Gugel oder Kappe an seiner Kutte ge-<lb/>
+tragen habe u. s. w.&#x201C; Die unterrichtetsten Chronisten<lb/>
+versichern indeß einstimmig, er sei ein Stendaler Kind,<lb/>
+weichen jedoch wiederum darin voneinander ab, daß sie<lb/>
+ihn bald eines Bäckers, bald eines Webers, bald eines<lb/>
+Tuchmachers und Gewandschneiders Sohn nennen. Die<lb/>
+letztere Angabe dürfte unsers Erachtens wol die rich-<lb/>
+tigste sein, denn noch heute wird in dem uralten Gilde-<lb/>
+hause der Tuchmacher auf der Weberstraße zu Stendal<lb/>
+außer einem kleinen, fein gearbeiteten Altar mit dem<lb/>
+Bildnisse Dietrich's auch eine ganze Kriegsrüstung dessel-<lb/>
+ben zur Erhaltung seines Andenkens sorgfältig aufbe-<lb/>
+wahrt.</p><lb/>
+<p>Die Ältern bestimmten den Knaben für die Kirche;<lb/>
+er sollte sich dem geistlichen Stande widmen und des-<lb/>
+halb schickten sie ihn in das Kloster Lehnin. Dort, als<lb/>
+Cisterciensermönch, bildete er sich sehr bald zum &#x2014;<lb/>
+tüchtigsten Landwirth und Finanzmann aus, indem er<lb/>
+als Oekonom oder Procurator des tief in Schulden<lb/>
+steckenden Klosters dasselbe durch weise Sparsamkeit und<lb/>
+gute Wirthschaft binnen kurzer Zeit in den blühendsten<lb/>
+Zustand versetzte. Späterhin soll ihn Bischof Ludwig<lb/>
+<cb n="2"/>
+von Brandenbnrg zu einer Sendung nach Rom ver-<lb/>
+wendet haben, von wo er nach Einigen als Bischof zu<lb/>
+Hebron, nach Andern aber als Bischof von Sarepta<lb/>
+heimkehrte. Nach dem Tode des Bischofs Ludwig von<lb/>
+Brandenburg bemühte er sich sehr, dessen Nachfolger<lb/>
+zu werden, allein vergebens, und nun sehen wir ihn<lb/>
+kurze Zeit darauf in die Dienste Karl's <hi rendition="#aq">IV</hi>. treten, der<lb/>
+ihn schon im Kloster Lehnin als einen geschickten und<lb/>
+klugen Mann, namentlich aber auch als einen vorzüg-<lb/>
+lichen Wirth kennen gelernt hatte.</p><lb/>
+<p>Der Kaiser setzte ihn anfangs über ein kleines,<lb/>
+dürftiges Schloß und Gut &#x2014; vielleicht war es das<lb/>
+oben erwähnte Kagelwit! &#x2014; welches bisher nicht ein-<lb/>
+mal die Unterhaltungskosten eingetragen hatte. Hier<lb/>
+überraschte er ihn einstmals mit seinem ganzen Hof-<lb/>
+staate und zwar zu einer Zeit, da er wußte, daß da-<lb/>
+selbst nicht das Geringste an Lebensmitteln vorräthig<lb/>
+war. Nichtsdestoweniger verlangte der Kaiser von dem<lb/>
+Schloßherrn Bewirthung, lediglich um zu sehen, wie<lb/>
+sich derselbe helfen würde. Da ließ Dietrich in der<lb/>
+Eile einige junge Enten und Hühner für die kaiserliche<lb/>
+Tafel schlachten; damit aber auch das zahlreiche kaiser-<lb/>
+liche Gefolge etwas bekäme, so ließ er alle Schweine<lb/>
+aus den benachbarten Vorwerken zusammentreiben, ih-<lb/>
+nen die Ohren und Schwänze abschneiden und solche<lb/>
+auf verschiedene Art zwar, jedoch aufs leckerste zuberei-<lb/>
+ten, dann aber den Gästen so reichlich davon auftischen,<lb/>
+daß Alle gesättigt wurden. Als ihn nun der Kaiser,<lb/>
+voller Verwunderung hierüber, fragte, wie er so ge-<lb/>
+schwind und so überraschend viel zu essen habe ver-<lb/>
+schaffen können, zeigte ihm Dietrich, auf welche Weise<lb/>
+ihn seine Heerden diesen Vorrath verschafft hätten, ohne<lb/>
+daß auch nur ein einziges Stück derselben ihm verlo-<lb/>
+ren gegangen wäre. Diese Art, sich so schnell, so gut<lb/>
+und so wohlfeil zu helfen, gefiel dem die Sparsamkeit<lb/>
+liebenden Kaiser sehr und er vertraute ihm von da an<lb/>
+mehre und wichtigere Geschäfte, besonders in Finanz-<lb/>
+und Wirthschaftsangelegenheiten an.</p><lb/>
+<p>Vorzüglich aber gebrauchte er ihn auch mit bestem<lb/>
+Erfolge in Böhmen zur Demüthigung und Unterjo-<lb/>
+chung der übermüthigen Barone und Edelleute daselbst.<lb/>
+Je höher indeß Dietrich in der Gunst des Kaisers<lb/>
+stieg, desto mehr wuchsen der Neid und Haß seiner<lb/>
+Gegner und wiederholt wurde er heimlich bei Karl ver-<lb/>
+klagt, daß er lediglich sich zu bereichern suche, auf des<lb/>
+Kaisers Jnteressen aber nicht genug sähe. Endlich ließ<lb/>
+ihn Karln der festen Ueberzeugung, daß der genannte<lb/>
+Mann sich wohl zu vertheidigen wissen werde, in Ge-<lb/>
+genwart seiner Ankläger vor sich fodern und bestimmte<lb/>
+einen Tag, an welchem er seine Rechnung ablegen<lb/>
+sollte. Da erklärte Dietrich, daß er dies gleich auf<lb/>
+der Stelle, in demselben Augenblicke zu thun bereit<lb/>
+sei, und voller Erwartung befahl ihm darauf der Kai-<lb/>
+ser, daß er nur seine Rechnung machen solle.</p><lb/>
+<p>Ohne weiteres Bedenken versetzte Dietrich nun:<lb/>
+&#x201E;Meine Rechnung ist ganz kurz, allergnädigster Kai-<lb/>
+ser! Jch kam zu dir als ein armer Mönch in schlich-<lb/>
+ter Kutte und hatte nur wenige Groschen in meiner<lb/>
+Tasche. Wenn du mir dies zu behalten erlaubst, so<lb/>
+ist alles Übrige, was ich erworben habe, das Deinige,<lb/>
+du magst es hinnehmen!&#x201C;</p><lb/>
+<p>Der Kaiser sah mit Vergnügen, wie fein und ge-<lb/>
+schickt Dietrich sich aus der ihm gelegten Schlinge zu<lb/>
+ziehen gewußt und sagte zu den Anwesenden: &#x201E;Wer<lb/>
+unter euch würde mir wol auf die Art seine Rech-<lb/>
+nung ablegen können?&#x201C;</p><lb/>
+<p>Beschämt und mit niedergeschlagenen Augen schwie-<lb/>
+gen Alle still; Dietrich aber stieg nun nur um so hö-<lb/>
+<cb type="end"/>
+<pb facs="#f0007" n="263"/>
+<fw place="top" type="pageNum">263</fw><cb type="start"/>
+her in der Gunst des Kaisers, der ihn bald darauf zu<lb/>
+seinem Schatzmeister erhob. Als solcher machte er nicht<lb/>
+nur binnen kurzem die Schlösser und Domainen des<lb/>
+Kaisers schuldenfrei, sondern erwarb demselben auch<lb/>
+eine Menge neuer Güter und ließ mehre neue Schlösser<lb/>
+im Reiche aufführen.</p><lb/>
+<p>Durch kaiserliche Unterstützung ward Dietrich end-<lb/>
+lich im Jahre 1353 Bischof zu Minden. Jn dieser<lb/>
+Würde, der bald auch die eines obersten Anwalts und<lb/>
+Amtmanns des Kaisers, eines obersten Raths, eines<lb/>
+Propstes zu Wischerad und Kanzlers des Königreichs<lb/>
+Böhmen beigefügt wurde, begleitete er den Kaiser fast<lb/>
+auf allen seinen Reisen, faßte dessen Urkunden ab, ver-<lb/>
+waltete die Reichskammergüter, führte als Feldherr des<lb/>
+Kaisers Heere siegreich in den Streit und handelte in<lb/>
+dessen Abwesenheit in unumschränkter Macht.</p><lb/>
+<p>Alle diese wichtigen Ämter versah Dietrich aufs<lb/>
+beste und zur größten Zufriedenheit des Kaisers. Ueberall<lb/>
+wußte er nicht nur Ordnung, Ruhe und Frieden un-<lb/>
+gestört zu erhalten, sondern auch des Kaisers und des<lb/>
+Landes Nutzen aufs ersprießlichste zu befördern und be-<lb/>
+sonders die kaiserlichen Einkünste zu vermehren und in<lb/>
+den besten Zustand zu versetzen, wobei er indeß auch<lb/>
+sich selbst durch die Munificenz des Kaisers ansehnliche<lb/>
+Reichthümer und Schätze erwarb.</p><lb/>
+<p>So hatte er bereits 12 Jahre ehrenvoll und glän-<lb/>
+zend in des Kaisers Diensten zugebracht, als derselbe<lb/>
+ihm in Anerkennung seiner Verdienste den erzbischöfli-<lb/>
+chen Krummstab von Magdeburg verschaffte. Seitdem<lb/>
+erblicken wir ihn, wiewol immer noch geschäftig im<lb/>
+Dienste seines Kaisers, nicht mehr so oft am Hofe<lb/>
+desselben; er wendete vielmehr seine Hauptthätigkeit von<lb/>
+nun an dem Erzstifte zu, indem er vor allem auf die<lb/>
+Begründung und Befestigung des Landfriedens sein<lb/>
+Augenmerk richtete.</p><lb/>
+<p>Ueberhaupt war seine ganze Regierung &#x2014; leider<lb/>
+umfaßte dieselbe nur den kurzen Zeitraum von sieben<lb/>
+<cb n="2"/>
+Jahren &#x2014; eine ununterbrochene Reihe weiser, rühm-<lb/>
+licher, wohlthätiger und gemeinnütziger Handlungen.<lb/>
+So, um nur Eins zu erwähnen, da wir an dieser<lb/>
+Stelle unmöglich die ganze Regierungsgeschichte unsers<lb/>
+Helden wiedergeben können, verdankte ihm Magdeburgs<lb/>
+Zierde, der herrliche Dom, seine Vollendung. Die<lb/>
+feierliche Einweihung desselben sowie die der prächtigen<lb/>
+St.=Johanniskirche zu Kloster=Bergen geschah im Octo-<lb/>
+ber des Jahres 1363; sich selber hatte er dort eine<lb/>
+Ruhestätte auserkoren.</p><lb/>
+<p>Am 21. December des Jahres 1367 legte er seine<lb/>
+irdische Hülle ab und ward, wie er es bestimmt hatte,<lb/>
+im hohen Chore des Doms hinter dem von ihm erbau-<lb/>
+ten Altare in einem Sarkophage von Marmor bei-<lb/>
+gesetzt.</p><lb/>
+<p>Er hatte, wie sein Geschichtsschreiber sagt, wäh-<lb/>
+rend seines ganzen Lebens bewiesen, daß Der erst<lb/>
+groß zu nennen ist, der selber groß ist, und nicht Der,<lb/>
+der nur von Großen geboren ist.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Kin=schan=Dschi=sin=lou.</hi></head><lb/>
+<p><hi rendition="#in">D</hi>ies barbarische Compositum heißt &#x201E;Goldminenjournal&#x201C;<lb/>
+und ist der Titel einer in San=Franeisco erscheinen-<lb/>
+den chinesischen Zeitung, welche auf chinesische Leser<lb/>
+berechnet ist und Handelsneuigkeiten und sonstige Dinge,<lb/>
+welche Chinesen interessiren können, zur Sprache bringt.<lb/>
+Jedes Blatt besteht aus vier Seiten und ist in Co-<lb/>
+lumnen abgetheilt, beginnt aber rechts oben auf der<lb/>
+vierten Seite, die bei uns die letzte sein würde. Sie<lb/>
+ist lithographirt. Ein ausgezeichneter chinesischer Ge-<lb/>
+lehrter in Paris sagt, daß das Blatt Talent und Ge-<lb/>
+schick zeige, wenn es auch nicht in der &#x201E;gewähltesten<lb/>
+Sprache des Blumenlandes&#x201C; geschrieben sei.</p></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1"><figure><head><hi rendition="#fr">Der Seehase.</hi></head></figure></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<pb facs="#f0008" n="264"/>
+<fw place="top" type="pageNum">264</fw><lb/>
+<div n="1" type="jVarious"><head><hi rendition="#fr"><hi rendition="#g">Mannichfaltiges</hi>.</hi></head>       <cb type="start"/>
+<div n="2" type="jArticle"><p>Hieronymus Savonarola, der berühmte Mönch in<lb/>
+Florenz, welcher in der Geschichte gewissermaßen einen noth-<lb/>
+wendigen Übergang von der Niederlage Huß' zu dem Siege<lb/>
+Martin Luther's bildet, hat an dem Franzosen Perrens einen<lb/>
+neuen Lebensbeschreiber gefunden, der seine merkwürdige Ge-<lb/>
+schichte nach vielen Seiten hin aufklärt und bereichert. Die<lb/>
+Bewegung, welche Savonarola hervorrief und leitete, war<lb/>
+vorherrschend eine politische; aber gleichzeitig war es ihm<lb/>
+um eine gründliche Reform der damals in so hervorstechende<lb/>
+Laster versunkenen Geistlichkeit zu thun und mit der Strenge<lb/>
+der Sitten, die er einführen wollte, war es ihm höchster<lb/>
+Ernst; auch paarte er das thätige Beispiel mit seiner Lehre.<lb/>
+Er wußte selbst die Kinder zu lenksamen Werkzeugen seines<lb/>
+Willens zu machen und spürte durch sie in Privatwohnun-<lb/>
+gen umher, um Putzsachen, profane Bücher und Bilder als<lb/>
+&#x201E;Werke des Teufels&#x201C; wegzunehmen und verbrennen zu lassen,<lb/>
+und seine Anhänger, die sogenannten Heuler ( <hi rendition="#aq">Piagnoni )</hi><lb/>
+tanzten ausgelassen um die Scheiterhaufen solcher Autodafés,<lb/>
+während die Dominikanermönche, mit Olivenlaub bekränzt,<lb/>
+Kirchenlieder dazu sangen. Jmmer höher thürmten sich end-<lb/>
+lich um Savonarola die Wogen des Sturms auf; Alle, die<lb/>
+er durch seine politischen oder religiösen Umgestaltungen ge-<lb/>
+reizt hatte, verständigten sich miteinander, ihn zu stürzen.<lb/>
+Der damalige Papst, Alexander <hi rendition="#aq">VI</hi>. fluchbedeckten Anden-<lb/>
+kens, versuchte sein Schweigen zu erkaufen und bot ihm einen<lb/>
+Kardinalshut an. &#x201E;Jch will keinen andern Hut&#x201C;, ließ ihm<lb/>
+der Dominikaner sagen, &#x201E;als den Märtyrerhut, rothgefärbt<lb/>
+in meinem eigenen Blute.&#x201C; Der Papst schleuderte nun<lb/>
+Breve auf Breve und drang in die Signoria, den verwege-<lb/>
+nen Mönch ihm auszuliefern. Die Signoria untersagte ihm<lb/>
+das öffentliche Predigen. Aber seine Feinde waren damit<lb/>
+nicht zufrieden; sie griffen ein Wort auf, welches er oft hatte<lb/>
+fallen lassen, wie er erbötig wäre, um die Wahrheit seiner<lb/>
+Lehre zu besiegeln, durch die Flammen zu gehen. Ein Fran-<lb/>
+ziskanermönch erbot sich seinerseits durch einen Gang durchs<lb/>
+Feuer zu beweisen, daß Savonarola ein Betrüger sei. Einer<lb/>
+seiner Schüler nahm die Herausfoderung an und die Probe<lb/>
+ward auf den 7. April 1498 festgesetzt. Aber die Unschlüssig-<lb/>
+keit der beiden Kämpen täuschte die ungeduldige Neugier der<lb/>
+Menge. Ein plötzlicher Regenguß verlöschte den Scheiterhau-<lb/>
+fen und die Probe unterblieb. Die Piagnoni, die blindlings<lb/>
+an ihres Meisters Wunderthätigkeit glaubten, sanken in tiefe<lb/>
+Entmuthigung und räumten ihren Gegnern das Feld. Am<lb/>
+folgenden Tage strömt der aufgeregte Pöbel vor das Kloster<lb/>
+St.=Markus. Nach einem blutigen Kampf, worin einige treue<lb/>
+Freunde zur Vertheidigung Savonarola's umsonst ihr Leben<lb/>
+opfern, überliefert er sich seinen Feinden und wird, die Hände<lb/>
+auf den Rücken gebunden, unter den rohesten Beschimpfun-<lb/>
+gen in den Kerker geführt. Die Reaction gegen den Besieg-<lb/>
+ten kennt nun keinen Zügel. Er wird auf die Folter ge-<lb/>
+legt. Die Jnfamie wird so weit getrieben, daß man seine<lb/>
+Antworten verfälscht. Die päpstlichen Agenten hatten eine<lb/>
+schon fertige Verdammungs=Urkunde mitgebracht, und am<lb/>
+23. Mai erleidet er mit zweien seiner Schüler auf dem Palast-<lb/>
+platze den Feuertod. Hatte er sich von dem Schmerze der<lb/>
+Folter überwältigen lassen &#x2014; dem Tode gegenüber stand er<lb/>
+groß und muthig da. Gewiß darf Jtalien Savonarola un-<lb/>
+ter die Zahl der großen Männer setzen, auf die es stolz zu<lb/>
+sein Ursache hat. Ja, er verdient überhaupt den hervorra-<lb/>
+genden Reformatoren angereiht zu werden, die im Dienste<lb/>
+des Erhabensten, der Religion, ihr Leben opferten.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Der englische Lieutenant Burton hat im vorigen<lb/>
+Jahre eine Reise nach Mekka und Medina gemacht und der<lb/>
+Londoner geographischen Gesellschaft einen Bericht über die-<lb/>
+selbe mitgetheilt. Da der Besuch der beiden genannten hei-<lb/>
+ligen Oerter des Jslam Nichtmohammedanern streng unter-<lb/>
+<cb n="2"/>
+sagt ist, so führte sich Burton unter der Maske eines afgha-<lb/>
+nischen Pilgers ein und seine in Jndien erlangte Kenntniß<lb/>
+der afghanischen Sprache machte ihm dies möglich. So ward<lb/>
+es ihm möglich, Medina unangefochten zu erreichen und die<lb/>
+Moschee mit dem Begräbnißplatze des Propheten zu besuchen;<lb/>
+ebenso hatte er in Mekka Gelegenheit, eine Ansicht der<lb/>
+Kaaba zu zeichnen und alle Merkwürdigkeiten des muselmän-<lb/>
+nischen Jerusalems in Augenschein zu nehmen.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Regula Engel ( vergleiche oben Nr. 83, S. 248 )<lb/>
+hatte an dem Schlachttage von Waterloo einen der schreck-<lb/>
+lichsten ihres Lebens. An ihm verlor sie ihren Gatten<lb/>
+und ihren vierten Sohn Florian. Der erst zehnjährige Jo-<lb/>
+seph focht an der Mutter Seite, als vor ihren Augen eine<lb/>
+Kugel ihm den Kopf zerschmetterte, daß sein Gehirn umher-<lb/>
+spritzte. Vor Verzweiflung außer sich schoß sie nach einem<lb/>
+englischen Reiter und verwundete ihn im Gesicht; als sie die<lb/>
+zweite Pistole abzudrücken im Begriff war, riß jener sie ihr<lb/>
+aus der Hand und schoß sie damit durch den Hals und<lb/>
+gleichzeitig versetzte ihr ein Grenadier einen Stich in die<lb/>
+rechte Seite, daß das Blut stromweise von ihr floß. Sie<lb/>
+ergab sich und ward ins Spital nach Brüssel geschafft, spä-<lb/>
+ter ins Hotel= Dieu nach Paris abgeführt. Hier besuchten<lb/>
+sie, da ihr Schicksal allgemeine Theilnahme hervorrief, auch<lb/>
+Kaiser Alexander und König Friedrich Wilhelm <hi rendition="#aq">III</hi>., betrach-<lb/>
+teten ihre am Bettgestell hängende Uniform und schieden<lb/>
+dann schweigend, doch so, daß der Kaiser ihr mit der Hand<lb/>
+seine Theilnahme bezeigte und am folgenden Tage 300 Ru-<lb/>
+bel in Gold und 25 versiegelte Flaschen Ungarweins zustellen,<lb/>
+auch das Anerbieten ihr machen ließ, daß, wenn sie nach<lb/>
+Petersburg kommen wolle, man ihr 15 Francs tägliches<lb/>
+Reisegeld und eine jährliche Pension zu ihrem Unterhalte an-<lb/>
+weisen werde, was sie aber aus Gesundheitsrücksichten ab-<lb/>
+lehnte.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Quickborn ist das Hauptitelwort einer Sammlung von<lb/>
+Volksgedichten in plattdeutscher Mundart, die so viele Freunde<lb/>
+gefunden hat, daß bereits eine zweite Auflage nöthig gewor-<lb/>
+den ist. Quickborn, altdeutsch <hi rendition="#aq">quecprunno</hi>, mittelhochdeutsch <lb/>
+<hi rendition="#aq">quecbrunne</hi>, ist soviel als fließende Quelle, lebendiger<lb/>
+Brunnen, von <hi rendition="#g">queck, quick</hi> == lebendig, frisch, keck,<lb/>
+( engl. <hi rendition="#aq">quick</hi> ) rasch, noch gebräuchlich in Quecksilber, Quecken-<lb/>
+wurzel, die immer lebendige Wurzel einer Grasart, Queck-<lb/>
+holder. ( Weckholder, Wachholder ) . <hi rendition="#g">Quickstreet</hi> sagt man<lb/>
+zu einem Menschen, der nicht still sitzen kann; <hi rendition="#g">quicken</hi> =-<lb/>
+erquicken, beleben. Quickborn nannten unsere Alten alle<lb/>
+Orte, wo sie perennirende Quellen fanden, daher dieser Name<lb/>
+als Dorfname zwei mal in Holstein, drei mal wenigstens in<lb/>
+Hannover vorkommt.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Der Hafer wird in Norwegen hauptsächlich zur Be-<lb/>
+reitung des sogenannten Fladbrots ( Fladens ) benutzt, wel-<lb/>
+ches dem schottischen Haferkuchen ( Bannock ) sehr ähnlich ist.<lb/>
+Man rollt einen Teig aus Hafermehl so dünn als möglich<lb/>
+aus, legt die einzelnen Fladen vermittelst eiserner Stöckchen<lb/>
+auf eine runde eiserne Platte, welche auf einem Dreifuße<lb/>
+über einem hellen Holzfeuer ruht und läßt dieselben dort un-<lb/>
+gefähr fünf Minuten backen, während welcher Zeit man sie<lb/>
+einige mal umwendet. Später schichtet man dieses Gebäck<lb/>
+auf einem Lattengerüste auf, etwa wie man es zum Aufhän-<lb/>
+gen der Schinken und Speckseiten in großen Wirthschaften<lb/>
+gebraucht. Frisch gegessen ist dieser Haferkuchen vortrefflich<lb/>
+und steht kaum dem Gebäck aus Weizenmehl nach.</p></div></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/><lb/>
+</body>     <back><div n="1" type="imprint"><p><hi rendition="#c">Verantwortlicher Redacteur: <hi rendition="#aq">M</hi>. J. E. Volbeding. &#x2014; Druck und Verlag von F. A. Brockhaus in Leipzig.</hi></p></div>     </back>   </text> </TEI>

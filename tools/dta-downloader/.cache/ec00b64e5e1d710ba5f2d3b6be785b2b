@@ -1,0 +1,942 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.deutschestextarchiv.de/basisformat.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">     <teiHeader>
+<fileDesc>
+<titleStmt>
+<title type="main">Das Pfennig-Magazin der Gesellschaft zur Verbreitung gemeinnütziger Kenntnisse</title>
+<title type="sub">Nr. 155</title>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/115266127">
+<surname>Geyken</surname>
+<forename>Alexander</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1222198746">
+<surname>Haaf</surname>
+<forename>Susanne</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1019062681">
+<surname>Jurish</surname>
+<forename>Bryan</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Boenig</surname>
+<forename>Matthias</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Thomas</surname>
+<forename>Christian</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Wiegand</surname>
+<forename>Frank</forename>
+</persName>
+</editor>
+<respStmt>
+<orgName>Institut für Deutsche Sprache, Mannheim</orgName>
+<resp>
+<note type="remarkResponsibility">Bereitstellung der Bilddigitalisate und TEI
+Transkription</note>
+<ref target="http://hdl.handle.net/10932/00-01B8-B04E-B7CE-7601-C"/>
+</resp>
+</respStmt>
+<respStmt>
+<persName>
+<forename>Peter</forename>
+<surname>Fankhauser</surname>
+</persName>
+<resp>
+<note type="remarkResponsibility">
+Transformation von TUSTEP nach TEI P5.
+Transformation von TEI P5 in das DTA TEI P5 Format.
+</note>
+</resp>
+</respStmt>
+<respStmt>
+<orgName ref="https://www.bbaw.de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<resp>
+<note type="remarkResponsibility">Langfristige Bereitstellung der DTA-Ausgabe</note>
+<ref target="https://www.bbaw.de"/>
+</resp>
+</respStmt>
+</titleStmt>
+<editionStmt><edition>Vollständige digitalisierte Ausgabe.</edition></editionStmt>
+<extent>
+<measure type="images">8</measure>
+<measure type="tokens">5549</measure>
+<measure type="types">2226</measure>
+<measure type="characters">38046</measure>
+</extent>
+<publicationStmt>
+<publisher xml:id="DTACorpusPublisher">
+<email>dta@bbaw.de</email>
+<orgName role="project">Deutsches Textarchiv</orgName>
+<orgName role="hostingInstitution" xml:lang="en">Berlin-Brandenburg Academy of Sciences and Humanities (BBAW)</orgName>
+<orgName role="hostingInstitution" xml:lang="de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<address>
+<addrLine>Jägerstr. 22/23, 10117 Berlin</addrLine>
+<country>Germany</country>
+</address>
+</publisher>
+<pubPlace>Berlin</pubPlace>
+<date type="publication">2025-10-24T08:35:16Z</date>
+<availability>
+<licence target="http://creativecommons.org/publicdomain/zero/1.0/">
+<p>Dieses Werk steht unter der "Creative Commons Namensnennung -
+Nicht kommerziell 3.0 Deutschland Lizenz" (CC BY-NC).</p>
+</licence>
+</availability>
+<idno>
+<idno type="URLWeb">https://www.deutschestextarchiv.de/nn_pfennig155_1836</idno>
+<idno type="URLXML">https://www.deutschestextarchiv.de/book/download_xml/nn_pfennig155_1836</idno>
+<idno type="URLHTML">https://www.deutschestextarchiv.de/book/download_html/nn_pfennig155_1836</idno>
+<idno type="URLText">https://www.deutschestextarchiv.de/book/download_text/nn_pfennig155_1836</idno>
+<idno type="DTADirName">nn_pfennig155_1836</idno>
+<idno type="DTAID">34756</idno>
+<idno type="URN">urn:nbn:de:kobv:b4-34756-9</idno>
+</idno>
+</publicationStmt>
+<sourceDesc>
+<bibl type="J">Das Pfennig=Magazin der Gesellschaft zur Verbreitung gemeinnütziger Kenntnisse. Nr. 155. Leipzig (Sachsen), 19. März 1836.</bibl>
+<biblFull>
+<titleStmt>
+<title level="m" type="main">Das Pfennig-Magazin der Gesellschaft zur Verbreitung gemeinnütziger Kenntnisse</title>
+<title level="m" type="sub">Nr. 155</title>
+</titleStmt>
+<editionStmt>
+<edition n="1"/>
+</editionStmt>
+<publicationStmt>
+<publisher/>
+<pubPlace>Leibzig (Sachsen)</pubPlace>
+<date type="publication">1836</date>
+</publicationStmt>
+</biblFull>
+<msDesc>
+<msIdentifier/>
+<physDesc>
+<typeDesc>
+<p>Fraktur</p>
+</typeDesc>
+</physDesc>
+</msDesc>
+</sourceDesc>
+</fileDesc>
+<encodingDesc>
+<editorialDecl>
+<p>
+<![CDATA[
+<p>Siehe Dokumentation</p>
+]]>
+</p>
+</editorialDecl>
+<tagsDecl>
+<rendition scheme="css" xml:id="aq">font-family:sans-serif</rendition>
+<rendition scheme="css" xml:id="b">font-weight:bold</rendition>
+<rendition scheme="css" xml:id="blue">color:blue</rendition>
+<rendition scheme="css" xml:id="c">display:block; text-align:center</rendition>
+<rendition scheme="css" xml:id="et">display:block; margin-left:2em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et2">display:block; margin-left:4em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et3">display:block; margin-left:6em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="f">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="fr">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="g">letter-spacing:0.125em</rendition>
+<rendition scheme="css" xml:id="i">font-style:italic</rendition>
+<rendition scheme="css" xml:id="in">font-size:150%</rendition>
+<rendition scheme="css" xml:id="k">font-variant:small-caps</rendition>
+<rendition scheme="css" xml:id="larger">font-size:larger</rendition>
+<rendition scheme="css" xml:id="red">color:red</rendition>
+<rendition scheme="css" xml:id="right">display:block; text-align:right</rendition>
+<rendition scheme="css" xml:id="s">text-decoration:line-through</rendition>
+<rendition scheme="css" xml:id="smaller">font-size:smaller</rendition>
+<rendition scheme="css" xml:id="sub">vertical-align:sub; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="sup">vertical-align:super; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="u">text-decoration:underline</rendition>
+<rendition scheme="css" xml:id="uu">border-bottom:double 3px #000</rendition>
+</tagsDecl>
+</encodingDesc>
+<profileDesc>
+<langUsage>
+<language ident="deu">(Früh-)Neuhochdeutsch</language>
+<language ident="deu">German</language>
+</langUsage>
+<textClass>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1main">Gebrauchsliteratur</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1sub">Zeitschrift</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">ready</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">mkhz1</classCode>
+</textClass>
+</profileDesc>
+</teiHeader>
+<text>     <front>
+<pb facs="#f0001" n="[89]"/>
+<titlePage type="heading"><docTitle><titlePart type="main"><hi rendition="#c #fr">Das Pfennig=Magazin<lb/>
+<hi rendition="#g">der</hi><lb/>
+Gesellschaft zur Verbreitung gemeinnütziger Kenntnisse.</hi></titlePart></docTitle><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<docImprint><hi rendition="#fr">Nr</hi>. 155. ]              <hi rendition="#c">Erscheint jeden Sonnabend.</hi>              <docDate><hi rendition="#right">[<hi rendition="#g">März</hi> 19, 1836.</hi></docDate>            </docImprint></titlePage><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+</front>     <body>       <div n="1" type="jArticle"><head><hi rendition="#fr"><hi rendition="#g">Schalthiere oder Conchylien</hi>.</hi></head><lb/>
+<figure/><lb/>
+<cb type="start"/>
+<p><hi rendition="#in">D</hi>ie Schalthiere, ein höchst merkwürdiges und mannich-<lb/>
+faltiges Thiergeschlecht, leben theils im Meere und in<lb/>
+Flüssen, theils auf dem Lande. Nach ihrer Schale wer-<lb/>
+den sie eingetheilt in Schnecken, wenn die Schale nur<lb/>
+aus einem Stücke besteht, und in Muscheln, wenn sie<lb/>
+aus mehren zusammengesetzt ist. Diese Schalen sind<lb/>
+außerdem aber sehr verschiedenartig gestaltet und noch<lb/>
+verschiedener gezeichnet, sodaß, wenn man diese Thiergat-<lb/>
+tung nach Gestalt, Zeichnung und Farbe der Schalen ord-<lb/>
+nen will, man eine große, fast nicht zu übersehende Menge<lb/>
+von Abarten erhält. Neuere Naturforscher haben daher<lb/>
+nicht die Schalen, sondern die inwohnenden Thiere selbst<lb/>
+in zwei Hauptclassen, die der Weichthiere und Ringel-<lb/>
+würmer gebracht. Die Schalen bildet sich das Thier selbst<lb/>
+aus einem kalkhaltigen Safte, den es ausschwitzt und<lb/>
+der dann leicht verhärtet. Es gibt bedeutende Samm-<lb/>
+lungen solcher Schalen, die nach ihrer Gestalt und Farbe<lb/>
+eigne, von andern ihnen ähnlichen Gegenständen ent-<lb/>
+lehnte Namen erhielten, wobei man freilich, um diese<lb/>
+Ähnlichkeiten zu finden, die Phantasie zu Hülfe nehmen<lb/>
+muß. Dies ganze Thiergeschlecht ist übrigens von den<lb/>
+Naturforschern noch wenig gekannt, weshalb wir zwölf<lb/>
+theils allgemein bekanntere, theils von Sammlern sehr<lb/>
+geschätzte Schnecken= und Muschelgattungen hier in treuen<lb/>
+Abbildungen geben.</p><lb/>
+<p>Nr. 1 ist der viel gefürchtete <hi rendition="#g">Bohrwurm,</hi><lb/>
+welcher durch Zerbohren des Holzes an Schiffen<lb/>
+<cb n="2"/>
+und Wasserbauen schon oft ungeheuern Schaden ange-<lb/>
+richtet hat. Den eigentlichen Wurm umgibt eine lange,<lb/>
+runde, vielgegliederte Schale, die das Thier nach Belie-<lb/>
+ben biegen kann, und mit einem am äußersten vordern<lb/>
+Ende derselben befindlichen Stachel bohrt es sich in das<lb/>
+Holz, von welchem es sich auch nähren soll. Kein Baum<lb/>
+ist diesem Thiere zu stark, kein Holz zu hart, in kurzer<lb/>
+Zeit ist die stärkste Bekleidung der Schiffe zerfressen, und<lb/>
+das Schiff würde sinken, wenn nicht sogleich Maßregeln<lb/>
+dagegen getroffen würden; aus diesem Grunde werden die<lb/>
+Seeschiffe gewöhnlich, so weit sie im Wasser gehen, mit<lb/>
+Kupfer, Zink und dergleichen beschlagen. Auch an Wasser-<lb/>
+bauen, Dämmen und dergleichen ist dieser Wurm, beson-<lb/>
+ders da er sich sehr schnell vermehrt, ein sehr gefährlicher<lb/>
+Feind. So war z. B. zu Anfange des 18. Jahrhunderts<lb/>
+das Holzwerk an den Dämmen, welche die niederlän-<lb/>
+dische Provinz Seeland gegen die Überschwemmungen des<lb/>
+Meeres schützen, in kurzer Zeit so durchbohrt wor-<lb/>
+den, daß man den baldigen Einsturz derselben und die<lb/>
+Überschwemmung des ganzen Landes fürchten mußte.<lb/>
+Glücklicherweise nahm aber noch zeitig genug der Feind,<lb/>
+aus unbekannten Ursachen, seinen Rückzug.</p><lb/>
+<p>Ein weit willkommenerer Gast ist die unter Nr. 2<lb/>
+dargestellte <hi rendition="#g">Auster.</hi> Sie lebt nur im Meere, zerfällt<lb/>
+in mehre Gattungen, von denen fast alle eßbar sind.<lb/>
+Der oft verschiedene Geschmack von Austern einer und<lb/>
+derselben Gattung rührt hauptsächlich von der Gegend<lb/>
+<cb type="end"/>
+<pb facs="#f0002" n="90"/>
+<fw place="top" type="header"> <hi rendition="#g">Das Pfennig=Magazin.</hi> </fw><cb type="start"/>
+her, wo sie gefangen werden, und von der Nahrung, welche<lb/>
+sie dort finden. Jndeß macht man auch eine schlechte<lb/>
+Auster dadurch schmackhaft, daß man sie eine Zeit lang<lb/>
+in besondere Behälter bringt, wo möglich in der Nähe<lb/>
+der Küsten, wo sie gefangen wurden, und hier gut füt-<lb/>
+tert. Die Auster ändert dann bald ihre Farbe und<lb/>
+wird kräftiger und schmackhafter.</p><lb/>
+<p>Weniger geschätzt als die Auster ist die sogenannte <lb/>
+<hi rendition="#g">eßbare Muschel</hi> Nr. 3. Auch von ihr gibt es ver-<lb/>
+schiedene Gattungen. Man findet sie in allen Meeren,<lb/>
+auch in stillen, süßen Wassern. Sie wachsen und ver-<lb/>
+mehren sich noch schneller als die Austern und häufen<lb/>
+sich an Küsten oft in solcher Menge an, daß sie das<lb/>
+Fahrwasser da, wo das Meer nur mäßig tief ist, förm-<lb/>
+lich versperren, und Schiffe oft die größte Mühe haben,<lb/>
+durchzukommen. Mehre Arten dieser Muschel werden<lb/>
+ihrer schönen Zeichnung wegen geschätzt.</p><lb/>
+<p>Die Muschel Nr. 4 führt den Namen der <hi rendition="#g">Feld-<lb/>
+cythere.</hi> Sie zeichnet sich durch ihre braunen, regel-<lb/>
+mäßigen Zackenlinien auf weißem Grunde aus. Cythe-<lb/>
+ren gibt es an 34 Arten. Einige derselben findet man<lb/>
+an den Kalkfelsen der französischen Küsten, ihre eigent-<lb/>
+liche Heimat aber ist das indische Meer.</p><lb/>
+<p>Von der folgenden Muschelgattung Nr. 5, die man<lb/>
+wegen ihrer Gestalt die <hi rendition="#g">Kammmuschel</hi> nennt, gibt es<lb/>
+mehr als 100 Arten. Sie sind den Austern an Gestalt sehr<lb/>
+ähnlich, können sich aber, während jene still liegen oder<lb/>
+an Felsen hängen, beliebig bewegen und kommen oft<lb/>
+auf die Oberfläche des Wassers. Einige dieser Muscheln<lb/>
+sind prächtig gezeichnet und werden häufig als Trink-<lb/>
+schalen mit Silber eingefaßt in den Handel gebracht,<lb/>
+auch bedienten sich schon die alten Römer solcher Scha-<lb/>
+len z. B. zu Salzfässern.</p><lb/>
+<p>Ebenfalls nach ihrer Gestalt hat man die Muschel<lb/>
+Nr. 6 die <hi rendition="#g">Arche Noah's</hi> genannt. Sie besteht wie<lb/>
+Nr. 2, 4 und 5 aus zwei Schalen, die das inwoh-<lb/>
+nende Thier öffnen und verschließen kann. Dieses hängt<lb/>
+sich mittels sehnenartiger Fäden, die es durch die Spalte<lb/>
+der Schale spinnt, an Felsen, zerreißt diese Fäden aber<lb/>
+wieder, so oft es sich an einen andern Ort begeben will.<lb/>
+Man findet diese Muscheln an den Antilleninseln, im<lb/>
+mittelländischen Meere, an den Küsten Afrikas und im<lb/>
+rothen Meere; sie sind eine Lieblingsspeise der Araber.</p><lb/>
+<p>Die <hi rendition="#g">Schnecke,</hi> Nr. 7, kommt in fast unzähli-<lb/>
+gen Abarten vor. Man findet sie überall, große, kleine,<lb/>
+bunte und einfarbige. Die große Schnecke mit graugel-<lb/>
+bem Hause wird häufig als Delicatesse verspeist.</p><lb/>
+<p>Die kreisförmige Muschel Nr. 8 heißt die <hi rendition="#g">Son-<lb/>
+nenuhr.</hi> Auch von ihr unterscheidet man nach der<lb/>
+Zeichnung verschiedene Arten. Die hier abgebildete ist<lb/>
+die gestreifte Sonnenuhr. Diese Muschelgattung findet<lb/>
+sich nur im indischen Meere.</p><lb/>
+<p>Nach ihrer Ähnlichkeit mit einem Helme wird die<lb/>
+Muschel Nr. 9 die <hi rendition="#g">Helmmuschel</hi> genannt. Man<lb/>
+zählt deren 21 Arten. Unter ihnen zeichnet sich durch<lb/>
+Schönheit und Größe die gestrickte Helmmuschel beson-<lb/>
+ders aus.</p><lb/>
+<p>Zwei sehr schöne Muschelgattungen sind die un-<lb/>
+ter Nr. 10 und 11 abgebildeten <hi rendition="#g">Porzellanmuscheln,</hi><lb/>
+so genannt wegen ihrer schön polirten, mit prächtigen<lb/>
+Farben und Zeichnungen geschmückten Schalen. Diese<lb/>
+Muscheln finden sich in allen Meeren, am schönsten aber<lb/>
+in den tropischen, und kommen häufig zu Dosen verar-<lb/>
+beitet in den Handel.</p><lb/>
+<p>Ähnlich gestaltet wie die vorige, nur weit größer,<lb/>
+ist Nr. 12, die <hi rendition="#g">Mützen-</hi> oder <hi rendition="#g">Kegelmuschel,</hi> die<lb/>
+zu den Zierden jeder Muschelsammlung gehört. Sie hält<lb/>
+sich nur auf dem Meeresgrunde auf und ist deshalb<lb/>
+<cb n="2"/>
+schwer zu fangen. Es gibt mehre sehr schön gezeich-<lb/>
+nete Arten dieser Muschelgattung, die nach der Schön-<lb/>
+heit der Zeichnung besondere Ehrennamen erhalten<lb/>
+haben. So heißt eine derselben <hi rendition="#aq">Cedo nulli</hi>, d. h. ich<lb/>
+weiche keiner, eine andere die Kaiser=, eine dritte die<lb/>
+Königsmuschel; wieder andere kennt der Muschelsamm-<lb/>
+ler unter den Namen Cardinal, Erzbischof, Bischof,<lb/>
+Gouverneur, Commandant, Gesandter u. s. w. Von<lb/>
+der Kegelmuschel gibt es viele Arten, und unter jedem<lb/>
+der angeführten Namen begreift man wieder mehre<lb/>
+Spielarten, unterschieden durch Farbe und Zeichnung.<lb/>
+Für Muscheln dieser Art zahlt der Kenner oft große<lb/>
+Summen, und in Frankreich wurde zu Anfange des<lb/>
+18. Jahrhunderts noch für eine <hi rendition="#aq">Cedo nulli</hi> 1000 Francs<lb/>
+bezahlt, und für noch seltenere und ebenso schöne Mu-<lb/>
+scheln zahlt man noch heute wol das Dreifache. Die<lb/>
+meisten dieser Muschelarten finden sich in dem tropischen<lb/>
+Meere, nur einige weniger geschätzte in dem mittellän-<lb/>
+dischen.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Der Raub der englischen Kronjuwelen.</hi></head><lb/>
+<p><hi rendition="#in">Z</hi>u den besondern Merkwürdigkeiten, auf welche der<lb/>
+Spießbürger Londons den Fremden vorzugsweise auf-<lb/>
+merksam machen zu müssen glaubt, gehören auch<lb/>
+die Herrlichkeiten, welche der alterthümliche Tower<lb/>
+in seinen festen Thürmen, dunklen Gewölben und gro-<lb/>
+ßen Hallen birgt, von denen aber wieder die Kronju-<lb/>
+welen als das Jnteressanteste bezeichnet werden. <note place="foot" n="*)">Vergl. über den Tower Pfennig=Magazin Nr. 82, wo<lb/>
+auch die Kronjuwelen ausführlich beschrieben sind.</note> Da-<lb/>
+her wallfahrten auch noch jetzt jährlich viele Hunderte<lb/>
+zum Beschauen der alten Kronen und sonstigen Reichs-<lb/>
+insignien, so sehr auch dasselbe jetzt erschwert und<lb/>
+mit lästigen Formalitäten verbunden ist. Die Ver-<lb/>
+anlassung zu diesen außerordentlichen Vorsichtsmaß-<lb/>
+regeln, die vielleicht mancher unserer deutschen Lands-<lb/>
+leute unangenehm genug empfunden hat, ist in ihren<lb/>
+Einzelheiten noch so wenig bekannt, daß wir auf den<lb/>
+Dank unserer Leser rechnen zu dürfen glauben, wenn<lb/>
+wir dieselbe nach authentischen Berichten in diesen Blät-<lb/>
+tern mittheilen.</p><lb/>
+<p>Erst seit der Regierung Karl <hi rendition="#aq">II</hi>. wurden die<lb/>
+Reichsinsignien in dem Tower öffentlich ausgestellt und<lb/>
+dem Volke der Zutritt zu denselben gegen Erlegung ei-<lb/>
+nes bestimmten Eintrittsgeldes gestattet. Die Oberauf-<lb/>
+sicht über dieselben führte damals Sir Gilbert Talbot,<lb/>
+welcher es einem alten, treuen und zuverlässigen Die-<lb/>
+ner seines väterlichen Hauses, einem gewissen Talbot<lb/>
+Edwards, überließ, die schaulustigen Fremden herumzu-<lb/>
+führen und ihnen die Herrlichkeiten der Königswürde<lb/>
+in ihren Symbolen zu zeigen. Sein Name ist eng<lb/>
+verknüpft mit der Geschichte des Raubversuches, wel-<lb/>
+ches 1673 ausgeführt wurde, indem ein gewisser Blood,<lb/>
+der Sohn eines irländischen Grobschmieds, ein zu jedem<lb/>
+Bubenstücke fähiger und entschlossener Mensch, es ver-<lb/>
+suchte, sich der Juwelen, die seine Raubsucht gereizt<lb/>
+hatten, zu bemächtigen. Um dies bewerkstelligen zu<lb/>
+können, verschaffte sich dieser durchtriebene Schurke<lb/>
+unter der Maske und im vollen Ornat eines Geist-<lb/>
+lichen in Begleitung eines Weibes, das er seine<lb/>
+Frau nannte, Eingang in den Tower und wünschte,<lb/>
+die Kronjuwelen zu sehen; kaum aber waren sie in das<lb/>
+Zimmer getreten, als die Dame plötzlich unwohl zu<lb/>
+werden vorgab und die freundlichen Dienstleistungen der<lb/>
+Frau Edwards in Anspruch nahm. Diese brachte die<lb/>
+<cb type="end"/>
+<pb facs="#f0003" n="91"/>
+<fw place="top" type="header"><hi rendition="#g">Das Pfennig=Magazin.</hi> </fw><cb type="start"/>
+Kranke sogleich in ihre Wohnung, wo dieselbe bald<lb/>
+wieder sich wohl fühlte und dankbar für die erfahrene<lb/>
+Freundlichkeit von den ehrlichen, nichts Böses ahnen-<lb/>
+den Leuten schied. Wenige Tage darauf kam Blood<lb/>
+wieder, um der Frau Edwards im Namen der Seini-<lb/>
+gen einige Paar weißer Handschuhe zum Geschenk zu<lb/>
+bringen; nachdem so die erste Bekanntschaft ange-<lb/>
+knüpft war, wurde nichts versäumt, dieselbe durch<lb/>
+immer häufigere Besuche inniger zu machen, bis end-<lb/>
+lich der verschmitzte Schelm durch den Vorschlag ei-<lb/>
+ner Heirath zwischen der Tochter Edwards und einem<lb/>
+vorgeblichen Neffen Blood's, der gegen 1000 Thaler<lb/>
+jährliche sichere Einkünfte haben sollte, die guten, ehr-<lb/>
+lichen Leute ganz sicher machte. Die Einwilligung des<lb/>
+alten Edwards brauchte nicht erst erbeten zu werden;<lb/>
+mit Freuden willigte er in eine Verbindung, in wel-<lb/>
+cher er das Glück seines Kindes zu sehen glaubte, und<lb/>
+lud den vorgeblichen Prediger ein, nächstens mit ihm<lb/>
+zu Mittag zu essen, um das Vorhaben weiter bespre-<lb/>
+chen zu können. Blood nahm die Einladung an, über-<lb/>
+nahm es als Geistlicher, der Sitte gemäß das Tischge-<lb/>
+bet zu sprechen, wobei er in Wort und Haltung die<lb/>
+tiefste Andacht heuchelte und mit einem inbrünstigen<lb/>
+Gebete für den König und die königliche Familie schloß.<lb/>
+Nach Tische ließ er sich in den übrigen Zimmern, wel-<lb/>
+che zur Wohnung des Aufsehers gehörten, herumfüh-<lb/>
+ren, und da er hier ein Paar schöne Pistolen hängen<lb/>
+sah, wünschte er dieselben zu kaufen, vielleicht um auf diese<lb/>
+Weise dem alten Manne auch die letzten Mittel zur<lb/>
+Vertheidigung zu entziehen. Beim Weggehen bestimmte<lb/>
+er Tag und Stunde, wo er seinen jungen Nef-<lb/>
+fen einführen und der ihm bestimmten Braut vor-<lb/>
+stellen wollte. An diesem Tage war der alte Ed-<lb/>
+wards früher als gewöhnlich aufgestanden, um seinen<lb/>
+werthen Freund gehörig empfangen zu können, seine Toch-<lb/>
+ter aber hatte alle Kunst des Anzuges aufgeboten, um<lb/>
+ihrem Zukünftigen recht zu gefallen, als Blood mit<lb/>
+drei Begleitern, die alle mit Stockdegen, Dolchen und<lb/>
+Pistolen bewaffnet waren, ankam. Zwei von diesen seinen<lb/>
+Begleitern traten mit ihm ins Haus, der dritte aber<lb/>
+blieb an der Thüre stehen, indem er glauben ließ, es liege<lb/>
+ihm mehr daran, die schöne Tochter des Hauses zu se-<lb/>
+hen, in der That aber sollte er hier Wache halten und<lb/>
+seine Spießgesellen vor Überrumpelung sichern. Das<lb/>
+junge Mädchen, die es nicht für schicklich hielt, herun-<lb/>
+terzukommen, bevor sie von ihrem Vater gerufen wurde,<lb/>
+aber doch gern den ihr bestimmten Gemahl kennen ler-<lb/>
+nen wollte, schickte in dem Drange ihrer Neugierde<lb/>
+ihr Dienstmädchen herab, um ihr eine Beschreibung<lb/>
+von den Begleitern des Herrn Blood zu bringen.<lb/>
+Diese aber hielt, wie leicht zu erklären ist, den auf-<lb/>
+merksamen jungen Mann, der an der Thüre zurückge-<lb/>
+blieben war und unverwandt nach den Fenstern ihrer<lb/>
+Herrin hinaufsah, für den hoffenden Bräutigam, und<lb/>
+brachte eine sehr günstige Schilderung von ihm zu-<lb/>
+rück. Während dessen sagte Blood zu Edwards, sie<lb/>
+wollten nicht eher hinauf zu den Frauen gehen, bis<lb/>
+die seinige kommen würde, und schlug vor, während<lb/>
+der Zeit die Kronjuwelen seinen Freunden zu zeigen.<lb/>
+Kaum aber waren sie in den Saal getreten und Edwards<lb/>
+hatte, wie gewöhnlich, die Thüre hinter sich verschlos-<lb/>
+sen, als die Bösewichter dem alten Manne einen Man-<lb/>
+tel über den Kopf warfen und einen Knebel ihm in<lb/>
+den Mund drehten. Als sie so jeden Widerstand von<lb/>
+seiner Seite unmöglich gemacht, sagten sie ihm, sie<lb/>
+müßten die Krone, den Reichsapfel und das Scepter<lb/>
+haben; würde er ihnen diese geben oder dieselben neh-<lb/>
+men lassen, so wollten sie ihm das Leben schenken;<lb/>
+<cb n="2"/>
+sonst habe er keine Gnade zu erwarten. Hierauf<lb/>
+strengte sich der alte Mann aus allen Kräften an,<lb/>
+so laut zu rufen, daß man ihn oben hören möchte,<lb/>
+wofür ihn die Nichtswürdigen mit einem hölzernen<lb/>
+Schlegel niederschlugen unter der wiederholten Ver-<lb/>
+sicherung, daß sie ihm nur unter der Bedingung das<lb/>
+Leben schenken könnten, daß er sich ruhig verhaltet,<lb/>
+wo nicht, so würden sie ihn beim nächsten Versuche,<lb/>
+sie zu verrathen, tödten. Doch ließ sich der ehrliche Ed-<lb/>
+wards durch alle diese Drohungen nicht einschüchtern,<lb/>
+sondern versuchte nur, um so lauter zu schreien, em-<lb/>
+pfing aber dafür auch sogleich noch einige Schläge<lb/>
+auf den Kopf und einen Dolchstoß in den Unter-<lb/>
+leib, in Folge dessen er die Besinnung verlor, sodaß ei-<lb/>
+ner der Räuber ihn für todt erklärte. Edwards je-<lb/>
+doch war indessen wieder zu sich gekommen, hiel-<lb/>
+es aber unter so bewandten Umständen für das Beste,<lb/>
+die Räuber in ihrem Wahne zu lassen, als sei er<lb/>
+wirklich todt. Diese theilten nun die Beute; der eine<lb/>
+von ihnen, Namens Parrot, ein Seidenfärber und<lb/>
+früher Offizier unter Cromwell, steckte den Reichsapfel<lb/>
+in seine weiten Pluderhosen; Blood nahm die Krone<lb/>
+unter seinen Mantel, und der Dritte war eben im<lb/>
+Begriffe, das Scepter entzwei zu feilen, um es in<lb/>
+einen ledernen Beutel zu stecken, den man eigens<lb/>
+dazu mitgebracht hatte, als glücklicherweise der Sohn<lb/>
+des alten Edwards, der mit Sir John Talbot in<lb/>
+Flandern gewesen war, unvermuthet ankam. Zwar<lb/>
+fragte ihn der als Wachposten an der Thüre aufgestellte<lb/>
+Raubgenosse, zu wem er wolle, und versuchte ihn auf-<lb/>
+zuhalten; der junge Mann indeß antwortete, er gehöre<lb/>
+zum Hause, und eilte vor Freude, die Seinen wie-<lb/>
+der zu sehen, ungeduldig die Treppe hinauf. Dieser<lb/>
+unerwartete Zufall setzte die Räuber in die größte Be-<lb/>
+stürzung, und sie machten sich augenblicklich mit Krone<lb/>
+und Reichsapfel aus dem Staube, ließen aber das noch<lb/>
+unzerfeilte Scepter zurück.</p><lb/>
+<p>Jetzt kam der gemishandelte, treue Wächter sei-<lb/>
+ner Schätze völlig wieder zu sich, richtete sich auf, riß<lb/>
+mit Anstrengung den Knebel aus dem Munde und<lb/>
+schrie: &#x201E;Verrath, Mörder!&#x201C; Seine Tochter, welche wol<lb/>
+einen ganz andern Ruf erwartet hatte, hörte den Schrei,<lb/>
+lief hinaus und wiederholte ihn. Bald wurde der<lb/>
+Lärm allgemein und die Veranlassung bekannt; der<lb/>
+junge Edwards und sein Schwager, Capitain Beck-<lb/>
+man, setzten den Räubern nach, welche indessen schon<lb/>
+durch einen Thorwärter waren aufgehalten worden; aber<lb/>
+Blood schoß sein Pistol auf diesen ab, der auch zu-<lb/>
+sammenstürzte, obgleich er nicht getroffen war, und die<lb/>
+Diebe setzten ungehindert ihren Weg durch die übrigen<lb/>
+Thore und über die Zugbrücke fort. Draußen warte-<lb/>
+ten ihre Pferde, auf welche sie sich warfen und im<lb/>
+schnellsten Galopp den Tower entlang ritten, indem sie<lb/>
+aus vollem Halse riefen: &#x201E;Halt die Spitzbuben!&#x201C; bis<lb/>
+endlich Capitain Beckman sie einholte. Zwar feuerte<lb/>
+Blood auch auf ihn ein Pistol ab, fehlte ihn aber und<lb/>
+ward festgenommen. Unter dem Mantel des kühnen<lb/>
+Diebes fand man die Krone, und obgleich er sich ge-<lb/>
+fangen sah, hatte er doch noch die Unverschämtheit,<lb/>
+sich herumzubalgen, und als seine Beute ihm end-<lb/>
+lich mit Gewalt genommen wurde, sagte er: &#x201E;Der<lb/>
+Versuch war wenigstens der Mühe werth, wenn auch<lb/>
+nicht glücklich; es galt ja eine Krone!&#x201C;</p><lb/>
+<p>Auch Parrot wurde ergriffen; aber Hunt, Blood's<lb/>
+Schwiegersohn, entkam und wurde erst später aufgefun-<lb/>
+den und in sichern Gewahrsam gebracht. Bei dieser<lb/>
+Gelegenheit gingen die große Perle, der große Diamant<lb/>
+und einige kleinere Steine verloren, wurden jedoch spä-<lb/>
+<cb type="end"/>
+<pb facs="#f0004" n="92"/>
+<fw place="top" type="header"> <hi rendition="#g">Das Pfennig=Magazin.</hi> </fw><cb type="start"/>
+ter fast sämmtlich wiedergefunden und zurückerstattet;<lb/>
+so auch der große Rubin vom Scepter, den man<lb/>
+in Parrot's Tasche fand. Sobald die Gefangenen<lb/>
+in sicherer Haft waren, eilte der junge Edwards<lb/>
+zu Sir Gilbert Talbot, um demselben, als dem<lb/>
+Oberschatzmeister, Bericht über den Vorfall zu erstat-<lb/>
+ten. Sir Gilbert ging sofort zum Könige, um die-<lb/>
+sen davon in Kenntniß zu setzen, und erhielt von ihm<lb/>
+den Befehl, ungesäumt sich in den Tower zu verfügen,<lb/>
+den Thatbestand zu untersuchen, Blood und seine<lb/>
+Raubgenossen zu verhören und hierauf das Nähere zu<lb/>
+berichten. Kaum war jedoch Sir Gilbert fort, so fiel<lb/>
+es dem Könige ein, dem Verhöre in eigner Person bei-<lb/>
+zuwohnen; man ließ daher die Gefangenen nach White-<lb/>
+hall bringen, ein Umstand, der höchst wahrscheinlich<lb/>
+die kühnen Räuber von dem Galgen rettete. Blood,<lb/>
+der vorher schon einmal als Anführer eines Complotts<lb/>
+gegen den Herzog von Ormond in Verdacht gewesen<lb/>
+war, wurde bei seinem Verhöre wegen des Kronenrau-<lb/>
+bes über jene Sache befragt und gestand auch ohne<lb/>
+Umstände ein, daß er dabei betheiligt gewesen sei, wei-<lb/>
+gerte sich aber auf das Bestimmteste, irgend einen seiner<lb/>
+Mitschuldigen zu nennen.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr"><hi rendition="#g">Wirkung des Lichts</hi>.</hi></head><lb/>
+<p><hi rendition="#in">E</hi>in englischer Schriftsteller leitet seine Bemerkungen<lb/>
+über den wichtigen Einfluß des Lichts auf die Entwi-<lb/>
+ckelung und Erhaltung des thierischen Lebens durch eine<lb/>
+interessante Beobachtung ein. Ein englischer Naturfor-<lb/>
+scher verschaffte sich eine große Anzahl von Froschlarven<lb/>
+oder unausgebildeten Fröschen in dem Mittelzustande, wo<lb/>
+sie noch keine Gliedmaßen, sondern nur einen Schwanz<lb/>
+haben, stets im Wasser leben und wie die Fische durch<lb/>
+Kiemen athmen. Er sonderte sie in zwei Theile, setzte<lb/>
+sie unter völlig gleichen Umständen wieder in das Was-<lb/>
+ser, jedoch so, daß ein Theil dem Lichte ausgesetzt, der<lb/>
+andere aber von dem Einflusse desselben ausgeschlossen<lb/>
+war. Dies hatte die Wirkung, daß die Ausbildung<lb/>
+der im Dunkeln befindlichen Froschlarven zurückgehalten<lb/>
+wurde, und während die im Lichte lebenden bald zu<lb/>
+vollkommenen Fröschen geworden waren, behielten mehre<lb/>
+der andern ihre Larvengestalt, wiewol sie sehr gewachsen<lb/>
+waren. Gewiß läßt sich annehmen, sagt jener Schrift-<lb/>
+<cb n="2"/>
+steller, daß das Licht, das eine so auffallende Wir-<lb/>
+kung auf geringere Thiere, wie bekanntlich auch auf<lb/>
+Pflanzen hat, auch auf den Menschen Einfluß haben<lb/>
+müsse, und ohne Zweifel darf man dieser Ursache nicht<lb/>
+blos das besondere Ansehen der Bewohner tiefer und<lb/>
+schattiger Thäler und das häufige Vorkommen von Ver-<lb/>
+krüppelten und Kretinen zuschreiben, sondern auch die<lb/>
+bleiche und kränkliche Farbe der Bewohner enge gebau-<lb/>
+ter Städte, im Gegensatze der blühenden Farbe auf den<lb/>
+Wangen der Landleute. Die Enge der Straßen, fährt<lb/>
+der Verfasser fort, und die Höhe der Häuser finden den<lb/>
+freien Zugang des Lichts, und da sich diesem Übel nicht<lb/>
+gänzlich abhelfen läßt, so ist es sehr wichtig, die ein-<lb/>
+fallenden Sonnenstrahlen so viel als möglich zu benutzen.<lb/>
+Dies ist bei weitem nicht genug der Fall. Die dun-<lb/>
+keln, oft ganz geschwärzten äußern Mauern der Häuser<lb/>
+saugen fast alles auf sie fallende Licht ein, und es<lb/>
+wird daher wenig Licht durch die Reflexion gewonnen.<lb/>
+Das Weißen der Häuser ist ein leichtes Mittel, und<lb/>
+es sollte in engen Straßen regelmäßig und jährlich an-<lb/>
+gewendet werden. Die spätere Herbstzeit wäre dazu am<lb/>
+angemessensten, da das frische Weiß dann für die kur-<lb/>
+zen und trüben Tage einigen Ersatz geben würde. Ehe<lb/>
+die Rückkehr längerer und hellerer Tage die vorherrschende<lb/>
+weiße Farbe den Augen nachtheilig machen könnte, würde<lb/>
+durch den winterlichen Rauch der zahlreichen Feueressen<lb/>
+und andere Einflüsse die blendende Farbe schon gemil-<lb/>
+dert sein. Auch würde dadurch die Wirkung der Stra-<lb/>
+ßenlampen erhöht werden. Diese Bemerkungen scheinen<lb/>
+uns so treffend zu sein, daß sie die Aufmerksamkeit der<lb/>
+Wohlfahrtspolicei verdienen.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle" xml:id="Mexico2"><head><hi rendition="#fr"><hi rendition="#g">Mexico</hi>.</hi><lb/>
+<ref target="nn_pfennig154_1836#Mexico1">( Fortsetzung aus Nr. 154. )</ref></head><lb/>
+<p><hi rendition="#in">N</hi>ach den Erläuterungen, die wir über das mexi-<lb/>
+canische Alterthum gegeben haben, lassen wir nun Ab-<lb/>
+bildungen folgen, deren einige die oben mitgetheilten Be-<lb/>
+merkungen über die Malerei und die Bilderschrift der<lb/>
+Mexicaner deutlicher machen werden. Jn der ersten<lb/>
+sehen wir mexicanische Trachten aus der Zeit, wo die<lb/>
+Spanier in das Land drangen. Fig. 1 und 2 zeigen<lb/>
+uns Krieger. Der erste hat einen Küraß von Baum-<lb/>
+wollenzeuch und einen Schild, der zweite aber ist nackt       <cb type="end"/>
+<figure>         <head>  Mexicanische Gemälde.  </head>       </figure><lb/>
+<pb facs="#f0005" n="93"/>
+<fw place="top" type="header"><hi rendition="#g">Das Pfennig=Magazin.</hi> </fw>       <cb type="start"/>
+und sein Leib in ein Netz mit großen Maschen gewickelt,<lb/>
+das er seinem Feinde über dem Kopf warf. Fig. 3 ist<lb/>
+Montezuma, der Beherrscher Mexicos, in einer Hof-<lb/>
+kleidung, wie er sie in seinem Palaste trug. Das Ober-<lb/>
+kleid ist mit Perlen besetzt. Sein Haar ist auf dem<lb/>
+Wirbel zusammengefaßt und mit einem rothen Bande<lb/>
+gebunden, der Auszeichnung tapferer Heerführer. Er<lb/>
+trägt ein Halsband von Edelsteinen, und in der einen<lb/>
+Hand Blumen, in der andern ein Rohr mit einem Be-<lb/>
+hältnisse, worin wohlriechendes Harz sich befand. Seine<lb/>
+Füße sind nackt, wie denn überhaupt die mexicanischen<lb/>
+<cb n="2"/>
+Maler Könige und Vornehme so darstellten, um anzu-<lb/>
+deuten, daß dieselben nicht dazu geboren seien, sich ihrer<lb/>
+Füße zu bedienen, sondern stets in einem Palankin auf<lb/>
+den Schultern ihrer Diener getragen zu werden.</p><lb/>
+<p>Die Darstellungen der folgenden Abbildung zeigen uns<lb/>
+verschiedene Ereignisse in mexicanischer Bilderschrift. Fig. 1<lb/>
+deutet die Ankunft des ersten spanischen Bischofs in Mexico<lb/>
+im Jahr 1532 an, Fig. 2 seinen Tod 1549. Die Fuß-<lb/>
+tapfen bezeichnen die Ankunft und der angehängte Schädel<lb/>
+bedeutet den Tod, während die Zahlzeichen die Zeit an-<lb/>
+deuten. Fig. 3 soll gefallenen Schnee bedeuten, der große       <cb type="end"/>
+<figure>         <head>  Mexicanische Bilderschrift.  </head>       </figure><lb/>
+<pb facs="#f0006" n="94"/>
+<fw place="top" type="header"> <hi rendition="#g">Das Pfennig=Magazin.</hi> </fw>       <cb type="start"/>
+Sterblichkeit verursachte, da das frisch gesäete Getreide da-<lb/>
+durch zu Grunde gerichtet ward. Fig. 4 bezeichnet die<lb/>
+Taufe eines Jndianers durch einen spanischen Priester;<lb/>
+Fig. 5 den Aufstand und die Bestrafung der Neger in<lb/>
+Mexico im Jahre 1537; Fig. 6 die Erscheinung zweier<lb/>
+Kometen, die bildlich durch ein Ungethüm angedeutet<lb/>
+werden, in den Jahren 1490 und 1529, und Fig. 7<lb/>
+die durch die Pocken unter den Mexicanern angerichteten<lb/>
+Verheerungen im Jahre 1538.</p><lb/>
+<p>Wir haben ein Bild des gesellschaftlichen Zustan-<lb/>
+des zu geben versucht, worin sich die Bewohner Mexi-<lb/>
+cos befanden, als die Spanier ankamen, und wollen<lb/>
+nun, ehe wir zu der Schilderung der alten Hauptstadt<lb/>
+übergehen, einen Blick auf die Geschichte des Landes<lb/>
+seit der Eroberung werfen. Die Spanier hatten seit<lb/>
+1508 die Jnsel Cuba aufgefunden und schon lange nach<lb/>
+den Goldländern im Westen des amerikanischen Fest-<lb/>
+landes getrachtet, als 1519 der spanische Statthalter<lb/>
+auf Cuba dem tapfern Ferdinand Cortez den Auf-<lb/>
+trag gab, Mexico zu unterjochen. Kaum aber war Cor-<lb/>
+tez von Cuba abgesegelt, da gebot ihm der Statthalter,<lb/>
+den Oberbefehl abzugeben. Erbittert über diese Krän-<lb/>
+kung und von seinen Kriegern unterstützt, beschloß Cor-<lb/>
+tez, das Unternehmen auf eigne Gefahr mit 500 Mann<lb/>
+Fußvolk und 60 Reitern zu wagen. Montezuma be-<lb/>
+herrschte damals Mexico, dem einige benachbarte Län-<lb/>
+der unterworfen waren. Cortez landete und verbrannte<lb/>
+seine Schiffe, um seinen Gefährten jede Hoffnung der<lb/>
+Rückkehr abzuschneiden. Er baute an der Küste die<lb/>
+Feste Vera Cruz und brach dann gegen Mexico auf.<lb/>
+Nach einem beschwerlichen Zuge kamen die Spanier in<lb/>
+die weite fruchtbare Ebene, wo die Hauptstadt aus ei-<lb/>
+nem großen See mit ihren Tempeln und Thürmen so<lb/>
+prachtvoll hervorstieg, daß sie in das Land der Träume<lb/>
+versetzt zu sein glaubten. Vor den Thoren der Stadt<lb/>
+angekommen, sahen sie einen langen Zug vornehmer<lb/>
+Männer, die mit Federn geschmückt waren und Män-<lb/>
+tel von feinem Baumwollenzeuch trugen. Ehrerbietig<lb/>
+grüßten sie den spanischen Heerführer und verkündigten<lb/>
+die Ankunft Montezuma's, der bald nachher in könig-<lb/>
+licher Pracht erschien. Er ward in einer Sänfte von<lb/>
+vier Dienern getragen, während andere einen zierlich<lb/>
+gearbeiteten Baldachin über seinem Haupte hielten. Voran<lb/>
+gingen drei Hofbeamte mit goldenen Stäben in der Hand,<lb/>
+die sie von Zeit zu Zeit erhoben, worauf alle anwe-<lb/>
+senden Mexicaner demüthig das Haupt senkten. Monte-<lb/>
+zuma stieg aus der Sänfte und, gestützt auf zwei sei-<lb/>
+ner nächsten Verwandten, näherte er sich langsam den<lb/>
+Spaniern, während seine Begleiter die Straße mit<lb/>
+baumwollenen Zeuchen bedeckten, damit sein Fuß nicht<lb/>
+den Boden berühre. Nach der feierlichen Begrüßung<lb/>
+führte Montezuma den Anführer mit allen Kriegern<lb/>
+in einen großen Palast und schied dann mit den Wor-<lb/>
+ten: &#x201E;Du bist nun mit deinen Brüdern in deinem eig-<lb/>
+nen Hause; erfrischt euch nach euren Beschwerden und<lb/>
+seid glücklich, bis ich wiederkomme.&#x201C;</p><lb/>
+<p>Die erste Sorge des spanischen Heerführers war,<lb/>
+an seine Sicherheit zu denken, und da der Palast mit<lb/>
+einer Mauer umgeben war, so ward es ihm leicht, sich<lb/>
+gegen jeden Überfall zu schützen. Jn den Abendstun-<lb/>
+den kehrte Montezuma zurück und es erfolgte eine lange<lb/>
+Besprechung, worin er seine abergläubige Ehrfurcht ge-<lb/>
+gen die Fremdlinge verrieth, und, wie die Spanier er-<lb/>
+zählen, sie als die Herren seines Gebiets erkannte. Am<lb/>
+nächsten Morgen wurden Cortez und seine vornehmsten<lb/>
+Offiziere vor Montezuma geführt und brachten dann die<lb/>
+nächsten drei Tage damit zu, die wundervolle Stadt<lb/>
+zu besehen.</p><lb/>
+<cb n="2"/>
+<p>Mexico, von den Azteken im Jahre 1325 erbaut<lb/>
+und anfänglich Tenochtitlan genannt, lag auf einer Jn-<lb/>
+sel im See Tezcuco und war mit dem Festlande durch<lb/>
+drei Dämme verbunden. Ein vierter Dammweg war<lb/>
+die Grundlage einer Wasserleitung, welche der Stadt<lb/>
+Wasser aus der Nachbarschaft zuführte, da der See kein<lb/>
+gutes Trinkwasser gab. Die Stadt war sehr regelmä-<lb/>
+ßig gebaut und ein Soldat im spanischen Heere, der<lb/>
+eine getreue Geschichte der Eroberung Mexicos hinterlas-<lb/>
+sen hat, verglich sie wegen der genau abgemessenen An-<lb/>
+ordnung ihrer Freiplätze mit einem ungeheuern Schach-<lb/>
+bret. Jeder Freiplatz war mit Wegen oder Kanälen<lb/>
+umgeben und auf jedem stand ein Tempel. Einige<lb/>
+Hauptstraßen, eng, aber lang, waren halb trocken,<lb/>
+halb von Kanälen durchschnitten, über welche gut ge-<lb/>
+baute hölzerne Brücken führten. Der Marktplatz war<lb/>
+von sehr bedeutendem Umfange und mit einer großen Halle<lb/>
+umgeben. Hier fand man Waaren aller Art, Natur-<lb/>
+erzeugnisse und Fabrikate. Die Waaren jeder Gattung<lb/>
+wurden in besondern Abtheilungen des Marktes ver-<lb/>
+kauft. Aufseher zogen fortwährend durch das Gedränge,<lb/>
+um darauf zu achten, daß die richtigen Preise gefodert<lb/>
+wurden, und nahmen den Kaufleuten falsche Maße weg,<lb/>
+die sie dann zerbrachen. Die Spanier bewunderten die<lb/>
+von Vogelfedern verfertigten Arbeiten, die Schmet-<lb/>
+terlinge, Blumen und andere Naturgegenstände vor-<lb/>
+stellten und von den Eingeborenen mit ungemeiner Ge-<lb/>
+schicklichkeit gemacht wurden. Die Goldschmiede liefer-<lb/>
+ten vorzügliche Arbeiten, obgleich die Mexicaner zu je-<lb/>
+ner Zeit den Bergbau noch nicht kannten, sondern das<lb/>
+Gold blos aus Flüssen und Bächen gewannen. Man<lb/>
+goß, wie die gleichzeitigen spanischen Berichterstatter ver-<lb/>
+sichern, Schüsseln mit acht Ecken, von welchen jede aus<lb/>
+verschiedenem Metall, abwechselnd Gold und Silber, be-<lb/>
+stand, ohne daß man eine Löthung daran bemerkte, ja<lb/>
+sogar Fische, bei welchen eine Schuppe auf dem Rücken<lb/>
+von Gold, die andere von Silber war, einen Papagei,<lb/>
+der die Zunge rührte, den Kopf bewegte und mit den<lb/>
+Flügeln schlug, und einen Affen, der Hände und Füße<lb/>
+bewegte, eine Spindel hielt, als ob er spänne und einen<lb/>
+Apfel in der Hand hatte. Der Haupttempel stand in<lb/>
+der Mitte der Stadt, von Ziegeln erbaut, der Pyra-<lb/>
+mide von Cholula <note place="foot" n="*)">Vergl. Pfennig=Magazin Nr. 119.</note> ähnlich. Auf der flachen Spitze, zu<lb/>
+welcher 114 Stufen führten, sah man große Steine,<lb/>
+auf welche die Opfer gestellt wurden. Hier stand auch<lb/>
+eine große Figur, einem Drachen gleich, um welche man<lb/>
+Spuren von frisch vergossenem Blute sah. Das eigent-<lb/>
+liche Heiligthum der Götter, das Montezuma selber dem<lb/>
+spanischen Feldherrn zeigte, war reich verziert. Das<lb/>
+Bild des Kriegsgottes war ganz mit Gold und Edel-<lb/>
+steinen bedeckt, sein Leib mit goldenen Schlangen um-<lb/>
+wunden, und um den Hals hingen goldene und silberne<lb/>
+Nachbildungen von menschlichen Köpfen und Herzen.<lb/>
+Jn einer vor dem Bilde stehenden Pfanne mit Räu-<lb/>
+cherwerk brannten drei Menschenherzen. Ein anderes<lb/>
+großes Götzenbild in Bärengestalt, war ebenso reich ver-<lb/>
+ziert und es wurden ihm ähnliche Opfer gebracht. Zu<lb/>
+diesem Tempel gehörten sehr viele Priester, und in den<lb/>
+von der äußern Mauer umschlossenen Gebäuden wohn-<lb/>
+ten überhaupt 5000 Menschen, die behaglich im Dienste<lb/>
+der Götter lebten. Der König zeigte, nach den Schil-<lb/>
+derungen der Spanier, den Prunk asiatischer Fürsten.<lb/>
+Niemand, einige Lehnfürsten ausgenommen, durften ihm<lb/>
+ins Gesicht sehen. Er änderte seinen Anzug und badete sich<lb/>
+täglich viermal, und legte die einmal getragenen Kleider nie<lb/>
+<cb type="end"/>
+<pb facs="#f0007" n="95"/>
+<fw place="top" type="header"><hi rendition="#g">Das Pfennig=Magazin.</hi> </fw><cb type="start"/>
+wieder an, die aufbewahrt und seinen Dienern oder Ge-<lb/>
+sandten und tapfern Kriegern geschenkt wurden. Er verließ,<lb/>
+außer wenn er zum Essen ging, selten sein Zimmer. Jn<lb/>
+einem kostbaren Anzuge vor ihm zu erscheinen, würde<lb/>
+man für eine Verletzung der Achtung gehalten haben, und<lb/>
+die Vornehmsten traten daher nur in dürftiger Kleidung<lb/>
+vor sein Angesicht. Beim Eintreten verbeugten sie sich<lb/>
+dreimal und sprachen bei der ersten Verbeugung: Herr!<lb/>
+bei der zweiten: Mein Herr! bei der dritten: Großer<lb/>
+Herr! Sie sprachen mit leiser Stimme und senkten da-<lb/>
+bei demüthig das Haupt. Der Palast des Königs, ein<lb/>
+sehr großes Gebäude, hatte 20 Pforten, die auf öffentliche<lb/>
+Plätze und Straßen gingen. Die Wände seiner zahl-<lb/>
+reichen Gemächer waren mit Marmor, Jaspis und an-<lb/>
+dern schön geaderten Steinen belegt, die Decken mit<lb/>
+künstlichem Schnitzwerk verziert, und man sah Tape-<lb/>
+ten von Baumwollenzeuche, von einem aus Kaninchen-<lb/>
+haaren gemachten Stoffe und von Federn. Alle Hof-<lb/>
+bedienten waren Leute von Stande, und außer der ste-<lb/>
+henden Dienerschaft, erschienen jeden Morgen gegen 600<lb/>
+Edelleute, die den ganzen Tag in dem Vorzimmer zu-<lb/>
+brachten, um die Befehle des Königs zu erwarten, wäh-<lb/>
+rend ihre Diener die Höfe des Palastes füllten. Der<lb/>
+Palast war, wie alle übrigen Schlösser, mit anmuthi-<lb/>
+gen Gärten umgeben, worin Heilkräuter, Blumen und<lb/>
+Bäume mit köstlichen Früchten wuchsen. Montezuma<lb/>
+ließ in seinen Gärten keine Küchenkräuter oder Ge-<lb/>
+wächse zum Verkaufe bauen; es gebühre Königen nicht,<lb/>
+sagte er, unter den Gegenständen ihres Vergnügens<lb/>
+nutzenbringende Dinge zu haben. Montezuma hatte<lb/>
+zwei große Gebäude mit lebenden seltenen Thieren.<lb/>
+Das eine enthielt Vögel, die nicht von Raub leben,<lb/>
+das andere Raubvögel, vierfüßige Thiere und Amphi-<lb/>
+bien; 300 Menschen waren mit der Wartung der Vö-<lb/>
+gel in der ersten Abtheilung beschäftigt, außer den ei-<lb/>
+gens angestellten Thierärzten. Jeder Wärter hatte sein<lb/>
+bestimmtes Geschäft, und das wichtigste war, den Vö-<lb/>
+geln die Federn auszurupfen, aus welchen Mäntel, Ta-<lb/>
+peten und andere Schmuckwerke gemacht wurden. Den<lb/>
+Raubvögeln in der zweiten Abtheilung wurden täglich<lb/>
+500 Truthühner geliefert, und es waren zahlreiche Wär-<lb/>
+ter, Falkner und Jäger bei ihnen angestellt. Die Schlan-<lb/>
+gen wurden in irdenen Behältnissen, die Krokodile in<lb/>
+ummauerten Teichen bewahrt. Neben den wilden Thieren<lb/>
+sammelte Montezuma auch alle merkwürdigen Exemplare<lb/>
+der Menschengattung, die er sich verschaffen konnte. Jn<lb/>
+einem Gemache sah man Männer, Weiber und Kinder,<lb/>
+die weiß geboren waren, dort eine große Seltenheit, in<lb/>
+einem andern Zwerge, Buckelige und andere Misgestal-<lb/>
+ten. Freilich waren manche dieser Unglücklichen absicht-<lb/>
+lich in ihrer Kindheit verstümmelt worden, um des Kö-<lb/>
+nigs Größe zu verherrlichen, wie der berichterstattende<lb/>
+Spanier sagt, da immer einige derselben bei der Tafel<lb/>
+zugegen sein mußten, wenn der König speiste.</p><lb/>
+<p><ref target="nn_pfennig156_1836#Mexico3"><hi rendition="#c">( Fortsetzung folgt in Nr. 156. )</hi></ref></p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle" xml:id="Hogarth2"><head><hi rendition="#fr"><hi rendition="#g">Hogarth's Werke.<lb/>
+10. Die Parlamentswahl</hi>.</hi><lb/>
+2. <hi rendition="#g">Die Stimmensammlung.</hi><lb/>
+<ref target="nn_pfennig153_1836#Hogarth1">( Fortsetzung aus Nr. 153. )</ref></head><lb/>
+<p><hi rendition="#in">A</hi>uf dem zweiten der unter obigem Titel bekannten<lb/>
+Blätter, das im Englischen die Überschrift führt: <hi rendition="#aq">Can-<lb/>
+vassing for votes</hi>, finden wir eine Darstellung Dessen,<lb/>
+was die Römer <hi rendition="#aq">ambitus</hi>, Stimmenjagd, nannten. Wir<lb/>
+sehen hier in der Mitte des Bildes einen jungen Pach-<lb/>
+<cb n="2"/>
+ter, der für die Parlamentswahl auch eine Stimme,<lb/>
+nämlich seine eigne, zu vergeben hat. Er, noch im<lb/>
+Reiserock mit Stiefeln und Sporen, scheint eben erst an-<lb/>
+gekommen zu sein, und wird von den Wirthen der bei-<lb/>
+den Wirthshäuser eingeladen, bei ihnen einzukehren<lb/>
+und dabei zugleich um seine Stimme angegangen.<lb/>
+Zu seiner Linken steht der Wirth zur Königseiche,<lb/>
+zur Rechten der aus der Krone; jeder übergibt ihm<lb/>
+eine Empfehlungskarte zu seinem Hause, wovon jedes<lb/>
+der Sitz einer verschiedenen Partei ist. Außerdem su-<lb/>
+chen Beide den Neuangekommenen noch auf eine hand-<lb/>
+greiflichere Weise zu bestechen, indem ihm der Wirth<lb/>
+zur Krone eine Guinee, der Wirth zur Königseiche aber<lb/>
+gar eine ganze Hand voll zusteckt. Der gute Pachter<lb/>
+befindet sich also hier ganz in derselben Verlegenheit wie<lb/>
+auf dem ersten Blatte ( Nr. 153 ) jener unglückliche Schnei-<lb/>
+der; er scheint aber ein leichteres Gewissen als dieser<lb/>
+zu haben, indem er sich augenscheinlich zu dem stärkern<lb/>
+Gewicht des Wirths zur Eiche neigt, aber die geringere<lb/>
+Gabe des Kronenwirths darum ebenfalls nicht verschmäht.</p><lb/>
+<p>Jm Vordergrunde zur Linken sieht man eine Ne-<lb/>
+benscene, welche aber doch einige Berücksichtigung ver-<lb/>
+dient. Vor dem dritten Wirthshause, das hier auf<lb/>
+diesem wirthshausreichen Blatte zu sehen ist und den<lb/>
+Namen Porto bello führt, sitzen ein Barbier und ein<lb/>
+einäugiger Schuhmacher und streiten sich über die Er-<lb/>
+oberung der Festung gleiches Namens, welche 1739 von<lb/>
+dem Admiral Vernon nur mit sechs Schiffen erobert wurde.<lb/>
+Auf des Barbiers Seite ist bei dieser politischen Unterhal-<lb/>
+tung die Belehrung; dieser formirt die Flotte des Admi-<lb/>
+rals auf dem Tische mit den Stückchen seiner zerbroche-<lb/>
+nen Pfeife und setzt dem vielleicht etwas schwer begrei-<lb/>
+fenden Schuster ihre Stellung auseinander. Dieser hat<lb/>
+als unverkennbares Zeichen seines Gewerbes einen Schuh<lb/>
+vor sich stehen, und die Symbole des Barbiers, Becken,<lb/>
+Serviette und Flasche, liegen einstweilen unter dem Ti-<lb/>
+sche. Sehr wahrscheinlich ist es, daß irgend ein ehrli-<lb/>
+cher Nachbar sehnlich auf seinen ausgebesserten Schuh,<lb/>
+und irgend ein Anderer ebenso sehnsüchtig auf Abnahme<lb/>
+seines Bartes wartet, während unsere beiden Politiker<lb/>
+hier unbekümmert von Dingen reden, die sie nichts<lb/>
+angehen. Jn einem Fenstervorsprunge des Wirthshauses<lb/>
+zur Krone fallen uns noch die beiden mit Essen beschäf-<lb/>
+tigten Personen auf, von denen der Eine, welcher wahr-<lb/>
+scheinlich große Eile hat, den gebratenen Kapaun ansetzt<lb/>
+wie eine Querflöte. Nicht weit von diesen Essern steht<lb/>
+vor der Thüre des Wirthshauses ein Löwe, welcher<lb/>
+eine Lilie frißt. Dieses Bildwerk ist ein zum Vorder-<lb/>
+theil eines Kriegsschiffes ehemals gehöriger Zierath,<lb/>
+dergleichen man bei den Thüren der Wirthshäuser<lb/>
+sonst wol aufzustellen pflegte. Jn sofern die Lilie ehe-<lb/>
+mals das französische Wappen war, enthält dieser<lb/>
+Lilienfresser eine Anspielung, in welcher sich Hogarth's<lb/>
+eingewurzelter Widerwille gegen die französische Nation<lb/>
+ausspricht. Vor eben diesem Wirthshause sehen wir<lb/>
+noch einen wohlgebildeten stattlichen Mann stehen, der<lb/>
+mit einem Juden, welcher hier allerlei Kostbarkeiten,<lb/>
+Uhren, Ketten, Ringe u. s. w. feil bietet, in Handel<lb/>
+steht. Der Käufer, wahrscheinlich Agent eines der Wahl-<lb/>
+bewerber, hält in der Linken einen Beutel mit Gold-<lb/>
+stücken und spricht mit zwei Damen auf der Galerie<lb/>
+des Wirthshauses, denen er, wie es scheint, ein Ge-<lb/>
+schenk, wahrscheinlich um auch durch sie Stimmen für<lb/>
+seinen Candidaten zu erhalten, machen will.</p><lb/>
+<p>Eine besondere Erwähnung verdient das an dem-<lb/>
+selben Hause befindliche Aushängeschild. Dies ist nichts<lb/>
+Anderes als ein Komödienzettel, worauf ein Stück an-<lb/>
+gekündigt wird, das wahrscheinlich auf Kosten des<lb/>
+<cb type="end"/>
+<pb facs="#f0008" n="96"/>
+<fw place="top" type="header"> <hi rendition="#g">Das Pfennig=Magazin.</hi> </fw><cb type="start"/>
+galanten Agenten, der keine Ausgabe scheut, um zu sei-<lb/>
+nem Zwecke zu gelangen, in dem Wirthshause gespielt<lb/>
+werden soll. Das Stück, woraus eine Hauptscene auf<lb/>
+Wachstuch gemalt vor dem Hause hängt, wie dies frü-<lb/>
+her in England besonders von Winkeltruppen zu ge-<lb/>
+schehen pflegte, heißt, laut der Unterschrift: <hi rendition="#aq">Punch, Can-<lb/>
+didate for Guzzledown</hi> ( Polichinell, Candidat für<lb/>
+Guzzledown ) , und ist ebenfalls eine Satire auf die<lb/>
+bei Parlamentswahlen vorkommenden Bestechungen. Po-<lb/>
+lichinell ist hier vorgestellt, wie er einen Schiebekarren<lb/>
+voll Guineen vor sich herschiebt und mit einer einem<lb/>
+<cb n="2"/>
+Punschlöffel ähnlichen Schaufel sie unter die Leute aus-<lb/>
+wirft, welche sie begierig in ihren Mützen und Hüten auf-<lb/>
+fangen. Das Gemälde in der obern Abtheilung des<lb/>
+Aushängeschildes zur Linken stellt die Schatzkammer vor,<lb/>
+und das zur Rechten die Wache der Garden zu Pferde,<lb/>
+zwei öffentliche Gebäude in der Straße Whitehall. Vor<lb/>
+der Schatzkammer hält ein Frachtwagen, auf welchen<lb/>
+Geld in Säcken, zum Einkaufen der Stimmen, geladen<lb/>
+wird. Ein etwas plumper Witz, dergleichen sich auch<lb/>
+bei Hogarth finden.</p><lb/>
+<p><ref target="nn_pfennig157_1836#Hogarth3"><hi rendition="#c">( Die Fortsetzung folgt in Nr. 157. )</hi></ref></p><lb/>
+<cb type="end"/>
+<figure>         <head>  Die Stimmensammlung.  </head>       </figure></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+</body>     <back><div n="1" type="imprint"><p><hi rendition="#c">Verantwortliche Herausgeber: <hi rendition="#g">Friedrich Brockhaus</hi> in <hi rendition="#g">Leipzig</hi> und <hi rendition="#aq">Dr</hi>. C. <hi rendition="#g">Dräxler=Manfred</hi> in <hi rendition="#g">Wien.</hi><lb/>
+Verlag von F. A. <hi rendition="#g">Brockhaus</hi> in Leipzig.</hi></p></div>     </back>   </text> </TEI>

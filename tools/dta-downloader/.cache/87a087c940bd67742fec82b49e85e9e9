@@ -1,0 +1,880 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.deutschestextarchiv.de/basisformat.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">     <teiHeader>
+<fileDesc>
+<titleStmt>
+<title type="main">Das Pfennig-Magazin für Belehrung und Unterhaltung</title>
+<title type="sub">Dritte Folge, Zweiter Jahrgang, Nr. 75</title>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/115266127">
+<surname>Geyken</surname>
+<forename>Alexander</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1222198746">
+<surname>Haaf</surname>
+<forename>Susanne</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1019062681">
+<surname>Jurish</surname>
+<forename>Bryan</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Boenig</surname>
+<forename>Matthias</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Thomas</surname>
+<forename>Christian</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Wiegand</surname>
+<forename>Frank</forename>
+</persName>
+</editor>
+<respStmt>
+<orgName>Institut für Deutsche Sprache, Mannheim</orgName>
+<resp>
+<note type="remarkResponsibility">Bereitstellung der Bilddigitalisate und TEI
+Transkription</note>
+<ref target="http://hdl.handle.net/10932/00-01B8-B0A0-2F8F-C901-F"/>
+</resp>
+</respStmt>
+<respStmt>
+<persName>
+<forename>Peter</forename>
+<surname>Fankhauser</surname>
+</persName>
+<resp>
+<note type="remarkResponsibility">
+Transformation von TUSTEP nach TEI P5.
+Transformation von TEI P5 in das DTA TEI P5 Format.
+</note>
+</resp>
+</respStmt>
+<respStmt>
+<orgName ref="https://www.bbaw.de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<resp>
+<note type="remarkResponsibility">Langfristige Bereitstellung der DTA-Ausgabe</note>
+<ref target="https://www.bbaw.de"/>
+</resp>
+</respStmt>
+</titleStmt>
+<editionStmt><edition>Vollständige digitalisierte Ausgabe.</edition></editionStmt>
+<extent>
+<measure type="images">8</measure>
+<measure type="tokens">4907</measure>
+<measure type="types">2038</measure>
+<measure type="characters">32952</measure>
+</extent>
+<publicationStmt>
+<publisher xml:id="DTACorpusPublisher">
+<email>dta@bbaw.de</email>
+<orgName role="project">Deutsches Textarchiv</orgName>
+<orgName role="hostingInstitution" xml:lang="en">Berlin-Brandenburg Academy of Sciences and Humanities (BBAW)</orgName>
+<orgName role="hostingInstitution" xml:lang="de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<address>
+<addrLine>Jägerstr. 22/23, 10117 Berlin</addrLine>
+<country>Germany</country>
+</address>
+</publisher>
+<pubPlace>Berlin</pubPlace>
+<date type="publication">2025-10-24T08:35:14Z</date>
+<availability>
+<licence target="http://creativecommons.org/publicdomain/zero/1.0/">
+<p>Dieses Werk steht unter der "Creative Commons Namensnennung -
+Nicht kommerziell 3.0 Deutschland Lizenz" (CC BY-NC).</p>
+</licence>
+</availability>
+<idno>
+<idno type="URLWeb">https://www.deutschestextarchiv.de/nn_pfennig075_1854</idno>
+<idno type="URLXML">https://www.deutschestextarchiv.de/book/download_xml/nn_pfennig075_1854</idno>
+<idno type="URLHTML">https://www.deutschestextarchiv.de/book/download_html/nn_pfennig075_1854</idno>
+<idno type="URLText">https://www.deutschestextarchiv.de/book/download_text/nn_pfennig075_1854</idno>
+<idno type="DTADirName">nn_pfennig075_1854</idno>
+<idno type="DTAID">34732</idno>
+<idno type="URN">urn:nbn:de:kobv:b4-34732-1</idno>
+</idno>
+</publicationStmt>
+<sourceDesc>
+<bibl type="J">Das Pfennig=Magazin für Belehrung und Unterhaltung. Dritte Folge, Zweiter Jahrgang, Nr. 75. Leipzig (Sachsen), 1. Juni 1854.</bibl>
+<biblFull>
+<titleStmt>
+<title level="m" type="main">Das Pfennig-Magazin für Belehrung und Unterhaltung</title>
+<title level="m" type="sub">Dritte Folge, Zweiter Jahrgang, Nr. 75</title>
+</titleStmt>
+<editionStmt>
+<edition n="1"/>
+</editionStmt>
+<publicationStmt>
+<publisher/>
+<pubPlace>Leibzig (Sachsen)</pubPlace>
+<date type="publication">1854</date>
+</publicationStmt>
+</biblFull>
+<msDesc>
+<msIdentifier/>
+<physDesc>
+<typeDesc>
+<p>Fraktur</p>
+</typeDesc>
+</physDesc>
+</msDesc>
+</sourceDesc>
+</fileDesc>
+<encodingDesc>
+<editorialDecl>
+<p>
+<![CDATA[
+<p>Siehe Dokumentation</p>
+]]>
+</p>
+</editorialDecl>
+<tagsDecl>
+<rendition scheme="css" xml:id="aq">font-family:sans-serif</rendition>
+<rendition scheme="css" xml:id="b">font-weight:bold</rendition>
+<rendition scheme="css" xml:id="blue">color:blue</rendition>
+<rendition scheme="css" xml:id="c">display:block; text-align:center</rendition>
+<rendition scheme="css" xml:id="et">display:block; margin-left:2em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et2">display:block; margin-left:4em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et3">display:block; margin-left:6em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="f">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="fr">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="g">letter-spacing:0.125em</rendition>
+<rendition scheme="css" xml:id="i">font-style:italic</rendition>
+<rendition scheme="css" xml:id="in">font-size:150%</rendition>
+<rendition scheme="css" xml:id="k">font-variant:small-caps</rendition>
+<rendition scheme="css" xml:id="larger">font-size:larger</rendition>
+<rendition scheme="css" xml:id="red">color:red</rendition>
+<rendition scheme="css" xml:id="right">display:block; text-align:right</rendition>
+<rendition scheme="css" xml:id="s">text-decoration:line-through</rendition>
+<rendition scheme="css" xml:id="smaller">font-size:smaller</rendition>
+<rendition scheme="css" xml:id="sub">vertical-align:sub; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="sup">vertical-align:super; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="u">text-decoration:underline</rendition>
+<rendition scheme="css" xml:id="uu">border-bottom:double 3px #000</rendition>
+</tagsDecl>
+</encodingDesc>
+<profileDesc>
+<langUsage>
+<language ident="deu">(Früh-)Neuhochdeutsch</language>
+<language ident="deu">German</language>
+</langUsage>
+<textClass>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1main">Gebrauchsliteratur</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1sub">Zeitschrift</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">ready</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">mkhz1</classCode>
+</textClass>
+</profileDesc>
+</teiHeader>
+<text>     <front>
+<pb facs="#f0001" n="[177]"/>
+<titlePage type="heading"><docTitle><titlePart type="main"><hi rendition="#c #fr">Das Pfennig=Magazin<lb/>
+für<lb/>
+<hi rendition="#g">Belehrung und Unterhaltung</hi>.</hi></titlePart></docTitle><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<docImprint><hi rendition="#fr">Nr</hi>. 75. ]                <hi rendition="#c">Dritte Folge. Zweiter Jahrgang.</hi>                <docDate><hi rendition="#right">[ 1. <hi rendition="#g">Juni</hi> 1854.</hi></docDate>              </docImprint></titlePage><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+</front>     <body>       <div n="1"><figure><head><hi rendition="#fr">Die Capstadt.</hi><lb/>
+Vergleiche Pfennig=Magazin, Jahrgang 1837, Nr. 230.</head></figure></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Margareth.</hi><lb/>
+Eine skizzirte Erzählung.</head><lb/>
+<cb type="start"/>
+<div n="2"><head><hi rendition="#g">Der Abschied.</hi></head><lb/>
+<p><hi rendition="#in">A</hi>ber ich lasse dich nicht! Du sollst und mußt bei mir<lb/>
+bleiben! sagte ein feines, blasses, junges Mädchen von<lb/>
+etwa zwölf Jahren zu der etwas ältern Margareth,<lb/>
+der Tochter des Tischlers aus dem Dorfe. Wozu willst<lb/>
+du denn durchaus in die Stadt?</p><lb/>
+<p>O, ich will wohl nicht, aber der Vater! antwor-<lb/>
+tete jene mit betrübtem Tone. Er meint, dort bei der<lb/>
+Frau Muhme könne ich etwas Ordentliches lernen, um<lb/>
+mir mein Brot ehrlich zu verdienen, wenn er sich in<lb/>
+einen seiner Särge zur Ruhe gelegt habe. Eine Mut-<lb/>
+ter hätte ich nicht mehr, die mich leiten könne &#x2014;</p><lb/>
+<p>Sag' ihm nur, daß du mich hättest und daß ich<lb/>
+dir Kleider und Brot geben würde, wenn du es brauch-<lb/>
+<cb n="2"/>
+test, unterbrach Fanny, des reichen Gutsherrn einziges<lb/>
+Kind, die leise Weinende. Jch will dich nun einmal<lb/>
+hier behalten, denn ich habe in der ganzen Gegend<lb/>
+sonst Niemand, der mir gefällt, der mit mir spielt<lb/>
+und so hübsche Windröschen und Kirschkernkörbchen zu<lb/>
+machen versteht als du. Du mußt dich nur nicht<lb/>
+gleich so geduldig fortschicken lassen; wenn mir etwas<lb/>
+nicht paßt, wie Papa es will, so lege ich mich aufs<lb/>
+Bitten, und hilft das nicht, so weine ich, da setze ich<lb/>
+zuletzt doch Alles durch.</p><lb/>
+<p>Aber der Vater hat mich so lieb und würde mich<lb/>
+gewiß nicht fortschicken wollen, wenn es mir nicht gut<lb/>
+wäre, entgegnete Margareth. Auch hat es uns der<lb/>
+Herr Schullehrer beim vierten Gebot so sehr einge-<lb/>
+schärft: Gehorche deinem Vater und betrübe ihn ja<lb/>
+<cb type="end"/>
+<pb facs="#f0002" n="178"/>
+<fw place="top" type="pageNum">178</fw><cb type="start"/>
+nicht, so lange er lebet! Da meine ich denn, ich muß<lb/>
+seinen Willen thun, wenn es mir auch schwer an-<lb/>
+kömmt.</p><lb/>
+<p>Durch die hohen Fenster des stattlichen Gemachs,<lb/>
+in dem die beiden Kinder standen, sah man in den<lb/>
+Garten hinaus, den der Sommer mit verschwenderi-<lb/>
+scher Fülle geschmückt hatte. Unzählige Rosen blühten<lb/>
+und dufteten; silberglänzende Blütensterne und goldige<lb/>
+Früchte drängten sich zwischen den grünen Blättern<lb/>
+der Orangenbäume hindurch und ein blauer Himmel<lb/>
+glänzte vom Spiegel des Teichs zurück, über den zwei<lb/>
+schöne Schwäne in stolzer Ruhe hinzogen. Aber we-<lb/>
+der Fanny noch Margareth achteten auf die Pracht<lb/>
+und Schönheit, die sie überall umgab; die eine von<lb/>
+ihnen war trotzig, weil ihr zum ersten male ein Wunsch<lb/>
+versagt werden sollte, das Herz der andern war voll<lb/>
+wirklicher Traurigkeit.</p><lb/>
+<p>Du willst also nicht bei mir bleiben! weinte nun<lb/>
+Fanny auch, mehr im Zorn als vor Schmerz. Du<lb/>
+magst nicht einmal mir zu Liebe den Vater bitten, &#x2014;<lb/>
+dann geh' nur, geh' &#x2014; ich werde aber an nichts mehr<lb/>
+Freude haben &#x2014; und von dir &#x2014; von dir will ich<lb/>
+nun gar nichts mehr wissen.</p><lb/>
+<p>Ach, liebe Fanny, sprich doch nicht so, bat die<lb/>
+andere, ich werde ja nicht immer in der Stadt blei-<lb/>
+ben; wenn ich etwas gelernt habe, dann komme ich<lb/>
+wieder heim, arbeite und pflege den alten Vater, und<lb/>
+daß ich dich nach ihm allermeisten lieb habe auf der<lb/>
+ganzen Welt, das sollst du dann schon sehen. Aber<lb/>
+Unrecht thun darf man doch nicht einem Menschen zu<lb/>
+Liebe, auch dir zu Liebe nicht, Fanny, und ich kann<lb/>
+dem guten Vater nicht ungehorsam sein; Gott hat es<lb/>
+verboten, und mein Herz verbietet es mir auch. Aber<lb/>
+zornig mußt du nicht von mir scheiden, gib mir doch<lb/>
+die Hand und sieh mich wieder so freundlich an als<lb/>
+sonst. Die arme Margareth konnte vor Thränen nicht<lb/>
+weiter sprechen.</p><lb/>
+<p>Fanny hätte doch auch nicht weiter auf sie gehört.<lb/>
+Laut weinend lief sie aus dem Zimmer, dessen Thür<lb/>
+sie hastig zuwarf und die Tochter des Tischlers verließ<lb/>
+endlich zögernd und todtbetrübt das Schloß, ohne daß<lb/>
+Jemand auf sie geachtet hätte. Aber noch am andern<lb/>
+Morgen, als sie mit einem kleinen Bündel unter dem<lb/>
+Arme auf der Landstraße hinwanderte, ihr liebes Hei-<lb/>
+matsdorf immer weiter und weiter hinter sich lassend,<lb/>
+da zitterte der Schmerz dieser ersten Trennung ihres<lb/>
+Lebens noch in ihrem Herzen nach; sie war noch trau-<lb/>
+rig, als die Muhme sie freundlich willkommen hieß,<lb/>
+ja sie blieb traurig, obgleich sie in der großen Stadt<lb/>
+viel Neues sah und hörte, was wol die Eindrücke,<lb/>
+welche sie in letzter Zeit empfangen, leicht hätte ver-<lb/>
+wischen können. Sie lernte andere Kinder kennen und<lb/>
+fand Freunde, die mit großer Liebe an ihr hingen;<lb/>
+aber ihre Fanny vergaß sie nicht, und obgleich sie keine<lb/>
+Gelegenheit hatte, von ihr zu hören, so betete sie doch<lb/>
+jeden Tag für ihre kleine Freundin in der trauten<lb/>
+Heimat.</p><lb/>
+<p>Fanny spielte und sang einen ganzen Tag lang<lb/>
+nicht, als Margareth das Dorf verlassen hatte; sie<lb/>
+schlug ihren Papagai und zerbrach unmuthig ihre<lb/>
+Spielsachen, als aber die Tante aus der Hauptstadt<lb/>
+unerwartet zum Besuch kam und ihr einen kleinen<lb/>
+allerliebsten Fächer mitbrachte, auf den tanzende Kin-<lb/>
+der in prächtigen Anzügen gemalt waren, da tröstete<lb/>
+sie sich über die verlorene Gespielin und dachte nicht<lb/>
+weiter an die arme Margareth. Als der Herbst kam<lb/>
+und den Feldern und Gärten ihren Schmuck nahm,<lb/>
+die Vögel fortzogen und die Nebel kamen, da starb<lb/>
+<cb n="2"/>
+der alte Tischler im Dorfe nach kurzer Krankheit und<lb/>
+Margareth kehrte nicht wieder in die geliebte, unver-<lb/>
+gessene Heimat zurück. Und neue Frühlinge kamen,<lb/>
+um wieder von neuen Herbststürmen vertrieben zu wer-<lb/>
+den und Niemand gedachte des Kindes, das in<lb/>
+der Fremde lebte, mit den rückgewendeten Gedan-<lb/>
+ken: ob jetzt wol der große Birnbaum blühen mag<lb/>
+hinter des Vaters Häuschen, ob die Nachtigal noch<lb/>
+immer ihr Nest baut in die Platane im Schloßgarten<lb/>
+und wie hoch nur das Pfirsichbäumchen geworden ist,<lb/>
+das ich mit Fanny gepflanzt.</p></div><lb/>
+<div n="2"><head><hi rendition="#g">Ein Wiedersehen.</hi></head><lb/>
+<p>Hat die Modehändlerin die Blumen noch nicht ge-<lb/>
+schickt? fragte ungeduldig eine stattliche junge Dame,<lb/>
+die in weißem Spitzenkleide vor dem hohen Spiegel<lb/>
+stand und eifrig mit ihrem Anzuge beschäftigt war.<lb/>
+&#x201E;Geh' auf der Stelle, Babet &#x2014; oder nein, bleib, du<lb/>
+mußt mir die Schärpe noch einmal stecken, sie wirft<lb/>
+da unter dem Arme ein kleines Fältchen; der Bediente<lb/>
+der Tante soll gehen, aber sag' ihm, daß er sich eilt!<lb/>
+Jch werde nie wieder bei der nachlässigen Arago eine<lb/>
+Bestellung machen.&#x201C;</p><lb/>
+<p>Ein leises Pochen an der Thür unterbrach diese<lb/>
+Rede. Babet öffnete rasch, ein hübsches junges Mäd-<lb/>
+chen stand draußen, mit einem Carton in der Hand.<lb/>
+&#x201E;Geschwind, geschwind&#x201C;, rief die Ungeduldige, &#x201E;ich<lb/>
+warte schon eine halbe Ewigkeit!&#x201C;</p><lb/>
+<p>Die Kommende trat mit bescheidenem Gruß in das<lb/>
+hellerleuchtete Zimmer, aber wie geblendet blieb sie<lb/>
+plötzlich stehen. Es war nicht die Pracht, die sie hier<lb/>
+umfing, nicht der Reichthum, der überall herrschte,<lb/>
+welcher auf das junge Mädchen einen so außerordent-<lb/>
+lichen Eindruck hervorbrachte &#x2014; von alledem sah sie<lb/>
+nichts. Jhr Auge hing nur an der glänzenden Er-<lb/>
+scheinung vor dem Spiegel und der Carton mit den<lb/>
+so sehnsüchtig erwarteten Blumen glitt aus ihrer Hand,<lb/>
+die sie zitternd nach der jungen Dame ausstreckte.</p><lb/>
+<p>Ungeschickte! schalt diese zornig, indem sie herbei-<lb/>
+sprang, um zu verhüten, daß die Blumen Schaden<lb/>
+nahmen.</p><lb/>
+<p>Fanny! rief jene dagegen mit dem tiefinnigen Tone<lb/>
+der Liebe, der aufjauchzenden Freude. Endlich, endlich<lb/>
+sehe ich dich wieder!</p><lb/>
+<p>Fanny sah und hörte nicht; sie probirte ihr Blu-<lb/>
+mendiadem, das sie musternd über die glänzend schwar-<lb/>
+zen Haare legte; da fühlte sie plötzlich ihre Hand er-<lb/>
+griffen und mit Thränen benetzt. &#x201E;Kennst du mich<lb/>
+denn gar nicht mehr? Hast du die arme Margareth<lb/>
+schon so ganz vergessen?&#x201C; fragte die weiche, bewegte<lb/>
+Stimme noch einmal.</p><lb/>
+<p>Ei, sieh' doch! Du bist also aus Hartmannsau?<lb/>
+Ja, ja, ich erinnere mich &#x2014; des alten Tischlers Toch-<lb/>
+ter. Als kleine Kinder spielten wir manchmal beisam-<lb/>
+men. Aber Madame Arago hat mich wirklich zur Un-<lb/>
+gebühr warten lassen. Du dienst ja wol bei ihr?<lb/>
+Sage ihr, daß ich ihr meine Kundschaft entziehen<lb/>
+würde, wenn ein solcher Fall noch einmal vorkäme.</p><lb/>
+<p>Margareth stand da wie vom Blitz getroffen. &#x201E;Seit<lb/>
+fünf Jahren&#x201C;, sagte sie halblaut vor sich hin, &#x201E;seit<lb/>
+fünf langen Jahren habe ich nichts Lieberes gedacht<lb/>
+als dies Wiedersehen, und wie ganz anders ist nun<lb/>
+Alles geworden! Aber ich kam nur zu ungelegener<lb/>
+Zeit &#x2014; wenn ich ein andermal wiederkommen dürfte&#x201C;<lb/>
+bat sie freundlich.</p><lb/>
+<p>Mein Gott, ja doch; aber wenn du irgend ein<lb/>
+Anliegen hast, eine Bitte, einen Wunsch, so kannst<lb/>
+du es immer an Babet sagen.</p><lb/>
+<cb type="end"/>
+<pb facs="#f0003" n="179"/>
+<fw place="top" type="pageNum">179</fw>       <cb type="start"/>
+<p>Einen Wunsch! ach ja! antwortete Margareth, wie<lb/>
+im Traume. O einen großen, großen Herzenswunsch<lb/>
+hätte ich &#x2014; und vielleicht könntest du &#x2014; könnten Sie<lb/>
+mir dazu helfen. Jch möchte nicht Putzmacherin blei-<lb/>
+ben; etwas unendlich Lieberes, Schöneres beschäftigt<lb/>
+meine Gedanken schon lange.</p><lb/>
+<p>Babet, stecke mir die Blumen fest, so! &#x2014; nicht<lb/>
+doch! &#x2014; ein wenig tiefer in die Stirn. Wie unge-<lb/>
+schickt du doch heute bist! Nimm dich in Acht, du<lb/>
+zerdrückst mein Kleid. Ach, da ist auch schon der<lb/>
+Wagen! Bist du denn noch nicht fertig?</p><lb/>
+<p>Jn der nächsten Minute hatte Fanny sich in ihr<lb/>
+kostbares Tuch gehüllt &#x2014; da fiel ihr Blick, der sich<lb/>
+nur zögernd vom Spiegel loszureißen schien, auf die<lb/>
+Jugendgespielin, die unendlich traurig und mit schwim-<lb/>
+menden Augen zur Seite trat, um die junge Dame<lb/>
+vorübergehen zu lassen. &#x201E;Ach, du bist noch da!&#x201C;<lb/>
+sagte Fanny zerstreut. &#x201E;Du mußt zu gelegenerer Zeit<lb/>
+kommen, wenn du mich durchaus sprechen willst. Jm<lb/>
+Begriff auf den ersten Ball zu gehen, hat man keinen<lb/>
+rechten Sinn für sonstige Kinderfreuden. Auch liegen<lb/>
+meine Puppen und all der Spielkram jener Zeit nun<lb/>
+doch schon ein wenig weit hinter mir. Also ein an-<lb/>
+dermal, liebes Kind!&#x201C;</p><lb/>
+<p>Jetzt rollte der Wagen über das Pflaster. Mar-<lb/>
+gareth stand noch immer unter den zerstreut umherlie-<lb/>
+genden Schmucksachen, Kleidern und Toilettengegenstän-<lb/>
+den; das Eden ihrer liebsten Jugenderinnerung stand<lb/>
+nun schmucklos, traurig und verödet.</p><lb/>
+<p>Wartest du noch auf Etwas? fragte Babet spöt-<lb/>
+tisch. Trinkgelder sind bei uns nicht in der Mode.</p><lb/>
+<p>Schweigend, aber traurig wie nie in ihrem jungen<lb/>
+Leben ging Margareth aus dem stattlichen Hause, fest<lb/>
+entschlossen, es nie wieder zu betreten.</p></div><lb/>
+<div n="2"><head><hi rendition="#g">Die Diakonissin.</hi></head><lb/>
+<p>Wir treten einige Jahre später noch einmal in<lb/>
+dasselbe Zimmer, darin wir Fanny sich für ihren er-<lb/>
+sten Ball schmücken sahen. Aber wie traurig finden<lb/>
+wir hier Alles verändert! Nicht Schmuck und kost-<lb/>
+bare Gewänder, sondern Arzneigläser und weiches Lin-<lb/>
+nenzeuch, wie der Arzt es zum Wundverbande ge-<lb/>
+braucht, bedecken die Tische und der starke Geruch be-<lb/>
+lebender Essenzen hat den Duft des <hi rendition="#aq">Esprît de bou-<lb/>
+quet</hi> verdrängt, der sonst die Luft wie mit dem Athem<lb/>
+von tausend Blumen erfüllte.</p><lb/>
+<p>Die Fenster sind tief verhangen; hinter der leich-<lb/>
+ten Bettgardine sieht man ein bleiches, entstelltes Ge-<lb/>
+sicht mit Tüchern verbunden. Es ist Fanny, die leise<lb/>
+wimmernd auf den weichen Kissen liegt. Aus dem<lb/>
+Theater heimkehrend, haben die scheuwerdenden Pferde<lb/>
+den Wagen in ein Schaufenster geschleudert, wobei<lb/>
+Fanny's Tante den Arm gebrochen, jene aber tiefe,<lb/>
+gefährliche Verwundungen im Gesicht davongetragen.<lb/>
+Eben erst hatte der Arzt die letzten Glassplitter unter<lb/>
+dem rechten Auge herausgezogen, Schmerz, Schreck<lb/>
+und ein starker Blutverlust verstärken das eingetretene<lb/>
+Wundfieber. Fanny redet unzusammenhängend, aber<lb/>
+immer ist ihr Gedanke in der ihr längst entfremdeten<lb/>
+Heimat; sie meint wieder ein Kind zu sein und unter<lb/>
+den Platanen des väterlichen Gartens zu spielen. Sie<lb/>
+ruft sehnsüchtig nach der frühverstorbenen Mutter, aber<lb/>
+auch ein anderer, längst vergessener Name kehrt wie-<lb/>
+der und immer wieder auf ihre Lippen zurück. &#x201E; Mar-<lb/>
+gareth!&#x201C; flüstert ihr brennender Mund &#x2014; &#x201E; Marga-<lb/>
+reth, ich verschmachte! Bringst du mir nicht saftige<lb/>
+Waldbeeren wie sonst? Mache doch die Fenster weit<lb/>
+auf, damit die Luft hereinkommt und deine hübschen<lb/>
+<cb n="2"/>
+kleinen Windröschen sich drehen können; es würde mir<lb/>
+so gut thun.</p><lb/>
+<p>Der Arzt hat eine Pflegerin für die Kranke ge-<lb/>
+schickt, da Babet die Tante zu warten hat und in dem<lb/>
+großen vornehmen Hausstande sich sonst kein einziges<lb/>
+weibliches Wesen findet, das sich dazu eignet &#x2014; eine<lb/>
+Schwester der Barmherzigkeit. Die sitzt nun an Fan-<lb/>
+ny 's Bett, neigt sich über die Stöhnende und über-<lb/>
+wacht sie mit Mutterliebe, mit Muttertreue. Obgleich<lb/>
+sie kaum einige Jahre mehr zählen mag als Fanny,<lb/>
+so gibt der wehmüthige Ernst ihres Gesichts ihr doch<lb/>
+ein viel älteres Ansehen. Eine Perle hat der Doctor<lb/>
+sie genannt, deren Umsicht und Opferfreudigkeit ihm<lb/>
+bei schweren Patienten helfend zu statten gekommen,<lb/>
+und er hat wol Recht damit, denn die Diakonissin<lb/>
+scheint nur zu leben für die Kranke, die man ihrer<lb/>
+Obhut anvertraut. Sie betrachtet sie mit Blicken der<lb/>
+Liebe, lauscht auf ihre leisesten Wünsche wie auf jeden<lb/>
+Athemzug und ist zärtlich bemüht, ihr jede nur mög-<lb/>
+liche Erleichterung zu verschaffen; mit schonender, ge-<lb/>
+schickter Hand bereitet sie Umschläge und kühlende<lb/>
+Tränke, Tag und Nacht ist ihr Auge offen und über-<lb/>
+wacht die Leidende oder spricht sie mit unendlich sanf-<lb/>
+ter, beschwichtigender Stimme zur Ruhe. Sie erzählt<lb/>
+von einem Schlosse, von einem Garten, von tausend<lb/>
+kleinen und doch so unbeschreiblich süßen Freuden der<lb/>
+Kindheit; alles dies klingt Fanny so bekannt, so lieb;<lb/>
+sie kann zwar ihre Pflegerin nicht sehen, ihre entzün-<lb/>
+deten Augen sind verhüllt wie ihre Sinne halb ver-<lb/>
+schleiert, aber sie fühlt den wohlthuenden Einfluß einer<lb/>
+lieben Nähe, und nur wenn sie die Hand der Wärte-<lb/>
+rin in der ihren hält, kommt ein kurzer Schlummer,<lb/>
+sie zu erquicken.</p><lb/>
+<p>Es vergehen fünf lange qualvolle Wochen. Fanny<lb/>
+hat nur selten fieberfreie Augenblicke gehabt; endlich<lb/>
+gibt der Arzt bestimmte Hoffnung, daß die Augen un-<lb/>
+zerstört und Fanny's völlige Genesung gewiß sei. Am<lb/>
+nächsten Tage soll der Verband abgenommen und das<lb/>
+langentbehrte Tageslicht in das verdunkelte Gemach<lb/>
+eingelassen werden.</p><lb/>
+<p>Morgen werde ich dich sehen! jubelt die Kranke,<lb/>
+indem sie ihre Hand nach der treuen Pflegerin aus-<lb/>
+streckt, die ihr so wohl gethan, ja der sie nach des<lb/>
+Doctors Ausspruch nächst Gott die Erhaltung ihres<lb/>
+Lebens zu danken hat. Sie muß ihr in der Nacht,<lb/>
+von der sie einen Theil unruhig durchwacht, wieder alle<lb/>
+die Märchen erzählen, mit denen sie Fanny schon so<lb/>
+manche Stunde des Schmerzes fortgeplaudert; sie klin-<lb/>
+gen jener alle so bekannt und doch kann sie sich nicht<lb/>
+erinnern, wo sie dieselben schon einmal gehört. Es ist<lb/>
+ihr, als singe die Nachtigal im Garten ihres Vaters<lb/>
+und ein Heimweh, wie sie es nie gekannt, kommt in<lb/>
+ihr Herz. &#x201E;O wie soll ich dir denn danken?&#x201C; sagte<lb/>
+sie immer und immer wieder.</p><lb/>
+<p>Danke dem Herrn, dessen Aufsehen deinen Athem<lb/>
+bewahrt, antwortete die sanfte Stimme, und nun<lb/>
+folgte ein Gebet, so warm aus dem Herzen hervor-<lb/>
+dringend, daß auch Fanny, davon ergriffen, mit ein-<lb/>
+stimmt und Gott die Ehre gibt. Als sie am andern<lb/>
+Morgen nach einem stärkenden Schlafe erwacht, sucht<lb/>
+ihre Hand die der lieben Pflegerin an ihrem Bett &#x2014;<lb/>
+der Platz ist leer. Auf Fanny's Ruf kommt Babet<lb/>
+in das Zimmer, mit ihr der Doctor.</p><lb/>
+<p>Wo ist Schwester Blum? fragte ihn Fanny hastig;<lb/>
+denn unter diesem Namen hatte der Doctor die Dia-<lb/>
+konissin im Hause eingeführt.</p><lb/>
+<p>Da, wo sie jetzt nöthiger ist als hier, antwortete<lb/>
+der Gefragte in seiner gewohnten Kürze.</p><lb/>
+<cb type="end"/>
+<pb facs="#f0004" n="180"/>
+<fw place="top" type="pageNum">180</fw>       <cb type="start"/>
+<p>Aber ich muß sie sehen und sprechen, rief die<lb/>
+Kranke, sich rasch aufrichtend.</p><lb/>
+<p>Das kann schon darum nicht geschehen, weil sie<lb/>
+nach Brüssel abgereist ist, um dort eine Krankenan-<lb/>
+stalt einrichten zu helfen. Wir haben sie sehr ungern<lb/>
+fortgelassen und werden die trotz ihrer Jugend so be-<lb/>
+währte Pflegerin sehr vermissen; aber es war ihr be-<lb/>
+stimmter Wille so, sie hat sich selbst zu der Stelle ge-<lb/>
+meldet. Eben hat mein Wagen sie zur Eisenbahn ge-<lb/>
+bracht. Sie hat Jhnen übrigens noch tausend Grüße<lb/>
+zurückgelassen, aber Jhren Schlaf wollte sie nicht stö-<lb/>
+ren. Ja, ich sagte es schon einmal: Dies Mädchen<lb/>
+ist eine Perle ihres Geschlechts!</p><lb/>
+<p>Es war Margareth! Nun verstehe ich Alles! rief<lb/>
+Fanny, der es plötzlich wie Schuppen von den Augen<lb/>
+fiel, und schluchzend verbarg sie das Haupt in die<lb/>
+Kissen.</p><lb/>
+<p>Und die beiden jungen Mädchen, die einst mitten<lb/>
+im Lebensfrühlinge so herb voneinander geschieden wa-<lb/>
+ren, sahen sich niemals wieder.</p><lb/>
+<lg type="poem">           <l>O lieb', so lang' du lieben kannst,</l><lb/>
+<l>O lieb', so lang' du lieben magst;</l><lb/>
+<l>Die Stunde kommt, die Stunde kommt,</l><lb/>
+<l>Wo du an Gräbern stehst und klagst.</l></lg></div></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<cb n="2"/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Napoleon's Geburtshaus in Ajaccio.</hi></head><lb/>
+<p><hi rendition="#in">A</hi>us der Gasse St.=Charles tritt man auf einen klei-<lb/>
+nen viereckigen Platz; ein Ulmenbaum steht dort vor<lb/>
+einem gelbgrau übertünchten alternden Hause mit plat-<lb/>
+tem Dache und einem Balconaufsatz darüber, mit sechs<lb/>
+Fenstern Fronte und mit verbraucht aussehenden Thü-<lb/>
+ren. An der Ecke dieses Hauses liest man die Auf-<lb/>
+schrift: <hi rendition="#aq">Place Letitia</hi>. Jenes Haus ist die <hi rendition="#aq">Casa Bo-<lb/>
+naparte</hi>, die jetzt, im Besitze der Familie Pietra Santa,<lb/>
+einem Todtengewölbe gleicht, früher aber, zur Zeit der<lb/>
+schönen Lätitia, ein großes Familienleben und frohe<lb/>
+Gastlichkeit umschloß. Jn ihm tummelte sich eine Schar<lb/>
+von Kindern, Joseph und Napoleon, Lucian, Louis,<lb/>
+Jerome, Karoline, Elise, Pauline &#x2014; die Knaben echte<lb/>
+Schulbuben, die Mädchen ohne sonderliche Erziehung<lb/>
+aufwachsend. Der Vater hat ein mittelmäßiges Ein-<lb/>
+kommen, hat mit Jesuiten einen Proceß über ein be-<lb/>
+strittenes Gut zu führen, die Zukunft seiner Kinder<lb/>
+macht ihm Sorge. Und siehe da! Diese Kinder lan-<lb/>
+gen sich eines Tages eins nach dem andern die glän-<lb/>
+zendsten Kronen Europas. Napoleon ist europäischer<lb/>
+Kaiser, Joseph König von Spanien, Ludwig König<lb/>
+von Holland, Jerome König von Westfalen, Karoline<lb/>
+Königin von Neapel&#x201C; Pauline und Elise Fürstinnen<lb/>
+Jtaliens. Es gibt kein Märchen aus &#x201E;Tausend und<lb/>
+Einer Nacht&#x201C;, das märchenhafter wäre als die Ge-<lb/>
+schichte der Familie Bonaparte.</p></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1"><figure><head><hi rendition="#fr">Königscollegium in London.</hi></head></figure></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<pb facs="#f0005" n="181"/>
+<fw place="top" type="pageNum">181</fw><lb/>
+<div n="1"><figure><head><hi rendition="#fr">Französische Münzen.</hi></head></figure></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<pb facs="#f0006" n="182"/>
+<fw place="top" type="pageNum">182</fw>       <cb type="start"/>
+<div n="1" type="jArticle" xml:id="Ackermann2"><head><hi rendition="#fr">Rudolf Ackermann.</hi><lb/>
+<ref target="nn_pfennig074_1854#Ackermann1">( Fortsetzung. )</ref></head><lb/>
+<p><hi rendition="#in">D</hi>er Schüler war zum Meister geworden. Verschie-<lb/>
+dene Anerbietungen vermochten Ackermann nach kur-<lb/>
+zem Aufenthalte in London eine Zeichnenschule zu er-<lb/>
+richten, durch welche er seinen Ruf bedeutend erwei-<lb/>
+terte. Seine eigenen Arbeiten wurden aber immer<lb/>
+fleißiger gesucht. Einst kam ihm die Jdee bei, Zeich-<lb/>
+nung und Modell zu einem Staatswagen zu fertigen.<lb/>
+Als er diese Arbeit beendigt hatte, erschien der große<lb/>
+Wagenbauer Goodall bei ihm und kaufte ihm sein<lb/>
+Werk sofort für 1000 Thaler ab. Um dieselbe Zeit<lb/>
+wurde Lord Fitz=Gibbon zum irischen Statthalter ernannt.<lb/>
+Dieser sah Ackermann's Modell bei Goodall, fand<lb/>
+dasselbe außerordentlich schön und ließ sich sofort einen<lb/>
+Wagen nach demselben bauen.</p><lb/>
+<p>Aehnliche Arbeiten führte Ackermann öfter aus.<lb/>
+Man zahlte ihm gut und seine Umstände verbesserten<lb/>
+sich zusehends. Sein Plan, in England sich fest nie-<lb/>
+derzulassen, kam zur Reife. Er miethete sich in Lon-<lb/>
+don ein Haus und dehnte seine Wirksamkeit noch mehr<lb/>
+aus. Sein Glück wollte es, daß er mit der tugend-<lb/>
+haften, sparsamen und ordentlichen Miß Massey aus<lb/>
+Cambridge bekannt wurde; diese zeigte sich gegen seine<lb/>
+Werbung nicht gleichgültig, darum reichte sie ihm bald<lb/>
+die Hand zu einem Ehebunde, welcher ein Haupthebel<lb/>
+zum Wohlstande Ackermann's wurde. Sieben Spröß-<lb/>
+linge erhöhten in spätern Jahren das Glück, welches<lb/>
+Ackermann sich durch Liebe zu den Seinen, durch Red-<lb/>
+lichkeit und Fleiß sowie durch kunstsinniges Streben<lb/>
+nach und nach zu gründen wußte.</p><lb/>
+<p>Die Thätigkeit Ackermann's wurde im Laufe der<lb/>
+Zeit auch in höhern Kreisen Englands besprochen. Dies<lb/>
+war die Veranlassung zu einem Freundschaftsbündnisse,<lb/>
+an welches Ackermann früher wol nicht zu denken<lb/>
+wagte. Bei ihm hatte sich nämlich der östreichische<lb/>
+Fürst Philipp von Lichtenstein, welcher sich in London<lb/>
+aufhielt, öfter eingefunden und mit höchstem Jnteresse<lb/>
+seine künstlerischen Leistungen beobachtet. Bald wur-<lb/>
+den die Beiden enger miteinander verbunden. Der<lb/>
+Fürst versah Ackermann mit vielfachen Aufträgen und<lb/>
+stellte ihm zuletzt zu Ausführung neuer Pläne sein<lb/>
+Vermögen zur Verfügung, im Fall für den befreun-<lb/>
+deten Künstler ein pecuniärer Nachdruck nothwendig<lb/>
+werden sollte; auch gestattete er ihm die Benutzung<lb/>
+seines schönen Marstalls und zuletzt ritt er fast täglich<lb/>
+mit Ackermann spazieren.</p><lb/>
+<p>Als der Fürst wieder nach Östreich zurückkehrte,<lb/>
+übergab er seinem deutschen Freunde aus dem Mar-<lb/>
+stalle ein Pferd, welches sich Ackermann als Liebling<lb/>
+erkoren hatte, und bat ihn, dasselbe zu benutzen und<lb/>
+auf seine Kosten zu verpflegen, bis er zurückkehren<lb/>
+werde. Der Fürst starb. Kurze Zeit nach seinem Tode<lb/>
+empfing Ackermann einen Brief von des Fürsten Bru-<lb/>
+der, Prinz Ludwig von Lichtenstein, welcher ihm mit<lb/>
+den wohlwollendsten Ausdrücken den Tod seines fürst-<lb/>
+lichen Freundes meldete, dabei auch zugleich verschiedene<lb/>
+Rückstände übersendete und die letzten Wünsche des se-<lb/>
+ligen Fürsten mittheilte, nach welchen Ackermann sein<lb/>
+Lieblingspferd als sein Eigenthum betrachten sollte.</p><lb/>
+<p>Mit der Vermehrung seiner Familie glaubte Acker-<lb/>
+mann sich verpflichtet, zur Sicherstellung derselben neue<lb/>
+Pläne zu verfolgen. Bis zum Jahre 1795 hatte er<lb/>
+in der bisher beschriebenen Weise sein gutes Auskom-<lb/>
+men gefunden, aber die Möglichkeit, den Seinen frü-<lb/>
+her entrissen werden zu können, bestimmte ihn, in einer<lb/>
+<cb n="2"/>
+Hauptstraße Londons ein Haus am Strande zu mie-<lb/>
+then, um eine Handlung mit Zeichnungen und Kupfer-<lb/>
+stichen einzurichten. Ungeachtet er nur ein verhältniß-<lb/>
+nißmäßig geringes Anlagecapital hatte, ging sein Ge-<lb/>
+schäft doch über alle Erwartungen gut; ja der Ver-<lb/>
+kehr in seiner Handlung steigerte sich in wenigen Jah-<lb/>
+ren so, daß er seine Geschäftsräume vergrößern und<lb/>
+zu diesem Behufe ein Nachbarhaus ankaufen mußte.<lb/>
+Mit der Erweiterung seiner Handlung verband er zu-<lb/>
+gleich die Gründung einer Zeichnenschule für etwa 80<lb/>
+Zöglinge, für welche Ackermann die besten Kräfte zur<lb/>
+Unterweisung der Jünglinge anzuwerben bemüht war.<lb/>
+Später ließ er die Schule wieder eingehen, da seine<lb/>
+Bemühungen mit dem Erfolge nicht in rechtem Ein-<lb/>
+klange standen.</p><lb/>
+<p><hi rendition="#c">( Beschluß folgt. )</hi></p><note type="editorial">Die Ausgabe, die den letzten Teil des Artikels enthält, fehlt.</note></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Cacaopflanzungen in Nicaragua.</hi></head><lb/>
+<p><hi rendition="#in">E</hi>s ist schwer &#x2014; sagt Squier in seinem Werke: &#x201E;Der<lb/>
+centralamerikanische Staat Nicaragua&#x201C; &#x2014; diese Plan-<lb/>
+tagen zu beschreiben; sie gleichen mehr schönen Parks<lb/>
+mit großen Bäumen, breiten, nach allen Richtungen<lb/>
+verlaufenden und gewissenhaft reinlich gehaltenen Alleen<lb/>
+als irgend etwas Sonstigem in den Vereinigten Staa-<lb/>
+ten, womit sie verglichen werden könnten. Der die<lb/>
+Cacaofrucht erzeugende Baum ist den Botanikern un-<lb/>
+ter dem allgemeinen, dem Griechischen entnommenen<lb/>
+Namen <hi rendition="#aq">Theobroma</hi>, welches Götterspeise bedeutet, be-<lb/>
+kannt. Er wird selten über 20 Fuß hoch; seine Blät-<lb/>
+ter sind groß, länglich und zugespitzt und gleichen eini-<lb/>
+germaßen den Blättern des Kirschbaums, sind aber<lb/>
+weit größer; die Blüten sind klein, von blaßrother<lb/>
+Farbe und von ovalen, spitz zulaufenden Hülsen um-<lb/>
+geben, mit Narben gleich der Bisammelone, wiewol<lb/>
+viel kleiner; die Nüsse sind sehr zahlreich, da manche<lb/>
+Schale an 50 Stück enthält. Der Ernten sind zwei<lb/>
+im Jahre. Die Bäume werden etwa 15 Fuß von-<lb/>
+einander und in guten Boden gepflanzt. Ganz beson-<lb/>
+ders nöthig ist es, den Baum vor den sengenden Son-<lb/>
+nenstrahlen zu schützen, gleichzeitig muß ihm aber auch<lb/>
+die genügende Wärme zum Wachsthum geboten wer-<lb/>
+den, was dadurch erreicht wird, daß man ihn mit dem<lb/>
+Pisang und der Erythrina ( Korallenbaum oder, wie<lb/>
+sie auch bisweilen heißt, <hi rendition="#aq">madre de cacao</hi>, d. i. Mut-<lb/>
+ter des Cacao ) beschattet. Während der Cacaobaum<lb/>
+an Umfang zunimmt, wird, wenn die Erythrina eine<lb/>
+hinreichende Höhe erreicht hat, um ihn vor der Sonne<lb/>
+zu schützen, der Pisang gefällt. Mit dem siebenten<lb/>
+Jahre beginnt er zu tragen und etwa mit dem funf-<lb/>
+zehnten gelangt er zur Vollkommenheit. Der Korallen-<lb/>
+baum wächst zur Höhe von ungefähr 60 Fuß und ver-<lb/>
+liert seine ganzen Blätter ( in Nicaragua ) gegen das<lb/>
+Ende des März und den Anfang des April, worauf<lb/>
+er sich mit lichtrothen, säbelförmigen Blüten bedeckt.<lb/>
+Jn dieser Zeit bietet eine ausgedehnte Fläche von Ca-<lb/>
+caopflanzungen von einer Höhe aus gesehen einen<lb/>
+prachtvollen Anblick dar. Die Wipfel der weithin sich<lb/>
+erstreckenden Korallenbaumwälder sehen dann aus als<lb/>
+wären sie mit Flammen bekleidet. Die Cacaofrucht<lb/>
+gehört Amerika eigenthümlich an und ward schon früh-<lb/>
+zeitig bei den spanischen Amerikanern ein allgemeiner<lb/>
+Verbrauchsartikel, wie sie es seit undenklichen Zeiten<lb/>
+bei den Jndianern gewesen war. Nach der Entdeckung<lb/>
+Amerikas wurde sie von den Spaniern auf den Ka-<lb/>
+narischen Jnseln und den Philippinen eingeführt. Sie<lb/>
+<cb type="end"/>
+<pb facs="#f0007" n="183"/>
+<fw place="top" type="pageNum">183</fw><cb type="start"/>
+hieß bei den alten Mexicanern <hi rendition="#aq"><gap reason="illegible" unit="chars" quantity="13"/>tlalcacahuatl <gap reason="illegible"/></hi> und ward<lb/>
+von ihnen wie von den Eingeborenen Centralamerikas,<lb/>
+Neugranadas und Perus als Geld oder Tauschmittel<lb/>
+gebraucht, als welches sie auf den Märkten der Städte<lb/>
+Granada und Leon noch heutzutage dient; 150 Nüsse<lb/>
+galten ehedem einem Dollar gleich, was noch immer<lb/>
+auch ihr jetziger Werth ist. Der Cacao Nicaraguas<lb/>
+wird als keinem nachstehend angesehen, ausgenommen<lb/>
+dem von Soconusco, der während der spanischen Herr-<lb/>
+schaft ein Monopol der Krone war. Er wird fast<lb/>
+vollständig im Lande verbraucht, wo er über den dop-<lb/>
+pelten Preis des Cacao von Guayaquil gebietet, wel-<lb/>
+cher letztere in der Regel nach den Vereinigten Staa-<lb/>
+ten gelangt.</p><lb/>
+<p>Wie schon erwähnt, ist der Cacaobaum so zärtlich<lb/>
+und empfindlich gegen äußere Einflüsse, daß er in der<lb/>
+ersten Zeit seines Wachsthums große Sorgfalt ver-<lb/>
+langt. Er beginnt im siebenten oder achten Jahre zu<lb/>
+tragen und bleibt 30&#x2014;50 Jahre forttragend. Daher<lb/>
+erheischt die Anlegung einer Pflanzung Capital und<lb/>
+Zeit; ist sie aber einmal hergerichtet, so wird sie durch<lb/>
+die jährliche Vermehrung ohne Mühe erweitert. Man<lb/>
+rechnet, daß ein einziger Mann genügt, um 1000<lb/>
+Bäume zu besorgen und ihre Frucht zu ernten. Da-<lb/>
+her kommt es, daß Cacaopflanzungen einen höhern<lb/>
+Werth haben als Zucker=, Jndigo=, Baumwollen= oder<lb/>
+<cb n="2"/>
+Cochenillenpflanzungen. Eine gute Plantage gibt bei<lb/>
+gehöriger Aufmerksamkeit einen durchschnittlichen Jah-<lb/>
+resertrag von 20 Unzen Cacao auf jeden Baum, was<lb/>
+auf 1000 Bäume 1200 Pfund ausmacht. Den Cent-<lb/>
+ner zu dem gewöhnlichen Marktpreise von 25 Dollars<lb/>
+gerechnet, gäbe dies auf jedes Tausend Bäume und<lb/>
+jeden Arbeiter 300 Dollars jährlich. Aus einer Menge<lb/>
+von Ursachen &#x2014; worunter einige der wichtigsten aus dem<lb/>
+Gesagten zur Genüge erhellen &#x2014; wird dieser Ertrag<lb/>
+in Nicaragua selten erreicht; er kann es aber, wenn<lb/>
+nur erst die Ordnung völlig wieder hergestellt ist und<lb/>
+die Arbeit und der Arbeitslohn gehörig geordnet sind.<lb/>
+Es gibt kein Mittel, über diesen Productionszweig in<lb/>
+Nicaragua auch nur eine annäherungsweise Schätzung<lb/>
+zu erlangen.</p><lb/>
+<p>Jch war entzückt über die Plantagen und nachdem<lb/>
+wir eine ganze Stunde umhergeritten und unter den<lb/>
+vielen Kreuz= und Querwegen und Alleen ganz irre<lb/>
+geworden waren, begannen wir uns aus dem Laby-<lb/>
+rinth wieder herauszuwinden. Dies war nichts Leich-<lb/>
+tes und es währte lange, ehe wir nach vielem Hin-<lb/>
+und Herreiten auf den rechten Weg geriethen. Dies<lb/>
+wird nicht auffallend erscheinen, wenn ich sage, daß<lb/>
+die Pflanzung 95,000 Bäume enthielt, von denen<lb/>
+jeder zu einem Dollar geschätzt wird.</p></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1"><figure><head><hi rendition="#fr">Stierkopf.</hi></head></figure></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<pb facs="#f0008" n="184"/>
+<fw place="top" type="pageNum">184</fw><lb/>
+<div n="1" type="jVarious"><head><hi rendition="#fr"><hi rendition="#g">Mannichfaltiges</hi>.</hi></head>       <cb type="start"/>
+<div n="2" type="jArticle"><p>Glühen des Montblanc. Jm Augenblicke des Son-<lb/>
+nenuntergangs und wenn der Himmel rein ist, glühen sämmt-<lb/>
+liche Schneehäupter der Alpen im schimmernden Purpur, der<lb/>
+am Montblanc mehr einem leichten Orange gleicht. Der<lb/>
+Glanz dieser Färbung steigert sich, sobald die Sonne unter<lb/>
+den Horizont des Beobachters hinabsinkt. Einige Minuten<lb/>
+später, wenn bereits die tieferliegenden Höhen im Schatten<lb/>
+sind, verwandelt sich deren Purpurfarbe in ein Dunkelblau.<lb/>
+Der Contrast, welcher zwischen den schattigen und den von<lb/>
+der Sonne beschienenen Theilen zu bemerken war, verschwin-<lb/>
+det und ein graubläulicher fast einförmiger Schatten ver-<lb/>
+breitet sich über ihre ganze Ausdehnung. Der Montblanc<lb/>
+ist nun noch der einzige Gipfel, den die Sonne beleuchtet.<lb/>
+Seine ungeheure Schneemasse strahlt im lebhaftesten Glanze.<lb/>
+Treten in diesem Augenblick schwarze Wolken hinter ihn,<lb/>
+dann glänzt er wie eine rothglühende Kohle. Eine Viertel-<lb/>
+stunde lang genießt der Beobachter vor Genf am Ufer des<lb/>
+im herrlichsten Blau sich kräuselnden Wasserspiegels diesen<lb/>
+überaus prächtigen Anblick. Dann geht auch für den euro-<lb/>
+päischen Riesen die Sonne unter; eine weißbläuliche traurige<lb/>
+Farbe überzieht das ganze Gebirge. Der Gegensatz dieses<lb/>
+neuen Anblicks zu dem eben entrückten ist wie bleicher, star-<lb/>
+rer Tod gegen üppiges, frisches Leben. Das bleiche, kränk-<lb/>
+liche Ansehen der Gebirge hat seinen Grund in der unmit-<lb/>
+telbar über ihnen gelegenen und noch von der Sonne er-<lb/>
+leuchteten Zone der Atmosphäre, die einen schwachen Schein<lb/>
+auf den Schneeteppich wirft. Sinkt auch für diese höhern<lb/>
+Regionen der Atmosphäre die Sonne hinab, so überzieht der<lb/>
+einförmige schwache Dämmerungsschein das ganze Gebirge.<lb/>
+Geisterhaft ragen die weißen Kolosse aus dem Dunkel der<lb/>
+Ebene empor.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Der größte Baum der Erde soll eine in Californien<lb/>
+entdeckte Ceder sein, auf einem Berge des Landstrichs von<lb/>
+Calaveras. Jhr Umfang &#x2014; so berichtet es das englische<lb/>
+Athenäum &#x2014; beträgt unmittelbar an der Erde 92 Fuß;<lb/>
+noch in einer Höhe von 14 Fuß ist sie 61 Fuß stark und<lb/>
+nimmt dann allmälig ab. Auch zeigt sie keine Misgestalt,<lb/>
+wie dies bei kolossalen Bäumen oft der Fall ist, sondern ist<lb/>
+durchweg ein Muster der Symmetrie. Man schätzt ihr Al-<lb/>
+ter über 2000 Jahre und eine Probe der Rinde, die am<lb/>
+Fuße fast 14 Zoll dick ist, war auf der Jndustrieausstellung<lb/>
+zu Neuyork zu sehen.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Das chinesische Medicinalwesen ist etwas sehr Um-<lb/>
+fängliches. Es gibt ein großes Werk von Li=schi=tschin,<lb/>
+betitelt: &#x201E;Pun=tsau=kang=muh&#x201C; ( d. h. <hi rendition="#aq">Materia medica ) ,</hi><lb/>
+welches alle medicinischen Heilstoffe aus dem Mineral=, Pflan-<lb/>
+zen- und Thierreiche bespricht; es besteht aus nicht weniger<lb/>
+als 40 enggedruckten Octavbänden mit vielen Hunderten von<lb/>
+Abbildungen, die freilich nicht viel besser sich ausnehmen als<lb/>
+die Holzschnitte in unsern alten Kräuterbüchern. Jn allen<lb/>
+größern chinesischen Städten finden sich Läden, in denen heil- <lb/>
+<cb n="2"/>
+same Kräuter, Wurzeln, Rinde und andere Substanzen feil-<lb/>
+geboten werden; die unentbehrliche Zugabe zu diesen Ver-<lb/>
+käuflichkeiten bildet ein Aufschneider, der die außerordentli-<lb/>
+chen Kräfte der Waaren anpreist und dazwischen auch seine<lb/>
+Witze anbringt, zur Belustigung der umherstehenden Gaffer.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Der Apotheker Parmentier am Jnvalidenhause in<lb/>
+Paris machte sich um die Einführung der Kartoffeln in<lb/>
+Frankreich verdient. Er war früher Soldat gewesen und<lb/>
+im Siebenjährigen Kriege in Gefangenschaft gerathen; so<lb/>
+hatte er in Deutschland die nützliche Kartoffel kennen ge-<lb/>
+lernt. Er empfahl sie dem Könige, seinem Herrn, als das<lb/>
+beste und sicherste Mittel, die damals zunehmend große Noth<lb/>
+des Volks zu mildern. Ludwig <hi rendition="#aq">XVI</hi>. interessirte sich sehr für<lb/>
+die neue gesegnete Frucht, er trug eine Blüte derselben im<lb/>
+Knopfloche und Marie Antoinette eine solche als Hauptzierde<lb/>
+in den Haaren. Parmentier erhielt von dem Könige die Er-<lb/>
+laubniß, in einer damals unfruchtbaren Ebene bei Paris, in<lb/>
+den sogenannten Sablons, große Kartoffelpflanzungen anzu-<lb/>
+legen. Als nun diese herrlich gediehen und die zahllosen<lb/>
+Früchte reif waren, gebrauchte man die List, die Pflanzun-<lb/>
+gen durch Schildwachen am Tage scheinbar strenge bewachen<lb/>
+zu lassen. Was man erwartete, geschah; die am hellen Tage<lb/>
+bewachten Kartoffeln wurden in dunkler Nacht in großer<lb/>
+Menge gestohlen und die neue Frucht ward als gesunde<lb/>
+Speise bald bekannt. Jedermann wollte Kartoffeln haben<lb/>
+und ihr Anbau nahm von Jahr zu Jahr zu. </p></div><lb/>
+<div n="2" type="jArticle"><p>Napoleon zeigte als Knabe unbezähmbare Leidenschaft<lb/>
+für das Militär; ein geborener Soldat that er nichts lieber,<lb/>
+als neben dem Militär in Ajaccio herlaufen. Die Solda-<lb/>
+ten duldeten es gern, wenn der Kleine neben ihnen exercirte<lb/>
+und mancher Graubart hob ihn auf und herzte ihn, wenn er<lb/>
+das Exercitium so wacker mitmachte. Er quälte seinen Va-<lb/>
+ter mit Bitten, daß er ihm eine Kanone anschaffte und noch<lb/>
+lange zeigte man im Hause Bonaparte die kleine metallene<lb/>
+Kanone, mit welcher dieser Pulverwolkensammler Zeus zu<lb/>
+spielen pflegte. Bald erstreckte sich sein befehlendes Ansehen<lb/>
+über die Jugend von Ajaccio und wie Cyrus die Hirtenkin-<lb/>
+der der Meder, vereinigte er die Kinder von Ajaccio in eine<lb/>
+Soldatencompagnie, welche gegen die feindliche Jüngerschaft<lb/>
+des Borgo von Ajaccio tapfer zu Felde zog und blutige<lb/>
+Schlachten mit Steinen und hölzernen Säbeln lieferte.</p></div><lb/>
+<div n="2" type="jArticle"><p>Förderung der Landwirthschaft durch den Beicht-<lb/>
+stuhl. Der Pfarrer zu Montaveno in der Grafschaft Mo-<lb/>
+lise im Königreich Neapel pflegte den Landleuten, die bei<lb/>
+ihm zur Beichte kamen, als Buße aufzugeben, daß sie einen<lb/>
+Oelbaum, eine Rebe oder irgend einen Obstbaum pflanzen,<lb/>
+fleißig warten und pflegen sollten. Seine Pfarrei, die ehe-<lb/>
+dem als die unwirthbarste, kahlste Gegend im Königreiche<lb/>
+galt, wo kein Baum zu sehen war, verwandelte sich allmälig<lb/>
+in einen Garten.</p></div></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jAnnouncements"><head><hi rendition="#fr"><hi rendition="#g">Ankündigungen</hi>.</hi></head><lb/>
+<cb type="start"/>
+<div n="2" type="jAn"><figure/><lb/>
+<cb n="2"/>
+<p>Diese rühmlichst bekannten <hi rendition="#aq">Pates Pectorales,</hi> lb/&gt;ein bewährtes Linderungsmittel bei Brustleiden aller<lb/>
+Art, Husten, Schnupfen, Katarrh <choice><abbr>ec.</abbr></choice>, werden verkauft<lb/>
+in Leipzig bei</p><lb/>
+<p> <space dim="horizontal"/>  <hi rendition="#fr">L. Tilebein,</hi><lb/>
+<space dim="horizontal"/>   Conditor in der Centralhalle.</p></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/></div><lb/>
+</body>     <back><div n="1" type="imprint"><p><hi rendition="#c">Verantwortlicher Redacteur: <hi rendition="#aq">M</hi>. J. E. Volbeding. &#x2014; Druck und Verlag von F. A. Brockhaus in Leipzig.</hi></p></div>     </back>   </text> </TEI>

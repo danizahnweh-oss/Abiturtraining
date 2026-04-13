@@ -1,0 +1,988 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.deutschestextarchiv.de/basisformat.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="http://www.deutschestextarchiv.de/basisformat.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">   <teiHeader>
+<fileDesc>
+<titleStmt>
+<title type="main">Ueber deutsche Geselligkeit </title>
+<title type="sub">in Antwort auf das Urtheil der Frau von Stael</title>
+<author>
+<persName ref="http://d-nb.info/gnd/118692321">
+<surname>Fouqué</surname>
+<forename>Caroline de La Motte-</forename>
+</persName>
+</author>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/115266127">
+<surname>Geyken</surname>
+<forename>Alexander</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1222198746">
+<surname>Haaf</surname>
+<forename>Susanne</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1019062681">
+<surname>Jurish</surname>
+<forename>Bryan</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Boenig</surname>
+<forename>Matthias</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Thomas</surname>
+<forename>Christian</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Wiegand</surname>
+<forename>Frank</forename>
+</persName>
+</editor>
+<respStmt>
+<orgName ref="https://www.bbaw.de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<resp>
+<note type="remarkResponsibility">Langfristige Bereitstellung der DTA-Ausgabe</note>
+<ref target="https://www.bbaw.de"/>
+</resp>
+</respStmt>
+</titleStmt>
+<editionStmt><edition>Vollständige digitalisierte Ausgabe.</edition></editionStmt>
+<extent>
+<measure type="images">40</measure>
+<measure type="tokens">5100</measure>
+<measure type="types">2175</measure>
+<measure type="characters">36226</measure>
+</extent>
+<publicationStmt>
+<publisher xml:id="DTACorpusPublisher">
+<email>dta@bbaw.de</email>
+<orgName role="project">Deutsches Textarchiv</orgName>
+<orgName role="hostingInstitution" xml:lang="en">Berlin-Brandenburg Academy of Sciences and Humanities (BBAW)</orgName>
+<orgName role="hostingInstitution" xml:lang="de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<address>
+<addrLine>Jägerstr. 22/23, 10117 Berlin</addrLine>
+<country>Germany</country>
+</address>
+</publisher>
+<pubPlace>Berlin</pubPlace>
+<date type="publication">2025-02-28T14:58:07Z</date>
+<availability>
+<licence target="https://creativecommons.org/licenses/by-sa/4.0/deed.de">
+<p>Distributed under the Creative Commons Attribution-ShareAlike 4.0 License.</p>
+</licence>
+</availability>
+<idno>
+<idno type="URLWeb">https://www.deutschestextarchiv.de/fouque_geselligkeit_1814</idno>
+<idno type="URLXML">https://www.deutschestextarchiv.de/book/download_xml/fouque_geselligkeit_1814</idno>
+<idno type="URLHTML">https://www.deutschestextarchiv.de/book/download_html/fouque_geselligkeit_1814</idno>
+<idno type="URLText">https://www.deutschestextarchiv.de/book/download_text/fouque_geselligkeit_1814</idno>
+<idno type="DTADirName">fouque_geselligkeit_1814</idno>
+<idno type="DTAID">25092</idno>
+<idno type="URN">urn:nbn:de:kobv:b4-25092-7</idno>
+</idno>
+</publicationStmt>
+<sourceDesc>
+<bibl type="M">Fouqué, Caroline de La Motte-: Ueber deutsche Geselligkeit. Berlin, 1814.</bibl>
+<biblFull>
+<titleStmt>
+<title level="m" type="main">Ueber deutsche Geselligkeit </title>
+<title level="m" type="sub">in Antwort auf das Urtheil der Frau von Stael</title>
+<author>
+<persName ref="http://d-nb.info/gnd/118692321">
+<surname>Fouqué</surname>
+<forename>Caroline de La Motte-</forename>
+</persName>
+</author>
+</titleStmt>
+<editionStmt>
+<edition n="1"/>
+</editionStmt>
+<extent>
+<measure type="pages">36 S.</measure>
+</extent>
+<publicationStmt>
+<publisher><name>Wittich</name></publisher>
+<pubPlace>Berlin</pubPlace>
+<date type="publication">1814</date>
+</publicationStmt>
+</biblFull>
+<msDesc>
+<msIdentifier>
+<repository>Staatsbibliothek München</repository>
+<idno>
+<idno type="shelfmark">BSB München, Fiche Germ.g. 133 m</idno>
+</idno>
+</msIdentifier>
+<physDesc>
+<typeDesc>
+<p>Fraktur</p>
+</typeDesc>
+</physDesc>
+</msDesc>
+</sourceDesc>
+</fileDesc>
+<encodingDesc>
+<editorialDecl>
+<p>Dieses Werk wurde gemäß den <ref target="https://www.deutschestextarchiv.de/doku/richtlinien">DTA-Transkriptionsrichtlinien</ref>
+im Double-Keying-Verfahren von Nicht-Muttersprachlern erfasst und in XML/TEI P5 nach
+<ref target="https://www.deutschestextarchiv.de/doku/basisformat">DTA-Basisformat</ref> kodiert.</p>
+<p/>
+</editorialDecl>
+<tagsDecl>
+<rendition scheme="css" xml:id="aq">font-family:sans-serif</rendition>
+<rendition scheme="css" xml:id="b">font-weight:bold</rendition>
+<rendition scheme="css" xml:id="blue">color:blue</rendition>
+<rendition scheme="css" xml:id="c">display:block; text-align:center</rendition>
+<rendition scheme="css" xml:id="et">display:block; margin-left:2em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et2">display:block; margin-left:4em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et3">display:block; margin-left:6em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="f">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="fr">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="g">letter-spacing:0.125em</rendition>
+<rendition scheme="css" xml:id="i">font-style:italic</rendition>
+<rendition scheme="css" xml:id="in">font-size:150%</rendition>
+<rendition scheme="css" xml:id="k">font-variant:small-caps</rendition>
+<rendition scheme="css" xml:id="larger">font-size:larger</rendition>
+<rendition scheme="css" xml:id="red">color:red</rendition>
+<rendition scheme="css" xml:id="right">display:block; text-align:right</rendition>
+<rendition scheme="css" xml:id="s">text-decoration:line-through</rendition>
+<rendition scheme="css" xml:id="smaller">font-size:smaller</rendition>
+<rendition scheme="css" xml:id="sub">vertical-align:sub; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="sup">vertical-align:super; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="u">text-decoration:underline</rendition>
+<rendition scheme="css" xml:id="uu">border-bottom:double 3px #000</rendition>
+</tagsDecl>
+</encodingDesc>
+<profileDesc>
+<particDesc>
+<person sex="f" role="author">
+<persName ref="http://d-nb.info/gnd/118692321">
+<surname>Fouqué</surname>
+<forename>Caroline de La Motte-</forename>
+</persName>
+</person>
+</particDesc>
+<langUsage>
+<language ident="deu">(Früh-)Neuhochdeutsch</language>
+<language ident="deu">German</language>
+</langUsage>
+<textClass>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dtamain">Gebrauchsliteratur</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dtasub">Gesellschaft</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1main">Gebrauchsliteratur</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1sub">Gesellschaft</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">core</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">ready</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">china</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#collections">women</classCode>
+</textClass>
+</profileDesc>
+</teiHeader>
+<text><front>
+<pb facs="#f0001"/>
+<pb facs="#f0002"/>
+<pb n="[1]" facs="#f0003"/>
+<titlePage type="main"><docTitle><titlePart type="main"><hi rendition="#g">Ueber<lb/>
+<hi rendition="#b">deut&#x017F;che Ge&#x017F;elligkeit</hi><lb/>
+in Antwort<lb/>
+auf</hi><lb/>
+das Urtheil der Frau von Stael.</titlePart></docTitle><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<byline><hi rendition="#g">Von</hi><lb/>
+<docAuthor><hi rendition="#g">Karoline de la Motte Fouqu<hi rendition="#aq">é</hi></hi></docAuthor>.</byline><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<docImprint><pubPlace><hi rendition="#g">Berlin,</hi></pubPlace><lb/>
+<publisher><hi rendition="#g">bei L. W. Wittich.</hi></publisher><lb/>
+<docDate><hi rendition="#g">1814</hi></docDate>.</docImprint></titlePage></front><body><lb/>
+<pb n="[2]" facs="#f0004"/>
+<pb n="[3]" facs="#f0005"/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<div n="1"><p><hi rendition="#in">D</hi>as allein &#x017F;ind Gei&#x017F;teswerke zu nennen, die<lb/>
+mit dem Gei&#x017F;t den Gei&#x017F;t beru&#x0364;hren, und ihn zwin-<lb/>
+gen fortzuarbeiten ohne Ra&#x017F;t und ohne Ruhe, bis<lb/>
+er <hi rendition="#g">erkennt,</hi> was ihn bewegt. Es wird daher<lb/>
+die lebendige Gewalt einer Schrift allein dadurch<lb/>
+bewa&#x0364;hrt, daß &#x017F;ie zu neuen Unter&#x017F;uchungen und<lb/>
+Urtheilen &#x017F;tachelt, und das Gefu&#x0364;hl wie den Ver-<lb/>
+&#x017F;tand anfa&#x017F;&#x017F;end, beide nicht eher wieder losla&#x0364;ßt,<lb/>
+bis &#x017F;ich Eines durch das Andere klar geworden,<lb/>
+in einem <hi rendition="#g">Selb&#x017F;terzeugten</hi> vollkommen ver-<lb/>
+&#x017F;teht.</p><lb/>
+<p>Meine Achtung fu&#x0364;r das Werk der Frau von<lb/>
+Stael geht demnach ganz von &#x017F;elb&#x017F;t daraus her-<lb/>
+<fw type="sig" place="bottom"><hi rendition="#g">[1]</hi></fw><lb/>
+<pb n="4" facs="#f0006"/>
+vor, daß ich es wage, auf&#x2019;s neue o&#x0364;ffentlich daru&#x0364;ber<lb/>
+zu reden. Was ein &#x017F;trebendes Gemu&#x0364;th Jahre lang<lb/>
+wahrha&#x017F;t be&#x017F;cha&#x0364;ftigte, was in ihm ward, in ihm<lb/>
+&#x017F;ich na&#x0364;hrte und ge&#x017F;taltete, das wird niemals mit<lb/>
+einem paar lobenden oder tadelnden Worten abge-<lb/>
+fertigt. Ganz von &#x017F;elb&#x017F;t macht es &#x017F;ich Bahn unter<lb/>
+den Men&#x017F;chen, ruft &#x017F;ie an, und wirkt und bildet<lb/>
+in mannigfachen Geburten fort, die oftmals ihren<lb/>
+Ur&#x017F;prung nicht &#x017F;ogleich erkennen la&#x017F;&#x017F;en, ob&#x017F;chon &#x017F;ie<lb/>
+in einer nothwendigen Folgereihe bedingt &#x017F;ind.<lb/>
+Frau von Stael hat vieles in Anregung, vieles<lb/>
+zur Sprache gebracht, das &#x017F;einer Natur nach Nie-<lb/>
+mand kalt la&#x0364;ßt, und der Richtung, wie dem Maaße<lb/>
+jedesmaliger Bildung zufolge die Gemu&#x0364;ther ho&#x0364;ch&#x017F;t<lb/>
+wider&#x017F;prechend bewegt. An &#x017F;ich &#x017F;chon intere&#x017F;&#x017F;ant,<lb/>
+und ein Spiegel des unruhig arbeitenden Zeitgei-<lb/>
+&#x017F;tes mo&#x0364;chte es &#x017F;eyn, den Wieder&#x017F;chein jener ab-<lb/>
+&#x017F;cha&#x0364;tzenden Urtheile un&#x017F;erer deut&#x017F;chen Jndividualita&#x0364;t<lb/>
+in deut&#x017F;chen Gemu&#x0364;thern zu beleuchten. Die Re&#x017F;ul-<lb/>
+tate hiervon wu&#x0364;rden be&#x017F;timmt, mehr als alles,<lb/>
+eine Charakteri&#x017F;tik gegenwa&#x0364;rtiger Nationalbildung<lb/>
+liefern. Und &#x017F;o i&#x017F;t Jedes, was u&#x0364;ber die&#x017F;es Buch<lb/>
+<pb n="5" facs="#f0007"/>
+ge&#x017F;agt wird, in&#x017F;ofern es aus einer innern Wahr-<lb/>
+heit hervorgeht, zu rechter Zeit ge&#x017F;agt, und als<lb/>
+eine lebendige Fortbewegung des er&#x017F;ten, vielleicht<lb/>
+etwas gewagten Stoßes zu betrachten.</p><lb/>
+<p>Schon einmal, in einem Stu&#x0364;ck der <hi rendition="#g">Mu-<lb/>
+&#x017F;en,</hi> ließ ich den Ge&#x017F;ammteindruck des allgemein<lb/>
+gele&#x017F;enen und &#x017F;chon deshalb ho&#x0364;ch&#x017F;t wichtigen Wer-<lb/>
+kes u&#x0364;ber Deut&#x017F;chland in einzelnen Ergu&#x0364;&#x017F;&#x017F;en aus-<lb/>
+&#x017F;tro&#x0364;men. Die Mißgriffe eines großen, ho&#x0364;ch&#x017F;t le-<lb/>
+bendigen Ver&#x017F;tandes, im Gegen&#x017F;atz mit der rein&#x017F;ten<lb/>
+und tief&#x017F;ten Fu&#x0364;hlbarkeit, die &#x017F;charfen in ein ferti-<lb/>
+ges Sy&#x017F;tem einge&#x017F;chnittenen Urtheile bei &#x017F;o groß-<lb/>
+artiger Ahnung, er&#x017F;chu&#x0364;tterten um &#x017F;o gewalt&#x017F;amer,<lb/>
+je williger und freudiger ich mich von dem frem-<lb/>
+den Reichthum durchdringen und bewegen ließ.<lb/>
+Jch konnte lange nicht begreifen, wie &#x017F;o ab&#x017F;olutes<lb/>
+Verkennen bei mannigfachem innern Ver&#x017F;tehn mo&#x0364;g-<lb/>
+lich &#x017F;ey. Es &#x017F;chien mir dies Begleiten ku&#x0364;hner<lb/>
+Gei&#x017F;tesentwicklung ganz unvereinbar mit dem<lb/>
+&#x017F;chma&#x0364;hlichen Herabwu&#x0364;rdigen un&#x017F;eres eigentlichen<lb/>
+&#x017F;elb&#x017F;t&#x017F;ta&#x0364;ndigen Da&#x017F;eyns. Solch ein Zwie&#x017F;palt im<lb/>
+Erkennen und Fu&#x0364;hlen mußte in &#x017F;einer Ru&#x0364;ckwir-<lb/>
+<pb n="6" facs="#f0008"/>
+kung zerreißend &#x017F;eyn und das Urtheil verwirren,<lb/>
+indem gerade dasjenige verletzt ward, was als<lb/>
+das We&#x017F;en nationeller Per&#x017F;o&#x0364;nlichkeit ange&#x017F;ehen wer-<lb/>
+den muß.</p><lb/>
+<p>Wie denn aber Jedwedes, das ein Gefu&#x0364;hl,<lb/>
+&#x017F;ey es Unwille oder Bewunderung, recht aus&#x017F;chlie-<lb/>
+ßend in An&#x017F;pruch nimmt, nicht eher wieder ab-<lb/>
+la&#x0364;ßt, bis es &#x017F;ich in eine Art von Gleichgewicht<lb/>
+mit uns &#x017F;etzt, indem es uns durch Kampf und<lb/>
+Streit auf &#x017F;einen eigentlichen Standpunkt hin-<lb/>
+zwingt: &#x017F;o a&#x0364;ng&#x017F;tete mich der gleich&#x017F;am zur Schau<lb/>
+ge&#x017F;tellte Schattenriß meiner Nation &#x017F;o lange, bis<lb/>
+mich eine genauere Bekannt&#x017F;chaft durch alle Linien<lb/>
+und das ganze Trieb- und Ra&#x0364;derwerk de&#x017F;&#x017F;elben zer-<lb/>
+rend plo&#x0364;tzlich den Su&#x0364;hn- und Wendepunkt des<lb/>
+ganzen Streites entdecken ließ, und ich den la&#x0364;&#x017F;ti-<lb/>
+gen Traum von mir &#x017F;chiebend, rief: <hi rendition="#g">das &#x017F;ind<lb/>
+wir nicht! das &#x017F;ind ja gar keine Deut-<lb/>
+&#x017F;che!</hi></p><lb/>
+<p>Jch wollte frei athmen, aber die Zauber-<lb/>
+worte ri&#x017F;&#x017F;en mich auf&#x2019;s neue zuru&#x0364;ck, verwandte<lb/>
+Zu&#x0364;ge &#x017F;ahen mich fa&#x017F;t ho&#x0364;hnend an, ich konnte mir<lb/>
+<pb n="7" facs="#f0009"/>
+die Aehnlichkeit nicht verbergen und &#x017F;chwieg be-<lb/>
+&#x017F;cha&#x0364;mt und blo&#x0364;de vor der fremdem Er&#x017F;cheinung.<lb/>
+Sie aber erhob ihre Stimme und redete mich laut<lb/>
+in dem Gei&#x017F;te meiner Sprache an, ohne daß ich<lb/>
+&#x017F;ie ver&#x017F;tand. Da riß das Traumnetz vollends, <hi rendition="#g">der<lb/>
+Klang des lebendigen Da&#x017F;eyns war ein<lb/>
+andrer,</hi> die Phy&#x017F;iognomie jener bleichenden Um-<lb/>
+ri&#x017F;&#x017F;e blieb unbeweglich, die Seele flu&#x0364;chtete zu der<lb/>
+allgemeinen Welt&#x017F;eele, denn &#x017F;ie geho&#x0364;rte der Men&#x017F;ch-<lb/>
+heit u&#x0364;berhaupt, ohne ihr be&#x017F;ondres Recht auf die<lb/>
+deut&#x017F;che Nation behaupten zu ko&#x0364;nnen.</p><lb/>
+<p><hi rendition="#g">Dies rein men&#x017F;chliche Einver&#x017F;ta&#x0364;ndniß</hi>,<lb/>
+das innig empfunden und warm vom Herzen zum<lb/>
+Herzen redete, war es, was mich, was viele Andre<lb/>
+noch heut zur Stunde u&#x0364;ber die individuelle Aehn-<lb/>
+lichkeit ta&#x0364;u&#x017F;chte, die&#x017F;e aber i&#x017F;t und bleibt nur der<lb/>
+&#x017F;pielende Wieder&#x017F;chein geheimer innerer Verwand-<lb/>
+&#x017F;chaft, die den willku&#x0364;hrlichen Formen eine Art<lb/>
+von Da&#x017F;eyn lieh.</p><lb/>
+<p>Das Wort al&#x017F;o hatte hier das Wort ge&#x017F;agt.<lb/>
+Die Sprache war die gewaltige Scheiderin, die<lb/>
+das Be&#x017F;ondere von dem Allgemeinen trennte, und<lb/>
+<pb n="8" facs="#f0010"/>
+jedem &#x017F;eine Stelle anwies. Jch war zu Haus,<lb/>
+und fu&#x0364;hlte, daß es Frau von Stael nicht war,<lb/>
+nicht &#x017F;eyn konnte, als &#x017F;ie u&#x0364;ber Deut&#x017F;che redete,<lb/>
+denn ihr fehlte das er&#x017F;te Element deut&#x017F;chen Lebens,<lb/>
+<hi rendition="#g">deut&#x017F;che Luft</hi>. Jhr Athem, ihr Organ ward<lb/>
+durch einen andern Hauch bewegt, die To&#x0364;ne &#x017F;tießen<lb/>
+und brachen &#x017F;ich in dem fremden, ohne in einan-<lb/>
+der zu fließen, <hi rendition="#g">es lagen Berge dazwi&#x017F;chen</hi>.</p><lb/>
+<p>Es ging Frau von Stael mit dem Urtheil<lb/>
+u&#x0364;ber Deut&#x017F;che, wie es un&#x017F;ern An&#x017F;ichten und Vor-<lb/>
+&#x017F;tellungen vom Griechi&#x017F;chen und Ro&#x0364;mi&#x017F;chen Natio-<lb/>
+nal&#x017F;inn, vom Leben und Seyn des Alterthums<lb/>
+u&#x0364;berhaupt ta&#x0364;glich zu ergehen pflegt: es &#x017F;ind Ab-<lb/>
+&#x017F;tracta, die des eigenthu&#x0364;mlich beweglichen Lebens-<lb/>
+&#x017F;chwunges entbehren. Wir &#x017F;tudiren Kun&#x017F;t und Li-<lb/>
+teraturge&#x017F;chichte alter Vo&#x0364;lker, der Ver&#x017F;tand bahnt<lb/>
+&#x017F;ich behend und &#x017F;icher einen Weg durch alle Win-<lb/>
+dungen politi&#x017F;cher und ge&#x017F;elliger Jn&#x017F;titutionen, die<lb/>
+ewige Vermittlerin, Phanta&#x017F;ie, wogt mit be&#x017F;eelen-<lb/>
+dem Flu&#x0364;gel&#x017F;chlag u&#x0364;ber der ern&#x017F;ten Gei&#x017F;terwelt,<lb/>
+Blitze des Lebens gehen auf, große Ahnungen wer-<lb/>
+den laut: doch wollen &#x017F;ie &#x017F;ich Leib und Da&#x017F;eyn<lb/>
+<pb n="9" facs="#f0011"/>
+&#x017F;chaffen unter dem lebenden Ge&#x017F;chlecht, &#x017F;o &#x017F;chauert<lb/>
+die&#x017F;es zuru&#x0364;ck und erkennt nicht mehr das Flei&#x017F;ch<lb/>
+von &#x017F;einem Flei&#x017F;ch und Bein von &#x017F;einem Bein.<lb/>
+Es &#x017F;ind und bleiben doch nur Schatten, die, je<lb/>
+ko&#x0364;rperlich wahrer &#x017F;ie auftreten, das Leben immer<lb/>
+beklemmender zuru&#x0364;ck&#x017F;toßen. Das behende, flu&#x0364;chtige,<lb/>
+ver&#x017F;chwimmende We&#x017F;en des Men&#x017F;chen&#x017F;innes &#x017F;tellt<lb/>
+keine Zauberei wieder her, ge&#x017F;elliger Conflikt ent-<lb/>
+faltet, Sprache offenbart es, das Leben giebt Leben,<lb/>
+und Nationalita&#x0364;t wird nur durch gemein&#x017F;amen Ver-<lb/>
+kehr, durch Liebe und Leid, durch Muth und Kraft<lb/>
+und Vollbringen, durch die Echo-Kla&#x0364;nge der eigenen<lb/>
+Seele in der Bruder&#x017F;eele erme&#x017F;&#x017F;en und ver&#x017F;tanden.</p><lb/>
+<p>Frau von Stael &#x017F;elb&#x017F;t &#x017F;agt &#x017F;ehr wahr: <hi rendition="#aq">&#x201E;Une<lb/>
+langue étrangère est toujours, sous beaucoup<lb/>
+de rapports, une langue morte. Il faut avoir<lb/>
+respiré l&#x2019;air d&#x2019;un pays, pensé, joui, souffert<lb/>
+dans sa langue, pour peindre en poésie ce<lb/>
+qu&#x2019;on eprouve.&#x201D;</hi> [&#x201E;Eine fremde Sprache i&#x017F;t<lb/>
+in mancherlei Beziehungen immer eine todte Sprache.<lb/>
+Um poeti&#x017F;ch zu malen was man empfindet, muß<lb/>
+<pb n="10" facs="#f0012"/>
+man die Luft eines Landes geathmet, in &#x017F;einer<lb/>
+Sprache gedacht, geno&#x017F;&#x017F;en und gelitten haben.&#x201D;]<lb/>
+Wie denn wagte &#x017F;ie, das gro&#x0364;ßte Gedicht was<lb/>
+es giebt, die Gemu&#x0364;ths- und Bildungsge&#x017F;chichte,<lb/>
+die Jndividualita&#x0364;t und Charakteri&#x017F;tik eines Volkes<lb/>
+in fremder Seele <hi rendition="#g">nachzuerfinden?</hi></p><lb/>
+<p>Unter Tau&#x017F;enden ward vielleicht Schak&#x017F;pear<lb/>
+allein &#x017F;o großer Offenbarungen gewu&#x0364;rdigt, daß er<lb/>
+Ro&#x0364;mernaturen er&#x017F;chaffen durfte. Die Poe&#x017F;ie dul-<lb/>
+dete dies Wagniß. Anders aber i&#x017F;t es mit der<lb/>
+Kritik, und Niemand denke ich, wird heut zu<lb/>
+Tage noch Charakteri&#x017F;tiken und Kritiken der Grie-<lb/>
+chen und Ro&#x0364;mer &#x017F;chreiben.</p><lb/>
+<p>Man wird mir einwenden, Frau von Stael<lb/>
+&#x017F;tehe gar nicht in einem &#x017F;o getrennten Verha&#x0364;ltniß<lb/>
+zu Deut&#x017F;chland, &#x017F;ie habe es von We&#x017F;t nach O&#x017F;t<lb/>
+durchrei&#x017F;&#x2019;t, darin gelebt, Natur und Men&#x017F;chen be-<lb/>
+obachtet, die zarte&#x017F;ten Bande der Poe&#x017F;ie und Freund-<lb/>
+&#x017F;chaft halten &#x017F;ie mit de&#x017F;&#x017F;en lebendigen Da&#x017F;eyn ver-<lb/>
+bunden, &#x017F;ie kenne die Sprache und le&#x017F;e gern und<lb/>
+viel in der&#x017F;elben. Jch aber erwiedere hierauf: Frau<lb/>
+<pb n="11" facs="#f0013"/>
+von Stael blieb auch der a&#x0364;ußern Er&#x017F;cheinung nach<lb/>
+in ihrem Frankreich, und &#x017F;chob die&#x017F;es nur, &#x017F;ich<lb/>
+fortbewegend u&#x0364;ber Deut&#x017F;chlands Boden hin. Jhre<lb/>
+Stellung zur Welt, die Gewalt ihres Gei&#x017F;tes, die<lb/>
+Herr&#x017F;chaft ihrer Sprache zog von &#x017F;elb&#x017F;t einen Kreis<lb/>
+um &#x017F;ie her, de&#x017F;&#x017F;en Mittelpunkt &#x017F;ie in Wien wie in<lb/>
+Paris bleiben wird. Die Einheimi&#x017F;chen treten in<lb/>
+die&#x017F;em als <hi rendition="#g">Fremde</hi> auf, &#x017F;ie &#x017F;ieht nur unbequemen<lb/>
+Fe&#x017F;ttags&#x017F;taat, oder zur Natur gewordene Maske.<lb/>
+Conventionelle Formen &#x017F;ind einander u&#x0364;berall ziem-<lb/>
+lich gleich. Die franzo&#x0364;&#x017F;i&#x017F;che Sprache hat gramma-<lb/>
+tikali&#x017F;che Figuren, Werkzeuge und Hebel, durch de-<lb/>
+ren Hu&#x0364;lfe man &#x017F;ich <hi rendition="#g">leidlich</hi> an dem <hi rendition="#g">a&#x0364;ußern<lb/>
+Geru&#x0364;&#x017F;t</hi> ge&#x017F;elliger Unterredung anklammert. Ori-<lb/>
+ginalita&#x0364;t, wie nationelle Eigenthu&#x0364;mlichkeit, kommt<lb/>
+hier nicht in Betracht; es i&#x017F;t nur von mehr oder<lb/>
+minder Freiheit in dem allgemeinen Gefa&#x0364;ngniß die<lb/>
+Rede. Wer von Jugend auf darin aufwuchs, be-<lb/>
+wegt &#x017F;ich am bequem&#x017F;ten. Mei&#x017F;terin der Sprache<lb/>
+wie der lebendig gei&#x017F;tigen Unterhaltung in die&#x017F;er,<lb/>
+den Strom der Rede nach Gefallen lenkend, im<lb/>
+ku&#x0364;hnen Fluge die Pfeile behenden Witzes ver&#x017F;en-<lb/>
+<pb n="12" facs="#f0014"/>
+dend, mußte Frau von Stael, <hi rendition="#g">berechtigt, den<lb/>
+Maaß&#x017F;tab anzulegen, den wir ihr &#x017F;elb&#x017F;t in<lb/>
+die Hand gaben,</hi> fa&#x017F;t u&#x0364;berall auf unbeholfene<lb/>
+Lang&#x017F;amkeit und blo&#x0364;des Schweigen, oder auf ge-<lb/>
+lehrte floskelreiche Pedanterie, und, was noch &#x017F;chlim-<lb/>
+mer i&#x017F;t, auf frivole Nacha&#x0364;ffung &#x017F;toßen. Die Si-<lb/>
+cherheit der Mei&#x017F;ter&#x017F;chaft ward durch das unbehol-<lb/>
+fene Streben gea&#x0364;ng&#x017F;tet, wenn andrer&#x017F;eits un&#x017F;chick-<lb/>
+liches Verwerfen an fremdem Eigenthum das Ge-<lb/>
+fu&#x0364;hl verletzte.</p><lb/>
+<p>Das i&#x017F;t es, was Frau von Stael zu tadeln<lb/>
+gezwungen i&#x017F;t. Hier kann und darf &#x017F;ie Richterin<lb/>
+&#x017F;eyn. Doch be&#x017F;cheiden erinnere &#x017F;ie &#x017F;ich, daß nur<lb/>
+diejenigen der Strenge ihres Urtheils verfallen, die<lb/>
+&#x017F;ich, &#x017F;elb&#x017F;tverge&#x017F;&#x017F;end, fremder Eigenthu&#x0364;mlichkeit gleich-<lb/>
+&#x017F;tellen wollen. Wenn aber eingebohrne gute Sit-<lb/>
+ten, ga&#x017F;tlich deut&#x017F;ches Entgegenkommen, gefa&#x0364;lliges<lb/>
+Eingehen in ausla&#x0364;ndi&#x017F;che Art und Wei&#x017F;e, &#x017F;olche,<lb/>
+die nicht immer franzo&#x0364;&#x017F;i&#x017F;ch denken, beda&#x0364;chtig und<lb/>
+lang&#x017F;am, ja langweilig er&#x017F;cheinen ließ, &#x017F;o darf &#x017F;ie<lb/>
+von die&#x017F;en, gleich&#x017F;am aus dem Gang des freien<lb/>
+<pb n="13" facs="#f0015"/>
+Lebens herausge&#x017F;chnittenen Momenten, nicht auf den<lb/>
+Gei&#x017F;t und die Natur deut&#x017F;cher Conver&#x017F;ation u&#x0364;ber-<lb/>
+haupt &#x017F;chließen wollen. Weder die oft vorgeworfene<lb/>
+Steifheit, noch jene mu&#x0364;h&#x017F;elige Gru&#x0364;belei &#x017F;chwerfa&#x0364;lli-<lb/>
+ger For&#x017F;chgier, noch auch die halt- und boden-<lb/>
+lo&#x017F;en Flu&#x0364;ge im Gebiet der Spekulation machen<lb/>
+das We&#x017F;en des Deut&#x017F;chen aus. Sein Thun i&#x017F;t<lb/>
+heiter, und ge&#x017F;ellig. Behagliches Mittheilen, gut-<lb/>
+mu&#x0364;thige Ge&#x017F;chwa&#x0364;tzigkeit, freudiges Erkennen de&#x017F;&#x017F;en,<lb/>
+was er in &#x017F;ich denkend und er&#x017F;innend er&#x017F;chuf im<lb/>
+Gei&#x017F;te des Lebens und Men&#x017F;chenverkehrs, <hi rendition="#g">Ho&#x0364;ren</hi><lb/>
+und <hi rendition="#g">Geho&#x0364;rtwerden,</hi> das &#x017F;ind die treuherzigen<lb/>
+Elemente un&#x017F;eres National&#x017F;innes. Jch weiß nicht,<lb/>
+warum man den deut&#x017F;chen Ern&#x017F;t immer &#x017F;o pomp-<lb/>
+haft heraushebt, da doch un&#x017F;rer Nation ein Spaß<lb/>
+eigentlich u&#x0364;ber alles geht. Als im vergangenen<lb/>
+Jahre die Franzo&#x017F;en einen Ausfall bei der Roslauer<lb/>
+Bru&#x0364;cke wagten, und in der Nacht der Land&#x017F;turm<lb/>
+an der Havel und Elbe aufgeboten war, die Leute<lb/>
+&#x017F;ich ver&#x017F;ammelten und den Befehl zum Aufbruch<lb/>
+erwarteten, malten die alten Ma&#x0364;nner den Ju&#x0364;nglin-<lb/>
+gen in der Dunkelheit Ba&#x0364;rte, die Weiber traten<lb/>
+<pb n="14" facs="#f0016"/>
+drauf mit Laternen hinzu und unter &#x017F;challendem<lb/>
+Gela&#x0364;chter wurden die ge&#x017F;chwa&#x0364;rzten &#x017F;chief und krumm<lb/>
+verzeichneten Ge&#x017F;ichter beleuchtet. Jch habe da<lb/>
+nichts von den &#x017F;pekulirenden Ern&#x017F;t oder von jener<lb/>
+kra&#x0364;nklichen Einbildungskraft bemerkt, von welcher<lb/>
+Frau von Stael &#x017F;agt, <hi rendition="#aq">qu&#x2019;elle inspiroit la crainte<lb/>
+du péril.</hi> [&#x201E;daß &#x017F;ie die Furcht vor der Gefahr<lb/>
+einhaucht.&#x201D;]</p><lb/>
+<p>Es i&#x017F;t ganz unleugbar, die Verfa&#x017F;&#x017F;erin i&#x017F;t auf<lb/>
+dem fremden Gebiete den umgekehrten Weg gegan-<lb/>
+gen, wodurch &#x017F;ie zu &#x017F;chiefen Ru&#x0364;ckblicken und er-<lb/>
+zwungenen Folgerungen verlockt wird. Statt die<lb/>
+organi&#x017F;che Entwickelung ganz natu&#x0364;rlich von der ur-<lb/>
+&#x017F;pru&#x0364;nglichen Wurzel aus zu begleiten und &#x017F;ich ein-<lb/>
+heimi&#x017F;ch und &#x017F;icher unter dem Blu&#x0364;thendach der<lb/>
+Poe&#x017F;ie und Kun&#x017F;t zu fu&#x0364;hlen, griff &#x017F;ie bei ver&#x017F;pa&#x0364;te-<lb/>
+tem Hinzutreten in der Ueberra&#x017F;chung fa&#x017F;t gewalt-<lb/>
+&#x017F;am nach den Blu&#x0364;then &#x017F;elb&#x017F;t, und, die&#x017F;e in ihre Fa-<lb/>
+&#x017F;ern und Knoten &#x017F;y&#x017F;temati&#x017F;ch zerlegend, verwirrte<lb/>
+&#x017F;ie &#x017F;ich in dem Netz- und Flechtgewebe des frem-<lb/>
+den Organismus. Ganz offenbar hat Frau von<lb/>
+Stael die Spitze der Pyramide als Ba&#x017F;is aufge-<lb/>
+<pb n="15" facs="#f0017"/>
+&#x017F;tellt. Jn der Breite und Tiefe aber, in dem Volks-<lb/>
+&#x017F;inn ga&#x0364;hren die Elemente, aus welcher &#x017F;ich die<lb/>
+Form, dem Strahle gleich, immer enger und enger<lb/>
+zu&#x017F;pitzt. Frau von Stael kannte das Volk nicht,<lb/>
+von dem &#x017F;ie &#x017F;chrieb, konnte es nicht kennen. Sie<lb/>
+intere&#x017F;&#x017F;irte auch nur die litera&#x0364;ri&#x017F;che Ver&#x017F;chiedenheit<lb/>
+mit Frankreich. Der Stempel, das Patent, was<lb/>
+die Zeit gleich&#x017F;am deut&#x017F;cher Gelehr&#x017F;amkeit aufge-<lb/>
+dru&#x0364;ckt hatte, frappirte &#x017F;ie. Einen lebendigen Gei&#x017F;t<lb/>
+wird das Große nicht lange kalt la&#x017F;&#x017F;en, Frau von<lb/>
+Stael i&#x017F;t wahrhaft ergriffen von dem Umfang der<lb/>
+Gewalt, Ku&#x0364;hnheit und Magie deut&#x017F;cher Literatur,<lb/>
+ob &#x017F;ie gleich wohl glaubt, Noth und Mangel ha-<lb/>
+ben die&#x017F;en Reichthum erzeugt, wie Hunger und<lb/>
+Dur&#x017F;t und be&#x017F;chnittene Flu&#x0364;gel den Raben &#x017F;prechen<lb/>
+lehren, denn ganz ausdru&#x0364;cklich &#x017F;agt die Verfa&#x017F;&#x017F;erin<lb/>
+in dem Werk u&#x0364;ber Deut&#x017F;chland:</p><lb/>
+<cit><quote><hi rendition="#aq">&#x201E;il n&#x2019;est point de pays qui ait plus besoin<lb/>
+que l&#x2019;Allemagne, de s&#x2019;occuper de lite-<lb/>
+rature, car la societé y offrant peu de<lb/>
+charme et les individus n&#x2019;ayant pas pour<lb/>
+la pluspart cette grace et cette vivacité<lb/>
+<pb n="16" facs="#f0018"/>
+que donne la nature dans les pays chauds&#x201D;<lb/>
+etc. etc.&#x201D;</hi> &#x2014;</quote></cit><lb/>
+<cit><quote>[&#x201E;Kein Land hat mehr Beruf, &#x017F;ich mit der<lb/>
+Literatur zu be&#x017F;cha&#x0364;ftigen, als Deut&#x017F;chland; denn<lb/>
+da der Umgang wenig Reiz hat und die Jn-<lb/>
+dividuen gro&#x0364;ßten Theils jener Aumuth und Le-<lb/>
+bendigkeit ermangeln, welche die Natur in den<lb/>
+warmen La&#x0364;ndern giebt&#x201D; &#x2014; u. &#x017F;. w.]</quote></cit><lb/>
+<p>oder auch:</p><lb/>
+<cit><quote><hi rendition="#aq">&#x201E;la nature de leurs gouvernements ne<lb/>
+leurs ayant offert des occasions grandes<lb/>
+et belles de mériter la gloire et de servir<lb/>
+la patrie, il s&#x2019;attachent en tout genre à la<lb/>
+contemplation, et cherchent dans le ciel<lb/>
+l&#x2019;espace que leur étroite destinée leur re-<lb/>
+fuse sur la terre.&#x201D;</hi></quote></cit><lb/>
+<cit><quote>[&#x201E;Da die Be&#x017F;chaffenheit ihrer Regierungen<lb/>
+ihnen nicht große und &#x017F;cho&#x0364;ne Gelegenheiten dar-<lb/>
+bietet, Ruhm zu verdienen und dem Vaterlande<lb/>
+nu&#x0364;tzlich zu werden: &#x017F;o geben &#x017F;ie &#x017F;ich in allen<lb/>
+Dingen der Betrachtung hin und &#x017F;uchen in dem<lb/>
+<fw type="catch" place="bottom">Him-</fw><lb/>
+<pb n="17" facs="#f0019"/>
+mel <hi rendition="#g">den</hi> Raum, den ihr beengtes Ge&#x017F;chick ih-<lb/>
+nen auf Erden ver&#x017F;agt.&#x201D;]</quote></cit><lb/>
+<p>und weiterhin:</p><lb/>
+<cit><quote><hi rendition="#aq">&#x201E;On ne doit donc pas s&#x2019;etonner des juge-<lb/>
+ments, qu&#x2019;on a portés, des plaisanteries,<lb/>
+qu&#x2019;on a faites sur l&#x2019;ennui de l&#x2019;Allemagne;<lb/>
+il n&#x2019;y-a que les villes literaires qui puis-<lb/>
+sent |vraiment intéresser dans un pays <hi rendition="#g">où<lb/>
+la societé n&#x2019;est rien, et la nature<lb/>
+très peu de chose</hi>.&#x201D;</hi></quote></cit><lb/>
+<cit><quote>[&#x201E;Man muß &#x017F;ich weder u&#x0364;ber die Urtheile noch<lb/>
+u&#x0364;ber die Spo&#x0364;ttereien wundern, deren Gegen&#x017F;tand<lb/>
+die Langeweile in Deut&#x017F;chland gewe&#x017F;en i&#x017F;t; in<lb/>
+einem Lande, wo der Umgang nichts und die<lb/>
+Natur &#x017F;ehr wenig bedeutet, ko&#x0364;nnen nur die Li-<lb/>
+teratur&#x017F;ta&#x0364;dte wahrhaft intere&#x017F;&#x017F;iren.&#x201D;]</quote></cit><lb/>
+<p>Ganz irre aber und u&#x0364;berra&#x017F;cht wird man, wenn<lb/>
+man unaufho&#x0364;rlich von <hi rendition="#aq">la vie solitaire</hi> [dem ein-<lb/>
+&#x017F;amen Leben] der Deut&#x017F;chen und der darin beding-<lb/>
+ten ab&#x017F;tru&#x017F;en Meditation ließt, wenn es heißt:<lb/>
+<hi rendition="#aq">celui, qui ne s&#x2019;occupe pas de l&#x2019;univers en<lb/>
+Allemagne, n&#x2019;a vraiment rien a faire.</hi> [&#x201E;Wer<lb/>
+<fw type="sig" place="bottom"><hi rendition="#g">[2]</hi></fw><lb/>
+<pb n="18" facs="#f0020"/>
+&#x017F;ich in Deut&#x017F;chland nicht mit dem Univer&#x017F;um be-<lb/>
+&#x017F;cha&#x0364;ftigt, hat im Grunde nichts zu thun.&#x201D;] Wie<lb/>
+vor den mißrathenen Spiegeln, welche die Figuren<lb/>
+breit, zwergartig und vergelbt wiedergeben, fa&#x0364;hrt<lb/>
+man vor die&#x017F;em Deut&#x017F;chland zuru&#x0364;ck. Darf man<lb/>
+denn das ga&#x017F;tlich&#x017F;te aller La&#x0364;nder, das zu jeder<lb/>
+Zeit flu&#x0364;chtende Fremdlinge willig und herzlich auf-<lb/>
+nahm, der Unge&#x017F;elligkeit, kann man &#x017F;eine kraftvolle<lb/>
+kernige Tha&#x0364;tigkeit, den Quell jeder tauglichen Er-<lb/>
+findung, das Schwung- und Triebrad weiterer<lb/>
+Fortbildung, mu&#x0364;ßiger Tra&#x0364;umerei be&#x017F;chuldigen. Wer,<lb/>
+ich bitte meine Mitbu&#x0364;rger, wer erkennt den &#x017F;innvol-<lb/>
+len zierlich erhabenen Ku&#x0364;n&#x017F;tler&#x017F;inn, die bildende<lb/>
+deut&#x017F;che Kraft in jenen ab&#x017F;chattenden Worten:</p><lb/>
+<p><hi rendition="#aq">Les Allemands, à quelques exceptions<lb/>
+près, sont peu capables de reussir dans tout<lb/>
+ce qui exige de l&#x2019;addresse et de l&#x2019;habilité.<lb/>
+Tout les inquiète, tout les embarasse, et ils<lb/>
+ont autant besoin de méthode dans les ac-<lb/>
+tions, que d&#x2019;independance dans les idées.<lb/>
+Ils voudroient, que tout leur fut tracé d&#x2019;a-<lb/>
+vance en fait de conduite. En aucun genre<lb/>
+<pb n="19" facs="#f0021"/>
+il sont capables même d&#x2019;une addresse inno-<lb/>
+cente; <hi rendition="#g">leur esprit est pénétrant en li-<lb/>
+gne droite</hi>, les choses belles d&#x2019;une manière<lb/>
+absolue sont de leur domaine, mais les beau-<lb/>
+tés relatives, celles qui tiennent à la con-<lb/>
+noissance des rapports et à la rapidité des<lb/>
+moyens ne sont pas de leur ressort.</hi></p><lb/>
+<p>[Mit &#x017F;ehr wenigen Ausnahmen &#x017F;ind die Deut-<lb/>
+&#x017F;chen beinahe unfa&#x0364;hig, in allem, was Gewandt-<lb/>
+heit und Ge&#x017F;chick erfordert, Fort&#x017F;chritte zu machen.<lb/>
+Alles beunruhigt &#x017F;ie; alles &#x017F;etzt &#x017F;ie in Verlegenheit;<lb/>
+&#x017F;ie bedu&#x0364;rfen in ihren Handlungen eben &#x017F;o &#x017F;ehr der<lb/>
+Methode, als in ihren Jdeen der Unabha&#x0364;ngigkeit.<lb/>
+Jn Dingen des Betragens mo&#x0364;chten &#x017F;ie, daß ihnen<lb/>
+Alles vorgezeichnet wu&#x0364;rde. Jn keiner Beziehung<lb/>
+&#x017F;ind &#x017F;ie einer &#x017F;elb&#x017F;t un&#x017F;chuldigen Gewandtheit fa&#x0364;-<lb/>
+hig; ihr Gei&#x017F;t i&#x017F;t durchdringend, wiewohl nur in<lb/>
+gerader Linie; das ab&#x017F;olute Scho&#x0364;ne geho&#x0364;rt fu&#x0364;r ih-<lb/>
+ren Wirkungskreis; nicht &#x017F;o das relative Scho&#x0364;ne,<lb/>
+das mit der Kenntniß der Beziehungen und mit<lb/>
+dem ra&#x017F;chen Ergreifen der richtigen Mittel in Ver-<lb/>
+bindung &#x017F;teht.]</p><lb/>
+<pb n="20" facs="#f0022"/>
+<p>Man hat Mu&#x0364;he zu begreifen, wie &#x017F;ich der<lb/>
+gradlinigte in mathemathi&#x017F;chen Dimen&#x017F;ionen ver-<lb/>
+kno&#x0364;cherte Ver&#x017F;tand gleichwohl andrer&#x017F;eits in Dun&#x017F;t<lb/>
+und Wolken&#x017F;pielen auflo&#x0364;&#x017F;en, wie &#x017F;eine, nach einer<lb/>
+Bu&#x017F;&#x017F;ole gerichteten Fu&#x0364;llho&#x0364;rner mechani&#x017F;ch auf die<lb/>
+ab&#x017F;olute mit Ha&#x0364;nden zu greifende Scho&#x0364;nheit fallen,<lb/>
+und dennoch in den geheimnißvollen Ga&#x0364;ngen ver-<lb/>
+borgenen Lebens nach lei&#x017F;en ver&#x017F;chwimmenden Be-<lb/>
+ziehungen und dem Ur&#x017F;prung der Dinge for&#x017F;chen<lb/>
+ko&#x0364;nne. Es &#x017F;cheint, die Verfa&#x017F;&#x017F;erin habe die&#x017F;elbe<lb/>
+Schwierigkeit empfunden, und wunderbar genug,<lb/>
+&#x017F;ich &#x017F;elb&#x017F;t unbewußt lo&#x0364;ßt &#x017F;ie den Knoten, indem &#x017F;ie<lb/>
+&#x017F;agt:</p><lb/>
+<p><hi rendition="#aq">On eut dit que penser et agir ne de-<lb/>
+vrient avoir aucun rapport ensemble, et que<lb/>
+la verité ressemblait chez les Allemands à la<lb/>
+statue de Mercure, nommé Hermes, qui n&#x2019;a<lb/>
+ni mains pour saisir ni pieds pour avancer.</hi></p><lb/>
+<p>[Man mo&#x0364;chte &#x017F;agen: Denken und Handeln<lb/>
+&#x017F;tehe fu&#x0364;r die Deut&#x017F;chen in keinem Verha&#x0364;ltniß zu<lb/>
+einander, und die Wahrheit gleiche bei ihnen den<lb/>
+<pb n="21" facs="#f0023"/>
+Hermes&#x017F;a&#x0364;ulen, die weder Ha&#x0364;nde zum Erfa&#x017F;&#x017F;en, noch<lb/>
+Fu&#x0364;ße zum Vor&#x017F;chreiten hatten.]</p><lb/>
+<p>Nun dann, beim ewigen Himmel! der ern&#x017F;te,<lb/>
+unver&#x017F;tandene Gott hat &#x017F;eine gewaltigen Glieder ge-<lb/>
+regt, und ich denke, Kind und Kindeskind werden<lb/>
+nicht aufho&#x0364;ren, von &#x017F;einen Thaten zu &#x017F;prechen. Wie<lb/>
+die Natur, deren tief&#x017F;inniger Hieroglyphe wir hier<lb/>
+verglichen werden, in &#x017F;ich zuru&#x0364;ckgezogen, &#x017F;till und<lb/>
+ficher ihren ge&#x017F;etzlichen Gang fortgeht, &#x017F;o verharrte<lb/>
+Deut&#x017F;chland, Schmach und Tadel nicht achtend, die<lb/>
+ra&#x0364;chende Hand verborgen, den ungeduldigen Fuß<lb/>
+in Treue und Gehor&#x017F;am gebunden, bis die Ord-<lb/>
+nung des Lebens den Tag der Vergeltung herauf-<lb/>
+rief. Die &#x017F;tumme Kraft hat geredet, und voreili-<lb/>
+ges Urtheil muß be&#x017F;cha&#x0364;mt bereuen.</p><lb/>
+<p>Dies im Ge&#x017F;etz bedingte Streben des Deut-<lb/>
+&#x017F;chen i&#x017F;t es denn auch, was Frau von Stael nie-<lb/>
+mals geho&#x0364;rig wu&#x0364;rdigte, und das ihr gleichwohl,<lb/>
+niemal erkannt, den Schlu&#x0364;&#x017F;&#x017F;el zu allen Wider&#x017F;pru&#x0364;-<lb/>
+chen von &#x017F;elb&#x017F;t gegeben ha&#x0364;tte. Jn Philo&#x017F;ophie wie<lb/>
+Politik hat &#x017F;ie den heiligen nie ge&#x017F;tillten Drang,<lb/>
+<pb n="22" facs="#f0024"/>
+im Gei&#x017F;t die Wahrheit zu <hi rendition="#g">&#x017F;chauen,</hi> im <hi rendition="#g">Ge-<lb/>
+wi&#x017F;&#x017F;en</hi> die Wahrheit <hi rendition="#g">zu &#x017F;eyn</hi>, u&#x0364;ber&#x017F;ehen. Ge-<lb/>
+&#x017F;etzliches Erkennen im ge&#x017F;etzlichen Thun finden ih-<lb/>
+ren Brennpunkt in der Untheilbarkeit ge&#x017F;under Na-<lb/>
+tur, die keiner Kraft u&#x0364;ber die andre die Herr&#x017F;chaft<lb/>
+leiht und den Jrrthum als Lu&#x0364;ge verwirft.</p><lb/>
+<p>Ha&#x0364;tte uns Frau von Stael ein einzigesmal<lb/>
+ganz ver&#x017F;tanden, &#x017F;ie ha&#x0364;tte niemals eine ehrenwerthe<lb/>
+Nation &#x017F;o in der Wurzel ihres Da&#x017F;eyns verletzen<lb/>
+ko&#x0364;nnen, indem &#x017F;ie &#x017F;agt:</p><lb/>
+<p><hi rendition="#aq">On est plus irrité contre les Allemands<lb/>
+quand on les voit manquer d&#x2019;énergie, que<lb/>
+contre les Italiens. Les Italiens conservent<lb/>
+toute leur vie par leur grace et leur imagi-<lb/>
+nation des droits prolongés à l&#x2019;enfance, mais<lb/>
+les physiognomies et les manières rudes des<lb/>
+germains semblent annoncer une âme ferme<lb/>
+et on est desagréablement surpris quand on<lb/>
+ne la trouve point. <hi rendition="#g">Les Allemands sont<lb/>
+flatteurs avec énergie</hi>, et <hi rendition="#g">vigoureu-<lb/>
+sement soumis</hi>. Ils accentuent durement<lb/>
+<pb n="23" facs="#f0025"/>
+les paroles pour cacher la souplesse des sen-<lb/>
+timents, et se servent de raisonnements phi-<lb/>
+losophiques pour expliquer ce qu&#x2019;il y-a de<lb/>
+moins philosophique du monde: <hi rendition="#g">Le re-<lb/>
+spect pour la force et l&#x2019;attendrisse-<lb/>
+ment de la peur qui change le re-<lb/>
+spect en admiration</hi>.</hi></p><lb/>
+<p><hi rendition="#aq">C&#x2019;est à de tels contrastes qu&#x2019;il faut attri-<lb/>
+buer la disgrace allemande que l&#x2019;on se plait<lb/>
+à contre&#x017F;aire dans les comédies de tous les<lb/>
+pays. Il est permis d&#x2019;être lourd et roide<lb/>
+lorsqu&#x2019;on reste sévère et ferme, mais si l&#x2019;on<lb/>
+revêt son naturel du faux sourire de la ser-<lb/>
+vilité, c&#x2019;est alors que l&#x2019;on s&#x2019;expose au ridicule<lb/>
+merité. Oh s&#x2019;impatrente d&#x2019;autant plus contre<lb/>
+eux, qu&#x2019;ils perdent les honneurs de la vie<lb/>
+sans arriver aux profit de l&#x2019;habilité.</hi></p><lb/>
+<p>[Man wird ungehaltener gegen die Deut&#x017F;chen,<lb/>
+wenn es ihnen an Thatkraft fehlt, als gegen die<lb/>
+Jtaliener. Die&#x017F;e behaupten ihr ganzes Leben hin-<lb/>
+durch, vermo&#x0364;ge ihrer Anmuth und ihrer Einbil-<lb/>
+dungskraft, die verla&#x0364;ngerten Vorrechte der Kind-<lb/>
+<pb n="24" facs="#f0026"/>
+heit; aber die rohen Ge&#x017F;ichtsbildungen und Ma-<lb/>
+nieren der Germanen &#x017F;cheinen eine fe&#x017F;te Seele an-<lb/>
+zuku&#x0364;ndigen, und man wird unangenehm u&#x0364;brrra&#x017F;cht,<lb/>
+wenn man die&#x017F;e nicht antrift. Die Deut&#x017F;chen &#x017F;ind<lb/>
+energi&#x017F;che Schmeichler und ru&#x0364;&#x017F;tige Unterthanen.<lb/>
+Hart accentuiren &#x017F;ie ihre Worte, um die Schmieg-<lb/>
+&#x017F;amkeit ihrer Denkungsart zu verbergen; philo&#x017F;o-<lb/>
+phi&#x017F;cher Rai&#x017F;onnements bedienen &#x017F;ie &#x017F;ich, um das<lb/>
+zu erkla&#x0364;ren, was in der Welt am wenig&#x017F;ten philo-<lb/>
+&#x017F;ophi&#x017F;ch i&#x017F;t: <hi rendition="#g">Die Achtung fu&#x0364;r die Gewalt<lb/>
+und die za&#x0364;rtliche Furcht, welche die&#x017F;e Ach-<lb/>
+tung in Bewunderung verwandelt</hi>.</p><lb/>
+<p>Contra&#x017F;ten die&#x017F;er Art muß die deut&#x017F;che Unan-<lb/>
+muth zuge&#x017F;chrieben werden, die man in den Lu&#x017F;t-<lb/>
+&#x017F;pielen aller La&#x0364;nder &#x017F;o behaglich nachmacht. Es<lb/>
+i&#x017F;t vergo&#x0364;nnt, plump und rauh zu &#x017F;eyn, wenn man<lb/>
+ern&#x017F;t und fe&#x017F;t bleibt; allein wenn man das Naturel<lb/>
+mit dem Judasla&#x0364;cheln der Knechtlichkeit bekleidet:<lb/>
+&#x017F;o &#x017F;etzt man &#x017F;ich einer verdienten Verlachung aus.<lb/>
+Man wird um &#x017F;o unwilliger gegen &#x017F;ie, weil &#x017F;ie die<lb/>
+Ehren des Lebens einbu&#x0364;ßen, ohne zu den Vorthei-<lb/>
+len der Gewandtheit zu gelangen.]</p><lb/>
+<pb n="25" facs="#f0027"/>
+<p>Wahrlich, die ewige Gerechtigkeit konnte zur<lb/>
+Widerlegung aller die&#x017F;er Schma&#x0364;hungen nicht leben-<lb/>
+diger wirken, als daß &#x017F;ie &#x017F;ie eben jetzt er&#x017F;t laut<lb/>
+werden ließ.</p><lb/>
+<p>Wo i&#x017F;t das deut&#x017F;che Land, die deut&#x017F;che Stadt,<lb/>
+die ihre Be&#x017F;ieger triumphirend eingeholt, die dop-<lb/>
+pelte Epiloge fu&#x0364;r die oder jene &#x017F;iegreiche Parthei<lb/>
+bereit gehalten ha&#x0364;tte? Wenn die &#x017F;tille Treue, das<lb/>
+Wort heilig achtend, mit wunder Bru&#x017F;t &#x017F;ich &#x017F;elb&#x017F;t<lb/>
+zum Opfer brachte, &#x017F;o &#x017F;tiegen Seufzer und nicht<lb/>
+Jubellieder zum Himmel. Stumm wich der Deut-<lb/>
+&#x017F;che dem Fremdling aus, den er niemals &#x017F;eine<lb/>
+Sinnesart begreiflich machen konnte, und kalt und<lb/>
+ern&#x017F;t verharrte er in &#x017F;ich &#x017F;elb&#x017F;t, bis Gott ihn durch<lb/>
+des Ge&#x017F;etzes Stimme rief. Dann, denke ich, i&#x017F;t<lb/>
+er gekommen, und die Welt hat ihn erkannt.</p><lb/>
+<p>Fragen wir uns aber, wie ein inniges, edles<lb/>
+Gemu&#x0364;th, das Wahrheit &#x017F;ucht und will, zu Miß-<lb/>
+griffen jener Art kommen ko&#x0364;nne, &#x017F;o mu&#x0364;&#x017F;&#x017F;en wir<lb/>
+uns ge&#x017F;tehen, wir &#x017F;elb&#x017F;t veranla&#x017F;&#x017F;en &#x017F;ie durch die<lb/>
+Mangelhaftigkeit und ver&#x017F;chobene Natur un&#x017F;rer ge-<lb/>
+&#x017F;elligen Bildung. Wa&#x0364;re die&#x017F;e mit uns erwach&#x017F;en<lb/>
+<pb n="26" facs="#f0028"/>
+und gereift, ein Spiegel erweiterter Jndividualita&#x0364;t,<lb/>
+&#x017F;ie wu&#x0364;rde &#x017F;ich in ihrer Selb&#x017F;t&#x017F;ta&#x0364;ndigkeit vor jedem<lb/>
+drei&#x017F;ten Angriffe zu behaupten wi&#x017F;&#x017F;en. So aber<lb/>
+&#x017F;chwebt &#x017F;ie offenbar zwi&#x017F;chen zwei Spha&#x0364;ren und<lb/>
+&#x017F;to&#x0364;rt durch lo&#x017F;es Schwanken die objective Wahr-<lb/>
+nehmung, die, bei halbem Erkennen, den Ver&#x017F;tand<lb/>
+an ein&#x017F;eitigen Urtheilen abmu&#x0364;het.</p><lb/>
+<p>Es i&#x017F;t natu&#x0364;rlich, daß die mannigfachen Ele-<lb/>
+mente eines reichen Da&#x017F;eyns in gemi&#x017F;chter Lebens-<lb/>
+regung zu ihrer Wurzel zuru&#x0364;ckfließen, und da in<lb/>
+einer Art von Streit und Wider&#x017F;pruch gegen ein-<lb/>
+ander auf&#x017F;tehn, bis &#x017F;ie das &#x017F;tille Bett gemein&#x017F;amen<lb/>
+Ur&#x017F;prungs ver&#x017F;o&#x0364;hnt und beruhigt empfa&#x0364;ngt. Deut&#x017F;ch-<lb/>
+land als der Heerd und Brennpunkt Europa&#x0364;i&#x017F;cher<lb/>
+Bildung kann daher keine Chine&#x017F;i&#x017F;che Abge&#x017F;chlo&#x017F;-<lb/>
+&#x017F;enheit behaupten wollen. Wir werden immer in<lb/>
+Mitten eines gewalt&#x017F;amen Conflicts von dem Ver-<lb/>
+&#x017F;chiedenartig&#x017F;ten beru&#x0364;hrt und bewegt werden. Gleich-<lb/>
+wohl &#x017F;ollen &#x017F;ich die&#x017F;e Reibungen nicht in Neben-<lb/>
+&#x017F;cho&#x0364;pfungen zer&#x017F;plittern, &#x017F;ondern die Gluth erwei-<lb/>
+tern und ein helleres Licht nach allen Richtungen<lb/>
+verbreiten. Nicht dies und jenes wollen wir in<lb/>
+<pb n="27" facs="#f0029"/>
+den &#x017F;tillen Schooß un&#x017F;eres Vaterlandes zuru&#x0364;ckzie-<lb/>
+hen, &#x017F;ondern der wiederkehrende Lebens&#x017F;trom, vom<lb/>
+Ge&#x017F;etz alter natu&#x0364;rlicher Gra&#x0364;nze um&#x017F;chlo&#x017F;&#x017F;en, &#x017F;oll &#x017F;eine<lb/>
+eigenthu&#x0364;mliche Ge&#x017F;talt annehmen. Das Fremde<lb/>
+&#x017F;oll &#x017F;ich in deut&#x017F;cher Wu&#x0364;rde und Fe&#x017F;tigkeit dar&#x017F;tel-<lb/>
+len. Dazu geho&#x0364;rt vor allem <hi rendition="#g">ehrendes Aner-<lb/>
+kennen un&#x017F;erer &#x017F;elb&#x017F;t</hi>, das ganz natu&#x0364;rlich aus<lb/>
+&#x017F;ittlicher wie bu&#x0364;rgerlicher Freiheit hervorgeht. Po-<lb/>
+liti&#x017F;che Unabha&#x0364;ngigkeit bedingt die ge&#x017F;ellige. Wir<lb/>
+haben die Eine mit geliebtem Blute erkauft, wir<lb/>
+wollen der Andern nicht muthwillig ihr Grab gra-<lb/>
+ben.</p><lb/>
+<p>Des Ge&#x017F;etzes Gra&#x0364;nze, &#x017F;agte ich zuvor, bewahre<lb/>
+die eigenthu&#x0364;mliche Ge&#x017F;taltung un&#x017F;eres deut&#x017F;chen We-<lb/>
+&#x017F;ens. Es i&#x017F;t gewiß, wir &#x017F;ollen nur was wir ko&#x0364;n-<lb/>
+nen, und wir ko&#x0364;nnen uns nicht anders als in edler<lb/>
+Stille und wu&#x0364;rdiger Freiheit behaupten. Maaß<lb/>
+und Tackt &#x017F;ind uns eigen, &#x017F;elb&#x017F;t die ku&#x0364;hnen Flu&#x0364;ge<lb/>
+der Phanta&#x017F;ie, die ra&#x017F;chen Schla&#x0364;ge des Witzes &#x017F;ind<lb/>
+nur Modulationen des eingebornen Grundtones.<lb/>
+Wir verlangen Ge&#x017F;etz und Form. Deshalb geho&#x0364;rt<lb/>
+uns die ausge&#x017F;prochene Be&#x017F;timmtheit un&#x017F;erer Sprache,<lb/>
+<pb n="28" facs="#f0030"/>
+&#x017F;ie paßt &#x017F;ich recht eigentlich fu&#x0364;r <hi rendition="#g">das &#x017F;ittig ge-<lb/>
+haltene Ge&#x017F;pra&#x0364;ch</hi>. Wenn &#x017F;ie hier oft unbehol-<lb/>
+fen er&#x017F;cheint, &#x017F;o liegt der Grund in ihrer mangel-<lb/>
+haften ge&#x017F;elligen <hi rendition="#g">Durchbildung,</hi> wie in dem<lb/>
+progre&#x017F;&#x017F;iven Um&#x017F;chwunge des Nationalgei&#x017F;tes u&#x0364;ber-<lb/>
+haupt. Die ver&#x017F;chiedenen Perioden un&#x017F;erer Litera-<lb/>
+tur machen &#x017F;ehr &#x017F;charfe Ab&#x017F;chnitte in dem Charak-<lb/>
+ter der Conver&#x017F;ation. Form, Con&#x017F;truction, wie Be-<lb/>
+tonung der Worte, alles i&#x017F;t heut anders wie ge-<lb/>
+&#x017F;tern. Die&#x017F;e Differenzen beru&#x0364;hren &#x017F;ich im Gemi&#x017F;ch<lb/>
+des Lebensverkehrs oft &#x017F;ehr disharmoni&#x017F;ch, und<lb/>
+hemmen den freien Strom der Rede durch manie-<lb/>
+rirte Floskeln. Die Sprache des Lebens i&#x017F;t von<lb/>
+der Bu&#x0364;cher&#x017F;prache ver&#x017F;chieden, und doch nicht von<lb/>
+ihr <hi rendition="#g">ge</hi>&#x017F;chieden. Eine greift in die andre, ohne &#x017F;ie<lb/>
+zu durchdringen. Daher die Sonntagsreden, die<lb/>
+a&#x0364;ng&#x017F;tigende Un&#x017F;icherheit der Worte, der fremde und<lb/>
+unbequeme Klang breit und hohl ge&#x017F;prochener Dyph-<lb/>
+tonge, das ganze gemachte We&#x017F;en, wenn die ver-<lb/>
+traute Mittheilung einmal o&#x0364;ffentlich werden will.</p><lb/>
+<p>Wir &#x017F;pu&#x0364;hren dann einen Zwang der Unter-<lb/>
+haltung der eben nur aus der Form und Ge&#x017F;etzlo-<lb/>
+<pb n="29" facs="#f0031"/>
+&#x017F;igkeit der Ge&#x017F;ell&#x017F;chafts&#x017F;prache hervorgeht. Erwei-<lb/>
+tern &#x017F;ich nun Herz und Gemu&#x0364;th nach dem Maaße,<lb/>
+wie beide im Laufe des Ge&#x017F;pra&#x0364;chs beru&#x0364;hrt werden,<lb/>
+macht &#x017F;ich die Natur zwi&#x017F;chen dem a&#x0364;ng&#x017F;tlichen<lb/>
+Kampf einmal Bahn, &#x017F;o fa&#x0364;hrt wohl plo&#x0364;tzlich &#x017F;o<lb/>
+ein Werkeltagswort heraus, das mit einemmal allen<lb/>
+Putz der Bildung wegwi&#x017F;cht. Kurz es i&#x017F;t keine<lb/>
+frei herausgebildete Einheit in der Lebens&#x017F;prache.<lb/>
+Wir &#x017F;chwanken zwi&#x017F;chen Feierlichkeit und Triviali-<lb/>
+ta&#x0364;t, zwi&#x017F;chen Verku&#x0364;n&#x017F;telung und unerzogener Natur.</p><lb/>
+<p>Da es inde&#x017F;&#x017F;en fu&#x0364;r den Deut&#x017F;chen kein andres<lb/>
+Centrum a&#x0364;ußerer Ausbildung giebt, als die Befrei-<lb/>
+ung und Selb&#x017F;t&#x017F;ta&#x0364;ndigkeit des Jnnern, da der Genius<lb/>
+der Sprache mit ku&#x0364;hnem und fri&#x017F;chem Flu&#x0364;gel&#x017F;chlag<lb/>
+aus der Verpuppung und dem Gewebe des Ge-<lb/>
+danken hervorgeht, und Wi&#x017F;&#x017F;en&#x017F;chaft und Kun&#x017F;t die<lb/>
+Formen des Ausdrucks <hi rendition="#g">wei&#x017F;en:</hi> &#x017F;o &#x017F;ollten Dich-<lb/>
+ter und Schrift&#x017F;teller im <hi rendition="#g">ge&#x017F;elligen Lu&#x017F;t&#x017F;piel<lb/>
+und Roman</hi> die Sprache nach dem Maaße ei-<lb/>
+genthu&#x0364;mlicher Fa&#x0364;higkeit <hi rendition="#g">ge&#x017F;ellig bilden</hi>, und Ein-<lb/>
+heit wie gediegene Vollendung aus ihr entwickeln.<lb/>
+Denn hier ganz be&#x017F;onders wird es wahr, daß die<lb/>
+Strafe der Su&#x0364;nden von Kind auf Kindeskind fort-<lb/>
+<pb n="30" facs="#f0032"/>
+erben und zu neuen Su&#x0364;nden reizen werde. Die<lb/>
+unnatu&#x0364;rliche Verkennung un&#x017F;rer &#x017F;elb&#x017F;t hat uns zu<lb/>
+fremden Gefangenen gemacht. Wir haben den Ge-<lb/>
+brauch eigner Glieder verlernt, und bewegen uns<lb/>
+leichter mit erborgten Stu&#x0364;tzen. Selb&#x017F;t veranlaßte<lb/>
+Unbeholfenheit jagt uns immer aufs neue wieder<lb/>
+zur franzo&#x0364;&#x017F;i&#x017F;chen Sprache.</p><lb/>
+<p>Wir &#x017F;tellen uns freiwillig in die <hi rendition="#g">zweite</hi><lb/>
+Reihe, indem wir mit einer Art von Deferenz<lb/>
+Solche betrachten, die &#x017F;ich ihrer Natur gema&#x0364;ß in<lb/>
+dem Elemente, was uns angezwungen wird, be-<lb/>
+haglich und leicht fu&#x0364;hlen. Der Vor&#x017F;prung, den<lb/>
+die Franzo&#x017F;en, eben durch die allgemeine Anerken-<lb/>
+nung ihrer Sprache, haben, erfu&#x0364;llt uns entweder<lb/>
+mit toller Nacheiferung ihnen gleich zu &#x017F;tehen, oder<lb/>
+ver&#x017F;chließt uns zu be&#x017F;cheiden in uns &#x017F;elb&#x017F;t. Wir<lb/>
+haben aber ein Wort mitzureden, und du&#x0364;rfen es<lb/>
+mit Stolz und Sicherheit laut werden la&#x017F;&#x017F;en. Wir<lb/>
+&#x017F;ollen nicht la&#x0364;nger zwi&#x017F;chen eigenthu&#x0364;mlicher und<lb/>
+fremder Bildung &#x017F;chwanken, es &#x017F;teht uns wohl an<lb/>
+Deut&#x017F;ch zu &#x017F;eyn. J&#x017F;t die franzo&#x0364;&#x017F;i&#x017F;che Sprache dem<lb/>
+ge&#x017F;ellig verkehrenden Europa unentbehrlich gewor-<lb/>
+den, &#x017F;o gelte &#x017F;ie wie eine Scheide- und Ausglei-<lb/>
+<pb n="31" facs="#f0033"/>
+chungsmu&#x0364;nze, &#x017F;o lange &#x017F;ie in Cours bleiben kann,<lb/>
+Jedweder lerne &#x017F;ie als &#x017F;olche kennen, &#x017F;ie bleibe ihm<lb/>
+Mittel, nichts weiter. Was hu&#x0364;lfe es auch, &#x017F;ie zum<lb/>
+Zweck machen zu wollen? Jhre kla&#x017F;&#x017F;i&#x017F;chen Sprich-<lb/>
+wo&#x0364;rter und Phra&#x017F;en liegen doch nur wie veralteter<lb/>
+be&#x017F;ta&#x0364;ubter Modeprunk auf der lebendigen National-<lb/>
+bildung, der deut&#x017F;che Gei&#x017F;t i&#x017F;t aus dem alten Kleide<lb/>
+herausgewach&#x017F;en, beide pa&#x017F;&#x017F;en nicht zu einander.</p><lb/>
+<p>Jch darf das um &#x017F;o eher &#x017F;agen, da ich, die<lb/>
+Sprache an &#x017F;ich liebend, aus eigner Erfahrung<lb/>
+weiß, daß man &#x017F;ich niemals ab&#x017F;olut in ihr verliert,<lb/>
+ohne immer auf einige Zeit einen Theil &#x017F;einer Ei-<lb/>
+genthu&#x0364;mlichkeit einzubu&#x0364;ßen. Man kann nur dann<lb/>
+vo&#x0364;llig gerecht in einer Sache &#x017F;eyn, wenn man die&#x017F;e<lb/>
+in ihr eigenthu&#x0364;mliches Gebiet znru&#x0364;ck fu&#x0364;hrt, und &#x017F;ie<lb/>
+gleich&#x017F;am auf heimi&#x017F;chem Boden wahrhaft betrach-<lb/>
+tet. Gehen wir bis in die Galanterie, zarte Liebe,<lb/>
+feine Sitte und gefa&#x0364;llige Eleganz des franzo&#x0364;&#x017F;i&#x017F;chen<lb/>
+Ritterthums hinein, &#x017F;o &#x017F;ehen wir, daß &#x017F;ich &#x017F;chon<lb/>
+von da die ge&#x017F;ellige Bildung beider Nationen &#x017F;charf<lb/>
+trennt, indem alle jene im Ritterthum bedingte Ele-<lb/>
+mente u&#x0364;ber Rhein und Voge&#x017F;en hinaus eine andre<lb/>
+Farbe und Phy&#x017F;iognomie annehmen. Jch kann den<lb/>
+<pb n="32" facs="#f0034"/>
+Zauberring hier, ohne Furcht mißver&#x017F;tanden zu wer-<lb/>
+den, als Beleg und wahrhaft kla&#x017F;&#x017F;i&#x017F;chen Spiegel<lb/>
+jener Nationalver&#x017F;chiedenheit anfu&#x0364;hren. Ritter Folko<lb/>
+und Herr Ott von Trautwangen behaupten auf<lb/>
+eigne anziehende Wei&#x017F;e ein jeder die Vorrechte &#x017F;ei-<lb/>
+nes Volks&#x017F;tammes; beide &#x017F;ind, was &#x017F;ie &#x017F;eyn &#x017F;ollen<lb/>
+und ko&#x0364;nnen, und keiner vermißt an dem Andern<lb/>
+was er &#x017F;elb&#x017F;t be&#x017F;itzt. Ziehen wir nun von dem er-<lb/>
+&#x017F;ten Scheidepunkt an die Gra&#x0364;nzlinie beider Jndivi-<lb/>
+dualita&#x0364;ten fort, und fort bis zu dem Standpunkt<lb/>
+hi&#x017F;tori&#x017F;cher Gegenwart: &#x017F;o laufen beide in immer<lb/>
+wach&#x017F;ender Breite auseinander, und keine Vermi-<lb/>
+&#x017F;chung i&#x017F;t deukbar. Das wird uns vorzu&#x0364;glich frap-<lb/>
+pant durch die &#x017F;charf&#x017F;innige Mu&#x017F;terung des franzo&#x0364;-<lb/>
+&#x017F;i&#x017F;chen Nationalcharakters in dem Werke u&#x0364;ber Deut&#x017F;ch-<lb/>
+land, in Beziehung auf ge&#x017F;ellige Verha&#x0364;ltni&#x017F;&#x017F;e. Wir<lb/>
+empfinden es mit Gewißheit, daß der Gei&#x017F;t jener<lb/>
+Conver&#x017F;ation trotz des Ausgleichungsmittels allge-<lb/>
+meiner Welt&#x017F;prache dem deut&#x017F;chen Gemu&#x0364;th durch-<lb/>
+aus fremd bleiben mu&#x0364;&#x017F;&#x017F;e. Einmal kennen wir &#x017F;olche<lb/>
+Fechtkun&#x017F;t der Rede nicht, die, auf theatrali&#x017F;chen<lb/>
+Effekt berechnet, mit &#x017F;anktionirten Wendungen und<lb/>
+Worten, gleich abge&#x017F;tumpften Waffen vor den Au-<lb/>
+<fw type="catch" place="bottom">gen</fw><lb/>
+<pb n="33" facs="#f0035"/>
+gen der Zu&#x017F;chauer geu&#x0364;bt wird; deut&#x017F;che Red&#x017F;elig-<lb/>
+keit bleibt immer mehr oder weniger Drang der<lb/>
+Mittheilung, Bedu&#x0364;rfniß des Au&#x017F;&#x017F;er&#x017F;ichhin&#x017F;tellens,<lb/>
+und, i&#x017F;t auch jene Selb&#x017F;tbe&#x017F;piegelung im Wort wie<lb/>
+im Wieder&#x017F;chein des Gla&#x017F;es, men&#x017F;chlicher Natur im<lb/>
+Allgemeinen eigen, &#x017F;o du&#x0364;rften wir es doch &#x017F;chwer-<lb/>
+lich zu jener Virtuo&#x017F;ita&#x0364;t bringen, von welcher Frau<lb/>
+von Stael das Maximum in folgenden Worten<lb/>
+auf&#x017F;tellt.</p><lb/>
+<cit><quote><hi rendition="#aq">&#x201E;pour réussir en parlant, il faut obser-<lb/>
+ver avec prespicacité l&#x2019;impression qu&#x2019;on pro-<lb/>
+duit à <hi rendition="#g">chaque instant</hi> sur les hommes,<lb/>
+celle qu&#x2019;ils veulent nous cacher, celle qu&#x2019;ils<lb/>
+cherchent à nous exagérer, la satisfaction<lb/>
+contenue des uns, le sourire forcé des au-<lb/>
+tres; on voit passer sur le front de ceux<lb/>
+qui nous ecoutent, des blâmes à demi for-<lb/>
+més, qu&#x2019;on peut eviter en se hâtant de les<lb/>
+dissiper avant que l&#x2019;amour propre y soit en-<lb/>
+gagé. L&#x2019;on y voit naitre aussi I&#x2019;approbation,<lb/>
+qu&#x2019;il faut fortifier, sans cependant exiger<lb/>
+d&#x2019;elle plus, qu&#x2019;elles ne veut donner. Il n&#x2019;est<lb/>
+point d&#x2019;aréne où la vanité se montre sous</hi><lb/>
+<fw type="sig" place="bottom">[3]</fw><lb/>
+<pb n="34" facs="#f0036"/>
+<hi rendition="#aq">des formes plus variées que dans la so-<lb/>
+cieté.&#x201D;</hi></quote></cit><lb/>
+<cit><quote>[&#x201E;Um mit Erfolg zu reden, muß man mit<lb/>
+Scharfblick den Eindruck beobachten, den man in<lb/>
+jedem Moment auf die Zuho&#x0364;rer macht, den, wel-<lb/>
+chen &#x017F;ie uns verbergen mo&#x0364;chten, den, welchen &#x017F;ie<lb/>
+uns zu u&#x0364;bertreiben bemu&#x0364;ht &#x017F;ind, die beherr&#x017F;chte Zu-<lb/>
+friedenheit der Einen, das erzwungene La&#x0364;chelu der<lb/>
+Andern. An der Stirne der Zuho&#x0364;rer &#x017F;ieht man<lb/>
+gewi&#x017F;&#x017F;e Halbtadel auf&#x017F;teigen, die man vermeiden<lb/>
+kann, wenn man &#x017F;ie zu zer&#x017F;treuen eilt, ehe die Ei-<lb/>
+genliebe ins Spiel gezogen i&#x017F;t. Auch den Beifall<lb/>
+&#x017F;ieht man da&#x017F;elb&#x017F;t aufkeimen; und die&#x017F;en muß man<lb/>
+fe&#x017F;thalten, ohne gleichwohl mehr zu verlangen, als<lb/>
+was er uns geben mo&#x0364;chte. Es giebt keinen Kampf-<lb/>
+platz, auf welchem &#x017F;ich die Eitelkeit in mannigfal-<lb/>
+tigern Ge&#x017F;talten zeigte, als in der Ge&#x017F;ell&#x017F;chaft.&#x201D;]</quote></cit><lb/>
+<p>Welche Pein des Da&#x017F;eyns, welche krampfhafte<lb/>
+Reibungen des Gei&#x017F;tes! Wo bleibt hier die freie<lb/>
+Ru&#x0364;ckwirkung des be&#x017F;eelenden Klanges der Men&#x017F;chen-<lb/>
+&#x017F;timme? Die elektri&#x017F;chen Funken heitrer Mittheilung<lb/>
+werden eine immer treffende Gluth, die alle ge&#x017F;un-<lb/>
+den Triebe ge&#x017F;elliger Produktion vergiftet. Wie tau-<lb/>
+<pb n="35" facs="#f0037"/>
+&#x017F;endmal hemmender muß die&#x017F;e Sklaverei der Art<lb/>
+und Wei&#x017F;e &#x017F;eyn, als alle <hi rendition="#aq">anciennes formules de<lb/>
+politesse!</hi> Darf die Verfa&#x017F;&#x017F;erin behaupten, die&#x017F;e<lb/>
+Richtung des Gei&#x017F;tes &#x017F;ey keine gegebene? Dies &#x017F;eyen<lb/>
+nicht <hi rendition="#aq">des lignes tracées d&#x2019;avance,</hi> [vorher ge-<lb/>
+zogene Linien] zwi&#x017F;chen denen Gewohnheit und<lb/>
+Sitte den Ver&#x017F;tand hin und herleite?</p><lb/>
+<p>Wir Deut&#x017F;chen fu&#x0364;hlen es &#x017F;o, und &#x017F;ollen es<lb/>
+noch weit lebendiger fu&#x0364;hlen, jemehr wir uns &#x017F;elb&#x017F;t<lb/>
+kennen und ehren. Und da der klu&#x0364;g&#x017F;te Deut&#x017F;che<lb/>
+es doch einmal nicht dahin bringt, wo der du&#x0364;mm&#x017F;te<lb/>
+Franzo&#x017F;e &#x017F;chon von Natur &#x017F;teht, der, wie Frau<lb/>
+von Stael &#x017F;agt,</p><lb/>
+<p><hi rendition="#aq">sait encore parler, lors même qu&#x2019;il n&#x2019;a<lb/>
+point d&#x2019;idées, qui amuse toujours, quand même<lb/>
+il manque d&#x2019;esprit. Il vous raconte tout ce<lb/>
+qu&#x2019;il a fait, tout ce qu&#x2019;il a vu, le bien qu&#x2019;il<lb/>
+pense de lui, les éloges qu&#x2019;il a recues, les<lb/>
+grands seigneurs qu&#x2019;il connoit, les succès<lb/>
+qu&#x2019;il espère.</hi></p><lb/>
+<p>[zu &#x017F;prechen ver&#x017F;teht, &#x017F;elb&#x017F;t wenn er keine<lb/>
+Jdeen hat, der auch dann noch belu&#x017F;tigt, wenn es<lb/>
+ihm an Gei&#x017F;t fehlt. Er erza&#x0364;hlt alles, was er ge-<lb/>
+<pb n="36" facs="#f0038"/>
+than, alles, was er ge&#x017F;ehen hat, wie gut er von<lb/>
+&#x017F;ich &#x017F;elb&#x017F;t denkt, wie er gelobt worden i&#x017F;t, welche<lb/>
+große Herrn er kennt, was er von der Zukunft<lb/>
+Glu&#x0364;ckliches erwartet.]</p><lb/>
+<p>Da wir uns &#x017F;cha&#x0364;men &#x017F;o etwas zu &#x017F;agen oder<lb/>
+zu ho&#x0364;ren, &#x017F;o &#x017F;ollen wir uns auch genug wu&#x0364;rdigen,<lb/>
+um ge&#x017F;unde Gedanken mit Reinheit und Anmuth<lb/>
+in un&#x017F;erer reichen viel&#x017F;eitigen Sprache einander ge-<lb/>
+&#x017F;ellig mitzutheilen. Gedanken und Sprache &#x017F;ind<lb/>
+verwach&#x017F;en wie Seele und Leib. Wie &#x017F;ich die Eine<lb/>
+erweitert, wa&#x0364;ch&#x017F;t der Andre von &#x017F;elb&#x017F;t. Wir haben<lb/>
+mit dem Schwerdte die Marken un&#x017F;res a&#x0364;ußern Da-<lb/>
+&#x017F;eyns gezogen; ein jeder tra&#x0364;gt jetzt in der Natio-<lb/>
+nalehre die Waffen bei &#x017F;ich, durch die er &#x017F;ich im<lb/>
+Jnnern uud Aeußern vor der Welt behauptet. Die<lb/>
+Ge&#x017F;ell&#x017F;chaft i&#x017F;t der Spiegel herr&#x017F;chender Ge&#x017F;innung,<lb/>
+i&#x017F;t die bildende Ku&#x0364;n&#x017F;tlerin, welche dem Erkannten<lb/>
+und Empfundenen in lebendigen Men&#x017F;chenverha&#x0364;lt-<lb/>
+ni&#x017F;&#x017F;en wahrhafte Ge&#x017F;taltung leiht. Sie giebt Zeug-<lb/>
+niß fu&#x0364;r oder <hi rendition="#g">wider</hi> uns.</p><lb/>
+<milestone unit="section" rendition="#hr"/></div><lb/>
+<pb facs="#f0039"/>
+<pb facs="#f0040"/>
+</body></text> </TEI>

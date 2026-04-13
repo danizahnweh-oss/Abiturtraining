@@ -1,0 +1,1060 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.deutschestextarchiv.de/basisformat.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">     <teiHeader>
+<fileDesc>
+<titleStmt>
+<title type="main">Das Pfennig-Magazin für Belehrung und Unterhaltung</title>
+<title type="sub">Neue Folge, Erster Jahrgang, Nr. 27</title>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/115266127">
+<surname>Geyken</surname>
+<forename>Alexander</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1222198746">
+<surname>Haaf</surname>
+<forename>Susanne</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1019062681">
+<surname>Jurish</surname>
+<forename>Bryan</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Boenig</surname>
+<forename>Matthias</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Thomas</surname>
+<forename>Christian</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Wiegand</surname>
+<forename>Frank</forename>
+</persName>
+</editor>
+<respStmt>
+<orgName>Institut für Deutsche Sprache, Mannheim</orgName>
+<resp>
+<note type="remarkResponsibility">Bereitstellung der Bilddigitalisate und TEI
+Transkription</note>
+<ref target="http://hdl.handle.net/10932/00-01B8-B087-151F-6801-5"/>
+</resp>
+</respStmt>
+<respStmt>
+<persName>
+<forename>Peter</forename>
+<surname>Fankhauser</surname>
+</persName>
+<resp>
+<note type="remarkResponsibility">
+Transformation von TUSTEP nach TEI P5.
+Transformation von TEI P5 in das DTA TEI P5 Format.
+</note>
+</resp>
+</respStmt>
+<respStmt>
+<orgName ref="https://www.bbaw.de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<resp>
+<note type="remarkResponsibility">Langfristige Bereitstellung der DTA-Ausgabe</note>
+<ref target="https://www.bbaw.de"/>
+</resp>
+</respStmt>
+</titleStmt>
+<editionStmt><edition>Vollständige digitalisierte Ausgabe.</edition></editionStmt>
+<extent>
+<measure type="images">8</measure>
+<measure type="tokens">6396</measure>
+<measure type="types">2608</measure>
+<measure type="characters">43603</measure>
+</extent>
+<publicationStmt>
+<publisher xml:id="DTACorpusPublisher">
+<email>dta@bbaw.de</email>
+<orgName role="project">Deutsches Textarchiv</orgName>
+<orgName role="hostingInstitution" xml:lang="en">Berlin-Brandenburg Academy of Sciences and Humanities (BBAW)</orgName>
+<orgName role="hostingInstitution" xml:lang="de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<address>
+<addrLine>Jägerstr. 22/23, 10117 Berlin</addrLine>
+<country>Germany</country>
+</address>
+</publisher>
+<pubPlace>Berlin</pubPlace>
+<date type="publication">2025-10-24T08:35:11Z</date>
+<availability>
+<licence target="http://creativecommons.org/publicdomain/zero/1.0/">
+<p>Dieses Werk steht unter der "Creative Commons Namensnennung -
+Nicht kommerziell 3.0 Deutschland Lizenz" (CC BY-NC).</p>
+</licence>
+</availability>
+<idno>
+<idno type="URLWeb">https://www.deutschestextarchiv.de/nn_pfennig027_1843</idno>
+<idno type="URLXML">https://www.deutschestextarchiv.de/book/download_xml/nn_pfennig027_1843</idno>
+<idno type="URLHTML">https://www.deutschestextarchiv.de/book/download_html/nn_pfennig027_1843</idno>
+<idno type="URLText">https://www.deutschestextarchiv.de/book/download_text/nn_pfennig027_1843</idno>
+<idno type="DTADirName">nn_pfennig027_1843</idno>
+<idno type="DTAID">34719</idno>
+<idno type="URN">urn:nbn:de:kobv:b4-34719-3</idno>
+</idno>
+</publicationStmt>
+<sourceDesc>
+<bibl type="J">Das Pfennig=Magazin für Belehrung und Unterhaltung. Neue Folge, Erster Jahrgang, Nr. 27. Leipzig (Sachsen), 8. Juli 1843.</bibl>
+<biblFull>
+<titleStmt>
+<title level="m" type="main">Das Pfennig-Magazin für Belehrung und Unterhaltung</title>
+<title level="m" type="sub">Neue Folge, Erster Jahrgang, Nr. 27</title>
+</titleStmt>
+<editionStmt>
+<edition n="1"/>
+</editionStmt>
+<publicationStmt>
+<publisher/>
+<pubPlace>Leibzig (Sachsen)</pubPlace>
+<date type="publication">1843</date>
+</publicationStmt>
+</biblFull>
+<msDesc>
+<msIdentifier/>
+<physDesc>
+<typeDesc>
+<p>Fraktur</p>
+</typeDesc>
+</physDesc>
+</msDesc>
+</sourceDesc>
+</fileDesc>
+<encodingDesc>
+<editorialDecl>
+<p>
+<![CDATA[
+<p>Siehe Dokumentation</p>
+]]>
+</p>
+</editorialDecl>
+<tagsDecl>
+<rendition scheme="css" xml:id="aq">font-family:sans-serif</rendition>
+<rendition scheme="css" xml:id="b">font-weight:bold</rendition>
+<rendition scheme="css" xml:id="blue">color:blue</rendition>
+<rendition scheme="css" xml:id="c">display:block; text-align:center</rendition>
+<rendition scheme="css" xml:id="et">display:block; margin-left:2em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et2">display:block; margin-left:4em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et3">display:block; margin-left:6em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="f">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="fr">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="g">letter-spacing:0.125em</rendition>
+<rendition scheme="css" xml:id="i">font-style:italic</rendition>
+<rendition scheme="css" xml:id="in">font-size:150%</rendition>
+<rendition scheme="css" xml:id="k">font-variant:small-caps</rendition>
+<rendition scheme="css" xml:id="larger">font-size:larger</rendition>
+<rendition scheme="css" xml:id="red">color:red</rendition>
+<rendition scheme="css" xml:id="right">display:block; text-align:right</rendition>
+<rendition scheme="css" xml:id="s">text-decoration:line-through</rendition>
+<rendition scheme="css" xml:id="smaller">font-size:smaller</rendition>
+<rendition scheme="css" xml:id="sub">vertical-align:sub; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="sup">vertical-align:super; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="u">text-decoration:underline</rendition>
+<rendition scheme="css" xml:id="uu">border-bottom:double 3px #000</rendition>
+</tagsDecl>
+</encodingDesc>
+<profileDesc>
+<langUsage>
+<language ident="deu">(Früh-)Neuhochdeutsch</language>
+<language ident="deu">German</language>
+</langUsage>
+<textClass>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1main">Gebrauchsliteratur</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1sub">Zeitschrift</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">ready</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">mkhz1</classCode>
+</textClass>
+</profileDesc>
+</teiHeader>
+<text>     <front>
+<pb facs="#f0001" n="[209]"/>
+<titlePage type="heading"><docTitle><titlePart type="main"><hi rendition="#c #fr">Das Pfennig=Magazin<lb/>
+für<lb/>
+<hi rendition="#g">Belehrung und Unterhaltung</hi>.</hi></titlePart></docTitle><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<docImprint><hi rendition="#fr">Nr</hi>. 27. ]                <hi rendition="#c">Neue Folge. Erster Jahrgang.</hi>                <docDate><hi rendition="#right">[ 8. <hi rendition="#g">Juli</hi> 1843.</hi></docDate>              </docImprint></titlePage><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+</front>     <body>       <div n="1" type="jArticle"><head><hi rendition="#fr">Der Kirchenstaat.</hi></head><lb/>
+<figure>         <head>  Römische Landleute.  </head>       </figure><lb/>
+<cb type="start"/>
+<p><hi rendition="#in">D</hi>er heutige Kirchenstaat oder das weltliche Gebiet des<lb/>
+Apostolischen Stuhls erstreckt sich in einem länglichen<lb/>
+Streifen zwischen Toscana und dem Adriatischen Meere<lb/>
+von dem Neapolitanischen bis zu den Mündungen des<lb/>
+Po und hat auf seinen 812 &#x25A1;M. etwa2 1 / 2 Millionen<lb/>
+Einwohner. Er besitzt so ziemlich die ganze Ländermasse<lb/>
+des alten Kirchenstaats, nur Avignon und Venaissin ha-<lb/>
+ben an Frankreich und eine Landschaft von Ferrara an<lb/>
+Östreich abgetreten werden müssen.</p><lb/>
+<p>Die jetzigen päpstlichen Länder standen nach der Zer-<lb/>
+störung des weströmischen Reichs im J. 476 erst unter<lb/>
+den Westgothen, dann unter den Ostgothen, dann un-<lb/>
+ter den griechischen Kaisern und es bildeten sich in die-<lb/>
+ser Zeit das Exarchat Ravenna, die Romagna, die Mark<lb/>
+Ancona, das Herzogthum Rom, Spoleto, Fermo u. a.<lb/>
+Seit dem Jahre 607 legten sich die Bischöfe von Rom<lb/>
+den Titel Päpste bei. Jm J. 754 erhielten sie von dem<lb/>
+Frankenkönig Pipin dem Kleinen das Exarchat Ravenna,<lb/>
+das zuletzt den Longobarden angehört hatte. Dieses<lb/>
+<cb n="2"/>
+Stammgut des heiligen Petrus wurde von Karl dem<lb/>
+Großen durch neue Schenkungen vergrößert. Hierzu kam<lb/>
+im 11. Jahrhundert das Herzogthum Benevent, im 12.<lb/>
+das Herzogthum Spoleto, ein Theil der Mark Ancona<lb/>
+und viele Güter in Toscana, im 13. die Grafschaft Ve-<lb/>
+naissin in Frankreich, im 14. die Stadt Avignon, eben-<lb/>
+falls in Frankreich, 1598 das Herzogthum Ferrara und<lb/>
+1631 die Herzogthümer Urbino und Castro nebst der<lb/>
+Grafschaft Ronciglione. Jm J. 1790 gingen Venaissin<lb/>
+und Avignon, 1797 die Legationen Romagna, Bologna<lb/>
+und Ferrara verloren und 1798 wurde der ganze Staat<lb/>
+in einen Freistaat umgewandelt. Zwar wurde Pius <hi rendition="#aq">VII.</hi><lb/>
+auf kurze Zeit wieder weltlicher Herr, aber 1808 wurde<lb/>
+er auf die Würde eines geistlichen Oberhauptes der ka-<lb/>
+tholischen Kirche beschränkt, doch nach Napoleon's Sturze<lb/>
+erlangte auch er seine weltlichen Besitzungen wieder und<lb/>
+das Königreich Rom hatte keine längere Dauer gehabt<lb/>
+als die Republik.</p><lb/>
+<p>Der Kirchenstaat bildet ein zusammenhängendes Ganzes,<lb/>
+<cb type="end"/>
+<pb facs="#f0002" n="210"/>
+<fw place="top" type="pageNum">210</fw><cb type="start"/>
+von dem nur das Herzogthum Benevent und das Für-<lb/>
+stenthum Ponte Corvo durch neapolitanisches Gebiet ge-<lb/>
+trennt sind. Das Land ist nur in den nächsten Umge-<lb/>
+bungen Roms flach, sonst überall gebirgig. Von Borgo<lb/>
+San=Sepolcro an treten die Apenninen auf das päpst-<lb/>
+liche Gebiet, nehmen ihre Richtung von NW. nach<lb/>
+SO. und gehen unweit Norcia in die Abruzzen über.<lb/>
+Jm Monte Velino, nordwestlich von Rom, im Monte<lb/>
+della Sibilla, an der Grenze der Abruzzen, und im<lb/>
+Monte Somma erhebt sich das Gebirge von 7&#x2014;8000<lb/>
+Fuß. Die Äste des Hauptstocks, die sich durch das<lb/>
+ganze Land verbreiten, bleiben überall unter 4000 Fuß.<lb/>
+Einige isolirte Berggruppen, z. B. das Albanergebirge,<lb/>
+jetzt Monte Cavo genannt, zeigen Spuren von erlosche-<lb/>
+nen Vulkanen. Einer der schönsten Berge des Kirchen-<lb/>
+staats und ganz Jtaliens ist der Monte Circello, west-<lb/>
+lich von Terracina, mit immergrünen Eichen=, Kork=,<lb/>
+Mastix=, Manna= und Lorberbäumen, Citronen, Gra-<lb/>
+naten, Orangen, indischen Feigen, amerikanischen Aga-<lb/>
+ven und herrlich blühenden Myrthen. Ein buntes Ge-<lb/>
+misch nördlicher und südlicher Vögel bewohnt und belebt<lb/>
+ihn; die schönsten Schmetterlinge flattern um die liebli-<lb/>
+chen Blumen; ganze Schwärme von Leuchtkäfern über-<lb/>
+ziehen ihn dermaßen, daß er Nachts wie in leuchtende<lb/>
+Wolken gehüllt erscheint. Gegen das Meer hin bilden<lb/>
+hohe, steil abgeschnittene Felsen mit zerrissenen Seiten-<lb/>
+wänden breite und tiefe, mit Epheu und Malipendron<lb/>
+bekleidete, über frischen Quellen sich wölbende Grotten,<lb/>
+von denen die größte Grotta della Maga heißt. Auf<lb/>
+der Spitze des Berges steht ein altes Kastell, von dem<lb/>
+das Auge eine herrliche Aussicht genießt. Man sieht das<lb/>
+Albanergebirge, den sich über Frascati und Albano nach<lb/>
+Terracina hinziehenden Apennin mit seinen Eichen, Fich-<lb/>
+ten und Kastanien, die alte Appische Straße, aber auch<lb/>
+die Schlange dieses Paradieses, die Pontinischen Süm-<lb/>
+pfe, die bisher jeder Urbarmachung getrotzt haben. Ge-<lb/>
+gen die See hin überschaut man die Küsten von Tos-<lb/>
+cana, Sardinien, Corsica, Jschia, Procida und die Pon-<lb/>
+zainseln. Gegen Süden findet man einen herrlichen<lb/>
+Ruhepunkt in der Campagna Felice.</p><lb/>
+<p>Der Kirchenstaat liegt in der zweiten Region des<lb/>
+italienischen Klimas. Die Gegend am Po hat das Klima<lb/>
+der Lombardei, die Campagna di Roma nähert sich dem<lb/>
+süditalienischen Klima. Rom hat eine mittlere Tempera-<lb/>
+tur von 12° bei einer Höhe von 186 Fuß über dem<lb/>
+Meere. Bei Fondi beginnen die Gefilde, wo die Citro-<lb/>
+nen und Orangen im Freien wachsen. Die Kälte steigt<lb/>
+nie über 5°. Rauher ist natürlich die Luft auf dem<lb/>
+Apennin, wo der Schnee oft 4&#x2014;5 Monate liegen bleibt.<lb/>
+Die große Sommerhitze wird zwar durch die Seewinde<lb/>
+gemäßigt, aber an der Küste weht oft der lähmende Si-<lb/>
+rocco; die reinste und gesundeste Luft kommt von den Apen-<lb/>
+ninen. Die Maremmen am Mittelmeer, sowie die sum-<lb/>
+pfigen Uferstrecken der Flüsse sind zwar nicht so schädlich<lb/>
+wie die Luft der Campagna di Roma, aber sie hauchen<lb/>
+doch auch fiebererzeugende Dünste aus. Die Jahreszei-<lb/>
+ten gehen unmerklich ineinander über. Einen eigentlichen<lb/>
+Winter kennt man nur im Hochgebirge. Die Vegeta-<lb/>
+tion beginnt früh und nimmt allmälig ab, sodaß man<lb/>
+den Anfang des Herbstes kaum bemerkt. Den lästigen<lb/>
+Sommer bringt der Römer nicht auf dem Lande zu,<lb/>
+sondern sperrt sich in sein Haus in der Stadt, nachdem<lb/>
+er Fenster und Thüren zugemacht hat. Erst wenn der<lb/>
+Sirocco durch den Borro ( Wind aus Nordwest ) ver-<lb/>
+drängt worden ist, eilt er wieder ins Freie. Dies ge-<lb/>
+schieht gegen Ende des August nach dem ersten Regen,<lb/>
+wo eine totale Veränderung der Natur erfolgt. Es ist<lb/>
+jetzt, als wenn Alles aus einem langen Schlummer er-<lb/>
+<cb n="2"/>
+wachte, und man kann mit Recht den Herbst den Früh-<lb/>
+ling Jtaliens nennen. Jm Herbst geht Alles aufs Land,<lb/>
+die Villegiatura ist die herrlichste Erholung des Römers.<lb/>
+Wer es nur irgend möglich machen kann, kauft oder<lb/>
+miethet sich ein Landgut zur Bewohnung auf etliche<lb/>
+Monate. Der hohe und niedere Geistliche, der Gelehrte<lb/>
+wie der Geschäftsmann, Alles macht dann den Jäger,<lb/>
+obgleich die Jagd nur im Wachtelschießen besteht.</p><lb/>
+<p>Die Bevölkerung ist sehr ungleich vertheilt. Während<lb/>
+die Campagna di Roma sehr spärlich bewohnt ist, ge-<lb/>
+hören die anconische Mark und die Gegend von Perugia<lb/>
+zu den bevölkertsten Landstrichen Europas.</p><lb/>
+<p>Der Römer charakterisirt sich durch einen hellen, durch-<lb/>
+dringenden Verstand, eine feurige, bilderreiche Phantasie,<lb/>
+ein tiefes, leicht erregbares Gefühl; er ist reizbar, leiden-<lb/>
+schaftlich, dabei voll Geist und Witz, für alles Große<lb/>
+und Erhabene empfänglich, besitzt ein ausgezeichnetes<lb/>
+Talent für Musik, Malerei, Bildhauerkunst und hat ein<lb/>
+fröhliches, heiteres Temperament. Er ist mäßig, höchst<lb/>
+genügsam in allen seinen Bedürfnissen und schwelgt höch-<lb/>
+stens da, wo Phantasie und Geist an dem Genusse der<lb/>
+Sinne Theil nehmen. Die Römer sind das natürlichste<lb/>
+Volk des gebildeten Europas. Ohne allen geistigen und<lb/>
+körperlichen Luxus, in unmittelbarer Verbindung mit der<lb/>
+Natur, entlehnen sie von dieser ihre geistigen und kör-<lb/>
+perlichen Bedürfnisse. Sie essen die vegetabilischen Spei-<lb/>
+sen meist roh und nehmen die Natureindrücke ebenso roh<lb/>
+ein. Fast aller Reflexion entbehrend, besitzen sie keine<lb/>
+Tiefe des Charakters. Bei aller Roheit und Unwissenheit<lb/>
+zeigt der Römer nie jene plumpe Unbeholfenheit, die dem<lb/>
+ungebildeten Nordländer anklebt. Er ist in seinem Äu-<lb/>
+ßern ganz zwanglos, zum Schauspieler wie geboren und<lb/>
+seine Darstellungen sind immer ein treuer und vollende-<lb/>
+ter Ausdruck der Natur; in der Pantomime ist er Mei-<lb/>
+ster, edel und erhaben. Seine Körperbildung ist treff-<lb/>
+lich, sein Auge feurig, seine Physiognomie ausdrucksvoll,<lb/>
+sein Körper geschmeidig. Athletengestalten und Helden-<lb/>
+gesichter sind nicht selten.</p><lb/>
+<p>Besonders ausgezeichnet in körperlicher Hinsicht sind<lb/>
+die Frauen; erhaben und charakteristisch sind die Züge<lb/>
+der Römerin. Man gewahrt selbst in den niedern Stän-<lb/>
+den eine überraschende Würde und Majestät, wie die<lb/>
+edelste und leichteste Haltung. Trotz der nicht gesunden<lb/>
+Luft sehen doch Frauen und Kinder meist frisch aus.<lb/>
+Das dunkle Haar flechten die Frauen zierlich und ge-<lb/>
+schmackvoll und die brennendschwarzen Augen blitzen<lb/>
+gleich funkelnden Sternen aus dem künstlich gefalteten<lb/>
+Schleier hervor.</p><lb/>
+<p>Die römischen Landleute tragen noch ganz das Ge-<lb/>
+präge des Alterthums. Der Unterschied in der Tracht<lb/>
+zwischen den einzelnen Districten weist auf die Zeit zu-<lb/>
+rück, wo die Campagna mit den darum liegenden Hü-<lb/>
+geln eine Menge kleiner unabhängiger Staaten bildete.<lb/>
+Jeder dieser Districte hat seine eigene Tracht, von der<lb/>
+nicht im geringsten abgegangen wird. Was wir Mode<lb/>
+nennen, ist hier völlig unbekannt. Die Männer und<lb/>
+Weiber kleiden sich genau so, wie es ihre Väter und<lb/>
+Mütter gethan. Jn einigen der ackerbauenden Districte<lb/>
+kann man Kleidungen sehen, wie sie schon zu den Zei-<lb/>
+ten der Cäsaren, der Consuln oder wol noch früher ge-<lb/>
+tragen wurden.</p><lb/>
+<p>Die Gruppe auf unserer Abbildung zeichnet sich durch<lb/>
+die Körbe aus, welche die Frauen auf den Köpfen tra-<lb/>
+gen. Diese Sitte ist nicht allgemein, sondern nur eini-<lb/>
+gen Districten der Campagna eigen. Die Körbe sind<lb/>
+aus Weidenruthen geflochten und innen mit roher Baum-<lb/>
+wolle oder ungekrämpelter Schafwolle ausgelegt. Um das<lb/>
+Herausstürzen der Kinder zu verhüten, wird der Korb<lb/>
+<cb type="end"/>
+<pb facs="#f0003" n="211"/>
+<fw place="top" type="pageNum">211</fw><cb type="start"/>
+oben von schmalen Bändern aus flachgedrückten Stroh-<lb/>
+halmen oder Weidenruthen gekreuzt. Mit ihrem Kinde<lb/>
+auf dem Kopfe geht eine Bäuerin an Werkeltagen auf<lb/>
+den entferntesten Markt oder an Sonn= und Festtagen<lb/>
+meilenweit zur Messe. Wenn das Kind schläft und ru-<lb/>
+hig ist, nimmt sie ihren Spinnrocken, der immer an<lb/>
+ihrem Gürtel hängt, und geht spinnend und singend und<lb/>
+den Korb auf dem Kopfe wiegend, einher. Wasser wird<lb/>
+auf gleiche Weise transportirt und von den Händen da-<lb/>
+bei kein anderer Gebrauch gemacht, als das Wassergefäß<lb/>
+auf den Kopf zu bringen. Diese Sitte des Wasserfort-<lb/>
+schaffens ist auch den indischen Frauen eigen und soll<lb/>
+großen Antheil an der anmuthigen Leichtigkeit haben,<lb/>
+mit der sie einhergehen.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Malaiische Rache.</hi></head><lb/>
+<p><hi rendition="#in">A</hi>uf der Küste Koromandel unweit Madras lebte Herr<lb/>
+T., ein Mann von seltener Herzensgüte, geliebt von allen<lb/>
+Denen, die mit ihm zu thun hatten, besonders von sei-<lb/>
+nen Dienern, die er mit väterlicher Milde behandelte.<lb/>
+Er war der glückliche Vater von drei hoffnungsvollen<lb/>
+Kindern und hatte eine Frau, die außer einer großen<lb/>
+Heftigkeit keinen einzigen jener Fehler besaß, die reichen<lb/>
+Frauen eigen zu sein pflegen. Sie besaß ein edles Herz<lb/>
+und die besten Absichten von der Welt.</p><lb/>
+<p>Geschäftsangelegenheiten nöthigten Herrn T. biswei-<lb/>
+len, die Seinigen auf einige Zeit zu verlassen. Als er<lb/>
+sich einst auf einer solchen Geschäftsreise befand, vermißte<lb/>
+Madame T. einen prächtigen Smaragdhalsschmuck, der<lb/>
+ihr über Alles werth war. Sie ließ alle Winkel der<lb/>
+Wohnung durchforschen und jeden Diener durchsuchen,<lb/>
+aber der Halsschmuck war nicht aufzufinden. Schon<lb/>
+gab Madame T. die Hoffnung auf, ihn wieder zu erlan-<lb/>
+gen, als man sich erinnerte, daß den Abend vorher ein<lb/>
+sechsjähriger Malaie, der mit den Kindern erzogen wurde,<lb/>
+einen Ring für Madame T. aus dem Kästchen geholt<lb/>
+hatte, in welchem der Schmuck bisher aufbewahrt gewe-<lb/>
+sen war. Konnte er nicht den Schmuck genommen und<lb/>
+verkauft haben? Dieser Verdacht bemächtigte sich wie<lb/>
+ein Blitz aller Seelen im Hause und wurde noch durch<lb/>
+den Umstand verstärkt, daß der Knabe seit einigen Tagen<lb/>
+mit Geld geprahlt hatte. Zwar behauptete er in dem<lb/>
+Verhöre, dem er unterworfen wurde, das Geld von sei-<lb/>
+nem Vater empfangen zu haben, und dieser bestätigte<lb/>
+seine Aussage, aber alle Welt hielt ihn dennoch für den<lb/>
+Schuldigen. Demzufolge befahl Madame T., den Kna-<lb/>
+ben durch die Peitsche zum Geständniß zu bringen. Der<lb/>
+unglückliche Vater warf sich ihr zu Füßen und bat sie<lb/>
+um Alles in der Welt, ihren Befehl zurückzunehmen,<lb/>
+aber sie war von der Schuld des jungen Malaien der-<lb/>
+gestalt überzeugt und durch sein hartnäckiges Leugnen so<lb/>
+aufgebracht, daß sie sich durch nichts erweichen ließ.</p><lb/>
+<p>Der Knabe wurde also an einen Pfahl gebunden<lb/>
+und mit Ruthen gepeitscht. Der Vater, Zeuge dieses<lb/>
+traurigen Schauspiels, biß sich convulsivisch in die Lip-<lb/>
+pen, machte aber keinen Versuch mehr, das Schicksal<lb/>
+des Knaben zu mildern. Dieser ertrug die Schmerzen,<lb/>
+ohne einen einzigen Klagelaut auszustoßen. Nach 30<lb/>
+Hieben trug man ihn ohnmächtig in sein Bett, ohne<lb/>
+erfahren zu haben, was aus dem Halsschmucke gewor-<lb/>
+den sei. Den nächsten Morgen wurde die Auspeitschung<lb/>
+abermals vorgenommen, ohne zu einem andern Ziele zu<lb/>
+führen als die erste. Ebenso ging es am dritten. End-<lb/>
+lich beschloß Madame T. die Rückkehr ihres Mannes<lb/>
+abzuwarten, ehe sie zu neuen Maßregeln schreiten wollte.</p><lb/>
+<cb n="2"/>
+<p>Unterdessen erholte sich der Knabe wieder und ver-<lb/>
+richtete seine Dienste im Hause wie zuvor. Auch sein<lb/>
+Vater ließ keine Klage laut werden, obgleich er schwer<lb/>
+beleidigt schien, und arbeitete in dem ihm angewiesenen<lb/>
+Geschäftskreise wie gewöhnlich.</p><lb/>
+<p>Herr T. kam endlich von seiner Reise zurück, die<lb/>
+sich um mehre Tage verspätet hatte, und breitete am<lb/>
+Morgen des nächsten Tages eine Menge kleiner Ge-<lb/>
+schenke, die er seiner Frau und seinen Kindern bestimmt<lb/>
+hatte, auf dem Frühstückstische aus.</p><lb/>
+<p>Hier ist auch das Halsband, sagte er zu seiner Frau,<lb/>
+welches du mich zum Repariren mitzunehmen batest; ich<lb/>
+hoffe, du wirst nun zufrieden mit ihm sein.</p><lb/>
+<p>Madame T. wurde bei Erblickung des Halsbandes<lb/>
+blaß wie eine Leiche und fiel vor innerer Bewegung in<lb/>
+Ohnmacht. Als sie wieder zu sich kam, brach sie in<lb/>
+einen Strom von Thränen und Klagen aus. Herr T.,<lb/>
+welcher den Grund dieses Zustandes seiner Frau nicht<lb/>
+kannte, wurde von einer unbeschreiblichen Angst ergriffen<lb/>
+und glaubte sie jeden Augenblick sterben zu sehen. &#x201E;Jch<lb/>
+habe den armen Sidommy für den Dieb dieses Schmucks<lb/>
+gehalten&#x201C;, sagte sie mit herzzerreißender Stimme, &#x201E;ich habe<lb/>
+einen Unschuldigen grausam züchtigen lassen.&#x201C;</p><lb/>
+<p>Nachdem sich Herr T. Alles hatte ausführlich erzäh-<lb/>
+len lassen, ließ er sogleich Sidommy und seinen Vater<lb/>
+herbeirufen, erklärte dem jungen Malaien, daß seine Un-<lb/>
+schuld an den Tag gekommen und er das Opfer eines<lb/>
+unglücklichen Jrrthums gewesen wäre, und schenkte ihm<lb/>
+einen reichen europäischen Anzug, den er für seinen<lb/>
+Sohn mitgebracht hatte.</p><lb/>
+<p>Sidommy war entzückt über dieses Geschenk und<lb/>
+stürzte mit Freudensprüngen aus dem Zimmer, um sei-<lb/>
+nen schönen Anzug zu probiren. Der Vater desselben<lb/>
+verneigte sich tief und folgte dem Knaben, ohne die Au-<lb/>
+gen zu erheben oder eine Sylbe zu sprechen.</p><lb/>
+<p>Bald darauf kam der Knabe, mit Thränen in den<lb/>
+Augen, zurück und sagte seiner Herrin, daß sein Vater<lb/>
+das neue Kleid in Stücken zerrissen habe, behauptend,<lb/>
+daß kein europäischer Schmuck die Schande vertilgen<lb/>
+könnte, die ihm zugefügt worden wäre.</p><lb/>
+<p>Herr T. war über diese Unverschämtheit seines Die-<lb/>
+ners höchst aufgebracht und wollte sie augenblicklich aufs<lb/>
+strengste bestrafen lassen; aber seine Frau bat für den<lb/>
+Diener und fand nach Dem, was vorgefallen war, sein<lb/>
+Benehmen sehr verzeihlich. Die Zeit, meinte sie, könne<lb/>
+seinen gerechten Zorn allein mildern. Man sprach daher<lb/>
+nicht weiter von der Sache und Alles ging wieder seinen<lb/>
+gewöhnlichen Gang.</p><lb/>
+<p>Ungefähr zehn Tage darauf erhielt Herr T. einen<lb/>
+Brief von Madras, worin ihm die nahe Ankunft seiner<lb/>
+von ihm sehr geliebten Schwester gemeldet ward. Das<lb/>
+bewog ihn zu dem Entschlusse, derselben entgegen zu rei-<lb/>
+sen. Am Abend vor der Abreise bat ihn der Malaie,<lb/>
+seinen Sohn Sidommy mitzunehmen, eine Bitte, welche<lb/>
+Herr T. gern erfüllte, da er jede Gelegenheit benutzte,<lb/>
+den jungen Menschen für die unschuldigerweise empfan-<lb/>
+gene harte Behandlung zu entschädigen.</p><lb/>
+<p>Herr T. nahm außerdem noch einen Freund mit und<lb/>
+kam ohne irgend einen Unfall nach Madras. Hier aber<lb/>
+erwartete ihn eine bittere Enttäuschung. Die Schwester<lb/>
+hatte nach dem Abgange ihres Briefs einen Offizier ken-<lb/>
+nen gelernt und demselben ihre Hand gegeben. Herr T.<lb/>
+hatte also die Reise umsonst gemacht und mußte ohne<lb/>
+die geliebte Schwester wieder zurückreisen. Er war sei-<lb/>
+nem Aufenthaltsorte schon sehr nahe, als er vor einem<lb/>
+kleinen Dorfe, das er zu passiren hatte, seine ganze Die-<lb/>
+nerschaft fand, die seine Ankunft erwartete. Verwundert<lb/>
+fragte er, was das bedeuten solle, und hörte, daß dies<lb/>
+<cb type="end"/>
+<pb facs="#f0004" n="212"/>
+<fw place="top" type="pageNum">212</fw><cb type="start"/>
+seinem Wunsche zufolge auf Befehl seiner Gattin gesche-<lb/>
+hen sei. Herr T., der keinen Gedanken an einen solchen<lb/>
+Wunsch gehabt, noch weniger aber ihn gegen seine Frau<lb/>
+geäußert hatte, die nicht einmal von seiner schnellen<lb/>
+Rückkehr etwas wissen konnte, war über diesen Befehl<lb/>
+nicht wenig erstaunt und fragte, ob sie den Befehl aus<lb/>
+dem Munde seiner Frau selbst empfangen hätten. Als<lb/>
+man ihm antwortete, daß ihnen der Befehl durch den<lb/>
+malaiischen Kidmutgar zugekommen sei, umdüsterte sich<lb/>
+sein Gesicht und er eilte, von schrecklichen Ahnungen ge-<lb/>
+foltert, so schnell er konnte nach Hause. Als er hier<lb/>
+ankam, waren alle Fenster und Thüren des Hauses ver-<lb/>
+<cb n="2"/>
+schlossen. Herr T. sprang aus seinem Palankin und<lb/>
+stürzte nach der Thür des Hauses, die er vergeblich auf-<lb/>
+zumachen suchte. Mit seinem Freunde stieß er sie end-<lb/>
+lich ein. Das Erste, was man beim Eintreten erblickte,<lb/>
+war der Leichnam des Kidmutgar, welcher im Blute<lb/>
+schwamm, in der einen Hand ein Barbiermesser, mit<lb/>
+dem er sich den Hals abgeschnitten, in der andern die<lb/>
+Peitsche haltend, welche den Rücken seines Sohnes zer-<lb/>
+fleischt hatte. Jn dem benachbarten Zimmer fand man<lb/>
+die noch warmen Leichname von Madame T. und ihren<lb/>
+drei Kindern, welche der Malaie im Schlafe ermordet<lb/>
+hatte, ehe er sich selbst das Leben genommen.</p></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Fortrückung der Häuser in Amerika.</hi></head><lb/>
+<figure>         <head>  Hebung eines Hauses.  </head>       </figure><lb/>
+<cb type="start"/>
+<p><hi rendition="#in">S</hi>o lange die Häuser von Holz gebaut wurden, war<lb/>
+es keine große Kunst, sie von ihrer Stelle fortzurücken.<lb/>
+Es kommen daher schon vor Jahrhunderten, besonders<lb/>
+in England, Beispiele von solchen Fortrückungen vor;<lb/>
+<cb n="2"/>
+aber bedeutend größer wird die Schwierigkeit, wenn man<lb/>
+aus Backsteinen aufgeführte Häuser von ihrer Stelle weg-<lb/>
+bringen will, ohne sie einzureißen. Doch auch diese<lb/>
+Schwierigkeit hat man zu überwinden gewußt und in<lb/>
+<cb type="end"/>
+<pb facs="#f0005" n="213"/>
+<fw place="top" type="pageNum">213</fw><cb type="start"/>
+Amerika ist es bereits etwas sehr Gewöhnliches, bedeu-<lb/>
+tende Versetzungen mit solchen Häusern vorzunehmen.<lb/>
+Wenn das fortzurückende Gebäude frei steht, verfährt<lb/>
+man dabei auf folgende Weise.</p><lb/>
+<p>Man macht an jeder der beiden Seitenmauern ge-<lb/>
+rade über dem Grunde eine Reihe ungefähr 4 Fuß von-<lb/>
+einander abstehende Löcher von einer Größe in das Mauer-<lb/>
+werk, daß man 12&#x2014;15 Zoll dicke Balken hineinbrin-<lb/>
+gen kann. Diese Balken, welche auf unserer Abbildung<lb/>
+durch die Ziffer 1 bezeichnet sind, ragen 2&#x2014;3 Fuß aus<lb/>
+dem Mauerwerk heraus und ruhen mit ihren vorragen-<lb/>
+den Enden auf Holzblöcken, welche nahe an den Mauern<lb/>
+auf dem Boden fest aufliegen. Zwischen die hervorra-<lb/>
+genden Balkenenden und die Blöcke, auf denen sie ru-<lb/>
+hen, treibt man nun Keile und gewinnt durch darauf<lb/>
+folgende Wegnahme der Ziegel einen freien Spielraum<lb/>
+zu den weitern Operationen. Was bisher mit den Sei-<lb/>
+tenmauern geschehen ist, geschieht nun auch mit der Vor-<lb/>
+der- und Hintermauer, indem man unter den Balken<lb/>
+Nr. 1 von Mauer zu Mauer eine neue Reihe, auf der<lb/>
+Abbildung mit der Ziffer 2 bezeichneter Balken laufen<lb/>
+und wie die ersten auf Blöcken ruhen läßt und darauf<lb/>
+das Mauerwerk vom Grunde trennt. Nun werden die<lb/>
+beiden Balkenlagen durch Winden, die man unter die<lb/>
+zweite Balkenlage bringt, eng aneinander und an das<lb/>
+darauf ruhende Mauerwerk geschraubt, sodaß die Blöcke<lb/>
+weggenommen werden können. Auf den Grundlagen der<lb/>
+<cb n="2"/>
+Seitenmauern werden nun Gleit= oder Rutschbahnen, jede<lb/>
+mit einer kanalförmigen Vertiefung, eingerichtet, welche<lb/>
+die Ziffer 6 bezeichnet, und darauf, wie auf Schiffs-<lb/>
+werften gewöhnlich ist, ( durch 5 bezeichnete ) bewegliche<lb/>
+Rinnen gebracht. Zwischen diese Rinnen und die Bal-<lb/>
+ken Nr. 2 werden rechtwinkelig von einer Seitenmauer<lb/>
+zur andern Balken Nr. 4 eingeschoben, um das ganze<lb/>
+Gewicht des Gebäudes auf die Rinnen zu bringen. Die<lb/>
+Mittel, durch welche dies geschieht, zeigen die Ziffern 7,<lb/>
+8 und 9 in der zweiten Abbildung, welche den untern<lb/>
+Theil der Seitenmauer zur Ansicht bringt.</p><lb/>
+<p>Das Gebäude kann nun ohne Gefahr von seiner<lb/>
+Stelle verrückt werden. Für diesen Zweck müssen die ka-<lb/>
+nalförmigen Vertiefungen der Gleitbahnen und die darin<lb/>
+liegenden wiegenförmigen Rinnen gehörig eingefettet und<lb/>
+die erstern genau auf die Stelle geführt werden, auf<lb/>
+welche das Gebäude herabgelassen werden soll. Es wer-<lb/>
+den zunächst die Winden weggenommen, welche nichts<lb/>
+mehr zu tragen haben, und in eine horizontale Rich-<lb/>
+tung gegen die Rinnen gebracht, auf denen nun das<lb/>
+Gewicht des Gebäudes ruht. Auf diese Weise wird das<lb/>
+Gebäude täglich 3&#x2014;4 Fuß fortgerückt, bis es auf der<lb/>
+ihm bestimmten neuen Stelle steht. Jetzt wird das eben<lb/>
+beschriebene Verfahren in umgekehrter Ordnung befolgt<lb/>
+und bald steht das Haus auf seiner neuen Grundlage so<lb/>
+fest, als wäre es auf derselben aufgemauert worden.</p><lb/>
+<cb type="end"/>
+<figure/></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Grosse Gefahr einer zur Nachtzeit fahrenden Locomotive.</hi></head><lb/>
+<cb type="start"/>
+<p><hi rendition="#in">V</hi>or kurzem wurde einer der großen schweren steinernen<lb/>
+Pfeiler, die für den Bau der Börse von Boston bestimmt<lb/>
+waren, von Quincy nach Boston transportirt. Die<lb/>
+Steinmasse wog 120,000 Pfund und wurde von 70<lb/>
+Ochsen gezogen. Gegen Abend kam man an die den<lb/>
+Weg nach Boston durchkreuzende Eisenbahn, die über-<lb/>
+schritten werden mußte. Da die Thore derselben geschlos-<lb/>
+sen waren und weit und breit aus der Ferne nicht das<lb/>
+geringste Geräusch hörbar war, beschloß man, den Stein<lb/>
+sogleich hinüberfahren zu lassen. Allein als der Wagen<lb/>
+mit dem Ochsenzuge bis zur Mitte der Eisenbahnstraße<lb/>
+gekommen war, hörte man plötzlich und unvermuthet<lb/>
+den brausenden Lärm einer entfernten Locomotive, die<lb/>
+sich näherte. Es war bereits dunkel und man konnte<lb/>
+dem Führer kein Zeichen geben. Zurückkehren war nicht<lb/>
+möglich, und so blieb nichts übrig, als alle erdenkliche<lb/>
+<cb n="2"/>
+Kraft anzuwenden, um den Stein noch vollends hinüber-<lb/>
+zubringen, bevor die Locomotive ankäme. Man trieb die<lb/>
+Zugochsen auf alle mögliche Weise an, aber durch den<lb/>
+plötzlichen und schnellen Ruck, der durch die aufs äußerste<lb/>
+angestrengten Kräfte sämmtlicher Ochsen verursacht wurde,<lb/>
+brach zum Unglück die Kette, an der sie zogen. Nun<lb/>
+stieg die Noth aufs höchste. Es war kein Augenblick<lb/>
+Zeit zu verlieren und daher nicht daran zu denken, die<lb/>
+zerbrochenen Theile derselben wieder zu verbinden, und<lb/>
+es war unter solchen Umständen nichts Anderes zu thun<lb/>
+als diejenigen Ochsen, die noch durch einen Theil der<lb/>
+Kette an den Wagen gespannt waren, bis zur größten<lb/>
+Anstrengung ihrer Kräfte anzutreiben. Dadurch wurde<lb/>
+der Wagen mit seiner schweren Last zwar in seiner Be-<lb/>
+wegung vorwärts gebracht, aber langsam; mittlerweile<lb/>
+hörte man schon deutlich das Pfeifen und Schnauben der<lb/>
+<cb type="end"/>
+<pb facs="#f0006" n="214"/>
+<fw place="top" type="pageNum">214</fw><cb type="start"/>
+in der Dunkelheit mit der Schnelligkeit von 20 engli-<lb/>
+schen Meilen in der Stunde heraneilenden Locomotive, ohne<lb/>
+daß die Personen, welche sich in den Eisenbahnwagen<lb/>
+befanden, die mindeste Ahnung von ihrer Gefahr hatten.<lb/>
+Da machten die Ochsentreiber einen letzten entscheidenden<lb/>
+Versuch, die Zugthiere anzutreiben. Die Steinmasse be-<lb/>
+wegte sich und die Locomotive mit ihrem Wagenzuge<lb/>
+brauste mit Windesschnelle gerade vorbei, als das letzte<lb/>
+Ende des Steins über die Bahn kam. Da fiel dem<lb/>
+Baumeister, der den Transport leitete, eine ungeheure<lb/>
+Last vom Herzen, und die Ochsentreiber, den Schweiß<lb/>
+von der Stirn sich wischend, athmeten wieder frei, als<lb/>
+wären sie selbst einer großen Gefahr entgangen.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr"><hi rendition="#g">Alchemie</hi>.</hi></head><lb/>
+<p><hi rendition="#in">U</hi>nter Alchemie, dem Steine der Weisen, versteht man<lb/>
+die angebliche Kunst, unedle oder rohe Metalle zu reini-<lb/>
+gen und in edle, namentlich in Gold und Silber, um-<lb/>
+zuschaffen, nebenbei auch noch eine Panacee, d. h. eine<lb/>
+Universalmedicin nicht nur gegen alle Krankheiten, son-<lb/>
+dern selbst gegen den Tod zu bereiten.</p><lb/>
+<p>Die Geschichte dieser Kunst ist sehr dunkel, weil sich<lb/>
+die Alchemisten von jeher der Untersuchung zu entziehen<lb/>
+wußten. Sie stammt aus Ägypten, war jedoch den al-<lb/>
+ten Priestern dieses Landes nicht bekannt, wie man lange<lb/>
+geglaubt hat, sondern erhielt ihr Dasein durch die alexan-<lb/>
+drinischen Gelehrten, die sich durch träges Grübeln und<lb/>
+müßiges Brüten über dunkeln Worten den Anstrich gro-<lb/>
+ßer Kenntnisse zu geben suchten und den Wahn verbrei-<lb/>
+teten, nur durch ein beschauliches Leben und geheime<lb/>
+Kenntnisse könne man in das unbekannte Land über-<lb/>
+menschlicher Weisheit gelangen, im Besitze dieser Weis-<lb/>
+heit erlange man den Umgang mit Geistern und ver-<lb/>
+stünde außer tausend andern Künsten auch die Kunst,<lb/>
+edle Metalle hervorzubringen. Die ersten Schriften über<lb/>
+Alchemie stammen aus dem 3. Jahrhundert der christli-<lb/>
+chen Zeitrechnung und waren in den Zeiten des Kai-<lb/>
+sers Diocletian so verbreitet, daß der Kaiser den großen<lb/>
+Reichthum der Ägypter von diesen Büchern ableitete<lb/>
+und aus Furcht, sie möchten mit Hülfe des gemachten<lb/>
+Goldes einen Aufstand erregen, im J. 296 den Befehl<lb/>
+ertheilte, alle alchemistischen Schriften zu verbrennen.</p><lb/>
+<p>Das Wort ist entweder griechischen Ursprungs und<lb/>
+heißt dann ungefähr so viel als Schmelzkunst, oder ist aus<lb/>
+einem ägyptischen Worte von unbekannter Bedeutung<lb/>
+entstanden. Die ältesten Schriftsteller leiten es von einem<lb/>
+Propheten Chimes her, worauf der das menschliche Wissen<lb/>
+übersteigende Jnhalt hinwies. Weil mit der alchemisti-<lb/>
+schen Herstellung des Goldes etwas hergestellt wurde,<lb/>
+was früher nicht dagewesen war, so hieß diese Kunst<lb/>
+vorzugsweise Poesie und die Alchemisten hießen Poeten.<lb/>
+Die Lehrer dieser Poesie schrieben nie unter ihrem Na-<lb/>
+men, sondern wählten immer Namen, die durch Alter<lb/>
+und Ruhm ehrwürdig waren, ein Umstand, der beweist,<lb/>
+wie wenig Vertrauen sie zu dem Jnhalte selbst hatten,<lb/>
+den sie ihren Schriften gaben. Gebete, beschauliches Le-<lb/>
+ben, Ertödtung aller Sinnenlust, Umgang mit Dämo-<lb/>
+nen und Engeln sind die Stufen zur dämonischen Na-<lb/>
+tur und der Kunst der Verwandlung der Metalle.</p><lb/>
+<p>So angenehm dem Despotismus diese Kunst war,<lb/>
+so groß war das Mistrauen desselben gegen die Besitzer<lb/>
+derselben, die Theosophen, die dadurch aber immer mehr<lb/>
+Ansehen erlangten. Die Menschen hängen zu sehr am<lb/>
+Wunderbaren, als daß sie sich nicht, zumal in finstern<lb/>
+Zeitaltern, trotz aller Verbote solchen Künsten hingeben<lb/>
+<cb n="2"/>
+sollten, die sie lehren, in träger Ruhe und bequemem<lb/>
+Müßiggange zu unerschöpflichen Schätzen zu gelangen.</p><lb/>
+<p>Jm morgenländischen Reiche gewann die Alchemie<lb/>
+um so größern Beifall, je üppiger der Hof, je versun-<lb/>
+kener die Nation war. Am Hofe Zeno's ( 474 ) betrog<lb/>
+ein Goldkünstler unzählige Leute. Unter der Regierung<lb/>
+des Anastasius ( 500 ) bot ein gewisser Johann v. An-<lb/>
+tiochien den Silberarbeitern von Konstantinopel goldene<lb/>
+Bildsäulen an, die er selbst gemacht haben wollte, der<lb/>
+Kaiser verwies ihn aber nach Pera, weil er fürchtete,<lb/>
+Johann möchte die leicht erworbenen Reichthümer zum<lb/>
+Umsturz seiner Macht anwenden.</p><lb/>
+<p>Von den Alexandrinern ging die Alchemie zu den<lb/>
+Arabern über und wurde von ihnen besonders in Spa-<lb/>
+nien geübt, wo sie Raimund Lull im 13. Jahrhundert<lb/>
+kennen lernte. Man erzählt von ihm, daß er 50,000<lb/>
+Pfund Quecksilber in Gold verwandelt und daß Eduard <hi rendition="#aq">I.</hi><lb/>
+Guineen oder Rosenobel daraus geschlagen habe. Lull<lb/>
+gab als Bestandtheile der Metalle den Merkur und den<lb/>
+Schwefel an und erklärte so ihre Schwere und ihre Ver-<lb/>
+brennlichkeit; auch sah er im aufgelösten Golde eine Pa-<lb/>
+nacee und ein sicheres Mittel der Lebensverlängerung.</p><lb/>
+<p>Nach Raimund Lull vermehrte sich die Zahl der<lb/>
+Alchemisten dergestalt, daß die Obrigkeiten Verbote gegen<lb/>
+diese Kunst ergehen lassen mußten, worauf sie desto ge-<lb/>
+fährlicher im Geheimen getrieben wurde. Jm 16. Jahr-<lb/>
+hundert hielt sich fast jeder deutsche Fürst seinen Alche-<lb/>
+misten, um durch ihn aus den Verlegenheiten zu kom-<lb/>
+men, in die ihn der Mangel an festen, geregelten Staats-<lb/>
+einkünften und eine Reihe verderblicher Kriege gestürzt<lb/>
+hatte. Heinrich <hi rendition="#aq">VI</hi>. gab sogar drei Männern ein Privi-<lb/>
+legium auf die Kunst, Gold zu machen und das Lebens-<lb/>
+elixir zu bereiten. Kaiser Rudolf <hi rendition="#aq">II</hi>. brachte den größten<lb/>
+Theil seiner Zeit im Laboratorium zu. Man will nach<lb/>
+seinem Tode zehn Tonnen Goldes in seinem chemischen<lb/>
+Cabinet gefunden haben. Auch im 17. Jahrhunderte<lb/>
+war man der Alchemie noch sehr gewogen, besonders<lb/>
+wurde sie jetzt durch die Gesellschaft der Rosenkreuzer<lb/>
+begünstigt, welche unter den Namen der Unsichtbaren,<lb/>
+Unsterblichen, Jlluminaten im Besitze der wichtigsten Na-<lb/>
+turgeheimnisse sein sollten. Man gab ihnen einen adeli-<lb/>
+gen Mönch, Christian Rosenkreuz, zum Stifter und<lb/>
+glaubte von demselben, daß er im Morgenlande in gehei-<lb/>
+mer Kunst und Weisheit unterrichtet und dann zurück-<lb/>
+gesandt worden sei, seine Landsleute zu unterrichten.<lb/>
+Zu Anfange des 17. Jahrhunderts erschienen Schriften,<lb/>
+welche die weisesten unter den Deutschen auffoderten,<lb/>
+sich zu verbinden und gegenseitig in der Weisheit der<lb/>
+Rosenkreuzer zu unterrichten, durch welche jedem Verder-<lb/>
+ben unter den Menschen abgeholfen, der Himmel an die<lb/>
+Erde gekettet, der Weg zum Paradiese wieder geöffnet<lb/>
+werden könne Da Viele nach solcher Weisheit begierig<lb/>
+waren, fanden sich bald eine Menge Lehrer derselben,<lb/>
+die für schweres Gold noch eine Menge anderer Geheim-<lb/>
+nisse, z. B. die Goldmacherkunst, die Lebenselixirberei-<lb/>
+tung in den Kauf gaben. Da sie indessen nichts lehrten,<lb/>
+was die Schüler nicht entweder schon selbst wußten oder<lb/>
+bald als nichtigen Wahn erkannten, so kümmerte sich<lb/>
+bald Niemand mehr um die Weisheit der Rosenkreuzer<lb/>
+und die Gesellschaft gerieth in Vergessenheit, bis sie in<lb/>
+der zweiten Hälfte des 18. Jahrhunderts durch Cag-<lb/>
+liostro, Schrepfer und andere Betrüger vorübergehend<lb/>
+wieder auftauchte. Übrigens verwarfen die Rosenkreuzer<lb/>
+die Zauberei und schwarze Kunst als Teufelswerke und<lb/>
+gaben dafür ihren Geweihten ( Adepten ) die sogenannte<lb/>
+weiße Magie, welche durch Gebet und innige Verbindung<lb/>
+mit Gott dieselbe Herrschaft über die Natur und das<lb/>
+Geisterreich sollte bewirken können.</p><lb/>
+<cb type="end"/>
+<pb facs="#f0007" n="215"/>
+<fw place="top" type="pageNum">215</fw>       <cb type="start"/>
+<p>Jn der neuesten Zeit hat die Chemie solche Fort-<lb/>
+schritte gemacht, daß die alchemistischen Träumereien schwer-<lb/>
+lich je wieder solchen Beifall finden werden, wie früher.<lb/>
+So lange man die Annahme nicht aufgeben muß, daß<lb/>
+das Gold wie jedes Metall ein einfacher, in keine wei-<lb/>
+tern verschiedenartigen Bestandtheile zersetzbarer Stoff,<lb/>
+mit einem Worte: ein Element ist, kann man bei gesun-<lb/>
+dem Verstande nicht auf den Einfall kommen, Gold zu<lb/>
+machen; ebenso ist es mit der Panacee und dem Le-<lb/>
+benselixir, an deren Möglichkeit nur die mit der Eigen-<lb/>
+thümlichkeit des menschlichen Körpers und der medicinisch<lb/>
+wirkenden Stoffe Unbekannten glauben können.</p><lb/>
+<p>Bei den Arabern hieß die Alchemie auch die Wissen-<lb/>
+schaft der Wage, die Wissenschaft des Schlüssels, die<lb/>
+Wissenschaft des Steins, die Wissenschaft des Elixirs<lb/>
+u. s. w.</p><lb/>
+<p>So sehr man sich freuen muß, daß der Glaube an<lb/>
+diese Kunst verschwunden ist, da mit seinem Verschwin-<lb/>
+den die Gelegenheit zu tausend Betrügereien verschwand,<lb/>
+muß man doch auch nicht vergessen, daß sie auf manche<lb/>
+äußerst wichtige Entdeckung führte und die erste Amme<lb/>
+der Chemie war.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Merkwürdigkeit des 24. Mai in Thüringen.</hi></head><lb/>
+<p><hi rendition="#in">A</hi>us mehrjähriger genauer Beobachtung, gegründet auf<lb/>
+richtige Überlieferung aus frühern Jahrhunderten, hat<lb/>
+ein Meteorolog in Weimar den Schluß gezogen, daß,<lb/>
+wenn sich am 24. Mai Nachmittags in der Richtung<lb/>
+Nordost bei Nord am Ettersberge, dem Witterungsan-<lb/>
+zeiger für ganz Thüringen, eine ins Weiße hinüberschim-<lb/>
+mernde, hellgraue Wolke zeigt, man einen Tag oder<lb/>
+zwei oder längstens vier Tage darauf in Thüringen wol-<lb/>
+kenbruchähnliche Regengüsse mit heftigem Gewitter zu er-<lb/>
+warten hat. Sehr oft schon zeigte sich dieses Merkmal<lb/>
+am 24. Mai und immer erfolgten in der genannten Zeit<lb/>
+darauf die stärksten Regengüsse; auch der am 29. Mai<lb/>
+1613 eingetretenen und von Sebastian Lange beschriebe-<lb/>
+nen sogenannten merkwürdigen thüringischen Sündflut,<lb/>
+deren Denkzeichen man noch an der der Kegelbrücke zu<lb/>
+Weimar angebauten Schloß= oder Burgmühle sieht, ging<lb/>
+das beschriebene Merkmal am 24. Mai vorher. Auch<lb/>
+im gegenwärtigen Jahre zeigte es sich an demselben Tage<lb/>
+und schon am folgenden erhoben sich in der entferntern<lb/>
+Nachbarschaft drohende Gewitter, denen den ganzen Nach-<lb/>
+mittag, den ganzen Abend und die ganze Nacht anhal-<lb/>
+tende und so heftige Regengüsse folgten, daß am folgen-<lb/>
+den Morgen das schöne breite Jlmthal bei Weimar, so-<lb/>
+wie das Saalthal bei Jena einem großen See glich.<lb/>
+Die plötzliche Erscheinung dieser Flut hat die Brut des<lb/>
+Parkgeflügels in Weimar gänzlich zerstört und überhaupt<lb/>
+vielen Schaden verursacht.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Friedrich</hi><hi rendition="#aq">II</hi>. <hi rendition="#fr">und Ziethen.</hi></head><lb/>
+<p><hi rendition="#in">D</hi>aß Friedrich <hi rendition="#aq">II</hi>. innerlich religiöser war als in seinen<lb/>
+Worten, wie der verstorbene König Friedrich Wilhelm <hi rendition="#aq">III.</hi><lb/>
+von Preußen behauptet, davon ließen sich hundert Züge<lb/>
+aus seinem Leben anführen. Doch beschränken wir uns<lb/>
+hier auf ein paar Züge aus dem Leben Ziethen's.</p><lb/>
+<p>Kein Jahr eröffnete sich für Friedrich mit so trauri-<lb/>
+gen Aussichten als das Jahr 1761. Seine besten Sol-<lb/>
+daten waren todt oder gefangen; die großen Verluste zu<lb/>
+ersetzen, war unmöglich; die Engländer weigerten sich,<lb/>
+<cb n="2"/>
+ihn ferner mit Geld zu unterstützen und alle seine <gap reason="illegible" unit="chars" quantity="5"/>Staa-<lb/>
+ten waren gänzlich erschöpft. Er wandte sich diesmal<lb/>
+zuerst nach Schlesien, fand aber hier an den Ostreichern<lb/>
+und Russen einen so überlegenen Feind, daß er es für<lb/>
+eine Tollkühnheit hielt, eine Schlacht gegen sie zu wa-<lb/>
+gen. Er bezog daher ein Lager bei Bunzelwitz unweit<lb/>
+Schweidnitz und befestigte es so gut, daß die Feinde nicht<lb/>
+wagten, es anzugreifen. Aber sie konnten ihn überfal-<lb/>
+len. Um auch dies unmöglich zu machen, ließ er das<lb/>
+Heer am Tage ruhen und schlafen, aber jeden Abend<lb/>
+wurden die Zelte abgebrochen und die Soldaten in<lb/>
+Schlachtordnung gestellt, als wenn der Feind im An-<lb/>
+marsch wäre; erst mit der Morgendämmerung gingen<lb/>
+Alle wieder auseinander. Diese Einförmigkeit machte die<lb/>
+Soldaten mismuthig, mehr aber als sie alle war es der<lb/>
+König. Oft saß er sorgenvoll in seinem Zelte und dachte<lb/>
+daran, wie sein Heer von Jahr zu Jahr schwächer, das<lb/>
+der Feinde aber in demselben Maße größer und zahlrei-<lb/>
+cher wurde. Jn solcher Stimmung suchte er dann ge-<lb/>
+wöhnlich Trost bei dem Husarenkönige Ziethen, dessen<lb/>
+Herz ebenso voll von Frömmigkeit und Vertrauen auf<lb/>
+Gott war als von kriegerischem Muthe und Diensteifer<lb/>
+für seinen König. Ziethen gab die Hoffnung nie auf,<lb/>
+daß Alles noch einen guten Ausgang haben werde und<lb/>
+heiterte durch dieses Vertrauen immer die Betrübniß des<lb/>
+Königs wieder auf.</p><lb/>
+<p>Als Ziethen einst &#x2014; es war im September dessel-<lb/>
+ben Jahres und Friedrich war noch immer in seinem<lb/>
+Lager eingeschlossen &#x2014; dieses Vertrauen mit einem ganz<lb/>
+besonders zuversichtlichen Tone aussprach, fragte ihn der<lb/>
+König, schmerzlich lächelnd, ob er ihm etwa einen Bun-<lb/>
+desgenossen verschafft habe?</p><lb/>
+<p>Nein, antwortete Ziethen, aber der bisherige da oben<lb/>
+verläßt uns gewiß nicht.</p><lb/>
+<p>Ach! sagte der König, der thut keine Wunder mehr.</p><lb/>
+<p>Deren braucht's auch nicht, erwiderte Ziethen gläu-<lb/>
+big, er streitet dennoch für uns und läßt uns nicht<lb/>
+sinken.</p><lb/>
+<p>Einige Tage nach diesem Gespräche zogen die Russen<lb/>
+wider Erwarten ab und Friedrich schöpfte wieder neuen<lb/>
+Muth.</p><lb/>
+<p>Er hat doch Recht gehabt, rief er Ziethen zu, Sein<lb/>
+Alliirter hat Wort gehalten.</p><lb/>
+<p>Zwar erfolgten bald darauf wieder zwei harte Schläge<lb/>
+für Friedrich. Kolberg in Pommern und Schweidnitz in<lb/>
+Schlesien fielen den Feinden in die Hände und Friedrich<lb/>
+schien seinem Untergange mit jedem Tage näher zu sein,<lb/>
+aber Ziethen behielt seine Zuversicht auf einen guten Aus-<lb/>
+gang und machte den Ausspruch geltend: Wenn die<lb/>
+Noth am höchsten, ist die Hülfe am nächsten. Wirklich<lb/>
+war das Jahr 1762 kaum angebrochen, so änderte sich<lb/>
+Alles zum Besten für den großen König. Am 5. Ja-<lb/>
+nuar starb die Kaiserin Elisabeth und ihr Nachfolger,<lb/>
+Peter <hi rendition="#aq">III</hi>., ließ augenblicklich alle Feindseligkeiten gegen<lb/>
+Friedrich einstellen und dafür ein Bündniß mit ihm ge-<lb/>
+gen seine Feinde abschließen. Zwar machte Peter's Tod<lb/>
+diesem Bündnisse ein ebenso plötzliches Ende als sein<lb/>
+Anfang plötzlich gewesen war, aber die abermalige feind-<lb/>
+selige Stellung Rußlands war schnell vorübergehend, als<lb/>
+sich Katharina überzeugte, daß Friedrich nicht nur keinen<lb/>
+Antheil an der harten Behandlung gehabt, die sie von<lb/>
+ihrem Gemahl erfahren, sondern auch dringend zu einer<lb/>
+ganz entgegengesetzten gerathen hatte.</p><lb/>
+<p>Friedrich sah nach dem glücklich zu Stande gekom-<lb/>
+menen Hubertsburger Frieden Niemanden lieber unter sei-<lb/>
+nen Tischgenossen als den alten General von Ziethen. Es<lb/>
+mußte derselbe, wenn gerade keine fürstlichen Personen<lb/>
+gegenwärtig waren, immer zunächst bei ihm an seiner<lb/>
+<cb type="end"/>
+<pb facs="#f0008" n="216"/>
+<fw place="top" type="pageNum">216</fw><cb type="start"/>
+Seite sitzen. Einst hatte er ihn am Charfreitage zum<lb/>
+Mittagsessen einladen lassen; Ziethen aber entschuldigte<lb/>
+sich, daß er nicht erscheinen könne und werde, weil er<lb/>
+an diesem hohen Festtage immer zum heiligen Abendmahle<lb/>
+zu gehen pflege und dann gern in seiner andächtigen<lb/>
+Stimmung bliebe; er dürfe sich darin nicht unterbrechen<lb/>
+und stören lassen. Als er nun das nächste Mal wieder<lb/>
+in Sanssouci zur königlichen Tafel erschien und die Un-<lb/>
+terredung, wie gewöhnlich, einen heitern Gang genommen<lb/>
+hatte, richtete der König sich an seinen nächsten Nachbar<lb/>
+mit den Worten: &#x201E;Nun, Ziethen, wie ist Jhm das<lb/>
+Abendmahl am Charfreitage bekommen? Hat Er den<lb/>
+wahren Leib und das wahre Blut Christi auch ordentlich<lb/>
+verdaut?&#x201C; Ein lautes höhnendes Gelächter schallte durch<lb/>
+den Saal der fröhlichen Gäste; der alte Ziethen aber<lb/>
+schüttelte unwillig sein graues Haupt, stand auf und nach-<lb/>
+dem er sich tief vor seinem Könige verneigt, richtete er<lb/>
+mit lauter, fester Stimme folgende Worte an ihn: &#x201E;Ew.<lb/>
+Majestät wissen, daß ich im Kriege keine Gefahr gefürch-<lb/>
+tet und überall, wo es darauf ankam, entschlossen mein<lb/>
+Leben für Sie und das Vaterland gewagt habe. Diese<lb/>
+Gesinnung beseelt mich auch heute noch, und wenn es<lb/>
+nützt und Sie befehlen, so lege ich mein graues Haupt<lb/>
+gehorsam noch heute zu Jhren Füßen. Aber es gibt<lb/>
+Einen über uns, der ist mehr als Sie und ich, mehr<lb/>
+als alle Menschen, das ist der Heiland und Erlöser<lb/>
+der Welt, der auch für Sie gestorben ist und uns Alle<lb/>
+mit seinem Blute theuer erkauft hat. Diesen Heiligen<lb/>
+lasse ich nicht antasten und verhöhnen, denn auf ihm be-<lb/>
+ruht mein Glaube, mein Trost und meine Hoffnung im<lb/>
+Leben und im Tode. Jn der Kraft dieses Glaubens<lb/>
+hat Jhre brave Armee muthig gekämpft und gesiegt;<lb/>
+unterminiren Ew. Majestät diesen Glauben, dann unter-<lb/>
+miniren Sie zugleich damit die Staatswohlfahrt. Das<lb/>
+ist gewißlich wahr. Halten zu Gnaden!&#x201C;</p><lb/>
+<p>Der König war von dieser Rede sichtbar ergriffen,<lb/>
+stand auf, reichte dem wackern christlichen General die<lb/>
+rechte Hand, während er die linke auf seine Schultern<lb/>
+legte, und sprach bewegt: &#x201E;Glücklicher Ziethen! ich habe<lb/>
+allen Respect vor Seinem Glauben. Halte Er ihn fest;<lb/>
+es soll nicht wieder geschehen.&#x201C;</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jVarious"><head><hi rendition="#fr"><hi rendition="#g">Miscellen</hi>.</hi></head><lb/>
+<div n="2" type="jArticle"><p><hi rendition="#g">Mumificirung.</hi> Die Art, auf welche die alten Ägyp-<lb/>
+ter die Leichen in Mumien verwandelten, ist noch nicht ganz<lb/>
+ermittelt. Unter den Gelehrten, welche die Sache zum Gegen-<lb/>
+stande ihrer Nachforschung machten, ist neuerdings der fran-<lb/>
+zösische Gelehrte Comarre aufgetreten, welcher das Wesent-<lb/>
+liche der Mumificirung in der gänzlichen Vertrocknung des<lb/>
+Leichnams findet, welche durch eine auf einen außerordentli-<lb/>
+chen Grad gesteigerte Erhitzung stattfand; die zu gleicher Zeit<lb/>
+in den todten Körper gebrachten vegetabilischen Substanzen<lb/>
+entwickelten Kreosot, wovon der ganze Leib durchdrungen<lb/>
+wurde. Dies wird durch angestellte Versuche erwiesen, bei de-<lb/>
+nen durch Destillirung des Jnhalts einer Mumie freie Säure<lb/>
+erhalten wurde. Man nimmt an, daß der Leichnam in einen<lb/>
+halbverkohlten Zustand versetzt wurde, so, daß die Erhitzung<lb/>
+wenigstens 300° F. erreicht habe. Auch die Binden, mit de-<lb/>
+nen die Mumien umwickelt waren, sind durch eine dem harzi-<lb/>
+gen Extractivstoffe ähnliche Substanz braungelb gefärbt; sie<lb/>
+setzten im Wasser Essigsäure und essigsaures Natron ab, wobei<lb/>
+letzteres unfehlbar auf Kosten des kohlensauren Natrons ent-<lb/>
+standen ist, womit die Leichname bestreut wurden.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p><hi rendition="#g">Hohes Alter.</hi> Jn Lubersac im Departement der Cor-<lb/>
+rèze starb vor kurzem ein Landmann im Alter von 109 Jah-<lb/>
+ren. Jn seinem 100. Jahre warf er noch den Maire des<lb/>
+Orts, mit dem er Streit bekam, im Ringen zu Boden. &#x2014;   <lb/>
+<cb n="2"/>
+Aus Biedenkopf im Großherzogthume Hessen schreibt man:<lb/>
+Am Charfreitage d. J. nahm das &#x201E;Vogelbärbchen&#x201C;, dieses<lb/>
+Räthsel des Hinterlandes, wie gewöhnlich an der Feier des<lb/>
+heiligen Abendmahls Theil. Die verwitterte Gestalt, das Ge-<lb/>
+heimniß, welches über dieses seltsame Wesen und seine lange<lb/>
+Pilgerfahrt waltet, nimmt immer die allgemeine Theilnahme<lb/>
+in Anspruch. Das Alter des Vogelbärbchens wird auf wenig-<lb/>
+stens 110 Jahre geschätzt, da die ältesten Leute sich seiner nur<lb/>
+als einer in den Jahren vorgerückten Person erinnern können.<lb/>
+&#x2014; Am 19. März feierte in einer ungarischen Ortschaft ein<lb/>
+106 Jahre alter Violinspieler, Georg Pui, mit einer 62jähri-<lb/>
+gen Witwe seine Hochzeit. Er ist noch rüstig und rührig,<lb/>
+hat einen vortrefflichen Appetit und heirathet nur, um, wie<lb/>
+er sagt, im Alter eine Stütze zu haben. Die erkorene Stütze<lb/>
+ist freilich etwas alt.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p><hi rendition="#g">Für Schnupfer.</hi> Jm vorigen Jahre starb zu Kopen-<lb/>
+hagen der verdienstvolle Botaniker Dreyer. Man war über<lb/>
+die Ursachen und den Verlauf seiner Krankheit nicht recht klar,<lb/>
+bis es dem <hi rendition="#aq">Dr</hi>. Ahrenson einfiel, daß der Verstorbene ein sehr<lb/>
+eifriger Schnupfer gewesen, daß er Macuba geschnupft und<lb/>
+daß der Macuba sehr oft mit Blei vermischt sei. Er kaufte<lb/>
+in demselben Laden, aus welchem Dreyer seinen Taback bezo-<lb/>
+gen, eine Quantität Macuba, untersuchte ihn und fand darin<lb/>
+16&#x2014;18 Procent Blei. Dreyer war sonach an einer Bleiver-<lb/>
+giftung gestorben. Diese Entdeckung kam einem andern Arzte<lb/>
+sehr zu statten, der seit einem Jahre bedenklich krank war,<lb/>
+ohne daß die medicinische Facultät über die Ursachen seines<lb/>
+auffallenden Dahinschwindens Aufschluß zu geben vermocht hätte.<lb/>
+Seitdem er aufgehört zu schnupfen, wird er zusehends besser. </p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p><hi rendition="#g">Journalstatistik.</hi> Jn Paris erscheinen gegenwärtig<lb/>
+395 Journale.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p><hi rendition="#g">Typotelegraph.</hi> Ein Engländer, Hr. Fardely in<lb/>
+Manheim, hat einen elektromagnetischen Telegraphen, d. h.<lb/>
+eine Maschine construirt, die eine Nachricht nicht allein mit<lb/>
+äußerster Schnelle fortträgt, sondern auch zu gleicher Zeit<lb/>
+durch Abdruck mit Presse und Lettern auf Papier fixirt wird.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p><hi rendition="#g">Statistisches.</hi> Die Bevölkerung der Staaten des deut-<lb/>
+schen Zollvereins beträgt nach der Zählung von 1840 in Preu-<lb/>
+ßen 15,132,634, in Baiern 4,375,586, im Königreiche Sachsen<lb/>
+1,706,276, in Würtemberg 1,703,258, in Baden 1,294,131,<lb/>
+im Kurfürstenthume Hessen 666,280, im Großherzogthume<lb/>
+Hessen 820,907, in den thüringischen Staaten 952,421, im<lb/>
+Herzogthume Nassau 398,095, in der freien Stadt Frankfurt<lb/>
+am Main 66,338, zusammen 27,115,926 Seelen. &#x2014; Jn der<lb/>
+östreichischen Monarchie gibt es 1,213,380 Bekenner der augs-<lb/>
+burgischen, 2,080,270 der helvetischen Confession. Tirol ist<lb/>
+die einzige aller östreichischen Provinzen, wo es keine Prote-<lb/>
+stanten gibt.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p><hi rendition="#g">Blindenconcert.</hi> Jn der öffentlichen Sitzung des<lb/>
+Blindeninstituts zu Paris fand nach den gehaltenen Reden ein<lb/>
+Concert statt, wobei die schon früher aus dem Jnstitute ent-<lb/>
+lassenen Blinden zum Besten ihrer Leidensgefährten mitwirkten.<lb/>
+Die Blinden spielten eine Symphonie von Haydn und eine<lb/>
+Ouverture und ein Blinder dirigirte. Der Flügel, welcher die<lb/>
+Solospieler begleitete, war von einem Blinden gebaut, der an<lb/>
+dem Jnstrumente mehre bedeutende Verbesserungen von seiner<lb/>
+eigenen Erfindung angebracht hat.</p></div></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jAn"><head><hi rendition="#fr">Literarische Anzeige.</hi></head><lb/>
+<p><hi rendition="#c">Durch alle Buchhandlungen ist von mir zu beziehen: <lb/>
+<hi rendition="#b #fr #g #larger">Gedichte</hi><lb/>
+von <lb/>
+<hi rendition="#fr"><hi rendition="#g">Carlopago</hi>.</hi><lb/>
+Gr. 12. Geh. 25 Ngr.</hi></p><lb/>
+<p>Leipzig, im Juli 1843.</p><lb/>
+<p><space dim="horizontal"/><hi rendition="#fr">F. A. Brockhaus.</hi></p></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/><lb/>
+</body>     <back><div n="1" type="imprint"><p><hi rendition="#c">Herausgegeben unter Verantwortlichkeit der Verlagshandlung F. A. <hi rendition="#g">Brockhaus</hi> in <hi rendition="#g">Leipzig</hi>.</hi></p></div>     </back>   </text> </TEI>

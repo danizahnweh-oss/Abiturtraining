@@ -1,0 +1,862 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.deutschestextarchiv.de/basisformat.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">     <teiHeader>
+<fileDesc>
+<titleStmt>
+<title type="main">Deutsche Auswanderer-Zeitung</title>
+<title type="sub">Nr. 100</title>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/115266127">
+<surname>Geyken</surname>
+<forename>Alexander</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1222198746">
+<surname>Haaf</surname>
+<forename>Susanne</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1019062681">
+<surname>Jurish</surname>
+<forename>Bryan</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Boenig</surname>
+<forename>Matthias</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Thomas</surname>
+<forename>Christian</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Wiegand</surname>
+<forename>Frank</forename>
+</persName>
+</editor>
+<respStmt>
+<persName>
+<surname>Fankhauser</surname>
+<forename>Peter</forename>
+</persName>
+<resp>
+<note type="remarkResponsibility">Automatische Transformation von TUSTEP nach TEI P5 (DTA-Basisformat).</note>
+</resp>
+</respStmt>
+<respStmt>
+<orgName>Deutsches Textarchiv</orgName>
+<resp>
+<note type="remarkResponsibility">Metadatenerfassung</note>
+</resp>
+</respStmt>
+<respStmt>
+<orgName>Institut für Deutsche Sprache, Mannheim</orgName>
+<resp>
+<note type="remarkResponsibility">Bereitstellung der Bilddigitalisate und Volltext-Transkription</note>
+<ref target="http://hdl.handle.net/10932/00-01B8-AE41-41A4-DC01-5"/>
+</resp>
+</respStmt>
+<respStmt>
+<persName>
+<surname>Haaf</surname>
+<forename>Susanne</forename>
+</persName>
+<persName>
+<surname>Hartz</surname>
+<forename>Rahel</forename>
+</persName>
+<persName>
+<surname>Postelt</surname>
+<forename>Nicole</forename>
+</persName>
+<resp>
+<note type="remarkResponsibility">Nachkorrektur und Vervollständigung der TEI/DTABf-Annotation</note>
+</resp>
+</respStmt>
+<respStmt>
+<persName>
+<surname>Hartz</surname>
+<forename>Rahel</forename>
+</persName>
+<resp>
+<note type="remarkResponsibility">Artikelstrukturierung</note>
+</resp>
+</respStmt>
+<respStmt>
+<orgName ref="https://www.bbaw.de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<resp>
+<note type="remarkResponsibility">Langfristige Bereitstellung der DTA-Ausgabe</note>
+<ref target="https://www.bbaw.de"/>
+</resp>
+</respStmt>
+</titleStmt>
+<editionStmt><edition>Vollständige digitalisierte Ausgabe.</edition></editionStmt>
+<extent>
+<measure type="images">4</measure>
+<measure type="tokens">5115</measure>
+<measure type="types">2086</measure>
+<measure type="characters">36392</measure>
+</extent>
+<publicationStmt>
+<publisher xml:id="DTACorpusPublisher">
+<email>dta@bbaw.de</email>
+<orgName role="project">Deutsches Textarchiv</orgName>
+<orgName role="hostingInstitution" xml:lang="en">Berlin-Brandenburg Academy of Sciences and Humanities (BBAW)</orgName>
+<orgName role="hostingInstitution" xml:lang="de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<address>
+<addrLine>Jägerstr. 22/23, 10117 Berlin</addrLine>
+<country>Germany</country>
+</address>
+</publisher>
+<pubPlace>Berlin</pubPlace>
+<date type="publication">2025-10-24T08:32:08Z</date>
+<availability>
+<licence target="https://creativecommons.org/licenses/by-sa/4.0/deed.de">
+<p>Dieses Werk steht unter der "Namensnennung - Weitergabe unter gleichen Bedingungen 4.0 International" Lizenz (CC BY-SA 4.0).</p>
+</licence>
+</availability>
+<idno>
+<idno type="URLWeb">https://www.deutschestextarchiv.de/nn_auswandererzeitung100_1852</idno>
+<idno type="URLXML">https://www.deutschestextarchiv.de/book/download_xml/nn_auswandererzeitung100_1852</idno>
+<idno type="URLHTML">https://www.deutschestextarchiv.de/book/download_html/nn_auswandererzeitung100_1852</idno>
+<idno type="URLText">https://www.deutschestextarchiv.de/book/download_text/nn_auswandererzeitung100_1852</idno>
+<idno type="DTADirName">nn_auswandererzeitung100_1852</idno>
+<idno type="DTAID">34247</idno>
+<idno type="URN">urn:nbn:de:kobv:b4-34247-7</idno>
+</idno>
+</publicationStmt>
+<sourceDesc>
+<bibl type="J">Deutsche Auswanderer-Zeitung. Nr. 100. Bremen, 14. Dezember 1852.</bibl>
+<biblFull>
+<titleStmt>
+<title level="m" type="main">Deutsche Auswanderer-Zeitung</title>
+<title level="m" type="sub">Nr. 100</title>
+</titleStmt>
+<editionStmt>
+<edition n="1"/>
+</editionStmt>
+<publicationStmt>
+<publisher/>
+<pubPlace>Bremen</pubPlace>
+<date type="publication">1852</date>
+</publicationStmt>
+</biblFull>
+<msDesc>
+<msIdentifier/>
+<physDesc>
+<typeDesc>
+<p>Fraktur</p>
+</typeDesc>
+</physDesc>
+</msDesc>
+</sourceDesc>
+</fileDesc>
+<encodingDesc>
+<editorialDecl>
+<p>
+<![CDATA[
+<p>Dieser Text wurde aus dem TUSTEP-Format nach TEI-P5 konvertiert und anschließend in das <a href="http://www.deutschestextarchiv.de/doku/basisformat">DTA-Basisformat</a> überführt.</p>
+]]>
+</p>
+</editorialDecl>
+<tagsDecl>
+<rendition scheme="css" xml:id="aq">font-family:sans-serif</rendition>
+<rendition scheme="css" xml:id="b">font-weight:bold</rendition>
+<rendition scheme="css" xml:id="blue">color:blue</rendition>
+<rendition scheme="css" xml:id="c">display:block; text-align:center</rendition>
+<rendition scheme="css" xml:id="et">display:block; margin-left:2em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et2">display:block; margin-left:4em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et3">display:block; margin-left:6em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="f">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="fr">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="g">letter-spacing:0.125em</rendition>
+<rendition scheme="css" xml:id="i">font-style:italic</rendition>
+<rendition scheme="css" xml:id="in">font-size:150%</rendition>
+<rendition scheme="css" xml:id="k">font-variant:small-caps</rendition>
+<rendition scheme="css" xml:id="larger">font-size:larger</rendition>
+<rendition scheme="css" xml:id="red">color:red</rendition>
+<rendition scheme="css" xml:id="right">display:block; text-align:right</rendition>
+<rendition scheme="css" xml:id="s">text-decoration:line-through</rendition>
+<rendition scheme="css" xml:id="smaller">font-size:smaller</rendition>
+<rendition scheme="css" xml:id="sub">vertical-align:sub; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="sup">vertical-align:super; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="u">text-decoration:underline</rendition>
+<rendition scheme="css" xml:id="uu">border-bottom:double 3px #000</rendition>
+</tagsDecl>
+</encodingDesc>
+<profileDesc>
+<langUsage>
+<language ident="deu">(Früh-)Neuhochdeutsch</language>
+<language ident="deu">German</language>
+</langUsage>
+<textClass>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1main">Zeitung</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">ready</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">mkhz1</classCode>
+</textClass>
+</profileDesc>
+</teiHeader>
+<text>     <front>
+<pb n="[299]" facs="#f0001"/>
+<div type="jExpedition"><cb type="start"/>
+<p rendition="#c">Die Auswanderer=Zeitung<lb/>
+erscheint wöchentlich zweimal.<lb/>
+Abonnementspreis<lb/>
+vierteljährig:<lb/>
+in Bremen: 36 <choice><abbr>gl</abbr></choice> Gold,</p><lb/>
+<p>außerhalb &#x201E;18 3 / 4 Sgr.</p><lb/>
+<p rendition="#c">oder <choice><abbr>fl</abbr></choice> 1. 6 <choice><abbr>Xr</abbr></choice> rh.</p><lb/>
+<cb n="2"/>
+<figure/>           <cb n="3"/>
+<p rendition="#c"><hi rendition="#g">Bestellungen für Auswärts</hi><lb/>
+nehmen alle löbl. Buchhandlungen<lb/>
+und Postämter entgegen; für<lb/>
+Bremen: die Expedition<lb/>
+Pelzerstraste <hi rendition="#aq">N</hi> ° 9. <lb/>
+<hi rendition="#g">Jnsertionsgebühr:</hi><lb/>
+für den Raum einer dreimal<lb/>
+gespaltenen Petitzeile1 1 / 2 Sgr.</p></div><lb/>
+<cb type="end"/>
+<titlePage type="heading"><titlePart type="main"><hi rendition="#c">           <hi rendition="#fr">Deutsche Auswanderer=Zeitung.</hi>         </hi></titlePart><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<docImprint>N<hi rendition="#sup">ro</hi> 100. <space dim="horizontal"/>             <pubPlace><hi rendition="#c"><hi rendition="#g">Bremen,</hi></hi></pubPlace> <docDate><hi rendition="#g">14. December</hi><space dim="horizontal"/>               <hi rendition="#right">1852.</hi> </docDate></docImprint></titlePage><lb/>
+<milestone rendition="#hr" unit="section"/>     </front><lb/>
+<body>       <div n="1"><p>&#x261E; <hi rendition="#fr">Allen nach <hi rendition="#g">Newyork, Neworleans, Baltimore, Philadelphia</hi> und <hi rendition="#g">St. Louis</hi> Auswandernden wird der unentgeldlich<lb/>
+ertheilte zuverlässige Rath der Agenten der &#x201E;deutschen Gesellschaften&#x201C; anempfohlen; dagegen wird vor Privatagenten dringend gewarnt.</hi> </p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<cb type="start"/>
+<div type="contents"><head><hi rendition="#g">Jnhalt:</hi></head>       <lb/>
+<p>Auswanderung nach Brasilien ( Schluß ) . &#x2013; Thätigkeitsbericht des Frankfurter<lb/>
+Vereins zum Schutze der Auswanderer. &#x2013; Die Auswanderung aus China. &#x2013;<lb/>
+Die Reise von Newyork nach dem Westen von Amerika. &#x2013; Bücherschau. &#x2013;<lb/>
+Vermischtes. &#x2013; Schiffsnachrichten. &#x2013; Anzeigen.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Auswanderung nach Brasilien.</hi><lb/>
+( Schluß. )</head><lb/>
+<p>Unter diesen allgemeinen Gesichtspunkten muß deutsche Einwanderung<lb/>
+hier im Allgemeinen betrachtet werden. Jch will nicht mit denen streiten,<lb/>
+die auf diese Gesichtspunkte gestützt, im Hinblick auf Vergangenheit und<lb/>
+Gegenwart, beide mit getäuschten Erwartungen und jammervollem Elend<lb/>
+angefüllt, den Satz aufstellen: der Deutsche soll überhaupt nicht nach<lb/>
+Brasilien answandern. Wer aber nicht so urtheilt, sondern, wie der<lb/>
+Verein in Berlin, im Gegentheil Brasilien an und für sich sehr geeignet<lb/>
+für deutsche Colonisation hält, wenn die gehörigen Garantien geleistet<lb/>
+worden, der hat wohl zuzusehen, was es denn für Garantien sind, die er<lb/>
+bei der thatsächlichen Lage der Dinge zu fordern wirklich berechtigt ist,<lb/>
+damit er nicht verschiedene Unmöglichkeiten verlange; der hat sich zu ent-<lb/>
+scheiden für ein bestimmtes System der Colonisation und hernach danach<lb/>
+zu streben, diesem System eine möglichst bequeme, den Thatsachen ent-<lb/>
+sprechende Ausführung zu sichern. Hier beschränkt sich das Thema von<lb/>
+selbst: Es ist nicht von einwandernden Handwerkern, Künstlern <choice><abbr>ec.</abbr></choice>, nicht<lb/>
+von der Bevölkerung der Städte die Rede, die, wenn sie schwere Lehrjahre<lb/>
+überstanden und sich hier eingebürgert haben, ein reichliches Auskommen<lb/>
+vor sich sehen. Es handelt sich um eine einwandernde ländliche Bevölkerung.<lb/>
+Diese hierher zu bringen, hat man bisher verschiedene Systeme angewendet.<lb/>
+Aber auch hier macht es einen für die Wahl des Systems entscheidenden<lb/>
+Unterschied, ob der Einwandernde einige Geldmittel besitzt oder nicht. Jst<lb/>
+er in einem gewissen Sinne wohlhabend, so mag er kommen und es pro-<lb/>
+biren, wie es ihm mit eigener Arbeit und auf eigenen Füßen glückt.<lb/>
+Jmmer muß er, das ist gewiß, seine Erfahrungen selbst und theuer bezahlen.<lb/>
+Kann er das aushalten, Glück für ihn, und es wird ihm nicht fehlen,<lb/>
+seinen Weg zu machen, wenn er sich in Land und Leute schicken gelernt<lb/>
+hat. Land ist genug und wohlfeil genug zu haben, und nach seinem Ge-<lb/>
+schmacke komme er allein, oder in Gesellschaft, in diese oder jene Provinz,<lb/>
+es ist ziemlich Alles eins. Hat aber der Einwandernde kein Geld, nicht<lb/>
+einmal so viel, seine Passage zu bezahlen, oder doch nicht so viel, um, wenn<lb/>
+er hier ans Land steigt, einige hundert Thaler in der Hand zu haben, so<lb/>
+muß er selbstverständlich darauf verzichten, von vornherein hier eine selbst-<lb/>
+ständige, unabhängige Stellung einzunehmen. Er muß sich in Abhängig-<lb/>
+keit begeben, um sich die Selbstständigkeit zu erwerben. Wir wollen uns<lb/>
+nicht täuschen. Was sind es für Leute, die bisher ( fast ausschließlich )<lb/>
+hierher gekommen? Es war der arme Mann, der in Deutschland dem<lb/>
+Hunger und Elend ins Auge sah, der nach allen Richtungen hin in<lb/>
+Deutschland abhängig war, der hier nichts suchte und wollte, als eine<lb/>
+<cb n="2"/>
+leibliche Existenz. Diese Leute ohne Mittel, hier auf eigene Füße gestellt,<lb/>
+gehen unvermeidlich ihrem Untergange entgegen. Vor diesem Elende schützt<lb/>
+sie nur und allein die Abhängigkeit von Anderen, die so lange nothwendig<lb/>
+ist, als sie sich hier nicht gehörig orientirt haben, und die mit diesem<lb/>
+Zeitpunkte für ordentliche und fleißige Leute von selbst aufhört. Auf diese<lb/>
+Abhängigkeit folgt für den fleißigen Arbeiter eine materiell gesicherte<lb/>
+Existenz. Aber den Gedanken an einen freien deutschen Bauer, der auf<lb/>
+seiner Scholle sitzt und dem dies &#x201E;sein&#x201C; Werth und Bedeutung giebt, den<lb/>
+muß er sich aus dem Kopfe schlagen. Der Mensch, der in Deutschland<lb/>
+kaum oder gar nicht Eigenthümer war, den das Elend dort forttrieb, der<lb/>
+hier kein Land kaufen kann und, sei es von der Regierung, von einer<lb/>
+Privatgesellschaft oder einem Privatmann hier lange Zeit geschützt und<lb/>
+getragen werden muß, bis er gelernt hat, hier zu leben, der Mensch, für<lb/>
+den die Abhängigkeit eine Nothwendigkeit und eine Wohlthat zugleich<lb/>
+geworden ist, der lerne vor allen Dingen, seine Ansprüche beschränken.<lb/>
+Leider geschieht in der Regel gerade das Gegentheil. Dahin rechne ich<lb/>
+auch: wenn der Centralverein für diese mittellosen, fast oder ganz dem<lb/>
+Proletariat verfallene Leure in der Art und Weise, wie er es thut,<lb/>
+Garantieen fordert.</p><lb/>
+<p>Das Colonisationssystem der Grundbesitzer hier hat solche unbemittelte<lb/>
+Leute vorzugsweise im Auge und es sind ( fast ausschließlich ) solche arme<lb/>
+Leute, die sich auf diese Engagements einlassen.</p><lb/>
+<p>Der Centralverein hat über diese ländliche Colonisation in Brasilien,<lb/>
+speciell über dieses Grundbesitzer=Unternehmen sich ausgesprochen. Er hat<lb/>
+laut vor demselben gewarnt, und einmal hat sein Berichterstatter die<lb/>
+leichte Mühe gehabt, einen Hrn. <hi rendition="#aq">Dr</hi>. Camvanema, der gegen diese War-<lb/>
+nung von einem völlig falschen Standpunkte aus inhaltslose Reclamationen<lb/>
+versuchte, zurückzuweisen. Der Centralverein sagt in dieser Veranlassung:<lb/>
+Wir sind an und für sich keine Gegner brasil. Colonisation durch Deutsche,<lb/>
+wir wünschen diese Colonisation befördern zu können, aber wir können<lb/>
+dies nicht thun, ehe nicht für das materielle Wohlergehen der Colonisten<lb/>
+gewisse Garantien gegeben sind. Dahin zählt der Verein Garantieen für<lb/>
+die getreuliche Erfüllung der geschlossenen Contracte; mehrere specielle<lb/>
+Bestimmungen in den Contracten selbst, endlich vor Allem von vornherein<lb/>
+eine solche Stellung der Colonisten, die sie mit Sicherheit befähigt, freie<lb/>
+Eigenthümer zu werden. Das klingt recht gut, hat aber doch einen<lb/>
+großen Fehler. Bei dem Stande der Dinge, unter der Herrschaft der<lb/>
+oben berührten Verhältnisse, giebt es keine andere Garantien für die Er-<lb/>
+füllung der Contracte, als rein thatsächliche, es giebt keine rechtliche; es<lb/>
+giebt keine Macht auf Erden, keine Controlle, die überall eine gewissen-<lb/>
+hafte Erfüllung der geschlossenen Contracte sicherte, jeden Bruch zu strafen<lb/>
+und zu repariren im Stande wäre; es giebt hier nur eine ( und zwar hier<lb/>
+zu Lande die beste ) Garantie: das mit dem Wohlergehen des Colonisten<lb/>
+unzertrennlich verbundene, von diesem Wohlergehen abhängige persönliche<lb/>
+Jnteresse des Grundbesitzers und Capitalisten. Auf diese Weise führt der<lb/>
+Verein seine Streiche in die Luft. Er sollte lieber sagen: da es die nach<lb/>
+<cb type="end"/>
+<pb n="300" facs="#f0002"/>
+<fw place="top" type="pageNum">300</fw><cb type="start"/>
+unserer Ansicht unerläßlichen Garantien für die deutsche Colonisation in<lb/>
+Brasilien ( nach diesem System ) überall nicht gibt, so sind wir Gegner<lb/>
+dieser Colonisation überhaupt; während er jetzt seine Zustimmung zu dem<lb/>
+System von einer unmöglichen Bedingung abhängig macht. Auch ist es<lb/>
+falsche Darstellungsweise zu sagen: das Princip dieses Systems sei die<lb/>
+Abhängigkeit; da doch das Princip: Theilung des Arbeitsertrags zwischen<lb/>
+Eigenthümer und Arbeiter ist.</p><lb/>
+<p>So weit nun einzelne Bestimmungen, in den Contract gesetzt, dazu<lb/>
+beitragen können, dieses Princip fruchtbingend, bequem in seinen Anord-<lb/>
+nungen zu machen, sei unser philantrophisches Bestreben darauf gerichtet,<lb/>
+dieselben in die Contracte hineinzubringen. &#x2013; Die schlechte bisherige<lb/>
+Auffassung dieser Modification der Ausführung des Grundgedankens,<lb/>
+Kniffe einzelner Agenten können der Beurtheilung des Princips keinen<lb/>
+Eintrag thun. Alle Bestimmungen dieser Contracte müssen im beidersei-<lb/>
+tigen Jnteresse der Contrahenten sein, dann ist der Contract gut, und<lb/>
+seine Erhaltung durch dieses Jnteresse selbst gesichert.</p><lb/>
+<p>Was endlich die Möglichkeit einer selbstständigen, guten Existenz für<lb/>
+die Colonisten betrifft, nachdem sie ihre contractlich übernommenen Ver-<lb/>
+pflichtungen erfüllt haben, so ist wenig Grund vorhanden, in dieser Bezie-<lb/>
+hung ernste Befürchtungen zu hegen. So schlimm steht es hier nicht,<lb/>
+daß man nicht mit gutem Gewissen sagen könnte: der Grundbesitzer wird<lb/>
+dem Colonisten nach Erfüllung seiner Verbindlichkeiten keine Schwierigkeiten<lb/>
+in Betreff seines ferneren Fortkommens in den Weg legen. Auch hier<lb/>
+werden übrigens die thatsächlichen Verhältnisse dem Colonisten zu Nutze<lb/>
+kommen. Der Grundbesitzer wird, wenn ein solcher, jedenfalls seltener<lb/>
+Versuch gemacht werden sollte, nicht die Macht haben, den Colonisten zu<lb/>
+halten, dem es, bekannt wie er ist, mit allen einschlagenden Verhältnissen,<lb/>
+nunmehr sehr leicht wird, eine selbstständige Existenz zu führen.</p><lb/>
+<p>Wenn es sich also darum handelt, einen gänzlich mittellosen Menschen,<lb/>
+der genöthigt war, seiner materiellen Existenz wegen die Heimath zu ver-<lb/>
+lassen, freie Passage hieher, nach Brasilien zu suchen, einen Rath zu geben,<lb/>
+wie er hier am besten für sein materielles Fortkommen sorgen könne,<lb/>
+sofort nachdem er dieses Land betreten, dessen Sprache und Sitten, dessen<lb/>
+Bewirthschaftung er nicht kennt, dessen Lebensweise ihm ungewohnt, dessen<lb/>
+Klima ihm häufig unzuträglich ist &#x2013; so kann die Antwort Angesichts<lb/>
+aller hier und anderswo gemachten Erfahrungen nicht zweifelhaft sein.<lb/>
+Ein solcher Mensch thut am Besten, zu einem Plantagenbesitzer zu gehen.<lb/>
+Dort ist seine materielle Existenz gesichert, ohne eigene Unkosten lernt er,<lb/>
+was ihm zu wissen noth thut, um in diesem Lande selbstständig existiren<lb/>
+zu können, und nachdem er dies gelernt hat, steht sein ferneres Schicksal<lb/>
+ganz in seiner eigenen Macht. Und dabei befindet er sich materiell ohne<lb/>
+allen Zweifel wohler, als wenn er, ein freier Grundbesitzer, auf irgend<lb/>
+ein Stück &#x201E;unbesetztes Land&#x201C; oder in den Urwald käme.</p><lb/>
+<p>Was insonderheit die bisher für Rechnung größerer Grundbesitzer in<lb/>
+der Provinz Rio de Janeiro engagirten deutschen Colonisten betrifft, so<lb/>
+lauten die Berichte derselben über Behandlung, Lebensweise <choice><abbr>ec.</abbr></choice> noch immer<lb/>
+gut. Jch gebe nicht viel darauf und bin selbst der Ansicht, daß unfehlbar<lb/>
+auch noch der Zeitpunkt eintreten wird, wo sich dieselben Leute vorüber-<lb/>
+gehend unzufrieden und unglücklich befinden werden. Aber, was die<lb/>
+Hauptsache betrifft, &#x201E;das Loos dieser Leute&#x201C; nämlich, so ist es mir nicht<lb/>
+zweifelhaft, daß es materiell für die Fleißigen unter ihnen ein gutes sein<lb/>
+wird, und dies, ich kann das wohl sagen, ist hier die von fast allen compe-<lb/>
+tenten Beurtheilern gleichmäßig getheilte Ansicht. Es mag gerne sein,<lb/>
+und es ist wahrscheinlich, daß sich im Laufe der Zeit manche kleine<lb/>
+Schwierigkeiten, Unannehmlichkeiten herausstellen, die durch rechtliche<lb/>
+Garantien ihrer Stellung zu vermeiden gewesen sein würden; im Ganzen<lb/>
+und Großen wird es ihnen gut ergehen, d. h. sie werden Gelegenheit zum<lb/>
+Geldverdienst haben, sie werden vollauf zu essen und zu trinken haben,<lb/>
+sie werden im Stande sein, für ihre Kinder zu sorgen, und sie werden nach<lb/>
+Erfüllung ihrer eingegangenen Verpflichtungen in der Lage sein, auf ver-<lb/>
+schiedene Weise eine selbstständige und gesicherte Existenz zu führen.</p><lb/>
+<p>Die vielen einzelnen formellen Mängel, die bei dieser Grundbesitzer-<lb/>
+Unternehmung in Hamburg bezüglich der Contracte <choice><abbr>ec.</abbr></choice> verschuldet sein<lb/>
+mögen, sind ein Unglück für die Sache, aber kein Grund, das Princip zu<lb/>
+verdammen. Es ist eine allgemeine Erfahrung, daß an alle diese Dinge<lb/>
+in den Händen der europäischen Agenten sich viel Schmutz anhängt. Aber<lb/>
+<cb n="2"/>
+wie gesagt, in diesem Falle thut dies der Sache selbst in ihrer Verwirk-<lb/>
+lichung hier keinen Schaden. Nach Ankunft der für die Gutsbesitzer<lb/>
+bestimmten Colonistenschiffe habe ich eigenhändig von dem Contracte eines<lb/>
+für Hrn. Caraciro Bellens Landgut bestimmten Colonisten Copie genommen.<lb/>
+Dieser Contract war von Herrn <gap reason="illegible" unit="chars" quantity="6"/>Araujo unterschrieben, und äußerlich<lb/>
+fehlerfrei. Daß er nicht vollständig genug sei, um europäischer Kritik zu<lb/>
+genügen, nicht bündig und detaillirt genug, um dem Zwecke vollkommen<lb/>
+zu entsprechen, leuchtet sofort ein. Aber ich halte nach dem oben Gesagten<lb/>
+diese Mängel <hi rendition="#g">für die Ausführung</hi> hier nicht für wesentlich, während<lb/>
+sie für Europa unendlich wichtig sind. Es mag im Contracte stehen, was<lb/>
+da will, er mag unterschrieben sein, von wem er will, das ist es nicht,<lb/>
+was seinen Bestimmungen hier eine wirkliche Garantie verleiht, sondern<lb/>
+allein der Umstand, ob die Bestimmungen den Verhältnissen und Jnteressen<lb/>
+der <hi rendition="#g">beiden</hi> Contrahenten entsprechen. Jst dies der Fall, so wird, man<lb/>
+kann darüber unbesorgt sein, der Contract erfüllt, wo nicht, wird er nicht<lb/>
+erfüllt. So halte ich es denn für vollkommen überflüssig, über die ein-<lb/>
+zelnen zufälligen Contractsbestimmungen zu streiten. Dieselben sind für<lb/>
+die Hauptsache &#x201E;das Loos der Colonisten&#x201C; gleichgültig.</p><lb/>
+<p>Dieselbe Auffassung halte ich mit Bezug auf die vielfachen Fragen<lb/>
+für richtig, welche der Berichterstatter des Centralvereins <hi rendition="#g">dem Brasi-<lb/>
+lianer</hi> Herrn <hi rendition="#g">de Campanema</hi> vorgelegt. Caffee und Zucker lassen<lb/>
+die Grundbesitzer wohl deshalb bauen, weil dies die vorzüglichsten Landes-<lb/>
+producte sind, deren Cultur am meisten einträgt, woran sie schwerlich<lb/>
+unrecht thun; daß es kein ausführbares Gesetz über unbesetztes Staatsland,<lb/>
+über gehörige Registrirungen der Geburten, Todesfälle <choice><abbr>ec.</abbr></choice> in Brasilien<lb/>
+giebt, ist eine bekannte Sache. Es betreffen diese Punkte sehr erhebliche<lb/>
+Mängel in der Gesetzgebung, die immerhin verschuldet sein mögen, aber<lb/>
+doch den Grundbesitzern allein z. B. nicht zur Last gelegt werden dürfen.</p><lb/>
+<p>Das Resultat, zu dem ich also in dieser Angelegenheit komme, ist<lb/>
+folgendes:</p><lb/>
+<p>Brasilien ist ein Land, in dem noch zur Stunde das Gouvernement<lb/>
+keinen festen Halt, das Volk keine Geschichte, keine Kunst, keine Literatur,<lb/>
+die Parteien keine Ehrlichkeit, die Verwaltung kein System, die ganze<lb/>
+Staatsgesellschaft nichts Achtungserweckendes hat.</p><lb/>
+<p>Die Einwanderung in ein solches Land ist immer bedenklich; unter-<lb/>
+bliebe vielleicht lieber ganz von Seiten der Deutschen.</p><lb/>
+<p>Von allen Systemen aber, die bisher für die Einwanderung mittel-<lb/>
+loser Deutschen in dieses Land zur Anwendung gebracht sind, ist das<lb/>
+neuerdings von den Grundbesitzern bei ihren Engagements befolgte das<lb/>
+beste, das den thatsächlichen Verhältnissen am meisten entsprechende, das-<lb/>
+jenige was die größte Sicherheit für das materielle Wohlergehen der<lb/>
+Colonisten gewährt.</p><lb/>
+<p><hi rendition="#g">Rio de Janeiro,</hi> 14. October 1852.</p></div><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Thätigkeitsbericht des<lb/>
+Frankfurter Vereins zum Schutze der Auswanderer.</hi><lb/>
+Bureau: Zeil Nr. 3, neben der Konstablerwache.</head><lb/>
+<p><hi rendition="#sup">*</hi> Jn den Monaten October und November laufenden Jahres haben<lb/>
+sich neuerdings bei dem hiesigen Verein zum Schutz der Auswanderer Rath<lb/>
+und Auskunft erbeten und unentgeltlich erhalten: 195 Personen aus dem<lb/>
+Königreich Baiern, Kurfürstenthum und Großherzogthum Hessen, Herzog-<lb/>
+thümern Nassau und Braunschweig, dem Elsaß und dem hiesigen Stadt-<lb/>
+gebiete, zusammen ein Capitalvermögen von ca. 75,000 <choice><abbr>fl</abbr></choice> repräsentirend.<lb/>
+Dieselben begeben sich meist nach den Vereinigten Staaten von Nordamerika,<lb/>
+als Newyork, Pennsylvanien, Maryland, Jllinois, Wisconsin, Missouri<lb/>
+und Louisiana, und in geringerer Zahl nach den La Plata Staaten und<lb/>
+Australien. Die Anfragen wegen kostenfreier Ueberfahrt nach Amerika<lb/>
+wiederholen sich in letzter Zeit so häufig, daß wir uns neuerdings veran-<lb/>
+laßt sehen, bekannt zu machen, daß der hiesige Verein dergleichen Beför-<lb/>
+derungen niemals vermittelt, sich überhaupt an keinem Unternehmen betheiligt,<lb/>
+welches irgendwie zur Auswanderung aufmuntern könnte. Dagegen widmet<lb/>
+er sich mit Zuvorkommenheit der Beantwortung der an ihn ergehenden<lb/>
+mündlichen oder schriftlichen ( portofreien ) Anfragen über Landesbeschaffen-<lb/>
+heit, Culturfähigkeit, Klima, Bevölkerung, Handel und Gewerbe, gesetzliche<lb/>
+Bestimmungen, Schifffahrts=, Eisenbahn= und Postverbindungen derjenigen<lb/>
+Staaten, welche die Aufmerksamkeit der deutschen Auswanderer auf sich<lb/>
+ziehen; so wie er auch gerne seine Erfahrungen über die Entfernung der<lb/>
+verschiedenen Staatstheile zu einander, die beiläufigen Kosten, Beförderungs-<lb/>
+angelegenheiten und die geeignetste Zeit zur Reise dorthin mittheilt. Es<lb/>
+ist dem Vereine das sehr ansehnliche Geschenk von 201 <choice><abbr>fl</abbr></choice> 39 <choice><abbr>Xr</abbr></choice> aus der<lb/>
+<cb type="end"/>
+<pb n="301" facs="#f0003"/>
+<fw place="top" type="pageNum">301</fw><cb type="start"/>
+Casse der großen Mutterloge des eklektischen Freimaurerbundes zugeflossen,<lb/>
+wofür er sich um so mehr verpflichtet fühlt, hiermit öffentlich seinen<lb/>
+wärmsten Dank auszusprechen, als er sich nur durch die fortgesetzte Theil-<lb/>
+nahme des Publikums an dem Verein im Stande befinden wird, dessen<lb/>
+segenreiches Wirken auch für die Folge zu sichern.</p><lb/>
+<p> <space dim="horizontal"/>  Der Vorstand des &#x201E;Frankfurter Vereins<lb/>
+<space dim="horizontal"/>  zum Schutz der Auowanderer.&#x201C;</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Die Auswanderung aus China.</hi></head><lb/>
+<p> <space dim="horizontal"/>  <hi rendition="#sup">*</hi> Hongkong, 29. October 1852.</p><lb/>
+<p>Die Auswanderung von China nach Californien ist fast ganz in's<lb/>
+Stocken gerathen, seitdem man von Mißhandlungen hörte, welche die<lb/>
+Chinesen von andern Minenarbeitern erfuhren. Der Argwohn und das<lb/>
+Mißtrauen, die bei den Chinesen dadurch hervorgerufen worden, sind um<lb/>
+so schwerer zu entfernen, als es überhaupt der besseren Classe ein großes<lb/>
+Maaß von Ueberwindung gekostet hatte, die uralten Vorurtheile gegen die<lb/>
+&#x201E;Barbaren&#x201C; so weit abzuschütteln, daß sie sich zur Auswanderung in die<lb/>
+unbekannten entfernten Länder derselben entschließen konnten. Columbus<lb/>
+und seine Gefährten hatten mehr Kenntniß von Geographie, als die Besten<lb/>
+der Chinesen mit wenigen Ausnahmen jetzt noch besitzen. Das Gold allein<lb/>
+konnte die Vorurtheile überwinden und zwar bis jetzt auch nur zu Gunsten<lb/>
+des amerikanischen Freistaates, dagegen besitzt es nicht genügende Anziehungs-<lb/>
+kraft, um auch in die australischen Colonien Großbritanniens den chinesi-<lb/>
+schen Auswanderer zu locken, und wohl in keinem Falle hat es sich bis<lb/>
+jetzt so klar gezeigt, daß die Nationaldemüthigung vom Kriege her einen<lb/>
+unüberwindlichen Haß bei den Chinesen speciell gegen die Engländer<lb/>
+hervorgerufen hat. Die Bedingungen, unter denen jeder Einwanderer in<lb/>
+Australien Gold graben kann, sind in Tausenden von Exemplaren in<lb/>
+chinesischer Sprache hier vertheilt worden, aber keine Auswanderer finden<lb/>
+sich, und noch hat kein Schiff mit Passagieren dahin von hier aus gefüllt<lb/>
+werden können. ( Die China=Mail vom 29. October referirt dieselbe That-<lb/>
+sache, findet sie darin begründet, daß die Probe von englischem Regiment,<lb/>
+welches die Chinesen in Hongkong vor Augen haben, ihnen dasselbe ver-<lb/>
+leidet ) . Für San Francisco dagegen finden sich noch immer einige Passa-<lb/>
+giere, nicht so sehr angelockt durch die republikanischen Jnstitutionen der<lb/>
+amerikanischen Freistaaten als vielmehr durch die jetzt etwas günstiger<lb/>
+lautenden Berichte ihrer Brüder, von denen wir hoffen wollen, daß sie in<lb/>
+Betreff der Reichhaltigkeit der Goldfelder sich bestätigen, während wir<lb/>
+namentlich auch zur Ehre der Civilisation vertrauen müssen, daß sie in Bezug<lb/>
+auf den in Aussicht gestellten Schutz der Person und des Eigenthums sich<lb/>
+verwirklichen. &#x2013; Jch habe hier gesprochen von Auswanderern im Sinne<lb/>
+des Worts, wie es in Bremen gilt: Leute, die ihre Passage selbst bezahlen.<lb/>
+Ob sie das Geld geliehen haben oder aus eigenen Mitteln bezahlen, bleibt<lb/>
+dahingestellt; sie gehen inzwischen aus freier Wahl und die Summe, welche<lb/>
+dazu erforderlich ist &#x2013; 50 bis 60 $ &#x2013; ist für den chinesischen Arbeiter<lb/>
+so groß, daß nur die wohlhabendste Classe derselben sie aufbringen kann.<lb/>
+&#x2013; Eine ganz andere Classe von Auswanderern bilden die Coolios, auf<lb/>
+diese werde ich ein andermal zurückkommen.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Die Reise von Newyork nach dem Westen von Amerika.</hi><lb/>
+Aus der Schrift &#x201E;die Ver. Staaten von Nordamerika im Jahre 1852.&#x201C;<lb/>
+Von <hi rendition="#g">Th. Olshausen.</hi></head><lb/>
+<p>Denjenigen, welchen es nicht so sehr um die möglich schnellste Reise<lb/>
+zu thun ist und die Freunde von Naturschönheiten sind, ist folgende Reise-<lb/>
+route nach dem Mississippi besonders anzurathen: Von Newyork mit der <lb/>
+<hi rendition="#g">Tages</hi> linie der Hudsonfluß=Dampfschiffe des Morgens früh nach Albany<lb/>
+( in 8 Stunden für 2 Doll. ohne Beköstigung ) ; von dort ohne Aufenthalt<lb/>
+nach Buffalo, woselbst man am folgenden Tage nach der Abreise von<lb/>
+Newyork Morgens 9 Uhr ( also nach ca. zwölfstündiger Fahrt auf der<lb/>
+Eisenbahn für 7 Doll. ) anlangt. Von hier kann man mit sehr geringem<lb/>
+Zeit= und Kostenaufwand einen Abstecher nach dem Niagarafall machen,<lb/>
+wohin eine Eisenbahn führt ( in1 1 / 4 Stunde für 75 Cents ) . Nach Buffalo<lb/>
+zurückgekehrt fährt man des Morgens auf einem Dampfschiff über den<lb/>
+Eriesee nach Detroit ( in 17 bis 18 Stunden für etwa 5 Dollars mit<lb/>
+Beköstigung ) . Von Detroit fährt man auf der Eisenbahn durch Michigan<lb/>
+und langt in 11 bis 12 Stunden ( für 6 Doll. 50 Ct. ) in Neu=Buffalo<lb/>
+an. Von hier geht man entweder mit einem Dampfschiff über den Michigan-<lb/>
+see ( in 5 Stunden ) , oder zu Lande auf der Eisenbahn nach Chicago und<lb/>
+von dort auf dem Michigan= und Jllinois=Kanal und auf dem Jllinois und<lb/>
+Mississippi nach St. Louis.</p><lb/>
+<p>Diese angenehme und bequeme Reise von ca. 1500 Meilen führt durch<lb/>
+die der Rheinfahrt sehr ähnlichen Partien des Hudsonflusses und gewährt<lb/>
+den großartigen Anblick des Niagarafalls und wird dabei in 6 Tagen<lb/>
+zurückgelegt. Die Reisekosten betragen für eine Person nicht mehr als<lb/>
+etwa 30 Dollars.</p><lb/>
+<p>Die den obigen Angaben beigefügten Preise beziehen sich immer auf<lb/>
+die besten Plätze d. h. auf den Eisenbahnen, wo meistens nur Ein Platz<lb/>
+existirt, auf die regulairen Züge und auf den Dampf= und Kanalschiffen auf<lb/>
+einen Platz in der Kajüte. Zwar giebt es in Amerika auf den Eisen-<lb/>
+bahnen nur Einen Platz, der in einiger Beziehung noch größere Bequem-<lb/>
+lichkeit bietet, wie die ersten Plätze auf den europäischen Eisenbahnen,<lb/>
+<cb n="2"/>
+indessen sind für die Einwanderer eigene, wohlfeilere sog. Emigrantenzüge<lb/>
+angeordnet, welche sehr unbequeme Plätze haben, sehr langsam fahren und<lb/>
+auf welchen man leicht schlechter Behandlung ausgesetzt ist. Wer daher<lb/>
+nicht durch seine ökonomischen Verhältnisse gezwungen ist, jede äußerste<lb/>
+Ersparniß, die sich möglicherweise auf der Reise machen läßt, wahrzu-<lb/>
+nehmen, sollte nicht diese Emigrantenzüge, sondern die gewöhnlichen Züge,<lb/>
+auf welchen das amerikanische Publikum, auch fast der Aermste, aus-<lb/>
+schließlich reist, zu seiner Beförderung wählen. Außer den großen Be-<lb/>
+schwerden und Unannehmlichkeiten auf den Reisen mit den Emigrantenzügen,<lb/>
+fallen auf denselben gewöhnlich auch große Verzögerungen auf längeren<lb/>
+Reisen vor, und durch den Aufenthalt auf den Stationen werden die<lb/>
+Zehrungskosten so gesteigert, daß derjenige Einwanderer, welcher sich auf<lb/>
+das Kümmerlichste auf dem schlechtesten Platze beholfen hat und weit<lb/>
+längere Zeit zu seiner Reise gebraucht hat, bei der Ankunft an seinem<lb/>
+Bestimmungsorte im Westen findet, daß seine Reisekosten größer gewesen<lb/>
+sind als Desjenigen, welcher dieselbe Reise auf den besten Plätzen aufs<lb/>
+Bequemste und Angenehmste zurückgelegt hat. Aehnlich verhält es sich auf<lb/>
+den Dampfschiffen. Hier giebt es gewöhnlich nur Einen Kajütenplatz und<lb/>
+die Passagiere auf demselben zahlen regelmäßig mit dem Passagepreise<lb/>
+zugleich den Preis für ihre Beköstigung, die selten nicht gut ist. Die<lb/>
+Deckspassagiere zahlen einen bedeutend niedrigeren Preis, müssen aber selbst<lb/>
+für ihre Beköstigung sorgen, die ihnen häufig, wenn sie vom Abfahrtsorte<lb/>
+nicht genug Mundvorrath mitgenommen haben, sehr theuer wird. Dann<lb/>
+ist die Behandlung der Deckpassagiere häufig sehr schlecht; sie werden auf<lb/>
+eine Leben und Gesundheit gefährdende Weise zusammengedrängt und oft<lb/>
+von dem rohen Schiffsvolk auf empörende Weise behandelt. Es ist daher<lb/>
+allen einigermaßen Bemittelten dringend anzurathen, nicht als Deckpassagiere<lb/>
+zu reisen, sondern lieber einige wenige Thaler mehr auszugeben und sich<lb/>
+vor Krankheit und vielem Verdruß zu bewahren. &#x2013; Endlich ist es im<lb/>
+Allgemeinen nicht zu empfehlen, für mehrere Arten der Beförderung auf<lb/>
+langen Reisen am Orte der Ankunft in Amerika ( z. B. in Newyork ) die<lb/>
+ganzen Reisekosten nach dem Bestimmungsort ( z. B. Chicago, Cincinnati,<lb/>
+St. Louis ) zu accordiren und gegen ein Passagierbillet für die ganze Reise<lb/>
+( eine sog. <hi rendition="#aq">thorough-ticket</hi>, Durch=Billet ) im Voraus zu bezahlen. Man<lb/>
+wird dann häufig nicht sofort weiter befördert und muß auf Zwischen-<lb/>
+plätzen wider Willen liegen bleiben. Da man sein Geld bezahlt hat und unter-<lb/>
+wegs aus Mangel an Zeit keine gerichtliche Hülfe suchen kann, auch der<lb/>
+Einwanderer, der Verhältnisse und häufig der englischen Sprache unkundig,<lb/>
+sich nicht so zu helfen weiß, wie der Einheimische, so ist man ganz der<lb/>
+Willkür der Agenten der Beförderungscompagnien anheim gegeben und<lb/>
+wird nicht selten auf die ärgerlichste Weise geprellt. Man thut überhaupt<lb/>
+bei Reisen in fremden Ländern am Besten, sein Geld für die Reise so<lb/>
+lange als möglich in der Tasche zu behalten, denn hat man im Voraus<lb/>
+bezahlt, ist man abhängig und kann ohne Verlust an seiner Reise nichts<lb/>
+mehr ändern, wozu man doch genöthigt sein kann, wenn man auch seinen<lb/>
+Reiseplan noch so umsichtig entworfen hat. Man geht in Amerika allent-<lb/>
+halben auf die Dampfschiffe und in die Eisenbahnwagen, mit denen man<lb/>
+reisen will, ohne vorher Billete ( <hi rendition="#aq">tickets</hi> ) gelöst zu haben; man bezahlt am<lb/>
+Bord oder im Wagen, wenn Einem das Billet gereicht oder das Geld<lb/>
+abgefordert wird. Hat man jedoch auf einem Dampfschiffe eine Nacht<lb/>
+zuzubringen, so muß man sich so bald als möglich ein Billet verschaffen,<lb/>
+um sich eine Schlafstelle aussuchen oder sichern zu können.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jCulturalNews"><head><hi rendition="#fr"><hi rendition="#g">Bücherschau</hi>.</hi></head><lb/>
+<div n="2" type="jArticle"><p><hi rendition="#sup">*</hi> Die Staaten von Merico, Mittel- und Südamerika, nach dem <lb/>
+<hi rendition="#aq">Annuaire des Deux Mondes année</hi> 1850, bearbeitet von <hi rendition="#aq">Dr</hi>. P. <lb/>
+<hi rendition="#g">Frisch,</hi> Lübeck, Verlag von A. <hi rendition="#g">Dittmer,</hi> 1853, Preis 1 <choice><abbr>Rl</abbr></choice> 15 Ngr.</p><lb/>
+<p>Dieses Buch giebt eine gedrängte und übersichtliche Darstellung der<lb/>
+politisch=socialen Entwicklung der Staaten von Mexico, Mittel= und Süd-<lb/>
+amerika von der Unabhängigkeit=Erklärung an; nach dem Titel sollte diese<lb/>
+Darstellung mit dem Jahre 1850 schließen, der Verfasser hat indeß auch<lb/>
+auf neuere Ereignisse, namentlich den Sturz des General Rosas Rücksicht<lb/>
+nehmen können, so daß die Darstellung den Hauptsachen nach bis in das<lb/>
+laufende Jahr 1852 hineinreicht. Eben diese Berücksichtigung der neuesten<lb/>
+Ereignisse, ferner die Benutzung neuerer diese Länder betreffenden Schriften,<lb/>
+Auslassungen und Modificationen von Dingen, die in einseitig französischem<lb/>
+Gesichtspunkte aufgefaßt waren, ertheilt dem Buche seinen Charakter als<lb/>
+eine selbstständige Bearbeitung. &#x2013; Die Literatur über die in Rede stehen-<lb/>
+den Länder ist bisher von keinem großem Umfange, daher auch die Kunde<lb/>
+von denselben meistens gering, während anderntheils diese Länder selbst<lb/>
+die Aufmerksamkeit des Gebildeten, des Kaufmanns und des Auswanderers<lb/>
+immer mehr verdienen und auf sich ziehen. Der Gebildete wird seinem<lb/>
+Bedürfniß näherer Kenntniß der betreffenden Länder durch das vorliegende<lb/>
+Buch abgeholfen sehen, wenn durch dasselbe der Gelehrte vielleicht auch<lb/>
+nicht ganz befriedigt wird; er wird jedenfalls dadurch in den Stand<lb/>
+gesetzt, die Zeitungsberichte aus diesen Ländern zu verstehen und der<lb/>
+Kaufmann und der Auswanderer finden darin viele brauchbare Winke.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p><hi rendition="#sup">*</hi> Von den Mittheilungen betreffend die deutsche Kolonie Dona<lb/>
+Francisca in der südbrasilianischen Provinz Santa Catharina ist kürzlich die<lb/>
+Nr. 3 erschienen, auf die wir diejenigen, welche sich für die genannten<lb/>
+Kolonien interessiren, aufmerksam machen. Dieses Heft enthält außer<lb/>
+<cb type="end"/>
+<pb n="302" facs="#f0004"/>
+<fw place="top" type="pageNum">302</fw><cb type="start"/>
+mehreren Briefauszügen, welche sich im Ganzen sehr günstig über die<lb/>
+Kolonie aussprechen, einen Aufsatz über die daselbst vorkommenden Nutz-<lb/>
+hölzer und Zusätze zu den von <hi rendition="#aq">Dr</hi>. Blumenau in seiner Schrift &#x201E;leitende<lb/>
+Anweisungen für Auswanderer nach der Provinz S. Catharina&#x201C; gegebenen<lb/>
+Lehren über die Zuckerfabrikation, die für Auswanderer in die dortige<lb/>
+Gegend besonders zu beachten sein werden.</p></div></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jVarious"><head><hi rendition="#fr"><hi rendition="#g">Vermischtes</hi>.</hi></head><lb/>
+<div n="2" type="jArticle"><p>&#x2020; <hi rendition="#g">Schattenseiten des</hi> &#x201E; <hi rendition="#g">gelobten Landes</hi> &#x201C;. &#x2013; Ein Corres-<lb/>
+pondent des &#x201E;Journal of Commerce&#x201C; schreibt, daß es mehr Proben von<lb/>
+armen Teufeln in <hi rendition="#g">Californien</hi> gebe, als in irgend einem andern Staate<lb/>
+der Union. &#x2013; Unter seinen Bekanntschaften führt er nicht weniger als<lb/>
+vier Manufucturwaarenhändler an, die zum Lebensunterhalte Austern oder<lb/>
+Muscheln auf den Straßen feilbieten; ferner kennt er <hi rendition="#g">sieben</hi> Geistliche,<lb/>
+die hinter dem Schenktische stehen. Seiner Meinung nach sollen es nur<lb/>
+die rauhen, rüstigen, kernigen und vorwärtsstrebenden Männer sein, welche<lb/>
+ihr Glück in Californien gefunden haben und noch immer finden. &#x2013; Das<lb/>
+feine Herrchen findet dort noch schwerer sein Fortkommen, als der größte<lb/>
+Faullenzer; und wünscht der Correspondent nur, daß Leute mit zarten<lb/>
+Händchen und feiner Lebensweise davon gehörig Notiz nehmen möchten!</p></div><lb/>
+<div n="2" type="jArticle"><p>&#x2020; Bethlehem, ( Pa. ) 20. Nov. Heute Nachmittag ereignete sich<lb/>
+hier ein trauriger Vorfall. Die Demokraten wollten ein Souper und<lb/>
+einen Fackelzug halten und mehrere Männer feuerten eine Kanone ab,<lb/>
+welche bei einem Schuß zu früh losging und zwei Deutsche schrecklich<lb/>
+beschädigte. Einem derselben Namens <hi rendition="#g">Martin Roth</hi> wurden beide Arme<lb/>
+wegerissen und der andere Namens <hi rendition="#g">William Busch</hi> verlor einen Arm.<lb/>
+Roth kann nicht mehr gerettet werden. Jn Folge dieses Unglücks wurde<lb/>
+die Festlichkeit verschoben.</p></div><lb/>
+<div n="2" type="jArticle"><p>&#x2020; <hi rendition="#g">Ein deutscher Flüchtling als amerik. Gouverneur.</hi> &#x2013;<lb/>
+Jn Jllinois ist Richter <hi rendition="#g">Gustav Körner,</hi> ein Deutscher, der in den<lb/>
+30ger Jahren an dem bekannten Frankfurter Attentat sich betheiligt hatte<lb/>
+und deshalb dem alten Vaterlande den Rücken kehren mußte, zum Lieutenant-<lb/>
+Gouverneur erwählt worden. Wenn irgend Einer, so verdiente Körner<lb/>
+diese Auszeichnung. Er ist ein Mann von ausgezeichneten Geistesgaben,<lb/>
+und ausgezeichnet geliebt und geachtet im neuen Vaterlande.</p></div><lb/>
+<div n="2" type="jArticle"><p>&#x2020; Sacramento ( Californien ) . Nach dem Zeugnisse eines über die<lb/>
+Ebene gekommenen Einwanderers beträgt die Zahl der auf diesem Wege<lb/>
+gestorbenen Einwanderer ungefähr 170. Wir finden in der Todtenliste<lb/>
+unter anderen folgenden traurigen Fall: Madame Emilie Barnes, Amanda<lb/>
+und Makata Robbins, drei Schwestern aus Jndiana, in ein Grab<lb/>
+gelegt. &#x2013; Deutsche Namen, die in der Liste vorkommen sind: Conrad<lb/>
+Teneck, Jacob Francke, Marion City Ja.; J. Hollmann, Me.; Conrad<lb/>
+Penicke, Michigan; George Cen<hi rendition="#aq">à</hi>rd, Charles Wirther, Platte City Mo.;<lb/>
+Ed. Braun, Gentry City, Mi.; J. Braun, Clar City Jll.; Leo Weitmann,<lb/>
+Pentaton City, Va.</p></div><lb/>
+<div n="2" type="jArticle"><p><hi rendition="#sup"><choice><abbr>*</abbr></choice></hi> Der Anzeiger des Westens vom 13. Nov. erzählt, daß auf einem<lb/>
+von <hi rendition="#g">John Schubert</hi> und <hi rendition="#g">Georg Heine</hi> in St. Louis am 7. Nov.<lb/>
+arrangirten Ball durch <hi rendition="#g">John Roever,</hi> einem jungen Mann von 19 Jahren,<lb/>
+der einen sechsläufigen Revolver auf die Gesellschaft abfeuerte, die erst seit<lb/>
+einigen Monaten in Amerika lebende 24jährige <hi rendition="#g">Marie Schubert</hi> ge-<lb/>
+tödtet worden ist, während ein Herr <hi rendition="#g">Kotschenreiter</hi> eine nicht lebens-<lb/>
+gefährliche Wunde erhielt. &#x2013; Auch andere Mittheilungen dieses Blattes<lb/>
+geben ein trauriges Bild der dort und in der Umgegend herrschenden<lb/>
+Rechtsunsicherheit; so ist ein <hi rendition="#g">Hermann Smith</hi> auf öffentlicher Straße<lb/>
+niedergeschlagen und einer Baarschaft von 1400 $ beraubt, in Alton ein<lb/>
+Schmidt <hi rendition="#g">Kaßner</hi> ermordet und seiner Baarschaft von etwa 700 $ be-<lb/>
+raubt gefunden, einem durchreisenden Farmer <hi rendition="#g">Burtoon</hi> wurde sein<lb/>
+Taschenbuch mit 200 $ geraubt u. s. w. Das genannte Blatt knüpft<lb/>
+daran die Lehre, daß die in St. Louis Ankommenden am Besten thun,<lb/>
+so wenig wie möglich merken zu lassen, daß sie Geld, goldene Uhren oder<lb/>
+andere dergleichen Kostbarkeiten besitzen.</p></div><lb/>
+<cb n="2"/>
+<div n="2" type="jArticle"><p>&#x2013; Das Schiff &#x201E;Roman Emperor&#x201C; ist mit Nachrichten vom 3. Sept.<lb/>
+und 6378 Unzen Gold von Sidney angekommen. Nach einer Liste der<lb/>
+Verschiffungen von Gold von Sidney aus von der ersten Zeit der Gold-<lb/>
+entdeckungen an haben dieselben 618,069 Unzen zum Werthe von 2,009,000 £<lb/>
+( nach den Colonialpreisen ) betragen. Neue und sehr werthvolle Minen<lb/>
+sollen bei Bingera, etwa 180 Miles von Maitland entfernt, aufgefunden<lb/>
+worden sein.  <space dim="horizontal"/>   ( B. H. ) </p></div><lb/>
+<div n="2" type="jArticle"><p>&#x2013; An die Stelle des verstorbenen hannoverschen Consuls <hi rendition="#g">Behn</hi> in<lb/>
+Neworleans ist der Kaufmann <hi rendition="#g">Aug. Reichard</hi> daselbst zum hannover-<lb/>
+schen Consul ernannt. &#x2013; Der Kaufmann <hi rendition="#g">Bernhard Schwikkard</hi> in<lb/>
+Port Natal ist zum dortigen Consul für das Königreich Hannover bestellt<lb/>
+worden.  <space dim="horizontal"/>   ( B. H. ) </p></div><lb/>
+<div n="2" type="jArticle"><p>&#x2013; Aus dem Hafen von Liverpool sind im vorigen Monat 36 Aus-<lb/>
+wandererschiffe mit 12,188 Seelen an Bord theils nach Amerika, theils nach<lb/>
+Australien abgegangen; im October 42 Schiffe mit 17,243 Emigranten.<lb/>
+Aus dem Regierungsdepot in Birkenhead wurden vom 20. Januar 1852<lb/>
+bis 1. December ungefähr 15,000 Seelen auf 36 Schiffen nach Australien<lb/>
+befördert. Vor Neujahr sollen noch drei Regierungsschiffe mit 900 Emi-<lb/>
+granten abgehen.  <space dim="horizontal"/>   ( Ztg. f. Norddtschl. ) </p></div></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1"><div n="2"><head><hi rendition="#fr"><hi rendition="#g">Schiffe in Ladung</hi>.</hi></head><lb/>
+<cb type="start"/>
+<p>Jn Bremen:</p><lb/>
+<div n="3"><head>Nach <hi rendition="#g">San Francisco:</hi></head><lb/>
+<table>         <row>           <cell>Br. Canopus, Buschmann,</cell>           <cell rendition="#right">im Laufe Dec.</cell>         </row></table></div><lb/>
+<div n="3"><head>Nach <hi rendition="#g">Neworleans:</hi></head><lb/>
+<table>         <row>           <cell>Amer. Henri, Curtis,</cell>           <cell rendition="#right">20. Decbr.</cell>         </row></table></div><lb/>
+<cb n="2"/>
+<div n="3"><head><hi rendition="#g">Nach Newyork:</hi></head><lb/>
+<table>         <row>           <cell>Br. Helene, Volkmann,</cell>           <cell rendition="#right">15. Dec.</cell>         </row><lb/>
+<row>          <cell>&#x201E; Elise, Gätjen,</cell>           <cell rendition="#right">15. Dec.</cell>         </row><lb/>
+<row>          <cell>&#x201E; Beta, Gustavus,</cell>           <cell rendition="#right">15. Dec.</cell>         </row><lb/>
+<row>          <cell>&#x201E; Hermine, Raschen,</cell>           <cell rendition="#right">prompt nach</cell>         </row><lb/>
+<row>          <cell> <space dim="horizontal"/>  Expedition der Helene.</cell>           <cell/>         </row></table></div></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2"><head><hi rendition="#fr">Angekommene und abgegangene Schiffe.</hi></head><lb/>
+<cb type="start"/>
+<table>         <row>           <cell>Bremerhaven, 10 Dec.</cell>           <cell rendition="#right">von</cell>         </row><lb/>
+<row>          <cell> <space dim="horizontal"/>  Meta, de Harde,</cell>           <cell rendition="#right">Baltimore</cell>         </row><lb/>
+<row>          <cell> <space dim="horizontal"/>  Anna, Raschen, ( 11. ) </cell>           <cell rendition="#c">do.</cell>         </row><lb/>
+<row>          <cell> <space dim="horizontal"/>  Diana, Claussen,</cell>           <cell rendition="#right">Neworleans</cell>         </row><lb/>
+<row>           <cell/>           <cell rendition="#right">nach</cell>         </row><lb/>
+<row>          <cell> <space dim="horizontal"/>  Sauser, Hasse,</cell>           <cell rendition="#right">Rio Grande do Sul</cell>         </row><lb/>
+<row>          <cell> <space dim="horizontal"/>  Visurgis, Hayssen, ( 12. ) </cell>           <cell rendition="#right">San Francisco</cell>         </row><lb/>
+<row>          <cell>Hamburg, 10 Dec.</cell>           <cell rendition="#right">nach</cell>         </row><lb/>
+<row>          <cell> <space dim="horizontal"/>  Herschell, Jacobs,</cell>           <cell rendition="#right">Newyork</cell>         </row><lb/>
+<row>          <cell>Havre, 6. Dec.</cell>           <cell rendition="#right">nach</cell>         </row><lb/>
+<row>          <cell> <space dim="horizontal"/>  Trumbull, Smith,</cell>           <cell rendition="#right">Newyork</cell>         </row><lb/>
+<row>          <cell> <space dim="horizontal"/>  Geo. Hurlbutt, Major,</cell>           <cell rendition="#right">Neworleans</cell>         </row><lb/>
+<row>          <cell>Gravesend, 8. Dec.</cell>           <cell rendition="#right">nach</cell>         </row><lb/>
+<row>          <cell> <space dim="horizontal"/>  Blundell, Lumley,</cell>           <cell rendition="#right">Sidney</cell>         </row><lb/>
+<row>          <cell> <space dim="horizontal"/>  Woodstock, Williams,</cell>           <cell rendition="#right">Port Philipp</cell>         </row><lb/>
+<row>          <cell> <space dim="horizontal"/>  Sir Ed. Paget, Barclay, ( 9. ) </cell>           <cell/>         </row><lb/>
+<row>           <cell/>           <cell rendition="#right"><lb/>
+Neu Seeland</cell>         </row><lb/>
+<row>          <cell> <space dim="horizontal"/>  Stratheder, Turner,</cell>           <cell rendition="#right">Port Philipp</cell>         </row><lb/>
+<row>          <cell> <space dim="horizontal"/>  Surprise, Raulett,</cell>           <cell rendition="#right">Newyork</cell>         </row><lb/>
+<row>          <cell> <space dim="horizontal"/>  Patrician, Hare, ( 10. ) </cell>           <cell rendition="#right">Sidney</cell>         </row><lb/>
+<row>          <cell> <space dim="horizontal"/>  Child Harold, Pryen,</cell>           <cell rendition="#c">do.</cell>         </row><lb/>
+<row>          <cell> <space dim="horizontal"/>  Columbia, Burke,</cell>           <cell rendition="#right">Newyork</cell>         </row><lb/>
+<row>          <cell> <space dim="horizontal"/>  Forest Queen, Cooper,</cell>           <cell rendition="#right">Boston</cell>         </row><lb/>
+<row>          <cell>Cowes, 9. Dec.</cell>           <cell rendition="#right">             <hi rendition="#g">zurückgekommen</hi>           </cell>         </row><lb/>
+<row>          <cell> <space dim="horizontal"/>  Washington, ( D. ) </cell>           <cell/>         </row><lb/>
+<row>          <cell> <space dim="horizontal"/>  hat am 10. in den Dock geholt,</cell>           <cell/>         </row><lb/>
+<row>          <cell> <space dim="horizontal"/>  um einigen unerheblichen Schaden,</cell>           <cell/>         </row><lb/>
+<row>          <cell> <space dim="horizontal"/>  welchen es in einem furchtbaren</cell>           <cell/>         </row><lb/>
+<row>          <cell> <space dim="horizontal"/>  Sturme off Portland erlitten, rasch</cell>           <cell/>         </row><lb/>
+<row>          <cell> <space dim="horizontal"/>  zu repariren. Braucht nicht zu löschen.</cell>           <cell/>         </row><lb/>
+<row>          <cell>Southampton, 9. Dec.</cell>           <cell rendition="#right">nach</cell>         </row><lb/>
+<row>          <cell> <space dim="horizontal"/>  Franklin, ( D. ) ,</cell>           <cell rendition="#right">Havre</cell>         </row><lb/>
+<row>          <cell> <space dim="horizontal"/>  nach beendigter Reparatur.</cell>           <cell/>         </row><lb/>
+<lb/>
+<cb n="2"/>
+<row>           <cell>Liverpool, 11. Dec.</cell>           <cell rendition="#right">von</cell>         </row><lb/>
+<row>          <cell> <space dim="horizontal"/>  Pacific, ( D. ) </cell>           <cell rendition="#right">Newyork</cell>         </row><lb/>
+<row>          <cell> <space dim="horizontal"/>   ( mit Nachrichten vom 28. Nov. ) </cell>           <cell/>         </row><lb/>
+<row>           <cell/>           <cell rendition="#right"><lb/>
+nach</cell>         </row><lb/>
+<row>          <cell> <space dim="horizontal"/>  Jnez, Lont, ( 7. ) </cell>           <cell rendition="#right">Neworleans</cell>         </row><lb/>
+<row>          <cell> <space dim="horizontal"/>  Asia, McCutcheon,</cell>           <cell rendition="#right">Mobile</cell>         </row><lb/>
+<row>          <cell> <space dim="horizontal"/>  Glasgow, Hatfield,</cell>           <cell rendition="#c">do.</cell>         </row><lb/>
+<row>          <cell> <space dim="horizontal"/>  Druid, Cudner, ( 8. ) </cell>           <cell rendition="#right">San Francisco</cell>         </row><lb/>
+<row>          <cell> <space dim="horizontal"/>  Colonist, Wilson,</cell>           <cell rendition="#right">Neworleans</cell>         </row><lb/>
+<row>          <cell> <space dim="horizontal"/>  Jenny Lind, Mosher,</cell>           <cell rendition="#c">do.</cell>         </row><lb/>
+<row>          <cell> <space dim="horizontal"/>  Belmont, Duane,</cell>           <cell rendition="#c">do.</cell>         </row><lb/>
+<row>          <cell> <space dim="horizontal"/>  Jamaica, Key,</cell>           <cell rendition="#c">do.</cell>         </row><lb/>
+<row>          <cell> <space dim="horizontal"/>  Mary Carson, Atkinson,</cell>           <cell rendition="#c">do.</cell>         </row><lb/>
+<row>          <cell> <space dim="horizontal"/>  Defence, McMurtz,</cell>           <cell rendition="#right">Charleston</cell>         </row><lb/>
+<row>          <cell> <space dim="horizontal"/>  Jessie Miller, Gray,</cell>           <cell rendition="#c">do.</cell>         </row><lb/>
+<row>          <cell> <space dim="horizontal"/>  Orleans, Evans,</cell>           <cell rendition="#right">Mobile</cell>         </row><lb/>
+<row>          <cell> <space dim="horizontal"/>  Eleonor, Kean,</cell>           <cell rendition="#right">Savannah</cell>         </row><lb/>
+<row>          <cell> <space dim="horizontal"/>  Ben Lomond, Meldrum,</cell>           <cell rendition="#right">Apalachicola</cell>         </row><lb/>
+<row>          <cell> <space dim="horizontal"/>  City of Manchester, ( D. ) </cell>           <cell rendition="#right">Philadelphia</cell>         </row><lb/>
+<row>          <cell> <space dim="horizontal"/>  Andes, ( S.=D. ) </cell>           <cell rendition="#right">Newyork</cell>         </row><lb/>
+<row>          <cell> <space dim="horizontal"/>  Derry Castle, Drake, ( 10. ) </cell>           <cell rendition="#right">Neworleans</cell>         </row><lb/>
+<row>          <cell> <space dim="horizontal"/>  Liverpool, Kearney,</cell>           <cell rendition="#right">Newyork</cell>         </row><lb/>
+<row>          <cell> <space dim="horizontal"/>  Artic, Zeraga,</cell>           <cell rendition="#c">do.</cell>         </row><lb/>
+<row>          <cell>Newyork, 24. Nov.</cell>           <cell rendition="#right">von</cell>         </row><lb/>
+<row>          <cell> <space dim="horizontal"/>  Devonshire, Hovey,</cell>           <cell rendition="#right">Liverpool</cell>         </row><lb/>
+<row>          <cell> <space dim="horizontal"/>  Henry Clay, Hill,</cell>           <cell rendition="#c">do.</cell>         </row><lb/>
+<row>          <cell> <space dim="horizontal"/>  Geo. Canning, Paulsen,</cell>           <cell rendition="#right">Hamburg</cell>         </row><lb/>
+<row>          <cell> <space dim="horizontal"/>  Baltic, ( D. ) ( 28. ) </cell>           <cell rendition="#right">Liverpool</cell>         </row><lb/>
+<row>          <cell>Neworleans, 11. Nov.</cell>           <cell rendition="#right">von</cell>         </row><lb/>
+<row>          <cell> <space dim="horizontal"/>  Atlas, le Brau,</cell>           <cell rendition="#right">Havre</cell>         </row><lb/>
+<row>          <cell> <space dim="horizontal"/>  C. M. Clark, Emerson,</cell>           <cell rendition="#right">Antwerpen</cell>         </row><lb/>
+<row>          <cell> <space dim="horizontal"/>  Corinthian, Dyer, ( 15. ) </cell>           <cell rendition="#right">Havre</cell>         </row><lb/>
+<row>          <cell> <space dim="horizontal"/>  Anapolis, Graham,</cell>           <cell rendition="#c">do.</cell>         </row><lb/>
+<row>          <cell> <space dim="horizontal"/>  Annawoon, Setzer, ( 16. ) </cell>           <cell rendition="#c">do.</cell>         </row></table><lb/>
+<cb type="end"/>
+<p> <space dim="horizontal"/>  Verantwortlicher Redakteur: Pustau.</p></div></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jAnnouncements"><head><hi rendition="#fr"><hi rendition="#g">Anzeigen</hi>.</hi></head><lb/>
+<cb type="start"/>
+<div n="2" type="jAn"><figure/><head><hi rendition="#aq">Post-Dampfschifffahrt</hi><lb/>
+zwischen <lb/>
+<hi rendition="#aq">BREMEN und NEWYORK.</hi></head><lb/>
+<p>Das amerikanische Post=Dampfschiff <hi rendition="#aq">Hermann</hi> soll<lb/>
+wie folgt, von der Weser abgehen:</p><lb/>
+<p><hi rendition="#aq #c">D. Hermann:</hi><lb/>
+31. Decbr.</p><lb/>
+<p>Passagepreis: Erste Cajüte, oberer Salon Ld'or. <choice><abbr>xf</abbr></choice> 190.<lb/>
+<space dim="horizontal"/>  &#x201E;  <space dim="horizontal"/>  &#x201E;  <space dim="horizontal"/>  unterer  <space dim="horizontal"/>  &#x201E;  <space dim="horizontal"/>  &#x201E;  <space dim="horizontal"/>  160.<lb/>
+<space dim="horizontal"/>  Zweite &#x201E;  <space dim="horizontal"/>  ...........  <space dim="horizontal"/>  &#x201E;  <space dim="horizontal"/>  100.</p><lb/>
+<p>Kinder unter 10 Jahren die Hälfte; Säuglinge frei.<lb/>
+Näheres bei</p><lb/>
+<p>           <space dim="horizontal"/>           <hi rendition="#aq"><hi rendition="#i">C. A. Heineken</hi> &amp; <hi rendition="#i">Co</hi>.</hi>       </p></div><lb/>
+<cb n="2"/>
+<div n="2" type="jAn"><head><hi rendition="#fr">Zur</hi><lb/>
+<hi rendition="#aq">Nachricht für Auswanderer.</hi></head><lb/>
+<figure/><p>Der Unterzeichnete expedirt am 1. und<lb/>
+15. eines jeden Monats schnellsegelnde,<lb/>
+kupferfeste und gekupferte Dreimaster <hi rendition="#g">erster Klasse</hi><lb/>
+nach <hi rendition="#aq">Newyork</hi> und <hi rendition="#aq">Baltimore</hi> ( sowie in geeigneter<lb/>
+Jahreszeit nach <hi rendition="#aq">Neworleans</hi> und <hi rendition="#aq">Galveston</hi> ) , welche<lb/>
+zum Transport von Auswanderern erbaut und einge-<lb/>
+richtet sind.</p><lb/>
+<p>Ueber die billigst gestellten Fahrpreise und sonstigen<lb/>
+Ueberfahrtsbedingungen ertheilen meine auswärtigen<lb/>
+Herren Agenten, sowie ich selbst auf frankirte Anfragen<lb/>
+weitere Auskunft.</p><lb/>
+<p> <space dim="horizontal"/>   Bremen, 1852.  <space dim="horizontal"/>   <hi rendition="#aq"><hi rendition="#i">Ed. Ichon</hi>.</hi> </p></div><lb/>
+<cb n="3"/>
+<div n="2" type="jAn"><figure/><head><hi rendition="#fr">Höchst billige und schnelle Reise-<lb/>
+gelegenheit für Einwanderer von <lb/>
+<hi rendition="#g">Baltimore</hi> nach</hi><lb/>
+<hi rendition="#aq">Cumberland, Pittsburg,<lb/>
+Wheeling, Cincinnati, Louisville</hi><lb/>
+und <hi rendition="#aq">St. Louis.</hi></head><lb/>
+<p>Der Unterzeichnete hat mit der Baltimore= und<lb/>
+Ohio=Eisenbahn und der Pittsburger Transportations-<lb/>
+Linie eine Anordnung getroffen, wonach Passagiere<lb/>
+täglich nach den obigen Plätzen befördert werden können.</p><lb/>
+<p>Die mit dieser Linie reisenden Einwanderer kommen<lb/>
+<hi rendition="#g">durchaus</hi> nicht auf den Canal. Wegen Passage melde<lb/>
+man sich im Comptoir bei</p><lb/>
+<p> <space dim="horizontal"/>  <hi rendition="#aq">Baltimore</hi>, 1. Mai.  <space dim="horizontal"/>  Aug. C. Teitman,<lb/>
+<space dim="horizontal"/>  127 Thames=Str. </p></div></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/><lb/>
+</body>       <back><div n="1" type="imprint"><head>Druck und Verlag der Buchdruckerei von Johann Georg Heyse.</head></div><lb/>
+</back>   </text> </TEI>

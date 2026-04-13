@@ -1,0 +1,960 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.deutschestextarchiv.de/basisformat.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">     <teiHeader>
+<fileDesc>
+<titleStmt>
+<title type="main">Das Pfennig-Magazin für Belehrung und Unterhaltung</title>
+<title type="sub">Dritte Folge, Zweiter Jahrgang, Nr. 88</title>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/115266127">
+<surname>Geyken</surname>
+<forename>Alexander</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1222198746">
+<surname>Haaf</surname>
+<forename>Susanne</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1019062681">
+<surname>Jurish</surname>
+<forename>Bryan</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Boenig</surname>
+<forename>Matthias</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Thomas</surname>
+<forename>Christian</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Wiegand</surname>
+<forename>Frank</forename>
+</persName>
+</editor>
+<respStmt>
+<orgName>Institut für Deutsche Sprache, Mannheim</orgName>
+<resp>
+<note type="remarkResponsibility">Bereitstellung der Bilddigitalisate und TEI
+Transkription</note>
+<ref target="http://hdl.handle.net/10932/00-01B8-B0AA-FBCF-F601-A"/>
+</resp>
+</respStmt>
+<respStmt>
+<persName>
+<forename>Peter</forename>
+<surname>Fankhauser</surname>
+</persName>
+<resp>
+<note type="remarkResponsibility">
+Transformation von TUSTEP nach TEI P5.
+Transformation von TEI P5 in das DTA TEI P5 Format.
+</note>
+</resp>
+</respStmt>
+<respStmt>
+<orgName ref="https://www.bbaw.de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<resp>
+<note type="remarkResponsibility">Langfristige Bereitstellung der DTA-Ausgabe</note>
+<ref target="https://www.bbaw.de"/>
+</resp>
+</respStmt>
+</titleStmt>
+<editionStmt><edition>Vollständige digitalisierte Ausgabe.</edition></editionStmt>
+<extent>
+<measure type="images">8</measure>
+<measure type="tokens">5564</measure>
+<measure type="types">2363</measure>
+<measure type="characters">37332</measure>
+</extent>
+<publicationStmt>
+<publisher xml:id="DTACorpusPublisher">
+<email>dta@bbaw.de</email>
+<orgName role="project">Deutsches Textarchiv</orgName>
+<orgName role="hostingInstitution" xml:lang="en">Berlin-Brandenburg Academy of Sciences and Humanities (BBAW)</orgName>
+<orgName role="hostingInstitution" xml:lang="de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<address>
+<addrLine>Jägerstr. 22/23, 10117 Berlin</addrLine>
+<country>Germany</country>
+</address>
+</publisher>
+<pubPlace>Berlin</pubPlace>
+<date type="publication">2025-10-24T08:35:15Z</date>
+<availability>
+<licence target="http://creativecommons.org/publicdomain/zero/1.0/">
+<p>Dieses Werk steht unter der "Creative Commons Namensnennung -
+Nicht kommerziell 3.0 Deutschland Lizenz" (CC BY-NC).</p>
+</licence>
+</availability>
+<idno>
+<idno type="URLWeb">https://www.deutschestextarchiv.de/nn_pfennig088_1854</idno>
+<idno type="URLXML">https://www.deutschestextarchiv.de/book/download_xml/nn_pfennig088_1854</idno>
+<idno type="URLHTML">https://www.deutschestextarchiv.de/book/download_html/nn_pfennig088_1854</idno>
+<idno type="URLText">https://www.deutschestextarchiv.de/book/download_text/nn_pfennig088_1854</idno>
+<idno type="DTADirName">nn_pfennig088_1854</idno>
+<idno type="DTAID">34738</idno>
+<idno type="URN">urn:nbn:de:kobv:b4-34738-9</idno>
+</idno>
+</publicationStmt>
+<sourceDesc>
+<bibl type="J">Das Pfennig=Magazin für Belehrung und Unterhaltung. Dritte Folge, Zweiter Jahrgang, Nr. 88. Leipzig (Sachsen), 31. August 1854.</bibl>
+<biblFull>
+<titleStmt>
+<title level="m" type="main">Das Pfennig-Magazin für Belehrung und Unterhaltung</title>
+<title level="m" type="sub">Dritte Folge, Zweiter Jahrgang, Nr. 88</title>
+</titleStmt>
+<editionStmt>
+<edition n="1"/>
+</editionStmt>
+<publicationStmt>
+<publisher/>
+<pubPlace>Leibzig (Sachsen)</pubPlace>
+<date type="publication">1854</date>
+</publicationStmt>
+</biblFull>
+<msDesc>
+<msIdentifier/>
+<physDesc>
+<typeDesc>
+<p>Fraktur</p>
+</typeDesc>
+</physDesc>
+</msDesc>
+</sourceDesc>
+</fileDesc>
+<encodingDesc>
+<editorialDecl>
+<p>
+<![CDATA[
+<p>Siehe Dokumentation</p>
+]]>
+</p>
+</editorialDecl>
+<tagsDecl>
+<rendition scheme="css" xml:id="aq">font-family:sans-serif</rendition>
+<rendition scheme="css" xml:id="b">font-weight:bold</rendition>
+<rendition scheme="css" xml:id="blue">color:blue</rendition>
+<rendition scheme="css" xml:id="c">display:block; text-align:center</rendition>
+<rendition scheme="css" xml:id="et">display:block; margin-left:2em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et2">display:block; margin-left:4em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et3">display:block; margin-left:6em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="f">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="fr">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="g">letter-spacing:0.125em</rendition>
+<rendition scheme="css" xml:id="i">font-style:italic</rendition>
+<rendition scheme="css" xml:id="in">font-size:150%</rendition>
+<rendition scheme="css" xml:id="k">font-variant:small-caps</rendition>
+<rendition scheme="css" xml:id="larger">font-size:larger</rendition>
+<rendition scheme="css" xml:id="red">color:red</rendition>
+<rendition scheme="css" xml:id="right">display:block; text-align:right</rendition>
+<rendition scheme="css" xml:id="s">text-decoration:line-through</rendition>
+<rendition scheme="css" xml:id="smaller">font-size:smaller</rendition>
+<rendition scheme="css" xml:id="sub">vertical-align:sub; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="sup">vertical-align:super; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="u">text-decoration:underline</rendition>
+<rendition scheme="css" xml:id="uu">border-bottom:double 3px #000</rendition>
+</tagsDecl>
+</encodingDesc>
+<profileDesc>
+<langUsage>
+<language ident="deu">(Früh-)Neuhochdeutsch</language>
+<language ident="deu">German</language>
+</langUsage>
+<textClass>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1main">Gebrauchsliteratur</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1sub">Zeitschrift</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">ready</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">mkhz1</classCode>
+</textClass>
+</profileDesc>
+</teiHeader>
+<text>     <front>
+<pb facs="#f0001" n="[281]"/>
+<titlePage type="heading"><docTitle><titlePart type="main"><hi rendition="#c #fr">Das Pfennig=Magazin<lb/>
+für<lb/>
+<hi rendition="#g">Belehrung und Unterhaltung</hi>.</hi></titlePart></docTitle><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<docImprint><hi rendition="#fr">Nr</hi>. 88. ]                <hi rendition="#c">Dritte Folge. Zweiter Jahrgang.</hi>                <docDate><hi rendition="#right">[ 31. <hi rendition="#g">August</hi> 1854.</hi></docDate>              </docImprint></titlePage><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+</front>     <body>       <div n="1"><figure><head><hi rendition="#fr">Die neue St.=Paulskirche in York in England.</hi></head></figure></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle" xml:id="Spute6"><head><hi rendition="#fr"><hi rendition="#g">Spute dich</hi>!</hi><lb/>
+<ref target="nn_pfennig087_1854#Spute5">( Beschluß. )</ref></head><lb/>
+<cb type="start"/>
+<p><hi rendition="#in">K</hi>arl Wirker hatte sich in seiner Rechnung nicht ge-<lb/>
+täuscht. Er legte frischweg den Torfstich an, baute<lb/>
+Abzugsschleußen für das unnöthige Wasser, stellte Ar-<lb/>
+beiter aus der ärmern Classe der Umgegend ein und<lb/>
+hatte die Freude, nicht nur auf seiner, sondern auch<lb/>
+auf der von Klaus gekauften Wiese ein mächtiges La-<lb/>
+ger schönen Torfs aufzufinden. Um seine Grundstücke<lb/>
+zu schonen, baute er einen festen Fahrweg, den er we-<lb/>
+gen seiner Waldungen sich längst gewünscht hatte, und<lb/>
+bald begegnete ein Lastwagen dem andern, mit dem<lb/>
+Transport des Torfs beschäftigt. Wirker's Unterneh-<lb/>
+men glückte in seltener Weise. Bei den massenhaften<lb/>
+Torflieferungen gewann er in jedem Jahre bedeutende<lb/>
+Capitalien und hatte auch die Freude, den ärmern<lb/>
+<cb n="2"/>
+Classen der Gebirgsbewohner für ihre Thätigkeit in<lb/>
+seinem Dienste ein leidliches Auskommen zu verschaffen.</p><lb/>
+<p>Bist ein Wachsstöckel gewesen! riefen nun die<lb/>
+Bauern Klaus zu, indem sie ihn durch diese Bezeich-<lb/>
+nung als einen unklugen Kopf darzustellen suchten.</p><lb/>
+<p>Hast Wirker eine Goldgrube verkauft, bist Prügel<lb/>
+werth! fügten andere Nachbarn hinzu.</p><lb/>
+<p>Macht kein Gelatsch! begütigte der Erbrichter.<lb/>
+Jhr hättet's Alle gemacht wie der Klaus! Hat er<lb/>
+nicht die höchste Summe für seine Wiese gefodert<lb/>
+und hat der Wirker ihm etwa das Grundstück abge-<lb/>
+drückt? Die Herren sind immer am klügsten, wenn<lb/>
+sie vom Rathhause kommen, das paßt auch auf uns<lb/>
+Bauern!</p><lb/>
+<cb type="end"/>
+<pb facs="#f0002" n="282"/>
+<fw place="top" type="pageNum">282</fw>       <cb type="start"/>
+<p>Dem Klaus war die Sache nicht gleichgültig, aber<lb/>
+er konnte auch nicht auf Wirker böse sein, denn dieser<lb/>
+that mehr, als nur irgend Jemand von ihm fodern<lb/>
+konnte. Er bat Klaus nicht nur, aus seiner Grube<lb/>
+soviel Torf abzufahren, als er für sein Haus brauchte,<lb/>
+sondern er versorgte auch alle Armen des Dorfs mit<lb/>
+Brennmaterial für den Winter. Dadurch ward er<lb/>
+allen Waldbesitzern ein Wohlthäter, denn die Orts-<lb/>
+armen kamen nur selten noch in ihre Holzungen, um<lb/>
+sich ihre Bedürfnisse zu holen; die Wälder wurden ge-<lb/>
+schont, ohne großer Aufsicht zu bedürfen, und was die<lb/>
+Hauptsache war, die armen Leute, welche sonst halbe<lb/>
+Tage lang nach dürrem Holze liefen, benutzten ihre<lb/>
+Zeit zu nützlicher Beschäftigung, um ihr Brot zu er-<lb/>
+werben, wobei sie sich an eine geordnete Thätigkeit ge-<lb/>
+wöhnten. Jn spätern Jahren hatte man das Wort<lb/>
+Polengut mit dem Namen Wirkergut vertauscht, wozu<lb/>
+die besondere Achtung beitrug, welche dem Besitzer<lb/>
+desselben von nah und fern gezollt wurde. Das Gut<lb/>
+war die größte und schönste Besitzung des Dorfes ge-<lb/>
+worden, denn Wirker hatte bei jeder Gelegenheit neuen<lb/>
+Grund und Boden angekauft und nach seiner Weise<lb/>
+bewirthschaftet. Sein Geist wurde nicht müde im Wei-<lb/>
+terstreben und sein kräftiger Körper unterstützte ihn.<lb/>
+Vielerlei nützliche Einrichtungen schuf er in seinem<lb/>
+Dorfe und wo er konnte, half er dem Einzelnen auf,<lb/>
+ohne ein großes Geschrei dabei zu machen. Seine<lb/>
+Schulkenntnisse, im armen Knabenalter erworben, ka-<lb/>
+men ihm dabei zu statten uud überall wirkte er im<lb/>
+Geiste seiner Mutter und seines Schwiegervaters fort.<lb/>
+Das wichtige &#x201E;Spute dich!&#x201C; vergaß er nie; auch sorgte<lb/>
+er dafür, daß seine Kinder des Zurufes treu eingedenk<lb/>
+blieben.</p><lb/>
+<p>Wirker's drei Kinder geriethen wohl, wie es bei<lb/>
+einer Erziehung durch solche Ältern kaum anders zu<lb/>
+erwarten war. Vater und Mutter hatten das seltene<lb/>
+Glück, ihre Lieblinge bei ihrem Leben noch versorgt zu<lb/>
+sehen. Der erste Sohn widmete sich den Studien, der<lb/>
+zweite übernahm in spätern Jahren das Gut des Va-<lb/>
+ters und die Tochter verheirathete sich an einen Kam-<lb/>
+mergutspachter, welcher ganz nach dem Muster seines<lb/>
+Schwiegervaters lebte, wie einst Wirker sich den ehrli-<lb/>
+chen Zillmer zum Vorbilde auserwählt hatte. Als eine<lb/>
+besondere gnädige Schickung des Himmels erkannte<lb/>
+Wirker den Umstand, daß sein Sohn, welcher Jurist<lb/>
+geworden war, als Gerichtsdirector in seinem Heimats-<lb/>
+orte angestellt wurde und in der Stube amtirte, wo<lb/>
+einst sein seliger Großvater als Gerichtsschöppe saß und<lb/>
+seinem Vater von dem alten, längst schlafengegangenen<lb/>
+Major das Lehngeld erlassen wurde.</p><lb/>
+<p>Wirker vergaß seine Heimat nicht. Längst schon<lb/>
+schmückte ein schönes Denkmal die Gräber seiner Ael-<lb/>
+tern, versehen mit der Aufschrift: &#x201E;Der Gerechten An-<lb/>
+denken bleibt in Segen!&#x201C; Am Grabmale der Frau<lb/>
+Wirker waren an der gesenkten Fackel, welche ein Ge-<lb/>
+nius hielt, noch die Buchstaben <hi rendition="#aq">S. D</hi>. zu sehen, über<lb/>
+deren Bedeutung man nicht recht einig werden, auch<lb/>
+von Karl Wirker nichts Gewisses erfahren konnte.<lb/>
+Man kam zuletzt zu der Ansicht, daß der dankbare<lb/>
+Sohn jedenfalls das Wort seiner Mutter: &#x201E;Spute<lb/>
+dich!&#x201C; habe andeuten wollen, ohne durch das Aus-<lb/>
+schreiben derselben dem Uneingeweihten einen Anstoß<lb/>
+zu geben.</p><lb/>
+<p>Bei dem Vermögen, welches Wirker sich erworben<lb/>
+hatte, vermochte er für seine Heimat noch Vielerlei zu<lb/>
+thun. Er bestimmte beträchtliche Summen Geldes zu<lb/>
+Erbauung eines Armenhauses sowie zu Unterrichtsgeld<lb/>
+für arme Kinder; er kaufte mehre Acker Feld und<lb/>
+<cb n="2"/>
+verordnete, daß dieselben zu gleichen Theilen von den<lb/>
+Armen seiner Heimat unentgeltlich benutzt werden soll-<lb/>
+ten und stiftete endlich ein Legat, von welchem die<lb/>
+Zinsen dem karg besoldeten Lehrer außer seinem Ge-<lb/>
+halte zugewiesen wurden.</p><lb/>
+<p>Wirker starb im 68. Jahre, betrauert von Tau-<lb/>
+senden; zwei Jahre später folgte ihm seine Johanna<lb/>
+nach. Mit der innigsten Verehrung und Liebe ge-<lb/>
+dachte man noch lange des würdigen, edlen Ehepaars<lb/>
+und so Mancher lernte von ihnen in ihrem Geiste le-<lb/>
+ben und wirken, getrieben durch das einfache Wort der<lb/>
+seligen Frau Wirker: &#x201E;Spute dich!&#x201C;</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle" xml:id="Eppelin1"><head><hi rendition="#fr">Eppelin und sein Roß.</hi><lb/>
+Sage.</head><lb/>
+<p><hi rendition="#in">J</hi>n der fränkischen Schweiz hüpft mit ihren krystalle-<lb/>
+nen Wellen die Wiesent durch ein liebliches grünes Thal,<lb/>
+dessen Üppigkeit die Herzen erquickt und dessen Duft der<lb/>
+Wanderer mit Lust am Licht der Erde athmet, wenn<lb/>
+er aus dem Dunkel der merkwürdigen Zoolithenhöhlen<lb/>
+zu Tage emporgestiegen ist. Jn diesen Höhlen liegen<lb/>
+die Überreste einer alten Zeit, welche die Cultur des Lan-<lb/>
+des noch entbehrte. Bären, Wölfe und anderes Ge-<lb/>
+thier brausten durch die Wälder des Gebirges und zo-<lb/>
+gen sich in die Felsgrotten zurück, um ihren Raub zu<lb/>
+verzehren und endlich der Nachwelt Schädel und Ge-<lb/>
+ripp ihrer eigenen Leiber als Andenken zurückzulassen,<lb/>
+als die aufgeregte Natur den Bestien selbst den Unter-<lb/>
+gang bereitete.</p><lb/>
+<p>Jn demselben Thale hauste aber vor vielen Jah-<lb/>
+ren auch der Mensch, wie das wilde Raubthier,<lb/>
+weshalb der sorgende Handelsmann selten unangefoch-<lb/>
+ten seine Straße zog. Oft hallte es im Walde von<lb/>
+Waffengeklirr und Rossestampfen, wenn die nürnber-<lb/>
+ger Karavanen mit den bärtigen, beutegierigen Rit-<lb/>
+tern in blutiges Handgemenge gerathen waren, und<lb/>
+der Streit um das Mein und Dein foderte unzählige<lb/>
+Opfer.</p><lb/>
+<p>Am gefährlichsten für die Kaufleute von Nürnberg<lb/>
+war aber der Ritter von Gailingen, Eppelin, dessen<lb/>
+Burg Gailenreuth wie das Raubnest des Adlers einst<lb/>
+von dem Gebirge herab trotzig ins Wiesentthal schaute,<lb/>
+heute aber als ein verwitterter Trümmerhaufen dem<lb/>
+Auge der cultivirten Menschheit kaum noch erkennbar<lb/>
+ist, wenn nicht der kundige Bewohner des Franken-<lb/>
+landes auf die Ruine aufmerksam macht. Friedlich<lb/>
+zieht jetzt der heitere Wanderer bei der Sachsenmühle<lb/>
+über die Brücke der Wiesent und gastfreundschaftlich<lb/>
+tönt ihm ein heiteres Willkommen entgegen, wenn ein<lb/>
+Gewitter von Streitberg her über Neideck sich zusam-<lb/>
+menzieht und er die Schritte beschleunigt, um unter<lb/>
+schützendes Obdach zu kommen.</p><lb/>
+<p>Ganz anders ging es zur Zeit Eppelin's her. Er<lb/>
+war als Raubritter von aller Welt gefürchtet, denn<lb/>
+noch keiner kampfgerüsteten Schar war es gelungen,<lb/>
+ihn und seine kühnen Genossen zu besiegen und zu de-<lb/>
+müthigen. Den Nürnbergern hatte er schon unendli-<lb/>
+chen Schaden gethan; so mancher brave Bürger war<lb/>
+durch ihn beraubt und getödtet worden. Eppelin's<lb/>
+Burg strotzte von geraubtem Gute, aber er bekam nie<lb/>
+genug und wilde Gier erfaßte sein Herz, sobald ihm<lb/>
+durch seine Lauerer die Ankunft eines neuen Handels-<lb/>
+zugs aus Nürnberg angekündigt wurde. Da verloren<lb/>
+<cb type="end"/>
+<pb facs="#f0003" n="283"/>
+<fw place="top" type="pageNum">283</fw><cb type="start"/>
+endlich die Nürnberger die Geduld; ihr Ärger wandelte<lb/>
+sich in Zorn. Fest entschlossen, das Äußerste zu wa-<lb/>
+gen, verbanden sie sich zu einer Kämpferschar, um <gap reason="illegible" unit="chars" quantity="4"/>aus-<lb/>
+zuziehen ins Wiesentthal und den gefährlichen Eppelin<lb/>
+todt oder lebendig in ihre Hände zu bekommen, damit<lb/>
+ihr ärgster Feind unschädlich gemacht und vernichtet<lb/>
+werde.</p><lb/>
+<p>Leicht war diese Aufgabe nicht, weshalb man be-<lb/>
+schloß, den Ritter von Gailingen mit List in das Netz<lb/>
+zu locken. Dies zu bewerkstelligen, ließ der Senat<lb/>
+von Nürnberg unbemerkt verschiedene Knappen ausrü-<lb/>
+sten, welche bestimmt wurden, nach dem Wiesentthale<lb/>
+zu reisen und sich auf den bewaldeten Höhen bei einem<lb/>
+Ueberfalle sogleich bereit zu halten.</p><lb/>
+<p>Als die Knappen sich in der Nähe der Burg Gai-<lb/>
+lenreuth unbemerkt aufgestellt hatten, zogen verabrede-<lb/>
+termaßen einige nürnberger Kaufleute mit verschiedenen<lb/>
+Waaren im Thale hin. Eppelin erhielt davon Kunde<lb/>
+und stürzte sich mit einigen Raubgenossen sogleich auf<lb/>
+die fremden Reisenden, um ihnen Alles abzunehmen;<lb/>
+da wurde es aber plötzlich im nahen Walde laut, der<lb/>
+Hörnerton erklang und die Knappen des nürnberger<lb/>
+Senats eilten zur Hülfe herbei. Die Räuber wehrten<lb/>
+sich tapfer, unterlagen jedoch zuletzt und wurden von<lb/>
+den Siegern in Ketten und Banden geschlagen.</p><lb/>
+<p>Jm Triumphe führten die Knappen des Senats<lb/>
+Eppelin, auf sein treues Roß gebunden, durch die<lb/>
+Gassen der Stadt Nürnberg nach dem alten festen<lb/>
+Schlosse. Alle Bürger waren hocherfreut, endlich den<lb/>
+gefährlichen Feind besiegt zu sehen und vor ihm nun<lb/>
+sicher zu sein, denn sie wußten, daß für ihn kein Ent-<lb/>
+kommen mehr möglich war, da man ihn in das schau-<lb/>
+rige Burgverließ hinabgeworfen hatte, wohin kein<lb/>
+Schein des Tages zu dringen vermochte.</p><lb/>
+<p>Lange saß Eppelin zwischen den finstern Mauern,<lb/>
+wo er anfangs wie ein Rasender sich geberdete, später<lb/>
+jedoch Geduld gelernt hatte. Seine Körperkraft verlor<lb/>
+sich mit seinem sinkenden Muthe, ja bald wünschte er<lb/>
+sich lieber den Tod, statt im dumpfen Kerker zu schmach-<lb/>
+ten. Seinen jammervollen Tagen sollte endlich auch<lb/>
+ein Ende gemacht werden, denn der Senat von Nürn-<lb/>
+berg hatte ihn zum Tode verurtheilt.</p><lb/>
+<p>Die Stunde der Hinrichtung erschien. Eppelin<lb/>
+wurde, nachdem man ihn aus dem finstern Verließ<lb/>
+heraufgeholt hatte, der unabänderliche Richterspruch<lb/>
+noch einmal verkündigt. Der Raubritter hörte mit<lb/>
+trotziger Ruhe das Urtheil an; in seinem bleichgewor-<lb/>
+denen Gesicht zeigte sich nicht die geringste Verände-<lb/>
+rung. Darauf trat ein Mitglied des hohen Senats<lb/>
+hervor und redete den Ritter von Gailingen also an:<lb/>
+&#x201E;Du weißt, Eppelin, daß es alter Brauch ist, auch<lb/>
+dem Verbrecher vor seinem letzten Gange noch eine<lb/>
+Gnade zu erzeigen; dies soll auch dir widerfahren.<lb/>
+Wenn du also noch einen Wunsch auf dem Herzen<lb/>
+hast, so sprich ihn aus, und steht es in unserer<lb/>
+Macht, so soll dir dein letztes Verlangen gewährt<lb/>
+werden.&#x201C;</p><lb/>
+<p>Jhr Herren seid gütig, erwiderte Eppelin, und ich<lb/>
+nehme eure Darbietung an. Vor dem Tode habe ich<lb/>
+mich nie gefürchtet, er ist mir jetzt sogar willkommen;<lb/>
+aber mein Leben möchte ich nicht gern hingeben, bevor<lb/>
+ich mein Weib, meine Kinder und mein edles Roß<lb/>
+noch einmal gesehen habe.</p><lb/>
+<p>Wo dein Weib und deine Kinder sind, entgegnete<lb/>
+der Rathsherr, das ist uns gänzlich unbekannt und<lb/>
+wir können sie dir bei dem besten Willen nicht her-<lb/>
+bringen; doch dein Roß ist hier im Stalle.</p><lb/>
+<p>So erlaubt mir wenigstens, rief Eppelin, daß ich<lb/>
+<cb n="2"/>
+dieses noch einmal sehen und auf ihm im Schloßhofe<lb/>
+reiten darf.</p><lb/>
+<p>Die Bitte wurde dem Ritter gewährt und sogleich<lb/>
+ging ein Boote ab, das Roß zu holen. Als man es<lb/>
+am Zaume geführt brachte, erblickte das treue Thier<lb/>
+seinen Herrn und wieherte laut, als wolle es seine<lb/>
+Freude des Wiedersehens kundgeben.</p><lb/>
+<p>Das Roß war bald gesattelt. Eppelin trat dem-<lb/>
+selben näher und klopfte ihm Hals und Brust. Dies<lb/>
+schien dem Thiere ungemein wohl zu thun, denn es<lb/>
+schmiegte sich mit dem Kopfe traulich an seinen Herrn<lb/>
+an und stampfte dann mit den Füßen, um anzudeu-<lb/>
+ten, daß es den Augenblick kaum erwarten könne,<lb/>
+wenn Eppelin aufsitzen werde. Endlich geschah dies.</p><lb/>
+<p>Noch nie ging ein Pferd so stolz einher als des<lb/>
+Raubritters Rappe. Aller Augen waren auf das schöne<lb/>
+Thier gerichtet, das alle seine edeln Eigenschaften ent-<lb/>
+falten zu wollen schien. Es tanzte zierlich mit seiner<lb/>
+geliebten Last auf dem Burgplatze umher und die Um-<lb/>
+stehenden gaben ihm gern größern Raum, als es im<lb/>
+Trabe lebendiger wurde und unter Schnauben und<lb/>
+Wiehern in rasenden Galopp überging, indem es mit<lb/>
+den flüchtigen Hufen die festen Ringmauern und das<lb/>
+verschlossene Burgthor berührte und mit gewaltigen<lb/>
+Tritten die Steine des engen Burgplatzes zu Staub<lb/>
+verwandelte.</p><lb/>
+<p>Die Ritter und Knappen traten so weit als mög-<lb/>
+lich zurück, um von dem majestätischen Gange des<lb/>
+Rosses kein unangenehmes Andenken an ihrem Leibe<lb/>
+mit davonzutragen. Den Gliedern des Senats wurde<lb/>
+das Wüthen des Rappen doch zu arg, darum rief<lb/>
+Einer aus der Mitte derselben: &#x201E;Halt' nun ein, Eppe-<lb/>
+lin, es ist nun des Reitens genug geschehen!&#x201C;</p><lb/>
+<p>O könnt' ich, schrie Eppelin wild, o könnt' ich so<lb/>
+in die Ewigkeit hinüberreiten! Und indem er dies<lb/>
+sagte, gab er seinem Rosse die Sporen. Das Thier<lb/>
+verstand ihn gar wohl. Ehe die Anwesenden noch an<lb/>
+die Möglichkeit eines solchen Sprunges denken konn-<lb/>
+ten, hatte sich der Rappe an der Mauer emporge-<lb/>
+bäumt, indem Eppelin seinen Hals umschlang, und<lb/>
+war mit einem furchtbaren Satze auf die Mauer ge-<lb/>
+sprungen, vor welcher der ungeheure Abgrund des<lb/>
+Burggrabens gähnte. Ein Augenblick nur verging,<lb/>
+während die Nürnberger das Unmöglichgeglaubte schau-<lb/>
+ten, da drückte Eppelin, den Tod vor den Augen, die<lb/>
+Sporen in die Weichen des Rappen; dieser bereitete<lb/>
+sich zu noch schrecklicherm Sprunge und im Nu flog<lb/>
+er mit seinem Reiter über den breiten Burggraben<lb/>
+hinweg auf das jenseitige Land. Wo das Roß seinen<lb/>
+Huf in den Felsen eingesetzt hatte, da blieb ein Ab-<lb/>
+druck im Steine bis auf den heutigen Tag.</p><lb/>
+<p>Die Nürnberger trauten ihren Augen nicht mehr,<lb/>
+als ihnen das Roß mit dem Ritter davonging; ver-<lb/>
+wundert sahen sie immer noch nach der Stelle hin,<lb/>
+wo der gräßliche Sprung geschah, aber von Eppelin<lb/>
+und seinem Rappen war nichts mehr zu bemerken,<lb/>
+denn Beide hatten sich eiligst davongemacht, um durch<lb/>
+die Flucht Freiheit und Leben zu retten.</p><lb/>
+<p>Der Senat schickte, nachdem man sich vom ersten<lb/>
+Schreck erholt hatte, zwar Knappen aus, den Ritter<lb/>
+von Gailingen aufzusuchen und wieder einzufangen,<lb/>
+denn man glaubte ihn noch in der Nähe versteckt;<lb/>
+doch Alles war vergebens, denn weder vom Roß noch<lb/>
+vom Reiter war, außer auf der Burgmauer, eine<lb/>
+Spur zu entdecken.</p><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<p>Während dies Alles in Nürnberg geschehen war,<lb/>
+hatte Hedwig, die Gattin Eppelin's, in der höchsten<lb/>
+<cb type="end"/>
+<pb facs="#f0004" n="284"/>
+<fw place="top" type="pageNum">284</fw><cb type="start"/>
+Angst geschwebt. Durch geheime Boten war ihr mit-<lb/>
+getheilt worden, daß sie nie hoffen dürfe, ihren Mann<lb/>
+wieder zu sehen, da er im tiefsten Burgverließ schmachte.<lb/>
+Zuletzt erhielt sie auch die Kunde von dem über ihn<lb/>
+gefällten Todesurtheile. Zitternd sah sie nun jeden<lb/>
+Boten kommen, denn sie fürchtete alle mal, daß die-<lb/>
+ser die Trauernachricht von der Vollstreckung des Ur-<lb/>
+theils bringen werde. Alle Mittel, die ihr wirksam<lb/>
+schienen, hatte sie zur Rettung ihres Gemahls ver-<lb/>
+<cb n="2"/>
+sucht, doch durch keins war sie im Stande gewesen,<lb/>
+in das fürchterliche Burgverließ und in die Herzen der<lb/>
+Senatsmitglieder zu dringen.</p><lb/>
+<p>Es konnte auch nicht anders sein, da kein Raub-<lb/>
+ritter einen Freund unter den redlichen und treuen Be-<lb/>
+wohnern des Landes besaß. Wie sollte also in der<lb/>
+wichtigen Stadt Nürnberg eine Rettung für Eppelin<lb/>
+möglich sein?</p><lb/>
+<p><ref target="nn_pfennig089_1854#Eppelin2"><hi rendition="#c">( Beschluß folgt. )</hi></ref></p></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1"><figure><head><hi rendition="#fr">Dezenzano am Gardasee.</hi></head></figure></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<pb facs="#f0005" n="285"/>
+<fw place="top" type="pageNum">285</fw><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Luftige Wohnung.</hi></head><lb/>
+<figure/><lb/>
+<cb type="start"/>
+<p><hi rendition="#in">W</hi>enn wir uns in des Jahres rauherer Zeit unserer<lb/>
+wohleingerichteten Wohnungen freuen, die uns Schutz<lb/>
+und Schirm gegen kalte und nasse Witterung bieten<lb/>
+und dann wol manchmal, wenn wir uns in unsern<lb/>
+vier Pfählen so recht behaglich fühlen, theilnehmend<lb/>
+Derjenigen gedenken, welche durch Stand und Beruf<lb/>
+genöthigt sind, einen großen Theil des Tags oder der<lb/>
+Nacht im Freien zuzubringen, wie auch immer Wetter<lb/>
+und Weg sein mögen: so will uns doch fast ein Schreck<lb/>
+ergreifen, wenn wir uns in eine so luftige, zwischen<lb/>
+Himmel und Erde hängende Wohnung hineindächten,<lb/>
+wie wir sie hier unter den Händen fleißiger Arbeiter<lb/>
+anlegen und entstehen sehen. Eine solche ist nämlich<lb/>
+ein Nothbehelf für Auswanderer nach Amerika, die<lb/>
+sich dort durch den Ackerbau forthelfen wollen und sich<lb/>
+Ländereien anzukaufen im Stande sind. Haben sie die<lb/>
+Überfahrt über das Weltmeer glücklich überstanden,<lb/>
+dann auch die nicht viel weniger beschwerliche Wande-<lb/>
+rung in das Jnnere des Landes, wo die angekauften<lb/>
+Ländereien liegen, so kann öfters der Anbau einer<lb/>
+Wohnung, und wäre sie auch noch so einfach, nicht<lb/>
+sogleich in Angriff genommen werden. Das Stück<lb/>
+Land, das sich der Pflanzer erworben hat, ist vielleicht<lb/>
+in seinem ganzen Umfange noch mit dichtem Walde<lb/>
+bedeckt, der durch Axt oder Feuer erst gelichtet werden<lb/>
+<cb n="2"/>
+muß. Es würde späterhin vielleicht doppelte Mühe<lb/>
+und Kosten verursachen, wollte man sofort Hand an<lb/>
+den Bau eines Wohnhauses legen, bevor man sein<lb/>
+ganzes Besitzthum kennen gelernt hat und dadurch in<lb/>
+den Stand gesetzt ist, die passendste Stätte für dasselbe<lb/>
+zu wählen. Und doch bedarf man eines einstweiligen<lb/>
+Aufenthaltsorts, der vor Sonnenhitze und Regenwet-<lb/>
+ter, vor schädlichen Thieren aller Art wenigstens einiger-<lb/>
+maßen schützt, der die mitgebrachten Vorräthe bergen und<lb/>
+vor Verderbniß bewahren helfe. Da richtet man denn<lb/>
+sein Absehen auf Bäume, welche passend nebeneinan-<lb/>
+der stehen und sich mit nicht allzugroßer Mühe zu einer<lb/>
+Jnterimswohnung einrichten lassen. Man hat Bei-<lb/>
+spiele, daß Pflanzer Monate, ja Jahre lang in solchen<lb/>
+luftigen Wohnungen gehaust haben, und wenn es auch<lb/>
+gewiß ist, daß Millionen von Menschen noch viel ein-<lb/>
+facher wohnen, in Höhlen oder Zelten, so darf man<lb/>
+doch nicht vergessen, daß dies größtentheils wilde Völ-<lb/>
+ker sind, die sich an ein geregelteres Zusammenleben<lb/>
+noch nicht gewöhnt haben, daß aber unsern europäi-<lb/>
+schen Landsleuten, die sich zum Auswandern veranlaßt<lb/>
+oder genöthigt sehen, ein Wechsel sehr beschwerlich<lb/>
+fallen muß, der ihnen unzählige Bequemlichkeiten des<lb/>
+Lebens, an die sie gewöhnt waren, auf kürzere oder<lb/>
+längere Zeit entzieht.</p></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle" xml:id="Seide3"><head><hi rendition="#fr"><hi rendition="#g">Die Seide</hi>.</hi><lb/>
+<ref target="nn_pfennig087_1854#Seide2">( Beschluß. )</ref></head><lb/>
+<cb type="start"/>
+<p><hi rendition="#in">D</hi>ie verlassenen Horden müssen sofort aus dem Sei-<lb/>
+denbaulocal geschafft und außerhalb desselben gereinigt<lb/>
+werden, um die innere Luft nicht durch übeln Geruch<lb/>
+zu verderben. Überhaupt ist während der Dauer der<lb/>
+Seidenzucht Alles zu vermeiden, was irgend einen<lb/>
+fremdartigen Geruch veranlaßt, als Tabacksrauch, star-<lb/>
+<cb n="2"/>
+ker Blumenduft, wohlriechende Wasser u. s. w. Auch<lb/>
+dürfen Personen, welche Taback schnupfen, die Rau-<lb/>
+pen nicht berühren, und Arbeiter, deren Hauch nach<lb/>
+Branntwein riecht, dürfen gar nicht zugelassen werden.<lb/>
+Wenn nun der Seidenwurm nach dreiwöchentlichem<lb/>
+Schwelgen Stoff genug zum Einspinnen gesammelt<lb/>
+<cb type="end"/>
+<pb facs="#f0006" n="286"/>
+<fw place="top" type="pageNum">286</fw><cb type="start"/>
+hat, so tritt er in seine letzte Lebensperiode ein, in<lb/>
+welcher er sich einen goldgelben Sarg zu seiner Ver-<lb/>
+puppung anfertigt. Aller Appetit ist dahin. Eine<lb/>
+Unruhe bemächtigt sich des ausgebildeten Künstlers, die<lb/>
+ihn von Ort zu Ort treibt. Er irrt umher, als ob<lb/>
+er einen Gegenstand zum Aufsteigen suche, und so ist<lb/>
+es auch. Der Seidenzüchter kennt sein Verlangen und<lb/>
+ist ihm schon zuvorgekommen. Er hat ganze Reihen<lb/>
+Horden zu Spinnhütten eingerichtet, indem er drei<lb/>
+Seiten jeder Horde so mit Birkenreisern umstellte, daß<lb/>
+sie sich zu Lauben wölben. Dadurch hat das Zimmer<lb/>
+ein ganz anderes Aussehen bekommen. Man glaubt<lb/>
+unendliche Waldgänge oder lange gothische Hallen zu<lb/>
+sehen. Eine heilige Stille ist in denselben. Der Lärm,<lb/>
+der durch das Fressen so vieler kleiner Mäuler entstand,<lb/>
+hat aufgehört; bedächtig kriecht jetzt die Raupe die<lb/>
+Zweige und Aeste hinan und sucht in den Wipfeln ein<lb/>
+stilles Plätzchen zum Spinnen des seidenen Fadens. Es<lb/>
+ist erstaunlich, mit welcher Umsicht, Klugheit und Aus-<lb/>
+dauer sie sucht, prüft, mißt, verwirft und von neuem<lb/>
+wählt, bis sie endlich den geeigneten Platz herausge-<lb/>
+funden hat. Zuerst spannt sie die Seile aus, die das<lb/>
+Haus tragen sollen; dann kauert und krümmt sie sich<lb/>
+zusammen und macht sich an die Hauptarbeit. Ohne<lb/>
+Unterbrechung geht nun das Köpfchen in der Runde<lb/>
+herum und spinnt den unendlichen Faden, der sich<lb/>
+bald zu einem durchsichtigen, schleierähnlichen Sarge<lb/>
+formt. Darin sieht man sie noch eine Zeitlang mit<lb/>
+Ämsigkeit fortarbeiten; aber über Nacht ist sie schon<lb/>
+hinter einer so dichten Hülle verschwunden, daß man<lb/>
+zwar mit hingehaltenem Ohre von ihrem Wirken und<lb/>
+Treiben noch etwas hören, aber nichts mehr davon se-<lb/>
+hen kann. Selbst den dritten Tag hört man noch ein<lb/>
+leises Knistern und Knuspern; dann aber wird es<lb/>
+stille und laut= und regungslos hängt der Cocon da.<lb/>
+Nicht alle Raupen kommen an ein so glückliches Ende.<lb/>
+Das geringste Geräusch, die leiseste Berührung stört<lb/>
+sie in ihrer Arbeit. Dann reißt der Faden und wird<lb/>
+nie wieder aufgenommen; ja eine Raupe, welche durch<lb/>
+eine Störung den angefangenen Faden aus dem Munde<lb/>
+verloren hat, ist ohne Rettung dem Tode geweiht.</p><lb/>
+<p>Der glänzende, feine, aber verhältnißmäßig sehr<lb/>
+feste Faden, den die Seidenraupe erzeugt, tritt durch<lb/>
+zwei unter ihrem Munde befindliche kleine Öffnungen<lb/>
+hervor. Der Körper der Raupe enthält nämlich auf<lb/>
+beiden Seiten zwei lange Spinngefäße, welche die Form<lb/>
+vielfältig gewundener Schläuche haben, die sich bald<lb/>
+verengen, bald erweitern und mit einem zähen Safte<lb/>
+angefüllt sind. Dieser dickliche Saft, von dem die<lb/>
+Spinngefäße zur Zeit der Einspinnung strotzen, erhär-<lb/>
+tet augenblicklich, sobald er aus den beiden Spinnwar-<lb/>
+zen an die Luft tritt, und erhält, indem er sich bei<lb/>
+seinem Austritt zu einem einzigen Faden vereinigt, eine<lb/>
+bedeutende Festigkeit. Von diesem Faden bildet die<lb/>
+Raupe zuerst ein lockeres, regelloses Netz aus verwirr-<lb/>
+ten Fäden und in diesem erst eine dichte, eiförmige<lb/>
+Hülle, den Cocon, dessen innerste Schicht eine perga-<lb/>
+mentartige Beschaffenheit hat und Dattel genannt wird.<lb/>
+Sie spinnt sich dieses Gehäuse in regelmäßigen, rück-<lb/>
+laufenden Windungen aus einem einzigen, ununterbro-<lb/>
+chenen Faden, der durch die ihm anhängende eiweiß-<lb/>
+artige Materie aneinanderklebt. Die Länge des Fa-<lb/>
+dens, woraus das ganze Gespinnst besteht, soll 12,000<lb/>
+Fuß betragen; allein die zur Verarbeitung zu gebrau-<lb/>
+chende Länge macht höchstens 1500&#x2014;2000 Fuß aus.<lb/>
+Es ist nämlich weder das äußere lose Fadengewirre<lb/>
+noch der innerste pergamentähnliche Theil zu guter<lb/>
+Seide brauchbar und wird nur zu Floretseide benutzt.<lb/>
+<cb n="2"/>
+Der eigentliche Cocon hat durchschnittlich1 1 / 3 Zoll<lb/>
+Länge und seine Wanddicke ist selten größer als die<lb/>
+Dicke eines starken Kartenblatts. Jn dem Cocon ein-<lb/>
+geschlossen, erleidet die Raupe ihre Verwandlung und<lb/>
+bildet sich zu einem höhern Wesen um. Zuerst wird<lb/>
+aus ihr eine braune, etwa einen Zoll lange Puppe;<lb/>
+aus dieser entwickelt sich nach zwei bis drei Wochen<lb/>
+ein Schmetterling von mittlerer Größe und grauwei-<lb/>
+ßer Farbe mit gepuderten Flügeln. Sein Leben ist<lb/>
+sehr kurz. Ohne Nahrung zu sich zu nehmen, legt er<lb/>
+alsbald 4 &#x2014; 500 Eier und stirbt. Den Cocon durch-<lb/>
+bricht er, indem er das eine Ende desselben mit einem<lb/>
+bräunlichen Safte erweicht und dann durch die ge-<lb/>
+machte Oeffnung ausschlüpft. Da nun durch dieses<lb/>
+Auskriechen nicht allein die Seide verdorben, sondern<lb/>
+auch das Abhaspeln des Seidenfadens ganz unmöglich<lb/>
+wird, so müssen die Puppen im Cocon getödtet wer-<lb/>
+den. Man bedient sich hierzu der Hitze und zwar ent-<lb/>
+weder der trockenen Erhitzung oder des Wasserdampfs.<lb/>
+Die letztere Art ist die leichteste. Es wird ein großer<lb/>
+Kessel mit Wasser gefüllt, ein Sieb mit einem hölzer-<lb/>
+nen Boden darauf gedeckt, dieses acht bis neun Zoll<lb/>
+hoch mit Cocons angefüllt und so dicht mit wollenen<lb/>
+Decken zugedeckt, daß die Dämpfe des erhitzten Wassers<lb/>
+nicht entweichen können. Nach 12&#x2014;15 Minuten sind<lb/>
+die Puppen erstickt. Um jedoch für das folgende Jahr<lb/>
+wieder Raupen zu haben, läßt man die schwersten Co-<lb/>
+cons zurück, da man voraussetzen kann, daß in diesen<lb/>
+sich die besten Schmetterlinge vorfinden. Nachdem der<lb/>
+Seidenzüchter durch Sonderung der vorzüglichsten Co-<lb/>
+cons auf seine künftige Zucht Bedacht genommen hat,<lb/>
+werden die zu verarbeitenden von der sie umgebenden<lb/>
+Wirrseide befreit und dann in einen Kessel geworfen,<lb/>
+dessen Wasser bis auf 60 Grad erhitzt ist. Diese<lb/>
+Wärme ist nothwendig, um den Seidenleim zu erwei-<lb/>
+chen, der die einzelnen Fadenwindungen zusammenklebt.<lb/>
+Wenn nun die Cocons durch fleißiges Untertauchen ge-<lb/>
+hörig durchgeweicht sind; so werden sie mit einem Be-<lb/>
+sen aus Reißholz so lange sanft geschlagen, bis man<lb/>
+sieht, daß alle Anfänge der einzelnen Coconsfäden sich<lb/>
+an den Besen angehängt haben. Darauf beginnt das<lb/>
+Abhaspeln, das gewöhnlich von Frauen besorgt wird.<lb/>
+Wie von einem Zwirnknäuel lösen sich die zahlreichen<lb/>
+Fadenwindungen los, welche die Raupe von außen<lb/>
+nach innen mit ihrem Köpfchen spann. Da nun ein<lb/>
+einzelner Faden viel zu zart ist, um verarbeitet zu wer-<lb/>
+den, so vereinigt die Hasplerin 3, 5 bis 8 solcher Fä-<lb/>
+den, je nachdem die Seide feiner oder gröber werden<lb/>
+soll, und zwar nicht durch Drehung, sondern durch<lb/>
+bloßes Aneinanderlegen der einzelnen Fäden, indem<lb/>
+diese immer noch soviel Leim haben, um von selbst zu-<lb/>
+sammenzukleben. Nach der Vereinigung werden sie<lb/>
+durch das Oehr eines von Porzellan gefertigten Schlüssel-<lb/>
+chens geschoben, welches an dem künstlichen Seiden-<lb/>
+haspel angebracht ist, und darauf gekreuzt, d. h. durch<lb/>
+die Hand der Hasplerin mit einem andern Faden 10&#x2014;<lb/>
+15 mal zusammengedreht. Von der Kreuzungsstelle aus<lb/>
+trennen sich die beiden Fäder wieder. Die Verschlin-<lb/>
+gung bewirkt nicht nur eine innigere Verbindung und<lb/>
+Rundung, sondern auch ein schnelleres Trocknen der<lb/>
+Seide, indem durch die Reibung die anhängende Feuch-<lb/>
+tigkeit abgestreift wird. Die beiden Fäden gehen nun<lb/>
+noch über mancherlei Häkchen und Stangen hinweg,<lb/>
+ehe sie auf den Haspel kommen. Dieser ist vierarmig<lb/>
+und seine wohlgeglätteten Stäbe sind von stumpfschnei-<lb/>
+diger Gestalt, damit die Seide so wenig als möglich<lb/>
+aufliegt und nicht zusammenkleben kann. Es geht schon<lb/>
+aus dem Gesagten hervor, daß der Seidenhaspel von<lb/>
+<cb type="end"/>
+<pb facs="#f0007" n="287"/>
+<fw place="top" type="pageNum">287</fw><cb type="start"/>
+einem gewöhnlichen Haspel sehr abweicht und eine aus<lb/>
+mancherlei Theilen kunstvoll zusammengesetzte Maschine<lb/>
+ist. Die Hasplerin kann nur durch eine lange, oft<lb/>
+vieljährige Uebung eine Fertigkeit und Zuverlässigkeit<lb/>
+in ihrer Arbeit erlangen. Sie muß ein scharfes Auge,<lb/>
+eine zarte, nicht durch schwere Arbeit verhärtete Hand<lb/>
+haben und mit der strengsten Gewissenhaftigkeit die be-<lb/>
+stimmte Zahl der aufzuhaspelnden Fäden anhaltend<lb/>
+beobachten, weil diese sonst nicht gleichförmig werden.</p><lb/>
+<p>Der mit Kunst und Mühe gesponnene Faden um-<lb/>
+rauscht vielleicht schon in wenigen Wochen als Seiden-<lb/>
+kleid den Leib einer Dame, und diese läßt es sich wol<lb/>
+nicht träumen, wie viel Seidenraupen zu ihrem Kleide<lb/>
+spinnen und den Tod erleiden mußten. 2500 Raupen<lb/>
+sind erfoderlich, um ein einziges Pfund Seide zu ge-<lb/>
+winnen. Rechnet man nun zu einem Kleide etwa sechs<lb/>
+Pfund Seide, so gehören dazu 15,000 Raupen. Um<lb/>
+den Seidenbedarf für ganz Europa zu besorgen, müssen<lb/>
+nicht weniger als 30,350 Millionen Raupen ihre<lb/>
+Todtenkammern bauen und 20 Millionen Maulbeer-<lb/>
+bäume ihre Blätter hergeben. Denkt man nun noch<lb/>
+an die übrigen Erdtheile, besonders an Asien, wo, wie<lb/>
+z. B. in China, fast Jeder sich in Seide kleidet und<lb/>
+nicht nur seidene Röcke und Beinkleider, sondern auch<lb/>
+seidene Hemden getragen werden, so muß man erstau-<lb/>
+nen über die unzählige Menge von Seidenraupen,<lb/>
+welche erfoderlich sind, um ein einziges Bedürfniß in<lb/>
+der Menschenwelt zu befriedigen.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Wie die Fleischhauer zu Königsberg 1601 den<lb/>
+Beginn des neuen Säculums gefeiert haben.</hi><lb/>
+( Aus der Chronik von Königsberg. )</head><lb/>
+<p><hi rendition="#in">V</hi>on den Fleischhauern zu Königsberg in Preußen<lb/>
+wird etwas Sonderliches erzählt, welches wir nicht<lb/>
+übergehen dürfen.</p><lb/>
+<cb n="2"/>
+<p>Es ist bei ihnen eine Gewohnheit, daß sie am Neu-<lb/>
+jahrstage mit großen Bratwürsten pflegen eine Pro-<lb/>
+cession oder Umbgang zu halten, gestaltsam sie dann<lb/>
+im Jahre 1558 eine Wurst umbgetragen, die 98 Ellen<lb/>
+gewesen in der Länge, im Jahre 1585 eine, so von<lb/>
+36 Schweineschinken zugerichtet gewesen, am Gewicht<lb/>
+434 Pfund, und in der Länge 596 Ellen gehalten,<lb/>
+welche fortzubringen 91 Personen ihre Achseln hergeliehen.</p><lb/>
+<p>Weil sie aber hernach diesen Gebrauch etliche Jahr<lb/>
+unterlassen, wollten sie mit einem desto herrlichern<lb/>
+Wurstgepränge solches ersetzen und das angehende 1601<lb/>
+Jahr, als ein neues Säculum, mit einer unerhörten<lb/>
+Bratwurst celebriren. Sie wurden einig und brachten<lb/>
+zusammen 81 geräucherte Schinken, die hackten sie klein<lb/>
+und füllten sie in die zubereiteten Därmer mit großer<lb/>
+Emsigkeit und machten eine Wurst, die 1005 Ellen<lb/>
+lang war. Jn dieser Wurst wurden mit untergemen-<lb/>
+get:18 1 / 4 Pf. Pfeffer und1 1 / 2 Scheffel Salz; ihr<lb/>
+Gewicht hielt 885 Pfund. Als nun die Zeit ihres<lb/>
+Gepränges kommen, rüsteten sie 105 Fleischerknechte,<lb/>
+die mit weißen Binden um den Leib, mit rothen aber<lb/>
+über die Brust geziert waren; diese trugen gedachte<lb/>
+Bratwurst in der Procession. Vor ihnen gingen etliche<lb/>
+Trompeter, neben ihnen gingen etliche des ehrbaren<lb/>
+Handwerks Zugethane, die Achtung gaben, daß die<lb/>
+Wurst nicht möchte Schaden leiden. Jn diesem Ge-<lb/>
+pränge gingen sie für das Schloß und verehrten dem<lb/>
+Fürsten 130 Ellen. Darüber die ganze Stadt erreget<lb/>
+wurde, also daß ein großer Zulauf geschahe von Jun-<lb/>
+gen und Alten, die sich über dies Bratwurst=Monstrum<lb/>
+freuten. Sie wanderten mit diesem Gepränge fort<lb/>
+durch die Städte Königsberg, bis daß sie kamen zur<lb/>
+Versammlung des löblichen Beckerhandwerks, daselbst<lb/>
+waren sie mit den Beckern fröhlich und lustig und ver-<lb/>
+ehrten sie mit einem stattlichen Stück ihrer Bratwurst.<lb/>
+Gedachte Becker aber wollten sich mit ihrer Kunst auch<lb/>
+sehen lassen, trugen hierauf etliche Scheffel schönes<lb/>
+Mehl zusammen und buken acht Strützel, deren jeder<lb/>
+fünf Ellen lang war.</p></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1"><figure><head><hi rendition="#fr">Furkagletscher.</hi></head></figure></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<pb facs="#f0008" n="288"/>
+<fw place="top" type="pageNum">288</fw><lb/>
+<div n="1" type="jVarious"><head><hi rendition="#fr"><hi rendition="#g">Mannichfaltiges</hi>.</hi></head><lb/>
+<cb type="start"/>
+<div n="2" type="jArticle"><p>Kennzeichen des Todes, behauptet der Doctor Josat<lb/>
+in Paris in einer jetzt sehr gelesenen Schrift, sei einzig und<lb/>
+allein die chemische Zersetzung der Organisation des Men-<lb/>
+schen, die Verwesung; sei diese eingetreten, dann, aber auch<lb/>
+dann erst könne und dürfe der Mensch dem Schooße der Erde<lb/>
+anvertraut werden und es sei unerläßliche Pflicht der Staats-<lb/>
+behörden, hier eine strenge Controle einzuführen. Was man<lb/>
+sonst immer als Todeskennzeichen ansehe &#x2014; völlige Unbe-<lb/>
+weglichkeit und Starrheit des Körpers, das hippokratische<lb/>
+Gesicht, die Bläue der Finger, die Verzerrung der Pupille<lb/>
+&#x2014; sei, selbst in der Gesammtheit, nur Vermuthung des<lb/>
+Todes, nicht Beweis für ihn. Auch den Stillstand des Herz-<lb/>
+schlags, durch das Gehör constatirt, läßt Josat nicht als un-<lb/>
+widerlegliches Zeugniß des Todes gelten, da es höchst schwie-<lb/>
+rig sei, das leiseste Zittern eines so tief versteckten, oft von<lb/>
+einer dicken Muskelschicht bedeckten Organs wahrzunehmen.<lb/>
+Für alle seine Behauptungen führt der menschenfreundliche<lb/>
+Arzt schlagende Beispiele an. Nicht ohne Schaudern liest<lb/>
+man bei ihm, wie ein Edelmann unter des Anatomen Ve-<lb/>
+sale Messer sich wieder belebte, wie der Cardinal Espinosa<lb/>
+nach dem Skalpel griff, das ihm den Bauch aufschnitt und<lb/>
+der Abbé Prevost unter den Qualen der Oeffnung, die man<lb/>
+mit seinem scheinbaren Leichnam vornahm, verhauchte.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Kopenhagen hieß Wellington's Bataillepferd; während<lb/>
+der Schlacht bei Waaterloo saß Wellington 18 Stunden hin-<lb/>
+tereinander ununterbrochen auf dessen Rücken. Dennoch gab<lb/>
+Kopenhagen kein Zeichen von Ermüdung und als sein Herr<lb/>
+ihm, nachdem er endlich abgestiegen, den Hals klatschte,<lb/>
+bäumte er so lustig auf, als käme er von einem halbstündi-<lb/>
+gen Spaziergange zurück. Nach des Herzogs Rückkehr nach<lb/>
+England bekam Kopenhagen ein Gehege im Parke von<lb/>
+Stratfieldsay angewiesen, in welchem er den Rest seines Le-<lb/>
+bens in der größten Behaglichkeit durchlebte; er hatte einen<lb/>
+schönen Stall und eine reiche Weide und konnte sich aufhal-<lb/>
+ten, wo er wollte. Er hatte ein Auge verloren, war lahm<lb/>
+und schwach geworden und in der Art, wie er selbst einem<lb/>
+zufälligen Besucher entgegenkam, lag fast unverkennbar die<lb/>
+Bitte um Theilnahme, wie man Aehnliches auch bei alten<lb/>
+Hunden findet. Er ward förmlich mit militärischen Ehren<lb/>
+begraben.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Die Entstehung der Perlen ist noch immer ein den<lb/>
+Naturforschern nicht entschiedener Vorgang. Man hat ge-<lb/>
+funden, daß kleine Würmer die Schale von außen anbohren,<lb/>
+um das Thier auszusaugen. Die Muschel aber sucht ihnen<lb/>
+das Eindringen zu verwehren, indem sie an dem Orte, wo<lb/>
+sie eindringen wollen, ihren schleimigen Saft anhäuft; dieser<lb/>
+vertrocknet und wird zur Perle. Andere erklären sich so:<lb/>
+Das Muschelthier öffnet dann und wann die vordern Seiten<lb/>
+der Schalen, um Wasser und Luft zu schöpfen. Dabei ge-<lb/>
+räth manchmal ein Sandkorn oder Steinchen hinein; das<lb/>
+mag dem weichen Thierchen weh thun. Um das Drücken zu<lb/>
+verhindern, überzieht es den Stein mit seinem Schleime.<lb/>
+Nach einiger Zeit wird auch dieser hart. Es überzieht ihn<lb/>
+von neuem und so geht es fort und dabei wächst der Gegen-<lb/>
+stand, den wir Perle nennen.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Die stärkste Einwanderung, welche bisher im Ha-<lb/>
+fen von Neuyork ankam, war am 18. Mai 1854, wo nicht<lb/>
+weniger als 12,471 Menschen landeten. Die nächstfolgenden<lb/>
+beiden Tage wurden 8245 Personen ans Land gesetzt, sodaß<lb/>
+binnen drei Tagen nicht weniger als 20,716 europäische<lb/>
+Einwanderer die Union in deren commercieller Hauptstadt<lb/>
+betraten. Diesen auffallend großen Zudrang hatte man den<lb/>
+zeither herrschenden widrigen Winden beizumessen, wodurch<lb/>
+die Schiffe auf ihrer Fahrt zurückgehalten wurden, bis gün-<lb/>
+<cb n="2"/>
+stigere Luftströmung sie auf ein mal insgesammt dem Westen<lb/>
+entgegentrieb. Ein solcher Andrang überfüllte umsomehr alle<lb/>
+Locale, in denen Einwanderer Aufnahme finden, als die<lb/>
+Zollhausbeamten nicht im Stande waren, alle Schiffe mit<lb/>
+einem male zu besichtigen, sodaß natürlich Tausende von ih-<lb/>
+rer raschen Weiterreise ins Jnnere mehre Tage abgehalten<lb/>
+wurden. Glücklicherweise war das Wetter günstig und die<lb/>
+Ankommenden konnten ohne Nachtheil für ihre Gesundheit<lb/>
+und Habe vielfach im Freien bleiben. Einige Piers oder<lb/>
+Landungsdocks waren dicht angefüllt mit Einwanderern und<lb/>
+ihrem Gepäck, während nicht wenige Schiffe mit allen Passa-<lb/>
+gieren im Hudsonstrome liegenbleiben mußten, da die zahl-<lb/>
+reichen Piers nicht ausreichten, um das Anlegen und Aus-<lb/>
+laden aller dieser Emigrantenschiffe zu gestatten. Ebenso<lb/>
+war der Andrang von Einwanderern an den Weiterbeförde-<lb/>
+rungsanstalten ins Jnnere unerhört stark. Die Hudsonfluß-<lb/>
+Eisenbahn, welche gegenwärtig am gesuchtesten von den Ein-<lb/>
+wandernden ist, weil ihre Beförderung für die beste gilt,<lb/>
+schaffte am 20. Mai nicht weniger als 3000 Personen mit<lb/>
+dem Emigrantenzuge weiter und nahm dazu alle ihre dispo-<lb/>
+niblen Wagen.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Russische Sprüchwörter. Wie man den Strang zieht,<lb/>
+so lauten die Glocken. &#x2014; Wenn die Mücke auf der ge-<lb/>
+schwungenen Glocke sitzt, hält sie sich für den Glöckner. &#x2014;<lb/>
+Wenn man dem Schafe die Wolle abscheert, geschieht es<lb/>
+nicht, um ihm einen Rock daraus zu machen. &#x2014; Wenn man<lb/>
+den Flug der Vögel lobt, wackelt die Ente mit dem Kopfe.<lb/>
+&#x2014; Mit der Zeit werden Eicheln zu Eichen. &#x2014; Hänge das<lb/>
+neue Werg erst an die Kunkel, wenn das alte versponnen<lb/>
+ist. &#x2014; Es geschieht nicht der Borke wegen, daß der Specht<lb/>
+an die Bäume pickt. &#x2014; Wir beide haben brav gerudert,<lb/>
+sagte die Fliege zum Fährmann, als das Boot am andern<lb/>
+Ufer war. &#x2014; Die neunte Haut gehört auch noch zur Zwie-<lb/>
+bel. &#x2014; Fest ist der Tod, schwankend das Leben. &#x2014; Auch<lb/>
+dem frommen Hunde soll man die Hand nicht ins Maul<lb/>
+stecken. &#x2014; Der Kater freit allezeit um die Maus, sie will<lb/>
+nur nicht seine Braut sein. &#x2014; Auch aus einer großen Blume<lb/>
+flicht man keinen Kranz. &#x2014; Die Schule ist unnütz, in der<lb/>
+der Hahn krähen lernen soll. &#x2014; Wo gefegt werden soll, fin-<lb/>
+det sich schon ein Besen. &#x2014; Wer den Spieß kauft, bekommt<lb/>
+den Krieg als Zugabe. &#x2014; Gesunden schmeckt Sumpfwasser<lb/>
+besser als Kranken der Wein. &#x2014; Wenn Hühner kakeln,<lb/>
+gibt's Eier; wenn die Weiber kakeln, sind keine da. &#x2014; Auch<lb/>
+hundert Erbsen geben ein klein Gericht.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Der leise Gang des Kameels setzt Alle, die ein ein-<lb/>
+zelnes oder mehre an sich vorübergehen sehen, in Staunen.<lb/>
+Mag der Erdboden sein wie er wolle &#x2014; Sand, Felsen, Ra-<lb/>
+sen, Steinplatten, Holzbohlen &#x2014; man hört keinen Schritt,<lb/>
+man sieht ein großes Thier ganz ruhig näherkommen wie<lb/>
+eine in der Luft hängende Wolke und, wenn es keine Glocke<lb/>
+am Halse trägt, so leise, daß das Ohr nichts von seiner An-<lb/>
+näherung vernimmt. Diese Geräuschlosigkeit rührt von der<lb/>
+schwammigen Natur seiner Füße her; auf den elastischen Pol-<lb/>
+stern derselben scheint es mehr zu schweben als zu gehen.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Die afrikanischen Wanderameisen sind schlimm. Sie<lb/>
+sind so groß wie ein Fingerglied, von Farbe schwarz; wo sie<lb/>
+ihre Klauen einschlagen, quillt sogleich das Blut hervor; oft<lb/>
+bleiben sie noch sitzen, wenn das Thier schon getödtet ist.<lb/>
+Jhre Züge sind so lang, daß es oft einen halben Tag dauert,<lb/>
+ehe sie vorbei sind. Mit reißender Schnelligkeit nehmen sie<lb/>
+von einem Hause Besitz, suchen nach Nahrung und machen<lb/>
+dabei ein Geräusch wie stark auffallender Regen. Gewöhn-<lb/>
+lich verlassen sie die Hütte mit der aufgehenden Sonne und<lb/>
+ziehen sich wieder in die Wälder zurück.</p></div></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/><lb/>
+</body>     <back><div n="1" type="imprint"><p><hi rendition="#c">Verantwortlicher Redacteur: <hi rendition="#aq">M</hi>. J. E. Volbeding. &#x2014; Druck und Verlag von F. A. Brockhaus in Leipzig.</hi></p></div>     </back>   </text> </TEI>

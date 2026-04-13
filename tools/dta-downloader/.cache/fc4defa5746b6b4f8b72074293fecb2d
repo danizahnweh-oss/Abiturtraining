@@ -1,0 +1,891 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.deutschestextarchiv.de/basisformat.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">     <teiHeader>
+<fileDesc>
+<titleStmt>
+<title type="main">Das Pfennig-Magazin für Belehrung und Unterhaltung</title>
+<title type="sub">Dritte Folge, Zweiter Jahrgang, Nr. 74</title>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/115266127">
+<surname>Geyken</surname>
+<forename>Alexander</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1222198746">
+<surname>Haaf</surname>
+<forename>Susanne</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1019062681">
+<surname>Jurish</surname>
+<forename>Bryan</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Boenig</surname>
+<forename>Matthias</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Thomas</surname>
+<forename>Christian</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Wiegand</surname>
+<forename>Frank</forename>
+</persName>
+</editor>
+<respStmt>
+<orgName>Institut für Deutsche Sprache, Mannheim</orgName>
+<resp>
+<note type="remarkResponsibility">Bereitstellung der Bilddigitalisate und TEI
+Transkription</note>
+<ref target="http://hdl.handle.net/10932/00-01B8-B09E-AF7F-C001-8"/>
+</resp>
+</respStmt>
+<respStmt>
+<persName>
+<forename>Peter</forename>
+<surname>Fankhauser</surname>
+</persName>
+<resp>
+<note type="remarkResponsibility">
+Transformation von TUSTEP nach TEI P5.
+Transformation von TEI P5 in das DTA TEI P5 Format.
+</note>
+</resp>
+</respStmt>
+<respStmt>
+<orgName ref="https://www.bbaw.de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<resp>
+<note type="remarkResponsibility">Langfristige Bereitstellung der DTA-Ausgabe</note>
+<ref target="https://www.bbaw.de"/>
+</resp>
+</respStmt>
+</titleStmt>
+<editionStmt><edition>Vollständige digitalisierte Ausgabe.</edition></editionStmt>
+<extent>
+<measure type="images">8</measure>
+<measure type="tokens">4980</measure>
+<measure type="types">2092</measure>
+<measure type="characters">33211</measure>
+</extent>
+<publicationStmt>
+<publisher xml:id="DTACorpusPublisher">
+<email>dta@bbaw.de</email>
+<orgName role="project">Deutsches Textarchiv</orgName>
+<orgName role="hostingInstitution" xml:lang="en">Berlin-Brandenburg Academy of Sciences and Humanities (BBAW)</orgName>
+<orgName role="hostingInstitution" xml:lang="de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<address>
+<addrLine>Jägerstr. 22/23, 10117 Berlin</addrLine>
+<country>Germany</country>
+</address>
+</publisher>
+<pubPlace>Berlin</pubPlace>
+<date type="publication">2025-10-24T08:35:13Z</date>
+<availability>
+<licence target="http://creativecommons.org/publicdomain/zero/1.0/">
+<p>Dieses Werk steht unter der "Creative Commons Namensnennung -
+Nicht kommerziell 3.0 Deutschland Lizenz" (CC BY-NC).</p>
+</licence>
+</availability>
+<idno>
+<idno type="URLWeb">https://www.deutschestextarchiv.de/nn_pfennig074_1854</idno>
+<idno type="URLXML">https://www.deutschestextarchiv.de/book/download_xml/nn_pfennig074_1854</idno>
+<idno type="URLHTML">https://www.deutschestextarchiv.de/book/download_html/nn_pfennig074_1854</idno>
+<idno type="URLText">https://www.deutschestextarchiv.de/book/download_text/nn_pfennig074_1854</idno>
+<idno type="DTADirName">nn_pfennig074_1854</idno>
+<idno type="DTAID">34731</idno>
+<idno type="URN">urn:nbn:de:kobv:b4-34731-7</idno>
+</idno>
+</publicationStmt>
+<sourceDesc>
+<bibl type="J">Das Pfennig=Magazin für Belehrung und Unterhaltung. Dritte Folge, Zweiter Jahrgang, Nr. 74. Leipzig (Sachsen), 25. Mai 1854.</bibl>
+<biblFull>
+<titleStmt>
+<title level="m" type="main">Das Pfennig-Magazin für Belehrung und Unterhaltung</title>
+<title level="m" type="sub">Dritte Folge, Zweiter Jahrgang, Nr. 74</title>
+</titleStmt>
+<editionStmt>
+<edition n="1"/>
+</editionStmt>
+<publicationStmt>
+<publisher/>
+<pubPlace>Leibzig (Sachsen)</pubPlace>
+<date type="publication">1854</date>
+</publicationStmt>
+</biblFull>
+<msDesc>
+<msIdentifier/>
+<physDesc>
+<typeDesc>
+<p>Fraktur</p>
+</typeDesc>
+</physDesc>
+</msDesc>
+</sourceDesc>
+</fileDesc>
+<encodingDesc>
+<editorialDecl>
+<p>
+<![CDATA[
+<p>Siehe Dokumentation</p>
+]]>
+</p>
+</editorialDecl>
+<tagsDecl>
+<rendition scheme="css" xml:id="aq">font-family:sans-serif</rendition>
+<rendition scheme="css" xml:id="b">font-weight:bold</rendition>
+<rendition scheme="css" xml:id="blue">color:blue</rendition>
+<rendition scheme="css" xml:id="c">display:block; text-align:center</rendition>
+<rendition scheme="css" xml:id="et">display:block; margin-left:2em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et2">display:block; margin-left:4em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et3">display:block; margin-left:6em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="f">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="fr">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="g">letter-spacing:0.125em</rendition>
+<rendition scheme="css" xml:id="i">font-style:italic</rendition>
+<rendition scheme="css" xml:id="in">font-size:150%</rendition>
+<rendition scheme="css" xml:id="k">font-variant:small-caps</rendition>
+<rendition scheme="css" xml:id="larger">font-size:larger</rendition>
+<rendition scheme="css" xml:id="red">color:red</rendition>
+<rendition scheme="css" xml:id="right">display:block; text-align:right</rendition>
+<rendition scheme="css" xml:id="s">text-decoration:line-through</rendition>
+<rendition scheme="css" xml:id="smaller">font-size:smaller</rendition>
+<rendition scheme="css" xml:id="sub">vertical-align:sub; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="sup">vertical-align:super; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="u">text-decoration:underline</rendition>
+<rendition scheme="css" xml:id="uu">border-bottom:double 3px #000</rendition>
+</tagsDecl>
+</encodingDesc>
+<profileDesc>
+<langUsage>
+<language ident="deu">(Früh-)Neuhochdeutsch</language>
+<language ident="deu">German</language>
+</langUsage>
+<textClass>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1main">Gebrauchsliteratur</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1sub">Zeitschrift</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">ready</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">mkhz1</classCode>
+</textClass>
+</profileDesc>
+</teiHeader>
+<text>     <front>
+<pb facs="#f0001" n="[169]"/>
+<titlePage type="heading"><docTitle><titlePart type="main"><hi rendition="#c #fr">Das Pfennig=Magazin<lb/>
+für<lb/>
+<hi rendition="#g">Belehrung und Unterhaltung</hi>.</hi></titlePart></docTitle><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<docImprint><hi rendition="#fr">Nr</hi>. 74. ]                <hi rendition="#c">Dritte Folge. Zweiter Jahrgang.</hi>                <docDate><hi rendition="#right">[ 25. <hi rendition="#g">Mai</hi> 1854.</hi></docDate>              </docImprint></titlePage><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+</front>     <body>       <div n="1"><figure><head><hi rendition="#fr">Die erste Lehrstunde.</hi></head></figure></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Die corsische Antigone.</hi></head><lb/>
+<cb type="start"/>
+<p><hi rendition="#in">E</hi>s war gegen das Ende des Jahres 1768. Die<lb/>
+Franzosen hatten Oletta besetzt, ein ansehnliches Dorf<lb/>
+im Lande Nebbio. Weil der Posten wegen seiner Lage<lb/>
+höchst wichtig war, hatte Pasquale Paoli mit den<lb/>
+Einwohnern von Oletta heimlich Verbindungen ange-<lb/>
+knüpft, um die französische Besatzung zu überfallen<lb/>
+<cb n="2"/>
+und gefangen zu nehmen. Sie zählte 1500 Mann<lb/>
+unter dem Befehle des Marquis von Arcambal. Aber<lb/>
+die Franzosen waren auf ihrer Hut, sie verkündeten<lb/>
+das Kriegsgesetz in Oletta und übten ein wachsam<lb/>
+strenges Regiment, sodaß die Männer des Dorfes<lb/>
+nichts wagen durften.</p><lb/>
+<cb type="end"/>
+<pb facs="#f0002" n="170"/>
+<fw place="top" type="pageNum">170</fw>       <cb type="start"/>
+<p>Grabesstille herrschte nun in Oletta.</p><lb/>
+<p>Da verließ eines Tages ein Jüngling, Giulio Sa-<lb/>
+liceti, ohne Erlaubniß der französischen Wache sein<lb/>
+Dorf, um auf die Campagna hinauszugehen. Als er<lb/>
+wieder zurückkehrte, wurde er festgenommen und in<lb/>
+den Kerker geworfen; doch gab man ihm nach kurzer<lb/>
+Zeit die Freiheit zurück.</p><lb/>
+<p>Der Jüngling ging aus dem Kerker nach dem<lb/>
+Hause seiner Verwandten, den Groll im Herzen, daß<lb/>
+ihm der Feind eine Schmach angethan. Er murmelte<lb/>
+etwas vor sich hin, und das war wol ein Fluch gegen<lb/>
+die verhaßten Franzosen. Ein Sergeant hörte, was<lb/>
+Giulio murmelte und gab ihm einen Schlag ins Ge-<lb/>
+sicht. Dies geschah vor dem Fenster des Hauses, und<lb/>
+am Fenster stand eben der Abt Saliceti, Giulio's<lb/>
+Verwandter, den das Volk Peverino nannte, das heißt<lb/>
+spanischer Pfeffer, weil er ein hitziger und jäher Mann<lb/>
+war. Wie Peverino den Schlag ins Antlitz seines<lb/>
+Verwandten fallen sah, war es ihm, als sollte ihm<lb/>
+das Herz im Leibe verbrennen.</p><lb/>
+<p>Als nun Giulio seiner Sinne nicht mächtig in das<lb/>
+Haus stürzte, nahm ihn Peverino in seine Kammer.<lb/>
+Nach einer Weile sah man beide Männer heraustre-<lb/>
+ten, ruhig, doch unheimlich ernst.</p><lb/>
+<p>Nachts stiegen heimlich andere Männer in das<lb/>
+Hans Saliceti, saßen zusammen und beriethen sich.<lb/>
+Was sie beriethen, war dies: sie wollten die Kirche<lb/>
+von Oletta, welche die Franzosen in ihre Kaserne ver-<lb/>
+wandelt hatten, in die Luft sprengen, dadurch sich ret-<lb/>
+ten und sich befreien.</p><lb/>
+<p>Sie gruben eine Mine von Saliceti's Hause bis<lb/>
+unter die Kirche, und nachdem sie sich dahin durchge-<lb/>
+wühlt hatten, füllten sie den Minengang mit all dem<lb/>
+Pulver, welches sie versteckt gehalten hatten.</p><lb/>
+<p>Am 13. Februar des Jahres 1769 gegen die<lb/>
+Nacht sollte die Kirche auffliegen.</p><lb/>
+<p>Dem Giulio war das Herz vor Jngrimm so klein<lb/>
+geworden wie eine Flintenkugel. Morgen, sagte er<lb/>
+zitternd, morgen! Laßt mich die Lunte anlegen. Sie<lb/>
+haben mich ins Gesicht geschlagen, ich will ihnen einen<lb/>
+Schlag geben, der soll sie bis in die Wolken schleudern;<lb/>
+ich will sie aus Oletta hinauswettern mit einem Schusse<lb/>
+wie das Blei aus einer Tromba.</p><lb/>
+<p>Aber die Weiber und Kinder und die es nicht<lb/>
+wissen? Die Explosion wird die nächsten Häuser mit-<lb/>
+reißen und die ganze Nachbarschaft.</p><lb/>
+<p>Man muß sie warnen. Man muß ihnen unter<lb/>
+irgend einem Vorwande befehlen, um die gewisse<lb/>
+Stunde nach dem andern Ende des Dorfs zu gehen,<lb/>
+und das in aller Stille.</p><lb/>
+<p>So thaten die verschworenen Männer.</p><lb/>
+<p>Als nun die fürchterliche Stunde des morgenden<lb/>
+Abends kam, sah man Greise, Männer, Weiber, Kin-<lb/>
+der stumm und in ungewisser Furcht, scheu, heimlich<lb/>
+und schnell nach dem andern Ende des Dorfs gehen<lb/>
+und dort sich sammeln.</p><lb/>
+<p>Da schöpften die Franzosen Argwohn und ein<lb/>
+Bote vom General Grand=Maison kam herbeigesprengt,<lb/>
+der gab jählings Kunde von Dem, was man diesem<lb/>
+bereits gemeldet hatte. Denn Jemand hatte den An-<lb/>
+schlag verrathen. Augenblicklich warfen sich die Fran-<lb/>
+zosen auf Saliceti's Haus und die Pulvermine und<lb/>
+verhinderten das höllische Unternehmen.</p><lb/>
+<p>Saliceti mit einem kleinen Theile der Verschwore-<lb/>
+nen hieb sich mit verzweifeltem Muthe durch und ent-<lb/>
+kam glücklich aus Oletta. Andere aber wurden er-<lb/>
+griffen und in Ketten gelegt. Das Kriegsgericht ver-<lb/>
+urtheilte 14 Tapfere zum Tode durch das Rad<lb/>
+<cb n="2"/>
+und an sieben Unglücklichen wurde die Strafe wirklich<lb/>
+vollzogen.</p><lb/>
+<p>Sieben Leichname sah man auf dem Platze vor<lb/>
+dem Kloster von Oletta öffentlich ausgestellt. Kein<lb/>
+Grab sollte ihnen werden. Der französische Comman-<lb/>
+dant hatte das Gebot erlassen, daß Der des Todes<lb/>
+schuldig sein solle, welcher einen der Todten vom Ge-<lb/>
+rüste nehmen und begraben würde.</p><lb/>
+<p>Auf dem Dorfe Oletta lag das Entsetzen. Der<lb/>
+Todesschauer hatte jedes Herz ergriffen. Keine mensch-<lb/>
+liche Seele zeigte sich auf den Straßen; das Feuer auf<lb/>
+den Heerden war erloschen, jede Stimme todt außer<lb/>
+der des Weinens. Sie saßen in den Häusern und<lb/>
+ihre Gedanken starrten unablässig nach dem Kloster-<lb/>
+platze, wo die sieben Leichen auf dem Gerüste lagen.</p><lb/>
+<p>Es kam die erste Nacht. Da saß auf ihrem Bette<lb/>
+in der Kammer Maria Gentili Montalti. Sie weinte<lb/>
+nicht, sie saß, das Antlitz auf die Brust gebeugt, die<lb/>
+Hände im Schoose, die Augen geschlossen. Manchmal<lb/>
+schluchzte ihre Seele auf.</p><lb/>
+<p>Es war ihr, als riefe durch die Stille der Nacht<lb/>
+eine Stimme: O Mar <hi rendition="#aq">ì!</hi> </p><lb/>
+<p>Die Todten rufen manchmal in der stillen Nacht<lb/>
+den Namen Dessen, den sie geliebt haben. Wer ant-<lb/>
+wortet, muß sterben.</p><lb/>
+<p>O Bernardo! rief Maria; denn sie wollte sterben.</p><lb/>
+<p>Bernardo aber lag vor dem Kloster auf dem Ge-<lb/>
+rüste und von den Todten war er der jüngste und der<lb/>
+siebente. Er war Maria's Verlobter, im folgenden<lb/>
+Monate sollte die Hochzeit sein. Nun lag er todt auf<lb/>
+dem Blutgerüste.</p><lb/>
+<p>Maria Gentili stand in der dunkeln Kammer still,<lb/>
+sie horchte gegen die Seite hin, wo der Klosterplatz<lb/>
+lag, und ihre Seele hielt Zwiesprache mit einem Geiste.<lb/>
+Bernardo schien sie zu bitten um ein christliches Be-<lb/>
+gräbniß.</p><lb/>
+<p>Der aber sollte des Todes schuldig sein, welcher<lb/>
+einen Todten vom Gerüste nehmen und begraben<lb/>
+würde. Maria wollte ihren Verlobten begraben und<lb/>
+dann sterben.</p><lb/>
+<p>Sie öffnete leise die Thüre ihrer Kammer, um das<lb/>
+Haus zu verlassen. Sie schritt durch das Zimmer, in<lb/>
+welchem ihre greisen Ältern schliefen, trat an ihr La-<lb/>
+ger und lauschte den Athemzügen ihres Schlafs. Da<lb/>
+fing ihr Herz an zu zittern, denn sie war das einzige<lb/>
+Kind ihrer Aeltern und ihr Stab, und wie sie be-<lb/>
+dachte, daß ihr Tod durch Henkershand Vater und<lb/>
+Mutter in die Grube beugen würde, schwankte ihr die<lb/>
+Seele in großem Leide und sie that einen Schritt zu-<lb/>
+rück nach ihrer Kammer.</p><lb/>
+<p>Da hörte sie wieder die Todtenstimme klagen: &#x2014;<lb/>
+O Mar <hi rendition="#aq">ì</hi>! &#x2014; O Mar <hi rendition="#aq">ì</hi>, ich habe dich so sehr geliebt<lb/>
+und nun willst du mich verlassen? Jn meinem ge-<lb/>
+brochenen Leibe liegt das Herz, das in Liebe zu dir<lb/>
+gestorben ist &#x2014; begrabe mich, in der Kirche des Fran-<lb/>
+ciscus, im Grabe meiner Väter... o Mar <hi rendition="#aq">ì</hi>...</p><lb/>
+<p>Maria öffnete die Thür des Hauses und trat in<lb/>
+die Nacht hinaus. Sie wankte nach dem Klosterplatze.<lb/>
+Die Nacht war finster. Manchmal kam der Sturm<lb/>
+und fegte die Wolken hinweg, daß der Mond hinun-<lb/>
+terschien. Wenn sein Strahl auf den Klosterplatz fiel,<lb/>
+war es, als wollte das Licht des Himmels nicht sehen,<lb/>
+was es sah, und der Mond zog die schwarzen Wol-<lb/>
+kenschleier wieder vor. Denn vor dem Kloster lagen<lb/>
+auf dem rothen Gerüste sieben Leichen, eine neben der<lb/>
+andern, und die siebente war eines Jünglings Leiche.</p><lb/>
+<p>Die Eule und der Rabe schrien auf dem Thurme,<lb/>
+die sangen den Vocero, die Todtenklage. Ein Grena-<lb/>
+<cb type="end"/>
+<pb facs="#f0003" n="171"/>
+<fw place="top" type="pageNum">171</fw><cb type="start"/>
+dier aber ging mit geschultertem Gewehr in der Nähe<lb/>
+des Platzes auf und ab. Jhm grauste wol bis in das<lb/>
+tiefste Mark, er hatte seinen Mantel über das Gesicht<lb/>
+geschlagen und wandelte langsam auf und nieder.</p><lb/>
+<p>Maria hatte sich in die schwarze Faldetta gehüllt,<lb/>
+daß in der Nacht ihre Gestalt leichter verschwände. Ein<lb/>
+Gebet schickte sie zur heiligen Jungfrau der Schmer-<lb/>
+zensmutter, daß sie ihr helfen solle, und dann schritt<lb/>
+sie rasch zu dem Gerüste. Der siebente Todte war es<lb/>
+&#x2014; sie löste Bernardo; ihr Herz und ein Schimmer<lb/>
+von seinem Todtengesicht sagten ihr, daß er es war,<lb/>
+auch in der dunkeln Nacht. Maria nahm den Todten<lb/>
+auf ihre Arme, auf ihre Schulter. Sie war stark ge-<lb/>
+worden wie von Manneskraft und trug den Todten<lb/>
+in die Kirche des heiligen Franciscus.</p><lb/>
+<p>Da setzte sie sich erschöpft auf die Stufen eines<lb/>
+Altars, über dem das Muttergotteslämpchen brannte.<lb/>
+Der todte Bernardo lag auf ihren Knien, wie der<lb/>
+todte Christus auf den Knien Maria's lag. Piet <hi rendition="#aq">à</hi><lb/>
+nennt man dieses Bild im Süden.</p><lb/>
+<p>Kein Laut in der Kirche. Die Muttergotteslampe<lb/>
+flimmert. Draußen ein Windstoß, der vorüberpfeift.</p><lb/>
+<p>Da erhob sich Maria. Sie ließ den todten Ber-<lb/>
+nardo auf die Stufen des Altars niedergleiten, ging<lb/>
+an die Stelle, wo das Grab von Bernardo's Vätern<lb/>
+lag, und öffnete dasselbe. Dann nahm sie den Todten,<lb/>
+küßte ihn und senkte ihn in das Grab hinunter, das<lb/>
+sie wieder schloß. Maria kniete lange vor dem Bilde<lb/>
+der Mutter Gottes und betete, daß Bernardo's Seele<lb/>
+Friede habe im Himmel, und dann ging sie still hin-<lb/>
+weg in ihr Haus und ihre Kammer.</p><lb/>
+<p>Als der Morgen anbrach, fehlte von den Todten<lb/>
+auf dem Klosterplatze Bernardo's Leiche. Die Kunde<lb/>
+flog durch das Dorf, daß sie verschwunden sei und die<lb/>
+Soldaten trommelten Allarm. Man zweifelte nicht,<lb/>
+daß die Familie Leccia ihren Verwandten Nachts von<lb/>
+dem Gerüste genommen habe und auf der Stelle drang<lb/>
+man in ihr Haus, nahm sie gefangen und warf sie<lb/>
+mit Ketten geschlossen in den Thurm. Nach dem Ge-<lb/>
+setze des Todes schuldig, sollten sie den Tod erleiden,<lb/>
+obgleich sie die That leugneten.</p><lb/>
+<p>Was geschehen war, hörte Maria Gentili in ihrer<lb/>
+Kammer. Ohne ein Wort zu sagen, eilte sie aus dem<lb/>
+Hause zu dem Grafen de Vaux, welcher nach Oletta<lb/>
+gekommen war. Sie warf sich ihm zu Füßen und<lb/>
+bat um die Freilassung der Gefangenen. Sie bekannte<lb/>
+sich zu der That. Jch habe meinen Geliebten begra-<lb/>
+ben, sagte sie, ich bin des Todes schuldig, hier ist<lb/>
+mein Haupt; aber laßt die in Freiheit, welche un-<lb/>
+schuldig leiden.</p><lb/>
+<p>Der Graf wollte anfangs Dem nicht trauen, was<lb/>
+er hörte, denn er hielt es für unmöglich, sowol daß<lb/>
+ein schwaches Mädchen einen solchen Heldenmuth be-<lb/>
+sitzen, als daß es die Kraft haben könne, zu vollbrin-<lb/>
+gen, was Maria vollbrachte. Als er sich nun von der<lb/>
+Wahrheit ihrer Aussage überzeugt hatte, stand er tief<lb/>
+erschüttert und zu Thränen gerührt. Geh', sagte er,<lb/>
+großherziges Mädchen und löse selbst deines Bräuti-<lb/>
+gams Verwandte, und möge Gott deinen Heldenmuth<lb/>
+belohnen.</p><lb/>
+<p>Am selbigen Tage nahm man die sechs Gerichte-<lb/>
+ten vom Gerüste und gab ihnen allen ein christliches<lb/>
+Begräbniß.</p><lb/>
+<p> <space dim="horizontal"/>   ( Nach Gregorovius' &#x201E;Corsica &#x201C; ) </p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<cb n="2"/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Der Orient in Paris.</hi></head><lb/>
+<p><hi rendition="#in">D</hi>ie ernsten Ereignisse unserer Tage gewinnen auf die<lb/>
+Moden der Franzosen gewaltigen Einfluß. Turban<lb/>
+und Fez &#x2014; gegen Hüte eine gar malerische Tracht &#x2014;<lb/>
+werden in Paris jetzt mehr als je getragen. Am meisten<lb/>
+aber tragen die Taschentücher das Gepräge der orienta-<lb/>
+lischen Krise an sich. Ueberall werden Taschentücher<lb/>
+mit den Bildnissen des Sultans, Omer=Pascha's und<lb/>
+anderer türkischer Notabilitäten, mit dem Flottenbrande<lb/>
+von Sinope, mit Versen aus dem Koran u. s. w.<lb/>
+auf den Boulevards feilgeboten und meist abgesetzt.<lb/>
+Schon gibt es osmanische Westen, Damenkleider mit<lb/>
+bunten orientalischen Mustern, Armbänder in Form von<lb/>
+Roßschweifen oder geschmückt mit Halbmonden.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Die königliche Victoria.</hi><lb/>
+( Beschluß. )</head><lb/>
+<p><hi rendition="#in">D</hi>ie <hi rendition="#aq">Victoria regia</hi> ist ein Nymphäe in kolossalem<lb/>
+Verhältniß. Der Wurzelstock steht senkrecht, von ihm<lb/>
+aus gehen in Spiralordnung die sehr lang gestielten<lb/>
+Blätter; diese selbst schwimmen auf dem Wasser, sind<lb/>
+schildförmig, kreisrund, vorn und hinten ausgerandet,<lb/>
+am Rande in der Regel schüsselförmig erhoben, viel-<lb/>
+adrig, oben ganz kahl, unten haben sie netzförmig ver-<lb/>
+breitete, sehr stark hervortretende Rippen, letztere sind,<lb/>
+wie Blatt= und Blütenstiele, violettroth und mit schar-<lb/>
+fen Dornen besetzt. Auch der violette, mit dem Frucht-<lb/>
+knoten verwachsene, vierspaltige, glockenförmige Kelch<lb/>
+ist scharfdornig Die große Blüte enthält zahlreiche<lb/>
+Blumenblätter. Die Blüte öffnet sich nur Abends,<lb/>
+bleibt die Nacht geöffnet und schließt sich wieder vor<lb/>
+Tagesanbruch, am zweiten Abend öffnet sie sich wie-<lb/>
+der, schließt sich gegen Morgen, um nie wieder auf-<lb/>
+zugehen. Das erste mal erscheint die Blüte schnee-<lb/>
+weiß, indem sich nur die ersten Reihen der Blumen-<lb/>
+blätter öffnen, wobei sie einen kostbaren, den Oran-<lb/>
+genblüten ähnlichen Wohlgeruch aushaucht. Beim zwei-<lb/>
+ten male breiten sich sämmtliche Blumenblätter aus<lb/>
+und diese sind blaßroth, die innerste Reihe purpur-<lb/>
+roth. Die zahlreich vorhandenen Staubgefäße gehen<lb/>
+theilweise in Blumenblätter über und diese letztern bil-<lb/>
+den um die unveränderten Staubgefäße einen großen<lb/>
+purpurnen Kranz. Die Frucht ist glocken= oder becher-<lb/>
+förmig und enthält mehre vielsamige Fächer. Die Sa-<lb/>
+men sind eirund, kuglig und nußartig, frisch grün,<lb/>
+später dunkelbraun. Der Umfang der Blüte ist bei<lb/>
+vollständiger Ausbildung 3 Fuß, der der Blätter<lb/>
+18 Fuß.</p><lb/>
+<p>Um die Pflanze bei uns zu ziehen, müssen beson-<lb/>
+dere Gewächshäuser gebaut werden, welche man Victo-<lb/>
+riahäuser nennt. Gewöhnlich sind die Wände aus<lb/>
+Eisen und Glas gebildet. Jn der Mitte eines solchen<lb/>
+Hauses befindet sich ein großes Bassin, in welchem das<lb/>
+Wasser mittels einer durchgehenden Heizröhre erwärmt<lb/>
+werden kann. Auf dem Enden des Bassins befindet<lb/>
+sich eine Schicht Erde, in welche der Same eingesteckt<lb/>
+wird. Die Temperatur des Beckens muß während des<lb/>
+Keimens 25&#x2014;30° Réaumur betragen, späterhin darf<lb/>
+sie nicht über 23 <hi rendition="#sup">/</hi> und nicht unter 19° sein.</p><lb/>
+<p>Jnteressant sind die Schilderungen der Reisenden,<lb/>
+welche die <hi rendition="#aq">Victoria regia</hi> entdeckten; sie können nicht<lb/>
+Worte finden, um den Eindruck genügend zu schil-<lb/>
+<cb type="end"/>
+<pb facs="#f0004" n="172"/>
+<fw place="top" type="pageNum">172</fw><cb type="start"/>
+dern, welchen der erste Anblick derselben auf sie her-<lb/>
+vorbrachte. Jn der That, es läßt sich sehr leicht be-<lb/>
+greifen, wie der ganz unerwartete Anblick von Hun-<lb/>
+derten dieser prachtvollen, riesenhaften Blumen in der<lb/>
+Gestalt einer mächtigen, gefüllten Rose, über dem<lb/>
+Wasser schwebend und umgeben von einer zahllosen<lb/>
+Menge ihrer ungeheuern, tellerförmigen Blätter, schwim-<lb/>
+mend auf klarem, leicht beweglichem Wasser, ein be-<lb/>
+zaubernd schöner, ein großartiger sein muß; es läßt sich<lb/>
+leicht begreifen, daß dieser Anblick das Staunen der<lb/>
+Reisenden erregte und eine Begeisterung weckte, welche<lb/>
+sie die großen Mühseligkeiten ihrer Reise vergessen ließ<lb/>
+und sie zu Ertragung neuer stärkte.</p><lb/>
+<p>Jn neuester Zeit ist die Aufmerksamkeit der Be-<lb/>
+<cb n="2"/>
+taniker und Gärtner auf eine neue, von Bidwill in<lb/>
+Widebay in Australien entdeckte Wasserlilie gelenkt.<lb/>
+Der Entdecker nannte sie <hi rendition="#aq">Victoria Fitzroyana</hi>, nähere<lb/>
+Prüfungen haben aber gezeigt, daß es keine <hi rendition="#aq">Victoria,</hi><lb/>
+sondern eine <hi rendition="#aq">Nymphaea</hi> ist. Die herrliche Blume die-<lb/>
+ser neuen Wasserpflanze hat eine schöne blaue Farbe<lb/>
+und einen Fuß englisch im Durchmesser. Die in Kew<lb/>
+befindlichen Samen haben noch nicht gekeimt. Außer<lb/>
+in London befindet sich noch Samen der neuen Pflanze<lb/>
+in den Händen der Kunstgärtner van Houde in Gent<lb/>
+und Müller in Gotha. Glückt es, so werden wir die,<lb/>
+jetzt Riesen=Nymphäa ( <hi rendition="#aq">Nymphaea gigantea</hi> ) genannte,<lb/>
+erst im vorigen Jahre in Australien entdeckte Pflanze<lb/>
+bald bei uns blühen sehen.</p></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1"><figure><head><hi rendition="#fr">Der St.=Bernhardsberg.</hi></head><lb/>
+<p>Eine Ansicht des Klosters auf dem St.=Bernhard siehe Pfennig=Magazin, Jahrgang 1835, Nr. 128. Mehres über<lb/>
+ihn Pfennig=Magazin, Jahrgang 1833, Nr. 10 und 34.</p></figure></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Das Coliseum in Rom.</hi><lb/>
+Vergleiche Pfennig=Magazin, Jahrgang 1833, Nr. 18.</head><lb/>
+<cb type="start"/>
+<p><hi rendition="#in">R</hi>ichtiger würde man es, wie man auch oft findet,<lb/>
+Colosseum ( <hi rendition="#aq">colosseum sc. aedificium</hi> ) zu nennen ha-<lb/>
+ben; denn wahrscheinlich stammt der Name von dem<lb/>
+120 Fuß hohen Koloß her, den Nero, nach seiner be-<lb/>
+<cb n="2"/>
+sondern Neigung zum Kolossalen, durch den Künstler<lb/>
+Zenodokus hatte errichten lassen und der in jener Ge-<lb/>
+gend stand. Nach der wahrscheinlichsten Annahme hat<lb/>
+man in den gigantischen Hallen des Coliseums Arenen<lb/>
+<cb type="end"/>
+<pb facs="#f0005" n="173"/>
+<fw place="top" type="pageNum">173</fw><cb type="start"/>
+für Kampfspiele vor sich. Denn der Bauch des Ge-<lb/>
+bäudes besteht aus drei Stockwerken gewölbter Corri-<lb/>
+dors, die rings über den Sitzen hinlaufen, sie unter-<lb/>
+stützen und des Riesengebäudes Fenster und Eingeweide<lb/>
+bilden. An vielen Orten sind diese Gewölbe einge-<lb/>
+stürzt und nicht ohne Gefahr zu durchwandeln. Der<lb/>
+<cb n="2"/>
+Fackelschein, dessen man bedarf, vermehrt nur den un-<lb/>
+heimlichen Eindruck und gern benutzt man die vielen<lb/>
+Querbogen, die zu den Sitzen führen, um die schöne<lb/>
+Sonne am blauen italienischen Himmel wieder zu be-<lb/>
+grüßen.</p><lb/>
+<cb type="end"/>
+<figure/></div>       <milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle" xml:id="Ackermann1"><head><hi rendition="#fr">Rudolf Ackermann.</hi></head><lb/>
+<cb type="start"/>
+<p><hi rendition="#in">J</hi>m sächsischen Erzgebirge liegt auf und an romanti-<lb/>
+schen Hügeln die kleine Stadt Stolberg, der Geburts-<lb/>
+ort des berühmten Professors Schubert in München,<lb/>
+der in seinen Schriften mit unauslöschlicher Anhäng-<lb/>
+lichkeit des Städtchens lobend gedenkt, das einst seine<lb/>
+Wiege barg.</p><lb/>
+<p>Jn demselben Städtchen lebte auch im verflossenen<lb/>
+Jahrhundert ein Sattler, welcher sich zugleich als<lb/>
+Wagenbauer thätig zeigte und dadurch ein leidliches<lb/>
+Auskommen verschaffte; er hieß Ackermann. Jhm<lb/>
+wurde am 20. April 1764 ein Sohn geboren, den er<lb/>
+Rudolf nennen ließ und dessen späteres Leben seinem<lb/>
+Vater wie seinem Heimatsorte zu großer Ehre gereichte.<lb/>
+Rudolf gehörte zu den Menschen, die sich selbst gebil-<lb/>
+det und dadurch zugleich zu einer höhern Lebensstaffel<lb/>
+aufgeschwungen hatten, indem sie durch eigene Kraft<lb/>
+und unermüdliche Selbstthätigkeit sich bei der Mit= und<lb/>
+Nachwelt ein achtungsvolles, dankbares Andenken sicher-<lb/>
+ten. Wem dieser Rudolf Ackermann noch fremd sein<lb/>
+sollte, der möge aus nachfolgender Erzählung seines<lb/>
+Lebens sich das Bild eines edlen Sachsen schaffen, der<lb/>
+auch in fernen Landen mit Treue und Liebe an seinem<lb/>
+Vaterlande hing.</p><lb/>
+<cb n="2"/>
+<p>Rudolf Ackermann verlebte unter guter Beaufsich-<lb/>
+tigung seines Vaters seine erste Jugendzeit ziemlich<lb/>
+harmlos; als er aber neun Jahre alt war, wurde ihm<lb/>
+schon Gelegenheit, einen Blick in die Herzen seiner<lb/>
+armen Landsleute zu thun. Die fürchterliche Theu-<lb/>
+rung der Jahre 1772 und 1773 hatte begonnen und<lb/>
+lag schwer auf dem Erzgebirge, dessen Bewohner durch<lb/>
+ihren geringen Erwerb ihre zahlreichen Familien nicht<lb/>
+mehr mit den allernothwendigsten Lebensbedürfnissen<lb/>
+versorgen konnten. Ueberall irrten Hungernde umher<lb/>
+und Bettler durchzogen zu Haufen das Land. Man-<lb/>
+cher Erzgebirger befand sich unter ihnen, welcher nur<lb/>
+durch den äußersten Mangel gezwungen werden konnte,<lb/>
+als verschämter Armer sich sein Leben zu fristen und<lb/>
+Hunderte griffen mit Seufzen und Thränen zum<lb/>
+Stabe, an welchem sie, Brot erbittend, von Ort zu<lb/>
+Ort wanderten.</p><lb/>
+<p>Dies Alles sah Rudolf Ackermann mit an. Oft<lb/>
+that dem mitleidigen Knaben das Herz weh, wenn er<lb/>
+das große Elend überblickte, welches die ehrlichen Ge-<lb/>
+birger heimsuchte. Sein Vater gab ihm dazu täglich<lb/>
+Gelegenheit, indem er durch ihn an die Armen Geld<lb/>
+und Brot vertheilen ließ. Mehre Stunden des Tages<lb/>
+<cb type="end"/>
+<pb facs="#f0006" n="174"/>
+<fw place="top" type="pageNum">174</fw><cb type="start"/>
+war Rudolf mit den Hungerigen und Darbenden be-<lb/>
+schäftigt und dabei ergriff ihn die Noth seiner Lands-<lb/>
+leute so sehr, daß er der Theurungszeit nie wieder ver-<lb/>
+gaß und in seinen spätern Lebensjahren das Bild des<lb/>
+Volkselendes recht oft vor seine Seele trat.</p><lb/>
+<p>Die geistigen Kräfte Rudolf's entwickelten sich zu-<lb/>
+sehends und seine Neigung zu den Wissenschaften<lb/>
+drängte ihn zum unausgesetzten Studiren. Sein Va-<lb/>
+ter war mit ihm im Jahre 1775 nach Schneeberg ge-<lb/>
+zogen, wo Rudolf Gelegenheit fand, im dortigen Ly-<lb/>
+ceum seine Kenntnisse zu erweitern. Bis in sein 15.<lb/>
+Lebensjahr besuchte er diese Anstalt, konnte aber sei-<lb/>
+nen Plan, zu studiren, nicht weiter verfolgen, da<lb/>
+einer seiner Brüder schon die wissenschaftliche Laufbahn<lb/>
+betreten und dem Vater, dessen Vermögensverhältnissen<lb/>
+nach, zu viel gekostet hatte.</p><lb/>
+<p>Mit schwerem Herzen wendete sich Rudolf zu sei-<lb/>
+nem ältesten Bruder Friedrich, um bei ihm das Satt-<lb/>
+lerhandwerk zu erlernen. Friedrich nahm sich seines<lb/>
+jüngern Bruders mit aller Liebe an. Er merkte gar<lb/>
+bald, daß dieser sich in der Werkstatt nicht eben sehr<lb/>
+wohl befinden konnte und da er in früherer Zeit Zeich-<lb/>
+neunterricht gehabt hatte, so bemühte er sich, Rudolf<lb/>
+in geschäftsfreien Stunden seine mittelmäßigen Fertig-<lb/>
+keiten beizubringen. Rudolf entwickelte seine Anlagen<lb/>
+zum Zeichnen sehr schnell und mit solchem Fleiße, daß<lb/>
+er seinen Lehrmeister bald übertraf. Nun wurde das<lb/>
+Zeichnen nach Mustern und nach eigener Erfindung<lb/>
+sein Steckenpferd.</p><lb/>
+<p>Rudolf's Lehrzeit war vorüber. Was er sonst so<lb/>
+oft geträumt, wonach er sich so oft gesehnt hatte, das<lb/>
+führte er nun aus: er ging auf die Wanderschaft. Es<lb/>
+war im Januar des Jahres 1782, als er der schönen<lb/>
+Residenz Sachsens zusteuerte, in welcher er sofort Be-<lb/>
+schäftigung fand. Der Hofwagenbauer Vogler nahm<lb/>
+sich des jungen Mannes ganz besonders an, um ihn<lb/>
+durch allerhand Gefälligkeiten nützlich zu werden und<lb/>
+seine seltenen Anlagen zur Zeichnenkunst vervollkomm-<lb/>
+nen zu helfen. So sehr es ihm auch in dem schönen,<lb/>
+gemüthlichen Dresden gefiel, so ließ er sich dadurch<lb/>
+doch nicht in seinem Plane stören, recht viel berühmte<lb/>
+Städte zu besuchen, damit seine Anschauungen sich<lb/>
+läutern und sein künstlerischer Geschmack sich bilden<lb/>
+sollten. Nach einem Vierteljahre wendete sich Rudolf<lb/>
+nach Leipzig, blieb dort nur kurze Zeit und reiste dann<lb/>
+dem Süden zu. Überall gab es für ihn zu beobach-<lb/>
+ten und zu lernen.</p><lb/>
+<p>Jn der Stadt Basel fühlte sich Rudolf ganz be-<lb/>
+sonders gefesselt. Hier führte ihn sein Glück mit dem<lb/>
+allgemein geschätzten Wagenbauer Marter in Hüningen<lb/>
+zusammen. Dieser verstand nicht nur das Lackiren<lb/>
+und Vergolden nach vorzüglicher Manier, sondern er<lb/>
+hatte sich seit Jahren auch durch Zeichnungen und<lb/>
+Malereien in seinem Fache berühmt gemacht. Einen<lb/>
+bessern Meister konnte Rudolf nach seiner Ansicht nicht<lb/>
+finden, daher er auch zwei Jahre lang mit Marter in<lb/>
+Verbindung blieb, theils um sich dessen Vollkommen-<lb/>
+heiten im Wappenschildmalen und Wagenzeichnen an-<lb/>
+zueignen, theils auch um der französischen Sprache<lb/>
+mächtig zu werden.</p><lb/>
+<p>Nachdem Rudolf noch die wichtigsten Städte der<lb/>
+Schweiz gesehen hatte, machte er sich im Jahre 1784<lb/>
+nach Paris auf, wo er bald erwünschte Gelegenheit<lb/>
+zur Beschäftigung in seinem Fache fand. So sehr er<lb/>
+sich geübt zu haben, so weit er vorgeschritten zu sein<lb/>
+glaubte, so lernte er in Paris doch nur zu bald er-<lb/>
+kennen, wie viel ihm noch fehlte. Sein strebsamer<lb/>
+Geist gönnte sich keine Ruhe. Er brach sich sofort<lb/>
+<cb n="2"/>
+Alles am Leben ab, um eine kleine Summe Unter-<lb/>
+richtsgeld zu ersparen und dann bei dem berühmten<lb/>
+Carrossi die Zeichnenkunst noch besser zu studiren. Es<lb/>
+gelang ihm. Über ein halbes Jahr lang zeichnete er<lb/>
+für den genannten Meister mit unbeschreiblichem Fleiße,<lb/>
+ohne auch nur eine kleine Entschädigung für seine Ar-<lb/>
+beiten zu bekommen; er lebte blos von seinen gerin-<lb/>
+gen Ersparnissen.</p><lb/>
+<p>Carrossi erkannte gar bald, welch schöpferisches<lb/>
+Talent in Rudolf wohnte, daher trat er mit dem jun-<lb/>
+gen Künstler in fast freundschaftlichen Verkehr, der<lb/>
+sich freilich nicht bis zur größten Jnnigkeit steigerte,<lb/>
+da sich Carrossi einer gewissen Eifersucht gegen seinen<lb/>
+Schüler nicht entschlagen konnte.</p><lb/>
+<p>Schon war Rudolf entschlossen, nach London zu<lb/>
+reisen, da wurde sein Reiseplan plötzlich geändert. Er<lb/>
+hatte nämlich in Paris den Sohn des berühmtesten<lb/>
+Wagenbauers in Brüssel, Namens Simons, kennen<lb/>
+gelernt und wurde von diesem ganz unerwartet einge-<lb/>
+laden, nach Brüssel zu kommen. Die Einladung kam<lb/>
+ihm ganz erwünscht; er folgte ihr sofort. Simons<lb/>
+war nicht wenig erfreut, an Rudolf einen begabten<lb/>
+und geschickten Mann kennen zu lernen und er nahm<lb/>
+ihn darum sogleich in seine Werkstatt auf, in welcher<lb/>
+über 150 Personen beschäftigt waren. Je länger der<lb/>
+junge Künstler bei Simons arbeitete, desto höher stieg<lb/>
+dessen Achtung vor jenem. Ackermann wurde für seine<lb/>
+künstlerischen Leistungen nicht nur ausgezeichnet belohnt,<lb/>
+sondern er erhielt bald auch ein besonderes Arbeitszim-<lb/>
+mer angewiesen, damit er in Ausführung seiner Jdeen<lb/>
+beim Zeichnen und Malen durch nichts gestört wurde,<lb/>
+ja zuletzt betraute ihn Simons gar noch mit einer eh-<lb/>
+renden Aufseherstelle.</p><lb/>
+<p>Ackermann befand sich in Brüssel sehr wohl und<lb/>
+würde gewiß noch Jahre lang in seiner Stellung ge-<lb/>
+blieben sein, hätten sich nicht die Wogen der Revolu-<lb/>
+tion über das Land ergossen, die Thätigkeit des fried-<lb/>
+lichen Gewerbebetriebs unterbrochen und den Aufflug<lb/>
+künstlerischer Bestrebungen, wie immer, gestört. Die<lb/>
+Wirren der Empörung taugten nicht für die edeln,<lb/>
+reinen Weltanschauungen des Rudolf Ackermann und<lb/>
+seine Bestrebungen für Menschenwohl ruhten auf ganz<lb/>
+anderer Basis; daher nahm er wehmüthigen Herzens<lb/>
+von seinem lieben Simons Abschied und begab sich<lb/>
+nach Londou.</p><lb/>
+<p>Verschiedenen Standesgenossen ersten Ranges glän-<lb/>
+zend empfohlen, fand Rudolf in der Weltstadt nach<lb/>
+wenigen Wochen die ehrenvollste Aufnahme, so, daß<lb/>
+er selbst sich nicht geträumt hatte, daß man seine Ar-<lb/>
+beiten mit so großem Beifalle aufnehmen werde. Alle<lb/>
+seine Zeichnungen und Malereien wurden ihm aus den<lb/>
+Händen gerissen; er konnte die Massen von Aufträgen<lb/>
+oft gar nicht ausführen, so viel man ihm auch Geld<lb/>
+bot, und dies Alles gab Veranlassung, daß er sich<lb/>
+bald zu Verfolgung höherer Pläne begeistert fühlte.<lb/>
+Dazu kam, daß ihm das Leben in England außeror-<lb/>
+dentlich zusagte und sein biederer, offener Charakter<lb/>
+sich leicht mit dem ehrenwerthen Sinne des Engländers<lb/>
+verschmolz, dessen Sitten ihn fesselten. Wo sich Alles<lb/>
+so ganz nach Ackermann's Wünschen gestaltete, da<lb/>
+mußte ja mit jedem Jahre sein Wohlstand sich mehren<lb/>
+und sein Ansehen bei den Gewerbsgenossen sich steigern.</p><lb/>
+<p><ref target="nn_pfennig075_1854#Ackermann2"><hi rendition="#c">( Fortsetzung folgt. )</hi></ref></p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<cb type="end"/>
+<pb facs="#f0007" n="175"/>
+<fw place="top" type="pageNum">175</fw><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Botanischer Versuch mit einem Weizenkorn.</hi></head><lb/>
+<cb type="start"/>
+<p><hi rendition="#in">J</hi>m Juni 1852 hatte man im botanischen Garten zu<lb/>
+Cambridge einige Weizenkörner gepflanzt; eine der<lb/>
+Pflanzen verzweigte sich; man riß sie im August aus<lb/>
+und theilte sie in 18 Theile, von denen jeder beson-<lb/>
+ders gepflanzt wurde. Da die neuen Pflanzen Seiten-<lb/>
+schößlinge getrieben hatten, so wurden sie Ende Sep-<lb/>
+tember ausgerissen und getheilt, um abermals geflanzt<lb/>
+zu werden; man erhielt auf diese Weise 67 Pflanzen,<lb/>
+<cb n="2"/>
+welche den Winter über stehen blieben. Jm nächsten<lb/>
+April wurden sie abermals getheilt und gaben nun<lb/>
+500 Pflanzen, welche als endliche Ernte 21,000 Äh-<lb/>
+ren lieferten, die 21 Kilogramme Körner gaben. Nach<lb/>
+der mittlern Körnermenge auf ein Kilogramm gerech-<lb/>
+net, kann man annehmen, daß diese einzelne, immer<lb/>
+wieder getheilte Pflanze einen Ertrag von etwa 580,000<lb/>
+Körnern ergab.</p></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1"><figure><head><hi rendition="#fr">Karte des Kriegsschauplatzes im gegenwärtigen türkisch=russischen Kriege.</hi></head></figure></div><lb/>
+<pb facs="#f0008" n="176"/>
+<fw place="top" type="pageNum">176</fw><lb/>
+<div n="1" type="jVarious"><head><hi rendition="#fr"><hi rendition="#g">Mannichfaltiges</hi>.</hi></head>       <cb type="start"/>
+<div n="2" type="jArticle"><p><hi rendition="#aq">Dr</hi>. Overweg's Fahrt auf dem Tschad=See, die<lb/>
+vom 28. Juni bis 8. August 1851 dauerte, hat in der Be-<lb/>
+schreibung, die unser muthiger Landsmann von ihr uns<lb/>
+macht, das größte Jnteresse und wahrhaft poetische Elemente.<lb/>
+Das Boot zu seiner Entdeckungsfahrt war mit vielen<lb/>
+Schwierigkeiten vom Mittelländischen Meere durch die Wüste<lb/>
+in Stücken auf Kameelen bis nach Kuka transportirt wor-<lb/>
+den; mit Hülfe arabischer Zimmerleute ließ Overweg es zu-<lb/>
+sammenfügen und taufte es &#x201E;Palmerston&#x201C;, in dankbarer An-<lb/>
+erkennung der Verdienste dieses Ministers um die afrikani-<lb/>
+sche Expedition. Bei Maduari ward es von Stapel ge-<lb/>
+lassen. Overweg hatte zwei Eingeborene als Matrosen und<lb/>
+Dolmetscher gewonnen und am 28. Juni stach man in den<lb/>
+See. Sieben Stunden lang mußte sich das Boot auf engen<lb/>
+Wegen durch ein Jnsellabyrinth winden, durch dichte Ge-<lb/>
+flechte üppiger Seegewächse, die unzähligen Flußpferden zum<lb/>
+Aufenthalt dienten, die, mit den Köpfen aus dem Wasser<lb/>
+hervorragend, mit großen Augen auf die flatternden Segel<lb/>
+starrten. Gegen Abend erst erreichte man das offene Wasser;<lb/>
+die Nacht über ward das Boot an eine schwimmende Jnsel<lb/>
+von Seegewächsen gebunden; sie war glänzend illuminirt<lb/>
+durch Myriaden phosphorescirender Jnsekten. Nachdem im<lb/>
+Verlaufe der Fahrt mehre der sogenannten Biddumai=Jnseln<lb/>
+passirt waren, ward am 2. Juli die große, vier Meilen<lb/>
+lange und zwei Meilen breite Jnsel Belarigo erreicht, wo<lb/>
+Overweg freundschaftlichst aufgenommen ward. Jm Triumph<lb/>
+führte man ihn nach einer Anhöhe, dort sein Zelt aufzu-<lb/>
+schlagen. Die Männer faßten den deutschen Doctor bei der<lb/>
+Hand, die Frauen, zu schüchtern dazu, sangen ihn an.<lb/>
+Milch und andere Lebensmittel wurden ihm im Übermaße<lb/>
+zugeschleppt und man riß sich um die Geschenke des von<lb/>
+ferne gekommenen Gastes, um Perlen, Ringe, Nadeln,<lb/>
+Trinkgläser u. dergl. &#x2014; die erste Zuckerdüte, die das Kind<lb/>
+erhielt, das zum ersten male in die anglo=sächsische Welt-<lb/>
+handelsschule kam, um ihm Lust zu weitern Geschäften zu<lb/>
+machen.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Die Hottentotten sind das <hi rendition="#aq">Non plus ultra</hi> von Faul-<lb/>
+heit; ohne Aufsicht und Antreibung arbeiten sie gar nichts,<lb/>
+ja selbst unter Aufsicht nur dann, wenn sie rechts und links<lb/>
+geklopft werden. Sie wollen wissen, daß sie einen Herrn<lb/>
+( Baas ) haben. Hiebe und nicht allzu viel Kost &#x2014; dann ist<lb/>
+der Hottentotte als Dienstbote leidlich. Bei guter Behand-<lb/>
+lung wird er übermüthig und hält es in einem solchen<lb/>
+Dienste nicht aus. Hat man Mitleid mit seiner magern Ge-<lb/>
+stalt und gibt man ihm ebenso viel Speise als andern<lb/>
+menschlichen Creaturen, dann frißt sich der Hottentott in<lb/>
+wenig Tagen in ein solches Übermaß von Unabhängigkeit<lb/>
+hinein, daß seines Bleibens nicht länger mehr ist; denn für<lb/>
+den nächsten Tag sorgt er niemals.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Die Riesenvögel Neuseelands haben in der letzten<lb/>
+Zeit die Naturforscher angelegentlich beschäftigt. Den von<lb/>
+ihnen gefundenen Knochen nach, die man bisjetzt allein kennt,<lb/>
+müssen sie von staunenerregender Größe gewesen sein, wie<lb/>
+Väter neben dem riesigen Strauß der afrikanischen Ebenen.<lb/>
+Das ganz frische Aussehen der Knochen gab bei der ersten<lb/>
+Entdeckung der Vermuthung Raum, daß in den innern,<lb/>
+noch wenig durchforschten Gegenden Polynesiens dieses gi-<lb/>
+gantische <gap reason="illegible" unit="chars" quantity="9"/>Federvieh sogar noch leben möge und die mär-<lb/>
+chenhaften Erzählungen der Neuseeländer sowie die Aussagen<lb/>
+von Fremden, welche längere Zeit sich dort aufhielten, erreg-<lb/>
+ten die Hoffnung auf den Fang eines solchen lebenden Rie-<lb/>
+senvogels. Wie nach einem Mythus die gigantische Schild-<lb/>
+kröte, deren Knochen und Panzer in den Vorhöhen des Hi-<lb/>
+malaya abgelagert sind, das Weltgebäude stützen soll, wie<lb/>
+nach einer andern Volkssage das Mammuth in Sibirien noch<lb/>
+<cb n="2"/>
+heute in der Weise der Maulwürfe und Mäuse unter der<lb/>
+Erde lebt: so lassen die Neuseeländer den gefürchteten Moa<lb/>
+in einer Höhle an der Steilseite eines Bergs wohnen, wo<lb/>
+er schlafend von zwei Eidechsen bewacht wird, die Jeden, der<lb/>
+sich naht, sofort umbringen. Angesichts eines so unvermeid-<lb/>
+lichen Todes hat es denn auch noch Niemand gewagt, die<lb/>
+Höhle zu besuchen und das Ungeheuer zu erspähen.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Der Blocksberg &#x2014; wie der Brocken volksthümlich oft<lb/>
+genannt wird &#x2014; hat in Ungarn einen Namensvetter. Wenn<lb/>
+man sich, die Donau abwärts, der Stadt Buda=Pesth nä-<lb/>
+hert, erblickt man am Ende der Häusermassen, welche beide<lb/>
+Ufer weithin bedecken, einen Berg, der sich von Westen her<lb/>
+hart an den Strom vordrängt &#x2014; das ist der kecke Blocks-<lb/>
+berg. Während die andern Uferberge die Donau zu beglei-<lb/>
+ten scheinen, springt er aus ihnen hervor, kühn an den<lb/>
+Strom heran, als wollte er sich seinem Laufe entgegenstellen.<lb/>
+Von Westen her schwillt er allmälig an und erreicht seine<lb/>
+Gipfelhöhe gerade über der Donau, zu der er mit jähem<lb/>
+Felsensturze abfällt. Seine Wände sind vielfach zerklüftet<lb/>
+und bilden ein Gewirre von Stufen, auf welchen kleine Ra-<lb/>
+senpolster sitzen, deren Grün, von der Morgensonne getrof-<lb/>
+fen, freundlich aus dem Grauroth der Felsen schimmert. So-<lb/>
+bald aber der Mittag naht, beginnen die Felsen schattig zu<lb/>
+dunkeln im scharfen Gegensatze zur Donau, welche die fin-<lb/>
+stern Wände mit ihrem Glanze umschlingt. Mit diesem<lb/>
+schönen Bilde scheidet die Donau vom Gebirge und tritt<lb/>
+nun in die weiten offenen Ebenen, an deren Rand der<lb/>
+Blocksberg wie ein gewaltiger Grenzwächter gestellt ist.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Khabir nennen die Araber nach Graf d'Escayrac de<lb/>
+Lauture's Bericht den alten Elefanten, welcher den Führer<lb/>
+oder Chef eines ganzen Elefantentrupps macht. Sobald am<lb/>
+Horizont Blitze leuchten und der Himmel sich umzieht, führt<lb/>
+der Khabir die Seinigen nach der Gegend hin, wo sich die<lb/>
+Vegetation durch den Regen erfrischt hat und mit geübtem<lb/>
+Blicke weiß er die Zahl der Tage zu berechnen, während<lb/>
+welcher seine Heerde an dieser Stelle ihre Nahrung findet.<lb/>
+Nach dieser Zeit erst kehrt er von anderweitigen Recognos-<lb/>
+cirungen zurück und führt die ganze Gesellschaft auf einen<lb/>
+andern Weideplatz.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Napoleon's Geburtstag ist Allen wohlbekannt; daß<lb/>
+er aber erst am 21. Juli 1771, also fast zwei volle Jahre<lb/>
+nach seiner Geburt und zusammen mit seiner bald verstorbe-<lb/>
+nen Schwester Maria Anna getauft wurde, das erfahren ge-<lb/>
+wiß Viele hier zum ersten mal. Man erzählt, daß er sich<lb/>
+gehörig sträubte, als der Priester ihn mit dem Wasser be-<lb/>
+gießen wollte. Vielleicht wollte er sich selbst taufen, wie er<lb/>
+sich später selbst krönte, indem er dem Papste die Krone aus<lb/>
+den Händen nahm, die ihm dieser aufs Haupt setzen wollte.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Der größte Erdpechsee befindet sich auf der Jnsel<lb/>
+Trinidad südlich von Tabago unfern dem Festlande von Süd-<lb/>
+amerika. Er bildet eine Masse von Asphalt= oder Erdpech,<lb/>
+der sich zu einem See von einer Viertelstunde Länge ange-<lb/>
+sammelt hat. Auf der Oberfläche machen sich zahlreiche<lb/>
+Wassertümpel bemerklich, in denen Fische und Frösche sich<lb/>
+tummeln. Das Wasser ist frisch und trinkbar. Nach den<lb/>
+Rissen und Spalten zu urtheilen, reicht das Erdpech in an-<lb/>
+sehnliche Tiefen hinab und ist so hart, daß es einen Men-<lb/>
+schen trägt; in der Sonne erweicht, gestattet es keinen ge-<lb/>
+fahrlosen Pfad. Am Rande des Sees ist die Vegetation sehr<lb/>
+reich und kräftig und die Ananas gedeiht trefflich auf dem<lb/>
+Asphaltboden.</p></div></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/><lb/>
+</body>       <back><div n="1" type="imprint"><p><hi rendition="#c">Verantwortlicher Redacteur: <hi rendition="#aq">M</hi>. J. E. Volbeding. &#x2014; Druck und Verlag von F. A. Brockhaus in Leipzig.</hi></p></div>     </back>   </text> </TEI>

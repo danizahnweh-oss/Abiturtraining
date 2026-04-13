@@ -1,0 +1,895 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.deutschestextarchiv.de/basisformat.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">     <teiHeader>
+<fileDesc>
+<titleStmt>
+<title type="main">Das Pfennig-Magazin der Gesellschaft zur Verbreitung gemeinnütziger Kenntnisse</title>
+<title type="sub">Nr. 177</title>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/115266127">
+<surname>Geyken</surname>
+<forename>Alexander</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1222198746">
+<surname>Haaf</surname>
+<forename>Susanne</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1019062681">
+<surname>Jurish</surname>
+<forename>Bryan</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Boenig</surname>
+<forename>Matthias</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Thomas</surname>
+<forename>Christian</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Wiegand</surname>
+<forename>Frank</forename>
+</persName>
+</editor>
+<respStmt>
+<orgName>Institut für Deutsche Sprache, Mannheim</orgName>
+<resp>
+<note type="remarkResponsibility">Bereitstellung der Bilddigitalisate und TEI
+Transkription</note>
+<ref target="http://hdl.handle.net/10932/00-01B8-B06E-DBDE-FC01-9"/>
+</resp>
+</respStmt>
+<respStmt>
+<persName>
+<forename>Peter</forename>
+<surname>Fankhauser</surname>
+</persName>
+<resp>
+<note type="remarkResponsibility">
+Transformation von TUSTEP nach TEI P5.
+Transformation von TEI P5 in das DTA TEI P5 Format.
+</note>
+</resp>
+</respStmt>
+<respStmt>
+<orgName ref="https://www.bbaw.de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<resp>
+<note type="remarkResponsibility">Langfristige Bereitstellung der DTA-Ausgabe</note>
+<ref target="https://www.bbaw.de"/>
+</resp>
+</respStmt>
+</titleStmt>
+<editionStmt><edition>Vollständige digitalisierte Ausgabe.</edition></editionStmt>
+<extent>
+<measure type="images">8</measure>
+<measure type="tokens">5064</measure>
+<measure type="types">2046</measure>
+<measure type="characters">35478</measure>
+</extent>
+<publicationStmt>
+<publisher xml:id="DTACorpusPublisher">
+<email>dta@bbaw.de</email>
+<orgName role="project">Deutsches Textarchiv</orgName>
+<orgName role="hostingInstitution" xml:lang="en">Berlin-Brandenburg Academy of Sciences and Humanities (BBAW)</orgName>
+<orgName role="hostingInstitution" xml:lang="de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<address>
+<addrLine>Jägerstr. 22/23, 10117 Berlin</addrLine>
+<country>Germany</country>
+</address>
+</publisher>
+<pubPlace>Berlin</pubPlace>
+<date type="publication">2025-10-24T08:35:19Z</date>
+<availability>
+<licence target="http://creativecommons.org/publicdomain/zero/1.0/">
+<p>Dieses Werk steht unter der "Creative Commons Namensnennung -
+Nicht kommerziell 3.0 Deutschland Lizenz" (CC BY-NC).</p>
+</licence>
+</availability>
+<idno>
+<idno type="URLWeb">https://www.deutschestextarchiv.de/nn_pfennig177_1836</idno>
+<idno type="URLXML">https://www.deutschestextarchiv.de/book/download_xml/nn_pfennig177_1836</idno>
+<idno type="URLHTML">https://www.deutschestextarchiv.de/book/download_html/nn_pfennig177_1836</idno>
+<idno type="URLText">https://www.deutschestextarchiv.de/book/download_text/nn_pfennig177_1836</idno>
+<idno type="DTADirName">nn_pfennig177_1836</idno>
+<idno type="DTAID">34774</idno>
+<idno type="URN">urn:nbn:de:kobv:b4-34774-9</idno>
+</idno>
+</publicationStmt>
+<sourceDesc>
+<bibl type="J">Das Pfennig=Magazin der Gesellschaft zur Verbreitung gemeinnütziger Kenntnisse. Nr. 177. Leipzig (Sachsen), 20. August 1836.</bibl>
+<biblFull>
+<titleStmt>
+<title level="m" type="main">Das Pfennig-Magazin der Gesellschaft zur Verbreitung gemeinnütziger Kenntnisse</title>
+<title level="m" type="sub">Nr. 177</title>
+</titleStmt>
+<editionStmt>
+<edition n="1"/>
+</editionStmt>
+<publicationStmt>
+<publisher/>
+<pubPlace>Leibzig (Sachsen)</pubPlace>
+<date type="publication">1836</date>
+</publicationStmt>
+</biblFull>
+<msDesc>
+<msIdentifier/>
+<physDesc>
+<typeDesc>
+<p>Fraktur</p>
+</typeDesc>
+</physDesc>
+</msDesc>
+</sourceDesc>
+</fileDesc>
+<encodingDesc>
+<editorialDecl>
+<p>
+<![CDATA[
+<p>Siehe Dokumentation</p>
+]]>
+</p>
+</editorialDecl>
+<tagsDecl>
+<rendition scheme="css" xml:id="aq">font-family:sans-serif</rendition>
+<rendition scheme="css" xml:id="b">font-weight:bold</rendition>
+<rendition scheme="css" xml:id="blue">color:blue</rendition>
+<rendition scheme="css" xml:id="c">display:block; text-align:center</rendition>
+<rendition scheme="css" xml:id="et">display:block; margin-left:2em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et2">display:block; margin-left:4em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et3">display:block; margin-left:6em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="f">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="fr">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="g">letter-spacing:0.125em</rendition>
+<rendition scheme="css" xml:id="i">font-style:italic</rendition>
+<rendition scheme="css" xml:id="in">font-size:150%</rendition>
+<rendition scheme="css" xml:id="k">font-variant:small-caps</rendition>
+<rendition scheme="css" xml:id="larger">font-size:larger</rendition>
+<rendition scheme="css" xml:id="red">color:red</rendition>
+<rendition scheme="css" xml:id="right">display:block; text-align:right</rendition>
+<rendition scheme="css" xml:id="s">text-decoration:line-through</rendition>
+<rendition scheme="css" xml:id="smaller">font-size:smaller</rendition>
+<rendition scheme="css" xml:id="sub">vertical-align:sub; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="sup">vertical-align:super; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="u">text-decoration:underline</rendition>
+<rendition scheme="css" xml:id="uu">border-bottom:double 3px #000</rendition>
+</tagsDecl>
+</encodingDesc>
+<profileDesc>
+<langUsage>
+<language ident="deu">(Früh-)Neuhochdeutsch</language>
+<language ident="deu">German</language>
+</langUsage>
+<textClass>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1main">Gebrauchsliteratur</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1sub">Zeitschrift</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">ready</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">mkhz1</classCode>
+</textClass>
+</profileDesc>
+</teiHeader>
+<text>     <front>
+<pb facs="#f0001" n="[265]"/>
+<titlePage type="heading"><docTitle><titlePart type="main"><hi rendition="#c #fr">Das Pfennig=Magazin<lb/>
+<hi rendition="#g">der</hi><lb/>
+Gesellschaft zur Verbreitung gemeinnütziger Kenntnisse.</hi></titlePart></docTitle><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<docImprint><hi rendition="#fr">Nr</hi>. 177. ]              <hi rendition="#c">Erscheint jeden Sonnabend.</hi>              <docDate><hi rendition="#right">[<hi rendition="#g">August</hi> 20, 1836.</hi></docDate>            </docImprint></titlePage><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+</front>     <body>       <div n="1" type="jArticle" xml:id="Rom2"><figure>         <head>  Der Monte Cavallo zu Rom.  </head>       </figure><lb/>
+<pb facs="#f0002" n="266"/>
+<fw place="top" type="header"> <hi rendition="#g">Das Pfennig=Magazin.</hi> </fw>       <cb type="start"/>
+<head><hi rendition="#fr"><hi rendition="#g">Bilder aus Rom</hi>.</hi><lb/>
+<hi rendition="#aq">II.</hi><lb/>
+<ref target="nn_pfennig176_1836#Rom1">( Fortsetzung aus Nr. 176. )</ref></head><lb/>
+<p>&#x201E; <hi rendition="#in">W</hi>er von Norden kommt&#x201C;, heißt es in einem neuern,<lb/>
+ebenso unterhaltenden als lehrreichen Buche über Rom <note place="foot" n="*)">Rom im Jahr 1833.</note>,<lb/>
+&#x201E;wundert sich anfänglich über das ganz moderne Aus-<lb/>
+sehen der Stadt. Dieses rührt daher, daß der bewohnte<lb/>
+Theil von Südost nach Nordwest gerückt ist; was frü-<lb/>
+her bewohnt war, ist nun Vigna; was früher Exer-<lb/>
+cierplatz und Spaziergang war, ist nun bewohnt. Nur<lb/>
+die Strecke vom Marcellustheater bis Ponte Sisto war<lb/>
+immer bewohnt, und dorthin mag sich auch die Be-<lb/>
+völkerung vorzüglich zurückgezogen haben, als sie durch<lb/>
+das Unglück der Zeiten im 14. Jahrhundert bis auf<lb/>
+20,000 Menschen herabgekommen und aller Wasserlei-<lb/>
+tungen beraubt war. Als Julius <hi rendition="#aq">II</hi>. Straßen durch-<lb/>
+brechen ließ, als die Florentiner sich zwischen Ponte<lb/>
+Sisto und der Engelsbrücke anbauten, wurde diese Ge-<lb/>
+gend, als der Quirinal zum Sommeraufenthalte der<lb/>
+Päpste gewählt ward, seine Umgebung, das Quartier der<lb/>
+feinen Welt. Nun drängt sich das Leben sichtlich gegen<lb/>
+den Corso zusammen, und der Platz Colonna ist der<lb/>
+Hauptplatz des jetzigen Roms, wo Börse, Post, die<lb/>
+Wechsel= und Getreidesensalen, die Gerichte, die Mauth<lb/>
+die täglichen Jnteressen vermitteln, und von wo aus<lb/>
+man nach allen Richtungen das allmälige Abnehmen<lb/>
+des gewerblichen Lebens bemerken kann.&#x201C;</p><lb/>
+<p>Von der Piazza del Popolo <note place="foot" n="**)">Vergl. die Abbildung und Beschreibung desselben im<lb/>
+Pfennig=Magazin Nr 110.</note> aus führen die größern<lb/>
+Straßen eine Strecke weit in gerader Richtung nach<lb/>
+dem Jnnern der Stadt. Sie sind die schönsten und<lb/>
+diejenigen, wo die Wohnungen namentlich im Winter,<lb/>
+wo Rom mit Fremden aller Nationen gefüllt zu sein<lb/>
+pflegt, am meisten gesucht werden. Der Corso nimmt<lb/>
+die Mitte ein und ist die Hauptstraße des neuern Roms.<lb/>
+Er führt zu der Piazza Colonna, auf welcher die An-<lb/>
+toninische Säule steht, die gegenwärtig die Bildsäule<lb/>
+des Apostels Paulus trägt, wie die Trajanische <note place="foot" n="***)">Vergl. die Abbildung und Beschreibung derselben im<lb/>
+Pfennig=Magazin Nr. 72.</note> die des<lb/>
+Apostels Petrus. Rechts vom Corso, bei der Kirche<lb/>
+de' Miracoli, beginnt die Straße Ripetta, am Tiber-<lb/>
+ufer vorbeiführend, links, bei der Kirche di Monte Santo,<lb/>
+die Straße Babuino, welche den Zugang zur Piazza<lb/>
+di Spagna bildet, deren Hauptschmuck die schöne, den<lb/>
+Weg zur Kirche Trinit <hi rendition="#aq">à</hi> de' Monti führende Treppe<lb/>
+ist. Hier erhebt sich der Monte pincio, vor Alters der <lb/>
+<hi rendition="#aq">Collis hortorum</hi>, der beliebteste und anmuthigste Spa-<lb/>
+ziergang der Stadt, mit den Villen Medici und Ludo-<lb/>
+visi, wo einst Sallust, Lucullus und Domitian ihre<lb/>
+Gärten hatten. Von diesem Hügel aus genießt man<lb/>
+eines belohnenden Blickes über einen großen Theil<lb/>
+der Stadt.</p><lb/>
+<p>Auf der Seite des Monte pincio liegen drei Thore,<lb/>
+die Porta pinciana, salaria und pia genannt, durch<lb/>
+welche letztere man auf den Weg nach Tivoli gelangt,<lb/>
+und bei welchen die schöne gleichnamige Straße beginnt,<lb/>
+welche an den ehemaligen Thermen des Diocletian vor-<lb/>
+bei, nach dem Quirinal leitet, dem höchsten der sieben<lb/>
+Hügel. Man nennt ihn gewöhnlich Monte cavallo,<lb/>
+nach den beiden Marmorkolossen der rossebändigenden<lb/>
+Jünglinge, die einst in den Konstantinischen Bädern<lb/>
+standen, und die man ohne irgend eine Autorität dem<lb/>
+Phidias und Praxiteles zugeschrieben hat. Jedenfalls sind<lb/>
+<cb n="2"/>
+sie vorzügliche Arbeiten griechischer Künstler, und über-<lb/>
+raschen durch die Schönheit der Formen wie durch die<lb/>
+Kühnheit der Stellung. Wen sie vorstellen, ist unge-<lb/>
+wiß; lange hielt man sie für Statuen Alexander des<lb/>
+Großen und des Bucephalus; die wahrscheinlichste An-<lb/>
+nahme erklärt sie als Castor und Pollux. Zwischen<lb/>
+ihnen steht ein ägyptischer Granitobelisk, welchen Pius <hi rendition="#aq">VI.</hi><lb/>
+aufrichten ließ, während einer der zahlreichen Spring-<lb/>
+brunnen der Stadt seinen Wasserstrahl emporsteigen läßt.<lb/>
+Der Palast wurde in der letzten Hälfte des 16. Jahr-<lb/>
+hunderts erbaut, und ist nicht ausgezeichnet. Er dient<lb/>
+gewöhnlich zur Sommerwohnung wegen der gesunden<lb/>
+Luft; in ihm werden überdies die Conclaven gehalten.</p><lb/>
+<p>Von dem Monte cavallo aus, welchen überdies<lb/>
+der große Palast der Fürsten Rospigliosi und der Gar-<lb/>
+ten des Hauses Colonna zieren, öffneten sich nach meh-<lb/>
+ren Seiten hin herrliche Aussichten, an denen die in<lb/>
+Thälern und auf Hügeln gebaute Stadt überhaupt ei-<lb/>
+nen so großen Reichthum hat. Westlich erscheint der<lb/>
+Vatican mit dem Alles überragenden Dome St. Peter's.</p><lb/>
+<p>Die Menge der merkwürdigen Gegenstände, der<lb/>
+Kirchen, Paläste, Villen, Brunnen, Wasserleitungen,<lb/>
+Ruinen u. s. w. ist so gewaltig, daß wir uns hier nur<lb/>
+auf Einzelnes beschränken müssen, bald durch diesen,<lb/>
+bald durch jenen der 14 Rioni wandernd, in welche<lb/>
+die Stadt getheilt ist, und von denen zwei ( il Borgo<lb/>
+und Trastevere ) auf dem rechten, die übrigen auf dem<lb/>
+linken Tiberufer liegen. Der südöstliche Theil ist fast<lb/>
+ganz unbewohnt, einzelne Kirchen und Klöster, Villen<lb/>
+und Häuser finden sich hier neben den zahlreichen Trüm-<lb/>
+mern, welche in der Gegend des Aventin, an dessen<lb/>
+Abhange der berüchtigte Cacus seine Höhle hatte, des<lb/>
+Cälius, des Esquilin liegen, hinan bis zum palatini-<lb/>
+schen Hügel, auf welchem die erste Ansiedelung stattfand.<lb/>
+Jn diesem Theile lagen, schon außerhalb des Mauer-<lb/>
+kreises des Servius Tullius, die großartigen Thermen<lb/>
+des Antoninus, in welchen 3000 Personen zu gleicher<lb/>
+Zeit baden konnten, und deren gewaltige Trümmermas-<lb/>
+sen noch jetzt einen Begriff von ihrer Pracht und ihrem<lb/>
+Umfang geben. Zwischen dem aventinischen und pala-<lb/>
+tinischen Hügel war der Circus maximus, für 260,000<lb/>
+Zuschauer eingerichtet, von dem jetzt nur verstüm-<lb/>
+melte Überreste vorhanden sind. Die imposanteste der<lb/>
+Ruinen ist aber das Flavische Amphitheater, gewöhnlich<lb/>
+das Coliseum <note place="foot" n="*)">Vergl. die Abbildung und Beschreibung desselben im<lb/>
+Pfennig=Magazin Nr. 18.</note> genannt, in einer Fläche zwischen dem<lb/>
+palatinischen, cälischen und esquilinischen Hügel lie-<lb/>
+gend. Glücklicher als viele andere große Bauten ist es<lb/>
+uns, wenn auch durch Zerstörungen aller Art verwüstet,<lb/>
+doch großentheils erhalten worden, und steht mit seinen<lb/>
+riesigen Mauermassen und seinen Arcadenreihen als ein<lb/>
+von allen Zeiten bewundertes Denkmal der Römergröße da.</p><lb/>
+<p>Kein Ort vielleicht weckt ein lebhafteres Bewußt-<lb/>
+sein des Verfalles, des Verschwindens des alten Glan-<lb/>
+zes, als das Campo vaccino. Hoch liegt der aus<lb/>
+Schutt und Erde bestehende Boden über dem Niveau<lb/>
+des alten Forum; zu einem Rindermarkt ist der Ver-<lb/>
+sammlungsplatz der stolzen Republikaner herabgewür-<lb/>
+digt. Jn den Tagen der Gründung der Stadt wahr-<lb/>
+scheinlich ein sumpfiges Thal, scheint das zwischen dem<lb/>
+palatinischen und capitolinischen Hügel gelegene Forum<lb/>
+nur durch die <hi rendition="#aq">Cloaca maxima</hi>, welche unterhalb der<lb/>
+palatinischen Brücke ( <hi rendition="#aq">Ponte rotto</hi> ) in die Tiber mün-<lb/>
+det, ausgetrocknet worden zu sein. Von der Zeit der<lb/>
+Könige an bis zum Untergange der Republik spielt das<lb/>
+Forum, das sich allmälig durch Bauten aller Art füllte<lb/>
+<cb type="end"/>
+<pb facs="#f0003" n="267"/>
+<fw place="top" type="header"><hi rendition="#g">Das Pfennig=Magazin.</hi> </fw><cb type="start"/>
+und verschönerte, bis es unter den Kaisern in einem<lb/>
+Glanze prangte, wovon die Schriftsteller der Zeit ein<lb/>
+freilich nur unvollkommenes Zeugniß geben, eine wich-<lb/>
+tige Rolle in der Stadt. Hier erstach Virginius seine<lb/>
+schöne Tochter, um sie vor dem Decemvir zu retten;<lb/>
+hier stürzte sich Curtius in den gähnenden Schlund, hier<lb/>
+feierte Julius Cäsar prächtige Feste. Von aller Herr-<lb/>
+lichkeit der Tempel, Triumphbögen, Bildsäulen sind nur<lb/>
+verstümmelte Reste geblieben.</p><lb/>
+<p>Vom capitolinischen Hügel aus hat man die<lb/>
+schönste Aussicht auf das tief unten liegende Forum<lb/>
+und die Baumgruppen der Via sacra nebst ihren Rui-<lb/>
+nen. Zur Linken erhebt sich aus dem rings um ihn<lb/>
+angewachsenen Boden der großartige aber schwerfällige<lb/>
+Triumphbogen des Kaisers Septimius Severus, rechts<lb/>
+die Colonnade des Tempels der Fortuna. Weiterhin<lb/>
+sieht man die vereinzelte Säule des Phocas, hierauf drei<lb/>
+corinthische Säulen, die man gewöhnlich für die Über-<lb/>
+reste eines Tempels des Jupiter Stator hält, die aber<lb/>
+wahrscheinlicher dem Gesandtenhotel angehörten, das<lb/>
+man hier Gräcostasis nannte, wie in Konstantinopel<lb/>
+Xenodochium Romanorum, und Eltschi=Khan bei den<lb/>
+Osmanen. Denn hier wie dort bestand die Sitte, den<lb/>
+Gesandten fremder Mächte eine eigne Wohnung anzu-<lb/>
+weisen, und sie gewissermaßen zu hindern, mit dem<lb/>
+Volke in Berührung zu kommen, wie noch jetzt in<lb/>
+China. Die bemerkenswerthesten andern Gegenstände,<lb/>
+die sich hier dem Blicke darbieten, sind die drei Arcaden<lb/>
+des Friedenstempels, auch die Konstantinische Basilica<lb/>
+genannt, die Kirche der St.=Francesca Romana, der<lb/>
+Triumphbogen des Kaisers Titus, die Reste der von<lb/>
+Augustus wieder aufgebauten Curia Hostilia und die<lb/>
+Trümmermassen auf dem palatinischen Hügel. Jn sei-<lb/>
+ner überragenden Größe liegt das Coliseum da, und der<lb/>
+Monte cavo schließt das unvergleichliche Bild.</p><lb/>
+<p>Neben dem Forum romanum hatte die Stadt<lb/>
+noch mehre andere, von denen das des Augustus, des<lb/>
+Nerva und des Trajan in seiner Nähe zwischen Capitol<lb/>
+und Quirinal lagen. Eine breite Treppe führt zum<lb/>
+Campidoglio hinauf, dem eigentlichsten Herzen des Frei-<lb/>
+staates, überreich an Erinnerungen aus der schönsten<lb/>
+Zeit des alten Roms. Die eben beschriebene Aussicht vom<lb/>
+Thurme des Capitols dürfte vielleicht von keiner andern<lb/>
+übertroffen werden. &#x201E;Die Betrachtung Roms&#x201C;, sagt<lb/>
+Valery, indem er von dieser Stelle redet, &#x201E;legt das<lb/>
+Buch des Alterthums offen vor uns hin: man braucht<lb/>
+nur hineinzublicken, um sich zu unterrichten. Jede der<lb/>
+großen Erinnerungen dieser Stadt hat sich gleichsam ein<lb/>
+anderes Viertel gewählt, das Rom der Könige erstreckt<lb/>
+sich über den Aventin, das republikanische nimmt das<lb/>
+Capitol ein, das kaiserliche herrscht auf dem Palatin;<lb/>
+das christliche Rom endlich, einsam und abgeschieden,<lb/>
+waltet auf dem Vatican.&#x201C;</p><lb/>
+<p>Wie seinen Namen, hat das Capitol auch seine<lb/>
+Gestalt bedeutend geändert. Der tarpejische Fels ist<lb/>
+nicht mehr geeignet, eine großartige Wirkung hervorzu-<lb/>
+bringen. Das berühmteste und vortrefflichste der Mo-<lb/>
+numente ist die Reiterstatue Marc Aurel's, welcher<lb/>
+Buonaroti seine Bewunderung nicht versagen konnte.<lb/>
+Zum Palazzo senatorio führt die schöne, von letztge-<lb/>
+nanntem Künstler gebaute Treppe. Das Museum ent-<lb/>
+hält einige der herrlichsten antiken Sculpturwerke, unter<lb/>
+Anderm den sterbenden Fechter <note place="foot" n="*)">Vergl. die Abbildung und Beschreibung desselben im<lb/>
+Pfennig=Magazin Nr. 55.</note>, wie er gewöhnlich heißt;<lb/>
+auch in der Gemäldegalerie findet man einige meister-<lb/>
+hafte Bilder. Wie es hier im Mittelalter aussah, davon<lb/>
+<cb n="2"/>
+geben uns die Chronisten, welche die Geschichte Hein-<lb/>
+rich 's von Luxemburg ( der 1312 im Lateran die Kaiser-<lb/>
+krone erhielt ) erzählen, einen Begriff. Der Senatspalast<lb/>
+war in eine Festung umgeschaffen, welche von den An-<lb/>
+hängern der dem Könige feindlichen Orsini, von Neapo-<lb/>
+litanern, Florentinern, Catalanen u. s. w. vertheidigt<lb/>
+ward. Unten lag das befestigte Franziskanerkloster und<lb/>
+viele Wohnungen der Edeln, meist mit hohen Thürmen<lb/>
+versehen, wie es in den italienischen Städten Sitte war,<lb/>
+und von denen herab der Kampf geführt ward. Vom<lb/>
+Capitol aus nach Nordosten hin war Alles mit festung-<lb/>
+ähnlichen Wohnungen und Barrikaden bedeckt. Die<lb/>
+Pläne des tapfern Königs scheiterten zum großen Theil:<lb/>
+nach einem blutigen Sturme eroberte er zwar das Ca-<lb/>
+pitol, konnte aber nicht in die Leostadt ( so nannte man<lb/>
+den Theil jenseit des Flusses ) dringen, wo der Prinz<lb/>
+von Achaia mit den Feinden den Vatican und das<lb/>
+Mausoleum des Hadrian, welches gewöhnlich die Be-<lb/>
+nennung: Thurm des Crescentius führte, besetzt hielt.<lb/>
+Bald nach seiner Krönung verließ der Kaiser die unheil-<lb/>
+volle Stadt und zog nach Tivoli.</p><lb/>
+<p>Eine glanzvolle Epoche erlebte das Capitol noch<lb/>
+während des Tribunats des Cola di Rienzi, eines Man-<lb/>
+nes, dessen Charakter ein seltsames Gemisch von Größe,<lb/>
+Prahlerei und Leichtsinn war. Nach zweimaliger stürmi-<lb/>
+schen Regierung wurde er am 8. Sept. 1354 an der<lb/>
+Capitolstreppe von demselben Volke ermordet, das er<lb/>
+von der Tyrannei der Barone zu befreien gesucht hatte.</p><lb/>
+<p><hi rendition="#c">( Beschluß in Nr. 178. )</hi></p><note type="editorial">Die Ausgabe, die den Beschluss enthält, fehlt.</note></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Die Eisenbahn von Dublin nach Kingstown.</hi></head><lb/>
+<p><hi rendition="#in">U</hi>nter den auf den britischen Jnseln ausgeführten und<lb/>
+begonnenen Eisenbahnen ist die seit 1833 zwischen Du-<lb/>
+blin und dem Hafenort Kingstown angelegte, hinsicht-<lb/>
+lich der Anlage und der Ausführung eine der vorzüg-<lb/>
+lichsten und in Beziehung auf Jrland, als der Anfang<lb/>
+neuer Verbindungswege zur Beförderung des innern<lb/>
+Verkehrs, von großer Wichtigkeit. Der Boden der Jn-<lb/>
+sel ist reich und fruchtbar. Das Land hat viele Quel-<lb/>
+len des Reichthums, aber Armuth wohnt in den Hüt-<lb/>
+ten der Landleute, die den Boden anbauen oder das<lb/>
+Rindvieh auf den grasreichen üppigen Triften hüten.<lb/>
+Oft herrscht Hungersnoth in Gegenden, die sich durch<lb/>
+Fruchtbarkeit und natürliche Hülfsmittel auszeichnen.<lb/>
+Die nächste Ursache dieser unglücklichen Verhältnisse,<lb/>
+außer den politischen und moralischen Ursachen, welchen<lb/>
+nur verbesserte Staatseinrichtungen und höhere Volks-<lb/>
+bildung entgegenwirken können, ist der Mangel an rich-<lb/>
+tig geleiteter Jndustrie unter der zahlreichen Volksmenge.<lb/>
+Es fehlt an Manufacturen und Fabriken, oder sie sind<lb/>
+nur auf einzelnen Punkten, wie im nördlichen Jrland<lb/>
+die Leinwandmanufacturen, zerstreut. Der Ackerbau steht,<lb/>
+gegen England und Niederschottland, noch auf einer tie-<lb/>
+fen Stufe, und hat sich erst in neuern Zeiten in eini-<lb/>
+gen Gegenden gehoben. Diesen Übeln abzuhelfen, kann<lb/>
+nichts wirksamer sein, als die Herstellung bequemer,<lb/>
+wohlfeiler und schneller Verbindungswege zwischen den<lb/>
+einzelnen Theilen des Landes und zwischen dem Bin-<lb/>
+nenlande und den trefflichen Häfen der Jnsel. Wird<lb/>
+die Jnsel mit Eisenbahnen durchschnitten, welche die<lb/>
+fruchtbarsten Bezirke berühren und in den bedeutendsten<lb/>
+Seehäfen endigen, werden von diesen Hauptlinien Sei-<lb/>
+tenbahnen zu den benachbarten Städten, zu Bergwer-<lb/>
+ken, Kohlengruben und andern durch natürliche Hülfs-<lb/>
+mittel wichtigen Punkten geführt, so muß die Kraft des<lb/>
+Volkes einen neuen Aufschwung nehmen. Jn verschie-<lb/>
+<cb type="end"/>
+<pb facs="#f0004" n="268"/>
+<fw place="top" type="header"> <hi rendition="#g">Das Pfennig=Magazin.</hi> </fw>       <figure>         <head>  Eisenbahn von Dublin nach Kingstown.  </head>       </figure><lb/>
+<cb type="start"/>
+denen Gegenden werden Waarenniederlagen entstehen,<lb/>
+Märkte angelegt werden und der Ackerbauer und der<lb/>
+Viehzüchter finden erleichterte Gelegenheit, ihre Erzeug-<lb/>
+nisse zu verkaufen und ihre Bedürfnisse zu beziehen.<lb/>
+Jrland ist bei seiner zahlreichen Bevölkerung und bei<lb/>
+der Wohlfeilheit der Arbeit ganz zu Manufacturen ge-<lb/>
+eignet und ihre Entstehung wartet nur auf die Beför-<lb/>
+derung des binnenländischen Verkehrs. Steinkohlen und<lb/>
+andere Bedürfnisse sind wohlfeil herbeizuschaffen, und<lb/>
+bei wohlfeiler Feuerung werden bald Maschinen die Thä-<lb/>
+tigkeit der Menschenhände unterstützen und die Arbeits-<lb/>
+kräfte unendlich vermehren. Ein großer Theil der Jn-<lb/>
+sel, jetzt abgeschnitten oder unzugänglich, wird aufge-<lb/>
+schlossen werden, der Werth des Landeigenthums steigen<lb/>
+und bequeme Häuser werden sich erheben statt der elen-<lb/>
+den Hütten, wo jetzt der dürftige Landbauer und seine<lb/>
+Familie mit seinen Hausthieren einen engen schmuzigen<lb/>
+Raum theilt, und mit belohnter Arbeitslust und stei-<lb/>
+gender Wohlhabenheit wird ihr nie fehlendes Gefolge,<lb/>
+Gesittung und höhere Bildung, über Jrlands grüne<lb/>
+Gefilde sich verbreiten. Geldmittel, Einsicht und Unter-<lb/>
+nehmungsgeist sind vorhanden, aber jetzt gebunden, und<lb/>
+es fehlt nichts, die Jnsel zu dem blühendsten Theile des<lb/>
+britischen Reichs zu machen, als, neben den bessern<lb/>
+Staatseinrichtungen, die vorbereitet werden, Selbstver-<lb/>
+trauen und Verbreitung von Kenntnissen, die grade von<lb/>
+den neuen Verbindungsmitteln, auf welche jetzt die Auf-<lb/>
+merksamkeit gerichtet ist, erwartet werden dürfen. Wird<lb/>
+vollends der großartige Entwurf, die Verbindung zwi-<lb/>
+schen Europa und Amerika über Jrland anzuknüpfen,<lb/>
+wovon wir in Nr. 164 dieser Blätter gesprochen haben,<lb/>
+auf irgend eine Art ausgeführt, so lassen sich die Vor-<lb/>
+theile, die daraus für Jrlands Gedeihen hervorgehen<lb/>
+werden, kaum ermessen.</p><lb/>
+<p>Diese Hindeutungen auf den gegenwärtigen Zu-<lb/>
+stand und auf die Bedürfnisse des Landes werden dazu<lb/>
+dienen, zu zeigen, wie wichtig das Unternehmen sei, mit<lb/>
+welchem wir unsere Leser näher bekannt machen wollen,<lb/>
+wenn es auch nur der Anfang größerer Entwürfe ist.</p><lb/>
+<cb n="2"/>
+<p>Die neue Eisenbahn verbindet Dublin längs der<lb/>
+Küste mit dem Hafenort Kingstown, früher ein Dorf,<lb/>
+das seinen alten Namen Dunleary mit jenem ( Königs-<lb/>
+stadt ) vertauscht hat, zum Andenken der Landung<lb/>
+Georg <hi rendition="#aq">IV</hi>. 1821, die ein Granitobelisk an der Küste<lb/>
+verewigt. Der Hafen wurde 1817 begonnen und ist<lb/>
+so tief, daß eine Fregatte von 36 Kanonen oder ein<lb/>
+Jndienfahrer von 100 Tonnen Schutz findet, und bei<lb/>
+zweistündiger Flut das Wasser tief genug für ein Schiff<lb/>
+von 74 Kanonen ist. Der Ausgangspunkt der Bahn<lb/>
+ist Dublin mit seiner prächtigen Bai, die nördlich von<lb/>
+der Halbinsel Howth, gegen1 1 / 2 Meile von der Stadt<lb/>
+entfernt, und südlich von der kleinen Felseninsel Dalky,<lb/>
+die ein schiffbarer Kanal vom Festlande trennt, begrenzt<lb/>
+ist. Die Breite der Bai zwischen beiden Punkten ist<lb/>
+1 1 / 2 Meile. Die Küste ist auf der Nordseite meist<lb/>
+niedrig, aber mit Häusern besäet, einzeln oder in Grup-<lb/>
+pen am Ufer, von welchem ein reizendes Gelände mit<lb/>
+Wald und Landhäusern ansteigt.</p><lb/>
+<p>Die Bahn, bei welcher seit dem Anfange der<lb/>
+Arbeiten täglich gegen 2000 Menschen beschäftigt wa-<lb/>
+ren, hat 1,200,000 Thaler gekostet, ist in allen<lb/>
+Theilen vortrefflich ausgeführt, durch den Verein der<lb/>
+Unternehmer mit andern Anlagen verbunden, welche die<lb/>
+Annehmlichkeit der Fahrt erhöhen und dadurch den Per-<lb/>
+sonenverkehr vermehren werden. Die Entfernung zwi-<lb/>
+schen beiden Punkten beträgt ungefähr zwei Meilen, die in<lb/>
+40 Minuten zurückgelegt werden. Die Eingangsstation<lb/>
+ist im Stadttheile Westland=Row, mit bequemen Ein-<lb/>
+richtungen für die Aufnahme der Reisenden, die ein<lb/>
+zierliches eisernes Obdach schützt. Aus verschiedenen<lb/>
+Theilen der Stadt gehen Omnibus, um die Reisenden<lb/>
+zu dem Stationshause zu bringen, und zwar jede eine<lb/>
+halbe oder Viertelstunde, und ebenso auf andern Theilen<lb/>
+der Bahn. Vom Ausgangspunkte an liegt die Bahn,<lb/>
+um den Straßenverkehr der Stadt nicht zu stören, ge-<lb/>
+gen 20 Fuß über der Oberfläche und geht in flachen<lb/>
+elliptischen Bögen über mehre Straßen. Die Bahn ist<lb/>
+hier zwischen den Brustwehren gegen 60 Fuß breit und<lb/>
+<cb type="end"/>
+<pb facs="#f0005" n="269"/>
+<fw place="top" type="header"><hi rendition="#g">Das Pfennig=Magazin.</hi> </fw><cb type="start"/>
+für vier Bahnlinien eingerichtet, von welchen die beiden<lb/>
+mittlern für Reisende hin und zurück und die äußern<lb/>
+für Güterwagen bestimmt sind, welche auf= und abla-<lb/>
+den können, ohne den Personenverkehr zu stören. Die<lb/>
+Bahn führt dann über die Quais und einen Theil der<lb/>
+Docken auf einer Granitbrücke von drei Bögen eigen-<lb/>
+thümlicher Bauart. Einer dieser Bögen ist für eine<lb/>
+künftige, den Docken parallel laufende Straße bestimmt.<lb/>
+Weiterhin nimmt die Bahn bis auf 30 Fuß ab und<lb/>
+hat nur zwei Bahnlinien, die jedoch acht Fuß vonein-<lb/>
+ander liegen. Jenseit einer schönen Brücke über den<lb/>
+Fluß Dodder kommt die Bahn in das offene Land,<lb/>
+und alles Mauerwerk hört nun auf; eine Rasenböschung<lb/>
+bezeichnet ihre Grenzen auf jeder Seite, von einer dop-<lb/>
+pelten Hecke eingefaßt. Von Old Merrion bis Black<lb/>
+Rock läuft die erhöhte Bahn über den Strand und er-<lb/>
+scheint bei hohem Wasser wie ein langer in das Meer<lb/>
+gehender Hafendamm. Das durch die Bahnanlage dem<lb/>
+sandigen Strande abgewonnene Land wird von dem<lb/>
+Grundbesitzer zu Anpflanzungen benutzt. Bei Williams-<lb/>
+town kommt die Bahn dicht an das Ufer des Meeres.<lb/>
+Bei Black Rock läßt der Verein der Unternehmer schöne<lb/>
+Bäder auf der äußern Seite des Bahndammes anlegen.<lb/>
+<cb n="2"/>
+Von Black Rock bis Kingstown verändert sich die An-<lb/>
+sicht der Bahn immer; Mauern auf der Landseite, of-<lb/>
+fene Aussicht gegen das Meer. Unweit Black Rock geht<lb/>
+sie zwischen zwei Granitpavillons auf dem Landsitze des<lb/>
+Lords Cloncurry durch einen Tunnel, dann durch einen<lb/>
+40 Fuß tiefen Felsendurchschnitt unter einer Brücke,<lb/>
+welche die Anlagen eines Landsitzes verbindet. Sie läuft<lb/>
+bei Sea Point längs der Seebadanstalt, weiter durch<lb/>
+einen tiefen Feseneinschnitt, dann unter hohen Klippen<lb/>
+nach Salthill, wo ein prächtiger Gasthof eingerichtet<lb/>
+wurde. Von hier zieht sich die Bahn über einen Theil<lb/>
+des alten Hafens von Dunleary, der ausgefüllt wurde,<lb/>
+zu dem neu erbauten prächtigen Quai und Landungs-<lb/>
+platze für die Dampfböte, sodaß die Reisenden beim<lb/>
+Aussteigen aus dem Dampfwagen sogleich in die Boote<lb/>
+gehen können.</p><lb/>
+<p>Sechs Dampfwagen mit trefflicher Maschinerie<lb/>
+gehen auf der Bahn. Die Wagen für die Reisenden<lb/>
+sind von dreierlei Art, und selbst die geringern der drit-<lb/>
+ten Classe besser als in England. Alle sind bedeckt.<lb/>
+Man hat die Absicht, die Bahn zunächst nach Bray<lb/>
+zu führen, wohin von Kingstown der Weg meist durch<lb/>
+ein reizendes Thal geht.</p></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr"><hi rendition="#g">Jbrahim's Palast zu Kahira</hi>.</hi></head><lb/>
+<figure/><lb/>
+<cb type="start"/>
+<p><hi rendition="#in">A</hi>m Nil, aufwärts von Bulak, dem Hafen von Ka-<lb/>
+hira, liegt der von Jbrahim Pascha, dem Sohne des<lb/>
+Vicekönigs von Ägypten, erbaute Palast, ein großes Ge-<lb/>
+bäude von unregelmäßiger Bauart, seit seiner Abreise<lb/>
+<cb n="2"/>
+nach Syrien der beständige Aufenthalt seines Harems.<lb/>
+Dem prächtig eingerichteten Palast gegenüber liegt die<lb/>
+fruchtbare Jnsel Rhoda, auf welcher Jbrahim einen<lb/>
+neuen Palast erbauen läßt, und es ist bereits ein großer<lb/>
+<cb type="end"/>
+<pb facs="#f0006" n="270"/>
+<fw place="top" type="header"> <hi rendition="#g">Das Pfennig=Magazin.</hi> </fw><cb type="start"/>
+Theil derselben durch den geschickten Gärtner Trait, den<lb/>
+Jbrahim aus England kommen ließ, in einen reizenden<lb/>
+Garten umgewandelt worden, wo viele europäische und<lb/>
+tropische Pflanzen vortrefflich gedeihen.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr"><hi rendition="#g">Münchhausens Reisen</hi>.</hi></head><lb/>
+<p><hi rendition="#in">Z</hi>u den vorübergegangenen literarischen Erscheinungen,<lb/>
+die einst viel Aufsehen machten, gehören die wunderba-<lb/>
+ren Reisen, Feldzüge und Abenteuer des Freiherrn von<lb/>
+Münchhausen, eine Sammlung der seltsamsten und aus-<lb/>
+schweifendsten Einfälle, z. B. der Überrock des Erzäh-<lb/>
+lers sei von einem tollen Hunde gebissen und wüthend<lb/>
+geworden, sein Windhund habe die Beine dergestalt ab-<lb/>
+gelaufen, daß er zum Dachshund geworden, sein Jagd-<lb/>
+hund habe ihm im Schlaf den Magen herausgefressen,<lb/>
+weil er Rebhühner darin gewittert und er habe sich da-<lb/>
+für einen Schweinemagen einnähen lassen, und andere,<lb/>
+noch ungleich weniger ergötzliche. Die Geschichte dieses<lb/>
+Buchs ist merkwürdig genug. Manche haben es für<lb/>
+eine absichtliche Satire auf lügenhafte, phantastische Er-<lb/>
+zähler oder Reisebeschreiber gehalten, aber mit Unrecht;<lb/>
+es war vielmehr das unwillkürliche Erzeugniß einer krank-<lb/>
+haften Geistesrichtung. Der Urheber dieser Märchen lebte<lb/>
+in der zweiten Hälfte des vorigen Jahrhunderts still und<lb/>
+eingezogen in dem Städtchen Bodenwerder an der We-<lb/>
+ser und kam nur wenig in Gesellschaften, war er aber<lb/>
+darin und wurde er auf seine imaginairen Reisen ge-<lb/>
+bracht, so erzählte er seine Einfälle mit dem vollen Ernst<lb/>
+des Historikers, und konnte sehr unwillig werden, wenn<lb/>
+man ihm nicht vollen Glauben schenkte. Offenbar glaubte<lb/>
+dieser Mann zuletzt selbst an die Wahrheit seiner er-<lb/>
+sonnenen Abenteuer, nachdem er sie so oft sich und An-<lb/>
+dern erzählt hatte. War seine Frau zugegen, so rief er<lb/>
+diese gewöhnlich zum Zeugen der Wahrheit an, obgleich<lb/>
+die meisten seiner Abenteuer unter Umständen vorgefallen<lb/>
+sein mußten, bei denen Frauen überhaupt nicht wol<lb/>
+gegenwärtig gewesen sein konnten.</p><lb/>
+<p>Längst hatten diese Schwänke einen großen Theil<lb/>
+von Deutschland durchwandert und waren aus den hö-<lb/>
+hern Cirkeln bis zur untersten Volksclasse herabgestiegen,<lb/>
+ohne daß Jemand daran gedacht hätte, sie zu sammeln.<lb/>
+Ein durch widrige Schicksale nach England verschlagener<lb/>
+deutscher Literat, Raspe, der früher zu Kassel, in Münch-<lb/>
+hausens Nähe, gelebt hatte, kam endlich auf diesen Ein-<lb/>
+fall und gab sie in England und in englischer Sprache<lb/>
+heraus. Dort fanden sie einen gedeihlichen Boden und<lb/>
+erlebten in kurzer Zeit fünf Auflagen. Sie fanden den<lb/>
+Weg übers Meer nach Ostindien, und Offiziere eines<lb/>
+hanöverschen Regiments, das nach Madras geschickt<lb/>
+wurde, trafen sie dort in den ersten Häusern, wo sie<lb/>
+begierig gelesen wurden. Nun erst erschienen diese ur-<lb/>
+sprünglich deutschen Erzeugnisse, aus dem Englischen zu-<lb/>
+rück übersetzt, in Deutschland; der Dichter Bürger war<lb/>
+es, der sich mit dieser Übersetzung befaßte, jedoch fand<lb/>
+das Buch hier nicht den großen Beifall, wie früher in<lb/>
+England.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle" xml:id="Blind3"><head><hi rendition="#fr">Über Blinde, Blindenunterricht und Blinden-<lb/>
+anstalten.</hi><lb/>
+<hi rendition="#aq">I</hi>. <hi rendition="#fr"><hi rendition="#g">Von den Blinden überhaupt</hi>.</hi><lb/>
+<ref target="nn_pfennig176_1836#Blind2">( Fortsetzung aus Nr. 176. )</ref></head><lb/>
+<p><hi rendition="#in">A</hi>ber auch außer dem Begriff der Farben entbehrt der<lb/>
+Blindgeborene oder in früher Jugend Erblindete die<lb/>
+Kenntniß jener Gegenstände, welche wegen ihrer Fein-<lb/>
+<cb n="2"/>
+heit nicht durch das Gefühl oder einen andern Sinn,<lb/>
+erkannt werden können; die sichtbare Wirkung von<lb/>
+Schatten und Licht, sowol in der Natur als bei Zeich-<lb/>
+nungen, die durch entfernte Bewegungen entstehenden<lb/>
+Abwechselungen, dann das Vergnügen, welches der<lb/>
+Sehende aus dem Überblicke mehrer zu gleicher Zeit<lb/>
+vorhandenen Gegenstände und ihren verhältnißmäßigen<lb/>
+Beziehungen gegeneinander schöpft, die schöne Man-<lb/>
+nichfaltigkeit. Die reizende Schönheit kann für den<lb/>
+gebildeten Blinden nur durch ein Bild seiner Phantasie<lb/>
+ersetzt werden, welches, so sehr es auch von der Wirk-<lb/>
+lichkeit dieser sichtbaren Gegenstände entfernt sein mag,<lb/>
+gleichwol den Blinden befriedigt, ihn heiter und froh<lb/>
+macht und ihn solche Phantasiegenüsse wünschen läßt.<lb/>
+Daher erklärt sich die Vorliebe vieler Blinden für schöne<lb/>
+Kleider und Putz, ihr Geschmack am Theater und an-<lb/>
+dern öffentlichen Schauspielen, und an Beschreibungen<lb/>
+solcher Gegenstände. Es ist nicht zu bezweifeln, daß der<lb/>
+Blinde dabei manchmal in dem Fall sein werde, daß<lb/>
+er sich eine Sache in seinem Sinne schöner und voll-<lb/>
+kommener vorstellt als sie wirklich ist.</p><lb/>
+<p>Auf die Phantasie des Blinden muß also der<lb/>
+Mangel des Gesichtssinnes einen wichtigen Einfluß haben.<lb/>
+Auf der einen Seite scheint ihm der Stoff zu fehlen, der<lb/>
+dieser wichtigen und fruchtbaren Seelenkraft gleichsam zur<lb/>
+Nahrung dient, auf der andern Seite aber ist es einleuch-<lb/>
+tend, daß das Bedürfniß, sich durch die Phantasie abwesende<lb/>
+Gegenstände zu vergegenwärtigen, öfter eintreten müsse,<lb/>
+als bei Sehenden. Der Körper, den der Blinde nicht<lb/>
+berührt, sei er ihm auch ganz nahe, ist für ihn schon<lb/>
+ein Gegenstand der Phantasie. Die Phantasie des<lb/>
+Blinden faßt ihren Gegenstand, entkleidet vom Sicht-<lb/>
+baren, auf, desto deutlicher ist sie sich aber der übrigen<lb/>
+Eigenschaften desselben, und seiner Verhältnisse und<lb/>
+Beziehungen gegen Andere bewußt. Alles tritt handelnd<lb/>
+vor die Phantasie des Blinden und füllt seine ganze<lb/>
+Seele, die sich desto ruhiger und genauer mit diesem<lb/>
+einen Gegenstande beschäftigen kann, da sie durch Zer-<lb/>
+streuungen nicht abgezogen wird und ihr Jdeenkreis<lb/>
+weniger ausgedehnt ist. Der Sehende schöpft die<lb/>
+meisten Bilder seiner Phantasie aus sichtbaren Erschei-<lb/>
+nungen, die oft augenblicklich vorübergehend sind, der<lb/>
+Blinde aus Beschreibungen, welche alle übrigen darauf<lb/>
+sich beziehenden Umstände umfassen und die mit Muße<lb/>
+betrachtet werden können.</p><lb/>
+<p><hi rendition="#g">Träume,</hi> diese eigenthümlichen Geburten der<lb/>
+Phantasie, betreffen bei dem Blinden meistens hörbare<lb/>
+Gegenstände, aber auch sichtbare Gegenstände, von<lb/>
+denen er sich auf andern Wegen Kenntnisse verschafft<lb/>
+hat, stellen sich ihm im Traume dar. Diese Träume<lb/>
+erlangen manchmal eine solche Lebhaftigkeit, daß er<lb/>
+noch eine Zeit lang nach dem Erwachen die Jdee beibe-<lb/>
+hält, er habe im Traume wirklich gesehen. Eine Er-<lb/>
+scheinung, welche nicht nur bei Blinden, welche früher<lb/>
+gesehen haben, sondern auch bei Blindgeborenen vorkommt.</p><lb/>
+<p>Die Wichtigkeit des <hi rendition="#g">Erinnerungsvermögens</hi><lb/>
+und <hi rendition="#g">Gedächtnisses</hi> für den Blinden ist daraus<lb/>
+einleuchtend, daß derselbe auch in dieser Rücksicht mehr<lb/>
+auf sich selbst beschränkt ist. Da er nicht lesen oder<lb/>
+nachschlagen kann, so ist er meistens in dem Falle, daß<lb/>
+ihm sowol im gemeinen Leben als in wissenschaftlichen<lb/>
+Dingen, ein Gegenstand nur einmal vorkommt. Auch<lb/>
+hier zeigt sich, was unumgängliche Noth und fleißige<lb/>
+Übung vermögen.</p><lb/>
+<p>Das Auge ist es hauptsächlich, das uns halb und<lb/>
+ganz vergessene Gegenstände öfters wieder ins Gedächt-<lb/>
+niß zurückruft; da aber dem Blinden dieses Erinnerungs-<lb/>
+mittel fehlt, so gewöhnt er sich, Alles, was ihm vor-<lb/>
+<cb type="end"/>
+<pb facs="#f0007" n="271"/>
+<fw place="top" type="header"><hi rendition="#g">Das Pfennig=Magazin.</hi> </fw><cb type="start"/>
+kommt, seien es körperliche oder geistige Gegenstände,<lb/>
+so lange festzuhalten, bis er sich Alles tief eingeprägt<lb/>
+hat. Dadurch, und weil ihm nicht, wie bei Sehenden,<lb/>
+durch häufig neue Eindrücke die vorigen so leicht wieder<lb/>
+geschwächt oder verlöscht werden, entsteht jenes <hi rendition="#g">getreue<lb/>
+Gedächtniß,</hi> welches die meisten Blinden und man-<lb/>
+che in einem bewundernswürdigen Grade besitzen, und<lb/>
+welches ihren Unterricht eben so sehr erleichtert, als es<lb/>
+ihnen im gemeinen Leben und bei wissenschaftlichen<lb/>
+Beschäftigungen nützlich ist.</p><lb/>
+<p>Da der Blinde jeden Gegenstand einzeln mit un-<lb/>
+getheilter Aufmerksamkeit und so genau als möglich ge-<lb/>
+wöhnlich im eigentlichen Sinne von allen Seiten betrach-<lb/>
+tet, so kann man sich nicht wundern, daß er, die meistens<lb/>
+zufällige Beschaffenheit der Farbe abgerechnet, manche<lb/>
+Sache <hi rendition="#g">genauer und richtiger kennen lernt,</hi> als<lb/>
+ein Sehender, der es nicht selten bei einem flüchtigen<lb/>
+oberflächlichen Blick bewenden läßt, dagegen der Blinde<lb/>
+die ganze ihm übriggebliebene Sinnlichkeit, besonders<lb/>
+Tastsinn und Gehör aufbietet, um in die Natur des<lb/>
+vorliegenden Gegenstandes einzudringen und ihn nach<lb/>
+allen Beziehungen auszuforschen. Es ist merkwürdig<lb/>
+und rührend zugleich, das innere Streben und die An-<lb/>
+strengung zu beobachten, durch welche der Blinde das<lb/>
+wichtige äußere Hinderniß zu überwinden sucht.</p><lb/>
+<p>Diese genaue Betrachtung und reife Beurtheilung<lb/>
+leitet den unterrichteten Blinden auch bei der Behand-<lb/>
+lung geistiger Gegenstände, so daß er aus Vorsicht zwar<lb/>
+etwas langsamer, aber oft bestimmter und richtiger <lb/>
+<hi rendition="#g">urtheilen</hi> wird, als der Sehende. Weniger gebildete<lb/>
+Blinde werden jedoch durch das ihnen eigenthümliche<lb/>
+Beharren auf der einmal gefaßten Ansicht eines Gegen-<lb/>
+standes hin und wieder zu einseitigen Urtheilen verleitet,<lb/>
+welche durch zweckmäßige Erziehung und Unterricht um<lb/>
+so mehr verhindert werden müssen, da es für ihren<lb/>
+Zustand, bei dem sie öfter als Andere in Gefahr ge-<lb/>
+rathen, wichtig ist, sie bei steter Besonnenheit und<lb/>
+Geistesgegenwart zu erhalten.</p><lb/>
+<p>Weil der Blinde durch seine Umstände in seltenere<lb/>
+Berührung mit der äußern Welt und mit ihren Ver-<lb/>
+hältnissen kommt, so behalten diese immer den Reiz<lb/>
+der Neuheit für ihn, und er richtet sich nicht nur in<lb/>
+seinen Handlungen gern nach andern Menschen, sondern<lb/>
+auch sein Jdeengang bleibt gern auf dem gewöhnlichen<lb/>
+Wege. Der Blinde ist weniger zum Erfinden und<lb/>
+speculativen Denken geeignet, als er schon vorhandenen<lb/>
+geistigen Stoff gut bearbeiten kann, ohne daß er jedoch<lb/>
+gehindert wäre, durch höhere Bildung in die Tiefen<lb/>
+der Wissenschaften und schönen Künste einzudringen.</p><lb/>
+<p>Der Blinde wird durch seinen Zustand unaufhör-<lb/>
+lich an seine Hülfsbedürftigkeit erinnert, und dieses ver-<lb/>
+anlaßt ihn, sich fest an andere Menschen anzuschließen.<lb/>
+Gewöhnlich hängt er mit ganzer Seele und mit unbe-<lb/>
+gränztem Zutrauen an Denen, die sich seiner annehmen.</p><lb/>
+<p>Die meisten Blinden, welche es nicht erst in rei-<lb/>
+fern Jahren geworden sind, haben eine ruhige, sich<lb/>
+Andern gern anschmiegende Sinnesart, sind offen und<lb/>
+unbefangen, zufrieden und heiter. Diese glückliche Ge-<lb/>
+müthsstimmung fließt größtentheils aus dem Zustande<lb/>
+der Blindheit selbst. Jene Hülfsbedürftigkeit setzt den<lb/>
+Blinden von Kindheit an in die Lage, dem Willen<lb/>
+und der Leitung Anderer zu folgen, und lehret ihn, sich<lb/>
+Denen gefällig zu zeigen, die er niemals entbehren kann.<lb/>
+Da der Blinde vielen Sinnesreizen entgeht und ihm<lb/>
+manche entbehrliche Genüsse unbekannt bleiben, so trägt<lb/>
+dieses mit dazu bei, ihm innere Ruhe und Zufrieden-<lb/>
+heit zu erhalten. Durch lange Gewohnheit mit seinem<lb/>
+Zustande vertraut und in dem Bewußtsein, manche<lb/>
+<cb n="2"/>
+Schwierigkeit glücklich überwunden zu haben, hört man<lb/>
+den Blinden nicht selten über sich und seinen Zustand<lb/>
+scherzen und sich auf seine Fertigkeiten etwas zu gute<lb/>
+thun.</p><lb/>
+<p>Bei Blinden, die es in irgend einer Kunst oder<lb/>
+Wissenschaft weit gebracht haben, artet dieses manchmal<lb/>
+in Stolz aus, der freilich um deswillen verzeihlicher er-<lb/>
+scheint, weil der Blinde die große Anstrengung in Rech-<lb/>
+nung bringt, die er anwenden mußte, um das ihm ent-<lb/>
+gegenstehende Naturhinderniß zu überwinden.</p><lb/>
+<p>Jn ihren Urtheilen über Andere sind die Blinden<lb/>
+unbefangener und strenger als die Sehenden, weil sie<lb/>
+durch äußern Glanz und Hoheit oder durch die Zeichen<lb/>
+von Reichthum und Stand nicht geblendet werden. Für<lb/>
+Menschen und ihre Handlungen kennt der Blinde nur<lb/>
+den moralischen Maßstab, und das Beste denkt er sich<lb/>
+gewöhnlich auch als das Schönste.</p><lb/>
+<p>Bei der durch stete innere und äußere Anstren-<lb/>
+gung entstehenden allgemeinen Reizbarkeit geräth der<lb/>
+Blinde leicht in Hitze, aber er kommt auch bald wieder<lb/>
+zurück. Diese Reizbarkeit und eine gewisse Verwöh-<lb/>
+nung durch häufiges Mitleiden und Hülfe von guten<lb/>
+Menschen, machen den Blinden etwas empfindlich, so-<lb/>
+daß er dadurch manchmal zu ungünstigen Urtheilen ge-<lb/>
+gen Andere verleitet wird.</p><lb/>
+<p>Alle Blinde haben einen Anstrich von Eigensinn<lb/>
+oder vielmehr von Beharrung bei dem einmal Ge-<lb/>
+wohnten, welches sich auch sehr natürlich daraus er-<lb/>
+klärt, daß ihnen jede Veränderung ihrer Lage und Hand-<lb/>
+lungsweise weit schwerer fällt und sie mehr Mühe und<lb/>
+längere Zeit brauchen, sich in neuen Verhältnissen zu-<lb/>
+recht zu finden als ein Sehender. Hierzu kommt noch,<lb/>
+daß der Blinde, welcher in so manchen Beziehungen<lb/>
+auf sich allein beschränkt ist und nur aus sich selbst<lb/>
+schöpfen kann, dem Seinigen, das er so mühsam er-<lb/>
+worben hat, sei es nun körperliches oder geistiges Ei-<lb/>
+genthum, einen besondern Werth beilegt, und daß es<lb/>
+ihm schwer ankommt, etwas davon aufzugeben. Wer<lb/>
+wie der Blinde so oft isolirt unter den übrigen Men-<lb/>
+schen dasteht, gewöhnt sich leicht in einzelnen Fällen so<lb/>
+zu handeln, als ob er allein da wäre.</p><lb/>
+<p>Viele Blinde, selbst junge Leute und Kinder, ha-<lb/>
+ben eine Neigung, Vorräthe zu sammeln, sind geldgie-<lb/>
+rig und eigennützig. Zu gleicher Zeit aber wird man<lb/>
+an ihnen eine diesem Alter ungewöhnliche Gesetztheit<lb/>
+und Überwindungsgabe antreffen. Die meisten Blin-<lb/>
+den haben ein reges Gefühl für Wahrheit und Recht.<lb/>
+Eigne Kränkungen, die leider dem Blinden so häufig<lb/>
+widerfahren, fühlt er zwar tief, aber sie machen ihn we-<lb/>
+niger betrübt als bitter; er zieht sich in sich selbst zurück<lb/>
+und wird verschlossen, selten aber wird man finden, daß<lb/>
+er sich auf eine andere Weise als durch Satire, zu der<lb/>
+überhaupt die erwachsenen Blinden aufgelegt sind, zu<lb/>
+rächen sucht.</p><lb/>
+<p>Da der Blinde so manchen rührenden Auftritt<lb/>
+nicht sieht und die Kraft des augenblicklichen Eindrucks<lb/>
+auf ihn nicht wirkt, da er bei seinem leidenden Zu-<lb/>
+stande sich von Jugend auf an Entbehrungen aller Art<lb/>
+gewöhnt, mithin fremde Gebrechen ihm weniger auffal-<lb/>
+lend sind, so ist es kein Wunder, daß die meisten Blin-<lb/>
+den mehr kalt als gefühlvoll erscheinen, was ihnen<lb/>
+manchmal den Vorwurf der Unempfindlichkeit zuzieht.</p><lb/>
+<p>Blinde, welche mit schlechten Beispielen umgeben<lb/>
+sind, besonders solche, welche früher gesehen haben, ge-<lb/>
+rathen manchmal auf moralische Abwege, die ihnen um<lb/>
+so verderblicher werden, weil sie dann die der Blindheit<lb/>
+eigne Überlegung und Beharrlichkeit dazu misbrauchen,<lb/>
+ihr ganzes Dichten und Trachten auf die Ausführung<lb/>
+<cb type="end"/>
+<pb facs="#f0008" n="272"/>
+<fw place="top" type="header"><hi rendition="#g">Das Pfennig=Magazin.</hi> </fw><cb type="start"/>
+ihrer schädlichen Vorsätze zu verwenden. Da sie nichts<lb/>
+allein ausführen können, so hängen sie sich an schlechte<lb/>
+Menschen, misbrauchen das Mitleiden und Zutrauen,<lb/>
+<cb n="2"/>
+welches man den Blinden zu schenken pflegt, und ma-<lb/>
+chen sich dadurch doppelt unglücklich.</p><lb/>
+<p><hi rendition="#c">( Die Fortsetzung folgt in Nr. 180. )</hi></p><note type="editorial">Die Ausgaben, die die Fortsetzungen enthalten, fehlen.</note></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1"><figure><head><hi rendition="#fr">Das Campo Vaccino ( ehemalige Forum ) zu Rom.</hi></head></figure></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+</body>     <back><div n="1" type="imprint"><p><hi rendition="#c">Verantwortliche Herausgeber: <hi rendition="#g">Friedrich Brockhaus</hi> in <hi rendition="#g">Leipzig</hi> und <hi rendition="#aq">Dr</hi>. C. <hi rendition="#g">Dräxler=Manfred</hi> in <hi rendition="#g">Wien.</hi><lb/>
+Verlag von F. A. <hi rendition="#g">Brockhaus</hi> in Leipzig.</hi></p></div>     </back>   </text> </TEI>

@@ -1,0 +1,931 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.deutschestextarchiv.de/basisformat.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">     <teiHeader>
+<fileDesc>
+<titleStmt>
+<title type="main">Das Pfennig-Magazin für Belehrung und Unterhaltung</title>
+<title type="sub">Dritte Folge, Zweiter Jahrgang, Nr. 86</title>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/115266127">
+<surname>Geyken</surname>
+<forename>Alexander</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1222198746">
+<surname>Haaf</surname>
+<forename>Susanne</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1019062681">
+<surname>Jurish</surname>
+<forename>Bryan</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Boenig</surname>
+<forename>Matthias</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Thomas</surname>
+<forename>Christian</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Wiegand</surname>
+<forename>Frank</forename>
+</persName>
+</editor>
+<respStmt>
+<orgName>Institut für Deutsche Sprache, Mannheim</orgName>
+<resp>
+<note type="remarkResponsibility">Bereitstellung der Bilddigitalisate und TEI
+Transkription</note>
+<ref target="http://hdl.handle.net/10932/00-01B8-B0A8-1C9F-E801-C"/>
+</resp>
+</respStmt>
+<respStmt>
+<persName>
+<forename>Peter</forename>
+<surname>Fankhauser</surname>
+</persName>
+<resp>
+<note type="remarkResponsibility">
+Transformation von TUSTEP nach TEI P5.
+Transformation von TEI P5 in das DTA TEI P5 Format.
+</note>
+</resp>
+</respStmt>
+<respStmt>
+<orgName ref="https://www.bbaw.de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<resp>
+<note type="remarkResponsibility">Langfristige Bereitstellung der DTA-Ausgabe</note>
+<ref target="https://www.bbaw.de"/>
+</resp>
+</respStmt>
+</titleStmt>
+<editionStmt><edition>Vollständige digitalisierte Ausgabe.</edition></editionStmt>
+<extent>
+<measure type="images">8</measure>
+<measure type="tokens">5277</measure>
+<measure type="types">2076</measure>
+<measure type="characters">34825</measure>
+</extent>
+<publicationStmt>
+<publisher xml:id="DTACorpusPublisher">
+<email>dta@bbaw.de</email>
+<orgName role="project">Deutsches Textarchiv</orgName>
+<orgName role="hostingInstitution" xml:lang="en">Berlin-Brandenburg Academy of Sciences and Humanities (BBAW)</orgName>
+<orgName role="hostingInstitution" xml:lang="de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<address>
+<addrLine>Jägerstr. 22/23, 10117 Berlin</addrLine>
+<country>Germany</country>
+</address>
+</publisher>
+<pubPlace>Berlin</pubPlace>
+<date type="publication">2025-10-24T08:35:14Z</date>
+<availability>
+<licence target="http://creativecommons.org/publicdomain/zero/1.0/">
+<p>Dieses Werk steht unter der "Creative Commons Namensnennung -
+Nicht kommerziell 3.0 Deutschland Lizenz" (CC BY-NC).</p>
+</licence>
+</availability>
+<idno>
+<idno type="URLWeb">https://www.deutschestextarchiv.de/nn_pfennig086_1854</idno>
+<idno type="URLXML">https://www.deutschestextarchiv.de/book/download_xml/nn_pfennig086_1854</idno>
+<idno type="URLHTML">https://www.deutschestextarchiv.de/book/download_html/nn_pfennig086_1854</idno>
+<idno type="URLText">https://www.deutschestextarchiv.de/book/download_text/nn_pfennig086_1854</idno>
+<idno type="DTADirName">nn_pfennig086_1854</idno>
+<idno type="DTAID">34736</idno>
+<idno type="URN">urn:nbn:de:kobv:b4-34736-0</idno>
+</idno>
+</publicationStmt>
+<sourceDesc>
+<bibl type="J">Das Pfennig=Magazin für Belehrung und Unterhaltung. Dritte Folge, Zweiter Jahrgang, Nr. 86. Leipzig (Sachsen), 17. August.</bibl>
+<biblFull>
+<titleStmt>
+<title level="m" type="main">Das Pfennig-Magazin für Belehrung und Unterhaltung</title>
+<title level="m" type="sub">Dritte Folge, Zweiter Jahrgang, Nr. 86</title>
+</titleStmt>
+<editionStmt>
+<edition n="1"/>
+</editionStmt>
+<publicationStmt>
+<publisher/>
+<pubPlace>Leibzig (Sachsen)</pubPlace>
+<date type="publication">1854</date>
+</publicationStmt>
+</biblFull>
+<msDesc>
+<msIdentifier/>
+<physDesc>
+<typeDesc>
+<p>Fraktur</p>
+</typeDesc>
+</physDesc>
+</msDesc>
+</sourceDesc>
+</fileDesc>
+<encodingDesc>
+<editorialDecl>
+<p>
+<![CDATA[
+<p>Siehe Dokumentation</p>
+]]>
+</p>
+</editorialDecl>
+<tagsDecl>
+<rendition scheme="css" xml:id="aq">font-family:sans-serif</rendition>
+<rendition scheme="css" xml:id="b">font-weight:bold</rendition>
+<rendition scheme="css" xml:id="blue">color:blue</rendition>
+<rendition scheme="css" xml:id="c">display:block; text-align:center</rendition>
+<rendition scheme="css" xml:id="et">display:block; margin-left:2em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et2">display:block; margin-left:4em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et3">display:block; margin-left:6em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="f">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="fr">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="g">letter-spacing:0.125em</rendition>
+<rendition scheme="css" xml:id="i">font-style:italic</rendition>
+<rendition scheme="css" xml:id="in">font-size:150%</rendition>
+<rendition scheme="css" xml:id="k">font-variant:small-caps</rendition>
+<rendition scheme="css" xml:id="larger">font-size:larger</rendition>
+<rendition scheme="css" xml:id="red">color:red</rendition>
+<rendition scheme="css" xml:id="right">display:block; text-align:right</rendition>
+<rendition scheme="css" xml:id="s">text-decoration:line-through</rendition>
+<rendition scheme="css" xml:id="smaller">font-size:smaller</rendition>
+<rendition scheme="css" xml:id="sub">vertical-align:sub; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="sup">vertical-align:super; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="u">text-decoration:underline</rendition>
+<rendition scheme="css" xml:id="uu">border-bottom:double 3px #000</rendition>
+</tagsDecl>
+</encodingDesc>
+<profileDesc>
+<langUsage>
+<language ident="deu">(Früh-)Neuhochdeutsch</language>
+<language ident="deu">German</language>
+</langUsage>
+<textClass>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1main">Gebrauchsliteratur</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1sub">Zeitschrift</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">ready</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">mkhz1</classCode>
+</textClass>
+</profileDesc>
+</teiHeader>
+<text>     <front>
+<pb facs="#f0001" n="[265]"/>
+<titlePage type="heading"><docTitle><titlePart type="main"><hi rendition="#c #fr">Das Pfennig=Magazin<lb/>
+für<lb/>
+<hi rendition="#g">Belehrung und Unterhaltung</hi>.</hi></titlePart></docTitle><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<docImprint><hi rendition="#fr">Nr</hi>. 86. ]                <hi rendition="#c">Dritte Folge. Zweiter Jahrgang.</hi>                <docDate><hi rendition="#right">[ 17. <hi rendition="#g">August</hi> 1854.</hi></docDate>              </docImprint></titlePage><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+</front>     <body>       <div n="1"><figure><head><hi rendition="#fr">Dorfkomödie.</hi></head></figure></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Eine arabische Tragödie.</hi></head><lb/>
+<cb type="start"/>
+<p><hi rendition="#in">J</hi>n Bagdad lebte ein junger Mann von großer Schön-<lb/>
+heit, Abder=Rahman=Ben=Jsmail; auch besaß er die<lb/>
+Gabe der Poesie.</p><lb/>
+<p>Die Gemahlin des Khalifen El=Ulid gewann den<lb/>
+jungen Mann, den sie oft an ihrer Wohnung vorüber-<lb/>
+gehen sah, lieb und vor Sehnsucht nach ihm ward sie<lb/>
+krank. Da ließ sie ihn endlich durch ihre Vertraute<lb/>
+zu sich holen, sah ihn oft in ihrem Zimmer und ließ<lb/>
+ihn, so oft sie von Jemand gestört zu werden fürch-<lb/>
+tete, in einem Koffer sich verstecken.</p><lb/>
+<p>Eines Tages sah der Khalif einen prachtvollen gol-<lb/>
+denen Halsschmuck, mit kostbaren Steinen besetzt. Er<lb/>
+kaufte ihn sofort und sagte erfreut: &#x201E;Den gebe ich mei-<lb/>
+<cb n="2"/>
+ner Frau.&#x201C; Sogleich rief er einen seiner Diener und<lb/>
+befahl ihm, den Halsschmuck der Sultanin zu über-<lb/>
+bringen.</p><lb/>
+<p>Dieser ging, um den Auftrag auszurichten. Als er<lb/>
+die zum Gemach der Sultanin führende Thür offen<lb/>
+fand, dachte er: &#x201E;Was hat Das zu bedeuten?&#x201C; Er<lb/>
+hebt sich auf die Zehen, er hört sprechen und lachen;<lb/>
+er lauscht und neigt sich mit dem Ohr gegen das Zim-<lb/>
+mer. Sein Blick trifft auf die Augen eines jungen<lb/>
+Mannes, der vor Entsetzen bleich wird wie der Tod.<lb/>
+Rasch bringt die Frau ihn in den Koffer; aber der<lb/>
+Sklave hat Alles gesehen. Er zeigt den Halsschmuck<lb/>
+und sagt: &#x201E;Gebieterin! Jch bitte dich um einen Stein<lb/>
+<cb type="end"/>
+<pb facs="#f0002" n="266"/>
+<fw place="top" type="pageNum">266</fw><cb type="start"/>
+aus diesem Schmuck!&#x201C; Aber entrüstet ruft die Sul-<lb/>
+tanin ihm zu: &#x201E;Entferne dich aus meinen Augen, un-<lb/>
+reines Geschöpf!&#x201C;</p><lb/>
+<p>Wutherfüllt und mit Rachegedanken geht der Sklave<lb/>
+geradeswegs zu seinem Herrn zurück und <gap reason="illegible" unit="chars" quantity="4"/>sagt ihm:<lb/>
+&#x201E;Herr! Jch habe eben einen Mann bei deiner Frau<lb/>
+gefunden; ich sah sie Beide in dem blauen Zimmer.<lb/>
+Bei meinem Anblick ist der Mann in Bestürzung ge-<lb/>
+rathen und die Sultanin hat ihn schnell in den und<lb/>
+den Koffer versteckt.&#x201C; Er beschrieb gleichzeitig den<lb/>
+Koffer.</p><lb/>
+<p>Ueber diese Worte geräth der Sultan in Wuth<lb/>
+gegen seinen Diener.</p><lb/>
+<p>Du lügst, ungläubiger Hund! schrie er ihm zu.<lb/>
+Er gab sodann Befehl, ihm den Kopf abzuschlagen;<lb/>
+man ergreift ihn und einen Augenblick darauf rollt der<lb/>
+Kopf auf die Erde. Als die Hinrichtung beendigt ist,<lb/>
+erhebt sich der Khalif, legt seine Pantoffeln an und<lb/>
+begibt sich in die Wohnung seiner Frau. Sie war eben<lb/>
+damit beschäftigt, ihr Haar in Ordnung zu bringen.<lb/>
+Er tritt ein und setzt sich ihr gegenüber auf den Koffer,<lb/>
+welchen der Sklave ihm bezeichnet hatte. Nachdem die<lb/>
+Unterhaltung eröffnet ist, sagt er zu ihr: &#x201E;Woher<lb/>
+kommt es, daß du eine so große Vorliebe für dieses<lb/>
+Zimmer hast?&#x201C;</p><lb/>
+<p>Weil ich meine Kleider darin habe, erwiderte sie.</p><lb/>
+<p>Gut, das mag sein, versetzte der Khalif. Darf<lb/>
+ich hoffen, daß du mir von den Koffern, die du hier<lb/>
+hast, einen wirst abtreten wollen?</p><lb/>
+<p>Nimm, mein Gebieter, welchen du willst, nur den<lb/>
+nicht, auf welchen du sitzest.</p><lb/>
+<p>Den aber gerade möchte ich haben; du mußt ihn<lb/>
+mir geben.</p><lb/>
+<p>Nachdem sie einen Augenblick gestutzt, sagte sie:<lb/>
+&#x201E;Gut denn, er ist dein.&#x201C;</p><lb/>
+<p>Auf ein Zeichen des Khalifen erschienen Neger.<lb/>
+&#x201E;Nehmt diesen Koffer&#x201C;, sagt er ihnen, &#x201E;und tragt ihn<lb/>
+in den Audienzsaal und wartet auf mich.&#x201C;</p><lb/>
+<p>Während die Sklaven den Befehl des Herrn aus-<lb/>
+führten, zeigte sich auf dem Angesicht der Sultanin<lb/>
+eine unbeschreibliche Verwirrung.</p><lb/>
+<p>Was hast du denn, daß deine Gesichtszüge sich so<lb/>
+verändern? sagt der Khalif. Vielleicht liegt dieser<lb/>
+Koffer dir sehr am Herzen?</p><lb/>
+<p>Verzeih', mein Herr! Jch hänge nicht an diesem<lb/>
+Gegenstande. Wenn ich dir ein wenig aufgeregt er-<lb/>
+scheine, so kommt es daher, daß ich eben ein plötzli-<lb/>
+ches Unwohlsein empfinde.</p><lb/>
+<p>Gott wird dich heilen, sagt der Khalif und ent-<lb/>
+fernt sich.</p><lb/>
+<p>Als er in den Audienzsaal eintrat, fand er den<lb/>
+Koffer auf die Erde gestellt.</p><lb/>
+<p>Hebet den Teppich auf! befahl er den Negern und<lb/>
+grabet ein Loch, tief und so groß, daß ein Mann<lb/>
+hinein kann.</p><lb/>
+<p>Als die Grube fertig war, winkte er den Koffer<lb/>
+heranzubringen und an den Rand der Grube zu stellen.<lb/>
+Dann sprach er, den Fuß auf den Koffer stellend, die<lb/>
+Worte: &#x201E;Es ist mir eine Mittheilung gemacht wor-<lb/>
+den. Wenn sie wahr ist, so wird deine Kleidung dein<lb/>
+Leichentuch, diese Kiste dein Sarg sein und Gott ist<lb/>
+es, der dich opfert. Wenn die Mittheilung falsch ist,<lb/>
+so begrabe ich einen Koffer und es ist an ihm nicht<lb/>
+viel verloren.&#x201C;</p><lb/>
+<p>Während er dies sprach, gab er dem Koffer einen<lb/>
+Stoß und derselbe gleitete auf den Boden der Grube.</p><lb/>
+<p>Gott verzeihe mir! fügte er hinzu, indem er eine<lb/>
+Handvoll Erde auf den Koffer warf.</p><lb/>
+<cb n="2"/>
+<p>Die Neger schütteten die Grube zu, ebneten den<lb/>
+Boden und breiteten den Teppich wieder aus.</p><lb/>
+<p>Der Khalif saß zu Gericht bis zur Zeit des Mahls<lb/>
+und trat dann in seine Wohnung, wo die beiden Gat-<lb/>
+ten thaten, als wäre nichts zwischen ihnen vorgefallen.<lb/>
+Des Koffers ward nicht wieder geda</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle" xml:id="Spute4"><head><hi rendition="#fr"><hi rendition="#g">Spute dich</hi>!</hi><lb/>
+<ref target="nn_pfennig085_1854#Spute3">( Fortsetzung. )</ref></head><lb/>
+<p><hi rendition="#in">K</hi>arl 's Wirthschaft ging ganz nach Wünschen. Er<lb/>
+sputete sich, um die Felder in noch bessern Zustand zu<lb/>
+versetzen, wodurch sein Gütchen nur gewinnen konnte.<lb/>
+Die Jahre, welche er auf demselben durchlebte, gehör-<lb/>
+ten für den Landmann zu den glücklichen. Kein Mis-<lb/>
+geschick traf Karl als &#x201E;kleinen Bauer&#x201C;, denn er war<lb/>
+mit seiner Frau und den Kindern gesund und hatte<lb/>
+bei guten Preisen des Getreides reichliche, gesegnete<lb/>
+Ernten.</p><lb/>
+<p>Freilich dachte er bei Allem, was er vornahm,<lb/>
+immer noch: &#x201E;Spute dich!&#x201C; Arbeit hatte er nämlich<lb/>
+vollauf, weil er und seine Johanna mit Hülfe einer<lb/>
+Magd Alles selbst verrichteten.</p><lb/>
+<p>Die alte Frau Wirker sah mit unendlicher Lust auf<lb/>
+das Glück, welches das Thun ihres Sohnes begleitete.<lb/>
+Dieser aber kannte kein schöneres Vergnügen, als ihr<lb/>
+die Jahre ihres Alters auf jede Weise zu erheitern,<lb/>
+wobei ihm Johanna wacker beistand. Karl sollte jedoch<lb/>
+seine alte gute Mutter nicht lange mehr haben. Sie<lb/>
+fühlte sich eines Abends sehr unwohl und eilte, um<lb/>
+aus dem Großmutterstuhle ins Bett zu kommen. Jhr<lb/>
+Übelbefinden nahm von Stunde zu Stunde zu. Nachts<lb/>
+gegen 11 Uhr rief sie ihrem am Bett sitzenden Sohne<lb/>
+zu: &#x201E;Sputet euch, Karl, und kommt Alle zu mir her.<lb/>
+Jch möchte euch noch einmal sehen; sputet euch!&#x201C;</p><lb/>
+<p>Karl erschrak. Er rief schnell die Seinen ans<lb/>
+Bett der Mutter und sendete zugleich die Magd zum<lb/>
+Arzte des Dorfs, welcher schon einige mal dagewesen<lb/>
+war und den Zustand der Frau Wirker gar nicht so<lb/>
+bedenklich gefunden hatte.</p><lb/>
+<p>Während Karl's Familie sich um das Bett der<lb/>
+Kranken versammelte, athmete diese von Minute zu<lb/>
+Minute ängstlicher. Zugleich hatte sich ein heftiger<lb/>
+Schlucken eingestellt. Der Arzt erschien und machte<lb/>
+eine sehr bedenkliche Miene. Karl fragte ihn nach sei-<lb/>
+nem Urtheile und erhielt ein Achselzucken zur Antwort.</p><lb/>
+<p>Jst's so sehr schlimm? sprach Karl heimlich zum<lb/>
+Arzte.</p><lb/>
+<p>Dieser sagte dem treuen Sohne leise ins Ohr:<lb/>
+&#x201E;Ergeben Sie sich drein, der Todtenschlucken hat sich<lb/>
+schon eingestellt; wahrscheinlich nur einige Minuten<lb/>
+noch, nach den Schlägen dts Pulses zu urtheilen!&#x201C;</p><lb/>
+<p>Karl wurde blaß, wendete sich um und trocknete<lb/>
+sich die Augen, um seiner Mutter von seinem innern<lb/>
+Schmerze nichts merken zu lassen.</p><lb/>
+<p>Die Kranke seufzte plötzlich recht tief; alle Lebens-<lb/>
+geister kehrten ihr noch eiumal zurück, das müde Auge<lb/>
+bekam wieder einiges Feuer; sie blickte im Kreise ihrer<lb/>
+Lieben umher, reichte allen Umstehenden die Hand und<lb/>
+sprach in gebrochenen Sätzen: &#x201E;Meine Kinder, &#x2014; es<lb/>
+ist Abend geworden für mich, &#x2014; wir haben hier keine<lb/>
+bleibende Stätte, &#x2014; ich werde nun bald zu Gott ge-<lb/>
+rufen! &#x2014; Mir ist so bang ums Herz; er kommt bald,<lb/>
+&#x2014; mein Erlöser! &#x2014; Jch danke euch &#x2014; für eure treue<lb/>
+Liebe, &#x2014; Gott segne euch, &#x2014; bleibt fromm und<lb/>
+<cb type="end"/>
+<pb facs="#f0003" n="267"/>
+<fw place="top" type="pageNum">267</fw><cb type="start"/>
+gut &#x2014; haltet Frieden untereinander, &#x2014; ich fühl's &#x2014;<lb/>
+der Todesengel sputet sich, &#x2014; euch Allen mein Segen<lb/>
+&#x2014; mein Dank &#x2014; meine Liebe! &#x2014; Wir seh'n &#x2014; uns<lb/>
+wieder! &#x2014; Habt &#x2014; gute Nacht! &#x2014; Dank, Segen<lb/>
+&#x2014; Lebt wohl!&#x201C;</p><lb/>
+<p>Bei den letzten Worten sank das müde Haupt der<lb/>
+Frau Wirker in das Kissen zurück. Sie war verschie-<lb/>
+den, sanft, wie sie im Leben war. Karl drückte ihr<lb/>
+die Augen zu.</p><lb/>
+<p>Selten sind so herbe, so bittere Thränen der Weh-<lb/>
+muth geweint worden, als am Sterbebette und Grabe<lb/>
+der ehrenwerthen Frau Wirker von ihren Kindern ver-<lb/>
+gossen wurden. Es dauerte lange, ehe man sich an<lb/>
+ihre Abwesenheit gewöhnte, denn sie bildete ein eng-<lb/>
+knüpfendes Band in ihrer Familie.</p><lb/>
+<p>Aber die Zeit lindert Alles und mit ihrem Ver-<lb/>
+laufe nahm auch aufs neue die Heiterkeit unter den<lb/>
+Nachgelassenen wieder Platz. Jn Karl's Hause blieb<lb/>
+die Liebe und der Friede heimisch und allgewaltig re-<lb/>
+gierte fortan der Zuruf: &#x201E;Spute dich!&#x201C;</p><lb/>
+<p>Das Grab der Frau Wirker wurde von Karl und<lb/>
+den Seinen im schönsten Blumenschmucke erhalten, um<lb/>
+das Andenken der frommen, seligen Mutter zu ehren<lb/>
+und kein Sonntag verging, an welchem nicht Karl oder<lb/>
+Johanna mit ihren Kindern einige Minuten auf dem<lb/>
+Friedhofe verweilten.</p><lb/>
+<p>Mit jedem Jahre, das verlief, hatte Karl die<lb/>
+Freude, einen Theil seiner Schulden abstoßen zu kön-<lb/>
+nen. Als er im 40. Lebensjahre stand, besaß er sein<lb/>
+Gut frei und konnte schon einige Capitalien ausleihen,<lb/>
+die er sich durch Sparsamkeit und Fleiß erworben<lb/>
+hatte. Sein Besitzthum war ihm lieb geworden. Mehre<lb/>
+Grundstücke kaufte er nach und nach noch an und<lb/>
+einige male schon boten ihm Liebhaber für sein Gut<lb/>
+fast das Doppelte der Summe, welche er einst beim<lb/>
+Ankaufe gezahlt hatte.</p><lb/>
+<p>Karl wies stets die Kaufsanerbietungen zurück,<lb/>
+denn er wollte auf der Scholle bleiben, auf welcher<lb/>
+ihn Gott so reich gesegnet hatte.</p><lb/>
+<p>Wieder drei Jahre gingen ins Land. Karl hatte<lb/>
+neben seiner Landwirthschaft sich auch mit Getreide-<lb/>
+handel abgegeben und war darum nicht nur mit den<lb/>
+Bauern seiner Umgegend persönlich genau bekannt, son-<lb/>
+dern er hatte auch in einem weitern Umkreise eine<lb/>
+recht leidliche Kenntniß von den guten und schlechten<lb/>
+Gütern. Nun kannte er auch in einem entferntliegen-<lb/>
+den Gebirgsdorfe, wo er oft Hafer kaufte, einen höchst<lb/>
+liederlichen Bauer, der allgemein &#x201E;der Pole&#x201C; genannt<lb/>
+wurde, weil es bei ihm wirklich recht polnisch herging.<lb/>
+Seine Felder und Wiesen waren im höchsten Grade<lb/>
+vernachlässigt und die Waldungen befanden sich in dem<lb/>
+erbärmlichsten Zustande. Viele Grundstücke hatte &#x201E;der<lb/>
+Pole&#x201C; versumpfen lassen; manche Ernten kamen auf<lb/>
+dem Felde um und mit dem Viehbestande, der nach<lb/>
+Verhältniß des Grundbesitzes ein doppelter sein konnte,<lb/>
+sah es traurig aus.</p><lb/>
+<p>Gerade diese polnische Wirthschaft interessirte den<lb/>
+speculativen Karl außerordentlich. So oft er in das<lb/>
+Gebirgsdorf kam, so oft erkundigte er sich auch nach<lb/>
+dem Polen; zuletzt machte er sich selbst mit diesem ge-<lb/>
+nauer bekannt und ließ sich von ihm alle seine Äcker,<lb/>
+Wiesen und Waldungen zeigen, wobei der liederliche<lb/>
+Bauer ohne Umstände mittheilte, daß er kein Glück in<lb/>
+der Wirthschaft habe und dieselbe seit 30 Jahren fürch-<lb/>
+terlich heruntergekommen sei, er aber nicht dafürkönne.<lb/>
+Wie alle Sünder sich zu entschuldigen suchen, so schob<lb/>
+auch der &#x201E;Pole&#x201C; seine nach und nach eingetretene Ver-<lb/>
+armung nicht auf seine Faulheit, Nachlässigkeit und<lb/>
+<cb n="2"/>
+Unwissenheit, sondern auf das Unglück, das ihn ver-<lb/>
+folge, und auf Knechte und Mägde, die nie ihre<lb/>
+Sache gemacht hätten.</p><lb/>
+<p>Karl wußte lange, woran es gefehlt haben mochte:<lb/>
+der Pole hatte sich nicht gesputet. Derselbe saß aber<lb/>
+so tief in Schulden, daß für ihn keine Rettung mehr<lb/>
+möglich war. Verschiedene Bauern sprachen schon ganz<lb/>
+offen davon, daß des Polen Gut nächstens verkauft<lb/>
+werden müsse, aber in seinem Zustande durchaus nicht<lb/>
+zum Gesammtankaufe passe, da jeder Bauer sich auf<lb/>
+demselben ruiniren werde.</p><lb/>
+<p>Wie man vermuthet hatte, so geschah es nach einem<lb/>
+halben Jahre. Des Polen Besitzung wurde zur öffent-<lb/>
+lichen Versteigerung angeschlagen. So mancher Bauer<lb/>
+war zum Auctionstermine erschienen, doch mehr aus<lb/>
+Neugierde als aus Kauflust. Auch Karl Wirker fand<lb/>
+sich zur angesetzten Stunde ein.</p><lb/>
+<p>Die Auction begann. Mit den Aufgeboten ging<lb/>
+es sehr langsam; man hatte kaum die Hälfte der<lb/>
+Summe erreicht, welche früher für das Gut bezahlt<lb/>
+wurde. Karl schwieg so lange, bis es zum letzten Ge-<lb/>
+bote kam. Als aber Niemand mehr bieten wollte und<lb/>
+der Gerichtsdirector mit den Worten: &#x201E;Zum Dritten<lb/>
+und.....&#x201C; den Hammer hob, um zuzuschlagen, da<lb/>
+kam aus dem Winkel der Stube noch eine Stimme,<lb/>
+welche rief: &#x201E;Noch zehn Thaler!&#x201C;</p><lb/>
+<p>Karl war es, welcher noch einmal bot. Seine<lb/>
+Stimme war bei dem Termine das erste mal gehört<lb/>
+worden. Alle Bauern drehten sich nach ihm um, glotz-<lb/>
+ten ihn mit großen Augen an und glaubten kaum,<lb/>
+daß dieser Fremdling die Jdee haben konnte, das lie-<lb/>
+derliche Gut, wie sie es nannten, anzukaufen. Jndem<lb/>
+die Bauern sich noch mit Karl, den Einige nur zu-<lb/>
+weilen als Getreidemäkler gesehen hatten, beschäftig-<lb/>
+ten, vergaßen sie, der Auction ihre Aufmerksamkeit zu<lb/>
+schenken und ehe sie es sich versahen, fiel mit den<lb/>
+Worten: &#x201E;3560 Thaler &#x2014; zum Dritten und &#x2014; Letz-<lb/>
+ten!&#x201C; der Hammer des Gerichtsdirectors.</p><lb/>
+<p>Wer hat's? Wer hat's? fragte man nun, wie er-<lb/>
+schrocken, von allen Seiten.</p><lb/>
+<p>Der Mäkler hier! Der Fremde! sprach ein Bauer<lb/>
+halblaut zu dem andern.</p><lb/>
+<p>Wird's auch weit bringen auf dem Polengute!<lb/>
+sprach der Erbrichter und fügte hinzu: &#x201E;'s war hoch<lb/>
+genug mit 3000 Thalern bezahlt! Schlechte Felder,<lb/>
+schlechte Wiesen, ausgeholzte Wälder, dürres Vieh und<lb/>
+kein Körnlein auf dem Boden, kein ganzer Strick in<lb/>
+der Wirthschaft; ich möchte das Gut nicht haben!&#x201C;</p><lb/>
+<p>Jn ähnlicher Weise sprachen sich auch andere<lb/>
+Bauern aus. Karl merkte dies recht wohl, that aber<lb/>
+nicht, als wenn er ihre Worte und Mienen verstände.<lb/>
+Er blieb in der Nähe des Gerichtsdirectors, um abzu-<lb/>
+warten, bis dieser das Auctionsprotokoll ihm zur Un-<lb/>
+terschrift vorlegen werde. Dies geschah. Karl unter-<lb/>
+schrieb, versprach in kurzer Zeit Zahlung, hoffte mit<lb/>
+einigen Hunderten Hypothekschulden seinen neuen Besitz<lb/>
+belasten zu können und eilte nach Hause, wo er seiner<lb/>
+Johanna und dem alten Schwiegervater über Alles<lb/>
+nähere Auskunft brachte. Der alte Zillmer wußte<lb/>
+schon vorher von Karl's Absicht und war mit derselben<lb/>
+vollkommen einverstanden.</p><lb/>
+<p>Das bisher besessene Gütchen brauchte Karl gar<lb/>
+nicht zum Verkauf auszubieten, denn kaum war be-<lb/>
+kannt geworden, daß er wegziehen wolle, so erschienen<lb/>
+Käufer in Menge, um sehr annehmbare Gebote zu<lb/>
+thun. Selbst Nachbarn aus dem Dorfe waren unter<lb/>
+ihnen, die den Glauben hatten, es ruhe auf dem klei-<lb/>
+nen Gute ein besonderer Segen, durch welchen Karl<lb/>
+<cb type="end"/>
+<pb facs="#f0004" n="268"/>
+<fw place="top" type="pageNum">268</fw><cb type="start"/>
+in so kurzer Zeit so wohlhabend geworden sei. Sie<lb/>
+verbargen diesen Glauben Karl auch gar nicht, sondern<lb/>
+meinten, er müsse auch den Segen auf seinem Güt-<lb/>
+chen lassen.</p><lb/>
+<p>Ja, ja, erwiderte Karl dann gewöhnlich, den Se-<lb/>
+gen kann sich mit Gottes Hülfe ein Jeder verschaffen;<lb/>
+er rührt von meiner guten seligen Mutter her und<lb/>
+liegt in den Worten: &#x201E;Spute dich!&#x201C; Wer Das recht<lb/>
+versteht, dem wird es unter göttlichem Beistande nicht<lb/>
+mangeln.</p><lb/>
+<p>Es gingen nicht drei Wochen ins Land, da ver-<lb/>
+kaufte Karl sein liebes Besitzthum um einen sehr gu-<lb/>
+ten Preis und behielt sich dabei die Hälfte der eben<lb/>
+eingebrachten Ernte vor, welche er für seine neue<lb/>
+Wirthschaft bestimmte.</p><lb/>
+<cb n="2"/>
+<p>Mit gerührtem Herzen bereitete sich Karl zum<lb/>
+Wegzuge. Er nahm von seinem ehrlichen Schwieger-<lb/>
+vater und dessen Kindern herzlichen Abschied, besuchte<lb/>
+noch einmal das Grab seiner unvergeßlichen Mutter<lb/>
+und fuhr dann auf einem hamburger Wagen mit sei-<lb/>
+ner Familie nach dem neuen Bestimmungsorte ab. Die<lb/>
+Lastwagen mit dem schönen Haus= und Wirthschafts-<lb/>
+geräthe waren ihm schon vorausgegangen.</p><lb/>
+<p>Die vor Gericht abzuwickelnden Geschäfte, beson-<lb/>
+ders die Zahlungen an den &#x201E;Polen&#x201C; waren in wenig<lb/>
+Stunden abgemacht, auch die Lehnsreichung wurde<lb/>
+schnell besorgt und schon um andern Tage hatte Karl<lb/>
+die Kaufurkunde in den Händen.</p><lb/>
+<p><hi rendition="#c"><ref target="nn_pfennig087_1854#Spute5">( Fortsetzung folgt. )</ref></hi></p></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1"><figure><head><hi rendition="#fr">Gothisches Portal zu Canterbury.</hi></head></figure></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<pb facs="#f0005" n="269"/>
+<fw place="top" type="pageNum">269</fw><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Die Löwin und der Hund.</hi></head><lb/>
+<figure/><lb/>
+<cb type="start"/>
+<p><hi rendition="#in">U</hi>nter die merkwürdigen Beispiele von Zuneigung sehr<lb/>
+verschiedenartiger und einander feindlicher Thiere gehört<lb/>
+auch das folgende, welches vor längerer Zeit in der<lb/>
+königlichen Menagerie zu Paris beobachtet wurde.</p><lb/>
+<p>Man verwahrte dort eine große und schöne Löwin<lb/>
+und täglich fanden sich Viele ein, um das prächtige<lb/>
+Thier zu bewundern. Der Verlust der Freiheit machte<lb/>
+aber, daß die Löwin zusehends magerer und mürri-<lb/>
+scher wurde und es schien, sie werde nicht mehr lange<lb/>
+leben, wenn keine Veränderung ihres Zustandes her-<lb/>
+beigeführt werden könne.</p><lb/>
+<p>Nun befand sich eines Tages unter den schaulusti-<lb/>
+gen Besuchern auch ein Herr, welcher dem Wärter der<lb/>
+Löwin den Rath gab, derselben von Zeit zu Zeit le-<lb/>
+bendige Thiere preiszugeben, wodurch sie sich wieder<lb/>
+erholen werde. Zugleich bot er einen kleinen ziemlich<lb/>
+häßlichen Hund, den er bei sich hatte, zu diesem Zwecke<lb/>
+an, weil er ihn gern lossein wolle.</p><lb/>
+<p>Der Wärter nahm also den Hund und brachte ihn<lb/>
+sogleich zu der Löwin in den Käfig, wo er sich beim<lb/>
+Anblick des gewaltigen Raubthiers, dem er sich so<lb/>
+nahe befand, zitternd und zagend in eine Ecke drückte<lb/>
+und flehentliche Blicke auf seinen Herrn richtete.</p><lb/>
+<cb n="2"/>
+<p>Langsam erhob sich nun die Löwin und näherte sich<lb/>
+mit dumpfem Brüllen dem kleinen Ankömmlinge, der<lb/>
+klägliche Töne von sich gab und immerfort nach seinem<lb/>
+Herrn blickte. Als hätte die Löwin die Blicke des<lb/>
+geängstigten Hundes verstanden, wendete sie den Kopf<lb/>
+um, gleichsam zu erspähen, nach wem das kleine Opfer<lb/>
+sich umsehe, und heftete ihre funkelnden Augen einige<lb/>
+Zeit auf dessen Herrn. Dann öffnete sie ihren gewal-<lb/>
+tigen Rachen, gähnte, dehnte sich, legte sich nieder<lb/>
+und schlief ein. Der Hund blieb regungslos in seinem<lb/>
+Winkel.</p><lb/>
+<p>Als die Zeit der täglichen Fütterung der Löwin<lb/>
+kam, erhielt sie ihren Antheil Fleisch, das sie aber<lb/>
+nicht ganz verzehrte. Sie schien gleichsam für ihren<lb/>
+Gast etwas davon übrig zu lassen, denn sie näherte<lb/>
+sich ihm einige male mit aller möglichen Freundlich-<lb/>
+keit; die Furcht hielt aber den Hund nach wie vor in<lb/>
+den Winkel gebannt. Hier brachte er auch die Nacht<lb/>
+zu, am folgenden Tage aber hatte er sich schon mehr<lb/>
+an die gewaltige Bewohnerin des Käfigs gewöhnt und<lb/>
+er wagte, etwas von dem Fleische zu fressen, das sie<lb/>
+abermals übrigließ. Mit jedem Tage wuchs nun das<lb/>
+Vertrauen des Hundes; er verließ seinen Winkel, fraß<lb/>
+<cb type="end"/>
+<pb facs="#f0006" n="270"/>
+<fw place="top" type="pageNum">270</fw><cb type="start"/>
+endlich mit der Löwin zu gleicher Zeit und von dem-<lb/>
+selben Stück Fleisch, ja unterstand sich sogar später,<lb/>
+nach Art vorlauter und neidischer Kläffer, der Löwin<lb/>
+den ruhigen Genuß ihres Futters so lange streitig zu<lb/>
+machen, bis er satt war. Sie ließ sich das auch ge-<lb/>
+fallen und wartete geduldig, bis der kleine Tyrann<lb/>
+fertig sein werde. Dauerte es ihr aber ja einmal zu<lb/>
+lange, so schob sie ihn behutsam mit ihren Tatzen zur<lb/>
+Seite und verbarg dabei sehr vorsichtig ihre gewaltigen<lb/>
+Klauen.</p><lb/>
+<p>Als der Winter kam, fand es der Hund sehr be-<lb/>
+haglich, sich des Nachts unter die Löwin zu legen und<lb/>
+an ihr zu wärmen. Diese aber erhob sich niemals<lb/>
+eher, bis ihr Gesellschafter sein warmes Lager verlassen<lb/>
+hatte. Er spielte ferner mit ihrem Schwanze, biß und<lb/>
+zauste sie daran, sprang ihr nach den Ohren und trieb<lb/>
+mit ihr, was ihm eben einfiel, ohne daß sie ihm je<lb/>
+das Geringste zu Leide gethan hätte.</p><lb/>
+<p>Nach einigen Jahren starb aber der Hund und die<lb/>
+Löwin grämte sich darüber so, daß sie mehre Tage<lb/>
+keine Nahrung zu sich nehmen wollte. Der Wärter<lb/>
+glaubte, ein neuer Gesellschafter werde ihr den verlore-<lb/>
+nen vergessen machen und brachte einen andern Hund<lb/>
+in ihren Käfig. Dieser aber sowie mehre andere, mit<lb/>
+denen man den Versuch wiederholte, wurden auf der<lb/>
+Stelle zerrissen. Endlich fand man einen, welcher<lb/>
+dem gestorbenen Schützling der Löwin sehr ähnlich war<lb/>
+und wirklich verschonte sie denselben, nachdem sie ihn<lb/>
+aufmerksam betrachtet hatte, mochte aber weiter nichts<lb/>
+mit ihm zu thun haben und starb einige Monate nach<lb/>
+dem Verluste ihres liebgewonnenen frühern Gesell-<lb/>
+schafters.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle" xml:id="Seide1"><head><hi rendition="#fr">Die Seide</hi>. <note place="foot" n="*)">Fragment aus dem dritten Jahrgange der &#x201E; Unterhal-<lb/>
+tungen und Studien&#x201C; von Gude und Grube ( Magdeb. 1854 )</note></head><lb/>
+<p><hi rendition="#in">J</hi>m 6. Jahrhundert nach Christo ward es an dem<lb/>
+Hofe zu Konstantinopel Sitte, bei feierlichen Festen<lb/>
+vor dem Kaiser in Seide zu erscheinen. Nur Wenige<lb/>
+gab es indeß, die diese rauschende Hoftracht anlegen<lb/>
+konnten, denn wer nicht Gold im Überfluß hatte, war<lb/>
+nicht im Stande, sich ein seidenes Gewand anzu-<lb/>
+schaffen. Einige Jahrhunderte früher ward es noch<lb/>
+einem Kaiser in Rom für eine ungeheure Verschwen-<lb/>
+dung ausgelegt, daß er ein seidenes Gewand trug.<lb/>
+Ganz Rom tadelte ihn nnd rühmte dagegen seinen<lb/>
+Vorgänger, dessen Gemahlin trotz alles Bittens und<lb/>
+Flehens von ihm nicht erlangen konnte, daß er ihr ein<lb/>
+seidenes Kleid zum Geschenk mache. Lange Zeit wußte<lb/>
+man von dem Ursprunge der Seide so wenig, daß<lb/>
+man glaubte, sie wachse auf Bäumen. Persische Kauf-<lb/>
+leute brachten sie tief aus Asien. Eine solche Kara-<lb/>
+vane gebrauchte oft zwei Jahre zu einem Transporte,<lb/>
+und als unter dem Kaiser Justinian der Hof von Kon-<lb/>
+stantinopel mit den Persern im Kriege lag, gerieth der<lb/>
+Handel mit Seide ganz ins Stocken. Das Bedürf-<lb/>
+niß nach ihr war aber schon so groß, daß Justinian<lb/>
+Schiffe ausrüsten ließ, die das Rothe Meer hinunter<lb/>
+nach Jndien fahren sollten, um Seide zu holen. Da<lb/>
+erschienen zwei Mönche vor dem Kaiser, die auf ihren<lb/>
+Bekehrungsreisen auch China besucht und Gespinnste<lb/>
+von der Seidenraupe mitgebracht hatten. Sie erzähl-<lb/>
+ten zugleich, wie die Seidenwürmer genährt und ge-<lb/>
+pflegt würden und meinten, der Seidenbau ließe sich<lb/>
+<cb n="2"/>
+auch in Griechenland einführen, wenn man nur Sei-<lb/>
+denwürmer hätte. Diese zu bekommen, hielt aber<lb/>
+schwer. Die Chinesen hatten Todesstrafe über Den<lb/>
+verhängt, welcher die Eier der Seidenwürmer über die<lb/>
+Grenzen des Reichs hinaustrüge. Auf das Zureden<lb/>
+des Kaisers unternahmen die muthigen Glaubensboten<lb/>
+eine zweite Reise nach China. Jm Jahre 555 kamen<lb/>
+sie wieder zurück und brachten heimlich in ihren hoh-<lb/>
+len Wanderstäben Eierchen von der Seidenraupe mit.<lb/>
+Während ihrer Abwesenheit waren inzwischen Maul-<lb/>
+beerbäume angepflanzt worden, wozu sie schon früher<lb/>
+den Samen mitgebracht hatten. Als sich nun in dem<lb/>
+folgenden Frühjahre Blätter an den Maulbeerbäumen<lb/>
+zeigten, ließ man die Eier ausbrüten, setzte die jun-<lb/>
+gen Raupen auf die Bäume und gleich im ersten<lb/>
+Jahre gewann man den kostbaren Stoff. Europa<lb/>
+hatte auf diese Weise mit List die Seidencultur Asien<lb/>
+entrissen, aber bis ins 12. Jahrhundert blieb allein<lb/>
+Griechenland im Besitz dieser neuen Erwerbsquelle und<lb/>
+noch lange nahm man zu der Vorstellung der Seide<lb/>
+seine Zuflucht, wenn man etwas recht Kostbares be-<lb/>
+zeichnen wollte. &#x201E;Seide spinnen&#x201C; hieß ungefähr soviel<lb/>
+als Geld und Schätze gewinnen, in &#x201E;Sammet und<lb/>
+Seide&#x201C; sich kleiden, das galt nur von den Vornehm-<lb/>
+sten und Höchsten. Jetzt, wo man allenthalben Seide<lb/>
+spinnt, wo es nur Wenige gibt, die nicht eine seidene<lb/>
+Garnitur an ihrer Wiege hatten oder denen die Sei-<lb/>
+denwürmer nicht einmal wenigstens ein Bändchen zur<lb/>
+Haube spannen, jetzt haben jene Sprüchwörter viel an<lb/>
+ihrer Wirkung und Bedeutsamkeit verloren. Noch im<lb/>
+16. Jahrhundert waren die Seidenzeuche so theuer,<lb/>
+daß der prachtliebende Heinrich <hi rendition="#aq">VIII</hi>., König von Eng-<lb/>
+land, nur an Festtagen seidene Strümpfe anzog, und<lb/>
+Karl <hi rendition="#aq">V</hi>. bei einer Musterung, als es zu regnen an-<lb/>
+fing, seinen kleinen, mit Sammet überzogenen Hut<lb/>
+abnahm, damit er nicht durch die Nässe verdorben<lb/>
+würde. Ein Rath des Markgrafen Johann von Bran-<lb/>
+denburg erhielt von diesem im Jahre 1596 einen Ver-<lb/>
+weis, weil er an einem Wochentage in seidenen Strüm-<lb/>
+pfen zu ihm gekommen war. &#x201E;Ei, ei&#x201C;, sagte der<lb/>
+Markgraf, &#x201E;ich habe auch seidene Strümpfe, aber ich<lb/>
+trage sie nur Sonntags und Festtags!&#x201C; Jetzt ist<lb/>
+kaum ein armes Tagelöhnerweib, nicht einmal eine Zi-<lb/>
+geunerin zu finden, die ihre Finger nicht an Seide<lb/>
+gelegt hätte, und viele von ihnen besitzen fast mehr<lb/>
+Seide in ibren Kisten und Kasten, als einst die ge-<lb/>
+priesene Königin Bertha von Klein=Burgund. Die<lb/>
+spinnenden Seidenwürmer haben sich aber auch im<lb/>
+Laufe der Zeit über die meisten Länder Europas ver-<lb/>
+breitet, und die Märkte und Messen sind seit einigen<lb/>
+Jahren mit einer solchen Fülle von weichen und glän-<lb/>
+zenden Seidengeweben versehen, daß diese um ein Drit-<lb/>
+tel, ja um die Hälfte im Preise gefallen sind.</p><lb/>
+<p>Anfangs verbreiteten sich die Colonien der spinnen-<lb/>
+den Würmlein und die sie begleitenden Maulbeerbänme<lb/>
+nur langsam weiter. Nach Sicilien kamen sie von<lb/>
+Griechenland aus durch die Kreuzfahrer, und Spanien<lb/>
+erhielt sie durch die Araber, welche während ihrer sie-<lb/>
+benhundertjährigen Herrschaft die pyrenäische Halbinsel<lb/>
+zu einem blühenden Garten umgestalteten und unter<lb/>
+anderm auch in der Papier= und Lederbereitung Aus-<lb/>
+gezeichnetes leisteten. Von dem Süden Europas dran-<lb/>
+gen die Seidenraupen immer weiter nach Norden vor,<lb/>
+in immer mehr Thäler, in immer neue Landstriche,<lb/>
+und manche Gebirgsgegend, welche öde und verlassen<lb/>
+dagelegen hatte, schmückte sich mit grünenden Maul-<lb/>
+beerbäumen, spinnenden Seidenraupen und webenden<lb/>
+Menschen. Dieser Fortschritt geht bis auf unsere Tage;<lb/>
+<cb type="end"/>
+<pb facs="#f0007" n="271"/>
+<fw place="top" type="pageNum">271</fw><cb type="start"/>
+denn noch in der neuesten Zeit haben sich nicht nur<lb/>
+neue Thalbevölkerungen des südlichen Abhangs der Al-<lb/>
+pen zur Cultur der Seide herbeigelassen, sondern auch<lb/>
+im Norden der Alpen, in Sachsen und Preußen, selbst<lb/>
+in England und Schweden hat man dem chinesischen<lb/>
+Wurm eine neue Heimat zu bereiten gestrebt. Nir-<lb/>
+gends in Europa wird jedoch die Seidencultur mit so<lb/>
+glänzendem Erfolge betrieben als in Frankreich. Selbst<lb/>
+die Chinesen, die ältesten Meister in dieser Kunst, ha-<lb/>
+ben gestehen müssen, daß die französischen, namentlich<lb/>
+die Lyoner Seidenwaaren, die ihrigen an Schönheit<lb/>
+überträfen, und das will etwas sagen, denn nicht leicht<lb/>
+lobt der Chinese das Fremde. Die ersten Maulbeer-<lb/>
+bäume kamen im Jahre 1440, nachdem in ganz Jta-<lb/>
+lien schon längst der Seidenbau betrieben wurde, nach<lb/>
+Frankreich, und zu Tours wurde unter Ludwig <hi rendition="#aq">XI.</hi><lb/>
+die erste Seidenfabrik angelegt, wozu man die Arbei-<lb/>
+ter aus Genua, Venedig, Florenz, ja selbst aus Grie-<lb/>
+chenland kommen ließ. Das meiste Verdienst um die<lb/>
+Seidencultur hat sich aber der treffliche König Hein-<lb/>
+rich <hi rendition="#aq">IV</hi>. von Frankreich erworben, derselbe König, dem<lb/>
+es Ernst war, was er aussprach, daß nämlich jeder<lb/>
+Bauer seines Landes des Sonntags ein Huhn im Topfe<lb/>
+haben sollte. Er ließ nicht nur 15&#x2014;20,000 Maul-<lb/>
+beerbäume in dem Garten der Tuilerien anpflanzen,<lb/>
+sondern ermunterte auch durch Prämien und erhob<lb/>
+Jeden, der 12 Jahre hindurch mit Erfolg den Sei-<lb/>
+denbau betrieben hatte, in den Adelsstand. Einer sei-<lb/>
+ner Nachfolger that zwar auch viel zur Verbreitung<lb/>
+der Seidencultur, aber ohne daß er es wollte. Dies<lb/>
+war Ludwig <hi rendition="#aq">XIV</hi>., der den pariser Hof zum blenden-<lb/>
+den Mittelpunkte des ganzen Landes, ja zum Vorbilde<lb/>
+der Höfe von ganz Europa machte und gegen die Pro-<lb/>
+testanten so grausam verfuhr. Als er das von Hein-<lb/>
+rich <hi rendition="#aq">IV</hi>. gegebene Edict von Nantes, welches den Pro-<lb/>
+testanten in Frankreich freie und ungestörte Religions-<lb/>
+übung zusicherte, wieder aufhob, so wanderten eine<lb/>
+Menge fleißiger Unterthanen aus und zerstreuten sich<lb/>
+in die protestantischen Länder Europas, wo sie meist<lb/>
+eine gute Aufnahme fanden. Unter diesen Auswande-<lb/>
+rern waren auch viele Seidenspinner, die nun die Sei-<lb/>
+dencultur über Frankreich hinaus weiter verbreiteten.<lb/>
+Nach England allein kamen gegen 50,000, auch nach<lb/>
+Preußen zogen viele. Man ließ Maulbeerbäume und<lb/>
+Raupeneier nachkommen, und schon im Jahre 1782<lb/>
+konnte man im preußischen Staate 3 Millionen Maul-<lb/>
+beerbäume zählen und 14,000 Pfund Seide gewinnen.<lb/>
+Jn Preußen hat sich besonders Friedrich der Einzige.<lb/>
+der nicht nur groß im Kriege, sondern auch im Frie-<lb/>
+den war, um den Seidenbau viel Verdienste erwor-<lb/>
+ben. Er setzte, wie Heinrich <hi rendition="#aq">IV</hi>. von Frankreich, Prä-<lb/>
+mien für Diejenigen aus, welche die beste Seide lie-<lb/>
+ferten, und man kann zum Ruhme der preußischen<lb/>
+Seide sagen, daß sie nicht schlechter ist als die lom-<lb/>
+bardische, ja diese sogar an Dauerhaftigkeit übertrifft.<lb/>
+Auch in den übrigen deutschen Staaten wurde theils<lb/>
+durch Fürsten, theils durch Vereine für die Seiden-<lb/>
+cultur gewirkt, aber leider ist es mit derselben in<lb/>
+Deutschland nicht vorwärts, sondern rückwärts gegan-<lb/>
+gen. Sämmtliche Zollvereinsstaaten erzeugten in den<lb/>
+letzten Jahren nur noch gegen 10,000 Pfund Seide,<lb/>
+verbrauchten aber jährlich 20,000 Centner. Frankreich<lb/>
+liefert dagegen2 3 / 4 Millionen Pfund, die 17,820,000<lb/>
+Thaler an Werth betragen, und Oberitalien vermag<lb/>
+sogar 4,177,700 Pfund Rohseide zu gewinnen. Aller-<lb/>
+dings ist das Klima in Frankreich und Jtalien dem<lb/>
+Seidenbau viel günstiger als in Deutschland, aber<lb/>
+dennoch könnte auch bei uns mehr dafür gethan und<lb/>
+<cb n="2"/>
+mancher Thaler dem Lande erhalten werden. War<lb/>
+sonst ein seidener Strumpf eine königliche Tracht, so<lb/>
+sind jetzt seidene Taschen= und Halstücher, seidene<lb/>
+Schirme und Kleider etwas sehr Gewöhnliches, und<lb/>
+denkt man nun noch an die Nähseide, an die Jäck-<lb/>
+chen, Schürzen, Bänder und dergleichen, so kann<lb/>
+man dreist annehmen, daß durchschnittlich auf 16<lb/>
+Personen jährlich ein Pfund Seide zu rechnen ist,<lb/>
+das macht für die16 1 / 2 Millionen Einwohner, die<lb/>
+Preußen hat, das Pfund verarbeiteter Seide zu neun<lb/>
+Thaler gerechnet, jährlich eine Summe von mehr als<lb/>
+neun Millionen Thalern. Wir wollen die Liebhaberei<lb/>
+für seidene Stoffe nicht gerade tadeln. Die Seide ist<lb/>
+eine erfreuliche und heilsame Gabe. Jhr frischer Glanz,<lb/>
+ihr heiteres Licht erfreut Jeden. Weder die Wolle<lb/>
+noch die Leinwand können sich in dieser Hinsicht mit<lb/>
+ihr messen.</p><lb/>
+<p><ref target="nn_087_1854#Seide2"><hi rendition="#c">( Fortsetzung folgt. )</hi></ref></p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1"><figure><head><hi rendition="#fr">Zweig des Orleanbaums.</hi></head><lb/>
+<p>Vergleiche Pfennig=Magazin, Jahrgang 1835, Nr. 143.</p></figure></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<cb type="end"/>
+<pb facs="#f0008" n="272"/>
+<fw place="top" type="pageNum">272</fw><lb/>
+<div n="1" type="jVarious"><head><hi rendition="#fr"><hi rendition="#g">Mannichfaltiges</hi>.</hi></head>       <cb type="start"/>
+<div n="2" type="jArticle"><p>Eine indianische Lorelei. Ockwallee, der junge Häupt-<lb/>
+ling der kriegerischen Muscogees am French Broad River<lb/>
+liebt die schönste Tochter des feindlichen Stammes der Che-<lb/>
+rokees. Vor den Späheraugen erbitterter Verwandten zog<lb/>
+sich das junge Paar in eine einsame Hütte zurück. Eines<lb/>
+Morgens ging der junge Krieger der Jagd nach, und wäh-<lb/>
+rend seine Geliebte, an ihn denkend, eine kunstvolle Weber-<lb/>
+arbeit zum Schmncke des Abwesenden fertigt, begegnet dieser<lb/>
+zornigen Gesichtern seiner unbarmherzigen Feinde. Nach<lb/>
+längerm Kampfe erliegt er der Uebermacht und wird erschla-<lb/>
+gen. Tselika hört es und holt den noch blutenden Leichnam<lb/>
+in einem Kahne nach ihrer Hütte. Mit wildrollenden Augen,<lb/>
+Eis im Herzen, sitzt sie am Steuer; überwältigt von ihrem<lb/>
+Schmerze lenkt sie minder geschickt als sonst den Kahn, die<lb/>
+Stromschnelle ergreift ihn und begräbt sie mit dem Todten<lb/>
+unter den Wellen. Aber sie lebt fort als Geist des Wassers.<lb/>
+Wehe Dem, der in ihre Arme geräth! Sie hält ihn für<lb/>
+ihren Geliebten und zieht ihn sehnsüchtig mit der Liebe All-<lb/>
+gewalt hinab und wirft ihn enttäuscht, mit wildem Lachen,<lb/>
+zu den bereits aufgehäuften Opfern.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Die Mungi=Mungii ( <hi rendition="#aq">Simiae sciureae</hi> ) trifft man<lb/>
+auf den Bäumen herumgaukelnd und tausenderlei Possen<lb/>
+machend und Fratzen ziehend in den Wäldern von Surinam.<lb/>
+Sie sind die niedlichsten Affen, nicht viel größer als Eich-<lb/>
+hörnchen, grünlich grau, mit weißen Bäuchen und orange-<lb/>
+gelben Händen. Jhr rundes Köpfchen hat ein weißes Ge-<lb/>
+sicht, einen schwarzen Mund und große, dunkelbraune, fried-<lb/>
+liche Augen. Der kurzhaarige Schwanz, dessen Ende schwarz<lb/>
+ist, ist länger als der Leib. Sitzt das Thierchen, so hältes<lb/>
+ihn über den Rücken geschlagen. Diese zärtlichen Thierchen<lb/>
+leben von Früchten und Jnsekten und sind schwer nach Eu-<lb/>
+ropa zu bringen.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Nordfriesische Sprüchwörter. Kein Gold so roth &#x2014;<lb/>
+'s muß weg für Brot. &#x2014; Was das Auge nicht sieht, thut<lb/>
+dem Herzen nicht weh. &#x2014; Kröten brüten keine Singvögel<lb/>
+aus. &#x2014; Wenn die Krippe leer ist, beißen die Pferde einan-<lb/>
+der. &#x2014; Besser mit Faulen arbeiten als mit Dummen. &#x2014;<lb/>
+Kuh will nicht wissen, daß sie Kalb gewesen ist. &#x2014; Mor-<lb/>
+genmann hat's, Abendmann bekommt's. &#x2014; Wer Vater und<lb/>
+Mutter nicht gehorchen will, soll dem Kalbfell gehorchen. &#x2014;<lb/>
+Eine Schwalbe ausfliegen lassen und eine Gans wieder ha-<lb/>
+ben wollen. &#x2014; Zu bösem Maul gehört ein starker Rücken.<lb/>
+&#x2014; Ei ist Ei, sagte der Bauer &#x2014; griff aber nach dem größ-<lb/>
+ten. &#x2014; Arge Hunde, zerrissenes Fell. &#x2014; Das Fett will oben<lb/>
+sein &#x2014; und wäre es von einem alten Hunde.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Wohlberechnet. Als unter Wellington's Oberbefehl<lb/>
+die britische Armee gegen Napoleon in Spanien auf dem<lb/>
+<cb n="2"/>
+Marsche war, ließ der Generalissimus zuweilen die geistli-<lb/>
+chen Behörden zu sich kommen und von ihnen sich durch ihre<lb/>
+Kirchen führen. &#x201E;Es ist ein edles Gebäude&#x201C;, sagte einmal<lb/>
+Lord Wellington bei einer solchen Gelegenheit. &#x201E;Welche hohe<lb/>
+Fenster! Wie können Sie diese rein erhalten?&#x201C; &#x2014; &#x201E;O, wir<lb/>
+haben Leitern!&#x201C; &#x2014; &#x201E;So? Aber wo können Sie so lange<lb/>
+Leitern aufbewahren?&#x201C; &#x2014; Die Auskunft ward bereitwilligst<lb/>
+gegeben und am nächsten Morgen bildeten diese langen Lei-<lb/>
+tern einen Theil des britischen Gepäcks, um bei der nächsten<lb/>
+Belagerung verwendet zu werden.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Die englischen Banknoten haben, wie Menschen, ihre<lb/>
+verschiedenen Schicksale und Lebensläufe. Die englische Bank<lb/>
+gibt jede Banknote nur <hi rendition="#g">einmal</hi> aus; wenn sie wieder an<lb/>
+die Bank zurückkommt, ist sie Maculatur; die wiedereinge-<lb/>
+laufenen Banknoten kommen in ein besonderes Lokal, die<lb/>
+Bankbibliothek, werden noch eine Zeitlang aufbewahrt und<lb/>
+dann verbrannt. Manche Banknote lebt lange in Ehren; sie<lb/>
+macht ihren Weg nach dem Continent oder nach Jndien oder<lb/>
+nach Adelaide und kommt abgerieben und altersschwach wie-<lb/>
+der an ihrem Geburtsorte an. Andere leben wieder kaum <lb/>
+<hi rendition="#g">einen</hi> Tag in der Welt, werden heute aus der Bank ge-<lb/>
+holt und laufen noch spiegelblank morgen da wieder ein. Es<lb/>
+geht den Banknoten gerade wie den Menschen.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Wiedo, Bogu! == Komm heraus, Gott! ist der<lb/>
+Name eines Klosters am Dniepr unweit Kiew. Christliche<lb/>
+Missionare hatten dort ein Götzenbild, das lange das Ziel<lb/>
+von Wallfahrten gewesen war, in den Strom gestürzt. Da<lb/>
+versammelten sich die Heiden in hellen Haufen, um mit ih-<lb/>
+rem: Wiedo, Bogu! ihren vermeintlich mächtigen Götzen<lb/>
+heraufzubeschwören. Aber der Bogu blieb taub und kam<lb/>
+nicht herauf. Einer der Missionare sagte mit den Worten<lb/>
+des Propheten Elias in ähnlichem Falle: &#x201E;Rufet nur noch<lb/>
+lauter! Er schläft vielleicht tief da unten.&#x201C; Die Ruffen<lb/>
+brüllten im Chor: &#x201E;Wiedo, Bogu!&#x201C; Aber Bogu kam nicht.<lb/>
+Das ärgerte sie, sie wurden und blieben Christen.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Heustöcke. Jn Steiermark hängt man auf frisch ge-<lb/>
+mähten Wiesen das Gras zum Trocknen an hohe, mit höl-<lb/>
+zernen Ärmen versehene Pfähle ( Heustöcke ) auf. Der Phan-<lb/>
+tasie des Reisenden, namentlich auf der Eisenbahn, bieten<lb/>
+die unabsehbaren Reihen dieser Stöcke ein reiches Spiel.<lb/>
+Bald sieht es aus, als wenn Grenadiercolonnen aufmarschir-<lb/>
+ten oder als ob Processionen dahinzögen, bald wieder, als<lb/>
+ob sich Paare zur Galoppade engagirten, bald als ob ganze<lb/>
+Reihen vor der vorüberfliegenden Locomotive und ihrem lan-<lb/>
+gen Wagentrain verwunderungsvoll stillständen und in Masse<lb/>
+ein tiefes Compliment herübermachten.</p></div></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jAnnouncements"><head><hi rendition="#fr"><hi rendition="#g">Ankündigungen</hi>.</hi></head><lb/>
+<cb type="start"/>
+<div n="2" type="jAn"><figure/><lb/>
+<cb n="2"/>
+<p>Diese rühmlichst bekannten <hi rendition="#aq">Pates Pectorales,</hi><lb/>
+ein bewährtes Linderungsmittel bei Brustleiden aller<lb/>
+Art, Husten, Schnupfen, Katarrh <choice><abbr>ec.</abbr></choice>, werden verkauft<lb/>
+in Leipzig bei</p><lb/>
+<p> <space dim="horizontal"/>  <hi rendition="#fr">L. Tilebein,</hi><lb/>
+<space dim="horizontal"/>   Conditor in der Centralhalle. </p></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/></div><lb/>
+</body>     <back><div n="1" type="imprint"><p><hi rendition="#c">Verantwortlicher Redacteur: <hi rendition="#aq">M</hi>. J. E. Volbeding. &#x2014; Druck und Verlag von F. A. Brockhaus in Leipzig.</hi></p></div>     </back>   </text> </TEI>

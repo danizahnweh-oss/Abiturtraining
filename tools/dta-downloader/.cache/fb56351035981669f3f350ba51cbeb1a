@@ -1,0 +1,555 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.deutschestextarchiv.de/basisformat.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="http://www.deutschestextarchiv.de/basisformat.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">   <teiHeader>
+<fileDesc>
+<titleStmt>
+<title type="main">Allerneueste Autentique Nachricht</title>
+<title type="sub">Von den jetzigen Zustand Jn den Königreich Corsica und der ohnlängst mit denen Rebellen gehaltenen Batallie</title>
+<author>
+<persName>
+<surname>N. N.</surname>
+</persName>
+</author>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/115266127">
+<surname>Geyken</surname>
+<forename>Alexander</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1222198746">
+<surname>Haaf</surname>
+<forename>Susanne</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1019062681">
+<surname>Jurish</surname>
+<forename>Bryan</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Boenig</surname>
+<forename>Matthias</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Thomas</surname>
+<forename>Christian</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Wiegand</surname>
+<forename>Frank</forename>
+</persName>
+</editor>
+<respStmt>
+<orgName ref="https://www.bbaw.de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<resp>
+<note type="remarkResponsibility">Langfristige Bereitstellung der DTA-Ausgabe</note>
+<ref target="https://www.bbaw.de"/>
+</resp>
+</respStmt>
+</titleStmt>
+<editionStmt><edition>Vollständige digitalisierte Ausgabe.</edition></editionStmt>
+<extent>
+<measure type="images">21</measure>
+<measure type="tokens">3309</measure>
+<measure type="types">1319</measure>
+<measure type="characters">23672</measure>
+</extent>
+<publicationStmt>
+<publisher xml:id="DTACorpusPublisher">
+<email>dta@bbaw.de</email>
+<orgName role="project">Deutsches Textarchiv</orgName>
+<orgName role="hostingInstitution" xml:lang="en">Berlin-Brandenburg Academy of Sciences and Humanities (BBAW)</orgName>
+<orgName role="hostingInstitution" xml:lang="de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<address>
+<addrLine>Jägerstr. 22/23, 10117 Berlin</addrLine>
+<country>Germany</country>
+</address>
+</publisher>
+<pubPlace>Berlin</pubPlace>
+<date type="publication">2025-02-28T15:09:23Z</date>
+<availability>
+<licence target="https://creativecommons.org/licenses/by-sa/4.0/deed.de">
+<p>Distributed under the Creative Commons Attribution-ShareAlike 4.0 License.</p>
+</licence>
+</availability>
+<idno>
+<idno type="URLWeb">https://www.deutschestextarchiv.de/nn_corsica_1731</idno>
+<idno type="URLXML">https://www.deutschestextarchiv.de/book/download_xml/nn_corsica_1731</idno>
+<idno type="URLHTML">https://www.deutschestextarchiv.de/book/download_html/nn_corsica_1731</idno>
+<idno type="URLText">https://www.deutschestextarchiv.de/book/download_text/nn_corsica_1731</idno>
+<idno type="DTADirName">nn_corsica_1731</idno>
+<idno type="DTAID">25059</idno>
+<idno type="URN">urn:nbn:de:kobv:b4-25059-0</idno>
+</idno>
+</publicationStmt>
+<sourceDesc>
+<bibl type="M">[N. N.]: Allerneueste Autentique Nachricht. [s. l.], 1731.</bibl>
+<biblFull>
+<titleStmt>
+<title level="m" type="main">Allerneueste Autentique Nachricht</title>
+<title level="m" type="sub">Von den jetzigen Zustand Jn den Königreich Corsica und der ohnlängst mit denen Rebellen gehaltenen Batallie</title>
+<author>
+<persName>
+<surname>N. N.</surname>
+</persName>
+</author>
+</titleStmt>
+<editionStmt>
+<edition n="1"/>
+</editionStmt>
+<extent>
+<measure type="pages">11 S.</measure>
+</extent>
+<publicationStmt>
+<publisher><name>s. e.</name></publisher>
+<pubPlace>s. l.</pubPlace>
+<date type="publication">1731</date>
+</publicationStmt>
+</biblFull>
+<msDesc>
+<msIdentifier>
+<repository>SUB Göttingen</repository>
+<idno>
+<idno type="shelfmark">SUB Göttingen, DD95 A 644</idno>
+</idno>
+</msIdentifier>
+<physDesc>
+<typeDesc>
+<p>Fraktur</p>
+</typeDesc>
+</physDesc>
+</msDesc>
+</sourceDesc>
+</fileDesc>
+<encodingDesc>
+<editorialDecl>
+<p>Dieses Werk wurde gemäß den <ref target="https://www.deutschestextarchiv.de/doku/richtlinien">DTA-Transkriptionsrichtlinien</ref>
+im Double-Keying-Verfahren von Nicht-Muttersprachlern erfasst und in XML/TEI P5 nach
+<ref target="https://www.deutschestextarchiv.de/doku/basisformat">DTA-Basisformat</ref> kodiert.</p>
+<p/>
+</editorialDecl>
+<tagsDecl>
+<rendition scheme="css" xml:id="aq">font-family:sans-serif</rendition>
+<rendition scheme="css" xml:id="b">font-weight:bold</rendition>
+<rendition scheme="css" xml:id="blue">color:blue</rendition>
+<rendition scheme="css" xml:id="c">display:block; text-align:center</rendition>
+<rendition scheme="css" xml:id="et">display:block; margin-left:2em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et2">display:block; margin-left:4em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et3">display:block; margin-left:6em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="f">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="fr">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="g">letter-spacing:0.125em</rendition>
+<rendition scheme="css" xml:id="i">font-style:italic</rendition>
+<rendition scheme="css" xml:id="in">font-size:150%</rendition>
+<rendition scheme="css" xml:id="k">font-variant:small-caps</rendition>
+<rendition scheme="css" xml:id="larger">font-size:larger</rendition>
+<rendition scheme="css" xml:id="red">color:red</rendition>
+<rendition scheme="css" xml:id="right">display:block; text-align:right</rendition>
+<rendition scheme="css" xml:id="s">text-decoration:line-through</rendition>
+<rendition scheme="css" xml:id="smaller">font-size:smaller</rendition>
+<rendition scheme="css" xml:id="sub">vertical-align:sub; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="sup">vertical-align:super; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="u">text-decoration:underline</rendition>
+<rendition scheme="css" xml:id="uu">border-bottom:double 3px #000</rendition>
+</tagsDecl>
+</encodingDesc>
+<profileDesc>
+<langUsage>
+<language ident="deu">(Früh-)Neuhochdeutsch</language>
+<language ident="deu">German</language>
+</langUsage>
+<textClass>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dtamain">Gebrauchsliteratur</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dtasub">Flugschrift</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1main">Gebrauchsliteratur</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1sub">Flugschrift</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">core</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">ready</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">china</classCode>
+</textClass>
+</profileDesc>
+</teiHeader>
+<text><front>
+<pb facs="#f0001"/>
+<pb facs="#f0002"/>
+<pb facs="#f0003"/>
+<pb facs="#f0004"/>
+<pb n="[1]" facs="#f0005"/>
+<titlePage type="main"><titlePart type="main">Allerneue&#x017F;te<lb/>
+<hi rendition="#aq">Autentique</hi><lb/>
+<hi rendition="#b"><hi rendition="#in">N</hi>achricht,</hi><lb/>
+Von den jetzigen Zu&#x017F;tand<lb/>
+<hi rendition="#in">J</hi>n den <hi rendition="#in">K</hi>o&#x0364;nigreich <hi rendition="#in">C</hi>or&#x017F;ica und der<lb/>
+ohnla&#x0364;ng&#x017F;t mit denen Rebellen gehaltenen<lb/>
+<hi rendition="#aq"><hi rendition="#g">BATALLIE,</hi></hi></titlePart><lb/>
+<titlePart type="desc">Jn welcher u&#x0364;ber 4000. <hi rendition="#aq">rebelliren</hi>de<lb/>
+Cor&#x017F;en und etliche hundert Genue&#x017F;er todt ge-<lb/>
+blieben, dabey be&#x017F;onders die <hi rendition="#aq">Propo&#x017F;itiones</hi> de-<lb/>
+rer Rebellen, mittel&#x017F;t welcher &#x017F;ie &#x017F;ich untern<lb/>
+Schutz einer Großma&#x0364;chtigen <hi rendition="#aq">Pui&#x017F;&#x017F;ance</hi> bege-<lb/>
+ben wollen, von einen unter den Kay&#x017F;erlichen<lb/>
+<hi rendition="#aq">Trouppen</hi> &#x017F;ich da&#x017F;elb&#x017F;t be&#x017F;indenden Teut&#x017F;chen<lb/>
+<hi rendition="#aq">Officier</hi> in einen Schreiben an einen gewi&#x017F;&#x017F;en<lb/>
+General entdecket, und mit de&#x017F;&#x017F;en Genehmhal-<lb/>
+tung wegen der darinn befindenden Merck-<lb/>
+wu&#x0364;rdigkeiten durch den Druck<lb/>
+<hi rendition="#aq">publici</hi>ret.</titlePart><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<docImprint><docDate>1731</docDate>.</docImprint></titlePage></front><body><lb/>
+<pb n="[2]" facs="#f0006"/>
+<pb n="(3)" facs="#f0007"/>
+<p><hi rendition="#in">J</hi>N meinen letztern habe die Ehre gehabt, <hi rendition="#aq"><hi rendition="#i">mon tres cher Pere</hi></hi><lb/>
+gehor&#x017F;am&#x017F;t zu melden, daß man allhier Hoffnung gehabt,<lb/>
+daß <hi rendition="#aq"><hi rendition="#i">Accomodement</hi>,</hi> zwi&#x017F;chen der <hi rendition="#aq"><hi rendition="#i">Republique</hi>,</hi> und de-<lb/>
+ren Rebellirenden Unterthanen, bald zu &#x017F;ehen; Jn die-<lb/>
+&#x017F;er nun haben wir fa&#x017F;t 14. Tage nach einander ge&#x017F;tanden,<lb/>
+indem die li&#x017F;tigen <hi rendition="#aq"><hi rendition="#i">Cor&#x017F;er</hi>,</hi> alles was no&#x0364;thig gewe&#x017F;en, uns<lb/>
+&#x017F;olches glaubend zumachen, &#x017F;ehr wohl zu <hi rendition="#aq"><hi rendition="#i">incaminir</hi></hi>en<lb/>
+gewu&#x017F;t, wie &#x017F;ie denn den Anfang die&#x017F;er Tractaten, &#x017F;o<lb/>
+wohl eingerichtet, als wohl <hi rendition="#aq"><hi rendition="#i">Richellieu</hi></hi> &#x017F;elb&#x017F;t nicht be&#x017F;&#x017F;er gethan haben wu&#x0364;rde,<lb/>
+wann er noch lebete. Sie haben auch zu die&#x017F;em Ende be&#x017F;ta&#x0364;ndig des Ta-<lb/>
+ges offtmahls zwey auch drey Mahl den Obri&#x017F;ten von <hi rendition="#aq"><hi rendition="#i">Wachtendonck</hi></hi> mit<lb/>
+ihren Deputirten, bald mit die&#x017F;en bald mit einen andern Verlangen be-<lb/>
+&#x017F;chicket, und hat der einzige Punct, daß &#x017F;elbige mit den Genue&#x017F;i&#x017F;chen allhie-<lb/>
+&#x017F;igen <hi rendition="#aq"><hi rendition="#i">General Gouverneur Segnor la Variano</hi></hi> nichts, &#x017F;ondern <hi rendition="#aq"><hi rendition="#i">immediate</hi></hi><lb/>
+mit den Obri&#x017F;t <hi rendition="#aq"><hi rendition="#i">Wachtendonck</hi>,</hi> die&#x017F;erhalb zuthun haben wolten, das<lb/>
+Werck einiger Maa&#x017F;&#x017F;en und das gantze <hi rendition="#aq"><hi rendition="#i">Negotium</hi></hi> &#x017F;ehr <hi rendition="#aq"><hi rendition="#i">traini</hi></hi>ret, welches<lb/>
+&#x017F;ich denn endlich gedachter <hi rendition="#aq"><hi rendition="#i">General-Gouverneur</hi>,</hi> gefallen la&#x017F;&#x017F;en mu&#x0364;&#x017F;&#x017F;en,<lb/>
+doch ge&#x017F;chiehet ihm von allen Communication, und wird ohne de&#x017F;&#x017F;en Con-<lb/>
+&#x017F;entement nicht das Gering&#x017F;te <hi rendition="#aq"><hi rendition="#i">expedi</hi></hi>ret.</p><lb/>
+<p>Den 26. Octobr. kam von denen Cor&#x017F;ern eine Solenne Deputation<lb/>
+in 12. Per&#x017F;onen be&#x017F;tehende zu uns, und brachten von den Cheff allerhand<lb/>
+auf der Jn&#x017F;ul wach&#x017F;ende Fru&#x0364;chten, an den Obri&#x017F;ten <hi rendition="#aq"><hi rendition="#i">Wachtendonck</hi></hi> zum<lb/>
+Ge&#x017F;chencke, zugleich Klage fu&#x0364;hrende, daß ein Detachement, un&#x017F;erer Hu-<lb/>
+&#x017F;aren Tages vorhero in dem Klo&#x017F;ter <hi rendition="#aq"><hi rendition="#i">al Volo</hi></hi> allwohin &#x017F;ie commendirt<lb/>
+gewe&#x017F;en, Feuer angeleget, &#x017F;o daß dadurch nach ihren Ab-march wu&#x0364;rck-<lb/>
+lich ein Feuer ent&#x017F;tanden, und wann &#x017F;olches nicht bey Zeiten von denen<lb/>
+Klo&#x017F;ter Leuten <hi rendition="#aq"><hi rendition="#i">decouvri</hi></hi>ret und gelo&#x0364;&#x017F;chet worden, das &#x017F;a&#x0364;mmtliche Klo&#x017F;ter<lb/>
+in Feuer aufgegangen wa&#x0364;re, &#x017F;telleten dannenhero vor, daß da &#x017F;ie zum <hi rendition="#aq"><hi rendition="#i">Ac-<lb/>
+commodement</hi></hi> bereit, und willig wa&#x0364;hren man &#x017F;ie doch nicht auf die Art<lb/>
+<hi rendition="#aq"><hi rendition="#i">tracti</hi></hi>ren mo&#x0364;chte.</p><lb/>
+<p>2) Begehrten &#x017F;ie, der Obri&#x017F;ter <hi rendition="#aq"><hi rendition="#i">Wachtendonck</hi>,</hi> mo&#x0364;chte &#x017F;ich<lb/>
+mit &#x017F;einen Trouppen 2. Meilen von <hi rendition="#aq"><hi rendition="#i">Torre Bellegrino</hi></hi> zuru&#x0364;ck ziehen, in die<lb/>
+Ebene Mao genannt, und die be&#x017F;etzte Ho&#x0364;hen <hi rendition="#aq"><hi rendition="#i">Cariola</hi></hi> und <hi rendition="#aq"><hi rendition="#i">Mi&#x017F;&#x017F;a</hi></hi> (wel-<lb/>
+che beyde <hi rendition="#aq"><hi rendition="#i">Aveniien</hi></hi> gegen <hi rendition="#aq"><hi rendition="#i">We&#x017F;covvato commendi</hi></hi>ren) verla&#x017F;&#x017F;en, wobey<lb/>
+der Cheff die&#x017F;er Rebellen <hi rendition="#aq"><hi rendition="#i">Segnor Medriomaro</hi>,</hi> wie er &#x017F;ich nennet, ver-<lb/>
+&#x017F;ichern ließ, daß dadurch die Bahne zum Vergleiche welches ohne das gantz<lb/>
+nahe wa&#x0364;re, gebahnet, und es weiter keine <hi rendition="#aq"><hi rendition="#i">Difficultæ</hi></hi>ten ihre Deputirten<lb/>
+<fw type="sig" place="bottom">A 2</fw><fw type="catch" place="bottom">an</fw><lb/>
+<pb n="(4)" facs="#f0008"/>
+an den Ort &#x017F;o ausgemacht werden wu&#x0364;rde, zu &#x017F;chicken, geben du&#x0364;rfften<lb/>
+ingleichen hielten &#x017F;ie an daß weiter keine Trouppen nach <hi rendition="#aq"><hi rendition="#i">Cor&#x017F;ica transpor-<lb/>
+ti</hi></hi>ret werden &#x017F;olten, <hi rendition="#aq">NB.</hi> denn &#x017F;ie &#x017F;tehen in der Meynung daß nach fu&#x0364;nff<lb/>
+<hi rendition="#aq"><hi rendition="#i">Bataillons</hi></hi> u&#x0364;berge&#x017F;etzt werden &#x017F;ollen.</p><lb/>
+<p>Jngleichen wolten &#x017F;ie zwey ihrer Mitt-Bru&#x0364;der welche von dem <hi rendition="#aq"><hi rendition="#i">Gre-<lb/>
+nadier Capitaine</hi></hi> Graff <hi rendition="#aq"><hi rendition="#i">Moravvsky</hi></hi> als er ein <hi rendition="#aq"><hi rendition="#i">Detachement</hi></hi> der Rebel-<lb/>
+len bey <hi rendition="#aq"><hi rendition="#i">Hui</hi>,</hi> vor einiger Zeit aus einandergejaget, und &#x017F;olche Gefangen<lb/>
+eingebracht, looß haben, und endlich nur mit ihnen &#x017F;prechen.</p><lb/>
+<p>Gedachte Deputirte wurden gantz kurtz abgefertiget, und ihnen an-<lb/>
+gedeutet, &#x017F;ich einen Ern&#x017F;t &#x017F;eyn zu la&#x017F;&#x017F;en, zur <hi rendition="#aq"><hi rendition="#i">Submi&#x017F;&#x017F;ion</hi></hi> zu &#x017F;chreiten, und<lb/>
+da die Sache wegen der Hu&#x017F;aren ihren Anbringen zu wider, nach einer<lb/>
+gehaltenen Unter&#x017F;uchung fal&#x017F;ch gefunden, ihnen &#x017F;olches ihr Anbringen<lb/>
+verwie&#x017F;en, und das Ubrige alles abge&#x017F;chlagen, auch dabey nachdru&#x0364;cklich<lb/>
+zu ver&#x017F;tehen gegeben, daß man davor hielte, &#x017F;ie &#x017F;uchten nur Verzo&#x0364;ge-<lb/>
+rung zu machen, welche man im Gering&#x017F;ten nicht ge&#x017F;tatten wu&#x0364;rde, &#x017F;elbige<lb/>
+ver&#x017F;icherten, und betheuerten das Gegentheil, und nahmen al&#x017F;o ihren Ab-<lb/>
+&#x017F;chied.</p><lb/>
+<p>Tages darauf kamen wieder zwey Deputirten, welche aber weiter<lb/>
+nichts anzubringen hatten, &#x017F;ondern nur &#x017F;ehr beweglich bathen, dem ge-<lb/>
+&#x017F;tern auf &#x017F;ie gefaßten Argwohn fahren zu la&#x017F;&#x017F;en, und nur noch zwey oder<lb/>
+ho&#x0364;ch&#x017F;tens drey Tage Fri&#x017F;t &#x017F;ich ausbathen, damit der <hi rendition="#aq"><hi rendition="#i">Plan</hi></hi> des Verglei-<lb/>
+ches ausgearbeitet werden ko&#x0364;nte, welches ihnen dann <hi rendition="#aq"><hi rendition="#i">accordi</hi></hi>ret wur-<lb/>
+de; Jndeß wurde von Seiten des Obri&#x017F;ten <hi rendition="#aq"><hi rendition="#i">Wachtendonck</hi>,</hi> als<lb/>
+welcher die&#x017F;en Leuten nicht das Gering&#x017F;te trauete, alle vor&#x017F;ichtige Mittel<lb/>
+vorgekehret, vor einer <hi rendition="#aq"><hi rendition="#i">Sourpri&#x017F;e</hi>,</hi> ver&#x017F;ichert zu &#x017F;eyn, der <hi rendition="#aq"><hi rendition="#i">General<lb/>
+Gouverneur la Variano</hi></hi> hingegen ware die&#x017F;es Obri&#x017F;ten Meynung<lb/>
+zuwider, und vermeynte es wa&#x0364;re nicht no&#x0364;thig ein Mu&#x0364;ßtrauen zu ha-<lb/>
+ben er kenne die Nation und wi&#x017F;&#x017F;e dannenhero, wann ihnen zu trauen,<lb/>
+oder nicht, der Obri&#x017F;te <hi rendition="#aq"><hi rendition="#i">Wachtendonck</hi></hi> aber bliebe bey &#x017F;einer Mey-<lb/>
+nung, und lie&#x017F;&#x017F;e zu dem Ende dem Capitaine Graff Erlach mit 1200. Mann<lb/>
+eine Ho&#x0364;he <hi rendition="#aq"><hi rendition="#i">occupi</hi></hi>ren, welche die <hi rendition="#aq"><hi rendition="#i">Aveniien</hi></hi> des Gebu&#x0364;rges <hi rendition="#aq"><hi rendition="#i">Radreppo com-<lb/>
+mendi</hi></hi>ret, &#x017F;o die Rebellen vorhero 24. Stunden verla&#x017F;&#x017F;en, durch welche<lb/>
+man al&#x017F;o verhindern ko&#x0364;nnte, daß &#x017F;ich die Rebellen von <hi rendition="#aq"><hi rendition="#i">We&#x017F;covvato</hi></hi> aus,<lb/>
+lincker Hand gegen <hi rendition="#aq"><hi rendition="#i">Torre Bellegrino</hi></hi> nicht <hi rendition="#aq"><hi rendition="#i">extendi</hi></hi>ren, oder von denen<lb/>
+Gebu&#x0364;rgen herunter la&#x017F;&#x017F;en, &#x017F;ondern auf die&#x017F;en Fall, zwi&#x017F;chen, und bey de-<lb/>
+nen Ho&#x0364;hen, <hi rendition="#aq"><hi rendition="#i">Cariola</hi>,</hi> und <hi rendition="#aq"><hi rendition="#i">Mi&#x017F;&#x017F;a</hi>,</hi> &#x017F;olches bewerck&#x017F;telligen mu&#x0364;&#x017F;ten, welches<lb/>
+ihnen aber fa&#x017F;t unmo&#x0364;glich fallen wu&#x0364;rde; Wir aber vermeyneten in dem<lb/>
+Stande zu &#x017F;eyn, vermo&#x0364;ge gedachter zwey, und die&#x017F;er einen Ho&#x0364;he ob zwar<lb/>
+<fw type="catch" place="bottom">nicht</fw><lb/>
+<pb n="(5)" facs="#f0009"/>
+nicht ohne gro&#x017F;&#x017F;e <hi rendition="#aq"><hi rendition="#i">Difficultæ</hi></hi>ten, ihnen auf 2. Seiten beyzukommen; Als<lb/>
+&#x017F;ie nun die&#x017F;es wahr genommen, kamen gleich wieder Deputirte, <hi rendition="#aq"><hi rendition="#i">prote&#x017F;tir-</hi></hi><lb/>
+ten darwieder, und gaben vor daß &#x017F;olches anzu&#x017F;ehen wa&#x0364;re daß man <choice><sic>nn&#x017F;er</sic><corr>un&#x017F;er</corr></choice><lb/>
+Seits kein <hi rendition="#aq"><hi rendition="#i">Accommadement</hi>,</hi> mit ihnen verlange, weil man dergleichen<lb/>
+<hi rendition="#aq"><hi rendition="#i">Mouvements</hi></hi> vornehme und die Po&#x017F;ten, welche &#x017F;ie wieder be&#x017F;etzen wollen <hi rendition="#aq"><hi rendition="#i">oc-<lb/>
+cupir</hi></hi>te. Bathen dannenhero, man mochte doch die erwehnt, und in Be-<lb/>
+&#x017F;itz genommene Ho&#x0364;he, ver- und ihnen wieder u&#x0364;berla&#x017F;&#x017F;en; Sie wurden aber<lb/>
+gantz kurtz, und mit ab&#x017F;chla&#x0364;giger Antwort abgewie&#x017F;en, und hielte der<lb/>
+Obri&#x017F;te <hi rendition="#aq"><hi rendition="#i">Wachtendonck</hi></hi> gewiß davor, welches auch der Ausgang nicht<lb/>
+anders gewie&#x017F;en, die Rebellen &#x017F;uchten uns nur zu <hi rendition="#aq"><hi rendition="#i">amu&#x017F;i</hi></hi>ren, ha&#x0364;tte auch<lb/>
+gewiß, daß zum Frieden von ihnen vorgebende <hi rendition="#aq"><hi rendition="#i">Negotium</hi></hi> aufgehoben,<lb/>
+wann der <hi rendition="#aq"><hi rendition="#i">General Gouverneur</hi></hi> hierinne nicht <hi rendition="#aq"><hi rendition="#i">contrai</hi></hi>rer Mey-<lb/>
+nung gewe&#x017F;en, indes kehrte er alles vor, was ein vor&#x017F;ichtiger Commen-<lb/>
+dant, der mit einen dergleich Feinde zu thun hat, no&#x0364;thig hat, um vor al-<lb/>
+len nachtheiligen <hi rendition="#aq"><hi rendition="#i">Suit</hi></hi>en ge&#x017F;ichert zu &#x017F;eyn.</p><lb/>
+<p>Nun kam endlich der Tag herbey da die ver&#x017F;prochene Friedens <hi rendition="#aq"><hi rendition="#i">De-<lb/>
+putation</hi></hi> anlangen &#x017F;olte, welche man <hi rendition="#aq"><hi rendition="#i">acceptir</hi></hi>te, und ihre <hi rendition="#aq"><hi rendition="#i">Propo&#x017F;itiones</hi></hi><lb/>
+ho&#x0364;rete, welche darinne be&#x017F;tunden.</p><lb/>
+<p>Sie wa&#x0364;ren Jhro Ro&#x0364;mi&#x017F;ch Kay&#x017F;erl. Maje&#x017F;t. in alleruntertha&#x0364;nigkeit<lb/>
+verbunden, daß &#x017F;ich &#x017F;elbte ihrer, in ihren Bedra&#x0364;ngni&#x017F;&#x017F;e angenommen, und<lb/>
+&#x017F;ie wieder die <hi rendition="#aq"><hi rendition="#i">Genue&#x017F;er</hi>,</hi> als welche nicht als Chri&#x017F;ten mit ihnen umbge-<lb/>
+gangen wa&#x0364;ren, in Schutz genommen ha&#x0364;tten, indem &#x017F;ie die Uber&#x017F;etzung der<lb/>
+Kay&#x017F;erl. Trouppen in ihre Jn&#x017F;ul, vor einen Schutz, und nicht Bekrie-<lb/>
+gung hielten, als wodurch die Genue&#x017F;er gehindert worden, ihre ander-<lb/>
+weitige <hi rendition="#aq"><hi rendition="#i">De&#x017F;&#x017F;ains</hi>,</hi> wieder &#x017F;ie arme Bedra&#x0364;ngte, auszufu&#x0364;hren, <hi rendition="#aq"><hi rendition="#i">recommen-<lb/>
+dir</hi></hi>ten &#x017F;ich dann fernerweit zu Kay&#x017F;erl. Gnaden, und <hi rendition="#aq"><hi rendition="#i">Protection</hi>,</hi> wolten<lb/>
+&#x017F;ich auch zu dem Ende, allem unterwerffen, was Ka&#x0364;y&#x017F;erl. Maje&#x017F;ta&#x0364;t ihnen<lb/>
+vorzu&#x017F;chreiben geruhen wolten, ba&#x0364;then &#x017F;ich aber aus, auf nach&#x017F;tehende<lb/>
+Puncte allergna&#x0364;dig&#x017F;t zu <hi rendition="#aq"><hi rendition="#i">reflecti</hi></hi>ren, als:</p><lb/>
+<p>1) Sollen alle <hi rendition="#aq"><hi rendition="#i">Ho&#x017F;tilitæ</hi></hi>ten aufho&#x0364;ren, und beyden Theilen frey &#x017F;te-<lb/>
+hen ohne das Gering&#x017F;te zube&#x017F;orgen, hin und her zu rei&#x017F;en, es &#x017F;ey dann daß<lb/>
+das Heyl&#x017F;ame Werck des Friedens welches jedoch GOtt verhu&#x0364;ten wolle,<lb/>
+<hi rendition="#aq"><hi rendition="#i">abrumpi</hi></hi>ret werden &#x017F;olte, und auf die&#x017F;en Fall, &#x017F;ollen dennoch, er&#x017F;t nach<lb/>
+Verflie&#x017F;&#x017F;ung dreyer Tage die <hi rendition="#aq"><hi rendition="#i">Ho&#x017F;tilitæ</hi></hi>ten angehen.</p><lb/>
+<p>2) Jhre wieder die Genue&#x017F;er eingegebene Gravamina, welche &#x017F;ie<lb/>
+hierdurch u&#x0364;bergeben, &#x017F;o aber ein groß Volumen ausmachen, in gna&#x0364;dige<lb/>
+Con&#x017F;ideration zuziehen, und daß &#x017F;ie, wie Jnhalt &#x017F;olcher zeigen wird, we-<lb/>
+gen der vielen <hi rendition="#aq"><hi rendition="#i">Oppre&#x017F;&#x017F;ions</hi></hi> nicht anders thun ko&#x0364;nnen, als zum Waffen zu-<lb/>
+<fw type="sig" place="bottom">A 3</fw><fw type="catch" place="bottom">greif-</fw><lb/>
+<pb n="(6)" facs="#f0010"/>
+greiffen, umb &#x017F;ich das Wiederrechtliche Joch vom Hal&#x017F;e zu &#x017F;chu&#x0364;tten, dabey<lb/>
+fu&#x0364;hren &#x017F;ie alle ihre Privilegia, Pacta und Vergleiche an, und be&#x017F;chweren<lb/>
+&#x017F;ich in&#x017F;onderheit u&#x0364;ber eine Genue&#x017F;i&#x017F;che Familie, von welcher eine gewi&#x017F;&#x017F;e<lb/>
+Zeit fa&#x017F;t be&#x017F;ta&#x0364;ndig einige in Regierungs Sachen, in Cor&#x017F;ica <hi rendition="#aq"><hi rendition="#i">employ</hi></hi>ret<lb/>
+gewe&#x017F;en, in welchen Be&#x017F;chwerden &#x017F;ehr viel harte, und zugleich la&#x0364;cher-<lb/>
+liche <hi rendition="#aq"><hi rendition="#i">Expre&#x017F;&#x017F;ions</hi></hi> enthalten, die Familie aber i&#x017F;t von <hi rendition="#aq"><hi rendition="#i">Calvaro</hi>.</hi></p><lb/>
+<p>3) Sie bitten gehor&#x017F;amb&#x017F;t, den Ort allwo gehandelt werden &#x017F;oll, aus-<lb/>
+zumachen, &#x017F;chlagen dazu das Gebu&#x0364;rge St. Andre vor &#x017F;tellen zugleich vor,<lb/>
+daß &#x017F;ie ihrer Seits die&#x017F;erhalb &#x017F;ich nicht aus der Jn&#x017F;ul begeben ko&#x0364;nten.</p><lb/>
+<p>4) Damit &#x017F;ie Kay&#x017F;erl. Maje&#x017F;t vor eine freye <hi rendition="#aq"><hi rendition="#i">Republique declari</hi></hi>ren<lb/>
+und dabey <hi rendition="#aq"><hi rendition="#i">mainteni</hi></hi>ren mo&#x0364;chte, und ihnen das Genue&#x017F;i&#x017F;che Joch, und Un-<lb/>
+tertha&#x0364;nigkeit, welches ihnen die&#x017F;e wiederrechtlich aufgeleget, annehmen.</p><lb/>
+<p>5) Davor wolten &#x017F;ie, jedoch auf eine gewi&#x017F;&#x017F;e Art (welche ausge-<lb/>
+macht werden ko&#x0364;nte, und &#x017F;ie &#x017F;ich &#x017F;olche, wann es nur von Kay&#x017F;erl. Sei-<lb/>
+ten ge&#x017F;cha&#x0364;he, gefallen la&#x017F;&#x017F;en wollen) von Kay&#x017F;erl. Maj. und deren Schutz<lb/>
+<hi rendition="#aq"><hi rendition="#i">dependi</hi></hi>ren und ihnen davor eine Ja&#x0364;hrl. Erka&#x0364;ndlichkeit <hi rendition="#aq"><hi rendition="#i">contribui</hi></hi>ren welche<lb/>
+&#x017F;ie, jedoch nach <hi rendition="#aq"><hi rendition="#i">Proportion</hi></hi> ihres Armuths einzurichten er&#x017F;uchen.</p><lb/>
+<p>6) Alles was nur ein Genue&#x017F;er hie&#x017F;e, &#x017F;olte die Jn&#x017F;ul ra&#x0364;umen, auch<lb/>
+hinfu&#x0364;hro nicht betreten, und &#x017F;olte die <hi rendition="#aq"><hi rendition="#i">Republique Genua</hi>,</hi> aller Herr&#x017F;chafft<lb/>
+derer &#x017F;ie &#x017F;ich Zeithero, u&#x0364;ber &#x017F;ie angema&#x017F;&#x017F;et, &#x017F;ich looß &#x017F;agen, und &#x017F;ie die Cor-<lb/>
+&#x017F;ikaner vor eine freye <hi rendition="#aq"><hi rendition="#i">Republique</hi></hi> erkennen, und ihnen das Pra&#x0364;dicat <hi rendition="#aq"><hi rendition="#i">Illu-<lb/>
+&#x017F;tris</hi></hi> zuge&#x017F;tehen.</p><lb/>
+<p>7) Jnnerhalb 4. Wochen, &#x017F;olte die&#x017F;es alles abgethan, und ge&#x017F;chlo&#x017F;-<lb/>
+&#x017F;en, denen Genue&#x017F;ern aber nicht ge&#x017F;tattet &#x017F;eyn, Ausflu&#x0364;chte, und Einwendun-<lb/>
+gen zu machen.</p><lb/>
+<p>8) Die freye Schiffarth und Handlung, gleich wie andre <hi rendition="#aq"><hi rendition="#i">Republi-<lb/>
+quen</hi></hi> &#x017F;ollen ihnen ebenfalls frey &#x017F;tehen.</p><lb/>
+<p>9) Jedoch wollen &#x017F;ie niemahlen wieder den Kay&#x017F;er, als ihren Schutz-<lb/>
+Herren, weder vor &#x017F;ich, noch mit andern was Feind&#x017F;eeliges <hi rendition="#aq"><hi rendition="#i">intendi</hi></hi>ren.</p><lb/>
+<p>10) Bitten &#x017F;ich dargegen, auf beno&#x0364;thigten Fall Kay&#x017F;erl. Maj. Schutz,<lb/>
+und Hu&#x0364;lffe, wieder alle diejenigen, &#x017F;o ihne&#x0303; Feind&#x017F;eelig begegnen mo&#x0364;chten, aus.<lb/>
+Woru&#x0364;ber ein <hi rendition="#aq"><hi rendition="#i">a parter</hi></hi> Vergleich, nach Kay&#x017F;erl. Maj. hohen Gefallen ge-<lb/>
+richtet werden &#x017F;oll.</p><lb/>
+<p>11) Gewi&#x017F;&#x017F;e Familien aus ihren Nation welche &#x017F;ie &#x017F;elb&#x017F;t, unter &#x017F;ich<lb/>
+ausmachen und in Vor&#x017F;chlag bringen wollen, &#x017F;ollen von Ka&#x0364;y&#x017F;erl. Maje&#x017F;t.<lb/>
+vor <hi rendition="#aq"><hi rendition="#i">Nobles declari</hi></hi>ret, und hernach von jedermann in <hi rendition="#aq"><hi rendition="#i">perpetuum</hi>,</hi> davor<lb/>
+gehalten, auch aus die&#x017F;en die Aembter, und <hi rendition="#aq"><hi rendition="#i">Chargen</hi></hi> be&#x017F;etzet werden.</p><lb/>
+<p>12) Aus die&#x017F;en <hi rendition="#aq"><hi rendition="#i">Noblen Familien</hi></hi> &#x017F;oll auch das Haupt, jedoch von ih-<lb/>
+<fw type="catch" place="bottom">nen</fw><lb/>
+<pb n="(7)" facs="#f0011"/>
+nen &#x017F;elb&#x017F;t, allemahl erwehlet werden, ohne jemands Confirmation, daru&#x0364;ber<lb/>
+einholen zu du&#x0364;rffen, welcher das <hi rendition="#aq"><hi rendition="#i">Prædicat Duca</hi></hi> fu&#x0364;hren &#x017F;oll, <hi rendition="#aq">NB.</hi> Wozu<lb/>
+&#x017F;ie vors er&#x017F;t ihren eintzigen Cheff oder Anfu&#x0364;hrer welcher nur eiu Auge hat,<lb/>
+haben wollen.</p><lb/>
+<p>13) Jhre <hi rendition="#aq"><hi rendition="#i">Iu&#x017F;tice</hi>,</hi> und andere Verfa&#x017F;&#x017F;ungen, wollen &#x017F;ie &#x017F;elb&#x017F;t <hi rendition="#aq"><hi rendition="#i">reguli-</hi></hi><lb/>
+ren, la&#x017F;&#x017F;en &#x017F;ich jedoch gefallen, &#x017F;olche bey Angang ihrer <hi rendition="#aq"><hi rendition="#i">Republique</hi></hi> die&#x017F;es<lb/>
+mahl an die Ka&#x0364;y&#x017F;erl. Maj. zu <hi rendition="#aq"><hi rendition="#i">communici</hi></hi>ren, und wann &#x017F;elbige darwieder<lb/>
+was einzuwenden fa&#x0364;nden, &#x017F;olches abzu&#x017F;tellen oder zu a&#x0364;ndern, wie wohl in<lb/>
+allen die&#x017F;en, ihrer Seits nichts als Billichkeit, zum Fundament genommen<lb/>
+werden &#x017F;olle.</p><lb/>
+<p>14) Gleich bey Anfang derer Tractaten, bitten &#x017F;elbige in aller <hi rendition="#aq"><hi rendition="#i">Sub-<lb/>
+mi&#x017F;&#x017F;ion</hi></hi> daß die Zuru&#x0364;ck&#x017F;endung der &#x017F;a&#x0364;mmtlichen Trouppen angefangen wer-<lb/>
+den mo&#x0364;chte, und zwar er&#x017F;tlich alles, was Genue&#x017F;i&#x017F;ch, in der Jn&#x017F;ul befindl.<lb/>
+1000. Mann aber Kay&#x017F;erl. &#x017F;olten in <hi rendition="#aq"><hi rendition="#i">Ba&#x017F;tia</hi></hi> bis zur vo&#x0364;lligen <hi rendition="#aq"><hi rendition="#i">Ratification</hi></hi><lb/>
+&#x017F;tehen bleiben, nach &#x017F;olcher aber auch ihren Ru&#x0364;ckweg nehmen, und ihnen<lb/>
+den, Ort einra&#x0364;umen, und u&#x0364;bergeben.</p><lb/>
+<p>15) Sie die Cor&#x017F;icaner wollen, oder vielmehr der aus ihren Mittel<lb/>
+erwehlte <hi rendition="#aq"><hi rendition="#i">Duca</hi>,</hi> und eine Anzahl <hi rendition="#aq"><hi rendition="#i">Nobles</hi></hi> in <hi rendition="#aq"><hi rendition="#i">Præ&#x017F;ence</hi></hi> der Kay&#x017F;erl. Ge-<lb/>
+vollma&#x0364;chtigten, daß &#x017F;ie alles ge&#x017F;chlo&#x017F;&#x017F;ene, unverbru&#x0364;chlich halten wollen,<lb/>
+mit einen Eyde ver&#x017F;ichern, wobey jedoch niemand, &#x017F;o der <hi rendition="#aq"><hi rendition="#i">Republique<lb/>
+Genua</hi></hi> angeho&#x0364;rig, zugegen &#x017F;eyn &#x017F;oll.</p><lb/>
+<p>Nachdem nun der Obri&#x017F;te von <hi rendition="#aq"><hi rendition="#i">Wachtendonck</hi>,</hi> alle die&#x017F;e <hi rendition="#aq"><hi rendition="#i">Pro-<lb/>
+po&#x017F;itiones</hi></hi> &#x017F;o das <hi rendition="#aq"><hi rendition="#i">Accommodement</hi></hi> befo&#x0364;rdern &#x017F;ollen, &#x017F;o be&#x017F;chaffen gefun-<lb/>
+den, daß darunter nichts als Arges verborgen, hat er &#x017F;olche zwar angeho&#x0364;-<lb/>
+ret, und davon &#x017F;einen Bericht gethan, ihnen als den Deputirten aber<lb/>
+auch alles, was er darinne unno&#x0364;thig gefunden, verwie&#x017F;en, und &#x017F;ie bis auf<lb/>
+weitere Nachricht, nach Hau&#x017F;e gehen la&#x017F;&#x017F;en, und indeß alle no&#x0364;thige Vor-<lb/>
+&#x017F;ichtigkeit <hi rendition="#aq"><hi rendition="#i">continai</hi></hi>ret, und fleißig <hi rendition="#aq"><hi rendition="#i">recogno&#x017F;ci</hi></hi>ren la&#x017F;&#x017F;en, auch ein, und an-<lb/>
+dere <hi rendition="#aq"><hi rendition="#i">detachir</hi></hi>te Po&#x017F;ten, &#x017F;o wie er es vor no&#x0364;thig gefunden, verfla&#x0364;rcket; Bis<lb/>
+endlich den 5. die&#x017F;en der Herr Obri&#x017F;t-Wachtmei&#x017F;ter Fleydel von den lo&#x0364;bl.<lb/>
+Harrachi&#x017F;chen Regim. &#x017F;o das Thal <hi rendition="#aq"><hi rendition="#i">Diu</hi></hi> vor, und hinter der be&#x017F;atzten Ho&#x0364;-<lb/>
+he <hi rendition="#aq"><hi rendition="#i">Miffa</hi></hi> zu <hi rendition="#aq"><hi rendition="#i">recogno&#x017F;ci</hi></hi>ren <hi rendition="#aq"><hi rendition="#i">commenuirt</hi></hi> gewe&#x017F;en, die Nachricht eingebracht,<lb/>
+daß er die Rebellen, eine halbe Meile, von gedachter Ho&#x0364;he, in vollen <hi rendition="#aq"><hi rendition="#i">Mou-<lb/>
+vement</hi></hi> gefunden, daher er &#x017F;ich, umb ihr Vorhaben be&#x017F;&#x017F;er gewahr zu wer-<lb/>
+den, da er ihnen ohne das, da &#x017F;ie, &#x017F;einen Befinden nach, bey 25000. Mann<lb/>
+gewe&#x017F;en, nicht hindern ko&#x0364;nnen, und als er ge&#x017F;ehen, daß &#x017F;ie ihren <hi rendition="#aq"><hi rendition="#i">Marchre-<lb/>
+cta</hi></hi> nach der Ho&#x0364;he <hi rendition="#aq"><hi rendition="#i">Miffa</hi></hi> gerichtet, geno&#x0364;thiget ge&#x017F;eheu &#x017F;eine bey &#x017F;ich haben-<lb/>
+de 60. <hi rendition="#aq"><hi rendition="#i">Grenadier</hi>,</hi> um &#x017F;olche Ho&#x0364;he, zu der &#x017F;chon auf &#x017F;elbiger &#x017F;tehenden<lb/>
+<fw type="catch" place="bottom">Mann-</fw><lb/>
+<pb n="(8)" facs="#f0012"/>
+Mann&#x017F;chafft &#x017F;to&#x017F;&#x017F;en zu la&#x017F;&#x017F;en, damit &#x017F;olche de&#x017F;to be&#x017F;&#x017F;er Defendiret werden<lb/>
+ko&#x0364;nten, mit noch 25. bey &#x017F;ich gehabten Hu&#x017F;&#x017F;aren aber, wovon er jedoch<lb/>
+noch 6. und den Cornet zuru&#x0364;ck gela&#x017F;&#x017F;en, um daß Ferner <hi rendition="#aq"><hi rendition="#i">pa&#x017F;&#x017F;iren</hi></hi>de zu <hi rendition="#aq"><hi rendition="#i">avi&#x017F;i</hi></hi>ren,<lb/>
+i&#x017F;t er eylig&#x017F;t allhier eingetroffen, und hat der Herr Obri&#x017F;te <hi rendition="#aq"><hi rendition="#i">Wachtendonck</hi>,</hi><lb/>
+von der Rebellen <hi rendition="#aq"><hi rendition="#i">Mouvement</hi></hi> Bericht abge&#x017F;tattet. Woraus &#x017F;o gleich der<lb/>
+Herr Obri&#x017F;te <hi rendition="#aq"><hi rendition="#i">Wachtendonck</hi>,</hi> geurtheilet, es mo&#x0364;chte wohl die <hi rendition="#aq"><hi rendition="#i">Attaque</hi></hi> der<lb/>
+Ho&#x0364;he von <hi rendition="#aq"><hi rendition="#i">Miffa</hi>,</hi> in dem &#x017F;olche, von &#x017F;elbiger Seite, &#x017F;ehr <hi rendition="#aq"><hi rendition="#i">difficile</hi>,</hi> nur eine<lb/>
+<hi rendition="#aq"><hi rendition="#i">Fou&#x017F;e</hi></hi> &#x017F;eyn, und daß vielmehr der Rebellen wahre Ab&#x017F;icht wa&#x0364;re uns durch<lb/>
+die&#x017F;en <hi rendition="#aq"><hi rendition="#i">Allarm</hi></hi> nach bemeldter Ho&#x0364;he zu ziehen, und indes von der andern<lb/>
+Seite der Ebene zu gewinnen, gleich wie ihr <hi rendition="#aq"><hi rendition="#i">Deffili</hi></hi>ren &#x017F;olches andeutete,<lb/>
+und uns al&#x017F;o in Ru&#x0364;cken zu u&#x0364;berfallen; Es machte dahero &#x017F;elbiger gleich<lb/>
+&#x017F;eine An&#x017F;talt, und ließ ein <hi rendition="#aq"><hi rendition="#i">Bataillon</hi></hi> von jung <hi rendition="#aq"><hi rendition="#i">Dbaun</hi></hi> neb&#x017F;t einer <hi rendition="#aq"><hi rendition="#i">Grena-<lb/>
+dier Compag</hi>.</hi> nach gedachter Ho&#x0364;he <hi rendition="#aq"><hi rendition="#i">marchi</hi></hi>ren, umb &#x017F;olche <hi rendition="#aq"><hi rendition="#i">&#x017F;outeni</hi></hi>ren zu<lb/>
+helffen, mit 4. <hi rendition="#aq"><hi rendition="#i">Bataillons</hi></hi> aber <hi rendition="#aq"><hi rendition="#i">marchir</hi></hi>te er, und &#x017F;o viel <hi rendition="#aq"><hi rendition="#i">Grenadier Com-<lb/>
+pag</hi>.</hi> durch die allhier &#x017F;ich ha&#x0364;uffig befindl. Stra&#x0364;ucher, la&#x0364;ng&#x017F;t der Ebene von<lb/>
+<hi rendition="#aq"><hi rendition="#i">Diu</hi></hi> verdecket, da den der von den Obri&#x017F;t Wachtmei&#x017F;ter Fleydel juru&#x0364;ck<lb/>
+gela&#x017F;&#x017F;ene Cornet zuru&#x0364;ck kam, mit der Nachricht, daß die Rebellen die<lb/>
+Ho&#x0364;he von <hi rendition="#aq"><hi rendition="#i">Miffa attaquire</hi></hi>ten. Jndeß wurde der <hi rendition="#aq"><hi rendition="#i">March</hi></hi> vorge&#x017F;etzter<lb/>
+Ma&#x017F;&#x017F;en, auf bey den Seiten <hi rendition="#aq"><hi rendition="#i">continui</hi></hi>ret, und die Hu&#x017F;&#x017F;aren zu <hi rendition="#aq"><hi rendition="#i">recogno&#x017F;ci-</hi></hi><lb/>
+ren fortge&#x017F;chicket, welche zu unter&#x017F;chiedenen mahlen, eben die gemeldte<lb/>
+Nachricht brachten, jedoch unter andern der letzte, wie das Feuer, auf der<lb/>
+<hi rendition="#aq"><hi rendition="#i">Attaque</hi></hi> gegen die Ho&#x0364;he <hi rendition="#aq"><hi rendition="#i">Miffa</hi></hi> gar &#x017F;par&#x017F;am gegeben wu&#x0364;rden, nachdem man<lb/>
+al&#x017F;o in die&#x017F;er <hi rendition="#aq"><hi rendition="#i">Situation</hi></hi> 3. Stunden verdecket <hi rendition="#aq"><hi rendition="#i">marchi</hi></hi>ret, und man in et-<lb/>
+was <hi rendition="#aq"><hi rendition="#i">Plane</hi></hi> den <hi rendition="#aq"><hi rendition="#i">March</hi></hi> bis wieder an dero <hi rendition="#aq"><hi rendition="#i">brou&#x017F;aillen continui</hi></hi>ren mußte,<lb/>
+kam ein ausge&#x017F;chicktes Commando Hu&#x017F;aren, und brachte die Nachricht,<lb/>
+daß es die Rebellen wu&#x0364;rcklich u&#x0364;ber die Berge herunter, bey den kleinen Fle-<lb/>
+cken <hi rendition="#aq"><hi rendition="#i">Triffolli defeli</hi></hi>ren ge&#x017F;ehen, weilen nun <hi rendition="#aq"><hi rendition="#i">ju&#x017F;t</hi></hi> das <hi rendition="#aq"><hi rendition="#i">De&#x017F;&#x017F;ein</hi></hi> der Feinde<lb/>
+&#x017F;o wahr, als es der Herr Obri&#x017F;te <hi rendition="#aq"><hi rendition="#i">Wachtendonck</hi></hi> vorhero geurtheilet, ließ er<lb/>
+einen kleinen Halt, machen, und die &#x017F;a&#x0364;mmtl. Commendanten, und Ober-<lb/>
+<hi rendition="#aq"><hi rendition="#i">Officiers</hi></hi> zu&#x017F;ammen kommen, wiederholte ku&#x0364;rtzlich &#x017F;eine gemachte <hi rendition="#aq"><hi rendition="#i">Di&#x017F;po&#x017F;i-<lb/>
+tion</hi>,</hi> und erinnerte daß ein jeder, weilen &#x017F;ie ohnfehlbahr, mit den Feinde<lb/>
+zuthun bekommen wu&#x0364;rden, das &#x017F;einige thun, und &#x017F;eine Leute <hi rendition="#aq"><hi rendition="#i">encouragi</hi></hi>ren<lb/>
+&#x017F;olte, <hi rendition="#aq"><hi rendition="#i">detachir</hi></hi>te auch zu gleich 2. <hi rendition="#aq">Grenadier Compag.</hi> und 200. <hi rendition="#aq">Mousquetier</hi><lb/>
+mit den Obri&#x017F;t. <hi rendition="#aq">Lieut. Nada&#x017F;ti,</hi> rechter Hand na&#x0364;her den Gebu&#x0364;rge zu <hi rendition="#aq">mar-<lb/>
+chi</hi>ren und zwar &#x017F;o viel mo&#x0364;glich mit ihn in einer Linie, da&#x017F;elb&#x017F;t den Feind<lb/>
+zu verhindern, &#x017F;ich der&#x017F;eits an das kleine Gebu&#x0364;rge, <hi rendition="#aq">Ma&#x017F;ai</hi> zu <hi rendition="#aq">po&#x017F;ti</hi>ren, und<lb/>
+da wurde der <hi rendition="#aq"><hi rendition="#i">march</hi>,</hi> nachdem alles <hi rendition="#aq">di&#x017F;poni</hi>ret, wieder angetreten, und<lb/>
+nachdem man kaum eine halbe Stunde <hi rendition="#aq"><hi rendition="#i">marchi</hi></hi>ret wurden wir des Feindes,<lb/>
+<fw type="catch" place="bottom">die</fw><lb/>
+<pb n="(9)" facs="#f0013"/>
+die Berge herunter <hi rendition="#aq"><hi rendition="#i">defili</hi></hi>ren gewahr, und daß &#x017F;chon eine gro&#x017F;&#x017F;e Anzahl, da-<lb/>
+von &#x017F;ich in der Ebene <hi rendition="#aq"><hi rendition="#i">po&#x017F;ti</hi></hi>ret hatten, un&#x017F;er <hi rendition="#aq"><hi rendition="#i">march</hi></hi> wurde die&#x017F;em nach,<lb/>
+&#x017F;o &#x017F;tarck wie mo&#x0364;gl. <hi rendition="#aq"><hi rendition="#i">continui</hi></hi>ret, der Feind wurde gar bald gewahr, kon-<lb/>
+te aber nicht &#x017F;o ge&#x017F;chwinde, &#x017F;ich <hi rendition="#aq"><hi rendition="#i">retiri</hi></hi>ren, wie nachgehendes erfahren wor-<lb/>
+den, wolte er es nicht thun, &#x017F;ondern vielmehr uns erwarten, &#x017F;ich auf &#x017F;eine<lb/>
+Sta&#x0364;rcke verla&#x017F;&#x017F;ende, derowegen wir al&#x017F;o gar balde, zu&#x017F;ammen kamen,<lb/>
+weilen aber das <hi rendition="#aq"><hi rendition="#i">Terrain</hi>,</hi> eine kleine <hi rendition="#aq"><hi rendition="#i">Di&#x017F;tance</hi>,</hi> die wir <hi rendition="#aq"><hi rendition="#i">pas&#x017F;i</hi></hi>ren mu&#x0364;&#x017F;&#x017F;en,<lb/>
+enge wahr, daß wir ohngefehr 300 Schritt nicht anders als <hi rendition="#aq">D<hi rendition="#i">ivi&#x017F;ions</hi></hi><lb/>
+wei&#x017F;e, <hi rendition="#aq"><hi rendition="#i">enfronte marchi</hi></hi>ren konten, wurden uns viele Leuthe zu Schanden<lb/>
+gemacht, indem &#x017F;ich die Rebellen, an gedachte Enge <hi rendition="#aq"><hi rendition="#i">po&#x017F;ti</hi></hi>ret, die un&#x017F;rigen<lb/>
+Thaten ihr <hi rendition="#aq">D<hi rendition="#i">evoir</hi></hi> zwar, doch wurden die 2 <hi rendition="#aq"><hi rendition="#i">Grenadier Compagnien</hi></hi> als<lb/>
+die von Braun, gantz, und die von <hi rendition="#aq"><hi rendition="#i">Hamilton</hi></hi> fa&#x017F;t <hi rendition="#aq"><hi rendition="#i">ruini</hi></hi>ret, welche jedoch<lb/>
+von den Uberre&#x017F;t, nicht nur <hi rendition="#aq"><hi rendition="#i">Souteni</hi></hi>ret, &#x017F;ondern auch <hi rendition="#aq"><hi rendition="#i">courage&#x017F;ement &#x017F;e-<lb/>
+cundi</hi></hi>ret, und der Obri&#x017F;t <hi rendition="#aq"><hi rendition="#i">Lieut</hi>: <hi rendition="#i">Nada&#x017F;ti</hi></hi> kam, nachdem Er viele <hi rendition="#aq"><hi rendition="#i">diffi-<lb/>
+cile pa&#x017F;&#x017F;agen pas&#x017F;i</hi></hi>ret, <hi rendition="#aq"><hi rendition="#i">attaqui</hi></hi>rete den Feind auf &#x017F;einer Seiten, zu rech-<lb/>
+ter Zeit, welches &#x017F;ie &#x017F;ich gar nicht ver&#x017F;ehen, und nachdem wir endlich auch<lb/>
+<hi rendition="#aq"><hi rendition="#i">Terrain</hi></hi> gewonnen, uns <hi rendition="#aq"><hi rendition="#i">extendi</hi></hi>ren zu ko&#x0364;nnen, fingen die Rebellen an<lb/>
+&#x017F;ich in gro&#x017F;&#x017F;er <hi rendition="#aq"><hi rendition="#i">Confu&#x017F;ion</hi></hi> nach dem Gebu&#x0364;rge zuru&#x0364;ck zu ziehen, wiewohl<lb/>
+&#x017F;ie &#x017F;ich zu zweyen mahlen ge&#x017F;etzet, allemahl aber wieder durch un&#x017F;er Feu-<lb/>
+er zur <hi rendition="#aq"><hi rendition="#i">reteraite</hi></hi> gezwungen worden, bis &#x017F;ie endlich in der gro&#x0364;&#x017F;ten Unord-<lb/>
+nung flu&#x0364;chtig worden, und da das Gebu&#x0364;rge die&#x017F;es Orths, fa&#x017F;t in <hi rendition="#aq"><hi rendition="#i">inace&#x017F;-<lb/>
+&#x017F;ible</hi>,</hi> und die <hi rendition="#aq"><hi rendition="#i">Pa&#x017F;&#x017F;agen</hi></hi> u&#x0364;ber &#x017F;olches &#x017F;ehr klein &#x017F;eyn, wurden &#x017F;elbige mei-<lb/>
+&#x017F;tens an dem Gebu&#x0364;rge von denen un&#x017F;rigen <hi rendition="#aq"><hi rendition="#i">ma&#x017F;&#x017F;acri</hi></hi>ret und haben wir<lb/>
+al&#x017F;o eine vollkommene <hi rendition="#aq"><hi rendition="#i">Victorice</hi></hi> u&#x0364;ber die Feinde erhalten.</p><lb/>
+<p>Welche bey 5000. &#x017F;chon von denen Gebu&#x0364;rgen in der Ebene gewe&#x017F;en,<lb/>
+&#x017F;o aber auch mehrentheils <hi rendition="#aq">Ma&#x017F;&#x017F;acri</hi>ret, indem man &#x017F;chon u&#x0364;ber 4000.<lb/>
+Todte zehlete, ha&#x0364;tten &#x017F;ie aber Zeit gehabt, mit ihrer vo&#x0364;lligen Macht in<lb/>
+die Ebene herunter zu kommen, wu&#x0364;rden &#x017F;ie uns viel zuthun gemacht ha-<lb/>
+ben, wie dann ihre Jntention gewe&#x017F;en, uns von denen be&#x017F;etzt habenden<lb/>
+Ho&#x0364;hen, zu <hi rendition="#aq">coupi</hi>ren, und folglich da &#x017F;ie etliche 30000. Mann wahren, uns<lb/>
+zu <hi rendition="#aq">attaqui</hi>ren, welches aber alles durch des Obri&#x017F;ten <hi rendition="#aq">Wachtendonck.</hi> Vor-<lb/>
+&#x017F;ichtigkeit nicht nur gehindert, &#x017F;ondern &#x017F;ie in gro&#x017F;&#x017F;e <hi rendition="#aq">Con&#x017F;ternation</hi> ge&#x017F;etzet<lb/>
+worden, un&#x017F;er&#x017F;eits &#x017F;eynd u&#x0364;ber 200. Mann theils todte, theils <hi rendition="#aq">bles&#x017F;ir</hi>te, wor-<lb/>
+unter viele brawe <hi rendition="#aq">Officier,</hi> von welchen allen, wie auch die <hi rendition="#aq">Situation,</hi> und<lb/>
+<hi rendition="#aq">Ordre de Battaille</hi> und mehrere Umb&#x017F;ta&#x0364;nde, gehor&#x017F;amb&#x017F;t mit nech&#x017F;ten zu-<lb/>
+&#x017F;enden werden, unter denen Todten Kay&#x017F;erl. &#x017F;eits befindet &#x017F;ich der Obri&#x017F;t-<lb/>
+<hi rendition="#aq">Lieut. Nada&#x017F;ti,</hi> und unter denen <hi rendition="#aq">bles&#x017F;ir</hi>ten der Obri&#x017F;te <hi rendition="#aq">Wachtendonck,</hi><lb/>
+<fw type="sig" place="bottom">B</fw><fw type="catch" place="bottom">der</fw><lb/>
+<pb n="(10)" facs="#f0014"/>
+der <hi rendition="#aq">Lieut, Buchner,</hi> welchen ich mit anhero genommen, und in un&#x017F;ern<lb/>
+Dien&#x017F;ten ge&#x017F;tanden, hat gleichfalls das unglu&#x0364;ckl. <hi rendition="#aq">Sort</hi> gehabt, todt ge&#x017F;cho&#x017F;-<lb/>
+&#x017F;en zu werden; Man ha&#x0364;lt davor, die Rebellen, mu&#x0364;&#x017F;&#x017F;en mit einer gewi&#x017F;-<lb/>
+&#x017F;en <hi rendition="#aq">Pui&#x017F;ance,</hi> in guten Vernehmen &#x017F;tehen, und mit &#x017F;elbigen <hi rendition="#aq">en-concert</hi> die<lb/>
+Friedens <hi rendition="#aq">Propo&#x017F;ition</hi> gemacht haben, in der Meynung uns damit &#x017F;icher zu<lb/>
+machen, und endlich durch das vorgehabte <hi rendition="#aq">De&#x017F;&#x017F;ein,</hi> uns eines anzuha&#x0364;ngen,<lb/>
+und den gar aus zumachen, gewiß i&#x017F;t es, wann &#x017F;elbige die&#x017F;en ihren End-<lb/>
+zweck erreichet ha&#x0364;tten, wu&#x0364;rden wir einen &#x017F;chweren Stand gehabt haben,<lb/>
+ohne daß es verhindert werden ko&#x0364;nnen.</p><lb/>
+<p>Cor&#x017F;ica, eine der gro&#x0364;&#x017F;ten Jn&#x017F;eln des Mittella&#x0364;ndi&#x017F;chen Meers, zwi&#x017F;chen<lb/>
+den Genue&#x017F;i&#x017F;chen Ku&#x0364;&#x017F;ten und der Jn&#x017F;ul Sardinien. Sie wird in vier<lb/>
+Theile abgetheilet, <hi rendition="#aq">di qua monte</hi> gegen Norden, <hi rendition="#aq">di la monti,</hi> gegen Su&#x0364;-<lb/>
+den, <hi rendition="#aq">Banda di dentro</hi> gegen O&#x017F;ten, <hi rendition="#aq">Banda di fuora</hi> gegen We&#x017F;ten. Sie<lb/>
+wurde zu er&#x017F;t von den Griecher <hi rendition="#aq">Tercepne</hi> und hernach <hi rendition="#aq">Cyrne,</hi> nach <hi rendition="#aq">Cyr-<lb/>
+no,</hi> welcher des <hi rendition="#aq">Herculis</hi> Sohn gewe&#x017F;en, &#x017F;eyn &#x017F;oll, genennet. Den Nah-<lb/>
+men Cor&#x017F;ica aber &#x017F;oll &#x017F;ie von einer gewi&#x017F;&#x017F;en Weibs-Per&#x017F;on aus Ligurien,<lb/>
+nahmens <hi rendition="#aq">Cor&#x017F;a Babulca,</hi> bekommen haben, welche &#x017F;o behertzt gewe&#x017F;en, daß<lb/>
+&#x017F;ie aus bemeldter Land&#x017F;chafft eine <hi rendition="#aq">Colonie</hi> hieher gefu&#x0364;hret. Die vor Zei-<lb/>
+in die&#x017F;er Jn&#x017F;ul beru&#x0364;hmte Sta&#x0364;dte waren <hi rendition="#aq">Aleria</hi> und <hi rendition="#aq">Mariana,</hi> deren jene<lb/>
+von <hi rendition="#aq">Sylla,</hi> die&#x017F;e aber von <hi rendition="#aq">Mario</hi> zu einer Ro&#x0364;mi&#x017F;chen <hi rendition="#aq">Colonie</hi> gemacht wor-<lb/>
+den, da &#x017F;on&#x017F;ten <hi rendition="#aq">Aleria</hi> &#x017F;chon vor einigen <hi rendition="#aq">Seculis</hi> durch die Phocen&#x017F;er war<lb/>
+erbauet, und nachdem von den Ro&#x0364;mern in er&#x017F;ten Puni&#x017F;chen Kriege unter<lb/>
+den a&#x0364;ltern <hi rendition="#aq">L. Scipione</hi> erobert worden. Allein vorjetzo haben &#x017F;ie beyde kaum<lb/>
+noch einige Merckmale von ihrer alten Herrlichkeit u&#x0364;brig. Nunmehro &#x017F;ind<lb/>
+die be&#x017F;ten, <hi rendition="#aq">Ba&#x017F;tia,</hi> welches die Haupt-Stadt i&#x017F;t, alsdann <hi rendition="#aq">Ajazzo, Nebio,<lb/>
+Calvi, Corte, Bonifacio, &amp;c.</hi> Es &#x017F;ind 5. Bißthu&#x0364;mer darinnen, als zu<lb/>
+<hi rendition="#aq">Ajazzo, Aleria, Sagona, Mariana</hi> und <hi rendition="#aq">Nebio.</hi> Die 4. letztern Oerter<lb/>
+aber &#x017F;ind derge&#x017F;tallt <hi rendition="#aq">ruinir</hi>et, daß die Bi&#x017F;cho&#x0364;ffe &#x017F;ich entweder zu Ba&#x017F;tia<lb/>
+oder in den benachbarten Do&#x0364;rffern aufhalten mu&#x0364;&#x017F;&#x017F;en. <hi rendition="#aq">Cor&#x017F;ica</hi> hat 3. gro&#x017F;&#x017F;e<lb/>
+Flu&#x0364;&#x017F;&#x017F;e unter welchen <hi rendition="#aq">Liamon</hi> und <hi rendition="#aq">Tavignan</hi> aus dem See <hi rendition="#aq">Crena</hi> ent&#x017F;prin-<lb/>
+gen, welcher auf den Berge <hi rendition="#aq">Gradaccio</hi> gegen die mitten der Jn&#x017F;ul zu liegt.<lb/>
+Da&#x017F;elb&#x017F;t i&#x017F;t auch der See <hi rendition="#aq">Juo,</hi> woraus der Fluß <hi rendition="#aq">Guolo</hi> kommt. Die<lb/>
+Lufft i&#x017F;t &#x017F;ehr unge&#x017F;und, das Erdreich aber bergicht, &#x017F;teinigt und nicht gar<lb/>
+fruchtbar; jedennoch wa&#x0364;ch&#x017F;et guter Wein auf der&#x017F;elben, wie auch Ge-<lb/>
+tra&#x0364;yde und Baumfru&#x0364;chte, als <hi rendition="#aq">Oliven,</hi> Feigen, Mandeln und Ca&#x017F;tanien,<lb/>
+und an ihren Ku&#x0364;&#x017F;ten findet man viel Corallen. Man trifft auch einen<lb/>
+Stein darinnen an, welcher <hi rendition="#aq">Catochites</hi> genennet wird, und an der Hand<lb/>
+<fw type="catch" place="bottom">kle-</fw><lb/>
+<pb n="(11)" facs="#f0015"/>
+kleben bleibet. Der bequeme&#x017F;te Hafen i&#x017F;t <hi rendition="#aq">Bonifacio,</hi> welcher eine gute<lb/>
+Ve&#x017F;tung hat. Das <hi rendition="#aq">Capo Cor&#x017F;o</hi> oder <hi rendition="#aq">punta di Morono</hi> i&#x017F;t der alten <hi rendition="#aq">&#x017F;a-<lb/>
+cram promotorium,</hi> und das <hi rendition="#aq">Capo di Manza</hi> i&#x017F;t das <hi rendition="#aq">promontorium Gra-<lb/>
+niacum.</hi></p><lb/>
+<p>Die To&#x017F;caner eroberten anfa&#x0364;nglich die&#x017F;e Jn&#x017F;ul, hernach nahmen<lb/>
+die Carthagimen&#x017F;er &#x017F;ie ihnen wieder weg; Worauf die Ro&#x0364;mer unter<lb/>
+<hi rendition="#aq">Scipiore</hi> &#x017F;ich davon Mei&#x017F;ter machten. Die Saracenen fielen zwar im<lb/>
+8ten <hi rendition="#aq">Seculo</hi> hinein, wurden aber bald wiederum daraus vertrieben.<lb/>
+Nach die&#x017F;em &#x017F;tritten die Graune&#x017F;er und die von Pi&#x017F;a eine lange Zeit um<lb/>
+der&#x017F;elben Be&#x017F;itz; endlich egneten &#x017F;ich jene die&#x017F;elben zu, und &#x017F;chicken<lb/>
+nunmehro alle zwey Jahr einen <hi rendition="#aq">Gouverneur</hi> und <hi rendition="#aq">General-Lieutenant</hi> hie-<lb/>
+her. Die Cor&#x017F;en &#x017F;ind gute Soldaten, aber u&#x0364;beraus grau&#x017F;am, rachgie-<lb/>
+rich und von &#x017F;chlechten Sitten; wie man den auch dafu&#x0364;r ha&#x0364;lt, daß ihr<lb/>
+Rauben und Plu&#x0364;ndern die Ur&#x017F;ache gewe&#x017F;en, warum alle diejenigen, wel-<lb/>
+che See-Ra&#x0364;uberey treiben, Co&#x017F;aren pflegen genennet zu werden. Weil<lb/>
+wegen der bo&#x0364;&#x017F;en Lufft die Jn&#x017F;ul wenig bewohnt i&#x017F;t, &#x017F;o haben im 17ten<lb/>
+<hi rendition="#aq">Seculo</hi> die Genue&#x017F;er 5. oder 600. Magnoten oder Mainoten dahin auf-<lb/>
+genommen, welche &#x017F;on&#x017F;t in Form einer <hi rendition="#aq">Republic</hi> an den Ku&#x0364;&#x017F;ten von <hi rendition="#aq">Mo-<lb/>
+rea</hi> gegen die Oe&#x017F;tliche Seite des Meer-Bu&#x017F;ens von <hi rendition="#aq">Coron</hi> zu, von<lb/>
+dem Vorgebu&#x0364;rge <hi rendition="#aq">Metapan</hi> an, bis an den Fluß <hi rendition="#aq">Calamata</hi> &#x017F;ich aufgehal-<lb/>
+<hi rendition="#c">ten, und &#x017F;eit der Tu&#x0364;rcki&#x017F;chen Eroberung der Jn&#x017F;ul <hi rendition="#aq">Candia<lb/>
+Anno</hi> 1669. ihr Vaterland verla&#x017F;&#x017F;en hatten.</hi></p><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<pb facs="#f0016"/>
+<pb facs="#f0017"/>
+<pb facs="#f0018"/>
+<pb facs="#f0019"/>
+<pb facs="#f0020"/>
+<pb facs="#f0021"/>
+</body></text> </TEI>

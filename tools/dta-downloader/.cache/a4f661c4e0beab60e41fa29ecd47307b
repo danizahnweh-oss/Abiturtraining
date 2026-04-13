@@ -1,0 +1,1122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.deutschestextarchiv.de/basisformat.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">     <teiHeader>
+<fileDesc>
+<titleStmt>
+<title type="main">Das Pfennig-Magazin für Belehrung und Unterhaltung</title>
+<title type="sub">Neue Folge, Erster Jahrgang, Nr. 25</title>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/115266127">
+<surname>Geyken</surname>
+<forename>Alexander</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1222198746">
+<surname>Haaf</surname>
+<forename>Susanne</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1019062681">
+<surname>Jurish</surname>
+<forename>Bryan</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Boenig</surname>
+<forename>Matthias</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Thomas</surname>
+<forename>Christian</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Wiegand</surname>
+<forename>Frank</forename>
+</persName>
+</editor>
+<respStmt>
+<orgName>Institut für Deutsche Sprache, Mannheim</orgName>
+<resp>
+<note type="remarkResponsibility">Bereitstellung der Bilddigitalisate und TEI
+Transkription</note>
+<ref target="http://hdl.handle.net/10932/00-01B8-B083-14EF-5901-9"/>
+</resp>
+</respStmt>
+<respStmt>
+<persName>
+<forename>Peter</forename>
+<surname>Fankhauser</surname>
+</persName>
+<resp>
+<note type="remarkResponsibility">
+Transformation von TUSTEP nach TEI P5.
+Transformation von TEI P5 in das DTA TEI P5 Format.
+</note>
+</resp>
+</respStmt>
+<respStmt>
+<orgName ref="https://www.bbaw.de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<resp>
+<note type="remarkResponsibility">Langfristige Bereitstellung der DTA-Ausgabe</note>
+<ref target="https://www.bbaw.de"/>
+</resp>
+</respStmt>
+</titleStmt>
+<editionStmt><edition>Vollständige digitalisierte Ausgabe.</edition></editionStmt>
+<extent>
+<measure type="images">8</measure>
+<measure type="tokens">7002</measure>
+<measure type="types">2676</measure>
+<measure type="characters">46185</measure>
+</extent>
+<publicationStmt>
+<publisher xml:id="DTACorpusPublisher">
+<email>dta@bbaw.de</email>
+<orgName role="project">Deutsches Textarchiv</orgName>
+<orgName role="hostingInstitution" xml:lang="en">Berlin-Brandenburg Academy of Sciences and Humanities (BBAW)</orgName>
+<orgName role="hostingInstitution" xml:lang="de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<address>
+<addrLine>Jägerstr. 22/23, 10117 Berlin</addrLine>
+<country>Germany</country>
+</address>
+</publisher>
+<pubPlace>Berlin</pubPlace>
+<date type="publication">2025-10-24T08:35:11Z</date>
+<availability>
+<licence target="http://creativecommons.org/publicdomain/zero/1.0/">
+<p>Dieses Werk steht unter der "Creative Commons Namensnennung -
+Nicht kommerziell 3.0 Deutschland Lizenz" (CC BY-NC).</p>
+</licence>
+</availability>
+<idno>
+<idno type="URLWeb">https://www.deutschestextarchiv.de/nn_pfennig025_1843</idno>
+<idno type="URLXML">https://www.deutschestextarchiv.de/book/download_xml/nn_pfennig025_1843</idno>
+<idno type="URLHTML">https://www.deutschestextarchiv.de/book/download_html/nn_pfennig025_1843</idno>
+<idno type="URLText">https://www.deutschestextarchiv.de/book/download_text/nn_pfennig025_1843</idno>
+<idno type="DTADirName">nn_pfennig025_1843</idno>
+<idno type="DTAID">34717</idno>
+<idno type="URN">urn:nbn:de:kobv:b4-34717-6</idno>
+</idno>
+</publicationStmt>
+<sourceDesc>
+<bibl type="J">Das Pfennig=Magazin für Belehrung und Unterhaltung. Neue Folge, Erster Jahrgang, Nr. 25. Leipzig (Sachsen), 24. Juni 1843.</bibl>
+<biblFull>
+<titleStmt>
+<title level="m" type="main">Das Pfennig-Magazin für Belehrung und Unterhaltung</title>
+<title level="m" type="sub">Neue Folge, Erster Jahrgang, Nr. 25</title>
+</titleStmt>
+<editionStmt>
+<edition n="1"/>
+</editionStmt>
+<publicationStmt>
+<publisher/>
+<pubPlace>Leibzig (Sachsen)</pubPlace>
+<date type="publication">1843</date>
+</publicationStmt>
+</biblFull>
+<msDesc>
+<msIdentifier/>
+<physDesc>
+<typeDesc>
+<p>Fraktur</p>
+</typeDesc>
+</physDesc>
+</msDesc>
+</sourceDesc>
+</fileDesc>
+<encodingDesc>
+<editorialDecl>
+<p>
+<![CDATA[
+<p>Siehe Dokumentation</p>
+]]>
+</p>
+</editorialDecl>
+<tagsDecl>
+<rendition scheme="css" xml:id="aq">font-family:sans-serif</rendition>
+<rendition scheme="css" xml:id="b">font-weight:bold</rendition>
+<rendition scheme="css" xml:id="blue">color:blue</rendition>
+<rendition scheme="css" xml:id="c">display:block; text-align:center</rendition>
+<rendition scheme="css" xml:id="et">display:block; margin-left:2em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et2">display:block; margin-left:4em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et3">display:block; margin-left:6em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="f">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="fr">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="g">letter-spacing:0.125em</rendition>
+<rendition scheme="css" xml:id="i">font-style:italic</rendition>
+<rendition scheme="css" xml:id="in">font-size:150%</rendition>
+<rendition scheme="css" xml:id="k">font-variant:small-caps</rendition>
+<rendition scheme="css" xml:id="larger">font-size:larger</rendition>
+<rendition scheme="css" xml:id="red">color:red</rendition>
+<rendition scheme="css" xml:id="right">display:block; text-align:right</rendition>
+<rendition scheme="css" xml:id="s">text-decoration:line-through</rendition>
+<rendition scheme="css" xml:id="smaller">font-size:smaller</rendition>
+<rendition scheme="css" xml:id="sub">vertical-align:sub; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="sup">vertical-align:super; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="u">text-decoration:underline</rendition>
+<rendition scheme="css" xml:id="uu">border-bottom:double 3px #000</rendition>
+</tagsDecl>
+</encodingDesc>
+<profileDesc>
+<langUsage>
+<language ident="deu">(Früh-)Neuhochdeutsch</language>
+<language ident="deu">German</language>
+</langUsage>
+<textClass>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1main">Gebrauchsliteratur</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1sub">Zeitschrift</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">ready</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">mkhz1</classCode>
+</textClass>
+</profileDesc>
+</teiHeader>
+<text>     <front>
+<pb facs="#f0001" n="[193]"/>
+<titlePage type="heading"><docTitle><titlePart type="main"><hi rendition="#c #fr">Das Pfennig=Magazin<lb/>
+für<lb/>
+<hi rendition="#g">Belehrung und Unterhaltung</hi>.</hi></titlePart></docTitle><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<docImprint><hi rendition="#fr">Nr</hi>. 25. ]                <hi rendition="#c">Neue Folge. Erster Jahrgang.</hi>                <docDate><hi rendition="#right">[ 24. <hi rendition="#g">Juni</hi> 1843.</hi></docDate>              </docImprint></titlePage><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+</front>     <body>       <div n="1" type="jArticle"><head><hi rendition="#fr">Graf von Benningsen.</hi></head><lb/>
+<figure/><lb/>
+<cb type="start"/>
+<p><hi rendition="#in">D</hi>ieser berühmte russische General ist von Geburt ein<lb/>
+Deutscher. Er wurde im J. 1745 zu Braunschweig<lb/>
+geboren und trat, als er zehn Jahre alt war, da das<lb/>
+Stammgut seiner Familie, Banteln, zu Hanover gehörte,<lb/>
+in das Pagencorps König Georg's <hi rendition="#aq">II</hi>. und aus diesem<lb/>
+als Lieutenant in die hanöversche Fußgarde. Er gehört<lb/>
+zu den Militairs, welche an allen wichtigen politischen<lb/>
+Erscheinungen, die seit dem siebenjährigen Kriege Europa<lb/>
+in Bewegung gesetzt haben, thätigen Antheil nahmen. Als<lb/>
+hanöverscher Lieutenant machte er die letzten Feldzüge des<lb/>
+siebenjährigen Kriegs mit, ohne jedoch eine besondere Nei-<lb/>
+gung für den Soldatenstand an den Tag zu legen.<lb/>
+Seine Bekannten wunderten sich daher gar nicht, daß<lb/>
+er, als er durch den Tod seines Vaters zum Besitze<lb/>
+der Familiengüter desselben kam, Abschied nahm. Er<lb/>
+vermählte sich bald darauf und lebte mit solchem Auf-<lb/>
+wande, daß seine Vermögensumstände in Zerrüttung ge-<lb/>
+<cb n="2"/>
+riethen; dies bewog ihn, zum Soldatenstande zurückzukeh-<lb/>
+ren. Mit einem Obristlieutenantspatent, das er sich<lb/>
+durch seine Freunde verschafft hatte, ausgerüstet, trat er<lb/>
+in russische Dienste und wurde bei der leichten Reiterei<lb/>
+gleich als Major angestellt; doch fand er lange keine<lb/>
+Gelegenheit, sich besonders auszuzeichnen, erst in dem im<lb/>
+J. 1787 erneuten Türkenkriege, in welchem er der Be-<lb/>
+lagerung und blutigen Erstürmung von Oczakow bei-<lb/>
+wohnte, zog er die Aufmerksamkeit der Regierung auf<lb/>
+sich und erhielt im J. 1793 den Oberbefehl eines Corps<lb/>
+gegen die Polen, mit welchem er zunächst in Lithauen<lb/>
+verschiedene Siege erfocht und die zweite Theilung von<lb/>
+Polen mit durchsetzen half. Ebenso war er bei der<lb/>
+Schlachten thätig, welche im J. 1795 die dritte und<lb/>
+letzte Theilung Polens herbeiführten. Jetzt wurde Ben-<lb/>
+ningsen auf einen andern Schauplatz geführt. Der seit<lb/>
+1779 wieder ausgebrochene Bürgerkrieg in Persien gab<lb/>
+<cb type="end"/>
+<pb facs="#f0002" n="194"/>
+<fw place="top" type="pageNum">194</fw><cb type="start"/>
+Katharinen <hi rendition="#aq">II</hi>. Gelegenheit, sich in die Angelegenheiten<lb/>
+Persiens zu mischen, indem von der besiegten Partei<lb/>
+ihre Hülfe in Anspruch genommen wurde. Valerian<lb/>
+Suboff verwüstete die Provinzen am kaspischen Meere,<lb/>
+mordete eine Menge wehrloser Menschen hin und ver-<lb/>
+breitete solchen Schrecken, daß Derbent capitulirte, ehe es<lb/>
+belagert wurde. Benningsen war hier Oberbefehlshaber<lb/>
+der Reiterei und trug am meisten zu dem Erfolge des<lb/>
+Feldzugs bei. Der Tod Katharina's ( am 14. Nov.<lb/>
+1796 ) änderte abermals den Schauplatz der Thaten Ben-<lb/>
+ningsen 's. Paul hatte das Scepter mit dem Vorsatze er-<lb/>
+griffen, von Allem, was seine Mutter gethan und ge-<lb/>
+liebt hatte, das Gegentheil zu thun. Das Erste, was<lb/>
+er that, war, das Heer aus Persien zurückzurufen und<lb/>
+alle Personen, die sich bei ihr einer ganz besondern<lb/>
+Gunst erfreut hatten, vom Hofe zu verbannen. Darun-<lb/>
+ter waren auch die Gebrüder Suboff, mit denen Ben-<lb/>
+ningsen durch den persischen Krieg in nähere Berührung<lb/>
+gekommen war. Diese beiden verwegenen Männer brach-<lb/>
+ten, voll Rachedurst gegen Paul, im J. 1799 eine<lb/>
+Verschwörung gegen ihn zu Stande, zu welcher sich<lb/>
+auch Benningsen ziehen ließ, obgleich er erst kürzlich von<lb/>
+Paul zum Generallieutenant ernannt worden war. Nach<lb/>
+dem Tode des Kaisers am 23. März 1801 wurde er<lb/>
+Generalgouverneur von Lithauen, Obergeneral der Reite-<lb/>
+rei und im J. 1805 Oberbefehlshaber der russischen<lb/>
+Nordarmee. Jm J. 1806 zeichnete er sich bei Pul-<lb/>
+tusk gegen die Franzosen aus, lieferte am 7. und 8.<lb/>
+Febr. 1807 als Oberbefehlshaber die blutige Schlacht bei<lb/>
+Eylau, wo sich beide Theile des Sieges rühmten, ver-<lb/>
+lor aber am 15. Juli die Schlacht bei Friedland.<lb/>
+Unzufrieden mit dem darauf zu Stande gekommenen<lb/>
+tilsiter Frieden, begab er sich auf seine Güter in Li-<lb/>
+thauen und wurde erst 1812 wieder zum Heere berufen.<lb/>
+Hierauf befehligte er in der Schlacht bei Mosaisk das<lb/>
+russische Centrum, besiegte am 18. Oct. die Franzosen<lb/>
+bei Woronowa, entzweite sich aber wegen der Verfol-<lb/>
+gung des Rußland räumenden Feindes mit dem Feld-<lb/>
+marschall Kutusow und legte deshalb sein Commando<lb/>
+nieder. Nach Kutusow's Tode, im April 1813, wurde<lb/>
+er jedoch wieder activ und übernahm den Oberbefehl<lb/>
+über die Armee von Polen. Er focht bei Leipzig auf<lb/>
+dem rechten Flügel, half die Stadt erstürmen und er-<lb/>
+hielt dann den Auftrag, die an der Elbe noch von den<lb/>
+Franzosen besetzten Plätze zu beobachten. Nach dem<lb/>
+Sturze Napoleon's erhielt er das Commando der an<lb/>
+der türkischen Grenze versammelten russischen Südarmee,<lb/>
+das er aber im J. 1818 aufgab, nachdem er in Folge<lb/>
+eines Falls vom Pferde blind geworden war. Seitdem<lb/>
+lebte er auf seinem Gute Banteln in Hanover, wo er<lb/>
+am 3. Oct. 1826 starb.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Deutsche Reisende in Abyssinien.</hi></head><lb/>
+<p><hi rendition="#in">J</hi>m Süden Abyssiniens, im Königreiche Schoa, arbei-<lb/>
+tet eine englische Mission, bei der sich gegenwärtig zwei<lb/>
+Baiern befinden, ein Arzt und ein Maler. Krapf der<lb/>
+Arzt machte von hier aus einen Ausflug durch die Galla-<lb/>
+länder auf einem Wege, der ihn in Gegenden führte,<lb/>
+welche bis jetzt noch von keinem Europäer betreten wur-<lb/>
+den. Er wurde hier bis aufs Hemd ausgeraubt und<lb/>
+war oft in Gefahr, sein Leben zu verlieren. Nur heim-<lb/>
+liche Flucht, halbnackt und barfuß unternommen, konnte<lb/>
+ihn retten. Man sieht mit großer Spannung der öf-<lb/>
+fentlichen Erscheinung seines Reiseberichts entgegen, zu-<lb/>
+mal da er die Sprache jener Länder genau kennt, eine<lb/>
+<cb n="2"/>
+klare und vorurtheilsfreie Auffassung besitzt und sich durch<lb/>
+eine seltene Charakterstärke auszeichnet. Unter den euro-<lb/>
+päischen Reisenden Abyssiniens zeichnet sich ferner der<lb/>
+Deutsche Wilhelm Schimper gleich sehr als Mensch, Arzt<lb/>
+und Sammler aus. Er hat die bedeutendsten und voll-<lb/>
+ständigsten botanischen Sammlungen, welche je in Afrika<lb/>
+gemacht wurden, mit völliger Aufopferung seiner selbst,<lb/>
+mit Hunger, Hitze und Kälte kämpfend und dabei Mo-<lb/>
+nate lang seine kranken Mitbrüder pflegend, in einem<lb/>
+Lande zusammengebracht, wo Krieg und Verheerung an<lb/>
+der Tagesordnung sind und wo der einsame Wanderer<lb/>
+nicht blos die Angriffe wilder Thiere, sondern auch, und<lb/>
+zwar in weit höherm Grade, die Habgier und Grausam-<lb/>
+keit räuberischer Barbaren zu fürchten hat.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Naturgeschichtliches.</hi></head><lb/>
+<p><hi rendition="#in">W</hi>enn man den Kümmelkäfer berührt, so zieht er au-<lb/>
+genblicklich Kopf, Füße und Fühlhörner zusammen und<lb/>
+gibt, so lange man ihn hält, nicht das geringste Lebens-<lb/>
+zeichen von sich. Man kann ihm die Beine, ja die em-<lb/>
+pfindlichen Fühlhörner ausrupfen, man kann ihn in einem<lb/>
+Löffel übers Feuer halten und lebendig braten, man kann<lb/>
+ihn zerschneiden &#x2014; es ist Alles eins. Wie ein vollen-<lb/>
+deter Stoiker spottet er des Schmerzes und regt, selbst<lb/>
+ans Feuer gehalten, keinen Fuß. Läßt man ihn los, so<lb/>
+hilft er sich fort, so gut er kann. Jst das Trotz? ists<lb/>
+Jnstinct? Trieb, nichts zu empfinden? oder empfindet er<lb/>
+wirklich nichts? Die Berührung zeigt, daß er fein em-<lb/>
+pfindet. Jn der ganzen Thierwelt kommt nichts Ähnli-<lb/>
+ches vor; unter den Menschen zeigen nur die amerikani-<lb/>
+schen. Wilden, versteht sich in anderer Form, eine solche<lb/>
+Stumpfheit gegen den Schmerz.</p><lb/>
+<p>Mit welcher berechnenden Vorsicht die Spinne bei<lb/>
+ihrem Webegeschäfte zu Werke geht, davon erzählt ein<lb/>
+namhafter Naturforscher folgendes Beispiel: Jn der Ecke<lb/>
+eines Zimmers, ungefähr vier Fuß vom Boden entfernt,<lb/>
+hatte sich eine Spinne ein Gespinnst gewebt und es an<lb/>
+beiden Seiten der Wände mit einzelnen Fäden befestigt.<lb/>
+Nach unten schwebte es noch zur Zeit frei in der Luft.<lb/>
+Gerade unter dem Netze lag auf dem Boden des Zim-<lb/>
+mers ein Blättchen Papier, ungefähr 4 &#x2014; 5 Zoll im<lb/>
+Quadrat. Eines Morgens hatte die Spinne dieses Blätt-<lb/>
+chen angeseilt und einige Fuß emporgezogen. Es schwebte<lb/>
+frei in der Luft und diente als Gewicht, um das Netz<lb/>
+nach unten in Spannung zu erhalten. Aber dabei blieb<lb/>
+es nicht. Bekanntlich sind Spinnfäden sehr hygroskopisch.<lb/>
+Je nachdem die Luft feuchter oder trockner wurde, wurde<lb/>
+auch der Faden, welcher das Papierchen trug, lockerer<lb/>
+oder straffer. Aber auch da wußte die Spinne zu hel-<lb/>
+fen; als wenn sie das Gesetz der Schwere erkannt hätte,<lb/>
+ließ sie das Blättchen bald tiefer herunter, bald zog sie<lb/>
+es wieder höher herauf, und so blieb ihr Netz stets in<lb/>
+gleicher Spannung.</p><lb/>
+<p>Der Staar zeigt, außer seinem Sprachtalent, auch<lb/>
+sonst noch viel Überlegung. Ein Naturforscher machte<lb/>
+an einem Staar folgende interessante Erfahrung. Er<lb/>
+legte eines Tages einen Mehlwurm in ein Buch und<lb/>
+schlug es zu. Der Staar fing sogleich an, die Blätter<lb/>
+des Buchs mit dem Schnabel umzuschlagen und bemäch-<lb/>
+tigte sich so mit großer Leichtigkeit des verborgenen<lb/>
+Wurms. Ein anderes Mal that er einen solchen Wurm<lb/>
+in ein Bierglas und setzte das Glas auf den Boden.<lb/>
+Da der Staar seiner beschnittenen Flügel wegen nicht<lb/>
+auf den Rand des Glases fliegen konnte, lief er so lange<lb/>
+gegen das Glas, bis es ihm gelang, es mit seinem<lb/>
+<cb type="end"/>
+<pb facs="#f0003" n="195"/>
+<fw place="top" type="pageNum">195</fw><cb type="start"/>
+Schnabel umzustoßen und verzehrte nun den Wurm mit<lb/>
+doppeltem Vergnügen.</p><lb/>
+<p>Die Maus kann weiter zählen als ein kleines Men-<lb/>
+schenkind. Beim Wegräumen einer Holzschicht wurde<lb/>
+am Boden ein Nest mit neun Mäuschen und einer<lb/>
+Muttermaus gefunden. Die Mutter sprang heraus und<lb/>
+rannte mit großer Hast hin und her. Als die neun<lb/>
+Mäuschen in eine Mütze gebracht worden waren, sprang<lb/>
+die Alte, ohne Furcht vor den Anwesenden, gegen die<lb/>
+Mütze empor. Der Besitzer der Mütze, von der Liebe<lb/>
+der Mutter zu ihren Jungen gerührt, nahm eins aus<lb/>
+der Mütze auf die Hand und hielt es der Mutter vor.<lb/>
+Diese nahm es sogleich weg und brachte es unter das<lb/>
+Holz in Sicherheit. Bald darauf kam sie wieder hervor<lb/>
+und machte einen neuen Anlauf gegen die Mütze. Sie<lb/>
+bekam nun das zweite, verbarg es wie das erste, kam<lb/>
+wieder und erhielt so das dritte, vierte, fünfte, ohne je<lb/>
+in die Mütze sehen zu können. Als sie alle neun em-<lb/>
+pfangen hatte, kam sie nicht mehr. Mit sieben oder<lb/>
+acht, die auch schon ein hübscher Kindersegen sind, be-<lb/>
+gnügte sie sich nicht. Sie wollte alle haben und wußte,<lb/>
+wie viel sie hatte und wie viel ihr gehörten.</p><lb/>
+<p>Daß die Mäuse auch Tonsinn haben, beweist unter<lb/>
+Anderm auch folgender Vorfall. Vier Freunde spielten<lb/>
+zusammen im Sommer in einem einsamen Gartenhause<lb/>
+das herrliche Adagio aus Mozart's Quartett in <hi rendition="#aq">G-moll.</hi><lb/>
+Kaum waren die ersten Töne erklungen, da näherte sich<lb/>
+aus einem in der Ecke des Zimmers befindlichen Loche<lb/>
+allmälig ein Mäuschen, setzte sich dicht vor die Violin-<lb/>
+fpieler und hörte aufmerksam zu. Nach beendigtem Ada-<lb/>
+gio verschwand es wieder. Zur Probe wurden verschie-<lb/>
+dene andere Tonstücke gespielt, aber das Mäuschen zeigte<lb/>
+sich nicht; da wiederholte man das Agio, und siehe da,<lb/>
+bei den ersten Tönen desselben war das Mäuschen wie-<lb/>
+der da.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Der Elbstolln.</hi></head><lb/>
+<p><hi rendition="#in">U</hi>m dem freiberger Bergbau wieder auf lange Zeiten<lb/>
+freiern Spielraum zu geben, ist die Anlegung eines tie-<lb/>
+fen Stollns zum Abzuge der Gewässer unumgänglich<lb/>
+nothwendig geworden.</p><lb/>
+<p>Der seit dem 12. Jahrhundert blühende freiberger<lb/>
+Bergbau verbreitet sich hauptsächlich auf einem Gebirgs-<lb/>
+plateau, etwa eine Stunde gegen Mitternacht und zwei<lb/>
+Stunden gegen Mittag von der Bergstadt. Aus unge-<lb/>
+fähr 120 Gruben bringt man gegenwärtig jährlich gegen<lb/>
+60,000 Mark Silber, überhaupt für 8&#x2014;900,000 Thlr.<lb/>
+Producte und beschäftigt damit direct gegen 6000 Berg-<lb/>
+und Hüttenleute. Zu seiner Lösung sind aus den ihn<lb/>
+begrenzenden Thälern der Mulde und Strigis schon vor<lb/>
+Jahrhunderten einige tiefe Stolln angelegt worden, die<lb/>
+in ihren Verzweigungen eine Gesammtlänge von mehr<lb/>
+als 81,000 Lachtern haben. Die Hülfe, welche sie ge-<lb/>
+währen, ist jedoch durchaus nicht ausreichend, da die<lb/>
+Gruben größtentheils über 100, einige ältere sogar über<lb/>
+200 Lachtern unter diese Stolln reichen.</p><lb/>
+<p>Da nun von der Erhaltung dieses Bergbaus die<lb/>
+Existenz und das Gewerbe der zahlreichen Bevölkerung<lb/>
+der Gegend abhängt und die Überschüsse desselben den<lb/>
+Bergbau der kleinern obergebirgischen Reviere mit auf-<lb/>
+recht erhalten müssen, so hat der verstorbene Berghaupt-<lb/>
+mann v. Herder bereits vor 18 Jahren zur Heranbrin-<lb/>
+gung eines möglichst tiefen Stollns, des sogenannten<lb/>
+meißner Elbstollns, gerathen, welcher vom Elbspiegel bei<lb/>
+Meißen aus bis zu dem riesenhaften halsbrückner Gang-<lb/>
+<cb n="2"/>
+zuge 11,360 Lachter Länge und 11 Lichtlöcher erhalten,<lb/>
+auf dem halsbrückner Gangzuge 96 Lachter unter dem<lb/>
+jetzt daselbst befindlichen Stolln einkommen,3 3 / 5 Millio-<lb/>
+nen Thaler kosten und 47 Arbeitsjahre nöthig machen,<lb/>
+dafür aber auch den ganzen freiberger Bergbau auf<lb/>
+Jahrhunderte völlig verjüngen, insbesondere den seit der<lb/>
+Mitte des vorigen Jahrhunderts unter Wasser stehenden<lb/>
+alten Bergbau auf dem an der Mitternachtsseite des Re-<lb/>
+viers hinsetzenden halsbrückner Gangzuge wieder in An-<lb/>
+griff setzen würde.</p><lb/>
+<p>Da dieser Stolln wegen der Höhe der zu seiner<lb/>
+Ausführung erfoderlichen Summe eine bloße Jdee blieb,<lb/>
+so schlug der Bergmeister von Weißenbach einen andern<lb/>
+Stolln vor, der nur die halbe Betriebszeit und die hal-<lb/>
+ben Kosten erfodern, aber auch freilich nur auf die nächste<lb/>
+Zeitperiode den Bedürfnissen entsprechen würde. Dieser<lb/>
+Stolln sollte aus dem Triebischthale bei Rothschönberg<lb/>
+herangeholt und 53 Lachter unter dem halsbrückner Gang-<lb/>
+zuge eingebracht werden und durch die ermöglichte grö-<lb/>
+ßere Ausbeute ein Betriebscapital ermöglichen, welches<lb/>
+die Nachholung des für die Folgezeit unentbehrlichen tie-<lb/>
+fen meißner Stollns gestatten würde. Für den Wei-<lb/>
+ßenbach 'schen Plan hat man sich in der neuesten Zeit<lb/>
+entschieden.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Die Malaria Jtaliens.</hi></head><lb/>
+<p><hi rendition="#in">D</hi>ie Malaria oder <hi rendition="#aq">aria cattiva</hi> ( böse Luft ) ist die fieber-<lb/>
+erzeugende Luft, welche von den Sümpfen, Maremmen<lb/>
+und stehenden oder stockenden Gewässern Jtaliens ausge-<lb/>
+haucht wird. Jn der neuesten Zeit hat sich diese Luft<lb/>
+mit ihren Wechselfiebern auch in der Umgebung von<lb/>
+Mailand gezeigt, wo es keine stehenden Gewässer gibt.<lb/>
+Man war sehr erstaunt darüber und wurde aufmerksam<lb/>
+auf die seit einiger Zeit auch in der Umgegend von Mai-<lb/>
+land eingeführte, in Jtalien sehr alte Bewässerungs-<lb/>
+methode, welcher zufolge man große künstliche Wasser-<lb/>
+reservoirs ( <hi rendition="#aq">fontalini</hi> ) anlegt, um von ihnen aus die Be-<lb/>
+wässerungsgräben überall hin zu vertheilen und zu ver-<lb/>
+breiten. Man machte nun die Bemerkung, daß diese<lb/>
+Wasser keineswegs so rein und freifließend sind, wie man<lb/>
+meinte, denn sie müssen jährlich drei bis vier Mal von<lb/>
+schlammigen Niederschlägen und besonders von furchtbar<lb/>
+wuchernden Wasserpflanzen gereinigt werden. Mit ein-<lb/>
+tretendem Herbste hört man mit diesem Reinigen auf,<lb/>
+das Wasser fängt an zu stocken, die bei dem mehrmali-<lb/>
+gen Baggern ausgeworfenen und aufgehäuften Pflanzen-<lb/>
+reste zersetzen sich und sogleich erscheinen die Herbstfieber.<lb/>
+Die sich zersetzenden Pflanzenstoffe scheinen einen Haupt-<lb/>
+antheil an diesen Krankheiten zu haben, wie die Unter-<lb/>
+suchungen zeigen, die ein englischer Arzt über die Mala-<lb/>
+ria der afrikanischen Küste anstellte. Er fah sich genö-<lb/>
+thigt, die böse Luft der Zersetzung von Pflanzenstoffen<lb/>
+zuzuschreiben, die sich im Seewasser befanden.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr"><hi rendition="#g">Rhein und Donau</hi>.</hi><lb/>
+Eine Parallele.</head><lb/>
+<p><hi rendition="#in">E</hi>s fällt mir schwer, sagt ein reisender Engländer in<lb/>
+einer Parallele, die er zwischen dem Rhein und der Do-<lb/>
+nau zieht, welcher Fluß der schönere oder interessantere<lb/>
+ist. Beide haben eine gewisse Ähnlichkeit und doch wie-<lb/>
+der ihre großen Verschiedenheiten; beide haben ihre Wal-<lb/>
+dungen, ihre Berge, ihre Schlösser, ihre Weinberge, ihre<lb/>
+<cb type="end"/>
+<pb facs="#f0004" n="196"/>
+<fw place="top" type="pageNum">196</fw><cb type="start"/>
+Sagen, aber der Rhein ist bewohnter und anmuthiger,<lb/>
+die Donau einsamer und feierlicher. Man hat nicht jene<lb/>
+großen und volkreichen Städte längs den Ufern der Do-<lb/>
+nau, noch dasselbe Handelstreiben auf dem Strome,<lb/>
+nicht dieselbe Menge wohlgepflegter Weingärten, nicht<lb/>
+dieselbe fortgesetzte Reihe von Felsen und Klippen, aber<lb/>
+man hat prächtigere Waldungen, eine wildere und feier-<lb/>
+lichere Scenerie, mit Gewässern und Wiesen von dem<lb/>
+sanftesten und angenehmsten Charakter gemischt. Die<lb/>
+Donau war nicht wie der Rhein durch ganze Zeitalter<lb/>
+die große Heerstraße des Handels, obgleich sie oft der<lb/>
+Ort blutiger Schlachten und Heerzüge war. Jhre Städte<lb/>
+sind klein, wenige und weit voneinander entfernt. Der<lb/>
+<cb n="2"/>
+Rhein gewährt einen fröhlichern, blühendern Anblick. Auf<lb/>
+der Donau hat man die Einsamkeit, einen Anstrich von<lb/>
+Vernachlässigung, einen ernsthaften, brütenden Geist, wel-<lb/>
+cher dem Genius der Vergangenheit anzugehören scheint,<lb/>
+unbetretene Waldungen, stille Bergleute, rauhe, feuda-<lb/>
+listische Herren, welche den Eber und den Hirsch in den<lb/>
+wilden Thälern und tiefen Forsten jagen. Alte verwit-<lb/>
+terte Thürme spenden euch einen grimmigen Gruß von<lb/>
+den ausgezackten Felsen herab, an denen ihr vorüber-<lb/>
+segelt, und Blicke in entfernte Thäler und tiefe Wal-<lb/>
+dungen lassen euch fühlen, daß ihr euch in einer weit<lb/>
+wildern und ungebändigtern Region befindet als die des<lb/>
+Rheins ist.</p></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr"><hi rendition="#g">Armenien</hi>.</hi></head><lb/>
+<figure>         <head>  Der Berg Ararat.  </head>       </figure><lb/>
+<cb type="start"/>
+<p><hi rendition="#in">A</hi>rmenien ist nach dem Ausdrucke Ritter's eine luftige<lb/>
+Berginsel, d. h. ein Hochland, welches sich dem Haupt-<lb/>
+theile nach zwischen dem schwarzen und kaspischen Meere<lb/>
+ausdehnt und vom Kaukasus bis zum Euphrat erstreckt.<lb/>
+Es steht wie eine ungeheure Festung vor der Straße von<lb/>
+Asien nach Europa und bildet das westliche Ende des<lb/>
+großen Gebirgsgürtels, welcher in einem mächtigen Bo-<lb/>
+gen Asien durchläuft und vom Kaukasus bis ins Tschukt-<lb/>
+schenland reicht, mit der innern eingebogenen, vertieften<lb/>
+Seite dem Norden, mit der ausgebogenen, von Dschag-<lb/>
+gatai über Butan durch China nach Korea laufenden<lb/>
+Seite dem Süden zugekehrt. Es bildet ein 7&#x2014;8000<gap reason="illegible"/>über das Meer erhabenes, nur durch Zickzackpässe zu er-<lb/>
+steigendes Weideland und hat in der Richtung von Skan-<lb/>
+derun nach Osten hin bis zum kaspischen Meere seine<lb/>
+Süd=, in der Richtung von der Mündung des Aras<lb/>
+bis zur Mündung des Phasis im alten Kolchis seine<lb/>
+Nordost= und von da nach Skanderun seine Nordwest-<lb/>
+grenze, bildet also ein gewaltiges Dreieck, das, zwischen<lb/>
+den Kaukasus und Taurus eingekeilt, die drei großen<lb/>
+Binnenmeere ( das mittelländische, schwarze und kaspische )<lb/>
+auseinanderhält. Jm N. und S. ist die Grenze schär-<lb/>
+<cb n="2"/>
+fer als im O. und W., wo sich das Land allmälig in<lb/>
+das Plateau von Jran und Kleinasien verläuft. Jm<lb/>
+Norden, wo es fehr steil abfällt, ist es durch einen mä-<lb/>
+ßig hohen, von Süden nach Norden streichenden Ge-<lb/>
+birgszug, das moschische Gebirge, mit dem Kaukasus ver-<lb/>
+bunden. Auf diesem moschischen Gebirge entspringt der<lb/>
+Kur, der sich mit dem auf den armenischen Gebirgen<lb/>
+entspringenden Aras kurz vor seiner Mündung ins kas-<lb/>
+pische Meer verbindet. Auf demselben Gebirge entspringt<lb/>
+auch der ins schwarze Meer fließende Phasis oder Rioni,<lb/>
+der bei den Alten die Grenze zwischen Asien und Eu-<lb/>
+ropa bildete.</p><lb/>
+<p>Den Namen Armenien leitet man von einem gewis-<lb/>
+sen Aram ab, welcher zu Abraham's Zeiten gelebt haben<lb/>
+und ein Sohn Haran's gewesen sein soll. Das Land<lb/>
+tritt in der Geschichte erst mit der Gründung des per-<lb/>
+sischen Reichs durch Cyrus in den Vordergrund, denn<lb/>
+es ward ein Bestandtheil dieser Weltmonarchie. Nach<lb/>
+Alexander dem Großen kam es unter die Herrschaft der<lb/>
+Seleuciden und hatte einige Zeit Statthalter aus einge-<lb/>
+borenen Geschlechtern, die das Land endlich unabhängig<lb/>
+machten, sodaß 189 v. Chr. ein selbständiges Königreich<lb/>
+<cb type="end"/>
+<pb facs="#f0005" n="197"/>
+<fw place="top" type="pageNum">197</fw><cb type="start"/>
+Armenien auftrat, das zur Zeit der Mithridatischen Kriege<lb/>
+in häufige Berührung mit den Römern kam, zur Zeit<lb/>
+des Kaisers Augustus von ihnen abhängig wurde und<lb/>
+zur Zeit Trajan's sogar eine Zeit lang ihre Provinz<lb/>
+war. Späterhin war es ein beständiger Zankapfel zwi-<lb/>
+schen dem oströmischen und neupersischen Reiche. Jm<lb/>
+J. 696 ward es von Arabern und 1050 von den seld-<lb/>
+schukischen Türken erobert. Jm J. 1195 kam es wie-<lb/>
+der unter eigene Könige, aber bald wanderte es wieder<lb/>
+aus einer Hand in die andere, denn 1367 ward es von<lb/>
+den Mamluken, 1395 von Tamerlan, im 15. Jahr-<lb/>
+hundert von den Turkmanen, 1501 von den Persern,<lb/>
+1517 von den Osmanen erobert, in deren Besitz der<lb/>
+westliche Theil bis auf den heutigen Tag geblieben ist.<lb/>
+Der östliche Theil gehörte den Persern, mußte aber in<lb/>
+der neuesten Zeit größtentheils an die Russen abgetreten<lb/>
+werden, sodaß Armenien gegenwärtig unter drei Herren<lb/>
+vertheilt ist.</p><lb/>
+<p>Der höchste Punkt des armenischen Plateaus ist der<lb/>
+auf der vorstehenden Abbildung dargestellte weltberühmte<lb/>
+Ararat, der im Osten des Landes als Grenzwächter da-<lb/>
+steht und 16,200 Fuß über die Meeresfläche emporragt.<lb/>
+Seine beiden Gipfel, von denen der höchste auf russi-<lb/>
+schem Gebiete liegt, sind mit ewigem Schnee bedeckt, ob-<lb/>
+gleich die Schneelinie erst 12,000 Fuß hoch beginnt, und<lb/>
+immer mit Wolken umhüllt. Er bietet viele merkwür-<lb/>
+dige Naturerscheinungen dar und ist als Berg der Noachi-<lb/>
+schen Arche, von welcher man dort noch Reste zu sehen<lb/>
+glaubt, in die Geschichte und Sage des Landes tief ver-<lb/>
+flochten. Die Bewohner des Landes erweisen ihm daher<lb/>
+auch große Ehrfurcht, denn so oft sie seinen Gipfel er-<lb/>
+blicken, bekreuzen sie sich und werfen sich zur Erde. Die<lb/>
+Türken nennen ihn Agni=Dagh und die Armenier Ma-<lb/>
+cis. Am untersten Abhange desselben ist ein armseliges<lb/>
+Kloster. Sein Gipfel wurde am 9. October 1829 wahr-<lb/>
+scheinlich zum ersten Male bestiegen und zwar von dem<lb/>
+Professor Parrot aus Dorpat in Begleitung von acht<lb/>
+andern Personen. Die größten Schwierigkeiten fanden<lb/>
+sie da, wo die Schneeregion beginnt, indem sie vom er-<lb/>
+sten Schritt an, den sie auf dem gefrorenen Schnee tha-<lb/>
+ten, bis zur Spitze hinauf sehr mühsam Löcher in den<lb/>
+Schnee hauen mußten, um ihre Füße hineinsetzen zu<lb/>
+können. Die Aussicht auf dem Gipfel über den uner-<lb/>
+meßlichen, durch tiefe, finstere Schluchten unterbrochenen<lb/>
+Abhang hatte etwas Schauererregendes. Die Reisenden<lb/>
+wurden durch das schönste Wetter begünstigt und konn-<lb/>
+ten die durch den hellsten Mondenschein verklärte Nacht<lb/>
+auf dem Eisgefilde zubringen, ohne sehr von der Kälte<lb/>
+zu leiden. Zum Gedächtniß seines Unternehmens stellte<lb/>
+Parrot auf dem Gipfel des Berges ein 5 Fuß hohes<lb/>
+Kreuz auf.</p><lb/>
+<p>Südlich vom Ararat, aber noch im Gebiete der ar-<lb/>
+menischen Gebirge, liegen die beiden bedeutenden, aber<lb/>
+wenig bekannten Alpenseen, Wan und Urumia oder<lb/>
+Urmia, der erstere mehr westlich, der letztere mehr östlich.<lb/>
+Zwei mächtige Hauptflüsse entströmen den nördlichen<lb/>
+höchsten Gegenden, in ihren Quellen einander sehr nahe,<lb/>
+in ihrem Laufe aber weit auseinander tretend, jedoch zu-<lb/>
+letzt sich wieder vereinigend und zusammen in den per-<lb/>
+sischen Meerbusen fließend. Der westlichere, Euphrat<lb/>
+genannt, entspringt aus zwei Bächen und nimmt links<lb/>
+den vom südlichen Randgebirge kommenden Chabur auf;<lb/>
+der östliche, Tigris genannt, entspringt ebenfalls aus<lb/>
+mehren Quellen, die sich in sehr geringer Entfernung<lb/>
+von denen des Euphrat befinden. Er umfließt nördlich<lb/>
+den Ararat, durchbricht das Südrandgebirge Armeniens<lb/>
+und empfängt vom Westrande Jrans mehre Zuflüsse,<lb/>
+z. B. den großen und kleinen Zah, die Diala u. a.</p><lb/>
+<cb n="2"/>
+<p>Der südwestliche Gebirgsrand Armeniens, welcher<lb/>
+sich vom Urmia nach Skanderun hinzieht, hieß bei den<lb/>
+Alten der Taurus und sein westlichster Theil Amanus;<lb/>
+an diesen schließt sich der unter dem Namen Libanon<lb/>
+und Antilibanon oder Hermon bekannte Gebirgszug,<lb/>
+der längs des mittelländischen Meers bis an die Gren-<lb/>
+zen von Arabien geht.</p><lb/>
+<p>Das Klima Armeniens ist ein Übergang von der<lb/>
+einförmigen trockenen Temperatur der Plateauländer des<lb/>
+innern Asiens zu dem vielgestaltigen Wechsel des euro-<lb/>
+päischen Himmels. Wenn man von Tabris in Aser-<lb/>
+beidschan die erste Stufe des Pässelandes nach Rhoi<lb/>
+hinaufsteigt, so kommt man aus einer heißen Ebene, in<lb/>
+welcher die indischen Cerealien gedeihen, durch schöne<lb/>
+Baumgruppen, blumenreiche Gärten, dunkle Nadelwäl-<lb/>
+der auf den saftigen Weidegrund der Alpenwiesen, wo<lb/>
+die Pappeln, Weiden, Ulmen, Wallnüsse und Plata-<lb/>
+nen das feuchte Land verkünden. Aufwärts den Euphrat-<lb/>
+quellen zu, immer weiter steigend kommt man durch<lb/>
+immer rauhere Gegenden, wo nicht selten Hagelschauer<lb/>
+dem Wanderer entgegenschlagen, endlich auf eine Hoch-<lb/>
+ebene, die kahl und baumlos, aber mit üppigem Grase<lb/>
+bedeckt ist; hier und da wogen gleich grünen Meeren<lb/>
+die herrlichsten Getreidefelder. Hat man diese Hochebene<lb/>
+durchwandert und steigt in das Thal des Kur nach der<lb/>
+Ebene von Tiflis zu, so kommt man durch die lieb-<lb/>
+lichsten Laubwälder, die ein ganz europäisches Gepräge<lb/>
+haben und aus Eichen, Buchen, Linden, Ulmen, Ahorn<lb/>
+und Eschen bestehen; weiter unten sieht man Obstbäume<lb/>
+aller Art und noch tiefer Wein und edle Früchte; das<lb/>
+Klima des Hochplateaus ist das des nördlichen Deutsch-<lb/>
+lands, nur feuchter und stürmevoller. Der Winter ist<lb/>
+schneeig und dauert sechs Monate; die Nächte sind im-<lb/>
+mer kalt. Von dem häufigen Regenniederschlage rühren<lb/>
+die feuchten fetten Weiden, aber auch die gefährlichen<lb/>
+Stürme auf dem schwarzen Meere.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle" xml:id="Saebel6"><head><hi rendition="#fr">Der heilbringende Säbel.</hi><lb/>
+<ref target="nn_pfennig024_1843#Saebel5">( Fortsetzung aus Nr. 24. )</ref></head><lb/>
+<p><hi rendition="#in">M</hi>artha stotterte, als der Oberst bereits die Stube ver-<lb/>
+lassen hatte, einige Worte des Dankes hervor und konnte<lb/>
+vor Ärger über sich selbst die Stelle nicht verlassen, auf<lb/>
+der sie stand. Handri las in ihrem Gesichte, daß sie seine<lb/>
+Handlungsweise nicht billigte und schlich sich schüchtern<lb/>
+hinter sein Rad, während die vier andern Kinder dem<lb/>
+Offizier nachliefen. Das Schwirren des Rades brachte<lb/>
+Martha wieder zu sich.</p><lb/>
+<p>Junge, sagte sie, sich zu ihm wendend, wer hat dich<lb/>
+diese kühne Sprache gelehrt? Du sprichst ja wie ein Al-<lb/>
+ter. Weißt du nicht, daß sich das nicht schickt? Ein<lb/>
+Kind muß nie sprechen, was alte Leute sprechen.</p><lb/>
+<p>Seid nur nicht böse, liebe Martha, der Offizier hat<lb/>
+mirs ja nicht übel genommen.</p><lb/>
+<p>Dazu ist er zu gut, aber gespottet hat er über dich.</p><lb/>
+<p>Gespottet? Da irrt Jhr Euch. Der Spott sieht<lb/>
+ganz anders aus. O den kenne ich. Da müßte ich<lb/>
+Kunzen nicht gesehen haben, wenn er dem armen alten<lb/>
+Hans gegenüber sitzt und Bemerkungen über seine Reden<lb/>
+macht. Das sieht abscheulich aus. Er dünkt sich freilich<lb/>
+einen Fürsten in Vergleich mit Hans; aber ich sage<lb/>
+Euch, wenn er so sein großes Maul in die Quere zieht<lb/>
+und sein flaches Gesicht noch flacher macht, kommt er<lb/>
+mir vor wie der leibhaftige Satan und mein guter al-<lb/>
+ter Hans wie ein Engel Gottes. Kunzens struppiges<lb/>
+rothes Haar starrt empor wie die Stacheln von einem<lb/>
+<cb type="end"/>
+<pb facs="#f0006" n="198"/>
+<fw place="top" type="pageNum">198</fw><cb type="start"/>
+Dornenstrauch, Hansen's weiße Locken liegen so weich<lb/>
+auf, wie die weißen Sommerwolken auf dem blauen<lb/>
+Himmel; Kunzen's kleine graue Augen blicken so hoch-<lb/>
+müthig aus ihren Höhlen, als glaubten sie, es sei nir-<lb/>
+gend schöner als bei ihrem Herrn, als erwiesen sie Al-<lb/>
+lem nur eine Gnade, was sie anzublicken die Güte hät-<lb/>
+ten, Hansen's große, blaue Augen leuchten aber hervor<lb/>
+wie die Sterne Gottes, Alles verklärend, was sie anbli-<lb/>
+cken. Seht, unser Offizier, das wird der leibhaftige<lb/>
+Hans, wenn er nur 30 Jahre älter sein wird.</p><lb/>
+<p>Du sprichst, wie der Blinde von der Farbe. Welch<lb/>
+ein Unterschied zwischen dem Obersten und dem alten<lb/>
+Hans: der Oberst, ein gebildeter, reicher und vornehmer<lb/>
+Herr, von angenehmen Sitten und Manieren, und<lb/>
+Hans, ein armer alter Häusler, roh wie alle andern<lb/>
+Dorfbewohner und unwissend wie sie.</p><lb/>
+<p>Da thut Jhr dem armen Hans sehr unrecht. Er<lb/>
+spricht wie der Pastor auf der Kanzel und wenn er er-<lb/>
+zählt, da schläft gewiß Niemand ein, wie in der Kirche.</p><lb/>
+<p>Du bist in den alten Kerl vernarrt, aber so sehr<lb/>
+du ihn auch lieben magst, du wirst ihn doch nicht dem<lb/>
+Obersten gleich stellen.</p><lb/>
+<p>Mein Auge thut es freilich nicht, aber mein Herz<lb/>
+thut es. Das Herz sieht nicht auf die Kleider, nicht<lb/>
+auf das Geld, nicht auf den Leib, das Herz sieht nur<lb/>
+auf das Herz und da findet es oft, daß, was dem<lb/>
+Auge noch so verschieden erscheint, doch innerlich gleich<lb/>
+ist. Und auf das Jnnere kommt es ja an, sagt unser<lb/>
+Pastor, dem Jhr doch glauben werdet.</p><lb/>
+<p>Du bist ein Schwadroneur, sagte hier Martha, är-<lb/>
+gerlich, daß sie im Herzen zugeben mußte, was sie eben<lb/>
+angegriffen hatte, und suchte einen schicklichen Anlaß, das<lb/>
+Gespräch abzubrechen. Die eben fröhlich zurückkehrenden<lb/>
+vier andern Kinder gaben ihr denselben, indem sie glaubte,<lb/>
+ihnen die Ungezogenheit verweisen zu müssen, daß sie<lb/>
+den Obersten durch das Dorf begleitet hätten.</p><lb/>
+<p>Das ist doch keine Ungezogenheit, Jemandem das<lb/>
+Geleite zn geben, sagte Jan, auch hats der Offizier<lb/>
+nicht dafür angesehen. Er fragte mich, als ich vor<lb/>
+ihm hersprang, wo ich hin wollte. Jch antwortete ihm,<lb/>
+ich wollte ihn nur noch einige Augenblicke sehen und<lb/>
+einen Kuß auf die Stirne haben, wie ihn Handri be-<lb/>
+kommen. Er hob mich empor und küßte mich und die<lb/>
+drei Mädel bekamen auch ihr Theil, nachdem ich für<lb/>
+sie gebeten hatte. Hanka bekam sogar noch eine Zugabe<lb/>
+für Handri und Mutter.</p><lb/>
+<p>Hier eilte Hanka auf die erröthende Mutter und<lb/>
+bot ihr die Stirn zum Kusse. Nimm dir deinen Kuß<lb/>
+von meiner Stirn, sagte sie schalkhaft, die Luft wird<lb/>
+ihn wohl noch nicht verweht haben.</p><lb/>
+<p>Die Mutter küßte das holde Kind mit Entzücken<lb/>
+zweimal auf die Stirn und strahlte wieder von innerer<lb/>
+Freude.</p><lb/>
+<p>Mutter, du hast die Gabe für Handri mit weg-<lb/>
+geküßt, sagte Hanka, du mußt mir einen Kuß zurück-<lb/>
+geben.</p><lb/>
+<p>Als die Mutter ihrem Verlangen genügt hatte, warf<lb/>
+sie sich Handri um den Hals und gab ihm den eben<lb/>
+zurückempfangenen Kuß, wie sie ihn von der Mutter<lb/>
+bekommen hatte, auf den Mund. Hierauf ahmten die<lb/>
+übrigen Kinder das Beispiel Handri's nach und spannen<lb/>
+mit solcher Lust, daß Marja sagte: Schöner kann es<lb/>
+im Paradiese der Spinnerinnen nicht sein, als heute<lb/>
+bei uns.</p><lb/>
+<p>Schöner wol, aber angenehmer nicht, bemerkte Lena.</p><lb/>
+<p>Wenn nur der Tisch mit Nektar und Ambrosia<lb/>
+nicht fehlte, seufzte Jan.</p><lb/>
+<p>Nun der wird uns auch nicht lange mehr fehlen,<lb/>
+<cb n="2"/>
+tröstete Hanka, die Mutter hat köstliche Buttermilch ge-<lb/>
+kauft und bäckt Plinzen.</p><lb/>
+<p>Nun da wollen wir doch glauben, daß wir im Pa-<lb/>
+radiese seien, sagte Handri. Der Glaube kann ja Berge<lb/>
+versetzen, er kann wol auch aus einer armen Erdenstube<lb/>
+ein reiches Himmelszimmer machen. Überhaupt kommt<lb/>
+es nicht auf die Gegenstände an, ob sie uns wohlge-<lb/>
+fallen, sondern auf die Augen, mit welchen wir sie an-<lb/>
+sehen. Manche Augen sehen, wie Hans sagt, Alles<lb/>
+häßlich, auch das Schönste und Lieblichste, das es un-<lb/>
+ter der Sonne gibt, manche Augen dagegen sehen Al-<lb/>
+les schön, auch das Häßlichste, das zu existiren wagt.</p><lb/>
+<p>Da sind ja die Augen Manchem zur Lust und<lb/>
+Manchem zur Pein gegeben, sagte Marja; ist das nicht<lb/>
+ungerecht vom lieben Gott?</p><lb/>
+<p>Nein, sagte Handri belehrend, es ist nicht ungerecht,<lb/>
+denn unsere Augen sind nicht in der Art schön oder<lb/>
+häßlich sehend, wie sie blau oder braun sind. Das Letz-<lb/>
+tere können wir nicht ändern, das Erstere aber steht in<lb/>
+unserer Macht.</p><lb/>
+<p>Das kann ich doch nicht recht glauben, sagte Lena,<lb/>
+denn wenn ich traurig bin, da erscheint mir Alles dü-<lb/>
+ster und traurig, wenn ich lustig bin, da sieht Alles<lb/>
+heiter und lustig aus. Aber ob ich lustig und traurig<lb/>
+bin, das hängt nicht von mir ab, sondern von Gott.</p><lb/>
+<p>Das habe ich dem alten Hans auch gesagt, aber<lb/>
+der hat mir die Sache noch weiter erklärt. Er hat mir<lb/>
+gesagt, es sei nicht nöthig, daß wir durch jeden Quark<lb/>
+in Betrübniß geriethen. Wenn wir den rechten Glau-<lb/>
+ben an Gott hätten, dann könnten wir nicht glauben,<lb/>
+daß, was uns auch begegne, uns zum Nachtheil oder<lb/>
+Schaden begegnen könne, wir müßten im Gegentheil<lb/>
+bei Allem annehmen, daß es ein Samenkorn sei, aus<lb/>
+dem sich zu irgend einer Zeit ein süßes Glück für uns<lb/>
+entwickeln werde. Wenn der Acker von der Pflugschar<lb/>
+aufgerissen werde, so würde er auch wol über den Ackers-<lb/>
+mann klagen, wenn er fühlen könnte, wie ein Men-<lb/>
+schenherz, aber doch sei das nöthig, wenn er mehr als<lb/>
+ein Dornen= oder Distelfeld sein wollte.</p><lb/>
+<p>Jch verstehe, sagte Jan, der alte Hans meint: je-<lb/>
+des Herz sei ein Acker, Gott sei der Ackersmann und<lb/>
+der Schmerz, der es trifft, sei die Pflugschar, die es<lb/>
+durchwühlt, damit es sich später mit grünen Weizen-<lb/>
+feldern bedecken könne. Nun da wollte ich, daß Gott<lb/>
+mich doch lieber zu einer Wiese bestimmte.</p><lb/>
+<p>Hanka wollte auch lieber eine Wiese sein, aber Han-<lb/>
+dri behauptete, eine Wiese stehe weit unter einem Acker,<lb/>
+denn sie nähre blos das Vieh, der Acker aber nähre<lb/>
+vernünftige Menschen. Da nun die Früchte des Her-<lb/>
+zens für den Himmel bestimmt seien, so müßte jedes<lb/>
+Herz ein Acker sein, denn Gras und Heu könnte im<lb/>
+Himmel, wo nur vernünftige Wesen wären, von kei-<lb/>
+nem Nutzen sein.</p><lb/>
+<p>Marja und Lena traten auf Handri's Seite. Jan<lb/>
+schwankte lange zwischen seiner und Handri's Ansicht,<lb/>
+bis am Ende Marja's Vorstellung, sie möchte einmal<lb/>
+keinen Mann haben, der lieber eine für das Vieh be-<lb/>
+stimmte Wiese als ein vernünftiger Acker sein wollte,<lb/>
+den Hartnäckigen auf andere Gedanken brachte und er<lb/>
+meinte, wenn der liebe Gott die Pflugschar nur nicht<lb/>
+so tief eingraben lassen wollte, so würde er es wol<lb/>
+auch vertragen können, er wollte sich darum nicht weiter<lb/>
+sträuben, ein Acker Gottes zu sein. Hanka ging nun<lb/>
+auch zu der allgemeinen Ansicht über und wie Martha<lb/>
+mit der Buttermilch kam, war Alles ein Herz und ein<lb/>
+Sinn und freute sich der Buttermilch und der darauf<lb/>
+folgenden Plinzen, als wäre es Nektar und Ambrosia<lb/>
+aus der Himmelsküche herabgebracht.</p><lb/>
+<cb type="end"/>
+<pb facs="#f0007" n="199"/>
+<fw place="top" type="pageNum">199</fw>       <cb type="start"/>
+<p>Es trat nun eine lange Zeit ein, in welcher in<lb/>
+Marthen's Familie nichts Außerordentliches vorfiel. Der<lb/>
+strenge Winter ging glücklich vorüber, denn die von Dol-<lb/>
+goruki empfangenen Schätze waren ein Palladium gegen<lb/>
+jegliche Noth. Die langen Winterabende verkürzten die<lb/>
+Gespräche und Erzählungen des alten Hans, der durch<lb/>
+Handri's Vermittelung ein Mitglied der Familie gewor-<lb/>
+den war. Er war in seiner Jugend zu einem Gelehr-<lb/>
+ten bestimmt gewesen, hatte aber, durch unglückliche Er-<lb/>
+eignisse im älterlichen Hause genöthigt, seine Studien<lb/>
+aufgegeben, als er eben die Universität beziehen sollte.<lb/>
+Die Saat, welche die Schule auf den Boden seines<lb/>
+Geistes gestreut hatte, war aber trotz dem aufgegangen<lb/>
+und in seinem Jnnern sah es grüner und lebendiger<lb/>
+aus als in manchem hochstudirten Manne, der jede<lb/>
+Stunde seines Lebens den Studien widmet. Das ewige<lb/>
+Lernen ist ein wahres Unglück für den Geist, denn es<lb/>
+macht ihn zum todten Speicher allerlei Gedankenkrams,<lb/>
+während er doch bestimmt ist, ein grünes Feld zu sein,<lb/>
+auf dem jede in ihn gekommene Jdee Wurzel fassen<lb/>
+und Blüten und Früchte treiben soll.</p><lb/>
+<p>Dieses Unglück war unserm Hans nicht widerfah-<lb/>
+ren. Jn ihm entwickelten sich alle Jdeen zu üppigen<lb/>
+Bäumen, deren Wurzeln bis in die tiefsten Tiefen sei-<lb/>
+nes Wesens drangen und deren Früchte daher sein gan-<lb/>
+zes Wesen in sich abbildeten. Er hatte vor andern<lb/>
+Denkern noch den Vorzug, daß er von seinem Denken<lb/>
+nicht Profession zu machen brauchte, sondern denken<lb/>
+konnte, wenns ihm gerade einfiel und wies ihm beliebte.<lb/>
+Kein Kritiker legte den Maßstab der Kunst an seine<lb/>
+Geistesproducte, denn wer ihn hörte, hörte ihn, um sich<lb/>
+Dessen zu freuen, was er aus dem Schatze seiner innern<lb/>
+Erfahrungen hervorlangte, oder hörte ihn gar nicht. Die<lb/>
+größte Freude hatten die Kinder an ihm, weil er sich<lb/>
+zu ihnen herabzulassen wußte oder vielmehr weil seine<lb/>
+Weisheit eine kindliche war, wie jede, welche den Stem-<lb/>
+pel der Wahrheit und Natürlichkeit auf ihrer Stirn<lb/>
+trägt. Es gibt Dinge, welche die Kinder noch nicht<lb/>
+verstehen, aber keine Wahrheiten, die über ihren Hori-<lb/>
+zont gingen. So dachte Hans und theilte ihnen un-<lb/>
+umwunden mit, was sich ihm als eine Lebenswahrheit,<lb/>
+d. h. als eine Vorstellung erwies, die den Verstand auf-<lb/>
+klären, das Herz veredeln, den Willen stärken konnte.<lb/>
+Martha nahm mit Vergnügen an den Gesprächen An-<lb/>
+theil, welche Hans fast täglich mit den Kindern führte.<lb/>
+Es wurde ihr immer so eigenthümlich wohl ums Herz,<lb/>
+wenn er einen Gedanken durchgeführt hatte. Dem na-<lb/>
+türlichen Gemüthe geht es, wenn es geistreiche Worte<lb/>
+vernimmt, wie einem fruchtbaren Felde, wenn ein war-<lb/>
+mer Regen darauffällt. Alle Keime, die darin ruhen,<lb/>
+beginnen sich zu regen, zu keimen und zu wachsen. Da-<lb/>
+bei hatte sie noch das Vergnügen, in den Augen der<lb/>
+Kinder zu schauen, was sonst unanschaubar ist, die kind-<lb/>
+liche Seele, deren Anblick für jeden unverdorbenen Men-<lb/>
+schen den höchsten Genuß des Lebens bildet.</p><lb/>
+<p>Einst saßen sie auch im traulichen Gespräche zusam-<lb/>
+men. Die Tage fingen bereits wieder an länger zu<lb/>
+werden, denn es war der Lenz bereits zurückgekehrt und<lb/>
+die Kinder hatten Himmelsschlüssel nach Hause gebracht.<lb/>
+Die Nacht war bereits eingebrochen, aber die Lampe<lb/>
+war noch nicht angezündet, denn Alle nahmen an dem<lb/>
+Gespräche so lebhaften Antheil, daß sie vor dem Lichte<lb/>
+in ihnen das Licht außer ihnen gar nicht vermißten.</p><lb/>
+<p>Jch höre etwas die Treppe heraufkommen, sagte<lb/>
+Hanka.</p><lb/>
+<p>Lassen wir uns nicht stören; das wird der Müller<lb/>
+sein, sagt Handri und fragte, dem Hans auf einen neuen<lb/>
+Weg zu helfen, warum man die hübschen gelben Blüm-<lb/>
+<cb n="2"/>
+chen, die er nach Hause gebracht habe, Himmelsschlüssel<lb/>
+nenne.</p><lb/>
+<p>Rathet einmal selbst, sagte Hans. Jch will ein-<lb/>
+mal sehen, was Jhr herausbringt.</p><lb/>
+<p>Nun, weil sie aussehen wie Schlüssel, sagte Jan.</p><lb/>
+<p>Nein, sagte Marja, weil sie den Himmel aufschließen.</p><lb/>
+<p>Das ist Unsinn, fiel hier Lena ein, der Himmel<lb/>
+läßt sich doch nicht mit einer Blume aufschließen. Ja<lb/>
+wenn die Welt ein Märchen wäre, da möcht' es wol<lb/>
+gehen, da könnte einem irgend eine gütige Fee das<lb/>
+Schlüsselloch zeigen, wie ich mich erinnere schon gehört<lb/>
+zu haben.</p><lb/>
+<p>Ei, erzähle uns, was du gehört hast, bat Hanka. Un-<lb/>
+terdessen kann sich Handri etwas Gescheidtes ausdenken.</p><lb/>
+<p>Nun vor alten Zeiten, als die Blümchen noch kei-<lb/>
+nen Namen hatten, lebte hier im Lande eine Frau, die<lb/>
+hatte einen Sohn, der sie über Alles liebte. Die Frau<lb/>
+wurde krank und starb, der Sohn aber war jung und<lb/>
+konnte nicht sterben, so sehr er es auch wünschte. Er<lb/>
+floh die Menschen und lebte meist in den Wäldern, wo<lb/>
+er verirrte Wanderer zurechtwies. Einst kam er Abends<lb/>
+an den Waldbach, über den damals noch keine Brücke<lb/>
+ging. Ein altes Mütterchen stand vor demselben und<lb/>
+klagte und weinte. &#x201E;Was fehlt Euch, gutes Mütter-<lb/>
+chen?&#x201C; fragte der Knabe mit mitleidigem Herzen. &#x2014;<lb/>
+Ach, ich muß über den Bach und darf doch kein Was-<lb/>
+ser berühren, ohne todtkrank zu werden, war die Ant-<lb/>
+wort. Könntest du mich nicht hinübertragen, mein Sohn?<lb/>
+&#x2014; Wie kann ich das? ich bin ja viel zu klein für<lb/>
+Euch. &#x2014; Zum Gutesthun ist Niemand zu klein, Gott<lb/>
+kann die schwächste Kraft in Riesenstärke umwandeln,<lb/>
+wenn eine schwere Pflicht erfüllt werden soll. &#x2014; Nun<lb/>
+so hockt Euch auf meinen Rücken, ich will versuchen,<lb/>
+ob ich mit Euch fort kann. &#x2014; Die Frau folgte seiner<lb/>
+Auffoderung und der Knabe schritt mit ihr durch den<lb/>
+Bach, als wenn er gar nichts auf dem Rücken hätte.<lb/>
+Als er hinüber war und seine leichte Last niedergelassen<lb/>
+hatte, war er nicht wenig erstaunt, eine wunderschöne<lb/>
+Frau vor sich zu sehen, welche in ihrem Lichtgewande<lb/>
+strahlte wie die Sonne. Nun bitte dir eine Belohnung<lb/>
+aus, mein Sohn, sagte sie, jede Arbeit ist ihres Lohnes<lb/>
+werth. &#x2014; Ach, schöne Himmelsfrau, Jhr habt Euch<lb/>
+blos einen Scherz mit mir gemacht. Jch habe kein<lb/>
+Recht auf eine Belohnung, aber eine Bitte hätte ich<lb/>
+wol. &#x2014; Sprich sie aus, mein Sohn! &#x2014; Der liebe<lb/>
+Gott hat meine Mutter zu sich in den Himmel genom-<lb/>
+men und seitdem ist mir die Erde eine Fremde gewor-<lb/>
+den; bringt mich doch zu ihr. &#x2014; Wie kann ich dich in<lb/>
+den Himmel bringen, mein Sohn, du bist ja noch nicht<lb/>
+gestorben? &#x2014; Ach, Jhr kennt gewiß noch einen andern<lb/>
+Weg als den durch das Grab. &#x2014; Hier gab die Fee ein<lb/>
+Zeichen und augenblicklich stand ein leichter Wagen aus<lb/>
+Pfauenfedern vor ihr, mit zwei Nachtigallen an der<lb/>
+Deichsel. Setze dich mit mir in diesen Wagen, sagte<lb/>
+sie, auf einige Augenblicke will ich dich in den Himmel<lb/>
+bringen, aber nur auf einige Augenblicke, denn verweilst<lb/>
+du länger darin, so machst du dich unglücklich, du ge-<lb/>
+hörst dann weder dem Himmel noch der Erde an. Der<lb/>
+Knabe versprach ihr, mit einigen Augenblicken zufrieden<lb/>
+zu sein und setzte sich in den Wagen. Kaum war er<lb/>
+darin, als sich derselbe mit Hülfe der beiden Nachtigallen<lb/>
+pfeilschnell in die Lüfte erhob. Bald war die Erde nur<lb/>
+ein kleiner Punkt in seinen Augen, dagegen wurden die<lb/>
+Sterne immer größer und größer. Da kamen sie an<lb/>
+ein Schloß, das glänzte wie Karfunkel, ragte durch die<lb/>
+Sterne hindurch in eine unendliche Höhe und dehnte sich<lb/>
+zwischen ihnen in eine unendliche Weite. Aber das Schloß<lb/>
+war zu. Da riß die Fee dem Knaben ein gelbes Blüm-<lb/>
+<cb type="end"/>
+<pb facs="#f0008" n="200"/>
+<fw place="top" type="pageNum">200</fw><cb type="start"/>
+chen aus dem Strauße, den er hatte auf der Mutter<lb/>
+Grab legen wollen, und öffnete damit die Thür des<lb/>
+Himmelsschlosses. Tritt hinein, sagte sie, aber komm<lb/>
+gleich zurück, wenn ich dich rufe. Der Knabe trat ein<lb/>
+und eilte vorwärts, ohne zu wissen, wohin. Da eilte<lb/>
+ihm aus einer Schar von Seligen eine schöne Frau ent-<lb/>
+gegen, noch schöner als die Fee, in welcher er sogleich<lb/>
+seine Mutter erkannte, so verschieden auch ihre Gestalt<lb/>
+von der war, die sie auf Erden gehabt hatte. Die Mut-<lb/>
+ter herzte und küßte ihn und wollte ihm eben die Schätze<lb/>
+des Himmels zeigen, da rief eine Stimme: Zurück! Der<lb/>
+Knabe warf sich noch einmal der Mutter um den Hals<lb/>
+und eilte dann wieder zu der Himmelsthür, aber die Fee<lb/>
+war nicht mehr da. Unvorsichtig trat er über die Schwelle,<lb/>
+vor der kein Boden für leibliche Wesen war, und wäre<lb/>
+ins Endlose gefallen, wenn ihn nicht ein freundliches<lb/>
+Wölkchen aufgefangen hätte, das ihn wieder auf die<lb/>
+Erde trug und sanft mitten in eine Flur von gelben<lb/>
+Blümchen niedersetzte, wie das Himmelsschlüsselchen war.<lb/>
+Als er in das Dorf zurückkam, waren die Leute sehr<lb/>
+erstaunt, ihn wieder zu sehen, denn es war unterdessen<lb/>
+ein ganzes Jahr verflossen. Er erzählte ihnen seine<lb/>
+Abenteuer und alle Welt nannte seitdem die gelben<lb/>
+Blümchen Himmelsschlüssel.</p><lb/>
+<p>Was geschah weiter? fragte Hanka, als Lena schwieg.</p><lb/>
+<p>Was weiter geschah, ist nicht bekannt.</p><lb/>
+<p>Das ist Schade! riefen alle Kinder zusammen. Jan<lb/>
+meinte, die Geschichte könnte einige Ellen länger sein und<lb/>
+Handri wollte eben eine neue Erklärung der Entstehung<lb/>
+des Namens geben, als es an die Thür klopfte.</p><lb/>
+<p>Jch habe keine Himmelsschlüssel hier draußen, meine<lb/>
+Kinder, ließ sich eine unbekannte Stimme vernehmen,<lb/>
+möchte aber dennoch gern in den Himmel, vor welchem<lb/>
+ich stehe. Wer will die gute Fee sein?</p><lb/>
+<p>Jch, rief aufjubelnd Hanka, welche in der Stimme die<lb/>
+des Vaters erkannte, so sehr dieselbe auch verstellt war.</p><lb/>
+<p><hi rendition="#c">( Beschluß folgt in Nr. 26. )</hi><note type="editorial">Die Ausgabe, die den letzten Teil des Artikels enthält, fehlt.</note></p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Sand= und Bimssteinseife.</hi></head><lb/>
+<p><hi rendition="#in">J</hi>n England wird unter dem Namen <hi rendition="#aq">Sand-Soap</hi> eine<lb/>
+Seife verkauft, welche sehr stark mit feinem Sande, in<lb/>
+Frankreich unter dem Namen <hi rendition="#aq">Savon ponce</hi> eine andere,<lb/>
+welche mit Bimsstein versetzt ist. Beide Arten haben<lb/>
+den Vorzug, daß sie durch die reibende Wirkung des<lb/>
+Sandes oder Bimssteins die Haut sehr gut reinigen.<lb/>
+Die erstere bekommt man, wenn man drei Theile ge-<lb/>
+wöhnlicher Seife mit 7&#x2014;9 Theilen feinen Sandes ver-<lb/>
+mischt, dergleichen der gewöhnliche Streusänd ist. Die<lb/>
+drei Sorten Bimssteinseife, welche in Frankreich im Han-<lb/>
+del vorkommen, bestehen aus 20, 26 und 33 Procenten<lb/>
+Bimsstein. Jn Deutschland betrachtete man bisher jeden<lb/>
+Zusatz von Sand und Erde als Verfälschung. Die<lb/>
+Bimssteinseife wirkt als Seife und Feile zugleich und<lb/>
+macht daher die Haut nicht nur sehr rein, sondern auch<lb/>
+sehr glatt.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jVarious"><head><hi rendition="#fr"><hi rendition="#g">Miscellen</hi>.</hi></head><lb/>
+<div n="2" type="jArticle"><p>Dieser Tage, schreibt ein Reisender aus Kairo, fand hier<lb/>
+eine ganz eigenthümliche Execution statt. Zwei Fellahs, welche<lb/>
+in einer gerichtlichen Verhandlung als Zeugen aufgetreten wa-<lb/>
+ren, schwuren dabei einen falschen Eid. Dies wurde bekannt<lb/>
+und die Strafe dafür war folgende: Man schmierte ihnen das<lb/>
+Gesicht mit frischem Kalk und Honig ein, setzte sie rückwärts   <lb/>
+<cb n="2"/>
+gekehrt auf einen und denselben Esel und ließ sie so von einem<lb/>
+Scharfrichter durch die Straßen führen. Der Scharfrichter <gap reason="illegible" unit="chars" quantity="4"/>reif<lb/>
+dabei von Zeit zu Zeit das Verbrechen derselben aus.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Die Kunst des Eisengusses macht immer mehr Fortschritte.<lb/>
+Jn Solingen wird der größte Theil der Schneidewaaren, Mes-<lb/>
+ser, Scheeren u. s. w., statt geschmiedet zu werden, gegossen.<lb/>
+Ein dortiges Haus denkt sogar Schwerter durch den Guß her-<lb/>
+stellen zu können.   </p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Von 16 Millionen Rothhäuten, welche Amerika bewohn-<lb/>
+ten, als die Europäer hinkamen, sind noch ungefähr 2 Millio-<lb/>
+nen übrig und von diesen zwei Drittel durch den Umgang mit<lb/>
+den Weißen verdorben, durch Völlerei und Krankheiten ge-<lb/>
+schwächt und ihres Nationalstolzes beraubt.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/>       <div n="2" type="jArticle"><p>Man hat auch bei dem Kameele solche Pusteln entdeckt,<lb/>
+wie sie die Euter der Kühe zeigen. Die Lymphe daraus schützt<lb/>
+ebenso vor den wirklichen Pocken wie die Kuhpockenlymphe.   </p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Die Lebensdauer stuft sich in den verschiedenen Ständen<lb/>
+und Beschäftigungen der Menschen ab; in einem Alter von<lb/>
+mehr als 70 Jahren sterben von 100 Geistlichen 42, von 100<lb/>
+Landwirthen 40, von 100 hohen Beamten 35, von 100 Mi-<lb/>
+litairs 32, von 100 Künstlern 28, von 100 Lehrern 27, von<lb/>
+100 Ärzten 24.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Der Nettoertrag der Zölle des deutschen Zollvereins be-<lb/>
+trug im J. 1842 schon auf 21,059,441 Thlr., obgleich der<lb/>
+Anschluß Braunschweigs und Luxemburgs ungünstig wirkte,<lb/>
+indem dort bedeutende Waarenvorräthe aufgehäuft lagen. Jm<lb/>
+J. 1834 war der Nettoertrag nur 12,020,340 Thaler, wäh-<lb/>
+rend die Kosten um einige 30,000 Thaler größer waren als<lb/>
+gegenwärtig.</p></div></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jAn"><head><hi rendition="#fr">Literarische Anzeige.</hi></head><lb/>
+<p><hi rendition="#c"><hi rendition="#fr #larger">Landwirthschaftliche Dorfzeitung.</hi><lb/>
+<hi rendition="#fr">Herausgegeben von<lb/>
+C. V. Pfaffenrath und William Löbe.</hi><lb/>
+Vierter Jahrgang. 4. 20 Ngr</hi>.</p><lb/>
+<p><hi rendition="#aq #c">Leipzig, bei F. A. Brockhaus.</hi></p><lb/>
+<p>Hiervon erscheint wöchentlich 1 Bogen. Ankündigun-<lb/>
+gen darin werden mit 2 Ngr. für den Raum einer gespalte-<lb/>
+nen Zeile berechnet, besondere Anzeigen <choice><abbr>ec.</abbr></choice> gegen eine<lb/>
+Vergütung von 3 / 4 Thlr. für das Tausend beigelegt.</p><lb/>
+<p><hi rendition="#c #g">Jnhalt des Monats Mai:</hi></p><lb/>
+<p><hi rendition="#fr">Dorfzeitung</hi>: Verpflanzung der Kartoffeln. &#x2014; Die<lb/>
+Kleefütterung in kleinern Landwirthschaften und der Anbau der<lb/>
+verschiedenen Kleearten. &#x2014; Kunstgriffe für Dorfschmiede und<lb/>
+Landwirthe. &#x2014; Schreiben des Hrn. Generallieutenant von Rö-<lb/>
+der an die Redaction. &#x2014; Bäuerliche Zustände. &#x2014; Über Be-<lb/>
+steinigungen ländlicher Grundstücke. &#x2014; Kann sich feucht ein-<lb/>
+gebrachtes Heu, Stroh u. s. w. von selbst entzünden? &#x2014; Ver-<lb/>
+tilgung des Hederichs ( <hi rendition="#aq">Sinapis arvensis</hi> ) . &#x2014; Über den Anbau<lb/>
+und wirthschaftlichen Werth der schwedischen Rübe ( <hi rendition="#aq">Ruta-<lb/>
+baga</hi> ) . &#x2014; Über die Wirkung der Mineralsäuren auf das Pflan-<lb/>
+zenwachsthum. &#x2014; Kennzeichen der Trächtigkeit des Rindviehs.<lb/>
+&#x2014; Landwirthschaftliche Erfahrungen. &#x2014; Empfehlung der so-<lb/>
+genannten Kaupen als Streumittel. &#x2014; Versammlung der deut-<lb/>
+schen Land= und Forstwirthe in Altenburg. &#x2014; Landwirth-<lb/>
+schaftliche Neuigkeiten, Miscellen u. s. w. &#x2014; <lb/>
+<hi rendition="#fr">Unterhaltungsblatt</hi>: Eine Fahrt durchs butjadinger Land<lb/>
+nach Bremerhaven. ( Beschluß. ) &#x2014; Beantwortung einer freund-<lb/>
+lichen Gratulation. &#x2014; Aus dem Nassauischen. &#x2014; Was will<lb/>
+unsere Zeit? &#x2014; Geschichte des Ackerbaus. &#x2014; Komisches. &#x2014;<lb/>
+Vergiftung des Kaffees einer Schiffsmannschaft. &#x2014; <hi rendition="#aq">Dr</hi>. Chri-<lb/>
+stian Wilhelm Snell. </p></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/><lb/>
+</body>     <back><div n="1" type="imprint"><p><hi rendition="#c">Herausgegeben unter Verantwortlichkeit der Verlagshandlung F. A. <hi rendition="#g">Brockhaus</hi> in <hi rendition="#g">Leipzig</hi>.</hi></p></div>     </back>   </text> </TEI>

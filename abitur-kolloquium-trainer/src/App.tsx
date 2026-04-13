@@ -820,7 +820,7 @@ export default function App() {
           <div className="flex items-center gap-3">
             {step !== 'setup' && step !== 'generating' && step === 'exam' && (
               <span className="text-xs font-medium opacity-50 uppercase tracking-wider hidden sm:block">
-                {PHASE_LABELS[exam.phase]}
+                {examMode === 'fragen' ? 'Fragen (ca. 20 Min)' : PHASE_LABELS[exam.phase]}
               </span>
             )}
             {step !== 'setup' && step !== 'generating' && (step === 'exam' || (step === 'feedback' && fbType === 'oral')) && (

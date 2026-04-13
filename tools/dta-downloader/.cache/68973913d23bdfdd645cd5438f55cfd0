@@ -1,0 +1,609 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.deutschestextarchiv.de/basisformat.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="http://www.deutschestextarchiv.de/basisformat.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">   <teiHeader>
+<fileDesc>
+<titleStmt>
+<title type="main">Der reisende Schneidergesell</title>
+<title type="sub">Oder: Merkwürdiges Schiksal Michael Stählein, welcher 7 Jahr in der Türkischen Sklaverey zu Tunis und Creor, unter vielem Jammer und Elend zugebracht</title>
+<author>
+<persName ref="http://d-nb.info/gnd/139706453">
+<surname>Stählein</surname>
+<forename>Johann Michael</forename>
+</persName>
+</author>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/115266127">
+<surname>Geyken</surname>
+<forename>Alexander</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1222198746">
+<surname>Haaf</surname>
+<forename>Susanne</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1019062681">
+<surname>Jurish</surname>
+<forename>Bryan</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Boenig</surname>
+<forename>Matthias</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Thomas</surname>
+<forename>Christian</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Wiegand</surname>
+<forename>Frank</forename>
+</persName>
+</editor>
+<respStmt>
+<orgName ref="https://www.bbaw.de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<resp>
+<note type="remarkResponsibility">Langfristige Bereitstellung der DTA-Ausgabe</note>
+<ref target="https://www.bbaw.de"/>
+</resp>
+</respStmt>
+</titleStmt>
+<editionStmt><edition>Vollständige digitalisierte Ausgabe.</edition></editionStmt>
+<extent>
+<measure type="images">22</measure>
+<measure type="tokens">2337</measure>
+<measure type="types">1025</measure>
+<measure type="characters">16141</measure>
+</extent>
+<publicationStmt>
+<publisher xml:id="DTACorpusPublisher">
+<email>dta@bbaw.de</email>
+<orgName role="project">Deutsches Textarchiv</orgName>
+<orgName role="hostingInstitution" xml:lang="en">Berlin-Brandenburg Academy of Sciences and Humanities (BBAW)</orgName>
+<orgName role="hostingInstitution" xml:lang="de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<address>
+<addrLine>Jägerstr. 22/23, 10117 Berlin</addrLine>
+<country>Germany</country>
+</address>
+</publisher>
+<pubPlace>Berlin</pubPlace>
+<date type="publication">2025-02-28T15:17:11Z</date>
+<availability>
+<licence target="https://creativecommons.org/licenses/by-sa/4.0/deed.de">
+<p>Distributed under the Creative Commons Attribution-ShareAlike 4.0 License.</p>
+</licence>
+</availability>
+<idno>
+<idno type="URLWeb">https://www.deutschestextarchiv.de/staehlein_schneidergesell_1783</idno>
+<idno type="URLXML">https://www.deutschestextarchiv.de/book/download_xml/staehlein_schneidergesell_1783</idno>
+<idno type="URLHTML">https://www.deutschestextarchiv.de/book/download_html/staehlein_schneidergesell_1783</idno>
+<idno type="URLText">https://www.deutschestextarchiv.de/book/download_text/staehlein_schneidergesell_1783</idno>
+<idno type="DTADirName">staehlein_schneidergesell_1783</idno>
+<idno type="DTAID">25079</idno>
+<idno type="URN">urn:nbn:de:kobv:b4-25079-9</idno>
+</idno>
+</publicationStmt>
+<sourceDesc>
+<bibl type="M">Stählein, Johann Michael: Der reisende Schneidergesell. Erfurt, 1783.</bibl>
+<biblFull>
+<titleStmt>
+<title level="m" type="main">Der reisende Schneidergesell</title>
+<title level="m" type="sub">Oder: Merkwürdiges Schiksal Michael Stählein, welcher 7 Jahr in der Türkischen Sklaverey zu Tunis und Creor, unter vielem Jammer und Elend zugebracht</title>
+<author>
+<persName ref="http://d-nb.info/gnd/139706453">
+<surname>Stählein</surname>
+<forename>Johann Michael</forename>
+</persName>
+</author>
+</titleStmt>
+<editionStmt>
+<edition n="1"/>
+</editionStmt>
+<extent>
+<measure type="pages">16 S.</measure>
+</extent>
+<publicationStmt>
+<publisher><name>Gradelmüller</name></publisher>
+<pubPlace>Erfurt</pubPlace>
+<date type="publication">1783</date>
+</publicationStmt>
+</biblFull>
+<msDesc>
+<msIdentifier>
+<repository>SLUB Dresden</repository>
+<idno>
+<idno type="shelfmark">SLUB Dresden, 34.8.4241,angeb.2</idno>
+</idno>
+</msIdentifier>
+<physDesc>
+<typeDesc>
+<p>Fraktur</p>
+</typeDesc>
+</physDesc>
+</msDesc>
+</sourceDesc>
+</fileDesc>
+<encodingDesc>
+<editorialDecl>
+<p>Dieses Werk wurde gemäß den <ref target="https://www.deutschestextarchiv.de/doku/richtlinien">DTA-Transkriptionsrichtlinien</ref>
+im Double-Keying-Verfahren von Nicht-Muttersprachlern erfasst und in XML/TEI P5 nach
+<ref target="https://www.deutschestextarchiv.de/doku/basisformat">DTA-Basisformat</ref> kodiert.</p>
+<p/>
+</editorialDecl>
+<tagsDecl>
+<rendition scheme="css" xml:id="aq">font-family:sans-serif</rendition>
+<rendition scheme="css" xml:id="b">font-weight:bold</rendition>
+<rendition scheme="css" xml:id="blue">color:blue</rendition>
+<rendition scheme="css" xml:id="c">display:block; text-align:center</rendition>
+<rendition scheme="css" xml:id="et">display:block; margin-left:2em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et2">display:block; margin-left:4em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et3">display:block; margin-left:6em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="f">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="fr">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="g">letter-spacing:0.125em</rendition>
+<rendition scheme="css" xml:id="i">font-style:italic</rendition>
+<rendition scheme="css" xml:id="in">font-size:150%</rendition>
+<rendition scheme="css" xml:id="k">font-variant:small-caps</rendition>
+<rendition scheme="css" xml:id="larger">font-size:larger</rendition>
+<rendition scheme="css" xml:id="red">color:red</rendition>
+<rendition scheme="css" xml:id="right">display:block; text-align:right</rendition>
+<rendition scheme="css" xml:id="s">text-decoration:line-through</rendition>
+<rendition scheme="css" xml:id="smaller">font-size:smaller</rendition>
+<rendition scheme="css" xml:id="sub">vertical-align:sub; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="sup">vertical-align:super; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="u">text-decoration:underline</rendition>
+<rendition scheme="css" xml:id="uu">border-bottom:double 3px #000</rendition>
+</tagsDecl>
+</encodingDesc>
+<profileDesc>
+<langUsage>
+<language ident="deu">(Früh-)Neuhochdeutsch</language>
+<language ident="deu">German</language>
+</langUsage>
+<textClass>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dtamain">Belletristik</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dtasub">Autobiographie</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1main">Belletristik</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1sub">Autobiographie</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">core</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">ready</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">china</classCode>
+</textClass>
+</profileDesc>
+</teiHeader>
+<text><front>
+<pb facs="#f0001"/>
+<pb facs="#f0002"/>
+<pb n="[1]" facs="#f0003"/>
+<titlePage type="main"><docTitle><titlePart type="main"><hi rendition="#b">Der rei&#x017F;ende<lb/>
+<hi rendition="#g">Schneiderge&#x017F;ell,</hi></hi></titlePart></docTitle><lb/>
+<titlePart type="desc"><hi rendition="#g">Oder:</hi><lb/>
+<hi rendition="#b">Merkwu&#x0364;rdiges Schik&#x017F;al<lb/>
+Michael Sta&#x0364;hlein,</hi><lb/>
+welcher 7 Jahr in der Tu&#x0364;rki&#x017F;chen Skla-<lb/>
+verey zu Tunis und Creor, unter vielem<lb/>
+Jammer und Elend zugebracht;<lb/>
+<hi rendition="#g">bis ihn</hi><lb/>
+endlich Gott wunderbarer Wei&#x017F;e<lb/>
+<hi rendition="#b">durch den Herrn Helten&#x017F;tein</hi><lb/>
+eines Juwelenha&#x0364;ndlers von Am&#x017F;terdam,<lb/>
+erlo&#x0364;&#x017F;en ließ.<lb/>
+<hi rendition="#b">Von ihm &#x017F;elb&#x017F;t be&#x017F;chrieben.</hi></titlePart><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<docImprint><pubPlace><hi rendition="#fr"><hi rendition="#g">Erfurt,</hi></hi></pubPlace><lb/>
+<publisher>gedrukt mit Gradelmu&#x0364;llers Schriften,</publisher> <docDate>1783</docDate>.</docImprint></titlePage></front><body><lb/>
+<pb n="[2]" facs="#f0004"/>
+<pb n="[3]" facs="#f0005"/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<div type="dedication"><p><hi rendition="#in">A</hi>llen Go&#x0364;nnern und guttha&#x0364;-<lb/>
+tigen Per&#x017F;onen, welche<lb/>
+mir bey und nach meiner Erlo&#x0364;-<lb/>
+&#x017F;ung aus der Tune&#x017F;i&#x017F;chen Skla-<lb/>
+verey Gutes gethan haben, dan-<lb/>
+ke ich dafu&#x0364;r ganz ergeben&#x017F;t,<lb/>
+wu&#x0364;n&#x017F;che fu&#x0364;r &#x017F;olche Wohlthaten<lb/>
+allen go&#x0364;ttlichen Segen, und<lb/>
+widme &#x017F;ie die&#x017F;e wenige Bla&#x0364;tter<lb/>
+zu einem geringen Zeichen mei-<lb/>
+ner Dankbarkeit.</p></div><lb/>
+<fw type="sig" place="bottom">)( 2</fw><fw type="catch" place="bottom">Zu-</fw><lb/>
+<pb n="[4]" facs="#f0006"/>
+<div type="dedication"><p>Zugleich kann ich hiebey<lb/>
+unerinnert nicht la&#x017F;&#x017F;en, daß<lb/>
+mir von die&#x017F;em Bu&#x0364;chlein u&#x0364;ber<lb/>
+400 Stu&#x0364;ck diebi&#x017F;cher Wei&#x017F;e<lb/>
+entwendet worden; welches ich<lb/>
+deswegen melde, damit gut-<lb/>
+tha&#x0364;tige Herzen vor einem An-<lb/>
+dern der mit den ge&#x017F;tohlenen<lb/>
+Bu&#x0364;chlein unter meinem Namen<lb/>
+Betrug treiben wollte, &#x017F;ich vor-<lb/>
+&#x017F;ehen ko&#x0364;nnen.</p><lb/>
+<closer><salute><hi rendition="#et">Johann Michael Sta&#x0364;hlein,<lb/>
+&#x017F;ieben Jahre lang gewe&#x017F;ener<lb/>
+Tune&#x017F;i&#x017F;cher Sklave.</hi></salute></closer></div><lb/>
+<pb n="[5]" facs="#f0007"/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<div n="1"><p><hi rendition="#in">D</hi>er Ort, wo ich das Licht der Welt<lb/>
+erblikte, i&#x017F;t <hi rendition="#fr">Windsheim,</hi> eine freye<lb/>
+Reichs&#x017F;tadt im fra&#x0364;nki&#x017F;chen Krais. Jch wur-<lb/>
+de da&#x017F;elb&#x017F;t im Jahre 1743 gebohren. Mein<lb/>
+Vater war ein Taglo&#x0364;hner; und obgleich<lb/>
+meine Eltern nicht viel im Vermo&#x0364;gen hat-<lb/>
+ten, &#x017F;o ermangelten &#x017F;ie doch nicht, mich in<lb/>
+der Furcht und Vertrauen auf den HErrn<lb/>
+aufzuziehen. Als nun endlich die Jahre her-<lb/>
+beykamen, wo ich mich zu etwas Gewi&#x017F;&#x017F;es<lb/>
+ent&#x017F;chließen &#x017F;ollte, ent&#x017F;chloß ich mich, das<lb/>
+Schneiderhandwerk zu erlernen. Gleich<lb/>
+nach meiner Auslernung &#x017F;tarben meine Eltern.<lb/>
+Jch verließ al&#x017F;o mein Vaterland, und gieng<lb/>
+meiner Wander&#x017F;chaft nach, und kam 1758<lb/>
+zuer&#x017F;t nach <hi rendition="#fr">Augsburg,</hi> wo ich ein halb<lb/>
+Jahr bey dem Mei&#x017F;ter <hi rendition="#fr">Huder</hi> in Arbeit<lb/>
+&#x017F;tund. Von da gieng ich wieder nach mei-<lb/>
+ner Vater&#x017F;tadt zuru&#x0364;ck, und blieb drey Wo-<lb/>
+chen da&#x017F;elb&#x017F;t. Jch be&#x017F;uchte meinen Lehrmei-<lb/>
+&#x017F;ter, und traf einen Ge&#x017F;ellen bey ihm an,<lb/>
+<fw type="sig" place="bottom">)( 3</fw><fw type="catch" place="bottom">welcher</fw><lb/>
+<pb n="6" facs="#f0008"/>
+welcher von <hi rendition="#fr">Flensburg</hi> im Holl&#x017F;teini&#x017F;chen<lb/>
+gebu&#x0364;rtig war. Die&#x017F;er beredete mich, ihn<lb/>
+nach &#x017F;einer Vater&#x017F;tadt zu begleiten. Wir<lb/>
+gelangten glu&#x0364;klich in <hi rendition="#fr">Flensburg</hi> an. Jch<lb/>
+bekam da&#x017F;elb&#x017F;t bald Arbeit, und blieb zwey<lb/>
+Jahr da. Jn die&#x017F;er Zwi&#x017F;chenzeit wurde<lb/>
+mein Rei&#x017F;ekammerad Mei&#x017F;ter. Jch &#x017F;etzte<lb/>
+al&#x017F;o meine Rei&#x017F;e allein fort, und gieng nach<lb/>
+<hi rendition="#fr">Koppenhagen,</hi> wo ich drey Jahre in Arbeit<lb/>
+&#x017F;tund. Von hier aus wollte ich nach <hi rendition="#fr">Lon-<lb/>
+don</hi> gehen; ich fand aber kein Schiff, wur-<lb/>
+de al&#x017F;o geno&#x0364;thiget, meine Rei&#x017F;e nach <hi rendition="#fr">Am-<lb/>
+&#x017F;terdam</hi> anzutreten. Jch langte glu&#x0364;klich<lb/>
+da&#x017F;elb&#x017F;t an, und ließ mich um Arbeit um-<lb/>
+&#x017F;chauen, welche mir auch ver&#x017F;prochen wurde.<lb/>
+Hier gehet nun der unglu&#x0364;kliche Zeitpunkt<lb/>
+an, welcher mich in die grau&#x017F;ame Tune&#x017F;i-<lb/>
+&#x017F;che Sklaverey ge&#x017F;tu&#x0364;rzt hat.</p><lb/>
+<p>Als ich eines Tages &#x017F;pazieren gieng, um<lb/>
+die&#x017F;e große und &#x017F;cho&#x0364;ne Handels&#x017F;tadt zu be-<lb/>
+&#x017F;ehen, begegnete mir ein Seelenverkaufer,<lb/>
+welcher mich freundlich gru&#x0364;ßete und mich<lb/>
+als einen Landsmann bewillkommte; welches<lb/>
+er aber nicht war. Jch dankte ihm Anfangs<lb/>
+ho&#x0364;flich, als er mich bat, mit in &#x017F;ein Quar-<lb/>
+tier zu gehen, um mir einige Ehre anzu-<lb/>
+thun. Doch ließ ich mich endlich u&#x0364;berre-<lb/>
+den, und gieng mit ihm nach Hau&#x017F;e. Er<lb/>
+traktirte mich &#x017F;ehr pra&#x0364;chtig; allein dies<lb/>
+Traktament kam mir theuer zu &#x017F;tehen, es<lb/>
+<fw type="catch" place="bottom">ko&#x017F;tete</fw><lb/>
+<pb n="7" facs="#f0009"/>
+ko&#x017F;tete mich meine Freyheit. Wir a&#x017F;&#x017F;en,<lb/>
+tranken, waren lu&#x017F;tig, und redeten von al-<lb/>
+lerhand Sachen, bis Nachmittags, da ich<lb/>
+wieder weggehen, und mich fu&#x0364;r alles freund-<lb/>
+lich bedanken wollte. Hier verwandelte &#x017F;ich<lb/>
+die Ho&#x0364;flichkeit meines fa&#x0364;l&#x017F;chlich angegebenen<lb/>
+Landsmann zu einer der grau&#x017F;am&#x017F;ten Hand-<lb/>
+lungen. Ein Donner&#x017F;chlag wu&#x0364;rde mich nicht<lb/>
+&#x017F;o er&#x017F;chrekt haben, als folgende wenige<lb/>
+Worte, welche er mit einer ge&#x017F;ezten Stim-<lb/>
+me zu mir &#x017F;agte, &#x201C;<hi rendition="#fr">Mein Freund du bi&#x017F;t<lb/>
+mein Sklave</hi>&#x201D; Jch erwiederte: &#x201C;<hi rendition="#fr">daß<lb/>
+die&#x017F;es eine &#x017F;chlechte Begegnung von einem<lb/>
+Landsmann wa&#x0364;re, mich zu einem Leibei-<lb/>
+genen zu machen.</hi>&#x201D; Er &#x017F;agte aber darauf:<lb/>
+&#x201C;<hi rendition="#fr">Jch &#x017F;ollte ihm nicht viel wider&#x017F;prechen,<lb/>
+&#x017F;on&#x017F;ten wollte er mir noch den Buckel brav<lb/>
+&#x017F;chmieren la&#x017F;&#x017F;en.</hi>&#x201D; Jch ward daru&#x0364;ber &#x017F;ehr<lb/>
+er&#x017F;chrocken, doch fieng ich aus vollem Hal-<lb/>
+&#x017F;e zu &#x017F;chreyen und zu rufen an. Allein<lb/>
+alle men&#x017F;chliche Hu&#x0364;lfe war vergebens. Man<lb/>
+band mir Ha&#x0364;nde und Fu&#x0364;&#x017F;&#x017F;e, und ließ mich<lb/>
+in ein fin&#x017F;teres Loch werfen, wo&#x017F;elb&#x017F;t ich<lb/>
+noch 20 Unglu&#x0364;kskammeraden antraf.</p><lb/>
+<p>Wir wurden vier Wochen in die&#x017F;em Ker-<lb/>
+ker aufbehalten, und es kamen noch 10 Un-<lb/>
+glu&#x0364;k&#x017F;elige dazu, daß wir al&#x017F;o zu&#x017F;ammen<lb/>
+31 waren. Un&#x017F;er Seelenverkaufer &#x017F;andte<lb/>
+uns nach den O&#x017F;tindi&#x017F;chen Haus, wo&#x017F;elb&#x017F;t<lb/>
+wir noch mehrere von die&#x017F;em &#x017F;cha&#x0364;ndlichen<lb/>
+<fw type="sig" place="bottom">)( 4</fw><fw type="catch" place="bottom">Hand-</fw><lb/>
+<pb n="8" facs="#f0010"/>
+Handwerke der Seelenverkaufer antrafen,<lb/>
+&#x017F;o, daß die Anzahl der Unglu&#x0364;k&#x017F;eligen 500<lb/>
+war. Jn dem O&#x017F;tindi&#x017F;chen Hau&#x017F;e wurden<lb/>
+un&#x017F;ere Nahmen einge&#x017F;chrieben, und wir ge-<lb/>
+fragt: &#x201C;<hi rendition="#fr">ob wir jemand etwas &#x017F;chuldig<lb/>
+wa&#x0364;ren?</hi>&#x201D; welches wir mit <hi rendition="#fr">Nein</hi> beant-<lb/>
+worteten. Der O&#x017F;tindi&#x017F;che Herr und die<lb/>
+Seelenverkaufer &#x017F;prachen hierauf mit ein-<lb/>
+ander holla&#x0364;ndi&#x017F;ch. Endlich fieng der O&#x017F;tin-<lb/>
+di&#x017F;che Herr an, uns anzureden, und &#x017F;agte:<lb/>
+&#x201C;<hi rendition="#fr">Wenn ein jeder 100 Gulden ha&#x0364;tte, ko&#x0364;nn-<lb/>
+te er &#x017F;ich loskaufen.</hi>&#x201D; Wir antworteten:<lb/>
+&#x201C;<hi rendition="#fr">Wo &#x017F;oll ein Handwerksbur&#x017F;che 100 Gul-<lb/>
+den bekommen?</hi>&#x201D; Hierauf bezeugte er uns:<lb/>
+&#x201C;<hi rendition="#fr">Al&#x017F;o i&#x017F;t kein Pardon vorhanden, &#x017F;ondern<lb/>
+ihr mußt alle auf Schiffe gebracht wer-<lb/>
+den.</hi>&#x201D; Dies war der lezte Be&#x017F;cheid, den<lb/>
+wir erhielten, welcher auch &#x017F;ogleich vollzo-<lb/>
+gen wurde.</p><lb/>
+<p>Nachdem wir an Bord gebracht waren,<lb/>
+wurden bald darauf die Anker gelichtet, und<lb/>
+wir fuhren den ordentlichen Weg nach <hi rendition="#fr">Gi-<lb/>
+braltar,</hi> um nach <hi rendition="#fr">Batavia</hi> gefu&#x0364;hret zu wer-<lb/>
+den, da wir aber 50 Meilen vor <hi rendition="#fr">Gibraltar</hi><lb/>
+waren, bekamen wir Sturm, und wurden<lb/>
+bis an die afrikani&#x017F;che Ku&#x0364;&#x017F;ten ver&#x017F;chlagen.<lb/>
+Hier laureten die tune&#x017F;i&#x017F;chen Seera&#x0364;uber auf<lb/>
+uns, und ob wir gleich drey Tage und drey<lb/>
+Na&#x0364;chte mit ihnen ge&#x017F;tritten hatten, und uns<lb/>
+tapfer wehrten, wurden &#x017F;ie un&#x017F;er doch Mei-<lb/>
+<fw type="catch" place="bottom">&#x017F;ter,</fw><lb/>
+<pb n="9" facs="#f0011"/>
+&#x017F;ter, da noch vier ihrer Schiffe dazu kamen,<lb/>
+und vor uns war al&#x017F;o keine Hu&#x0364;lfe mehr mo&#x0364;glich.<lb/>
+Sie nahmen 150 in die Sklaverey, unter<lb/>
+denen ich mich, leider! auch befand. Sie<lb/>
+ri&#x017F;&#x017F;en uns die Oberkleider vom Leibe, und fe&#x017F;-<lb/>
+&#x017F;elten uns mit Ketten und Banden; liefer-<lb/>
+ten uns nach <hi rendition="#fr">Tunis,</hi> wo&#x017F;elb&#x017F;t man uns wie<lb/>
+das Vieh auf den Markt trieb, um allda ver-<lb/>
+kauft zu werden. Man be&#x017F;chauete uns von<lb/>
+oben an bis unten aus, Za&#x0364;hne, Zunge und<lb/>
+Mund.</p><lb/>
+<p>Mich und noch 5 andere Unglu&#x0364;kskame-<lb/>
+raden kaufte ein Bauer, und fu&#x0364;hrte uns nach<lb/>
+<hi rendition="#fr">Creor,</hi> 2 Stunden von <hi rendition="#fr">Oran,</hi> einer &#x017F;ehr<lb/>
+ve&#x017F;ten und wichtigen Stadt in <hi rendition="#fr">Afrika,</hi> in<lb/>
+der <hi rendition="#fr">Barbarey.</hi> Man zog uns nackend aus,<lb/>
+und wir wurden &#x017F;o, wie uns Gott er&#x017F;chaffen<lb/>
+hat, mit Ketten und Banden um die Ha&#x0364;nde<lb/>
+und Fu&#x0364;&#x017F;&#x017F;e, wie auch um den Hals und den<lb/>
+Leib be&#x017F;pannt, und mußten zu 8 an dem<lb/>
+Pflug gehen, wie das Vieh; hinter uns gieng<lb/>
+ein Renegate, (der ein Abgefallener von der<lb/>
+chri&#x017F;tlichen Religion,) welcher uns mit einem<lb/>
+Och&#x017F;enzimmer zur Arbeit antrieb. Un&#x017F;ere<lb/>
+Spei&#x017F;e oder Futter waren Morgens, Mit-<lb/>
+tags und Abends, Zitronen, Pomeranzen<lb/>
+und Apriko&#x017F;en, wie auch das Geda&#x0364;rme vom<lb/>
+Vieh, welches man an der Sonne kochte.<lb/>
+Jn die&#x017F;em großen Elend und Jammer habe<lb/>
+ich viel und oftmals gedacht: &#x201E;der Herr hat<lb/>
+<fw type="sig" place="bottom">)( 5</fw><fw type="catch" place="bottom">mich</fw><lb/>
+<pb n="10" facs="#f0012"/>
+mich verla&#x017F;&#x017F;en, der Herr hat mein verge&#x017F;&#x017F;en.&#x201C;<lb/>
+Oft &#x017F;eufzete ich: J&#x017F;t denn die Hand des Herrn<lb/>
+zu kurz, daß er nicht helfen ko&#x0364;nne? Schon<lb/>
+im Anfang meines Elends, als ich und mei-<lb/>
+ne andere Mit&#x017F;klaven von dem Renegaten<lb/>
+zweymal einige Streiche auf die Fuß&#x017F;olen<lb/>
+bekam, welche mir darnach aufge&#x017F;chnitten,<lb/>
+Salz und Pfeffer hinein ge&#x017F;treuet, und zuge-<lb/>
+rufen wurde: <hi rendition="#fr">Jch &#x017F;ollte mir nun meinen<lb/>
+Gott helfen la&#x017F;&#x017F;en</hi> &#x2014; litte mein Glaube an<lb/>
+meinem getreuen Gott und Heiland &#x017F;chier<lb/>
+Schiffbruch; ich zweifelte &#x017F;chon, ich ko&#x0364;nne<lb/>
+bey Gott nicht mehr zu Gnaden kommen. &#x2014;<lb/>
+Aber nun kann ich &#x2014; wie wohl ganz be-<lb/>
+&#x017F;cha&#x0364;mt &#x2014; &#x017F;agen: &#x201E;Wie hat der Herr die<lb/>
+Leute &#x017F;o lieb.&#x201C; Er weiß es allein, was uns<lb/>
+nutz und gut i&#x017F;t. Ließe er uns &#x017F;chon &#x017F;o harte<lb/>
+Plage fu&#x0364;hlen, &#x017F;o ward er um &#x017F;o vielmehr be-<lb/>
+dacht, uns durch die&#x017F;elbe von jener ewigen<lb/>
+Ho&#x0364;llenpein zu befreyen.</p><lb/>
+<p>Wir waren un&#x017F;erer 16 Per&#x017F;onen. Eine<lb/>
+Gra&#x0364;fin, welche auch in die Sklaverey ge-<lb/>
+rathen war, kochte uns das E&#x017F;&#x017F;en. Zum<lb/>
+Trunk bekamen wir Wa&#x017F;&#x017F;er, welches wir mit<lb/>
+&#x017F;ehr vieler Mu&#x0364;he erlangen mußten, um das<lb/>
+Wa&#x017F;&#x017F;er mit dem Munde herauszuziehen.<lb/>
+Wenn wir e&#x017F;&#x017F;en wollten, &#x017F;a&#x017F;&#x017F;en wir um eine<lb/>
+Grube herum, aus welcher wir ohne Me&#x017F;&#x017F;er<lb/>
+und Gabel die Geda&#x0364;rme vom Vieh zu uns<lb/>
+nahmen. Wa&#x0364;hrend die&#x017F;er tro&#x017F;tlo&#x017F;en Verfa&#x017F;-<lb/>
+<fw type="catch" place="bottom">&#x017F;ung</fw><lb/>
+<pb n="11" facs="#f0013"/>
+&#x017F;ung &#x017F;ahen wir einsmals einen Mann &#x2014;<lb/>
+gleich einen Engel Gottes &#x2014; zu uns kom-<lb/>
+men: der &#x017F;ich &#x2014; un&#x017F;ers gro&#x017F;en Elendes ganz<lb/>
+kundig &#x2014; liebevoll ent&#x017F;chlo&#x017F;&#x017F;e, Eines aus<lb/>
+uns loszukaufen; welch &#x017F;eliges Glu&#x0364;k die<lb/>
+Prinze&#x017F;&#x017F;in Carolina, eine &#x017F;pani&#x017F;che Fu&#x0364;r&#x017F;tinn<lb/>
+betroffen hatte. Sie kam in ihrem 16. Jahr<lb/>
+in die&#x017F;e Sklaverey, und mußte 8 Jahr in<lb/>
+der&#x017F;elben leben. &#x2014; Sie bat uns vor der<lb/>
+Zeit ihrer Loskaufung, daß, wer am er&#x017F;ten<lb/>
+die&#x017F;er leiblichen Gefangen&#x017F;chaft befreyt wer-<lb/>
+den &#x017F;ollte, nicht unterla&#x017F;&#x017F;en wolle, Gott inn-<lb/>
+bru&#x0364;n&#x017F;tig um die Erlo&#x0364;&#x017F;ung &#x017F;einer noch unter<lb/>
+die&#x017F;er Plage &#x017F;eufzenden Mit&#x017F;kaven anzufle-<lb/>
+hen. Nun Sie auf die&#x017F;e chri&#x017F;tliche Ermah-<lb/>
+nung die er&#x017F;te war, ein Jahr vor uns der<lb/>
+Freyheit zu genießen, wird Sie gewiß in<lb/>
+Jhrem Gebet zu Gott un&#x017F;erer auch gedacht<lb/>
+haben. Bey die&#x017F;er frohen Ereigniß wurde<lb/>
+un&#x017F;er Glaube und un&#x017F;re Hofnung aufs neue<lb/>
+belebt und ge&#x017F;ta&#x0364;rkt, &#x017F;o daß wir voll Zuver-<lb/>
+&#x017F;icht Gott ta&#x0364;glich und &#x017F;tu&#x0364;ndlich anriefen, uns<lb/>
+nach &#x017F;einem heiligen Willen auch bald zu be-<lb/>
+freyen.</p><lb/>
+<p>Endlich wnrde un&#x017F;er Gebet erho&#x0364;ret, und<lb/>
+die Gu&#x0364;te des Allerho&#x0364;ch&#x017F;ten erwekte das Herz<lb/>
+un&#x017F;ers Erretters, Herrn <hi rendition="#fr">Helten&#x017F;tein,</hi> eines<lb/>
+Juwelenha&#x0364;ndlers von Am&#x017F;terdam. Die&#x017F;er<lb/>
+gieng drey Tage nach einander in der Gegend<lb/>
+&#x017F;pazieren, wo wir arme Sklaven des Tages<lb/>
+La&#x017F;t und Hitze und eine Menge Schla&#x0364;ge tru-<lb/>
+<fw type="catch" place="bottom">gen.</fw><lb/>
+<pb n="12" facs="#f0014"/>
+gen. Den letzten Tag vor &#x017F;einer Abrei&#x017F;e<lb/>
+brach ihm das Herz. Er konnte die grau-<lb/>
+&#x017F;ame Begegnung nicht la&#x0364;nger an&#x017F;ehen, &#x017F;on-<lb/>
+dern wollte uns loskaufen. Er &#x017F;prach des-<lb/>
+wegen mit un&#x017F;erm Bauer. Der Bauer<lb/>
+&#x017F;chikte auf das Feld, ließ uns ab&#x017F;pannen,<lb/>
+und der Renegate fu&#x0364;hrte uns zu ihm.<lb/>
+Der Bauer fragte uns: ob wir wollten<lb/>
+los &#x017F;eyn? Wir antworteten ihm: Wenn<lb/>
+es Gottes Wille wa&#x0364;re. Da fieng der Bauer<lb/>
+an: Wenn man euch verbrennete, wu&#x0364;rde<lb/>
+euch euer Gott doch nicht erretten ko&#x0364;nnen.<lb/>
+Wir ho&#x0364;rten die&#x017F;e gottlo&#x017F;e Reden mit Ge-<lb/>
+duld an, und &#x017F;agten, daß uns Gott nicht<lb/>
+mehr auflegen wu&#x0364;rde, als wir ertragen ko&#x0364;nn-<lb/>
+ten. Da nun der Bauer &#x017F;ahe, daß er nichts<lb/>
+mit uns ausrichtete, ließ er uns noch zum<lb/>
+leztenmale durch den Renegaten &#x017F;o peit&#x017F;chen,<lb/>
+daß wir auf der Erde herumkrochen, und uns<lb/>
+wie Wu&#x0364;rmer kru&#x0364;mmeten. Herr <hi rendition="#fr">Helden&#x017F;tein</hi><lb/>
+un&#x017F;er Erretter mußte die&#x017F;e Grau&#x017F;amkeit mit<lb/>
+an&#x017F;ehen, und konnte &#x017F;ich der Thra&#x0364;nen nicht<lb/>
+enthalten. Endlich bat er, er mo&#x0364;chte doch<lb/>
+eimal aufho&#x0364;ren la&#x017F;&#x017F;en. Auf die&#x017F;es handelte<lb/>
+er um uns, und der Bauer &#x017F;agte: Jhr &#x017F;ollt<lb/>
+los &#x017F;eyn! Wir fielen auf die&#x017F;es &#x017F;o angenehme<lb/>
+Wort dem Bauer und Herrn <hi rendition="#fr">Helten&#x017F;tein</hi><lb/>
+zu Fu&#x0364;&#x017F;&#x017F;en, und dankten lezterm fu&#x0364;r un&#x017F;ere<lb/>
+gna&#x0364;dige Erlo&#x0364;&#x017F;ung. Die&#x017F;e betraf nicht allein<lb/>
+mich, &#x017F;ondern noch einen meiner Unglu&#x0364;ks-<lb/>
+kammeraden, Nahmens <hi rendition="#fr">Johann Leonhard</hi><lb/>
+<fw type="catch" place="bottom"><hi rendition="#fr">Mayer,</hi></fw><lb/>
+<pb n="13" facs="#f0015"/>
+<hi rendition="#fr">Mayer,</hi> einen Seckler von <hi rendition="#fr">Berlin,</hi> welcher<lb/>
+9 Jahre in der Sklaverey gewe&#x017F;en i&#x017F;t. Mich<lb/>
+hat die&#x017F;es Unglu&#x0364;ck 7 Jahre betroffen. Herr<lb/>
+<hi rendition="#fr">Helten&#x017F;tein</hi> bezahlte fu&#x0364;r uns beede 6000<lb/>
+Gulden Lo&#x0364;&#x017F;egeld.</p><lb/>
+<p>Das er&#x017F;tere, &#x017F;o wir nach un&#x017F;erer Erlo&#x0364;-<lb/>
+&#x017F;ung thaten, war, dem Allerho&#x0364;ch&#x017F;ten auf den<lb/>
+Knien zu danken, der uns nicht nur un&#x017F;ere<lb/>
+&#x017F;o harte Sklaverey ertragen half, &#x017F;ondern<lb/>
+auch das Herz un&#x017F;ers Erretters dahin lenkte,<lb/>
+uns loszukaufen. Wir unterließen auch nicht<lb/>
+fu&#x0364;r un&#x017F;ere noch in der Sklaverey lebende Mit-<lb/>
+&#x017F;klaven anda&#x0364;chtig zu beten. Bitten auch ei-<lb/>
+nen jeden Chri&#x017F;ten, &#x017F;ie &#x2014; deren Plage &#x017F;o groß<lb/>
+i&#x017F;t, daß &#x017F;ie fa&#x017F;t um Seel und Seligkeit kom-<lb/>
+men mo&#x0364;chten &#x2014; in &#x017F;einem Gebete eifrig&#x017F;t<lb/>
+mit einzu&#x017F;chließen. Wir giengen mit Herrn<lb/>
+<hi rendition="#fr">Helten&#x017F;tein</hi> nach Europa, und kamen glu&#x0364;k-<lb/>
+lich und wohlbehalten in <hi rendition="#fr">Am&#x017F;terdam</hi> an, wo-<lb/>
+&#x017F;elb&#x017F;t wir 14 Tage blieben, um uns zu ku-<lb/>
+riren, welches die&#x017F;er grosmu&#x0364;thige Herr auf<lb/>
+&#x017F;eine Ko&#x017F;ten thun ließ. Er &#x017F;tellte uns frey,<lb/>
+ob wir bey ihm bleiben wollten, allein, die<lb/>
+Liebe nach un&#x017F;erm Vaterlande trieb uns an,<lb/>
+daß wir uns von ihm beurlaubten. &#x2014;</p><lb/>
+<p>Gott, der Vergelter alles Guten, &#x017F;egne<lb/>
+die&#x017F;en braven und recht&#x017F;chaffenen Mann mit<lb/>
+zeitlichen und nach lange durchlebten Jahren<lb/>
+mit ewigen Gu&#x0364;tern; Es mu&#x0364;&#x017F;&#x017F;e ihm niemalen<lb/>
+fehlen an irgend einem Guten! Meine ta&#x0364;g-<lb/>
+liche Be&#x017F;cha&#x0364;ftigung mu&#x0364;&#x017F;&#x017F;e &#x017F;eyn, den Allerho&#x0364;ch-<lb/>
+<fw type="catch" place="bottom">&#x017F;ten</fw><lb/>
+<pb n="14" facs="#f0016"/>
+&#x017F;ten in meinem Gebete anzurufen, daß er<lb/>
+Jhn lange Jahre bey be&#x017F;ta&#x0364;ndig dauerhafter<lb/>
+Ge&#x017F;undheit, und allem er&#x017F;prießlichen Wohl-<lb/>
+ergehen erhalten mo&#x0364;ge. Mo&#x0364;chten die&#x017F;e we-<lb/>
+nige Bla&#x0364;tter &#x017F;o glu&#x0364;klich &#x017F;eyn, zu Jhm zu ge-<lb/>
+langen, &#x017F;ie wu&#x0364;rden ihn u&#x0364;berzeugen, wie &#x017F;ehr<lb/>
+mein Herz fu&#x0364;r &#x017F;eine Wohlthaten durchdrun-<lb/>
+gen i&#x017F;t. &#x2014;</p><lb/>
+<p>Wir rei&#x017F;eten zu Ende des Monats Augu&#x017F;t,<lb/>
+1773 von <hi rendition="#fr">Am&#x017F;terdam</hi> nach <hi rendition="#fr">Hamburg;</hi> da-<lb/>
+&#x017F;elb&#x017F;t &#x017F;tarb zu meiner gro&#x0364;ßten Betru&#x0364;bniß, mein<lb/>
+Rei&#x017F;ekammerad <hi rendition="#fr">Mayer,</hi> weil er die Luft und<lb/>
+die Spei&#x017F;en nicht vertragen konnte, und wur-<lb/>
+de in den Sanct Peterskirchhof begraben.</p><lb/>
+<p>Nach &#x017F;einem Tode wußte ich nicht, wo-<lb/>
+hin ich mich wenden &#x017F;ollte. Jedoch ent&#x017F;chloß<lb/>
+ich mich, von <hi rendition="#fr">Hamburg</hi> nach <hi rendition="#fr">Frankfurth<lb/>
+am Mayn</hi> zu gehen, von da nach <hi rendition="#fr">Wertheim,</hi><lb/>
+bis ich endlich nach einer 14ja&#x0364;hrigen Abwe-<lb/>
+&#x017F;enheit in meiner Vater&#x017F;tadt <hi rendition="#fr">Windsheim</hi><lb/>
+glu&#x0364;klich ankam. Da ich nun durch die grau-<lb/>
+&#x017F;amen Schla&#x0364;ge, und durch die lange Gewohn-<lb/>
+heit am Pfluge zu gehen, ganz krumm gewor-<lb/>
+den bin, und auch eine Hand gela&#x0364;hmt i&#x017F;t; &#x017F;o<lb/>
+bin ich, leider! ganz untu&#x0364;chtig, einige Ar-<lb/>
+beit zu verrichten. Jch bin daher gezwungen<lb/>
+und nothgedrungen, guttha&#x0364;tige Herzen um<lb/>
+einigen Bey&#x017F;tand anzuflehen. Jch reißte al-<lb/>
+&#x017F;o von <hi rendition="#fr">Windsheim</hi> aus weg, kam nach <hi rendition="#fr">Heil-<lb/>
+bron, Stuttgard, Tu&#x0364;bingen, Kalb, Pforz-<lb/>
+heim, Ra&#x017F;tadt, Straßburg, Hagenau,</hi><lb/>
+<fw type="catch" place="bottom"><hi rendition="#fr">Mu&#x0364;hl-</hi></fw><lb/>
+<pb n="15" facs="#f0017"/>
+<hi rendition="#fr">Mu&#x0364;hlhau&#x017F;en, Zu&#x0364;rich, Bern, Ba&#x017F;el, Schaff-<lb/>
+hau&#x017F;en, St. Gallen, Lindau, Memmin-<lb/>
+gen,</hi> an welchem leztern Orte ich &#x017F;owohl von<lb/>
+da&#x017F;iger Wohllo&#x0364;bl. hohen Obrigkeit, als auch<lb/>
+<hi rendition="#fr">Dero&#x017F;elben</hi> werthen Bu&#x0364;rger&#x017F;chaft gro&#x017F;e<lb/>
+Wohlthaten empfangen habe; dafu&#x0364;r ich nicht<lb/>
+unterla&#x017F;&#x017F;e, meinem &#x017F;chuldigen Dank gema&#x0364;ß,<lb/>
+Gott, als den einigen Vergelter alles Gu-<lb/>
+ten, um den be&#x017F;ten Segen zu <hi rendition="#fr">dero</hi> gei&#x017F;tli-<lb/>
+chen und leiblichen Wohlfarth anzurufen.</p><lb/>
+<p>Auch kann ich nicht anders, als zu Be-<lb/>
+zeugung meines aufrichtig&#x017F;ten Dankes &#x2014; lo&#x0364;b-<lb/>
+lichen vier Sta&#x0364;dten, Namens <hi rendition="#fr">Mu&#x0364;hlhau&#x017F;en,<lb/>
+Zu&#x0364;rich, Ba&#x017F;el, Schaff hau&#x017F;en,</hi> in meinem<lb/>
+gedruckten Lebenslauf Erwa&#x0364;hnung zu thun;<lb/>
+weilen ich da&#x017F;elb&#x017F;t erfahren habe, wie der liebe<lb/>
+Gott die Herzen der Men&#x017F;chen lenken und ih-<lb/>
+rem unglu&#x0364;klichen Na&#x0364;ch&#x017F;ten tha&#x0364;tig&#x017F;t beyzu&#x017F;te-<lb/>
+hen, ge&#x017F;chikt machen kann. Ja der große<lb/>
+Gott &#x017F;ey gelobet bis an mein Ende vor die<lb/>
+unendliche Gnade, welcher ich bis die&#x017F;e Stun-<lb/>
+de von ihm gewu&#x0364;rdiget worden bin! Endlich<lb/>
+langte ich im Monat November in <hi rendition="#fr">Augsburg</hi><lb/>
+an. Jn allen die&#x017F;en Orten i&#x017F;t mir &#x017F;o viel<lb/>
+Gutes erwie&#x017F;en worden, daß ich nicht genug<lb/>
+dafu&#x0364;r danken kann.</p><lb/>
+<p>Bey dem Schlu&#x017F;&#x017F;e die&#x017F;er kleinen Erza&#x0364;h-<lb/>
+lung kann ich nicht genug&#x017F;am die Gu&#x0364;tigkeit<lb/>
+ver&#x017F;chiedener Per&#x017F;onen in <hi rendition="#fr">Augsburg</hi> ru&#x0364;hmen,<lb/>
+die &#x017F;ich beeiferten, mir Gutes zu thun, und<lb/>
+mich nicht allein mit Spei&#x017F;e und Trank ver-<lb/>
+<fw type="catch" place="bottom">&#x017F;or-</fw><lb/>
+<pb n="16" facs="#f0018"/>
+&#x017F;orgeten, &#x017F;ondern auch Geld und andere Noth-<lb/>
+wendigkeiten mir mittheilten, be&#x017F;onders mei-<lb/>
+ne Profeßionsverwandten, welche ta&#x0364;glich zu<lb/>
+mir kamen, und mir nach allen ihren Kra&#x0364;ften<lb/>
+und Vermo&#x0364;gen bey&#x017F;teuerten. Auch kann ich<lb/>
+hier &#x017F;chließlich nicht umhin, einem Hochedlen<lb/>
+und Hochwei&#x017F;en Magi&#x017F;trat &#x017F;amt de&#x017F;&#x017F;en Bu&#x0364;r-<lb/>
+ger&#x017F;chaft zu Speyer meinen &#x017F;chuldig&#x017F;ten<lb/>
+Dank vor die vielen Gnadenbezeigungen,<lb/>
+deren Sie mir &#x017F;o reichlich angedeihen ließen,<lb/>
+abzu&#x017F;tatten. Gott der Vergelter alles Gu-<lb/>
+ten belohne nicht allein die&#x017F;e meine bisherigen<lb/>
+Guttha&#x0364;ter dafu&#x0364;r, &#x017F;ondern &#x017F;egne auch alle<lb/>
+diejenigen, &#x017F;o mich armen bedra&#x0364;ngten Men-<lb/>
+&#x017F;chen noch in Zukunft ihres Mitleides und<lb/>
+Beyhu&#x0364;lfe wu&#x0364;rdigen wollen. Wogegen ich<lb/>
+nicht auf ho&#x0364;ren werde, alle meine Guttha&#x0364;ter in<lb/>
+mein ta&#x0364;gliches Gebet einzu&#x017F;chließen, und<lb/>
+Gott in Zeit und Ewigkeit dafu&#x0364;r zu prei&#x017F;en<lb/>
+<hi rendition="#c">und zu danken</hi></p></div><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<pb facs="#f0019"/>
+<pb facs="#f0020"/>
+<pb facs="#f0021"/>
+<pb facs="#f0022"/>
+</body></text> </TEI>

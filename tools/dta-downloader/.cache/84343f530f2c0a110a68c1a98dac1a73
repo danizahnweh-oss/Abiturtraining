@@ -1,0 +1,733 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://www.deutschestextarchiv.de/basisformat.rng" type="application/xml" schematypens="https://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://www.deutschestextarchiv.de/basisformat.sch" type="application/xml" schematypens="https://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">       <teiHeader>
+<fileDesc>
+<titleStmt>
+<title type="main">Über den heutigen Stand der Ärztinnenfrage</title>
+<author>
+<persName ref="http://d-nb.info/gnd/119148633">
+<surname>Weber</surname>
+<forename>Mathilde</forename>
+</persName>
+</author>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/115266127">
+<surname>Geyken</surname>
+<forename>Alexander</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1222198746">
+<surname>Haaf</surname>
+<forename>Susanne</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1019062681">
+<surname>Jurish</surname>
+<forename>Bryan</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Boenig</surname>
+<forename>Matthias</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Thomas</surname>
+<forename>Christian</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Wiegand</surname>
+<forename>Frank</forename>
+</persName>
+</editor>
+<respStmt xml:id="textsource-1" corresp="#availability-textsource-1">
+<orgName>
+Frauenstudium, betreut von Andreas Neumann und Anna Pfundt, FSU Jena und JLU Gießen
+</orgName>
+<resp>
+<note type="remarkResponsibility">Bereitstellung der Texttranskription.</note>
+<note type="remarkRevisionDTA">Bitte beachten Sie, dass die aktuelle Transkription (und Textauszeichnung) mittlerweile nicht mehr dem Stand zum Zeitpunkt der Übernahme des Werkes in das DTA entsprechen muss.</note>
+<date type="importDTA">2021-11-01T15:23:33Z</date>
+</resp>
+</respStmt>
+<respStmt>
+<persName>
+<surname>Pfundt</surname>
+<forename>Anna</forename>
+</persName>
+<persName>
+<surname>Dietrich</surname>
+<forename>Dennis</forename>
+</persName>
+<resp>
+<note type="remarkResponsibility">Bearbeitung der digitalen Edition.</note>
+<date type="importDTA">2021-11-01T15:23:33Z</date>
+</resp>
+</respStmt>
+<respStmt>
+<orgName ref="https://www.bbaw.de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<resp>
+<note type="remarkResponsibility">Langfristige Bereitstellung der DTA-Ausgabe</note>
+<ref target="https://www.bbaw.de"/>
+</resp>
+</respStmt>
+</titleStmt>
+<editionStmt><edition>Vollständige digitalisierte Ausgabe.</edition></editionStmt>
+<extent>
+<measure type="images">5</measure>
+<measure type="tokens">3808</measure>
+<measure type="types">1485</measure>
+<measure type="characters">27351</measure>
+</extent>
+<publicationStmt>
+<publisher xml:id="DTACorpusPublisher">
+<email>dta@bbaw.de</email>
+<orgName role="project">Deutsches Textarchiv</orgName>
+<orgName role="hostingInstitution" xml:lang="en">Berlin-Brandenburg Academy of Sciences and Humanities (BBAW)</orgName>
+<orgName role="hostingInstitution" xml:lang="de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<address>
+<addrLine>Jägerstr. 22/23, 10117 Berlin</addrLine>
+<country>Germany</country>
+</address>
+</publisher>
+<pubPlace>Berlin</pubPlace>
+<date type="publication">2025-10-24T08:37:34Z</date>
+<availability>
+<licence target="http://creativecommons.org/licenses/by/4.0/deed.de">
+<p>Namensnennung 4.0 International (CC BY 4.0)</p>
+</licence>
+</availability>
+<idno>
+<idno type="URLWeb">https://www.deutschestextarchiv.de/weber_aerztinnenfrage_1892</idno>
+<idno type="URLXML">https://www.deutschestextarchiv.de/book/download_xml/weber_aerztinnenfrage_1892</idno>
+<idno type="URLHTML">https://www.deutschestextarchiv.de/book/download_html/weber_aerztinnenfrage_1892</idno>
+<idno type="URLText">https://www.deutschestextarchiv.de/book/download_text/weber_aerztinnenfrage_1892</idno>
+<idno type="DTADirName">weber_aerztinnenfrage_1892</idno>
+<idno type="DTAID">35016</idno>
+<idno type="URN">urn:nbn:de:kobv:b4-35016-4</idno>
+</idno>
+</publicationStmt>
+<sourceDesc>
+<bibl type="JA">Weber, Mathilde: Über den heutigen Stand der Ärztinnenfrage. In: Allgemeine Deutsche Universitäts-Zeitung 2 (1892). S. 18&#x2013;22.</bibl>
+<biblFull>
+<titleStmt>
+<title level="a" type="main">Über den heutigen Stand der Ärztinnenfrage</title>
+<author>
+<persName ref="http://d-nb.info/gnd/119148633">
+<surname>Weber</surname>
+<forename>Mathilde</forename>
+</persName>
+</author>
+</titleStmt>
+<editionStmt>
+<edition n="1"/>
+</editionStmt>
+<publicationStmt>
+<publisher/>
+<pubPlace>Berlin</pubPlace>
+<date type="publication">1892</date>
+</publicationStmt>
+<seriesStmt>
+<title level="j" type="main">Allgemeine Deutsche Universitäts-Zeitung</title>
+<biblScope unit="volume">6</biblScope>
+<biblScope unit="issue">2</biblScope>
+<biblScope unit="pages">S. 18&#x2013;22</biblScope>
+</seriesStmt>
+</biblFull>
+<msDesc>
+<msIdentifier>
+<repository>Thüringer Universitäts- und Landesbibliothek Jena</repository>
+<idno>
+<idno type="shelfmark">4 Hist.lit.V,6/7</idno>
+</idno>
+</msIdentifier>
+<physDesc>
+<typeDesc>
+<p>Fraktur</p>
+</typeDesc>
+</physDesc>
+</msDesc>
+</sourceDesc>
+</fileDesc>
+<encodingDesc>
+<editorialDecl>
+<p>
+<![CDATA[
+<p>
+Bogensignaturen: keine Angabe;
+Druckfehler: keine Angabe;
+fremdsprachliches Material: keine Angabe;
+Geminations-/Abkürzungsstriche: keine Angabe;
+Hervorhebungen (Antiqua, Sperrschrift, Kursive etc.): keine Angabe;
+i/j in Fraktur: keine Angabe;
+I/J in Fraktur: wie Vorlage;
+Kolumnentitel: gekennzeichnet;
+Kustoden: keine Angabe;
+langes s (&#x017F;): als s transkribiert;
+Normalisierungen: keine Angabe;
+rundes r (&#xA75B;): keine Angabe;
+Seitenumbrüche markiert: ja;
+Silbentrennung: wie Vorlage;
+u/v bzw. U/V: keine Angabe;
+Vokale mit übergest. e: keine Angabe;
+Vollständigkeit: vollständig erfasst;
+Zeichensetzung: wie Vorlage;
+Zeilenumbrüche markiert: ja;
+</p>
+]]>
+</p>
+</editorialDecl>
+<tagsDecl>
+<rendition scheme="css" xml:id="aq">font-family:sans-serif</rendition>
+<rendition scheme="css" xml:id="b">font-weight:bold</rendition>
+<rendition scheme="css" xml:id="blue">color:blue</rendition>
+<rendition scheme="css" xml:id="c">display:block; text-align:center</rendition>
+<rendition scheme="css" xml:id="et">display:block; margin-left:2em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et2">display:block; margin-left:4em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et3">display:block; margin-left:6em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="f">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="fr">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="g">letter-spacing:0.125em</rendition>
+<rendition scheme="css" xml:id="i">font-style:italic</rendition>
+<rendition scheme="css" xml:id="in">font-size:150%</rendition>
+<rendition scheme="css" xml:id="k">font-variant:small-caps</rendition>
+<rendition scheme="css" xml:id="larger">font-size:larger</rendition>
+<rendition scheme="css" xml:id="red">color:red</rendition>
+<rendition scheme="css" xml:id="right">display:block; text-align:right</rendition>
+<rendition scheme="css" xml:id="s">text-decoration:line-through</rendition>
+<rendition scheme="css" xml:id="smaller">font-size:smaller</rendition>
+<rendition scheme="css" xml:id="sub">vertical-align:sub; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="sup">vertical-align:super; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="u">text-decoration:underline</rendition>
+<rendition scheme="css" xml:id="uu">border-bottom:double 3px #000</rendition>
+</tagsDecl>
+</encodingDesc>
+<profileDesc>
+<particDesc>
+<person sex="f" role="author">
+<persName ref="http://d-nb.info/gnd/119148633">
+<surname>Weber</surname>
+<forename>Mathilde</forename>
+</persName>
+</person>
+</particDesc>
+<langUsage>
+<language ident="deu">(Früh-)Neuhochdeutsch</language>
+<language ident="deu">German</language>
+</langUsage>
+<textClass>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1main">Gebrauchsliteratur</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1sub">Gesellschaft</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">ready</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">tdef</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">frauenstudium</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#collections">women</classCode>
+</textClass>
+</profileDesc>
+</teiHeader>
+<text>         <body>
+<pb facs="#f0001" n="18"/>
+<cb type="start"/>
+<gap reason="insignificant" unit="lines" quantity="35"/><lb/>
+<div n="1"><head> <hi rendition="#b">Über den heutigen Stand der Ärztinnenfrage.</hi></head><lb/>
+<byline>Vortrag, gehalten von Frau Prof. <hi rendition="#g"><persName ref="http://d-nb.info/gnd/119148633">Mathilde Weber</persName></hi>, in<lb/>
+Dresden, Berlin und Königsberg.</byline><lb/>
+<p>Seit vielen Jahren wirkt der deutsche Allgemeine Frauen-<lb/>
+Verein dafür, daß auch in Deutschland, wie in den meisten an-<lb/>
+dern Kulturländern den Frauen das Studium der Medizin, die<lb/>
+Gymnasialvorschulung dazu nebst dem Maturitätsexamen, und<lb/>
+das Praktizieren als Frauenärztinnen gestattet werden möchte.<lb/>
+Doch war es in Dresden auf dem Frauentage das erstemal,<lb/>
+daß wir auf unserem Vortragsprogramm einen speciellen Bericht<lb/>
+über dieses viel angefeindete Thema ankündigten.</p><lb/>
+<p>Es geschah dies gewiß nicht aus Mangel an Mut, sondern<lb/>
+nur, weil wir nicht mit dem Kopf durch die Wand wollten,<lb/>
+und vorher in der Stille langsam und gründlich den Boden be-<lb/>
+arbeiteten, in welchen wir unsere Saat zum Besten unseres<lb/>
+Geschlechts einsenken wollten.</p><lb/>
+<p>Der Zeitpunkt, da wir mit offenem Visier für unsere gute<lb/>
+Sache kämpfen können, ohne mehr die früheren Kampfeswaffen<lb/>
+der Gegner, mit welchen <hi rendition="#g">wir nicht</hi> kämpfen wollten: Spott,<lb/>
+frivole und geringschätzige Äußerungen, fürchten zu müssen,<lb/>
+scheint uns endlich gekommen zu sein. &#x2013; Denn nach den sorg-<lb/>
+fältig gemachten Beobachtungen und dem Studium des ge-<lb/>
+sammelten Materials über die Ärztinnenfrage, &#x2013; dieses Sorgen-<lb/>
+kindes der Frauenbewegung können wir trotz der immer noch<cb/>
+sehr großen Gegnerschaft doch in den letzten Jahren einen wesent-<lb/>
+lichen Fortschritt konstatieren.</p><lb/>
+<p>So heißt es z. B. in der Zeitschrift &#x201E;Reform&#x201C;, und ähnlich<lb/>
+in manchen andern Zeitschriften, &#x201E;im allgemeinen darf man wohl<lb/>
+sagen, daß der Umschwung in den Ansichten über das Frauen-<lb/>
+studium und die Frauenbefähigung alle Hoffnungen der Pioniere<lb/>
+übertroffen hat. &#x2013; Anfangs hieß es, die Mädchen seien ober-<lb/>
+flächlich, sie haben sich im Gegenteil als beharrlich und fleißig<lb/>
+bewiesen, und Gründlichkeit streitet ihnen niemand mehr ab,<lb/>
+man hat in England, Amerika, der Schweiz u. s. w. weibliche<lb/>
+Ärzte sehr gerne. Jn einer englischen Zeitung lesen wir: Auch<lb/>
+in England nimmt die Anzahl praktizierender weiblicher Ärzte<lb/>
+stets zu, den studierenden Frauen stehen zum Zweck des Studiums<lb/>
+verschiedene bedeutende Spitäler offen. Und die Londoner Uni-<lb/>
+versität hat in Beziehung auf das Examen den bedeutsamen<lb/>
+Schritt gethan, daß nun an ihr sämtliche Examen und Titel<lb/>
+auch den Frauen zu Gebot stehen&#x201C;.</p><lb/>
+<p>&#x201E;Es haben an ihr, welche in Bezug auf das medizinische<lb/>
+Studium die <hi rendition="#g">höchsten Anforderungen</hi> stellt, in den letzten<lb/>
+Jahren verschiedene Frauen den Doktorgrad erworben. Jn<lb/>
+London praktizieren bereits 70 Ärztinnen. &#x2013; Auch in Bezug<lb/>
+auf die Spitäler hat die Zulassung der Frauen als Ärzte sehr<lb/>
+segensreich gewirkt, u. s. w.&#x201C;</p><lb/>
+<p>Geht es bei uns auch langsamer vorwärts als in den andern<lb/>
+Kulturländern, so erkennen doch immer mehr objektiv denkende<lb/>
+Männer die Berechtigung dieses aus <hi rendition="#g">weiblichem Zartgefühl</hi><lb/>
+hervorgehenden Wunsches, ebenso ein Teil der Presse, z. B. sagt<lb/>
+der Nordwest:</p><lb/>
+<p>Die nationalliberale Fraction im Reichstage hat sich, als<lb/>
+am 11. März die Zulassung weiblicher Ärzte auf der Tages-<lb/>
+ordnung stand, durch keinen Redner ausgesprochen; auch scheint<lb/>
+keiner von ihr für Rickert's Antrag &#x201E;zur Berücksichtigung&#x201C;, der<lb/>
+eingereichten Vorstellungen gestimmt zu haben, sondern nur<lb/>
+einige &#x201E;zur Erwägung&#x201C; des Abg. Harmening. &#x2013; Es ist deshalb<lb/>
+nicht ohne Bedeutung, daß ihr erklärtes Parteiblatt, die Han-<lb/>
+noverschen Neuesten Nachrichten &#x201E;<hi rendition="#g">für die Zulassung</hi> der<lb/>
+Frauen zum Studium der Medizin eintreten, und hoffen, daß<lb/>
+die Petitionen, über welche der Reichstag jetzt zur Tagesordnung<lb/>
+übergegangen ist, so lange wiederkehren, bis sie die nötige Be-<lb/>
+achtung finden.&#x201C; &#x2013; Für die Notwendigkeit weiblicher Ärzte,<lb/>
+sagt der Artikel, &#x2013; spricht namentlich die nicht wegzuleugnende<lb/>
+Thatsache, daß sehr viele und grade von den besten und edelsten<lb/>
+Frauen in vielen Krankheitsfällen sich scheuen, sich an einen<lb/>
+fremden Arzt um ärztlichen Rat zu wenden und noch mehr sich<lb/>
+scheuen, den bekannten Arzt zu konsultieren. Erst wenn es<lb/>
+schon sehr spät, oft zu spät ist, treibt die äußerste Not die armen<lb/>
+Frauen zum Eingestehen ihrer Leiden. &#x2013; Die allgemeine Uni-<lb/>
+versitätszeitung sagt unter anderem: Die schroffsten Gegner<lb/>
+müssen zugeben, daß auch in Deutschland diese Frage nie mehr<lb/>
+von der Bildfläche verschwinden werde und trotz der Niederlagen<lb/>
+der Petitionen in den Landtagen und im Reichstag sei der end-<lb/>
+liche Sieg der Frauen nur noch eine Frage der Zeit.&#x201C;</p><lb/>
+<p>Unser berühmter in England lebender Landsmann, der ge-<lb/>
+lehrte Professor Max Müller äußert sich: Auch die deutschen<lb/>
+Frauen können und werden mit dieser Forderung ebenso sicher<lb/>
+durchdringen, wie die Engländerinnen, wenn sie alle so fest und<lb/>
+beharrlich wie diese <hi rendition="#g">zusammenstehen</hi> zu einem <hi rendition="#g">gemein-<lb/>
+samen</hi> Vorgehen. &#x2013; Und wenn sie eben so <hi rendition="#g">opferfähig</hi> wie<lb/>
+dort <hi rendition="#g">Stiftungen</hi> machen, um gleich mit großen Stipendien<lb/>
+den mutigen Mädchen und Frauen beizustehen, welche aus Liebe<lb/>
+zu den leidenden Mitschwestern und zur Wissenschaft den schweren<lb/>
+Beruf der Frauenärztin erwählen werden.&#x201C; Zu unserer Freude<lb/>
+darf ich dankbar hier erwähnen, daß unser Verein durch edle<lb/>
+Gönner bereits auch zweihunderttausend Mark Vermögen besitzt,<cb/>
+<pb facs="#f0002" n="19"/>
+<fw type="header" place="top">Nr. 2.<space dim="horizontal"/>Allgemeine Deutsche Universitäts-Zeitung.</fw><lb/>
+wovon der Zins zu Stipendien für deutsche in der Schweiz<lb/>
+studierende Medizinerinnen verwendet wird. Wir gedenken bald<lb/>
+auch mit dem Gymnasialunterricht in Leipzig zu beginnen.</p><lb/>
+<p>Leider verhalten sich aber noch so viele sonst tüchtige deutsche<lb/>
+Frauen allen <hi rendition="#g">nicht direkt</hi> ihre <hi rendition="#g">persönliche</hi> oder <hi rendition="#g">häus-<lb/>
+liche</hi> Jnteressensphäre berührenden Bestrebungen gegenüber passiv,<lb/>
+denn man hat uns zu lange als gute weibliche Sitte vorgestellt,<lb/>
+daß die Frauen sich absolut um keine allgemeinen Angelegenheiten<lb/>
+bekümmern sollten, &#x2013; das sei emanzipiert, wir müssen alle<lb/>
+Fürsorgen auch für unser spezielles Wohl den <hi rendition="#g">Männern allein</hi><lb/>
+überlassen.</p><lb/>
+<p>Es ist dies von kulturhistorischem Standpunkt aus ein<lb/>
+Rätsel, daß gerade die deutschen Frauen unter all den Frauen<lb/>
+der heutigen Kulturvölker hierin die demütigste und unselb-<lb/>
+ständigste Stellung einnehmen, da unsere Vorfahren die alten<lb/>
+Germaninnen doch einst unter allen damaligen Frauen die be-<lb/>
+deutendste soziale, kulturelle und den Männern ebenbürtigste<lb/>
+Stellung eingenommen hatten.</p><lb/>
+<p>Gilt es doch heute noch in manchen Kreisen als Tadel,<lb/>
+wenn eine Frau sich einem Frauenverein anschließt, der nicht<lb/>
+nur für Näh- und Strickschulen, sondern auch in ideeller Weise<lb/>
+für höhere Lehrerinnenbildung, Ärztinnen u. s. w. wirken will.</p><lb/>
+<p>Man hält oft eine allmählich entstandene Sitte &#x2013; und das<lb/>
+sind seit <hi rendition="#g">einem Jahrhundert die männlichen</hi> Frauenärzte &#x2013; <lb/>
+nur aus Gewohnheit berechtigt. So wie wir selbständig darüber<lb/>
+nachdenken, entdecken wir plötzlich die Unhaltbarkeit derselben<lb/>
+einer <hi rendition="#g">vorgeschrittenen</hi> Zeit gegenüber.</p><lb/>
+<p>Aus diesem Grunde faßt gegenwärtig in immer weiteren<lb/>
+Kreisen, die schon oben angeführte Überzeugung Wurzel: Die<lb/>
+Einführung weiblicher Frauenärzte ist auch in Deutschland nur<lb/>
+noch eine Frage der Zeit.</p><lb/>
+<p>Leider kann ich aus Mangel an Zeit nicht <hi rendition="#g">so viele</hi> Belege<lb/>
+aus der Tagespresse und den Abgeordnetenkammern und Reichs-<lb/>
+tagsverhandlungen anführen, als ich <hi rendition="#g">möchte</hi> und <hi rendition="#g">könnte</hi>.</p><lb/>
+<p>Scheinbar freilich triumphierten die Gegner dieses Frühjahr,<lb/>
+weil wir in der Reichstagsverhandlung mit unsern diesbezüg-<lb/>
+lichen Petitionen durchgefallen sind.</p><lb/>
+<p>Uns hat aber dies weder überrascht noch entmutigt, denn<lb/>
+die englischen Frauen mußten erst <hi rendition="#g">siebenmal</hi> petitionieren, bis<lb/>
+sie nun &#x2013; so <hi rendition="#g">glänzend</hi> am Ziele sind, ebenso langjährig die<lb/>
+Amerikanerinnen. &#x2013; Ein Baum fällt nicht auf einen Streich,<lb/>
+am wenigsten der des <hi rendition="#g">Vorurteils</hi> und <hi rendition="#g">eingewurzelter Ge-<lb/>
+wohnheiten</hi></p><lb/>
+<p>Nur die Männer in Schweden und in der Schweiz haben<lb/>
+ohne Kampf den Frauen gleiches Recht zum Studium eingeräumt,<lb/>
+die ersten sogar aus eigener Jnitiative.</p><lb/>
+<p>Diese abschlägigen Bescheide bei uns werden uns also <hi rendition="#g">nicht</hi><lb/>
+abhalten, immer wieder zu petitionieren. &#x2013; Schon von den<lb/>
+Gegnern in der für uns ewig denkwürdigen Reichstagssitzung<lb/>
+vom 11. März sagten unsere Freunde im Reichstag: sie hätten<lb/>
+so ihre Waffen geführt, daß man mit Recht nachher in ver-<lb/>
+schiedenen Zeitungen z. B. in der Danziger Zeitung u. s. w.<lb/>
+lesen konnte: noch ein <hi rendition="#g">solcher Sieg</hi> und sie sind <hi rendition="#g">verloren</hi>.</p><lb/>
+<p>Wir aber sind erfreut und dankbar für den stetig wachsenden<lb/>
+Beistand der Männer und einem Teil der <hi rendition="#g">unabhängigen</hi><lb/>
+Presse.</p><lb/>
+<p>Es giebt freilich auch eine Anzahl Vorkämpferinnen für<lb/>
+diese Frage, welche sagen: wir brauchen nicht zu bitten und<lb/>
+dankbar zu sein: es ist <hi rendition="#g">unser Recht</hi>, das wir <hi rendition="#g">beanspruchen</hi>,<lb/>
+deshalb wollen wir nicht bitten, wir <hi rendition="#g">verlangen einfach<lb/>
+unser Recht.</hi></p><lb/>
+<p>Jch gestehe, ich stelle mich sowohl aus praktischen als diplo-<lb/>
+matischen Gründen auf den Standpunkt des Bittens; denn die<lb/>
+andere Auffassung scheint mir so wie nun einmal die Verhält-<cb/>
+nisse sich durch unsere eigene Jndolenz und Gewohnheit gestaltet<lb/>
+haben, &#x2013; wie etwa, wenn ein Gefangener an seinem Gitter<lb/>
+rüttelte, und befehlen würde: ich <hi rendition="#g">verlange</hi> meine Frei-<lb/>
+heit, ich habe das <hi rendition="#g">Recht</hi> dazu, da würden wohl seine Gefangen-<lb/>
+halter entgegnen: wie <hi rendition="#g">vermagst du</hi> uns denn in deinen Ketten,<lb/>
+<hi rendition="#g">machtlos</hi> und <hi rendition="#g">rechtlos</hi> wie du bist, vorschreiben, was <hi rendition="#g">wir</hi><lb/>
+thun sollen; wenn wir nun einmal glauben, wir würden durch<lb/>
+<hi rendition="#g">deine</hi> Freiheit geschädigt, so halten wir dich <hi rendition="#g">so lange</hi> gefesselt,<lb/>
+als es uns gutdünkt.&#x201C;</p><lb/>
+<p>Deshalb glaube ich aus Nützlichkeitsgründen, daß <hi rendition="#g">wir</hi>,<lb/>
+denn <hi rendition="#g">wir</hi> sind diese Gefesselten und geistig Gebundenen, an die<lb/>
+Großmut unserer Machthaber <hi rendition="#g">appellieren</hi> und <hi rendition="#g">bitten</hi> sollten.</p><lb/>
+<p>&#x201E;Gebet uns auch Lernfreiheit, wie <hi rendition="#g">Jhr</hi> sie habt, wir wollen<lb/>
+Euch ja nur nützen und Euren Frauen und Töchtern eine bessere<lb/>
+Gesundheit bringen, macht doch die Freiheitsprobe mit uns.<lb/>
+<hi rendition="#g">Jhr</hi> seid ja die <hi rendition="#g">Starken</hi> und die <hi rendition="#g">Mächtigen</hi> der Erde. <hi rendition="#g">Jhr</hi><lb/>
+könnt doch <hi rendition="#g">unmöglich uns die Schwachen</hi>, die von Euch oft<lb/>
+<hi rendition="#g">niedrig Taxierten fürchten</hi>, wenn Jhr unsern Geist und<lb/>
+unser Streben und Wollen nicht mehr in Banden haltet.&#x201C;</p><lb/>
+<p>So etwa wollen wir immer und immer wieder bitten,<lb/>
+wollen uns aber auch näher betrachten, wer eigentlich unsere<lb/>
+Gegner sind, die den Enkelinnen der Germaninnen, welche<lb/>
+Priesterinnen und Ärztinnen waren, am hartnäckigsten noch immer<lb/>
+die Lern- und Berufsfreiheit vorenthalten wollen.</p><lb/>
+<p>Die erste Gruppe sind, wie schon oben bemerkt, diejenigen,<lb/>
+welche sich schwer losmachen aus den Banden des Altgewohnten<lb/>
+und Hergebrachten.</p><lb/>
+<p>Von denselben ist ein Teil aus den wohlwollendsten Be-<lb/>
+fürchtungen für unsere Gesundheit und weiblichen Tugenden<lb/>
+gegen das Studium, abgeschreckt durch einzelne Ausschreitungen<lb/>
+unter den russischen Studentinnen in Zürich. Solche Aus-<lb/>
+wüchse finden sich aber bei allen Einführungen neuer Jdeen.<lb/>
+Darüber würden sich die Ängstlichen beruhigen, wenn sie die vielen<lb/>
+ächt weiblichen Ärztinnen sehen würden, die bereits in England,<lb/>
+Rußland, Amerika, der Schweiz, Schweden, Jtalien, und neuer-<lb/>
+dings durch die bahnbrechende deutsch-russische Ärztin Frl.<lb/>
+Siebold auch in der Türkei das größte Vertrauen und die höchste<lb/>
+Achtung sowohl ihrer Patienten als auch ihrer männlichen<lb/>
+Kollegen genießen.</p><lb/>
+<p>Eine deutsche Ärztin aus Philadelphia, Frl. Wörner, die<lb/>
+dort schon 11 Jahre praktizierte, ist vom Ärzteverein letztes<lb/>
+Jahr als Schriftführerin gewählt, eine aus Boston, Frl. Bauer,<lb/>
+ist unter vielen Bewerbern vom Oberarzt als Assistentin an<lb/>
+das größte Kinderspital angestellt worden. Beide erzählten mir<lb/>
+das vor wenigen Wochen selbst. Jn Boston gibt es 40 Ärztinnen,<lb/>
+in Philadelphia 90. Diejenigen, welche sich auszeichnen, werden<lb/>
+ganz ebenbürtig in alle Ärztevereine mit allen Diplomen und<lb/>
+Ehren aufgenommen.</p><lb/>
+<p>Die 2. Klasse unserer Gegner befinden sich bei denjenigen<lb/>
+maßgebenden Behörden und Landesvertretungen, an welche wir<lb/>
+unsere Petitionen gerichtet haben.</p><lb/>
+<p>Denselben dünkt es unter anderen Gründen zu schwierig<lb/>
+diese Neuerung auf gesetzlichem Weg in unsere bestehenden<lb/>
+sozialen Kultur- und Rechtsverhältnisse einzuführen. &#x2013; Von<lb/>
+Eingeweihten aus diesen Kreisen hören wir, daß mancher Vor-<lb/>
+stand dieser Ämter bereits die Überzeugung gewonnen habe, daß<lb/>
+diese Frage auch bei uns nicht mehr verschwindet, bis sie <hi rendition="#g">gelöst</hi><lb/>
+sein wird. Deshalb würden sie zufrieden sein, wenn durch<lb/>
+einen Zauberschlag diese neuen Verhältnisse bereits so geordnet<lb/>
+und die Übergangszeit <hi rendition="#g">so überwunden</hi> wäre wie in den oben<lb/>
+<hi rendition="#g">angeführten</hi> Ländern.</p><lb/>
+<p>Aus diesem Grunde, weil keine der maßgebenden deutschen<lb/>
+Behörden für die Gewährung dieser Kulturforderung die Kastanien<lb/>
+aus dem Feuer holen will, und man doch auch nimmer gegen-<cb/>
+<pb facs="#f0003" n="20"/>
+<fw type="header" place="top">Allgemeine Deutsche Universitäts-Zeitung.<space dim="horizontal"/>Nr. 2.</fw><lb/>
+über der Macht, der zu unsern Gunsten stets wachsenden öffent-<lb/>
+lichen Meinung, unsere Eingaben ganz abweisen will, haben<lb/>
+wir mit denselben das Wunderbare erlebt, daß die Minister<lb/>
+der einzelnen deutschen Länder, an welche wir zuerst unsere<lb/>
+Petitionen richteten, sagten, das sei Sache des Reichs; <hi rendition="#g">dort</hi><lb/>
+berichtete man uns, nein es sei Sache der einzelnen Landtage,<lb/>
+<hi rendition="#g">von dort</hi> schickte man uns an den Reichstag und derselbe er-<lb/>
+klärte in der Sitzung vom 11. März, er sei auch nicht kompetent<lb/>
+in dieser Sache, und so ging man trotz der warmen Befürwor-<lb/>
+tung einzelner Abgeordneter zur Tagesordnung über.</p><lb/>
+<p>Unter der 3. Klasse befindet sich ein Teil der Ärzte und<lb/>
+zwar aus drei verschiedenen Gründen. &#x2013; Die Einen halten aus<lb/>
+gut gemeinter Überzeugung uns nicht für kräftig genug zu diesem<lb/>
+schweren Beruf.</p><lb/>
+<p>Die andern können es aus Hochmut nicht ertragen, daß<lb/>
+die Frauen, die sie vielfach als untergeordnet taxieren, dasselbe<lb/>
+leisten wollen wie sie.</p><lb/>
+<p>Das dritte Motiv ist allem nach &#x2013; Konkurrenzfurcht, &#x2013;<lb/>
+was uns eine große Jnkonsequenz zu sein scheint, da uns ja<lb/>
+auf der einen Seite von ihnen bewiesen wird, wir seien mit<lb/>
+unserem kleinen Gehirn gänzlich unfähig zum ärztlichen Beruf,<lb/>
+so macht das Verlangen, daß man aus Rücksicht für das <hi rendition="#g">starke<lb/>
+Geschlecht</hi> das Studium dem schwachen Geschlecht verbieten<lb/>
+soll, einen eigentümlichen Eindruck. Zudem sagt unser leider zu<lb/>
+früh verstorbene Mitkämpfer, der berühmte Professor Holzen-<lb/>
+dorf in München sehr richtig: &#x201E;Die Frauenbewegung ist kein<lb/>
+Wettkampf mit den Männern auf Tod und Leben, sondern nur<lb/>
+eine Grenzstreitigkeit.&#x201C;</p><lb/>
+<p>Viele unserer Gesinnungsgenossen haben bei dem Stimmen-<lb/>
+sammeln für die von uns für den <hi rendition="#g">nächsten</hi> Reichstag be-<lb/>
+schlossene Massenpetition in dieser Beziehung merkwürdige Er-<lb/>
+fahrungen gemacht. Manchmal erhielt man in einem gebildeten<lb/>
+Hause, von dem man sich der Zustimmung sicher glaubte, eine<lb/>
+abschlägige Antwort mit dem Bedeuten, es gebe ja schon<lb/>
+zu viele Ärzte, oder: die Frauen könnten <hi rendition="#g">das</hi> doch niemals<lb/>
+lernen u. s. w.</p><lb/>
+<p>Auf dem Lande und bei Arbeiterinnen, wo wir eine über-<lb/>
+raschende Zustimmung fanden, da es so sehr an Ärzten fehlt,<lb/>
+weil der Zudrang derselben in die Städte immer mehr Mode<lb/>
+wird, machten wir in denjenigen Dörfern, wo Ärzte sind, oft-<lb/>
+mals ähnliche Erfahrungen; &#x2013; der Dorfarzt erklärte, so sagten<lb/>
+die Frauen: &#x201E;er betrete kein Haus mehr, wo man die Petition<lb/>
+unterschreibe&#x201C;. Da es doch leider noch lange anstehen könnte,<lb/>
+bis die auf dem Lande <hi rendition="#g">sehr erwünschten</hi> Ärztinnen kommen<lb/>
+werden, so durften sie sich nicht mit dem Doktor verfeinden.<lb/>
+Jn Dörfern, wo diese Furcht nicht herrschte, haben sogar zuweilen<lb/>
+auch die Frauen der Pfarrer, der Bürgermeister und Gemeinderäte<lb/>
+unterschrieben! &#x2013; Dadurch wird vollständig bestätigt, was der<lb/>
+Reichstagsabgeordnete Wiser von dem großen Bedürfnis und<lb/>
+Verlangen nach Ärztinnen auf dem Lande und in Fabrikgegenden<lb/>
+sagte.</p><lb/>
+<p>Schon Prof. v. Holzendorf hob hervor, wie peinlich es für<lb/>
+einzelnstehende Mädchen sei, wenn sie einen fremden Mann zu<lb/>
+sich rufen müßten. Dieser Grund gewann uns viele einfache<lb/>
+Bürger- und Arbeiterfrauen: z. B. als eine der vielen Leh-<lb/>
+rerinnen, welche wie manche Geistlichen und ihre Frauen unsere<lb/>
+getreuesten Gehilfinnen im Stimmensammeln waren, ihre Haus-<lb/>
+frau fragte, ob sie die Petition vielleicht auch unterschreiben wollte,<lb/>
+entgegnete ihr diese, oh warum sollte eine Mutter, die erwachsene<lb/>
+Töchter in der Fremde hat, nicht mit Begeisterung unterschreiben.<lb/>
+Jch muß hier noch erwähnen, daß wir neuerdings von vielen<lb/>
+Seiten hören, wir hätten noch 100,000 von Stimmen erhalten<cb/>
+können, wenn wir eine größere Fühlung mit manchen Städten<lb/>
+und Ständen ermöglicht, aber wir selbst hatten leider noch keine<lb/>
+Erfahrung, wie wir eine solche Massenpetition noch vor-<lb/>
+teilhafter hätten leiten können. Rühmend und dankbar möchte<lb/>
+ich hier anerkennen, daß viele Ärzte sich sehr wohlwollend<lb/>
+verhalten, ja bereits über 120 die Petition mitunterschrieben<lb/>
+haben, darunter viele gewichtige Namen z. B. der berühmte<lb/>
+Gynäkologe Professor und Geheimrat Winkel in München<lb/>
+und Prof. Grützner in Tübingen, und verschiedene deutsche in<lb/>
+der Schweiz angestellte Professoren u. s. w., weil sie von ihrer<lb/>
+Erfahrung aus am besten wüßten, wie viel unheilbare Patientinnen<lb/>
+sie aus obigen Gründen bekommen. Jch darf hier anfügen, daß<lb/>
+wir zu der Massenpetition bis jetzt etwa 50 tausend Stimmen<lb/>
+haben, darunter 12 tausend von Männern aus allen Gesell-<lb/>
+schaftskreisen z. B. Beamte 2500, Kaufleute 2000, Gewerbe-<lb/>
+treibende 4600, Arbeiter 9000 u. s. w.</p><lb/>
+<p>Jn verschiedenen unsern Wünschen günstig gesinnten Blättern<lb/>
+kommt unter dem Titel: &#x201E;Die Kirche und das Frauenstudium&#x201C;<lb/>
+eine Übersetzung aus dem amerikanischen Century Magazin von<lb/>
+der bedeutsamen Rede des Kardinals Gilchon in Baltimore,<lb/>
+welche derselbe im letzten Jahr bei der Genehmigung der <hi rendition="#g">be-<lb/>
+rühmtesten</hi> amerikanischen Universität John Hopkins <hi rendition="#g">für</hi> das<lb/>
+Frauenstudium gehalten hat.</p><lb/>
+<p>Wie gerne möchte ich sie ganz anführen zum Beispiel für<lb/>
+unsere klerikalen Gegner im Reichstag, welche seither offenbar<lb/>
+sich noch der Erkenntnis verschließen vor der hochwichtigen<lb/>
+<hi rendition="#g">ethischen</hi> Bedeutung der Ärztinnen für die soziale Frage. &#x2013;<lb/>
+Der Kardinal sagte unter anderem:</p><lb/>
+<p>Es sei leider nicht genugsam bekannt, daß im geistlichen und<lb/>
+kanonischen Rechte <hi rendition="#g">gegen</hi> die Ausbildung der Frauen im medi-<lb/>
+zinischen Fache <hi rendition="#g">kein</hi> Hindernis vorliege.</p><lb/>
+<p>Weiter heißt es in der Rede, &#x201E;das Vorurteil, welches die<lb/>
+Frauen zur Krankenpflege auch für Männer zuläßt, aber sie<lb/>
+vom ärztlichen Berufe <hi rendition="#g">ausschließt</hi>&#x201C;, kann nicht streng genug<lb/>
+verurteilt werden; &#x2013; denn die Erleichterung von Leiden, welche<lb/>
+Frauen aller Klassen aus der Existenz gut geschulter weiblicher<lb/>
+Ärzte zu teil werden kann, muß jedem klar sein. Von<lb/>
+gegnerischer Seite werden die Krankenpflege und vielfach<lb/>
+auch das Amt der <hi rendition="#g">Geburtshelferinnen</hi> den <hi rendition="#g">gebildeten</hi><lb/>
+Frauen sehr empfohlen als ein ächt weiblicher Beruf, und<lb/>
+den Ausübenden von den leitenden Ärzten oft die diffizilsten<lb/>
+Verrichtungen und die Anwesenheit bei Sektionen zugemutet;<lb/>
+von derselben Seite aber wird Zeter gerufen über die Un-<lb/>
+weiblichkeit, wenn die Frauen dieselben Hilfeleistungen wissen-<lb/>
+schaftlich gebildet betreiben möchten; &#x2013; namentlich wird<lb/>
+viel gegen das gemeinsame Studium mit den Studenten de-<lb/>
+battiert.</p><lb/>
+<p>Jch gestehe, mit dem persönlichen Empfinden stellt man sich<lb/>
+ohne sachliche Erwägung gern auf die Seite derjenigen, welche<lb/>
+wünschen, daß auch bei uns wie es neuerdings bereits in Eng-<lb/>
+land, Amerika und Rußland möglich ist, die Damen in einer<lb/>
+besonderen Frauenakademie Medizin studieren könnten. Auch<lb/>
+glauben manche, daß wir bälder mit <hi rendition="#g">diesem Wunsche</hi> durch-<lb/>
+dringen würden, da in Deutschland noch viel Abneigung sich<lb/>
+gegen das gemeinsame Studium zeigt. Wenigstens zum Anfang<lb/>
+sollten nach dem Wunsche vieler auf einer deutschen Universität<lb/>
+Parallelkurse stattfinden.</p><lb/>
+<p>Aber ein merkwürdiges, beachtenswertes Zeichen ist es, daß<lb/>
+die wohlwollenden Professoren in der Schweiz, in England, in<lb/>
+Amerika, welche <hi rendition="#g">gemeinsam</hi> mit Studenten studiert haben,<lb/>
+darauf bestehen und erklären, bei der streng wissenschaftlichen<lb/>
+Auffassung, welche die gereiften Schülerinnen für dieses ernste<cb/>
+<pb facs="#f0004" n="21"/>
+<fw type="header" place="top"><hi rendition="#c">Allgemeine Deutsche Universitäts-Zeitung.<lb/>
+Nr. 2.<space dim="horizontal"/>Berlin, 15. Januar 1892.<space dim="horizontal"/><hi rendition="#aq">VI</hi>. Jahrgang.</hi></fw><lb/>
+Studium mitbringen, hätten sich bei dem feinen Takte der Lehrer<lb/>
+und bei der Anständigkeit und dem guten Tone der Mitschüler<lb/>
+im Auslande noch niemals peinliche Situationen ergeben.</p><lb/>
+<p>Nothwendig sei aber der <hi rendition="#g">gemeinsame</hi> Unterricht und ge-<lb/>
+meinsames Examen deshalb, weil man sonst die Ärztinnen stets<lb/>
+als <hi rendition="#g">minderwertig</hi> betrachten würde.</p><lb/>
+<p>Zu erwähnen darf ich nicht unterlassen, daß leider einige<lb/>
+ultramontane Blätter die Reichstagsdebatten dazu benutzten, in<lb/>
+weitern Kreisen den Anschein zu erwecken, als sei die Frauen-<lb/>
+frage nun eine Parteifrage geworden.</p><lb/>
+<p>&#x201E;Mit besonderer Vorliebe haben sie versucht&#x201C;, schreibt die<lb/>
+uns günstig gestimmte Universitätszeitung &#x201E;die Ärztinnenfrage<lb/>
+den Sozialdemokraten an die Rockschöße zu hängen&#x201C;. &#x2013; Denn<lb/>
+damit hoffen diese Blätter die ganze Bestrebung zu untergraben.</p><lb/>
+<p>&#x201E;Und doch&#x201C; &#x2013; fährt die befreundete Zeitung fort, &#x201E; haben<lb/>
+sich die Frauen stets <hi rendition="#g">lebhaft dagegen verwahrt</hi>, daß ihre<lb/>
+Bewegung <hi rendition="#g">jemals</hi> Parteisache werden sollte, denn sie wünschen,<lb/>
+daß <hi rendition="#g">Vertreter aller Parteien</hi> sich derselben annehmen<lb/>
+möchten.&#x201C;</p><lb/>
+<p>Die Examens- und Studiumsfrage der weiblichen Medizi-<lb/>
+nerinnen scheint für unsere Behörden ein viel schwierigeres Pro-<lb/>
+blem zu sein als für die andern leichtlebigeren, und neuen<lb/>
+Jdeen schneller zugänglichen Völker.</p><lb/>
+<p>Den Herren macht es namentlich Bedenken, ob man so<lb/>
+große gesetzliche Umänderungen und materiellen Aufwand wagen<lb/>
+dürfte, da es sich nicht ermessen lasse, ob diese ganze Bewegung<lb/>
+und Forderung nicht nur vorübergehend sei und auf die Dauer<lb/>
+die Probe bestehen werde.</p><lb/>
+<p>Deshalb sind schon verschiedene Vermittlungsvorschläge für<lb/>
+provisorische Einführungen und Versuche gemacht worden. &#x2013;<lb/>
+Z. B. machte nach der Reichstagssitzung im März Herr v. Barre<lb/>
+in der Zeitschrift Nation in einem längeren Aufsatz zu Gunsten<lb/>
+unserer Forderung unter anderem folgenden Vorschlag: Um<lb/>
+bald zu einem <hi rendition="#g">praktischen</hi> Resultat zu kommen, <hi rendition="#g">vorerst</hi> die<lb/>
+Frage des Studiums auf den deutschen Universitäten, deren<lb/>
+Regelung von Reichswegen allerdings noch manches Bedenken<lb/>
+und Schwierigkeiten erwecke, zu umgehen, und sich vorerst darauf<lb/>
+zu beschränken, eine Änderung der vom Bundesrat im Namen<lb/>
+des Reiches erlassenen ärztlichen Prüfungsordnung herbeizuführen.</p><lb/>
+<p>Es würde dazu nur erforderlich sein, daß von den einzelnen<lb/>
+Bundesstaaten einzelne Gymnasien bezeichnet würden, an welchen<lb/>
+auch Reifeprüfungen für Frauen stattfinden könnten. Ebenso,<lb/>
+daß die medizinischen Fakultäten der deutschen Universitäten<lb/>
+autorisiert würden zu Prüfungen von Personen weiblichen Ge-<lb/>
+schlechts, welche im Ausland studiert haben u. s. w.</p><lb/>
+<p>Jch selbst hatte mir vor zwei Jahren erlaubt, in der 4. Auf-<lb/>
+lage meiner kleinen Schrift über die Ärztinnenfrage einen noch<lb/>
+einfacheren Vorschlag zu machen für ein <hi rendition="#g">rascher</hi> einzuführendes<lb/>
+<hi rendition="#g">Übergangsstadium</hi>, daß vorerst den Einzelnen in der Schweiz<lb/>
+examinierten deutschen Ärztinnen auf Grund persönlicher Be-<lb/>
+willigung die zustehende Reichsbehörde in Deutschland die Er-<lb/>
+laubnis zum Praktizieren geben sollte.</p><lb/>
+<p>Andere Freunde unserer Sache erklärten wiederholt in der<lb/>
+Presse, es bedürfte nur einer wohlwollenden Auslegung der<lb/>
+neuen Gewerbeordnung, um uns rascher zum Ziele zu führen.<lb/>
+Es scheint allerdings nicht ganz logisch zu sein, daß zwar nach<lb/>
+der Reichsgewerbeordnung den Frauen möglich würde, den ärzt-<lb/>
+lichen Beruf auszuüben, aber ihnen jede <hi rendition="#g">Möglichkeit versagt</hi><lb/>
+wird, <hi rendition="#g">denselben nach reichsgesetzlichen Vorschriften zu<lb/>
+erlernen</hi>. So können sie also nur als sogenannte nicht-<lb/>
+approbierte Ärzte thätig sein mit allen denjenigen Nachtheilen,<lb/>
+welchen dieselben ausgesetzt sind.</p><cb/>
+<p>Zum Schluß möchte ich noch kurz auf einige Schriften auf-<lb/>
+merksam machen, welche in neuester Zeit zu Gunsten der Ärztinnen-<lb/>
+frage veröffentlicht worden sind.</p><lb/>
+<p>Da ist ein Aufsatz &#x201E;Der ärztliche Beruf für die Frauen&#x201C;<lb/>
+des Professor Doktor Herrm. v. Meyer. Derselbe ist viele<lb/>
+Jahre lang an der Hochschule Zürichs Lehrer der dort Medizin<lb/>
+studierenden Frauen gewesen.</p><lb/>
+<p>Leider kann ich nur noch einzelne der Hauptstellen hier an-<lb/>
+führen: Er sagt: wie ich gezeigt habe, lassen sich die <hi rendition="#g">gegen</hi><lb/>
+die Zulassung zum Frauenstudium ins Feld geführten Ein-<lb/>
+wände nicht aufrecht erhalten. &#x2013; &#x2013; </p><lb/>
+<p>Die Erfahrung hat bereits anders gelehrt. Deshalb ge-<lb/>
+bührt nicht nur den Frauen das <hi rendition="#g">Recht, sich in staatlich an-<lb/>
+erkannter Form</hi> dem ärztlichen Berufe widmen zu dürfen,<lb/>
+sondern sie werden auch bei Frauen- und Kinderkrankheiten so-<lb/>
+gar eine sehr willkommene Ergänzung des ärztlichen Personals<lb/>
+bilden. Mit allem Ernste müssen hier die Frauenkrankheiten<lb/>
+betont werden. &#x2013; &#x2013; Die Frau als Arzt der Frau &#x2013; sie<lb/>
+könnte hier unberechenbaren Segen stiften.</p><lb/>
+<p>Mit diesem Ausspruch des berühmten deutschen Anatomen<lb/>
+und <hi rendition="#g">gemeinsamen</hi> Lehrers von Ärzten und Ärztinnen in <hi rendition="#g">ge-<lb/>
+meinsamem</hi> Unterricht möchte ich schließen, indem ich noch<lb/>
+hervorhebe, wie am besten der heutige Stand der Ärztinnen-<lb/>
+frage eben daran zu erkennen ist, daß dieser Mann in einer<lb/>
+langen Darlegung für uns eintritt, und daß vielgelesene Blätter,<lb/>
+welche noch vor wenigen Jahren sich ablehnend gegen diese<lb/>
+Frauenwünsche verhielten, dem Aufsatz ihre Spalten öffneten.</p><lb/>
+<p>Es ist dies einer von den vielen Beweisen, die ich noch<lb/>
+anführen könnte, daß trotz der ersten Abweisung von den<lb/>
+deutschen Ministerien, den Landtagen und dem Reichstag, unsere<lb/>
+Sache <hi rendition="#g">günstig</hi> steht, ja sogar große Fortschritte gemacht hat;<lb/>
+&#x2013; denn wenn man die stenographischen Berichte der Verhand-<lb/>
+lungen über unsere Petitionen liest, so findet man, daß sie<lb/>
+achtungsvoller und nicht mehr <hi rendition="#g">prinzipiell</hi> ablehnend wie<lb/>
+frühere Äußerungen gehalten sind.</p><lb/>
+<p>Besonders günstig sind sie aber dadurch geworden, daß<lb/>
+hochgebildete und bedeutende Männer sowohl im Reichstag, als<lb/>
+zuvor in den Landtagen und namentlich auch in der württem-<lb/>
+bergischen und badischen Kammer für uns gesprochen haben.</p><lb/>
+<p>Namentlich haben wir den Juristen all überall manch zün-<lb/>
+dendes Wort, manch trefflichen Rat für unsere gute Sache zu<lb/>
+danken.</p><lb/>
+<p>Manche rieten uns auch, da vom <hi rendition="#g">Rechtsstandpunkte</hi><lb/>
+aus nichts gegen unsere Forderung einzuwenden sei, so sollten,<lb/>
+wie es bereits in einzelnen deutschen Städten, z. B. Berlin,<lb/>
+Dresden, Stuttgart, Königsberg, Leipzig, Frankfurt u. s. w.<lb/>
+der Fall sei, die Niederlassungen von Ärztinnen überall durch<lb/>
+Vereinshilfe ermöglicht werden.</p><lb/>
+<p>Wenn dann die Gegner gegen diese Thatsachen klagen<lb/>
+würden, so <hi rendition="#g">müßte</hi> die Sachlage rechtlich und gesetzlich erwogen<lb/>
+und sicher zu unsern Gunsten entschieden werden, da auch die<lb/>
+<hi rendition="#g">Bedürfnisfrage</hi> durch die glänzende Praxis der Ärztinnen<lb/>
+all überall bewiesen ist. z.B. haben in Berlin die Ärztinnen<lb/>
+Fräulein Tiburtius u. Lehmus in den letzten 14 Jahren allein<lb/>
+unentgeltlich 17000 Frauen behandelt und 400 in ihrer Klinik<lb/>
+unentgeltlich verpflegt.</p><lb/>
+<p>Wenn die Erkenntnis von der <hi rendition="#g">rechtlichen</hi>, der <hi rendition="#g">sozialen<lb/>
+ethischen</hi> und <hi rendition="#g">sanitären</hi> Bedeutung dieser Frage so be-<lb/>
+ständig wächst, wie in den letzten Jahren, so können wir<lb/>
+alten Pioniere der Frauenbewegung es vielleicht auch noch er-<lb/>
+leben, daß wir das <hi rendition="#g">Recht</hi> unserer Ahnfrauen, die Heilkunde zu<lb/>
+betreiben, zurückgewinnen.</p><cb/>
+<pb facs="#f0005" n="22"/>
+<fw type="header" place="top">Allgemeine Deutsche Universitäts-Zeitung.<space dim="horizontal"/>Nr. 2.</fw><lb/>
+<p>Wesentlich dem Ziele näher wird es uns führen, wenn<lb/>
+durch eifriges Mitwirken unserer Gesinnungsgenossen in immer<lb/>
+weiteren Kreisen die Wahrheit des Meierischen Satzes erkannt<lb/>
+wird:</p><lb/>
+<p>&#x201E;Die Frau als Arzt der Frau könnte unberechenbaren<lb/>
+Segen stiften.&#x201C;</p><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+</div>             <gap reason="insignificant" unit="lines" quantity="26"/><cb/>
+<gap reason="insignificant" unit="lines" quantity="40"/><lb/>
+<cb type="end"/>
+<gap reason="insignificant" unit="lines" quantity="3"/><lb/>
+<cb type="start"/>
+<gap reason="insignificant" unit="lines" quantity="11"/><cb/>
+<gap reason="insignificant" unit="lines" quantity="6"/><lb/>
+<cb type="start"/>
+<gap reason="insignificant" unit="lines" quantity="10"/><cb/>
+<gap reason="insignificant" unit="lines" quantity="9"/><lb/>
+<cb type="end"/>
+<cb type="end"/>
+<div type="imprint">             <p>Herausgeber und verantwortlicher Leiter Sanitätsrat <hi rendition="#aq">Dr</hi>. <hi rendition="#g">Konrad Küster</hi> in Berlin SW., Tempelhofer Ufer 21.<lb/>
+Geschäftsleitung durch das Bibliographische Bureau, Berlin C., Alexanderstraße 2. &#x2013; Druck von Fr. Aug. Eupel in Sondershausen.</p><lb/>
+</div>         </body>     </text> </TEI>

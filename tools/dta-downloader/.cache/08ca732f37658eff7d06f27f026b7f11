@@ -1,0 +1,1055 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.deutschestextarchiv.de/basisformat.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">     <teiHeader>
+<fileDesc>
+<titleStmt>
+<title type="main">Das Pfennig-Magazin für Belehrung und Unterhaltung</title>
+<title type="sub">Neue Folge, Erster Jahrgang, Nr. 16</title>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/115266127">
+<surname>Geyken</surname>
+<forename>Alexander</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1222198746">
+<surname>Haaf</surname>
+<forename>Susanne</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1019062681">
+<surname>Jurish</surname>
+<forename>Bryan</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Boenig</surname>
+<forename>Matthias</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Thomas</surname>
+<forename>Christian</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Wiegand</surname>
+<forename>Frank</forename>
+</persName>
+</editor>
+<respStmt>
+<orgName>Institut für Deutsche Sprache, Mannheim</orgName>
+<resp>
+<note type="remarkResponsibility">Bereitstellung der Bilddigitalisate und TEI
+Transkription</note>
+<ref target="http://hdl.handle.net/10932/00-01B8-B07C-75CF-3901-2"/>
+</resp>
+</respStmt>
+<respStmt>
+<persName>
+<forename>Peter</forename>
+<surname>Fankhauser</surname>
+</persName>
+<resp>
+<note type="remarkResponsibility">
+Transformation von TUSTEP nach TEI P5.
+Transformation von TEI P5 in das DTA TEI P5 Format.
+</note>
+</resp>
+</respStmt>
+<respStmt>
+<orgName ref="https://www.bbaw.de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<resp>
+<note type="remarkResponsibility">Langfristige Bereitstellung der DTA-Ausgabe</note>
+<ref target="https://www.bbaw.de"/>
+</resp>
+</respStmt>
+</titleStmt>
+<editionStmt><edition>Vollständige digitalisierte Ausgabe.</edition></editionStmt>
+<extent>
+<measure type="images">8</measure>
+<measure type="tokens">6338</measure>
+<measure type="types">2549</measure>
+<measure type="characters">43367</measure>
+</extent>
+<publicationStmt>
+<publisher xml:id="DTACorpusPublisher">
+<email>dta@bbaw.de</email>
+<orgName role="project">Deutsches Textarchiv</orgName>
+<orgName role="hostingInstitution" xml:lang="en">Berlin-Brandenburg Academy of Sciences and Humanities (BBAW)</orgName>
+<orgName role="hostingInstitution" xml:lang="de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<address>
+<addrLine>Jägerstr. 22/23, 10117 Berlin</addrLine>
+<country>Germany</country>
+</address>
+</publisher>
+<pubPlace>Berlin</pubPlace>
+<date type="publication">2025-10-24T08:35:10Z</date>
+<availability>
+<licence target="http://creativecommons.org/publicdomain/zero/1.0/">
+<p>Dieses Werk steht unter der "Creative Commons Namensnennung -
+Nicht kommerziell 3.0 Deutschland Lizenz" (CC BY-NC).</p>
+</licence>
+</availability>
+<idno>
+<idno type="URLWeb">https://www.deutschestextarchiv.de/nn_pfennig016_1843</idno>
+<idno type="URLXML">https://www.deutschestextarchiv.de/book/download_xml/nn_pfennig016_1843</idno>
+<idno type="URLHTML">https://www.deutschestextarchiv.de/book/download_html/nn_pfennig016_1843</idno>
+<idno type="URLText">https://www.deutschestextarchiv.de/book/download_text/nn_pfennig016_1843</idno>
+<idno type="DTADirName">nn_pfennig016_1843</idno>
+<idno type="DTAID">34713</idno>
+<idno type="URN">urn:nbn:de:kobv:b4-34713-7</idno>
+</idno>
+</publicationStmt>
+<sourceDesc>
+<bibl type="J">Das Pfennig=Magazin für Belehrung und Unterhaltung. Neue Folge, Erster Jahrgang, Nr. 16. Leipzig (Sachsen), 22. April 1843.</bibl>
+<biblFull>
+<titleStmt>
+<title level="m" type="main">Das Pfennig-Magazin für Belehrung und Unterhaltung</title>
+<title level="m" type="sub">Neue Folge, Erster Jahrgang, Nr. 16</title>
+</titleStmt>
+<editionStmt>
+<edition n="1"/>
+</editionStmt>
+<publicationStmt>
+<publisher/>
+<pubPlace>Leibzig (Sachsen)</pubPlace>
+<date type="publication">1843</date>
+</publicationStmt>
+</biblFull>
+<msDesc>
+<msIdentifier/>
+<physDesc>
+<typeDesc>
+<p>Fraktur</p>
+</typeDesc>
+</physDesc>
+</msDesc>
+</sourceDesc>
+</fileDesc>
+<encodingDesc>
+<editorialDecl>
+<p>
+<![CDATA[
+<p>Siehe Dokumentation</p>
+]]>
+</p>
+</editorialDecl>
+<tagsDecl>
+<rendition scheme="css" xml:id="aq">font-family:sans-serif</rendition>
+<rendition scheme="css" xml:id="b">font-weight:bold</rendition>
+<rendition scheme="css" xml:id="blue">color:blue</rendition>
+<rendition scheme="css" xml:id="c">display:block; text-align:center</rendition>
+<rendition scheme="css" xml:id="et">display:block; margin-left:2em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et2">display:block; margin-left:4em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et3">display:block; margin-left:6em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="f">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="fr">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="g">letter-spacing:0.125em</rendition>
+<rendition scheme="css" xml:id="i">font-style:italic</rendition>
+<rendition scheme="css" xml:id="in">font-size:150%</rendition>
+<rendition scheme="css" xml:id="k">font-variant:small-caps</rendition>
+<rendition scheme="css" xml:id="larger">font-size:larger</rendition>
+<rendition scheme="css" xml:id="red">color:red</rendition>
+<rendition scheme="css" xml:id="right">display:block; text-align:right</rendition>
+<rendition scheme="css" xml:id="s">text-decoration:line-through</rendition>
+<rendition scheme="css" xml:id="smaller">font-size:smaller</rendition>
+<rendition scheme="css" xml:id="sub">vertical-align:sub; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="sup">vertical-align:super; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="u">text-decoration:underline</rendition>
+<rendition scheme="css" xml:id="uu">border-bottom:double 3px #000</rendition>
+</tagsDecl>
+</encodingDesc>
+<profileDesc>
+<langUsage>
+<language ident="deu">(Früh-)Neuhochdeutsch</language>
+<language ident="deu">German</language>
+</langUsage>
+<textClass>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1main">Gebrauchsliteratur</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1sub">Zeitschrift</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">ready</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">mkhz1</classCode>
+</textClass>
+</profileDesc>
+</teiHeader>
+<text>     <front>
+<pb facs="#f0001" n="[121]"/>
+<titlePage type="heading"><docTitle><titlePart type="main"><hi rendition="#c #fr">Das Pfennig=Magazin<lb/>
+für<lb/>
+<hi rendition="#g">Belehrung und Unterhaltung</hi>.</hi></titlePart></docTitle><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<docImprint><hi rendition="#fr">Nr</hi>. 16. ]                <hi rendition="#c">Neue Folge. Erster Jahrgang.</hi>                <docDate><hi rendition="#right">[ 22. <hi rendition="#g">April</hi> 1843.</hi></docDate>              </docImprint></titlePage><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+</front>     <body>       <div n="1" type="jArticle"><head><hi rendition="#fr">Breslau.</hi></head><lb/>
+<figure>         <head>  Der große Ring mit dem Rathhause.  </head>       </figure><lb/>
+<cb type="start"/>
+<p><hi rendition="#in">B</hi>reslau ( poln. Wraclama ) , die dritte königliche Re-<lb/>
+sidenzstadt Preußens, Hauptstadt der Provinz Schlesien,<lb/>
+Sitz eines aus 22 Kreisen bestehenden Regierungsbezirks<lb/>
+und Hauptort des breslauer Kreises, liegt 345 Fuß hoch<lb/>
+über der Ostsee in einer großen weiten Ebene am Ein-<lb/>
+flusse der Ohlau in die Oder, die hier mehre Jnseln bil-<lb/>
+det. Die Stadt liegt auf beiden Seiten der Oder und<lb/>
+wird zugleich von der hier in die Oder fallenden Ohlau<lb/>
+durchströmt. Sie hat zwei Meilen im Umfange und<lb/>
+besteht aus der Alt= und Neustadt und 5 Vorstädten,<lb/>
+der ohlauer, schweidnitzer, Nikolai= und Odervorstadt,<lb/>
+wozu noch der Sand kommt, der aus der Sandinsel,<lb/>
+dem Dome und Neuscheiting besteht. Die Altstadt,<lb/>
+welche im J. 1348 zu beiden Seiten der Ohlau nach<lb/>
+einem von Kaiser Karl <hi rendition="#aq">IV</hi>. selbst entworfenen Plane an-<lb/>
+gelegt wurde, bildet ein längliches Viereck, dessen Mitte<lb/>
+der Ring ist, welcher, wie in Schlesien, Böhmen und<lb/>
+Polen allgemein, um das Rathhaus herum liegt. Der<lb/>
+Ring ist der Hauptmarkt Breslaus. Gerade, ziemlich<lb/>
+breite Straßen führen von ihm aus nach dem Nikolai=,<lb/>
+ohlauer, schweidnitzer und Oderthore. Die ältesten<lb/>
+Vorstädte sind an diese innere Stadt so angeschlossen,<lb/>
+daß sie als erweiterte, durch die Ohlau zwar getrennte,<lb/>
+aber durch 6 Haupt= und mehre Nebenbrücken verbun-<lb/>
+dene Straßen mit derselben ein Ganzes bilden und nur<lb/>
+als äußere Stadt unterschieden werden, wie sie denn auch<lb/>
+ehemals in die Festungswerke eingeschlossen waren.</p><lb/>
+<p>Auch die westlich gelegene Neustadt, welche bis 1327<lb/>
+<cb n="2"/>
+eine eigene Stadt war, seitdem aber die Rechte der Alt-<lb/>
+stadt bekam und mit ihr unter derselben Verwaltung<lb/>
+stand, erscheint nur als eine Fortsetzung der Altstadt.</p><lb/>
+<p>Als im December 1806 die Franzosen und Baiern<lb/>
+Breslau belagerten, suchte es der Commandant General<lb/>
+Thiele dadurch zu retten, daß er die Nikolai=, ohlauer<lb/>
+und schweidnitzer Vorstadt niederbrennen ließ, mußte aber<lb/>
+dennoch schon am 5. Januar 1807 capituliren, worauf<lb/>
+die Festungswerke demolirt wurden. Seitdem sind die<lb/>
+genannten Vorstädte nur durch einen mit vier Brücken<lb/>
+überbauten Graben von der eigentlichen Stadt getrennt.</p><lb/>
+<p>Die Vorstädte Sandinsel und Dom liegen nördlich,<lb/>
+die Odervorstadt und der Bürgerwerder aber vor dem<lb/>
+Oderthore. Eine hölzerne, in zwei Abtheilungen zerfal-<lb/>
+lende Hauptbrücke verbindet das linke und rechte Oder-<lb/>
+ufer, sechs andere Brücken gehen über die einzelnen<lb/>
+Oderarme. Die 1822 aus Gußeisen errichtete Königs-<lb/>
+brücke führt über den Stadtgraben am Nikolaithore.</p><lb/>
+<p>Die 1806 niedergebrannten Vorstädte sind schön,<lb/>
+freundlich, jedoch nicht regelmäßig wieder aufgebaut wor-<lb/>
+den, da die meisten Gebäude auf denselben Stellen wie-<lb/>
+der aufgeführt wurden, auf denen sie niedergebrannt<lb/>
+waren.</p><lb/>
+<p>Die Stadt zählt 270 öffentliche und 4000 Privat-<lb/>
+gebäude, 300 Fabrik= und 1800 Nebengebäude und<lb/>
+zählt ohne das Militair über 90,000 Einwohner, unter<lb/>
+denen sich etwa 25,000 Katholiken und 5000 Juden<lb/>
+befinden. Breslau nimmt sich, von fern gesehen, seiner<lb/>
+<cb type="end"/>
+<pb facs="#f0002" n="122"/>
+<fw place="top" type="pageNum">122</fw><cb type="start"/>
+vielen Thürme wegen, unter denen der Elisabeththurm,<lb/>
+der Rathhausthurm und die beiden Thürme der Mag-<lb/>
+dalenenkirche hoch emporragen, sehr gut aus, doch ändert<lb/>
+sich der Eindruck, wenn man in die Stadt selbst ein-<lb/>
+tritt. Die engen, schiefgebauten Straßen der Stadt sind<lb/>
+mit Häusern nach der alten Bauart besetzt; die Giebel-<lb/>
+seite ist nach den Straßen gerichtet und die schmalen<lb/>
+Häuser stehen dicht aneinander, sodaß es in manchen<lb/>
+derselben so finster ist, daß man auch bei Tage die Trep-<lb/>
+pen mit einer Lampe beleuchten muß. Die neuen Häu-<lb/>
+ser sind dagegen alle in modernem Style aufgeführt.</p><lb/>
+<p>Breslau hat seit 1829 keine Thore mehr, sondern<lb/>
+nur Barrièren mit Zollhäusern. Die ehemaligen Festungs-<lb/>
+werke sind seit 1814 in Spaziergänge und Gärten um-<lb/>
+gewandelt. Die zwei Bastionen, welche als Berge ste-<lb/>
+hen geblieben sind, tragen englische Gärten, und eine, die<lb/>
+Taschenbastion, gewährt einen herrlichen Überblick der<lb/>
+südlichen und östlichen, von dem fernen Riesen= und<lb/>
+glazer Gebirge begrenzten Gegend.</p><lb/>
+<p>Von den öffentlichen Plätzen verdient vor allen<lb/>
+andern der große Ring, welcher den Mittelpunkt der<lb/>
+Altstadt bildet, unsere Aufmerksamkeit. Er besteht aus vier<lb/>
+Theilen, welche besondere Namen führen, z. B. Para-<lb/>
+deplatz, Naschmarkt u. s. w., und ist durch das in seiner<lb/>
+Mitte stehende, wahrscheinlich im 14. Jahrhundert er-<lb/>
+baute Rathhaus ausgezeichnet. Wir sehen es auf der<lb/>
+umstehenden Abbildung von seiner Ost= und Südseite;<lb/>
+über den gothischen Fenstern erfreuen den Kenner schöne<lb/>
+Sculpturarbeiten. Es enthält einen berühmten großen<lb/>
+Keller, schweidnitzer Keller genannt, in welchem ein un-<lb/>
+terirdischer Bierschank getrieben wird und der beliebte<lb/>
+breslauer Schöps den durstigen Gaumen labt.</p><lb/>
+<p>Außer dem Ringe verdienen noch der Blücher=, der<lb/>
+Tauenzien= und der Exercierplatz, sowie der Neumarkt,<lb/>
+weil er der größte öffentliche Platz Breslaus ist, eine Er-<lb/>
+wähnung. Der Blücherplatz hieß sonst der Salzring und<lb/>
+bekam seinen jetzigen Namen von einer ehernen Statue<lb/>
+Blücher's, welche ihm zu Ehren die Provinz Schlesien<lb/>
+hier aufstellen ließ. Sie ist von Rauch modellirt, von<lb/>
+Lequine in Berlin gegossen und mit der Plinthe ( Unter-<lb/>
+platte einer Statue ) 26 1 / 2 Fuß hoch. Der Tauenzien-<lb/>
+platz vor dem schweidnitzer Thore hat seinen Namen von<lb/>
+einem Marmordenkmale, das man hier dem glücklichen<lb/>
+Vertheidiger Breslaus gegen die Östreicher im siebenjäh-<lb/>
+rigen Kriege, dem General Tauenzien, errichtet hat.</p><lb/>
+<p>Breslau hat viele gottesdienstliche Gebäude; man<lb/>
+zählt daselbst 10 protestantische, 21 katholische Kirchen<lb/>
+und 7 privilegirte Synagogen.</p><lb/>
+<p>Unter den 10 protestantischen Kirchen zeichnet sich<lb/>
+die Elisabethkirche durch ihren 364 Fuß hohen, mit einer<lb/>
+220 Ctr. schweren Glocke versehenen Thurm <note place="foot" n="*)">Der Thurm war früher fast ebenso hoch als der Ste-<lb/>
+phansthurm in Wien, aber 1529 stürzte seine Spitze, ohne<lb/>
+Schaden anzurichten, herab.</note> , ihre<lb/>
+große, prächtige Orgel, ihre kunstvollen Hauptthüren und<lb/>
+viele schöne Denkmäler, sowie durch die ihr angehörige,<lb/>
+an Handschriften reiche Rediger'sche Bibliothek aus. Au-<lb/>
+ßer ihr ist noch die Maria=Magdalenakirche wegen ihrer<lb/>
+schönen Orgel und wegen der darin befindlichen Gyps-<lb/>
+abbildungen der Apostel, sowie die reformirte Kirche we-<lb/>
+gen ihrer edeln Einfachheit und zweckmäßigen Bauart zu<lb/>
+nennen. Von ersterer ging durch den Nürnberger Heß<lb/>
+von Hessenstein die Reformation Breslaus und Schle-<lb/>
+siens aus, letztere ist jetzt Hofkirche. Die Kirche zu den<lb/>
+11,000 Jungfrauen bildet ein schönes Zwölfeck und hat<lb/>
+eine Kuppel. Unter den katholischen Kirchen imponirt<lb/>
+vor allen andern der Dom zu St.=Johannes. Er soll<lb/>
+<cb n="2"/>
+zwischen 1148&#x2014;78 erbaut worden sein und steht auf<lb/>
+der Dominsel. Die Spitzen seiner beiden Thürme, welche<lb/>
+in den Jahren 1740 und 1759 durch Feuer beschädigt<lb/>
+wurden, haben die zierlichen Spillen und Knöpfe verlo-<lb/>
+ren und sind mit bloßen Regendächern versehen. Die<lb/>
+Kirche hat 17 Kapellen, von denen die Elisabethskapelle<lb/>
+die schönste ist, viele Denkmäler und einen Hochaltar von<lb/>
+gediegenem Silber. Merkwürdig ist auch die Collegiat-<lb/>
+kirche zum heiligen Kreuz, vor welcher die Bildsäule des<lb/>
+heiligen Nepomuk steht und unter welcher sich die Bar-<lb/>
+tholomäuskirche befindet. Die starken Säulen, welche<lb/>
+das Gewölbe dieser unterirdischen Kirche tragen, sind zu-<lb/>
+gleich die Fundamente der Säulen der Kreuzkirche.</p><lb/>
+<p>Außer diesen kirchlichen Gebäuden besitzt Breslau<lb/>
+noch viele andere merkwürdige Gebäude, z. B. das Uni-<lb/>
+versitätsgebäude mit der <hi rendition="#aq">Aula Leopoldina</hi>, wozu das<lb/>
+ehemalige Jesuitencollegium verwendet worden ist. Die<lb/>
+Universität wurde 1702 auf Betrieb der Jesuiten gegrün-<lb/>
+det, hatte aber bis 1811 nur eine theologische und phi-<lb/>
+losophische Facultät, von da an aber wurde die frankfur-<lb/>
+ter Universität mit ihr vereinigt und sie dadurch zur voll-<lb/>
+ständigen Universität erhoben. Sie hat das Eigenthüm-<lb/>
+liche, daß sie zwei theologische Facultäten besitzt, eine ka-<lb/>
+tholische und eine evangelische, und zwar mit gleichen<lb/>
+Rechten, daher sie eine paritätische Universität heißt. Sie<lb/>
+hat wissenschaftliche Hülfsanstalten aller Art, besonders<lb/>
+eine über 300,000 Bände starke Bibliothek, darunter die<lb/>
+an orientalischen Werken reiche <hi rendition="#aq">Bibliotheca Habichtiana</hi><lb/>
+mit 2000 Thlrn. jährlicher Einnahme, ein anatomisches<lb/>
+Theater und Museum, ein klinisches Jnstitut mit 5000<lb/>
+Thlrn. jährlicher Einkünfte, eine Sternwarte auf dem<lb/>
+Universitätsgebäude, einen botanischen Garten, ein natur-<lb/>
+historisches Museum, Anstalten und Sammlungen für<lb/>
+Physik und Chemie, eine Bildergalerie, entstanden aus<lb/>
+den Gemälden eingezogener Kirchen und Klöster, eine<lb/>
+Sammlung schlesischer Alterthümer, ein schlesisches Pro-<lb/>
+vinzialarchiv, das größtentheils aus Urkunden der aufge-<lb/>
+hobenen Klöster erwachsen ist und 1821 bereits 30,000<lb/>
+Stück zählte, u. A. Viele Zöglinge der Universität fin-<lb/>
+den in den theologischen und philologischen Seminarien,<lb/>
+welche mit der Universität verbunden sind, Gelegenheit,<lb/>
+sich praktisch für ihren Beruf vorzubereiten. Jm J. 1841<lb/>
+zählte die Universität 612 Studirende, worunter nur 7<lb/>
+Fremde, früher oft über 1000.</p><lb/>
+<p>Andere wissenschaftliche Anstalten Breslaus sind die<lb/>
+medicinisch=chirurgische Lehranstalt, das Hebammeninsti-<lb/>
+tut, die Kunst=, Bau= und Handwerksschule, die Taub-<lb/>
+stummen- und Blindenanstalt, die Sonntagsschule und<lb/>
+viele Elementar=Schulanstalten; auch ist jetzt hier der<lb/>
+Sitz der <hi rendition="#aq">Academia Leopoldino-Carolina naturae cu-<lb/>
+riosorum</hi>, die früher mit ihrem Präses, Nees von Esen-<lb/>
+beck, in Bonn war.</p><lb/>
+<p>Es erscheinen in Breslau 2 Zeitungen und 12 Zeit-<lb/>
+schriften, unter denen die &#x201E;Schlesischen Provinzialblätter&#x201C;<lb/>
+ein zuverlässiges Archiv für die Geschichte Schlesiens bil-<lb/>
+den. 16 Buch= und Musikalienhandlungen setzen die<lb/>
+durch 24 Buch=, Kupfer= und Steindruckereien verkör-<lb/>
+perten alten und neuen Jdeen unablässig in Circulation.</p><lb/>
+<p>Die zweckmäßigsten Wohlthätigkeitsanstalten, unter<lb/>
+denen sich 10 Hospitäler und 5 Waisenhäuser befinden,<lb/>
+sorgen für alle möglichen Alter und Stände. Die sämmt-<lb/>
+lichen milden Stiftungen besitzen über 2 Mill. Thlr.<lb/>
+Capital und verwenden jährlich an 120,000 Thlr. zu<lb/>
+ihrem Zwecke, Noth aller Art zu lindern.</p><lb/>
+<p>Handel und Jndustrie, obgleich in der neuesten Zeit<lb/>
+durch die gespannten Verhältnisse zwischen Polen und<lb/>
+Rußland, mit welchen Ländern man sehr lebhafte und<lb/>
+einträgliche Geschäfte machte, sehr gedrückt, sind dennoch<lb/>
+<cb type="end"/>
+<pb facs="#f0003" n="123"/>
+<fw place="top" type="pageNum">123</fw><cb type="start"/>
+sehr bedeutend, denn es sind in Breslau gegen 120<lb/>
+Handlungen; die Schiffahrt beschäftigt gegen 1800<lb/>
+Schiffe und es besteht eine fast tägliche Schiffsverbin-<lb/>
+dung mit Hamburg. Vier Jahr= und zwei Wollmärkte<lb/>
+&#x2014; von letztern der zu Anfang Juni gehaltene wegen<lb/>
+ungeheuern Vertriebs der wichtigste der Welt &#x2014; beför-<lb/>
+dern den Verkehr, und die projectirten Eisenbahnen, von<lb/>
+denen die nach Oppeln führende bereits begonnen ist, die<lb/>
+breslau=schweidnitz=freiburger nächstens und die über Lieg-<lb/>
+nitz nach Frankfurt an der Oder zu führende dann auch<lb/>
+bald in Ausführung gebracht werden muß, weisen auf<lb/>
+eine noch schönere Zukunft hin. Auch ist die Stadt der<lb/>
+Geburtsort verschiedener berühmter Männer, von denen<lb/>
+hier nur an die drei Philosophen v. Wolf, Garve und<lb/>
+Schleiermacher erinnert werden kann.</p><lb/>
+<p>Breslau ist eine sehr alte Stadt, die jedoch in der<lb/>
+Geschichte erst seit 1163, wo es die Hauptstadt des von<lb/>
+Polen getrennten eigenen Herzogthums wurde, bekannter<lb/>
+wird. Schon frühzeitig wußte sie sich große Freiheiten<lb/>
+zu erwerben, welche unter den luxemburgischen Regenten<lb/>
+noch größer wurden. Bei dem Einfalle der Mongolen,<lb/>
+1241, wurde es von der Besatzung verbrannt; im Hus-<lb/>
+sitenkriege nahm es Partei gegen die Hussiten, und als<lb/>
+Georg Podiebrad König ward, gegen diesen. Jm Jahre<lb/>
+1526 kam es an Ferdinand von Östreich, doch hatte es<lb/>
+vorher, schon 1517, den Protestantismus angenommen,<lb/>
+den es, obgleich der Bischof und das Capitel katholisch<lb/>
+blieben, sogar im dreißigjährigen Kriege behauptete. Durch<lb/>
+den Frieden vom 11. Juni 1742 kam es an Preußen,<lb/>
+bei dem es seitdem geblieben ist und dem es viel von<lb/>
+seiner Größe und Blüte verdankt.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Der Komet von</hi> 1843.</head><lb/>
+<p><hi rendition="#in">D</hi>er Kometen, wegen ihrer sonderbaren, gleichsam mit<lb/>
+Haaren umgebenen Gestalt auch Haarsterne genannt, sind<lb/>
+bis jetzt beinahe 400, davon aber nur 130 genauer beob-<lb/>
+achtet worden. Jhre Zahl soll sich jedoch nach Einigen<lb/>
+auf 437,000, nach Andern auf mehre Millionen belau-<lb/>
+fen. Der Komet besteht aus dem Kern, aus der den-<lb/>
+selben umgebenden Dunsthülle und aus dem Schweife.<lb/>
+Der Kern ist oft ein fester, planetenartiger Körper, oft<lb/>
+aber auch nur eine bloße Anhäufung von Dünsten, die<lb/>
+nur selten in der Mitte der Dunsthülle oder des soge-<lb/>
+nannten Kopfs als ein stärker glänzendes Scheibchen sich<lb/>
+erkenntlich macht. Die umgebende Dunsthülle ist ge-<lb/>
+wöhnlich noch matter beleuchtet, meist kegelförmig und<lb/>
+scheint in größern Entfernungen von ihrem Mittelpunkte<lb/>
+immer lockerer zu werden, ist aber, im Vergleich mit dem<lb/>
+Kerne, in der Regel sehr groß. Der Schweif, ein Ne-<lb/>
+bel in dieser Form, erscheint meist in einer der Sonne<lb/>
+entgegengesetzten Seite; einmal, 1819, erschien ein Ko-<lb/>
+met sogar mit zwei Schweifen, während mitunter dieser<lb/>
+Nebel sich beinahe ringförmig um den Kometen zieht.<lb/>
+Da die Kometen oft erst in mehren hundert, ja tausend<lb/>
+Jahren wiederkehren, so ist die Berechnung ihrer Um-<lb/>
+laufszeit sehr schwierig, und man hat nur bei vier Ko-<lb/>
+meten die Bahnen mit Gewißheit angeben können: bei<lb/>
+dem Halley'schen, der in den Jahren 1531, 1607, 1682,<lb/>
+1759 und 1835 erschien; bei dem Olbers'schen, am 6. Mai<lb/>
+1815 entdeckt, dessen Umlaufszeit auf 74 Jahre berech-<lb/>
+net wurde; bei dem Pons'schen, entdeckt am 26. Nov.<lb/>
+1818, von Encke mit einer Umlaufszeit von3 3 / 4 Jah-<lb/>
+ren berechnet; bei dem v. Biela'schen, am 27. Februar<lb/>
+1826 entdeckt, mit einer Umlaufszeit von6 7 / 10 Jahren.<lb/>
+Der Komet von 1843 tauchte unerwartet aus der Un-<lb/>
+endlichkeit des Weltraums auf. Jn der Mitte März<lb/>
+<cb n="2"/>
+wurde er zuerst sichtbar, dem unbewaffneten Auge als<lb/>
+ein langer, glänzender Streif erscheinend, dessen Kopf<lb/>
+erst nach mehren Tagen entdeckt wurde. Die Länge des<lb/>
+Schweifs betrug 36 Grade, über den südwestlichen Ho-<lb/>
+rizont fast geradlinig sich hindehnend. Der Kopf erschien<lb/>
+als ein kleiner verwaschener Nebelfleck. Jn den ersten<lb/>
+Tagen der Erscheinung wurde sie von Manchen für ein<lb/>
+Zodiacallicht gehalten, was aber an der Stelle, die der<lb/>
+Komet einnahm, nie erscheinen kann, und überdem an<lb/>
+seiner natürlichen Stelle zu gleicher Zeit mit besonderer<lb/>
+Klarheit prangte. Von andern Seiten finden sich jetzt<lb/>
+Berichte, die es in Zweifel ziehen, ob die Lufterscheinung<lb/>
+wirklich ein Komet und nicht vielmehr ein Phänomen<lb/>
+von bis jetzt noch nicht wahrgenommener Art sei. Ein<lb/>
+als Meteorolog bewährter Gelehrter in Nassau erklärt<lb/>
+sogar den Kometen für nichts weiter als einen sogenann-<lb/>
+ten Windschweif und schließt daraus auf bald erschei-<lb/>
+nende heftige Stürme.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Die Wilhelmslinde zu Dillenburg.</hi></head><lb/>
+<cit>         <quote>           <lg type="poem">             <l>&#x201E; Alter Zeiten alter treuer Zeuge,</l><lb/>
+<l>Schmückt dich doch des Lebens frisches Grün,</l><lb/>
+<l>Und der Vorwelt kräftige Gestalten</l><lb/>
+<l>Sind uns noch in deiner Pracht enthalten!&#x201C;</l></lg><lb/>
+<bibl><hi rendition="#g">Körner</hi>.</bibl>           </quote></cit><lb/>
+<p><hi rendition="#in">Z</hi>u Dillenburg auf dem Schloßberge, unfern der Rui-<lb/>
+nen des Schlosses, in welchem 1533 der berühmte Wil-<lb/>
+helm von Oranien geboren wurde, steht eine alte ehr-<lb/>
+würdige Linde, unter welcher der Sage nach der große<lb/>
+&#x201E;Verschwiegene&#x201C; die niederländischen Abgesandten empfing,<lb/>
+als sie ihn anflehten, sich ihrer Sache nicht zu entziehen<lb/>
+und an die Spitze der Nation zu treten. Knorrig und<lb/>
+verwachsen, mit weit und seltsam verschlungenen Ästen<lb/>
+sieht sie in das liebliche Dillthal, das viele Geschlechter<lb/>
+seit jenen Zeiten kommen und schwinden und sogar die<lb/>
+Geburtsstätte des ausgezeichneten Mannes zerstören sah<lb/>
+( 1760 ) , aber bis heute treu das Andenken Dessen be-<lb/>
+wahrt, der als einer der größten Staatsmänner aller<lb/>
+Zeiten und Völker dasteht. So wahr ist es, was der<lb/>
+Dichter sagt: &#x201E;Die Stätte, die ein großer Mann betrat,<lb/>
+sie ist geweiht für alle Zeiten!&#x201C; Zu Anfange dieses<lb/>
+Jahrhunderts, dem Absterben nahe, wurde der ehrwür-<lb/>
+dige Baum durch die Pietät des Großvaters des jetzigen<lb/>
+Königs der Niederlande mit einer Mauer umzogen und<lb/>
+mit fruchtbarer Erde umgeben, hat sich dadurch von<lb/>
+neuem erholt und grünt in frischer Jugendkraft, ein al-<lb/>
+ter treuer Zeuge jener großen Zeiten, die unser Schiller in<lb/>
+so ergreifender Weise seinem Volke vor die Seele führt.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Der gelbe Domino.</hi></head><lb/>
+<p><hi rendition="#in">B</hi>ei der Vermählung des Kronprinzen eines mächtigen<lb/>
+deutschen Staats wurde unter andern Festlichkeiten auch<lb/>
+ein Maskenball im königlichen Schlosse gegeben, wobei<lb/>
+an zahlreichen Buffets Speisen und Getränke in unbe-<lb/>
+schränkten Massen den Gästen zu Gebote standen. Ein<lb/>
+gelber Domino schien es vor allen auf die vorhandenen<lb/>
+Delicatessen abgesehen zu haben. Er aß und trank, wie<lb/>
+man zu sagen pflegt, wie ein Grenadier. Als er das<lb/>
+dritte Mal wiederkam und aß und trank, als ob er<lb/>
+halb verhungert sei, wurde die Sache doch einem der<lb/>
+Lakaien auffällig, und er sprach zu dem Domino: &#x201E;Mein<lb/>
+Herr, nicht um Jhnen eine Beschränkung aufzulegen im<lb/>
+Genuß der gebotenen Gegenstände, erlaube ich mir, Sie<lb/>
+aufmerksam zu machen, sondern weil Sie sich nothwen-<lb/>
+<cb type="end"/>
+<pb facs="#f0004" n="124"/>
+<fw place="top" type="pageNum">124</fw><cb type="start"/>
+dig den größten Schaden zufügen werden, wenn Sie<lb/>
+Jhrem Körper solche Mengen zuführen.&#x201C; Der gelbe Do-<lb/>
+mino verbeugt sich und verliert sich unter der Menge.<lb/>
+Aber siehe da, der menschenfreundliche Lakai ist noch im<lb/>
+Nachdenken begriffen über die Fassungsfähigkeit des gel-<lb/>
+ben Domino, da kehrt dieser schon wieder und wirft sich<lb/>
+mit frischen Kräften auf die reichen Vorräthe des Büf-<lb/>
+fets. Jetzt wird's dem königlichen Diener zu arg. &#x201E;Herr,<lb/>
+<cb n="2"/>
+wer sind Sie?&#x201C; fährt er den unbeugsamen Esser an, und<lb/>
+als dieser zu entwischen sucht, wird er festgehalten, ent-<lb/>
+larvt und unter dem gelben Domino steckt ein Garde-<lb/>
+soldat in Uniform. Das Räthsel war bald gelöst. Die<lb/>
+wachthabende Mannschaft hatte sich einen gelben Do-<lb/>
+mino zu verschaffen gewußt und war so, einer den an-<lb/>
+dern ablösend, in den Saal gehuscht, um sich gütlich<lb/>
+zu thun.</p></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Eine japanische Rüstung aus Philipp's</hi><hi rendition="#aq">II</hi>. <hi rendition="#fr">Rüstkammer.</hi></head><lb/>
+<figure/><lb/>
+<cb type="start"/>
+<p><hi rendition="#in">W</hi>ährend der Regierung Philipp's <hi rendition="#aq">II</hi>. hatte Spanien<lb/>
+Handelsverbindungen mit den entferntesten Völkern, denn<lb/>
+im J. 1681 kam auch Portugal mit allen seinen Colo-<lb/>
+nien an Spanien. Die Portugiesen hatten 1543, durch<lb/>
+einen Sturm verschlagen, zufällig Japan entdeckt und<lb/>
+schickten 1549 ein Schiff mit der doppelten Absicht ab,<lb/>
+daselbst eine Niederlassung zu gründen und die Verbrei-<lb/>
+tung des Christenthums zu betreiben. Beide Absichten<lb/>
+gelangen über Erwarten. Das japanische Reich war da-<lb/>
+<cb n="2"/>
+mals noch nicht geschlossen und die Fürsten oder kleinen<lb/>
+Könige wurden noch nicht so strenge in Unterwürfigkeit<lb/>
+gehalten wie jetzt. Den Portugiesen wurden Niederlas-<lb/>
+sungen auf Kiusiu, der südlichsten der fünf Hauptinseln,<lb/>
+worauf Nangasaki liegt, und freier Handel durch das<lb/>
+ganze Reich gestattet, was ihnen unermeßliche Vortheile<lb/>
+brachte; auch die Missionare fanden eine willige Auf-<lb/>
+nahme und bald hatten sich sogar mehre der damaligen<lb/>
+Landesfürsten zum Christenthume bekehrt. Von diesen<lb/>
+<cb type="end"/>
+<pb facs="#f0005" n="125"/>
+<fw place="top" type="pageNum">125</fw><cb type="start"/>
+scheinen nun die Rüstungen herzurühren, welche Phi-<lb/>
+lipp <hi rendition="#aq">II</hi>., nachdem mit Portugal auch die portugiesischen<lb/>
+Niederlassungen in Japan spanisch geworden waren, von<lb/>
+Japan bekam. Wenn man sich auf den Katalog des<lb/>
+Don Abadia verlassen darf, so waren es die beiden Kai-<lb/>
+ser von Japan und China, welche dem Herrn der pyre-<lb/>
+näischen Halbinsel die Rüstungen schickten; aber das<lb/>
+war wol eine zu Ehren seines Herrn entweder von Aba-<lb/>
+dia ersonnene oder ihm von den Überbringern aufgebun-<lb/>
+dene Lüge. So viel ist gewiß, daß sie von Japan ka-<lb/>
+men. Jhr Werth für uns bleibt übrigens derselbe, mögen<lb/>
+sie vom Dairi von Japan oder von einem ihm unter-<lb/>
+geordneten Fürsten stammen; sie zeugen in beiden Fällen<lb/>
+gleich sehr von der hohen Kunstfertigkeit, welche in Ja-<lb/>
+pan zu Hause war, als sich in Europa die Jndustrie<lb/>
+noch in der Wiege befand.</p><lb/>
+<p>Vorstehende Abbildung wird uns einen deutlichen Be-<lb/>
+griff von ihnen geben. Der Kopftheil, welcher die Stelle<lb/>
+des Helms vertritt, ist von Eisen. Der Gesichtstheil<lb/>
+besteht aus demselben Metall und ist schwarz gefirnißt;<lb/>
+die Schultertheile, welche wie Flügel an beiden Seiten<lb/>
+<cb n="2"/>
+des Körpers herablaufen und einen großen Theil der<lb/>
+Arme verwahren, werden durch eiserne Tabletten, welche<lb/>
+ihrer Breite nach horizontal aneinander gerückt und ober-<lb/>
+halb mit kleinen Platten bedeckt sind, gehalten; bunte<lb/>
+seidene Schnuren verbinden mittels der in der Mitte der<lb/>
+kleinen Platten angebrachten Löcher die obern mit den<lb/>
+untern und geben dadurch den ganzen Schultertheilen<lb/>
+Halt. An dem obern Theile der Arme befindet sich ein<lb/>
+farbiger Stoff, welcher aber bald in Panzermaschen über-<lb/>
+geht, worin kleine eiserne Ringe mit kupfernen dergestalt<lb/>
+verbunden sind, daß sie sich kreuzen. Die Handgelenke<lb/>
+sind auf die nämliche Weise bedeckt. Die Arm= und<lb/>
+Handtheile bestehen aus gewalztem Eisen und sind mit<lb/>
+Vergoldungen, Gemälden von Blumen und Thieren und<lb/>
+andern Zierathen geschmückt.</p><lb/>
+<p>Die Fußbedeckung, welche neben der Rüstung abge-<lb/>
+bildet ist, besteht aus einem weißen Stoffe, welcher netz-<lb/>
+artig mit schwarzem Pferdehaar bedeckt ist; sie ist mit<lb/>
+weißem oder schwarzem Bande eingefaßt und hat zwei<lb/>
+Sohlen, von denen die eine von Filz, die andere von<lb/>
+gewöhnlichem Leder ist.</p></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Die Eröffnung des Themse=Tunnels.</hi></head><lb/>
+<figure/><lb/>
+<cb type="start"/>
+<p><hi rendition="#in">D</hi>ie kürzlich erfolgte feierliche Eröffnung des Themse-<lb/>
+tunnels gibt uns Veranlassung, unsern Lesern eine Abbil-<lb/>
+dung desselben vor Augen zu führen. Zu dem festlichen<lb/>
+Zuge, mit dem man den Tunnel am 25. März dem<lb/>
+öffentlichen Verkehre übergab, hatte man eine große<lb/>
+Menge angesehener Personen eingeladen; außerdem hat-<lb/>
+ten sich gegen 3000 Zuschauer eingefunden. Unter Mu-<lb/>
+sikbegleitung setzte sich der Zug gleich nach 4 Uhr von<lb/>
+Rotherthite aus in Bewegung und zog nach dem an-<lb/>
+dern Ende des Tunnels in Wapping, eine Strecke von<lb/>
+gegen 1200 Fuß unter der Erde zurücklegend. Der<lb/>
+Held des Tages war natürlich der Erbauer des Tunnels,<lb/>
+der vor einigen Jahren von der Königin zum Ritter er-<lb/>
+nannte Sir Jsambert Brunel, seiner Abkunft nach ein<lb/>
+Franzose; ein wiederholtes Hurrah begrüßte ihn, als man<lb/>
+ihn an der Spitze des Zugs erblickte. Bei dem Diner,<lb/>
+welches die Directoren der Tunnelgesellschaft nach Been-<lb/>
+<cb n="2"/>
+digung des Durchzugs 100 vornehmen Gästen gaben,<lb/>
+brachte der Präsident, Herr Hawes, die Gesundheit Bru-<lb/>
+nel 's aus, der schon vor 40 Jahren eine auf den könig-<lb/>
+lichen Werften noch im Gebrauch befindliche Blockma-<lb/>
+schine erfunden hat, und rühmte seinen Erfindungsgeist<lb/>
+und seine Ausdauer. Brunel schrieb bescheiden seine Er-<lb/>
+folge der Unterstützung des Publicums, der Regierung<lb/>
+und namentlich dem Herzoge von Wellington und dem<lb/>
+Grafen Spencer zu.</p><lb/>
+<p>Am Sonntage darauf war das Gedränge am Ein-<lb/>
+gange des Tunnels so groß, daß man nur mit Mühe<lb/>
+hineinkommen konnte; am Dienstage war es jedoch mit<lb/>
+dem Gedränge schon vorbei und sobald die Neugierde<lb/>
+gestillt sein wird, wird der Besuch des Tunnels nicht<lb/>
+sehr zahlreich sein, denn die durch den Tunnel verbunde-<lb/>
+nen Stadtviertel haben wenig Verkehr miteinander, doch<lb/>
+wird die herbeigeführte Verbindung bald einen Verkehr<lb/>
+<cb type="end"/>
+<pb facs="#f0006" n="126"/>
+<fw place="top" type="pageNum">126</fw><cb type="start"/>
+herbeiführen. Die Luft im Tunnel hat eine angenehme<lb/>
+Wärme und ist ohne allen Zugwind, die Gaslichter<lb/>
+brennen so ruhig darin wie in einer Stube.</p><lb/>
+<p>Die sehr ärmlich aussehenden Buden, wo man beim<lb/>
+Eintritt seinen Penny bezahlt, erhöhen die Wirkung der<lb/>
+großartigen Proportionen des Tunnels. Man scheint<lb/>
+auf einem Thurme zu stehen und auf das Schiff einer<lb/>
+großen Kirche herabzublicken. Erst wenn man einen lan-<lb/>
+gen, hübschen Treppengang hinabgegangen ist, bekommt<lb/>
+man den Tunnel selbst zu sehen.</p><lb/>
+<p>Der Tunnel kostet, trotzdem daß die Anschlagskosten<lb/>
+bedeutend überstiegen worden sind, dennoch die Hälfte<lb/>
+weniger als die Waterloobrücke.</p><lb/>
+<p>Jn der Nähe des nun vollendeten Tunnels suchte<lb/>
+schon 1802 eine Gesellschaft die durch die Themse ge-<lb/>
+trennten Theile der Stadt unterirdisch zu verbinden. Als<lb/>
+der Versuch mislungen war, machte man etwas höher<lb/>
+hinauf einen neuen Versuch, der nicht glücklicher ausfiel.<lb/>
+Ein Gutachten Sachverständiger sprach sich gegen jeden<lb/>
+weitern Versuch aus; doch ließ deshalb ein eifriger Mit-<lb/>
+unternehmer, T. Wynt, die Sache nicht aus den Au-<lb/>
+gen und ruhte nicht, bis er einen Mann gefunden hatte,<lb/>
+welcher der Ausführung gewachsen war. Dies war der<lb/>
+französische Jngenieur Brunel. Dieser entwarf, auf die<lb/>
+bisherigen Erfahrungen gestützt, einen neuen großartigen<lb/>
+Plan und fand Mittel, allen erdenklichen Unfällen zu<lb/>
+begegnen, die während der Arbeit vorkommen konnten.<lb/>
+Jm März 1825 begannen die Arbeiten. Zuerst ward<lb/>
+ein 50 Fuß weiter Schacht über 40 Fuß tief niederge-<lb/>
+führt, eine Dampfmaschine von 30 Pferdekraft zur Her-<lb/>
+ausschaffung des Schutts aufgestellt und auf dem Grunde<lb/>
+des Schachts eine 25 Fuß weite Senkgrube zur Ablei-<lb/>
+tung des Wassers angelegt. Jm Januar 1826 wurde<lb/>
+in einer Tiefe von 40 Fuß zur Eröffnung des Tunnels<lb/>
+selbst geschritten, für den eine Höhlung gewonnen wer-<lb/>
+den mußte, die zwei, zusammen 34 Fuß breite und<lb/>
+22 1 / 2 Fuß hohe, mit starken Mauern und Gewölben<lb/>
+umschlossene Gänge herzustellen erlaubte. Einer dieser<lb/>
+Gänge, die mit Gas erleuchtet werden, ist für die Ver-<lb/>
+bindung hin=, der andere für die herwärts bestimmt und<lb/>
+beide sind in der Mitte nur durch die mächtigen, die<lb/>
+Gewölbe tragenden Pfeiler geschieden. Jn der Mitte<lb/>
+Septembers 1826 erfolgte der erste Durchbruch des Was-<lb/>
+sers, als bereits 260 Fuß fertig waren; im Jan. 1827<lb/>
+ein zweiter, als bereits 350 Fuß ausgegraben waren,<lb/>
+bald darauf noch einige, die alle die Fortsetzung der Ar-<lb/>
+beit nicht aufhalten konnten; aber am 18. Mai trat der<lb/>
+erste große Wassereinbruch ein, welcher den ganzen Tun-<lb/>
+nel füllte. 3000 Tonnen Thon, die in Körben und<lb/>
+Säcken versenkt wurden, verstopften das Loch und im<lb/>
+Juli ging die Arbeit schon wieder weiter. Die Mitte<lb/>
+des Stroms war erreicht, als am 12. Januar 1828<lb/>
+ein neuer großer Einbruch erfolgte, wobei sechs Men-<lb/>
+schen ertranken. Mit 4000 Tonnen Thonerde wurde<lb/>
+die Öffnung zwar glücklich wieder verstopft, aber das<lb/>
+Geld war zu Ende und der Bau ruhte bis 1835; da<lb/>
+bewilligte das Parlament Vorschüsse zur Fortsetzung des<lb/>
+berühmten Baus und die Arbeiten schritten nun rüstig<lb/>
+wieder vorwärts, bis am 30. August 1839 das Seicht-<lb/>
+wasserzeichen auf dem nördlichen Ufer erreicht war und<lb/>
+am 25. März 1843 die Eröffnung für den Verkehr<lb/>
+vorgenommen werden konnte.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<cb n="2"/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Königin Anna Zingha.</hi><lb/>
+( Beschluß aus Nr. 15. )</head><lb/>
+<p><hi rendition="#in">N</hi>achdem sie im Jnnern ihrer Staaten nichts mehr zu<lb/>
+fürchten hatte, richtete sie ihre Gedanken auf die Aus-<lb/>
+führung der ungeheuern Pläne, die sie zu den Europäern<lb/>
+geführt hatten. Sie gab Gesetze, die, mit den unsrigen<lb/>
+verglichen, zwar sehr unvollkommen, aber auf den wil-<lb/>
+den Zustand ihrer Unterthanen mit seltenem Scharfsinne<lb/>
+berechnet waren, und beschloß dann, den Portugiesen die<lb/>
+Provinzen von Angola, die sie sich widerrechtlich ange-<lb/>
+maßt hatten, wieder abzunehmen. Sie vergaß die Ver-<lb/>
+pflichtungen, die sie ihnen schuldig war, und erklärte ih-<lb/>
+nen den Krieg, als ihr der Vicekönig zu verstehen gab,<lb/>
+daß sie als Christin dem König von Portugal Tribut zu<lb/>
+zahlen verbunden sei.</p><lb/>
+<p>Jch zahle Niemandem Tribut, rief sie stolz, die Waf-<lb/>
+fen sollen entscheiden, wer künftig hier herrschen wird.</p><lb/>
+<p>Sie bekannte sich nun öffentlich zu der Religion der<lb/>
+Schaggas und rief die zahlreichen kriegerischen Stämme<lb/>
+derselben aus dem Jnnern Afrikas zu sich. Diese eilten<lb/>
+in Menge herbei, denn eine Königin, deren Pfeil nie<lb/>
+sein Ziel verfehlte, konnte sie nur zum Siege führen.<lb/>
+Jn dem Maße, als sie jedes menschliche Gefühl aus ih-<lb/>
+rer Brust verbannte, wurde sie furchtbar, denn alle<lb/>
+Schaggas schmiegten sich unter ihren Scepter und kann-<lb/>
+ten nichts als ihren Willen.</p><lb/>
+<p>Eins der wirksamsten Mittel, deren sie sich bediente,<lb/>
+sich bei ihren Völkern unbedingten Gehorsam zu verschaf-<lb/>
+fen, bestand darin, daß sie den Glauben zu verbreiten<lb/>
+wußte, sie stehe mit der Geisterwelt in Verbindung und<lb/>
+erfahre durch diese Alles, was gegen sie oder den Staat<lb/>
+vorgenommen werde. Dadurch gelang es ihr, auch man-<lb/>
+ches Gute, das sie bei den Portugiesen kennen gelernt<lb/>
+hatte, in ihrem Reiche einzuführen. Man sah allgemein<lb/>
+etwas Göttliches in ihr. Kein Verbrecher wagte sich vor<lb/>
+ihr sehen zu lassen, da jeder glaubte, die Königin brauche<lb/>
+ihn nur anzusehen, um sogleich zu wissen, was er ge-<lb/>
+than habe. Dahin hatte sie es durch die Zuträgereien<lb/>
+der vielen Spione gebracht, die sie in allen Theilen ih-<lb/>
+res Reichs, besonders aber in ihrer Umgebung, hielt.</p><lb/>
+<p>Sogar der Gegenstand ihrer Rache mußte ihren Ab-<lb/>
+sichten dienen. Sie sammelte die Gebeine ihres von ihr<lb/>
+ermordeten Bruders und that sie in eine tragbare heilige<lb/>
+Lade, die mit ciselirten Silberplatten bedeckt und von<lb/>
+einem eigenen Priester ( Singhillo ) bedient war. Wenn<lb/>
+irgend etwas eintrat, was entgegengesetzte Entschließungen<lb/>
+zuließ, so gab sie vor, den Geist ihres Bruders zu be-<lb/>
+fragen, und Jeder unterwarf sich darauf mit Freuden<lb/>
+ihrem Willen.</p><lb/>
+<p>Es war in Angola Sitte, daß, wenn ein mächtiger<lb/>
+Mann gestorben war, eine seiner Frauen mit ihm lebendig<lb/>
+begraben wurde, um ihm in der andern Welt zu dienen.<lb/>
+Solche Schauspiele gewährten ihr großes Vergnügen.<lb/>
+Sie ging daher bisweilen weiter als die Sitte verlangte,<lb/>
+und ließ nicht selten mehre mit in das Grab werfen.</p><lb/>
+<p>Was sie aber am meisten auszeichnete, war die Lust<lb/>
+an Krieg und Plünderungszügen. Jmmer an der Spitze<lb/>
+der kriegerischen Schaggastämme, durchzog sie die Pro-<lb/>
+vinzen wie ein wüthender Bergstrom, Alles, worauf sie<lb/>
+stieß, verwüstend und verheerend und aus den fruchtbar-<lb/>
+sten Districten menschenleere Wüsten machend. Die auf<lb/>
+alle mögliche Weise geplagten Portugiesen trieb endlich<lb/>
+die Verzweiflung zu dem Entschlusse, sie in das Jnnere<lb/>
+von Afrika zurückzudrängen; sie bedienten sich dazu der<lb/>
+Waffen Zingha's und suchten ihr Feinde unter ihren<lb/>
+Verbündeten zu erwecken, was ihnen auch über alles<lb/>
+Erwarten gelang.</p><lb/>
+<cb type="end"/>
+<pb facs="#f0007" n="127"/>
+<fw place="top" type="pageNum">127</fw>       <cb type="start"/>
+<p>Ngola Starij war durch einen Zufall bei der Nie-<lb/>
+dermetzelung der königlichen Familie verschont worden.<lb/>
+Die Portugiesen machten ihn zum König von Dongo<lb/>
+und versprachen ihm kräftige Unterstützung, wenn er<lb/>
+Zingha bekriegen wollte. Er that es und Zingha war<lb/>
+bald in der größten Verlegenheit; da schickten die Por-<lb/>
+tugiesen, denen Alles daran lag, sie wieder für sich zu<lb/>
+gewinnen, Abgesandte an sie, welche ihr gegen einen<lb/>
+kleinen Tribut Hülfe gegen Ngola Starij anbieten sollten.</p><lb/>
+<p>Da aber zeigte Zingha eine Seelengröße, die viele<lb/>
+ihrer großen Fehler aufwiegt. Jch bin Königin, sagte<lb/>
+sie zu dem christlichen Abgesandten, außer sich vor Zorn<lb/>
+über die ihr gemachte Zumuthung, wie kann dein Gou-<lb/>
+verneur also mit einer Königin sprechen? Hat er mich<lb/>
+denn besiegt, daß er wagt, von Tribut zu sprechen?<lb/>
+Nein, ich bin nicht besiegt, wiederholte sie, mehrmals<lb/>
+mit einem Wurfspieße, den sie in der Hand hielt, auf<lb/>
+die Erde stoßend. Jch habe gute Truppen, ich habe<lb/>
+Muth, ich werde mich schlagen. Den Tribut soll dein<lb/>
+Vicekönig nur von meinem Leichname verlangen, denn<lb/>
+so lange ich lebe, wird er ihn nie erhalten.</p><lb/>
+<p>Die Portugiesen thaten nun, was sie dem Ngola<lb/>
+Starij versprochen hatten. Sie zogen längs der Ufer<lb/>
+des Coanza nach Matamba, nahmen mehre von den<lb/>
+17 Jnseln, welche dieser Fluß bildet, und blockirten die<lb/>
+Königin auf der, welche den Namen Dangih führt und<lb/>
+auf welcher ihr Bruder durch sie umgekommen war.<lb/>
+Durch das Musketenfeuer der Portugiesen aufs Äußerste<lb/>
+gebracht, mußte sie endlich einen Parlamentair anhören,<lb/>
+welcher in 12 Stunden Unterwerfung verlangte. Sie<lb/>
+ließ sogleich den Singhillo ihres Bruders kommen und<lb/>
+befahl ihm, den Geist desselben zu befragen. Der Geist<lb/>
+antwortete, wie es Zingha wollte, auf eine den nieder-<lb/>
+geschlagenen Muth ihrer Umgebung wieder aufrichtende<lb/>
+Weise. Es war Abend; die Nacht verging, der Mor-<lb/>
+gen kam, aber mit ihm wurde es nicht laut auf der<lb/>
+hart blockirten Jnsel. Die Portugiesen fürchteten eine<lb/>
+Kriegslist, doch griffen sie endlich an und nahmen die<lb/>
+Jnsel; aber die Königin war entwischt. Die Jnsel war<lb/>
+verlassen; nur 14 Leichname junger Sklavinnen lagen<lb/>
+um das Grabmal Bandi Angola's. Sie hatte die Dun-<lb/>
+kelheit der Nacht benutzt, war an einer Stelle, welche,<lb/>
+weil den Portugiesen daselbst jeder Übergang unmöglich<lb/>
+schien, von ihren Wachen unbesetzt geblieben war, schwim-<lb/>
+mend über den Fluß gesetzt und in die Provinz Oacco<lb/>
+entflohen. Wüthend über ihre Unfälle, suchte sie nun<lb/>
+in den entlegensten Wüsten Feinde für die Portugiesen,<lb/>
+sie verwüstete ihre eigenen Provinzen, deren sie sich be-<lb/>
+mächtigt hatten, nahm Matamba wieder und ließ die<lb/>
+Königin Muongo, welche die Portugiesen eingesetzt hat-<lb/>
+ten, mit einem rothglühenden Eisen brandmarken.</p><lb/>
+<p>Sie machte jetzt indeß die Erfahrung, daß sie ohne<lb/>
+die Europäer ihre Herrschaft nicht aufrecht erhalten würde,<lb/>
+denn schon hatte es ein Schagga gewagt, ihre Unfälle<lb/>
+zu benutzen und sich zum Herrn der Provinzen aufzu-<lb/>
+werfen, welche die Portugiesen nicht genommen hatten.<lb/>
+Zwar war er von ihr glücklich wieder verdrängt worden,<lb/>
+aber die Provinzen waren verwüstet, die Ernten verbrannt<lb/>
+und die letzten Reste ihrer Macht waren aufgezehrt. Noch<lb/>
+ein Unfall und die Nationen, die sie bis jetzt vergöttert<lb/>
+hatten, sahen in ihr nichts als eine schwache Sterbliche.<lb/>
+Bei diesem Gedanken schauderte sie, vielleicht das erste<lb/>
+Mal in ihrem Leben, obgleich sie schon 75 Jahre alt<lb/>
+war. Sie wußte, daß sie die Portugiesen schnell wieder<lb/>
+mit sich aussöhnen würde, wenn sie ihnen die Möglich-<lb/>
+keit einer Rückkehr zum Christenthume in Aussicht stellte,<lb/>
+aber sie haßte sie zu sehr; sie knüpfte daher mit den<lb/>
+Holländern, welche damals auf den Meeren mit den<lb/>
+<cb n="2"/>
+Portugiesen zu wetteifern begannen und eben mit dem<lb/>
+Kaiser von Japan einen Handelsvertrag abgeschlossen<lb/>
+hatten, Unterhandlungen an. Sie fand indessen bald, daß<lb/>
+die Holländer nicht ihre Leute waren und benutzte daher<lb/>
+ihre letzten Siege, mit den Portugiesen einen ehrenvollen<lb/>
+Frieden zu schließen. Zu gleicher Zeit gab sie ihnen zu<lb/>
+verstehen, daß sie geneigt sei, zum Christenthume zurück-<lb/>
+zukehren. Der Vicekönig, welcher von seinem Hofe Be-<lb/>
+fehl hatte, um jeden Preis die wahre oder auch nur<lb/>
+scheinbare Bekehrung der Königin zu betreiben, schickte<lb/>
+ihr sogleich Missionare und einen Gesandten. Der Ka-<lb/>
+puziner Anton von Gaeta nahm ihr die Abschwörung des<lb/>
+Heidenthums ab und söhnte sie mit der Kirche aus.</p><lb/>
+<p>Da sich Zingha überzeugt hatte, daß ihre Völker nur<lb/>
+durch das Christenthum gezähmt werden könnten, nahm<lb/>
+sie diesmal die Lehre des Evangeliums mit dem Vorsatze<lb/>
+an, ihr treu zu bleiben. Sie trat in einem Vertrage<lb/>
+ihre Ansprüche auf das Königreich Angola an den König<lb/>
+von Portugal ab, welcher seinerseits ein Schutz= und<lb/>
+Trutzbündniß mit ihr abschloß, das ihr die Herrschaft in<lb/>
+Matamba sicherte. Zingha gab nun sogleich Befehle,<lb/>
+die abscheuliche Religion der Schaggas abzuschaffen und<lb/>
+traf die zweckmäßigsten Anstalten, den blutigen Aberglau-<lb/>
+ben derselben auszurotten. Niemand außer ihr hätte das<lb/>
+wagen dürfen, ohne sich zu verderben; dabei hatte sie<lb/>
+einen ebenso harten Stand gegen die Portugiesen, welche<lb/>
+von Leidenschaft brannten, ihre Nation zu portugiesischen<lb/>
+Sklaven zu machen, aber sie wußte geschickt die Macht<lb/>
+der einen wie die Macht der andern zu ihren Plänen zu<lb/>
+benutzen; sie drohte mit den Portugiesen, wenn ihre Wil-<lb/>
+den Miene machten, sich ihren Einrichtungen zu entzie-<lb/>
+hen, und mit der Roheit der Wilden, wenn die Por-<lb/>
+tugiesen die Gerechtsame ihrer Krone angriffen oder die<lb/>
+Freiheit ihres Volks antasteten. Die Civilisation fing<lb/>
+an, sich in ihren Staaten zu entfalten, als sie der Tod<lb/>
+überraschte. Sie starb am 11. Dec. 1663 an einer<lb/>
+schlechtbehandelten Brustentzündung, 82 Jahre alt.</p><lb/>
+<p>Jhr Beichtvater Anton von Gaeta berichtet in seinen<lb/>
+Memoiren, daß sie mit den Gefühlen einer reumüthigen<lb/>
+Frömmigkeit starb und ihr halbcivilisirtes Volk untröst-<lb/>
+lich über ihren Verlust zurückließ.</p><lb/>
+<p>Als ich in den Palast kam &#x2014; erzählt der genannte<lb/>
+Geistliche &#x2014; fand ich die Königin mit ihren kostbarsten<lb/>
+Kleidern angethan. Sie lag auf einer Bahre, welche<lb/>
+mit einem Goldstoffe, dessen Enden auf der Brust der<lb/>
+Todten durch eine kostbare Edelsteinagraffe zusammenge-<lb/>
+halten wurden, bedeckt war. Auf dem Kopfe hatte sie<lb/>
+einen von einer goldenen Krone umgebenen Helm, der<lb/>
+über und über mit bunten Federn besteckt war, um den<lb/>
+Hals Korallen= und Perlenschnuren, in den Ohren reiche<lb/>
+Ohrgehänge, um die Arme bis zu den Ellbogen und<lb/>
+um die Beine bis zu den Fersen goldene, mit Edelstei-<lb/>
+nen besetzte Ringe und sehr sinnreich gearbeitete Elefan-<lb/>
+tenhaargeflechte, den prächtigsten Schmuck des Landes,<lb/>
+an den Füßen kleine Sandalen von rothem Sammet,<lb/>
+welche mit einem Korallenknopfe auf dem Fuße befestigt<lb/>
+waren.</p><lb/>
+<p>Jn diesem Schmucke wurde sie auf einem Parade-<lb/>
+bette, umgeben von den schönsten Blumen, in der Halle<lb/>
+ausgestellt, in der sie bei ihren Lebzeiten die Gesandten<lb/>
+zu empfangen pflegte. Sie hatte eine sitzende Stellung,<lb/>
+ihren Rosenkranz in den Händen und ein Kissen, das<lb/>
+ihre Pagen abwechselnd gleich Statuen halten mußten,<lb/>
+zur Lehne. Als sie ihre Unterthanen in diesem Schmucke<lb/>
+und in dieser Stellung erblickten, bildeten sie sich ein,<lb/>
+daß sie wieder lebendig geworden wäre und gaben Be-<lb/>
+weise der lebhaftesten Freude; aber als sie sahen, daß sie<lb/>
+ihnen nicht wie gewöhnlich ihren Segen gab, brachen sie<lb/>
+<cb type="end"/>
+<pb facs="#f0008" n="128"/>
+<fw place="top" type="pageNum">128</fw><cb type="start"/>
+in ein klägliches Geheul aus, wälzten sich auf der Erde,<lb/>
+rauften sich die Haare und bestreuten ihr Haupt mit<lb/>
+Staub.</p><lb/>
+<p>Zingha liebte bis zu ihrem Tode prächtige Kleider<lb/>
+und trug gewöhnlich Stoffe, die man damals im Lande<lb/>
+machte. Obwol sie aus Baumrinde bestanden, waren sie<lb/>
+doch so fein, daß ihnen der schönste Atlas Europas nicht<lb/>
+gleichkam. An Festtagen mußten ihr die reichsten Gold-<lb/>
+brocate Asiens und Europas zum Königsmantel dienen.<lb/>
+Dann trug sie auch eine goldene Krone, kostbare Perlen-<lb/>
+schnuren und goldene Ketten und Spangen an Hals,<lb/>
+Armen und Beinen. Ein mit rothem Sammt überzo-<lb/>
+gener Stab, welcher mit Perlen gestickt und mit kleinen<lb/>
+goldenen und silbernen Schellen versehen war, diente ihr<lb/>
+zum Scepter. Bisweilen, jedoch selten, kleidete sie sich<lb/>
+portugiesisch, um, wie sie sagte, ihren Namen Donna<lb/>
+Anna nicht ganz vergeblich zu führen. Sie war eine<lb/>
+leidenschaftliche Jägerin, und je gefährlicher die Jagd<lb/>
+war, desto mehr freute sie sich derselben. Jn ihren Zim-<lb/>
+mern waren die Häute von den Löwen und Tigern auf-<lb/>
+gehängt, welche sie selbst getödtet hatte.</p><lb/>
+<p>Zu ihrer Bedienung hatte Zingha 300 Frauen, welche<lb/>
+immer zu zehnen um ihre Person waren und sie keinen<lb/>
+Augenblick aus den Augen verlieren durften.</p><lb/>
+<p>Zingha aß immer öffentlich: eine große Matte, wie<lb/>
+man sie damals im Lande verfertigte, lag bei solchen<lb/>
+Gelegenheiten auf der Erde ausgebreitet und auf dersel-<lb/>
+ben eine zweite von europäischem Linnen. Sie saß auf<lb/>
+einem Kissen und aß nach der Sitte des Landes ohne<lb/>
+Messer und Gabel, nach allen Seiten große Stücke<lb/>
+Fleisch an ihre Offiziere und Frauen austheilend, welche<lb/>
+dieselben aus Respect, sie mochten Hunger haben oder<lb/>
+nicht, ohne das Geringste übrig zu lassen, augenblicklich<lb/>
+verzehren mußten. Der Pater Anton von Gaeta sah<lb/>
+ihr an einem gewöhnlichen Tage auf 80 Gerichte auf-<lb/>
+tischen. Es waren Eidechsen, Heuschrecken, große Grillen<lb/>
+und mit Haut und Haar gebratene Mäuse darunter.<lb/>
+Der Pater dankte gehorsamst, als ihm diese Leckerbissen<lb/>
+von der Königin angeboten wurden, und diese war ver-<lb/>
+ständig genug, sich deshalb nicht verletzt zu fühlen. &#x201E;Jhr<lb/>
+Europäer, sagte sie lachend, wißt nicht, was gut schmeckt.&#x201C;</p><lb/>
+<p>Bei wichtigen Gelegenheiten aß sie auch nach euro-<lb/>
+päischer Sitte; dann hatte sie sehr schönes Tafelgeschirr<lb/>
+von Gold und Silber und wurde, wie die Könige von<lb/>
+Spanien und Portugal, von ihren Offizieren auf den<lb/>
+Knien bedient. Sie that dies indessen nur selten, denn<lb/>
+sie war eine Feindin alles Zwangs und aller ungewöhn-<lb/>
+lichen Dinge.</p><lb/>
+<p>Marställe besaß sie nicht, denn in Angola und Ma-<lb/>
+tamba gab es damals weder Pferde noch Maulthiere,<lb/>
+dafür aber hatte sie kräftige Sklaven, welche in eigenen<lb/>
+Hütten unterhalten wurden und unter der Leitung eines<lb/>
+eigenen Aufsehers standen. Sie bediente sich derselben<lb/>
+wie wir der Pferde, und sie waren so stark, daß sie in<lb/>
+einem Tage, mit schweren Lasten beladen, 12&#x2014;13 deut-<lb/>
+sche Meilen zurücklegen konnten.</p><lb/>
+<p>Zingha hatte in ihrer Schwester Cambo, welche eben-<lb/>
+falls getauft war und Donna Barbara hieß, eine ihr<lb/>
+sehr unähnliche Nachfolgerin. Die ihr übergebenen Zeichen<lb/>
+des Königthums, ein Wurfspieß, ein Bogen und Pfeile,<lb/>
+vermochten nicht mehr aus ihr zu machen als sie war;<lb/>
+die ruchlosen heidnischen Gebräuche, welche Zingha mit<lb/>
+vieler Mühe ausgerottet hatte, wurden wieder eingeführt,<lb/>
+was um so leichter war, als sie in den Herzen der Un-<lb/>
+terthanen noch lebten, und nach einigen Jahren waren<lb/>
+alle Spuren der Cultur, welche Zingha ihrem Volke zu<lb/>
+<cb n="2"/>
+geben gewußt hatte, wieder verwischt und das Jnnere<lb/>
+Afrikas war aufs neue auf viele Jahrhunderte der Hu-<lb/>
+manität entrissen.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jVarious"><head><hi rendition="#fr">Miscellen.</hi></head><lb/>
+<div n="2" type="jArticle"><p>Jn dem Dorfe Weizendorf, bei dem Badeorte Rosenheim<lb/>
+in Baiern, lebt ein Bauermädchen, das seit Jahren nichts mehr<lb/>
+zu sich genommen hat als frisches Brunnenwasser. Die erste<lb/>
+Anzeige davon auf officiellem Wege gelangte durch den betref-<lb/>
+fenden Bezirksarzt vor ungefähr vier Monaten an das Mini-<lb/>
+sterium des Jnnern zu München. Dieser Arzt hatte das Mäd-<lb/>
+chen mit Zustimmung ihrer Ältern aus eigenem Jnteresse an<lb/>
+der Sache vier Wochen lang bei sich im Hause gehabt und<lb/>
+versichert, daß das Mädchen während dieser ganzen Zeit auf<lb/>
+das Aufmerksamste beobachtet worden sei und nie etwas Ande-<lb/>
+res genossen habe als Brunnenwasser. Das Mädchen soll<lb/>
+nächstens in das allgemeine Krankenhaus nach München ge-<lb/>
+bracht und sorgfältig beobachtet werden.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Ein Hr. van Goethem hat in einer Zuckersiederei vollstän-<lb/>
+dig raffinirten Brotzucker aus Rübensaft in Einem Sud pro-<lb/>
+ducirt, was bis jetzt für unmöglich gehalten wurde. Der so<lb/>
+erzeugte Zucker war von der vortrefflichsten Qualität.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Von London ist neulich das erste <hi rendition="#g">Billard nach China</hi><lb/>
+für die englischen Ofsiziere in Hongkong abgegangen.</p></div></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jAn"><head><hi rendition="#fr">Literarische Anzeige.</hi></head><lb/>
+<p><hi rendition="#c #fr">Conversations=Lexikon.</hi></p><lb/>
+<p><hi rendition="#aq #c">Neunte<lb/>
+sehr verbesserte und vermehrte Original-Auflage.</hi></p><lb/>
+<p>Der erste Band ( Heft 1 &#x2014; 8, <hi rendition="#aq">A &#x2014; Balbuena )</hi><lb/>
+dieser neunten Auflage ist fertig. Sie erscheint in 15<lb/>
+Bänden oder 120 Heften zu dem Preise von 5 Ngr.<lb/>
+für das Heft in der Ausgabe auf Maschinenp.; in der<lb/>
+Ausgabe auf Schreibp. kostet der Band 2 Thlr., auf<lb/>
+Velinp. 3 Thlr.</p><lb/>
+<p>Wie bisher, so werden auch in Zukunft monatlich<lb/>
+in der Regel drei Hefte erscheinen, die Auslagen für die<lb/>
+Anschaffung des Werks vertheilen sich somit auf drei<lb/>
+Jahre.</p><lb/>
+<p>Die vollständige Lieferung in 120 Heften<lb/>
+wird ausdrücklich garantirt, sodaß die Subscri-<lb/>
+benten etwaige weitere Hefte <hi rendition="#aq">gratis</hi> erhalten würden.</p><lb/>
+<p>Die sehr große Theilnahme, welche diese neue Auflage<lb/>
+gefunden hat und welche jetzt bereits eine Auflage von</p></div><lb/>
+<div><head><hi rendition="#fr">fünfundzwanzig Tausend Exemplaren</hi></head><lb/>
+<p>nöthig macht, ist die sprechendste Anerkennung der innern<lb/>
+und äußern Vorzüge, wodurch dieselbe vor frühern Auf-<lb/>
+lagen und allen ähnlichen Werken sich auszeichnet.</p><lb/>
+<p><hi rendition="#g">Auf den Umschlägen der einzelnen Hefte<lb/>
+werden</hi> Ankündigungen <hi rendition="#g">abgedruckt, und der<lb/>
+Raum einer Zeile wird mit 10 Ngr. berechnet.</hi> </p><lb/>
+<p><hi rendition="#aq">Alle Buchhandlungen liefern das Conversations-<lb/>
+Lexikon zu obigen Preisen. Rabatt kann nicht in<lb/>
+Anspruch genommen werden; Subscriben-<lb/>
+tensammler erhalten auf 12 Ex. 1 Freiex.</hi></p><lb/>
+<p>Leipzig, im April 1843.</p><lb/>
+<p><space dim="horizontal"/><hi rendition="#fr">F. A. Brockhaus.</hi></p></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/><lb/>
+</body>     <back><div n="1" type="imprint"><p><hi rendition="#c">Herausgegeben unter Verantwortlichkeit der Verlagshandlung F. A. <hi rendition="#g">Brockhaus</hi> in <hi rendition="#g">Leipzig</hi>.</hi></p></div>     </back>   </text> </TEI>

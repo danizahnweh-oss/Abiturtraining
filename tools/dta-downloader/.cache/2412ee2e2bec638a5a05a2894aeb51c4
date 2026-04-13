@@ -1,0 +1,693 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.deutschestextarchiv.de/basisformat.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="http://www.deutschestextarchiv.de/basisformat.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">   <teiHeader>
+<fileDesc>
+<titleStmt>
+<title type="main">Auch ein Wort über unser Judenthum</title>
+<author>
+<persName ref="http://d-nb.info/gnd/118583425">
+<surname>Theodor</surname>
+<forename>Mommsen</forename>
+</persName>
+</author>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/115266127">
+<surname>Geyken</surname>
+<forename>Alexander</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1222198746">
+<surname>Haaf</surname>
+<forename>Susanne</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1019062681">
+<surname>Jurish</surname>
+<forename>Bryan</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Boenig</surname>
+<forename>Matthias</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Thomas</surname>
+<forename>Christian</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Wiegand</surname>
+<forename>Frank</forename>
+</persName>
+</editor>
+<respStmt>
+<orgName ref="https://www.bbaw.de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<resp>
+<note type="remarkResponsibility">Langfristige Bereitstellung der DTA-Ausgabe</note>
+<ref target="https://www.bbaw.de"/>
+</resp>
+</respStmt>
+</titleStmt>
+<editionStmt><edition>Vollständige digitalisierte Ausgabe.</edition></editionStmt>
+<extent>
+<measure type="images">16</measure>
+<measure type="tokens">4458</measure>
+<measure type="types">1717</measure>
+<measure type="characters">32066</measure>
+</extent>
+<publicationStmt>
+<publisher xml:id="DTACorpusPublisher">
+<email>dta@bbaw.de</email>
+<orgName role="project">Deutsches Textarchiv</orgName>
+<orgName role="hostingInstitution" xml:lang="en">Berlin-Brandenburg Academy of Sciences and Humanities (BBAW)</orgName>
+<orgName role="hostingInstitution" xml:lang="de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<address>
+<addrLine>Jägerstr. 22/23, 10117 Berlin</addrLine>
+<country>Germany</country>
+</address>
+</publisher>
+<pubPlace>Berlin</pubPlace>
+<date type="publication">2025-02-28T15:07:11Z</date>
+<availability>
+<licence target="https://creativecommons.org/licenses/by-sa/4.0/deed.de">
+<p>Distributed under the Creative Commons Attribution-ShareAlike 4.0 License.</p>
+</licence>
+</availability>
+<idno>
+<idno type="URLWeb">https://www.deutschestextarchiv.de/mommsen_judenthum_1880</idno>
+<idno type="URLXML">https://www.deutschestextarchiv.de/book/download_xml/mommsen_judenthum_1880</idno>
+<idno type="URLHTML">https://www.deutschestextarchiv.de/book/download_html/mommsen_judenthum_1880</idno>
+<idno type="URLText">https://www.deutschestextarchiv.de/book/download_text/mommsen_judenthum_1880</idno>
+<idno type="DTADirName">mommsen_judenthum_1880</idno>
+<idno type="DTAID">25236</idno>
+<idno type="URN">urn:nbn:de:kobv:b4-25236-8</idno>
+</idno>
+</publicationStmt>
+<sourceDesc>
+<bibl type="M">Mommsen, Theodor: Auch ein Wort über unser Judenthum. Berlin, 1880.</bibl>
+<biblFull>
+<titleStmt>
+<title level="m" type="main">Auch ein Wort über unser Judenthum</title>
+<author>
+<persName ref="http://d-nb.info/gnd/118583425">
+<surname>Theodor</surname>
+<forename>Mommsen</forename>
+</persName>
+</author>
+</titleStmt>
+<editionStmt>
+<edition n="1"/>
+</editionStmt>
+<extent>
+<measure type="pages">16 S</measure>
+</extent>
+<publicationStmt>
+<publisher><name>Weidemann</name></publisher>
+<pubPlace>Berlin</pubPlace>
+<date type="publication">1880</date>
+</publicationStmt>
+</biblFull>
+<msDesc>
+<msIdentifier>
+<repository>Universitätsbibliothek Potsdam</repository>
+<idno>
+<idno type="shelfmark">UB Potsdam, Nf/1928</idno>
+</idno>
+</msIdentifier>
+<physDesc>
+<typeDesc>
+<p>Fraktur</p>
+</typeDesc>
+</physDesc>
+</msDesc>
+</sourceDesc>
+</fileDesc>
+<encodingDesc>
+<editorialDecl>
+<p>Dieses Werk wurde gemäß den <ref target="https://www.deutschestextarchiv.de/doku/richtlinien">DTA-Transkriptionsrichtlinien</ref>
+im Double-Keying-Verfahren von Nicht-Muttersprachlern erfasst und in XML/TEI P5 nach
+<ref target="https://www.deutschestextarchiv.de/doku/basisformat">DTA-Basisformat</ref> kodiert.</p>
+<p/>
+</editorialDecl>
+<tagsDecl>
+<rendition scheme="css" xml:id="aq">font-family:sans-serif</rendition>
+<rendition scheme="css" xml:id="b">font-weight:bold</rendition>
+<rendition scheme="css" xml:id="blue">color:blue</rendition>
+<rendition scheme="css" xml:id="c">display:block; text-align:center</rendition>
+<rendition scheme="css" xml:id="et">display:block; margin-left:2em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et2">display:block; margin-left:4em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et3">display:block; margin-left:6em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="f">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="fr">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="g">letter-spacing:0.125em</rendition>
+<rendition scheme="css" xml:id="i">font-style:italic</rendition>
+<rendition scheme="css" xml:id="in">font-size:150%</rendition>
+<rendition scheme="css" xml:id="k">font-variant:small-caps</rendition>
+<rendition scheme="css" xml:id="larger">font-size:larger</rendition>
+<rendition scheme="css" xml:id="red">color:red</rendition>
+<rendition scheme="css" xml:id="right">display:block; text-align:right</rendition>
+<rendition scheme="css" xml:id="s">text-decoration:line-through</rendition>
+<rendition scheme="css" xml:id="smaller">font-size:smaller</rendition>
+<rendition scheme="css" xml:id="sub">vertical-align:sub; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="sup">vertical-align:super; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="u">text-decoration:underline</rendition>
+<rendition scheme="css" xml:id="uu">border-bottom:double 3px #000</rendition>
+</tagsDecl>
+</encodingDesc>
+<profileDesc>
+<langUsage>
+<language ident="deu">(Früh-)Neuhochdeutsch</language>
+<language ident="deu">German</language>
+</langUsage>
+<textClass>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dtamain">Gebrauchsliteratur</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dtasub">Politik</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1main">Gebrauchsliteratur</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1sub">Politik</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">core</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">ready</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">china</classCode>
+</textClass>
+</profileDesc>
+</teiHeader>
+<text> <front>
+<pb n="[1]" facs="#f0001"/>
+<titlePage type="main"> <docTitle><titlePart type="main">Auch ein Wort über un&#x017F;er Judenthum.<lb/>
+</titlePart></docTitle> <byline> Von<lb/>
+<docAuthor>Th. Momm&#x017F;en.</docAuthor><lb/>
+</byline> <docImprint><pubPlace>Berlin.</pubPlace><lb/>
+<publisher><hi rendition="#g">Weidmann&#x017F;che Buchhandlung.</hi></publisher><lb/>
+<docDate>1880.</docDate></docImprint></titlePage><lb/>
+<pb n="[2]" facs="#f0002"/>
+<div type="copyright"><p>Politi&#x017F;chen Zeitungen i&#x017F;t der Abdruck ge&#x017F;tattet.</p></div><lb/>
+</front> <body>
+<pb n="[3]" facs="#f0003"/>
+<div n="1"> <p> Jn dem Charivari, welches jetzt zum Befremden der übrigen<lb/>
+gebildeten Welt in Deut&#x017F;chland über die Judenfrage &#x017F;ich erhoben<lb/>
+hat und zu de&#x017F;&#x017F;en Mißklängen der Pöbel auf beiden Seiten nach<lb/>
+Vermögen bei&#x017F;teuert, wird es kaum möglich &#x017F;ein, daß eine einzelne<lb/>
+Stimme &#x017F;ich Gehör ver&#x017F;chafft; die Aus&#x017F;icht das Unwe&#x017F;en auch<lb/>
+nur zu mindern er&#x017F;cheint &#x017F;elb&#x017F;t dann gering, wenn man es über<lb/>
+&#x017F;ich gewinnt zu glauben, daß die Agitation nicht zugleich eine<lb/>
+Machination i&#x017F;t. Jch bin es zufrieden, wenn die wenigen Worte,<lb/>
+die ich zu &#x017F;agen beab&#x017F;ichtige, denjenigen Antwort geben, die es<lb/>
+etwa intere&#x017F;&#x017F;iren mag zu erfahren, wie ich über die&#x017F;e Angelegenheit<lb/>
+urtheile. Sie &#x017F;cheidet viele &#x017F;on&#x017F;t gut und lange Verbündete, und<lb/>
+Scheiden thut weh. Vielleicht gelangt das Wort der Ver&#x017F;tändigung,<lb/>
+welches als allgemeines verhallen wird, doch als per&#x017F;önliches hier und<lb/>
+da an das Ziel.<lb/>
+</p> <p> Un&#x017F;erer Generation i&#x017F;t es be&#x017F;chieden gewe&#x017F;en, was die Ge&#x017F;chichte<lb/>
+nur von wenigen zu &#x017F;agen vermag, daß die großen Ziele, die wir,<lb/>
+als wir zu denken begannen, vor uns fanden, jetzt von un&#x017F;erer<lb/>
+Nation erreicht &#x017F;ind. Wer noch die Zeit gekannt hat der Stände-<lb/>
+ver&#x017F;ammlungen mit berathender Stimme und des Deut&#x017F;chlands, das<lb/>
+höch&#x017F;tens auf der Landkarte einerlei Farbe hatte, dem wird un&#x017F;er<lb/>
+Reichstag und un&#x017F;ere Reichsfahne um keinen Preis zu theuer &#x017F;ein,<lb/>
+mag immer kommen was da will, und es kann noch vieles kommen.<lb/>
+Aber es gehört fe&#x017F;ter Muth und weiter Blick dazu, um die&#x017F;es<lb/>
+Glückes froh zu werden. Die näch&#x017F;ten Folgen erinnern allerdings<lb/>
+an den Spruch, daß das Schick&#x017F;al die Men&#x017F;chen &#x017F;traft durch die Er-<lb/>
+</p>
+<pb n="4" facs="#f0004"/>
+<p> füllung ihrer Wün&#x017F;che. Jn dem werdenden Deut&#x017F;chland fragte<lb/>
+man, wie es gemein&#x017F;am Fechtenden geziemt, nicht nach confe&#x017F;&#x017F;ionellen<lb/>
+und Stammesver&#x017F;chiedenheiten, nicht nach dem Jntere&#x017F;&#x017F;engegen&#x017F;atz<lb/>
+des Landmanns und des Städters, des Kaufmanns und des Jndu-<lb/>
+&#x017F;triellen; in dem gewordenen tobt ein Krieg aller gegen alle und<lb/>
+werden wir bald &#x017F;o weit &#x017F;ein, daß als vollberechtigter Bürger nur<lb/>
+derjenige gilt, der er&#x017F;tens &#x017F;eine Her&#x017F;tammung zurückzuführen vermag<lb/>
+auf einen der drei Söhne des Mannus, zweitens das Evangelium<lb/>
+&#x017F;o bekennt, wie der <hi rendition="#aq">pastor collocutus</hi> es auslegt, und drittens<lb/>
+&#x017F;ich auswei&#x017F;t als erfahren im Pflügen und Säen. Neben dem<lb/>
+läng&#x017F;t ausgebrochenen confe&#x017F;&#x017F;ionellen Krieg, dem &#x017F;ogenannten Cultur-<lb/>
+kampf, und dem neuerdings entfachten Bürgerkrieg des Geldbeutels,<lb/>
+tritt nun als drittes ins Leben die Mißgeburt des nationalen<lb/>
+Gefühls, der Feldzug der Anti&#x017F;emiten.<lb/>
+</p> <p> Wir älteren Männer, deren ganzes Wollen und Hoffen eben in<lb/>
+dem nationalen Gedanken aufgegangen i&#x017F;t, &#x017F;tehen die&#x017F;em Treiben gegen-<lb/>
+über vor allen Dingen mit der doppelten Empfindung, theils, daß wieder<lb/>
+einmal Saturnus &#x017F;eine Kinder frißt, theils daß die&#x017F;e Evolution, wie<lb/>
+alle rückläufigen Bewegungen der Dinge, eines der retardirenden<lb/>
+Momente i&#x017F;t, in denen die Ge&#x017F;chichte gerade eben&#x017F;o &#x017F;ich bewegt wie<lb/>
+der Roman, und die &#x017F;chließlich an den Dingen nichts ändern.<lb/>
+Das hindert aber nicht, daß &#x017F;ie an Per&#x017F;onen und Jntere&#x017F;&#x017F;en<lb/>
+&#x017F;chweren Schaden &#x017F;tiften, und giebt uns nicht das Recht die&#x017F;em<lb/>
+&#x017F;elb&#x017F;tmörderi&#x017F;chen Treiben des Nationalgefühls &#x017F;chweigend zuzu&#x017F;chauen.<lb/>
+</p> <p> Die deut&#x017F;che Nation ruht, darüber &#x017F;ind wir wohl alle einig,<lb/>
+auf dem Zu&#x017F;ammenhalten und in gewi&#x017F;&#x017F;em Sinn dem Ver&#x017F;chmelzen<lb/>
+der ver&#x017F;chiedenen deut&#x017F;chen Stämme. Eben darum &#x017F;ind wir Deut&#x017F;che,<lb/>
+weil der Sach&#x017F;e oder der Schwabe auch den Rheinländer und den<lb/>
+Pommern als &#x017F;eines Gleichen gelten läßt, das heißt als voll&#x017F;tändig<lb/>
+gleich, nicht bloß in bürgerlichen Rechten und Pflichten, &#x017F;ondern<lb/>
+auch im per&#x017F;önlichen und ge&#x017F;elligen Verkehr. Wir mögen den &#x017F;o-<lb/>
+genannten engeren Landsleuten noch eine nähere Sympathie ent-<lb/>
+gegentragen, manche Erinnerung und manches Gefühl mit ihnen<lb/>
+theilen, das außerhalb die&#x017F;es Krei&#x017F;es keinen Wiederhall findet; die<lb/>
+Empfindung der großen Zu&#x017F;ammengehörigkeit hat die Nation ge-<lb/>
+&#x017F;chaffen und es würde aus mit ihr &#x017F;ein, wenn die ver&#x017F;chiedenen<lb/>
+</p>
+<pb n="5" facs="#f0005"/>
+<p> Stämme je anfangen &#x017F;ollten &#x017F;ich gegen einander als Fremde zu<lb/>
+fühlen. Wir verhehlen uns die Ver&#x017F;chiedenheit nicht; aber wer<lb/>
+recht fühlt, der erfreut &#x017F;ich der&#x017F;elben, weil die vielfachen Ziele und<lb/>
+Verhältni&#x017F;&#x017F;e des Groß&#x017F;taates den Men&#x017F;chen in &#x017F;einer ganzen Mannich-<lb/>
+faltigkeit fordern und die Fülle der in un&#x017F;er großes und &#x017F;chick-<lb/>
+&#x017F;alvolles Volk gelegten Gaben und der ihm aufgelegten Verpflich-<lb/>
+tungen von keinem einzelnen Stamm ganz entwickelt und ganz<lb/>
+gelö&#x017F;t werden kann.<lb/>
+</p> <p> Jn wie fern &#x017F;tehen nun die deut&#x017F;chen Juden anders innerhalb<lb/>
+un&#x017F;eres Volkes als die Sach&#x017F;en oder die Pommern? Es i&#x017F;t richtig,<lb/>
+daß &#x017F;ie Nachkommen weder von J&#x017F;taevo &#x017F;ind noch von Hermino und<lb/>
+Jngaevo; und die gemein&#x017F;chaftliche Ab&#x017F;tammung von Vater Noah<lb/>
+genügt freilich nicht, wenn die germani&#x017F;che Ahnenprobe den<lb/>
+Deut&#x017F;chen macht. Allerdings wird von der deut&#x017F;chen Nation noch<lb/>
+allerlei mehr abfallen als die Kinder Jsraels, wenn ihr heutiger<lb/>
+Be&#x017F;tand nach Tacitus Germania durchcorrigirt wird. Herr<lb/>
+Quatrefages hat vor Jahren nachgewie&#x017F;en, daß nur die Mittel-<lb/>
+&#x017F;taaten wirklich germani&#x017F;ch &#x017F;eien und <hi rendition="#aq">la race prussienne</hi> eine<lb/>
+Ma&#x017F;&#x017F;e, zu der verkommene Slaven und allerlei anderer Abfall der<lb/>
+Men&#x017F;chheit &#x017F;ich vereinigt habe; als &#x017F;päterhin <hi rendition="#aq">la race germanique<lb/>
+</hi> und <hi rendition="#aq">la race prussienne</hi> in den Fall kamen der großen Nation<lb/>
+gemein&#x017F;chaftlich den Mar&#x017F;ch zu machen, i&#x017F;t im Laufen vor beiden<lb/>
+kein Unter&#x017F;chied wahrgenommen worden. Wer die Ge&#x017F;chichte wirk-<lb/>
+lich kennt, der weiß es, daß die Umwandlung der Nationalität<lb/>
+in &#x017F;tufenwei&#x017F;em Fort&#x017F;chreiten und mit zahlreichen und mannichfaltigen<lb/>
+Uebergängen oft genug vorkommt. Hi&#x017F;tori&#x017F;ch wie prakti&#x017F;ch hat eben<lb/>
+überall nur der Lebende Recht; &#x017F;o wenig, wie die Nachkommen der<lb/>
+franzö&#x017F;i&#x017F;chen Colonie in Berlin in Deut&#x017F;chland geborene Franzo&#x017F;en &#x017F;ind,<lb/>
+&#x017F;o wenig &#x017F;ind ihre jüdi&#x017F;chen Mitbürger etwas anderes als Deut&#x017F;che.<lb/>
+Daß die jüdi&#x017F;che Ma&#x017F;&#x017F;eneinwanderung über die O&#x017F;tgrenze, welche<lb/>
+Hr. v. Treit&#x017F;chke an die Spitze &#x017F;einer Judenartikel ge&#x017F;tellt hat,<lb/>
+eine reine Erfindung i&#x017F;t, hat Hr. Neumann bekanntlich an der<lb/>
+Hand der Stati&#x017F;tik in &#x017F;chlagender Wei&#x017F;e dargethan, und, wenn<lb/>
+Hr. v. Treit&#x017F;chke, wie ebenfalls bekannt, &#x201E;von dem, was er ge-<lb/>
+&#x017F;agt hat, kein Wort zurücknimmt&#x201C;, &#x017F;o hat dafür Hr. Adolf Wagner,<lb/>
+</p>
+<pb n="6" facs="#f0006"/>
+<p> auch ein ent&#x017F;chiedener Anti&#x017F;emit, der die&#x017F;elbe Meinung ausge&#x017F;prochen<lb/>
+hatte, unumwunden zuge&#x017F;tanden, daß er &#x017F;ich hierin geirrt habe.<lb/>
+</p> <p> Jn die&#x017F;em Moment liegt der we&#x017F;entliche Gegen&#x017F;atz der Stellung<lb/>
+des Judenthums in alter und in neuer Zeit. Die alte Welt kennt<lb/>
+das nicht, was wir heute den nationalen Staat nennen. Jhre<lb/>
+Staatenbildung bleibt entweder hinter dem&#x017F;elben weit zurück, wie<lb/>
+die Stadtrepubliken Griechenlands und Roms, oder greift weit dar-<lb/>
+über hinaus, wie die Monarchien Alexanders und Cae&#x017F;ars; auch<lb/>
+in den letzteren und überhaupt im Alterthum dachte man gar nicht<lb/>
+an dasjenige homogene und ungefähr mit dem Sprachgebiet zu-<lb/>
+&#x017F;ammenfallende Staatsbürgerthum, welches heute den Grund jeder<lb/>
+politi&#x017F;chen Ge&#x017F;taltung bildet. Deßhalb blieb den Juden hier, auch nach<lb/>
+dem Untergang ihres Staats, eine gewi&#x017F;&#x017F;e nationale Ge&#x017F;chlo&#x017F;&#x017F;enheit,<lb/>
+die namentlich ihren Ausdruck findet in der ihnen eigenthümlichen<lb/>
+Litteratur. Allerdings haben &#x017F;ie bald als Schrift&#x017F;teller &#x017F;tatt ihrer<lb/>
+eigenen &#x017F;ich der damaligen Welt&#x017F;prache zu bedienen angefangen und<lb/>
+&#x017F;tellen &#x017F;ich auch ihrer&#x017F;eits auf den damals allgemein gültigen Stand-<lb/>
+punkt der griechi&#x017F;chen Bildung; aber ihre hervorragend&#x017F;ten Schrift-<lb/>
+&#x017F;teller, der Hi&#x017F;toriker Jo&#x017F;ephus, der Philo&#x017F;oph Philon &#x017F;ind ganz und<lb/>
+voll Juden und bewußte Vertreter des Judenthums, Eine &#x017F;olche<lb/>
+Litteratur giebt es heutzutage nicht mehr. Wenn Hr. v. Treit&#x017F;chke<lb/>
+an die talmudi&#x017F;ti&#x017F;che Ge&#x017F;chicht&#x017F;chreiberei von Grätz erinnert, &#x017F;o ver-<lb/>
+gißt er, daß in &#x017F;olchen Fragen die litterari&#x017F;chen Winkel außer Be-<lb/>
+tracht bleiben &#x2014; oder wird er die deut&#x017F;che Hi&#x017F;toriographie etwa<lb/>
+für Hurter und Geno&#x017F;&#x017F;en verantwortlich machen? Die jüdi&#x017F;ch-<lb/>
+alexandrini&#x017F;che Litteratur i&#x017F;t ein wichtiger Factor in der Ge&#x017F;chichte<lb/>
+des &#x017F;päteren Alterthums; wo giebt es heutzutage dafür eine Ana-<lb/>
+logie? Alle hervorragenden Arbeiten, die von Juden der Neuzeit<lb/>
+herrühren, &#x017F;tehen innerhalb der Litteraturkrei&#x017F;e derjenigen Nation,<lb/>
+welcher eben die&#x017F;er Jude angehört. Es tritt dies weniger hervor<lb/>
+in den philo&#x017F;ophi&#x017F;chen und den ab&#x017F;tracten Wi&#x017F;&#x017F;en&#x017F;chaften, bei welchen<lb/>
+überhaupt die Nationalität, namentlich auf den höch&#x017F;ten Spitzen,<lb/>
+oft fa&#x017F;t unfühlbar wird, als in der Poe&#x017F;ie. Jch will keine Namen<lb/>
+nennen; aber man vergegenwärtige &#x017F;ich jeden jüdi&#x017F;chen Dichter und<lb/>
+Roman&#x017F;chreiber von einigem Belang oder auch nur von einigem<lb/>
+Erfolg; man wird wohl die Spuren ihrer Herkunft erkennen, wie<lb/>
+</p>
+<pb n="7" facs="#f0007"/>
+<p> denn kein Poet &#x017F;einen Ur&#x017F;prung verleugnen kann und Goethe immer<lb/>
+auch ein Frankfurter Kind bleibt; aber wie &#x017F;ie &#x017F;ind, trefflich, mittel-<lb/>
+mäßig, widerwärtig, &#x017F;ie haben keine Fühlung unter &#x017F;ich und der<lb/>
+deut&#x017F;che Jsraelit &#x017F;teht eben&#x017F;o mitten im deut&#x017F;chen litterari&#x017F;chen Leben<lb/>
+wie der engli&#x017F;che mitten im engli&#x017F;chen.<lb/>
+</p> <p> Das i&#x017F;t der eigentliche Sitz des Wahnes, der jetzt die Ma&#x017F;&#x017F;en<lb/>
+erfaßt hat und &#x017F;ein rechter Prophet i&#x017F;t Hr. v. Treit&#x017F;chke. Was<lb/>
+heißt das, wenn er von un&#x017F;ern israeliti&#x017F;chen Mitbürgern fordert,<lb/>
+&#x017F;ie &#x017F;ollen Deut&#x017F;che werden? Sie &#x017F;ind es ja, &#x017F;o gut wie er und ich.<lb/>
+Er mag tugendhafter &#x017F;ein als &#x017F;ie; aber machen die Tugenden den<lb/>
+Deut&#x017F;chen? Wer giebt uns das Recht un&#x017F;ere Mitbürger die&#x017F;er oder jener<lb/>
+Kategorie wegen der Fehler, welche im Allgemeinen die&#x017F;er Kategorie,<lb/>
+es &#x017F;ei auch mit Recht, zur La&#x017F;t gelegt werden, aus der Reihe der<lb/>
+Deut&#x017F;chen zu &#x017F;treichen? Wie &#x017F;charf man die Fehler die&#x017F;er Mit-<lb/>
+bürger empfinden, wie &#x017F;chroff man über alle Milderungsgründe &#x017F;ich<lb/>
+hinweg&#x017F;etzen mag, immer wird man logi&#x017F;ch wie prakti&#x017F;ch höch&#x017F;tens<lb/>
+dahin kommen die Juden für Deut&#x017F;che zu erklären, welche im Punkte<lb/>
+der Erb&#x017F;ünde doppelt bedacht worden &#x017F;ind. Ern&#x017F;thafte Männer,<lb/>
+wenn &#x017F;ie &#x017F;ich dies deutlich gemacht haben, werden darüber nicht im<lb/>
+Zweifel &#x017F;ein, daß es eben&#x017F;o dringend geboten i&#x017F;t den &#x017F;chädlichen<lb/>
+Wirkungen die&#x017F;er Fehler durch prävenirende Ge&#x017F;etzgebung wie im<lb/>
+Strafweg nach Vermögen zu &#x017F;teuern, als unmöglich nach dem<lb/>
+&#x017F;upponirten Quantum der Erb&#x017F;ünde die Stellung des deut&#x017F;chen Bür-<lb/>
+gers zu regeln.<lb/>
+</p> <p> Aber mit die&#x017F;er Ein&#x017F;icht i&#x017F;t nicht genug gethan. Es muß in<lb/>
+die Auffa&#x017F;&#x017F;ung der Ungleichheit, welche zwi&#x017F;chen den deut&#x017F;chen Occi-<lb/>
+dentalen und dem &#x017F;emiti&#x017F;chen Blut allerdings be&#x017F;teht, größere Klar-<lb/>
+heit und größere Milde kommen. Wir, die eben er&#x017F;t geeinigte Na-<lb/>
+tion, betreten mit dem Judenkrieg eine gefährliche Bahn. Un&#x017F;ere<lb/>
+Stämme &#x017F;ind recht &#x017F;ehr ungleich. Es i&#x017F;t keiner darunter, dem nicht<lb/>
+&#x017F;pecifi&#x017F;che Fehler anhafteten, und un&#x017F;ere gegen&#x017F;eitige Liebe i&#x017F;t nicht &#x017F;o<lb/>
+alt, daß &#x017F;ie nicht ro&#x017F;ten könnte. Heute gilt es den Juden &#x2014; ob<lb/>
+blos den ungetauften oder auch den getauften und in die&#x017F;em Fall bis<lb/>
+zu welchem Gliede, unterla&#x017F;&#x017F;en die Herren zu unter&#x017F;uchen, da das<lb/>
+herzliche Einver&#x017F;tändniß der Pa&#x017F;toralen und der germani&#x017F;chen Ortho-<lb/>
+doxie dabei in die Brüche gehen müßte und das künftige Blut-<lb/>
+</p>
+<pb n="8" facs="#f0008"/>
+<p> mi&#x017F;chungsregulativ von Haus aus in die Domaine des Herrn Ern&#x017F;t<lb/>
+Dohm gehört. Morgen wird vielleicht bewie&#x017F;en, daß genau ge-<lb/>
+nommen jeder Berliner nicht be&#x017F;&#x017F;er &#x017F;ei, als ein Semit. Noch etwas<lb/>
+weiterhin, und der Pommer fordert die Er&#x017F;treckung der Stati&#x017F;tik auf<lb/>
+die Windbeutelei und hofft durch Zahlen zu bewei&#x017F;en, daß dann in<lb/>
+den we&#x017F;tlichen Provinzen ein doppelter Procent&#x017F;atz &#x017F;ich heraus&#x017F;tellen<lb/>
+werde. Es wäre das nicht der unge&#x017F;chickte&#x017F;te Weg um die Einheit<lb/>
+un&#x017F;erer Nation zu untergraben. Wir verdanken &#x017F;ie mehr dem Haß<lb/>
+un&#x017F;erer Feinde als un&#x017F;erem eigenen Verdien&#x017F;t; was der Krieg ver-<lb/>
+bunden hat, kann der Friede, namentlich ein Friede, wie er jetzt in<lb/>
+der Pre&#x017F;&#x017F;e und auf den Tribünen &#x017F;chaltet, wiederum lockern. Aller-<lb/>
+dings wird das Weitergehen auf die&#x017F;em Wege etwas mehr Um&#x017F;tände<lb/>
+machen als der Ge&#x017F;ammtangriff, den die große deut&#x017F;che Nation jetzt<lb/>
+&#x017F;ich anzu&#x017F;chicken &#x017F;cheint gegen den Mühlendamm zu unternehmen,<lb/>
+welcher keinen Judas Maccabäus be&#x017F;itzt. Aber der Fanatismus i&#x017F;t<lb/>
+leider nicht immer incon&#x017F;equent; und der Hader unter We&#x017F;t und O&#x017F;t,<lb/>
+unter Norden und Süden der Nation kann eben&#x017F;o von den Todten<lb/>
+wieder aufer&#x017F;tehen, wie andere läng&#x017F;t für ge&#x017F;torben und begraben ge-<lb/>
+haltene Ungeheuerlichkeiten. Uns allen klingt Moltkes Wort im<lb/>
+Gedächtniß nach, daß was ein Feldzug gewonnen hat, dreißig Jahre<lb/>
+der Vertheidigung fordert. Vertheidigung aber heißt nicht blos Ein-<lb/>
+heit, &#x017F;ondern auch Einigkeit.<lb/>
+</p> <p> Es &#x017F;oll ganz und gar nicht in Abrede ge&#x017F;tellt werden, daß die<lb/>
+Sondereigen&#x017F;chaften der unter uns lebenden Per&#x017F;onen jüdi&#x017F;cher Ab-<lb/>
+&#x017F;tammung weit &#x017F;chärfer empfunden werden als diejenigen anderer<lb/>
+Stämme und &#x017F;elb&#x017F;t anderer Nationen. Sie &#x017F;ind von Haus aus<lb/>
+be&#x017F;timmter ausgeprägt und durch die beiden Theilen gleich verderbliche<lb/>
+tau&#x017F;endjährige Unterdrückung der deut&#x017F;chen Semiten durch die deut&#x017F;chen<lb/>
+Chri&#x017F;ten in kün&#x017F;tlicher und zum Theil grauenvoller Wei&#x017F;e ge&#x017F;teigert.<lb/>
+Un&#x017F;ere politi&#x017F;che wie un&#x017F;ere litterari&#x017F;che Entwickelung trägt die Spuren<lb/>
+davon und kein Hi&#x017F;toriker kann &#x017F;ie über&#x017F;chweigen. Die Ge&#x017F;chichte<lb/>
+des Hau&#x017F;es Roth&#x017F;child i&#x017F;t für die Weltge&#x017F;chichte von größerer Be-<lb/>
+deutung als die innere Ge&#x017F;chichte des Staates Sach&#x017F;en; und i&#x017F;t es<lb/>
+gleichgültig, daß dies die Ge&#x017F;chichte eines deut&#x017F;chen Juden i&#x017F;t?<lb/>
+Un&#x017F;er Jahrhundert hat vielleicht kein größeres Dichtertalent ge&#x017F;ehen<lb/>
+als Heine; und wer kann die&#x017F;es Spielen des Ver&#x017F;tandes mit dem<lb/>
+</p>
+<pb n="9" facs="#f0009"/>
+<p> eigenen Herzblut, die&#x017F;es im Wollü&#x017F;tigen und Phanta&#x017F;ti&#x017F;chen gewal-<lb/>
+tige, der Charaktertragik Shake&#x017F;peares &#x017F;chlechthin baare Ge&#x017F;taltungs-<lb/>
+talent anders begreifen, als wenn man &#x017F;ich &#x017F;eines Ur&#x017F;prungs erinnert?<lb/>
+Gewiß, die Unter&#x017F;chiede &#x017F;ind da; und &#x017F;ie &#x017F;ind &#x017F;o be&#x017F;chaffen, daß der<lb/>
+Judencultus einer gewi&#x017F;&#x017F;en Epoche oder &#x2014; in welcher Form er<lb/>
+heutzutage aufzutreten pflegt &#x2014; die Judenfurcht wohl zu den ein-<lb/>
+fältig&#x017F;ten Verwirrungen gehören, deren zu bedienen un&#x017F;ere Nation<lb/>
+&#x017F;ich beliebt hat und noch beliebt. Aber die&#x017F;en Schranken und Män-<lb/>
+geln &#x017F;tehen wieder Fähigkeiten und Vorzüge gegenüber, deren Be&#x017F;itz<lb/>
+nicht zum letzten Theil die&#x017F;e Agitation mit veranlaßt hat. Daß<lb/>
+der rein&#x017F;te und ideal&#x017F;te aller Philo&#x017F;ophen als Jude gelebt und ge-<lb/>
+litten hat, i&#x017F;t auch kein Zufall; und an der jüdi&#x017F;chen Wohlthätigkeit,<lb/>
+auch gegen Chri&#x017F;ten, könnten die&#x017F;e &#x017F;ich ein Bei&#x017F;piel nehmen. Es<lb/>
+i&#x017F;t eben wie überall. Licht und Schatten &#x017F;ind gemi&#x017F;cht; ob mehr<lb/>
+oder minder ungleich, wird niemand zu ent&#x017F;cheiden wagen, der nicht<lb/>
+Hofprediger i&#x017F;t. Ohne Zweifel &#x017F;ind die Juden, wie ein&#x017F;t im rö-<lb/>
+mi&#x017F;chen Staat ein Element der nationalen Decompo&#x017F;ition<note n="1)" place="foot">Jch habe in die&#x017F;e ern&#x017F;te Frage nicht die andere recht gleichgültige hinein-<lb/>
+ziehen wollen, ob ein deut&#x017F;cher Schrift&#x017F;teller &#x017F;ich einmal mehr oder weniger<lb/>
+wider&#x017F;prochen hat, und habe darum nicht erwiedert auf die litterari&#x017F;chen Streifzüge<lb/>
+gewi&#x017F;&#x017F;er Parlamentsredner, deren Vorträge be&#x017F;&#x017F;er Leitartikel der ent&#x017F;prechenden<lb/>
+Pre&#x017F;&#x017F;e geblieben wären. Jndeß da ich einmal hier das Wort nehme, glaube ich<lb/>
+hinzufügen zu &#x017F;ollen, daß meine Meinung über die Judenfrage vor dreißig<lb/>
+Jahren eben&#x017F;o die&#x017F;elbe war, wie meine Stimmung gegen die&#x017F;en Theil meiner<lb/>
+Mitbürger. Wer &#x017F;ich von dem letzteren überzeugen will, worauf mehr ankommt,<lb/>
+der le&#x017F;e zum Bei&#x017F;piel was ich über das Verhalten der Juden bei Cae&#x017F;ars Tod<lb/>
+ge&#x017F;agt habe. Wer mein Buch kennt, wird es be&#x017F;tätigen, daß das&#x017F;elbe den An-<lb/>
+&#x017F;pruch erhebt den Juden&#x017F;chmeichlern eben&#x017F;o zu mißfallen wie den Judenha&#x017F;&#x017F;ern.<lb/>
+</note>, &#x017F;o in<lb/>
+Deut&#x017F;chland ein Element der Decompo&#x017F;ition der Stämme, und darauf<lb/>
+beruht es auch, daß in der deut&#x017F;chen Haupt&#x017F;tadt, wo die&#x017F;e Stämme<lb/>
+facti&#x017F;ch &#x017F;ich &#x017F;tärker mi&#x017F;chen als irgendwo &#x017F;on&#x017F;t, die Juden eine Stellung<lb/>
+einnehmen, die man anderswo ihnen beneidet. Decompo&#x017F;itionsproze&#x017F;&#x017F;e<lb/>
+&#x017F;ind oftmals nothwendig, aber nie erfreulich und haben unvermeidlich<lb/>
+eine lange Reihe von Uebel&#x017F;tänden im Gefolge; der un&#x017F;rige weniger<lb/>
+als der römi&#x017F;che, weil die deut&#x017F;che Nation keineswegs ein &#x017F;o bla&#x017F;&#x017F;er<lb/>
+Schemen i&#x017F;t wie die cae&#x017F;ari&#x017F;che Reichsangehörigkeit; aber &#x017F;o &#x017F;ehr bin<lb/>
+</p>
+<pb n="10" facs="#f0010"/>
+<p> ich meiner Heimath nicht entfremdet, daß nicht auch ich oft &#x017F;chmerz-<lb/>
+lich empfände, was ich gehabt habe und was meinen Kindern fehlen wird.<lb/>
+Aber Kinderglück und Männer&#x017F;tolz &#x017F;ind nun einmal unvereinbar.<lb/>
+Ein gewi&#x017F;&#x017F;es Ab&#x017F;chleifen der Stämme an einander, die Her-<lb/>
+&#x017F;tellung einer deut&#x017F;chen Nationalität, welche keiner be&#x017F;timmten Lands-<lb/>
+mann&#x017F;chaft ent&#x017F;pricht, i&#x017F;t durch die Verhältni&#x017F;&#x017F;e unbedingt geboten<lb/>
+und die großen Städte, Berlin voran, deren natürliche Träger.<lb/>
+Daß die Juden in die&#x017F;er Richtung &#x017F;eit Generationen wirk&#x017F;am ein-<lb/>
+greifen, halte ich keineswegs für ein Unglück, und bin überhaupt<lb/>
+der An&#x017F;icht, daß die Vor&#x017F;ehung weit be&#x017F;&#x017F;er als Herr Stöcker be-<lb/>
+griffen hat, warum dem germani&#x017F;chen Metall für &#x017F;eine Ausge-<lb/>
+&#x017F;taltung einige Procent Jsrael beizu&#x017F;etzen waren.<lb/>
+</p> <p> Dies &#x017F;ind An&#x017F;ichten über hi&#x017F;tori&#x017F;che Vorgänge, die Andern zum<lb/>
+Theil anders er&#x017F;cheinen werden; wenn der Fanatismus noch ein<lb/>
+neutrales Gebiet anerkennt, &#x017F;ollten Meinungsver&#x017F;chiedenheiten über<lb/>
+das Mehr oder Minder des That&#x017F;ächlichen nicht die Gemüther zerrütten<lb/>
+und die Herzen entzweien. Worauf es ankommt, i&#x017F;t aus der Ver-<lb/>
+wirrung und der Spaltung heraus zu &#x017F;icheren Grund&#x017F;ätzen des<lb/>
+prakti&#x017F;chen Handelns zu kommen; und ich will aus&#x017F;prechen, was<lb/>
+mir in die&#x017F;er Hin&#x017F;icht als Pflicht der Deut&#x017F;chen. er&#x017F;cheint. Die<lb/>
+Regierung kann hier wenig thun, auch wenn &#x017F;ie es will; es liegt<lb/>
+jedem Einzelnen ob zu bewei&#x017F;en, daß wir ein freies Volk &#x017F;ind,<lb/>
+fähig, &#x017F;ich &#x017F;elb&#x017F;t und &#x017F;eine Stimmungen zu beherr&#x017F;chen und be-<lb/>
+gangene Fehler zu verbe&#x017F;&#x017F;ern.<lb/>
+</p> <p> Die gute Sitte und noch eine höhere Pflicht gebieten, die<lb/>
+Be&#x017F;onderheiten der einzelnen Nationen und Stämme mit Maß und<lb/>
+Schonung zu discutiren. Je namhafter ein Schrift&#x017F;teller i&#x017F;t, de&#x017F;to<lb/>
+mehr i&#x017F;t er verpflichtet, in die&#x017F;er Hin&#x017F;icht diejenigen Schranken ein-<lb/>
+zuhalten, welche der internationale und der nationale Friede er-<lb/>
+fordert. Eine Charakteri&#x017F;tik der Engländer und der Jtaliener von<lb/>
+einem Deut&#x017F;chen, der Pommern und der Rheinländer von einem<lb/>
+Schwaben i&#x017F;t ein gefährliches Unternehmen: bei aller Wahrhaftigkeit<lb/>
+und allem Wohlwollen hört der Be&#x017F;prochene doch von allem nur<lb/>
+den Tadel. Das unvermeidliche und unvermeidlich ungerechte Gene-<lb/>
+rali&#x017F;iren wirkt ver&#x017F;timmend und erbitternd, während es &#x017F;elb&#x017F;t-<lb/>
+ver&#x017F;tändlich eine Lächerlichkeit &#x017F;ein würde von &#x017F;olchen Schilderungen<lb/>
+</p>
+<pb n="11" facs="#f0011"/>
+<p> eine Be&#x017F;&#x017F;erung der bezeichneten Schäden zu erwarten. Darin<lb/>
+vor allem liegt das arge Unrecht und der unermeßliche Schaden,<lb/>
+den Herr v. Treit&#x017F;chke mit &#x017F;einen Judenartikeln angerichtet hat.<lb/>
+Jene Worte von den ho&#x017F;enverkaufenden Jünglingen und den<lb/>
+Männern aus den Krei&#x017F;en der höch&#x017F;ten Bildung, aus deren Munde<lb/>
+der Ruf ertönt &#x201E;die Juden &#x017F;ind un&#x017F;er Unglück&#x201C; &#x2014; ja es i&#x017F;t einge-<lb/>
+troffen, was Herr v. Treit&#x017F;chke voraus&#x017F;ah, daß die&#x017F;e &#x201E;ver&#x017F;öhnenden<lb/>
+Worte&#x201C; mißver&#x017F;tanden worden &#x017F;ind. Gewiß waren &#x017F;ie &#x017F;ehr wohl-<lb/>
+gemeint; gewiß liegt den einzelnen Klagen, die dort erhoben werden,<lb/>
+vielfach Wahres zu Grunde; gewiß &#x017F;ind härtere Anklagen gegen<lb/>
+die Juden tau&#x017F;endmal ungehört verhallt. Aber wenn die Empfin-<lb/>
+dung der Ver&#x017F;chiedenheit die&#x017F;es Theils der deut&#x017F;chen Bürger&#x017F;chaft<lb/>
+von der großen Majorität bis dahin niedergehalten worden war<lb/>
+durch das &#x017F;tarke Pflichtgefühl des be&#x017F;&#x017F;ern Theils der Nation, welche<lb/>
+es nicht bloß wußte, daß gleiche Pflicht auch gleiches Recht fordert,<lb/>
+&#x017F;ondern auch davon die that&#x017F;ächlichen Con&#x017F;equenzen zog, &#x017F;o &#x017F;ah<lb/>
+&#x017F;ich die&#x017F;e Empfindung nun durch Herrn v. Treit&#x017F;chke proclamirt<lb/>
+als die &#x201E;natürliche Reaction des germani&#x017F;chen Volksgefühls gegen<lb/>
+ein fremdes Element&#x201C;, als &#x201E;der Ausbruch eines tiefen lang ver-<lb/>
+haltenen Zornes.&#x201C; Das &#x017F;prach Herr v. Treit&#x017F;chke aus, der Mann,<lb/>
+dem unter allen ihren Schrif&#x017F;tellern die deut&#x017F;che Nation in ihren<lb/>
+letzten großen Kri&#x017F;en den mei&#x017F;ten Dank &#x017F;chuldet, de&#x017F;&#x017F;en Feder eines<lb/>
+der be&#x017F;ten Schwerter war und i&#x017F;t in dem gewendeten, aber nicht<lb/>
+beendeten Kampfe gegen den alten Erbfeind der Nation, den Par-<lb/>
+ticularismus. Was er &#x017F;agte, war damit an&#x017F;tändig gemacht. Daher<lb/>
+die Bombenwirkung jener Artikel, die wir alle mit Augen ge&#x017F;ehen<lb/>
+haben. Der Kappzaum der Scham war die&#x017F;er &#x201E;tiefen und &#x017F;tarken<lb/>
+Bewegung&#x201C; abgenommen; und jetzt &#x017F;chlagen die Wogen und &#x017F;pritzt<lb/>
+der Schaum.<lb/>
+</p> <p> Ohne Zweifel hat Herr v. Treit&#x017F;chke die&#x017F;e Wogen und die&#x017F;en<lb/>
+Schaum nicht gewollt, und es fällt mir nicht ein, ihn für die ein-<lb/>
+zelnen Folgen &#x017F;eines Auftretens verantwortlich zu machen. Aber<lb/>
+die Frage i&#x017F;t doch unerläßlich: was hat er gewollt? Jene &#x201E;tiefe<lb/>
+und &#x017F;tarke Bewegung&#x201C; hatte doch wohl irgend einen Zweck? Herr<lb/>
+v. Treit&#x017F;chke i&#x017F;t ein redegewaltiger Mann; aber er &#x017F;elb&#x017F;t hat doch<lb/>
+wohl kaum geglaubt, daß auf &#x017F;eine Allocution hin die Juden nun,<lb/>
+</p>
+<pb n="12" facs="#f0012"/>
+<p> wie er es ausdrückt, &#x017F;ämmtlich deut&#x017F;ch werden würden. Und wenn<lb/>
+nicht, was dann? ein kleines klares Wort darüber wäre nützlicher<lb/>
+gewe&#x017F;en als all die ziello&#x017F;en großen. Nur &#x017F;o viel i&#x017F;t klar: jeder<lb/>
+Jude deut&#x017F;cher Nationalität hat den Artikel in dem Sinne aufgefaßt<lb/>
+und auffa&#x017F;&#x017F;en mü&#x017F;&#x017F;en, daß er &#x017F;ie als Mitbürger zweiter Kla&#x017F;&#x017F;e be-<lb/>
+trachtet, gleich&#x017F;am als eine allenfalls be&#x017F;&#x017F;erungsfähige Strafcom-<lb/>
+pagnie. Das heißt den Bürgerkrieg predigen. Der Ausnahme ein-<lb/>
+zelner Per&#x017F;onen und der per&#x017F;önlichen Bekannten, die nach Herrn<lb/>
+v. Treit&#x017F;chkes Vorgang jetzt bei den Anti&#x017F;emiten landläufig ge-<lb/>
+worden i&#x017F;t, hätten er und &#x017F;eine Nachfolger be&#x017F;&#x017F;er &#x017F;ich enthalten.<lb/>
+Wenn ein Jtaliener ein Pasquill auf die deut&#x017F;che Nation &#x017F;chriebe<lb/>
+und Herrn v. Treit&#x017F;chke per&#x017F;önlich ausnähme, würde ihm nicht<lb/>
+für die doppelte Beleidigung eine doppelte Abfertigung zu Theil<lb/>
+werden? Mit vollem Recht haben diejenigen Juden, denen er nicht<lb/>
+den Rücken dreht, ihn ihm gewie&#x017F;en. Sicherlich hat er nur einen<lb/>
+platoni&#x017F;chen Bürgerkrieg im Sinne gehabt; aber die&#x017F;er hat, wie<lb/>
+billig, geendigt, wie die platoni&#x017F;che Liebe zu endigen pflegt. Die<lb/>
+&#x017F;chlechten Juden bleiben, was &#x017F;ie waren; die guten wenden von<lb/>
+den Chri&#x017F;ten &#x017F;ich ab; und von den Chri&#x017F;ten &#x017F;elb&#x017F;t &#x017F;türzt der Pöbel<lb/>
+aller Kla&#x017F;&#x017F;en &#x017F;ich begierig auf das wehrlo&#x017F;e Wild und die Be&#x017F;&#x017F;eren<lb/>
+&#x017F;elber &#x017F;ind zum Theil im Jnnern un&#x017F;icher und &#x017F;chwankend. Herr<lb/>
+v. Treit&#x017F;chke hat mit gutem Recht einen politi&#x017F;chen und mora-<lb/>
+li&#x017F;chen Einfluß auf &#x017F;eine Nation wie heute kein zweiter Publici&#x017F;t;<lb/>
+er wird, wie es üblich i&#x017F;t, für &#x017F;eine hohe Stellung be&#x017F;traft durch<lb/>
+die Wirkung &#x017F;einer Fehler.<lb/>
+</p> <p> Die&#x017F;e Hetze des Tages, wie &#x017F;ie in den Juden&#x017F;piegeln und wie<lb/>
+&#x017F;ie weiter heißen jetzt ihren Lauf hat, kann das Publikum nicht<lb/>
+bannen, aber ächten. Dies wird hoffentlich nicht ausbleiben, und die<lb/>
+entwichene Toleranz zurückkehren, &#x2014; nicht diejenige, die &#x017F;ich von &#x017F;elb&#x017F;t<lb/>
+ver&#x017F;teht, gegen die Synagoge, &#x017F;ondern die we&#x017F;entlichere Toleranz gegen<lb/>
+die jüdi&#x017F;che von ihren Trägern nicht ver&#x017F;chuldete, ihnen als Schick-<lb/>
+&#x017F;al auf die Welt mitgegebene Eigenartigkeit. Was über die Sonder-<lb/>
+&#x017F;tellung des deut&#x017F;chen Judenthums im Guten wie im Bö&#x017F;en zu<lb/>
+&#x017F;agen i&#x017F;t &#x2014; der Ge&#x017F;chicht&#x017F;chreiber wie der Litterarhi&#x017F;toriker un-<lb/>
+&#x017F;erer Zeit kann den Gegen&#x017F;atz nicht unerörtert la&#x017F;&#x017F;en &#x2014; dafür<lb/>
+werden die Schrift&#x017F;teller, welche in Betracht kommen, &#x017F;ehr wohl eine<lb/>
+</p>
+<pb n="13" facs="#f0013"/>
+<p> Form zu finden wi&#x017F;&#x017F;en, die der ver&#x017F;tändige Jude hinnehmen kann.<lb/>
+Auch das Niederhalten des &#x017F;chlimmen Treibens gewi&#x017F;&#x017F;er jüdi&#x017F;cher<lb/>
+Elemente verträgt &#x017F;ich voll&#x017F;tändig mit der Schonung und der<lb/>
+Rück&#x017F;icht, auf welche der unbe&#x017F;choltene jüdi&#x017F;che Mitbürger genau<lb/>
+&#x017F;o viel Anrecht hat wie der chri&#x017F;tliche. Der jüdi&#x017F;che Wucher i&#x017F;t keine<lb/>
+Fabel; und hoffentlich wird das neue Wucherge&#x017F;etz ihm &#x017F;oweit &#x017F;teuern,<lb/>
+als überhaupt den verbrecheri&#x017F;chen oder auch nur gemeingefährlichen<lb/>
+Handlungen von Staatswegen ge&#x017F;teuert werden kann. Wenn der<lb/>
+Jude wie der Judenfreund dies lebhaft wün&#x017F;chen, &#x017F;o wird hoffent-<lb/>
+lich auch der eifrige Anti&#x017F;emit nichts dagegen haben, wenn bei die&#x017F;er<lb/>
+Gelegenheit es auch einem chri&#x017F;tlichen Blut&#x017F;auger &#x017F;chlecht geht. Ferner<lb/>
+wird es gut &#x017F;ein, &#x017F;ich zu erinnern, daß im Land Aegypten der<lb/>
+Wucher keineswegs aufhörte, als König Pharao die Judenfrage in<lb/>
+radicaler Wei&#x017F;e gelö&#x017F;t hatte.<lb/>
+</p> <p> &#x201E;Von einer Zurücknahme oder auch nur einer Schmälerung der<lb/>
+vollzogenen Emancipation kann unter Ver&#x017F;tändigen gar nicht die<lb/>
+Rede &#x017F;ein&#x201C;, &#x017F;agt Herr v. Treit&#x017F;chke; &#x201E;&#x017F;ie wäre ein offenbares<lb/>
+Unrecht&#x201C;. Schlimm genug, daß man dergleichen &#x017F;chon &#x017F;agen muß!<lb/>
+Aber was die &#x017F;og. Anti&#x017F;emitenpetition der Herren Zöllner und Ge-<lb/>
+no&#x017F;&#x017F;en erbittet, i&#x017F;t &#x017F;chlimmer als ein offenbares Unrecht; es i&#x017F;t<lb/>
+ein heimliches und tücki&#x017F;ch verdecktes. Die Juden &#x017F;ollen, wenn<lb/>
+Für&#x017F;t Bi&#x017F;marck nach Herrn Zöllners unmaßgeblicher An&#x017F;icht<lb/>
+die Nation reformirt, von allen obrigkeitlichen (autoritativen)<lb/>
+Stellungen ausge&#x017F;chlo&#x017F;&#x017F;en werden und ihre Verwendung im Ju&#x017F;tiz-<lb/>
+dien&#x017F;t, namentlich als Einzelrichter, eine &#x201E;angeme&#x017F;&#x017F;ene Be&#x017F;chränkung&#x201C;<lb/>
+erfahren; und das Begleit&#x017F;chreiben macht den Für&#x017F;ten darauf auf-<lb/>
+merk&#x017F;am, daß die Staatsregierung im Stande &#x017F;ei, die&#x017F;e Bitte<lb/>
+lediglich auf dem Wege der Verwaltung ohne jede Zuziehung der<lb/>
+ge&#x017F;etzgebenden Factoren zu gewähren. Al&#x017F;o hiernach &#x017F;teht es den Juden<lb/>
+auch ferner frei, die Rechte zu &#x017F;tudiren und die Prüfungen zu ab-<lb/>
+&#x017F;olviren, nur ange&#x017F;tellt können &#x017F;ie nicht werden. Eine Rechts-<lb/>
+&#x017F;chmälerung i&#x017F;t es freilich nicht, wenn das Recht bleibt wie es i&#x017F;t<lb/>
+&#x2014; nur daß davon kein Gebrauch gemacht werden kann; ein guter<lb/>
+Beitrag zu der römi&#x017F;chen Lehre vom <hi rendition="#aq">nudum jus</hi> und zu der cultur-<lb/>
+hi&#x017F;tori&#x017F;ch intere&#x017F;&#x017F;anten Unter&#x017F;uchung über die Gewi&#x017F;&#x017F;ensweite der<lb/>
+neu-germani&#x017F;chen Orthodoxen. Sind die preußi&#x017F;chen Univer&#x017F;itäten,<lb/>
+</p>
+<pb n="14" facs="#f0014"/>
+<p> die den Namen un&#x017F;erer Könige tragen, gegründet als Schlingen<lb/>
+zum Heranlocken an Stellungen, in die der Einlaß ver&#x017F;agt wird?<lb/>
+Jch kann es ver&#x017F;tehen, daß ein richtiger verbi&#x017F;&#x017F;ener Anti&#x017F;emit die<lb/>
+gute alte Zeit zurückwün&#x017F;cht, in welcher der Jude nur durch das<lb/>
+Taufbecken fähig wurde &#x017F;ich zur Uebernahme einer obrigkeitlichen<lb/>
+Stellung vorzubereiten. Aber die Forderung die&#x017F;er Petenten be&#x017F;tätigt<lb/>
+leider den alten Satz, daß der Fanatismus ein Krebs&#x017F;chaden i&#x017F;t,<lb/>
+welcher &#x017F;chließlich auch das Gefühl der Ehre und der Ehrenhaftigkeit<lb/>
+angreift.<lb/>
+</p> <p> Die Petition kommt zur rechten Zeit. Sie öffnet jedem die<lb/>
+Augen, wie weit wir &#x017F;chon &#x017F;ind, und wohin wir kommen mü&#x017F;&#x017F;en<lb/>
+und kommen werden, wenn die&#x017F;e Fluth weiter brau&#x017F;t. Sie i&#x017F;t an<lb/>
+un&#x017F;erer Univer&#x017F;ität in die&#x017F;en Tagen zur Unterzeichnung herum-<lb/>
+geboten worden mit einer &#x017F;alvatori&#x017F;chen Clau&#x017F;el in Bezug auf &#x201E;die<lb/>
+bürgerliche Stellung und den Standpunkt&#x201C; der Studenten, welche<lb/>
+den Jnhalt der Petition nicht berührt. Jn Bezug auf die&#x017F;elbe<lb/>
+heißt es in einem mir gedruckt, aber nicht unterzeichnet, vorliegenden<lb/>
+Begleitbrief an die Commilitonen:<lb/>
+</p> <p> &#x201E;Gegen alle Schwierigkeiten, Einwendungen und Bedenklich-<lb/>
+keiten, die uns von irgend einer Seite erhoben werden könnten,<lb/>
+&#x017F;ichert uns der un&#x017F;re Stellung &#x017F;o be&#x017F;cheiden abgrenzende Zu&#x017F;atz.<lb/>
+So wenig&#x017F;tens meint einer un&#x017F;rer Herren Profe&#x017F;&#x017F;oren in Berlin,<lb/>
+der in &#x017F;einer Eigen&#x017F;chaft als akademi&#x017F;cher Lehrer, Staatsmann und<lb/>
+Volksvertreter &#x017F;icher in die&#x017F;er Frage Autorität be&#x017F;itzt wie kein Zweiter.<lb/>
+Jhn hatten wir Studenten, die wir in Berlin während der Ferien<lb/>
+zuer&#x017F;t an die Angelegenheit heran traten, um Rath gefragt, &#x017F;owohl<lb/>
+über die Opportunität einer derartigen Klau&#x017F;el im Speciellen, wie<lb/>
+un&#x017F;eres Vorgehens im Allgemeinen, und der überaus freundliche und<lb/>
+detaillirte Be&#x017F;cheid, der uns von die&#x017F;er Seite wurde, &#x017F;chloß mit den<lb/>
+Worten: &#x201E;Jch &#x017F;ehe nicht nur keinen Grund Jhnen abzurathen,<lb/>
+&#x017F;ondern ich wün&#x017F;che Jhnen vielmehr alles Glück dazu.&#x201C;&#x201C;<lb/>
+</p> <p> Es i&#x017F;t mir nicht wahr&#x017F;cheinlich, daß Herr v. Treit&#x017F;chke &#x017F;einen<lb/>
+Namen denen des Herrn Zöllner und &#x017F;einer Geno&#x017F;&#x017F;en beige&#x017F;ellt<lb/>
+hat, und noch weniger kann ich es für möglich halten, daß er der<lb/>
+hier bezeichnete Berather i&#x017F;t. Aber er wird als &#x017F;olcher genannt,<lb/>
+und eine Erklärung, daß er die&#x017F;en Rath &#x017F;o nicht gegeben hat, er-<lb/>
+</p>
+<pb n="15" facs="#f0015"/>
+<p> &#x017F;cheint mir dringend geboten, eben weil wir &#x017F;tolz darauf &#x017F;ind einen<lb/>
+&#x017F;olchen Lehrer und einen &#x017F;olchen Mann den un&#x017F;ern zu nennen.<lb/>
+Ueber den Vorgang &#x017F;elb&#x017F;t, &#x017F;o weit er die Univer&#x017F;ität betrifft, finde<lb/>
+ich keine Veranla&#x017F;&#x017F;ung in die&#x017F;em Zu&#x017F;ammenhang mich zu äußern,<lb/>
+zumal da dies eine Frage i&#x017F;t, bei der noch ganz andere Momente<lb/>
+als pro- und anti&#x017F;emiti&#x017F;che Stimmungen in Betracht kommen.<lb/>
+</p> <p> Schließlich ein Wort über die Stellung der Juden &#x017F;elb&#x017F;t zu<lb/>
+die&#x017F;er leidigen Bewegung. Selb&#x017F;tver&#x017F;tändlich i&#x017F;t un&#x017F;ere Nation durch<lb/>
+Recht und Ehre verpflichtet &#x017F;ie in ihrer Rechtsgleichheit zu &#x017F;chützen,<lb/>
+&#x017F;owohl vor offenem Rechtsbruch wie vor admini&#x017F;trativer Prellerei; und<lb/>
+die&#x017F;e un&#x017F;ere Pflicht, die wir vor allem uns &#x017F;elb&#x017F;t &#x017F;chulden, hängt keines-<lb/>
+wegs ab von dem Wohlverhalten der Juden. Aber wovor nicht<lb/>
+wir &#x017F;ie &#x017F;chützen können, das i&#x017F;t das Gefühl der Fremdheit und Un-<lb/>
+gleichheit, mit welchem auch heute noch der chri&#x017F;tliche Deut&#x017F;che dem<lb/>
+jüdi&#x017F;chen vielfach gegenüber &#x017F;teht und das, wie der gegenwärtige<lb/>
+Augenblick einmal wieder zeigt, allerdings eine Gefahr in &#x017F;ich trägt<lb/>
+für &#x017F;ie wie für uns &#x2014; der Bürgerkrieg einer Majorität gegen<lb/>
+eine Minorität, auch nur als Möglichkeit, i&#x017F;t eine nationale Cala-<lb/>
+mität. Die Schuld davon liegt allerdings zum Theil bei den Juden.<lb/>
+Was das Wort &#x201E;Chri&#x017F;tenheit&#x201C; ein&#x017F;tmals bedeutete, bedeutet es heute<lb/>
+nicht mehr voll; aber es i&#x017F;t immer noch das einzige Wort, welches<lb/>
+den Charakter der heutigen internationalen Civili&#x017F;ation zu&#x017F;ammen-<lb/>
+faßt und in dem Millionen und Millionen &#x017F;ich empfinden als Zu-<lb/>
+&#x017F;ammen&#x017F;tehende auf dem völkerreichen Erdball. Außerhalb die&#x017F;er<lb/>
+Schranken zu bleiben und innerhalb der Nation zu &#x017F;tehen i&#x017F;t mög-<lb/>
+lich, aber &#x017F;chwer und gefahrvoll. Wem &#x017F;ein Gewi&#x017F;&#x017F;en, &#x017F;ei es po&#x017F;itiv<lb/>
+oder negativ, es verbietet dem Judenthum abzu&#x017F;agen und &#x017F;ich zum<lb/>
+Chri&#x017F;tenthum zu bekennen, der wird dem ent&#x017F;prechend handeln und<lb/>
+die Folgen auf &#x017F;ich nehmen; Betrachtungen die&#x017F;er Art gehören in<lb/>
+das Kämmerlein, nicht in die öffentliche Discu&#x017F;&#x017F;ion. Aber es i&#x017F;t eine<lb/>
+notori&#x017F;che That&#x017F;ache, daß eine große Anzahl von Juden nicht durch<lb/>
+Gewi&#x017F;&#x017F;ensbedenken vom Uebertritt abgehalten wird, &#x017F;ondern lediglich<lb/>
+durch ganz andere Gefühle, die ich begreifen, aber nicht billigen<lb/>
+kann. &#x2014; Auch die zahlreichen &#x017F;pecifi&#x017F;ch jüdi&#x017F;chen Vereine, wie &#x017F;ie<lb/>
+zum Bei&#x017F;piel hier in Berlin be&#x017F;tehen, er&#x017F;cheinen mir, &#x017F;o weit nicht<lb/>
+eben die jeder Discu&#x017F;&#x017F;ion &#x017F;ich entziehende Glaubensfrage auch hier ein-<lb/>
+</p>
+<pb n="16" facs="#f0016"/>
+<p> greift, ent&#x017F;chieden vom Uebel. Jch würde keinem Wohlthätigkeits-<lb/>
+verein beitreten, de&#x017F;&#x017F;en Statuten ihn verpflichteten nur Hol&#x017F;teinern<lb/>
+Hülfe zu gewähren; und bei aller Achtung vor dem Streben und<lb/>
+dem Lei&#x017F;ten die&#x017F;er Vereine kann ich in ihrer Sonderexi&#x017F;tenz nur eine<lb/>
+Nachwirkung der Schutzjudenzeit erkennen. Wenn die&#x017F;e Nachwir-<lb/>
+kungen auf der einen Seite hin ver&#x017F;chwinden &#x017F;ollen, &#x017F;o mü&#x017F;&#x017F;en<lb/>
+&#x017F;ie es nach der andern auch; und auf beiden Seiten i&#x017F;t noch viel zu<lb/>
+thun. Der Eintritt in eine große Nation ko&#x017F;tet &#x017F;einen Preis; die<lb/>
+Hannoveraner und die He&#x017F;&#x017F;en und wir Schle&#x017F;wig-Hol&#x017F;teiner &#x017F;ind<lb/>
+daran ihn zu bezahlen, und wir fühlen es wohl, daß wir damit<lb/>
+von un&#x017F;erem Eigen&#x017F;ten ein Stück hingeben. Aber wir geben es<lb/>
+dem gemein&#x017F;amen Vaterland. Auch die Juden führt kein Mo&#x017F;es<lb/>
+wieder in das gelobte Land; mögen &#x017F;ie Ho&#x017F;en verkaufen oder Bücher<lb/>
+&#x017F;chreiben, es i&#x017F;t ihre Pflicht, &#x017F;o weit &#x017F;ie es können ohne gegen ihr<lb/>
+Gewi&#x017F;&#x017F;en zu handeln, auch ihrer&#x017F;eits die Sonderart nach be&#x017F;tem<lb/>
+Vermögen von &#x017F;ich zu thun und alle Schranken zwi&#x017F;chen &#x017F;ich und<lb/>
+den übrigen deut&#x017F;chen Mitbürgern mit ent&#x017F;chlo&#x017F;&#x017F;ener Hand nieder-<lb/>
+zuwerfen.<lb/>
+</p> </div> <div type="imprint"> <p>Druck von W. <hi rendition="#g">Pormetter</hi> in Berlin 6., Neue Grün&#x017F;traße 30.<lb/>
+</p> </div> </body> </text> </TEI>

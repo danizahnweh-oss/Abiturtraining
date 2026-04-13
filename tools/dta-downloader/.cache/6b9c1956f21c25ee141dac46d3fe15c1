@@ -1,0 +1,941 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.deutschestextarchiv.de/basisformat.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">     <teiHeader>
+<fileDesc>
+<titleStmt>
+<title type="main">Das Pfennig-Magazin der Gesellschaft zur Verbreitung gemeinnütziger Kenntnisse</title>
+<title type="sub">Nr. 168</title>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/115266127">
+<surname>Geyken</surname>
+<forename>Alexander</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1222198746">
+<surname>Haaf</surname>
+<forename>Susanne</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1019062681">
+<surname>Jurish</surname>
+<forename>Bryan</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Boenig</surname>
+<forename>Matthias</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Thomas</surname>
+<forename>Christian</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Wiegand</surname>
+<forename>Frank</forename>
+</persName>
+</editor>
+<respStmt>
+<orgName>Institut für Deutsche Sprache, Mannheim</orgName>
+<resp>
+<note type="remarkResponsibility">Bereitstellung der Bilddigitalisate und TEI
+Transkription</note>
+<ref target="http://hdl.handle.net/10932/00-01B8-B063-C3BE-D601-D"/>
+</resp>
+</respStmt>
+<respStmt>
+<persName>
+<forename>Peter</forename>
+<surname>Fankhauser</surname>
+</persName>
+<resp>
+<note type="remarkResponsibility">
+Transformation von TUSTEP nach TEI P5.
+Transformation von TEI P5 in das DTA TEI P5 Format.
+</note>
+</resp>
+</respStmt>
+<respStmt>
+<orgName ref="https://www.bbaw.de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<resp>
+<note type="remarkResponsibility">Langfristige Bereitstellung der DTA-Ausgabe</note>
+<ref target="https://www.bbaw.de"/>
+</resp>
+</respStmt>
+</titleStmt>
+<editionStmt><edition>Vollständige digitalisierte Ausgabe.</edition></editionStmt>
+<extent>
+<measure type="images">8</measure>
+<measure type="tokens">5512</measure>
+<measure type="types">2182</measure>
+<measure type="characters">37483</measure>
+</extent>
+<publicationStmt>
+<publisher xml:id="DTACorpusPublisher">
+<email>dta@bbaw.de</email>
+<orgName role="project">Deutsches Textarchiv</orgName>
+<orgName role="hostingInstitution" xml:lang="en">Berlin-Brandenburg Academy of Sciences and Humanities (BBAW)</orgName>
+<orgName role="hostingInstitution" xml:lang="de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<address>
+<addrLine>Jägerstr. 22/23, 10117 Berlin</addrLine>
+<country>Germany</country>
+</address>
+</publisher>
+<pubPlace>Berlin</pubPlace>
+<date type="publication">2025-10-24T08:35:19Z</date>
+<availability>
+<licence target="http://creativecommons.org/publicdomain/zero/1.0/">
+<p>Dieses Werk steht unter der "Creative Commons Namensnennung -
+Nicht kommerziell 3.0 Deutschland Lizenz" (CC BY-NC).</p>
+</licence>
+</availability>
+<idno>
+<idno type="URLWeb">https://www.deutschestextarchiv.de/nn_pfennig168_1836</idno>
+<idno type="URLXML">https://www.deutschestextarchiv.de/book/download_xml/nn_pfennig168_1836</idno>
+<idno type="URLHTML">https://www.deutschestextarchiv.de/book/download_html/nn_pfennig168_1836</idno>
+<idno type="URLText">https://www.deutschestextarchiv.de/book/download_text/nn_pfennig168_1836</idno>
+<idno type="DTADirName">nn_pfennig168_1836</idno>
+<idno type="DTAID">34769</idno>
+<idno type="URN">urn:nbn:de:kobv:b4-34769-6</idno>
+</idno>
+</publicationStmt>
+<sourceDesc>
+<bibl type="J">Das Pfennig=Magazin der Gesellschaft zur Verbreitung gemeinnütziger Kenntnisse. Nr. 168. Leipzig (Sachsen), 18. Juni 1836.</bibl>
+<biblFull>
+<titleStmt>
+<title level="m" type="main">Das Pfennig-Magazin der Gesellschaft zur Verbreitung gemeinnütziger Kenntnisse</title>
+<title level="m" type="sub">Nr. 168</title>
+</titleStmt>
+<editionStmt>
+<edition n="1"/>
+</editionStmt>
+<publicationStmt>
+<publisher/>
+<pubPlace>Leibzig (Sachsen)</pubPlace>
+<date type="publication">1836</date>
+</publicationStmt>
+</biblFull>
+<msDesc>
+<msIdentifier/>
+<physDesc>
+<typeDesc>
+<p>Fraktur</p>
+</typeDesc>
+</physDesc>
+</msDesc>
+</sourceDesc>
+</fileDesc>
+<encodingDesc>
+<editorialDecl>
+<p>
+<![CDATA[
+<p>Siehe Dokumentation</p>
+]]>
+</p>
+</editorialDecl>
+<tagsDecl>
+<rendition scheme="css" xml:id="aq">font-family:sans-serif</rendition>
+<rendition scheme="css" xml:id="b">font-weight:bold</rendition>
+<rendition scheme="css" xml:id="blue">color:blue</rendition>
+<rendition scheme="css" xml:id="c">display:block; text-align:center</rendition>
+<rendition scheme="css" xml:id="et">display:block; margin-left:2em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et2">display:block; margin-left:4em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et3">display:block; margin-left:6em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="f">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="fr">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="g">letter-spacing:0.125em</rendition>
+<rendition scheme="css" xml:id="i">font-style:italic</rendition>
+<rendition scheme="css" xml:id="in">font-size:150%</rendition>
+<rendition scheme="css" xml:id="k">font-variant:small-caps</rendition>
+<rendition scheme="css" xml:id="larger">font-size:larger</rendition>
+<rendition scheme="css" xml:id="red">color:red</rendition>
+<rendition scheme="css" xml:id="right">display:block; text-align:right</rendition>
+<rendition scheme="css" xml:id="s">text-decoration:line-through</rendition>
+<rendition scheme="css" xml:id="smaller">font-size:smaller</rendition>
+<rendition scheme="css" xml:id="sub">vertical-align:sub; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="sup">vertical-align:super; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="u">text-decoration:underline</rendition>
+<rendition scheme="css" xml:id="uu">border-bottom:double 3px #000</rendition>
+</tagsDecl>
+</encodingDesc>
+<profileDesc>
+<langUsage>
+<language ident="deu">(Früh-)Neuhochdeutsch</language>
+<language ident="deu">German</language>
+</langUsage>
+<textClass>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1main">Gebrauchsliteratur</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1sub">Zeitschrift</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">ready</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">mkhz1</classCode>
+</textClass>
+</profileDesc>
+</teiHeader>
+<text>     <front>
+<pb facs="#f0001" n="[193]"/>
+<titlePage type="heading"><docTitle><titlePart type="main"><hi rendition="#c #fr">Das Pfennig=Magazin<lb/>
+<hi rendition="#g">der</hi><lb/>
+Gesellschaft zur Verbreitung gemeinnütziger Kenntnisse.</hi></titlePart></docTitle><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<docImprint><hi rendition="#fr">Nr</hi>. 168. ]              <hi rendition="#c">Erscheint jeden Sonnabend.</hi>              <docDate><hi rendition="#right">[<hi rendition="#g">Juni</hi> 18, 1836.</hi></docDate>            </docImprint></titlePage><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+</front>     <body>       <div n="1" type="jArticle"><figure><head><hi rendition="#fr"><hi rendition="#g">Sultan Ahmed's Moschee</hi>.</hi></head></figure><lb/>
+<pb facs="#f0002" n="194"/>
+<fw place="top" type="header"> <hi rendition="#g">Das Pfennig=Magazin.</hi> </fw>       <cb type="start"/>
+<head><hi rendition="#fr"><hi rendition="#g">Sultan Ahmed's Moschee</hi>.</hi></head><lb/>
+<p><hi rendition="#in">A</hi>hmed <hi rendition="#aq">I</hi>., der von 1603 &#x2014; 17 auf dem osmani-<lb/>
+schen Throne saß, baute die große Moschee in Konstan-<lb/>
+tinopel, die gewöhnlich seinen Namen führt, aber auch<lb/>
+die sechsthürmige heißt, weil sie die einzige in der tür-<lb/>
+kischen Hauptstadt ist, die sechs jener schlanken, zum<lb/>
+Gebetausrufen bestimmten Thürme ( Minarehs ) hat.<lb/>
+Früher war es keinem Christen gestattet, eine Medsched,<lb/>
+wie sie im Arabischen heißt, was wir verstümmelt Mo-<lb/>
+schee, d. i. Anbetungsort, nennen, zu betreten, wenn er<lb/>
+nicht eine besondere Erlaubniß von dem Sultan erlangt<lb/>
+hatte, und selbst diese sicherte ihn nicht immer gegen<lb/>
+Beleidigungen des fanatischen Pöbels. Seit Sultan<lb/>
+Mahmud mit kühner Hand die alten Einrichtungen und<lb/>
+Gebräuche angegriffen hat, ist diese Ausschließung nicht<lb/>
+mehr so streng, und christliche Reisende finden jetzt we-<lb/>
+nig Schwierigkeiten, wenn sie eine Moschee sehen wol-<lb/>
+len. Alle kaiserlichen Moscheen in Konstantinopel, de-<lb/>
+ren es mit der ehemaligen Sophienkirche 14 gibt, sind<lb/>
+hohe und großartige Bauwerke, aber das Jnnere ist<lb/>
+ganz einfach und schmucklos. Jn einigen, wie in der<lb/>
+Sophienkirche und der Ahmedmoschee, sind die Säulen<lb/>
+mit Schnitzwerk, und Gewölbe, Kuppeln und Wände<lb/>
+mit Mosaik verziert, aber dies und einige Zierathen um<lb/>
+die zahlreichen Fenster sind fast der einzige Schmuck des<lb/>
+Jnnern. Nichts von Beiwerken, das die Einförmigkeit<lb/>
+aufheben könnte, keine Steinbilder, keine Gemälde und<lb/>
+ebenso wenig eine Orgel, da die Mohammedaner bei<lb/>
+ihrem Gottesdienste keine Musik haben, ausgenommen<lb/>
+in den Hallen der tanzenden Derwische. Auch sieht<lb/>
+man keine großen Kanzeln, keine Kirchenstühle, keine<lb/>
+Bänke. Jn jeder Moschee aber gibt es drei Gegen-<lb/>
+stände, die jedoch nur klein und keineswegs hervorragend<lb/>
+sind: 1 ) das Mihrab, von Europäern uneigentlich Al-<lb/>
+tar genannt, eine Nische, sechs bis acht Fuß hoch, in<lb/>
+der Wand der Moschee, dem Haupteingange gegenüber,<lb/>
+um die Richtung nach der heiligen Stadt Mekka ( das<lb/>
+Kebla ) zu bezeichnen, wohin der Moslem bei dem Ge-<lb/>
+bete sich wenden muß; 2 ) das Mahfil=Muezzin, eine<lb/>
+kleine Erhöhung zur Linken des Mihrab, wo die Ge-<lb/>
+betrufer ( Muezzin ) während des Gottesdienstes ihren<lb/>
+Platz haben; 3 ) eine Art von offener Kanzel, rechts<lb/>
+vom Mihrab und sechs bis acht Fuß vom Fußboden,<lb/>
+wo der Oberprediger steht, der aber selten predigt.</p><lb/>
+<p>Jn den kaiserlichen Moscheen gibt es überdies noch<lb/>
+ein Minber und ein Mahfil=Padischahi. Das Mimber<lb/>
+ist eine Art von kleinem Pavillon, immer in einiger<lb/>
+Entfernung links vom Mihrab, und wird auf einer<lb/>
+steilen und schmalen Treppe erstiegen, die nach dem Ge-<lb/>
+setze nie mehr als 23 Stufen haben soll. Es ist für<lb/>
+den Khatib, den Obern der Moschee, bestimmt, der an<lb/>
+gewissen Tagen das Glaubensbekenntniß und den Ver-<lb/>
+dammungsspruch über alle nichtmohammedanischen Re-<lb/>
+ligionen hersagt. Als die Türken ein eroberndes Volk<lb/>
+waren und die den Christen genommenen Kirchen in<lb/>
+Moscheen umwandelten, ging an dem Tage, wo sie eröff-<lb/>
+net wurden und zum ersten Male das Allah il Allah vom<lb/>
+hohen Minareh erschallte, der Khatib mit einem Schwerte<lb/>
+die Treppe hinan und zeigte es, das Werkzeug des Sie-<lb/>
+ges und der Bekehrung, während er das Glaubensbe-<lb/>
+kenntniß sprach. Dann schwang er es, und auf die<lb/>
+Waffe sich stützend, stieg er wieder hinab. Das Mah-<lb/>
+fil=Padischahi ( d. h. Sultansplatz ) ist ein kleines Ge-<lb/>
+mach mit vergoldetem Gitter, worin der Sultan und<lb/>
+sein Hofstaat während des Gebets ungesehen sich befin-<lb/>
+den. Diese Gebetkammer, die jedoch gar nicht über die<lb/>
+<cb n="2"/>
+Wandfläche hervorragt, ist ziemlich hoch und gewöhnlich<lb/>
+dem Sitze des Khatibs gegenüber.</p><lb/>
+<p>Jnschriften in großen arabischen Buchstaben und<lb/>
+Täflein mit den Namen Allah's, Mohammed's und der<lb/>
+vier ersten Khalifen ( Abubekr, Omar, Osman, Ali )<lb/>
+und Hassan's und Hussein's, der Söhne Ali's, sieht<lb/>
+man hier und da an den Wänden, aber sie sind zu<lb/>
+schlicht, als daß sie für Verzierungen gelten könnten.<lb/>
+Die Täflein haben schwarze hölzerne Rahmen und sel-<lb/>
+ten mehr als zwei bis drei Fuß im Gevierte. Einige<lb/>
+derselben enthalten kurze Sprüche aus dem Koran, mit<lb/>
+blauen und goldenen Buchstaben geschrieben. Lampen,<lb/>
+zuweilen von Silber und in Ahmed's Moschee von<lb/>
+Gold und mit Edelsteinen besetzt, hängen in verschiede-<lb/>
+nen Theilen des Gebäudes, aber es sind ihrer zu we-<lb/>
+nige und sie sind zu klein, als daß sie eine helle Be-<lb/>
+leuchtung in diesen großen Räumen hervorbringen könn-<lb/>
+ten. Auch hängt man in den Moscheen und den<lb/>
+Grabgewölben wol große Straußeier auf und zuweilen<lb/>
+einige bunte Glaslämpchen.</p><lb/>
+<p>Der Fußboden des Hauptganges ist gewöhnlich mit<lb/>
+trefflichen ägyptischen Matten bedeckt, die weit glatter<lb/>
+und fester als unsere Strohmatten sind. Die Türken<lb/>
+trugen bis in die neueste Zeit weiche Saffianstiefeln<lb/>
+ohne Sohlen und über dieselben starke Papuschen oder<lb/>
+besohlte Pantoffeln, die allein mit dem Straßenschmuz<lb/>
+in Berührung kamen, und bei dem Eintritte in eine<lb/>
+Moschee, wie auf der Schwelle jeder Privatwohnung,<lb/>
+ausgezogen wurden. Die Matten wurden daher nicht<lb/>
+beschmuzt und die Moscheen in Konstantinopel waren<lb/>
+ungemein reinlich. Seit Sultan Mahmud einem gro-<lb/>
+ßen Theile seiner Unterthanen Schuhe und Stiefeln<lb/>
+angezogen hat, die sich nicht so leicht als Papuschen<lb/>
+ausziehen lassen, wird die Reinlichkeit nicht mehr so<lb/>
+gut erhalten werden können.</p><lb/>
+<p>Der Sophientempel gilt zwar für die Hauptmo-<lb/>
+schee, aber an den drei großen mohammedanischen Fest-<lb/>
+tagen, dem Bairam oder Jd=fitr ( Fastenbrechen ) , einer<lb/>
+dreitägigen Feier am Ende der Fastenzeit, dem Kurban<lb/>
+Bairam oder Opferfeste, 70 Tage nach jenem, und dem<lb/>
+Megilaud, einem von Murad <hi rendition="#aq">III</hi>. 1588 zu Ehren der<lb/>
+Geburt des Propheten eingesetzten Feste, begibt sich der<lb/>
+Sultan in die Ahmedmoschee. An diesen Tagen ist<lb/>
+der große Raum, von welchem unsere Abbildung nur<lb/>
+einen kleinen Abschnitt zeigt, mit dem zahlreichen Hof-<lb/>
+staat des Sultans, den Muftis, den Ulemahs, den<lb/>
+Paschas angefüllt, welche Alle von ihren erwachsenen<lb/>
+Söhnen und einem Schwarme glänzend gekleideter Diener<lb/>
+begleitet sind. Die weiten hochfarbigen Gewänder, die<lb/>
+prächtigen Turbans, die stattlichen Bärte, die schimmern-<lb/>
+den, mit Diamanten verzierten Dolche, die hohen Rei-<lb/>
+herfedern und die ganze prachtvolle morgenländische<lb/>
+Tracht, Alles machte einen außerordentlichen Eindruck,<lb/>
+und es war höchst ergreifend, die ganze glänzende Masse<lb/>
+in den Moscheen knien und dann aufstehen und die<lb/>
+Hände auf die Brust schlagen zu sehen, als ob die Tau-<lb/>
+sende nur von einem Willen, von einer Seele wären<lb/>
+bewegt worden.</p><lb/>
+<p>Auch hier ist nicht mehr der alte Glanz, die alte<lb/>
+Sitte, und seit Mahmud in der Volkstracht eine so<lb/>
+große Veränderung hervorgebracht hat, ist viel von der<lb/>
+malerischen Wirkung des Schauspiels verloren gegangen.<lb/>
+Der Zug geht vom Serai auf die ehemalige byzantini-<lb/>
+sche Rennbahn, wo die Ahmedmoschee steht. Jn glän-<lb/>
+zendem Anzug, auf schönen, prächtig geschirrten Pferden<lb/>
+zieht sich das zahlreiche Gefolge des Sultans in einer<lb/>
+<cb type="end"/>
+<pb facs="#f0003" n="195"/>
+<fw place="top" type="header"><hi rendition="#g">Das Pfennig=Magazin.</hi> </fw><cb type="start"/>
+endlosen bunten Reihe. Jeder ist von reichgekleideten<lb/>
+Dienern begleitet, die vor oder neben seinem Pferde<lb/>
+gehen. Längs der Linie mehre Hofbeamte und Palast-<lb/>
+diener, in verschiedene Haufen getheilt, die durch ihre<lb/>
+Tracht unterschieden sind. Einen Theil des Zuges<lb/>
+bilden die schönsten Pferde aus des Sultans Stall,<lb/>
+jedes von einem Reitknechte geführt und mit glän-<lb/>
+zenden Schilden und andern Theilen morgenländischer<lb/>
+Rüstung beladen. Langsam bewegt sich die Reihe<lb/>
+durch die Straßen, wo Todtenstille unter den Tausen-<lb/>
+den herrscht, die als Zuschauer sich versammelt haben.<lb/>
+Kein Laut, kein Flüstern, bis der Sultan über die<lb/>
+Rennbahn zu dem Eingange der Moschee gelangt ist,<lb/>
+wo einige Diener bei den Pferden bleiben, andere dem<lb/>
+Zuge in das Jnnere folgen, und nun der Muezzin vom<lb/>
+Minareh ruft: &#x201E;Allah il Allah! Es ist nur ein Gott<lb/>
+und Mohammed ist sein Prophet.&#x201C;</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Die Buchdruckerei auf den Gesellschaftsinseln.</hi></head><lb/>
+<p><hi rendition="#in">A</hi>ls ein ansehnlicher Theil der Bewohner der Jnsel<lb/>
+Otaheite und der übrigen Gesellschaftsinseln seit 1815<lb/>
+durch die Bemühungen der englischen Glaubensprediger<lb/>
+zum Christenthume übergegangen war, regte sich unter<lb/>
+ihnen der Wunsch, Bücher zu ihrer Belehrung zu er-<lb/>
+halten. Die Missionare kamen diesem Verlangen gern<lb/>
+entgegen, und beschlossen eine Druckerei anzulegen. Unter<lb/>
+der Mitwirkung des Königs Pomare wurde der Plan<lb/>
+bald zur Ausführung gebracht und auf der Jnsel Ei-<lb/>
+meo eine Presse aufgestellt. Viele Tahitier eilten dahin,<lb/>
+das wunderbare Werk zu sehen. Der König selbst kam<lb/>
+mit einer zahlreichen Begleitung, als er Nachricht er-<lb/>
+halten hatte, daß die Arbeit beginnen sollte. Der<lb/>
+würdige Missionar Ellis nahm den Winkelhaken in die<lb/>
+Hand, und als er sah, daß der König mit lebhafter<lb/>
+Freude die neuen glänzenden Lettern betrachtete, fragte<lb/>
+er ihn, ob es ihm angenehm sein würde, das erste<lb/>
+Alphabet zusammenzustellen. Der König bejahte die<lb/>
+Frage mit sichtbarem Vergnügen. Ellis reichte ihm den<lb/>
+Winkelhaken, der König nahm einen großen Anfangs-<lb/>
+buchstaben nach dem andern und setzte so das ganze Al-<lb/>
+phabet zusammen. Ebenso setzte er die kleinen Lettern<lb/>
+und dann die kleinen Sylben auf der ersten Seite des<lb/>
+A B C=Buches, das zuerst aus der Presse hervorgehen<lb/>
+sollte. Pomare war hoch erfreut, als die erste Seite<lb/>
+fertig war und wünschte sie sogleich abgedruckt zu sehen,<lb/>
+als man ihm aber sagte, daß dies nicht eher geschehen<lb/>
+könnte, bis so viele Seiten fertig wären, als zu einem<lb/>
+Bogen gehörten, wünschte er Nachricht zu erhalten, so-<lb/>
+bald diese Arbeit vollendet sein würde. Er kam fast je-<lb/>
+den Tag in die Druckerei, bis er, auf die Nachricht,<lb/>
+daß zum Abdrucke geschritten werden sollte, nur in Ge-<lb/>
+sellschaft von zwei begünstigten Häuptlingen erschien.<lb/>
+Es folgten ihnen aber viele Neugierige und zahlreiche<lb/>
+Eingeborene drängten sich vor die Thüre. Der König<lb/>
+untersuchte mit großer Aufmerksamkeit die Form, die<lb/>
+in der Presse lag und machte sich bereit, den ersten<lb/>
+Bogen abzuziehen, der je in seinem Lande gedruckt<lb/>
+war. Als man ihm die Anweisung dazu gegeben<lb/>
+hatte, sagte er scherzend zu seinen Begleitern, sie<lb/>
+möchten ihm nicht zu genau zusehen und nicht<lb/>
+lachen, wenn er sich linkisch benähme. Ellis reichte<lb/>
+ihm die Ballen mit der Druckerschwärze, und als<lb/>
+der König sie nach der Vorschrift gebraucht hatte und<lb/>
+die Form unter den Tiegel geschoben war, zog er den<lb/>
+Preßbengel an. Der gedruckte Bogen wurde aus dem<lb/>
+<cb n="2"/>
+Deckel genommen. Die Häuptlinge und die übri-<lb/>
+gen Zuschauer drängten sich herbei, um zu sehen, was<lb/>
+des Königs Hand bewirkt habe. Als sie die schwarzen,<lb/>
+großen und deutlichen Buchstaben sahen, ward ihre Ver-<lb/>
+wunderung und ihre Freude in einem gleichzeitigen<lb/>
+Ausrufe laut. Der König nahm den Bogen in die<lb/>
+Hand, und nachdem er zuerst das Papier und dann<lb/>
+die Lettern aufmerksam und bewundernd betrachtet hatte,<lb/>
+reichte er ihn einem seiner Begleiter und wünschte noch<lb/>
+einen Abdruck zu machen. Während er damit beschäf-<lb/>
+tigt war, wurde der erste Bogen den Neugierigen drau-<lb/>
+ßen gezeigt, die bei dem Anblicke desselben einen lauten<lb/>
+Schrei des Staunens und der Freude ausstießen. Po-<lb/>
+mare betrachtete aufmerksam die Presse und bewunderte<lb/>
+die Leichtigkeit, womit es durch die Einrichtung dersel-<lb/>
+ben möglich war, so viele Seiten auf einmal abzu-<lb/>
+drucken. Nach Anbruch der Nacht entfernte er sich<lb/>
+und nahm die von ihm abgedruckten Bogen mit. Von<lb/>
+diesem A B C=Buche, das ein dringendes Bedürfniß war,<lb/>
+wurden einige Tausend Abdrücke gemacht. Der Kö-<lb/>
+nig besuchte die Druckerei fortdauernd jeden Tag und<lb/>
+nahm lebhaften Antheil an dem Fortschritte der Arbeit.<lb/>
+Er zählte mehre der im A B C=Buche vorkommenden<lb/>
+Lettern und war erstaunt, als er fand, daß auf 16<lb/>
+Seiten der Buchstabe o gegen 5000mal vorkam. Nach<lb/>
+Vollendung des A B C=Buches wurde der otaheitische<lb/>
+Katechismus in mehr als 2000 Exemplaren gedruckt,<lb/>
+dann folgten ein Auszug aus der Bibel und endlich<lb/>
+das Evangelium Lucä. Die Neugier der Jnselbewohner<lb/>
+blieb lange rege. Die Häuptlinge wurden in das Jn-<lb/>
+nere der Druckerei eingelassen, das Volk belagerte Thüren<lb/>
+und Fenster und blickte durch jede Spalte. Die Druck-<lb/>
+presse wurde der Gegenstand des allgemeinen Gespräches,<lb/>
+und die Leichtigkeit, womit sich Bücher vervielfältigen<lb/>
+lassen, erfüllte die Gemüther mit lebhafter Freude.<lb/>
+Selbst von andern Jnseln kamen Neugierige, um Bü-<lb/>
+cher zu kaufen und die außerordentliche Maschine zu se-<lb/>
+hen. Der Zusammenfluß der Fremden glich einige<lb/>
+Wochen hindurch, während die erste Abtheilung der<lb/>
+Bibel gedruckt ward, einem Jahrmarkte; das ganze Ge-<lb/>
+stade von Eimeo war mit Kähnen bedeckt, die Häuser<lb/>
+der Einwohner konnten die Gäste nicht alle fassen, und<lb/>
+man sah einzelne Haufen im Freien gelagert. Ellis<lb/>
+zählte oft 30 &#x2014; 40 Kähne aus entlegenen Gegenden<lb/>
+der Jnsel oder von andern Eilanden, und in jedem fünf<lb/>
+bis sechs Menschen, die blos in der Absicht gekommen<lb/>
+waren, sich die Bibel zu verschaffen. Manche warteten<lb/>
+gegen sechs Wochen, bis der Druck geendigt war. Zu-<lb/>
+weilen brachte ein Kahn 30 &#x2014; 40 auf Bananenblätter<lb/>
+geschriebene Briefe von Personen, die nicht selber kom-<lb/>
+men konnten, und so schriftlich um Bücher baten. &#x201E; Ei-<lb/>
+nes Abends&#x201C;, erzählt Ellis, &#x201E;sah ich einen Kahn von<lb/>
+Otaheite kommen, und als die Reisenden das Fahrzeug<lb/>
+an das Gestade gezogen hatten, näherten sie sich meiner<lb/>
+Wohnung. Jch ging ihnen entgegen und fragte, was sie<lb/>
+wünschten. Das Wort des Lucas, antworteten Alle, in-<lb/>
+dem sie die mit Kokosnußöl gefüllten Bambusrohre erhoben,<lb/>
+womit die gewünschten Exemplare bezahlt werden sollten.<lb/>
+Jch antwortete ihnen, daß ich erst am nächsten Tage<lb/>
+ihr Verlangen erfüllen könnte, und rieth ihnen, die Nacht<lb/>
+bei ihren Freunden im Dorfe zuzubringen. Als ich aber<lb/>
+bei Tagesanbruch aus meinem Fenster sah, bemerkte ich<lb/>
+mit Überraschung, daß die fünf Reisenden vor meinem<lb/>
+Hause auf der Erde lagen, wo ihnen einige trockene<lb/>
+Kokosnußblätter zum Lager dienten und das Stück<lb/>
+Zeuch, das die Eingeborenen gewöhnlich über die Schul-<lb/>
+ter werfen, ihre Decke war. Jch eilte zu ihnen und<lb/>
+fragte sie, ob sie die ganze Nacht in dieser Lage zuge-<lb/>
+<cb type="end"/>
+<pb facs="#f0004" n="196"/>
+<fw place="top" type="header"> <hi rendition="#g">Das Pfennig=Magazin.</hi> </fw><cb type="start"/>
+bracht und warum sie nicht meinen Rath befolgt hät-<lb/>
+ten. Jhre Antwort überraschte und erfreute mich. Wir<lb/>
+wollten nicht weggehen, sagten sie, weil wir fürchteten,<lb/>
+es möchten diesen Morgen Andere vor uns kommen<lb/>
+und die Bücher nehmen, die Jhr übrig habt, und dann<lb/>
+hätten wir ohne sie heimkehren müssen; darum ent-<lb/>
+schlossen wir uns gestern Abend, als Jhr uns verlassen<lb/>
+hattet, nicht wegzugehen, bis wir die Bücher erhalten<lb/>
+hätten. Jch führte sie in die Druckerei und gab Jedem das<lb/>
+gewünschte Exemplar. Sie verlangten noch zwei andere,<lb/>
+<cb n="2"/>
+das eine für eine Mutter, das zweite für eine Schwe-<lb/>
+ster, und für Beide hatten sie die Bezahlung mitge-<lb/>
+bracht. Als ich auch dieses Verlangen befriedigt hatte,<lb/>
+wickelte Jeder sein Buch in ein Stück weißen Zeuches,<lb/>
+steckte es in den Busen, sagte mir Lebewohl, und ohne,<lb/>
+wie ich glaube, etwas gegessen oder getrunken, oder Je-<lb/>
+mand auf der Jnsel gesehen zu haben, eilten sie nach<lb/>
+dem Gestade, lösten ihren Kahn vom Ufer, zogen ihre<lb/>
+Segel auf und steuerten fröhlich in ihre Heimat.&#x201C;</p></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr"><hi rendition="#g">Das Lebens= oder Rettungsboot</hi>.</hi></head><lb/>
+<figure/><lb/>
+<cb type="start"/>
+<p><hi rendition="#in">D</hi>ie Erfindung des Lebens= oder Rettungsboots ver-<lb/>
+danken wir dem englischen Baumeister Henry Greathead,<lb/>
+der das erste Fahrzeug dieser Art am 30. Januar 1790<lb/>
+vom Stapel laufen ließ. Die nächste Veranlassung zu<lb/>
+dieser Erfindung gab ein Schiffbruch, der 1789 unweit<lb/>
+dem Tynemouthhafen an der Küste von Northumber-<lb/>
+land stattfand. Hier scheiterte nämlich das Schiff Ad-<lb/>
+venture von Newcastle und versank mit Mann und<lb/>
+Maus in den Wellen, ohne daß vom Strand aus Hülfe<lb/>
+geleistet werden konnte. Von dem Ufer sah eine zahl-<lb/>
+lose Menge, wie die verzweifelte Mannschaft des Schif-<lb/>
+fes an dem Tauwerk hinaufzuklettern suchte, und von<lb/>
+dieser Höhe herab in den Abgrund der Wogen geschleudert<lb/>
+ward. Es wurden zwar mehre Versuche gemacht, sich<lb/>
+mit Booten dem Schiffe zu nähern; allein dies war un-<lb/>
+möglich, da kein auf gewöhnliche Weise gezimmertes<lb/>
+Boot der Gewalt der Wellen widerstand. Ein so<lb/>
+furchtbares Schauspiel, die Mannschaft eines starken,<lb/>
+gut gebauten Schiffes so ganz ohne Möglichkeit der<lb/>
+Rettung untergehen zu sehen, hatte die Gemüther der<lb/>
+<cb n="2"/>
+Zuschauer so lebhaft ergriffen, daß sich kurz nach die-<lb/>
+sem traurigen Vorfall in ihrer Mitte ein Verein bildete,<lb/>
+welcher einen nicht unbedeutenden Preis für die Erfin-<lb/>
+dung eines Rettungsboots aussetzte, das seinem Baue<lb/>
+nach in den Wellen nicht versinken könnte. Eine Zeich-<lb/>
+nung hierzu übergab nun Greathead dem Rettungscomité,<lb/>
+und der Erfolg hat die Tüchtigkeit seiner Erfindung be-<lb/>
+stätigt. Späterhin, 1802, ward vom Parlament ein<lb/>
+Ausschuß Sachverständiger nach den Küsten von Durham<lb/>
+und Northumberland geschickt, welcher das Rettungs-<lb/>
+boot an Ort und Stelle prüfen sollte. Es wurden<lb/>
+mehre Seeleute, die oftmals Zeugen von den Erfolgen<lb/>
+des Rettungsboots gewesen waren, befragt, und diese<lb/>
+erhärteten durch ihre Aussagen die Zweckmäßigkeit der<lb/>
+Einrichtung. Nach der Aussage des einen hatte ein-<lb/>
+mal das Rettungsboot aus einem gescheiterten Wrack<lb/>
+15 Mann durch die Brandung sicher ans Ufer gebracht,<lb/>
+während selbst die erfahrensten Seeleute, vom Gestade aus,<lb/>
+das Gelingen dieses Unternehmens für unmöglich gehalten<lb/>
+hatten. Fast gleichzeitig mit dem Rettungsboot fuhr<lb/>
+<cb type="end"/>
+<pb facs="#f0005" n="197"/>
+<fw place="top" type="header"><hi rendition="#g">Das Pfennig=Magazin.</hi> </fw><cb type="start"/>
+auch das Schiffsboot, aber mit einer weit geringern Mann-<lb/>
+schaft, nach dem Ufer ab, welche aber nach kurzem<lb/>
+Steuern sammt ihrem Fahrzeuge von den Wellen ver-<lb/>
+schlungen ward. Seit dem Jahre der Erfindung bis<lb/>
+1802 hatte das Rettungsboot nicht weniger als 300<lb/>
+Personen einem sichern Tode entrissen, und es war nun-<lb/>
+mehr durch authentische Berichte vollkommen ausgemacht,<lb/>
+daß auch bei dem furchtbarsten Aufruhr der Wellen das<lb/>
+Boot weder sich überschlagen noch untersinken kann.<lb/>
+Nachdem auf diese Weise das Wohlthätige der Erfin-<lb/>
+dung ganz außer Zweifel gesetzt war, bewilligte das Par-<lb/>
+lament dem Erfinder eine Belohnung von 8400 Tha-<lb/>
+lern. Ein anderer Verein übersandte ihm 700 Thaler<lb/>
+und bewilligte außerdem eine Summe von 14,000 Tha-<lb/>
+<cb n="2"/>
+lern zu Erbauung von Rettungsbooten in verschiedenen<lb/>
+Häfen des Königreichs. Zwei Jahre später sandte der<lb/>
+Kaiser Alexander von Rußland dem Erfinder zum Zei-<lb/>
+chen seiner besondern Anerkennung einen kostbaren Dia-<lb/>
+mantring.</p><lb/>
+<p>Nirgend jedoch bedient man sich und bedarf des<lb/>
+Rettungsboots häufiger als an der rauhen und klippen-<lb/>
+vollen Küste von Durham und Northumberland, wozu<lb/>
+auch die große Menge der in die nordöstlichen Häfen<lb/>
+Englands einlaufenden Schiffe beiträgt.</p><lb/>
+<p>Der Hauptvorzug des Rettungsboots ist seine<lb/>
+außerordentliche Schwimmfähigkeit, welche zunächst von<lb/>
+der Einrichtung herrührt, daß sein Kiel hohl und<lb/>
+vollkommen luftdicht ist. Der Umstand ferner, daß<lb/>
+<cb type="end"/>
+<figure/><lb/>
+<cb type="start"/>
+die Seiten des Boots aus verschiedenen Theilen be-<lb/>
+stehen, schützt dasselbe vor dem Umsturz, wenn etwa<lb/>
+eine große Welle quer darüber hinrollt. Dies kann<lb/>
+jedoch nur selten vorkommen, da beide Enden ganz<lb/>
+gleich geformt sind und das Boot mit großer Schnel-<lb/>
+ligkeit umgedreht werden kann, ohne es den heftigen<lb/>
+Stößen auszusetzen, die es bei einer andern Einrich-<lb/>
+tung und bei hochgehender See leicht umschlagen würden.<lb/>
+Mit großer Vorsicht ist es so gebaut, daß, wenn es die<lb/>
+Welle hinaufsteigt, die zum Vordertheil hereindringende<lb/>
+Wassermasse sogleich am Hintertheil wieder abläuft. Wenn<lb/>
+das Wasser von mehren Seiten eintritt, erfolgt die schleu-<lb/>
+nigste Entleerung durch die am Boden angebrachten Luft-<lb/>
+löcher. Eins der vorzüglichsten Rettungsboote ist das<lb/>
+Sunderlandboot, 1800 erbaut. Es hat 26 Fuß Länge<lb/>
+und9 1 / 2 Fuß Weite. Ohne die getroffene Vorkeh-<lb/>
+rung, daß die Seiten in verschiedene Abschnitte getheilt<lb/>
+sind, würde dieses Boot, das bereits viele Gefahren<lb/>
+glücklich bestand, in Kreuzwellen und Kreuzwirbeln schon<lb/>
+unzählige Male umgeschlagen und zertrümmert worden<lb/>
+<cb n="2"/>
+sein. Jn dem Boden des Sunderlandboots befinden<lb/>
+sich sechs Luftlöcher, welche so der Größe des Boots<lb/>
+angemessen und an der richtigen Stelle angebracht sind,<lb/>
+daß, wenn dasselbe ganz mit Wasser angefüllt ist, die-<lb/>
+ses binnen 40 Secunden völlig abgelaufen ist. Es ge-<lb/>
+hören, nach Maßgabe der Umstände und der vorwalten-<lb/>
+den Gefahr, 6&#x2014;10 Personen dazu, um es zu steuern;<lb/>
+zwei von diesen führen Ruder von 17 Fuß Länge.<lb/>
+Keins derselben wird aus freier Hand geführt, sondern<lb/>
+bewegt sich in einem von Seilen gedrehten Ring. Eine<lb/>
+kleine Abgabe, welche die Mannschaft der gelandeten<lb/>
+Schiffe aufbringt, bildet das sehr mäßige Honorar für<lb/>
+die unerschrockenen Seeleute des Rettungsboots. Wenn<lb/>
+es die Noth erfodert, wird das Boot aus dem Schup-<lb/>
+pen, wo man es aufbewahrt, auf einem niedrigen, vier-<lb/>
+rädrigen Wagen zu dem Strande und von da zurückge-<lb/>
+schafft, wie dies unsere vorstehende Abbildung zeigt. So-<lb/>
+bald man den schneidenden Ruf vernimmt: <hi rendition="#aq">A wreck!</hi><lb/>
+( ein Wrack! ) versammelt der Befehlshaber des Boots seine<lb/>
+Leute und läßt hierauf das Boot nach dem Ufer schaffen.<lb/>
+<cb type="end"/>
+<pb facs="#f0006" n="198"/>
+<fw place="top" type="header"> <hi rendition="#g">Das Pfennig=Magazin.</hi> </fw><cb type="start"/>
+Das Gestell des Wagens ist so eingerichtet, daß es in<lb/>
+schräge Richtung gelegt werden und mittels dieses ein-<lb/>
+fachen Mechanismus gleich von der Achse aus das Boot<lb/>
+in See stechen kann.</p><lb/>
+<p>Eine feste Ruhe, Unerschrockenheit und Heiterkeit<lb/>
+zeichnet die Mannschaft eines Rettungsboots aus. Sie<lb/>
+liebt ihr Fahrzeug, wie überhaupt die Seefahrer, mit<lb/>
+wahrhafter Zärtlichkeit, wie einen geprüften Freund.<lb/>
+Ein Matrose aus Tynemouth sagte einst zu dem<lb/>
+Künstler, der von seinem Boot eine Zeichnung entwarf,<lb/>
+indem er die Seiten desselben mit Wohlgefallen klopfte<lb/>
+und liebkosete: &#x201E;Habt Jhr mein Boot abgezeichnet,<lb/>
+Herr? Ei, da habt Jhr wohlgethan; es ist ein herr-<lb/>
+lich Ding und hat mit mir schon 27 Leben an einem<lb/>
+Morgen gerettet.&#x201C;</p><lb/>
+<p>Eine andere wohlthätige neuere Erfindung ist der<lb/>
+in der Abbildung auf Seite 200 gegebene Cliffwa-<lb/>
+gen ( Klippenwagen ) , eine Rettungsmaschine für Fälle,<lb/>
+wo Schiffbrüchige an ein hohes Ufer geworfen wer-<lb/>
+den, von James Davison. Sie besteht aus einer<lb/>
+Grundlage von Bohlen, die auf vier niedrigen Rädern<lb/>
+steht und auf jeder Seite drei starke Stützen hat, welche<lb/>
+Stangen auf Rollen tragen, und auf diesen ruhen zwei<lb/>
+glatte, 21 Fuß lange Hebebäume, deren jeder zwei Schau-<lb/>
+kelsitze hat, die an Tauen von einem steilen Ufer zu<lb/>
+den Schiffbrüchigen hinabgelassen werden. Die Hebe-<lb/>
+bäume können nicht nur weit über den Rand des<lb/>
+Klippenufers hinausgerückt, sondern auch hereingezogen<lb/>
+werden, und zwar mittels desselben Zuges, mit welchem<lb/>
+man die Sitze heraufzieht. Jeder Sitz hat einen star-<lb/>
+ken Riemen, den der Gerettete um den Leib schlingt.<lb/>
+Die Maschine kann durch ein paar Pferde leicht an<lb/>
+jeden Ort geschafft werden, wo Gefahr ist, und sie wird<lb/>
+mittels einer einfachen Vorrichtung am Rande des stei-<lb/>
+len Ufers vollkommen festgestellt, da der Wagen überdies<lb/>
+mit Steinen belastet wird.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr"><hi rendition="#g">Wirkungskraft der Dampfmaschine</hi>.</hi></head><lb/>
+<p><hi rendition="#in">A</hi>ls im Jahre 1811 mehre Kohlengrubenbesitzer in<lb/>
+Cornwall auf die Vermuthung kamen, daß ihre Dampf-<lb/>
+maschinen nicht die, mit dem Feuerungsverbrauche in<lb/>
+Verhältniß stehende Wirksamkeit ausübten, beschlossen sie,<lb/>
+eine gleichförmige Art der Prüfung dieser Wirksamkeit<lb/>
+einzuführen. Zu diesem Zwecke ward an jeder Maschine<lb/>
+ein Zähler angebracht, um die Zahl der Hebungen des<lb/>
+Kolbens zu bezeichnen. Es wurden zwei Sachverstän-<lb/>
+dige als Aufseher der Maschinen angestellt, die von<lb/>
+Monat zu Monat Berichte über die Leistungen jeder<lb/>
+Maschine erstatteten, wobei alle Verhältnisse in der<lb/>
+Einrichtung derselben und endlich die Wirkungskraft der<lb/>
+Maschine oder die Zahl von Pfunden, die von einem<lb/>
+Bushel ( 81 Pfund ) Steinkohlen einen Fuß hoch gehoben<lb/>
+wurden, genau angegeben waren. Diese monatlichen<lb/>
+Berichte begannen im August 1811 und sind bis auf<lb/>
+diesen Tag regelmäßig fortgesetzt worden. Die günstige<lb/>
+Wirkung, welche diese Berichte auf die Wachsamkeit<lb/>
+und Sorgfalt der Maschinenbaumeister gehabt, und der<lb/>
+Wetteifer, den sie sowol unter den Baumeistern als<lb/>
+unter Denjenigen erweckt haben, welchen der Gebrauch<lb/>
+der Maschinen anvertraut ist, zeigt sich in den erhöh-<lb/>
+ten Leistungen, die nach und nach bei den Maschinen<lb/>
+stattgefunden haben. Nach einem im December 1826<lb/>
+erstatteten Berichte war die höchste Wirkungskraft bei<lb/>
+einer Maschine in dem Steinkohlenwerke Wheal Hope<lb/>
+in Cornwall beobachtet worden. Bei dem Verbrauche<lb/>
+<cb n="2"/>
+von einem Bushel Kohlen hob diese Maschine in run-<lb/>
+der Zahl 47,000,000 Pfund einen Fuß hoch. Ein<lb/>
+1835 bekannt gemachter Bericht meldete, daß eine<lb/>
+Dampfmaschine in dem Kupferbergwerke St.=Austle in<lb/>
+Cronwall 95,000,000 Pfund mit einem Bushel Koh-<lb/>
+len einen Fuß hoch gehoben habe. Da diese ungeheure<lb/>
+Wirkungskraft Zweifel gegen die Genauigkeit der Beob-<lb/>
+achtungen erweckt hatte, auf welche der Bericht gestützt<lb/>
+war, so wurde beschlossen, eine neue Probe in Gegen-<lb/>
+wart mehrer Sachverständigen und unbetheiligten Zeu-<lb/>
+gen anzustellen. Dies geschah, und es ergab sich, daß<lb/>
+die Maschine mit jedem unter dem Dampfkessel ver-<lb/>
+brauchten Bushel Steinkohlen125 1 / 2 Million Pfund<lb/>
+einen Fuß hoch hob.</p><lb/>
+<p>Es wird nicht uninteressant sein, die in der Stein-<lb/>
+kohle enthaltene mechanische Wirkungskraft durch faßliche<lb/>
+Vergleichungen zu erläutern. Kann ein Bushel Steinkoh-<lb/>
+len zu 81 Pfund ein Gewicht von 50,027 Tonnen, jede zu<lb/>
+2000 Pfund, einen Fuß hoch heben, so folgt, daß ein Pfund<lb/>
+Kohlen 667 Tonnen und eine Unze Kohlen 42 Tonnen<lb/>
+einen Fuß hoch, oder 18 Pfund eine englische Meile ( 5135<lb/>
+rheinische Fuß ) hoch heben würden. Da nun eine Kraft<lb/>
+von 18 Pfund fähig ist, zwei Tonnen auf einer Eisen-<lb/>
+bahn zu ziehen, so ergibt sich, daß eine Unze Kohlen<lb/>
+so viel mechanische Kraft hat, zwei Tonnen eine Meile<lb/>
+weit oder eine Tonne zwei Meilen weit auf einer völ-<lb/>
+lig ebenen Bahn zu ziehen. Wir bemerken jedoch da-<lb/>
+bei, daß der wirkliche Verbrauch von Kohlen auf Eisen-<lb/>
+bahnen ungefähr acht Unzen für die Tonne auf eine<lb/>
+englische Meile beträgt; folglich die Wirkung hier 16mal<lb/>
+geringer als bei der oben erwähnten Dampfmaschine ist.<lb/>
+Der Umfang der Erde wird zu 5400 geographischen<lb/>
+Meilen angenommen. Wäre sie nun von einer Eisen-<lb/>
+bahn umgeben, so würde eine Last von einer Tonne um<lb/>
+die Erde in sechs Wochen durch eine mechanische Kraft<lb/>
+gezogen werden, die der dritte Theil einer Tonne Stein-<lb/>
+kohlen besitzt.</p><lb/>
+<p>Der ungeheure Kohlenverbrauch in den Fabriken,<lb/>
+bei der Dampfschiffahrt und auf den Eisenbahnen<lb/>
+hat in England die Besorgniß erregt, daß die Kohlen-<lb/>
+gruben endlich erschöpft werden könnten. Diese Be-<lb/>
+fürchtungen werden aber durch die Behauptung der<lb/>
+Geognosten und Bergbaukundigen widerlegt, daß bei ei-<lb/>
+nem jährlichen Verbrauche von 16 Millionen Tonnen<lb/>
+blos die Gruben in Northumberland und Durham<lb/>
+den Bedarf noch 1700 Jahre liefern können. Mit<lb/>
+Recht aber hat man bemerkt, daß man bei solchen Be-<lb/>
+rechnungen die wahrscheinlichen, ja gewissen Fortschritte<lb/>
+der Entdeckungen nicht übersehen dürfe, und daß man<lb/>
+annehmen könne, es werden lange vor Ablauf jener<lb/>
+Zeit andere und stärkere mechanische Kräfte den Ge-<lb/>
+brauch der Steinkohlen beschränken. &#x201E;Die Naturwis-<lb/>
+senschaft &#x201C;, sagt der englische Naturforscher Lardner in<lb/>
+seiner neuen Schrift über die Dampfmaschine&#x201C;, deutet<lb/>
+schon auf die Quellen einer unerschöpflichen Kraft in<lb/>
+den Erscheinungen der Elektricität und des Magnetis-<lb/>
+mus. Die wechselnde Zersetzung und Wiederzusammen-<lb/>
+setzung des Wassers durch Magnetismus und Elektrici-<lb/>
+tät hat eine zu große Ähnlichkeit mit der abwechselnd<lb/>
+eintretenden Verwandlung des Wassers in Dämpfe und<lb/>
+Verdichtung derselben, als daß sie nicht Jedem auffallen<lb/>
+sollte, und die Entwickelung von Gasarten aus festen<lb/>
+Stoffen durch die Wirkung chemischer Verwandtschaften<lb/>
+und die darauf folgende Verwandlung in flüssige Form<lb/>
+ist bereits als mechanische Kraft versucht worden. Kurz,<lb/>
+der gegenwärtige Zustand der Naturwissenschaften, die<lb/>
+Thätigkeit, der Eifer und der Scharfsinn, womit die<lb/>
+Forschungen unter allen gesitteten Völkern fortgesetzt<lb/>
+<cb type="end"/>
+<pb facs="#f0007" n="199"/>
+<fw place="top" type="header"><hi rendition="#g">Das Pfennig=Magazin.</hi> </fw><cb type="start"/>
+werden, Alles rechtfertigt die Erwartung, daß mechani-<lb/>
+sche Entdeckungen bevorstehen, die noch größer sind als<lb/>
+alle, welche der Menschengeist bis jetzt gemacht hat.&#x201C;</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr"><hi rendition="#g">Die Holzhauer in Canada</hi>.</hi></head><lb/>
+<p><hi rendition="#in">D</hi>ie zu einer Wanderung der Holzhauer in Canada<lb/>
+und Neuschottland nöthigen Erfodernisse bestehen in Äx-<lb/>
+ten, einer Säge, Kochtöpfen, einem Fasse Rum, Pfei-<lb/>
+fen, Taback, Zwieback, Schweine= und Rindfleisch, ein-<lb/>
+gesalzenen Fischen, Erbsen, Gerste und einem Fäßchen<lb/>
+Melasse, womit sie ihren Thee versüßen, den sie aus<lb/>
+einer Mischung von mancherlei Kräutern bereiten. Drei<lb/>
+Joch Ochsen, nebst dem zu ihrer Nahrung nöthigen<lb/>
+Heu, sind ebenfalls ein Haupterfoderniß, denn mit die-<lb/>
+sen müssen die gefällten Stämme aus den Wäldern<lb/>
+geschafft werden. So ausgerüstet, gehen diese Männer,<lb/>
+nachdem sie mit den Holzhändlern Verträge abgeschlossen<lb/>
+haben, die Flüsse aufwärts, um ihre Winterarbeit zu be-<lb/>
+ginnen. An dem Orte, welcher ausgebeutet werden soll,<lb/>
+angelangt, fällen sie zuerst einige junge Bäume, schlagen<lb/>
+davon eine Hütte auf, die mit Birkenrinde gedeckt wird,<lb/>
+und zünden in der Mitte ein großes Feuer an. Um dieses<lb/>
+Feuer werden Lagerstätten von Zweigen, Blättern oder<lb/>
+Stroh bereitet, auf denen sie während der Nacht, mit<lb/>
+den Füßen gegen den Herd gekehrt, schlafen. Zu Be-<lb/>
+sorgung der Küche haben sie einen eignen Mann bei<lb/>
+sich, der das Frühstück vor Tagesanbruch bereiten muß.<lb/>
+Um diese Zeit stehen sie auf, essen und trinken dann<lb/>
+ein Glas Rum. Das Frühstück wie das Mittags= und<lb/>
+Abendessen besteht aus Brot, Rind= und Schweine-<lb/>
+fleisch oder Fisch= und Erbsensuppe, und ihr Getränk ist<lb/>
+Thee. Nach dem Frühstück bilden sie die Abtheilungen, von<lb/>
+welchen die eine die Bäume fällt, die andere sie abzweigt<lb/>
+und die dritte sie mit den Ochsen bis zu dem näch-<lb/>
+sten Flusse schafft. Der ganze Winter, während dessen<lb/>
+der Schnee oft bis auf drei Fuß hoch liegt, wird mit<lb/>
+dieser beschwerlichen Arbeit hingebracht, und wenn die<lb/>
+Aprilsonne die Flüsse durch den schmelzenden Schnee<lb/>
+anschwellt, werden aus den gefällten Bäumen Flöße ge-<lb/>
+bildet, welche die den verschiedenen Bestellungen der<lb/>
+Holzhändler entsprechende Anzahl von Stämmen enthal-<lb/>
+ten. Um diese Jahreszeit ist das Wasser außerordent-<lb/>
+lich kalt, und dennoch arbeiten diese Leute, in demselben<lb/>
+bis an die Schultern stehend, oft einen ganzen Monat<lb/>
+lang. Diese mühselige Lebensweise hat für Die, welche<lb/>
+sich derselben widmen, dennoch einen ganz eignen Reiz,<lb/>
+und sie ziehen sie, ungeachtet der Gefahren, welchen ihre<lb/>
+Gesundheit ausgesetzt ist, doch jeder andern vor. Jst<lb/>
+das Holz abgeliefert und verkauft, so bringen diese Holz-<lb/>
+hauer oft mehre Monate hintereinander mit Rauchen,<lb/>
+Trinken und Nichtsthun hin. Dann sieht man sie in<lb/>
+der anständigsten Kleidung, und was das Merkwürdigste<lb/>
+ist, mit einem Regenschirm unter dem Arm in den<lb/>
+Städten umherstreichen. Mit Beginn des Winters legen<lb/>
+sie jedoch diese Kleidung wieder bei Seite, schließen ihre<lb/>
+Verträge ab und gehen mit frohem Herzen an ihre be-<lb/>
+schwerliche Arbeit.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr"><hi rendition="#g">Der Firnißbaum</hi>.</hi></head><lb/>
+<p><hi rendition="#in">D</hi>er schöne schwarze japanische Firniß kommt von dem<lb/>
+Firnißbaume, der in China und Japan wächst. Er wird<lb/>
+hier sorgsam angepflanzt und dadurch so sehr veredelt, daß<lb/>
+er dreimal mehr Firniß liefert als der wild wachsende.<lb/>
+<cb n="2"/>
+Er hat im Äußern Ähnlichkeit mit der Esche. Die Fort-<lb/>
+pflanzungsart dieses Baumes ist aber ganz eigenthüm-<lb/>
+lich. Es wird im Frühjahr ein1 1 / 2 &#x2014; 2 Fuß langer<lb/>
+Zweig ausgesucht und ein Ring von der Rinde, etwa<lb/>
+einen Zoll breit, ausgeschnitten. Die Wunde wird dann<lb/>
+mit weichem Thon belegt, den man mit Matten und<lb/>
+dgl. umwickelt, um das Auseinanderfallen zu verhindern.<lb/>
+Ein Gefäß mit Wasser, das eine sehr kleine Öffnung<lb/>
+in dem Boden hat, wird darüber gehängt, um durch<lb/>
+das herabtröpfelnde Wasser den Thon stets feucht zu<lb/>
+erhalten. Nach sechs Monaten hat die abgeschälte Stelle<lb/>
+der Rinde Wurzelfasern in den Thon getrieben. Hat<lb/>
+der Zweig hinlängliche Wurzeln geschlagen, so wird er<lb/>
+etwas unterhalb des Thonballs vom Mutterstamme ge-<lb/>
+trennt, in die Erde gesetzt und gedeiht bald. Sind<lb/>
+die Bäume sieben bis acht Jahre alt, so geben sie den<lb/>
+schönen Firniß. Jn der Mitte des Sommers werden<lb/>
+mehre Einschnitte in die Rinde gemacht und darunter steckt<lb/>
+man eine Muschelschale, die leicht in die Rinde eindringt.<lb/>
+Dies geschieht Abends, da der Firniß nur während der<lb/>
+Nacht ausfließt. Am nächsten Morgen wird der in jeder<lb/>
+Muschel befindliche Firniß sorgfältig herausgenommen<lb/>
+und in einem größern Gefäße gesammelt. Dies dauert<lb/>
+fort, bis der Firniß aufhört zu fließen. Funfzig Bäume<lb/>
+geben in einer Nacht ein Pfund Firniß. Jst die Ein-<lb/>
+sammlung vorüber, so wird der Firniß durch ein dün-<lb/>
+nes Tuch gepreßt. Er hat eine stark ätzende Ei-<lb/>
+genschaft, die höchst nachtheilig wirkt, wenn die Ar-<lb/>
+beiter sorglos sind, und um sich dagegen zu schützen,<lb/>
+reiben sie den ganzen Leib mit Öl ein, ehe sie an ihre<lb/>
+Arbeit gehen. Beim Einsammeln umwickeln sie den<lb/>
+Kopf mit leinenen Tüchern, tragen einen engen Leder-<lb/>
+anzug und lange, bis an die Elbogen reichende Hand-<lb/>
+schuhe.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr"><hi rendition="#g">Die Feldmäuse in Kamtschatka</hi>.</hi></head><lb/>
+<p><hi rendition="#in">D</hi>ie auf der Halbinsel Kamtschatka besonders häu-<lb/>
+figen Feldmäuse, kleiner noch als ihre europäischen<lb/>
+Brüder, setzen uns sowol durch ihre Wohnungen, ihre<lb/>
+Sorge für ihren Unterhalt und ihre Wanderungen gleich<lb/>
+sehr in Erstaunen. Auf Wiesen unter Torf oder Ra-<lb/>
+sen, in Gehölzen legen sie ihre Wohnungen an, die<lb/>
+aus einer plattgewölbten Höhle von einem Fuße im<lb/>
+Durchmesser bestehen, welche, wenn sie die Erde festge-<lb/>
+treten haben, mit weichem, zernagtem Grase ausgefüt-<lb/>
+tert wird, wozu wol 30 Zugänge in allen Richtungen<lb/>
+von einem Zoll Weite führen. Stets nur ein Paar<lb/>
+erbaut und bewohnt dieses Haus; der Bau fängt im<lb/>
+Frühlinge an und ist im Herbste vollendet, worauf nun<lb/>
+so viele nahrhafte Wurzeln aller Art eingesammelt wer-<lb/>
+den, als sie im Winter verzehren. Die Kamtschadalen<lb/>
+suchen dann solche Höhlen auf, nehmen die eßbaren<lb/>
+Wurzeln heraus, legen aber zu den schlechtern als Er-<lb/>
+satz des Raubes etwas Fischrogen.</p><lb/>
+<p>Bisweilen verlassen diese Thierchen zu Tausenden<lb/>
+ihre Heimat, sammeln sich im Frühjahre und wandern<lb/>
+über Berge, Flüsse, Seen, bis an den penschinskischen<lb/>
+Meerbusen, umgehen diesen und richten sich nun nach<lb/>
+Süden, sodaß sie im Juli am Juduma= und Ochota-<lb/>
+flusse ankommen. Nur vom Meerbusen an gerechnet,<lb/>
+ist dies ein Weg von 150 deutschen Meilen, und diesen<lb/>
+machen sie im October noch einmal zurück, wo sie von<lb/>
+den Kamtschadalen mit Frohlocken wieder empfangen wer-<lb/>
+den, da ihnen meist Füchse, Zobel, Wiesel und dergl.<lb/>
+in großer Menge folgen und eine gute Jagd gewähren.<lb/>
+<cb type="end"/>
+<pb facs="#f0008" n="200"/>
+<fw place="top" type="header"> <hi rendition="#g">Das Pfennig=Magazin.</hi> </fw><cb type="start"/>
+Der Kamtschadale liebt diese Thierchen ungemein. Er<lb/>
+trocknet und wärmt jedes, das er naß und ermattet fin-<lb/>
+det. Es nährt ihn ja und schafft ihm jagdbare Thiere.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr"><hi rendition="#g">Geschicklichkeit indischer Jongleurs</hi>.</hi></head><lb/>
+<p><hi rendition="#in">B</hi>ereits in Nr. 24 des Pfennig=Magazins haben wir<lb/>
+Gelegenheit gehabt, über die Geschicklichkeit der indischen<lb/>
+Jongleurs und deren Kunst, die Zuschauer zu täuschen,<lb/>
+Einiges mitzutheilen, und gaben eine Abbildung des<lb/>
+Jongleurs Scheshal, sowie in Nr. 16 und 146 Abbil-<lb/>
+dungen von indischen Schlangenbezauberern und eine<lb/>
+Beschreibung des dabei gewöhnlichen Verfahrens.</p><lb/>
+<p>Übertroffen werden aber diese Erzählungen noch von<lb/>
+folgenden Proben indischer Geschicklichkeit, die von einem<lb/>
+englischen Reisenden erzählt werden. Nachdem der Mann<lb/>
+seine gewöhnlichen Künste, z. B. Degenverschlucken, Feuer-<lb/>
+verschlingen, gezeigt hatte, nahm er ein mit Wasser gefüll-<lb/>
+tes irdenes Gefäß, mit weiter Mündung, sodaß das Wasser<lb/>
+herausfloß. Sobald er aber die Mündung nach oben<lb/>
+wandte, war der Krug jedesmal wieder voll. Hierauf<lb/>
+leerte er denselben aus und ließ ihn von einem der<lb/>
+Zuschauer aufs Neue füllen. Kaum hatte der Jongleur<lb/>
+denselben wieder in seinen Händen, so wandte er ihn um,<lb/>
+und siehe da, es floß kein Tropfen Wasser heraus.<lb/>
+Dieses Spiel wurde zum Erstaunen aller Anwesenden<lb/>
+mehrmals mit demselben Resultate wiederholt. Jeder-<lb/>
+mann sah, daß das Gefäß gefüllt war, kaum war es<lb/>
+<cb n="2"/>
+jedoch umgekehrt, so benetzte auch nicht ein Tropfen<lb/>
+Wasser den Boden. Noch merkwürdiger war das<lb/>
+zweite Kunststück, welches der Jongleur zeigte. Er<lb/>
+brachte einen großen Korb und steckte unter denselben<lb/>
+eine große magere Hündin. Nach Verlauf einiger Mi-<lb/>
+nuten nahm er den Korb hinweg und nun hatte die<lb/>
+Hündin sieben Junge bei sich. Diese wurden ebenfalls<lb/>
+mit dem Korbe bedeckt, nach dessen Hinwegnahme eine<lb/>
+Ziege zum Vorschein kam. Diese wurde wieder durch<lb/>
+ein starkes Schwein ersetzt, welches späterhin mit durch-<lb/>
+schnittener Kehle sich zeigte, die ihm aber unter der ge-<lb/>
+heimnißvollen Hülle des Korbes schnell wieder zugeheilt<lb/>
+ward. Während dieser sämmtlichen Verwandlungen<lb/>
+stand bei dem Korbe Niemand als der Jongleur, wel-<lb/>
+cher aber nichts that, als daß er die Thiere mit dem<lb/>
+Korbe auf= und zudeckte. Als er den Korb zum letzten<lb/>
+Male hinwegnahm, war der Raum unter demselben leer.<lb/>
+<gap reason="illegible" unit="chars" quantity="3"/>Cin anderer Jongleur warf 35 Metallkugeln, eine nach<lb/>
+der andern, in die Luft, welche sämmtlich nicht wieder<lb/>
+herabfielen. Als er aber die letzte hinaufwarf, erfolgte eine<lb/>
+kurze Pause, hierauf begann der Jongleur stark zu ge-<lb/>
+sticuliren und einen Zaubergesang anzustimmen, worauf<lb/>
+dann die Kugeln, eine auf die andere, wie er sie hin-<lb/>
+aufgeworfen, wieder herabfielen. Derselbe schoß dann<lb/>
+13 Pfeile hintereinander grade in die Luft, sodaß sie<lb/>
+im Herunterfallen, das zu gleicher Zeit erfolgte, gleich-<lb/>
+sam ein Dach bildeten, da an jeder Seite des 13.<lb/>
+Pfeiles sich 6 Pfeile fanden. Wie genau mußten hier-<lb/>
+bei die verschiedenen Höhen berechnet sein, in welche die<lb/>
+Pfeile zu schießen waren.</p></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1"><figure><head><hi rendition="#fr"><hi rendition="#g">Der Cliffwagen</hi>.</hi></head></figure></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+</body>     <back><div n="1" type="imprint"><p><hi rendition="#c">Verantwortliche Herausgeber: <hi rendition="#g">Friedrich Brockhaus</hi> in <hi rendition="#g">Leipzig</hi> und <hi rendition="#aq">Dr</hi>. C. <hi rendition="#g">Dräxler=Manfred</hi> in <hi rendition="#g">Wien.</hi><lb/>
+Verlag von F. A. <hi rendition="#g">Brockhaus</hi> in Leipzig.</hi></p></div>     </back>   </text> </TEI>

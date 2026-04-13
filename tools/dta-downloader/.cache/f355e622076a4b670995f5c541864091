@@ -1,0 +1,940 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.deutschestextarchiv.de/basisformat.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">     <teiHeader>
+<fileDesc>
+<titleStmt>
+<title type="main">Das Pfennig-Magazin der Gesellschaft zur Verbreitung gemeinnütziger Kenntnisse</title>
+<title type="sub">Nr. 169</title>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/115266127">
+<surname>Geyken</surname>
+<forename>Alexander</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1222198746">
+<surname>Haaf</surname>
+<forename>Susanne</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1019062681">
+<surname>Jurish</surname>
+<forename>Bryan</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Boenig</surname>
+<forename>Matthias</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Thomas</surname>
+<forename>Christian</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Wiegand</surname>
+<forename>Frank</forename>
+</persName>
+</editor>
+<respStmt>
+<orgName>Institut für Deutsche Sprache, Mannheim</orgName>
+<resp>
+<note type="remarkResponsibility">Bereitstellung der Bilddigitalisate und TEI
+Transkription</note>
+<ref target="http://hdl.handle.net/10932/00-01B8-B066-088E-DE01-F"/>
+</resp>
+</respStmt>
+<respStmt>
+<persName>
+<forename>Peter</forename>
+<surname>Fankhauser</surname>
+</persName>
+<resp>
+<note type="remarkResponsibility">
+Transformation von TUSTEP nach TEI P5.
+Transformation von TEI P5 in das DTA TEI P5 Format.
+</note>
+</resp>
+</respStmt>
+<respStmt>
+<orgName ref="https://www.bbaw.de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<resp>
+<note type="remarkResponsibility">Langfristige Bereitstellung der DTA-Ausgabe</note>
+<ref target="https://www.bbaw.de"/>
+</resp>
+</respStmt>
+</titleStmt>
+<editionStmt><edition>Vollständige digitalisierte Ausgabe.</edition></editionStmt>
+<extent>
+<measure type="images">8</measure>
+<measure type="tokens">5465</measure>
+<measure type="types">2181</measure>
+<measure type="characters">37384</measure>
+</extent>
+<publicationStmt>
+<publisher xml:id="DTACorpusPublisher">
+<email>dta@bbaw.de</email>
+<orgName role="project">Deutsches Textarchiv</orgName>
+<orgName role="hostingInstitution" xml:lang="en">Berlin-Brandenburg Academy of Sciences and Humanities (BBAW)</orgName>
+<orgName role="hostingInstitution" xml:lang="de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<address>
+<addrLine>Jägerstr. 22/23, 10117 Berlin</addrLine>
+<country>Germany</country>
+</address>
+</publisher>
+<pubPlace>Berlin</pubPlace>
+<date type="publication">2025-10-24T08:35:19Z</date>
+<availability>
+<licence target="http://creativecommons.org/publicdomain/zero/1.0/">
+<p>Dieses Werk steht unter der "Creative Commons Namensnennung -
+Nicht kommerziell 3.0 Deutschland Lizenz" (CC BY-NC).</p>
+</licence>
+</availability>
+<idno>
+<idno type="URLWeb">https://www.deutschestextarchiv.de/nn_pfennig169_1836</idno>
+<idno type="URLXML">https://www.deutschestextarchiv.de/book/download_xml/nn_pfennig169_1836</idno>
+<idno type="URLHTML">https://www.deutschestextarchiv.de/book/download_html/nn_pfennig169_1836</idno>
+<idno type="URLText">https://www.deutschestextarchiv.de/book/download_text/nn_pfennig169_1836</idno>
+<idno type="DTADirName">nn_pfennig169_1836</idno>
+<idno type="DTAID">34770</idno>
+<idno type="URN">urn:nbn:de:kobv:b4-34770-0</idno>
+</idno>
+</publicationStmt>
+<sourceDesc>
+<bibl type="J">Das Pfennig=Magazin der Gesellschaft zur Verbreitung gemeinnütziger Kenntnisse. Nr. 169. Leipzig (Sachsen), 25. Juni 1836.</bibl>
+<biblFull>
+<titleStmt>
+<title level="m" type="main">Das Pfennig-Magazin der Gesellschaft zur Verbreitung gemeinnütziger Kenntnisse</title>
+<title level="m" type="sub">Nr. 169</title>
+</titleStmt>
+<editionStmt>
+<edition n="1"/>
+</editionStmt>
+<publicationStmt>
+<publisher/>
+<pubPlace>Leibzig (Sachsen)</pubPlace>
+<date type="publication">1836</date>
+</publicationStmt>
+</biblFull>
+<msDesc>
+<msIdentifier/>
+<physDesc>
+<typeDesc>
+<p>Fraktur</p>
+</typeDesc>
+</physDesc>
+</msDesc>
+</sourceDesc>
+</fileDesc>
+<encodingDesc>
+<editorialDecl>
+<p>
+<![CDATA[
+<p>Siehe Dokumentation</p>
+]]>
+</p>
+</editorialDecl>
+<tagsDecl>
+<rendition scheme="css" xml:id="aq">font-family:sans-serif</rendition>
+<rendition scheme="css" xml:id="b">font-weight:bold</rendition>
+<rendition scheme="css" xml:id="blue">color:blue</rendition>
+<rendition scheme="css" xml:id="c">display:block; text-align:center</rendition>
+<rendition scheme="css" xml:id="et">display:block; margin-left:2em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et2">display:block; margin-left:4em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et3">display:block; margin-left:6em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="f">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="fr">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="g">letter-spacing:0.125em</rendition>
+<rendition scheme="css" xml:id="i">font-style:italic</rendition>
+<rendition scheme="css" xml:id="in">font-size:150%</rendition>
+<rendition scheme="css" xml:id="k">font-variant:small-caps</rendition>
+<rendition scheme="css" xml:id="larger">font-size:larger</rendition>
+<rendition scheme="css" xml:id="red">color:red</rendition>
+<rendition scheme="css" xml:id="right">display:block; text-align:right</rendition>
+<rendition scheme="css" xml:id="s">text-decoration:line-through</rendition>
+<rendition scheme="css" xml:id="smaller">font-size:smaller</rendition>
+<rendition scheme="css" xml:id="sub">vertical-align:sub; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="sup">vertical-align:super; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="u">text-decoration:underline</rendition>
+<rendition scheme="css" xml:id="uu">border-bottom:double 3px #000</rendition>
+</tagsDecl>
+</encodingDesc>
+<profileDesc>
+<langUsage>
+<language ident="deu">(Früh-)Neuhochdeutsch</language>
+<language ident="deu">German</language>
+</langUsage>
+<textClass>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1main">Gebrauchsliteratur</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1sub">Zeitschrift</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">ready</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">mkhz1</classCode>
+</textClass>
+</profileDesc>
+</teiHeader>
+<text>     <front>
+<pb facs="#f0001" n="[201]"/>
+<titlePage type="heading"><docTitle><titlePart type="main"><hi rendition="#c #fr">Das Pfennig=Magazin<lb/>
+<hi rendition="#g">der</hi><lb/>
+Gesellschaft zur Verbreitung gemeinnütziger Kenntnisse.</hi></titlePart></docTitle><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<docImprint><hi rendition="#fr">Nr</hi>. 169. ]              <hi rendition="#c">Erscheint jeden Sonnabend.</hi>              <docDate><hi rendition="#right">[<hi rendition="#g">Juni</hi> 25, 1836.</hi></docDate>            </docImprint></titlePage><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+</front>     <body>       <div n="1" type="jArticle"><head><hi rendition="#fr"><hi rendition="#g">Die Stadt Algier</hi>.</hi></head><lb/>
+<figure/><lb/>
+<pb facs="#f0002" n="202"/>
+<fw place="top" type="header"> <hi rendition="#g">Das Pfennig=Magazin.</hi> </fw>       <cb type="start"/>
+<head><hi rendition="#fr"><hi rendition="#g">Die Stadt Algier</hi>.</hi></head><lb/>
+<p><hi rendition="#in">D</hi>er Kriegszug Frankreichs gegen Algier im Jahre<lb/>
+1830 und die Besitznahme dieses ehemaligen Raubstaats<lb/>
+von Seiten jener Macht hat in neuesten Zeiten die<lb/>
+Augen von Europa mehr als je auf diese Stadt ge-<lb/>
+richtet, sodaß es unsern Lesern nicht unwillkommen<lb/>
+sein wird, hier eine gedrängte Schilderung von dem<lb/>
+gegenwärtigen Zustande derselben zu erhalten, und das<lb/>
+um so mehr, da seit Beginn der französischen Verwal-<lb/>
+tung wesentliche Veränderungen darin vorgegangen sind.</p><lb/>
+<p>Algier, im Arabischen Dschesair genannt, war in<lb/>
+frühern Zeiten die Hauptstadt des Paschaliks oder Kö-<lb/>
+nigreichs gleiches Namens und die Residenz des Deys,<lb/>
+der unter den Beherrschern der sogenannten drei Raub-<lb/>
+staaten den vornehmsten Rang einnahm. Die Stadt<lb/>
+liegt an der nördlichen Abdachung eines Gebirgs,<lb/>
+welches ein durch die Ebene Metidscha getrennter<lb/>
+Zweig des Atlas ist. Die Stadt gewährt we-<lb/>
+gen ihrer höchst unregelmäßigen Bauart, nament-<lb/>
+lich von der Meerseite aus, einen seltsamen Anblick.<lb/>
+Man sieht nur viereckige Steinmassen von blen-<lb/>
+dend weißer Farbe, die man eher für einen Kreide-<lb/>
+oder Marmorbruch als für eine Stadt zu hal-<lb/>
+ten versucht ist. Die Straßen, nur zum Theil<lb/>
+gepflastert, und in der Regel durch ein in der<lb/>
+Mitte hindurchlaufendes Wasser getheilt, sind so eng,<lb/>
+daß in den meisten derselben zwei Fußgänger nicht<lb/>
+wohl einander ausweichen können. Jndessen ist<lb/>
+von Seiten der französischen Verwaltung schon viel<lb/>
+für die Verbesserung der Stadt gethan worden.<lb/>
+Man hat viele Häuser niedergerissen, einige der gang-<lb/>
+barsten Straßen erweitert und durch Hinwegräu-<lb/>
+mung der Ruinen einer großen Moschee einen freien<lb/>
+Platz gewonnen, der diesem Theile der Stadt ein<lb/>
+freundlicheres Ansehen gibt. Die Hauptstraßen von<lb/>
+Algier sind: die Straße der Marine, die Straße Bab=el-<lb/>
+Qued und die Straße Bab=a=Zun; außer diesen gibt<lb/>
+es noch mehre Nebenstraßen, die von den Franzo-<lb/>
+sen großentheils andere Namen erhalten haben. Man<lb/>
+unterscheidet unter diesen die Straße Karl <hi rendition="#aq">V</hi>., die Straße<lb/>
+Philipp, der drei Farben, Orleans, Doria, Duquesne,<lb/>
+der Consuln u. a.</p><lb/>
+<p>Das Äußere der Häuser gewährt keinen erfreuli-<lb/>
+chen Anblick. Man bemerkt von außen nur kleine lö-<lb/>
+cherartige Öffnungen, die über den Thüren angebracht<lb/>
+sind; nur hier und da zeigt sich ein Fenster, mit ei-<lb/>
+nem dichten eisernem Gitter versehen, das dem Bewoh-<lb/>
+ner ebenso wenig Annehmlichkeit als dem Beschauer<lb/>
+verspricht. Mit dem Äußern steht jedoch das Jnnere<lb/>
+der Häuser in dem auffallendsten Contraste. Eine von<lb/>
+Säulen getragene Vorhalle führt zu einer Treppe, die<lb/>
+zwischen Säulen oder zwischen den mit buntem Porzellan<lb/>
+ausgelegten Wänden in das Jnnere des Hauses hin-<lb/>
+auffteigt. Dieses besteht aus einer sehr geräumigen,<lb/>
+mit Marmorplatten ausgelegten und von einem Säu-<lb/>
+lengange eingeschlossenen Halle, die ihr Licht von oben<lb/>
+erhält und zuweilen durch einen in ihrer Mitte befind-<lb/>
+lichen Springbrunnen verziert ist. Über dem untern<lb/>
+Säulengange erhebt sich ein zweiter, von welchem man<lb/>
+in die rings um diesen befindlichen Zimmer gelangt. Auf<lb/>
+diese Weise sind alle Häuser gebaut und sie unterschei-<lb/>
+den sich nur durch ihre Größe und durch den Reichthum<lb/>
+der Verzierungen. Die Zimmer, welche stets ein läng-<lb/>
+liches Viereck bilden, sind zwar hoch, aber schmal, meist<lb/>
+feucht und dunkel; sie erhalten ihr Licht durch die<lb/>
+Thüre und zwei kleine Fenster, die auf die große Halle<lb/>
+gehen, aber höchstens dazu geeignet sind, das Zimmer<lb/>
+<cb n="2"/>
+in ein gewisses Helldunkel zu versetzen. Ein oder zwei<lb/>
+mit vielem Fleiße ausgeschnittene, bunt bemalte und<lb/>
+vergoldete Koffer oder Laden von ungewöhnlicher Größe,<lb/>
+ein Teppich, einige Polster, zwei sehr niedrige Tische,<lb/>
+ein großer oder mehre kleine Spiegel an den mit bun-<lb/>
+tem Porzellan ausgelegten Wänden ist Alles, was man<lb/>
+in dem Zimmer eines wohlhabenden Mannes bemerkt.<lb/>
+Jn vielen Häusern, deren jetzige Bewohner Franzosen sind,<lb/>
+ist die offene Halle mit einem Glasdache versehen, auch sind<lb/>
+jetzt in den meisten Zimmern der Europäer Kamine ange-<lb/>
+bracht, die man in den Häusern der Eingeborenen nur in<lb/>
+den Küchen trifft. Jedes Haus besteht in der Regel nur<lb/>
+aus zwei Stockwerken, die ganz gleich eingetheilt sind,<lb/>
+sodaß immer Mauer auf Mauer steht. Die mit Ter-<lb/>
+rassen versehenen Dächer sind flach, und dienen an<lb/>
+schönen Sommerabenden namentlich den Frauen zum<lb/>
+Aufenthalte.</p><lb/>
+<p>Es gibt in Algier ungefähr 60 Moscheen, von<lb/>
+denen einige jedoch nicht benutzt werden. Die schönste<lb/>
+darunter ist den Franzosen überlassen worden; das Jn-<lb/>
+nere derselben besteht aus weißem Marmor, kolossale,<lb/>
+herrlich gearbeitete Säulen von demselben Steine tra-<lb/>
+gen eine weite Kuppel, durch welche das Licht durch<lb/>
+bunte Glasfenster, deren Malerei und Farbenglanz jedoch<lb/>
+mit den unsrigen nicht zu vergleichen ist, einfällt. Die<lb/>
+Wände sind zum Theil noch mit stark vergoldeten und<lb/>
+bunt gemalten Stellen aus dem Koran, sowie mit eini-<lb/>
+gen Bildern geschmückt. Darunter befindet sich na-<lb/>
+mentlich ein schönes Bild der Mutter Gottes, das der<lb/>
+Papst unter dem Gouvernement des Herzogs von Ro-<lb/>
+vigo der Kirche schenkte. Zu bemerken ist noch unter<lb/>
+den öffentlichen Gebäuden die sogenannte Kasba oder<lb/>
+Kasauba, eigentlich die Citadelle der Stadt, welche die-<lb/>
+selbe beherrscht. Jn dieses feste Schloß verlegte der<lb/>
+vorletzte Dey aus Furcht vor Verschwörungen und<lb/>
+Meutereien seine Residenz und lebte hier mehr in einem<lb/>
+Gefängnisse als in einem Palaste. Nach der Einnahme<lb/>
+fanden die Franzosen in der Kasauba bedeutende Schätze,<lb/>
+die allein an baarem Gelde über vier Millionen Thaler<lb/>
+betrugen. Gegenwärtig wird sie zu einer Caserne be-<lb/>
+nutzt.</p><lb/>
+<p>Die Einwohnerzahl von Algier, die sehr ver-<lb/>
+schieden angegeben wird, mag sich im Durchschnitte<lb/>
+auf 60,000 belaufen. Unter diesen sind die Mau-<lb/>
+ren, meist Nachkommen der Araber, die eigentli-<lb/>
+chen Stammbewohner und Bürger der Stadt. Sie<lb/>
+wurden im 15. Jahrhunderte aus Spanien vertrieben,<lb/>
+ließen sich an der afrikanischen Küste nieder und bega-<lb/>
+ben sich theils freiwillig, theils gezwungen unter türki-<lb/>
+schen Schutz, der sich aber bald in eine drückende Ober-<lb/>
+herrschaft verwandelte, die um so überraschender war, da<lb/>
+sie nur von einer Handvoll türkischer Soldaten gegen<lb/>
+ein zahlreiches, aber muthloses Volk gehandhabt wurde.<lb/>
+Die äußere Körperbildung dieser Mauren ist schön, ihre<lb/>
+Gesichtszüge sind ernst und edel, die Haltung ihres<lb/>
+Körpers ruhig und vornehm; ihre Haut ist weiß und<lb/>
+zart, Augen und Haare schwarz, die Zähne von blen-<lb/>
+dender Weiße. Jhr Anzug besteht aus einem sehr<lb/>
+kostbaren Turban, zwei oder drei mit goldenen oder<lb/>
+seidenen Schnüren besetzten Westen, von denen eine mit<lb/>
+Ärmeln versehen ist, einer seidenen Leibbinde und einem<lb/>
+Paar sehr weiter, nur bis unter das Knie reichender<lb/>
+Beinkleider. Sie tragen nur selten Strümpfe, die<lb/>
+Schuhe sind rund ausgeschnitten und von grober Ar-<lb/>
+beit, ein Mantel ohne Ärmel, gleich der römischen Toga,<lb/>
+von weißem Baumwollenzeuche, zuweilen auch von<lb/>
+Seide, dient mehr zum Luxus als zum Gebrauch und<lb/>
+wird selbst bei dem schönsten Wetter über die Schulter<lb/>
+<cb type="end"/>
+<pb facs="#f0003" n="203"/>
+<fw place="top" type="header"><hi rendition="#g">Das Pfennig=Magazin.</hi> </fw><cb type="start"/>
+geworfen. Die Tabackspfeife ist die unzertrennliche Be-<lb/>
+gleiterin des Mauren, wenn er ausgeht.</p><lb/>
+<p>Die Frauen befinden sich in Algier, sowie im gan-<lb/>
+zen Orient, in einer unwürdigen Sklaverei; sie werden<lb/>
+oft ohne den geringsten Grund auf die grausamste Weise<lb/>
+mishandelt, müssen Tag für Tag in dem Jnnern<lb/>
+ihrer Häuser verbringen und werden dort von dem Auge<lb/>
+des Mannes und den wachsamen Sklaven auf das Ge-<lb/>
+naueste beobachtet. Von Kindheit an dürfen sie nur<lb/>
+verschleiert ausgehen. Ein großes weites Tuch um-<lb/>
+wickelt den ganzen Kopf und bedeckt den Körper bis<lb/>
+über die Knie Ein anderes an dem Haar befestig-<lb/>
+tes weißes Tuch bildet eine Art von Schleier, der<lb/>
+das ganze Gesicht bis auf die Augen bedeckt; ihre wei-<lb/>
+ten Beinkleider sind durch einen Zug unter den Knö-<lb/>
+cheln geschlossen. Gleich den Männern tragen sie eben-<lb/>
+falls selten Strümpfe. Jm Jnnern ihrer Häuser sind<lb/>
+die maurischen Damen oft noch kostbarer geschmückt<lb/>
+als wenn sie ausgehen; sie tragen dann kleine, sehr weit<lb/>
+ausgeschnittene und mit Goldstickerei versehene Pantof-<lb/>
+seln, lange goldene Ohrringe, Korallen= und Perlenschnüre.<lb/>
+Das schwarze Haar, über der Stirne ganz kurz abge-<lb/>
+schnitten, hängt, hinten künstlich geflochten und von ei-<lb/>
+nem seidenen Tuche gehalten, auf die Schultern herab.<lb/>
+Augenbrauen und Augenwimpern sind dunkel gefärbt,<lb/>
+und erstere so, daß sie über der Nase in einem Bogen<lb/>
+zusammenlaufen, wo dann oft eine buntgemalte Blume<lb/>
+angebracht ist; kleine runde Schönheitspflästerchen sind<lb/>
+auf dem übrigen Theil des Gesichts zerstreut und verlei-<lb/>
+hen demselben einen eigenthümlichen Reiz. Sie rauchen<lb/>
+in ihren Gemächern Taback, und das mit Wasser ge-<lb/>
+füllte Gefäß, durch welches sich das elastische Pfeifen-<lb/>
+rohr windet, ist ein nothwendiges Meubel in dem<lb/>
+Putzzimmer einer Maurin. Ein ebenso unerlaßli-<lb/>
+cher Luxusartikel ist das Rosen= und Jasminöl, mit<lb/>
+welchem sich die Maurinnen im eigentlichsten Sinne<lb/>
+überschütten. Die einzige Zerstreuung der Frauen au-<lb/>
+ßer dem Hause besteht in den rührenden Beweisen des<lb/>
+Andenkens an ihre verstorbenen Freunde und Verwand-<lb/>
+ten. Sie begeben sich zu diesem Zwecke am Freitage,<lb/>
+der bei den Mohammedanern der Ruhetag ist, nach den<lb/>
+sehr heilig geachteten Begräbnißplätzen der Hingeschiede-<lb/>
+nen, die sie vom Staube reinigen und mit Blumen<lb/>
+bekränzen.</p><lb/>
+<p>Eine andere Classe der Einwohner von Algier<lb/>
+sind die Neger, welche in der Regel von schönem und<lb/>
+starkem Körperbaue sind; sie tragen kleine rothe Mützen,<lb/>
+eine weiße, mit kurzen Ärmeln versehene Weste, eine<lb/>
+rothe Leibbinde und sehr weite, bis über die Knie rei-<lb/>
+chende Beinkleider. Freigelassene Sklaven tragen den<lb/>
+Turban wie die übrige Kleidung der Mauren. Die<lb/>
+Negerinnen, welche ebenfalls groß und schön gewachsen<lb/>
+sind, tragen eine Art von kurzem Kleide ohne Ärmel<lb/>
+und zuweilen kurze Beinkleider, lassen aber Gesicht und<lb/>
+Brust unbedeckt. An den Armen und Beinen tragen<lb/>
+sie kupferne Ringe. Wenn sie sich, was häufig ge-<lb/>
+schieht, mit Mauren verheirathen, so nehmen sie die<lb/>
+Kleidung der maurischen Frauen an.</p><lb/>
+<p>Außerdem gibt es noch viele Beduinen und Kaby-<lb/>
+len in Algier. Erstere kommen aus dem flachen Lande,<lb/>
+letztere von dem Atlas herab in die Stadt, um daselbst<lb/>
+ihren Lebensunterhalt zu gewinnen. Sie sind gewöhn-<lb/>
+lich Lastträger, Aufwärter in den Bädern, Pferdemäkler<lb/>
+u. dergl.; sie leben sehr mäßig, begnügen sich mit ei-<lb/>
+ner Feige oder Apfelsine oft für den ganzen Tag und<lb/>
+bringen die Nächte meist auf dem Straßenpflaster ohne<lb/>
+Stroh und Decken zu.</p><lb/>
+<p>Unter den Europäern in Algier befinden sich außer<lb/>
+<cb n="2"/>
+den Franzosen noch Spanier, Deutsche und Malteser;<lb/>
+jedoch sind die Deutschen die Einzigen, die sich förmlich<lb/>
+angesiedelt haben; die Europäer führen ein sehr behagli-<lb/>
+ches Leben; es gibt dort gute Kaffeehäuser, Leseanstalten,<lb/>
+literarische Vereine, Theater und öfters musikalische Abend-<lb/>
+unterhaltungen.</p><lb/>
+<p>So wenig ansprechend aber auch im Allgemeinen<lb/>
+der Aufenthalt in der Stadt selbst ist, so reizend ist der-<lb/>
+selbe in der Umgegend von Algier. Eine üppige Vege-<lb/>
+tation bedeckt die Thäler und Anhöhen, welche mit Land-<lb/>
+häusern besetzt sind. Die schlanke Palme und die hier<lb/>
+zu einer riesenhaften Größe sich erhebende Platane, un-<lb/>
+ter deren Schatten die Aloe und der Cactus wuchern,<lb/>
+bilden reizende Gruppen auf dem mit bunten Blumen<lb/>
+durchwirkten Grün der Wiesen. Die mit dem Dufte<lb/>
+des Jasmins und der Orangenblüte angefüllte Luft durch-<lb/>
+zieht die durchsichtige und heitere Atmosphäre. Die<lb/>
+Landhäuser im orientalischen Geschmack sind gewöhnlich<lb/>
+von einem Orangengarten umgeben, der von einer ho-<lb/>
+hen Hecke von Granatbäumen eingeschlossen ist. Jn der<lb/>
+nächsten Umgegend der Stadt befindet sich eine Anzahl<lb/>
+von kleinen arabischen Kaffeehäusern, die freilich in der<lb/>
+Regel aus weiter nichts bestehen, als aus einem Dache<lb/>
+von Rohr, welches auf zwei Baumstämmen ruht: unter<lb/>
+diesen sind Strohmatten und Sitze angebracht. Das<lb/>
+schönste dieser Kaffeehäuser ist das von Bir Nadam,<lb/>
+zwei Stunden von Algier. Es hat einen Säulengang<lb/>
+von weißem Marmor, mit einem sehr schönen Spring-<lb/>
+brunnen.</p><lb/>
+<p>Das Land um Algier ist überaus fruchtbar, und<lb/>
+es ist keinem Zweifel unterworfen, daß es bei größerer<lb/>
+und verständigerer Bebauung in wenigen Jahren zu<lb/>
+den fruchtbarsten der Erde gehören wird. Es ist über-<lb/>
+reich an Getreide aller Art, sowie an den herrlichsten<lb/>
+Südfrüchten. Alle europäischen Gemüsearten werden<lb/>
+in den Gärten gezogen, und sind von auffallender<lb/>
+Größe und seltenem Wohlgeschmack. Der Taback ist<lb/>
+ganz vorzüglich und gehört zu den besten Sorten des<lb/>
+Orients; er ist leicht und von einem sehr angenehmen<lb/>
+Geruche und wird bei größerer Anpflanzung ganz Frank-<lb/>
+reich hinreichend versehen können.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Die Grabmäler der Griechen und Römer.</hi></head><lb/>
+<p><hi rendition="#in">D</hi>er eigenthümliche Sinn, die besondere Denk= und<lb/>
+Anschauungsweise der verschiedenen Völker spricht sich<lb/>
+unter Anderm auch deutlich in ihren Grabmälern<lb/>
+und Todtenmonumenten aus. Wir haben alte Völker,<lb/>
+bei denen, wie die Leichenfeierlichkeiten überhaupt, so auch<lb/>
+die Monumente mit größter Einfachheit und Schmuck-<lb/>
+losigkeit stattfanden. Bei mehren war es nur der ein-<lb/>
+fache, mit Rasen bedeckte Hügel, welcher für einige Zeit<lb/>
+die Stätte bezeichnete, wo ein Staatsbürger oder ein<lb/>
+Familienglied ruhte. So waren auch die Grabmäler der<lb/>
+alten Griechen und Römer, von denen nur wir hier<lb/>
+sprechen, in den frühesten Zeiten, wie Homer sie<lb/>
+beschreibt und noch jetzt in der Umgegend des alten<lb/>
+Troja angetroffen werden. Solche Grabhügel waren<lb/>
+blos mit Gesträuch bepflanzt, als ob die Natur selbst<lb/>
+dem Todten die letzte Ehre erweisen sollte. Erst spä-<lb/>
+ter kam man darauf, über den Häuptern der Begra-<lb/>
+benen abgestumpfte Säulen oder Halbsäulen aufzustellen,<lb/>
+welche eine kurze, einfache Jnschrift und die Sinnbil-<lb/>
+der des Berufs des Verstorbenen als Kennzeichen führten.<lb/>
+So war das Grab des Archimedes, auf welchem nur<lb/>
+ein Zirkel und Compaß als Symbole seiner Wissen-<lb/>
+schaft eingegraben waren. Die Denkmäler, welche der<lb/>
+<cb type="end"/>
+<pb facs="#f0004" n="204"/>
+<fw place="top" type="header"><hi rendition="#g">Das Pfennig=Magazin.</hi> </fw><lb/>
+<cb type="start"/>
+<figure/><lb/>
+Staat seinen ausgezeichneten Bürgern setzte, waren frei-<lb/>
+lich in Stoff und Form weit kostbarer; Privatleute aber<lb/>
+begnügten sich mit jenen einfachen Halbsäulen oder<lb/>
+Denksteinen, dergleichen unsere Abbildung zwei verschie-<lb/>
+dene vorstellt. Weit prächtiger ist das andere Grab-<lb/>
+monument, welches wir gleichfalls in der Abbildung ge-<lb/>
+ben, und welches das Museum im Louvre zu Paris<lb/>
+<figure/><lb/>
+aufbewahrt. Geschmack und Ausführung an diesem<lb/>
+kostbaren, jeodch nicht überladenen Bauwerke sind gleich<lb/>
+bewundernswerth. Der mittlere Kopf stellt das Haupt<lb/>
+der Gorgo vor, zwischen zwei Schwänen, deren Flügel<lb/>
+auf beiden Seiten des Kopfes stehen und zu diesem<lb/>
+selbst zu gehören scheinen. Weiter oben, auf beiden<lb/>
+Seiten des leergelassenen Feldes, sind Köpfe des Jupi-<lb/>
+ter Ammon mit dem Widderhorne. Unterhalb diesen<lb/>
+halten auf beiden Seiten zwei Adler Kaninchen in ihren<lb/>
+Fängen. Mit ungemeiner Leichtigkeit und Anmuth<lb/>
+sind die Blumenguirlanden gearbeitet, welche von den<lb/>
+Jupitershörnern herabhängen. Unter den Adlern in<lb/>
+zwei Feldern befinden sich Masken mit dem Augur-<lb/>
+stab. Zwischen diesen ist das Basrelief einer Meer-<lb/>
+göttin und dreier Genien, welche auf einem Delphin die<lb/>
+Fluten durchschwimmen, wahrscheinlich auf der Fahrt<lb/>
+nach den Inseln der Seligen begriffen: eine sinnvolle<lb/>
+Anspielung auf das Schicksal des Vollendeten. Der<lb/>
+Umstand, daß das Feld für die Inschrift leer ist, wie-<lb/>
+derholt sich auf sehr vielen alten Grabmälern und er-<lb/>
+klärt sich daraus, daß solche Kunstwerke nicht blos auf<lb/>
+<cb n="2"/>
+Bestellung, sondern auch zum Verkauf gemacht wurden,<lb/>
+wo dann natürlich das Feld leer blieb, um den Namen<lb/>
+Stand u. s. w. des Verstorbenen nachträglich eingraben<lb/>
+zu lassen</p><lb/>
+<p>Die Römer nannten das gewöhnliche Grab, wor-<lb/>
+in der Todte selbst oder seine Asche lag, <hi rendition="#aq">sepulcrum.</hi><lb/>
+Die eigentlichen Grabmäler, oft mit ungeheurer Pracht<lb/>
+und außerordentlichem Aufwand errichtet, hießen <hi rendition="#aq">monu-<lb/>
+menta, mausolea</hi>. Viele waren aus parischem Mar-<lb/>
+mor gearbeitet, wenige hatten mehr als ein Stockwerk.<lb/>
+Das ausgezeichnetste, welches wir kennen, ist das des<lb/>
+Kaisers Hadrian in Rom. Die Pyramide des Cestius,<lb/>
+ebenfalls aus parischem Marmor erbaut, enthielt inwen-<lb/>
+dig ein mit kostbaren Malereien geziertes Gemach. Die<lb/>
+Grabschriften ( <hi rendition="#aq">epitaphia</hi> ) der Römer pflegten im Allgemei-<lb/>
+nen länger zu sein, als die der Griechen. Auf densel-<lb/>
+ben waren Name, Stand, Titel u. s. w. des Verstor-<lb/>
+benen, auch sein Alter, mit großer Genauigkeit, bis<lb/>
+auf Monate und Tage verzeichnet. Die Jnschriften be-<lb/>
+gannen in der Regel mit den Buchstaben <hi rendition="#aq">D. M. ( Diis<lb/>
+manibus</hi> ) , d. i. den Manen, den Todtengöttern des<lb/>
+Verstorbenen geweiht. Grabmäler, welche nur Monu-<lb/>
+mente waren, ohne daß der Leib oder die Asche des<lb/>
+Todten selbst darin enthalten war, nannte man Keno-<lb/>
+taphien; sie unterschieden sich in der Bauart nicht von<lb/>
+den eigentlichen Grabmälern. Reichere römische Fami-<lb/>
+lien hatten in ihren Wohnhäusern und Villen auch<lb/>
+Grabgewölbe ( Familiengrüfte ) , wo in ausgehauenen<lb/>
+Nischen die Urnen mit der Asche der verstorbenen Fa-<lb/>
+milienglieder beigesetzt wurden. Solche Gewölbe nann-<lb/>
+ten die Römer <hi rendition="#aq">Columbaria</hi>, wegen der Ähnlichkeit, die<lb/>
+diese Nischen mit den Löchern hatten, in denen die<lb/>
+Tauben zu nisten pflegen. Auch gibt es antike Grab-<lb/>
+mäler mit den Bildnissen des Todten und seiner Fa-<lb/>
+milie, oft von großer künstlerischer Vollendung.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr"><hi rendition="#g">Der weiße Mohn und das Opium</hi>.</hi></head><lb/>
+<p><hi rendition="#in">M</hi>ehre Pflanzen enthalten einen milchigen Saft, der<lb/>
+eine einschläfernde und betäubende Eigenschaft hat, die<lb/>
+besonders in dem Safte des weißen Mohns sehr<lb/>
+wirksam ist. Er liefert das Opium. Diese Pflanze<lb/>
+wird in mehren Gegenden Asiens, vorzüglich im<lb/>
+britischen Jndien, angebaut, gedeiht aber auch im<lb/>
+südlichen Europa, da sie leicht fortkommt und selbst<lb/>
+Kälte nicht scheut. Sie verträgt das Verpflanzen nicht<lb/>
+und muß daher dicker gesäet werden als sie wachsen<lb/>
+soll, da man die Beete später durch Ausjäten lichtet.<lb/>
+Jn Jndien wird der Same im October auf abgetheilte<lb/>
+kleine Beete gesäet, und die Pflanzen werden reichlich<lb/>
+begossen, bis sie acht Zoll hoch sind; später werden sie<lb/>
+sparsamer bewässert, bis die Zeit der Blüte nahet, wo<lb/>
+man sie wieder häufiger begießt und eine salpeterhaltige<lb/>
+Erde und Dünger auf die Beete streut. Wenn die<lb/>
+Samenkapseln halb reif sind, wird die Bewässerung<lb/>
+verstärkt und die Opiumernte beginnt. Jn jede Kap-<lb/>
+sel werden bei Sonnenuntergange zwei Einschnitte von<lb/>
+unten nach oben gemacht, die aber nicht in die Höhlung<lb/>
+der Kapsel eindringen dürfen. Diese Einschnitte werden<lb/>
+jeden Abend wiederholt, bis jede Kapsel sechs bis sieben<lb/>
+Wunden hat, worauf man dann den Samen zur Reife<lb/>
+kommen läßt. Früh am Tage wird der aus den Ein-<lb/>
+schnitten geflossene Saft von Frauen und Kindern ge-<lb/>
+sammelt und in irdene Gefäße gethan, in welchen man<lb/>
+ihn stehen läßt, bis er zu kugelförmigen, gegen vier<lb/>
+Pfund schweren Massen verhärtet ist, die man dann<lb/>
+<cb type="end"/>
+<pb facs="#f0005" n="205"/>
+<fw place="top" type="header"><hi rendition="#g">Das Pfennig=Magazin.</hi> </fw><lb/>
+<cb type="start"/>
+<figure><head>Der weiße Mohn.</head></figure><lb/>
+mit Blättern bedeckt, trocknet und in den Handel bringt.<lb/>
+Das in Indien gewonnene Opium geht meist durch<lb/>
+Schleichhandel nach China, wo man es theils raucht,<lb/>
+theils in Gestalt von Pillen nimmt, um sich zu berau-<lb/>
+schein. Diese verderbliche Sitte ist ebenso herrschend<lb/>
+unter den Türken, besonders den ältern, und nur erst<lb/>
+in der neuesten Zeit ist sie beschränkt worden. Ein<lb/>
+Reisender, der längere Zeit in Konstantinopel verweilte,<lb/>
+besuchte eines der Kaffeehäuser, wo sich die leidenschaft-<lb/>
+lichen Opiumesser, <hi rendition="#g">Theriaki</hi>, versammeln. Jedem<lb/>
+Besucher wurde die Gabe gereicht, die er brauchte, um<lb/>
+sich in einen Rausch zu versetzen. Sie saßen still auf<lb/>
+ihren Polstersitzen und erwarteten die Wirkung. Einige<lb/>
+machten furchtbare Geberden, während Diejenigen, die<lb/>
+bereits im Rausche waren, wie im Fieberwahn redeten.<lb/>
+Ihre Gesichter glühten, ihre Augen hatten einen unna-<lb/>
+türlichen Glanz, und furchtbar wild war der Ausdruck<lb/>
+ihrer Züge. Gewöhnlich erfolgt die Wirkung zwei Stun-<lb/>
+den nach dem Genusse des Opiums und dauert gegen fünf<lb/>
+Stunden. Die Gabe steigt von drei Gran bis zu einer<lb/>
+Drachme. Man sah in jenem Kaffeehause einen alten<lb/>
+Mann, der seit 25 Jahren täglich binnen zwei Stunden<lb/>
+vier Pillen, jede von sechs Gran genommen hatte. Solche<lb/>
+Fälle sind aber sehr selten, da ein Opiumesser nicht leicht<lb/>
+das dreißigste Jahr überlebt, wenn er sich der zerstören-<lb/>
+den Gewohnheit hingegeben hat. Die moralische und<lb/>
+physische Schwäche, die der Aufregung folgt, ist furcht-<lb/>
+bar. Die Eßlust wird bald gestört, jede Fiber zittert,<lb/>
+die Nerven des Halses werden angegriffen und die Mus-<lb/>
+keln steif; bei mehren Gästen des Kaffeehauses war<lb/>
+der Hals dürr und die Finger zusammengezogen, und<lb/>
+doch konnten sie von der Gewohnheit nicht ablassen.<lb/>
+Sie fühlen sich elend, bis die Stunde kommt, wo<lb/>
+sie ihre gewöhnliche Gabe nehmen, und wenn sie zu<lb/>
+wirken beginnt, werden sie feurig und lebendig. Ei-<lb/>
+<cb n="2"/>
+nige reden in Versen, Andere sprechen in beredten Wor-<lb/>
+ten zu den Umstehenden, und halten in ihrem trunkenen<lb/>
+Wahn sich für Könige der Welt. Der Reisende erprobte<lb/>
+an sich selber die Wirkung. Er begann mit einem Gran,<lb/>
+der in einer Zeit von anderthalb Stunden keine merk-<lb/>
+liche Wirkung hatte. Dann nahm er noch einen halben<lb/>
+Gran, und nach einer halben Stunde nochmals ebenso<lb/>
+viel. Drittehalb Stunden nach der ersten Gabe ließ<lb/>
+er sich eine Pille von zwei Gran reichen und bald nach-<lb/>
+her fühlte er eine lebhafte Aufregung. Seine Seelen-<lb/>
+kräfte belebten sich, Alles, was er sah, schien sich zu<lb/>
+vergrößern, aber er fühlte nicht so angenehme Regungen,<lb/>
+wenn er die Augen schloß, als wenn er sie offen hielt.<lb/>
+Er eilte so schnell als möglich nach Hause und es war<lb/>
+ihm, als ob sein Fuß kaum den Boden berührte. Er<lb/>
+ging sogleich zu Bette, und die seltsamsten entzückendsten<lb/>
+Traumbilder flogen durch seine Seele. Er war bleich<lb/>
+und unlustig, als er am folgenden Morgen aufstand,<lb/>
+hatte Kopfschmerz und fühlte eine so große Schwäche,<lb/>
+daß er den ganzen Tag auf dem Sopha liegen mußte.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr"><hi rendition="#g">Das Chamäleon</hi>.</hi></head><lb/>
+<figure/><lb/>
+<p><hi rendition="#in">D</hi>as Chamäleon gehört zu den vierfüßigen Amphibien.<lb/>
+Es ist von verschiedener Größe, doch nicht über1 1 / 2<lb/>
+Fuß groß, hat einen großen pyramidalen Kopf, der auf<lb/>
+den Seiten zusammengedrückt, von vorn angesehen, fast<lb/>
+viereckig erscheint, mehr hoch als breit ist und fast so<lb/>
+hoch als lang, in eine spitzige Schnauze endigt, die je<lb/>
+nach den verschiedenen Arten mit kammartigen Aus-<lb/>
+wüchsen besetzt ist. Auch die Seiten des Kopfes sind<lb/>
+kammartig erhöht, der Hinterkopf aber ist mehr oder<lb/>
+weniger angeschwollen, verlängert und ebenfalls mit ei-<lb/>
+nem Kamme besetzt. Unten an der Kehle zeigt sich ein<lb/>
+zusammengedrückter Kropf, den das Thier nach Willkür<lb/>
+aufblasen kann. Der eigentliche Hals ist sehr kurz und<lb/>
+wenig beweglich. Auch der übrige Körper ist kurz und<lb/>
+an den Seiten eingedrückt; auf dem scharfen und gebo-<lb/>
+genen Rücken bemerkt man oft einen Kamm, sowie<lb/>
+auch am Bauche. Der zugerundete Schwanz kann kräf-<lb/>
+tig nach unten zusammengerollt werden. Die langen und<lb/>
+schmächtigen Gliedmaßen haben einen eignen Bau; die<lb/>
+Schienbeine sind nämlich so lang als die Schenkel.<lb/>
+Noch sonderbarer aber ist die Beschaffenheit der Zehen,<lb/>
+die man bei keinen andern Amphibien auf gleiche Weise<lb/>
+findet. Sie sind in zwei Bündel verwachsen, die sich<lb/>
+einander gegenüber stehen, sodaß sie gleichsam eine Zange<lb/>
+bilden, und zwar stehen an den Vorderfüßen zwei Ze-<lb/>
+hen nach außen und drei nach innen, wogegen dieses<lb/>
+Verhältniß bei den Hinterfüßen umgekehrt ist.</p><lb/>
+<p>Betrachten wir das Skelett dieser Thiere, so fin-<lb/>
+den wir noch manches Merkwürdige. Zuerst fallen die<lb/>
+<cb type="end"/>
+<pb facs="#f0006" n="206"/>
+<fw place="top" type="header"> <hi rendition="#g">Das Pfennig=Magazin.</hi> </fw><cb type="start"/>
+sehr großen Augenhöhlen auf, welche nur durch eine<lb/>
+häutige Scheidewand voneinander getrennt sind. Die<lb/>
+Halswirbel sind zum Theil miteinander verwachsen, wo-<lb/>
+durch die Schwerbeweglichkeit des Halses sich leicht er-<lb/>
+klären läßt, und die meisten Rippen einer Seite sind<lb/>
+mit denen der andern verwachsen, ohne, wie bei andern<lb/>
+verwandten Thieren, durch ein Zwischenstück verbunden<lb/>
+zu sein. Bei den großen Augen des Thieres tritt auch<lb/>
+hier wieder eine sonderbare Eigenthümlichkeit hervor; der<lb/>
+Augapfel ist nämlich dermaßen durch ein, mit körnigen<lb/>
+Schuppen besetztes Augenlid bedeckt, daß nur eine kleine<lb/>
+Öffnung von zwei bis drei Linien übrig bleibt. Hierzu<lb/>
+kommt noch die auffallende Erscheinung, daß nicht wie bei<lb/>
+andern Thieren beide Augen sich immer zugleich bewegen,<lb/>
+sondern jedes Auge für sich eine beliebige Richtung neh-<lb/>
+men kann. Nicht minder auffallend ist der Bau der<lb/>
+Zunge dieses Thieres. Es kann dieselbe augenblicklich<lb/>
+mehre Zoll lang aus dem Maule herausschnellen und<lb/>
+ebenso rasch wieder einziehen, nachdem es ein Jnsekt<lb/>
+damit erfaßt hat. Dies scheint durch ein Umlegen der<lb/>
+Zunge zu geschehen und nicht, wie man sonst wol<lb/>
+glaubte, durch eine klebrige Feuchtigkeit an ihrer<lb/>
+Spitze.</p><lb/>
+<p>Wir haben schon erwähnt, daß das Chamäleon<lb/>
+von Jnsekten lebt. Die Alten glaubten indeß, es er-<lb/>
+nähre sich blos durch Luft, eine Meinung, die vielleicht<lb/>
+daher entstanden ist, daß diese Thiere, gleich andern<lb/>
+Reptilien, sehr lange ohne Nahrung leben können, viel-<lb/>
+leicht auch daher, daß die Lungen des Chamäleons so<lb/>
+außerordentlich entwickelt sind. Sie erscheinen nämlich<lb/>
+als ein paar große Blasen, welche noch üderdies nach<lb/>
+hinten zu verlängert sind und dem Thiere äußerlich ei-<lb/>
+nen großen Umfang geben, während sie dessen Gewicht<lb/>
+so sehr vermindern, daß es mit der Größe in gar kei-<lb/>
+nem Verhältnisse mehr steht. Dabei sind die Wände der<lb/>
+Brust so dünn, daß das Chamäleon in der Zeit, wo<lb/>
+es seine Lunge recht mit Luft gefüllt hat, fast durch-<lb/>
+scheinend wird.</p><lb/>
+<p>Diese Thiere haben außer den bereits erwähn-<lb/>
+ten noch mehre auffallende Eigenschaften, und wir<lb/>
+müssen noch eine der merkwürdigsten anführen, welche<lb/>
+unter allen immer die größte Aufmerksamkeit erregt<lb/>
+hat und sogar zu dem Sprüchworte Veranlassung gab:<lb/>
+&#x201E;er ist ein Chamäleon&#x201C;, oder: &#x201E;er ändert die Far-<lb/>
+ben wie ein Chamäleon&#x201C;. Bevor wir jedoch davon weiter<lb/>
+sprechen, müssen wir zuerst noch die Haut dieses Thie-<lb/>
+res betrachten. Diese ist überall mit kleinen körnigen,<lb/>
+verschieden gebildeten Schuppen bedeckt, welche hier und<lb/>
+da eine erweiterte oder verlängerte Gestalt annehmen<lb/>
+und damit die Kämme u. s. w. bilden, deren bereits<lb/>
+oben gedacht wurde. Die Farbe der Haut ist bei jeder<lb/>
+Art verschieden, doch eben nicht auffallend, indem sich<lb/>
+auf derselben nur undeutliche Flecke und marmorartige<lb/>
+Zeichnungen finden. Jn dieser Beziehung hat das Thier<lb/>
+nichts Ausgezeichnetes, wol aber hinsichtlich der Fähig-<lb/>
+keit, seine eigenthümliche Farbe fast augenblicklich zu ver-<lb/>
+ändern. Gewöhnlich ist die Farbe ein schmuziges Grau-<lb/>
+grün, das sich aber unter Umständen in ein mehr oder<lb/>
+weniger helles Gelb, in ein dunkles, mehr oder minder in<lb/>
+das Violette fallendes Grün, in ein mehr oder minder<lb/>
+dunkles Braun, ja selbst in Schwarz verändert.</p><lb/>
+<p>Eine so auffallende Erscheinung mußte nothwendig<lb/>
+zur Beobachtung reizen und hat die abweichendsten Er-<lb/>
+klärungsversuche hervorgerufen, die wir hier nicht näher<lb/>
+anführen wollen. Der neueste Erklärungsversuch rührt<lb/>
+von dem englischen Naturforscher Milne Edwards und<lb/>
+erläutert die Sache am meisten. Die Untersuchungen<lb/>
+dieses Gelehrten haben nämlich dargethan, daß sich in<lb/>
+<cb n="2"/>
+der Haut des Chamäleons zwei verschiedene, in eigen-<lb/>
+thümliche Gefäße vertheilte und übereinander liegende<lb/>
+Farbenstoffe befinden, welche sich gleichzeitig oder auch<lb/>
+nacheinander zeigen können, indem einer sich hinter dem<lb/>
+andern verbirgt; der eine ist mehr oder weniger gelblich<lb/>
+oder weißlich grau, der andere violett, roth und schwärz-<lb/>
+lich, und zwar liegt dieser letztere tiefer in der Haut,<lb/>
+als jener. Jmmer bleiben aber noch, ungeachtet dieser<lb/>
+Thatsache, manche Erscheinungen bei dem Farbenwechsel<lb/>
+unerklärt.</p><lb/>
+<p>Übrigens scheinen diese Farbenveränderungen mit<lb/>
+dem gesunden und krankhaften Zustande des Thieres<lb/>
+verknüpft zu sein, denn es gibt Zustände, in welchen<lb/>
+das Thier nicht mehr im Stande zu sein scheint, sol-<lb/>
+chen Wechsel hervorzubringen. Dies konnte man z. B.<lb/>
+an einem der beiden Chamäleons bemerken, welche vor<lb/>
+einigen Jahren zu Paris gezeigt wurden. Das eine<lb/>
+blieb unbeweglich in einer Ecke seines Käfigs und zeigte<lb/>
+eine einförmige kupfergrüne Farbe; alle Umstände, welche<lb/>
+bei seinem Gefährten einen Farbenwechsel hervorbrachten,<lb/>
+hatten hier keine Wirkung. Ebenso wenig als man<lb/>
+bis jetzt vermocht hat, die Weise, wodurch der Farben-<lb/>
+wechsel entsteht, zu erklären, kann man den Grund an-<lb/>
+geben, warum er statthat. Das Chamäleon pflanzt<lb/>
+sich durch Eier fort, aus welchen die Jungen, vollkom-<lb/>
+men wie die Alten gebildet, ausschlüpfen. Es konnte<lb/>
+nicht fehlen, daß ein so merkwürdiges Thier wie das<lb/>
+Chamäleon, das den Alten schon bekannt war, zu<lb/>
+einer Menge Fabeln Veranlassung gab, auch z. B., wenn<lb/>
+eine Schlange, sein Hauptfeind, es zu verschlingen drohe,<lb/>
+so nehme es schnell einen Stock quer in das Maul und<lb/>
+sei nun sicher, ein solches Hinderniß entgegengestellt zu<lb/>
+haben, daß auch der weiteste Rachen ihm keine Gefahr<lb/>
+mehr bringe.</p><lb/>
+<p>Das Chamäleon ist ein träges Thier, das gleich<lb/>
+dem Faulthiere, da es weder leicht gehen, noch weni-<lb/>
+ger laufen kann, sich immer an Baumäste oder an<lb/>
+Steine angeklammert, wobei es neben den Klauen auch<lb/>
+den Schwanz zu Hülfe nimmt. Unbeweglich sitzt es<lb/>
+so stundenlang, und nur der Hunger oder ein erschei-<lb/>
+nendes Jnsekt bringt es aus seiner Trägheit. Wenn<lb/>
+man es ergreift, so versucht es kaum sich mit einem<lb/>
+Bisse zu wehren, den man übrigens nicht zu fürchten<lb/>
+braucht, da er weder heftig noch gefährlich ist. Man<lb/>
+findet diese Thiere nur in den heißen Gegenden der al-<lb/>
+ten Welt und in Europa nur in Spanien. Nirgend<lb/>
+fürchtet man sie, aber auch nirgend benutzt man sie zu<lb/>
+irgend einem Zwecke, denn medicinische Kräfte haben auch<lb/>
+diejenigen Theile nicht, welchen man sie früher zu-<lb/>
+schrieb.</p><lb/>
+<p>Von den verschiedenen Arten stellt unsere Abbil-<lb/>
+dung, die gemeinste, das sogenannte afrikanische Cha-<lb/>
+mäleon dar; es ist zugleich die am weitesten verbreitete<lb/>
+und am längsten bekannte, die sich von andern beson-<lb/>
+ders durch den Rückenkamm, das vorspringende Hinter-<lb/>
+haupt und die einfach gezähnten Augenbogenkämme, welche<lb/>
+sich vorn auf der Schnauze vereinigen, auszeichnet. Die<lb/>
+Färbung dieses Thieres ist gelblich, mit bräunlichen un-<lb/>
+regelmäßigen Querbinden. Bei jungen Thieren bemerkt<lb/>
+man an den Seiten des Rückens eine Reihe gelblicher,<lb/>
+schwarz gesäumter Flecke, welche bei zunehmendem Alter<lb/>
+sich in eine gelbliche Linie verwandeln. Diese Art ist<lb/>
+sehr gemein an den Küsten des Mittelmeeres, in Ägyp-<lb/>
+ten, in der Berberei, und findet sich auch im südlichen<lb/>
+Spanien.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<cb type="end"/>
+<pb facs="#f0007" n="207"/>
+<fw place="top" type="header"><hi rendition="#g">Das Pfennig=Magazin.</hi> </fw>       <cb type="start"/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Ein chinesisches Mittagsessen.</hi></head><lb/>
+<p><hi rendition="#in">W</hi>enn ein Reicher in China seinen Freunden und<lb/>
+Gönnern ein Mittagsessen geben will, so läßt er mehre<lb/>
+Tage vorher sein ganzes Haus auf das Zierlichste aus-<lb/>
+putzen. Beim Empfang führt er seine Gäste durch eine<lb/>
+ganze Reihe von Prunkgemächern und wo möglich auch<lb/>
+durch die Vorhöfe und Gärten, welche mit Blumenbee-<lb/>
+ten, Wasserbecken und grünen Plätzen geziert sind, und<lb/>
+ergötzt sich an den Ausbrüchen ihrer Bewunderung. Zu-<lb/>
+letzt unter Allen betritt der Gast den Speisesaal, wo<lb/>
+man sich unter vielfachen Ceremonien und Complimen-<lb/>
+ten endlich zu Tische setzt. Man genießt zuerst eine<lb/>
+Suppe von indischen Schwalbennestern, welche in<lb/>
+kleinen Porzellantassen herumgereicht wird. Nach der<lb/>
+Suppe werden 15 &#x2014; 20 Mal die Schüsseln gewech-<lb/>
+selt, und zuweilen stehen ihrer 60 auf einmal auf der<lb/>
+Tafel. Bei vielen Gerichten ist es ganz unmöglich,<lb/>
+ihre Bestandtheile zu erkennen, denn die Kochkunst der<lb/>
+Chinesen ist sehr zusammengesetzt. Zu den erkennbaren<lb/>
+gehören unter andern: gedämpfte Taubeneier, wildes<lb/>
+Katzenfleisch, Fricassee von Froschkeulen, getrocknete und<lb/>
+stark gewürzte Würmer, welche ungefähr die Stelle un-<lb/>
+sers Kaviars vertreten und zum Appetit reizen sollen,<lb/>
+gebratene Grillen, Haifischfloßfedern und andere chine-<lb/>
+sische Leckerbissen, welche einem europäischen Gaumen<lb/>
+zum Theil widerstehen. Die Fleischspeisen bestehen<lb/>
+in Wildpret, Fasanen und Rebhühnern, welches Alles<lb/>
+aber in kleine Stückchen geschnitten und in Porzellan-<lb/>
+tassen herumgegeben wird. Anstatt der Messer und Ga-<lb/>
+beln bedient man sich kleiner Elfenbeinstäbchen, die mit<lb/>
+Silber beschlagen sind, und welche die Chinesen mit<lb/>
+großer Zierlichkeit zu handhaben wissen. Das einzige<lb/>
+Getränk zu diesen vielfachen Speisen ist der sogenannte<lb/>
+Sei=Hung, das ist Zuckerwasser mit Wein vermischt,<lb/>
+welches ebenfalls in kleinen Tassen gereicht wird. Jn<lb/>
+diesem unschuldigen Getränk trinken die Gäste gegensei-<lb/>
+tig ihre Gesundheit, indem sie das Täßchen mit beiden<lb/>
+Händen fassen und es unter Verneigungen und hefti-<lb/>
+gem Kopfschütteln ausleeren, und zuletzt umkehren, zum<lb/>
+Zeichen, daß nichts darin geblieben ist. Während des<lb/>
+Speisens werden Schauspiele oder Pantomimen aufge-<lb/>
+führt und sogenannte Symphonien gespielt, wobei die<lb/>
+Cymbeln, Trommeln und Trompeten ein entsetzliches Ge-<lb/>
+töse machen.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr"><hi rendition="#g">Schiffbrüche englischer Fahrzeuge</hi>.</hi></head><lb/>
+<p><hi rendition="#in">W</hi>ir geben hier unsern Lesern die Zahl der englischen<lb/>
+Schiffe, die seit einer Reihe von Jahren auf dem<lb/>
+Meere verunglückten, welches ein noch höheres Jnteresse<lb/>
+gewinnt durch die Unglücksfälle, die sich, namentlich in<lb/>
+der letztern Zeit, durch heftige Orkane auf dem Meere<lb/>
+ereignet haben. Wenn man die außerordentlichen Fort-<lb/>
+schritte erwägt, welche die mathematischen und astrono-<lb/>
+mischen Wissenschaften gemacht, ferner die erfolgreiche<lb/>
+Anwendung der Mechanik, die Sorgfalt, welche man auf<lb/>
+die Ausarbeitung von Seekarten verwendet, wenn man<lb/>
+die größere Ausbildung der Seeleute und die Errichtung<lb/>
+so vieler Leuchtthürme bedenkt, so sollte man glauben,<lb/>
+daß sich die Zahl der Schiffbrüche von Jahr zu Jahr<lb/>
+vermindern müsse. Allein dem ist nicht so, und man<lb/>
+kann eher sagen, daß die Unglücksfälle dieser Art sich ver-<lb/>
+mehrt haben. Hinsichtlich der englischen Handelsmarine,<lb/>
+deren Stärke sich, mit Einschluß der Colonien, jetzt etwa<lb/>
+auf 24,500 Schiffe beläuft, ergeben die Berichte Folgendes.<lb/>
+<cb n="2"/>
+Jm Jahre 1830 erlitten von den Schiffen, welche weite<lb/>
+Reisen unternahmen, 157 Schiffbruch auf offenem Meere,<lb/>
+248 an der Küste, von denen jedoch 224 gerettet wurden,<lb/>
+22 versanken, 25 wurden auf dem Meeee verlassen, 8<lb/>
+schlugen um und 27 gingen ganz zu Grunde. Von Kü-<lb/>
+stenfahrern und Kohlenschiffen erlitten 100 Schiffbruch,<lb/>
+297 scheiterten, oder wurden an die Küste geworfen<lb/>
+( von diesen jedoch 121 gerettet ) , 67 sanken unter, 13<lb/>
+wurden verlassen, von denen man jedoch fünf noch in<lb/>
+den Hafen brachte, drei schlugen um und 16 gingen<lb/>
+ganz zu Grunde. Von den Dampfschiffen litten vier<lb/>
+Schiffbruch, vier scheiterten an der Küste und zwei<lb/>
+sanken unter. Diese Unglücksfälle haben sich in spätern<lb/>
+Jahren nicht vermindert. Jm Jahre 1833 gingen mehr<lb/>
+als 800 Kauffahrer, mithin der dreißigste Theil der ge-<lb/>
+sammten Handelsmarine, zu Grunde, oder wurden an<lb/>
+die Küste geschleudert.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Die schwimmenden Jnseln von St.=Omer.</hi></head><lb/>
+<p><hi rendition="#in">Z</hi>u den in der Geschichte so berühmten hängenden<lb/>
+Gärten der Semiramis bilden ein Seitenstück die soge-<lb/>
+nannten schwimmenden Jnseln zwischen St.=Omer und<lb/>
+Clairmarais. Jn der Nähe von St.=Omer sieht man<lb/>
+einen See mit einigen kleinen Jnseln voller Gebüsche<lb/>
+und Pflanzen; man befestigt irgendwo einen Strick und<lb/>
+zieht sie mit dem darauf weidenden Vieh, wohin man<lb/>
+will. Die flamändischen Umwohner pflegten sie ehedem<lb/>
+Vlote zu nennen, d. i. flößendes schwimmendes Land.<lb/>
+Die Jnseln lagen eine Stunde von St.=Omer, einige<lb/>
+waren etliche hundert Fuß lang, andere kleiner, und<lb/>
+man konnte nicht allenthalben mit Sicherheit dar-<lb/>
+auf herumgehen; es fanden sich Löcher darin, aus<lb/>
+denen keine Rettung war, wenn man das Unglück hatte<lb/>
+hineinzufallen, denn das Wasser war sehr tief, und das<lb/>
+Land nur zwei bis drei Fuß dick. Jm Winter vom<lb/>
+Feste des heiligen Michael an, bis zum Mai führte<lb/>
+man sie gewöhnlich an bestimmte Orte, und benutzte sie<lb/>
+zum bequemern Fange der hier sehr zahlreichen Fische.<lb/>
+Jm Sommer dagegen ließ man sie vom Winde trei-<lb/>
+ben und benutzte sie als Weideplätze. Es scheint, daß<lb/>
+man in früherer Zeit sie so viel möglich zu erhalten<lb/>
+suchte, als man aber keine Sorgfalt mehr darauf wen-<lb/>
+dete, verschwanden sie nach und nach. Denn 1768<lb/>
+waren die Jnseln nur noch kleine Stücke Landes von<lb/>
+der Größe eines mittelmäßigen Kahnes, mit Moos be-<lb/>
+deckt, und wenn man darauf trat, so war es, als ob<lb/>
+man auf einen mit Wasser angefüllten Schwamm träte.<lb/>
+Die Zahl der Jnseln verminderte sich darauf fast täg-<lb/>
+lich; die Erdschichten wurden immer dicker und schwerer<lb/>
+und hingen sich an das Land an. Jm Jahre 1827<lb/>
+sollen nur noch zwei vorhanden gewesen sein, nur eine<lb/>
+davon war dicht mit Pflanzen und Gebüschen bewachsen,<lb/>
+und es finden sich darauf einige alte Weiden, auf de-<lb/>
+ren von Moos ganz überzogenen Rinden man noch die<lb/>
+Namen einiger Besucher eingegraben sieht.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr"><hi rendition="#g">Gediegenes Gold</hi>.</hi></head><lb/>
+<p><hi rendition="#in">E</hi>in sehr merkwürdiges Stück gediegenes Gold, das in<lb/>
+den Bergwerken von Choquingillo bei La Paz, der<lb/>
+Hauptstadt von Bolivia, gefunden worden, hat großes<lb/>
+Aufsehen unter den Mineralogen erregt. Es enthält<lb/>
+drei verschiedene Arten von Gold, nämlich 22, 23 und<lb/>
+<cb type="end"/>
+<pb facs="#f0008" n="208"/>
+<fw place="top" type="header"><hi rendition="#g">Das Pfennig=Magazin.</hi> </fw><cb type="start"/>
+23 1 / 2 karätiges, ohne Beimischung irgend eines Erzes,<lb/>
+und wiegt nahe an zwei Pfund. Das im königlichen<lb/>
+<cb n="2"/>
+Museum zu Madrid befindliche Stück von 40 Pfund<lb/>
+ist kein gediegenes Gold, sondern Golderz.</p></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1"><figure><head><hi rendition="#fr">Der Kreml zu Moskau</hi>. <note place="foot" n="*)">Vergl. über denselben Pfennig=Magazin Nr. 63 und 96.</note></head></figure></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+</body>     <back><div n="1" type="imprint"><p><hi rendition="#c">Verantwortliche Herausgeber: <hi rendition="#g">Friedrich Brockhaus</hi> in <hi rendition="#g">Leipzig</hi> und <hi rendition="#aq">Dr</hi>. C. <hi rendition="#g">Dräxler=Manfred</hi> in <hi rendition="#g">Wien.</hi><lb/>
+Verlag von F. A. <hi rendition="#g">Brockhaus</hi> in Leipzig.</hi></p></div>     </back>   </text> </TEI>

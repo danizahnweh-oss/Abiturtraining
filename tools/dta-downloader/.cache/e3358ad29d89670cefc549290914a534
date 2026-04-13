@@ -1,0 +1,866 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.deutschestextarchiv.de/basisformat.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">       <teiHeader>
+<fileDesc>
+<titleStmt>
+<title type="main">Deutscher Sprachschatz</title>
+<title type="sub">Ein stilistisches Hülfsbuch für jeden Deutsch Schreibenden</title>
+<title type="volume" n="1">Systematischer Theil</title>
+<author>
+<persName ref="http://d-nb.info/gnd/119242044">
+<surname>Daniel</surname>
+<forename>Sanders</forename>
+</persName>
+</author>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/115266127">
+<surname>Geyken</surname>
+<forename>Alexander</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1222198746">
+<surname>Haaf</surname>
+<forename>Susanne</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1019062681">
+<surname>Jurish</surname>
+<forename>Bryan</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Boenig</surname>
+<forename>Matthias</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Thomas</surname>
+<forename>Christian</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Wiegand</surname>
+<forename>Frank</forename>
+</persName>
+</editor>
+<respStmt>
+<orgName ref="https://www.bbaw.de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<resp>
+<note type="remarkResponsibility">Langfristige Bereitstellung der DTA-Ausgabe</note>
+<ref target="https://www.bbaw.de"/>
+</resp>
+</respStmt>
+</titleStmt>
+<editionStmt><edition>Vollständige digitalisierte Ausgabe.</edition></editionStmt>
+<extent>
+<measure type="images">39</measure>
+<measure type="tokens">3462</measure>
+<measure type="types">1707</measure>
+<measure type="characters">25078</measure>
+</extent>
+<publicationStmt>
+<publisher xml:id="DTACorpusPublisher">
+<email>dta@bbaw.de</email>
+<orgName role="project">Deutsches Textarchiv</orgName>
+<orgName role="hostingInstitution" xml:lang="en">Berlin-Brandenburg Academy of Sciences and Humanities (BBAW)</orgName>
+<orgName role="hostingInstitution" xml:lang="de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<address>
+<addrLine>Jägerstr. 22/23, 10117 Berlin</addrLine>
+<country>Germany</country>
+</address>
+</publisher>
+<pubPlace>Berlin</pubPlace>
+<date type="publication">2025-10-24T08:37:02Z</date>
+<availability>
+<licence target="https://creativecommons.org/licenses/by-sa/4.0/deed.de">
+<p>Distributed under the Creative Commons Attribution-ShareAlike 4.0 License.</p>
+</licence>
+</availability>
+<idno>
+<idno type="URLWeb">https://www.deutschestextarchiv.de/sanders_sprachschatz01_1873</idno>
+<idno type="URLXML">https://www.deutschestextarchiv.de/book/download_xml/sanders_sprachschatz01_1873</idno>
+<idno type="URLHTML">https://www.deutschestextarchiv.de/book/download_html/sanders_sprachschatz01_1873</idno>
+<idno type="URLText">https://www.deutschestextarchiv.de/book/download_text/sanders_sprachschatz01_1873</idno>
+<idno type="DTADirName">sanders_sprachschatz01_1873</idno>
+<idno type="DTAID">30913</idno>
+<idno type="URN">urn:nbn:de:kobv:b4-30913-8</idno>
+</idno>
+</publicationStmt>
+<sourceDesc>
+<bibl type="MM">Sanders, Daniel: Deutscher Sprachschatz. Bd. 1. Hamburg, 1873.</bibl>
+<biblFull>
+<titleStmt>
+<title level="m" type="main">Deutscher Sprachschatz</title>
+<title level="m" type="sub">Ein stilistisches Hülfsbuch für jeden Deutsch Schreibenden</title>
+<title level="m" type="volume" n="1">Systematischer Theil</title>
+<author>
+<persName ref="http://d-nb.info/gnd/119242044">
+<surname>Daniel</surname>
+<forename>Sanders</forename>
+</persName>
+</author>
+</titleStmt>
+<editionStmt>
+<edition n="1"/>
+</editionStmt>
+<publicationStmt>
+<publisher><name>Hoffmann &amp; Campe</name></publisher>
+<pubPlace>Hamburg</pubPlace>
+<date type="publication">1873</date>
+</publicationStmt>
+</biblFull>
+<msDesc>
+<msIdentifier>
+</msIdentifier>
+<physDesc>
+<typeDesc>
+<p>Antiqua</p>
+</typeDesc>
+</physDesc>
+</msDesc>
+</sourceDesc>
+</fileDesc>
+<encodingDesc>
+<editorialDecl>
+<p/>
+</editorialDecl>
+<tagsDecl>
+<rendition scheme="css" xml:id="aq">font-family:sans-serif</rendition>
+<rendition scheme="css" xml:id="b">font-weight:bold</rendition>
+<rendition scheme="css" xml:id="blue">color:blue</rendition>
+<rendition scheme="css" xml:id="c">display:block; text-align:center</rendition>
+<rendition scheme="css" xml:id="et">display:block; margin-left:2em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et2">display:block; margin-left:4em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et3">display:block; margin-left:6em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="f">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="fr">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="g">letter-spacing:0.125em</rendition>
+<rendition scheme="css" xml:id="i">font-style:italic</rendition>
+<rendition scheme="css" xml:id="in">font-size:150%</rendition>
+<rendition scheme="css" xml:id="k">font-variant:small-caps</rendition>
+<rendition scheme="css" xml:id="larger">font-size:larger</rendition>
+<rendition scheme="css" xml:id="red">color:red</rendition>
+<rendition scheme="css" xml:id="right">display:block; text-align:right</rendition>
+<rendition scheme="css" xml:id="s">text-decoration:line-through</rendition>
+<rendition scheme="css" xml:id="smaller">font-size:smaller</rendition>
+<rendition scheme="css" xml:id="sub">vertical-align:sub; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="sup">vertical-align:super; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="u">text-decoration:underline</rendition>
+<rendition scheme="css" xml:id="uu">border-bottom:double 3px #000</rendition>
+</tagsDecl>
+</encodingDesc>
+<profileDesc>
+<langUsage>
+<language ident="deu">(Früh-)Neuhochdeutsch</language>
+<language ident="deu">German</language>
+</langUsage>
+<textClass>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1main">Gebrauchsliteratur</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1sub">Wörterbuch</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">ready</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">dtae</classCode>
+</textClass>
+</profileDesc>
+</teiHeader>
+<text> <front>
+<pb facs="#f0001"/>
+<p>Deutscher Sprachschatz</p>   <lb/>
+<p>geordnet nach Begriffen</p>   <lb/>
+<p>zur</p>   <lb/>
+<p>ltkbn ltllWug tM lsswW tda lvkt:..</p>   <lb/>
+<p>Ein stilistisches<lb/>
+Hülfsbuch für jeden Deutsch Schreibenden</p>   <lb/>
+<p>Dr. Daniel Sanders.</p>   <lb/>
+<p>Hamburg.<lb/>
+Hoffmann &amp; Campe.<lb/>
+1873.</p>   <lb/>
+</front>
+<pb facs="#f0002"/>
+<body>   <div n="1">     <head>PROSPECT.</head>     <lb/>
+<p>Was will dieses Buch?</p>     <lb/>
+<p>Sollte der Leser noch nie in der Lage gewesen sein sich<lb/>
+zu sagen: Der richtige Ausdruck für das was ich denke,<lb/>
+fehlt mir, das Wort schwebt mir auf der Zunge, aber<lb/>
+ich finde nicht gleich die schlagende Bezeichnung.</p>     <lb/>
+<p>Im gewöhnlichen Gespräch geht das nun so hin, man<lb/>
+hilft sich mit einer Umschreibung. Anders ist es aber, wo<lb/>
+es darauf ankommt, durch den präcisen Ausdruck mit<lb/>
+Schärfe auf den Hörer zu wirken, ihn für unsere Ansichten<lb/>
+zu gewinnen, sei es in einem Vortrag, einer Rede oder be-<lb/>
+sonders da, wo wir in bleibender Weise, schriftlich unsere<lb/>
+Gedanken der Beurtheilung Andrer anheim geben.</p>     <lb/>
+<p>Da hängt oft an einem gut gewählten Worte, das den<lb/>
+Nagel auf den Kopf trifft, der ganze Erfolg unsrer Mühen<lb/>
+und mancher Scribent hat, vergebens einen seine Gedanken<lb/>
+präcis wiedergebenden Ausdruck suchend, schon stundenlang<lb/>
+seinen Federstiel umsonst zerbissen.</p>     <lb/>
+<p>Das kann Jedem leicht begegnen und unsere bedeutend-<lb/>
+sten Männer, welche die Sprache im weitesten Umfange be-<lb/>
+herrschen, sind in solcher Lage gewesen.</p>     <lb/>
+<p>Um noch deutlicher zu sein, wollen wir ein paar bekannte<lb/>
+Beispiele aufführen:</p>     <lb/>
+<p>Von einem unserer musterhaftesten Prosaschriftsteller,<lb/>
+von J. J. Engel, berichtet sein Freund David Friedländer<lb/>
+eine hierher gehörende Anekdote:</p>     <lb/>
+<pb facs="#f0003"/>
+<p>Eines Abends, als Friedländer zur gewöhnlichen Stunde<lb/>
+zu ihm gekommen, sei Engel ihm unter allen Anzeichen der<lb/>
+lebhaftesten Ungeduld mit dem Ausruf entgegengetreten:<lb/>
+&#x201E;Vor allem Andernl Wie nennt Ihr Kaufleute doch bei einem<lb/>
+Stück Tuch den nach aussen liegenden Theil?&#x201C; &#x2014; Und als<lb/>
+Friedländer lächelnd geantwortet: &#x201E;Das Schau-Ende&#x201C; da<lb/>
+habe Engel ausgerufen; &#x201E;Richtig! Hätte ich das Wort heute<lb/>
+Morgen finden können, so würde jetzt mein Lorenz Stark um<lb/>
+einige Capitel weiter vorgerückt sein.&#x201C;</p>     <lb/>
+<p>Und nun sehe man, welche glückliche, geistreiche Wen-<lb/>
+dung dies eine Wort (Schau&#x2014;Ende) dem Schluss des XVI. Ca-<lb/>
+pitels in Lorenz Stark gegeben, wo es heisst:</p>     <lb/>
+<p>&#x201E;Das Einzige, was ihn noch innerlich ärgerte, war der<lb/>
+Umstand, dass an einer Waare, die doch tiefer hinein ein so<lb/>
+gutes und feines Gespinnst zeigte, gerade das Schau-Ende<lb/>
+so schlecht sein musste.&#x201C;</p>     <lb/>
+<p>Ein anderes hergehöriges Beispiel entnehmen wir dem<lb/>
+Berichte Jules Favres über eine seiner Unterredungen mit.<lb/>
+Bismarck.</p>     <lb/>
+<p>&#x201E;Sie haben&#x201C; &#x2014; sagte er zu diesem &#x2014; &#x201E;Ihr Uebergewicht<lb/>
+unter Zerstörung des unsrigen begründet. Sie haben in den<lb/>
+Augen der Welt einen militärischen Ruhm erworben, der dem<lb/>
+Ehrgeizigsten genügen kann.&#x201C;</p>     <lb/>
+<p>&#x201E;Sprechen Sie mir nicht davon,&#x201C; erwiderte Bismarck, &#x2014;<lb/>
+&#x201E;das ist ein Papier, das bei uns nicht anerkannt ist, das.. .'</p>     <lb/>
+<p>Und Bismarck hielt inne, nach einen Ausdruck<lb/>
+s uche nd. ,,Ein Börsenausdruck', sagte er.</p>     <lb/>
+<p>&#x201E;Cotirt wird?&#x201C; entgegnete ich.</p>     <lb/>
+<p>&#x201E;Ja, das ist&#x2019;s. Es ist ein Papier, das nicht cotirt wird<lb/>
+und auf das unser Volk sehr wenig hält&#x201C; etc.</p>     <lb/>
+<p>Nachdem wir gesehen haben, welchem Bedürfniss dieses<lb/>
+Buch entgegen kommen will, fragen wir uns, ob und wie<lb/>
+demselben genügt werden kann, dass der Suchende wirklich<lb/>
+schnell und genau das findet was er braucht.</p>     <lb/>
+<p>Da haben wir nun im Englischen ein prächtiges Vorbild,<lb/>
+das bereits über 30 Auflagen erlebt hat, also wohl als prac-</p>     <lb/>
+<pb facs="#f0004"/>
+<p>tisch bewährt anzunehmen ist, nämlich den bekannten The-<lb/>
+saurus f English words und pkrases von P. M Roget&#x201C;).</p>     <lb/>
+<p>Wie von unserm Verfasser nicht anders zu erwarten,<lb/>
+ist von dem fremden Buche nichts als die formelle Anregung<lb/>
+in das seinige übergegangen, im Uebrigen etwas Neues und<lb/>
+Besseres, aus den Eigenthümlichkeiten der Deutschen Sprache<lb/>
+selbstständig Emporgewachsenes entstanden, das sein Vorbild<lb/>
+an Sorgfalt der Ausführung und practischer Brauchbarkeit<lb/>
+übertrifft.</p>     <lb/>
+<p>       Die practische Brauchbarkeit des Buches aber beruht<lb/>
+hauptsächlich auf Zweierlei: 1) auf der Anordnung, wonach<lb/>
+in dem (soweit es nöthig) in 2 Columnen gespaltenen Buche<lb/>
+jedesmal die entgegengesetzten Begrifisfächer unmittelbar<lb/>
+einander auch räumlich gegenüber und die Mittelglieder und<lb/>
+<note n="0004_03" place="foot">*) Paul Lindau sagt in der Gegenwart No. 11 v. 1872:<lb/>
+Auch die französische Literatur besitzt ein derartiges lexikogra-<lb/>
+phisches Werk, wie es Daniel Sanders endlich für die deutsche zu ver-<lb/>
+öffentlichen gedenkt. Es hat mir oft, selbst bei deutschen Arbeiten vor-<lb/>
+treffliche Dienste geleistet. Ich habe mir, wenn ich wegen der richtigen<lb/>
+Bezeichnung irgend einer Einzelheit in Verlegenheit war, wenn ich das<lb/>
+Wort finden wollte, &#x201E;das mir auf der Zunge schwebte&#x201C;, damit geholfen,<lb/>
+dass ich ein begrifflich oder sonst verwandtes Wort in diesem franzö-<lb/>
+sischen &#x201E;Thesaurus&#x201C; nachschlug; dort fand ichfast immer denfranzösischen<lb/>
+Ausdruck, den ich suchte, ich brauchte ihn nur dann zu übersetzen, um<lb/>
+die betreffende deutsche Bezeichnung, an der mir gelegen war, zu er-<lb/>
+langen. Ich habe auf die angeführten Beispiele mit dem &#x201E;Dz'ctz'onnaire<lb/>
+cmalogz&#x2019;que&#x201C; die Probe gemacht und unter drap nachgeschlagen, um für<lb/>
+&#x201E;Schau-Ende&#x201C;, unter &#x201E;bourse&#x201C; um für &#x201E;cotiren&#x201C; die französischen Aus-<lb/>
+drücke zu finden. Unter ,,drap'führt das ,,Dictionnairc''14 verschiedene<lb/>
+Wörter auf, darunter &#x201E;chef ou cap commencement dune piece de drap&#x201C;<lb/>
+&#x2014; was dem &#x201E;Schau-Ende&#x201C; wohl entsprechen dürfte; bei &#x201E;bourse&#x201C; verweist<lb/>
+der französische Lexikograph u. A. auf &#x201E;finance&#x201C;, unter welchem Begrif<lb/>
+wiederum über 100 verwandte Wörter aufgeführt sind; worunter auch<lb/>
+&#x201E;cote&#x201C; mit der Erklärung; &#x201E;cette waler est cotäe d la bourse&#x201C;. Also<lb/>
+auch in diesen Fällen würde mir Boissiere aus der Verlegenheit geholfen<lb/>
+haben. Ein solches Buch in deutscher Sprache wird das Nachschlagen<lb/>
+ungemein erleichtern, da das umständliche Uebersetzen und Rücküber-<lb/>
+setzen fortfallt. Ich bin daher auch überzeugt, dass Sanders &#x201E;Deutscher<lb/>
+Sprachschatz&#x201C; den gewünschten und verdienten Erfolg haben wird.</note>       überhaupt die angrenzenden Begriffsfamilien immer in der<lb/>
+unmittelbarsten Nähe stehen, 2) auf einem alphabetischen<lb/>
+Verzeichniss der im Buch aufgeführten Wörter, wodurch das<lb/>
+sofortige Auffinden jeder Kategorie ermöglicht ist, indem man<lb/>
+nur einen einigermassen verwandten Ausdruck nachzuschlagen<lb/>
+und sich dann unter der betreffenden Nummer oder in der<lb/>
+unmittelbaren Nähe ein wenig umzusehen hat.</p>     <lb/>
+<pb facs="#f0005"/>
+<p>In dem alphabetischen Register liegt der Schwerpunkt<lb/>
+der leichten Anwendbarkeit; es hilft uns glücklich über die<lb/>
+künstlich complicirte Art, die schliesslich in jedem systema-<lb/>
+tischen Aufbau liegt und die, um sich zurecht zu finden, ein<lb/>
+Hineindenken in specielle Auffassung des Autors nöthig machen<lb/>
+würde. Mit dem Register in der Hand, schlagen wir einfach<lb/>
+den verwandten Begriff, (wie es in der Note von Paul Lindau<lb/>
+empfohlen) oder auch nur das Wort, welches wir durch ein<lb/>
+passenderes ersetzen möchten auf und finden die Nummer<lb/>
+der Gruppe, welche alles Wünschenswerthe enthalten muss.</p>     <lb/>
+<pb facs="#f0006"/>
+</div>   <lb/>
+<div n="1">     <head>Anordnung<lb/>
+systematischen Theiles.</head>     <lb/>
+<pb facs="#f0007"/>
+<pb facs="#f0008"/>
+<pb facs="#f0009"/>
+<pb facs="#f0010"/>
+<pb facs="#f0011"/>
+<pb facs="#f0012"/>
+<pb facs="#f0013"/>
+<pb facs="#f0014"/>
+<pb facs="#f0015"/>
+<pb facs="#f0016"/>
+<pb facs="#f0017"/>
+<pb facs="#f0018"/>
+<pb facs="#f0019"/>
+<pb facs="#f0020"/>
+<pb facs="#f0021"/>
+<pb facs="#f0022"/>
+<pb facs="#f0023"/>
+<pb facs="#f0024"/>
+<pb facs="#f0025"/>
+<pb facs="#f0026"/>
+<pb facs="#f0027"/>
+<pb facs="#f0028"/>
+<pb facs="#f0029"/>
+<pb facs="#f0030"/>
+<pb facs="#f0031"/>
+<pb facs="#f0032"/>
+<pb facs="#f0033"/>
+</div>   <lb/>
+<div n="1">     <head>Klasse I.</head>     <lb/>
+<p>Wörter, welche a bs tra k te Beziehungen bezeichnen.</p>     <lb/>
+<div n="2">       <head>Abtheilung I.</head>       <lb/>
+<p>Existenz.</p>       <lb/>
+<div type="dEntries">         <head>1°. Sein abstrakt.</head>         <lb/>
+<div type="dEntry" xml:id="sanders_sprachschatz_1873_0033_06">           <head>Nr. l. Sein.</head>           <lb/>
+<div type="dSenses" xml:id="sanders_sprachschatz_1873_0033_07">             <head>Substantiva.</head>             <lb/>
+<p xml:id="sanders_sprachschatz_1873_0033_10">               a. Existenz (134 a; 264 a); Da-<lb/>
+8ein; Vorhandensein; Anwesenheit;<lb/>
+Wesen; Wesenheit; Substantialität<lb/>
+(124 a); Selbstwesenheit; Selb-<lb/>
+ständigkeit (10 a); Bestehen; Be-<lb/>
+stand; Subsistenz; Koexistenz(95a).</p>             <lb/>
+<p xml:id="sanders_sprachschatz_1873_0033_12">               b. Realität; Aktualität; Ente-<lb/>
+lechie; Wirklichkeit; Wesentlich-<lb/>
+keit; Wesenhaftigkeit; Sachlichkeit;<lb/>
+Objektivität; Sachdenklichkeit; Ge-<lb/>
+genständlichkeit; Thatsächlichkeit;<lb/>
+Thatsache; Materialität (224 a); Stofflichkeit; Positivität;&#x201A;Abso-<lb/>
+lutheit; das An- und Für-sich-Sein; Für-sich-Sein; das Sein [an<lb/>
+und] für sich; das abstrakte&#x2014;, das reine&#x2014;, das wirkliche&#x2014;&#x201A; das<lb/>
+Wahre &#x2014; Sein; Wahrheit (357 a).</p>             <lb/>
+<p xml:id="sanders_sprachschatz_1873_0033_15">               c. (s. 2 c) Virtualität; Potentiali&#x2014;<lb/>
+tät; latentes (301 a)&#x2014;, gebundnes&#x2014;,<lb/>
+nicht in die Existenz tretendes&#x2014;&#x201A;<lb/>
+mögliches &#x2014; Sein; Möglichkeit<lb/>
+(336 a) u. s. w.; Ideal; Ideälität (457 a; b).</p>             <lb/>
+<p xml:id="sanders_sprachschatz_1873_0033_18">               d. (s. 118 e) das Werden; das<lb/>
+Werde; Werderuf; Schöpfungs-<lb/>
+Wort; Fiat.</p>           </div>         </div>         <lb/>
+<div type="dEntry" xml:id="sanders_sprachschatz_1873_0033_05">           <head>Nr. 2. Nichtsein.</head>           <lb/>
+<div type="dSenses" xml:id="sanders_sprachschatz_1873_0033_08">             <head>Substantiva.</head>             <lb/>
+<p xml:id="sanders_sprachschatz_1873_0033_09">               a. Inexistenz; Nichtexistenz<lb/>
+(83a; 135a); Nonexistenz; das<lb/>
+Nichtsein; Nichtdasein; Nichtvor-<lb/>
+handensein; Abwesenheit; Mangel;<lb/>
+Leere; Lücke etc. (4 d); Nonentität;<lb/>
+Insubstantialität; Unsubstantialität<lb/>
+(230 a); Nullität; Nichtigkeit; Nicht-<lb/>
+wesenheit; Unwesenheit; Nichts; ein silbernes Nichtschen (Nixchen)<lb/>
+und ein goldnes Warteinweilchen; Unselbständigkeit (9 a); Un-<lb/>
+bestand.</p>             <lb/>
+<p xml:id="sanders_sprachschatz_1873_0033_13">               b. Unwirklichkeit; Unwesenhaf&#x2014;<lb/>
+tigkeit; Wesenlosigkeit; Immateria-<lb/>
+lität (225a) u. s. w.; Unstofflich-<lb/>
+keit; Negativität.</p>             <lb/>
+<p xml:id="sanders_sprachschatz_1873_0033_16">               c. (s. 1 c) Virtualität; Potentia-<lb/>
+lität; bloße gedachte Möglichkeit;<lb/>
+Unmöglichkeit (337 a); Idealität.</p>             <lb/>
+<p xml:id="sanders_sprachschatz_1873_0033_19">               d. (s. 122 a) Vernichtung; Zer-<lb/>
+nichtung; Annihilation; Zer-<lb/>
+störung; Ausrottung; Exstirpation;<lb/>
+Selbstverlöschung; Nirwana (bud-<lb/>
+dhistisch); s. 4 e.</p>           </div>         </div>         <lb/>
+<fw place="bottom" type="sig">S a n d e r e, Deutscher Sprachschatz.<lb/>
+n</fw>         <lb/>
+<pb facs="#f0034" n="2 "/>
+<fw place="top" type="header">le&#x2014;o: Sein.]</fw>         <lb/>
+<div prev="#sanders_sprachschatz_1873_0033_06" type="dEntry" xml:id="sanders_sprachschatz_1873_0033_06_cont">           <div prev="#sanders_sprachschatz_1873_0033_07" type="dSenses" xml:id="sanders_sprachschatz_1873_0033_07_cont">             <p xml:id="sanders_sprachschatz_1873_0034_03">e. Realist; Materialist; Positivist.</p>             <lb/>
+<p xml:id="sanders_sprachschatz_1873_0034_07">               f. Lehre vom Sein; Ontologie;<lb/>
+Wesenlehre; Dinglehre; Realizmus;<lb/>
+Materialismns; Positivismus; Iden-<lb/>
+lismus (s. 2</p>             <lb/>
+<p xml:id="sanders_sprachschatz_1873_0034_09">g. Existenz im Raum (s. 134).</p>           </div>           <lb/>
+<div type="dSenses" xml:id="sanders_sprachschatz_1873_0034_11">             <head>Zeitwörter.</head>             <lb/>
+<p xml:id="sanders_sprachschatz_1873_0034_12">               h. sein; dasein; vorhanden sein;<lb/>
+wirklitch sein; existieren; wesen; sein<lb/>
+und wesen; weben und wenn; leben<lb/>
+und wesen (s. l); es giebt etc.</p>             <lb/>
+<p xml:id="sanders_sprachschatz_1873_0034_15">               ii. bestehen; Bestand haben; in,<lb/>
+Bestand sein; in, bei Bestand<lb/>
+bleiben; dauern ; fortdauern; Dauer,<lb/>
+Fortdauer haben.</p>             <lb/>
+<p xml:id="sanders_sprachschatz_1873_0034_18">               k. wo &#x2014; sich befn-<lb/>
+den, sein, erscheinen, sich zeigen etc.</p>             <lb/>
+<p xml:id="sanders_sprachschatz_1873_0034_19">               I. (s. 264 b) leben; leben und<lb/>
+weben (s. h); am Leben sein; unter<lb/>
+den Lebenden sein; weilen; ath-<lb/>
+men; das Licht (der Sonne) [die Sonne] sehen, schauen etc.</p>             <lb/>
+<p xml:id="sanders_sprachschatz_1873_0034_22">               m. in Etwas &#x2014; bestehen, liegen,<lb/>
+begründet sein (115 b), seinen<lb/>
+Grund, seine Basis haben; auf<lb/>
+Etwas &#x2014; beruhen (1551), begründet<lb/>
+sein, basiert sein; aus keinem hohlen<lb/>
+Fa&#x017F;s geschöpft (gesprochen) sein.</p>             <lb/>
+<p xml:id="sanders_sprachschatz_1873_0034_24">               n. (s. 88 b) ins Dasein, in die<lb/>
+Existenz, ins beben, in die Wirk-<lb/>
+lichkeit, in die Welt &#x2014; treten,<lb/>
+kommen, brechen. hervorbrechen,<lb/>
+gerufen, werden u. s. w.; geboren werden; werden (s. p); ent-<lb/>
+stehen; erstehen; aufstehen; sich erheben; hervorgehen.</p>             <lb/>
+<p xml:id="sanders_sprachschatz_1873_0034_28">               o. auftreten; auf den Schauplatz<lb/>
+treten; hcrvorkotnmen; hervor-<lb/>
+treten; ans Licht, ans Tageslicht,<lb/>
+zu Tage &#x2014; kommen, treten, er-</p>           </div>         </div>         <lb/>
+<fw place="top" type="header">[Nichueim 22&#x2014;0.</fw>         <lb/>
+<div prev="#sanders_sprachschatz_1873_0033_05" type="dEntry" xml:id="sanders_sprachschatz_1873_0033_05_cont">           <div prev="#sanders_sprachschatz_1873_0033_08" type="dSenses" xml:id="sanders_sprachschatz_1873_0033_08_cont">             <p prev="#sanders_sprachschatz_1873_0033_19" xml:id="sanders_sprachschatz_1873_0033_19_cont">               e. (s. 4 e; 367 b Idenlin;<lb/>
+Poeüsierer: Immaterialin (225 o)<lb/>
+u. s. w.; Spirilualist; Melaphysiker; Ideolog; Phantumisl;<lb/>
+Phantut; Phantomist; Luftwnndler; Wolkenwandler; Aerobat;<lb/>
+Nebeler; Nebuliat; Schwebeler; Niflheimer; Visionär; Träumer;<lb/>
+Schwärmen Imaginanl; Scheinmann (Goethe 30, 38|).</p>             <lb/>
+<p xml:id="sanders_sprachschatz_1873_0034_06">               f. Immaterialismus (2250) w.;<lb/>
+Spiritualismus; ldealismus (s. 1 f;<lb/>
+367 a).</p>             <lb/>
+<p xml:id="sanders_sprachschatz_1873_0034_08">g. Räumliche lnexistenz (s.155).</p>           </div>           <lb/>
+<div type="dSenses" xml:id="sanders_sprachschatz_1873_0034_10">             <head>Zeitwörter.</head>             <lb/>
+<p xml:id="sanders_sprachschatz_1873_0034_13">               h. (s. 1 b) nicht. &#x2014; sein, exi-<lb/>
+stieren (s. 11.), vorhanden sein etc.;<lb/>
+fehlen; mangeln; null und nichtig<lb/>
+sein etc.; &#x2014; für Jemand nichl&#x2018;<lb/>
+existieren (s. o.) etc.; in seinem<lb/>
+Wörterbuch nicht stehen (l24 b); ihm unbekannt, eine tera<lb/>
+incognila (356 d) u. s. w. sein; es nicht kennen etc.; &#x2014;&#x2014; nur<lb/>
+scheinbar sein; scheinen (6 c; 377 o) u. I..w.</p>             <lb/>
+<p xml:id="sanders_sprachschatz_1873_0034_16">               i. keinen Bestand, keine Dauer,<lb/>
+Fortdauer haben; ohne Bestand,<lb/>
+Dauer etc. sein.</p>             <lb/>
+<p xml:id="sanders_sprachschatz_1873_0034_17">               k. nirgend [wo], nur im Reich<lb/>
+der Träume etc. sich finden. sich<lb/>
+zeigen, nein, s. 367 c.</p>             <lb/>
+<p xml:id="sanders_sprachschatz_1873_0034_20">               l. (am; 265 e) sterben etc.; todt<lb/>
+sein etc.</p>             <lb/>
+<p xml:id="sanders_sprachschatz_1873_0034_23">               m. keinen Grund, keine Basis<lb/>
+haben; jeder Grundlage (Basis) er-<lb/>
+mangeln, entbehren; grundlos, un-<lb/>
+begründet, aus der Luft gegriffen.<lb/>
+aus einem hohlen Fata geschöp&#x017F;t<lb/>
+(gesprochen) sein, s. w.</p>             <lb/>
+<p xml:id="sanders_sprachschatz_1873_0034_25">               n. aus dem Dasein, dem Leben,<lb/>
+der Welt &#x2014; scheiden, abscheidon,<lb/>
+verscheiden (vgl. l).</p>             <lb/>
+<p xml:id="sanders_sprachschatz_1873_0034_27">               o. ins Nichts, in die Nichtigkeit,<lb/>
+in die ewige Nacht, in Nacht [und<lb/>
+Graue] &#x2014; [zurück] sinken, stürzen;<lb/>
+dahinschwinden; enlachwindon; ver-</p>           </div>         </div>         <lb/>
+<pb facs="#f0035" n="sn , af "/>
+<fw place="top" type="header">lp&#x2014;v: Sein.]</fw>         <lb/>
+<div prev="#sanders_sprachschatz_1873_0033_06_cont" type="dEntry" xml:id="sanders_sprachschatz_1873_0033_06_cont_cont">           <div prev="#sanders_sprachschatz_1873_0034_11" type="dSenses" xml:id="sanders_sprachschatz_1873_0034_11_cont">             <p prev="#sanders_sprachschatz_1873_0034_28" xml:id="sanders_sprachschatz_1873_0034_28_cont">               scheinen; in die Erscheinung treten;<lb/>
+zur Erscheinung kommen (s. 300 b);<lb/>
+zu Platz kommen; eine Stelle ein-<lb/>
+nehmen; eine Stelle, sich &#x2014; be-<lb/>
+haupten.</p>             <lb/>
+<p xml:id="sanders_sprachschatz_1873_0035_05">               p. werden (s. n; 108 c); wirk-<lb/>
+lich werden; verwirklicht, realisiert,<lb/>
+bewerkstelligt, zu Stande gebracht<lb/>
+&#x2014;&#x2014; werden; zu Stande kommen;<lb/>
+sich verwirklichen; sich realisieren;<lb/>
+zur Reife, zur Entwicklung &#x2014;&#x2014;<lb/>
+kommen, gedeihen (88 h).</p>             <lb/>
+<p xml:id="sanders_sprachschatz_1873_0035_09">               q. sich ereignen; vorfallen; ge-<lb/>
+schehen; vorkommen; arrivieren;<lb/>
+paffieren; statt haben; der Fall sein.</p>             <lb/>
+<p xml:id="sanders_sprachschatz_1873_0035_10">               r. ins Dasein, in die Existenz,<lb/>
+ins Leben, in die Wirklichkeit, in<lb/>
+die Welt &#x2014; rufen, bringen, treten<lb/>
+la&#x017F;&#x017F;en; hervorbringen; erzeugen;<lb/>
+schaffen; erschaffen (s. 114 b;<lb/>
+1181; 264 b) u. s. w.</p>             <lb/>
+<p xml:id="sanders_sprachschatz_1873_0035_13">               s. (s. 485 e) thun; ins Werk<lb/>
+setzen.</p>           </div>           <lb/>
+<div type="dSenses" xml:id="sanders_sprachschatz_1873_0035_15">             <head>Adjektiva und Adverbia.</head>             <lb/>
+<p xml:id="sanders_sprachschatz_1873_0035_17">               t. existierend; seiend; daseiend;<lb/>
+vorhanden; wesend; anwesend;<lb/>
+gegenwärtig; zugegen.</p>             <lb/>
+<p xml:id="sanders_sprachschatz_1873_0035_20">               u. real; reell; wirklich; wesen-<lb/>
+haft; wesentlich; aktuell; wirksam<lb/>
+(118 n); in Wirksamkeit; in Kraft;<lb/>
+thätig; effektiv; thatsächlich; ob-<lb/>
+jektiv; gegenständlich; faktisch;<lb/>
+de facto; ipso facto; in der That;<lb/>
+in der Wirklichkeit; im wirklichen,<lb/>
+im praktischen Leben; auf dem Boden der Wirklichkeit; greifbar<lb/>
+etc. (s. 3 e); wahr; wahrhaft (s. 357 c).</p>             <lb/>
+<p xml:id="sanders_sprachschatz_1873_0035_23">               v. substantial; substantiell;<lb/>
+selbstwesend; selbständig; materiell;<lb/>
+stofflich (3 e; 224 c) u. s. w.</p>           </div>         </div>         <lb/>
+<fw place="top" type="header">[Nichtseim 2p&#x2014;v.</fw>         <lb/>
+<div prev="#sanders_sprachschatz_1873_0033_05_cont" type="dEntry" xml:id="sanders_sprachschatz_1873_0033_05_cont_cont">           <div prev="#sanders_sprachschatz_1873_0034_10" type="dSenses" xml:id="sanders_sprachschatz_1873_0034_10_cont">             <p prev="#sanders_sprachschatz_1873_0034_27" xml:id="sanders_sprachschatz_1873_0034_27_cont">               schwinden; aufhören zu sein (85 g);<lb/>
+vergehen; sich (ins Nichts) verlieren;<lb/>
+zu Grunde gehen; zerstört, ver-<lb/>
+nichtet, zernichtet, ausgerottet, aus-<lb/>
+getilgt, vertilgt etc., zu nicht, zu<lb/>
+Wasser werden (s. r; 265 e; 122 d).</p>             <lb/>
+<p xml:id="sanders_sprachschatz_1873_0035_06">               p. nicht wirklich werden; unver-<lb/>
+wirklicht bleiben; nicht zu Stande,<lb/>
+zur Entwicklung kommen (s. 1 p);<lb/>
+sich nicht verwirklichen; nicht in<lb/>
+Erfüllung gehen; unerfüllt bleiben;<lb/>
+ein bloßer Embryo bleiben; im<lb/>
+Keim &#x2014; ersticken (478 d; 495 c)<lb/>
+u. s. w., &#x2014; erstickt werden, zu Grunde gehn; im Schoß der<lb/>
+Möglichkeit sein Dasein enden.</p>             <lb/>
+<p xml:id="sanders_sprachschatz_1873_0035_08">               q. ungeschehen, ungethan blei-<lb/>
+ben; unterwegs bleiben; unter-<lb/>
+bleiben.</p>             <lb/>
+<p xml:id="sanders_sprachschatz_1873_0035_11">               r. (s. o) ins Nichts, in die Nich-<lb/>
+tigkeit, in die Nacht (der Nächte)<lb/>
+etc. &#x2014; stürzen, schmettern, schleu-<lb/>
+dern etc.; zu Grunde richten; zer-<lb/>
+stören (54i; 122 d); dem Erdboden<lb/>
+gleich machen; schleifen; vernich-<lb/>
+ten; zernichten; zu nicht&#x2014;&#x201A; zu<lb/>
+Wasser&#x2014;&#x201A; zu Schanden &#x2014; machen; vereiteln (337 b; 452 g); [mit<lb/>
+der Wurzel, mit Stumpf und Stiel] ausrotten; austilgen (122 d;<lb/>
+133 b); vertilgen; aus dem Buch der Lebenden &#x2014; tilgen, strei-<lb/>
+chen; tödten (s. 267 c) u. s. w.</p>             <lb/>
+<p xml:id="sanders_sprachschatz_1873_0035_14">               s. (s. 439 b; 486 c) ungethan<lb/>
+la&#x017F;&#x017F;en; unterla&#x017F;&#x017F;en; unterwegs<lb/>
+la&#x017F;&#x017F;en.</p>           </div>           <lb/>
+<div type="dSenses" xml:id="sanders_sprachschatz_1873_0035_16">             <head>Adjektive. und Adverbia.</head>             <lb/>
+<p xml:id="sanders_sprachschatz_1873_0035_18">               t. inexistent; nicht seiend; nicht<lb/>
+vorhanden etc. (s. 1 t; 301 c); ab-<lb/>
+wesend; fehlend; mangelnd.</p>             <lb/>
+<p xml:id="sanders_sprachschatz_1873_0035_19">               u. unwirklich; unwesenhaft;<lb/>
+wesenlos; in der Luft schwebend;<lb/>
+in nubibus etc. (s. x); grundlos;<lb/>
+unbegründet (377 q) u. s. w.; der<lb/>
+Grundlage (Basis) ermangelnd etc.<lb/>
+(s. m; 4f; 367 d) u. s. w.</p>             <lb/>
+<p xml:id="sanders_sprachschatz_1873_0035_22">               v. insubstantial; insubstantiell;<lb/>
+unsubstantial; unsubstantiell; un-<lb/>
+selbständig; immateriell; unstoff-<lb/>
+lich (s. 4 f; 225 a) u. s. w.</p>           </div>         </div>         <lb/>
+<fw place="bottom" type="sig">1.</fw>         <lb/>
+<pb facs="#f0036" n="4. "/>
+<fw place="top" type="header">Jw &#x2014;3a: Sein&#x2014;Wesenheit.]</fw>         <lb/>
+<div prev="#sanders_sprachschatz_1873_0033_06_cont_cont" type="dEntry" xml:id="sanders_sprachschatz_1873_0033_06_cont_cont_cont">           <div prev="#sanders_sprachschatz_1873_0035_15" type="dSenses" xml:id="sanders_sprachschatz_1873_0035_15_cont">             <p xml:id="sanders_sprachschatz_1873_0036_03">               w. (s. 31 o; 340 d; 384 d)<lb/>
+positiv; bestimmt; fest; entschie-<lb/>
+den; sicher; gewiI&#x2018;s; zuverläffig;<lb/>
+ausgemacht; unstreitig; unbestreit-<lb/>
+bar; unstreitbar; fraglos; ohne<lb/>
+Frage; zweifellos; unzweifelhaft;<lb/>
+Das ist keine Frage; Das mu&#x017F;s ihm<lb/>
+der Feind (der Neid) la&#x017F;&#x017F;en.</p>             <lb/>
+<p xml:id="sanders_sprachschatz_1873_0036_06">               x. absolut; unbedingt (31 m)<lb/>
+u. s. w.; bedingungslos; unbe-<lb/>
+schränkt; [an und] für sich;<lb/>
+schlechterdings; durchaus etc.</p>             <lb/>
+<p xml:id="sanders_sprachschatz_1873_0036_07">               y. (s. 2 x) virtual: virtuell;<lb/>
+potentiell; potential; potentia, non<lb/>
+actu seiend; latent (119 k); ge-<lb/>
+bunden: ruhend u. s. w.; möglich<lb/>
+(336 c); im Schoß der Möglich-<lb/>
+keiten (der Zeiten, der Zukunft,<lb/>
+des Werdens) &#x2014; liegend, ruhend,<lb/>
+schlummernd etc.; ideal; ideell;<lb/>
+idealisch (s. 2 y).</p>             <lb/>
+<p xml:id="sanders_sprachschatz_1873_0036_10">               z. geltend; gültig; in Geltung;<lb/>
+in Umlauf; im Gange; gangbar;<lb/>
+gäng und gebe; herrschend; vor-<lb/>
+herrschend; überwiegend.</p>             <lb/>
+<p xml:id="sanders_sprachschatz_1873_0036_12">               aa. (s. 264 c) lebend; lebendig;<lb/>
+am Leben; athmend etc.</p>           </div>         </div>         <lb/>
+<div prev="#sanders_sprachschatz_1873_0033_05_cont_cont" type="dEntry" xml:id="sanders_sprachschatz_1873_0033_05_cont_cont_cont">           <div prev="#sanders_sprachschatz_1873_0035_16" type="dSenses" xml:id="sanders_sprachschatz_1873_0035_16_cont">             <p xml:id="sanders_sprachschatz_1873_0036_04">               w. negativ (385 c); unsicher;<lb/>
+ungewi&#x017F;s; unzuverlä&#x017F;&#x017F;ig; zweifelhaft;<lb/>
+fraglich (320 g; 326 f; 341 c)<lb/>
+u. s. w.; problematisch; prekär;<lb/>
+unentschieden (505 c); unausge-<lb/>
+macht; noch nicht abgeblafen; sub-<lb/>
+judice lis est.</p>             <lb/>
+<p xml:id="sanders_sprachschatz_1873_0036_05">               x. (s. l y) virtual; virtuell;<lb/>
+potentiell; nur möglich; nicht wirk-<lb/>
+lich; in nubibus (s. u); unmög-<lb/>
+lich (337 c).</p>             <lb/>
+<p xml:id="sanders_sprachschatz_1873_0036_08">               y. ideal (s. 1 y); ideell; imagi-<lb/>
+när; in Gedanken etc.; in der Ab-<lb/>
+sicht (oder: der Absicht nach); ein-<lb/>
+gebildet; nur in der Einbildung<lb/>
+bestehend (vorhanden); nur ge-<lb/>
+dacht, nur beabsichtigt; intentio-<lb/>
+niert; intentionell (435 d) etc.;<lb/>
+schemenhaft (4 f); schattenhaft;<lb/>
+eitel; nichtig; leer.</p>             <lb/>
+<p xml:id="sanders_sprachschatz_1873_0036_09">               z. (s. 0, r) zu Grunde -&#x2014; ge-<lb/>
+gangen, gerichtet; zerstört; ver-<lb/>
+nichtet; zernichtet; vertilgt; aus-<lb/>
+getilgt; [mit Stumpf und Stiel] aus-<lb/>
+gerottet; verloren; fort, dahin etc.<lb/>
+(s. bb).</p>             <lb/>
+<p xml:id="sanders_sprachschatz_1873_0036_11">               aa. ungültig; nichtig; null und<lb/>
+nichtig; ab und todt.</p>             <lb/>
+<p xml:id="sanders_sprachschatz_1873_0036_13">bb. (s. 265 g) todt; verstorben etc.</p>           </div>         </div>       </div>       <lb/>
+<div type="dEntries">         <head>2°. Sein (konkret).</head>         <lb/>
+<div type="dEntry" xml:id="sanders_sprachschatz_1873_0036_15">           <head>Nr. 3. Wesenheit.</head>           <lb/>
+<div type="dSenses" xml:id="sanders_sprachschatz_1873_0036_18">             <head>Substantiv.</head>             <lb/>
+<p xml:id="sanders_sprachschatz_1873_0036_19">               a. Ein Seiendes; Wesen;<lb/>
+Ens; Substanz (224 a; 25 a);<lb/>
+Hypostase; Hypostasis; Substrat;<lb/>
+Objekt, Gegenstand (320 c); Vor-<lb/>
+wurf; Artikel; Ding; Körper; Et-<lb/>
+was; ein Geschafl&#x2018;enes; ein Ge-<lb/>
+schöpf; eine Kreatur.</p>           </div>         </div>         <lb/>
+<fw place="top" type="header">[Nichtsein&#x2014;Unwesenh. 220&#x2014;4a.</fw>         <lb/>
+<div type="dEntry" xml:id="sanders_sprachschatz_1873_0036_16">           <head>Nr. 4. Unwesenheit.</head>           <lb/>
+<div type="dSenses" xml:id="sanders_sprachschatz_1873_0036_17">             <head>Substantiv.</head>             <lb/>
+<p xml:id="sanders_sprachschatz_1873_0036_20">               a. Non-ens; Unding; ein Me&#x017F;&#x017F;er<lb/>
+ohne Stiel, woran die Klinge fehlt<lb/>
+etc.; Seeschlange; [Land-] Einhoru;<lb/>
+Fabelwesen; Chimära (s. 69,f) etc.;<lb/>
+Chimäre (s. c) etc.; Nihil'; Null;<lb/>
+Zero; Nichts (2a; 73a; 135 e;<lb/>
+450 b) u. s. w.; [ganz und] gar<lb/>
+Nichts; durchaus Nichts; Nichts in<lb/>
+der Welt; nicht das Geringste; kein Sterbenswörtchen, nicht ein<lb/>
+Wort, keine Silbe u. s. w.; [nicht] was man im Auge leidden kann;<lb/>
+nicht, da&#x017F;s es einer_Fliege im Auge weh gethan; nicht ein Spürchen<lb/>
+(Spierchen) etc.; s. 32 n.</p>           </div>         </div>         <lb/>
+<pb facs="#f0037" n="5 "/>
+<fw place="top" type="header">3b&#x2014;5a: Innere Beschaffenheit]</fw>         <lb/>
+<div prev="#sanders_sprachschatz_1873_0036_15" type="dEntry" xml:id="sanders_sprachschatz_1873_0036_15_cont">           <div prev="#sanders_sprachschatz_1873_0036_18" type="dSenses" xml:id="sanders_sprachschatz_1873_0036_18_cont">             <p xml:id="sanders_sprachschatz_1873_0037_03">               b. (s. 67 a; 72 a etc.) Jemand;<lb/>
+Einer; eine Person u. s. w.</p>             <lb/>
+<p xml:id="sanders_sprachschatz_1873_0037_06">               c. (s. 224 a; 444 a) Stoff;<lb/>
+Materie; Material.</p>             <lb/>
+<p xml:id="sanders_sprachschatz_1873_0037_10">               d. (s. 226 a) Gesammtheit des<lb/>
+Seienden; All; Weltall; Welt; die<lb/>
+wirkliche Welt etc.; Sansara (bud&#x2014;<lb/>
+dhistisch).</p>           </div>           <lb/>
+<div type="dSenses" xml:id="sanders_sprachschatz_1873_0037_13">             <head>Adjektiva und Adverbia.</head>             <lb/>
+<p xml:id="sanders_sprachschatz_1873_0037_14">               e. (s. l t&#x2014; v; 224 c) sub-<lb/>
+stantiell;[körperlich; stofflich; ma-<lb/>
+teriell; greifbar; greiflich; hand-<lb/>
+greiflich; mit Händen zu greifen;<lb/>
+tastbar; sinnlich; wahrnehmbar<lb/>
+u. s. w.</p>           </div>         </div>         <lb/>
+<div prev="#sanders_sprachschatz_1873_0036_16" type="dEntry" xml:id="sanders_sprachschatz_1873_0036_16_cont">           <div prev="#sanders_sprachschatz_1873_0036_17" type="dSenses" xml:id="sanders_sprachschatz_1873_0036_17_cont">             <p xml:id="sanders_sprachschatz_1873_0037_04">               b. (s. 135 e) Niemand; Keiner;<lb/>
+kein Mensch [auf Erden]; keine<lb/>
+[sterbende] Seele u. s. w.; kein<lb/>
+Hund; keine Katze etc.; kein Teufel; der Teufel (Henker, Geier,<lb/>
+Kuckuck etc.).</p>             <lb/>
+<p xml:id="sanders_sprachschatz_1873_0037_07">               c. Schein (6 a); Schemen (85 d;<lb/>
+265 d; 367 a); Schatten; Gespenst;<lb/>
+Chimäre (s. a); Hirngespenst; Hirn-<lb/>
+gespinst; Gedankending; Scheinding;&#x201E;Scheinwesen; Luft-, (Nebel-&#x201A;<lb/>
+Schatten-, Schein-, Schemen-&#x201A; Traum-&#x201A; Trug-, Phantasie-) Bild,<lb/>
+-Gebi1de; Phantasma (299 c; 300 a) u. s. w.; Phantom; Fata<lb/>
+Morgana; Mirage; Luftspiegelung; Hägring etc.; Vision; Hallu-<lb/>
+cination; Utopie; such stuf as dreams are made of (solcher Zeug,<lb/>
+wie der zu Träumen).</p>             <lb/>
+<p xml:id="sanders_sprachschatz_1873_0037_09">               d. der leere Raum; die Leere;<lb/>
+Vacuum; Öde; Wüste (I29 d) etc.;<lb/>
+Kluft (s. 44 d) etc.; Hiatus; Chasma;<lb/>
+Ginnungagap (nord. Myth.), s. 54 d.<lb/>
+e. Niflheim (nord. Myth.), vgl.<lb/>
+2 e; Nirwana (buddh.), s. 2 d; Utopien; Atlantis; Phantasie-&#x201A;<lb/>
+Idenl-&#x201A; Feen&#x2014;&#x201A; Märchen-, Traum-, Unschulds-Welt; Millennium;<lb/>
+Chiliasmus (99 a); platonische Republik; platonischer Staat;<lb/>
+Traum-&#x201A; Feen-&#x201A; Märchen-, Schlaraffen-Land; Land der gebratnen<lb/>
+Tauben; Wolkenkuckucksheim; Nephelokokkygia; Nirgendheim;<lb/>
+die verkehrte Welt (s. 135 d; 367 a) u. s. w.</p>           </div>           <lb/>
+<div type="dSenses" xml:id="sanders_sprachschatz_1873_0037_12">             <head>Adjektiva und Adverbia.</head>             <lb/>
+<p xml:id="sanders_sprachschatz_1873_0037_15">               f. (s. 2 t-&#x2014; y) unsubstantial;<lb/>
+unsubstantiell; insubstantial; insub-<lb/>
+stantiell; unkörperlich (225 c)<lb/>
+u. s. w.; körperlos; unstofflich;<lb/>
+stofflos; immateriell; unsinnlich;<lb/>
+unwesenhaft; blind (377 b; q);<lb/>
+leer; eitel; nichtig; hohl; luftig;<lb/>
+Visionär; schattenhaft; schemenhaft; nebelhaft; gespensterhaft;<lb/>
+gespenstig; gespenstisch; chimärisch etc.; ut0p[ist]isch (367 d).</p>           </div>         </div>       </div>       <lb/>
+<div type="dEntries">         <head>3°. Sein, in Bezug auf Innen und Außen.</head>         <lb/>
+<div type="dEntry" xml:id="sanders_sprachschatz_1873_0037_19">           <head>Nr. 5. Innere Beschaffenheit.</head>           <lb/>
+<div type="dSenses" xml:id="sanders_sprachschatz_1873_0037_20">             <head>Substantiva.</head>             <lb/>
+<p xml:id="sanders_sprachschatz_1873_0037_22">               a. Innres Sein; inneres Wesen;<lb/>
+innehaftende Eigenschaft (118 a);<lb/>
+lnhärenz; inne-(oder ein-) wohnende<lb/>
+Beschaffenheit, Qualität etc.; Inner-<lb/>
+lichkeit; Wesentlichkeit; Wesenheit;<lb/>
+Charakter; character indelebz&#x2019;lz&#x2019;s;<lb/>
+Immanenz.</p>           </div>         </div>         <lb/>
+<fw place="top" type="header">[Äußere Beschaffenheit. 4b&#x2014;Ga.</fw>         <lb/>
+<div type="dEntry" xml:id="sanders_sprachschatz_1873_0037_18">           <head>Nr. 6. Äußere Beschaffenheit,</head>           <lb/>
+<div type="dSenses" xml:id="sanders_sprachschatz_1873_0037_21">             <head>Subs__tantiva.</head>             <lb/>
+<p xml:id="sanders_sprachschatz_1873_0037_23">               a. (s. d) Außerliche&#x201A; außer-<lb/>
+wesentliche, unwesentliche, zufällige<lb/>
+&#x2014; Eigenschaft; äußerliches etc.<lb/>
+Sein; etwas Außerliches; Außeres<lb/>
+(163 a), Außerwesentliches; Un-<lb/>
+wesentliches, Zufälliges, Acciden-<lb/>
+t_elles; ein Accidens; die Accidenz;<lb/>
+Außerlichkeit; Außerwesentlich-<lb/>
+keit; Unwesentlichkeit; Zufälligkeit; etwas Oberflächliches; An-<lb/>
+strich; Firnis; Teintüre; Schein (4 c; 300 a; 377 g) u. s. w.</p>           </div>         </div>         <lb/>
+<pb facs="#f0038" n="6 "/>
+<fw place="top" type="header">5b&#x2014;f: Innere Beschafi'enheit.]</fw>         <lb/>
+<fw place="top" type="header">[Äußere Beschaffenheit. 6b&#x2014;d.</fw>         <lb/>
+<div prev="#sanders_sprachschatz_1873_0037_18" type="dEntry" xml:id="sanders_sprachschatz_1873_0037_18_cont">           <div prev="#sanders_sprachschatz_1873_0037_21" type="dSenses" xml:id="sanders_sprachschatz_1873_0037_21_cont">             <p xml:id="sanders_sprachschatz_1873_0038_03">               b. (s. d) etwas Fremdes, Ge-<lb/>
+borgtes, Erborgtes, Entlehntes, An-<lb/>
+z; wxc.cr<lb/>
+erzogenes.</p>           </div>           <lb/>
+<div type="dSenses" xml:id="sanders_sprachschatz_1873_0038_08">             <head>Zeitwörter.</head>             <lb/>
+<p xml:id="sanders_sprachschatz_1873_0038_11">               c. (s. d) äußerlich, außerwcscnt-<lb/>
+lich, unwesentlich, nur scheinbar,<lb/>
+auswendig sein; scheinen (2 h;<lb/>
+377 o) u. s. w.; von außen her<lb/>
+&#x2014; stammen, kommen; angeheftet,<lb/>
+angeklebt sein; angenommen, af&#x2019;fek-<lb/>
+tiert, fremdartig sein; von fremdher<lb/>
+entnommen, überkommen, geborgt,<lb/>
+erborgt, entlehnt sein; eingepflanzt,<lb/>
+eingeimpft, angeboren (s. 5&#x20AC;), ange-<lb/>
+artet, angebildet, anerzogen sein etc.</p>           </div>           <lb/>
+<div type="dSenses" xml:id="sanders_sprachschatz_1873_0038_13">             <head>Adjektiva und Adverbia.</head>             <lb/>
+<p xml:id="sanders_sprachschatz_1873_0038_15">               d. äußer (163 c); äußerlich;<lb/>
+auswendig; außerwesentlich; un-<lb/>
+wesentlich (450 f); zufällig; acci-<lb/>
+dental; accident[i]ell; fremd; fremd-<lb/>
+her; fremdartig; von außen her,<lb/>
+von fremdher &#x2014; überkommen,<lb/>
+übernommen; eingepflanzt (s. 5f);<lb/>
+eingeimpft; eingepfropft; inokuliert;<lb/>
+angeboren (s. 5 f); angebildet;<lb/>
+angeartet; anerzogen; angenommen;<lb/>
+affektiert; unecht; falsch (377 q);<lb/>
+oberflächlich.</p>           </div>         </div>         <lb/>
+<div prev="#sanders_sprachschatz_1873_0037_19" type="dEntry" xml:id="sanders_sprachschatz_1873_0037_19_cont">           <div prev="#sanders_sprachschatz_1873_0037_20" type="dSenses" xml:id="sanders_sprachschatz_1873_0037_20_cont">             <p xml:id="sanders_sprachschatz_1873_0038_04">               b. Wesentlicher Theil (s. 49 d);<lb/>
+Hauptsache; Quintessenz; Fünftel-<lb/>
+saft; Mark und Saft; Saft; Mark;<lb/>
+Kern, Seele; Inneres (57 a; 164 a);<lb/>
+Innerstes; Kernauszug; Kraftaus-<lb/>
+zug; wesentlicher Gehalt; Inhalt;<lb/>
+Inbegriff; Summarium; Argument(um); Episemeiosis etc.</p>             <lb/>
+<p xml:id="sanders_sprachschatz_1873_0038_06">               c. Quiddität; Washeit; das Sein<lb/>
+&#x2014; in Saft und Blut, &#x2014; in Fleisch und Blut; Inkarnation}; Ver-<lb/>
+körperung.</p>             <lb/>
+<p xml:id="sanders_sprachschatz_1873_0038_07">               d. Natur; angeborenes, eingebe-<lb/>
+renes Wesen; eingeschafienes Sein; Eingeborenheit; Eingeschaf-<lb/>
+fenheit; Naturbeschafienheit; natürliche Beschaffenheit; [Natur-]<lb/>
+Anlage (359 b), -Bega&#x201A;bung u. s. w.; Naturgabe, Talent; Fähigkeit<lb/>
+(118 a); natürliche Art; etwas Eingeborenes, Eigenes, Eigenthüm-<lb/>
+liches u. s. w. (s.f); Eigenheit; Eigenthümlichkeit; wesentliches<lb/>
+Merkmal; wesentliche (charakteristische, kennzeichnende) Beson-<lb/>
+derheit; Seltsamkeit; Sonderbarkeit; Idiosynkrasie; Idiokrasis;<lb/>
+Krasis; Temperament (s. 568 a); Gemüthsbeschaffenheit; Empfin-<lb/>
+dungseigenheit; Gemüthseigenheit: [Gemüths-] Stimmung; Dis-<lb/>
+position; Geneigtheit; Neigung (418 a); Richtung; Zug; [Natur-J<lb/>
+Trieb (343 a) u. s. w.</p>           </div>           <lb/>
+<div type="dSenses" xml:id="sanders_sprachschatz_1873_0038_09">             <head>Zeitwörter.</head>             <lb/>
+<p xml:id="sanders_sprachschatz_1873_0038_10">               e. (s.f) inne haften; innewohnen;<lb/>
+einwohnen; inhärieren; anhaften;<lb/>
+ankleben; eingeboren, eingeartet, ein-<lb/>
+genaturt, &#x2014; angeboren, angeartet,<lb/>
+angenaturt (s. 6 c) etc. sein; aus<lb/>
+dem Innern stammen; dem Innern<lb/>
+&#x2014; entstammen, entsprießen, ent-<lb/>
+sproffen sein etc.; in dem Wesen,<lb/>
+in der Art, im Blut liegen; zur<lb/>
+zweiten Natur werden etc.</p>           </div>           <lb/>
+<div type="dSenses" xml:id="sanders_sprachschatz_1873_0038_12">             <head>Adjektiva und Adverbia.</head>             <lb/>
+<p xml:id="sanders_sprachschatz_1873_0038_14">               f. aus dem Innern &#x2014; stammend,<lb/>
+hervorgehend, sich entwickelnd<lb/>
+etc.; inner (164 c); innerlich; in-<lb/>
+wendig; inhärierend; wesentlich;<lb/>
+effentiell; hauptsächlich (442 c);<lb/>
+eeigenart'g; natürlich; eingeboren;<lb/>
+eingeartet; eingezeugt; einge-<lb/>
+schaffen; eingepflanzt (s. 6 d);<lb/>
+angeboren etc. (s. 6 d); charakte-<lb/>
+ristisch (330 c); kennzeichnend;<lb/>
+eigenthümlich; eigen; unterschei-<lb/>
+dend.</p>           </div>         </div>         <lb/>
+<pb facs="#f0039" n="7 "/>
+<fw place="top" type="header">59&#x2014;7 f: Absolutes Sein.]</fw>         <lb/>
+<div prev="#sanders_sprachschatz_1873_0037_19_cont" type="dEntry" xml:id="sanders_sprachschatz_1873_0037_19_cont_cont">           <div prev="#sanders_sprachschatz_1873_0038_12" type="dSenses" xml:id="sanders_sprachschatz_1873_0038_12_cont">             <p xml:id="sanders_sprachschatz_1873_0039_03">               g. echt; in der Wolle gefärbt;<lb/>
+im Wesen, in der Art, im Blut liegend; in Fleisch und Blut, in<lb/>
+Blut und Saft, in Saft und Kraft übergegangen; zur zweiten Natur<lb/>
+geworden; eingefleischt; verkörpert; inkarniert.</p>           </div>         </div>       </div>       <lb/>
+<div type="dEntries">         <head>4°. Sein, modal oder in Bezug auf Art und Weise.</head>         <lb/>
+<div type="dEntry" xml:id="sanders_sprachschatz_1873_0039_05">           <head>Nr. 7 (vgl. 8). Absolutes Sein.</head>           <lb/>
+<div type="dSenses" xml:id="sanders_sprachschatz_1873_0039_07">             <head>Substantiva.</head>             <lb/>
+<p xml:id="sanders_sprachschatz_1873_0039_10">               a. Stand; Zustand; Beschaffen-<lb/>
+heit; Lage (3 a); Art und Weise;<lb/>
+Art (und Weise) des Seins; Kate-<lb/>
+gorie; Kondition; Disposition.</p>             <lb/>
+<p xml:id="sanders_sprachschatz_1873_0039_12">               b. Form (177 a); Gestalt; Ge-<lb/>
+staltung; Bildung; Anordnung; Gewebe; Gefüge (237 a); Bau;<lb/>
+Struktur; Textur; Formation; Konformation.</p>             <lb/>
+<p xml:id="sanders_sprachschatz_1873_0039_13">               c. Modus; Modalität; Habitus;<lb/>
+Schesis; Figur (177 a); Schnitt; Belauf; Wurf; Schlag; Gepräge;<lb/>
+Schrot und Korn; Ton; Wendung; Faqon; Aus&#x017F;ehen; Tenor;<lb/>
+Model; Modell; Muster; Maßstab; Schablone; Stempel; Stil;<lb/>
+Charakter; Manier.</p>           </div>           <lb/>
+<div type="dSenses" xml:id="sanders_sprachschatz_1873_0039_15">             <head>Zeitwörter.</head>             <lb/>
+<p xml:id="sanders_sprachschatz_1873_0039_17">               d. (s. a) in einem Zustand, in<lb/>
+einer Lage etc. sein, sich befinden;<lb/>
+in einen Zustand, in eine Lage etc.<lb/>
+kommen, gerathen ete.&#x201A; bringen,<lb/>
+versetzen etc.; auf einem gewi&#x017F;&#x017F;en<lb/>
+Fuße stehen; auf einen Fuß &#x2014;<lb/>
+stellen, sich stellen etc.; in statu<lb/>
+quo [ante] &#x2014;, beim Alten bleiben;<lb/>
+in den alten Stand setzen.</p>           </div>           <lb/>
+<div type="dSenses" xml:id="sanders_sprachschatz_1873_0039_18">             <head>Adjektiva und Adverbia.</head>             <lb/>
+<p xml:id="sanders_sprachschatz_1873_0039_21">e. modal; formal.</p>             <lb/>
+<p xml:id="sanders_sprachschatz_1873_0039_22">               f. (s. 8 c). Da die Sache ein-<lb/>
+mal so&#x2014;liegt, sichverhält; da. Dies<lb/>
+(oder: Dem) so ist; bei dieser Sach-<lb/>
+lage; unter diesen (sothanen) Um-<lb/>
+ständen.</p>           </div>         </div>         <lb/>
+<fw place="top" type="header">[Relatives Sein. 69&#x2014;86.</fw>         <lb/>
+<div type="dEntry" xml:id="sanders_sprachschatz_1873_0039_06">           <head>Nr. 8 (vgl. 7). Relatives Sein.</head>           <lb/>
+<div type="dSenses" xml:id="sanders_sprachschatz_1873_0039_08">             <head>Substantiva.</head>             <lb/>
+<p xml:id="sanders_sprachschatz_1873_0039_09">               a. Umstand; Lage (7 a; 131 a);<lb/>
+Sachlage; Phase (88 a); Stellung;<lb/>
+Haltung; Attitude; Fuß; status;<lb/>
+Status quo [ante, 98 a]; status uti<lb/>
+pof&#x017F;idetis (97 a); Prädikament;<lb/>
+Gelegenheit; Fall; Zufall (112 a); Konjunktur; Nothfall (417 a)<lb/>
+u. s. w.; Krisis; entscheidende Wendung; Wendepunkt (88 a;<lb/>
+151 a); Klemme; Dilemma: Klemm-, Zwie-&#x201A; Zwickfall; Zwick-<lb/>
+mühle; Verlegenheit; Patsche (493 a) u. s. w.</p>           </div>           <lb/>
+<div type="dSenses" xml:id="sanders_sprachschatz_1873_0039_14">             <head>Zeitwörter.</head>             <lb/>
+<p xml:id="sanders_sprachschatz_1873_0039_16">               b. (s. a; 7 d) in gewi&#x017F;&#x017F;en Umstän-<lb/>
+den, in einer Lage, in einer Klemme,<lb/>
+in Verlegenheit, in der Patsche etc.<lb/>
+&#x2014; sein, sich befinden; in gewi&#x017F;&#x017F;e<lb/>
+Umstände, in eine Lage etc. kom-<lb/>
+men, gerathen etc., bringen., ver-<lb/>
+setzen etc.</p>           </div>           <lb/>
+<div type="dSenses" xml:id="sanders_sprachschatz_1873_0039_19">             <head>Adjektiva und Adverbia.</head>             <lb/>
+<p xml:id="sanders_sprachschatz_1873_0039_20">               c. (s. 7f) Wenn die Sache sich<lb/>
+so verhält; wenn Dem so ist; wenn<lb/>
+die Sachen so stehen; rebus sic<lb/>
+stantz&#x2019;bus; unter sothanen Verhält-<lb/>
+niffen; eventuell (112 c); eventua-<lb/>
+liter; eventuali/fime; im äußersten<lb/>
+Falle; im [äußersten] Nothfall;<lb/>
+wenn es gar nicht anders geht; au pis&#x2014;aller (417 c); Ceteris<lb/>
+paribus; unter übrigens (oder sonst) gleichen Umständen u. s. w.;<lb/>
+je nachdem; je nach den Verhältni&#x017F;&#x017F;en; je nach den Umständen<lb/>
+etc.; e (oder pro) re nata; nach Natur der Sache etc.</p>           </div>         </div>       </div>     </div>   </div>   </body> </text> </TEI>

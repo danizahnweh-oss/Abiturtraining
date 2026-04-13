@@ -1,0 +1,975 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.deutschestextarchiv.de/basisformat.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">     <teiHeader>
+<fileDesc>
+<titleStmt>
+<title type="main">Das Pfennig-Magazin für Belehrung und Unterhaltung</title>
+<title type="sub">Dritte Folge, Dritter Jahrgang, Nr. 115</title>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/115266127">
+<surname>Geyken</surname>
+<forename>Alexander</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1222198746">
+<surname>Haaf</surname>
+<forename>Susanne</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1019062681">
+<surname>Jurish</surname>
+<forename>Bryan</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Boenig</surname>
+<forename>Matthias</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Thomas</surname>
+<forename>Christian</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Wiegand</surname>
+<forename>Frank</forename>
+</persName>
+</editor>
+<respStmt>
+<orgName>Institut für Deutsche Sprache, Mannheim</orgName>
+<resp>
+<note type="remarkResponsibility">Bereitstellung der Bilddigitalisate und TEI
+Transkription</note>
+<ref target="http://hdl.handle.net/10932/00-01B8-B0BA-B590-4301-7"/>
+</resp>
+</respStmt>
+<respStmt>
+<persName>
+<forename>Peter</forename>
+<surname>Fankhauser</surname>
+</persName>
+<resp>
+<note type="remarkResponsibility">
+Transformation von TUSTEP nach TEI P5.
+Transformation von TEI P5 in das DTA TEI P5 Format.
+</note>
+</resp>
+</respStmt>
+<respStmt>
+<orgName ref="https://www.bbaw.de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<resp>
+<note type="remarkResponsibility">Langfristige Bereitstellung der DTA-Ausgabe</note>
+<ref target="https://www.bbaw.de"/>
+</resp>
+</respStmt>
+</titleStmt>
+<editionStmt><edition>Vollständige digitalisierte Ausgabe.</edition></editionStmt>
+<extent>
+<measure type="images">8</measure>
+<measure type="tokens">5599</measure>
+<measure type="types">2429</measure>
+<measure type="characters">38047</measure>
+</extent>
+<publicationStmt>
+<publisher xml:id="DTACorpusPublisher">
+<email>dta@bbaw.de</email>
+<orgName role="project">Deutsches Textarchiv</orgName>
+<orgName role="hostingInstitution" xml:lang="en">Berlin-Brandenburg Academy of Sciences and Humanities (BBAW)</orgName>
+<orgName role="hostingInstitution" xml:lang="de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<address>
+<addrLine>Jägerstr. 22/23, 10117 Berlin</addrLine>
+<country>Germany</country>
+</address>
+</publisher>
+<pubPlace>Berlin</pubPlace>
+<date type="publication">2025-10-24T08:35:16Z</date>
+<availability>
+<licence target="http://creativecommons.org/publicdomain/zero/1.0/">
+<p>Dieses Werk steht unter der "Creative Commons Namensnennung -
+Nicht kommerziell 3.0 Deutschland Lizenz" (CC BY-NC).</p>
+</licence>
+</availability>
+<idno>
+<idno type="URLWeb">https://www.deutschestextarchiv.de/nn_pfennig115_1855</idno>
+<idno type="URLXML">https://www.deutschestextarchiv.de/book/download_xml/nn_pfennig115_1855</idno>
+<idno type="URLHTML">https://www.deutschestextarchiv.de/book/download_html/nn_pfennig115_1855</idno>
+<idno type="URLText">https://www.deutschestextarchiv.de/book/download_text/nn_pfennig115_1855</idno>
+<idno type="DTADirName">nn_pfennig115_1855</idno>
+<idno type="DTAID">34748</idno>
+<idno type="URN">urn:nbn:de:kobv:b4-34748-4</idno>
+</idno>
+</publicationStmt>
+<sourceDesc>
+<bibl type="J">Das Pfennig=Magazin für Belehrung und Unterhaltung. Dritte Folge, Dritter Jahrgang, Nr. 115. Leipzig (Sachsen), 15. März 1855.</bibl>
+<biblFull>
+<titleStmt>
+<title level="m" type="main">Das Pfennig-Magazin für Belehrung und Unterhaltung</title>
+<title level="m" type="sub">Dritte Folge, Dritter Jahrgang, Nr. 115</title>
+</titleStmt>
+<editionStmt>
+<edition n="1"/>
+</editionStmt>
+<publicationStmt>
+<publisher/>
+<pubPlace>Leibzig (Sachsen)</pubPlace>
+<date type="publication">1855</date>
+</publicationStmt>
+</biblFull>
+<msDesc>
+<msIdentifier/>
+<physDesc>
+<typeDesc>
+<p>Fraktur</p>
+</typeDesc>
+</physDesc>
+</msDesc>
+</sourceDesc>
+</fileDesc>
+<encodingDesc>
+<editorialDecl>
+<p>
+<![CDATA[
+<p>Siehe Dokumentation</p>
+]]>
+</p>
+</editorialDecl>
+<tagsDecl>
+<rendition scheme="css" xml:id="aq">font-family:sans-serif</rendition>
+<rendition scheme="css" xml:id="b">font-weight:bold</rendition>
+<rendition scheme="css" xml:id="blue">color:blue</rendition>
+<rendition scheme="css" xml:id="c">display:block; text-align:center</rendition>
+<rendition scheme="css" xml:id="et">display:block; margin-left:2em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et2">display:block; margin-left:4em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et3">display:block; margin-left:6em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="f">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="fr">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="g">letter-spacing:0.125em</rendition>
+<rendition scheme="css" xml:id="i">font-style:italic</rendition>
+<rendition scheme="css" xml:id="in">font-size:150%</rendition>
+<rendition scheme="css" xml:id="k">font-variant:small-caps</rendition>
+<rendition scheme="css" xml:id="larger">font-size:larger</rendition>
+<rendition scheme="css" xml:id="red">color:red</rendition>
+<rendition scheme="css" xml:id="right">display:block; text-align:right</rendition>
+<rendition scheme="css" xml:id="s">text-decoration:line-through</rendition>
+<rendition scheme="css" xml:id="smaller">font-size:smaller</rendition>
+<rendition scheme="css" xml:id="sub">vertical-align:sub; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="sup">vertical-align:super; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="u">text-decoration:underline</rendition>
+<rendition scheme="css" xml:id="uu">border-bottom:double 3px #000</rendition>
+</tagsDecl>
+</encodingDesc>
+<profileDesc>
+<langUsage>
+<language ident="deu">(Früh-)Neuhochdeutsch</language>
+<language ident="deu">German</language>
+</langUsage>
+<textClass>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1main">Gebrauchsliteratur</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1sub">Zeitschrift</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">ready</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">mkhz1</classCode>
+</textClass>
+</profileDesc>
+</teiHeader>
+<text>     <front>
+<pb facs="#f0001" n="[81]"/>
+<titlePage type="heading"><docTitle><titlePart type="main"><hi rendition="#c #fr">Das Pfennig=Magazin<lb/>
+für<lb/>
+<hi rendition="#g">Belehrung und Unterhaltung</hi>.</hi></titlePart></docTitle><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<docImprint><hi rendition="#fr">Nr</hi>. 115. ]              <hi rendition="#c">Dritte Folge. Dritter Jahrgang.</hi>              <docDate><hi rendition="#right">[ 15. <hi rendition="#g">März</hi> 1855.</hi></docDate>            </docImprint></titlePage><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+</front>     <body>       <div n="1"><figure><head><hi rendition="#fr">Sondrino in Jtalien auf dem Wege von Jvrea nach Vercelli.</hi></head></figure></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Bardewicks Zerstörung und die Neuhaldensleber.</hi></head><lb/>
+<cb type="start"/>
+<p><hi rendition="#in">D</hi>ie Stadt Bardewick ( <hi rendition="#aq">Bardonis</hi> oder <hi rendition="#aq">Bardorum vi-<lb/>
+cus</hi> == Ort, Flecken, Stadt, wie <hi rendition="#aq">Brunonis vicus</hi> =-<lb/>
+Braunschweig ) war die Hauptstadt im Bardengau, wo<lb/>
+die Barder wohnten, welche erst seit Karl's des Gro-<lb/>
+ßen Zeit angeführt werden. Wenn sie auch nicht das<lb/>
+hohe Alter hat, welches alte Schriftsteller ihr sagen-<lb/>
+haft beilegen und eine alte Jnschrift an der dortigen<lb/>
+Domkirche noch jetzt bezeugen soll, in welcher Trier zu<lb/>
+Abraham's Zeit und Bardewick 1065 Jahre später,<lb/>
+also früher als Rom, erbaut sein soll; ja wenn es sich<lb/>
+auch nicht beweisen läßt, daß sie von den Römern ih-<lb/>
+ren Ursprung genommen, so scheint sie doch eine der<lb/>
+ältesten Städte Deutschlands zu sein und schon vor<lb/>
+Heinrich <hi rendition="#aq">I</hi>. bestanden zu haben, da Karl der Große<lb/>
+805 verordnete, daß die Handelsleute, welche mit den<lb/>
+überelbischen Wenden Verkehr hätten, zu Bardewick,<lb/>
+als der damaligen einzigen Handelsstadt in dieser Ge-<lb/>
+gend, ihre Waaren zum Verkauf bringen und nicht<lb/>
+mehr ins Wendenland gehen sollten. Als Otto <hi rendition="#aq">I</hi>. 972<lb/>
+der Stadt Magdeburg Zollfreiheit verlieh, welche Kon-<lb/>
+rad 1024 bestätigte, nahmen sie Mainz, Köln und<lb/>
+Bardewick wegen des eigenen starken Handels aus,<lb/>
+welcher nach Jütland, Dänemark, Norwegen, Schwe-<lb/>
+den, Rügen u. s. w. ging <note place="foot" n="*)"><hi rendition="#aq">Tho Bardewick</hi>, heißt es, <hi rendition="#aq">is velle Handels und<lb/>
+Wandels mit Koppenschoppe van der Elbe up de See <cb n="2"/>
+in Dennemark, sünderlicken in Jütland etc.</hi>, d. h.: Zu<lb/>
+Bardewick ist viel Handels und Wandels mit Kaufmann-<lb/>
+schaft von der Elbe auf der See in Dänemark, besonders in<lb/>
+Jütland.</note> und dieser Handel soll<lb/>
+<cb n="2"/>
+entstanden sein, als die Sachsen ( Kimbern und Teu-<lb/>
+tonen ) Jütland besaßen. <note place="foot" n="**)"><hi rendition="#aq">De Stadt Bardewick hadde öhren dominat von<lb/>
+de Oelve up de See in Dennemark mithen in Jütland,<lb/>
+da de Cimbri öhren Sitt hefft hat, constituiret, welches<lb/>
+se lange binnen hat hefft, averst nach vehlen Tiden<lb/>
+mit grotem Blotvergeten aftreden möten</hi>, d. h.: Die<lb/>
+Stadt Bardewick hatte ihre Herrschaft von der Elbe auf die<lb/>
+See in Dänemark mitten in Jütland, wo die Kimbern ih-<lb/>
+ren Sitz gehabt haben, festgestellt, welche sie lange innen<lb/>
+gehabt hat, aber nach vielen ( langen ) Zeiten mit großem<lb/>
+Blutvergießen abtreten mußten.</note><note type="editorial">Im Fließtext sind beide Fußnotenverweise auf dieser Seite gleich markiert. In den Fußnoten besitzt eine einen Asterisken, die andere zwei. Es liegt nahe, dass es sich bei der Auszeichnung dieser Fußnote um einen Druckfehler handelt und auch im Verweis zwei Asterisken stehen sollten.</note></p><lb/>
+<p>Nachdem Wilhadus, Apostel der Friesen, in die-<lb/>
+ser Gegend das Christenthum gepredigt hatte, aber von<lb/>
+Wittekind vertrieben worden, wobei auch Marianus,<lb/>
+welcher zu Bardewick gepredigt, auf der Brücke über<lb/>
+die Jlmenau 782 getödtet ward, mußten endlich die<lb/>
+Sachsen mit ihrem Fürsten Wittekind sich den Waffen<lb/>
+Karl's und der Taufe unterwerfen. Wilhadus wurde<lb/>
+Bischof von Bremen und Bardewick erhielt ein geist-<lb/>
+liches Stift, kam erst unter den bremischen, dann un-<lb/>
+ter den Sprengel der Bischöfe von Verden. Barde-<lb/>
+wick stand unter Herzögen aus der Familie Witte-<lb/>
+<cb type="end"/>
+<pb facs="#f0002" n="82"/>
+<fw place="top" type="pageNum">82</fw><cb type="start"/>
+kind's, seit Otto <hi rendition="#aq">I</hi>. aber unter dem sächsischen Herzog<lb/>
+aus der Familie Billungen, und der erste Herzog Her-<lb/>
+mann sorgte eifrig für die Aufnahme der Stadt, wie<lb/>
+Hamburgs, damals die vornehmsten Städte dieser Ge-<lb/>
+gend. Jhm und seinen Söhnen halfen die Barde-<lb/>
+wicker treulich gegen Wenden und Slaven. Obgleich<lb/>
+ihre Stadt von diesen, wie später im Kriege Albrecht<lb/>
+des Bären mit Herzog Heinrich dem Stolzen, von<lb/>
+jenen erobert ward, so brachte sie doch erst des Letztern<lb/>
+Sohn Heinrich der Löwe ins Verderben. Anfangs<lb/>
+nahm er sich zwar der Stadt lebhaft an, denn von<lb/>
+Herzog Adolf von Holstein verlangte er die Hälfte der<lb/>
+Stadt Lübeck und verbot allen Handel dorthin, weil<lb/>
+das Aufblühen desselben seinem väterlichen Erbe schade,<lb/>
+und ließ die Salzquellen zu Oldeslohe ( Todeslo ) ver-<lb/>
+stopfen, weil den Lüneburgern daraus Nachtheil er-<lb/>
+wachse; nachdem er aber Lübeck erhalten, förderte er<lb/>
+diese Stadt zum Schaden Bardewicks, deren Einwoh-<lb/>
+ner ihm dadurch abgeneigt wurden. Als daher Hein-<lb/>
+rich Kaiser Friedrich <hi rendition="#aq">I</hi>. durch Versagung der Heeres-<lb/>
+folge in große Bedrängniß gebracht und in die Acht<lb/>
+erklärt worden, dann, nachdem er erst mit den benach-<lb/>
+barten Fürsten, welche die Acht ausführen sollten, sich<lb/>
+tapfer herumgeschlagen, endlich dem Heere des Kaisers<lb/>
+weichen mußte und zu Bardewick Schutz suchte, ver-<lb/>
+schlossen ihm nicht allein die Bürger die Thore, son-<lb/>
+dern sollen ihn auch von den Mauern herab arg be-<lb/>
+schimpft haben. Als ihm aber später, mit dem Kai-<lb/>
+ser ausgesöhnt und von England zurückgekehrt, den-<lb/>
+noch die Unterwerfung verweigert wurde, schloß er die<lb/>
+Stadt ein und gelobte, nicht eher abzuziehen, bis er<lb/>
+sie zerstört habe. Die Bürger, welche keine Gnade zu<lb/>
+erwarten hatten, wehrten sich tapfer; zwei Tage lang<lb/>
+stürmte Heinrich vergebens und verzweifelte fast an<lb/>
+dem Erfolge. Am dritten Tage aber watete ein im<lb/>
+Lager scheugewordener Ochse durch die Jlmenau an<lb/>
+einer Stelle, welche darauf die falsche Fuhrt genannt<lb/>
+wurde, und als die Belagerer sahen, daß ihm das<lb/>
+Wasser kaum bis an den halben Leib ging, ließen sie<lb/>
+die Reiterei nachgehen und griffen die dortige niedrige<lb/>
+Mauer an, ehe es sich die Bürger versahen, und als<lb/>
+vollends das Fußvolk beutelustig nachdrang, wurde die<lb/>
+Stadt am 28. October 1189 erobert und geplündert,<lb/>
+die Einwohner größtentheils niedergehauen, die Mauern<lb/>
+geschleift und die Häuser in Brand gesteckt. Die Kir-<lb/>
+chengeräthe schickte Heinrich in den von ihm gestifteten<lb/>
+Dom nach Ratzeburg. Doch scheint es, als ob die<lb/>
+neun Kirchen, nachdem sie geplündert, stehengeblieben<lb/>
+und erst später in Verfall gerathen seien, denn ihrer<lb/>
+wird noch in den folgenden Jahrhunderten gedacht, wo<lb/>
+zum Wiederaufbau schwerlich die Mittel und der ge-<lb/>
+ringen Bevölkerung das Bedürfniß vorhanden war.<lb/>
+Ueber der großen Thür des Doms, der noch als Kirche<lb/>
+benutzt wird, ließ Heinrich einen Löwen mit der Jn-<lb/>
+schrift setzen: <hi rendition="#aq">Leonis vestigium</hi>. Schutt und Stein-<lb/>
+haufen haben den Boden der Stadt erhöht; mehre<lb/>
+Fuß tief findet man noch Straßenpflaster und Mauer-<lb/>
+werk. Von den Trümmern der Stadt wurde das be-<lb/>
+nachbarte Lüneburg ausgebaut, Hamburg kaufte von<lb/>
+Heinrich für 300 Mark Quadersteine und führte an<lb/>
+der Elbseite vom Ober= bis Niederhafen eine große<lb/>
+Mauer auf, von welcher noch die Straße Mühren,<lb/>
+d. h. Mauern, den Namen hat und schenkte den von<lb/>
+nun an nur mit Gemüse handelnden Bardewickern das<lb/>
+sogenannte Zippelhaus zum freien Besitz; der frühere<lb/>
+blühende Handel zog sich nach Lüneburg, Hamburg,<lb/>
+besonders nach Lübeck.</p><lb/>
+<note place="foot">         <p><hi rendition="#sup">**</hi> ) <hi rendition="#aq">De Stadt Bardewick hadde öhren dominat von<lb/>
+de Oelve up de See in Dennemark mithen in Jütland,<lb/>
+da de Cimbri öhren Sitt hefft hat, constituiret, welches<lb/>
+se lange binnen hat hefft, averst nach vehlen Tiden<lb/>
+mit grotem Blotvergeten aftreden möten</hi>, d. h.: Die<lb/>
+Stadt Bardewick hatte ihre Herrschaft von der Elbe auf die<lb/>
+See in Dänemark mitten in Jütland, wo die Kimbern ih-<lb/>
+ren Sitz gehabt haben, festgestellt, welche sie lange innen<lb/>
+gehabt hat, aber nach vielen ( langen ) Zeiten mit großem<lb/>
+Blutvergießen abtreten mußten. </p>       </note>       <lb/>
+<p>Einen großen Beweis von Treue dagegen gaben<lb/>
+<cb n="2"/>
+Heinrich die Bürger von Neuhaldensleben und ihr Un-<lb/>
+tergang beweist, daß die geistlichen Fürsten nicht we-<lb/>
+niger kriegerisch und hart waren, als die weltlichen.<lb/>
+Zu den bedeutendern Gegnern Heinrich's gehörte näm-<lb/>
+lich der sechszehnte Erzbischof von Magdeburg, Wich-<lb/>
+mann. Nachdem er 1167 mehre Burgen zwischen der<lb/>
+Bode und Ohre, die dem Herzoge gehörten, einge-<lb/>
+nommen und zerstört hatte, zog er vor Neuhaldens-<lb/>
+leben und ließ viel Wurf= und Sturmgeräth herbei-<lb/>
+bringen. Die Belagerten aber benutzten einen trocke-<lb/>
+nen, heißen Sommer, entzündeten den ausgetrockneten<lb/>
+Torfboden nach der Gegend hin, wo die Belagerungs-<lb/>
+werkzeuge standen, und diese stürzten, als das Feuer<lb/>
+unter der Erde bis dahin fortbrannte, zusammen, daß<lb/>
+sich die Belagerer mit genauer Noth auf die benach-<lb/>
+barten Höhen retteten und, darüber uneins werdend,<lb/>
+abzogen. Graf Bernhard von der Lippe, der Befehls-<lb/>
+haber von Neuhaldensleben, durchstreifte nun plün-<lb/>
+dernd das erzbischöfliche Gebiet. Jm Frieden befestig-<lb/>
+ten die Einwohner ihre Stadt noch mehr, und als<lb/>
+1179 die Fehde von neuem begann und der geistliche<lb/>
+Herr mit zwei Herzogen und mehren Markgrafen und<lb/>
+Grafen vor die Stadt rückte, vertheidigten sich die<lb/>
+Bürger so tapfer, daß das große Heer zum zweiten<lb/>
+male von der in sumpfiger Gegend liegenden Burg<lb/>
+abziehen mußte. Zum dritten male kehrte er wieder<lb/>
+( 1181 ) und zwar mitten im Winter, um leichter über<lb/>
+die gefrorenen Gewässer sich den Mauern nähern zu<lb/>
+können; aber weder Verrätherei noch List gelang.<lb/>
+Feinde nahten sich auf Schlittschuhen rasch der Stadt;<lb/>
+die Bürger waren auf ihrer Hut und nur wenige der<lb/>
+Schlittschuhläufer kehrten zurück. Da ersann der Erz-<lb/>
+bischof ein neues Mittel. Unterhalb der Stadt, quer<lb/>
+über das Ohre=Thal, ließ er in3 1 / 2 Monaten von<lb/>
+den Bauern der ganzen Umgegend einen Erdwall zie-<lb/>
+hen. Als nun das Frühlingsthauwetter kam, so ward<lb/>
+die ganze Stadt unter Wasser gesetzt. Unentmuthigt<lb/>
+zogen sich die Vertheidiger in die Streitthürme und in<lb/>
+die Burg zurück, legten die Todten alle auf den Kirch-<lb/>
+boden, da sie keinen Fußbreit Erde zum Begräbniß<lb/>
+hatten und aller Verkehr fand auf Kähnen und Floß-<lb/>
+hölzern statt. Auf ähnliche Weise näherten sich auch<lb/>
+die Feinde der Stadtmauer; aber der Damm brach<lb/>
+durch und bildete ein tiefes Rieth, was noch jetzt vor-<lb/>
+handen ist. Der hartnäckige Bischof ließ ihn jedoch<lb/>
+wiederherstellen und das Wasser stieg noch höher als<lb/>
+zuvor. Der Boden weichte auf, mehre Häuser stürz-<lb/>
+ten ein, viele Frauen und Kinder starben von der<lb/>
+Nässe, das Vieh kam größtentheils um, die Lebens-<lb/>
+mittel gingen aus, und als kein Entsatz zu hoffen<lb/>
+war, ergaben sich endlich die Neuhaldenslebener unter<lb/>
+der Bedingung eines ehrenvollen Abzugs, der ihnen<lb/>
+zugestanden wurde, um sie nicht in Verzweiflung zu<lb/>
+bringen. Der Erzbischof öffnete den Damm, das<lb/>
+Wasser floß ab und traurig verließ der Graf von der<lb/>
+Lippe die verwüstete, eines bessern Schicksals würdige<lb/>
+Stadt und ging hernach ins Kloster. Nach Ablauf<lb/>
+von drei zu ihrem Abzuge bewilligten Wochen zogen<lb/>
+die Magdeburger und die Börder Bauern, welche die<lb/>
+Stadt haßten, mit der erzbischöflichen Kriegsmacht hin-<lb/>
+ein und zerstörten sie von Grund aus. Selbst die<lb/>
+Trümmer belegte der erbitterte Erzbischof mit dem<lb/>
+Bann, sodaß &#x201E;wer da wohne, kein Christ und vogel-<lb/>
+frei sei&#x201C;. Triumphirend zog der Sieger nach Magde-<lb/>
+burg; die vertriebenen Neuhaldenslebener siedelten sich<lb/>
+eine halbe Stunde unterhalb der Stadt an, wohnten<lb/>
+erst in Zelten, dann in Hütten, allmälig in Häusern,<lb/>
+welche sie mit Wall und Mauern umgaben; 42 Jahre<lb/>
+<cb type="end"/>
+<pb facs="#f0003" n="83"/>
+<fw place="top" type="pageNum">83</fw><cb type="start"/>
+dauerte diese babylonische Verbannung, da erst ward<lb/>
+es den Vertriebenen erlaubt, in die alte Stadt heim-<lb/>
+zuwandern. Wenige derselben lebten noch, aber die<lb/>
+in Niendorf ( so hieß der Verbannungsort ) Geborenen<lb/>
+hatten von den Vätern die Liebe zur alten Wohnstätte<lb/>
+geerbt, sie gründeten das neue Haldensleben, das von<lb/>
+1183 an sammt der Umgegend dem Erzbischof ge-<lb/>
+hörte. Der Wiederaufbau der Stadt wurde 1223 be-<lb/>
+gonnen; mit dem Schutt füllte man die Tiefen und<lb/>
+baute gerade Straßen. Das 600jährige Jubelfest<lb/>
+wurde am 22. Juni 1823 feierlich begangen.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Eine Volksrede.</hi></head><lb/>
+<p><hi rendition="#in">J</hi>n Gent herrschte freudige Aufregung. Alt und<lb/>
+Jung, Vornehm und Gering eilte mit erwartungs-<lb/>
+vollen Mienen dem einen Thore zu und an mehren<lb/>
+Orten sah man eilige Anstalten zu einem festlichen<lb/>
+Empfange. Besonders war dies bei dem Rathhause<lb/>
+der Fall, vor dessen Thore sich eine improvisirte<lb/>
+Triumphpforte erhob, während der Platz davor mit<lb/>
+Blumen bestreut wurde, welche die Jahreszeit nur in<lb/>
+geringer Menge hergab, und man den Balcon mit<lb/>
+bunten Teppichen behing und mit Fahnen schmückte.</p><lb/>
+<p>Es war im März des Jahres 1814. Die Trup-<lb/>
+pen Napoleon's hatten sich überall zurückgezogen und<lb/>
+die Bewohner der altberühmten Handelsstadt sahen mit<lb/>
+Jubel der verkündeten Ankunft der ersten alliirten<lb/>
+Truppen entgegen, welche die Niederlande von dem<lb/>
+verhaßten französischen Joche befreien sollte. Endlich<lb/>
+erschienen die Krieger. Es war eine Schwadron Husa-<lb/>
+ren von der russisch=deutschen Legion. An ihrer Spitze<lb/>
+ritt ein junger Rittmeister, der mit freundlicher Miene<lb/>
+grüßend seinen Säbel links und rechts neigte. Von<lb/>
+der Horst war sein Name &#x2014; ein Name, der von<lb/>
+Schleswig=Holstein aus ganz Deutschland durchtönt<lb/>
+hat. An seiner Seite ritten der Bürgermeister und<lb/>
+einige Rathsherren, die ihn eine Strecke weit vor der<lb/>
+Stadt eingeholt hatten. Unter Begleitung einer stets<lb/>
+wachsenden Volksmenge ging der Zug nach dem Rath-<lb/>
+hause, wo dem willkommenen Befreier in vollzähliger<lb/>
+Rathsversammlung der Ehrentrunk kredenzt wurde.<lb/>
+Zugleich gab der Bürgermeister dem Rittmeister von<lb/>
+der Horst die Versicherung, daß die Stadt bemüht sein<lb/>
+würde, alle seine Wünsche zu erfüllen und daß er für<lb/>
+sich selbst sowie für seine Leute der gastlichsten Bewir-<lb/>
+thung gewiß sein dürfte.</p><lb/>
+<p>Als indeß der Rittmeister nach seinen Befehlen ge-<lb/>
+fragt wurde, bediente er sich eines seiner Lieutenants<lb/>
+als Dolmetscher; denn er verstand wol so ziemlich, was<lb/>
+man ihm sagte, allein seine Sprachkenntniß erstreckte<lb/>
+sich kaum über ein Dutzend Wörter, die er mehr auf-<lb/>
+geschnappt als wirklich erlernt hatte.</p><lb/>
+<p>Jnzwischen war, während der Befreier im Rath-<lb/>
+haussaale festlich begrüßt wurde, auf dem Platze vor<lb/>
+dem Rathhause die Volksmenge immer zahlreicher ge-<lb/>
+worden und bald sprach dieselbe unter lautem und all-<lb/>
+gemeinem Geschrei das Verlangen aus, den Helden<lb/>
+ebenfalls zu sehen. Man beeilte sich, den Rittmeister<lb/>
+von diesem Verlangen zu benachrichtigen und bat ihn,<lb/>
+sich auf dem Balcon zu zeigen. Augenblicklich bereit<lb/>
+dazu, trat er hinaus und grüßte mit der Hand hinab<lb/>
+gegen die Menge, die jubelnd und unter lauten Vi-<lb/>
+vats Hüte und Tücher schwang.</p><lb/>
+<p><hi rendition="#aq">Parlez</hi>! ertönte plötzlich eine Stimme, und <hi rendition="#aq">Parlez!<lb/>
+Parlez</hi>! wiederholten sogleich tausend Kehlen.</p><lb/>
+<cb n="2"/>
+<p>Ja, <hi rendition="#aq">Parlez, Parlez</hi>! brummte der Rittmeister. Das<lb/>
+ist leicht gesagt! Soll ich etwa dem dummen Volke<lb/>
+zeigen, daß ich das einfältige Französisch nicht kann?<lb/>
+Da wäre der ganze Nimbus verschwunden, der jetzt<lb/>
+den Retter, den Befreier umgibt! Verdammte Ge-<lb/>
+schichte!</p><lb/>
+<p><hi rendition="#aq">Parlez! Parlez</hi>! schallte es noch lauter, noch unge-<lb/>
+stümer von unten herauf und von einem komischen<lb/>
+Gedanken ergriffen, sagte der Rittmeister, immer reich<lb/>
+an guten Einfällen, zu sich selbst: &#x201E;Unverschämtheit,<lb/>
+steh' mir bei!&#x201C; Dann trat er vor, und sehr zufrie-<lb/>
+den mit der Aufregung und dem Gesumme, die auch<lb/>
+jetzt noch auf dem Platze herrschten, begann er:</p><lb/>
+<p><hi rendition="#aq">Mes amis! &#x2014; Dieu et les Alliés</hi> &#x2014; diese Worte<lb/>
+sprach er laut und deutlich, dann aber ließ seine Sprach-<lb/>
+kenntniß ihn im Stich und es folgte nun ein verwor-<lb/>
+renes, undeutliches Gemisch von selbstgebildeten, keiner<lb/>
+existirenden Sprache angehörigen Wörtern. Dazwi-<lb/>
+schen wurden französische Brocken mit lauter, erhobe-<lb/>
+ner Stimme eingestreut: <hi rendition="#aq">Le tyran &#x2014; les Alliés &#x2014; le droit<lb/>
+&#x2014; la victoire</hi> u. s. w. und diesen Worten besonders<lb/>
+folgte jedes mal ein lautes Bravo, während enthusia-<lb/>
+stische Zeichen des Beifalls auch den übrigen Theilen<lb/>
+der Rede nicht fehlten. Endlich schloß der Redner,<lb/>
+verneigte sich unter freundlichem Grüßen gegen die<lb/>
+Menge und trat zurück in den Rathhaussaal, beglei-<lb/>
+tet von den Beifallsäußerungen und dem Jubel des<lb/>
+Volks. Die Rede aber erschien am andern Tage ge-<lb/>
+druckt in dem &#x201E; <hi rendition="#aq">Courrier de Gant</hi> &#x201C; und allgemein be-<lb/>
+wunderte man die Beredtsamkeit des fremden Offiziers,<lb/>
+indem man jedoch hier und da Bedauern ausdrückte,<lb/>
+daß er etwas undeutlich gesprochen habe, sodaß der<lb/>
+ganze Zusammenhang der schönen Rede doch eigentlich<lb/>
+erst durch den Druck vollkommen deutlich geworden<lb/>
+wäre.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Tiflis.</hi></head><lb/>
+<p><hi rendition="#in">T</hi>iflis, die Hauptstadt Georgiens oder Grusiens und<lb/>
+die wichtigste Stadt Transkaukasiens, liegt in einer<lb/>
+anmuthigen, durch Weinpflanzungen, Park= und Gar-<lb/>
+tenanlagen verschönerten Hügelgegend am linken Ufer<lb/>
+des Kur, 1100 Fuß über dem Meere, hat Mauern,<lb/>
+Thürme, Bastionen und Wälle und besteht &#x2014; wie<lb/>
+Prag, mit dem man es in seiner allgemeinen Erschei-<lb/>
+nung verglichen hat &#x2014; aus einer Alt= und einer Neu-<lb/>
+stadt, wozu noch eine Bäder= und eine Bergstadt so-<lb/>
+wie verschiedene Vorstädte kommen, die indeß zum<lb/>
+Theil von bloßen Erdhütten gebildet werden. Die übri-<lb/>
+gen Stadttheile sind freundlich und hin und wieder<lb/>
+selbst prächtig. Namentlich in den neuenstandenen<lb/>
+Gegenden hat Tiflis breite, gerade Straßen, große<lb/>
+Plätze, hübsche Häuser und verschiedene in großartigem<lb/>
+Stile ausgeführte öffentliche Gebäude. Hinsichtlich des<lb/>
+Treibens in seinen Gassen läßt sich Tiflis nur mit<lb/>
+Kairo vergleichen. Hier mischen sich Europa und Asien<lb/>
+miteinander und ein höchst interessantes Gewühl ver-<lb/>
+schiedener Nationalitäten begegnet dem Auge des Beob-<lb/>
+achters. Der Name der Stadt ist aus der georgischen<lb/>
+Bezeichnung Tphilis Kalaki, d. h. Warmstadt, abge-<lb/>
+leitet, wie man den Ort nach den hier entspringenden<lb/>
+Schwefelquellen nannte, die in den letzten Jahren viele<lb/>
+Badegäste hier versammelten. Ein anderer Grund zur<lb/>
+Hebung der Stadt, die gegenwärtig 47,300 Einwoh-<lb/>
+ner zählt, war der, daß sie 1846 zur Hauptstadt des<lb/>
+Gouvernements Georgien, eines Landstrichs von 1530<lb/>
+<cb type="end"/>
+<pb facs="#f0004" n="84"/>
+<fw place="top" type="pageNum">84</fw><cb type="start"/>
+Quadratmeilen, erklärt wurde und daß Fürst Woron-<lb/>
+zoff, der Generalgouverneur von ganz Südrußland,<lb/>
+auf längere Zeit seinen Wohnsitz hier ausschlug. Jn<lb/>
+<cb n="2"/>
+neuester Zeit, wo die Straßen durch den Kaukasus<lb/>
+sicherer geworden sind als früher, erhob sich Tiflis zu<lb/>
+einem Hauptverbindungspunkte und Stapelplatze für<lb/>
+<cb type="end"/>
+<figure/><lb/>
+<pb facs="#f0005" n="85"/>
+<fw place="top" type="pageNum">85</fw>       <cb type="start"/>
+den Verkehr des cis= und transkaukasischen Rußland.<lb/>
+Die größere Hälfte der Einwohner sind Armenier.<lb/>
+Tiflis ist der Sitz der Gouvernementsbehörden, eines<lb/>
+Generalstabs, eines georgischen Metropoliten, eines ar-<lb/>
+menischen Erzbischofs und eines russischen Bischofs.<lb/>
+Es hat 42 Kirchen, deren Thürme die Form von Ke-<lb/>
+geln, nicht wie die russischen von Zwiebeln haben.<lb/>
+<cb n="2"/>
+Auch besitzt Tiflis einige Klöster, eine Bibliothek, ein<lb/>
+Naturaliencabinet und einen botanischen Garten. Unter<lb/>
+den gewerblichen Anstalten sind die Wollen=, Baum-<lb/>
+wollen- und Halbseidenzeuchfabriken sowie die Salz-<lb/>
+siedereien zu erwähnen, die das Salz aus den nahen<lb/>
+Steinsalzwerken reinigen.</p></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Geistliche Schauspiele im Mittelalter.</hi></head>       <figure>         <p>  Aufführung der Leidensgeschichte im Mittelalter.  </p>       </figure><lb/>
+<cb type="start"/>
+<p><hi rendition="#in">D</hi>as Schauspiel des Mittelalters ruht entschieden auf<lb/>
+religiösem Grunde. Es war ursprünglich ein geistli-<lb/>
+ches Schauspiel, durch welches dem Gottesdienste sym-<lb/>
+bolische Formen, sinnbildliche Handlungen und damit<lb/>
+der christlichen Kirche ein nicht unwesentliches Förde-<lb/>
+rungsmittel für ihre Verbreitung unter Heiden und<lb/>
+Juden gegeben wurde.</p><lb/>
+<p>Die Neubekehrten sollten in dem neuen Gottes-<lb/>
+dienste Alles und schöner wiederfinden, was ihnen, die<lb/>
+nur in Anschauungen und Gefühlen lebten, der alte<lb/>
+geboten. Versetzen wir uns auf einige Augenblicke zu-<lb/>
+rück in jene Zeiten! Es ist Abend, der Vorabend des<lb/>
+heiligen Christfestes. Die Gemeinde ist versammelt und<lb/>
+verharrt in der spärlich beleuchteten Kirche bis Mitter-<lb/>
+nacht in stillen Gebeten. Da plötzlich öffnen sich beim<lb/>
+Klange der Glocken die heiligen Thüren auf der Altar-<lb/>
+erhöhung, gleich den Pforten des Himmels. Der<lb/>
+Presbyter, das Rauchfaß schwingend, durchschreitet die<lb/>
+Kirche bis zur Vorhalle; die Thymianwolken lagern<lb/>
+sich über die Gemeinde hin, ein Bild des Geistes Got-<lb/>
+tes, der da schwebt über den Wassern. Der Diakon,<lb/>
+<cb n="2"/>
+eine brennende Kerze in der Hand, erinnert an den<lb/>
+ersten Schöpfungsact, da Gott sprach: &#x201E;Es werde<lb/>
+Licht!&#x201C; Die Stimmen der Gemeindeglieder singen den<lb/>
+104. Psalm, die Priester kehren zurück in das Hei-<lb/>
+ligthum und die Thüren werden, ein Sinnbild des<lb/>
+Sündenfalls und der Verstoßung aus dem Paradiese,<lb/>
+verschlossen.</p><lb/>
+<p>Der Chor spricht jetzt in Psalmenversen sein Schuld-<lb/>
+bewußtsein und die Sehnsucht nach göttlicher Hülfe<lb/>
+aus; &#x201E;bei dem Herrn&#x201C;, so schließt er, &#x201E;ist Gnade und<lb/>
+viel Erlösung bei ihm, und er wird Jsrael erlösen von<lb/>
+allen seinen Sünden!&#x201C; Da eröffnen sich die heiligen<lb/>
+Thüren wieder, der Presbyter erscheint, tröstet die<lb/>
+Gemeinde durch die prophetischen Verkündigungen des<lb/>
+einstigen Erlösers und schließt mit Gebet und Segen<lb/>
+den ersten Theil der Feier.</p><lb/>
+<p>Mit Buß= und Klageliedern und dem wiederholten<lb/>
+Rufe: &#x201E;Herr, erbarme dich!&#x201C; ( <hi rendition="#aq">Kyrie eleison</hi>! ) beginnt<lb/>
+sie wieder und dauert so, bis die ersten Srahlen der<lb/>
+Sonne den Anbruch des Tages des Herrn verkünden<lb/>
+und man drinnen im Heiligthum den Priester den<lb/>
+<cb type="end"/>
+<pb facs="#f0006" n="86"/>
+<fw place="top" type="pageNum">86</fw><cb type="start"/>
+Lobgesang der Engel: &#x201E;Ehre sei Gott in der Höhe!&#x201C;<lb/>
+anstimmen hört. Die Geburt des Heilandes wird in<lb/>
+Wechselgesängen zwischen Engeln und Hirten gefeiert.<lb/>
+Dann tritt der Bischof einfach gekleidet, um die glanz-<lb/>
+lose Erscheinung Christi auf Erden zu bezeichnen, be-<lb/>
+gleitet von den übrigen Geistlichen, gleichsam den Jün-<lb/>
+gern, aus den heiligen Thüren und stellt, unter lob-<lb/>
+singenden Chören, den in Jsrael wandelnden Erlöser<lb/>
+dar. Verschiedene biblische Lectionen, endlich die Pre-<lb/>
+digt vergegenwärtigen das Lehramt Christi und schlie-<lb/>
+ßen den zweiten Theil des Gottesdienstes.</p><lb/>
+<p>Auf diese Weise schmückte die christliche Kirche vom<lb/>
+4. bis zum 12. Jahrhundert hin den ganzen Jahres-<lb/>
+kreis ihrer Feste und es lag nahe, daß man nament-<lb/>
+lich den Jnhalt der ungemein dramatisch gehaltenen<lb/>
+Passionsevangelien besonders glanzvoll zur Darstellung<lb/>
+brachte. Anfangs übernahm einer der Geistlichen alle<lb/>
+erzählenden Worte des Evangelisten, ein anderer die<lb/>
+des Heilandes, ein Dritter alle Reden der übrigen<lb/>
+Personen, der Chor aber, was Volk und Priester spre-<lb/>
+chen. Bibeltext und gereimte Verslein wechselten da-<lb/>
+bei miteinander ab, so zwar, daß ersterer immer ge-<lb/>
+sungen, letztere dagegen nur gesprochen wurden; z. B.:</p><lb/>
+<sp who="#PET">           <speaker><hi rendition="#c #g">&gt;Petrus singt:</hi></speaker><lb/>
+<p><hi rendition="#g">Nimmermehr sollst du mir die Füße waschen!</hi></p>           </sp>         <sp who="#PET">           <speaker><hi rendition="#c">und <hi rendition="#g">spricht</hi>:</hi></speaker><lb/>
+<p><lg>             <l>Herre Meister, es soll nit sein</l><lb/>
+<l>Daß du waschest die Füße mein;</l></lg></p><lb/>
+</sp>         <sp who="#JES">           <speaker><hi rendition="#c #g">Jesus singt:</hi></speaker><lb/>
+<p><hi rendition="#g">Werde ich dich nicht waschen, so hast du keinen<lb/>
+<space dim="horizontal"/>  Theil an mir</hi>!</p><lb/>
+</sp>         <sp who="#JES">           <speaker><hi rendition="#c">und <hi rendition="#g">spricht</hi>:</hi></speaker><lb/>
+<p><lg>             <l>Lässest du dir die Füße nit</l><lb/>
+<l>Waschen hie zu dieser Zit,</l><lb/>
+<l>So inhast du sicherlich</l><lb/>
+<l>Keinen Theil an meinem Rich!</l></lg></p><lb/>
+</sp>         <sp who="#PET">           <speaker><hi rendition="#c #g">Petrus singt:</hi></speaker><lb/>
+<p><hi rendition="#g">Herr, nicht die Füße allein, sondern auch die<lb/>
+<space dim="horizontal"/>  Hände und das Haupt</hi>!</p><lb/>
+</sp>         <sp who="#PET">           <speaker><hi rendition="#c">und <hi rendition="#g">spricht</hi>:</hi></speaker><lb/>
+<p><lg>             <l>Herr, die Rede soll nit sein,</l><lb/>
+<l>Wasche nit allein die Füße mein,</l><lb/>
+<l>Wasche mir das Haupt und auch die Hand,</l><lb/>
+<l>Eh ich so dure werde gebannt.</l><lb/>
+</lg>             <hi rendition="#c #g">u. s. w.</hi></p><lb/>
+</sp>       <p>Jn dieser Weise ist die ganze Leidensgeschichte<lb/>
+durchgeführt. Der kirchliche Zweck, dem Volke da-<lb/>
+mit eine recht lebendige Bibelerklärung zu geben, ist<lb/>
+augenfällig.</p><lb/>
+<p>Der Aufschwung aber, den im 12. Jahrhundert<lb/>
+Poesie und Künste überhaupt in Deutschland nahmen,<lb/>
+konnte auch nicht ohne Einwirkung auf die Passions-<lb/>
+spiele bleiben. Sie erhielten größere Ausdehnung, das<lb/>
+Personal wuchs und durch ihren reichen, leidenschaft-<lb/>
+lichen Stoff wurden sie so anziehend, daß zuletzt wie<lb/>
+die Darsteller so namentlich auch die Zuschauer nicht<lb/>
+länger Raum in den Kirchen finden konnten. Man<lb/>
+mußte sich entschließen, das Gotteshaus zu verlassen.<lb/>
+Auf geweihtem Boden blieb man aber zunächst, indem<lb/>
+man die vergrößerte Bühne auf Kirchhöfen oder in<lb/>
+unmittelbarer Nähe von Kirchen oder Klöstern auf-<lb/>
+schlug. Reichte die Zahl der Geistlichen und Kloster-<lb/>
+schüler nicht mehr für das Passionspersonal aus &#x2014;<lb/>
+dasselbe stieg ja oft auf mehre Hunderte! &#x2014; so nahm<lb/>
+man seine Zuflucht zu Laien. Einige Anfänge von<lb/>
+Theatermaschinerie waren auch schon vorhanden. Um<lb/>
+<cb n="2"/>
+darzustellen, daß der Teufel in den Judas gefahren<lb/>
+sei, mußte dieser einen lebendigen schwarzen Vogel an<lb/>
+den Füßen vor den Mund halten und flattern lassen.<lb/>
+Der Selbstmord des Judas aber war eine förmliche<lb/>
+Hinrichtung durch den Beelzebub, der das Geschäft<lb/>
+des Henkers versah. Er stieg dem Judas auf einer<lb/>
+an einen Galgen gelehnten Leiter voran und zog ihn<lb/>
+an einem Seile nach. Nun konnte man ihn aber<lb/>
+nicht henken lassen, das wäre eine gefährliche Sache<lb/>
+gewesen <note place="foot" n="*)">Daß diese Aufführungen dennoch hin und wieder un-<lb/>
+glücklich abliefen, ist geschichtlich erwiesen.</note>; daher ging ein Seil mit Rollen von dem<lb/>
+Galgen bis in die Hölle, um darzustellen, daß die<lb/>
+Seele des Judas verdammt sei. Dieser selbst hatte<lb/>
+vorn am Kleide den schon erwähnten schwarzen Vogel<lb/>
+und die Gedärme von irgend einem andern Thiere<lb/>
+hängen. Sobald ihm nun der Teufel das Kleid auf-<lb/>
+riß, ließ Judas den Vogel fortfliegen und die Gedärme<lb/>
+zur Erde fallen, worauf dann Beide, der Satan und<lb/>
+der Verräther, auf einem schiefen Seile in die Hölle<lb/>
+rutschten.</p><lb/>
+<p>Schwieriger noch war die Maschinerie bei dem<lb/>
+Tode Christi. Der Vorhang des Tempels zerriß, die<lb/>
+Todten standen auf aus ihren Gräbern, Sonne und<lb/>
+Mond verfinsterten sich u. s. w. Wie das Alles ge-<lb/>
+macht wurde, vermögen wir nicht anzugeben. Wäh-<lb/>
+renddem hing den Schächern ein gemaltes Bild ( ihre<lb/>
+Seele ) aus dem Munde; ein Engel nahm des Guten<lb/>
+Seele in den Himmel, der Teufel entführte die des<lb/>
+Bösen in die Hölle. Bei dem Beinbruche der Schä-<lb/>
+cher lief Blut, wie bei dem Stiche des Longinus in<lb/>
+die Seite des Herrn. Die Nacktheit wurde entweder<lb/>
+durch Hemden dargestellt, welche die Darsteller über<lb/>
+ihre Kleider zogen, oder auch durch enganschließende<lb/>
+fleischfarbene Gewänder.</p><lb/>
+<p>Als komische Pantomime wurde am Schlusse der<lb/>
+Passionsspiele nicht selten eine großartige Schlägerei<lb/>
+der Wächter am Grabe zum Besten gegeben, nachdem<lb/>
+kurz zuvor die Auferstehungsscene folgendermaßen dar-<lb/>
+gestellt war: Die vier Wächter liegen schlafend an<lb/>
+den vier Ecken des Grabes. Da geschieht plötzlich ein<lb/>
+&#x201E;tonnerklapf mit büchsen. Jndem stoßt der Salvator<lb/>
+( Heiland ) das grab uff, und stat uffrecht mit einem<lb/>
+fuß uss her ze stigen, und den kumpt ein engel und<lb/>
+bringet ein guldin kron und ein wiß venly ( Fähnlein )<lb/>
+mit eim roten crutz, und spricht zu dem Salvator:</p><lb/>
+<lg>         <l>Herre, du solt nemen disse kron</l><lb/>
+<l>und den köngsstab so schon,</l><lb/>
+<l>daz dir din vater hat gesant</l><lb/>
+<l>von himel uff das ierdisch lant.</l></lg><lb/>
+<p>Und nach dem facht der Salvator an still stande und<lb/>
+spricht:</p><lb/>
+<lg>         <l>Jch han geschlaffen und bin erstanden</l><lb/>
+<l>das wirt verkundet in allen landen.</l><lb/>
+<l>mie vatter hat enpfangen mich,</l><lb/>
+<l>daz sönd ir wissen sicherlich.</l><lb/>
+<l>grosse marter han ich erlitten</l><lb/>
+<l>und dem tüffel sine band zesnitten.</l></lg></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Unser Planet.</hi></head><lb/>
+<p><hi rendition="#in">V</hi>on den9 1 / 4 Millionen Quadratmeilen Oberfläche,<lb/>
+welche die Erde umfaßt, auf welcher wir Menschen<lb/>
+unser Wesen treiben, sind über 7 Millionen von Wasser<lb/>
+bedeckt, während nur der Rest von2 1 / 4 Quadratmei-<lb/>
+len für Land übrigbleibt. Gleichmäßig über Land und<lb/>
+<cb type="end"/>
+<pb facs="#f0007" n="87"/>
+<fw place="top" type="pageNum">87</fw><cb type="start"/>
+Meer breitet sich ein anderer, viel größerer Ocean aus,<lb/>
+in dessen unterster Tiefe Mensch, Thier und Pflanze<lb/>
+leben und gedeihen, an dessen Oberfläche aber noch<lb/>
+keins von all diesen Wesen zu gelangen vermocht hat.<lb/>
+Ja, wir wissen nicht einmal mit Bestimmtheit anzu-<lb/>
+geben, wie weit die Oberfläche dieses Luftmeers von<lb/>
+uns entfernt ist, das wie ein riesiger Mantel den gan-<lb/>
+zen Planeten in seine beweglichen Falten hüllt. Wenn<lb/>
+wir uns mit Hülfe des in einem Ballon eingeschlosse-<lb/>
+nen, leichten Wasserstoffgases beflügeln und zu einer<lb/>
+Höhe emporsteigen, von welcher wir auf die Spitzen<lb/>
+der Gebirge hinabsehen, wie der Lämmergeier und der<lb/>
+Condor, so befinden wir uns doch noch immer in der<lb/>
+<cb n="2"/>
+untersten Schicht der Lufthülle unserer Erde. Ebenso<lb/>
+wenig als die Hülle über uns vermögen wir die unter<lb/>
+unsern Füßen befindliche feste Schale des Erdkörpers<lb/>
+zu durchdringen. Die tiefsten Schachte und Bohrlö-<lb/>
+cher, welche der kühne Mensch bei dem Versuche, mit<lb/>
+Hacke und Meisel in den Schoos seiner Mutter ein-<lb/>
+zudringen, getrieben hat, erreichen im Verhältniß zu<lb/>
+der 1713 Meilen dicken Erde eine kaum nennenswer-<lb/>
+the Entfernung von deren Oberfläche und ein Jnsekt,<lb/>
+welches mit seinen Kauwerkzeugen eine Grube in die<lb/>
+Schale eines Apfels nagt, dringt in der That tiefer<lb/>
+in diese Frucht ein, als wir mit unsern Schachten in<lb/>
+den Erdkörper.</p></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Der Hausen oder große Stör.</hi></head><lb/>
+<figure/><lb/>
+<cb type="start"/>
+<p><hi rendition="#in">D</hi>er Hausen gehört nicht zu den in vielen Gewässern<lb/>
+verbreiteten Fischen, sondern lebt vorzugsweise im<lb/>
+Schwarzen und im Kaspischen Meere und in den mit<lb/>
+denselben in Verbindung stehenden großen Flüssen, z. B.<lb/>
+im Ural, in der Wolga, im Don, Dniepr und in<lb/>
+der Donau. Er wird zuweilen über 25 Fuß lang und<lb/>
+mehr als 1500 Pfund schwer und hat einen rundli-<lb/>
+chen, nicht mit Schuppen, sondern mit glatter, schlei-<lb/>
+miger Haut bedeckten Leib, welcher aber mit mehren<lb/>
+Reihen einzelner, hornartiger Schilde besetzt ist. Der<lb/>
+länglich viereckige Kopf ist fest gepanzert und endigt in<lb/>
+eine stumpfe Schnauze, unter der das kleine zahnlose<lb/>
+Maul sich befindet und mit einigen Bartfäden besetzt<lb/>
+ist. Die Schwimmblase, welche die Fische ausdehnen,<lb/>
+wenn sie im Wasser aufsteigen und zusammenziehen,<lb/>
+wenn sie in die Tiefe gehen wollen, ist sehr groß; die<lb/>
+Schwanzspitze ist aufwärts gerichtet. Gewürm, sehr<lb/>
+kleine Fische und andere Seethiere machen die Nah-<lb/>
+rung des Hausen aus, dessen Fang eine höchst wichtige<lb/>
+Erwerbsquelle für die Bewohner der Uferländer der<lb/>
+oben genannten Ströme ist.</p><lb/>
+<p>Was die Benutzung der Hausen und Störe an-<lb/>
+langt, so wird vor allen Dingen ihr Fleisch theils ein-<lb/>
+gesalzen, theils getrocknet in Streifen zertheilt und<lb/>
+theils frisch verzehrt. Der gemeine Stör namentlich<lb/>
+gibt frisch zubereitet ein sehr gutes Gericht, welches<lb/>
+schon bei den alten Römern in so hohen Ehren gehal-<lb/>
+ten wurde, daß es mit Blumen und Kränzen geschmückt<lb/>
+und von Musik begleitet auf die Tafel gebracht wurde.<lb/>
+<cb n="2"/>
+Einer besondern Benutzung unterliegt ferner die große<lb/>
+Schwimmblase der Hausen, welche zunächst von allem<lb/>
+Fremdartigem gesäubert, dann zertheilt und nachdem<lb/>
+man die äußere Haut derselben abgezogen hat, mit<lb/>
+den Händen zu einer Art Teig geknetet wird. Aus<lb/>
+diesem werden Täfelchen oder Rollen geformt, auf Fä-<lb/>
+den gereiht, bei gelindem Feuer getrocknet und zuletzt<lb/>
+durch Schwefeldämpfe gebleicht. Die so zugerichtete<lb/>
+Hausenblase dient in Wasser aufgelöst als ein guter<lb/>
+Leim, mit Branntwein zerlassen gibt sie einen Kitt für<lb/>
+Glas und Porzellan und dient auch dazu, trübe Flüs-<lb/>
+sigkeiten, die man damit vermischt, zu klären. Eine<lb/>
+eigenthümliche Benutzung erleidet auch der Roggen der<lb/>
+Hausen und Störe, welcher, von anhängendem Blute<lb/>
+und häutigen Theilen gereinigt, kurze Zeit in Salz-<lb/>
+wasser gelegt, dann in ein Sieb geschüttet und wenn<lb/>
+das Salzwasser abgelaufen ist, in kleine Fässer gepackt<lb/>
+wird. Er heißt nun Caviar, wird als ein leckeres<lb/>
+Essen weit und breit verschickt und bildet nebst dem<lb/>
+eingesalzenen Fleische und der Hausenblase wichtige<lb/>
+Handelsartikel, welche von Rußland aus ins Ausland<lb/>
+verkauft werden.</p><lb/>
+<p>Auch eine Menge Fett wird aus der Brust und<lb/>
+dem Schwanze dieser Fische erhalten und frisch zur<lb/>
+Bereitung der Speisen verbraucht; endlich wird die<lb/>
+sorgfältig gereinigte, ausgespannt getrocknete und dann<lb/>
+ziemlich durchsichtige Haut des Hausen von den Ko-<lb/>
+sacken und Tataren noch anstatt des Fensterglases ver-<lb/>
+wendet.</p></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<pb facs="#f0008" n="88"/>
+<fw place="top" type="pageNum">88</fw><lb/>
+<div n="1" type="jVarious"><head><hi rendition="#fr"><hi rendition="#g">Mannichfaltiges</hi>.</hi></head>       <cb type="start"/>
+<div n="2" type="jArticle"><p>Die arabischen Eselsjungen in Kairo sind die Plage<lb/>
+und das Bedürfniß der Fremden, ihre Cicerones, Drago-<lb/>
+mans und Sprachlehrer Von frühem Morgen an halten sie<lb/>
+mit ihren trefflichen großen Eseln vor den Hotels und drän-<lb/>
+gen in   <hi rendition="#aq">corpore</hi> stürmisch hervor, sobald ein Fremder vor<lb/>
+die Thür tritt. Dieser sieht sich plötzlich von Eseln und<lb/>
+Jungen umringt, thut daher am besten, so schnell als mög-<lb/>
+lich sich auf das erste beste Thier zu schwingen und dann<lb/>
+geht die Reise fort. Er jagt dahin, singend und schreiend<lb/>
+stürzt der Junge hinterdrein; fortwährend schwatzt er, prü-<lb/>
+gelt den Esel oder bekommt abwechselnd selbst Prügel. Der<lb/>
+Reisende wird an alle Orte geführt, wo es etwas zu sehen<lb/>
+gibt und für das ganze Vergnügen zahlt man eine Kleinig-<lb/>
+keit. Die Jungen sind wahre Sprachgenies und reden ein<lb/>
+Gemisch von Englisch, Französisch, Jtalienisch und Deutsch,<lb/>
+das zum Lachen reizt. So sagte mein Eselsjunge &#x2014; erzählt<lb/>
+Ziegler &#x2014; jedes mal, sobald ich mich anschickte, mich in den<lb/>
+Sattel zu schwingen, mit der ernsthaftesten Miene: &#x201E; Don-<lb/>
+nerwetter! Steig auf!&#x201C; Nirgends hört man das Wort<lb/>
+Bakschisch ( Trinkgeld ) häufiger als in der Mitte dieser Bur-<lb/>
+schen und das: Kata jerak kitir ( ich danke dir ) bildet den<lb/>
+stehenden Refrain für Gutes und Schlimmes, für Trinkgel-<lb/>
+der und Prügel.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Die Rose von Jericho ( <hi rendition="#aq">Anastatica hierochuntica )</hi><lb/>
+darf nach der Mittheilung eines neuern Reisenden auf den<lb/>
+Namen einer Rose gar keinen Anspruch machen; sie hat mit<lb/>
+einer solchen nicht die mindeste Aehnlichkeit. Die Blume ist<lb/>
+ganz klein und vierblättrig, die Frucht ein Nüßchen, eine<lb/>
+bauchig aufgedunsene kleine Schote. Nur die Eigenschaft be-<lb/>
+sitzt sie, daß sie, scheinbar verwelkt, sich wieder öffnet, wenn<lb/>
+man sie ins Wasser setzt. Aber diese hygrometrische Eigen-<lb/>
+schaft einer getrockneten Pflanze, daß sie, in Wasser gelegt,<lb/>
+sich wieder ausbreitet, ist im Allgemeinen nicht selten; man<lb/>
+findet sie namentlich bei vielen Moosen; bei Pflanzen höhe-<lb/>
+rer Organisation kommt diese Eigenschaft allerdings seltener<lb/>
+vor. Nach der Legende wächst diese sogenannte Rose von<lb/>
+Jericho auf den Stellen in der Wüste, welche Maria auf<lb/>
+der Flucht nach Aegypten mit dem Fuße betrat und wird<lb/>
+als Sinnbild des unvergänglichen Ewigen betrachtet. Alt-<lb/>
+testamentliche Stellen sprechen von hochgewachsenen Rosen-<lb/>
+stöcken in Jericho. ( Vergl. Jes. Sir. 24, 18 ) . Man hat also<lb/>
+wenig Recht, eine so niedrige und unscheinbare Pflanze mit<lb/>
+dem Titel einer Rose zu beehren.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Die Algodonbai an der Küste von Bolivia in Süd-<lb/>
+amerika hat einen wild pittoresken Charakter, der aufs groß-<lb/>
+artigste hervortritt, wenn man sich am Lande befindet.<lb/>
+Schluchten durchsetzen allenthalben das Gebirge, fast unzu-<lb/>
+gänglich durch herabgestürzte Felsstücke; kein Thier, kein<lb/>
+Baum, kein Strauch, keine Quelle, nichts was Leben reprä-<lb/>
+sentirt, wird dort gefunden; dazu eine Stille, endlos und<lb/>
+ununterbrochen, nicht die des Friedens, sondern die des To-<lb/>
+des, einer Natur, die gestorben oder vielmehr nie zum Le-<lb/>
+ben erwacht ist. So lange als dieses öde Land besteht, hat<lb/>
+es hier nie geregnet, was nicht nur die Sage bezeugt, son-<lb/>
+dern auch durch die geognostischen Verhältnisse bewiesen ist.<lb/>
+Und doch haben sich auch hier Menschen angesiedelt, gelockt<lb/>
+durch den Vortheil, welchen die reichen Kupferminen der<lb/>
+Bai bieten.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Sinnige Feier. Als im Jahre 1806 Berlin von den<lb/>
+Franzosen besetzt war, durften Kundgebungen der Theilnahme<lb/>
+an dem Königspaare, das sich geflüchtet hatte, nicht laut<lb/>
+werden. Am 10. März, dem Geburtstage der Königin,<lb/>
+betrat Jssland mit einem frischen Blumenstrauße vor der<lb/>
+Brust die Bühne; die Zuschauer erkannten die Deutung der<lb/>
+Blumen und begrüßten Jffland mit einem Beifallssturme.<lb/>
+Der französische Stadtbefehlshaber erkannte über den Thea-<lb/>
+<cb n="2"/>
+terdirector eine zweitägige Haft. Als Wechsler Mordfuß trat<lb/>
+Jffland in dem Stücke: &#x201E;Der Vater von ungefähr&#x201C; wieder<lb/>
+auf und begrüßte das Publicum mit den Worten: &#x201E;Nehmen<lb/>
+Sie es nicht übel; ich habe nicht eher kommen können.&#x201C;<lb/>
+Neuer Jubel im Zuschauerkreise. Nach der Rückkehr des<lb/>
+Königspaars in die Residenz ward Jssland bei dem ersten<lb/>
+Besuche des Königs und der Königin im Theater in die kö-<lb/>
+nigliche Loge gerufen und die Königin reichte ihm vor den<lb/>
+Augen des Publicums die Hand zum Kusse zum Danke da-<lb/>
+für, daß er ihren Geburtstag &#x201E;durch die Blume&#x201C; gefeiert<lb/>
+habe. Der König schmückte Jfflands Brust mit einem Or-<lb/>
+den, dem ersten, den einer seines Standes in Preußen erhielt.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Die Gefilde Trojas. Sie erstrecken sich, eine weite,<lb/>
+vom Skamandros und Simois bewässerte Ebene, vom Jda-<lb/>
+berge bis ans Vorgebirge Sigeum. Haufen von Steinen<lb/>
+und Spuren von Trümmern und Ruinen liegen auf der<lb/>
+Ebene zerstreut umher; aber das alte Troja mit seinen vie-<lb/>
+len hohen Thürmen und Palästen ist spurlos verschwunden;<lb/>
+ja man kann nicht einmal mit Bestimmtheit angeben, wo es<lb/>
+gelegen. Jetzt ist Alles ruhig und todt, keine Stadt, kein<lb/>
+hauptumlockter Achaier mehr sichtbar. An der öden Küste<lb/>
+erhebt sich ein Hügel, genannt das Grab des Achilles, un-<lb/>
+weit davon ein anderer, das Grab des Patroklus. Aber die<lb/>
+Erinnerung an die schönste Heroensage lebt noch immer fort<lb/>
+und die Seeleute erzählen sich von dem Palaste des Priamos<lb/>
+und dem hölzernen Pferde und dem Grabe des Aeneas.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Ein Schuster, der nicht bei seinem Leisten blieb.<lb/>
+Ein armer Schuhmacher in England hörte von dem elenden<lb/>
+Zustande der Heiden in Jndien. Es ging ihm zu Herzen<lb/>
+und er fühlte Trieb in sich, zu ihnen zu gehen. Da lernte<lb/>
+er bei seinem Leisten vier Sprachen, sammelte sich etwas<lb/>
+Reisegeld bei Freunden und brach 1793 mit Frau und Kin-<lb/>
+dern nach Jndien auf. Er kam nach Bengalen, ward nach<lb/>
+und nach Professor der Sanskritsprache zu Serampore und<lb/>
+arbeitete 41 Jahre mit ausgezeichnetem Eifer. Dieser ehe-<lb/>
+malige Schuster ist der berühmte <hi rendition="#aq">Dr</hi>. Carey, der am 9. Juni<lb/>
+1834 in Serampore starb und aus dessen Anstalten 24 Bi-<lb/>
+belübersetzungen in indische Sprachen ausgegangen sind. </p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Tatarische Sprüchwörter. Wer durch die Furth will,<lb/>
+darf das Waten nicht scheuen. &#x2014; Willst du, daß der Orkan<lb/>
+blase, dann lobe die Windstille. &#x2014; Heulen gehört zur Stimme<lb/>
+des Windes. &#x2014; Nicht jede Tanne ist eine Ceder, aber jede<lb/>
+hält sich dafür. &#x2014; Dem ersten Wunsche genügt das Kameel,<lb/>
+dem zweiten nicht die Kameelheerde. &#x2014; Sich beugen ist keine<lb/>
+Unehre, aber sich beugen lassen. &#x2014; Veilchen wachsen nicht so<lb/>
+hoch als die Nesseln. &#x2014; Der Marmorblock nennt den Bild-<lb/>
+hauer Bruder. &#x2014; Wirf nicht den Stock, sondern den Kno-<lb/>
+chen unter die Hunde, dann kannst du ruhig des Weges zie-<lb/>
+hen. &#x2014; Nicht aus jeder Quelle rinnt Naphtha.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Die Eichenwälder der Moldau und Walachei sind<lb/>
+noch so reichhaltig, daß selbst die vernachlässigtste Forst-<lb/>
+wirthschaft sie nur einigermaßen zu lichten vermag. Man<lb/>
+kann sich einen Begriff von der hier noch zu machenden Aus-<lb/>
+beute bilden, wenn man nur den Umfang eines einzigen in<lb/>
+dieser Beziehung abgeschlossenen Geschäfts erwägt. Der<lb/>
+Groß=Bojar Stirbey verkaufte an einen unternehmenden<lb/>
+Kaufmann in Bercy, Condemine, nicht weniger als 116,000<lb/>
+Eichen zu dem Preise von circa 1 Thlr. 10 Ngr. durch-<lb/>
+schnittlich, welche als Stabholz zu Faßdauben für die Bött-<lb/>
+cher in Bordeaux und Marseille verarbeitet wurden und<lb/>
+jenen Handwerksleuten wohlfeiler zu stehen kommen als die<lb/>
+sonst aus der Ostsee bezogenen. Es gab unter diesen Bäu-<lb/>
+men so starke, welche 2700 Faßdauben lieferten; der Unter-<lb/>
+nehmer verdiente im Durchschnitt an jedem Baume 8 Thaler.</p></div></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/><lb/>
+</body>     <back><div n="1" type="imprint"><p><hi rendition="#c">Verantwortlicher Redacteur: <hi rendition="#aq">M</hi>. J. E. Volbeding. &#x2014; Druck und Verlag von F. A. Brockhaus in Leipzig.</hi></p></div>     </back>   </text> </TEI>

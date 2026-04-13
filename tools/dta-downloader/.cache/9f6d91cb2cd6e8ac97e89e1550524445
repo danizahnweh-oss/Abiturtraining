@@ -1,0 +1,950 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.deutschestextarchiv.de/basisformat.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">     <teiHeader>
+<fileDesc>
+<titleStmt>
+<title type="main">Das Pfennig-Magazin für Belehrung und Unterhaltung</title>
+<title type="sub">Dritte Folge, Zweiter Jahrgang, Nr. 87</title>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/115266127">
+<surname>Geyken</surname>
+<forename>Alexander</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1222198746">
+<surname>Haaf</surname>
+<forename>Susanne</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1019062681">
+<surname>Jurish</surname>
+<forename>Bryan</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Boenig</surname>
+<forename>Matthias</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Thomas</surname>
+<forename>Christian</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Wiegand</surname>
+<forename>Frank</forename>
+</persName>
+</editor>
+<respStmt>
+<orgName>Institut für Deutsche Sprache, Mannheim</orgName>
+<resp>
+<note type="remarkResponsibility">Bereitstellung der Bilddigitalisate und TEI
+Transkription</note>
+<ref target="http://hdl.handle.net/10932/00-01B8-B0A9-E18F-EF01-5"/>
+</resp>
+</respStmt>
+<respStmt>
+<persName>
+<forename>Peter</forename>
+<surname>Fankhauser</surname>
+</persName>
+<resp>
+<note type="remarkResponsibility">
+Transformation von TUSTEP nach TEI P5.
+Transformation von TEI P5 in das DTA TEI P5 Format.
+</note>
+</resp>
+</respStmt>
+<respStmt>
+<orgName ref="https://www.bbaw.de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<resp>
+<note type="remarkResponsibility">Langfristige Bereitstellung der DTA-Ausgabe</note>
+<ref target="https://www.bbaw.de"/>
+</resp>
+</respStmt>
+</titleStmt>
+<editionStmt><edition>Vollständige digitalisierte Ausgabe.</edition></editionStmt>
+<extent>
+<measure type="images">8</measure>
+<measure type="tokens">5331</measure>
+<measure type="types">2177</measure>
+<measure type="characters">36092</measure>
+</extent>
+<publicationStmt>
+<publisher xml:id="DTACorpusPublisher">
+<email>dta@bbaw.de</email>
+<orgName role="project">Deutsches Textarchiv</orgName>
+<orgName role="hostingInstitution" xml:lang="en">Berlin-Brandenburg Academy of Sciences and Humanities (BBAW)</orgName>
+<orgName role="hostingInstitution" xml:lang="de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<address>
+<addrLine>Jägerstr. 22/23, 10117 Berlin</addrLine>
+<country>Germany</country>
+</address>
+</publisher>
+<pubPlace>Berlin</pubPlace>
+<date type="publication">2025-10-24T08:35:14Z</date>
+<availability>
+<licence target="http://creativecommons.org/publicdomain/zero/1.0/">
+<p>Dieses Werk steht unter der "Creative Commons Namensnennung -
+Nicht kommerziell 3.0 Deutschland Lizenz" (CC BY-NC).</p>
+</licence>
+</availability>
+<idno>
+<idno type="URLWeb">https://www.deutschestextarchiv.de/nn_pfennig087_1854</idno>
+<idno type="URLXML">https://www.deutschestextarchiv.de/book/download_xml/nn_pfennig087_1854</idno>
+<idno type="URLHTML">https://www.deutschestextarchiv.de/book/download_html/nn_pfennig087_1854</idno>
+<idno type="URLText">https://www.deutschestextarchiv.de/book/download_text/nn_pfennig087_1854</idno>
+<idno type="DTADirName">nn_pfennig087_1854</idno>
+<idno type="DTAID">34737</idno>
+<idno type="URN">urn:nbn:de:kobv:b4-34737-5</idno>
+</idno>
+</publicationStmt>
+<sourceDesc>
+<bibl type="J">Das Pfennig=Magazin für Belehrung und Unterhaltung. Dritte Folge, Zweiter Jahrgang, Nr. 87. Leipzig (Sachsen), 24. August 1854.</bibl>
+<biblFull>
+<titleStmt>
+<title level="m" type="main">Das Pfennig-Magazin für Belehrung und Unterhaltung</title>
+<title level="m" type="sub">Dritte Folge, Zweiter Jahrgang, Nr. 87</title>
+</titleStmt>
+<editionStmt>
+<edition n="1"/>
+</editionStmt>
+<publicationStmt>
+<publisher/>
+<pubPlace>Leibzig (Sachsen)</pubPlace>
+<date type="publication">1854</date>
+</publicationStmt>
+</biblFull>
+<msDesc>
+<msIdentifier/>
+<physDesc>
+<typeDesc>
+<p>Fraktur</p>
+</typeDesc>
+</physDesc>
+</msDesc>
+</sourceDesc>
+</fileDesc>
+<encodingDesc>
+<editorialDecl>
+<p>
+<![CDATA[
+<p>Siehe Dokumentation</p>
+]]>
+</p>
+</editorialDecl>
+<tagsDecl>
+<rendition scheme="css" xml:id="aq">font-family:sans-serif</rendition>
+<rendition scheme="css" xml:id="b">font-weight:bold</rendition>
+<rendition scheme="css" xml:id="blue">color:blue</rendition>
+<rendition scheme="css" xml:id="c">display:block; text-align:center</rendition>
+<rendition scheme="css" xml:id="et">display:block; margin-left:2em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et2">display:block; margin-left:4em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et3">display:block; margin-left:6em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="f">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="fr">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="g">letter-spacing:0.125em</rendition>
+<rendition scheme="css" xml:id="i">font-style:italic</rendition>
+<rendition scheme="css" xml:id="in">font-size:150%</rendition>
+<rendition scheme="css" xml:id="k">font-variant:small-caps</rendition>
+<rendition scheme="css" xml:id="larger">font-size:larger</rendition>
+<rendition scheme="css" xml:id="red">color:red</rendition>
+<rendition scheme="css" xml:id="right">display:block; text-align:right</rendition>
+<rendition scheme="css" xml:id="s">text-decoration:line-through</rendition>
+<rendition scheme="css" xml:id="smaller">font-size:smaller</rendition>
+<rendition scheme="css" xml:id="sub">vertical-align:sub; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="sup">vertical-align:super; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="u">text-decoration:underline</rendition>
+<rendition scheme="css" xml:id="uu">border-bottom:double 3px #000</rendition>
+</tagsDecl>
+</encodingDesc>
+<profileDesc>
+<langUsage>
+<language ident="deu">(Früh-)Neuhochdeutsch</language>
+<language ident="deu">German</language>
+</langUsage>
+<textClass>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1main">Gebrauchsliteratur</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1sub">Zeitschrift</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">ready</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">mkhz1</classCode>
+</textClass>
+</profileDesc>
+</teiHeader>
+<text>     <front>
+<pb facs="#f0001" n="[273]"/>
+<titlePage type="heading"><docTitle><titlePart type="main"><hi rendition="#c #fr">Das Pfennig=Magazin<lb/>
+für<lb/>
+<hi rendition="#g">Belehrung und Unterhaltung</hi>.</hi></titlePart></docTitle><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<docImprint><hi rendition="#fr">Nr</hi>. 87. ]                <hi rendition="#c">Dritte Folge. Zweiter Jahrgang.</hi>                <docDate><hi rendition="#right">[ 24. <hi rendition="#g">August</hi> 1854.</hi></docDate>              </docImprint></titlePage><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+</front>     <body>       <div n="1"><figure><head><hi rendition="#fr">Die Admiralität in London.</hi></head></figure></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle" xml:id="Spute5"><head><hi rendition="#fr"><hi rendition="#g">Spute dich</hi>!</hi><lb/>
+<ref target="nn_pfennig086_1854#Spute4">( Fortsetzung. )</ref></head><lb/>
+<cb type="start"/>
+<p><hi rendition="#in">D</hi>ie ersten Tage im Polengute wollten dem an Ord-<lb/>
+nung gewöhnten Karl sowie seiner Familie durchaus<lb/>
+nicht gefallen; aber es hieß: &#x201E;Sputet euch!&#x201C; und so<lb/>
+hatten die thätigen Hände die Wohnstube in dem sonst<lb/>
+fest und gut gebauten Bauernhause in kurzer Zeit<lb/>
+ganz umgewandelt. Dasselbe geschah auch nach und<lb/>
+nach mit dem Hofe und den übrigen Wirthschaftsräu-<lb/>
+men, sodaß man das Polengut fast nicht mehr erken-<lb/>
+nen konnte, wenn man in dasselbe eintrat.</p><lb/>
+<p>Die Umgestaltung wurde dem neuen Besitzer nicht<lb/>
+gar zu schwer, da er sich aus seinem Heimatsorte einen<lb/>
+tüchtigen Knecht und eine brave Magd mitgebracht<lb/>
+hatte, auf welche er sich vollkommen verlassen konnte;<lb/>
+auch war mit ihm ein Jugendfreund, ein Zimmer-<lb/>
+gesell, angekommen, der sogleich einige Schock trockene,<lb/>
+vom Polen mit gekaufte Breter im Gute zweckmäßig<lb/>
+<cb n="2"/>
+verwendete, theils um zu verbessern und zu verschö-<lb/>
+nern, theils um die Bewirthschaftung zu erleichtern.</p><lb/>
+<p>Die Ernte, welche Karl im ersten Jahre noch ein-<lb/>
+brachte, war freilich eine sehr dürftige und vermochte<lb/>
+nicht, seinen Blick in die Zukunft sehr zu erheitern;<lb/>
+aber er verlor keineswegs den Muth, da er es gelernt<lb/>
+hatte, dem Grund und Boden das Möglichste abzu-<lb/>
+gewinnen. &#x201E;Spute dich! Sputet euch!&#x201C; dies Wort<lb/>
+erklang des Tages wol zehn mal aus seinem Munde.<lb/>
+Überall griff er selbst mit zu und war die Arbeit ge-<lb/>
+than, so war er heiter und suchte seinen Dienstleuten<lb/>
+wie seinen Familiengliedern wieder eine heitere Stunde<lb/>
+der Ruhe zu bereiten. Dies bewog die Seinigen,<lb/>
+beim Beginn der neuen Arbeit sich desto mehr zu sputen.</p><lb/>
+<p>Bald nach seinem Einzuge erhielt Karl Besuch;<lb/>
+der alte Zillmer kam. Es war ein Freudentag für<lb/>
+<cb type="end"/>
+<pb facs="#f0002" n="274"/>
+<fw place="top" type="pageNum">274</fw><cb type="start"/>
+das ganze Wirker'sche Haus, als der würdige Greis<lb/>
+erschien. Mit ihm ging Karl hinaus auf die Besitzun-<lb/>
+gen, um seine Ansicht über die Benutzung der Grund-<lb/>
+stücke zu hören; mit ihm hielt er daheim Rath über<lb/>
+die fernere Bewirthschaftung seines Gutes. Zillmer<lb/>
+war ein umsichtiger Kopf, daher er seinem Sohne<lb/>
+recht viel Mittel und Wege an die Hand gab, seinen<lb/>
+Wohlstand noch besser zu begründen.</p><lb/>
+<p>Vater Zillmer reiste nach zwei Tagen wieder ab.<lb/>
+Er war das letzte mal bei seinen Kindern gewesen.<lb/>
+Wie er es sich gewünscht hatte, machte es Gott mit<lb/>
+ihm ganz unerwartet. Zwei Wochen nach seiner Rück-<lb/>
+kehr ging er ganz munter und heiter zu Bett, schlief<lb/>
+ein und erwachte nicht wieder. Früh fand ihn seine<lb/>
+jüngste Tochter, die einzige, welche noch in seinem<lb/>
+Hause war, entschlafen im Bett; ein Schlagfluß hatte<lb/>
+seinem thätigen Leben ein Ende gemacht. Dankbare<lb/>
+Kinder und Enkel folgten gerührt dem Sarge des ein-<lb/>
+fachen, aber edlen und frommen Mannes.</p><lb/>
+<p>Der Rath aus dem erfahrenen Munde Zillmer's<lb/>
+blieb stets für Karl ein heiliges Vermächtniß und<lb/>
+wurde fast in jeder Beziehung befolgt.</p><lb/>
+<p>Der offenherzige Wirker theilte seinen neuen Nach-<lb/>
+barn so manchen Plan mit, nach welchem er seine<lb/>
+Ökonomie einzurichten gedachte, um zu ermessen, ob<lb/>
+seine Ansichten auch mit den ihrigen in einigem Ein-<lb/>
+klange ständen; aber er erhielt keine Antwort oder<lb/>
+wurde wol auch ausgelacht, da die Bauern Alles be-<lb/>
+trieben, wie sie es von den Ältern und Großältern ge-<lb/>
+lernt hatten. Hinter seinem Rücken spotteten die Nach-<lb/>
+barn über ihn und sprachen: &#x201E;Unsere Alten sind doch<lb/>
+auch keine Narren gewesen und dieser Neuling wird<lb/>
+wol die Steine auch nicht zu Brot machen können!&#x201C;</p><lb/>
+<p>Wirker erfuhr derartige unverständige Urtheile sehr<lb/>
+bald, darum nahm er sich vor, den Bauern nie wie-<lb/>
+der etwas zu vertrauen; er handelte nach seinem Kopfe<lb/>
+und zog seine Johanna und die treuen Dienstboten<lb/>
+dabei oft zu Rathe. Knechte und Mägde fühlten sich<lb/>
+dadurch geschmeichelt und gingen ihrem Herrn bei der<lb/>
+Arbeit nun desto lieber zur Hand. Sie hörten das<lb/>
+&#x201E;Sputet euch!&#x201C; sehr gern, denn sie wußten, daß Wir-<lb/>
+ker nicht zu viel von ihnen foderte und ihrer daheim<lb/>
+eine Schüssel Speise wartete, wie sie an Güte und<lb/>
+Reichlichkeit im ganzen Dorfe dem Dienstgesinde nicht<lb/>
+vorgesetzt wurde.</p><lb/>
+<p>Karl's Hauptplan erfoderte zunächst die Verbesse-<lb/>
+rung seiner Grundstücke, welche theils aus sumpfigen<lb/>
+Wiesen, theils aus kahlen Steinrücken oder überqueck-<lb/>
+ten Feldern bestanden. Auf einmal ließ sich das frei-<lb/>
+lich nicht thun, daher Karl Zeit und Arbeitskräfte ge-<lb/>
+hörig einzutheilen hatte. Anfangs ging er mit dem<lb/>
+Spaten hinaus in seine Flur und grub Löcher ein, um<lb/>
+den Boden genau kennen zu lernen, dann schien er<lb/>
+die Höhen und Vertiefungen seiner Felder auszumessen<lb/>
+und &#x201E;eine Landkarte&#x201C;, wie seine Nachbarn sagten, auf<lb/>
+Papier zu malen. Da nun Karl so mancherlei ganz<lb/>
+anders betrieb, so wurden die Bauern auf ihn auf-<lb/>
+merksamer oder vielmehr neugierig, denn sie konnten<lb/>
+sich seine Absichten doch nicht immer erklären, obgleich<lb/>
+sie zuweilen von neuern Einrichtungen und vielfachen<lb/>
+Vortheilen in der Landwirthschaft etwas gehört hatten.<lb/>
+Es zu versuchen, kam ihnen nicht in den Sinn; sie<lb/>
+ließen Alles beim Alten. War es nun wol ein Wun-<lb/>
+der, wenn sie über Karl oft spotteten und schon zu<lb/>
+Anfange seinen Untergang wissen wollten?</p><lb/>
+<p>Er wird's auch weit bringen mit seiner neuen<lb/>
+Mode, hieß es. Er wird künsteln und grübeln, bis<lb/>
+er am Bettelstabe wieder aus dem Gute wandert!</p><lb/>
+<cb n="2"/>
+<p>Einige wollten Karl Wirker noch nicht alle Hoff-<lb/>
+nungen abschneiden und wendeten ein, daß er ja im<lb/>
+Niederlande ein ausgezeichneter Landwirth gewesen sein<lb/>
+solle; aber da erwiderte man: &#x201E;Ja Niederland und<lb/>
+Gebirge &#x2014; ein himmelweiter Unterschied!&#x201C;</p><lb/>
+<p>Alles Schwatzen, aller Spott, alles Lachen und<lb/>
+selbst zuweiliges Bedauern ließ Wirker kalt vor seinen<lb/>
+Ohren vorüberziehen. Er griff mit Frau und Dienst-<lb/>
+boten wacker zu und selbst seine Kinder mußten sich<lb/>
+mit sputen. Seine erste Hauptsorge galt den Wiesen-<lb/>
+flächen, die so sehr versumpft waren, daß nur auf ein-<lb/>
+zelnen Strecken ein leidliches, dem Vieh zuträgliches<lb/>
+Futter wuchs. Er legte sofort kleine Gräben an und<lb/>
+durchschnitt mit vielfachen Verzweigungen die Wiesen,<lb/>
+um eine gute Bewässerung einzurichten. Dies Alles<lb/>
+hatte er sich nach den darüber entworfenen Plänen<lb/>
+recht wohl überlegt, daher es ihm nun leicht wurde,<lb/>
+vom höchsten Punkte seiner Wiesenlage auszugehen und<lb/>
+das von den Bergen kommende krystallhelle Wasser im<lb/>
+Zickzack durch alle Wiesen nach einem Hauptgraben zu<lb/>
+leiten, welcher auch das sumpfige Wasser aufnehmen<lb/>
+mußte. Dadurch bekamen die trockenen Flächen Nah-<lb/>
+rung und die übernassen Stellen wurden entwässert.</p><lb/>
+<p>Die Felder machten dem Karl Wirker mehr Noth,<lb/>
+da sie zu sehr vernachlässigt waren. Er bestellte sie<lb/>
+wol im ersten Jahre, so gut es ging, aber viel Er-<lb/>
+freuliches konnte er auch von der nächsten Ernte nicht<lb/>
+erwarten. So viel jedoch möglich war, wurde gethan.<lb/>
+Die größten Steine, welche auf den Grundstücken<lb/>
+lagen, ließ Karl an den Rand der Felder tragen und<lb/>
+zu einer Mauer aufschichten, damit etwaige Regengüsse<lb/>
+das gute Land an starken Abhängen nicht mit weg-<lb/>
+nehmen konnten; die ungeheuern Queckenmassen hakte<lb/>
+er durch einen neuen, im Gebirge noch unbekannten<lb/>
+Pflug aus und dörrte und verbrannte sie, um die Asche<lb/>
+zur Düngung zu benutzen; die nassen Feldlagen durch-<lb/>
+zog er mit Wasserfurchen und schlechten Getreideboden<lb/>
+bepflanzte er mit Schwarzholz. Dies konnte natürlich<lb/>
+im ersten Jahre nicht Alles geschehen, denn diese Um-<lb/>
+gestaltung erfoderte viel Zeit und Mühe; doch Karl<lb/>
+und die Seinen sputeten sich Jahr aus Jahr ein und<lb/>
+die Erfolge zeigten sich bei jeder Ernte in ganz er-<lb/>
+wünschter Art, so, daß die andern Bauern bald an-<lb/>
+ders denken lernten und beim Anblick des reichen Ernte-<lb/>
+segens, welcher sich auf Karl's Feldern mit jedem<lb/>
+Jahre mehrte, verwundert ausriefen: &#x201E;Wer hätte Das<lb/>
+gedacht! Der Wirker ist wahrlich kein Narr; wir<lb/>
+können bei ihm in die Schule gehen!&#x201C;</p><lb/>
+<p>Mit der Verschönerung und Verbesserung seiner<lb/>
+Ökonomie stieg auch Karl's Ansehen im Dorfe. Man<lb/>
+näherte sich ihm vertrauensvoll und bat um seinen<lb/>
+Rath, wobei er sich höchst gefällig und anspruchslos<lb/>
+zeigte. Durch ihn lernten seine Nachbarn viel und<lb/>
+Niemand wagte mehr einen Spott, sondern ein Jeder<lb/>
+dachte bei sich, wenn ihm ja bei Karl's Thätigkeit et-<lb/>
+was auffiel: &#x201E;Wer weiß, was er vorhat; man darf<lb/>
+ihn nicht nach gewöhnlichem Bauerverstande beur-<lb/>
+theilen!&#x201C;</p><lb/>
+<p>Fünf Jahre hatte Karl in seinem Gebirgsgute ge-<lb/>
+wirthschaftet. Der Name &#x201E;Polengut&#x201C; haftete zwar<lb/>
+noch auf demselben, aber es war in der kurzen Zeit<lb/>
+von innen und außen ganz umgewandelt. Jn den<lb/>
+Wohn= und Wirthschaftsräumen, im Hofe und Gar-<lb/>
+ten herrschte eine Ordnung und Sauberkeit, welche<lb/>
+fast an städtische Einrichtungen erinnerte und die Grund-<lb/>
+stücke waren im Werthe um das Doppelte gestiegen.<lb/>
+Dieselben Dienstboten, mit welchen Wirker im Gebirge<lb/>
+den Anfang gemacht hatte, standen ihm neben den<lb/>
+<cb type="end"/>
+<pb facs="#f0003" n="275"/>
+<fw place="top" type="pageNum">275</fw><cb type="start"/>
+Neulingen immer noch treu zur Seite, ohne an einen<lb/>
+Wegzug oder an eine Verbesserung zu denken, denn<lb/>
+sie meinten, daß sie es nirgends besser bekommen könn-<lb/>
+ten als bei ihrem Herrn. Dieser war mit den Erfol-<lb/>
+gen seines Sputens sehr zufrieden und er dankte mit<lb/>
+den Seinen Gott täglich für die gütige Führung sei-<lb/>
+nes Lebens. Heiterkeit, Lust zur Arbeit, gegenseitige<lb/>
+Milde und Nachsicht und die Worte: &#x201E;Spute dich!&#x201C;<lb/>
+machten ihm den Aufenthalt in seinem Gute höchst ange-<lb/>
+nehm. Den Armen seines Dorfs war er ein Vater.<lb/>
+Er gab ihnen nicht Almosen nach gewöhnlicher Art,<lb/>
+sondern er suchte ihnen Beschäftigung zu verschaffen<lb/>
+und lohnte ausgezeichnet dafür, weil er die Ansicht sei-<lb/>
+ner Mutter richtig fand, daß ein verdienter Groschen<lb/>
+besser sei als ein erbettelter Thaler. Auch fremde<lb/>
+Arme gingen nicht ohne Unterstützung von seiner Thür;<lb/>
+je mehr Segen er aber stiftete, desto mehr segnete ihn<lb/>
+Gott.</p><lb/>
+<p>Nach und nach hatte Karl auch die Cultur sei-<lb/>
+ner Waldungen begonnen, womit es freilich nicht so<lb/>
+schnell vonstatten ging, da dieselben zu schlecht gehal-<lb/>
+ten worden waren. Einzelne Flächen wandelte er so-<lb/>
+fort in Feld um, da ihm der Boden dazu sehr taug-<lb/>
+lich erschien, andere trieb er ab, um sie von neuem zu<lb/>
+bepflanzen und nur wenig Strecken ließ er stehen, in-<lb/>
+dem er hier und da nachpflanzte. Den Lohn für diese<lb/>
+Mühen konnte er freilich erst in spätern Tagen seines<lb/>
+Lebens erwarten; aber dies hielt ihn nicht zurück, seine<lb/>
+Zeit und Kraft anzuwenden, denn er meinte, daß es<lb/>
+auch ein wohlthuendes Gefühl sei, für die Nachwelt<lb/>
+etwas gethan zu haben.</p><lb/>
+<p>Karl's Gut präsentirte sich im Dorfe wie ein klei-<lb/>
+ner Rittersitz. Sein Geschirr und Wirthschaftsgeräthe<lb/>
+sah stattlich aus; seine Kühe schienen von den Schwei-<lb/>
+zeralmen gekommen zu sein und seine Schafzucht war<lb/>
+in der ganzen Umgegend berühmt. Johanna war eben-<lb/>
+sowol eine echte Hausfrau als eine verständige Mutter.<lb/>
+Jhre Kinder erzog sie mit Liebe und Strenge, wie es<lb/>
+gerade nothwendig war; ihre Mägde fesselte sie an sich<lb/>
+wie eine Schwester; ihren Nachbarinnen gab sie nie<lb/>
+Veranlassung zu Klagen; ihren Freundinnen im Dorfe<lb/>
+war sie ein Muster der Einfachheit und Bescheidenheit.<lb/>
+Jn ihrer Wirthschaft suchte sie ihren Stolz. Überall<lb/>
+war Ordnung und Nettigkeit zu sehen; die Küchen-<lb/>
+und Hausgeräthe spiegelten und glänzten, die Ställe<lb/>
+sahen sauber; Alles hatte seinen bestimmten Platz und<lb/>
+nirgends war eine Stelle, an welcher nicht ihr wach-<lb/>
+sames Auge zu bemerken gewesen wäre.</p><lb/>
+<p>Mit einer solchen Frau mußte Karl's Wohlstand<lb/>
+sich mehren.</p><lb/>
+<p>Karl Wirker war bedeutend vorwärts gekommen;<lb/>
+er brauchte wegen seiner Zukunft nicht mehr in Sorge<lb/>
+zu sein. Mit ihm war auch das Glück. Nicht ge-<lb/>
+nug, daß sein Getreidehandel, welchen er nebenbei auf<lb/>
+schriftlichem Wege noch betrieb, ihm viel Vortheil<lb/>
+brachte, Fortuna schloß ihm noch eine ganz andere<lb/>
+Quelle des Reichthums auf. Seit längerer Zeit hatte<lb/>
+er nämlich, nachdem seine Wiesenbewässerung geordnet<lb/>
+war, in einem Graben bemerkt, daß sich an einer ge-<lb/>
+wissen Stelle Wasser zeigte, welches ganz der Flüssig-<lb/>
+keit ähnlich war, die aus den Torflagern hervorquillt.<lb/>
+Er untersuchte die Sache genauer und fand wirklich<lb/>
+bald ein schönes Lager Stichtorf auf einer seiner Grenz-<lb/>
+wiesen, woran in gleicher Höhenlage einige Acker Gras-<lb/>
+nutzung stießen, die dem Nachbar zugehörten, aber<lb/>
+wenig gutes Futter gaben.</p><lb/>
+<p>Die Jdee, einen Torfstich anzulegen und dadurch<lb/>
+seiner Wirthschaft noch mehr Bequemlichkeiten und<lb/>
+<cb n="2"/>
+Vortheile zu verschaffen, reifte sehr bald in Wirker's<lb/>
+Kopfe. Er machte daraus gegen seinen Wiesennachbar<lb/>
+Klaus auch gar kein Geheimniß, foderte denselben viel-<lb/>
+mehr auf, mit ihm ein Compagniegeschäft anzufangen.<lb/>
+Klaus war aber zu einem derartigen Unternehmen viel<lb/>
+zu zaghaft; er glaubte sein Geld dabei zu verlieren,<lb/>
+das Grundstück zu verderben und mit Schaden abzie-<lb/>
+hen zu müssen. So viel ihm Wirker auch zusprach,<lb/>
+so beredt er ihm den Gewinn schilderte, der Nachbar<lb/>
+war nicht zu bewegen. Gleichwol konnte Karl mit<lb/>
+dem Ausbeuten des Torflagers nicht gut beginnen,<lb/>
+wenn er nicht freie Verfügung über die angrenzenden<lb/>
+Wiesen bekam; daher wendete er sich an seinen Nach-<lb/>
+bar mit der Bitte, ihm die fraglichen Grundstücke<lb/>
+käuflich abzulassen. Klaus foderte zwar viel mehr als<lb/>
+seine Wiesen werth waren, aber Wirker jüdelte nicht,<lb/>
+sondern zahlte die verlangte Summe in der Hoffnung,<lb/>
+soviel Gold auszubeuten als er Silber aufgewendet<lb/>
+hatte.</p><lb/>
+<p><ref target="nn_pfennig088_1854#Spute6"><hi rendition="#c">( Beschluß folgt. )</hi></ref></p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Der Moorrauch.</hi></head><lb/>
+<p><hi rendition="#in">D</hi>er Lenz erscheint an den Ufern der See; die Fluren<lb/>
+Westfalens, Hollands, Bremens und Oldenburgs be-<lb/>
+ginnen zu grünen; die Maisonne steigt empor und<lb/>
+lacht freundlich wieder auf die weithingestreckten Län-<lb/>
+der und laue Winde wehen einher &#x2014; da kommt der<lb/>
+Mensch mit seinen Werkzeugen, um das ganze Bild<lb/>
+zu umnebeln und der Mutter Erde ihre Schätze abzu-<lb/>
+ringen, indem er den Moorbrand und dadurch den<lb/>
+Segen der Fluren hervorruft. Hunderte von Qua-<lb/>
+dratmeilen sind am Meere hin mit Moorboden verse-<lb/>
+hen, auf welchem die Frucht gedeiht, sobald die Moor-<lb/>
+erde von der spärlich begrasten Oberfläche wie Rasen<lb/>
+abgestochen, auf große Haufen geworfen, getrocknet,<lb/>
+angezündet, verbrannt und als Asche über die abgetra-<lb/>
+genen Flächen oder Plaggen gestreut worden ist. Der<lb/>
+Landmann bedarf nun keiner besondern Düngung;<lb/>
+fröhlich lockert er blos noch den Boden, dem er die<lb/>
+Saat anvertraut, und kommt die Ernte, dann spei-<lb/>
+chert er daheim ganze Massen von Buchweizen, Hafer<lb/>
+und andern Früchten auf.</p><lb/>
+<p>Aber das Verfahren des Moorbauers, das ihm so<lb/>
+unendlich viel nützt, wird für die Bewohner der be-<lb/>
+troffenen Länder recht oft auch zur Plage. Die Moor-<lb/>
+bauern lauern im Monat Mai stets trockenes Wetter<lb/>
+ab, sind jedoch schon vorher mit dem Abstechen der<lb/>
+Plaggen fertig geworden. Nähert sich nun der Lenz<lb/>
+mit seinen reinen Sonnentagen, so werfen die Bauern<lb/>
+auf ihre Moorhaufen den Brand und plötzlich beginnt<lb/>
+es allerwärts in den Marschländern zu qualmen. Da<lb/>
+ist unter den Tausenden von Äckern nicht einer, auf<lb/>
+welchem nicht ein Moorhügel in Flammen stände. Der<lb/>
+Rauch, von allen Seiten emporwirbelnd, lagert sich<lb/>
+bald in den Luftschichten, anfangs wie leichter Nebel,<lb/>
+später dicker und zuletzt wird er übelriechend und be-<lb/>
+lästigend für Auge und Lunge der Erdbewohner, be-<lb/>
+sonders für fremde Wanderer, welche den Moorrauch<lb/>
+noch nicht empfunden haben. Er beißt in den Augen<lb/>
+auf unausstehliche Weise, erschwert das freie Athmen<lb/>
+und wirkt bei manchen Menschen selbst auf die Ner-<lb/>
+ven so störend ein, daß sich ein längeres Uebelbefinden<lb/>
+nach Entfernung aus dem Moorbrande einstellt.</p><lb/>
+<p>Nun liegt der Rauch verdichtet über der Erde, in-<lb/>
+dem er die Sonnenstrahlen abhält, die durch die<lb/>
+<cb type="end"/>
+<pb facs="#f0004" n="276"/>
+<fw place="top" type="pageNum">276</fw><cb type="start"/>
+Dampfmassen nicht zn dringen vermögen. Die freund-<lb/>
+liche Tagesleuchte schaut trübe und matt durch den<lb/>
+dicken Moorrauch und ihre sonst strahlende Kugel gleicht<lb/>
+einem rothglühenden Ball.</p><lb/>
+<p>Das Qualmen hört oft im Juni noch nicht auf<lb/>
+und der Rauch vertheilt sich dermaßen weit, daß man<lb/>
+behauptet, Verzweigungen desselben selbst im Franken-<lb/>
+lande und in Tirol gesehen zu haben.</p><lb/>
+<p>Ob der Moorrauch, in den nördlichen Ländern<lb/>
+Deutschlands in so ungeheuern Massen emporgestiegen,<lb/>
+den sogenannten Höhenrauch, welchen man den Som-<lb/>
+mer über so oft bemerkt, bilde, darüber scheinen die<lb/>
+Beobachter der Natur bis heute noch nicht im Klaren<lb/>
+zu sein.</p><lb/>
+<p>Soviel ist aber gewiß, daß der Moorrauch für die<lb/>
+Bewohner der Marschen und ihre Umgebungen auf der<lb/>
+einen Seite eine Nothwendigkeit, auf der andern aber<lb/>
+<cb n="2"/>
+auch eine Qual ist. Die Wohlhabenden machen sich<lb/>
+darum auch gewöhnlich, wenn das Qualmen anhebt,<lb/>
+aus dem Staube und besuchen heiter und wohlgemuth<lb/>
+mit vollem Beutel die fremden Länder, um sich der<lb/>
+reinen Luft und des hellen Sonnenlichts zu erfreuen,<lb/>
+Häufig erst im Spätsommer kehren die Wanderer ge-<lb/>
+stärkt und erquickt zurück und erfreuen sich nun des<lb/>
+heimatlichen Lebens, das dann gewöhnlich in den bun-<lb/>
+testen Farben auftritt; denn nun bringt der Moor-<lb/>
+bauer seine der Erde abgerungenen Schätze auf den<lb/>
+Markt, nun beginnen die heitern Tage der Seestädte,<lb/>
+ihre Gastmäler und Lustbarkeiten, ihre Landpartien<lb/>
+und Feste und der Frohsinn findet überall Mittel her-<lb/>
+aus, um den Herbst hindurch, ja selbst während des<lb/>
+Winters bis zum Einzuge des neuen Lenzes bleibende<lb/>
+Wohnung zu nehmen.</p></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1"><figure><head><hi rendition="#fr">Das Pantheon in Paris.</hi></head></figure></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<pb facs="#f0005" n="277"/>
+<fw place="top" type="pageNum">277</fw><lb/>
+<div n="1"><figure><head><hi rendition="#fr">Das Rennthier.</hi></head><lb/>
+<p> Vergleiche Pfennig=Magazin, Jahrgang 1833, Nr. 32.</p></figure></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle" xml:id="Seide2"><head><hi rendition="#fr"><hi rendition="#g">Die Seide</hi>.</hi><lb/>
+<ref target="nn_pfennig086_1854#Seide1">( Fortsetzung.</ref></head>       <cb type="start"/>
+<p><hi rendition="#in">E</hi>ine Menge wunderlicher Moden, zu denen die steife<lb/>
+Leinwand Veranlassung gab, wären bei dem allgemei-<lb/>
+nen Gebrauche der Seide nie erfunden worden. Die<lb/>
+flatternden Seidenbänder, die rauschenden und wallen-<lb/>
+den Seidenkleider, die leicht den Hals umknüpfenden<lb/>
+Seidentücher haben wesentlich dazu beigetragen, unsere<lb/>
+Trachten natürlicher und gefälliger zu machen. Auch<lb/>
+ist die Seide ein Beförderer der Reinlichkeit, nimmt<lb/>
+den Schmuz nicht so leicht an und ist besonders in<lb/>
+den wärmern Ländern für die Gesundheit des Körpers<lb/>
+von großem Nutzen. Um so mehr aber sollte jedes<lb/>
+Land, das sich zur Seidencultur eignet, dieselbe auch<lb/>
+betreiben, zumal da sie zugleich Gelegenheit gibt, Per-<lb/>
+sonen zu beschäftigen, die schwere Arbeiten nicht ver-<lb/>
+richten können.</p><lb/>
+<p>Die erste und wesentliche Bedingung, die dem<lb/>
+Seidenbau vorangehen muß, ist die Anpflanzung des<lb/>
+Maulbeerbaums, dessen Blätter zur Nahrung der Seide<lb/>
+spinnenden Raupe durchaus nothwendig sind. Sein<lb/>
+ursprüngliches Vaterland ist zwar in den wärmern<lb/>
+Himmelsstrichen Asiens, namentlich in China, zu su-<lb/>
+chen, aber er kommt auch in Deutschland fort und<lb/>
+man kann ihn bei Potsdam, Koblenz, Regensburg<lb/>
+u. s. w. in großer Menge grünen und blühen sehen.<lb/>
+Sein knorriger Stamm, seine aschgraue Rinde, seine<lb/>
+langen, schlanken Äste treten ganz anspruchslos auf.<lb/>
+Auch das Blatt hat weiter nichts auffallend Fremd-<lb/>
+ländisches, außer daß die Form desselben nicht selten<lb/>
+an einer und derselben Pflanze verschieden ist. Bei<lb/>
+kräftigem Wuchse erreicht es eine Länge von fünf bis<lb/>
+sechs Zoll und eine Breite von vier bis fünf Zoll.<lb/>
+Am besten gedeiht der Baum im leichten, trockenen<lb/>
+Boden an einem nach Mittag gelegenen Bergabhange.<lb/>
+<cb n="2"/>
+Jn einem allzuschweren oder nassen Boden wächst er<lb/>
+dürftig, der Stamm wird leicht mit Moos überzogen<lb/>
+und das Laub bleibt klein und saftlos. Jn sehr fet-<lb/>
+tem oder gedüngtem Lande ist zwar sein Wachsthum<lb/>
+überaus üppig, allein dem Laube fehlt dann der gummi-<lb/>
+haltige Stoff und der milchartige Saft. Beides ist<lb/>
+zur gesunden Nahrung der Raupe und zur Bildung<lb/>
+ihres festen Gespinnstes durchaus erfoderlich. Ein<lb/>
+wässeriger Saft macht die Raupe krank und ihr Ge-<lb/>
+spinnst locker und leicht. Die Blüte des Baums tritt<lb/>
+in Ähren auf, hat einen viertheiligen Kelch und vier<lb/>
+Staubfäden. Die Samenkörner sind von Fleisch um-<lb/>
+geben, welches verwachsen ist wie bei der Brombeere,<lb/>
+mit der die Frucht große Ähnlichkeit hat. Man un-<lb/>
+terscheidet zwei Hauptarten von Maulbeerbäumen,<lb/>
+schwarze und weiße. Letztere sind für den Seidenbau<lb/>
+vorzuziehen. Die Natur, welche jeder Pflanze ihren<lb/>
+eigenthümlichen Zweck zutheilte, hat den Maulbeer-<lb/>
+baum vorzugsweise für die Seidenraupe bestimmt. Für<lb/>
+alle andern Jnsektenarten hat sie das Blatt des Baums<lb/>
+ungenießbar gemacht. Selbst der gefräßige Maikäfer<lb/>
+läßt es unberührt. Keine andere Baumart würde fer-<lb/>
+ner, wenn man ihr das Laub in solcher Masse entzie-<lb/>
+hen wollte, als es die Fütterung der Seidenraupen<lb/>
+erfodert, so schnell eine gleiche Blätterfülle ohne alle<lb/>
+Störung des Wachsthums wieder erzeugen, als dies<lb/>
+der Maulbeerbaum thut. Er bringt sogar, wenn ihm<lb/>
+ein Spätfrost im Frühjahr seine ersten Triebe und der<lb/>
+Seidenzüchter das zweite wieder erzeugte Laub geraubt<lb/>
+hat, bald wiederum ein drittes, üppiges Blatt hervor,<lb/>
+ohne eine Spur des verminderten Wuchses bemerken<lb/>
+zu lassen.</p><lb/>
+<p>Die Seidenraupe entsteht aus kleinen, aschgrauen<lb/>
+<cb type="end"/>
+<pb facs="#f0006" n="278"/>
+<fw place="top" type="pageNum">278</fw><cb type="start"/>
+Eiern, von der Größe eines Mohnkorns, und hat eine<lb/>
+Lebensdauer von 32&#x2014;35 Tagen. Während dieser<lb/>
+Zeit bedarf sie der sorgfältigsten Pflege und Wartung.<lb/>
+Es muß ihr ein eigenes Zimmer eingeräumt werden,<lb/>
+wo möglich nach Mittag gelegen, vor Kälte und Wind<lb/>
+geschützt, nicht feucht und nicht zu niedrig, und damit<lb/>
+die Luft nicht verdirbt, müssen Vorrichtungen ange-<lb/>
+bracht werden, die einen gelinden Luftzug bewirken.<lb/>
+Am zweckmäßigsten eignen sich dazu Röhren, welche in<lb/>
+der Nähe des Fußbodens und der Decke münden und<lb/>
+nach Bedürfniß geöffnet und geschlossen werden können.<lb/>
+Ein Luftzug, durch das Öffnen der Fenster und Thü-<lb/>
+ren hervorgebracht, würde den zarten Raupen nachthei-<lb/>
+lig sein. Jn dem Zimmer darf ferner ein Ofen und<lb/>
+ein Thermometer nicht fehlen. Damit eine möglichst<lb/>
+gleichmäßige Temperatur hergestellt werde, muß der<lb/>
+Ofen aus Kacheln bestehen und müssen vor den Fen-<lb/>
+stern gegen die Sonnenhitze Läden zum Öffnen und<lb/>
+Schließen angebracht werden. Die Raupen kriechen<lb/>
+nun nicht etwa frei in der Stube umher, sondern wer-<lb/>
+den auf Horden gebettet, die gewöhnlich mit grober,<lb/>
+nicht zu dichter Leinwand überzogen sind, eine vier-<lb/>
+eckige Gestalt und einen Rand von1 1 / 2 Zoll Höhe ha-<lb/>
+ben. Von diesen Horden ist ein großer Vorrath nö-<lb/>
+thig, da die Raupen oft umgebettet werden müssen.<lb/>
+Gestelle, welche aus Latten zusammengesetzt sind und<lb/>
+rings an den Wänden herumgehen, nehmen die Hor-<lb/>
+den auf. Sie sind so eingerichtet, daß die Raupen-<lb/>
+betten wie die Kasten eines Schranks in Reihen über-<lb/>
+einanderliegen und heraus= und hineingeschoben wer-<lb/>
+den können. Haben sich nun im Frühjahr die Blät-<lb/>
+ter des Maulbeerbaums so weit entwickelt, daß die<lb/>
+kleinen Mäuler der Raupen sie mit Appetit verzehren<lb/>
+können, so holt man die den Winter hindurch in trocke-<lb/>
+nen Gewölben oder Kellern aufbewahrten Eier hervor,<lb/>
+breitet sie in Pappkästchen ganz flach auseinander und<lb/>
+überdeckt diese mit einem Flor. Der Ofen wird ge-<lb/>
+heizt und die Temperatur des Zimmers auf 17&#x2014;18<lb/>
+Grad Réaumur gebracht. Schon am ersten Tage<lb/>
+schlüpfen einzelne Raupen aus, die auch sogleich das<lb/>
+Mäulchen aufsperren und sich nach Nahrung um-<lb/>
+schauen.</p><lb/>
+<p>Sie brauchen nicht lange zu suchen. Der Seiden-<lb/>
+züchter kennt den Appetit der kleinen Gesellschaft und<lb/>
+hat deshalb auf dem Flor frisch gepflückte, noch junge<lb/>
+und zarte Maulbeerblätter ausgebreitet. Ohne langes<lb/>
+Nöthigen werden sie von den Raupen, die durch den<lb/>
+ausgespannten Flor hindurchkriechen, in Besitz genom-<lb/>
+men. Mit Hülfe der Blätter bringt man die kleinen<lb/>
+Kunstweber auf eine der Horden. Jeder Tag vergrö-<lb/>
+ßert die Zahl durch neue Ankömmlinge, sodaß eine<lb/>
+Horde sie nicht mehr zu fassen vermag, zumal die<lb/>
+Thierchen nicht zu gedrängt liegen dürfen. Zu Millio-<lb/>
+nen wimmeln sie auf den Lagerstätten und nagen mit<lb/>
+einem Geräusch an den ausgestreuten Blättern, als ob<lb/>
+eine Heerde Schafe weidete. Anfangs sehen sie so klein<lb/>
+und unbedeutend aus, daß man ihnen die Künste gar<lb/>
+nicht zutraut, die sie später in ihren Geweben darle-<lb/>
+gen. Aber wunderbar schnell entwickelt sich das win-<lb/>
+zige, schwarze Würmlein zu einer großen, goldglän-<lb/>
+zenden, fingerlangen Raupe. Mit ihrer Länge wächst<lb/>
+auch ihr Appetit. Während sie anfangs kaum eine<lb/>
+Handvoll Maulbeerblätter zu bewältigen vermochten,<lb/>
+verschwindet später ein Wagen voll nach dem andern.<lb/>
+Jhre erste Lebensperiode umfaßt die Zeit von der Ge-<lb/>
+burt bis zur ersten Häutung, welche am fünften Tage<lb/>
+eintritt. Jn dieser Zeit werden sie mit zerschnittenen<lb/>
+Blättern vier mal des Tags gefüttert. Das Laub<lb/>
+<cb n="2"/>
+wird ihnen auf die Horde gestreut, darf jedoch weder<lb/>
+naß noch bestäubt sein. Schon am vierten Tage nimmt<lb/>
+die Freßlust ab, die Raupen werden ruhiger und ge-<lb/>
+hen am fünften Tage in einen Zustand der Erstarrung<lb/>
+über, welcher sich dadurch kenntlich macht, daß sie den<lb/>
+Kopf unbeweglich in die Höhe richten. Während die-<lb/>
+ser Periode muß eine gelinde Lüftung und die Tempe-<lb/>
+ratur von 19&#x2014;20 Grad sorgfältig beobachtet werden,<lb/>
+weil ein höherer oder geringerer und nicht gleichmäßig<lb/>
+unterhaltener Wärmegrad die ausdünstende Raupe leicht<lb/>
+krank machen kann. Der Zustand der Erstarrung<lb/>
+dauert bis zur vollendeten Abstreifung der ersten Haut,<lb/>
+worüber gewöhnlich 30&#x2014;40 Stunden vergehen, wäh-<lb/>
+rend welcher Zeit man sich jeder Störung durch Fütte-<lb/>
+rung und jeder Beunruhignng vorsichtig enthalten muß.<lb/>
+Am Ende des fünften Tags erwachen schon einzelne<lb/>
+Raupen und am Morgen des sechsten Tags ist die<lb/>
+allgemeine Häutung vollendet. Jm Ganzen verfällt<lb/>
+die Raupe vier mal in den Zustand der Erstarrung.<lb/>
+So oft sie aus dem Scheintode erwacht, ist sie auch<lb/>
+mit einem neuen Kleide angethan, welches sich unmerk-<lb/>
+lich unter dem alten bildete.</p><lb/>
+<p>Die Horden, mit den abgestreiften Gewändern<lb/>
+ganz bedeckt, gleichen einer schmuzigen Trödlerbude.<lb/>
+Wollte man die neu eingekleideten Künstler an diesem<lb/>
+Orte lassen, so würden nur wenige einen solchen Auf-<lb/>
+enthaltsort ertragen können. Es ist daher nach jeder<lb/>
+Häutung ein Umbetten in ein neues, reines Quartier<lb/>
+durchaus nothwendig, ja, will man die Raupen frisch<lb/>
+und kräftig erhalten, so muß selbst vorher öfter ein<lb/>
+Umzug angestellt werden. Am leichtesten läßt sich der-<lb/>
+selbe durch feine Netzhorden bewerkstelligen, welche man<lb/>
+mit frischem Futter überstreut und auf das alte Lager<lb/>
+deckt. Schnell verlassen die Raupen das unreine Quar-<lb/>
+tier, kriechen binnen wenigen Minuten durch die Löcher<lb/>
+des Netzes hindurch, nehmen von den Blättern Besitz<lb/>
+und lassen sich nun auf jedes beliebige Lager durch das<lb/>
+Umkehren der Netzhorde bringen. Schon in ihrer drit-<lb/>
+ten Lebensperiode haben die Raupen eine Größe von<lb/>
+mindestens Dreiviertelzoll erlangt. Sie sind nun im<lb/>
+Stande, die Blätter ohne vorhergegangene Zerkleine-<lb/>
+rung zu bewältigen. Fällt für den Seidenzüchter auch<lb/>
+diese Mühe weg, so darf er es doch fortwährend nicht<lb/>
+an Aufmerksamkeit fehlen lassen. Mit dem zunehmen-<lb/>
+den Alter seiner Pfleglinge wird die größte Reinlich-<lb/>
+keit, die Entfernung aller verdorbenen Luft, die gleich-<lb/>
+mäßige Temperatur immer dringender, wenn die Rau-<lb/>
+pen für ihr letztes Geschäft der Einspinnung durch<lb/>
+kräftige Gesundheit vorbereitet sein sollen. Bei aller<lb/>
+Vorsicht erkrankt doch immer eine nicht unbedeutende<lb/>
+Menge. Gewöhnlich beläuft sich die Zahl der Kinder-<lb/>
+krankheiten, welche die Raupen durchzumachen haben,<lb/>
+auf vier. Nach jeder Krankheit bleibt eine Unzahl von<lb/>
+Würmern regungslos liegen, ohne sich durch die duf-<lb/>
+tigsten Maulbeerblätter wieder aufwecken zu lassen.<lb/>
+Diejenigen, welche eine strohgelbe Farbe annehmen, ha-<lb/>
+ben die Gelbsucht, eine sehr oft sich zeigende Krank-<lb/>
+heit, und sind als höchst ansteckend sorgfältig zu ent-<lb/>
+fernen. Gewöhnlich sind sie zu kraftlos, um das auf-<lb/>
+gestreute Futter der obern Netzhorde zu ersteigen. Mit<lb/>
+einer sichtbaren Trägheit bleiben sie auf dem alten La-<lb/>
+ger unter dem Laube liegen. Man thut wohl, sie so-<lb/>
+gleich zu entfernen.</p><lb/>
+<p><ref target="nn_pfennig088_1854#Seide3"><hi rendition="#c">( Beschluß folgt. )</hi></ref></p></div><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<cb type="end"/>
+<pb facs="#f0007" n="279"/>
+<fw place="top" type="pageNum">279</fw><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Der Pfarrer Bonaparte.</hi></head>       <cb type="start"/>
+<p><hi rendition="#in">A</hi>cht Meilen von Florenz, in Certaldo, lebte 1807<lb/>
+ein armer Dorfpfarrer, Namens Bonaparte. Niemand<lb/>
+ahnte, daß er mit dem Kaiser Napoleon Bonaparte<lb/>
+verwandt sei. Er hatte Corsica vergessen und beschäf-<lb/>
+tigte sich nur mit seinen Beichtkindern. Besonders<lb/>
+gern hatte er eine weiße Henne, einen jungen Bur-<lb/>
+schen und ein kleines Mädchen, welche beiden letztern<lb/>
+er einmal zu verheirathen gedachte. So lebte er fried-<lb/>
+lich und unbekümmert, bis eines Tages sich plötzlich<lb/>
+ein Geräusch von Pferdegetrappel vor seiner Wohnung<lb/>
+vernehmen ließ und der Pfarrhof sich mit Reitern<lb/>
+füllte. Ein General des Kaisers in goldgestickter Uni-<lb/>
+form erschien ehrerbietig vor dem Pfarrer und fragte:<lb/>
+&#x201E;Sie heißen Bonaparte und sind der Oheim Napo-<lb/>
+leon 's, des Kaisers der Franzosen und Königs von<lb/>
+Jtalien?&#x201C;</p><lb/>
+<p>Ja, antwortete der Pfarrer, der unbestimmt von<lb/>
+der Erhebung seines Neffen gehört hatte.</p><lb/>
+<p>Die Mutter Sr. Majestät &#x2014;</p><lb/>
+<p>Aha, Lätitia?</p><lb/>
+<p>&#x2014; Hat von Jhnen mit Sr. Majestät gesprochen.</p><lb/>
+<p>Mit dem kleinen Napoleon?</p><lb/>
+<p>Mit dem Kaiser, und dieser findet es unpassend,<lb/>
+daß ein so naher Verwandter hier als armer Dorf-<lb/>
+prediger lebt. Er sendet mich, Sie zu fragen, welchen<lb/>
+Bischofsstuhl Sie einzunehmen wünschen?</p><lb/>
+<p>Der Pfarrer hatte nie einen vornehmern Mann<lb/>
+als einen Bischof gesehen. Er konnte sich zu nichts<lb/>
+entschließen und fragte nach einiger Zeit: &#x201E;Jst denn<lb/>
+das Alles wahr? Meine Nichte Lätitia Kaiserin? Und<lb/>
+ich habe ihre erste Beichte gehört! Jch muß mich be-<lb/>
+<cb n="2"/>
+sinnen, ehe ich mich zu einem solchen Glückswechsel<lb/>
+entscheide.&#x201C;</p><lb/>
+<p>Jm Hofe ging es unterdeß sehr lebhaft zu. Die<lb/>
+Soldaten machen dort dem Lieblinge des Pfarrers, der<lb/>
+jungen Mattea, die Cour; diese konnte auf einmal den<lb/>
+ihr bestimmten Liebhaber nicht mehr leiden und sah<lb/>
+einen schönen Dragoner lieber. Tommaso, der ihr zu-<lb/>
+gedachte Bräutigam, erzürnte sich darüber, wurde aber<lb/>
+ausgelacht und so lange geneckt, bis er sich entschloß,<lb/>
+selbst Soldat zu werden. Der Pfarrer sah dies Alles<lb/>
+mit betrübten Blicken und sagte zum General: &#x201E;Jch<lb/>
+danke meinem Neffen, bleibe aber Pfarrer in meinem<lb/>
+lieben Dorfe wie bisher. Küssen Sie in meinem Na-<lb/>
+men meinen Neffen und Lätitia; Gott erhalte sie Alle.<lb/>
+Es sind brave Kinder, die in ihrem Glücke auch an<lb/>
+den alten Onkel denken. Aber ich mag, wie gesagt,<lb/>
+weder Bischof noch Cardinal werden.&#x201C;</p><lb/>
+<p>Wenn der Kaiser Etwas befahl, so mußte es ge-<lb/>
+schehen. Der General hatte Befehl, den Pfarrer mit<lb/>
+nach Paris zu bringen, und bot daher Alles auf, ihn<lb/>
+von seinem Entschlusse abzubringen. Aber umsonst.</p><lb/>
+<p>Als der Kaiser erfuhr, wie wenig Ehrgeiz ein Bona-<lb/>
+parte habe, zuckte er mit den Achseln.</p><lb/>
+<p>Mattea heirathete ihren schönen Dragoner und<lb/>
+wurde bald die Frau eines Obersten.</p><lb/>
+<p>Tommaso wurde Soldat und 1814 war er Capi-<lb/>
+tän in der kaiserlichen Garde.</p><lb/>
+<p>Der arme Pfarrer aber wohnte noch am Ende<lb/>
+des Kaiserreichs in seinem kleinen Dorfe. Er war viel-<lb/>
+leicht der Glücklichste in seiner Familie.</p></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Schlacht bei Zama.</hi></head><lb/>
+<figure/><lb/>
+<cb type="start"/>
+<p><hi rendition="#in">B</hi>ei Zama in Afrika fiel zwischen Hannibal und Sci-<lb/>
+pio die berühmte Entscheidungsschlacht vor, welche,<lb/>
+nachdem die gegen Hannibal wieder sieghaft geworde-<lb/>
+<cb n="2"/>
+nen Römer den Krieg in das feindliche Land, nach<lb/>
+Afrika, hinübergespielt hatten, dem zweiten punischen<lb/>
+Kriege ein Ende machte.</p></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<pb facs="#f0008" n="280"/>
+<fw place="top" type="pageNum">280</fw><lb/>
+<div n="1" type="jVarious"><head><hi rendition="#fr"><hi rendition="#g">Mannichfaltiges</hi>.</hi></head><lb/>
+<cb type="start"/>
+<div n="2" type="jArticle"><p>Die verschiedenen Grußformeln der Völker sind ächt<lb/>
+charakteristisch; es drückt sich in ihnen treffend die Rolle aus,<lb/>
+welche die Völker spielen. Der stets mit der Mode des Ta-<lb/>
+ges beschäftigte Franzose fragt: &#x201E;Wie tragen Sie sich?&#x201C;<lb/>
+( <hi rendition="#aq">Comment vous portez vous</hi>? ) Der rastlos schaffende<lb/>
+Engländer: &#x201E;Wie thun Sie?&#x201C; ( <hi rendition="#aq">How do you do</hi>? ) Der<lb/>
+sinnende Deutsche: &#x201E;Wie geht es Jhnen?&#x201C; Am bezeichnend-<lb/>
+sten fast ist das &#x201E;Vorwärts &#x201C; ( <hi rendition="#aq">to go ahead</hi> ) des Nordameri-<lb/>
+kaners, etwa als Gruß wie das Motto einer jugendlich kräf-<lb/>
+tigen Nation sich vordrängend: Nur immer vorwärts, nur<lb/>
+kein Zeitverlust! Die Möglichkeit <hi rendition="#aq">to go ahead</hi> muß dem<lb/>
+Nordamerikaner gegeben sein. Wie ein Kind, das in seinen<lb/>
+Bedürfnissen so leicht und in seinen Wünschen so schwer zu<lb/>
+befriedigen ist, verlangt der Nordamerikaner, um sich wohl<lb/>
+zu fühlen, eine unendliche Aussicht. Nicht um den Gewinnst,<lb/>
+mehr um das Gewinnen ist es ihm zu thun.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Die Hitze in Afrika ist deswegen so lästig und ent-<lb/>
+nervend, weil sie eine sich Tag und Nacht fast gleichbleibende<lb/>
+Temperaturhöhe behauptet. &#x201E;Bei der geringsten Beschäfti-<lb/>
+gung &#x201C; &#x2014; so erzählt unser Landsmann Kießler &#x2014; &#x201E;ja bei<lb/>
+ganz ruhigem Sitzen wird man so von der Hitze gepeinigt,<lb/>
+daß man aus der Haut fahren möchte. Der Schweiß fließt<lb/>
+am Körper herunter, wie wenn man mit Wasser begossen<lb/>
+würde; man fühlt es, wie er in Rinnchen den Beinen ent-<lb/>
+lang in die Stiefeln läuft und im Barte sammelt er sich so<lb/>
+an, daß man diesen oft mit der Hand ausdrücken muß, wie<lb/>
+man das Wasser aus einem Pinsel drückt.&#x201C;</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Ein alter Hecht. Von dem im 12. Jahrhundert vom<lb/>
+Kaiser Friedrich Barbarossa bei Kaiserslautern erbauten<lb/>
+Schlosse und seinen Festungswerken sind jetzt nur noch einige<lb/>
+Keller und Mauertrümmer vorhanden. Unterhalb dieser Rui-<lb/>
+nen liegt der sogenannte Kaiserswog, ehemals ein großer<lb/>
+Teich, jetzt zu Wiesen benutzt. Jn diesen Teich setzte Kaiser<lb/>
+Friedrich <hi rendition="#aq">II</hi>. einen Hecht, dem ein goldener Ring angelegt<lb/>
+war, mit der ( griechischen Jnschrift: &#x201E;Jch bin der erste von<lb/>
+den Fischen, welche den 5. October 1230 durch Kaiser Fried-<lb/>
+rich 's &#x201C; <hi rendition="#aq">II</hi>. Hand in diesen Wog ( Teich ) gesetzt worden.&#x201C; Jm<lb/>
+Jahre 1497 wurde dieser Hecht gefangen und kam auf die<lb/>
+Tafel des Kurfürsten Philipp von der Pfalz. Er soll 350<lb/>
+Pfund gewogen haben. Der damalige Bischof von Dalberg<lb/>
+übersetzte dem Kurfürsten die Jnschrift. Der Hecht wäre also<lb/>
+über dritthalbhundert Jahre alt geworden.</p></div><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<div n="2" type="jArticle"><p>Das Vogelnest im Pflanzenreiche. Die <hi rendition="#aq">Ophrys<lb/>
+Nidus avis</hi>, eine in den thüringischen Bergen ziemlich selten<lb/>
+vorkommende Pflanze von eigenthümlichem Habitus und blaß-<lb/>
+bräunlicher Färbung, deren Blumen braunen Fliegen und <lb/>
+<cb n="2"/>
+Spinnen gleichen, hat ihren bezeichnenden Beinamen von<lb/>
+ihrer Wurzel erhalten. Wenn man nämlich den Boden um<lb/>
+die Pflanze herum ausgräbt und die Wurzel sorgfältig her-<lb/>
+aushebt, so findet man, daß sie aus einem runden, fleischi-<lb/>
+gen, von unzähligen seitenständigen Fasern gebildeten Knollen<lb/>
+besteht. Die aufsteigenden Faserwurzeln zeigen sich an ihrer<lb/>
+Spitze wieder einwärts gebogen, sodaß das Ganze in der<lb/>
+That einem Vogelnest täuschend ähnlich sieht.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Ein Ausspruch des Talmud. Hast du je Thiere<lb/>
+oder Vögel sehen ein Gewerbe treiben? Und doch ernähren<lb/>
+sie sich ohne Mühe. Diese sind nur des Menschen wegen er-<lb/>
+schaffen, der Mensch aber ist erschaffen worden, seinem Schö-<lb/>
+pfer zu dienen und sollte deshalb seine Nahrungsmittel noch<lb/>
+leichter erlangen. Es sind aber die Menschen selber, die<lb/>
+durch ihre böse und verkehrte Handlungsweise ihren Lebens-<lb/>
+unterhalt sich erschweren.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Holz über Silber. Die feinsten Holzlöffel werden in<lb/>
+Abada in Persien gemacht. Man hat sie, aus Ahorn ge-<lb/>
+schnitzt, in den verschiedensten Größen; der Stiel wird fein<lb/>
+gemustert; der vordere Theil ist so fein ausgeschnitten, daß<lb/>
+das Holz die Stärke eines Kartenblatts nicht überragt.<lb/>
+Mehre solche Löffel, einer immer etwas kleiner als der an-<lb/>
+dere, liegen ineinander, daß das Ganze von etwa sechs Löf-<lb/>
+feln ein gemeinschaftliches Futteral umschließt.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div><p>Gefrorene Erde. Als der König von Schweden,<lb/>
+Gustav Adolf, in Stettin war und sich die Befestigungs-<lb/>
+werke ansah, blieb er vor einer unvollendeten Schanze stehen<lb/>
+und fragte einen Offizier, der die Anlegung der Schanze aus-<lb/>
+zuführen hatte: &#x201E;Warum ist diese Arbeit noch nicht weiter<lb/>
+vorgerückt?&#x201C; &#x2014; &#x201E;Majestät&#x201C;, antwortete der Offizier, &#x201E;der<lb/>
+Frost hat uns aufgehalten.&#x201C; &#x2014; &#x201E;Für die Faulen ist die Erde<lb/>
+immer gefroren&#x201C;, antwortete der König unwillig und ging<lb/>
+weiter.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Die erste türkische Druckerei in Konstantinopel ward<lb/>
+im Jahre 1727 unter Achmet <hi rendition="#aq">III</hi>. angelegt; der Mufti gab<lb/>
+einen Fetwa, der das Unternehmen für hochnützlich erklärte;<lb/>
+in einem eigenen Hattischerif pries der Sultan sich glücklich,<lb/>
+daß seine Regierung durch einen so großen Segen des Him-<lb/>
+mels ausgezeichnet worden sei. Auch die Ulemas gaben ihre<lb/>
+Zustimmung, verboten aber ausdrücklich, den Koran und<lb/>
+Schriften über Mohammed's Glaubenslehre unter die Presse<lb/>
+zu bringen. Es würde ruchlos sein, sagten sie, Gottes<lb/>
+Wort zu quetschen und zusammenzupressen.</p></div></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jAnnouncements"><head><hi rendition="#fr"><hi rendition="#g">Ankündigungen</hi>.</hi></head><lb/>
+<cb type="start"/>
+<div n="2" type="jAn"><figure/><lb/>
+<cb n="2"/>
+<p>Diese rühmlichst bekannten <hi rendition="#aq">Pates Pectorales,</hi><lb/>
+ein bewährtes Linderungsmittel bei Brustleiden aller<lb/>
+Art, Husten, Schnupfen, Katarrh <choice><abbr>ec.</abbr></choice>, werden verkauft<lb/>
+in Leipzig bei</p><lb/>
+<p> <space dim="horizontal"/>  <hi rendition="#fr">L. Tilebein,</hi><lb/>
+<space dim="horizontal"/>   Conditor in der Centralhalle.</p></div></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/><lb/>
+</body>     <back><div n="1" type="imprint"><p><hi rendition="#c">Verantwortlicher Redacteur: <hi rendition="#aq">M</hi>. J. E. Volbeding. &#x2014; Druck und Verlag von F. A. Brockhaus in Leipzig.</hi></p></div>     </back>   </text> </TEI>

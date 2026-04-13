@@ -1,0 +1,823 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.deutschestextarchiv.de/basisformat.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">     <teiHeader>
+<fileDesc>
+<titleStmt>
+<title type="main">Das Pfennig-Magazin der Gesellschaft zur Verbreitung gemeinnütziger Kenntnisse</title>
+<title type="sub">Nr. 156</title>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/115266127">
+<surname>Geyken</surname>
+<forename>Alexander</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1222198746">
+<surname>Haaf</surname>
+<forename>Susanne</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1019062681">
+<surname>Jurish</surname>
+<forename>Bryan</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Boenig</surname>
+<forename>Matthias</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Thomas</surname>
+<forename>Christian</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Wiegand</surname>
+<forename>Frank</forename>
+</persName>
+</editor>
+<respStmt>
+<orgName>Institut für Deutsche Sprache, Mannheim</orgName>
+<resp>
+<note type="remarkResponsibility">Bereitstellung der Bilddigitalisate und TEI
+Transkription</note>
+<ref target="http://hdl.handle.net/10932/00-01B8-B04F-DB4E-7E01-9"/>
+</resp>
+</respStmt>
+<respStmt>
+<persName>
+<forename>Peter</forename>
+<surname>Fankhauser</surname>
+</persName>
+<resp>
+<note type="remarkResponsibility">
+Transformation von TUSTEP nach TEI P5.
+Transformation von TEI P5 in das DTA TEI P5 Format.
+</note>
+</resp>
+</respStmt>
+<respStmt>
+<orgName ref="https://www.bbaw.de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<resp>
+<note type="remarkResponsibility">Langfristige Bereitstellung der DTA-Ausgabe</note>
+<ref target="https://www.bbaw.de"/>
+</resp>
+</respStmt>
+</titleStmt>
+<editionStmt><edition>Vollständige digitalisierte Ausgabe.</edition></editionStmt>
+<extent>
+<measure type="images">8</measure>
+<measure type="tokens">4656</measure>
+<measure type="types">1891</measure>
+<measure type="characters">32583</measure>
+</extent>
+<publicationStmt>
+<publisher xml:id="DTACorpusPublisher">
+<email>dta@bbaw.de</email>
+<orgName role="project">Deutsches Textarchiv</orgName>
+<orgName role="hostingInstitution" xml:lang="en">Berlin-Brandenburg Academy of Sciences and Humanities (BBAW)</orgName>
+<orgName role="hostingInstitution" xml:lang="de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<address>
+<addrLine>Jägerstr. 22/23, 10117 Berlin</addrLine>
+<country>Germany</country>
+</address>
+</publisher>
+<pubPlace>Berlin</pubPlace>
+<date type="publication">2025-10-24T08:35:17Z</date>
+<availability>
+<licence target="http://creativecommons.org/publicdomain/zero/1.0/">
+<p>Dieses Werk steht unter der "Creative Commons Namensnennung -
+Nicht kommerziell 3.0 Deutschland Lizenz" (CC BY-NC).</p>
+</licence>
+</availability>
+<idno>
+<idno type="URLWeb">https://www.deutschestextarchiv.de/nn_pfennig156_1836</idno>
+<idno type="URLXML">https://www.deutschestextarchiv.de/book/download_xml/nn_pfennig156_1836</idno>
+<idno type="URLHTML">https://www.deutschestextarchiv.de/book/download_html/nn_pfennig156_1836</idno>
+<idno type="URLText">https://www.deutschestextarchiv.de/book/download_text/nn_pfennig156_1836</idno>
+<idno type="DTADirName">nn_pfennig156_1836</idno>
+<idno type="DTAID">34757</idno>
+<idno type="URN">urn:nbn:de:kobv:b4-34757-4</idno>
+</idno>
+</publicationStmt>
+<sourceDesc>
+<bibl type="J">Das Pfennig=Magazin der Gesellschaft zur Verbreitung gemeinnütziger Kenntnisse. Nr. 156. Leipzig (Sachsen), 26. März 1836.</bibl>
+<biblFull>
+<titleStmt>
+<title level="m" type="main">Das Pfennig-Magazin der Gesellschaft zur Verbreitung gemeinnütziger Kenntnisse</title>
+<title level="m" type="sub">Nr. 156</title>
+</titleStmt>
+<editionStmt>
+<edition n="1"/>
+</editionStmt>
+<publicationStmt>
+<publisher/>
+<pubPlace>Leibzig (Sachsen)</pubPlace>
+<date type="publication">1836</date>
+</publicationStmt>
+</biblFull>
+<msDesc>
+<msIdentifier/>
+<physDesc>
+<typeDesc>
+<p>Fraktur</p>
+</typeDesc>
+</physDesc>
+</msDesc>
+</sourceDesc>
+</fileDesc>
+<encodingDesc>
+<editorialDecl>
+<p>
+<![CDATA[
+<p>Siehe Dokumentation</p>
+]]>
+</p>
+</editorialDecl>
+<tagsDecl>
+<rendition scheme="css" xml:id="aq">font-family:sans-serif</rendition>
+<rendition scheme="css" xml:id="b">font-weight:bold</rendition>
+<rendition scheme="css" xml:id="blue">color:blue</rendition>
+<rendition scheme="css" xml:id="c">display:block; text-align:center</rendition>
+<rendition scheme="css" xml:id="et">display:block; margin-left:2em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et2">display:block; margin-left:4em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et3">display:block; margin-left:6em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="f">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="fr">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="g">letter-spacing:0.125em</rendition>
+<rendition scheme="css" xml:id="i">font-style:italic</rendition>
+<rendition scheme="css" xml:id="in">font-size:150%</rendition>
+<rendition scheme="css" xml:id="k">font-variant:small-caps</rendition>
+<rendition scheme="css" xml:id="larger">font-size:larger</rendition>
+<rendition scheme="css" xml:id="red">color:red</rendition>
+<rendition scheme="css" xml:id="right">display:block; text-align:right</rendition>
+<rendition scheme="css" xml:id="s">text-decoration:line-through</rendition>
+<rendition scheme="css" xml:id="smaller">font-size:smaller</rendition>
+<rendition scheme="css" xml:id="sub">vertical-align:sub; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="sup">vertical-align:super; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="u">text-decoration:underline</rendition>
+<rendition scheme="css" xml:id="uu">border-bottom:double 3px #000</rendition>
+</tagsDecl>
+</encodingDesc>
+<profileDesc>
+<langUsage>
+<language ident="deu">(Früh-)Neuhochdeutsch</language>
+<language ident="deu">German</language>
+</langUsage>
+<textClass>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1main">Gebrauchsliteratur</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1sub">Zeitschrift</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">ready</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">mkhz1</classCode>
+</textClass>
+</profileDesc>
+</teiHeader>
+<text>     <front>
+<pb facs="#f0001" n="[97]"/>
+<titlePage type="heading"><docTitle><titlePart type="main"><hi rendition="#c #fr">Das Pfennig=Magazin<lb/>
+<hi rendition="#g">der</hi><lb/>
+Gesellschaft zur Verbreitung gemeinnütziger Kenntnisse.</hi></titlePart></docTitle><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<docImprint><hi rendition="#fr">Nr</hi>. 156. ]              <hi rendition="#c">Erscheint jeden Sonnabend.</hi>              <docDate><hi rendition="#right">[<hi rendition="#g">März</hi> 26, 1836.</hi></docDate>            </docImprint></titlePage><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+</front>     <body>       <div n="1" type="jArticle" xml:id="Mexico3"><head><hi rendition="#fr"><hi rendition="#g">Mexico</hi>.</hi><lb/>
+<ref target="nn_pfennig155_1836#Mexico2">( Fortsetzung aus Nr. 155. )</ref></head><lb/>
+<figure>         <head>  Ferdinand Cortez  </head>       </figure><lb/>
+<cb type="start"/>
+<head><hi rendition="#aq">II.</hi></head><lb/>
+<p><hi rendition="#in">C</hi>ortez war noch nicht lange in Mexico gewesen,<lb/>
+als seine Lage sehr schwierig wurde. Ein Angriff, den<lb/>
+ein Feldherr Montezuma's auf die mit den Spaniern<lb/>
+verbündeten Jndianer gemacht hatte, bewog Cortez, den<lb/>
+König zu nöthigen, ihm in seine Wohnung zu folgen,<lb/>
+wo er ihn als Gefangenen behandelte. Montezuma<lb/>
+mußte seinen Feldherrn, der die Kriegsunternehmung ge-<lb/>
+gen die Jndianer geleitet hatte, auf dem Markte zu<lb/>
+Mexico verbrennen lassen. Der lange still genährte Un-<lb/>
+wille der Mexicaner wurde dadurch aufgeregt, aber noch dro-<lb/>
+hendere Gefahren erhoben sich gegen Cortez, als der ei-<lb/>
+fersüchtige Befehlshaber auf Cuba einen Heerhaufen von<lb/>
+Fußvolk und Reiterei gegen ihn aussendete. Cortez ließ<lb/>
+80 Mann seiner Getreuen in Mexico zurück, vereinigte<lb/>
+sich mit den Spaniern, die in der neuen Feste Vera<lb/>
+Cruz standen, und zog, von Jndianern unterstützt,<lb/>
+dem neuen Feinde kühn entgegen. Er siegte, nahm<lb/>
+den Anführer gefangen und durch die übrigen Spanier<lb/>
+verstärkt, die sich unter seine Fahnen stellten, kehrte er<lb/>
+nach Mexico zurück. Die Spanier waren hier in gro-<lb/>
+ßer Bedrängniß. Jhr Anführer hatte durch Stolz und<lb/>
+Härte die Mexicaner beleidigt, die sich rüsteten, die<lb/>
+Fremdlinge zu vertreiben. Cortez griff die Bewohner<lb/>
+der Stadt an, und während des Kampfes wurde Mon-<lb/>
+tezuma, der das empörte Volk, nach dem Verlangen<lb/>
+des spanischen Feldherrn, beruhigen wollte, durch einen<lb/>
+<cb n="2"/>
+Steinwurf tödtlich verwundet. Sein Tod schnitt die<lb/>
+letzte Hoffnung auf Versöhnung ab. Sein Neffe Gua-<lb/>
+timozin wurde von dem Volke zu seinem Nachfolger ge-<lb/>
+wählt. Er belagerte die Spanier in ihrem Bezirke und<lb/>
+drängte sie so sehr, daß Cortez sich genöthigt sah, die<lb/>
+Stadt in der Nacht, nicht ohne den Verlust vieler Ta-<lb/>
+pfern, schnell zu verlassen. Guatimozin verfolgte ihn, und<lb/>
+in der Ebene von Otumba kam es zu einem blutigen<lb/>
+Gefechte, in welchem die überlegene Kriegskunst des spa-<lb/>
+nischen Feldherrn siegte. Sechs Monate nach seinem<lb/>
+nächtlichen Rückzuge kehrte Cortez nach Mexico zu-<lb/>
+rück, während er jedes Stück des Bodens durch Kampf<lb/>
+gewinnen mußte. Vor den Thoren der Stadt, als er<lb/>
+eben eine Verschwörung unter seinem Heerhaufen un-<lb/>
+terdrückt hatte, bot er dem König einen Vergleich an,<lb/>
+aber die Bedingungen wurden auf den Rath der Prie-<lb/>
+ster verworfen, und Cortez entschloß sich zum Sturm.<lb/>
+Er griff die Stadt auf drei verschiedenen Punkten an,<lb/>
+indem er längs der Dammwege zog, die sie mit den<lb/>
+Ufern des Sees verbanden. Während eines ganzen Mo-<lb/>
+nats wurde der Angriff täglich erneuert; endlich aber<lb/>
+befahl Guatimozin seinen Heerhaufen in ihren Anstren-<lb/>
+gungen nachzulassen, um die Spanier anzulocken, wäh-<lb/>
+rend er eine Abtheilung erlesener Krieger zu Lande und<lb/>
+zu Wasser entsendete, um den Feinden in den Rücken<lb/>
+zu fallen. Auf ein gegebenes Zeichen rührten die Priester<lb/>
+in dem Tempel die große, dem Kriegsgotte geweihte<lb/>
+<cb type="end"/>
+<pb facs="#f0002" n="98"/>
+<fw place="top" type="header"> <hi rendition="#g">Das Pfennig=Magazin.</hi> </fw><cb type="start"/>
+Trommel. Kaum hörten die Mexicaner diesen dum-<lb/>
+pfen Ton, der ihnen Todesverachtung und begeisterten<lb/>
+Eifer einflößte, als sie wüthend auf den Feind stürzten.<lb/>
+Die Niederlage der Spanier war vollständig; mehre<lb/>
+wurden getödtet und 40 gefangen. Als die Nacht an-<lb/>
+brach, bereiteten sich die Mexicaner, ihren Sieg durch<lb/>
+blutige Opfer zu feiern. Alle Stadttheile waren er-<lb/>
+leuchtet, und glänzend überragte sie der große Tempel.<lb/>
+Die geschlagenen Spanier sahen aus ihrem Lager deut-<lb/>
+lich die Bewegung in den Straßen und die Priester,<lb/>
+die geschäftig waren, die Schlachtopfer zum Tode zu<lb/>
+führen. Sie glaubten in der Dämmerung die Gestal-<lb/>
+ten ihrer Gefährten an ihrer weißen Haut zu erkennen,<lb/>
+als die Unglücklichen entkleidet und gezwungen wurden,<lb/>
+vor dem Bilde des Gottes zu tanzen, dem sie geopfert<lb/>
+werden sollten. Das Geschrei der Gemordeten drang<lb/>
+in ihre Ohren, und sie glaubten jedes Opser an dem<lb/>
+wohlbekannten Tone der Stimme zu erkennen.</p><lb/>
+<p>Cortez änderte nun seinen Angriffsplan und beschloß,<lb/>
+jeden eroberten Theil der Stadt sogleich zu zerstören.<lb/>
+Dies gelang. Mit dem Schutte der Häuser wurden die<lb/>
+Kanäle ausgefüllt, und die spanische Reiterei konnte nun<lb/>
+in den Straßen kämpfen. Die Spanier wurden bei<lb/>
+diesem Zerstörungswerke von den Jndianern eifrig un-<lb/>
+terstützt, die sich des Druckes erinnerten, den die Mexicaner<lb/>
+ihnen aufgelegt hatten, und sich der Verheerung der<lb/>
+Stadt freuten. Guatimozin setzte seinem Misgeschick<lb/>
+kräftigen Muth entgegen und verwarf jeden Friedens-<lb/>
+antrag; als aber die Lage der Stadt immer gefährli-<lb/>
+cher wurde, gab er den dringenden Bitten seiner Gro-<lb/>
+ßen nach und versuchte zu entfliehen. Die Spanier<lb/>
+waren wachsam. Der Offizier, der die Schiffe auf dem<lb/>
+See befehligte, sah einige mit Menschen angefüllte Kähne,<lb/>
+die mit außerordentlicher Schnelligkeit über den See ru-<lb/>
+derten. Er setzte ihnen sogleich nach; sein schnellstes<lb/>
+Schiff holte sie bald ein und wollte feuern, als die<lb/>
+Schiffer in dem vordersten Kahne plötzlich die Ruder<lb/>
+senkten, und die Mannschaft bat um Schonung, da<lb/>
+Guatimozin am Bord sei. Der König ergab sich den<lb/>
+Feinden mit würdevoller Fassung und bat nur, seiner<lb/>
+Gemahlin und seinen Kindern keinen Schimpf zuzufü-<lb/>
+gen. Man führte ihn vor den spanischen Feldherrn.<lb/>
+&#x201E;Jch bat ihn, sich niederzusetzen&#x201C;, erzählt Cortez in sei-<lb/>
+nem Berichte, &#x201E;und behandelte ihn mit Zutrauen; aber<lb/>
+der junge Mann faßte den Griff des Dolches, den ich<lb/>
+an der Seite trug, und drang in mich, ihn zu tödten,<lb/>
+weil er, seit er seine Pflicht gegen sich und sein Volk<lb/>
+gethan habe, nichts als den Tod wünsche.&#x201C; Als nun<lb/>
+die Spanier die Stadt besetzt hatten, fanden sie so we-<lb/>
+nig Beute, daß ein lautes Murren entstand, und einer<lb/>
+der raubgierigen Anführer suchte von dem unglücklichen<lb/>
+Guatimozin und einigen seiner Räthe die Entdeckung<lb/>
+der verborgenen Schätze zu erpressen, indem er ihre vor-<lb/>
+her mit Öl getränkten Fußsohlen bei einem langsamen<lb/>
+Feuer braten ließ. Guatimozin ertrug die Qual mit<lb/>
+großer Standhaftigkeit, einer seiner Leidensgefährten aber,<lb/>
+von dem Schmerz überwältigt, wendete sein Auge zu<lb/>
+dem König, als hätte er ihn um die Erlaubniß bitten<lb/>
+wollen, das Geheimniß zu entdecken. &#x201E;Liege ich denn<lb/>
+auf Blumen?&#x201C; sprach der König. Der Vorwurf, der<lb/>
+in seinen Worten lag, war hinlänglich, und der treue<lb/>
+Günstling starb schweigend. Cortez entriß zwar den<lb/>
+Gefangenen dem Feuertode, aber nur zu neuen Qualen<lb/>
+wurde das Leben des Königs verlängert.</p><lb/>
+<p>Nach dem Falle der Hauptstadt besetzten die Spa-<lb/>
+nier ohne Widerstand die übrigen Theile des Reichs,<lb/>
+und kleine Heerabtheilungen zogen in verschiedenen Rich-<lb/>
+tungen zu den Küsten des Südmeers. Cortez suchte<lb/>
+<cb n="2"/>
+seine Eroberung durch verschiedene Einrichtungen zu<lb/>
+sichern, und alsbald begann er die zerstörte Hauptstadt<lb/>
+nach einem größern Plane prächtiger wieder aufzubauen.<lb/>
+Er ließ durch kundige Männer Erzgruben aufsuchen,<lb/>
+und bewog seine Offiziere durch Verleihung von Län-<lb/>
+dereien und andern Vorrechten zur Ansiedelung in<lb/>
+Mexico. Die Eingeborenen, durch den Druck der<lb/>
+Fremdherrschaft zur Verzweiflung gebracht, griffen mehr-<lb/>
+mals zu den Waffen, aber sie wurden immer durch eu-<lb/>
+ropäische Kriegskunst überwältigt, und ihre Anstrengun-<lb/>
+gen dienten nur dazu, ihre Leiden zu erschweren. Nach<lb/>
+jedem Aufstande wurden die Anführer durch die grau-<lb/>
+samsten Martern zum Tode gebracht und das Volk ge-<lb/>
+rieth immer mehr in drückende Sklaverei. Auf einen<lb/>
+bloßen Verdacht, einen Plan zur Abschüttelung des<lb/>
+Joches entworfen zu haben, ward der gefangene Guati-<lb/>
+mozin mit zwei der ersten Männer des Reichs gehängt.<lb/>
+Die Grausamkeiten, die Cortez sich erlaubte, wurden<lb/>
+von untergeordneten Anführern in empörendern Aus-<lb/>
+schweifungen nachgeahmt. Die unglücklichen Jndianer<lb/>
+wurden überall weggeschleppt, und mußten in Flüssen und<lb/>
+Bächen nach Golde suchen, aber mit geringem Erfolge<lb/>
+für ihre habsüchtigen Unterdrücker; erst 30 Jahre nach<lb/>
+der Eroberung wurden die reichen Gruben des Landes<lb/>
+entdeckt. Viele Jndianer mußten den spanischen Heeren<lb/>
+folgen und wurden gezwungen, übermäßige Lasten zu tra-<lb/>
+gen, ohne daß man ihnen hinlängliche Nahrung und Ruhe<lb/>
+gewährte. Vergebens waren spätere Anordnungen der<lb/>
+spanischen Regierung zur Beschützung der unglückli-<lb/>
+chen Mexicaner gegen die Bedrückungen der europäischen<lb/>
+Ansiedler, vergebens übernahmen die spanischen Prie-<lb/>
+ster und Missionare die Vertheidigung der Eingeborenen.<lb/>
+Als endlich die Mexicaner dahin gebracht waren, das Joch<lb/>
+der Eroberer geduldig zu tragen und die europäischen<lb/>
+Ansiedler den ungestörten Besitz aller Schätze des Lan-<lb/>
+des erlangt hatten, verschwand nach und nach der krie-<lb/>
+gerische Geist der Eingeborenen, und Mexico, das un-<lb/>
+ter dem Namen Neuspanien eine der neun großen<lb/>
+Statthalterschaften bildete, in welche die spanischen Be-<lb/>
+sitzungen in Amerika getheilt waren, genoß dritthalb<lb/>
+Jahrhunderte hindurch einen nur selten gestörten Frie-<lb/>
+den. Einzelne Aufstände unter den Jndianern im 17.<lb/>
+Jahrhundert wurden bald unterdrückt. So lange die<lb/>
+Creolen so wenig zahlreich blieben, daß sie mit den eu-<lb/>
+ropäischen Spaniern vereinigt waren, regte sich kein<lb/>
+Streben nach Unabhängigkeit. Als aber nach der Lö-<lb/>
+sung einiger Fesseln des Handelsverkehrs die Mexicaner<lb/>
+in nähere Verbindungen mit den Vereinigten Staaten<lb/>
+von Nordamerika, mit Franzosen und Dänen kamen,<lb/>
+und die politischen Ereignisse in Europa seit 1789 auch<lb/>
+jenseit des atlantischen Meeres ihren Einfluß übten,<lb/>
+entstanden neue Jnteressen unter den Creolen und sie<lb/>
+traten dreister mit ihren Ansprüchen gegen das Mutter-<lb/>
+land auf. Den Beschwerden wurde nicht wirksam ab-<lb/>
+geholfen. Nur die persönliche Freiheit, welche die über<lb/>
+ein unermeßliches Gebiet zerstreuten Colonisten genossen,<lb/>
+besonders aber der Haß der verschiedenen Volksclassen<lb/>
+gegeneinander und die Furcht der Weißen vor den<lb/>
+aus Afrika als Sklaven eingeführten Schwarzen<lb/>
+und den Jndianern verhinderten die allgemeine Ver-<lb/>
+breitung der Unzufriedenheit des Volks. Als aber<lb/>
+seit 1808 die Verhältnisse im Mutterlande immer<lb/>
+verwickelter wurden, die alten Bande des Staats sich<lb/>
+auflösten und die neuen Machthaber in Spanien nur<lb/>
+durch geschärfte Zwangsbefehle die Aufregung unter den<lb/>
+Creolen zu stillen suchten, brach endlich im September<lb/>
+1810 der Aufstand aus. Die Unabhängigkeit von<lb/>
+Mexico wurde bald das Losungswort des Kampfes,<lb/>
+<cb type="end"/>
+<pb facs="#f0003" n="99"/>
+<fw place="top" type="header"><hi rendition="#g">Das Pfennig=Magazin.</hi> </fw><cb type="start"/>
+und wurde 1813 von den versammelten Abgeordneten<lb/>
+der Provinzen erklärt. Die Grausamkeit des langen,<lb/>
+oft wechselvollen Kampfes erbitterte die Eingeborenen<lb/>
+noch mehr, bis endlich die Spanier, von dem Mutter-<lb/>
+lande nur schwach unterstützt, den Creolen die Selbstbe-<lb/>
+waffnung gestatten mußten. Die einzelnen Provinzen<lb/>
+führten abgesonderte Verwaltungen ein. Ein glücklicher<lb/>
+Feldherr, Jturbide, ließ sich 1822 zum Kaiser ausru-<lb/>
+fen, mußte aber im folgenden Jahre, nach einem bluti-<lb/>
+gen Kampfe mit seinen mächtigen Gegnern, das Land<lb/>
+verlassen. Die neue Staatsverfassung, die 1824 ein-<lb/>
+geführt wurde, war der nordamerikanischen nachgebildet.<lb/>
+Die aus 21 einzelnen unabhängigen Staaten bestehende<lb/>
+Republik bildete einen Bundesstaat, dessen Gesammtan-<lb/>
+gelegenheiten ein Congreß und ein auf vier Jahre ge-<lb/>
+wählter Präsident leitete. Kämpfe zwischen streitenden<lb/>
+Parteien störten aber unablässig die Ruhe des Landes,<lb/>
+bis endlich 1835 durch den Einfluß des siegreichen<lb/>
+Feldherrn Santana Anträge zur Umgestaltung jener Ver-<lb/>
+fassung gemacht wurden. Neue Zerwürfnisse wurden<lb/>
+dadurch herbeigeführt, und noch ist Mexicos Schicksal<lb/>
+nicht entschieden.</p><lb/>
+<p><ref target="nn_pfennig157_1836#Mexico4"><hi rendition="#c">( Fortsetzung folgt in Nr. 157. )</hi></ref></p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Das Kriegswesen der Engländer im Mittelalter.</hi></head><lb/>
+<p><hi rendition="#in">U</hi>nter dem deutschen Volksstamme der Angelsachsen,<lb/>
+die im 5. Jahrhunderte ihre Herrschaft in Eng-<lb/>
+land gründeten, war das Kriegswesen wenig ausgebil-<lb/>
+det, und erst Alfred der Große <note place="foot" n="*)">Über ihn und seine Verdienste werden wir nächstens<lb/>
+in dieser Zeitschrift sprechen.</note> gab der Volksbewaff-<lb/>
+nung und den Vertheidigungsanstalten des Landes eine<lb/>
+kräftigere Entwickelung, welche ihm seine Siege über<lb/>
+die nordischen Seeräuber sicherten, die seit dem 9.<lb/>
+Jahrhunderte England verheert hatten. Der Ver-<lb/>
+fall der Kriegszucht unter seinem schwächern Nachfolger<lb/>
+erleichterte den Dänen zu Anfange des 11. Jahrhun-<lb/>
+derts die Unterjochung des Landes, und erst als nach den<lb/>
+Zerrüttungen, die aus diesem Ereignisse hervorgingen,<lb/>
+Wilhelm, Herzog von der Normandie, in der Schlacht<lb/>
+bei Hastings ( 1066 ) durch überlegene Kriegskunst die<lb/>
+Angelsachsen besiegt und England erobert hatte, erhielt,<lb/>
+wie die Verfassung und die Sitten des Volkes, auch<lb/>
+das Kriegswesen eine gänzliche Umwandlung, und es<lb/>
+wurde der Grund zu der Überlegenheit gelegt, welche<lb/>
+die englischen Waffen später gegen ihre Nachbarn, die<lb/>
+Jrländer, die Schottländer und selbst gegen die Fran-<lb/>
+zosen behaupteten.</p><lb/>
+<p>Wir wollen uns hier nur darauf beschränken, Ei-<lb/>
+niges über Kriegstracht, Waffen und Kriegszucht der<lb/>
+Engländer im 14. und 15. Jahrhunderte mitzutheilen.</p><lb/>
+<p>Der Soldat, er mochte zum Fußvolke oder zur<lb/>
+Reiterei gehören, war vom Kopf bis zum Fuß in Eisen<lb/>
+gehüllt. Seine Rüstung, die den ganzen Körper be-<lb/>
+deckte, bestand entweder aus eisernen, netzartig ineinander<lb/>
+verschlungenen Ringen, dünnen Eisenplatten oder aus star-<lb/>
+kem Leder. Eine solche Rüstung glich dem Schuppenpan-<lb/>
+zer, war mit Leinwand oder Leder gefüttert, wurde am Halse<lb/>
+durch Riemen zusammengehalten, war sehr gelenkig und<lb/>
+widerstand besonders Schwertstreichen und Pikenstichen.<lb/>
+Sie kam im 14. Jahrhundert sehr in Aufnahme und<lb/>
+war oft zierlich mit Gold und Silber ausgelegt. Zum<lb/>
+völlig gerüsteten Krieger gehörte ferner Helm, von glei-<lb/>
+cher Beschaffenheit wie die Rüstung, und Schild.<lb/>
+Letzterer war rund oder dreieckig, mit starkem Leder über-<lb/>
+<cb n="2"/>
+zogen, mit Kupfer oder Eisen eingefaßt und wurde durch<lb/>
+zwei an der innern Seite angebrachte Riemen an den<lb/>
+linken Arm geschnallt. Die Helme waren entweder kegel-<lb/>
+oder pyramidenförmig, hatten rings herum einen schirmar-<lb/>
+tigen Vorsprung, um das Gesicht gegen Querstreiche zu<lb/>
+schützen, oder cylinderförmig, bedeckten den ganzen Kopf<lb/>
+und hatten blos Löcher zum Sehen und Athmen. ( Abbil-<lb/>
+dung <hi rendition="#aq">I</hi>. ) Die Helmbüsche kamen erst unter Richard <hi rendition="#aq">III.</hi><lb/>
+in Gebrauch. Überhaupt hatte sich unter diesem Für-<lb/>
+sten die Kriegstracht bedeutend verbessert. Damals trug<lb/>
+z. B. ein Reiter im Felde Stahlschuhe, Beinschienen,<lb/>
+Lendenstücke, Panzerhosen, einen Küraß oder Brusthar-<lb/>
+nisch, Armschienen, Schulterstücke, Panzerhandschuhe,<lb/>
+einen Mantel, Helm, Schild und ein kurzes und lan-<lb/>
+ges Schwert. Nach Einführung der Feuergewehre tra-<lb/>
+ten an die Stelle der frühern Rüstungen ungewöhn-<lb/>
+lich starke Eisenpanzer, kamen aber ihrer Schwere we-<lb/>
+gen bald wieder außer Gebrauch und unter Jakob <hi rendition="#aq">I</hi>. sogar<lb/>
+auch Helm und Küraß.</p><lb/>
+<p>Das Fußvolk hatte Speere, Schleudern, Wurfspieße,<lb/>
+Bogen, Armbrüste, Pfeile, Schwerter, die Reiterei Lan-<lb/>
+zen, Schwerter und Dolche. Der Bogen und die Armbrust<lb/>
+wurden unter Wilhelm dem Eroberer ( 1066 ) im englischen<lb/>
+Heere eingeführt. Zur Zeit Eduard <hi rendition="#aq">III</hi>. galten besonders die<lb/>
+Schützen mit langen Bogen für die besten Soldaten und<lb/>
+waren selbst noch lange nach Erfindung des Schießpulvers<lb/>
+gefürchtet. Hierin standen die Franzosen den Engländern<lb/>
+weit nach und die glänzenden Siege bei Cressy, Poitiers<lb/>
+und Azincourt waren hauptsächlich das Ergebniß der<lb/>
+Trefflichkeit der englischen Bogenschützen. Selbst die<lb/>
+damals vielgerühmten Lanzenmänner der Schotten und<lb/>
+die eisenumgürteten Ritter der Franzosen mußten ihnen<lb/>
+nachstehen. Eduard <hi rendition="#aq">IV</hi>. befahl, daß jeder Engländer<lb/>
+oder Jrländer einen Bogen von der Länge seines Kör-<lb/>
+pers aus einem dauerhaften Holze führen, jede Ge-<lb/>
+meinde in ihrem Gebiete einen Wall aufwerfen und je-<lb/>
+der Bogenschütze sich daran üben sollte. Die Pfeile wa-<lb/>
+ren von verschiedener Länge und Schwere, die leich-<lb/>
+tern gewöhnlich zwei bis drei Fuß lang, die schwerern<lb/>
+1 / 2 Elle. Jeder Schütze trug 24 derselben im Köcher<lb/>
+und 12 im Gürtel. Am untern Ende war jeder Pfeil<lb/>
+mit drei Federn geziert und wenn die Bogenschützen in<lb/>
+Masse schossen, so glichen, wie der französische Geschicht-<lb/>
+schreiber Froissart sagt, die in der Luft fliegenden<lb/>
+Pfeile fallenden Schneeflocken. Oft waren sie vergif-<lb/>
+tet oder mit brennbaren Stoffen gefüllt. Außer dem<lb/>
+Bogen trug jeder Schütze einen Schild, ein Beil und<lb/>
+einen an beiden Enden zugespitzten Stock, welcher, an<lb/>
+einem langen Seile befestigt, als Wurfspieß diente. War<lb/>
+der Feind durch Pfeile und Wurfspieße in Unordnung<lb/>
+gebracht, so griff man zur schmalen Streitaxt oder zum<lb/>
+Schwerte und vollendete die Niederlage. Wann der<lb/>
+Bogen bei den Engländern außer Gebrauch kam, ist<lb/>
+unbekannt. Wir finden ihn noch lange nach Einfüh-<lb/>
+rung der Feuergewehre, und dies darf nicht wundern,<lb/>
+wenn wir bedenken, wie unbequem diese Waffe noch zu<lb/>
+Anfange des vorigen Jahrhunderts war. Die Armbrust<lb/>
+wurde unter Heinrich <hi rendition="#aq">VIII</hi>. eingeführt. ( Abbildung <hi rendition="#aq">II. )</hi> </p><lb/>
+<p>Vor Einführung der Kanonen bedienten sich die<lb/>
+Engländer bei Belagerungen großer Maschinen, welche<lb/>
+Wurfspieße und Steine oft ungeheuere Strecken weit<lb/>
+schleuderten. Eduard <hi rendition="#aq">III</hi>. soll sich schon 1327 gegen<lb/>
+die Schotten und 1346 in der Schlacht bei Cressy ei-<lb/>
+ner Art von Kanonen oder vielmehr kurzer Bomben-<lb/>
+mörser bedient haben, die zwar noch sehr unvollkom-<lb/>
+men, dennoch wegen ihrer Leichtigkeit im Felde weit<lb/>
+nützlicher waren als die alten ungeheuern Wurf= und<lb/>
+Belagerungsmaschinen. Sie waren kurz, von großem<lb/>
+<cb type="end"/>
+<pb facs="#f0004" n="100"/>
+<fw place="top" type="header"> <hi rendition="#g">Das Pfennig=Magazin.</hi> </fw>       <figure>         <head>  I.Bewaffnung aus dem 13. Jahrhundert.</head></figure><lb/>
+<figure><head>  II.Soldaten und Kanonen aus dem 14. und 15. Jahrhundert.  </head></figure><lb/>
+<pb facs="#f0005" n="101"/>
+<fw place="top" type="header"><hi rendition="#g">Das Pfennig=Magazin.</hi> </fw>       <figure>         <head>  III.Fußvolk aus dem 15. Jahrhundert.</head></figure><lb/>
+<figure><head>IV.Soldaten und Kriegsmaschinen aus dem 15. Jahrhundert.</head></figure><lb/>
+<cb type="start"/>
+Kaliber, gewöhnlich aus Eisenstäben zusammengesetzt und<lb/>
+mit Reifen von demselben Metalle zusammengehalten.<lb/>
+Der auf der Abbildung <hi rendition="#aq">II</hi>. in der Mitte befindliche<lb/>
+Mörser ist aus dieser Zeit. Die zweite Kanone aus<lb/>
+der Zeit Heinrich <hi rendition="#aq">IV</hi>. ist von Eisen, liegt in einer höl-<lb/>
+zernen trogartig ausgehöhlten Röhre in schräger Rich-<lb/>
+<cb n="2"/>
+tung auf einem Holzblocke und konnte mittels eines<lb/>
+beweglichen Zapfens gerichtet werden. Jndeß muß,<lb/>
+nach diesem Apparate zu urtheilen, die Ladung sehr<lb/>
+schwach gewesen sein. Neben der Mündung des einen<lb/>
+Geschützes steht ein Schildträger, der die Verpflichtung<lb/>
+hatte, dem Kanonier, Bogen= oder Armbrustschützen,<lb/>
+<cb type="end"/>
+<pb facs="#f0006" n="102"/>
+<fw place="top" type="header"> <hi rendition="#g">Das Pfennig=Magazin.</hi> </fw><cb type="start"/>
+wenn dieser sich dem Walle näherte, einen Schild zum<lb/>
+Schutze gegen feindliche Waffen vorzutragen. Eine eigne<lb/>
+Art Geschütz des 14. Jahrhunderts waren die sogenann-<lb/>
+ten Handkanonen, von so geringer Schwere, daß zwei<lb/>
+Menschen dieselben bequem von einem Orte zum an-<lb/>
+dern tragen konnten. Beim Abfeuern wurden sie auf<lb/>
+den Boden gestützt. Die ersten gegossenen Geschütze<lb/>
+findet man in England um das Jahr 1521; allein<lb/>
+ungleich leichter wurden die Kanonen schon zu Anfange<lb/>
+des 15. Jahrhunderts.</p><lb/>
+<p>Das auf unserer Abbildung <hi rendition="#aq">IV</hi>. im Vordergrunde<lb/>
+stehende Geschütz hängt mittels eiserner Zapfen zwischen<lb/>
+den Armen einer großen eisernen Gabel. Am untern<lb/>
+Ende der Kanone ist ein breites, sensenförmiges Eisen<lb/>
+perpendicular angebracht, mit mehren gleichweit vonein-<lb/>
+ander stehenden Löchern. Ein in dieselben hineingescho-<lb/>
+bener Riegel erhält die Kanone in der gegebenen Rich-<lb/>
+tung. Die Grundlage der ganzen Maschine ist ein star-<lb/>
+kes Gerüste aus eichenen Pfosten. Von leichterm Ka-<lb/>
+liber ist das zweite Geschütz. Der hohe, in der Mitte<lb/>
+stehende hölzerne Thurm läßt einen Blick in das da-<lb/>
+malige Belagerungssystem thun. Mittels seiner Rä-<lb/>
+der wurde derselbe von einem Ort zum andern ge-<lb/>
+rollt. Aus den an den Seiten befindlichen dreieckigen<lb/>
+Löchern schoß man Pfeile oder schleuderte Steine und<lb/>
+ähnliche Dinge. Auf dem oben befindlichen freien Platze<lb/>
+standen Bogenschützen, welche sich durch die längs der<lb/>
+Brustwehr hinlaufenden und zum Auf= und Niederlas-<lb/>
+sen eingerichteten Schirme gegen feindliches Geschoß sichern<lb/>
+konnten. Das breite über dem Thurme auf zwei Bal-<lb/>
+ken ruhende Dach diente nicht blos als Schutz, son-<lb/>
+dern die Bogenschützen bestiegen dasselbe, wenn sich der<lb/>
+Thurm völlig dem Walle oder der Mauer genähert<lb/>
+hatte, und sprangen von ihm auf die Mauern der be-<lb/>
+lagerten Stadt.</p><lb/>
+<p>Unter die bemerkenswerthesten militairischen Ge-<lb/>
+bräuche der Engländer im Mittelalter gehört das Feld-<lb/>
+geschrei. Sein Zweck war, sowol den Muth der Krieger<lb/>
+anzufeuern als vorzüglich auch den Freund vom Feinde<lb/>
+im Getümmel der Schlacht zu unterscheiden. Das<lb/>
+Feldgeschrei war gewöhnlich St.=Georg oder St.=Georg<lb/>
+und England! Die musikalischen Hauptinstrumente wa-<lb/>
+ren Trompeten, Querpfeifen, Trommeln und bei den<lb/>
+Schotten die Sackpfeife.</p><lb/>
+<p>Die Kriegszucht scheint streng gewesen zu sein. Es<lb/>
+gab drei Hauptstrafen für militairische Verbrechen, das<lb/>
+Enthaupten, Erhängen und Ersäufen. König Richard Lö-<lb/>
+wenherz gab, als er nach dem heiligen Lande zog, seinem<lb/>
+Heere folgende Gesetze: &#x201E;Wer am Bord eines Schiffes Je-<lb/>
+mand tödtet, soll an den Getödteten gebunden und mit die-<lb/>
+sem in das Meer geworfen werden. Wer Jemand am Ufer<lb/>
+tödtet, soll an den Getödteten gebunden und mit ihm be-<lb/>
+graben werden. Wer sein Messer zieht, um Jemand zu<lb/>
+erstechen oder ihn wirklich verwundet, verliert die rechte<lb/>
+Hand. Wer Jemand mit der Hand so schlägt, daß<lb/>
+der Geschlagene blutet, soll dreimal langsam ins Meer<lb/>
+niedergetaucht werden. Wer seinen Kameraden schimpft<lb/>
+oder verflucht, zahlt dem Beleidigten eine Unze Silber<lb/>
+als Genugthuung.&#x201C;</p><lb/>
+<p>Gelinde körperliche Strafen kamen indeß seltener<lb/>
+vor und wurden gewöhnlich, weil jeder Krieger Ei-<lb/>
+genthum hatte, mit Geldstrafen abgebüßt. Viele Ver-<lb/>
+gehen wurden mit Verhaftung bestraft, bei Offizieren<lb/>
+mit Verweis oder Entsetzung. Ausreißen war unter<lb/>
+Heinrich <hi rendition="#aq">IV</hi>. Capitalverbrechen, und jedem Gotteslästerer<lb/>
+ohne Ausnahme wurde die Zunge mit einem glühenden<lb/>
+Eisen durchbohrt. Die Trunkenheit scheint indeß ver-<lb/>
+hältnißmäßig weniger gerügt worden zu sein. Elisabeth<lb/>
+<cb n="2"/>
+verordnete, daß &#x201E;ein Säufer bei Brot und Wasser so<lb/>
+lange eingesperrt werden sollte, als es der Grad des La-<lb/>
+sters verdiente&#x201C;. Diebstahl war ein Hauptverbrechen,<lb/>
+und wer Festungen, Magazine, Kriegsvorräthe dem Feinde<lb/>
+überlieferte, ward als Hochverräther bestraft.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Zur Geschichte des Tabackrauchens</hi>.<note place="foot" n="*)">Vergl. über den Taback noch Pfennig=Magazin Nr. 14,<lb/>
+wo auch eine Abbildung der Tabackspflanze gegeben ist.</note></head><lb/>
+<p><hi rendition="#in">E</hi>s gibt schwerlich eine menschliche Gewohnheit, die zu<lb/>
+so vielfachen Betrachtungen Anlaß geben kann, als das<lb/>
+Tabackrauchen. Es ist weit mehr als irgend eine an-<lb/>
+dere, welche der Mensch angenommen hat, eine künst-<lb/>
+liche Gewohnheit, und nur wenige sind so abstoßend<lb/>
+für den natürlichen Geschmack. Sie ist meist unange-<lb/>
+nehm für Diejenigen, die ihr nicht ergeben sind, und<lb/>
+Diejenigen, die sie angenommen haben, sind nicht ohne<lb/>
+Überwindung von Schwierigkeiten dazu gekommen. Sie<lb/>
+ist über den größten Theil der Erde verbreitet, in alle<lb/>
+Volksclassen übergegangen, von dem Wilden auf der<lb/>
+tiefsten Stufe der Roheit bis zu dem Gebildetsten,<lb/>
+und herrscht unter jedem Klima, von Sibirien bis zum<lb/>
+Äquator und vom Äquator bis zum äußersten Süden.<lb/>
+Diese Verbreitung ist noch auffallender, wenn man an<lb/>
+den verhältnißmäßig neuen Zeitpunkt denkt, in welchem<lb/>
+diese Gewohnheit entstand; denn 250&#x2014;300 Jahre sind<lb/>
+eine kurze Zeit für die allgemeine Verbreitung einer Ge-<lb/>
+wohnheit. Werfen wir einen Blick auf die Geschichte<lb/>
+derselben, so ist kein Grund, zu bezweifeln, daß Amerika<lb/>
+die Quelle ist, aus welcher sich diese Gewohnheit über<lb/>
+die Welt verbreitet hat. Sieht man, wie sehr die Be-<lb/>
+wohner der Türkei, Persiens und anderer östlichen Län-<lb/>
+der den Taback lieben, und welche Verfeinerungen sie<lb/>
+in der Kunst des Rauchens eingeführt haben, so möchte<lb/>
+man bezweifeln, ob diese Gewohnheit wirklich in Asien<lb/>
+so neu sei als sie, wie wir wissen, in Europa ist.<lb/>
+Man hat auch behauptet, daß Asien den Taback gekannt<lb/>
+habe, ehe er im 16. Jahrhundert aus Amerika nach<lb/>
+Europa kam; Andere aber haben dies für irrig erklärt.<lb/>
+Jn ältern morgenländischen Werken, welche die Ge-<lb/>
+wohnheiten des Volkes genau beschreiben, wird des Ta-<lb/>
+backrauchens nicht erwähnt, z. B. in der Märchensamm-<lb/>
+lung &#x201E;Tausend und eine Nacht&#x201C;. Auch sagen uns die<lb/>
+ältesten europäischen Reisenden nichts davon. Die Chi-<lb/>
+nesen behaupten zwar, seit vielen Jahrhunderten Taback-<lb/>
+raucher gewesen zu sein, aber es scheint ein Misverständ-<lb/>
+niß obzuwalten, das entweder der europäische Gewährs-<lb/>
+mann, der davon spricht, verschuldet hat, oder auf Rech-<lb/>
+nung Derjenigen kommt, die ihm die Sache mittheil-<lb/>
+ten. Die Chinesen mögen zwar auch in frühern Zei-<lb/>
+ten, wie noch jetzt, andere Pflanzen geraucht haben, aber<lb/>
+nicht Taback, und Diejenigen, von welchen jene Be-<lb/>
+hauptung herrührte, mögen die Gewohnheit des Rau-<lb/>
+chens und den Gebrauch des Tabacks nicht genau un-<lb/>
+terschieden haben. Wahrscheinlich haben die Chinesen<lb/>
+den ersten Taback aus Jndien erhalten, wohin die Por-<lb/>
+tugiesen 1599 den Samen der Pflanze brachten. Bei-<lb/>
+nahe 30 Jahre lang hatten seit jener Zeit die Portu-<lb/>
+giesen Niederlassungen am persischen Meerbusen, und<lb/>
+während dieser Zeit wurde wahrscheinlich der Gebrauch<lb/>
+des Tabacks in Persien eingeführt. Die Portugiesen<lb/>
+brachten vermuthlich die Gewohnheit in Aufnahme und<lb/>
+lieferten den Taback aus Jndien, und überdies hatten<lb/>
+die Perser selbst häufigen Verkehr mit jenem Lande.<lb/>
+<cb type="end"/>
+<pb facs="#f0007" n="103"/>
+<fw place="top" type="header"><hi rendition="#g">Das Pfennig=Magazin.</hi> </fw><cb type="start"/>
+Noch 1628, zwei Jahre nach der Vertreibung der Por-<lb/>
+tugiesen vom persischen Meerbusen, erhielt Persien an-<lb/>
+sehnliche Sendungen von Taback aus Jndien.</p><lb/>
+<p>Die Türken scheinen die Gewohnheit wie die<lb/>
+Waare unmittelbar aus Europa erhalten zu haben, un-<lb/>
+gefähr um dieselbe Zeit, wo sie die Perser aus Jndien<lb/>
+erhielten, wiewol sie auch zu den Bewohnern der Türkei<lb/>
+entweder aus Persien oder aus Jndien gekommen sein<lb/>
+kann. Als der Engländer Sir Thomas Herbert in der<lb/>
+ersten Hälfte des 17. Jahrhunderts in Bagdad war,<lb/>
+besuchte er die dortigen Kaffeehäuser, die er Kohohäuser<lb/>
+nennt, wo die Bewohner der Stadt, wie er sagt, sich<lb/>
+in den Abendstunden versammelten, um Kaffee zu trin-<lb/>
+ken, &#x201E;einen höllischen, schwarzen, dicken und bittern Trank&#x201C;,<lb/>
+um sich mit Arak und Taback zu berauschen. Der<lb/>
+Engländer Sandys, der schon 1610 in Konstantinopel<lb/>
+war, spricht noch bestimmter, und nennt ausdrücklich<lb/>
+das Tabackrauchen als eine neue Gewohnheit der Tür-<lb/>
+ken. Sie rauchen, sagt er, durch Röhren, an welchen<lb/>
+große hölzerne Köpfe für den Taback angebracht sind.<lb/>
+Er setzt hinzu, der Taback sei ihnen durch die Englän-<lb/>
+der zugeführt worden, und die Gewohnheit würde sich<lb/>
+noch weiter verbreitet haben, wenn nicht von Zeit zu<lb/>
+Zeit Verbote dagegen ergangen wären. Während San-<lb/>
+dys in Konstantinopel war, wurde einem Türken eine<lb/>
+Pfeife durch die Nase gesteckt, und so ward er zum<lb/>
+Schimpf durch die Stadt geführt. Die Pfeifen, die er<lb/>
+beschreibt, sind dieselben, die noch jetzt gebraucht werden,<lb/>
+außer daß der Kopf von Thon ist. Die in Europa<lb/>
+ursprünglich üblichen kleinen Pfeifen wurden wahrschein-<lb/>
+lich wegen des hohen Preises des Tabacks eingeführt.</p><lb/>
+<p>Nach England kam der Taback zuerst um das<lb/>
+Jahr 1578, wo der berühmte Sir Walter Raleigh<lb/>
+ihn aus Amerika mitbrachte. Nach einer Sage pflegte<lb/>
+er vor seiner Thüre zu sitzen und in Gesellschaft eines<lb/>
+Freundes zu rauchen. Wahrscheinlich wurde die Ge-<lb/>
+wohnheit durch diese Öffentlichkeit und den vornehmen<lb/>
+Stand der Raucher befördert. Unter der Regierung<lb/>
+der Königin Elisabeth verbreitete sich die Gewohnheit<lb/>
+nur langsam; aber der Engländer Stow, der um 1631<lb/>
+schrieb und den Taback &#x201E;ein stinkendes, zu Gottes<lb/>
+Unehre viel gemisbrauchtes Kraut&#x201C; nennt, erzählt uns,<lb/>
+daß zu jener Zeit das Rauchen unter Männern und<lb/>
+vielen Frauen gewöhnlich war. Jakob <hi rendition="#aq">I</hi>. verfaßte bald<lb/>
+nach seiner Thronbesteigung eine Schrift gegen das<lb/>
+Rauchen, die wenigstens unter seinen Hofleuten der<lb/>
+Gewohnheit Einhalt thun mochte, welche sich schon weit<lb/>
+verbreitet hatte. Und was die Eitelkeiten anlangt, sagt<lb/>
+er, wozu diese schmuzige Gewohnheit führt, ist es<lb/>
+nicht eine große Eitelkeit und sehr unnütz, daß bei Ti-<lb/>
+sche, wo Ehrerbietigkeit, Reinlichkeit und Sittsamkeit<lb/>
+herrschen sollen, die Leute sich nicht schämen, Tabacks-<lb/>
+pfeifen zu handhaben und einander den Rauch zuzubla-<lb/>
+sen, sodaß der häßliche Dampf und Gestank über die<lb/>
+Schüsseln sich verbreitet und die Luft verpestet, während<lb/>
+oft Leute, die ihn verabscheuen, in der Gesellschaft sind?<lb/>
+Jst es nicht eine große Thorheit, fährt er fort, daß<lb/>
+jetzt Niemand seinen Freund anders zu bewillkommnen<lb/>
+weiß, als daß er ihn sogleich zum Rauchen einladet?<lb/>
+Ja die Hausfrau kann ihrem Galan nicht freundlicher<lb/>
+begegnen, als wenn sie ihm mit ihrer schönen Hand<lb/>
+eine Tabackspfeife reicht. Aber, sagt er weiter, es ist<lb/>
+nicht nur eine große Eitelkeit, sondern auch eine große<lb/>
+Verachtung der guten Gaben Gottes, daß die Süßig-<lb/>
+keit des Menschenodems, der eine gute Gabe Gottes<lb/>
+ist, absichtlich durch dieses stinkende Rauchen verderbt<lb/>
+werde! Der König pflegte zu sagen, wenn er den<lb/>
+Teufel zu Tische laden wollte, würde er ihm dreierlei<lb/>
+<cb n="2"/>
+vorsetzen, ein Ferkel, Stockfisch und Senf und eine<lb/>
+Pfeife Taback zur Verdauung.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr"><hi rendition="#g">Monomanie bei Pferden</hi>.</hi></head><lb/>
+<p><hi rendition="#in">F</hi>olgende merkwürdige Thatsachen von seltenem Abscheu<lb/>
+der Pferde gegen einzelne Gegenstände, kann man wol<lb/>
+mit Recht einer wirklichen Monomanie zuschreiben.</p><lb/>
+<p>Jm Jahre 1806 hatte ein Piemonteser, während<lb/>
+der Schlacht bei Austerlitz, eine sehr schöne und in an-<lb/>
+dern Hinsichten sehr brauchbare Stute; eine Eigenschaft<lb/>
+derselben aber wurde dem Reiter oft gefährlich. Sie hatte<lb/>
+einen entschiedenen Widerwillen gegen Papier, welches<lb/>
+sie sogleich erkannte, sobald sie es sah. Die Wirkung,<lb/>
+die der Anblick oder das Geräusch des Papiers bei ihr<lb/>
+hervorbrachte, war so stark und schnell, daß sie sehr oft<lb/>
+ihren Reiter aus dem Sattel warf. Sonst hatte<lb/>
+dieses Thier nicht die geringste Furcht vor Gegenständen<lb/>
+und Tönen, die andere Pferde erschreckt haben wür-<lb/>
+den; es vertrug das Pfeifen der Kugeln, das Donnern<lb/>
+der Kanonen und das Geklirr der Waffen; das Ge-<lb/>
+wirre und der Lärm eines Angriffs machte keinen Ein-<lb/>
+druck auf dasselbe; nur der Anblick oder das Ra-<lb/>
+scheln des Papiers machte es unbezähmbar. Alle nur<lb/>
+möglichen Mittel wurden angewandt, diesen merkwürdi-<lb/>
+gen und höchst gefährlichen Abscheu zu heilen, aber ver-<lb/>
+gebens; der Besitzer sah sich daher gezwungen, das Pferd<lb/>
+zu verkaufen, denn sein Leben schwebte in steter Gefahr.</p><lb/>
+<p>Eine Stute, die einem französischen Offizier während<lb/>
+der Jahre 1816&#x2014;21 gehörte, war vollkommen lenksam<lb/>
+und verrieth nicht die geringste Abneigung weder gegen<lb/>
+Menschen, noch gegen Thiere, außer gegen hellgraue Pferde.<lb/>
+Sah sie ein solches Pferd, so sprang sie darauf zu und griff<lb/>
+es mit der größten Wuth an. Sie leistete Alles, was<lb/>
+man nur verlangen konnte, auf der Parade, auf dem Mar-<lb/>
+sche, in Reihe und Glied, im Kampfe und im Stalle;<lb/>
+aber ihr Haß gegen graue Pferde war so groß, daß es<lb/>
+gefährlich war, dergleichen mit in ihren Stall zu stellen,<lb/>
+wäre auch die Entfernung zwischen den beiden Thieren<lb/>
+noch so bedeutend gewesen. Hatte sie einmal ein graues<lb/>
+Pferd erblickt, so ruhte sie nicht eher, als bis sie ihren<lb/>
+Reiter abgeworfen oder ihren Halfter zerrissen hatte,<lb/>
+dann eilte sie auf dasselbe zu und biß mit der größten<lb/>
+Wuth. Sie faßte das Thier gewöhnlich beim Kopfe<lb/>
+oder bei der Kehle und hielt es so fest, daß sie es er-<lb/>
+stickt haben würde, hätte man nicht dasselbe aus ih-<lb/>
+rer Gewalt befreit. Als sie alt wurde ( sie war 1821<lb/>
+18 Jahre alt ) , legte sich diese Wuth noch nicht völlig,<lb/>
+aber sie war wenigstens nicht mehr so heftig. Kein an-<lb/>
+derer grauer Gegenstand schien dagegen den geringsten<lb/>
+Eindruck auf sie zu machen.</p><lb/>
+<p>Noch eine andere Stute fürchtete im Gegentheil alle<lb/>
+leblosen weißen Gegenstände, z. B. weiße Mäntel oder<lb/>
+Kleider, selbst weiße Hemdenärmel und besonders weiße<lb/>
+Federn. Sobald einer dieser weißen Gegenstände, be-<lb/>
+sonders wenn er in Bewegung und einigermaßen groß<lb/>
+war, von ihr bemerkt wurde, kam sie in schreckliche<lb/>
+Furcht und suchte durchzugehen; war der Gegenstand aber<lb/>
+nicht von bedeutender Größe und bewegte er sich nur<lb/>
+langsam fort, so eilte sie auf ihn zu, erhob ihre Vorder-<lb/>
+füße gegen ihn und drohte ihn mit den Zähnen zu zer-<lb/>
+reißen. Keine andere Farbe übte den geringsten Einfluß<lb/>
+auf sie, noch erschreckte sie das plötzliche Erscheinen wei-<lb/>
+ßer Pferde oder Hunde; erblickte sie aber eine weiße Fe-<lb/>
+der oder ein Stück weißes Papier, so hatte der Reiter<lb/>
+die Gewalt über das sonst so lenksame Thier verloren.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<cb type="end"/>
+<pb facs="#f0008" n="104"/>
+<fw place="top" type="header"> <hi rendition="#g">Das Pfennig=Magazin.</hi> </fw>       <div n="1"><figure>         <head>           Die Amstelbrucke in Amsterdam.<note place="foot" n="*)">Siehe Nr. 69 des Pfennig=Magazins, wo bereits eine ausführliche Beschreibung von Amsterdam, sowie eine Ansicht<lb/>
+des ehemaligen <hi rendition="#g">Stadthauses,</hi> jetzt königlichen Palasts, und der <hi rendition="#g">Börse</hi> gegeben worden</note>   </head>       </figure></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+</body>     <back><div n="1" type="imprint"><p><hi rendition="#c">Verantwortliche Herausgeber: <hi rendition="#g">Friedrich Brockhaus</hi> in <hi rendition="#g">Leipzig</hi> und <hi rendition="#aq">Dr</hi>. C. <hi rendition="#g">Dräxler=Manfred</hi> in <hi rendition="#g">Wien.</hi><lb/>
+Verlag von F. A. <hi rendition="#g">Brockhaus</hi> in Leipzig.</hi></p></div>     </back>   </text> </TEI>

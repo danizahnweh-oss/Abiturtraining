@@ -1,0 +1,4039 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.deutschestextarchiv.de/basisformat.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="http://www.deutschestextarchiv.de/basisformat.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">   <teiHeader>
+<fileDesc>
+<titleStmt>
+<title type="main">Die Sylphen</title>
+<title type="sub">Eine Zauber-Oper in drey Aufzügen nach Gozzi</title>
+<author>
+<persName ref="http://d-nb.info/gnd/116576170">
+<surname>Ludwig</surname>
+<forename>Robert</forename>
+</persName>
+</author>
+<author>
+<persName ref="http://d-nb.info/gnd/118696823">
+<surname>Gozzi</surname>
+<forename>Carlo </forename>
+</persName>
+</author>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/115266127">
+<surname>Geyken</surname>
+<forename>Alexander</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1222198746">
+<surname>Haaf</surname>
+<forename>Susanne</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1019062681">
+<surname>Jurish</surname>
+<forename>Bryan</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Boenig</surname>
+<forename>Matthias</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Thomas</surname>
+<forename>Christian</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Wiegand</surname>
+<forename>Frank</forename>
+</persName>
+</editor>
+<respStmt>
+<orgName ref="https://www.bbaw.de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<resp>
+<note type="remarkResponsibility">Langfristige Bereitstellung der DTA-Ausgabe</note>
+<ref target="https://www.bbaw.de"/>
+</resp>
+</respStmt>
+</titleStmt>
+<editionStmt><edition>Vollständige digitalisierte Ausgabe.</edition></editionStmt>
+<extent>
+<measure type="images">152</measure>
+<measure type="tokens">17468</measure>
+<measure type="types">4479</measure>
+<measure type="characters">113140</measure>
+</extent>
+<publicationStmt>
+<publisher xml:id="DTACorpusPublisher">
+<email>dta@bbaw.de</email>
+<orgName role="project">Deutsches Textarchiv</orgName>
+<orgName role="hostingInstitution" xml:lang="en">Berlin-Brandenburg Academy of Sciences and Humanities (BBAW)</orgName>
+<orgName role="hostingInstitution" xml:lang="de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<address>
+<addrLine>Jägerstr. 22/23, 10117 Berlin</addrLine>
+<country>Germany</country>
+</address>
+</publisher>
+<pubPlace>Berlin</pubPlace>
+<date type="publication">2025-02-28T15:14:25Z</date>
+<availability>
+<licence target="https://creativecommons.org/licenses/by-sa/4.0/deed.de">
+<p>Distributed under the Creative Commons Attribution-ShareAlike 4.0 License.</p>
+</licence>
+</availability>
+<idno>
+<idno type="URLWeb">https://www.deutschestextarchiv.de/robert_sylphen_1806</idno>
+<idno type="URLXML">https://www.deutschestextarchiv.de/book/download_xml/robert_sylphen_1806</idno>
+<idno type="URLHTML">https://www.deutschestextarchiv.de/book/download_html/robert_sylphen_1806</idno>
+<idno type="URLText">https://www.deutschestextarchiv.de/book/download_text/robert_sylphen_1806</idno>
+<idno type="DTADirName">robert_sylphen_1806</idno>
+<idno type="DTAID">25229</idno>
+<idno type="URN">urn:nbn:de:kobv:b4-25229-6</idno>
+</idno>
+</publicationStmt>
+<sourceDesc>
+<bibl type="M">Robert, Ludwig: Die Sylphen. Berlin, 1806.</bibl>
+<biblFull>
+<titleStmt>
+<title level="m" type="main">Die Sylphen</title>
+<title level="m" type="sub">Eine Zauber-Oper in drey Aufzügen nach Gozzi</title>
+<author>
+<persName ref="http://d-nb.info/gnd/116576170">
+<surname>Ludwig</surname>
+<forename>Robert</forename>
+</persName>
+</author>
+<author>
+<persName ref="http://d-nb.info/gnd/118696823">
+<surname>Gozzi</surname>
+<forename>Carlo </forename>
+</persName>
+</author>
+</titleStmt>
+<editionStmt>
+<edition n="1"/>
+</editionStmt>
+<extent>
+<measure type="pages">142 S.</measure>
+</extent>
+<publicationStmt>
+<publisher><name>Werckmeister</name></publisher>
+<pubPlace>Berlin</pubPlace>
+<date type="publication">1806</date>
+</publicationStmt>
+</biblFull>
+<msDesc>
+<msIdentifier>
+<repository>Staatsbibliothek München</repository>
+<idno>
+<idno type="shelfmark">BSB München, Slg.Her 1691</idno>
+</idno>
+</msIdentifier>
+<physDesc>
+<typeDesc>
+<p>Fraktur</p>
+</typeDesc>
+</physDesc>
+</msDesc>
+</sourceDesc>
+</fileDesc>
+<encodingDesc>
+<editorialDecl>
+<p>Dieses Werk wurde gemäß den
+<ref target="https://www.deutschestextarchiv.de/doku/richtlinien">DTA-Transkriptionsrichtlinien</ref>
+im Double-Keying-Verfahren von Muttersprachlern erfasst und in XML/TEI P5 nach
+<ref target="https://www.deutschestextarchiv.de/doku/basisformat">DTA-Basisformat</ref> kodiert.</p>
+<p/>
+</editorialDecl>
+<tagsDecl>
+<rendition scheme="css" xml:id="aq">font-family:sans-serif</rendition>
+<rendition scheme="css" xml:id="b">font-weight:bold</rendition>
+<rendition scheme="css" xml:id="blue">color:blue</rendition>
+<rendition scheme="css" xml:id="c">display:block; text-align:center</rendition>
+<rendition scheme="css" xml:id="et">display:block; margin-left:2em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et2">display:block; margin-left:4em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et3">display:block; margin-left:6em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="f">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="fr">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="g">letter-spacing:0.125em</rendition>
+<rendition scheme="css" xml:id="i">font-style:italic</rendition>
+<rendition scheme="css" xml:id="in">font-size:150%</rendition>
+<rendition scheme="css" xml:id="k">font-variant:small-caps</rendition>
+<rendition scheme="css" xml:id="larger">font-size:larger</rendition>
+<rendition scheme="css" xml:id="red">color:red</rendition>
+<rendition scheme="css" xml:id="right">display:block; text-align:right</rendition>
+<rendition scheme="css" xml:id="s">text-decoration:line-through</rendition>
+<rendition scheme="css" xml:id="smaller">font-size:smaller</rendition>
+<rendition scheme="css" xml:id="sub">vertical-align:sub; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="sup">vertical-align:super; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="u">text-decoration:underline</rendition>
+<rendition scheme="css" xml:id="uu">border-bottom:double 3px #000</rendition>
+</tagsDecl>
+</encodingDesc>
+<profileDesc>
+<langUsage>
+<language ident="deu">(Früh-)Neuhochdeutsch</language>
+<language ident="deu">German</language>
+</langUsage>
+<textClass>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dtamain">Belletristik</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dtasub">Drama</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1main">Belletristik</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1sub">Drama</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">core</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">ready</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">mts</classCode>
+</textClass>
+</profileDesc>
+</teiHeader>
+<text><front>
+<pb facs="#f0001"/>
+<pb facs="#f0002"/>
+<pb facs="#f0003"/>
+<pb facs="#f0004"/>
+<pb n="[1]" facs="#f0005"/>
+<titlePage type="main"><docTitle><titlePart type="main">Die Sylphen.</titlePart><lb/>
+<titlePart type="sub">Eine Zauber-Oper in drey Aufzügen<lb/>
+nach Gozzi</titlePart></docTitle><lb/>
+<byline>von<lb/>
+<docAuthor>Robert.</docAuthor><lb/>
+Jn Musik gesetzt<lb/>
+von<lb/>
+<docAuthor>Friedrich Heinrich Himmel</docAuthor>,<lb/>
+Königl. Preuß. Kapellmeister.</byline><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<docImprint><pubPlace>Berlin</pubPlace>, <docDate>1806</docDate>.<lb/>
+<publisher>Bei Rudolph Werckmeister</publisher>.</docImprint><lb/>
+<titlePart type="desc">(Partitur dieser Oper ist gegen ein angemessenes<lb/>
+Honorar, so wie auch der vollständige Clavier-<lb/>
+Auszug ebendaselbst zu haben.)</titlePart></titlePage></front><body><lb/>
+<pb n="[2]" facs="#f0006"/>
+<pb n="[3]" facs="#f0007"/>
+<castList><head>Personen.</head><lb/>
+<castItem><role xml:id="ZEL"><hi rendition="#g">Zelu.</hi></role></castItem><lb/>
+<castItem><role xml:id="SIN"><hi rendition="#g">Sinabal,</hi> Beherrscher von Samandel, Zau-<lb/>
+berer, Mohr.</role></castItem><lb/>
+<castItem><role xml:id="ZOB"><hi rendition="#g">Zobea,</hi> seine Verlobte, Tochter des</role></castItem><lb/>
+<castItem><role xml:id="OSM"><hi rendition="#g">Osmar,</hi> Königs von Ormus.</role></castItem><lb/>
+<castItem><role xml:id="ALM"><hi rendition="#g">Almansor,</hi> Bruder der Zobea.</role></castItem><lb/>
+<castItem><role xml:id="DIL"><hi rendition="#g">Dilara,</hi> seine Verlobte.</role></castItem><lb/>
+<castItem><role xml:id="FAT"><hi rendition="#g">Fatme,</hi> ältere Schwester der Zobea.</role></castItem><lb/>
+<castItem><role xml:id="SAA"><hi rendition="#g">Saadi,</hi> Prinz von <hi rendition="#g">Zamar,</hi> ihr Gatte.</role></castItem><lb/>
+<castItem><role xml:id="PAP"><hi rendition="#g">Papagena,</hi> Zofe der Zobea.</role></castItem><lb/>
+<castGroup rendition="#rightBraced"><castItem><role xml:id="PAPO"><hi rendition="#g">Papageno</hi></role></castItem><lb/>
+<castItem><role xml:id="LEP"><hi rendition="#g">Leporello</hi></role></castItem><roleDesc>Hofbedienten des Königs von<lb/>
+Ormus.</roleDesc></castGroup><lb/>
+<castGroup rendition="#rightBraced"><castItem><role xml:id="LAR"><hi rendition="#g">Larifari,</hi></role><roleDesc> General</roleDesc></castItem><lb/>
+<castItem><role xml:id="MINNE"><hi rendition="#g">Minnewart,</hi></role><roleDesc> Minister</roleDesc></castItem><roleDesc>des Sinabal.</roleDesc></castGroup><lb/>
+<castItem><role xml:id="LUEG">Die <hi rendition="#g">Lüge,</hi> eine allegorische Person.</role></castItem><lb/>
+<castItem><role xml:id="HEROLD">Ein Herold.</role></castItem><lb/>
+<castItem><role xml:id="EINKRIEG">Ein Krieger.</role></castItem><lb/>
+<castItem><role xml:id="EINDIEN">Ein Diener.</role></castItem><lb/>
+<castItem><role xml:id="ZWESYLPI">Zwei Sylphiden.</role></castItem><lb/>
+<castItem><role xml:id="ZWESYLP">Zwei Sylphen.</role></castItem><lb/>
+<castItem><role xml:id="CHORS">Chor von Sylphen.</role></castItem><lb/>
+<castItem><role xml:id="CHORW">Chor von Weibern.</role></castItem><lb/>
+<castItem><role xml:id="CHORK_S">Chor von Kriegern und Schiffsvolk.</role></castItem><lb/>
+<pb n="[4]" facs="#f0008"/>
+<castItem><role xml:id="FEU">Feuer- und Erdgeister, Hofgesinde, Wachten,<lb/>
+Volk.</role></castItem></castList><lb/>
+<stage>(Der Schauplatz ist im Pallast und an den<lb/>
+Mauern von Samandel.)</stage><lb/>
+<pb n="[5]" facs="#f0009"/>
+<div n="1"><head>Erster Aufzug.</head><lb/>
+<div n="2"><head>Erste Scene.</head><lb/>
+<stage>Die Simphonie verklärt sich in eine süße, überirdische<lb/>
+Musik; eine Gegend mit einer weiten Aussicht auf das<lb/>
+Meer; im Vordergrunde ein einziger Palmbaum, un-<lb/>
+ter welchem <hi rendition="#g">Zelu</hi> schläft. Es lassen sich rosenfarbene<lb/>
+und andere bunte Wolken, mit Blumen umwunden,<lb/>
+langsam nieder, die Coulissen werden zu Wolken; das<lb/>
+ganze Theater ist ein einziges buntes, transparentes<lb/>
+Wolkenzimmer, worin die <hi rendition="#g">Sylphen</hi> graziöse gruppirt<lb/>
+sind.</stage><lb/>
+<sp who="#CHORS"><speaker>Chor der Sylphen.</speaker><lb/>
+<p>Aus goldnen Gefilden,<lb/>
+Aus heitern Azuren<lb/>
+Wallen wir nieder<lb/>
+Auf prangende Fluren.<lb/>
+Es schmückt sich die Erde,<lb/>
+Der Himmel erglänzt,<lb/>
+Die Wolken sind festlich<lb/>
+Mit Blumen umkränzt.<lb/>
+Die Schönheit, die Liebe,<lb/>
+Jn einigem Band,<lb/>
+<pb n="6" facs="#f0010"/>
+Schweben zur Sonne,<lb/>
+Der Sonne verwandt.<lb/>
+Jn dunkle Schachten,<lb/>
+Jns Reich der Metalle<lb/>
+Falle das Böse;<lb/>
+Es falle, es falle!</p><lb/>
+<stage>Aus den hintern Wolken steigen zwey <hi rendition="#g">Sylphen</hi> und<lb/>
+zwey <hi rendition="#g">Sylphiden.</hi> Der eine trägt ein Schwerdt, die<lb/>
+andere einen Becher; der eine einen Ring, die andere<lb/>
+einen Schlüssel.</stage></sp><lb/>
+<sp who="#ALLV"><speaker>Alle Viere.</speaker><lb/>
+<p>Festlich sind wir hier erschienen,<lb/>
+Wollen treu den Treuen dienen,<lb/>
+Daß der alte Fluch der Erde,<lb/>
+Stark bezwungen, Seegen werde.<lb/>
+Aus dem Streite nur hienieden<lb/>
+Keimet Seegen, keimet Frieden.</p></sp><lb/>
+<sp who="#SYLPI"><speaker>Die beiden Sylphiden.</speaker><lb/>
+<p>Zelu liegt hier süß im Traum,<lb/>
+Legen wir die Zauberdinge,<lb/>
+Daß er seinen Feind bezwinge,<lb/>
+Leise in den Palmbaum.</p></sp><lb/>
+<sp who="#SYLP"><speaker>Die beiden Sylphen.</speaker><lb/>
+<p>Oeffne deine Rinde<lb/>
+Und verbirg geschwinde,<lb/>
+Daß es keiner schaut,<lb/>
+Was dir anvertraut!</p><lb/>
+<pb n="7" facs="#f0011"/>
+<stage>Sie machen Zauberzeichen gegen den Palmbaum, der sich<lb/>
+öffnet, und legen, während des folgenden Recitativs, die<lb/>
+Zauberdinge hinein.</stage></sp><lb/>
+<sp who="#ERSYLPI"><speaker>Erste Sylphide.</speaker><lb/>
+<p>Seht, den Schlüssel der Erkenntniß<lb/>
+Leg&#x2018; ich hier zuerst hinein.</p></sp><lb/>
+<sp who="#ZWETSYLPI"><speaker>Zweite Sylphide.</speaker><lb/>
+<p>Haß hat diesen Kelch gefüllt;<lb/>
+Wer nicht hasset, kann nicht lieben.</p></sp><lb/>
+<sp who="#ERSYLP"><speaker>Erster Sylphe.</speaker><lb/>
+<p>Liebe sendet diesen Ring,<lb/>
+Der den tauben Schlaf bezwingt.</p></sp><lb/>
+<sp who="#ZWESYLP"><speaker>Zweiter Sylphe.</speaker><lb/>
+<p>Und dies Schwerdt, dem Keiner weicht,<lb/>
+Sey der Rache heilig Schwerdt!</p></sp><lb/>
+<sp who="#ALLV"><speaker>Alle Viere.</speaker><lb/>
+<p>Schließ nun deine Rinde,<lb/>
+Und verbirg geschwinde,<lb/>
+Daß es Keiner schaut,<lb/>
+Was dir anvertraut!</p><lb/>
+<stage>Der Baum schließt sich, die Sylphen und die Sylphiden<lb/>
+steigen wieder in die Wolken, und, indem sie abziehen,<lb/>
+der Chor, welcher nach und nach leise verhallet.</stage></sp><lb/>
+<sp who="#CHORS"><speaker>Chor der Sylphen.</speaker><lb/>
+<p>Wir kehren zurücke,<lb/>
+Zu heitern Azuren,<lb/>
+<pb n="8" facs="#f0012"/>
+Jn lichte Gefilde,<lb/>
+Auf goldne Fluren;<lb/>
+Wo leuchtend der Himmel,<lb/>
+Der bunte, erglänzt,<lb/>
+Farbigt umlaubet,<lb/>
+Mit Blumen umkränzt.<lb/>
+Die Schönheit, die Liebe,<lb/>
+Jn einigem Band,<lb/>
+Schweben zur Sonne,<lb/>
+Der Sonne verwandt.<lb/>
+Jn dunkle Schachten,<lb/>
+Jns Reich der Metalle<lb/>
+Falle das Böse;<lb/>
+Es falle, es falle!</p></sp></div><lb/>
+<div n="2"><head>Zweite Scene.</head><lb/>
+<stage>Der Schauplatz verwandelt sich, so wie der Chor schließt,<lb/>
+schnell in eine Gallerie im königlichen Schlosse. Statt<lb/>
+<hi rendition="#g">Zelu</hi> erst an einem Baume lag, liegt er an einer<lb/>
+Säule.</stage><lb/>
+<sp who="#ZEL"><speaker>Zelu.</speaker><lb/>
+<p>O' welch ein selger Traum umschwebte mich!<lb/>
+Welch himmlisch süße Klänge<lb/>
+Umhallten freundlich noch mein trunknes Ohr!<lb/>
+Welch heil&#x2018;ger Chor eröffnete mir leise<lb/>
+Der Zukunft ehrne fest verschloßne Pforte;<lb/>
+Dein heil&#x2018;ges Priesteramt hier in Samandel.<lb/>
+<pb n="9" facs="#f0013"/>
+So stand es da auf Wolken,<lb/>
+Mit Feuerzeichen glänzend eingeprägt &#x2014;<lb/>
+Dies Priesteramt, es soll die letzte seyn<lb/>
+All deiner Prüfungen.<lb/>
+Jns goldne Land des Frühlings kehrst du wieder,<lb/>
+Kehrst selig in das Geisterreich zurück,<lb/>
+Aus dem dich Liebe zu der Erde führte;<lb/>
+Doch Sinabal, den mächt&#x2018;gen Zaubermohren,<lb/>
+Mußt du bezwingen erst,<lb/>
+Sühnend muß Osmar erst sein Leben lassen,<lb/>
+Eh seine Tochter sich erheben darf. &#x2014;<lb/>
+Zobea! wirst den Schlingen du entgehen,<lb/>
+Die Quaal ertragen können,<lb/>
+Dem dunkeln Labyrinthe dich entwinden?</p></sp><lb/>
+<sp who="#ARIE"><speaker>Arie.</speaker><lb/>
+<p>Leitet sie ihr Himmelswesen,<lb/>
+Durch die enge Dornenpfade;<lb/>
+Denn ihr habt sie ja erlesen,<lb/>
+Daß sie nach dem Prüfungsbade,<lb/>
+Jn dem Reiche eurer Gnade<lb/>
+Neu belebt, genesen soll.</p></sp></div><lb/>
+<div n="2"><head>Dritte Scene.</head><lb/>
+<p>Zobea. Zelu.</p><lb/>
+<sp who="#ZOBE"><speaker>Zobea.</speaker><lb/>
+<p>Vergebens harrt ich deiner in dem Tempel;<lb/>
+Jch suchte dich, geheim mit dir zu sprechen &#x2014;</p></sp><lb/>
+<pb n="10" facs="#f0014"/>
+<sp who="#ZEL"><speaker>Zelu.</speaker><lb/>
+<p>Wenn mir Zobea, meines Kaisers Braut,<lb/>
+Etwas Geheimes zu entdecken hat,<lb/>
+So kann es ohne Zeugen hier geschehen,<lb/>
+Jn diesem abgelegnen Säulengang.</p></sp><lb/>
+<sp who="#ZOBE"><speaker>Zobea.</speaker><lb/>
+<p>Jch fordre deine priesterliche Hülfe<lb/>
+Bei einem Vorfall, der mein Herz beängstet.<lb/>
+Es ist ein Traum, den schon seit vielen Nächten<lb/>
+Jch immer wieder träume &#x2014;<lb/>
+Ein weiblich hohes Wesen,<lb/>
+Gehüllt in Purpurnebel,<lb/>
+Erscheint mir jedesmal<lb/>
+Und fasset meine Hände,<lb/>
+Und netzt sie heiß mit Thränen,<lb/>
+Und spricht die herben Worte:<lb/>
+Du armes Kind der Liebe,<lb/>
+Morgen begehen sie dein Hochzeitfest,<lb/>
+Der Mond geht Morgen auf!<lb/>
+Er wird zu bald nur wieder untergehn.<lb/>
+Du arme, arme königliche Braut! &#x2014;<lb/>
+Jch bitte dich, du Zukunft schauender,<lb/>
+Dies räthselhafte Träumen mir zu deuten.</p></sp><lb/>
+<sp who="#ZEL"><speaker>Zelu.</speaker><lb/>
+<p>Erst frag ich dich, hat Osmar, Ormus König,<lb/>
+Dein Vater, außer dir noch andre Kinder?</p></sp><lb/>
+<pb n="11" facs="#f0015"/>
+<sp who="#ZOBE"><speaker>Zobea.</speaker><lb/>
+<p>Es nennt sich meine ältre Schwester Fatme;<lb/>
+Saadi, der Prinz von Zamar, ist ihr Gatte;<lb/>
+Almansor ist der Name meines Bruder.<lb/>
+Nicht längst war mit der liebenswürdigen<lb/>
+Dilara er verlobt:<lb/>
+Als eine Schreckensthat<lb/>
+Mein väterliches Haus in Aufruhr brachte.<lb/>
+Von Räubern wurde Fatme, meine Schwester,<lb/>
+Wurde Dilara, meines Bruders Braut,<lb/>
+Jn einer Nacht entführt.<lb/>
+Seit achtzehn Monden suchen jetzt Almansor<lb/>
+Und Saadi die Geliebten,<lb/>
+Und noch nicht waren sie zurück, als ich<lb/>
+Des Vaters Reich verließ.</p></sp><lb/>
+<sp who="#ZEL"><speaker>Zelu</speaker><stage>(bedeutend.)</stage><lb/>
+<p>Zobea! liebst du dieses Landes König?</p></sp><lb/>
+<sp who="#ZOBE"><speaker>Zobea.</speaker><lb/>
+<p>Jch lieb' ihn, wie mich selbst,<lb/>
+Jhm hab' ich mich verlobt.<lb/>
+Wie seltsam fragst du mich?</p></sp><lb/>
+<sp who="#ZEL"><speaker>Zelu</speaker><stage>(bei Seite.)</stage><lb/>
+<p>Weh! Unglückselge Dir!<lb/>
+<stage>(laut.)</stage><lb/>
+Wo sahst du ihn zuerst?<lb/>
+Wie kamst du von dem fern gelegnen Ormus?<lb/>
+Erzähle mir, wie kamst du nach Samandel?</p></sp><lb/>
+<pb n="12" facs="#f0016"/>
+<sp who="#ZOBE"><speaker>Zobea.</speaker><lb/>
+<p>Dein heilig stilles Wesen,<lb/>
+Es flößet seltsam mir Vertrauen ein,<lb/>
+Dem ich nicht widerstehe.<lb/>
+Du zwingest mir ein tief verborgenes<lb/>
+Geheimniß ab. &#x2014; So höre:</p><lb/>
+<p>Hoch auf einem steilen Felsen<lb/>
+Steht in Ormus unser Pallast,<lb/>
+Und bis zu des Meeres Ufern<lb/>
+Dehnet sich sein bunter Garten.</p><lb/>
+<p>Eine stille Bucht umschließt er<lb/>
+Mit den blumigen Terrassen,<lb/>
+Die im Kreise hoch erglänzen,<lb/>
+Wie des Regenbogens Farben.</p><lb/>
+<p>Laue Luft nur wallet leise<lb/>
+Auf dem lichten Wasserplane,<lb/>
+Dessen helle stille Wellen<lb/>
+Nimmer mit dem Sturme rangen.</p><lb/>
+<p>Dort am Ufer in den Blumen<lb/>
+Saß ich singend eines Tages;<lb/>
+Es begleitete die Zofe<lb/>
+Den Gesang mit ihrer Harfe.</p><lb/>
+<p>Jn die Ferne blickt' ich sehnlich<lb/>
+Hin nach unbekannten Landen;<lb/>
+<pb n="13" facs="#f0017"/>
+Jn die Ferne, in die Weite<lb/>
+Schweiften Augen und Gedanken;</p><lb/>
+<p>Da trieb auf den stillen Fluthen<lb/>
+Sanft entgegen uns ein Nachen,<lb/>
+Leuchtend Gold, die Masten Silber-<lb/>
+Reich geschmückt, mit grünen Flaggen.</p><lb/>
+<p>Keine Seele war darinnen,<lb/>
+Niemand, der die Fahrt bewachte;<lb/>
+Steuer, Ruderbank und Seegel<lb/>
+Standen schauerlich verlassen.</p><lb/>
+<p>Also dicht zu unsern Füßen<lb/>
+Landete die goldne Barke,<lb/>
+Und es schienen Flagg' und Wimpel<lb/>
+Winkend uns hinein zu laden.</p><lb/>
+<p>Wie von fremder Macht getrieben,<lb/>
+Wie gezwungen, wie gebannet,<lb/>
+Sprangen wir ins Schiff hinunter,<lb/>
+Freude bebend vor Verlangen.</p><lb/>
+<p>Und mit kindisch süßem Staunen<lb/>
+Faßten wir die seidnen Flaggen,<lb/>
+Faßten bald die Silberruder,<lb/>
+Bald des Bordes bunte Arbeit.</p><lb/>
+<p>Schauten uns in Demantspiegeln,<lb/>
+Die an goldnen Wänden prangten,<lb/>
+<pb n="14" facs="#f0018"/>
+Schmückten uns mit reichen Kleidern,<lb/>
+Die wir in den Schränken fanden.</p><lb/>
+<p>Fest am Ufer stand das Fahrzeug,<lb/>
+Konnte weichen nicht vom Strande;<lb/>
+Denn es hing, an festen Tauen,<lb/>
+Jn das Meer hinab ein Anker.</p><lb/>
+<p>Also schien es: doch als wieder<lb/>
+Aus dem Kahn ans Land wir traten,<lb/>
+Kannten wir nicht mehr die Gegend,<lb/>
+Waren plötzlich in Samandel.</p></sp><lb/>
+<sp who="#ZEL"><speaker>Zelu.</speaker><lb/>
+<p>Jst dir sonst nichts begegnet,<lb/>
+Nichts, eh' du diese Königsstadt betratest?</p></sp><lb/>
+<sp who="#ZOBE"><speaker>Zobea.</speaker><lb/>
+<p>Wir bestiegen schon die Brücke,<lb/>
+Die mit hohen Marmorbogen<lb/>
+Mächtig durch die Fluthen schreitet,<lb/>
+Führend nach dem Säulenthore,</p><lb/>
+<p>Da kam seltsam eine Heerde<lb/>
+Bunter Thiere angezogen,<lb/>
+Blau und weiß, und rosenfarben,<lb/>
+Huf und Hörner waren golden.</p><lb/>
+<p>Um uns hergedrängt im Kreise<lb/>
+Hatten sie uns eingeschlossen,<lb/>
+<pb n="15" facs="#f0019"/>
+Schienen liebreich uns zu sagen:<lb/>
+Geht nicht in Samandels Thore.</p><lb/>
+<p>Doch ein Zwerg, der sie bewachte,<lb/>
+Trieb sie aus einander drohend,<lb/>
+Führte stumm uns durch die Straßen,<lb/>
+Bis zu dieses Pallasts Pforten.</p><lb/>
+<p>Hier im königlichen Schmucke,<lb/>
+Und mit glänzendem Gefolge,<lb/>
+Stand der Kaiser mich erwartend,<lb/>
+Setzte mir auf's Haupt die Krone.</p></sp><lb/>
+<sp who="#ZEL"><speaker>Zelu.</speaker><lb/>
+<p>Und dennoch liebst du dieses Landes König?</p></sp><lb/>
+<sp who="#ZOBE"><speaker>Zobea.</speaker><lb/>
+<p>Ein unbegreiflich, unbezwingbar Sehnen<lb/>
+Zieht heiß mich nach ihm hin.<lb/>
+Jch lieb' ihn, wie mich selbst!<lb/>
+O frage mich nicht mehr; denn wiss': dein<lb/>
+Fragen,<lb/>
+Es ängstigt mich so sonderbar gewaltig,<lb/>
+Daß ich im tiefsten vor mir selbst erbebe.</p></sp><lb/>
+<sp who="#ZEL"><speaker>Zelu.</speaker><lb/>
+<p>Es nahet diesen Ufern eine Flotte!</p></sp><lb/>
+<sp who="#ZOBE"><speaker>Zobea.</speaker><lb/>
+<p>Jch hab es sagen hören!</p></sp><lb/>
+<sp who="#ZEL"><speaker>Zelu.</speaker><lb/>
+<p>Und Osmar, Ormus König führt sie an.<lb/>
+Erwarte deinen Vater!</p></sp><lb/>
+<pb n="16" facs="#f0020"/>
+<sp who="#ZOBE"><speaker>Zobea.</speaker><lb/>
+<p>Mein Vater kömmt? hab Dank du frommer<lb/>
+Priester!<lb/>
+Welch eine frohe Bothschaft bringst du mir!</p></sp><lb/>
+<sp who="#ZEL"><speaker>Zelu.</speaker><lb/>
+<p>Dein Vater kömmt als Feind in dieses Land,<lb/>
+Als Feind des Sinabel.</p></sp><lb/>
+<sp who="#ZOBE"><speaker>Zobea.</speaker><lb/>
+<p>Als Feind? Was will er von dem theuern Manne,<lb/>
+Dem ich so treu ergeben,<lb/>
+Der mich so innig, der mich so herzlich liebt?</p></sp><lb/>
+<sp who="#ZEL"><speaker>Zelu.</speaker><lb/>
+<p>Du glaubst, er liebe dich?</p></sp><lb/>
+<sp who="#REC"><speaker>Recitativ.</speaker><lb/>
+<p>Zittre Unglückliche!<lb/>
+Es ist die Zeit gekommen,<lb/>
+Dich deines Wahnsinns zu entreißen,<lb/>
+Der dich in jammervollen Banden &#x2014;<lb/>
+Weh dir! weh mir! &#x2014;<lb/>
+Gefangen hält.<lb/>
+Weißt du, in welches Ungeheuers Macht,<lb/>
+Arme Zobea, du gefallen?<lb/>
+Weißt du, welch schreckliches Geschick<lb/>
+Dich mit der nächsten Morgensonn erwartet?<lb/>
+Zittre Unglückliche!<lb/>
+Und höre mich an<lb/>
+Und glaube meinen Worten.</p></sp><lb/>
+<fw type="catch" place="bottom">Arie.</fw><lb/>
+<pb n="17" facs="#f0021"/>
+<sp who="#ARIE"><speaker>Arie.</speaker><lb/>
+<p>Mir dem frommen Priester glaube,<lb/>
+Der schon oft um dich geweint;<lb/>
+Sonst verloren bist du wahrlich,<lb/>
+Eh' der Morgen noch erscheint.<lb/>
+Sinabal mit schwarzem Zauber<lb/>
+Hat sich listig dir vereint.<lb/>
+Wehe dir! er wird dein Gatte,<lb/>
+Und darum dein größter Feind.<lb/>
+Diesem Räthsel mußt du glauben,<lb/>
+Wenn du willst gerettet seyn.<lb/>
+Hüllet sich doch rings die Schöpfung<lb/>
+Dir in dunkle Räthsel ein.<lb/>
+Hoffe, ringe, glaube, liebe;<lb/>
+Aber sei auch hart wie Stein:<lb/>
+Denn nur Muth, und Kraft und Liebe<lb/>
+Rettet dich von ew'ger Pein.</p></sp><lb/>
+<sp who="#ZOBE"><speaker>Zobea.</speaker><lb/>
+<p>Welch unglückseel'ger Tag ist drohend heut<lb/>
+Mir über meinem Haupte aufgegangen?<lb/>
+Ehrwürd'ger Priester, ich beschwöre dich!<lb/>
+O martre nicht noch länger<lb/>
+Dies angsterfüllte Herz.<lb/>
+Sprich, halte Worte nicht bedächtig auf,<lb/>
+Die, gleich dem Blitzstrahl, zündend und ver-<lb/>
+löschend,<lb/>
+Aus meines Glückes süßem Traum mich schrecken.<lb/>
+<pb n="18" facs="#f0022"/>
+Löse die dunkeln Räthsel mir; ich will<lb/>
+Die Wahrheit sehn, und müßt' ich auch ver-<lb/>
+zweifeln.</p></sp><lb/>
+<sp who="#ZEL"><speaker>Zelu.</speaker><lb/>
+<p>Du sollst sie sehn, sonst würdest du verzweifeln.<lb/>
+Wisse, daß dein Verlobter<lb/>
+Ein Fürst der unterirdisch bösen Geister,<lb/>
+Ein schwarzer Zaubrer ist.<lb/>
+Aus der Umarmung roher Elemente<lb/>
+Jm Mittelpunkt der Erd' ist er entsprossen,<lb/>
+Und roh sind seine zügellosen Lüste.<lb/>
+Du bist die tausendste<lb/>
+Von jenen unglückseel'gen Fürstinnen,<lb/>
+Die in des Wilden Liebesnetz gefallen &#x2014;<lb/>
+Die armen büßen schrecklich ihre Schuld;<lb/>
+Denn länger nie, als neun und zwanzig Tage<lb/>
+Währt dieses Ungeheuers Wollustrausch.<lb/>
+Sobald des Mondes volle Silberscheibe<lb/>
+Am Himmel wieder prangt,<lb/>
+Sobald folgt Haß, und Eckel der Begierde.<lb/>
+Jn rohe Thiere wandelt er die armen,<lb/>
+Die unglückseel'gen Frauen,<lb/>
+Nachdem er sie durch schwarze Zauberkunst<lb/>
+Sich ihm zu geben zwang.<lb/>
+Du sahest sie, die Heerde war es, die<lb/>
+Dein Schicksal ahnend, dir<lb/>
+Den Eintritt in die Stadt verwehren wollte &#x2014;<lb/>
+Ein gleiches Schreckens-Schicksal wartet dein.</p></sp><lb/>
+<pb n="19" facs="#f0023"/>
+<sp who="#ZOBE"><speaker>Zobea.</speaker><lb/>
+<p>Weh' Unglückseel'ge mir!</p></sp><lb/>
+<sp who="#ZEL"><speaker>Zelu.</speaker><lb/>
+<p>Noch weißt du alles nicht.<lb/>
+Jn jener Höle dort, in welche dir<lb/>
+Der Eingang streng verboten,<lb/>
+Liegt eingekerkert die verlorne Schwester,<lb/>
+Sammt deines Bruders Braut. &#x2014;<lb/>
+Mit tausend andern unglückseel'gen Weibern<lb/>
+Erleiden sie dort unerhörte Quaalen,<lb/>
+Weil sie, ihr treues Herz vorher verschenkt,<lb/>
+Dem Wüthrich widerstanden.</p></sp><lb/>
+<sp who="#ZOBE"><speaker>Zobea.</speaker><lb/>
+<p>Zelu, es ist nicht recht,<lb/>
+Daß du mir den Verlobten, deinen König,<lb/>
+Verdächtig machen willst;<lb/>
+Daß du, ein Gott geweihter, hoher Priester,<lb/>
+Der Zwietracht Saamen streust &#x2014;<lb/>
+Auch würd' ich streng die Frevelworte rächen,<lb/>
+Wenn eine heimlich heil'ge Stimme nicht<lb/>
+Jn meinem Jnnern tönte,<lb/>
+Die mir befiehlt, daß ich dir trauen soll.</p></sp><lb/>
+<sp who="#ZEL"><speaker>Zelu.</speaker><lb/>
+<p>Gehorche dieser Stimme deines Herzens,<lb/>
+Sie ist es einzig, die dich retten kann.<lb/>
+Jch lasse dich allein &#x2014;<lb/>
+Bedenke, daß ich Wahrheit dir verkündet;<lb/>
+<pb n="20" facs="#f0024"/>
+Und wenn du mein bedarfst,<lb/>
+Du findest, mich im Vorhof bei der Palme.</p><lb/>
+<stage>(ab.)</stage></sp></div><lb/>
+<div n="2"><head>Vierte Scene.</head><lb/>
+<sp who="#ZOBE"><speaker>Zobea</speaker><stage>(allein.)</stage><lb/>
+<p>Verwirrt, erstaunt, voll Liebe und Entsetzen<lb/>
+Weiß ich nicht mehr, was ich beginnen soll.</p><lb/>
+<p>Sanft entschwand mir sonst das Leben,<lb/>
+Sanft, in seelig süßer Lust.<lb/>
+Nur der Kindheit Frühlings- Wonne<lb/>
+Kannte damals meine Brust,<lb/>
+Rosen umwunden,<lb/>
+Ein ewiger May,<lb/>
+Schwebten die Stunden<lb/>
+Lieblich herbey.</p><lb/>
+<p>Doch aus diesem schönen Traume<lb/>
+Hat man lieblos mich geschreckt,<lb/>
+Quaalen, die ich nie geahnet,<lb/>
+Mir im Busen aufgeweckt.<lb/>
+Schlangen umwunden<lb/>
+Erbebt mir das Herz,<lb/>
+Leidend verbunden<lb/>
+Bleib' ich dem Schmerz.</p><lb/>
+<stage>(ab.)</stage></sp></div><lb/>
+<pb n="21" facs="#f0025"/>
+<div n="2"><head>Fünfte Scene.</head><lb/>
+<stage>Königlicher Vorhof. Vorn eine prächtige Fontaine. Jm<lb/>
+Hintergrunde an einem Felsen eine Pforte mit eisernen<lb/>
+Thüren. Ein Tieger und ein Löwe an Ketten, als Wa-<lb/>
+chen vor dem Eingange. Der Fontaine gegenüber der<lb/>
+Palmbaum aus der ersten Scene.</stage><lb/>
+<p>Sinabal. Minnewart. Larifari.</p><lb/>
+<sp who="#SIN"><speaker>Sinabal.</speaker><lb/>
+<p>Hab' ich euch darum über Land und Meer<lb/>
+aus dem fernen Westen, auf den Flügeln<lb/>
+dienstbarer Elemente hierher berufen?</p></sp><lb/>
+<sp who="#MINNE"><speaker>Minnewart</speaker><stage>(sich bückend.)</stage><lb/>
+<p>Es ist wahr, Jhro Majestät &#x2014;</p></sp><lb/>
+<sp who="#SIN"><speaker>Sinabal.</speaker><lb/>
+<p>Schweigt! Die Kultur eures berühmten Welt-<lb/>
+theils wollt' ich durch euch hierher verpflan-<lb/>
+zen &#x2014; aber ich habe mich an Nichtswürdi-<lb/>
+ge verwendet, die meine kaiserliche gute Wil-<lb/>
+lensmeinung zu nichte machen &#x2014;</p></sp><lb/>
+<sp who="#MINNE"><speaker>Minnewart.</speaker><lb/>
+<p>Es ist wahr, Jhro Majestät; aber in etwas<lb/>
+blühen doch schon die Künste und Wissen-<lb/>
+schaften unter Dero schwarzen Unterthanen;<lb/>
+Fabriken und Schulen sind gleichfalls ange-<lb/>
+legt, so wie denn auch die Flotte, und die<lb/>
+Miliz bereits beträchtlich verstärkt worden<lb/>
+sind.</p></sp><lb/>
+<pb n="22" facs="#f0026"/>
+<sp who="#SIN"><speaker>Sinabal.</speaker><lb/>
+<p>Jch bin unzufrieden mit euch; es gehen eure<lb/>
+Einrichtungen einen trägen Gang.</p></sp><lb/>
+<sp who="#MINNE"><speaker>Minnewart.</speaker><lb/>
+<p>Es ist wahr, Jhro Majestät; aber wir müs-<lb/>
+sen doch auch die äußern Verhältnisse be-<lb/>
+denken. &#x2014; Würden wir nicht durch eine zu<lb/>
+schnelle Kultur unsre Nachbarn aufmerksam<lb/>
+auf uns machen, und sie zum Neide und<lb/>
+zum Kriege reizen? Geht aber die Bildung<lb/>
+ihren gewöhnlichen, langsamen Weg, so mer-<lb/>
+kens die fremden Mächte kaum, daß wir wei-<lb/>
+ter kommen, und lassen uns ungestört unser<lb/>
+Wesen treiben.</p></sp><lb/>
+<sp who="#SIN"><speaker>Sinabal.</speaker><lb/>
+<p>Unwesen wird in meinem Reich getrieben.<lb/>
+Die Zügellosigkeit des Volks, der Luxus un-<lb/>
+ter den Großen nehmen täglich zu; die Stra-<lb/>
+se des Himmels kann nicht ausbleiben.</p></sp><lb/>
+<sp who="#MINNE"><speaker>Minnewart.</speaker><lb/>
+<p>Es ist wahr, Jhro Majestät; aber mein gnä-<lb/>
+digster Kaiser sollte sich nicht um jede Klei-<lb/>
+nigkeit so sehr beunruhigen. Sie sind zu<lb/>
+gottesfürchtig, zu weise, zu übernatürlich gut<lb/>
+gesinnt. Die Geschichtschreiber, die ihre Tha-<lb/>
+ten aufzeichnen, wird man gewiß einmal für<lb/>
+Lügner halten, wenn sie so <hi rendition="#g">erschrecklich</hi><lb/>
+viel Gutes von Jhnen erzählen.</p></sp><lb/>
+<pb n="23" facs="#f0027"/>
+<sp who="#LAR"><speaker>Larifari</speaker><stage>(für sich.)</stage><lb/>
+<p>Er hat recht, ein Minister muß schmeicheln,<lb/>
+aber ich bin General, ich muß sagen: Pfui,<lb/>
+wer wird schmeicheln; ich brumme Etwas<lb/>
+unverständliches zwischen den Zähnen, und<lb/>
+mache eine barsche Reverenz.</p><lb/>
+<stage>(Er bückt sich.)</stage></sp><lb/>
+<sp who="#SIN"><speaker>Sinabal.</speaker><lb/>
+<p>Die Strafe des Himmels bleibt nicht aus.<lb/>
+Es nahet diesen Ufern eine Flotte, und mei-<lb/>
+ner Hauptstadt drohet eine Belagerung.<lb/>
+Gehe General, mache alle Zurüstungen, die<lb/>
+Stadt, besonders aber die Küsten zu verthei-<lb/>
+digen, damit der Feind nicht landen möge.</p></sp><lb/>
+<sp who="#LAR"><speaker>Larifari.</speaker><lb/>
+<p>Landen wollen sie? ha, ha, ha, ha, landen!<lb/>
+ha, ha, daß ist ja ein wahrer Unsinn, hier<lb/>
+landen, ha, ha, ha, ha, Jch gehe, Jhro<lb/>
+Majestät Befehle zu vollziehen, landen, hier<lb/>
+landen, ha, ha, landen!</p><lb/>
+<stage>(ab.)</stage></sp><lb/>
+<sp who="#SIN"><speaker>Sinabal.</speaker><lb/>
+<p>Und du, Minister, gehe und befehle denen<lb/>
+Derwischen und Talismanen, daß sie auf die<lb/>
+Kuppeln der Tempel steigen, und das Volk<lb/>
+zu frommen Gebeten zusammen rufen; ich<lb/>
+hoffe alles von dem Himmel.</p></sp><lb/>
+<pb n="24" facs="#f0028"/>
+<sp who="#MINNE"><speaker>Minnewart.</speaker><lb/>
+<p>Erster Monarch aller Schwarzen Lassen Sie<lb/>
+mich Jhre Ebenfüße küssen, und Jhre gottes-<lb/>
+fürchtigen Gebote vollstrecken.</p><lb/>
+<stage>(ab.)</stage></sp></div><lb/>
+<div n="2"><head>Sechste Scene.</head><lb/>
+<p>Sinabal allein, nacher Papagena.</p><lb/>
+<sp who="#SIN"><speaker>Sinabal.</speaker><lb/>
+<p>Verwegner Osmar, wie, du willst es wagen,<lb/>
+Mit Sinabal zu streiten?<lb/>
+Willst deine Tochter mir, mein Eigenthum,<lb/>
+Willst sie entreissen mir mit deinen Waffen,<lb/>
+Mit niedern Erdenwaffen! &#x2014;<lb/>
+Umsonst, ich lache dein &#x2014;<lb/>
+Eh' dieses Landes Küste du erreichest,<lb/>
+Zieht der Magnetenfels,<lb/>
+Den ich in deinen Weg dir hingepflanzt,<lb/>
+Das Eisenwerk aus deinen Kriegesschiffen,<lb/>
+Auf daß sie all in Trümmern untergehn.<lb/>
+Es bleiben Fatme und Dilara <hi rendition="#g">hier</hi><lb/>
+Bleiben gemartert, bis sie sich bekehren;<lb/>
+Und für Zobea wird<lb/>
+Jn ihrer Gegenwart, wie es geboten,<lb/>
+Noch diese Nacht der Zaubertrank bereitet,<lb/>
+Der mich nach Monatsfrist von ihr befreiet. &#x2014;<lb/>
+<pb n="25" facs="#f0029"/>
+<stage>(Papagena läuft über das Theater.)</stage><lb/>
+Papagena!</p></sp><lb/>
+<sp who="#PAP"><speaker>Papagena.</speaker><lb/>
+<p>Herr!</p></sp><lb/>
+<sp who="#SIN"><speaker>Sinabal.</speaker><lb/>
+<p>Wo ist Zobea.</p></sp><lb/>
+<sp who="#PAP"><speaker>Papagena.</speaker><lb/>
+<p>Sie ging, ihren erhabenen Gatten aufzusuchen.</p></sp><lb/>
+<sp who="#SIN"><speaker>Sinabal.</speaker><lb/>
+<p>Geh, sage ihr, sie soll sich nicht betrüben,<lb/>
+wenn sie mein Heer sich gegen ihren Vater rü-<lb/>
+sten sieht; sie soll versichert seyn, daß nur ge-<lb/>
+zwungen es geschehen müsse, daß ich es nicht<lb/>
+an Güte, nicht an Nachsicht würde fehlen<lb/>
+lassen, um diesem Unglücksstreite zu entgehen.</p></sp><lb/>
+<sp who="#PAP"><speaker>Papagena.</speaker><lb/>
+<p>Wie gnädig ist mein Herr, der Kaiser!</p></sp><lb/>
+<sp who="#SIN"><speaker>Sinabal.</speaker><lb/>
+<p>Geh gutes Mädchen, warne sie, &#x2014; es hat<lb/>
+ein giftiger Lügner ihren Vater betrügerisch<lb/>
+hieher gelockt. Derselbe sucht vielleicht, auch<lb/>
+sie zu hintergehn; sie soll sich hüten vor dem<lb/>
+neidischen Verläumder, der meiner Gattin<lb/>
+Liebe, der meines Lebens einzigen Trost mir<lb/>
+rauben will.</p><stage>(ab.)</stage></sp><lb/>
+<sp who="#PAP"><speaker>Papagena</speaker><stage>(allein.)</stage><lb/>
+<p>Ach was das für ein guter, liebenswürdiger,<lb/>
+<pb n="26" facs="#f0030"/>
+niedlicher Kaiser ist! man merkts kaum, daß<lb/>
+er schwarz ist. Er ist auch eigentlich nur<lb/>
+bräunlich &#x2014; Zobea ist sehr glücklich! <stage>(seufzend.)</stage><lb/>
+aber ich &#x2014; es ist doch recht unbarmherzig<lb/>
+von den Göttern &#x2014; ich bin in meinem Le-<lb/>
+ben nicht recht glücklich gewesen. Was hab<lb/>
+ich nicht alles leiden müssen! als Papageno<lb/>
+noch beim Prinzen Tamino war, welche Sehn-<lb/>
+sucht hab ich nicht unter der Erde als altes<lb/>
+Mütterchen ausstehen müssen, und nach der<lb/>
+Hochzeit? &#x2014; Ärger und Langeweile, &#x2014; &#x2014;<lb/>
+und nun ich von Papageno getrennt bin,<lb/>
+muß ich <hi rendition="#g">doch</hi> wieder traurig seyn, daß mein<lb/>
+gefiederter Gatte nicht bei mir ist!</p><lb/>
+<p>Nein, nein, Nichts ist betrübter,<lb/>
+Als wenn man <hi rendition="#g">einsam</hi> liebt;<lb/>
+Und stets wird man verliebter,<lb/>
+Je mehr man sich betrübt.<lb/>
+Drum muß ich hier wohl traurig seyn,<lb/>
+Wo ich so hülflos, so allein<lb/>
+Das liebe, liebe Lieben<lb/>
+So lange muß verschieben.</p><lb/>
+<p>Als Papageno eh'lich<lb/>
+Zu Haus stets um mich war,<lb/>
+Ward er mir unausstehlich<lb/>
+Noch vor dem ersten Jahr.<lb/>
+Doch nun ein Zauber ihn mir stahl,<lb/>
+<pb n="27" facs="#f0031"/>
+Nun wein ich um den Eh'gemahl,<lb/>
+Und muß mich wahrlich schämen,<lb/>
+Mich so verliebt zu grämen.</p><lb/>
+<p>Ja, ja, nichts ist betrübter,<lb/>
+Als wenn man ruhig liebt;<lb/>
+Doch der wird stets verliebter,<lb/>
+Den liebend man betrübt.<lb/>
+Drum quälet jedes gute Weib<lb/>
+Den Ehgemahl zum Zeitvertreib<lb/>
+Aus Furcht, daß Langeweile<lb/>
+Des Herzenswunden heile.</p><lb/>
+<stage>(ab.)</stage></sp></div><lb/>
+<div n="2"><head>Siebente Scene.</head><lb/>
+<p>Zelu. Sinabal.</p><lb/>
+<sp who="#SIN"><speaker>Sinabal.</speaker><lb/>
+<p>Den Göttern heil'ger Priester,<lb/>
+Du kennest die Gefahren,<lb/>
+Die sich um mich, gleich Wetterwolken, sam-<lb/>
+meln.</p><lb/>
+<p>O flehe zu dem Himmel, der dich liebt,<lb/>
+Für deines Königs, und des Landes Wohl-<lb/>
+fahrt.</p><lb/>
+<p>Köstliche Schätze sind für dich bereitet,<lb/>
+Ein Lohn für deine Treue.</p></sp><lb/>
+<pb n="28" facs="#f0032"/>
+<sp who="#ZEL"><speaker>Zelu.</speaker><lb/>
+<p>Jch bin, o Fürst! am Abend meines Lebens,<lb/>
+Wo man der Erdengüter nicht bedarf.<lb/>
+Mein Schatz sind meine Jahre,<lb/>
+Die näher mich der Ewigkeit gebracht.</p></sp><lb/>
+<sp who="#SIN"><speaker>Sinabal.</speaker><lb/>
+<p>Wie weise sprichst du, und wie gottesfürchtig!<lb/>
+Es rühret mich dein heiliges Gemüth.</p></sp><lb/>
+<sp who="#ZEL"><speaker>Zelu.</speaker><lb/>
+<p>Wozu die frommen Worte, Sinabal?<lb/>
+Wozu die Lügenkünste gegen mich?<lb/>
+Laß mich dein grausam hartes Herz erweichen,<lb/>
+Laß mich das Gute von dem Bösen hoffen!<lb/>
+Die unglückseelige Zobea rette!<lb/>
+Und meinen König will ich treu verehren.</p></sp><lb/>
+<sp who="#SIN"><speaker>Sinabal.</speaker><lb/>
+<p>Du kränkst mich, Zelu, wenn du glauben<lb/>
+kannst,<lb/>
+Daß Frevel je in meinem Herzen keimte,<lb/>
+Daß ich die heißgeliebte &#x2014; &#x2014;</p></sp><lb/>
+<sp who="#ZEL"><speaker>Zelu.</speaker><lb/>
+<p>Du mühest dich umsonst,<lb/>
+Du kannst mich nimmer täuschen, Sinabal.<lb/>
+Meinst du, ich wüßte nicht<lb/>
+Welch grause Unthat jene Felsenhöle<lb/>
+Jn ihrem Schooße birgt?<lb/>
+Jch sah beim Vollmondschein<lb/>
+Dich, in vergangner Nacht, in wilder Wüste<lb/>
+<pb n="29" facs="#f0033"/>
+Die giftigen Kräuter pflücken,<lb/>
+Die du zu jenem Zaubertrank gebrauchest,<lb/>
+Der deine künft'ge Gattin<lb/>
+Ach! in ein rohes Thier verwandeln soll.<lb/>
+Hast du der Treue Schwur so bald vergessen?</p></sp><lb/>
+<sp who="#SIN"><speaker>Sinabal.</speaker><lb/>
+<p>Jm Traume sprichst du alter, eitler Priester,<lb/>
+Und wagst, argwöhnisch kühn mit mir zu<lb/>
+rechten!</p><lb/>
+<p>Jch weiß, was ich der Gattin schuldig bin,<lb/>
+Und werde meine Schwüre nicht vergessen;<lb/>
+Allein auch du vergiß,<lb/>
+Vergiß es nie, daß du mit deinem Herrn,<lb/>
+Mit deinem Kaiser sprichst,<lb/>
+Der deine Frechheit strafen kann &#x2014; und wird!</p></sp><lb/>
+<sp who="#ARIE"><speaker>Arie.</speaker><lb/>
+<p>Mein Wesen kennet keine Schranken,<lb/>
+Jn diesem Reich herrsch' ich allein.<lb/>
+Des Kaisers Wille und Gedanken<lb/>
+Sie sollen euch Gesetze seyn.<lb/>
+Wer's wagt, die beschlossenen Thaten zu richten,<lb/>
+Den werd' ich, ein Wurm in dem Staube, zer-<lb/>
+nichten. &#x2014;</p><lb/>
+<p>Bedenke dieß, du frecher Sclave,<lb/>
+Und reize mich zur Rache nicht;<lb/>
+Denn harte, unerhörte Strafe<lb/>
+Trifft solchen kühnen Bösewicht.<lb/>
+<pb n="30" facs="#f0034"/>
+Noch bin ich hier Meister,<lb/>
+Beherrsche die Geister,<lb/>
+Sie kommen gerufen,<lb/>
+Auf feurigen Stufen,<lb/>
+Aus dunkeln Hölen,<lb/>
+Zu meinen Befehlen.<lb/>
+Noch trag' ich die Krone,<lb/>
+Jch strafe, ich lohne,<lb/>
+Jch wäg', ich richte,<lb/>
+Jch schaff', ich zernichte,<lb/>
+Jch stürze, ich hebe &#x2014;<lb/>
+Sclav' erbebe!</p><lb/>
+<stage>(ab.)</stage></sp><lb/>
+<sp who="#ZEL"><speaker>Zelu</speaker><stage>(allein.)</stage><lb/>
+<p>Verworfner geh! noch hast du nicht gesiegt.<lb/>
+Je mehr du kühn dich zeigest,<lb/>
+Je mehr entflammst du meinen heilgen Muth,<lb/>
+Ja, unglückseelige Zobea, ja,<lb/>
+Jch will, ich muß dich retten.<lb/>
+Jch will von deinem Haupt den Schleyer reißen,<lb/>
+Den Zauberkünste über dich geworfen,<lb/>
+Von dieser Liebe soll dich Liebe heilen,<lb/>
+Und in die Reiche reicher Liebe leiten. &#x2014;</p></sp></div><lb/>
+<pb n="31" facs="#f0035"/>
+<div n="2"><head>Achte Scene.</head><lb/>
+<p>Zelu. Zobea.</p><lb/>
+<sp who="#ZEL"><speaker>Zelu.</speaker><lb/>
+<p>Sie kömmt. &#x2014; Jch harre deiner hier, Zobea,<lb/>
+Jch weiß, daß deiner zweifelnd bangen Seele<lb/>
+Ein Wort des Trostes wird willkommen seyn.</p></sp><lb/>
+<sp who="#ZOBE"><speaker>Zobea.</speaker><lb/>
+<p>O könntest du ein tröstend Wort ersinnen,<lb/>
+Das Lindrung meinem wunden Herzen brächte?<lb/>
+Ein schauderhafter Zwiespalt<lb/>
+Zerschneidet mir die Seele.<lb/>
+Was soll ich Unglückseelige beginnen?</p></sp><lb/>
+<sp who="#ZEL"><speaker>Zelu</speaker><stage>(schnell einfallend.)</stage><lb/>
+<p>Den schönsten Frieden liebend dir erkämpfen.</p></sp><lb/>
+<sp who="#ZOBE"><speaker>Zobea.</speaker><lb/>
+<p>Ach! kämpfend steh' ich zwischen dir und ihm;<lb/>
+Unwiderstehlich zieht ihr beide mich<lb/>
+Gewaltig nach euch hin; allein umsonst.<lb/>
+Jch fühle doppelt mich, und kein Entschluß<lb/>
+Kann in dem tief bewegten Busen reifen.</p></sp><lb/>
+<sp who="#ZEL"><speaker>Zelu.</speaker><lb/>
+<p>So lang du zweifelnd schwankest,<lb/>
+Kehrt Ruhe nicht in deine Brust zurück, &#x2014;<lb/>
+Zerreiß das Zaubernetz, das dich umschlingt,<lb/>
+Wage beherzt das Böse,<lb/>
+Als Böses, zu erkennen!<lb/>
+Und nicht der Sieg ist mehr dir zu entreißen &#x2014;<lb/>
+<pb n="32" facs="#f0036"/>
+<stage>(gerührt.)</stage><lb/>
+O, könntest du doch meinen Worten glauben!</p></sp><lb/>
+<sp who="#ZOBE"><speaker>Zobea.</speaker><lb/>
+<p>Jch glaube dir.</p></sp><lb/>
+<sp who="#ZEL"><speaker>Zelu.</speaker><lb/>
+<p>Nun wohl, so seegn' ich dich;<lb/>
+Denn Liebe wird dem Glauben bald<lb/>
+entsprießen,<lb/>
+Und wenn sich Glaub' und Liebe fest<lb/>
+umschließen,<lb/>
+Dann wirst du keine Thrähnen mehr<lb/>
+vergießen.</p></sp><lb/>
+<sp who="#ZOB #ZEL"><speaker>Beide.</speaker><lb/>
+<p>Ja ich fühl' es, Liebe löset<lb/>
+Jeden bangen Erdenschmerz.</p></sp><lb/>
+<spGrp rendition="#rightBraced"><sp who="#ZOBE"><speaker>Zobea.</speaker><p>Ja, ich glaub' es,</p></sp><lb/>
+<sp who="#ZEL"><speaker>Zelu.</speaker><p>Ja, ich weiß es,</p></sp></spGrp><lb/>
+<sp who="#ZEL #ZOB"><p>Und ich schwebe himmelwärts.<lb/>
+Gleich balsamisch linden Lüften<lb/>
+Wehet Ahnung leis' mich an.<lb/>
+Tröstend tönt es aus den Lüften:<lb/>
+Liebe löset jedes Leid.</p></sp><lb/>
+<sp who="#ZEL"><speaker>Zelu.</speaker><lb/>
+<p>Und Zeichen will ich dir zum Glauben geben.</p><lb/>
+<stage>Er geht nach den Baum, öffnet ihn, und nimmt Schlüs-<lb/>
+sel und Schwerdt heraus.</stage><lb/>
+<pb n="33" facs="#f0037"/>
+<p>Des Menschen schwacher Sinn bedarf der<lb/>
+Zeichen;<lb/>
+Nimm diesen goldnen Schlüssel!<lb/>
+Er öffnet jene starke Eisenpforte,<lb/>
+Zu welcher dir der Eingang streng verboten.<lb/>
+Hier, nimm ihn hin zum traurigen Gebrauch.<lb/>
+Jn tiefen, finstern, feuchten Felsenspalten,<lb/>
+Wo Molche nur, und gift'ge Schlangen hausen,<lb/>
+Da findest du die Schwestern,<lb/>
+Da findest du ein Heer gequälter Weiber<lb/>
+Jm Dienste deines Gatten. &#x2014;<lb/>
+Jch schweige von den Martern, die sie leiden,<lb/>
+Wenn sie mit zarten Händen<lb/>
+Die gift'gen Metalle,<lb/>
+Die er zu seinen Zaubertränken braucht,<lb/>
+Jhm aus dem harten Steingeäder brechen;<lb/>
+Wenn andre, wie Pilaster,<lb/>
+Die ungeheure Felsenlast der Decke<lb/>
+Mit weichem Arm und Nacken tragen müssen.<lb/>
+Ein Meer von Thränen haben<lb/>
+Die unglückseelig Armen schon vergossen,<lb/>
+Ein Meer von Thränen wirst du weinen müssen,<lb/>
+Bei ihrem herzzerschneidenden Geschäft.</p></sp><lb/>
+<sp who="#ZOBE"><speaker>Zobea.</speaker><lb/>
+<p>Weh' Unglückseel'ge mir!</p></sp><lb/>
+<sp who="#ZEL"><speaker>Zelu.</speaker><lb/>
+<p>Auf! zaudre länger nicht.</p></sp><lb/>
+<pb n="34" facs="#f0038"/>
+<sp who="#ZOBE"><speaker>Zobea.</speaker><lb/>
+<p>Wie diese wilden Thiere,<lb/>
+Die schrecklich grausen Hüter dieser Grotte,<lb/>
+Soll ich, ein schwaches Weib,<lb/>
+Soll ich mit diesem Schwerdte <hi rendition="#g">dir</hi> erlegen?</p></sp><lb/>
+<sp who="#ZEL"><speaker>Zelu</speaker><lb/>
+<stage>(verbirgt das Schwerdt in sein Gewand.)</stage><lb/>
+<p>Dies ist der Rache Schwerdt,<lb/>
+Zu andrer schwerer Schreckensthat bestimmt. &#x2014;<lb/>
+Die Thiere fürchte nicht,<lb/>
+Es sind die treusten Diener deines Vaters,<lb/>
+Die deine Schwestern auf die Jagd begleitet,<lb/>
+Als Sinabal sie raubte,<lb/>
+Und nun verwandelt, ihre Hüter sind.<lb/>
+Folg' mir nach jener Seite,<lb/>
+Jch überzeuge dich.</p><lb/>
+<stage>Er führt Zobea hinter eine Säule, so daß sie ungesehen<lb/>
+sind.</stage><lb/>
+<p>Wilde Hüter, der dunkeln Höle,<lb/>
+Sprenget die Ketten, weil ich es befehle!<lb/>
+Jch scheuche den Nebel, der um euch wallt;<lb/>
+Jch löse des Zaubers Truggewalt.<lb/>
+Erscheint in eurer wahren Gestalt!</p><lb/>
+<stage>Bei diesen Worten verwandeln sich die Thiere in Papageno<lb/>
+und Leporello.</stage></sp><lb/>
+<sp who="#LEP"><speaker>Leporello.</speaker><lb/>
+<p>Papageno!</p></sp><lb/>
+<pb n="35" facs="#f0039"/>
+<sp who="#PAPO"><speaker>Papageno.</speaker><lb/>
+<p>Leporello!</p></sp><lb/>
+<sp who="#LEP"><speaker>Leporello.</speaker><lb/>
+<p>Jst es wirklich?</p></sp><lb/>
+<sp who="#PAPO"><speaker>Papageno.</speaker><lb/>
+<p>Jst es möglich?</p></sp><lb/>
+<sp who="#LEP"><speaker>Leporello.</speaker><lb/>
+<p>Ja, ich möcht' vor Freude schreyn!</p></sp><lb/>
+<sp who="#PAPO"><speaker>Papageno.</speaker><lb/>
+<p>Ja, ich freue mich unsäglich!</p></sp><lb/>
+<sp who="#BEI"><speaker>Beide.</speaker><lb/>
+<p>Ach, es ist doch recht behäglich,<lb/>
+Endlich wieder Mensch zu seyn!</p></sp><lb/>
+<sp who="#PAPO"><speaker>Papageno.</speaker><lb/>
+<p>Laß uns freuen!</p></sp><lb/>
+<sp who="#LEP"><speaker>Leporello.</speaker><lb/>
+<p>Laß uns schreyen!</p></sp><lb/>
+<sp who="#BEI"><speaker>Beide.</speaker><lb/>
+<p>Jch gehör' nicht zu den Thieren;<lb/>
+Denn ich gehe nicht auf Vieren.<lb/>
+Ja, es ist doch recht behäglich,<lb/>
+Ein vernünft'ger Mensch zu seyn!</p></sp><lb/>
+<sp who="#PAP"><speaker>Papagena</speaker><stage>(kömmt herbei.)</stage><lb/>
+<p>Welch ein Lärmen, welch ein Schreyen!</p></sp><lb/>
+<sp who="#PAPO"><speaker>Papageno.</speaker><lb/>
+<p>Papagena!</p></sp><lb/>
+<pb n="36" facs="#f0040"/>
+<sp who="#PAP"><speaker>Papagena.</speaker><lb/>
+<p>Papageno!</p></sp><lb/>
+<sp who="#PAPO"><speaker>Papageno.</speaker><lb/>
+<p>Jst es wirklich?</p></sp><lb/>
+<sp who="#PAP"><speaker>Papagena.</speaker><lb/>
+<p>Jst es möglich?</p></sp><lb/>
+<sp who="#PAPO"><speaker>Papageno.</speaker><lb/>
+<p>O wie herrlich, o wie schön!</p></sp><lb/>
+<sp who="#PAP"><speaker>Papagena.</speaker><lb/>
+<p>Ach, ich freue mich unsäglich!</p></sp><lb/>
+<sp who="#BEI"><speaker>Beide.</speaker><lb/>
+<p>Ach, es ist doch recht behäglich,<lb/>
+Sich so treu geliebt zu sehn.</p></sp><lb/>
+<sp who="#PAPO"><speaker>Papageno.</speaker><lb/>
+<p>Ach, was hab' ich leiden müssen!<lb/>
+Wiss', ich war ein Tigerthier.</p></sp><lb/>
+<sp who="#PAP"><speaker>Papagena.</speaker><lb/>
+<p>Ach, wie war mein Herz zerrissen,<lb/>
+Ewig sehnt ich mich nach dir.</p></sp><lb/>
+<sp who="#BEI"><speaker>Beide.</speaker><lb/>
+<p>Laß vergessen uns die Leiden!<lb/>
+Aus der Quaal sind süße Freuden,<lb/>
+Aus den Schmerzen Lust geworden.</p></sp><lb/>
+<sp who="#LEP"><speaker>Leporello.</speaker><lb/>
+<p>Ha, ich möcht' den Kerl ermorden!<lb/>
+Wie sie zärtlich sich umschlingen,<lb/>
+Wie die Vögel buhlend singen!<lb/>
+<pb n="37" facs="#f0041"/>
+Ach, und ich muß hier verlassen allein<lb/>
+Leider ein trockner Zuschauer seyn!</p></sp><lb/>
+<p>Alle drei.</p><lb/>
+<spGrp rendition="#leftBraced"><sp who="#PAP #PAPO"><speaker>Papageno und Papagena.</speaker><lb/>
+<p>Welch ein Glück ist uns geworden!<lb/>
+Nach der Trennung schweren Leiden,<lb/>
+Seh' ich nun in deinen Augen<lb/>
+<list rendition="#rightBraced"><item>Wie der Gatte</item><lb/>
+<item>Wie die Gattin</item></list>treu mich liebt.<lb/>
+</p></sp><sp who="#LEP"><speaker>Leporello.</speaker><lb/>
+<p>Ha, ich möcht' den Kerl ermorden!<lb/>
+Und nicht länger will ich's leiden,<lb/>
+Daß man hier vor meinen Augen,<lb/>
+Bloß um mich zu ärgern, liebt.</p></sp></spGrp><lb/>
+<sp who="#LEP"><speaker>Leporello.</speaker><lb/>
+<p>Nein, nein nicht länger duld' ich's,<lb/>
+Jch störe sie.<lb/>
+Papagena!</p></sp><lb/>
+<sp who="#PAP"><speaker>Papagena.</speaker><lb/>
+<p>Leporello!</p></sp><lb/>
+<sp who="#LEP"><speaker>Leporello.</speaker><lb/>
+<p>Sind Sie's wirklich?</p></sp><lb/>
+<sp who="#PAP"><speaker>Papagena.</speaker><lb/>
+<p>Jst es möglich!</p></sp><lb/>
+<sp who="#LEP"><speaker>Leporello.</speaker><lb/>
+<p>Nun, wie geht es hier zu Land?</p></sp><lb/>
+<sp who="#PAP"><speaker>Papagena.</speaker><lb/>
+<p>Nun, es geht mir so erträglich.</p></sp><lb/>
+<pb n="38" facs="#f0042"/>
+<sp who="#LEP"><speaker>Leporello</speaker><lb/>
+<stage>(küßt ihr die Hand.)</stage><lb/>
+<p>Nun das freuet mich unsäglich.</p></sp><lb/>
+<sp who="#PAP"><speaker>Papagena.</speaker><lb/>
+<p>Ach, Sie sind gar sehr galant.</p></sp><lb/>
+<sp who="#LEP"><speaker>Leporello</speaker><lb/>
+<stage>(küßt ihr wieder die Hand.)</stage><lb/>
+<p>Und Sie sind gar sehr charmant.</p></sp><lb/>
+<sp who="#PAPO"><speaker>Papageno</speaker><stage>(für sich.)</stage><lb/>
+<p>Nein, der Kerl ist unerträglich,<lb/>
+Küsset meiner Frau die Hand.</p></sp><lb/>
+<sp who="#PAP_LEP"><speaker>Papagena und Leporello.</speaker><lb/>
+<p>Welch ein Glück in fernem Land!</p></sp><lb/>
+<sp who="#LEP"><speaker>Leporello.</speaker><lb/>
+<p>So charmant &#x2014;</p></sp><lb/>
+<sp who="#PAP"><speaker>Papagena.</speaker><lb/>
+<p>So galant &#x2014;</p></sp><lb/>
+<sp who="#PAP_LEP"><speaker>Papagena und Leporello.</speaker><lb/>
+<p>Einen alten Freund zu finden.</p></sp><lb/>
+<sp who="#PAPO"><speaker>Papageno.</speaker><lb/>
+<p>Ha, ich möcht' den Kerl ermorden!</p></sp><lb/>
+<sp who="#PAP_LEP"><speaker>Papagena und Leporello.</speaker><lb/>
+<p>Und ich sollt' es doch wohl denken,<lb/>
+Freundschaft dürfte man sich schenken,<lb/>
+Das ist längst ja anerkannt.</p></sp><lb/>
+<pb n="39" facs="#f0043"/>
+<spGrp rendition="#leftBraced"><stage>Alle drei.</stage><lb/>
+<sp who="#PAPO"><speaker>Papageno.</speaker><lb/>
+<p>Weib, was soll ich von dir denken!<lb/>
+Sage, Weib, ist das erlaubt?</p><lb/>
+</sp><sp who="#LEP"><speaker>Leporello.</speaker><lb/>
+<p>Ha, es fängt ihn an zu kränken,<lb/>
+Daß sie mir so viel erlaubt.</p><lb/>
+</sp><sp who="#PAP"><speaker>Papagena.</speaker><lb/>
+<p>Freundschaft darf man sich doch schenken!<lb/>
+Die ist aller Welt erlaubt.</p></sp></spGrp><lb/>
+<stage>Recitativ.</stage><lb/>
+<sp who="#ZEL"><speaker>Zelu</speaker><stage>(hinter der Scene.)</stage><lb/>
+<p>Unglückliche! entfliehet schnell aus diesen Hallen<lb/>
+Dem Meere zu.</p><lb/>
+<p>Trifft Sinabal euch hier in seinem Schlosse,<lb/>
+So werdet ihr gemartert und verwandelt.<lb/>
+Entfliehet schnell<lb/>
+Dem Meere zu!<lb/>
+Dort trefft ihr Osmar, euren König.</p></sp><lb/>
+<sp who="#PAPO"><speaker>Papageno.</speaker><lb/>
+<p>Nein, ich bleibe.</p></sp><lb/>
+<sp who="#LEP"><speaker>Leporello.</speaker><lb/>
+<p>Nein, bei Leibe!</p></sp><lb/>
+<sp who="#PAP"><speaker>Papagena.</speaker><lb/>
+<p>Nein, bei Leibe! nein, bei Leibe!<lb/>
+Fort, sonst werdet ihr verwandelt.</p></sp><lb/>
+<pb n="40" facs="#f0044"/>
+<sp who="#PAPO"><speaker>Papageno</speaker><stage>(zur Papagena.)</stage><lb/>
+<p>Du hast schlecht an mir gehandelt.</p></sp><lb/>
+<sp who="#LEP"><speaker>Leporello.</speaker><lb/>
+<p>Sprich nicht schlecht von deinem Weibe,<lb/>
+Oder du wirst gleich verwandelt.</p></sp><lb/>
+<spGrp rendition="#leftBraced"><stage>Alle drei.</stage><lb/>
+<sp who="#PAPO"><speaker>Papageno.</speaker><lb/>
+<p>Ja, ich scheide mich von dir,<lb/>
+Die so schlecht an mir gehandelt.<lb/>
+</p></sp><sp who="#LEP #PAPA"><speaker>Leporello und Papagena.</speaker><lb/>
+<p>Fort von hier! Fort von hier!<lb/>
+Fort, sonst <list rendition="#leftBraced #rightBraced"><item>werden wir</item><lb/>
+<item>werdet ihr</item></list>verwandelt</p></sp></spGrp><lb/>
+<stage>Papagena treibt Leporello und Papageno fort.</stage></div><lb/>
+<div n="2"><head>Neunte Scene.</head><lb/>
+<p>Zelu. Zobea. Papagena.</p><lb/>
+<sp who="#ZEL"><speaker>Zelu.</speaker><lb/>
+<p>Jegliches Hinderniß ist nun gehoben.<lb/>
+Auf, zaudre länger nicht &#x2014;<lb/>
+Eil in die Höle, dich zu überzeugen.</p></sp><lb/>
+<sp who="#ZOBE"><speaker>Zobea.</speaker><lb/>
+<p>Grauses Geschick, so muß ich denn erfahren,<lb/>
+Was ewig mir verborgen bleiben sollte!</p></sp><lb/>
+<sp who="#ZEL"><speaker>Zelu.</speaker><lb/>
+<p>Der Augenblick ist günstig,<lb/>
+<pb n="41" facs="#f0045"/>
+Nicht länger darfst du säumen,<lb/>
+Jch sende eine Fackel,<lb/>
+Die jene Schreckensscene dir erhellen soll.<lb/>
+Erwarte sie Zobea!</p><lb/>
+<stage>(Er winkt Papagena, und geht mit ihr ab.)</stage></sp></div><lb/>
+<div n="2"><head>Zehnte Scene.</head><lb/>
+<sp who="#ZOBE"><speaker>Zobea</speaker><stage><hi rendition="#g">(allein.)</hi></stage><lb/>
+<p>Da geht er hin, fühlt nicht mein Widerstreben,<lb/>
+Fühlt nicht des Herzens Ringen,<lb/>
+Nicht dieses Schlüssels Gluth in meinen Händen.<lb/>
+Die Fakkel will er senden,<lb/>
+Und spähen soll ich nach verruchten Dingen,<lb/>
+Die sich im Schooß der Finsterniß begeben &#x2014;<lb/>
+Glückseelig, die da leben<lb/>
+Auf grünem Boden in der goldnen Sonne,<lb/>
+Schuldlos, beglückt sich fühlend,<lb/>
+Wenn unter Blumen spielend,<lb/>
+Sie in Genüssen kindlich froher Wonne<lb/>
+Von Schmerzen Nichts, und Nichts von Un-<lb/>
+heil wissen!<lb/>
+Mir aber ward vom Aug' herabgerissen<lb/>
+Der Unschuld Zauberbinde.<lb/>
+Jch bin nicht mehr die Glückliche, die Blinde,<lb/>
+Mein liebstes muß ich missen,<lb/>
+Denn mein Gewissen sagt mir, es sey Sünde.</p><lb/>
+<stage>(Sie lehnt sich gedankenvoll an eine Säule.)</stage></sp></div><lb/>
+<pb n="42" facs="#f0046"/>
+<div n="2"><head>Eilfte Scene.</head><lb/>
+<p>Zobea. Papagena (mit einer Fackel.)</p><lb/>
+<sp who="#PAP"><speaker>Papagena.</speaker><lb/>
+<p>Da bin ich, und da steht die Sonne, und<lb/>
+da ist die Fackel, die mir der Priester gab.<lb/>
+Eine Fackel am hellen Mittage! <stage>(zu der Fackel.)</stage><lb/>
+Siehst du nicht aus, wie eine geschminkte Al-<lb/>
+te, auf einer Frühlingsflur, du bleiche flat-<lb/>
+ternde Lügnerin! <stage>(<hi rendition="#g">Zobea</hi> giebt ihr den Schlüssel,<lb/>
+und winkt ihr, die Grotte aufzuschließen, ohne sich aus<lb/>
+ihrer Stellung zu richten, und ohne Papagena anzusehn)</stage><lb/>
+Was, ich die Grotte aufmachen? Verzeihen<lb/>
+Sie &#x2014; Sie wissen doch &#x2014; das Verboth &#x2014;<lb/>
+der Kaiser &#x2014; die Ungeheuer, die Pest und<lb/>
+die Hungersnoth. Ach meine gnädige Kai-<lb/>
+serin, sie haben zwar keinen Begriff, wie<lb/>
+schrecklich es unter der Erde ist; aber ich<lb/>
+weiß es leider nur zu gut, ich hab's versu-<lb/>
+chen müssen bei dem alten Sarastro. Ja,<lb/>
+ja, ich weiß ein Liedchen von diesen heil'gen<lb/>
+Hallen zu singen. Jch bitte Sie um alles<lb/>
+in der Welt, gehen Sie nicht hinein. Jch<lb/>
+versichere Sie, wenn ich die Grotte aufschlie-<lb/>
+ße, so kömmt, mit glühenden Stacheln, feu-<lb/>
+rigen Augen, stählernen Zähnen ein entsetz-<lb/>
+liches großes &#x2014; Ach ja, ich darfs gar nicht<lb/>
+sagen, was herauskömmt.</p></sp><lb/>
+<pb n="43" facs="#f0047"/>
+<sp who="#ZOBE"><speaker>Zobea.</speaker><lb/>
+<p>Gehorche dem Befehle!<lb/>
+Schließ auf und folge mir!</p></sp><lb/>
+<sp who="#PAP"><speaker>Papagena.</speaker><lb/>
+<p>Jhnen zu folgen, muß ich aufschließen, das<lb/>
+ist meine Schuldigkeit; wenn sie aber unter<lb/>
+dem Folgen, folgen verstehen, so sag' ich rund<lb/>
+heraus, daß ich ihnen nicht folgen werde.<lb/>
+Sie haben ihre Gründe, in diese Gründe zu<lb/>
+gehen, und ich habe meine Gründe, aus die-<lb/>
+sen Gründen zu bleiben.</p></sp><lb/>
+<p>Duett.</p><lb/>
+<sp who="#ZOBE"><speaker>Zobea.</speaker><lb/>
+<p>Auf, und gehorche meinen Befehlen!</p></sp><lb/>
+<sp who="#PAP"><speaker>Papagena.</speaker><lb/>
+<p>Ach wüßten sie, wüßten sie, wie sie mich quälen.</p></sp><lb/>
+<sp who="#ZOBE"><speaker>Zobea.</speaker><lb/>
+<p>Öffne die Grotte du Feige!<lb/>
+Öffne sie, öffne und schweige!</p></sp><lb/>
+<sp who="#PAP"><speaker>Papagena.</speaker><lb/>
+<p>Nun ja, ich will öffnen und schweigen;<lb/>
+Doch Himmel und Erde sind Zeugen,<lb/>
+Daß es gezwungen geschieht.</p></sp><lb/>
+<sp who="#ZOBE"><speaker>Zobea.</speaker><lb/>
+<p>Jch sehe nicht, daß es geschieht.</p></sp><lb/>
+<sp who="#PAP"><speaker>Papagena.</speaker><lb/>
+<p>Jch öffne.</p></sp><lb/>
+<pb n="44" facs="#f0048"/>
+<sp who="#ZOBE"><speaker>Zobea.</speaker><lb/>
+<p>So öffne geschwind!</p></sp><lb/>
+<sp who="#PAP"><speaker>Papagena.</speaker><lb/>
+<p>Jch zaudre.</p></sp><lb/>
+<sp who="#ZOBE"><speaker>Zobea.</speaker><lb/>
+<p>Die Stunde verrinnt!</p></sp><lb/>
+<stage>Beide.</stage><lb/>
+<sp who="#ZOBE"><speaker>Zobea.</speaker><lb/>
+<p>Auf öffne die Pforte, du Feige!<lb/>
+Jch muß in die Höle hinein.</p></sp><lb/>
+<sp who="#PAP"><speaker>Papagena.</speaker><lb/>
+<p>Jch öffne die Pforte, und schweige &#x2014;<lb/>
+Sie gehet auf immer hinein.</p><lb/>
+<stage>(Papagena schließt die Grotte auf.)</stage></sp><lb/>
+<sp who="#CHORW"><speaker>Chor von Weibern</speaker><stage>(aus der Höle.)</stage><lb/>
+<p>Ach, welche Quaal! o welche Noth!<lb/>
+Komm Tod! befrei uns von dem Tod!</p></sp><lb/>
+<sp who="#PAP"><speaker>Papagena</speaker><stage>(springt zurück.)</stage><lb/>
+<p>Das ist der Tod! der Tod! der Tod!</p></sp><lb/>
+<sp who="#ZOBE"><speaker>Zobea.</speaker><lb/>
+<p>Zelu, welch schreckliches Geboth!</p></sp><lb/>
+<sp who="#CHOR"><speaker>Chor.</speaker><lb/>
+<p>Ach müssen wir hier ewig weinen?<lb/>
+Wird nie der Rettungstag erscheinen?</p></sp><lb/>
+<sp who="#PAP"><speaker>Papagena.</speaker><lb/>
+<p>Jch muß aus Angst und Schrecken weinen,<lb/>
+Das ist die Hölle ganz bestimmt!</p></sp><lb/>
+<pb n="45" facs="#f0049"/>
+<sp who="#ZOBE"><speaker>Zobea.</speaker><lb/>
+<p>Welch grauser Sang tönt aus den Steinen,<lb/>
+Der mir die Kraft, den Muth benimmt.</p></sp><lb/>
+<sp who="#CHOR"><speaker>Chor.</speaker><lb/>
+<p>Jhr Thränen werdet ewig fließen,<lb/>
+Erweichen nie den harten Stein!</p></sp><lb/>
+<sp who="#PAP"><speaker>Papagena.</speaker><lb/>
+<p>Nun soll ich schließen? soll ich schließen?<lb/>
+Ach hören sie nur, wie sie schrein!</p></sp><lb/>
+<sp who="#ZOBE"><speaker>Zobea.</speaker><lb/>
+<p>Nein, laß mich, denn ich muß hinein.</p></sp><lb/>
+<sp who="#CHOR"><speaker>Chor.</speaker><lb/>
+<p>O welche Qual! o welche Noth!<lb/>
+Komm Tod! befrei uns von dem Tod!</p><lb/>
+<stage><hi rendition="#g">Zobea</hi> entreißt der Papagena die Fackel, und stürzt in<lb/>
+die Höle. <hi rendition="#g">Papagena</hi> erschrickt sich, sieht ihr nach,<lb/>
+macht Gebehrden des Entsetzens und Mitleids. Der<lb/>
+Vorhang fällt während des Chors.</stage><lb/>
+<p>Ende des ersten Aufzuges.</p></sp></div></div><lb/>
+<pb n="46" facs="#f0050"/>
+<div n="1"><head>Zweiter Aufzug.</head><lb/>
+<div n="2"><head>Erste Scene.</head><lb/>
+<stage>Eine felsigte Gegend. Jm Grunde eine zum Landen ge-<lb/>
+räumige Meerbucht. Die Landschaft darf nicht rauh,<lb/>
+sondern sie muß lieblich aussehen. Die <hi rendition="#g">Sylphen</hi><lb/>
+kommen von den Spitzen der Felsen und aus den<lb/>
+Klüften.</stage><lb/>
+<sp who="#CHORS"><speaker>Chor der Sylphen.</speaker><lb/>
+<p>Engelsüße Töne klangen,<lb/>
+Da zerfiel des Zaubers Macht;<lb/>
+Schwebten über'm Meer und sangen<lb/>
+Bis der Zauberfels zergangen.<lb/>
+Unser Werk ist nun vollbracht.</p><lb/>
+<p>Fort in unsre Wolkenwagen!<lb/>
+Fort! besänftigt ist das Meer.<lb/>
+Die bezwungnen Wellen tragen &#x2014;<lb/>
+Linde Zephiretten jagen &#x2014;<lb/>
+Schon die Kriegesflotte her.</p></sp><lb/>
+<pb n="47" facs="#f0051"/>
+<sp who="#VIESTIMM"><speaker>Vier Stimmen.</speaker><lb/>
+<p>Horcht auf, die Flotte nahet schon,<lb/>
+Hört ihr das muntre Freudenspiel!<lb/>
+Es kömmt der Vater und der Sohn,<lb/>
+Erglüht von heißem Rachgefühl;<lb/>
+Sie wollen stürmen jene Stadt,<lb/>
+Die ihren Schatz veeschlossen hat.</p></sp><lb/>
+<sp who="#CHOR"><speaker>Chor.</speaker><lb/>
+<p>Sie kommen schon,<lb/>
+Wir müssen fort.<lb/>
+Nur schnell geflohn<lb/>
+Von diesem Ort.<lb/>
+Bald sind wir nah',<lb/>
+Bald sind wir fern,<lb/>
+Sind immer da,<lb/>
+Und helfen gern.<lb/>
+Es muß noch heut'<lb/>
+Gar viel gescheh'n,<lb/>
+Wer nicht geweiht,<lb/>
+Darf uns nicht seh'n;<lb/>
+Drum schnell geflohn<lb/>
+Von hier nach dort.<lb/>
+Sie kommen schon,<lb/>
+Nur fort! nur fort!</p><lb/>
+<stage>Sie fliehen von verschiedenen Seiten in die Felsen.<lb/>
+Ein Marsch beginnet leise. &#x2014; Die Flotte landet, <hi rendition="#g">Osmar,<lb/>
+Almansor</hi> und <hi rendition="#g">Saadi</hi> steigen aus verschiedenen<lb/>
+Schiffen mit ihrem Kriegesvolk ans Land. Die ganze<lb/>
+<pb n="48" facs="#f0052"/>
+Bucht füllt sich mit Schiffen, aus welchen Soldaten,<lb/>
+Matrosen mit verschiedenen artigen Waffen, Zelten, Fah-<lb/>
+nen u. s. w. steigen, und einmal um das Theater gehen.</stage></sp><lb/>
+<sp who="#CHOR"><speaker>Chor.</speaker><lb/>
+<p>Hurra! hurra! mit Spiel und Klang<lb/>
+Sei uns gegrüßet Land!<lb/>
+Den Göttern Dank!<lb/>
+Mit Spiel und Klang,<lb/>
+Sei uns gegrüßet Land!</p><lb/>
+<p>Der Sturmwind schwieg, der Felsen sank<lb/>
+Jns bodenlose Meer.<lb/>
+Den Göttern Dank,<lb/>
+Mit Spiel und Klang!<lb/>
+Bezwungen ist das Meer!</p><lb/>
+<p>Nun eilen wir mit Kraft und Muth<lb/>
+Zu unsrer Rache Ziel,<lb/>
+Mit Kraft und Muth,<lb/>
+Mit heißem Blut,<lb/>
+Erglüht von Rachgefühl!</p><lb/>
+<p>Wir rächen unsers Königs Leid,<lb/>
+Wir rächen seinen Schmerz.<lb/>
+Um Rache schreit<lb/>
+Des Königs Leid,<lb/>
+Wir rächen seinen Schmerz!</p><lb/>
+<p>Hurrah! Hurrah den Göttern Dank!<lb/>
+Hurrah! Hurrah! mit Spiel und Klang.</p></sp><lb/>
+<fw place="bottom" type="catch">Zweite</fw></div><lb/>
+<pb n="49" facs="#f0053"/>
+<div n="2"><head>Zweite Scene.</head><lb/>
+<p>Osmar. Almansor. Saadi.</p><lb/>
+<sp who="#OSM"><speaker>Osmar.</speaker><lb/>
+<p>So sind wir endlich mit der Götter Hülfe,<lb/>
+An unsrer Rache Ziel. &#x2014;<lb/>
+Jch denk', es ist das Schwerste nun vollbracht! &#x2014;<lb/>
+Mit zu viel Schiffen füllet sich die Bucht;<lb/>
+Drum, Saadi, laß der Flotte andre Hälfte<lb/>
+Nach jener Schlucht hinsteuern.<lb/>
+Dort führt ein sichrer Weg dich unbemerkt<lb/>
+Auf einen Felsen, der die Stadt beherrscht.<lb/>
+Da lagre deine Truppen!<lb/>
+Heimlich, bedächtig, hörst du wohl? bedenke,<lb/>
+Daß du dein Weib, die Mutter deines Kindes,<lb/>
+Aus schweren Sklavenketten lösen sollst.</p></sp><lb/>
+<sp who="#SAA"><speaker>Saadi</speaker><stage>(ehrerbietig.)</stage><lb/>
+<p>Mein König, ich gehorche.<lb/>
+Der Wahlspruch jener Völker, die ich führe,<lb/>
+Heißt: Treu bis in den Tod.</p><lb/>
+<stage>(ab mit Gefolge.)</stage></sp></div><lb/>
+<div n="2"><head>Dritte Scene.</head><lb/>
+<p>Osmar. Almansor.</p><lb/>
+<sp who="#OSM"><speaker>Osmar.</speaker><lb/>
+<p>Mein theurer Sohn, sprich, liebst du deinen<lb/>
+Vater.</p></sp><lb/>
+<pb n="50" facs="#f0054"/>
+<sp who="#ALM"><speaker>Almansor</speaker><stage>(gerührt.)</stage><lb/>
+<p>Das fragt mein Vater mich?</p></sp><lb/>
+<sp who="#OSM"><speaker>Osmar.</speaker><lb/>
+<p>Nun, so befehl' ich dir bei dieser Liebe,<lb/>
+Die deinem Stammhaus erblich möge seyn,<lb/>
+Mir deine Angst, dein Schrecken zu verbergen,<lb/>
+Wenn ich mit eigner Lippe<lb/>
+Mein graues Schicksal dir verkünden muß.</p></sp><lb/>
+<sp who="#ALM"><speaker>Almansor.</speaker><lb/>
+<p>Jch kenne keine Furcht, ihr seyd mein Vater;<lb/>
+Allein die Sorge nahet meiner Brust,<lb/>
+Wenn ihr so feyerlich, so seltsam seyd.</p></sp><lb/>
+<sp who="#OSM"><speaker>Osmar.</speaker><lb/>
+<p>Es wird, mein Sohn, dir keine Sorge frommen.</p><lb/>
+<stage>Pause.</stage><lb/>
+<p>Erfahre schnell das Unvermeidliche &#x2014;<lb/>
+Dein Vater muß hier sterben.<lb/>
+Nie kehr ich wieder in mein Reich zurück. &#x2014;</p></sp><lb/>
+<sp who="#ALM"><speaker>Almansor</speaker><stage>(erschreckt.)</stage><lb/>
+<p>Gerechter Gott! welch unglückseel'ge Reden.<lb/>
+Was werd' ich hören müssen!</p></sp><lb/>
+<sp who="#OSM"><speaker>Osmar</speaker><lb/>
+<stage>(ihn bei der Hand nehmend.)</stage><lb/>
+<p>Auf, fasse dich, mein Sohn!<lb/>
+Es ziemt dem künft'gen Herrscher nicht Ver-<lb/>
+zweiflung,</p><lb/>
+<p>Er lerne früh das liebste sich versagen,<lb/>
+Das theuerste verlieren.</p><lb/>
+<pb n="51" facs="#f0055"/>
+<p>Hör' mich gelassen an! &#x2014; &#x2014;<lb/>
+An jenem Tage, da dich meine Gattin,<lb/>
+Dich, meines Thrones Erben, mir gebahr,<lb/>
+Jagt' ich in jenem Wald,<lb/>
+Den unser Volk die Zauberheide nennt &#x2014;<lb/>
+Zu kühn hatt' ich ein schnelles Wild verfolgt,<lb/>
+Und schon umgab mich tiefe Finsterniß,<lb/>
+Eh' ich es noch bemerkte,<lb/>
+Daß ich verirrt, und unbegleitet war &#x2014;<lb/>
+Vergebens scholl mein Hüfthorn durch den<lb/>
+Wald.</p><lb/>
+<p>Jch mußte mich entschließen,<lb/>
+Den nächsten Baum zum Lager mir zu wählen;<lb/>
+Doch eben, als ich ihn besteigen wollte,<lb/>
+Erfüllt' ein Rosenlicht ringsum die Gegend,<lb/>
+Und immer dichter ward der Purpurnebel,<lb/>
+Und aus der Wolke trat ein weiblich Wesen,<lb/>
+Jn göttlich &#x2014; überschönem Glanz hervor. &#x2014;<lb/>
+Nach dreizehn Monden erst<lb/>
+Sah mich mein Volk, sah mich die Gattin wie-<lb/>
+der &#x2014;</p><lb/>
+<p>Zobea ist die Tochter jener Stunden;<lb/>
+Doch wie ihr eignes Kind hat deine Mutter<lb/>
+Sie immer treu gepflegt. &#x2014;<lb/>
+Beglückt war ich, wie noch kein Sterblicher,<lb/>
+Da wandte schnell, im seligsten Momente,<lb/>
+Sich meines Schicksals Rath:<lb/>
+Die Göttliche, die ich zu lieben wagte,</p><lb/>
+<pb n="52" facs="#f0056"/>
+<p>Sie war des Sylphen-Königs einz'ges Kind.<lb/>
+Er überraschte uns,<lb/>
+Verstieß die Tochter aus dem Reich der Geister,<lb/>
+Und fluchte mir ob solcher grausen That.<lb/>
+Noch tönt die Rede schaurig in mein Ohr.<lb/>
+Hör' ihn, mein Sohn, den fürchterlichen Fluch:</p><lb/>
+<p>Die dich innig heiß geliebt,<lb/>
+Die hast du zum Tod betrübt,<lb/>
+Schwere Sünde ausgeübt.&#x2014;<lb/>
+Drum wird Liebe dich verderben,<lb/>
+Drum, durch deiner Liebe Erben,<lb/>
+Sollst du unerhört einst sterben.&#x2014;<lb/>
+Fern von deinem Vaterland,<lb/>
+Mordet dich,dir unbekannt,<lb/>
+Eine schwarze Rettungshand.</p><lb/>
+<p>So sprach der König drohend, und ich fühl' es:<lb/>
+Nie kehr' ich wieder in mein Reich zurück.</p></sp><lb/>
+<sp who="#ALM"><speaker>Almansor.</speaker><lb/>
+<p>Mein Vater, reizt die Götter nicht! verscheuchet<lb/>
+Aus eurer Brust den grausenden Gedanken!<lb/>
+Wie leicht könnt euch ein Unglück wider-<lb/>
+fahren;<lb/>
+Jch bitt euch, theurer Vater, tröstet euch! &#x2014;</p></sp><lb/>
+<sp who="#OSM"><speaker>Osmar.</speaker><lb/>
+<p>Jch bin getröstet; denn ich sterbe gern,<lb/>
+Der Tod söhnt mich mit meinem Leben aus.<lb/>
+Du aber schwöre mir:<lb/>
+<pb n="53" facs="#f0057"/>
+An Rückkehr in die Heimath nicht zu denken,<lb/>
+Bevor Samandel nicht in deinen Händen,<lb/>
+Bevor du nicht aus den gestürzten Mauern<lb/>
+Die Schwestern siegend führst.</p></sp><lb/>
+<sp who="#ALM"><speaker>Almansor.</speaker><lb/>
+<p>Jhr selbst, mein Vater, werdet im Triumphe<lb/>
+Durch jener Hauptstadt mächt'ge Straßen<lb/>
+ziehn;<lb/>
+Jhr selbst den Kerker eurer Töchter sprengen;<lb/>
+Jhr selbst mir die Geliebte<lb/>
+Jn meine sehnlich &#x2014; offnen Arme führen &#x2014;<lb/>
+O denkt euch diese Wonne- Stunde nur!<lb/>
+Sie <hi rendition="#g">muß</hi> die Angst aus eurem Herzen scheuchen,<lb/>
+Sie muß zu <hi rendition="#g">frischer Hoffnung</hi> euch be-<lb/>
+leben.</p></sp><lb/>
+<sp who="#OSM"><speaker>Osmar.</speaker><lb/>
+<p>Umsonst, mein Sohn; du marterst deinen<lb/>
+Vater.<lb/>
+Führ' deine Truppen über jenen Hügel;<lb/>
+Jch muß der Flotte noch Befehle geben.</p><lb/>
+<stage>(ab.)</stage></sp></div><lb/>
+<div n="2"><head>Vierte Scene.</head><lb/>
+<sp who="#ALM"><speaker>Almansor</speaker><stage>(allein.)</stage><lb/>
+<p>Welch ein geheimer Schauer<lb/>
+Aengstet mich vor mir selbst. Mir ist's, als<lb/>
+fühlt' ich<lb/>
+<pb n="54" facs="#f0058"/>
+Den Vater starr an meinem Busen liegen,<lb/>
+Die offnen Wunden rufen: weh dem Sohn! &#x2014;<lb/>
+Was hat der Sohn verschuldet?<lb/>
+Jch lieb' ihn ja, wie könnt' ich ihn erschlagen?<lb/>
+Erschlagen! weh was träumte ich? &#x2014;<lb/>
+Welch krampfhaft wilder Schmerz<lb/>
+Beugt euch, ihr Kniee? Bete, wundes Herz!</p><lb/>
+<stage>(Er kniet nieder.)</stage><lb/>
+<p>Große Götter! seht mich beten,<lb/>
+Hier im Staub, in meinen Nöthen<lb/>
+Bitt' ich um den Vater euch.<lb/>
+Menschen sind nicht Eures Gleichen;<lb/>
+Von dem rechten Wege weichen,<lb/>
+Jst das Loos der Sterblichkeit.</p><lb/>
+<p>Aber mit dem reuig &#x2014; Armen<lb/>
+Haben Götter stets Erbarmen;<lb/>
+Reichen ihm die Segenshand.<lb/>
+Ohne Murren wollt' ich sterben,<lb/>
+Könnt' ich Gnade nur erwerben,<lb/>
+Für den trostlos armen Greis.</p><lb/>
+<stage>(ab.)</stage></sp></div><lb/>
+<pb n="55" facs="#f0059"/>
+<div n="2"><head>Fünfte Scene.</head><lb/>
+<stage>Königliches Zimmer.</stage><lb/>
+<p>Zobea. Sinabal.</p><lb/>
+<sp who="#ZOBE"><speaker>Zobea.</speaker><lb/>
+<p>Verzeihung mir, mein königlicher Herr!</p></sp><lb/>
+<sp who="#SIN"><speaker>Sinabal.</speaker><lb/>
+<p>Du hättest mein Gebot nicht übertreten<lb/>
+Du hättest denken müssen,<lb/>
+Daß Lieb' und Sorgfalt es mich geben ließ.</p></sp><lb/>
+<sp who="#ZOBE"><speaker>Zobea.</speaker><lb/>
+<p>Jch schaudre noch im Jnnersten zusammen,<lb/>
+Wenn ich an jenen Schreckens- Aufenthalt,<lb/>
+An jene furchtbar eklen Bilder denke,<lb/>
+Die, wie im schweren Kummer,<lb/>
+Mir dort vorüberzogen.</p></sp><lb/>
+<sp who="#SIN"><speaker>Sinabal.</speaker><lb/>
+<p>Jch schwör' es dir, bei jenen Göttern droben,<lb/>
+Kam ich nur später einen Augenblick,<lb/>
+Du wärest nie aus jenen Felsespalten<lb/>
+An's Licht zurück gekehrt. &#x2014;<lb/>
+Schmählicher Tod war dir alldort bereitet<lb/>
+Von jenem schändlich Gott vergeßnen Priester.</p></sp><lb/>
+<sp who="#ZOBE"><speaker>Zobea</speaker><stage>(schnell einfallend.)</stage><lb/>
+<p>Entferne ihn aus deinen Reichen, Herr!<lb/>
+Jch weiß nicht welche Furcht mich überkommt,<lb/>
+Welch Angstgefühl, in dieses Greises Nähe.</p></sp><lb/>
+<pb n="56" facs="#f0060"/>
+<sp who="#SIN"><speaker>Sinabal.</speaker><lb/>
+<p>Genug von ihm, dem frechen, niedern Sclaven!<lb/>
+Jch habe mit Zobea<lb/>
+Von wichtigen Dingen jetzt zu sprechen. Wisse<lb/>
+Des Reiches Wohlfahrt liegt in deiner Hand.<lb/>
+Ein kluges Wort von dir,<lb/>
+Es könnte vieles Blutvergießen spaaren.</p></sp><lb/>
+<sp who="#ZOBE"><speaker>Zobea.</speaker><lb/>
+<p>Sieh mich, o Herr, bereit.</p></sp><lb/>
+<sp who="#SIN"><speaker>Sinabal.</speaker><lb/>
+<p>So wisse, daß vor wenigen Minuten<lb/>
+Dein Vater hier mit Kriegesvolk gelandet,<lb/>
+Daß er die Stadt zu Land' und See um-<lb/>
+zingelt,<lb/>
+Und heute noch die Stürmung wagen will. &#x2014;<lb/>
+Um Rache schreit mein Zorn entbranntes Heer,<lb/>
+Und kaum vermag ich noch<lb/>
+Einhalt zu thun dem aufgereizten Haufen;<lb/>
+Darum wünscht' ich, daß Zobea<lb/>
+Mit sicherem Geleit in's Lager ginge,<lb/>
+Und sich dem Vater zeigend,<lb/>
+Ein Friedensbote diesem Lande würde. &#x2014;</p></sp><lb/>
+<sp who="#ZOBE"><speaker>Zobea.</speaker><lb/>
+<p>So ist es wahr, was kaum ich hoffen durfte.<lb/>
+O laß mich in das Lager<lb/>
+Zu meinem Vater eilen;<lb/>
+Jch eile schon, ich sehe<lb/>
+Der Zelter lange Reihen.<lb/>
+<pb n="57" facs="#f0061"/>
+Jch fliege ihm zu Füßen,<lb/>
+Umfasse seine Knie,<lb/>
+Und weiche nicht von dannen,<lb/>
+Bis daß er Frieden schwöret;<lb/>
+Dann führ' ich ihn, den Alten,<lb/>
+Geschmückt mit grünen Zweigen,<lb/>
+Von seinem Heer begleitet,<lb/>
+Dem Gatten, dem Geliebten,<lb/>
+Dem Sohne an die Brust. &#x2014; &#x2014;<lb/>
+Verzeihung mir, die Freude riß mich hin.<lb/>
+Zu überraschend ist mir der Gedanke,<lb/>
+An dein und seiner hand,<lb/>
+Durch doppelt reiche Liebe hochbeglückt,<lb/>
+Zu dem Altar zu schreiten. &#x2014;</p></sp><lb/>
+<sp who="#SIN"><speaker>Sinabal.</speaker><lb/>
+<p>Führ' ihn hieher! ich will die Stunde seegnen,<lb/>
+Wo solche theure Gäste<lb/>
+Mein Königshaus betreten.</p></sp><lb/>
+<sp who="#ZOBE"><speaker>Zobea</speaker><lb/>
+<stage>(bei diesen Worten erscheint <hi rendition="#g">Zelu</hi> im Grunde.)</stage><lb/>
+<p>Mein Herr, mein König, mein geliebter Freund,<lb/>
+Sieh mich in Freudenthränen,<lb/>
+Da ich des Glücks gedenke, daß du bald<lb/>
+Den theuren Vater in die Arme schlingest,<lb/>
+Der seinem Sohn die Friedenspalme reicht.</p></sp><lb/>
+<sp who="#SIN"><speaker>Sinabal</speaker><stage>(einfallend.)</stage><lb/>
+<p>Um die sich morgen an dem schönen Feste<lb/>
+Die freudenreiche Myrthe schlingen soll. &#x2014;<lb/>
+<pb n="58" facs="#f0062"/>
+Es steh'n dir zum Gefolge<lb/>
+Die Wachten schon bereit.<lb/>
+Eil' in das Lager schnell, ich geh' indeß<lb/>
+Beruhige das aufgereizte Volk.<lb/>
+<stage>(für sich.)</stage><lb/>
+Unwiederbringlich seyd ihr alle bald &#x2014;<lb/>
+Weh euch! in meiner ehernen Gewalt.</p><lb/>
+<stage>(ab.)</stage></sp><lb/>
+<sp who="#ZEL"><speaker>Zelu</speaker><lb/>
+<stage>(tritt langsam hervor.)</stage><lb/>
+<p>Du stehest sinnend da?</p></sp><lb/>
+<sp who="#ZOBE"><speaker>Zobea.</speaker><lb/>
+<p>Wie, Zelu, und du wagst es?</p></sp><lb/>
+<sp who="#ZEL"><speaker>Zelu.</speaker><lb/>
+<p>Zobea, höre mich!</p></sp><lb/>
+<sp who="#ZOBE"><speaker>Zobea.</speaker><lb/>
+<p>Jch will von dir nichts hören!</p></sp><lb/>
+<sp who="#ZEL"><speaker>Zelu.</speaker><lb/>
+<p>Zu spät wird's dich gereuen!</p></sp><lb/>
+<sp who="#ZOBE"><speaker>Zobea.</speaker><lb/>
+<p>Entferne dich von hier!</p></sp><lb/>
+<sp who="#ZEL"><speaker>Zelu.</speaker><lb/>
+<p>Jch kam, um dich zu retten.</p></sp><lb/>
+<sp who="#ZOBE"><speaker>Zobea.</speaker><lb/>
+<p>Und ich will, daß du gehorchst!</p></sp><lb/>
+<sp who="#ZEL"><speaker>Zelu.</speaker><lb/>
+<p>Und ich, daß du mich hörest!</p></sp><lb/>
+<pb n="59" facs="#f0063"/>
+<sp who="#ZOBE"><speaker>Zobea.</speaker><lb/>
+<p>So räume ich dem Trotzenden das Feld.</p></sp><lb/>
+<sp who="#ZEL"><speaker>Zelu</speaker><lb/>
+<stage>(ihr in den Weg tretend.)</stage><lb/>
+<p>Nicht also! schweig' und höre,<lb/>
+Was unsre heil'gen Götter<lb/>
+Durch mich, durch ihren Diener, dir gebie-<lb/>
+ten. &#x2014;<lb/>
+Jns Lager sollst du eilen zu dem Vater;<lb/>
+Doch hüte dich, in Frieden ihm zu nahen,<lb/>
+Wenn du nicht dich und ihn verderben willst.<lb/>
+Hüte dich, ihn in dieses Schloß zu führen,<lb/>
+Wo unvermeidlich er verloren ist.</p><lb/>
+<stage>(Zobea will fort, Zelu hält sie zurück.)</stage><lb/>
+<p>Bleib, und vernimm in Demuth,<lb/>
+Was ferner dir die Götter auferlegen.<lb/>
+Als Feindin sollst du vor den Vater treten,<lb/>
+Jhn tief zu Boden beugen;<lb/>
+Jn seinem wunden Herzen<lb/>
+Die alte Quaal erwecken,<lb/>
+Den alten Schmerz entzünden,<lb/>
+Verleugnen deine Liebe.<lb/>
+Wie er auch leiden mag, du darfst nicht<lb/>
+wanken,<lb/>
+Nur einzig <hi rendition="#g">so</hi> vermagst du ihn zu retten.<lb/>
+<stage>(Zobea will sprechen, Zelu ergreift ihre Hand.)</stage><lb/>
+Bescheide dich, nur blinde Unterwerfung<lb/>
+<pb n="60" facs="#f0064"/>
+Führt uns allmählich zu dem Licht der Wahr-<lb/>
+heit.<lb/>
+Die Götter fordern kindlichen Gehorsam;<lb/>
+Nicht zweifelnd darfst du ihr Gebot verletzen,<lb/>
+Sonst trifft dich Reue, Jammer und Entsetzen.</p><lb/>
+<stage>(Zobea läßt seine Hand fallen, und geht stumm ab.)</stage></sp></div><lb/>
+<div n="2"><head>Sechste Scene.</head><lb/>
+<sp who="#ZEL"><speaker>Zelu</speaker><stage>(allein.)</stage><lb/>
+<p>Wie fest, arme Zobea,<lb/>
+Umgarnet dich des Falschen Zaubernetz,<lb/>
+Ach, ich verzweifle fast.<lb/>
+Nur wenig Stunden sind mir noch gegönnt,<lb/>
+Und nur ein einzig Mittel dich zu retten.<lb/>
+So wie ich einst in unsern Lichtgefilden,<lb/>
+Jn ewig holder Jugend<lb/>
+Auf Purpurwolken schwebte,<lb/>
+So &#x2014; in dem nahen Walde,<lb/>
+Dem Wege nach dem Lager,<lb/>
+Darf ich ihr jetzt erscheinen;<lb/>
+Darf dieser Erdenhülle mich entkleiden,<lb/>
+Und in gewohnten Tönen<lb/>
+Von reicher Liebe reden;<lb/>
+Darf hoffen, sie zu heilen;<lb/>
+Darf hoffen, sie zu rühren.</p><lb/>
+<stage>(ab.)</stage></sp></div><lb/>
+<pb n="61" facs="#f0065"/>
+<div n="2"><head>Siebente Scene.</head><lb/>
+<p>Papagena. Minnewart</p><stage>(folgt ihr.)</stage><lb/>
+<sp who="#MINNE"><speaker>Minnewart.</speaker><lb/>
+<p>Liebes schönes Kind, so lauf doch nicht im-<lb/>
+mer vor mir, du weißt ja, daß ich dich<lb/>
+minne.</p></sp><lb/>
+<sp who="#PAP"><speaker>Papagena.</speaker><lb/>
+<p>Minne? was ist das Minne?</p></sp><lb/>
+<sp who="#MINNE"><speaker>Minnewart.</speaker><lb/>
+<p>Minne ist die altfränkische Liebe, eine Art<lb/>
+von Leidenschaft, die zwischen dem Courma-<lb/>
+chen und dem Todtschießen liegt. Vor vie-<lb/>
+len hundert Jahren, als ich noch in Deutsch-<lb/>
+land in der wirklichen Welt lebte, da hatte<lb/>
+ich die Ehre, so ein &#x2014; &#x2014;</p></sp><lb/>
+<sp who="#PAP"><speaker>Papagena.</speaker><lb/>
+<p>Das ist das alte Lied; da warst du ein Min-<lb/>
+nesänger. &#x2014; Nun sind Sie aber durch Zau-<lb/>
+berei hier in Samandel Minister geworden,<lb/>
+und wissen sich nicht recht in dieses beschwer-<lb/>
+liche Amt zu schicken.</p></sp><lb/>
+<sp who="#MINNE"><speaker>Minnewart.</speaker><lb/>
+<p>Ja ganz recht, und nun steht er vor dir,<lb/>
+der minnende Minister, und bittet dich um<lb/>
+süßen Minnelohn.</p></sp><lb/>
+<sp who="#PAP"><speaker>Papagena.</speaker><lb/>
+<p>Ei, ich wollte mich schämen, so alt und grau<lb/>
+<pb n="62" facs="#f0066"/>
+in der Welt geworden zu seyn, und noch nicht<lb/>
+zu wissen, daß ein alter grauer Mann ein<lb/>
+schlechter Liebhaber für eine junge frische<lb/>
+Frau ist.</p></sp><lb/>
+<sp who="#MINNE"><speaker>Minnewart.</speaker><lb/>
+<p>O, auf die Couleur kömmts gar nicht an!</p></sp><lb/>
+<sp who="#PAP"><speaker>Papagena.</speaker><lb/>
+<p>Und dann bedenken Sie, daß Sie Minnewart<lb/>
+heißen.</p></sp><lb/>
+<sp who="#MINNE"><speaker>Minnewart.</speaker><lb/>
+<p>Was willst du damit sagen?</p></sp><lb/>
+<sp who="#PAP"><speaker>Papagena.</speaker><lb/>
+<p>Jch meine, daß dieß ein Name böser Deu-<lb/>
+tung ist.</p></sp><lb/>
+<sp who="#MINNE"><speaker>Minnewart.</speaker><lb/>
+<p>Wie so?</p></sp><lb/>
+<sp who="#PAP"><speaker>Papagena.</speaker><lb/>
+<p>Minnewart bedeutet, daß Sie auf die Minne<lb/>
+warten, und wenn man auf sie wartet, so<lb/>
+ist sie nicht gekommen.</p></sp><lb/>
+<sp who="#MINNE"><speaker>Minnewart.</speaker><lb/>
+<p>Falsch! Grundfalsch! man kanns auch noch<lb/>
+ganz anders auslegen, und zum Beweis will<lb/>
+ich dir ein Lied singen, daß ich auf unsre<lb/>
+Liebe und meinen Namen gemacht habe.</p></sp><lb/>
+<sp who="#PAP"><speaker>Papagena.</speaker><lb/>
+<p>Daß sich Gott erbarm! ein Minnelied! &#x2014;<lb/>
+<pb n="63" facs="#f0067"/>
+Machen Sie's nur kurz, sonst lauf ich wahr-<lb/>
+lich davon.</p></sp><lb/>
+<sp who="#MINNE"><speaker>Minnewart.</speaker><lb/>
+<p>Jch will's nicht allein kurz machen, sondern<lb/>
+auch gut, nehmlich ich singe kurz &#x2014; und &#x2014;<lb/>
+gut; das heißt, kurz und gut ich singe.</p></sp><lb/>
+<sp who="#MINNE"><speaker>Minnewart,</speaker><lb/>
+<stage>(mit schwächlicher Stimme.</stage><lb/>
+<p>Hoch oben auf meiner steinernen Burg da<lb/>
+ist'ne Warte,<lb/>
+Eine steinerne Warte,<lb/>
+Da steh' ich und warte,<lb/>
+Und sinne und warte,<lb/>
+Und warte und minne, und minne und warte auf<lb/>
+mein Liebchen sein,<lb/>
+Auf mein Liebelein,<lb/>
+Minnend in Mondenschein,<lb/>
+Jm goldnen Mondenschein, auf mein, ein<lb/>
+fein, rein Liebelein.</p><lb/>
+<p>Jch komme, so lispelt sie lieblich zu mir &#x2014;</p></sp><lb/>
+<sp who="#PAP"><speaker>Papagena.</speaker><lb/>
+<p>Jhro Exellenz greifen sich die Brust zu sehr<lb/>
+an. Lassen Sie mich den zweiten Vers singen.</p><lb/>
+<p>Und hinter der Burg, durch das Feld hindurch,<lb/>
+da ist ein Garten.</p><lb/>
+<p>Und in dem Garten,<lb/>
+<pb n="64" facs="#f0068"/>
+Jn dem blumigten Garten,<lb/>
+Jn der Laube im Garten,<lb/>
+Da liebt mit dem Liebsten, das liebliche Liebchen<lb/>
+des alten Minnewart,<lb/>
+Des grauen Minnewart,<lb/>
+Der auf der Zinne harrt,<lb/>
+Wart alter Minnewart, wart auf der Wart,<lb/>
+du bist genarrt.</p></sp></div><lb/>
+<div n="2"><head>Achte Scene.</head><lb/>
+<sp who="#LAR"><speaker>Larifari</speaker><stage>schwer geharnischt, einen großen silbernen<lb/>
+Hammer in der einen, eine Pergamentrolle in der an-<lb/>
+dern Hand. Er hat sich, während Papagena singt,<lb/>
+hereingeschlichen.</stage></sp><lb/>
+<sp who="#LAR"><speaker>Larifari.</speaker><lb/>
+<p>Schämt euch was, Herr Minister, in so mi-<lb/>
+serablen Zeiten hier zu minnen, während des-<lb/>
+sen, wie man sagt, die feindlichen Mineurs<lb/>
+die Stadt unterminiren.</p></sp><lb/>
+<sp who="#MINNE"><speaker>Minnewart.</speaker><lb/>
+<p>Prahlt nur nicht so Herr General, wir wis-<lb/>
+sen was wir wissen.</p></sp><lb/>
+<sp who="#LAR"><speaker>Larifari.</speaker><lb/>
+<p>Jhr wißt nicht, was ihr wißt, denn sonst<lb/>
+würdet ihr wissen, daß ihr nichts wißt. &#x2014;<lb/>
+Jch aber weiß, daß ihr eine feige Memme<lb/>
+seyd,<lb/>
+<pb n="65" facs="#f0069"/>
+seyd, ein Narr, den man die Schellenkappe<lb/>
+aufsetzen sollte.</p></sp><lb/>
+<sp who="#MINNE"><speaker>Minnewart.</speaker><lb/>
+<p>Was, feige Memme, Schellenkappe? Mir das<lb/>
+zu sagen, einem Minister, wißt ihr, was euch<lb/>
+dafür gebührt für die feige Memme? eine<lb/>
+Ohrfeige! und für die Schellenkappe? eine<lb/>
+Maulschelle!</p></sp><lb/>
+<sp who="#LAR"><speaker>Larifari,</speaker><lb/>
+<stage>(hebt den Hammer in die Höhe.)</stage><lb/>
+<p>Elender! <stage>(läßt den Hammer sinken)</stage> dein Glück,<lb/>
+daß das Völkerrecht existirt, und daß ich jetzt<lb/>
+keine Zeit habe, sonst hätt' ich dich mit die-<lb/>
+sem Minne-Zauberhammer todt geschlagen.</p></sp><lb/>
+<sp who="#PAP"><speaker>Papagena,</speaker><stage>(tritt zwischen sie.)</stage><lb/>
+<p>Seyn Sie nicht so hitzig, Herr Larifari, ein<lb/>
+Generalissimus muß kalt seyn. Erzählen Sie<lb/>
+uns lieber, was der Zauberhammer bedeutet.</p></sp><lb/>
+<sp who="#LAR"><speaker>Larifari.</speaker><lb/>
+<p>Das darf ich keiner Seele sagen. <stage>(heimlich<lb/>
+thuend)</stage> Es sind hier Menschlichkeiten vorgefal-<lb/>
+len, nemlich es haben sich Thiere in Men-<lb/>
+schen verwandelt, und sind ins feindliche La-<lb/>
+ger geflohen, die muß ich zurückholen aus<lb/>
+dem schwarzen Walde, sie könnten die<lb/>
+Schwäche der Stadt verrathen. &#x2014; Wenn<lb/>
+ich mit diesem meinem silbernen Zauberham-<lb/>
+mer an den Gnomenberg schlage, so kömmt<lb/>
+<pb n="66" facs="#f0070"/>
+mir die unterirdische Kavallerie zu Hülfe, und<lb/>
+hier auf dieser Rolle steht das Zauberwort,<lb/>
+womit ich jene Truppen kommnadire. Was<lb/>
+hilft das Plaudern, ich habe geheime Geschäf-<lb/>
+te, der Staat ist in Gefahr, ich muß eilig<lb/>
+fort. Lebt wohl.</p><stage>(ab.)</stage></sp><lb/>
+<sp who="#PAP"><speaker>Papagena</speaker><stage>(für sich.)</stage><lb/>
+<p>Ach der arme unglückliche Papageno!</p></sp><lb/>
+<sp who="#MINNE"><speaker>Minnewart.</speaker><lb/>
+<p>Was murmelst du da!</p></sp><lb/>
+<sp who="#PAP"><speaker>Papagena.</speaker><lb/>
+<p>Hören Sie mein lieber Minister Minnewart,<lb/>
+Sie müssen mir einen Liebesdienst erzeigen.</p></sp><lb/>
+<sp who="#MINNE"><speaker>Minnewart.</speaker><lb/>
+<p>O mein liebes Täubchen, mit dem größten<lb/>
+Vergnügen.</p></sp><lb/>
+<sp who="#PAP"><speaker>Papagena.</speaker><lb/>
+<p>Sie können sich zugleich an dem General rä-<lb/>
+chen. Wir müssen ihm nach in den schwar-<lb/>
+zen Wald, kommen Sie nur, ich will Jhnen<lb/>
+schon alles erzählen.</p><stage>(Sie zieht ihn fort.)</stage></sp></div><lb/>
+<pb n="67" facs="#f0071"/>
+<div n="2"><head>Neunte Scene.</head><lb/>
+<stage>Ein wilder dunkler Wald. Jn der Mitte ein starker her-<lb/>
+vorragender Baum, mehr im Grunde nach der Seite<lb/>
+ein Berg. Eine liebliche Musik ertönt, die Leibwache<lb/>
+der Zobea erscheint ganz im Grunde, dann ihre Frau-<lb/>
+en. <hi rendition="#g">Zobea</hi> tritt langsam hervor, und winkt den Frau-<lb/>
+en und den Wachen, vorüberzuziehn.</stage><lb/>
+<sp who="#ZOBE"><speaker>Zobea.</speaker><lb/>
+<stage>(Sie spricht zur Musik.)</stage><lb/>
+<p>Was fesselt mich? welch himmlisch holde Klänge<lb/>
+Sind es, die seltsam süßen Melodien,<lb/>
+Die mich in diese Gänge,<lb/>
+So sanft gewaltig ziehn?<lb/>
+Wo tönt ihr her, ihr seligen Gesänge,<lb/>
+Die ihr so mächtig mir ans Herz gedrungen,<lb/>
+Daß ich hier muß gezwungen<lb/>
+Jn diesem finstern, wilden Walde säumen,<lb/>
+Und wachend wiegen mich in Wonneträumen.</p><lb/>
+<stage>(Sie blickt langsam und lauschend zum Himmel.</stage><lb/>
+<p>Horch in hoher Himmelsferne,<lb/>
+Wo die Sterne kreisend klingen,<lb/>
+Da entspringen, da entfließen<lb/>
+Dorther gießen, mächtig milde,<lb/>
+Durch Gefilde, glänzend golden,<lb/>
+Sich die holden Wohllautswogen<lb/>
+Angezogen von den Tönen,<lb/>
+Muß in Thränen ich nun schauen<lb/>
+Nach dem blauen Himmel oben,<lb/>
+Als ob droben in der Ferne,<lb/>
+<pb n="68" facs="#f0072"/>
+Wo der Sterne Heer sich schwinget,<lb/>
+Wo erklinget dieses Tönen,<lb/>
+All mein Sehnen enden müßte! &#x2014;<lb/>
+Wie schön prangst du da oben,<lb/>
+Wolke von leichtem Purpurduft gewoben,<lb/>
+O möchtest du an mich Verlaßne denken,<lb/>
+Zu mir dich niedersenken.</p><lb/>
+<p>Jch weiß es nicht, ein seltsames Verlangen,<lb/>
+Es treibet mich, ich möchte dich umfangen. &#x2014;<lb/>
+Jsts möglich, ist es Wahrheit?<lb/>
+Sie sinkt herab in glänzend goldner Klarheit;<lb/>
+Wie herrlich strahlend, welcher Farbenschimmer,<lb/>
+Schöner, und schöner immer,<lb/>
+Und immer schöner wieder<lb/>
+Schweben die Farben und die Töne nieder!<lb/>
+Wie süß mit Ohr und Augen,<lb/>
+Solch selig süße Wonne einzusaugen!<lb/>
+Licht wird's im Wald, und Licht in meiner Seele,<lb/>
+Jst Niemand hier, dem ich mein Glückerzähle?</p></sp><lb/>
+<sp who="#REC"><speaker>Recitativ.</speaker><lb/>
+<p>Was seh ich, welch ein Bildniß? Weh mir Armen!<lb/>
+O habe Göttersohn, mit mir Erbarmen!</p><lb/>
+<stage>(Sie sinkt auf die Erde.)</stage><lb/>
+<stage>Bei den Worten: Was seh ich, erscheint eine bunte, trans-<lb/>
+parente Wolke, in welcher <hi rendition="#g">Zelu</hi> als Sylphe steht.</stage></sp><lb/>
+<sp who="#ZEL"><speaker>Zelu.</speaker><lb/>
+<stage>Recitativ.</stage><lb/>
+<p>Erhebe dich, wozu ein niedres Grauen?<lb/>
+<pb n="69" facs="#f0073"/>
+Auf darfst du zu mir schauen<lb/>
+Mit liebevollem Blicke;<lb/>
+Denn ich erschein zu dein und meinem Glücke.<lb/>
+Möchten die Strahlen, die mich hell umschließen,<lb/>
+Sich auch auf dich ergießen,<lb/>
+Die Zaubernebel trennen,<lb/>
+Dein zartes Herz erleuchten und entbrennen;<lb/>
+Damit du eingehst in die Regionen,<lb/>
+Wo Schönheit, Glück u. Licht, u. Liebe wohnen.<lb/>
+Doch wisse nur, an jenes Priesters Seite,<lb/>
+Jn Zelu's lieb'voll, sicherem Geleite,<lb/>
+Wirst du aus dunklem Labyrinthe kehren;<lb/>
+Drum sollst du auf ihn hören,<lb/>
+Drum sollst du mit ihm wandeln,<lb/>
+Drum sollst du also handeln,<lb/>
+Wie er es dir geheißen;<lb/>
+Von allem, was dich bindet, los dich reißen,<lb/>
+Dem Theuersten entsagen,<lb/>
+Das Kühnste muthig wagen,<lb/>
+Und lieber dulden, leiden ohne Gleichen,<lb/>
+Als um ein Wort, von seinen Worten weichen!</p></sp><lb/>
+<p>Duett.</p><lb/>
+<sp who="#ZOBE"><speaker>Zobea.</speaker><lb/>
+<p>So soll mein Leid denn nimmer weichen,<lb/>
+Mir ewig trüb die Zukunft seyn.</p></sp><lb/>
+<sp who="#ZEL"><speaker>Zelu.</speaker><lb/>
+<p>Die Liebe wird die Nebel scheuchen.<lb/>
+<pb n="70" facs="#f0074"/>
+Dir Muth und Kraft und Trost verleihn.</p></sp><lb/>
+<sp who="#ZOBE"><speaker>Zobea.</speaker><lb/>
+<p>Die Liebe schlägt in dieser Stunde<lb/>
+Mir eine neue schwere Wunde,<lb/>
+Ach, schon erliegt mein liebend Herz<lb/>
+Dem unbezwingbar fremden Schmerz!</p></sp><lb/>
+<sp who="#ZEL"><speaker>Zelu.</speaker><lb/>
+<p>O, lerne nur mit frommem Herzen<lb/>
+Zu lieben süße Liebesschmerzen;<lb/>
+Dann führet dich der Liebe Pein<lb/>
+Jn's Reich der reichen Liebe ein.</p></sp><lb/>
+<sp who="#ZOBE"><speaker>Zobea.</speaker><lb/>
+<p>Wann kommt die lang' ersehnte Zeit,<lb/>
+Wann werd' ich solches Glück genießen?</p></sp><lb/>
+<sp who="#ZEL"><speaker>Zelu.</speaker><lb/>
+<p>Bald wird dir aus der Liebe Leid<lb/>
+Ein ew'ger Wonnequell entfließen.</p></sp><lb/>
+<sp who="#ZOBE"><speaker>Zobea.</speaker><lb/>
+<p>Aus Liebes Leid?</p></sp><lb/>
+<sp who="#ZEL"><speaker>Zelu.</speaker><lb/>
+<p>Quillt Seeligkeit.</p></sp><lb/>
+<sp who="#ZOBE"><speaker>Zobea.</speaker><lb/>
+<p>Aus Liebes Leid?</p></sp><lb/>
+<sp who="#ZEL"><speaker>Zelu.</speaker><lb/>
+<p>Jn Ewigkeit.</p></sp><lb/>
+<sp who="#BEI"><speaker>Beide.</speaker><lb/>
+<p>O Wort der Hoffnung und der Liebe<lb/>
+Das wir von süßen Lippen tönt;<lb/>
+<pb n="71" facs="#f0075"/>
+O mild umstrahltes schönes Ziel,<lb/>
+Wonach mein Herz sich liebend sehnt!</p></sp><lb/>
+<sp who="#ZEL"><speaker>Zelu.</speaker><lb/>
+<p>Ein hell Gestirne leuchtet dir.</p></sp><lb/>
+<sp who="#ZOBE"><speaker>Zobea.</speaker><lb/>
+<p>Es leuchtet mir?</p></sp><lb/>
+<sp who="#ZEL"><speaker>Zelu.</speaker><lb/>
+<p>Die Hoffnung aus der Weite.</p></sp><lb/>
+<sp who="#ZOBE"><speaker>Zobea.</speaker><lb/>
+<p>Ach, aus der Weite!</p></sp><lb/>
+<sp who="#ZEL"><speaker>Zelu.</speaker><lb/>
+<p>Und wenn du liebend denkest mein,</p></sp><lb/>
+<sp who="#ZOBE"><speaker>Zobea.</speaker><lb/>
+<p>Jch denke dein!</p></sp><lb/>
+<sp who="#ZEL"><speaker>Zelu.</speaker><lb/>
+<p>So siegest du im Streite.</p></sp><lb/>
+<sp who="#ZOBE"><speaker>Zobea.</speaker><lb/>
+<p>Jch geh' zum Streite!</p></sp><lb/>
+<sp who="#BEI"><speaker>Beide.</speaker><lb/>
+<p>Es blinkt ein milder Hoffnungsschein,<lb/>
+Es flieht die starre Dunkelheit.<lb/>
+Ein neuer Tag des Glücks bricht ein,<lb/>
+Und ew'ge Wonn' und Seeligkeit!<lb/>
+Jch denke liebend immer dein,<lb/>
+Und siege dann in jedem Streit.</p><lb/>
+<stage>Während des Nachspiels des Duetts ist die Wolke wieder<lb/>
+fortgezogen, und der Wald dunkel geworden.</stage></sp><lb/>
+<pb n="72" facs="#f0076"/>
+<sp who="#ZOBE"><speaker>Zobea.</speaker><lb/>
+<stage>(welche der Wolke nachgesehen, und nachgehört hat.)</stage><lb/>
+<p>O töne noch einmal verklungner Schall,<lb/>
+Noch einmal leuchte lieblich milde Klarheit!<lb/>
+Laß mich dein Antlitz nur noch einmal sehn!<lb/>
+Umsonst, er kehrt nicht wieder,<lb/>
+Läßt mich allein in schrecklicher Gefahr,<lb/>
+Jn jenes wilden Zaubrers,<lb/>
+Jn Sinabals Gewalt.<lb/>
+Weh mir! deß Braut ich bin &#x2014;<lb/>
+Wohin entflieh ich vor der grausen Angst,<lb/>
+Die meiner Seele plötzlich sich bemächtigt?<lb/>
+Fort &#x2014; fort von hier &#x2014; o rette du mich,<lb/>
+Vater!</p><lb/>
+<p>Nimm die verlohrne Tochter,<lb/>
+Die Zauber dir entführte,<lb/>
+Die reuig wiederkehret,<lb/>
+O nimm sie gütig auf.<lb/>
+Jn deinen Armen bitte nein, das darf ich<lb/>
+nicht,<lb/>
+Dir muß ich feindlich nah'n, wie es geboten,<lb/>
+Verzeihe mir, mein Vater!<lb/>
+Nur so kann ich dich retten.<lb/>
+Gewiß, ich rette dich, ich fühl's, ich weiß es!<lb/>
+Der Zauberschleyer fiel von meinen Augen!<lb/>
+Jch blicke seelig in die lichte Ferne,<lb/>
+Ein Gott hat meines Leides sich erbarmet.<lb/>
+Was ich auch dulden soll, dir will ich folgen,<lb/>
+<pb n="73" facs="#f0077"/>
+Dir heilige Erscheinung,<lb/>
+Dir seeliges Gefühl.<lb/>
+Liebe hat meiner Seele sich bemeistert,<lb/>
+Der geb' ich mich bezwungen, und begeistert.</p><lb/>
+<stage>(ab.)</stage></sp></div><lb/>
+<div n="2"><head>Zehnte Scene.</head><lb/>
+<p>Papageno. Leporello, dann Larifari.</p><lb/>
+<sp who="#LEP"><speaker>Leporello.</speaker><lb/>
+<p>Das ist ja eine fürchterliche Wildniß! Kannst<lb/>
+du mir denn nicht ein bischen Muth einspre-<lb/>
+chen, lieber, bester Herzensfreund?</p></sp><lb/>
+<sp who="#PAPO"><speaker>Papageno.</speaker><lb/>
+<p>Ei was, Freund! Jch bin kein Freund von<lb/>
+den Freunden meiner Frau.</p></sp><lb/>
+<sp who="#LEP"><speaker>Leporello.</speaker><lb/>
+<p>Schäme dich, mir jetzt Vorwürfe zu ma-<lb/>
+chen, in dem Augenblick, da ich mich in der<lb/>
+miserabelsten Lage meines Lebens befinde.<lb/>
+Jst das moralisch? he?</p></sp><lb/>
+<sp who="#PAPO"><speaker>Papageno.</speaker><lb/>
+<p>Jch glaube gar, du willst mir hier Moral<lb/>
+predigen? Du mit deiner verführungssüchti-<lb/>
+gen Ausführung!</p></sp><lb/>
+<sp who="#LEP"><speaker>Leporello.</speaker><lb/>
+<p>Ausführung, was geht dich meine Ausführung<lb/>
+<pb n="74" facs="#f0078"/>
+an, nach meinen Grundsätzen mußt du mich<lb/>
+beurtheilen. &#x2014; O, wenn du meinen Grund-<lb/>
+sätzen auf den Grund kämest, du würdest<lb/>
+mich von Grunde des Herzens lieben müssen.</p></sp><lb/>
+<sp who="#PAPO"><speaker>Papageno.</speaker><lb/>
+<p>Du rührst mich!</p></sp><lb/>
+<sp who="#LEP"><speaker>Leporello.</speaker><lb/>
+<p>Braver, rechtschaffner Papageno, edle vor-<lb/>
+treffliche Seele, Mann von Kopf und Herz!</p></sp><lb/>
+<sp who="#PAPO"><speaker>Papageno.</speaker><lb/>
+<p>Wenn ich dir trauen dürfte!</p></sp><lb/>
+<sp who="#LEP"><speaker>Leporello.</speaker><lb/>
+<p>Du darfst, wahrlich, du darfst. Reiche mir<lb/>
+deine Hand. &#x2014; Wir sind hungrig, müde,<lb/>
+und arm, das ist eine englische Stimmung<lb/>
+zum Friedensschlusse. &#x2014; Komm an meine<lb/>
+Brust, du Freund in der Noth.</p><lb/>
+<stage>(sie umarmen sich.)</stage></sp><lb/>
+<sp who="#PAPO"><speaker>Papageno.</speaker><lb/>
+<p>Frieden und Freundschaft!</p></sp><lb/>
+<sp who="#LEP"><speaker>Leporello.</speaker><lb/>
+<p>Freundschaft und Frieden!</p></sp><lb/>
+<sp who="#PAPO"><speaker>Papageno.</speaker><lb/>
+<p>O edler Mann, so sind dann endlich zwey<lb/>
+große Seelen wieder vereinigt.</p></sp><lb/>
+<sp who="#LEP"><speaker>Leporello.</speaker><lb/>
+<p>Laß uns die Zeit nicht mit leeren Herzens-<lb/>
+ergießungen verderben; laß uns auf unsere<lb/>
+<pb n="75" facs="#f0079"/>
+Sicherheit bedacht seyn. Mir deucht, als ob<lb/>
+nach jener Gegend hin der Wald lichter wür-<lb/>
+de, was meynst du, wenn du diesen<lb/>
+Baum fliegest, um zu sehen, ob du das La-<lb/>
+ger unsers Königs nicht erblicken könntest?</p></sp><lb/>
+<sp who="#PAPO"><speaker>Papageno.</speaker><lb/>
+<p>O schön, schön, ein großer Gedanke. Siehst<lb/>
+du, ich klettre wie eine Eichkatze.</p></sp><lb/>
+<sp who="#LEP"><speaker>Leporello.</speaker><lb/>
+<p>Du Glücklicher, wenn ich das könnte. Pfui,<lb/>
+der schlechten Erziehung, die nicht meinen<lb/>
+Körper, nur meinen Geist ausbildete!</p></sp><lb/>
+<sp who="#PAPO"><speaker>Papageno.</speaker><lb/>
+<p>Beruhige dich, mein Freund, und sey zufrie-<lb/>
+den, daß wir keine Thiere mehr sind.</p></sp><lb/>
+<sp who="#LEP"><speaker>Leporello.</speaker><lb/>
+<p>Wahr gesprochen. O wer nie ein Thier ge-<lb/>
+wesen, weiß gar nicht, was dem Menschen<lb/>
+alles begegnen kann. Nun, was siehst du?</p></sp><lb/>
+<sp who="#PAPO"><speaker>Papageno.</speaker><lb/>
+<p>Jch sehe weit in Ferne eine entsetzliche<lb/>
+Menge kleiner weißer Dinger.</p></sp><lb/>
+<sp who="#LEP"><speaker>Leporello.</speaker><lb/>
+<p>Kleiner weißer Dinger? Wohl uns, wir sind<lb/>
+gerettet. &#x2014; Das sind die Zelte unsers Kö-<lb/>
+nigs!</p><lb/>
+<stage><hi rendition="#g">Larifari</hi> ist während dieser Zeit langsam angekom-<lb/>
+men, und hat immer in die Rolle gesehn.</stage></sp><lb/>
+<pb n="76" facs="#f0080"/>
+<sp who="#LAR"><speaker>Larifari.</speaker><lb/>
+<p>Nathrecht Nurim! &#x2014; Die Zauberei ist<lb/>
+doch eine sehr künstliche Wissenschaft &#x2014; Tsitsig<lb/>
+Drered &#x2014; Was das für schwere Termini<lb/>
+sind &#x2014; Edre Eidrimm &#x2014; immer schwerer.<lb/>
+Trebo Rered &#x2014; immer dunkler, immer ver-<lb/>
+worrner.</p></sp><lb/>
+<sp who="#LEP"><speaker>Leporello</speaker><stage>(leise.)</stage><lb/>
+<p>Papageno! Ums Himmelswillen! sieh mal<lb/>
+dort hin!</p></sp><lb/>
+<sp who="#PAPO"><speaker>Papageno.</speaker><lb/>
+<p>Was soll ich denn sehn?</p></sp><lb/>
+<sp who="#LEP"><speaker>Leporello</speaker><lb/>
+<p>Ach, ach, ach, ach, den schrecklichen eisernen<lb/>
+Kontur.</p></sp><lb/>
+<sp who="#LAR"><speaker>Larifari</speaker><stage>(für sich.)</stage><lb/>
+<p>Richtig! da sind sie ! <stage>(laut.)</stage> Jhr seyd mei-<lb/>
+meine Gefangene!</p></sp><lb/>
+<sp who="#LEP"><speaker>Leporello</speaker><stage>(für sich.)</stage><lb/>
+<p>Ach, daß sich Gott erbarme! <stage>(laut und zu Lari-<lb/>
+fari hinschleichend.)</stage> Vergeben Sie, mein Herr!</p></sp><lb/>
+<sp who="#LAR"><speaker>Larifari.</speaker><lb/>
+<p>Jhr sollt euch ergeben, Elende!</p></sp><lb/>
+<sp who="#LEP"><speaker>Leporello</speaker><lb/>
+<p>Verzeihen Sie.</p></sp><lb/>
+<sp who="#LAR"><speaker>Larifari.</speaker><lb/>
+<p>Jch verzeihe nie. <stage>(halb furchtsam)</stage> Bleib mir<lb/>
+vom Leibe, ich bin General; ich darf mich<lb/>
+<pb n="77" facs="#f0081"/>
+mit solchem gemeinen Zeuge nicht besudeln.<lb/>
+&#x2014; Bindet euch die Hände auf den Rücken,<lb/>
+und folgt mir, ihr seyd meine Gefangne.</p><lb/>
+<stage><hi rendition="#g">Larifari</hi> hat diese Rede stolz gesprochen, ohne <hi rendition="#g">Lepo-<lb/>
+rello</hi> anzusehen, und dieser ist unterdessen mit <hi rendition="#g">Pa-<lb/>
+pageno's</hi> Hülfe auf den Baum gestiegen.</stage></sp><lb/>
+<sp who="#LEP"><speaker>Leporello</speaker><stage>(auf dem Baume.)</stage><lb/>
+<p>Ha, ha, ha, Herr General, <hi rendition="#g">nun</hi> könnt <hi rendition="#g">ihr</hi><lb/>
+euch die Hände auf den Rücken binden, und<lb/>
+euch uns ergeben. Wir sind auch nicht so<lb/>
+furchtsam, als wir aussehen.</p></sp><lb/>
+<sp who="#LAR"><speaker>Larifari.</speaker><lb/>
+<p>Triumphiret nicht zu früh, Elende! ihr wer-<lb/>
+det noch zittern und beben. &#x2014; Kennt ihr die<lb/>
+Gnomen- Kavallerie? Heraus, ihr kühnen<lb/>
+Reiter; heraus, unterirdisches Geschwader, her-<lb/>
+aus zur Hülfe mir!</p><lb/>
+<stage>Die Musik fällt ein. Er geht an den Berg und schlägt<lb/>
+mit dem Hammer dreymal daran.</stage><lb/>
+<stage>Es muß wie gegen Metall klingen.</stage><lb/>
+<stage>Er sieht in die Rolle und singt:</stage><lb/>
+<p>Nathret Nurim<lb/>
+Tritsig Drered<lb/>
+Edre Eidrimm<lb/>
+Trebo Rered<lb/>
+Dreymal klapp<lb/>
+Und dreymal klopp<lb/>
+<pb n="78" facs="#f0082"/>
+Erst in Trapp<lb/>
+Und dann in Gallopp.</p><lb/>
+<stage>Bei den letzten Worten hat er wieder an den Berg ge-<lb/>
+schlagen, er öffnet sich. Larifari springt furchtsam zu-<lb/>
+rück. Man sieht eine helle illuminirte glänzende Grotte,<lb/>
+die gegen das Dunkle des Waldes grell abstechen muß.<lb/>
+Die Gnomen, nemlich Kinder zu Pferde, mit ihren<lb/>
+wirklichen Gesichtern, aber mit Schnurr- und Backen-<lb/>
+bärten und in militairischer Uniform kommen heraus. Erst<lb/>
+ein Offizier, dann ein Trompeter und ein Pauker, dann<lb/>
+zwei Fahnen, dann die übrigen; sie salutiren an den<lb/>
+Larifari, aber nach und nach mehr Muth bekömmt, und<lb/>
+stellen sich dann eu fronte.</stage></sp><lb/>
+<sp who="#LAR"><speaker>Larifari.</speaker><lb/>
+<p>Nun, ihr ausgelaßnen Vögel,<lb/>
+Ungerathnes Federvieh!<lb/>
+Nur herunter! Euch ergeben,<lb/>
+Oder ihr verliert das Leben<lb/>
+Durch die Gnomen- Kavallerie.</p></sp><lb/>
+<sp who="#PAPO #LEP"><speaker>Papageno und Leporello.</speaker><lb/>
+<p>Uns ergeben?<lb/>
+Sie vergeben!<lb/>
+Nein, nein, nein, das geht nicht an.<lb/>
+Solche Truppen?<lb/>
+Diesen Puppeu?<lb/>
+Nein, nein, nein, mein lieber Mann!</p></sp><lb/>
+<sp who="#LAR"><speaker>Larifari.</speaker><lb/>
+<p>Wer ist euer lieber Mann?<lb/>
+Wißt, ich bin der Herr von Lari,<lb/>
+<pb n="79" facs="#f0083"/>
+Excellenz Baron und Fari,<lb/>
+General zu Meer und Land,<lb/>
+Ritter von den Wasserband,<lb/>
+Sloßvoigt, und Zermonienmeister,<lb/>
+Rath, im Rath der schwarzen Geister,<lb/>
+Herr auf Eier und Cetera,<lb/>
+Wie auch auf et cetera.</p></sp><lb/>
+<sp who="#PAPO_LEP"><speaker>Papageno und Leporello.</speaker><lb/>
+<p>Ha, ha, ha, et cetera,<lb/>
+Et cetera, ha, ha, ha.</p></sp><lb/>
+<sp who="#LAR"><speaker>Larifari.</speaker><lb/>
+<p>Wie, ihr lacht mir in's Gesicht<lb/>
+Fürchtet meine Rache nicht?<lb/>
+Auf! ihr sieggewohnten Ritter,<lb/>
+Haut den Baum in tausend Splitter,<lb/>
+Daß die Stücke davon fliegen,<lb/>
+Bis die Buben unten liegen.<lb/>
+Jhr müßt sterben oder siegen!<lb/>
+Das ist eure Feld- Parol.<lb/>
+Nathreht Nurim Tsitsieg Drered<lb/>
+Edre Eidem Trebo Rered<lb/>
+Dreymal klapp und dreymal klopp<lb/>
+Erst im Trab, und dann im Galopp!</p><lb/>
+<stage>Die Gnomen reiten während des Gesanges um den Baum<lb/>
+herum, und bauen mit ihren Schwerdtern drein, er<lb/>
+fängt an zu wanken. &#x2014; <hi rendition="#g">Papagena</hi> und <hi rendition="#g">Minne-<lb/>
+wart</hi> kommen herbey, die Erste, wie ein Zwergartiger<lb/>
+weiblicher, der Letzte, wie ein Riesenhafter männlicher<lb/>
+Geist verkleidet.</stage><lb/>
+<pb n="80" facs="#f0084"/>
+<p>Was hast du, was hast du, was hast du<lb/>
+verbrochen?<lb/>
+Die Worte des Zaubers verstümmelt gesprochen!<lb/>
+Das wird von uns Geistern gar furchtbar<lb/>
+gerochen.</p><lb/>
+<p>Zur Erde mit dir,<lb/>
+Du Opferthier<lb/>
+Mußt sterben hier!</p><lb/>
+<stage>Der Zwerg zieht, der Riese drückt ihn zur Erde.</stage></sp><lb/>
+<sp who="#LAR"><speaker>Larifari</speaker><stage>(knieend.)</stage><lb/>
+<p>Beste Geister! seht mich an,<lb/>
+Wie ich zittern muß und beben,<lb/>
+Schenket mir mein Bischen Leben,<lb/>
+Das zu Nichts euch helfen kann.</p></sp><lb/>
+<sp who="#PAP"><speaker>Papagena.</speaker><lb/>
+<p>Zauberworte falsch gesprochen,<lb/>
+Wird von Geistern hart gerochen.<lb/>
+Da du solches nun verbrochen,<lb/>
+Richtet dich das Strafgesetz &#x2014;<lb/>
+Diese schwarze Schleierbinde,<lb/>
+Die ich dir für deine Sünde<lb/>
+Um die Plauderthüre winde,<lb/>
+Ueberwindet dein Geschwätz.<lb/>
+Jetzt mußt du dich niederbücken.<lb/>
+Leg' die Hände auf den Rücken,<lb/>
+Die wir fest zusammen stricken,<lb/>
+Wie es vorgeschrieben ist.</p><lb/>
+<pb n="81" facs="#f0085"/>
+<p>Und nun nehm' ich ohne Grauen<lb/>
+Dir die Rolle aus den Klauen,<lb/>
+Und erlaube dir zu schauen,<lb/>
+Tropf, daß du betrogen bist.</p><lb/>
+<stage><hi rendition="#g">Minnewart</hi> und <hi rendition="#g">Papagena</hi> werfen ihre Masken<lb/>
+fort.</stage></sp><lb/>
+<sp who="#MINNE"><speaker>Minnewart.</speaker><lb/>
+<p>Ach, du armer General,<lb/>
+Bist ganz unerhört betrogen!</p></sp><lb/>
+<sp who="#PAP"><speaker>Papagena.</speaker><lb/>
+<p>Ja belogen, ja betrogen,<lb/>
+Ach, sie armer General!</p><lb/>
+<stage><hi rendition="#g">Larifari</hi> springt auf, und will auf sie los.</stage></sp><lb/>
+<sp who="#PAP"><speaker>Papagena.</speaker><lb/>
+<p>Höret, ihr Zwerglein!<lb/>
+Müßt diesen Herrn<lb/>
+Jn euren Berg ein<lb/>
+Geschwinde sperrn.<lb/>
+Erst aber führet,<lb/>
+Wie's Helden gebühret,<lb/>
+Führt ihn die Kreuz und Queer,<lb/>
+Hoch im Triumph einher.<lb/>
+Merkt auf das Zauberwort,<lb/>
+Zaudert nicht, elet fort.<lb/>
+Nahtret Nurim, Tritsieg Drered<lb/>
+Edre Eidrimm Trebo Rered<lb/>
+<pb n="82" facs="#f0086"/>
+Dreymal klapp, und dreymal klopp,<lb/>
+Erst im Trapp, und dann im Gallopp!</p><lb/>
+<stage>Die Gnomen führen, während dieses Gesanges, den <hi rendition="#g">La-<lb/>
+rifari</hi>, in ihrer Mitte, hinter eine Coulisse, wo er<lb/>
+sich ungesehen auf einen Tragsessel setzt, welcher von<lb/>
+vier Affen getragen wird. Sie führen ihn so in den<lb/>
+Berg. Unterdessen ist <hi rendition="#g">Papageno</hi> allein, und <hi rendition="#g">Lepo</hi>-<lb/>
+<hi rendition="#g">rello</hi> auf dem Rücken des <hi rendition="#g">Minnewart</hi> vom Baume<lb/>
+gestiegen. <hi rendition="#g">Minnewart</hi> stehet am Eingange des<lb/>
+Berges, und höhnt <hi rendition="#g">Larifari</hi> aus. <hi rendition="#g">Papagena</hi> und<lb/>
+<hi rendition="#g">Papageno</hi> laufen ab, <hi rendition="#g">Leporello</hi> kömmt von hin-<lb/>
+ten, und stößt <hi rendition="#g">Minnewart</hi> in den Berg, der sich so<lb/>
+gleich mit Geräusch schließt, und läuft freudig ab.</stage></sp></div><lb/>
+<div n="2"><head>Eilfte Scene.</head><lb/>
+<stage>Eine belebte rauhe Gegend. NB. ganz kurze Decora-<lb/>
+tion.</stage><lb/>
+<sp who="#SIN"><speaker>Sinabal</speaker><stage>(allein, völlig geharnischt.)</stage><lb/>
+<p>Welch fremde Macht ist wider mich im Spiele,<lb/>
+Welch unbekannte Hand<lb/>
+Droht meinen felsenfesten Thron zu stürzen &#x2014;<lb/>
+Zobea drang durch tausendfachen Zauber<lb/>
+Jn meiner Werkstatt dunkles Labyrinth;<lb/>
+Jn's Meer sank der Magnetenfels hinab,<lb/>
+Den ich dem kühnen Feind entgegen pflanzte;<lb/>
+Belagert ist die Stadt; das Volk im Aufruhr;<lb/>
+Ja, selbst in diesem Augenblicke wagt<lb/>
+Zobea, mein Gebot zu übertreten;<lb/>
+Tritt feindlich gegen ihren Vater auf,<lb/>
+<pb n="83" facs="#f0087"/>
+Und reizt so zur Verzweiflungs- Wuth ihn an.<lb/>
+Wer lehrte sie dieß Mittel,<lb/>
+Das rächend ihn an diese Küste bannt?<lb/>
+Zeigt euch, ihr kühnen Mächte,<lb/>
+Die ihr mich zwingen wollt,<lb/>
+Der ich erzeugt im Streite,<lb/>
+Gewöhnt zu streiten bin!<lb/>
+Auf! hin in deine Wohnung, Lügengeist.<lb/>
+Uralte Brut der Finsterniß, dein Beistand<lb/>
+Soll mir der Feinde Schaaren würgen helfen.</p><lb/>
+<stage>(ab.)</stage></sp><lb/>
+<p>Papageno führt Papagena<lb/>
+<stage>(beide laufend.)</stage></p><lb/>
+<sp who="#PAPO"><speaker>Papageno.</speaker><lb/>
+<p>Siehst du, da steht schon das Lager, noch<lb/>
+hundert Schritte, und wir sind in Sicherheit.</p></sp><lb/>
+<sp who="#PAP"><speaker>Papagena.</speaker><lb/>
+<p>Und wem hast du das alles zu verdanken?<lb/>
+Mir! Jch habe dir das Leben gerettet; aber<lb/>
+unterstehst du dich noch einmal, eifersüchtig<lb/>
+zu seyn, so will ich dich gewiß zu Tode är-<lb/>
+gern.</p></sp><lb/>
+<sp who="#PAPO"><speaker>Papageno</speaker><lb/>
+<stage>(ihr die Hand küssend.)</stage><lb/>
+<p>Du liebes, loses, treues Weibchen!</p></sp><lb/>
+<sp who="#PAP"><speaker>Papagena.</speaker><lb/>
+<p>Sprichst du schon wieder von treulos?</p></sp><lb/>
+<pb n="84" facs="#f0088"/>
+<sp who="#PAPO"><speaker>Papageno.</speaker><lb/>
+<p>Drehst du mir schon wieder die Worte im<lb/>
+Munde 'rum?</p></sp><lb/>
+<sp who="#PAP"><speaker>Papagena.</speaker><lb/>
+<p>Zankst du schon wieder?</p></sp><lb/>
+<sp who="#PAPO"><speaker>Papageno.</speaker><lb/>
+<p>Wollten wir nicht in's Lager fliehen?</p></sp><lb/>
+<sp who="#PAP"><speaker>Papagena.</speaker><lb/>
+<p>Nun so komm, du unausstehliches Geschöpf!</p></sp><lb/>
+<sp who="#PAPO"><speaker>Papageno.</speaker><lb/>
+<p>Unausstehlich zu seyn, ist keine schlechte ehe-<lb/>
+liche Eigenschaft.</p></sp><lb/>
+<sp who="#PAP"><speaker>Papagena.</speaker><lb/>
+<p>Fort, fort in's Lager.</p></sp><lb/>
+<sp who="#PAPO"><speaker>Papageno</speaker><stage>(im Ablaufen.)</stage><lb/>
+<p>Wirf nur die verdammte Zauberrolle erst fort.<lb/>
+Solch hexenartige, höllische Zauberinstrumen-<lb/>
+te, die können einen ehe man's sich ver-<lb/>
+sieht &#x2014;</p><lb/>
+<stage><hi rendition="#g">Papagena</hi> wirft die Rolle weg. (Beide ab.)</stage></sp><lb/>
+<sp who="#LEP"><speaker>Leporello.</speaker><lb/>
+<p>Papageno he! Papageno, Papagena, Papa-<lb/>
+geno! &#x2014; Die Liebe ist blind &#x2014; sie hören<lb/>
+nicht. &#x2014; Da haben sie die Zauberrolle fal-<lb/>
+len lassen, die hebe ich auf. &#x2014; Wer weiß,<lb/>
+wozu ich dich noch einmal brauchen kann. &#x2014;<lb/>
+Den Herrn Minister, den hab' ich schön an-<lb/>
+geführt, <stage>(er lacht)</stage> der kömmt in seinem Leben<lb/>
+<pb n="85" facs="#f0089"/>
+nicht wieder an's Tageslicht. &#x2014; So gut wie<lb/>
+lebendig begraben. Hol' mich der Teufel, le-<lb/>
+bendig begraben! Hol' mich der Teufel, le-<lb/>
+bendig begraben! &#x2014; Ach, du lieber Himmel,<lb/>
+nun fällt's mir erst auf's Gewissen: was bin<lb/>
+ich doch für ein erschrecklicher Sünder. &#x2014; &#x2014;<lb/>
+<stage>(Nach einer Pause.)</stage> Ey was, wo die kleinen<lb/>
+Soldaten bleiben, da bleibt er auch. &#x2014; Am<lb/>
+Ende ist's zu seinem Glück, und er wird un-<lb/>
+terirdischer Kaiser, oder sonst dergleichen &#x2014;<lb/>
+und dankt mir's noch am Ende, daß ich<lb/>
+ihm &#x2014;</p><stage>(während der letzten Worte ist er abgegan-<lb/>
+gen.)</stage></sp></div><lb/>
+<div n="2"><head>Zwölfte Scene.</head><lb/>
+<stage>Königliches Zelt in zwey Abtheilungen. <hi rendition="#g">Zobea</hi> und<lb/>
+<hi rendition="#g">Osmar</hi> auf Polstern, eine Wache des <hi rendition="#g">Osmar</hi>, eine<lb/>
+Mohren Wache und Frauen der <hi rendition="#g">Zobea</hi>.</stage><lb/>
+<sp who="#OSM"><speaker>Osmar</speaker><stage>(aufstehend.)</stage><lb/>
+<p>Zu viel! zu viel! ich unglückseel'ger Vater!<lb/>
+Zobea, noch einmal beschwör' ich dich:<lb/>
+Kehre nicht wieder in die Stadt zurück.</p></sp><lb/>
+<sp who="#ZOBE"><speaker>Zobea</speaker><lb/>
+<p>Jch muß zurück, er hat es mir geboten,<lb/>
+Und blindlings muß ich seinem Winke folgen.<lb/>
+Du aber sollst von diesem Unglücksstrande<lb/>
+Jn deine Heimath kehren.</p></sp><lb/>
+<pb n="86" facs="#f0090"/>
+<sp who="#OSM"><speaker>Osmar.</speaker><lb/>
+<p>Nicht ehe, als bis ich dich, und deine Schwe-<lb/>
+stern,<lb/>
+Aus jenes Ungeheuers Macht errettet.</p></sp><lb/>
+<sp who="#ZOBE"><speaker>Zobea.</speaker><lb/>
+<p>Das überlaß dem Himmel,<lb/>
+Der deines schwachen Armes nicht bedarf.</p></sp><lb/>
+<sp who="#OSM"><speaker>Osmar.</speaker><lb/>
+<p>Du täuschest mich durch fromme Worte nicht,<lb/>
+Ein blinder Hang beraubt dich deiner Sinne,<lb/>
+Und kettet dich an jenes Ungeheuer,<lb/>
+Das Greu'l den Göttern, wie den Men-<lb/>
+schen, ist.</p></sp><lb/>
+<sp who="#ZOBE"><speaker>Zobea.</speaker><lb/>
+<p>Nun wohl, so trotze dem Geschicke,<lb/>
+Das dir durch mich ein Zeichen giebt zu fliehen.<lb/>
+So baue denn auf deine schwachen Waffen,<lb/>
+Und gehe, mein nicht achtend, in den Tod,</p></sp><lb/>
+<sp who="#OSM"><speaker>Osmar.</speaker><lb/>
+<p>Der Tod ist mir willkommen,<lb/>
+Er löset mich von diesem Marter- Leben,<lb/>
+Wo mir die eignen Kinder<lb/>
+Zur harten Geißel werden.</p></sp><lb/>
+<sp who="#ZOBE"><speaker>Zobea</speaker><stage>(für sich.)</stage><lb/>
+<p>O grausames Geschick, das mir verbietet,<lb/>
+Zu meines Vaters Füßen hinzusinken,<lb/>
+Und mit ihm unser Schicksal zu beweinen &#x2014;<lb/>
+Ermanne dich, Zobea!</p><lb/>
+<pb n="87" facs="#f0091"/>
+<stage>(laut.)</stage><lb/>
+<p>Mein Auftrag ist zu Ende,<lb/>
+Und mit ihm die Geduld, die ich geübt,<lb/>
+Die ich umsonst geübt.<lb/>
+Verfolge nun halsstarrig dein Geschick,<lb/>
+Das um so sichrer dich ereilen wird.</p></sp><lb/>
+<sp who="#OSM"><speaker>Osmar.</speaker><lb/>
+<p>Zobea höre, ich schwör' es bei den Göttern,<lb/>
+Führ' in Samandels Mauern<lb/>
+Jch jemals diese Kriegesvölker ein,<lb/>
+So sey das erste Opfer meiner Rache,<lb/>
+Unwürdige, du selbst.</p></sp><lb/>
+<sp who="#ZOBE"><speaker>Zobea</speaker><stage>(für sich.)</stage><lb/>
+<p>Welch harte Buße ist mir auferlegt;<lb/>
+<stage>(laut.)</stage><lb/>
+Nie wirst du jene Königsstadt betreten.</p></sp><lb/>
+<sp who="#OSM"><speaker>Osmar.</speaker><lb/>
+<p>Den Thränen meiner Gattin bring' ich dich,<lb/>
+Die du in Sünden bist erzeugt, zum Opfer.</p></sp><lb/>
+<sp who="#ZOBE"><speaker>Zobea</speaker><stage>(für sich.)</stage><lb/>
+<p>O Götter, gebt mir Kraft!<lb/>
+<stage>(laut.)</stage><lb/>
+Der leeren Drohung, und dem stolzen Wahn-<lb/>
+sinn<lb/>
+Weich' ich, wie es die Klugheit heischet, aus.</p><lb/>
+<stage>(Sie will gehen.)</stage></sp><lb/>
+<sp who="#OSM"><speaker>Osmar.</speaker><lb/>
+<p>Was hält mich noch zurück?<lb/>
+<pb n="88" facs="#f0092"/>
+<stage>Er greift an sein Schwerdt; die Hand entsinkt ihm. Die<lb/>
+Weiber der Zobea umringen sie schützend.</stage><lb/>
+Zobea bleibe!</p></sp><lb/>
+<sp who="#ZOBE"><speaker>Zobea.</speaker><lb/>
+<p>O lasset ihn, den Unglückseeligen,<lb/>
+Mein allzu hart bedrängtes Herz durchbohren.</p><lb/>
+<stage>(Sie weint.)</stage></sp><lb/>
+<sp who="#OSM"><speaker>Osmar.</speaker><lb/>
+<p>Du weinst? so darf ich hoffen,<lb/>
+Daß Reue diese Thränen dir erpreßt.<lb/>
+O, komm' in meine Arme!</p></sp><lb/>
+<sp who="#ZOBE"><speaker>Zobea</speaker><stage>(für sich.)</stage><lb/>
+<p>Zu schwer ist diese Prüfung! &#x2014;<lb/>
+<stage>(laut)</stage><lb/>
+Jch wein', daß ich mir drohen lassen muß<lb/>
+Jm Beiseyn meiner Diener &#x2014; aus Zorn<lb/>
+wein' ich.</p><lb/>
+<stage>Während der letzten Worte höret man den Appel von einer<lb/>
+Trompete im Lager. Ein Offizier tritt ein, und sagt<lb/>
+<hi rendition="#g">Osmar</hi> Etwas leise.</stage></sp><lb/>
+<sp who="#OSM"><speaker>Osmar.</speaker><lb/>
+<p>Führ' sie hierher. Entfernet euch ihr andern.</p></sp><lb/>
+<sp who="#HEROLD_MINNE_LAR"><speaker>Herold. Minnewart. Larifari.</speaker><lb/>
+<stage>(die beiden letztern bleiben im Grunde stehen.)</stage></sp><lb/>
+<sp who="#OSM"><speaker>Osmar.</speaker><lb/>
+<p>Herold, was du zu sagen hast, das kleide in<lb/>
+kurze Worte ein.</p></sp><lb/>
+<pb n="89" facs="#f0093"/>
+<sp who="#HEROLD"><speaker>Herold.</speaker><lb/>
+<p>Zuförderst grüss' ich Ormus mächt'gen König<lb/>
+Von Sinabal, dem Kaiser in Samandel,<lb/>
+Der dich befragen läßt,<lb/>
+Ob deiner königlichen Tochter Bitte,<lb/>
+Ob dich die Ueberzeugung ihres Glückes<lb/>
+Bewogen hat, in seiner Hauptstadt friedlich &#x2014;</p></sp><lb/>
+<sp who="#OSM"><speaker>Osmar</speaker><stage>(kalt.)</stage><lb/>
+<p>Die Stadt ist aufgefordert, und sie bleibt es.</p></sp><lb/>
+<sp who="#HEROLD"><speaker>Herold.</speaker><lb/>
+<p>Jn diesem Fall, so höre<lb/>
+Den Vorschlag unsers edlen Kaisers an. &#x2014;<lb/>
+Es liegt das Wohl ihm seines Volks am Herzen;<lb/>
+Schuldloses Blutvergießen will er meiden &#x2014;<lb/>
+Und wenn du, Osmar, gleiches Sinnes bist,<lb/>
+So ladet er zum Zweykampf &#x2014;</p></sp><lb/>
+<sp who="#OSM"><speaker>Osmar</speaker><stage>(feurig.)</stage><lb/>
+<p>Genug der eitlen Worte &#x2014;<lb/>
+Er ladet mich zum Zweykampf, und ich komme.<lb/>
+Sag', Herold, wann und wo ich soll erscheinen?</p><lb/>
+<stage>(<hi rendition="#g">Zobea</hi> tritt aufmerksam hervor und lauscht.)</stage></sp><lb/>
+<sp who="#HEROLD"><speaker>Herold.</speaker><lb/>
+<p>Jm nahen Walde, an des Meeres Ufer,<lb/>
+Soll morgen bei des Tages ersten Dämme-<lb/>
+rung<lb/>
+Allein durch eure königlichen Waffen<lb/>
+Des Landes Wohl und Weh entschieden werden.<lb/>
+<pb n="90" facs="#f0094"/>
+Was im gerechten Kriege du verlangst,<lb/>
+Wird dir alsbald gewähret,<lb/>
+Wenn Sinabal durch deine Hände fällt.<lb/>
+Fällst du, so zieh' in Frieden,<lb/>
+Ohn' deinen Tod zu rächen,<lb/>
+Dein Kriegsheer in die Heimath &#x2014;<lb/>
+Dies schwöre mir zu halten;<lb/>
+So wie ich dir, in dieser Zeugen Gegenwart,<lb/>
+<stage>(auf <hi rendition="#g">Minnewart</hi> und <hi rendition="#g">Larifari</hi> deutend.)</stage><lb/>
+Jm Namen Sinabals es heilig schwöre.</p></sp><lb/>
+<sp who="#ZOBE"><speaker>Zobea</speaker><stage>(stürzt hervor.)</stage><lb/>
+<stage>(Zu den Wachten.)</stage><lb/>
+<p>Zurück! ich muß hindurch.<lb/>
+Ach, Vater, schwöret nicht, er ist ein Zaubrer.<lb/>
+Seht mich zu euren Füßen, schwöret nicht!</p></sp><lb/>
+<sp who="#OSM"><speaker>Osmar.</speaker><lb/>
+<p>Fort Schlange, fort, aus meinen Augen fort! &#x2014;<lb/>
+<stage>(Zum Herold.)</stage><lb/>
+Jch schwör' es dir bei meinem Königs-Eide,<lb/>
+Jch halte unverbrüchlich den Vertrag &#x2014;</p></sp><lb/>
+<sp who="#ZOBE"><speaker>Zobea.</speaker><lb/>
+<p>Weh ihm, dem Armen, Unglückseligen!</p><lb/>
+<stage>(Ein Diener tritt ein.)</stage></sp><lb/>
+<sp who="#DIEN"><speaker>Diener.</speaker><lb/>
+<p>Jm Lager, Herr, ist Aufruhr ausgebrochen,<lb/>
+Es stehen Eure königlichen Söhne<lb/>
+Mit ihren Truppen fechtend an einander.</p></sp><lb/>
+<pb n="91" facs="#f0095"/>
+<sp who="#OSM"><speaker>Osmar.</speaker><lb/>
+<p>Verschwört die Welt sich gegen mich?<lb/>
+Jhr Wachten folget mir.</p><lb/>
+<stage>(ab.)</stage></sp><lb/>
+<sp who="#ZOBE"><speaker>Zobea.</speaker><lb/>
+<p>Wo wollt ihr hin. Jhr waget euer Leben! &#x2014;<lb/>
+Er hört nicht mehr auf mich, ich muß ihm<lb/>
+nach.</p><lb/>
+<stage>(ab mit Weibern und Wachten.)</stage><lb/>
+<stage><hi rendition="#g">Larifari</hi> und <hi rendition="#g">Minewart</hi> allein.</stage></sp><lb/>
+<sp who="#MINNE"><speaker>Minnewart.</speaker><lb/>
+<p>Das ist ja heute eine schreckliche Wirthschaft<lb/>
+hier; kaum ist man von der Gnomen-Ka-<lb/>
+vallerie errettet, so drohen schon wieder an-<lb/>
+dre militairische Gefahren.</p></sp><lb/>
+<sp who="#LAR"><speaker>Larifari.</speaker><lb/>
+<p>Was hilft das, Herr Minister, wir dürfen<lb/>
+die kaiserliche Braut nicht im Kriege allein<lb/>
+lassen, wir müssen ihr nach.</p></sp><lb/>
+<sp who="#MINNE"><speaker>Minnewart.</speaker><lb/>
+<p>Sie haben recht, doch bitte ich sie, mich zu<lb/>
+führen, sie sind General, und wissen daher<lb/>
+am besten, wo's sicher ist in der Schlacht.</p><lb/>
+<stage>(Beide ab.)</stage></sp></div><lb/>
+<pb n="92" facs="#f0096"/>
+<div n="2"><head>Dreyzehnte Scene.</head><lb/>
+<stage>Gegend am Meer. Man sieht die Flotte bunt gepflanzt<lb/>
+und bewimpelt, nebst einen Theil des Lagers. Einzelne<lb/>
+Zelte auf den Bergen. Kriegerische Musik. Schlacht<lb/>
+hinter der Scene.</stage><lb/>
+<sp who="#CHORSOLD"><speaker>Chor von Soldaten</speaker><lb/>
+<stage>(tritt auf.)</stage><lb/>
+<p>Was hilft's mit Worten rechten,<lb/>
+So wird's nicht ausgemacht;<lb/>
+Auf! laßt uns tapfer fechten,<lb/>
+Fort in die blut'ge Schlacht!</p><lb/>
+<stage>Sie wolles fort, <hi rendition="#g">Saadi</hi> und <hi rendition="#g">Almansor</hi> kommen ihnen<lb/>
+mit ihreo Wachten entgegen. Sie ordnen sich zu beiden<lb/>
+Seiten des Theaters, <hi rendition="#g">Saadi</hi> und <hi rendition="#g">Almansor</hi> in der<lb/>
+Mitte sich zum Zweykampf auschickend.</stage></sp><lb/>
+<sp who="#ALM"><speaker>Almansor.</speaker><lb/>
+<p>Jch weiß, du bist der Thäter;<lb/>
+Vertheid'ge dich, Verräther!<lb/>
+Du stirbst von meiner Hand.</p></sp><lb/>
+<sp who="#SAA"><speaker>Saadi.</speaker><lb/>
+<p>Fühl' meines Armes Stärke!<lb/>
+Für deiner Sünden Werke<lb/>
+Werd' dir gerechter Lohn.</p><lb/>
+<stage>(sie fechten.)</stage></sp><lb/>
+<sp who="#OSM"><speaker>Osmar</speaker><stage>(mit seinen Wachten.)</stage><lb/>
+<p>Unseel'ge, haltet inne<lb/>
+Saadi, Almansor, hört ihr nicht?<lb/>
+<pb n="93" facs="#f0097"/>
+Welch blinde Wuth raubt euch die Sinne,<lb/>
+Daß ihr das Heer entzweyt,<lb/>
+Daß ihr die eignen Völker<lb/>
+Voll Kampfsucht an einander führt!<lb/>
+Wißt ihr, verrätherische Söhne,<lb/>
+Daß Euch der Tod gebührt?</p></sp><lb/>
+<sp who="#ALM"><speaker>Almansor.</speaker><lb/>
+<p>Mein Vater, strafe mich,<lb/>
+Wenn ungerecht ich streite!</p></sp><lb/>
+<sp who="#SAA"><speaker>Saadi.</speaker><lb/>
+<p>Wenn ungerecht ich streite,<lb/>
+So strafe König mich!</p></sp><lb/>
+<sp who="#ALM"><speaker>Almansor.</speaker><lb/>
+<p>Er wollte morden mich,<lb/>
+Er stand in meinem Zelte,<lb/>
+Den Dolch in seiner Hand.</p></sp><lb/>
+<sp who="#SAA"><speaker>Saadi.</speaker><lb/>
+<p>Den Dolch in seiner Hand<lb/>
+Stand er in meinem Zelte,<lb/>
+Er wollte morden mich.</p><lb/>
+</sp><list><item><sp who="#SAA #OSM"><speaker>Beide.</speaker><lb/>
+<p>Du bist, du bist der Thäter,<lb/>
+Du wolltest morden mich.</p><lb/>
+</sp><sp who="#OSM"><speaker>Osmar.</speaker><lb/>
+<p>Unglücklichster der Väter!<lb/>
+Jhr Götter schützet mich!</p></sp></item></list><lb/>
+<sp who="#SAA"><speaker>Saadi.</speaker><lb/>
+<p>Mein Kriegesvolk sey Zeuge!<lb/>
+<pb n="94" facs="#f0098"/>
+Sprecht, saht ihr nicht Almansor<lb/>
+Zu meinem Zelte schleichen,<lb/>
+Den Dolch in seiner Hand?</p></sp><lb/>
+<sp who="#CHOR"><speaker>Chor.</speaker><lb/>
+<p>Wir können es bezeugen,<lb/>
+Wir sahen dich Almansor,<lb/>
+Zu Saadi Zelte schleichen,<lb/>
+Den Dolch in deiner Hand.</p></sp><lb/>
+<sp who="#ALM"><speaker>Almansor.</speaker><lb/>
+<p>Hört mich, ihr meine Völker!<lb/>
+Wer war der freche Mörder,<lb/>
+Der mit dem Dolch bewaffnet,<lb/>
+Sich einschlich in mein Zelt?</p></sp><lb/>
+<sp who="#CHOR"><speaker>Chor.</speaker><lb/>
+<p>Saadi der freche Mörder,<lb/>
+Mit einem Dolch bewaffnet,<lb/>
+Schlich er durch unsre Völker<lb/>
+Jn unsers Feldherrn Zelt.</p></sp><lb/>
+<sp who="#BEICHOERE"><speaker>Beide Chöre.</speaker><lb/>
+<p>Laßt uns das Mordverbrechen<lb/>
+An dieser Rotte rächen,<lb/>
+Rächet des Feldherrn Schmach!</p><lb/>
+<stage>(Sie dringen auf einander ein, <hi rendition="#g">Osmar</hi> stürzt<lb/>
+den Truppen nach, alle schnell ab.)</stage></sp><lb/>
+<p>Zobea. Papagena <hi rendition="#g">und</hi> Weiber.</p><lb/>
+<sp who="#ZOBE"><speaker>Zobea.</speaker><lb/>
+<p>Wo ist mein Vater, meine Brüder?</p></sp><lb/>
+<pb n="95" facs="#f0099"/>
+<sp who="#PAP"><speaker>Papagena.</speaker><lb/>
+<p>Sie wagen Fürstin, sich zu weit.</p></sp><lb/>
+<sp who="#ZOBE"><speaker>Zobea.</speaker><lb/>
+<p>Wo find ich meinen Vater wieder?</p></sp><lb/>
+<sp who="#PAP"><speaker>Papagena.</speaker><lb/>
+<p>Entfliehen Sie dem Unglücksstreit!</p></sp><lb/>
+<sp who="#CHORF"><speaker>Chor von Frauen.</speaker><lb/>
+<p>Du wagest Fürstin, dich zu weit!<lb/>
+Entfliehe diesem Unglücksstreit!</p></sp><lb/>
+<sp who="#ZOBE"><speaker>Zobea.</speaker><lb/>
+<p>Jch darf, ich kann, ich will nicht fliehen,<lb/>
+Jch muß durch meine Thränen<lb/>
+Die Kämpfenden versöhnen,<lb/>
+Fort, laßt mich in die Schlacht.</p><lb/>
+<stage>(Die Frauen halten sie zurück.)</stage></sp><lb/>
+<sp who="#CHORSOLD"><speaker>Chor von fechtenden Soldaten.</speaker><lb/>
+<p>Rache, Rache nieder, nieder!<lb/>
+Jhr bezahlet es mit Blut.<lb/>
+Muthig, muthig, tapfre Brüder,<lb/>
+Mordet der Verräther Brut!</p><lb/>
+<stage><hi rendition="#g">Zelu</hi> als Priester, ein Schwert in der Hand. Er führt<lb/>
+die <hi rendition="#g">Lüge</hi> an Ketten. Das Gefecht hört plötzlich auf.</stage></sp><lb/>
+<sp who="#ZEL"><speaker>Zelu.</speaker><lb/>
+<p>Hier schauet alles Unheils Quelle,<lb/>
+Die Lüge, die Geburt der Hölle,<lb/>
+Durch die euch Sinabal entzweit.<lb/>
+<pb n="96" facs="#f0100"/>
+Vom Haupte reiß' ich ihr den Schleyer,<lb/>
+Jetzt steht es da als Ungeheuer,<lb/>
+Jm Sonnenlicht nicht schädlich mehr.<lb/>
+Fort, Pest des Abgrunds, fort hinab,<lb/>
+Fort in der Hölle ew'ges Grab!</p><lb/>
+<stage>(Sie sinkt unter.)</stage></sp><lb/>
+<sp who="#CHORSOLD"><speaker>Chor von Soldaten.</speaker><lb/>
+<p>Fort, Pest des Abgrunds, fort hinab!<lb/>
+Fort in der Hölle ew'ges Grab!</p></sp><lb/>
+<sp who="#SAA"><speaker>Saadi.</speaker><lb/>
+<p>Verzeihe mir mein Freund,<lb/>
+O, komm in meine Arme!</p></sp><lb/>
+<sp who="#ALM"><speaker>Almansor.</speaker><lb/>
+<p>O komm in meine Arme,<lb/>
+Verzeihe mir mein Freund!</p><lb/>
+<stage><hi rendition="#g">Zelu</hi> nimmt <hi rendition="#g">Osmar</hi> bei Seite, und giebt ihm das<lb/>
+Schwerdt. <hi rendition="#g">Zobea</hi> naht sich unterdessen ihren Brüdern.</stage></sp><lb/>
+<sp who="#ZEL"><speaker>Zelu.</speaker><lb/>
+<p>Nimm dies Schwerdt aus meinen Händen,<lb/>
+Das in Himmelsglut gediegen,<lb/>
+Und als Sieger wirst du enden<lb/>
+Jn dem schwersten Erdenkampfe.<lb/>
+Dieses Schwerdt ist unbezwingbar,<lb/>
+Sinabal kann dich nicht tödten,<lb/>
+Doch ich rathe dir, zu beten,<lb/>
+Eh du nach dem Walde gehst.</p><lb/>
+<stage>(Er geht zur Zobea, und reicht ihr den Ring.)</stage><lb/>
+<p>Dieser Ring Zobea, scheuchet<lb/>
+Trägen Schlafes Zaubermacht.<lb/>
+<pb n="97" facs="#f0101"/>
+Wiß', er ist ein Pfand der Liebe,<lb/>
+Die in Sorgen für dich wacht.<lb/>
+Dies bedenke, wenn du schauest<lb/>
+Fürchterliches diese Nacht;<lb/>
+Liebe wird die Leiden enden,<lb/>
+Da dich Liebe leiden macht.</p></sp><lb/>
+<p>Alle fünfe.</p><lb/>
+<sp who="#OSM"><speaker>Osmar</speaker><stage>(links.)</stage><lb/>
+<p>Neuer Muth und neues Leben<lb/>
+Sind in meiner Brust erwacht.<lb/>
+Dieses Schwerdt in meinen Händen,<lb/>
+Wird mein Leid nun früher enden,<lb/>
+Früher als ich es gedacht.</p></sp><lb/>
+<sp who="#ZOBE #ALM #SAA"><speaker>Zobea, Almansor, Saadi,</speaker><lb/>
+<stage>(in der Mitte.)</stage><lb/>
+<p>Neuer Muth und neues Leben<lb/>
+Sind in <list rendition="#rightBraced #leftBraced"><item>meiner</item><lb/>
+<item>deiner</item></list> Brust erwacht,<lb/>
+Bald wird nun <list rendition="#leftBraced #rightBraced"><item>mein</item><lb/>
+<item>dein</item></list> Leiden enden,<lb/>
+Sich zu hohen Freuden wenden<lb/>
+Da die Liebe für <list rendition="#rightBraced #leftBraced"><item>mich</item><lb/>
+<item>dich</item></list> wacht.</p></sp><lb/>
+<sp who="#ZEL"><speaker>Zelu</speaker><stage>(rechts.)</stage><lb/>
+<p>Neue Liebe, neues Leben<lb/>
+Sind in ihrer Brust erwacht,<lb/>
+Jener Ring in ihren Händen,<lb/>
+<pb n="98" facs="#f0102"/>
+Mächtig wird er von ihr wenden<lb/>
+Trägen Schlafes Zaubermacht.</p></sp><lb/>
+<sp who="#SIN"><speaker>Sinabal,</speaker><lb/>
+<stage>(kommt auf einem Drachenwagen aus der Erde.)</stage><lb/>
+<p>Frohlocket nicht zu früh<lb/>
+Mit eurer Himmelsmacht,<lb/>
+Denn noch herrsch ich allhier<lb/>
+Und noch ist nichts vollbracht.<lb/>
+Noch bin ich hier Meister,<lb/>
+Beherrsche die Geister;<lb/>
+Sie kommen gerufen<lb/>
+Auf feurigen Stufen<lb/>
+Aus dunkeln Hölen,<lb/>
+Zu meinen Befehlen.<lb/>
+Jhr sollet sie schauen,<lb/>
+Jhr sollet ergrauen.</p><lb/>
+<stage>Bei den letzten Worten hat er Zauberzeichen gemacht. Es<lb/>
+steigen Furienartige Geister mit Fackeln und Pechkränzen<lb/>
+in den Händen aus der Erde. Sie werfen Feuer auf die<lb/>
+Zelter und auf die Schiffe, die zu brennen anfangen. Un-<lb/>
+terdessen führt <hi rendition="#g">Sinabal</hi> die <hi rendition="#g">Zobea</hi> auf einen Felsen.<lb/>
+<hi rendition="#g">Papagena</hi>, <hi rendition="#g">Larifari</hi>, <hi rendition="#g">Minnewart</hi> und ihre<lb/>
+<hi rendition="#g">Frauen</hi> folgen ihnen.</stage></sp><lb/>
+<sp who="#CHORSOLD_CHORV"><speaker>Chor von Soldaten und Volk.</speaker><lb/>
+<p>Hülfe, Hülfe, wildes Feuer.<lb/>
+Eilen, löschen wir den Brand!<lb/>
+Fluch dem grausen Ungeheuer,<lb/>
+Fluch der mordbeladnen Hand.</p></sp><lb/>
+<pb n="99" facs="#f0103"/>
+<spGrp rendition="#leftBraced"><sp who="#ZOB"><speaker>Zobea und die Weiber.</speaker><lb/>
+<p>Weh <list rendition="#leftBraced #rightBraced"><item>mein</item><lb/>
+<item>ihr</item></list> Vater <list rendition="#rightBraced #leftBraced"><item>meine</item><lb/>
+<item>ihre</item></list> Brüder!<lb/>
+Wildes Feuer, Ströme Blut!</p><lb/>
+</sp><sp who="#SIN"><speaker>Sinabal.</speaker><lb/>
+<p>Senget, brennet alles nieder,<lb/>
+Mordet der Verräther Brut!</p></sp></spGrp><lb/>
+<sp who="#CHORSOLD" xml:id="sp01" next="#sp02"><speaker>Chor von Soldaten.</speaker><lb/>
+<p>Hülfe, hülfe wildes Feuer!<lb/>
+Eilen, löschen wir den Brand!</p></sp><lb/>
+<spGrp rendition="#leftBraced"><sp who="#CHORSOLD" xml:id="sp02" prev="#sp01"><p>Fluch dem grausen Ungeheuer,<lb/>
+Fluch der mordbeladnen Hand!</p><lb/>
+</sp><sp who="#PAP_WEIB"><speaker>Papagena und die Weiber.</speaker><lb/>
+<p>Hab Erbarmen, still das Feuer!<lb/>
+Lösche diesen Schreckensbrand.</p></sp></spGrp><lb/>
+<spGrp rendition="#leftBraced"><sp who="#ZOB"><speaker>Zobea und die Weiber.</speaker><lb/>
+<p>Hab Erbarmen! still die Gluth!</p><lb/>
+</sp><sp who="#SIN"><speaker>Sinabal.</speaker><lb/>
+<p>Mordet der Verräther Brut!</p></sp></spGrp><lb/>
+<sp who="#CHORSOLD"><speaker>Chor von Soldaten.</speaker><lb/>
+<p>Eilen, löschen wir die Glut!</p></sp><lb/>
+<spGrp rendition="#leftBraced"><sp who="#ZOB"><speaker>Zobea und die Weiber.</speaker><lb/>
+<p>Hab Erbarmen, still den Brand!</p><lb/>
+</sp><sp who="#SIN"><speaker>Sinabal.</speaker><lb/>
+<p>Fühlet diese Rächer Hand.</p></sp></spGrp><lb/>
+<sp who="#CHORSOLD"><speaker>Chor von Soldaten.</speaker><lb/>
+<p>Eilen, löschen wir den Brand!</p></sp><lb/>
+<pb n="100" facs="#f0104"/>
+<spGrp rendition="#leftBraced"><sp who="#ZOB"><speaker>Zobea und die Weiber.</speaker><lb/>
+<p>Hab Erbarmen! still das Feuer!<lb/>
+Lösche diesen Schreckensbrand!</p><lb/>
+</sp><sp who="#CHORSOLD"><speaker>Chor von Soldaten.</speaker><lb/>
+<p>Fluch dem grausen Ungeheuer,<lb/>
+Fluch der blut'gen Mörderhand!</p><lb/>
+</sp><sp who="#SIN"><speaker>Sinabal.</speaker><lb/>
+<p>Seht, das ist der Hölle Feuer,<lb/>
+Fühlet diese Rächerhand!</p></sp></spGrp><lb/>
+<stage>Alle eilen, das Feuer zu löschen, <hi rendition="#g">Zelu, Almansor, Os-<lb/>
+mar</hi> und <hi rendition="#g">Sadi</hi> sieht man besonders geschäftig.</stage><lb/>
+<stage>(Der Vorhang fällt schnell.)</stage><lb/>
+<stage>Ende des zweiten Aufzuges.</stage></div></div><lb/>
+<pb n="101" facs="#f0105"/>
+<div n="1"><head>Dritter Aufzug.</head><lb/>
+<div n="2"><head>Erste Scene.</head><lb/>
+<stage>Königliches Zimmer von Lampen matt erleuchtet. <hi rendition="#g">Zobea</hi><lb/>
+auf Polstern, sich stellend, als ob sie schlafe. Zu beiden<lb/>
+Enden der Polster Gefäße, die Weyhrauch dampfen.</stage><lb/>
+<stage><hi rendition="#g">Sinabal</hi> in einem Zaubergewande, den Zauberstab<lb/>
+in Händen, deutet während des Ritornels an, daß er<lb/>
+<hi rendition="#g">Zobea</hi> in festen Schlaf gewiegt habe, und singt dann,<lb/>
+indem er Zauberzeichen auf die Erde schreibt:</stage><lb/>
+<p>Gehorchet, ihr Schatten,<lb/>
+Gehorchet der Macht<lb/>
+Zur Zeit, wenn die Nacht<lb/>
+Und der Mond sich begatten,<lb/>
+Müßt ihr's gestatten,<lb/>
+Noch eh' ich's gedacht,<lb/>
+Und dürft nicht ermatten,<lb/>
+Bevor ihr's vollbracht.</p><lb/>
+<stage>Er nimmt ein Gefäß, und gießt solches geheimnißvoll aus.</stage><lb/>
+<pb n="102" facs="#f0106"/>
+<p>Drey Dinge verlang' ich, ihr Geister der Hölle,<lb/>
+Drey Dinge, die schaffet dem Meister zur<lb/>
+Stelle.</p><lb/>
+<p>Zuerst aus der Erde siebentem Herzen<lb/>
+Treibet herbei siedendes Blut;<lb/>
+Dann ich will den Kelch, der aus sieben'rley<lb/>
+Erzen</p><lb/>
+<p>Jm innersten Kern der Erde ruht;<lb/>
+Und endlich verlang' ich sieben Kerzen,<lb/>
+Entzündet in quallmender Höllengluth.<lb/>
+Es ruft euch des Meisters Stimme hervor &#x2014;<lb/>
+Empor, ihr Geister, empor, empor!</p><lb/>
+<stage>Es entsteht in der Mitte des Theaters ein sprudelnder<lb/>
+rauchender Quell. An der einen Seite des Quells steigt<lb/>
+eine formlose lange graue Gestalt hervor, die mit bei-<lb/>
+den Händen den Kelch hält, von der andern Seite eine<lb/>
+kleinere transparente arabesque Figur, deren Haupt<lb/>
+mit sieben Flammen umgeben ist.</stage><lb/>
+<p>Erdgeist, mein Rächer hier,<lb/>
+Gieb nun den Becher mir!<lb/>
+Gieb mir den blinkenden winkenden her &#x2014;<lb/>
+Siehst du, so brauch' ich ihn,<lb/>
+Siehst du, so brauch' ich ihn,<lb/>
+Tief in den sausenden brausenden Quell &#x2014;<lb/>
+Dreymal wird eingeschenkt,<lb/>
+Dreymal wird reingeschenkt,<lb/>
+Dreymal nach altem, nach waltendem Brauch &#x2014;<lb/>
+Nun mußt du Flammender,<lb/>
+<pb n="103" facs="#f0107"/>
+Feuer Entstammender,<lb/>
+Kochen den rächend-bezechenden Trank.</p><lb/>
+<stage>Er setzt, nachdem er alles das gethan, was der Gesang<lb/>
+vorschreibt, den Becher auf das Haupt des Feuergeistes.</stage><lb/>
+<p>Koche nun, du Erdenblut,<lb/>
+Einmal in der rothen Gluth,<lb/>
+Zweymal in dem blauen Schein,<lb/>
+Koche, koche Höllenwein!<lb/>
+Hast du Eins, und hast du Zwey,<lb/>
+So gebährt sich selbst die Drey;<lb/>
+Hast du blau und rothen Schein,<lb/>
+Jst der Welten Urkraft dein.<lb/>
+Eins und zwey und blau und roth,<lb/>
+Jst das Leben, ist der Tod.</p><lb/>
+<stage>Er nimmt den Becher. Auf seinen Wink verschwinden<lb/>
+die drey Erscheinungen. Er setzt den Becher sorgfältig<lb/>
+bei Seite, und legt, während der folgenden Rede, sein<lb/>
+Zaubergewand als Zauberer ab, darunter er gerü-<lb/>
+stet ist.</stage><lb/>
+<p>Vollbracht ist nun das heimlich dunkle Werk,<lb/>
+Geglückt die Mischung, und der Trank ge-<lb/>
+rathen,<lb/>
+Der wilde Wollustgier<lb/>
+<stage>(auf Zobea zeigend)</stage> Jn deine Adern gießet;<lb/>
+Der dich mit heißem Hange an mich bannt,<lb/>
+Und der nach Monatsfrist,<lb/>
+Da lästig mir dein mildes Schmeicheln wird,<lb/>
+Dich fern von mir verwandelt &#x2014;<lb/>
+<pb n="104" facs="#f0108"/>
+Wie es die Kunst gebietet.<lb/>
+Hast du dem Werke selbst mit beigewohnt &#x2014;<lb/>
+Jn Zauberschlaf gebunden,<lb/>
+Hielten dich Geister-Hände. &#x2014;<lb/>
+Habt Dank ihr unterirdischen Genossen!<lb/>
+Nun aber eil' ich fort,<lb/>
+Durch Finsterniß und Stürme,<lb/>
+Hin in des Feindes Lager,<lb/>
+Das meinen Flammen trotzte,<lb/>
+Und spottend mein noch da steht &#x2014;<lb/>
+Bevor die Sonn' am Horizont erscheint,<lb/>
+Bist du, ich schwör' es stolzer Osmar, dir:<lb/>
+Bist du des Vatermordes sichere Beute.<lb/>
+Entkamst du auch dem Feuertod, Verwegner,<lb/>
+Dem Rache-Schwerdt entgehst du sicher nicht.</p><lb/>
+<stage>Bei dem letzten Wort hat er den Helm aufgesetzt, den<lb/>
+Schild genommen, das Schwerdt gezogen.</stage><lb/>
+<stage>(ab.)</stage><lb/>
+<sp who="#ZOBE"><speaker>Zobea</speaker><stage>(aufspringend.)</stage><lb/>
+<p>Weh', was hör' ich, weh' was seh' ich, o ich<lb/>
+Unglückseelige!</p><lb/>
+<p>Hülfe! Rettung! steht denn Niemand meinem<lb/>
+armen Vater bei?</p></sp><lb/>
+<sp who="#PAP"><speaker>Papagena</speaker><stage>(eilt hinzu)</stage><lb/>
+<p>Gnädige Fürstin!</p></sp><lb/>
+<sp who="#ZOBE"><speaker>Zobea</speaker><lb/>
+<stage>(auf die Polster sinkend.)</stage><lb/>
+<p>Heiß an meinem Finger brannte dieser Ring;<lb/>
+den Schlaf verscheuchen<lb/>
+<pb n="105" facs="#f0109"/>
+Grause Geister, wilde Wasser, Zauberworte,<lb/>
+Höllengluth!</p></sp><lb/>
+<sp who="#PAP"><speaker>Papagena.</speaker><lb/>
+<p>Ach! es schwinden ihr die Kräfte.</p></sp><lb/>
+<sp who="#ZOBE"><speaker>Zobea</speaker><stage>(aufspringend.)</stage><lb/>
+<p>Wohlan! meine Wachten will ich; bin ich denn<lb/>
+nicht Königin?</p><lb/>
+<p>Meinen Vater muß ich retten; schaffe die<lb/>
+Trabanten her!</p></sp><lb/>
+<sp who="#PAP"><speaker>Papagena.</speaker><lb/>
+<p>Gott! sie träumt, sie ist wahnsinnig.</p></sp><lb/>
+<sp who="#ZOBE"><speaker>Zobea.</speaker><lb/>
+<p>Nun, was zauderst du und murmelst, weißt<lb/>
+du denn nicht, was geschieht?</p><lb/>
+<p>Weh, er mordet meinen Vater, einen hülflos<lb/>
+schwachen Greis!</p><lb/>
+<p>Und ich zaudre noch und schwanke, eile nicht<lb/>
+zur Rettung hin?</p><lb/>
+<p>Fort ins Lager, daß ich wende, solch ein blu-<lb/>
+tiges Geschick.</p><lb/>
+<stage>(sie flieht ab.)</stage></sp><lb/>
+<sp who="#PAP"><speaker>Papagena.</speaker><lb/>
+<p>Gerechter Himmel!</p><lb/>
+<stage>(sie eilt ihr nach.)</stage></sp></div><lb/>
+<pb n="106" facs="#f0110"/>
+<div n="2"><head>Zweite Scene.</head><lb/>
+<stage>Nacht, Mondenschein.</stage><lb/>
+<stage>Anfang eines Waldes, vorn an der Seite ein Zelt, an der<lb/>
+andern eine Laube. NB. ganz kurze Decoration.</stage><lb/>
+<stage><hi rendition="#g">Osmar</hi> tritt aus dem Zelt, <hi rendition="#g">Almansor</hi> folgt ihm<lb/>
+bald nach, und verbirgt sich hinter einen Baum.</stage><lb/>
+<sp who="#OSM"><speaker>Osmar</speaker><lb/>
+<stage>(nach dem Zelte zurück blickend.)</stage><lb/>
+<p>Er ruhet sanft, von mildem Schlaf umfan-<lb/>
+gen,<lb/>
+Die jungen Glieder stärkend.<lb/>
+Der Himmel seegne dich, mein Sohn, und<lb/>
+möge<lb/>
+Jn seine ganz besondre Hut dich nehmen,<lb/>
+Wenn dieses Schwerdtes Tugend,<lb/>
+Das jener heil'ge Priester mir verliehen,<lb/>
+Jm nahen Zweykampf mich verlassen sollte.<lb/>
+»Nicht tödten wird dich Sinabal, so sprach er;<lb/>
+»Doch bete, eh' du nach dem Walde gehst.«<lb/>
+Jhr wißt, ihr hohen Götter,<lb/>
+Wie ich in dieser kummervollen Nacht<lb/>
+Euch brünstig angefleht &#x2014; Jch bin erhört;<lb/>
+Jch darf auf diese heil'ge Waffe bauen,<lb/>
+Jch darf den Tod in's Antlitz ruhig schauen.</p><lb/>
+<p>Schwerdt, dich berührt<lb/>
+Muthig die Hand!<lb/>
+Dich hat der Himmel mir<lb/>
+<pb n="107" facs="#f0111"/>
+Gütig gesandt.<lb/>
+Fort in den Kampf,<lb/>
+Sieg oder Tod!<lb/>
+Beides, ja beides ist<lb/>
+Ende der Noth.</p><lb/>
+<stage>Er blickt zum Abschiede wehmüthig nach dem Zelte, und<lb/>
+eilt dann schnell ab.</stage></sp><lb/>
+<sp who="#ALM"><speaker>Almansor</speaker><stage>(hervortretend.)</stage><lb/>
+<p>Was hört' ich? welch ein Wort? So ist es<lb/>
+wahr,<lb/>
+Was mit gewicht'gen Mienen<lb/>
+Das Lager heimlich murmelnd sich erzählte,<lb/>
+Was er hartnäckig läugnend<lb/>
+Ein Wahngeschwätz des müss'gen Haufens<lb/>
+nannte?<lb/>
+O armer, schwacher, unglückseel'ger Greis,<lb/>
+Du wagst mit Sinabal den Kampf des To-<lb/>
+des &#x2014;</p><lb/>
+<p>Und ich, ich stehe zaudernd hier und klage,<lb/>
+Und eile nicht, dir thätig beizustehn?<lb/>
+Mit meiner Jugend Stärke<lb/>
+Soll sich der Wüthrich messen;<lb/>
+Soll diesen Arm bezwingen;<lb/>
+Erst diese Brust durchbohren,<lb/>
+Eh' deinem greisen Haupt er nahen darf! &#x2014;<lb/>
+Ha, seh ich recht, dort von den Felsen eilt<lb/>
+Geharnischt eine dunkele Gestalt,<lb/>
+<pb n="108" facs="#f0112"/>
+Den goldnen Helm, den rothen Federbusch,<lb/>
+Erkenn' ich deutlich an des Mondes Flimmer!<lb/>
+Es ist der Schändliche,<lb/>
+Der nach dem Kampfplatz eilt,<lb/>
+Der meinen armen Vater morden will.<lb/>
+Das sollst du nicht, so lange ich noch athme;<lb/>
+Komm treues Schwerdt! ihr Götter steht mir<lb/>
+bei!</p><lb/>
+<stage>(schnell ab.)</stage></sp><lb/>
+<sp who="#SIN"><speaker>Sinabal</speaker><lb/>
+<stage>(tritt von der entgegengesetzten Seite schnell hervor.)</stage><lb/>
+<p>So folge nur dem trügerischen Schatten,<lb/>
+Der führet dich, wohin ich es gebiete,<lb/>
+Jn Jammer, und Verderben.<lb/>
+Bald stehst du vor des Vaters blut'ger Leiche,<lb/>
+Und giebst verzweifelnd dich dem Wahnsinn<lb/>
+hin.</p><lb/>
+<p>Dann schlingt die Erde dieses Lager ein,<lb/>
+Die Meerfluth jene Schiffe,<lb/>
+Zobea trinkt den Feuertrank der Erde,<lb/>
+Und ich bin wieder Herr in meinem Reiche. &#x2014;<lb/>
+Fort! daß ich Rache nehme,<lb/>
+Und alles selber schaue,<lb/>
+Und mich an meinem Siege<lb/>
+Und ihrem Elend weide.</p><lb/>
+<stage>(ab.)</stage></sp></div><lb/>
+<pb n="109" facs="#f0113"/>
+<div n="2"><head>Dritte Scene.</head><lb/>
+<stage><hi rendition="#g">Dieselbe Decoration.</hi></stage><lb/>
+<sp who="#PAPO"><speaker>Papageno</speaker><lb/>
+<stage>(kommt während des Ritornels an.)</stage><lb/>
+<p>Bald hüpfen, bald fliegen,<lb/>
+Auf Zweigen sich wiegen,<lb/>
+Und girrend im Neste beisammen dann<lb/>
+liegen:</p><lb/>
+<p>So treiben's die fröhlichen Vögel im Hain;<lb/>
+Drum ist mein Vergnügen,<lb/>
+Jm Walde zu seyn.</p><lb/>
+<p>Doch ackern und pflügen,<lb/>
+Und messen und wiegen,<lb/>
+Und einer den andern gar fröhlich belügen:<lb/>
+So treiben's die Menschen nur einzig allein;<lb/>
+Drum ist's mein Vergnügen,<lb/>
+Jm Walde zu seyn.</p><lb/>
+<p>Das Lied sangen immer die drey schwarzen<lb/>
+Damen, und ich glaubte damals, sie wären<lb/>
+in irgend einen Vogel verliebt; nun ich aber<lb/>
+seit der Zeit die Welt besser, oder vielmehr<lb/>
+schlechter kennen gelernt habe, nun kommt's<lb/>
+mir vor, als hätt' ich das Lied selbst ge-<lb/>
+macht. &#x2014; Wir arme Menschen sind wahrlich<lb/>
+zu beklagen, alle Tage wird man klüger,<lb/>
+wahrhaftig, wenn man nicht glücklicher Wei-<lb/>
+<pb n="110" facs="#f0114"/>
+se zuletzt stürbe, so müßte man sich aus Ver-<lb/>
+zweiflung das Leben nehmen. Schildwacht<lb/>
+soll ich stehn! mitten in der Nacht! Bin ich<lb/>
+denn etwa eine Fledermaus? O, du elendes<lb/>
+Menschengeschlecht, hättest du keine Diebe,<lb/>
+so brauchtest du keine Wachten, und hättest<lb/>
+du keine Mörder, so brauchtest du keine<lb/>
+Schilde, item keine Schildwachten, und ein<lb/>
+ehrlicher Mensch könnte schlafen, anstatt er<lb/>
+jetzt der Spitzbuben halber wachen muß. &#x2014;<lb/>
+Aber wartet nur, ich will doch wohl schla-<lb/>
+fen. Sie haben vergessen, daß hier ein Wald<lb/>
+stehet, und daß ich wenigstens unter 20 Mil-<lb/>
+lionen Betten die Wahl habe. &#x2014; Frisch hin-<lb/>
+auf, es schläft sich doch nirgends besser, als<lb/>
+auf einem Baume. &#x2014; So recht! hier will<lb/>
+ich sitzen &#x2014; Bravo! Sehr bequem! &#x2014; Wenn<lb/>
+ich's recht nehme, so bin ich wahrhaftig noch<lb/>
+der allerglücklichste Mensch in der Welt, eben,<lb/>
+weil ich nur ein halber Mensch und halb<lb/>
+ein Vogel bin.</p><lb/>
+<stage>Er trallert den ersten Vers des vorstehenden Liedes,<lb/>
+und schläft auf dem Baume ein.</stage></sp><lb/>
+<p>Papagena von Leporello geführt,</p><lb/>
+<stage>(eine Fackel in der Hand.)</stage><lb/>
+<sp who="#LEP"><speaker>Leporello.</speaker><lb/>
+<p>Wie gesagt, meine Kleine, wenn Sie den<lb/>
+<pb n="111" facs="#f0115"/>
+Don Juan gekannt hätten! wenn Sie in Eu-<lb/>
+ropa gewesen wären!</p></sp><lb/>
+<sp who="#PAP"><speaker>Papagena.</speaker><lb/>
+<p>Aber wenn es Jhnen dort so gut gegangen<lb/>
+ist, was haben Sie denn für Motive gehabt,<lb/>
+nach Ormus zu kommen.</p></sp><lb/>
+<sp who="#LEP"><speaker>Leporello.</speaker><lb/>
+<p>Was verstehen Sie unter Motive?</p></sp><lb/>
+<sp who="#PAP"><speaker>Papagena.</speaker><lb/>
+<p>Was soll ich darunter verstehen, Bewegungs-<lb/>
+gründe!</p></sp><lb/>
+<sp who="#LEP"><speaker>Leporello.</speaker><lb/>
+<p>Und was soll ich Jhnen anders antworten,<lb/>
+als daß die Bewegung der Grund meines<lb/>
+Hierseyns ist. Jch habe mich aus dem or-<lb/>
+dinären Europa hinausbewegt, um in dieser<lb/>
+Zauberwelt Grund zu fassen. Jch kenne kei-<lb/>
+nen andern Grund als diese Bewegung, ob-<lb/>
+gleich ich eigentlich den Grund der Bewe-<lb/>
+gung nicht kenne, außer daß es mein Grund-<lb/>
+satz ist, mich immer frisch zu bewegen, und<lb/>
+daß ich von einem Grundsatze niemals einen<lb/>
+Grund angeben kann. &#x2014; Verstehen Sie mich?</p></sp><lb/>
+<sp who="#PAP"><speaker>Papagena.</speaker><lb/>
+<p>So halb und halb.</p></sp><lb/>
+<sp who="#LEP"><speaker>Leporello.</speaker><lb/>
+<p>Nun gut, mehr braucht man heut zu Tage<lb/>
+nicht, halb und halb ist ganz. Jch verstehe<lb/>
+<pb n="112" facs="#f0116"/>
+mich selbst nicht besser. Wie ich übrigens<lb/>
+durch ihre Güte und ihres Herrn Gemahls<lb/>
+Vermittelung, am Hofe zu Ormus wieder<lb/>
+zu einer Corpulenz gekommen bin, wissen<lb/>
+Sie, aber was Sie noch nicht wissen, ist,<lb/>
+daß ich eben zum Kammerdiener von Groß-<lb/>
+Asien ernannt worden bin, und daß ich da-<lb/>
+her so zu sagen, eine Art von Factotum bin.</p></sp><lb/>
+<sp who="#PAP"><speaker>Papagena.</speaker><lb/>
+<p>Das ist alles recht schön, aber wo werd' ich<lb/>
+denn meine Prinzessin wieder finden? ich<lb/>
+darf ja ohne sie nicht in die Stadt zurück.</p></sp><lb/>
+<sp who="#LEP"><speaker>Leporello.</speaker><lb/>
+<p>Sie muß hier wieder vorbei, wenn sie aus<lb/>
+dem königlichen Zelte kömmt.</p></sp><lb/>
+<sp who="#PAP"><speaker>Papagena.</speaker><lb/>
+<p>Jst es denn auch gewiß wahr Herr Leporel-<lb/>
+lo, daß sie bei ihrem Herrn Vater ist?</p></sp><lb/>
+<sp who="#LEP"><speaker>Leporello.</speaker><lb/>
+<stage>(sich ehrlich stellend.)</stage><lb/>
+<p>Was sollte ich dabei für Absicht haben, Sie<lb/>
+belügen zu wollen, das wäre ja schlecht von<lb/>
+mir. &#x2014; Lassen Sie sichs immer ein wenig<lb/>
+in meiner Gesellschaft gefallen. Da hier in<lb/>
+dieser einsamen Laube läßt sichs ganz treff-<lb/>
+lich sitzen.</p></sp><lb/>
+<sp who="#PAP"><speaker>Papagena</speaker><stage>(hineilend.)</stage><lb/>
+<p>Ach die Laube hatte ich noch nicht einmal<lb/>
+<pb n="113" facs="#f0117"/>
+bemerkt. Wahrlich hier ist es schön, hier ge-<lb/>
+fällt mir's.</p><lb/>
+<stage>(Sie setzen sich.)</stage></sp><lb/>
+<sp who="#LEP"><speaker>Leporello</speaker><stage>(nach einer Pause.)</stage><lb/>
+<p>Ach!</p></sp><lb/>
+<sp who="#PAP"><speaker>Papagena.</speaker><lb/>
+<p>Warum seufzen Sie?</p></sp><lb/>
+<sp who="#LEP"><speaker>Leporello.</speaker><lb/>
+<p>Das ist ein Naturfehler, sobald ich in einer<lb/>
+Laube sitze, fange ich gleich an zu seufzen.<lb/>
+&#x2014; Wollen Sie nicht ihre Fackel ablegen?</p><lb/>
+<stage>(Er nimmt ihr die Fackel aus der Hand, läßt sie<lb/>
+fallen, sie verlischt.)</stage></sp><lb/>
+<sp who="#PAP"><speaker>Papagena</speaker><stage>(springt auf.)</stage><lb/>
+<p>Nun sehen Sie wohl, Herr Großkammerdie-<lb/>
+ner, was Sie gemacht haben mit ihrer ewi-<lb/>
+gen Dienstbeflissenheit. Nun sind wir ohne<lb/>
+Licht, und der Mond scheint so trübe, daß<lb/>
+man kaum drei Schritte vor sich sehen kann.</p></sp><lb/>
+<sp who="#LEP"><speaker>Leporello.</speaker><lb/>
+<p>Eigentlich brauche ich nicht einmal so weit<lb/>
+vor mir zu sehen; aber wenn die Dunkel-<lb/>
+heit Sie beunruhigt, die Fackel soll gleich<lb/>
+wieder brennen. Wo hab ich denn mein<lb/>
+Feuerzeug? <stage>(er sucht in allen Taschen.)</stage> Jch hab es<lb/>
+doch sonst immer bei mir, aber gerade wenn<lb/>
+man's braucht &#x2014; still! nein das ist es auch<lb/>
+nicht.</p> <stage>(Die Rolle fällt ihn aus der Tasche.</stage></sp><lb/>
+<pb n="114" facs="#f0118"/>
+<sp who="#PAP"><speaker>Papagena.</speaker><lb/>
+<p>Sie lassen da etwas fallen!</p></sp><lb/>
+<sp who="#LEP"><speaker>Leporello.</speaker><lb/>
+<p>Das ist nichts; das ist die Zauberolle, die<lb/>
+uns heute früh aus der Noth geholfen.</p></sp><lb/>
+<sp who="#PAP"><speaker>Papagena.</speaker><lb/>
+<p>Und die auch jetzt wieder helfen soll; geben<lb/>
+Sie nur her. <stage>(Sie zieht mit der Rolle einen Kreis auf<lb/>
+der Erde, und macht verschiedene Knixe)</stage> Liebe Herrn<lb/>
+Gnomen, wollen sie nicht so gütig seyn, uns<lb/>
+ein wenig Licht zu verschaffen.</p></sp><lb/>
+<sp who="#LEP"><speaker>Leporello.</speaker><lb/>
+<p>Ach du lieber Himmel, was sind Sie noch<lb/>
+höflich. Auf die Art werden Sie in ihrem<lb/>
+Leben zu nichts kommen. Jch weiß besser,<lb/>
+wie man die kleinen Geister behandeln muß.<lb/>
+&#x2014; Geben Sie mal acht, in welch erschreck-<lb/>
+lich vornehmen Ton ich sprechen, und wie<lb/>
+stark ich mich anstellen werde. &#x2014; <stage>(Er spricht<lb/>
+durch die Rolle, wie durch ein Sprachrohr)</stage> Kraft die-<lb/>
+ses Pergaments und unserer Hoheit und eu-<lb/>
+rer Niedrigkeit befehle ich euch, ich euer un-<lb/>
+umschränkter Gebieter in continenti diese<lb/>
+Laube zu erleuchten, widrigenfalls ich euch,<lb/>
+einen durch den andern todt schießen lasse,<lb/>
+püff, paff, puff!</p><stage>(die Laube erleuchtet sich.)</stage></sp><lb/>
+<sp who="#PAP"><speaker>Papagena.</speaker><lb/>
+<p>Das ist ja erstaunlich brilliant.</p></sp><lb/>
+<pb n="115" facs="#f0119"/>
+<sp who="#LEP"><speaker>Leporello.</speaker><lb/>
+<p>Sehn Sie wohl, ich kenne meine Leute, aber<lb/>
+nun auch frisch zugefordert, wir dürfen Sie<lb/>
+nicht wieder zur Besinnuung kommen lassen.<lb/>
+<stage>(durch die Rolle.)</stage> Allons! gleich einen Tisch hier-<lb/>
+her, für zwei Personen servirt! &#x2014; Was mö-<lb/>
+gen Sie am liebsten?</p></sp><lb/>
+<sp who="#PAP"><speaker>Papagena.</speaker><lb/>
+<p>O mir ist alles gleich.</p></sp><lb/>
+<sp who="#LEP"><speaker>Leporello.</speaker><lb/>
+<p>Machen Sie doch keine Umstände, es ist Jh-<lb/>
+nen ja von Herzen gegönnet. Wir können<lb/>
+ja alles gleich haben, fordern Sie doch nur.</p></sp><lb/>
+<sp who="#PAP"><speaker>Papagena.</speaker><lb/>
+<p>Nun wenn Sie denn durchaus wollen, so<lb/>
+bitte ich mir créme aus.</p></sp><lb/>
+<sp who="#LEP"><speaker>Leporello</speaker><lb/>
+<stage>(durch die Rolle.)</stage><lb/>
+<p>Feine crémes für Madame!</p></sp><lb/>
+<sp who="#PAP"><speaker>Papagena.</speaker><lb/>
+<p>Und Confituren und glacer.</p></sp><lb/>
+<sp who="#LEP"><speaker>Leporello</speaker><lb/>
+<stage>(durch die Rolle.)</stage><lb/>
+<p>Confituren und glacer für Madame.</p><lb/>
+<stage>(Der Tisch erscheint.)</stage><lb/>
+<p>Bravo! so nun lassen Sie uns niederlassen.<lb/>
+&#x2014; Es sitzt sich doch nirgends besser, als an<lb/>
+einem gedeckten Tisch! Jch werde vorlegen &#x2014;<lb/>
+<pb n="116" facs="#f0120"/>
+Befehlen Sie &#x2014; o ich bitte &#x2014; versuchen<lb/>
+Sie &#x2014; es sieht ganz trefflich aus &#x2014; ganz<lb/>
+vortrefflich &#x2014; die Triffelpastete ist unbe-<lb/>
+schreiblich &#x2014; was sagen Sie zu dem Gold-<lb/>
+Fasahn?</p></sp><lb/>
+<sp who="#PAP"><speaker>Papagena.</speaker><lb/>
+<p>Sie spielen keine schlechte Rolle bei Tische,<lb/>
+Herr Groß-Kammerdiener.</p></sp><lb/>
+<sp who="#LEP"><speaker>Leporello.</speaker><lb/>
+<p>Das will ich glauben &#x2014; unter allen Rollen,<lb/>
+die man in dieser Welt spielen kann, ist mir<lb/>
+eine Gastrolle die liebste; ich liebe außer der<lb/>
+Liebe nichts so sehr, als bonne chere zu<lb/>
+machen; und halte unter allen schönen Kün-<lb/>
+sten die Kochkunst für die schönste. &#x2014; Es<lb/>
+lebe die Kochkunst, und die Frauengunst.</p></sp><lb/>
+<sp who="#PAP"><speaker>Papagena</speaker><stage>(anstoßend.)</stage><lb/>
+<p>Und Tanz und Musik.</p></sp><lb/>
+<sp who="#LEP"><speaker>Leporello.</speaker><lb/>
+<p>Lieben Sie Musik, die sollen Sie gleich ha-<lb/>
+ben. <stage>(Durch die Rolle.)</stage> He da! Tafelmusik,<lb/>
+komplette Tafelmusik! <stage>(es erscheinen Gnomen, als<lb/>
+Bergleute angezogen, mit Violinen, Contraviolon und<lb/>
+andern Jnstrumenten.)</stage> Na spielt einmal los,<lb/>
+ihr kleinen Bergleute, aber ein lustiges<lb/>
+Stückchen, so was, wonach einem wohl<lb/>
+wird, wobei man die schlechte Zukunft<lb/>
+vergißt. <stage>(Sie spielen das Ritornell.)</stage> Stil-<lb/>
+<pb n="117" facs="#f0121"/>
+le! haltet ein. Das Lied, das kann ich, das<lb/>
+war ein Lieblingslied meines ehemaligen gott-<lb/>
+losen Herrn, des seeligen Don Juan &#x2014; Fangt<lb/>
+noch einmal an, ich will dazu singen. &#x2014;</p><lb/>
+<p>Ey wie wollt ich lustig leben<lb/>
+Auf der argen Welt,<lb/>
+Gieng es mir nur eben<lb/>
+Wie's mir wohlgefällt;<lb/>
+Lustig immer,<lb/>
+Traurig nimmer,<lb/>
+Wird die Trauerlust vergällt.</p><lb/>
+<p>Erst verlang' ich all' die Gaben,<lb/>
+Die man haben muß;<lb/>
+Zweytens muß man haben,<lb/>
+Guten Ueberfluß,<lb/>
+Und zum dritten,<lb/>
+Will ich bitten,<lb/>
+Um all' möglichen Genuß.</p><lb/>
+<p>Jst mir alles dies gewähret,<lb/>
+Wird noch nicht gedankt,<lb/>
+Bis mir erst bescheret,<lb/>
+Was mein Herz verlangt;<lb/>
+Und das hanget,<lb/>
+Das verlanget,<lb/>
+Rathe, Kind, was es verlangt? &#x2014;</p></sp><lb/>
+<pb n="118" facs="#f0122"/>
+<sp who="#LEP"><speaker>Leporello.</speaker><lb/>
+<p>Nun so rathen Sie doch, meine Seele!</p></sp><lb/>
+<sp who="#PAP"><speaker>Papagena.</speaker><lb/>
+<p>Jch kann nicht rathen.</p></sp><lb/>
+<sp who="#LEP"><speaker>Leporello.</speaker><lb/>
+<p>O, Sie können recht gut, es ist federleicht,<lb/>
+meine Taube!</p></sp><lb/>
+<sp who="#PAP"><speaker>Papagena.</speaker><lb/>
+<p>Jch versichere es Jhnen, ich bin nicht im<lb/>
+Stande.</p></sp><lb/>
+<sp who="#LEP"><speaker>Leporello.</speaker><lb/>
+<p>O, Sie wollen nur nicht.</p></sp><lb/>
+<sp who="#PAP"><speaker>Papagena.</speaker><lb/>
+<p>Wie Sie wollen, wenn Sie wollen, so will<lb/>
+ich nicht &#x2014;</p></sp><lb/>
+<sp who="#LEP"><speaker>Leporello.</speaker><lb/>
+<p>Da haben wir's; das sind ja meine Worte,<lb/>
+wenn ich will, so wollen Sie nicht.</p></sp><lb/>
+<sp who="#PAP"><speaker>Papagena.</speaker><lb/>
+<p>Wollen wir nicht von etwas anderm sprechen?</p></sp><lb/>
+<sp who="#LEP"><speaker>Leporello.</speaker><lb/>
+<p>Ach! ich werde mit diesem zerrißnen Herzen<lb/>
+wohl kein Wort mehr hervorbringen können;<lb/>
+ich bin nach dem lust'gen Liede ganz trau-<lb/>
+rig geworden.</p></sp><lb/>
+<sp who="#PAP"><speaker>Papagena.</speaker><lb/>
+<p>Nun so will ich Jhnen gleich etwas recht<lb/>
+<pb n="119" facs="#f0123"/>
+melankolisches, herzbrechendes singen, vielleicht<lb/>
+wird Sie das erheitern.</p></sp><lb/>
+<sp who="#LEP"><speaker>Leporello.</speaker><lb/>
+<p>Ach, um alles in der Welt, nur nichts rüh-<lb/>
+rendes &#x2014; Schonen Sie mein von allen An-<lb/>
+griffen über alle Begriffe angegriffenes Ner-<lb/>
+vensystem &#x2014; Aber, da Sie denn doch schon<lb/>
+einmal so gütig sind, singen zu wollen, so<lb/>
+bitte ich mir das niedliche Lied aus, das sie<lb/>
+immer in Ormus sangen; ich glaube, es war<lb/>
+von Amor und Hymen.</p></sp><lb/>
+<sp who="#PAP"><speaker>Papagena.</speaker><lb/>
+<p>Nein, das darf ich nicht, das hat mir Pa-<lb/>
+pageno verboten; und überdies ist es auch<lb/>
+ein gar zu untreues Lied; das könnten mir<lb/>
+die Eheleute ein wenig übel nehmen.</p></sp><lb/>
+<sp who="#LEP"><speaker>Leporello.</speaker><lb/>
+<p>Es sind ja keine Eheleute hier zugegen. Jhr<lb/>
+Herr Gemahl schläft ruhig in seinem Gezelte,<lb/>
+und meine Frau, wenn sie noch lebt, in Spa-<lb/>
+nien, und so einzelne Personen nehmen der-<lb/>
+gleichen nicht übel. Bitte, bitte, singen Sie.</p></sp><lb/>
+<sp who="#PAP"><speaker>Papagena.</speaker><lb/>
+<p>Nun gut, ich will es thun; aber das sage<lb/>
+ich vorher, ich singe nur zwey Verse; denn<lb/>
+der dritte ist gar zu arg.<lb/>
+<pb n="120" facs="#f0124"/>
+Amor schwärmt auf allen Wegen,<lb/>
+Unter jeglicher Gestalt,<lb/>
+Bald als dieß, als jenes bald,<lb/>
+Und sein Spruch ist; meinetwegen<lb/>
+Könnt ihr tausend Lieben hegen,<lb/>
+Heute jene, morgen die,<lb/>
+Nur von Herzen liebet sie &#x2014;<lb/>
+Männer, Weiber, ihr seyd Thoren,<lb/>
+Zeit und Mühe gehn verlohren,<lb/>
+Wenn ihr Liebe fesseln wollt.</p></sp><lb/>
+<sp who="#PAP_LEP"><speaker>Papagena und Leporello.</speaker><lb/>
+<p>Zeit und Mühe gehn verlohren,<lb/>
+Wenn ihr Liebe fesseln wollt.</p></sp><lb/>
+<sp who="#PAPO"><speaker>Papageno</speaker><lb/>
+<stage>(auf dem Baume.)</stage><lb/>
+<p>Wenn ihr Weiber fesseln wollt.</p></sp><lb/>
+<sp who="#PAP"><speaker>Papagena</speaker><stage>(erschrocken.)</stage><lb/>
+<p>Was war das?</p></sp><lb/>
+<sp who="#LEP"><speaker>Leporello.</speaker><lb/>
+<p>Was soll's seyn, ein Wiederhall. Der Schall<lb/>
+schlägt an Berge und Bäume, und hallt dann<lb/>
+wieder. Das ist ein Wiederhall, ein ganz<lb/>
+natürlicher Wiederhall. Singen Sie nur<lb/>
+weiter.</p></sp><lb/>
+<sp who="#PAP"><speaker>Papagena.</speaker><lb/>
+<p>Aber Hymen will vermählen,<lb/>
+Spricht: bedenket eure Pflicht,<lb/>
+Diesen liebt, und jenen nicht;<lb/>
+<pb n="121" facs="#f0125"/>
+Und die armen treuen Seelen<lb/>
+Müssen sich zum Lieben quälen,<lb/>
+Denn er führt das Mein und Dein<lb/>
+Jn die freye Liebe ein.<lb/>
+Männer, Weiber, ihr seyd Thoren,<lb/>
+Zeit und Mühe gehn verlohren,<lb/>
+Wenn ihr Liebe fesseln wollt.</p></sp><lb/>
+<sp who="#PAP_LEP"><speaker>Papagena und Leporello.</speaker><lb/>
+<p>Männer, Weiber, ihr seyd Thoren,<lb/>
+Zeit und Mühe gehn verlohren,<lb/>
+Wenn ihr Liebe fesseln wollt.</p></sp><lb/>
+<sp who="#PAPO"><speaker>Papageno</speaker><lb/>
+<stage>(der vom Baum gestiegen, und den Kopf zwischen<lb/>
+Papagena und Leporello steckt.)</stage><lb/>
+<p>Wenn ihr Weiber fesseln wollt!</p></sp><lb/>
+<sp who="#LEP"><speaker>Leporello</speaker><stage>(für sich.)</stage><lb/>
+<p>Das nennt man Gnomen haben!</p></sp><lb/>
+<sp who="#PAP"><speaker>Papagena</speaker><stage>(zu Papageno.)</stage><lb/>
+<p>Ach liebster bester Freund, wie freut es mich,<lb/>
+Dich &#x2014;</p></sp><lb/>
+<sp who="#PAPO"><speaker>Papageno</speaker><stage>(einfallend.)</stage><lb/>
+<p>Bleib mir vom Leibe, du ehrvergeßne Schlange.</p></sp><lb/>
+<sp who="#PAP"><speaker>Papagena.</speaker><lb/>
+<p>Warum bist du denn so böse liebes Männchen?</p></sp><lb/>
+<sp who="#PAPO"><speaker>Papageno.</speaker><lb/>
+<p>Das fragst du mich, du schwarze Schmetter-<lb/>
+lings-Seele!</p></sp><lb/>
+<pb n="122" facs="#f0126"/>
+<sp who="#LEP"><speaker>Leporello.</speaker><lb/>
+<p>Ja das frag ich auch, es ist ja gar nichts<lb/>
+vorgefallen.</p></sp><lb/>
+<sp who="#PAPO"><speaker>Papageno.</speaker><lb/>
+<p>Nichts vorgefallen? ist es nicht Nacht?</p></sp><lb/>
+<sp who="#LEP"><speaker>Leporello.</speaker><lb/>
+<p>Jst das unsere Schuld?</p></sp><lb/>
+<sp who="#PAPO"><speaker>Papageno.</speaker><lb/>
+<p>War't ihr nicht lustig zusammen?</p></sp><lb/>
+<sp who="#PAP"><speaker>Papagena.</speaker><lb/>
+<p>Das bin ich immer.</p></sp><lb/>
+<sp who="#LEP"><speaker>Leporello.</speaker><lb/>
+<p>Und ich war's nicht einmal, ich habe ledig-<lb/>
+lich geseufzt.</p></sp><lb/>
+<sp who="#PAPO"><speaker>Papageno.</speaker><lb/>
+<p>Seufze du wo anders, aber nicht bei meiner<lb/>
+Frau.</p></sp><lb/>
+<sp who="#LEP"><speaker>Leporello.</speaker><lb/>
+<p>Ha, ha, ha, das ist gut, am Ende wird er<lb/>
+mir noch vorschreiben, wo ich seufzen soll.<lb/>
+Daß Sie wissen, Seufzer sind Zollfrei, mein<lb/>
+Herr!</p></sp><lb/>
+<sp who="#PAPO"><speaker>Papageno.</speaker><lb/>
+<p>Jch glaube, du willst mich noch obendrein<lb/>
+zum Narren machen.</p></sp><lb/>
+<sp who="#LEP"><speaker>Leporello.</speaker><lb/>
+<p>Jch bitte unterthänig, das ist gar nicht von<lb/>
+nöthen.</p></sp><lb/>
+<pb n="123" facs="#f0127"/>
+<sp who="#PAPO"><speaker>Papageno.</speaker><lb/>
+<p>Sittenloser Witzling, ich habe mit dir nichts<lb/>
+weiter zu schaffen; aber Sie Madame wer-<lb/>
+den so gut seyn, und mir in mein Zelt fol-<lb/>
+gen, da wollen wir weiter sprechen. Allons<lb/>
+allons Madame, halten Sie sich nicht län-<lb/>
+ger auf.</p></sp><lb/>
+<sp who="#LEP"><speaker>Leporello</speaker><stage>(tritt zwischen sie.)</stage><lb/>
+<p>Laß deine Frau zufrieden, oder fürchte mei-<lb/>
+ne Rache!</p></sp><lb/>
+<sp who="#PAPO"><speaker>Papageno.</speaker><lb/>
+<p>Deine Rache soll ich fürchten, du feige Sper-<lb/>
+lingsseele? Fürchte die meine, ich werde dich!</p><lb/>
+<stage>(Er zieht ein großes Messer.)</stage></sp><lb/>
+<sp who="#LEP"><speaker>Leporello.</speaker><lb/>
+<p>Weg mit dem Messer, das ist kein Spaß.<lb/>
+Da bleib stehen, ich will kaltblütig mit dir<lb/>
+sprechen. &#x2014; Da ein bewaffneter Ehemann<lb/>
+ein sehr gefährliches Mitglied für die Gesell-<lb/>
+schaft ist, so halt ich's für meine Pflicht, mich<lb/>
+und Sie und den Staat von dieser Last zu<lb/>
+befreien. Jch nehme daher diese Rolle, setze<lb/>
+sie an den Mund, und spreche:</p><lb/>
+<p>Ein eifersücht'ger Mann wird nimmermehr<lb/>
+gescheut,<lb/>
+Drum werd' ein Baum und bleib's in alle<lb/>
+Ewigkeit!</p><lb/>
+<stage>(<hi rendition="#g">Papageno</hi> verwandelt sich in einen Baum.</stage></sp><lb/>
+<pb n="124" facs="#f0128"/>
+<sp who="#PAP"><speaker>Papagena.</speaker><lb/>
+<p>Halten Sie ein, Sie sind zu strenge. Strafe<lb/>
+hat er verdient; aber wir wollen das Ur-<lb/>
+theil mildern.</p><stage>(zu dem Baum:)</stage><lb/>
+<p>Nur so lange bleib ein Baum,<lb/>
+Bis ich deiner mich erbarme.<lb/>
+Wenn ich liebend dich umarme,<lb/>
+Dann erwach' aus deinem Traum.</p></sp><lb/>
+<sp who="#LEP"><speaker>Leporello.</speaker><lb/>
+<p>Also bleibt es bei der Ewigkeit!</p></sp><lb/>
+<sp who="#PAP"><speaker>Papagena</speaker><stage>(zu dem Baum.)</stage><lb/>
+<p>Adieu, bessre dich!</p></sp><lb/>
+<sp who="#LEP"><speaker>Leporello.</speaker><lb/>
+<p>Adieu, Baum des ewigen Lebens!</p></sp><lb/>
+<sp who="#BEI"><speaker>Beide.</speaker><lb/>
+<p>Adieu Baum, adieu, adieu!</p><lb/>
+<stage>(Beide Hand in Hand ab.)</stage></sp></div><lb/>
+<div n="2"><head>Vierte Scene.</head><lb/>
+<stage>Waldige Gegend, im Hintergrunde eine Meerbucht. Die<lb/>
+eine Seite des Theaters rauh und felsigt, die andre der<lb/>
+Anfang eines Blumengartens. <hi rendition="#g">Osmar</hi> und <hi rendition="#g">Alman-<lb/>
+sor</hi> beide in der Gestalt und Rüstung des <hi rendition="#g">Sinabal,</hi><lb/>
+kommen fechtend von dem Felsen. Dämmerung, es<lb/>
+wird zu Ende der Scene Tag.</stage><lb/>
+<sp who="#OSM"><speaker>Osmar,</speaker><lb/>
+<stage>(der den <hi rendition="#g">Almansor</hi> zurückdrängt, mit <hi rendition="#g">Sinabals</hi> Stim-<lb/>
+me, welcher hinter dem Theater für ihm spricht.)</stage><lb/>
+<p>Umsonst du feige Seele,<lb/>
+<pb n="125" facs="#f0129"/>
+Entfliehst du diesem Schwerte!<lb/>
+Du kehrst aus diesem Zweikampf nicht zurück.</p></sp><lb/>
+<sp who="#ALM"><speaker>Almansor,</speaker><lb/>
+<stage>(ebenfalls mit <hi rendition="#g">Sinabals</hi> Stimme.)</stage><lb/>
+<p>Sprich weniger und fechte!</p><lb/>
+<stage>(Er dringt auf <hi rendition="#g">Osmar</hi> ein, der ihm das Schwert aus<lb/>
+der Hand schlägt; in dem Augenblick umfaßt <hi rendition="#g">Al-<lb/>
+mansor</hi> den <hi rendition="#g">Osmar,</hi> windet ihm das Zauberschwert<lb/>
+aus der Hand, und stößt ihn damit nieder.)</stage></sp><lb/>
+<sp who="#ALM"><speaker>Almansor,</speaker><lb/>
+<stage>(mit eigener Stimme.)</stage><lb/>
+<p>Stirb Ungeheuer!</p></sp><lb/>
+<sp who="#OSM"><speaker>Osmar,</speaker><lb/>
+<stage>(mit eigener Stimme sinkend.)</stage><lb/>
+<p>Falsches Schwert du logst!<lb/>
+Barbar, du hast gesiegt.</p></sp><lb/>
+<sp who="#SIN"><speaker>Sinabal</speaker><stage>(hervortretend.)</stage><lb/>
+<p>Keiner von euch, ich siegte,<lb/>
+Erfahre Vater, wer dich mordete,<lb/>
+Du Sohn, wen du erschlagen.</p><lb/>
+<stage>(Auf seinen Wink verwandeln sich beide in ihre vorige<lb/>
+Gestalt.)</stage><lb/>
+<p>Dies ist der Anfang meiner Rache nur.</p><lb/>
+<stage>(schnell ab.)</stage></sp><lb/>
+<sp who="#ALM"><speaker>Almansor,</speaker><lb/>
+<stage>(der bis jetzt Bewegungslos gestanden.)</stage><lb/>
+<p>Gerechte Götter! nein ich glaub es nicht.<lb/>
+Jch bin wahnsinnig worden.</p></sp><lb/>
+<pb n="126" facs="#f0130"/>
+<sp who="#OSM"><speaker>Osmar.</speaker><lb/>
+<p>Hinweggenommen ist der schwere Fluch<lb/>
+Von meinem Haupt, so leicht war mir noch nie.</p></sp><lb/>
+<sp who="#ALM"><speaker>Almansor,</speaker><lb/>
+<p>Weh mir, so ist es wahr? O, ich Verdammter!<lb/>
+O armer, hingemordet armer Greis!<lb/>
+Wie, und ich Vatermörder lebe noch?<lb/>
+Dieselbe blutgefärbte Waffe soll &#x2014;<lb/>
+<stage>(Er will sich in das Schwert stürzen, es entsinkt ihm.)</stage><lb/>
+Weh mir wie schwach, ein Zauber bindet mich.</p></sp><lb/>
+<sp who="#OSM"><speaker>Osmar.</speaker><lb/>
+<p>Mein Sohn, mein Sohn! was wolltest du<lb/>
+beginnen!<lb/>
+Beflecke deine Hände nicht mit Blut.</p></sp><lb/>
+<sp who="#ALM"><speaker>Almansor.</speaker><lb/>
+<p>Sie sind befleckt!</p></sp><lb/>
+<sp who="#OSM"><speaker>Osmar.</speaker><lb/>
+<p>Nein sie sind rein wie Schnee.<lb/>
+Unschuldig bist du Kind, an dieser That!<lb/>
+Das schwör' ich dir in meiner Todesstunde,<lb/>
+Aus der ich seelig in die Zukunft schaue.<lb/>
+Knie nieder theurer Sohn, daß ich dich segne.</p><lb/>
+<stage>(<hi rendition="#g">Almansor</hi> kniet, <hi rendition="#g">Osmar</hi> legt seine Hände auf des-<lb/>
+sen Haupt.)</stage><lb/>
+<p>Vergiß sie, diese That, die du erduldet,<lb/>
+Die du nicht hast verübet,<lb/>
+Jch hab' es einst verschuldet.<lb/>
+Weil ich die Ueberirdische geliebet.<lb/>
+<pb n="127" facs="#f0131"/>
+Jch weiß es jetzt, es war verwegen;<lb/>
+Drum Sohn, sey das mein Seegen.<lb/>
+Lern' Lust und Leid auf Erden erst begreifen,<lb/>
+Um so zur Himmelsfreude zu gereifen.</p><lb/>
+<stage>(Er stirbt. <hi rendition="#g">Almansor</hi> wirft sich weinend über den<lb/>
+Todten. Jndem hört man eine liebliche Musik, die<lb/>
+<hi rendition="#g">Sylphen</hi> steigen in ihren Wolken nieder.)</stage></sp><lb/>
+<sp who="#CHORS"><speaker>Chor der Sylphen.</speaker><lb/>
+<p>Laßt uns auf die Erde nieder wallen,<lb/>
+Osmar ist gefallen,<lb/>
+Durch des Sohnes Hand.<lb/>
+Also war es unsers Königs Willen;<lb/>
+Doch den Schmerz zu stillen,<lb/>
+Sind wir her gesandt.</p></sp><lb/>
+<sp who="#VIESTIMM"><speaker>Vier Stimmen</speaker><lb/>
+<stage>(sie sind aus den Wolken gestiegen und richten<lb/>
+Almansor auf.)</stage><lb/>
+<p>Jüngling wiß, es frommet dein Weinen,<lb/>
+Diesem Todten nicht;<lb/>
+Der ist droben<lb/>
+Aufgehoben;<lb/>
+Der lebt seelig bei den Reinen,<lb/>
+Nah' dem ew'gen Licht.</p><lb/>
+<p>Aber du mußt weiter nützen,<lb/>
+Dienen dieser Welt;<lb/>
+Leiden, handeln,<lb/>
+Jrren, wandeln,<lb/>
+<pb n="128" facs="#f0132"/>
+Folg' uns Jüngling, dich zu schützen<lb/>
+Sind wir dir gesandt.</p><lb/>
+<stage>(Sie führen ihn von der Seite des Blumengartens ab.)</stage></sp><lb/>
+<sp who="#CHORS"><speaker>Chor der Sylphen.</speaker><lb/>
+<p>Er schlummert so süß, nur leise, nur leise,<lb/>
+Es will ihm der König verzeihen,<lb/>
+Will selber die Tochter entgegen ihm führen,<lb/>
+Sie wartet mit Sehnsucht fein.</p><lb/>
+<p>Schafft Kränze herbei, wir müssen ihn schmücken;<lb/>
+Herbei mit dem Feyergewand!<lb/>
+Wir müssen ihn schiffen auf goldenen Wolken,<lb/>
+Jns ew'ge Jugend Land.</p><lb/>
+<stage>Während die Sylphen beschäftigt sind den Todten zu<lb/>
+kränzen und mit Tüchern zu bedecken, verwandelt<lb/>
+sich die Decoration.</stage></sp></div><lb/>
+<div n="2"><head>Fünfte Scene.</head><lb/>
+<stage>Wald; Decoration aus der zweiten Scene.</stage><lb/>
+<p>Zelu als Priester, und Zobea.</p><lb/>
+<sp who="#ZEL"><speaker>Zelu.</speaker><lb/>
+<p>Nicht länger darfst du säumen,<lb/>
+Du mußt zurück.</p></sp><lb/>
+<sp who="#ZOBE"><speaker>Zobea.</speaker><lb/>
+<p>Zurück zu Sinabal?</p></sp><lb/>
+<sp who="#ZEL"><speaker>Zelu.</speaker><lb/>
+<p>So will es das Geschick, du bist erkohren,<lb/>
+<pb n="129" facs="#f0133"/>
+Durch Lieb' und Haß, und reger Willens-<lb/>
+Kraft<lb/>
+Dies Zauberreich zu enden.</p></sp><lb/>
+<sp who="#ZOBE"><speaker>Zobea.</speaker><lb/>
+<p>Und wenn es mir gelingt, werd' ich den<lb/>
+Vater<lb/>
+Vom grausen Tode retten?</p></sp><lb/>
+<sp who="#ZEL"><speaker>Zelu.</speaker><lb/>
+<p>Er ist gerettet; denn er hat gebüßt. &#x2014;<lb/>
+Bald siehst du ihn, als Bräutigam geschmückt,<lb/>
+An deiner Mutter Seite.</p></sp><lb/>
+<sp who="#ZOBE"><speaker>Zobea.</speaker><lb/>
+<p>Den Göttern Dank, jetzt fühl' ich hohen<lb/>
+Muth,<lb/>
+Das Schwerste zu vollbringen.</p></sp><lb/>
+<sp who="#ZEL"><speaker>Zelu.</speaker><lb/>
+<p>So fehlt denn nichts zu deinem Glücke mehr?</p></sp><lb/>
+<sp who="#ZOBE"><speaker>Zobea.</speaker><lb/>
+<p>Nichts mehr, seit jenem seelgen Augenblick,<lb/>
+Da mir der Täuschung Schleyer schnell von<lb/>
+der Seele fiel.<lb/>
+Getrunken hab' ich aus dem ew'gen Brunnen,<lb/>
+Der höchsten Liebeswonnen.<lb/>
+Mich kann nichts mehr betrüben;<lb/>
+Denn meine Schmerzen selbst muß ich noch<lb/>
+lieben.</p></sp><lb/>
+<pb n="130" facs="#f0134"/>
+<sp who="#ZEL"><speaker>Zelu.</speaker><lb/>
+<p>Du sprichst ein frommes Wort, das mich<lb/>
+entzückt.</p></sp><lb/>
+<sp who="#ZOBE"><speaker>Zobea.</speaker><lb/>
+<p>Jch frage nicht, ob ich den hohen Schönen,<lb/>
+Der herrlich mir erschienen,<lb/>
+Ob ich ihn jemals wiederfinden werde,<lb/>
+Jch frage nicht; denn mich umleuchtet golden<lb/>
+Des Glückes Morgenröthe.<lb/>
+Froh steh ich an der Liebe Rosenpforten,<lb/>
+Jch weiß, daß ich ihr Reich bald nun be-<lb/>
+trete.</p></sp><lb/>
+<sp who="#ZEL"><speaker>Zelu.</speaker><lb/>
+<p>Jch weiß es auch. &#x2014; So höre denn, was<lb/>
+dir<lb/>
+Zu thun noch übrig bleibt. &#x2014;<lb/>
+Es wird dich Sinabal durch seine Diener<lb/>
+Alsbald zum Frühgelage rufen lassen,<lb/>
+Es ist das Erste von den sieben Festen,<lb/>
+Womit man hier der Kön'ge Hochzeit feyert &#x2014;<lb/>
+Unter der Palme in dem Vorhof sitzend,<lb/>
+Wird er ein glänzendes Geschirr dir reichen,<lb/>
+Gefüllt mit Zauberwein;<lb/>
+Doch hüte dich zu trinken,<lb/>
+Wie sehr dich auch des Bechers bunter Glanz,<lb/>
+Wie sehr der Duft des Tranks, dich reizen<lb/>
+mag.</p><lb/>
+<p>Jn deiner Nähe wirst du ein Gefäß,<lb/>
+<pb n="131" facs="#f0135"/>
+Das dir die Götter sendeten, gewahren,<lb/>
+Dies biete deinem Feinde<lb/>
+Zum bittern Trunke dar.<lb/>
+Wenn du ihn wahrhaft, unaussöhnbar hassest,<lb/>
+So hat er keine Macht mehr über dich,<lb/>
+Und muß den Becher des Verderbens leeren;<lb/>
+Du aber wirf indeß, anstatt zu trinken,<lb/>
+Das blinkende Geschirr, daß er dir reichet,<lb/>
+Stillschweigend in den Springquell neben dir.</p></sp><lb/>
+<sp who="#ZOBE"><speaker>Zobea.</speaker><lb/>
+<p>Und mehr ist mir zu thun nicht aufgelegt?</p></sp><lb/>
+<sp who="#ZEL"><speaker>Zelu.</speaker><lb/>
+<p>Nicht mehr; doch schwer ist es, des Bösen<lb/>
+Zauber<lb/>
+Durch unauslöschbar heißen Haß zu tilgen.</p></sp><lb/>
+<sp who="#ZOBE"><speaker>Zobea.</speaker><lb/>
+<p>Wie leicht wird es, wenn man das schöne<lb/>
+liebt:</p><lb/>
+<p>O man hat zu jedem Werke<lb/>
+Muth und Stärke,<lb/>
+Wenn man liebt.<lb/>
+Lieblich nahen unserm Herzen,<lb/>
+Selbst die Schmerzen,<lb/>
+Wenn man liebt.</p><lb/>
+<p>Liebe kann und wird nicht scheiden<lb/>
+Lust von Leiden,<lb/>
+Schmerz von Lust;<lb/>
+<pb n="132" facs="#f0136"/>
+Wunden sind ihr Freudenbronnen,<lb/>
+Leiden &#x2014; Wonnen,<lb/>
+Schmerzen &#x2014; Lust.</p><lb/>
+<p>Ja, ich habe sie empfunden,<lb/>
+Dieser Wunden<lb/>
+Seeligkeit.<lb/>
+Ewig werden mich umschweben,<lb/>
+Liebe, Leben,<lb/>
+Seligkeit.</p><lb/>
+<stage><hi rendition="#g">Larifari</hi> und <hi rendition="#g">Minnewart</hi> kommen.</stage></sp><lb/>
+<sp who="#ZEL"><speaker>Zelu.</speaker><lb/>
+<p>Wir wissen euren Auftrag schon; es wird die<lb/>
+Fürstin in dem Vorhof gleich erscheinen &#x2014;<lb/>
+Leb' wohl!</p></sp><lb/>
+<sp who="#ZOBE"><speaker>Zobea.</speaker><lb/>
+<p>Leb' wohl!</p></sp><lb/>
+<sp who="#ZEL"><speaker>Zelu.</speaker><lb/>
+<p>Wir sehen bald uns wieder.</p><lb/>
+<stage>(<hi rendition="#g">Zelu</hi> von der einen, <hi rendition="#g">Zobea, Larifari</hi> und <hi rendition="#g">Min-<lb/>
+newart</hi> von der andern Seite ab.)</stage></sp><lb/>
+<sp who="#MINNE"><speaker>Minnewart</speaker><lb/>
+<stage>(zieht den <hi rendition="#g">Larifari</hi> zurück.)</stage><lb/>
+<p>Sagen Sie' mal liebe Excellenz, Sie sind doch<lb/>
+sonst ein verständiger Mann, ist denn der<lb/>
+Priester auch ein Zauberer? Er wußte ja,<lb/>
+ehe wir's sagten, daß wir die Prinzessin zum<lb/>
+Frühstück rufen sollten.</p></sp><lb/>
+<pb n="133" facs="#f0137"/>
+<sp who="#LAR"><speaker>Larifari.</speaker><lb/>
+<p>Zauberer? Das sind Narrenpossen. Es giebt<lb/>
+gar keine Zauberer. Er wird unsern Auf-<lb/>
+trag durch irgend einen Spion erfahren<lb/>
+haben.</p></sp><lb/>
+<sp who="#MINNE"><speaker>Minnewart.</speaker><lb/>
+<p>Sie erklären immer alles so natürlich; aber<lb/>
+ich versichere Jhnen, hier auf dieser Zauber-<lb/>
+insel geht alles unnatürlich zu, und aus die-<lb/>
+ser Unnatürlichkeit entspringt natürlich eine<lb/>
+Natur, die sich mit meiner natürlichen Na-<lb/>
+tur gar nicht naturalisiren kann. Zum Bei-<lb/>
+spiel, wie kommen wir ehrlichen Deutschen<lb/>
+hier in die Mitte des Morgenlandes?</p></sp><lb/>
+<sp who="#LAR"><speaker>Larifari.</speaker><lb/>
+<p>O! besinnen Sie sich denn nicht, wir haben<lb/>
+ja mit dem Ritter Albrecht einen Kreuzzug<lb/>
+gemacht, und sind vom gelobten Lande aus,<lb/>
+mit einer Karavane hierher nach Samandel<lb/>
+gekommen.</p></sp><lb/>
+<sp who="#MINNE"><speaker>Minnewart.</speaker><lb/>
+<p>Schöne Karavane! feurige Kameele mit Flü-<lb/>
+geln, durch die Luft! Und dann ist das ja<lb/>
+schon so lange her, daß wir, so zu sagen, ei-<lb/>
+gentlich schon längst todt seyn müßten.</p></sp><lb/>
+<sp who="#LAR"><speaker>Larifari.</speaker><lb/>
+<p>Das gute Klima hat uns so lange erhal-<lb/>
+ten.</p></sp><lb/>
+<pb n="134" facs="#f0138"/>
+<sp who="#MINNE"><speaker>Minnewart.</speaker><lb/>
+<p>Nein! dahinter steckt was anders; ich fange<lb/>
+nach und nach an, an Geister zu glauben;<lb/>
+am Ende sind wir selbst bloße Geister; aber<lb/>
+kommen Sie nur, in dem Vorhof geht ge-<lb/>
+wiß heute noch etwas grimmiges vor, dem<lb/>
+muß ich mit beiwohnen. Jch mag es gerne,<lb/>
+wenn mir aus lauter Angst so die Haare zu<lb/>
+Berge steigen.</p></sp><lb/>
+<sp who="#LAR"><speaker>Larifari.</speaker><lb/>
+<p>Jch ängst'ge mich in meinem Leben nicht;<lb/>
+denn es geht alles ganz natürlich in der<lb/>
+Welt zu.</p><lb/>
+<stage>(Beide ab.)</stage></sp></div><lb/>
+<div n="2"><head>Sechste Scene.</head><lb/>
+<sp who="#PAP"><speaker>Papagena.</speaker><lb/>
+<p>Man sage, was man will,<lb/>
+Man hat doch ein Gewissen,<lb/>
+Und schweigt's auch bei Gewissen,<lb/>
+Bei mir schweigt es nicht still.<lb/>
+Es sprach: Geh' hin und rein'ge dich,<lb/>
+Sonst, böses Weib, sonst peing' ich dich!<lb/>
+Da schlich ich in den Wald.</p><lb/>
+<p>Da stehst du armer Baum!<lb/>
+Jch kniee vor dir nieder.<lb/>
+Kehr' in das Leben wieder,<lb/>
+<pb n="135" facs="#f0139"/>
+Erwach' aus deinem Traum!<lb/>
+Fühl', Mannchen, ich umfasse dich,<lb/>
+Jch bitte dich, o hasse mich,<lb/>
+Dein treues Weibchen, nicht! &#x2014;</p><lb/>
+<stage>Papageno entwandelt sich, und ist von der knieenden Pa-<lb/>
+pagena umschlungen.</stage></sp><lb/>
+<sp who="#PAP"><speaker>Papagena.</speaker><lb/>
+<p>Bist du mir böse? Sprich!</p></sp><lb/>
+<sp who="#PAPO"><speaker>Papageno</speaker><lb/>
+<stage>(ebenfalls knieend.)</stage><lb/>
+<p>Jch bin in deinen Armen,<lb/>
+Jch muß mich wohl erbarmen!<lb/>
+Wirst du auch bessern dich?</p></sp><lb/>
+<sp who="#PAP"><speaker>Papagena.</speaker><lb/>
+<p>Du mußt mir vertrauen,<lb/>
+Denn ich bin dir treu;<lb/>
+Zwang hassen die Frauen,<lb/>
+Wir lieben nur frey.</p></sp><lb/>
+<sp who="#BEI"><speaker>Beide.</speaker><lb/>
+<p>Was hilft's, sich betrüben,<lb/>
+Frey wollen wir lieben;<lb/>
+Doch sagen wir frey,<lb/>
+So meynen wir treu.</p><lb/>
+<stage>(Beide ab.)</stage></sp></div><lb/>
+<pb n="136" facs="#f0140"/>
+<div n="2"><head>Siebente und letzte Scene.</head><lb/>
+<stage>Vorhof mit der Grotte aus dem ersten Akt. Der Palm-<lb/>
+baum neben der Fontaine ist mit Decken wie ein Thron<lb/>
+verzieret. <hi rendition="#g">Zobea</hi> und <hi rendition="#g">Sinabal</hi> sitzen darunter.<lb/>
+Vor ihnen ein Tisch mit Erfrischungen. Sclaven war-<lb/>
+ten auf. <hi rendition="#g">Minnewart, Larifari,</hi> Hofgesinde, Volk,<lb/>
+Leibwache.</stage><lb/>
+<stage>Das Volk ruft:</stage><lb/>
+<p>Heil dem Kaiser!! Heil der schönen Verlob-<lb/>
+ten!! Heil dem hohen Paar!!</p><lb/>
+<stage>Zwischen jedem Ausruf Pauken und Trompeten. Sina-<lb/>
+bal winkt dem Herold.</stage><lb/>
+<sp who="#HEROLD"><speaker>Herold</speaker><lb/>
+<stage>(stellt sich in die Mitte des Theaters. Nach einem<lb/>
+Trompetenstoß:)</stage><lb/>
+<p>Ein jeder schweig', es will der Kaiser reden!</p></sp><lb/>
+<sp who="#SIN"><speaker>Sinabal.</speaker><lb/>
+<p>Jhr Völker von Samandel,<lb/>
+Die ich in diesem weiten Reich beherrsche,<lb/>
+Erfahret, wie Euer Kaiser<lb/>
+Die Wünsche seines Herzens &#x2014;<lb/>
+Dem Eurigen vereinet &#x2014;<lb/>
+Es schenkt uns heute dieser heil'ge Festtag<lb/>
+Euch Eine Königin, und mir die Gattin,<lb/>
+Zobea ist's sie thronet neben mir,<lb/>
+Bezeugt ihr eure Ehrfurcht.</p><lb/>
+<stage>(Alles knieet nieder.)</stage><lb/>
+<pb n="137" facs="#f0141"/>
+<stage><hi rendition="#g">Ein Krieger tritt ein,</hi></stage><lb/>
+<stage>(heimlich zu Sinabal.)</stage><lb/>
+<p>König! die Feinde nahen unserer Stadt,<lb/>
+Nicht hundert Schritte sind sie von den<lb/>
+Mauern.</p></sp><lb/>
+<sp who="#SIN"><speaker>Sinabal</speaker><stage>(ängstlich.)</stage><lb/>
+<p>Nur Muth. <stage>(zornig.)</stage> Zurück zum Heer, ich<lb/>
+folge gleich.</p><lb/>
+<stage>(Soldat ab.)</stage><lb/>
+<p>Hier unter diesem Friedensbaume sitzend,<lb/>
+Reich' ich, nach unsers Landes altem Brauche,<lb/>
+Zobea, meiner Braut, den Kelch der Liebe,<lb/>
+Sie wird ihn bis zum letzten Tropfen leeren,<lb/>
+Als Zeichen, daß sie lieber<lb/>
+Den Trank des Todes tränke,<lb/>
+Als daß sie je von ihrem Gatten ließe.</p><lb/>
+<stage>Er reicht Zobea den Kelch, die während der vorigen Re-<lb/>
+de heimlich den andern Kelch aus der Palme genom-<lb/>
+men, welche sich mit einem kleinen Geräusch geöffnet hat.</stage></sp><lb/>
+<sp who="#ZOBE"><speaker>Zobea</speaker><lb/>
+<stage>(beide Kelche haltend.)</stage><lb/>
+<p>Jch ehre, Völker, eure alten Bräuche,<lb/>
+Wie dein Gebot, mein König;<lb/>
+Doch nimmer werd' ich trinken,<lb/>
+Und Liebe dir nie schwören,<lb/>
+Bevor nicht Sinabal ein gleiches thut.</p><lb/>
+<stage>(Sie reicht ihm den Becher.)</stage><lb/>
+<pb n="138" facs="#f0142"/>
+<stage><hi rendition="#g">Ein Krieger tritt ein,</hi></stage><lb/>
+<stage>(heimlich zu Sinabal.)</stage><lb/>
+<p>Die Feinde, König! dringen in die Stadt,<lb/>
+<hi rendition="#g">Zelu,</hi> der Oberpriester führt sie an.</p></sp><lb/>
+<sp who="#SIN"><speaker>Sinabal.</speaker><lb/>
+<p>Sein Reich ist bald zu Ende.</p><lb/>
+<stage>(zu Zobea.)</stage><lb/>
+<p>Es sey, befried'gen wir des Volkes Wünsche!<lb/>
+Laß uns die Becher leeren!</p><lb/>
+<stage>Sie stoßen an, Paucken und Trompeten. Er trinkt, <hi rendition="#g">Zo-<lb/>
+bea</hi> wirft den Kelch in die Fontaine, dieselbe sprüht<lb/>
+in dem Augenblick Feuer statt Wasser. <hi rendition="#g">Sinabal</hi><lb/>
+springt auf, das Feuer zu löschen.</stage><lb/>
+<p><hi rendition="#g">Finale.</hi></p></sp><lb/>
+<sp who="#SIN"><speaker>Sinabal.</speaker><lb/>
+<p>Verdammte Brut!<lb/>
+Es thut nicht gut,<lb/>
+Jhr sollt es sehen!<lb/>
+Jhr sollt in Flammen<lb/>
+Alle zusammen<lb/>
+Gleich untergehn!</p><lb/>
+<stage>(Eine <hi rendition="#g">Stimme</hi> aus der Fontaine.)</stage></sp><lb/>
+<sp who="#REC"><speaker>Recitativ.</speaker><lb/>
+<p>Zobea stammet aus dem Reich der Sylphen,<lb/>
+Unmöglich ist's dir beizustehn;<lb/>
+Es ist um uns Gehülfen,<lb/>
+Es ist um dich geschehn.</p><lb/>
+<stage>Er verwandelt sich an dem Ort, wo die Fontaine stand,<lb/>
+in einen Felsen.</stage><lb/>
+<pb n="139" facs="#f0143"/>
+<stage><hi rendition="#g">Zelu</hi> als Priester, <hi rendition="#g">Almansor, Saadi,<lb/>
+Papageno, Leporello</hi> mit Kriegesvöl-<lb/>
+kern dringen ein.</stage></sp><lb/>
+<sp who="#CHORSOLD"><speaker>Chor der Soldaten.</speaker><lb/>
+<p>Wir siegen, wir siegen, der Feind ist geschlagen.<lb/>
+Wir jagen den flüchtigen Troß!<lb/>
+Der Sieg ist errungen,<lb/>
+Der Feind ist bezwungen,<lb/>
+Nun lasset uns stürmen dies Schloß!</p><lb/>
+<p>Nun laßt uns die schuldlosen Weiber befrein,<lb/>
+Wir scheuen nicht Todes Gefahr.<lb/>
+Den Kerker erbrechet,<lb/>
+Befreiet und rächet<lb/>
+Die schuldlose weinende Schaar!</p></sp><lb/>
+<sp who="#ZEL"><speaker>Zelu</speaker><lb/>
+<stage>(winkt Ruhe. Er tritt an den Felsen, und berührt ihn<lb/>
+mit einer weißen Rose.)</stage><lb/>
+<p>Es ist vorbey mit deinem Regimente,<lb/>
+Zum Elemente kehre,<lb/>
+Und störe nie mehr Liebes-Glück!<lb/>
+Zurück, hinab,<lb/>
+Fort in dein Grab!</p><lb/>
+<stage>Der Felsen sinkt flammend und mit Geräusch unter, zu glei-<lb/>
+cher Zeit die Höle. An deren Stelle stehen reich gekleide-<lb/>
+te Weiber. Unter ihnen <hi rendition="#g">Fatme</hi> und <hi rendition="#g">Dilara;</hi> diese<lb/>
+umarmen <hi rendition="#g">Almansor</hi> und <hi rendition="#g">Saadi</hi> im Hintergrunde.<lb/>
+Jm Vordergrunde stehen <hi rendition="#g">Zelu</hi> und <hi rendition="#g">Zobea.</hi> Letztere<lb/>
+<pb n="140" facs="#f0144"/>
+blickt wehmüthig nach den glücklich Liebenden, Ersteres<lb/>
+auf Zobea, indem eine liebliche Musik die Ankunft der<lb/>
+<hi rendition="#g">Sylphen</hi> andeutet. Der Hintertheil des Theaters<lb/>
+verwandelt sich in einen Garten am Ufer des Meeres,<lb/>
+man sieht einen Theil der Flotte, und die <hi rendition="#g">Sylphen</hi><lb/>
+auf ihren Wolken niedersteigen.</stage></sp><lb/>
+<sp who="#CHORS"><speaker>Chor der Sylphen.</speaker><lb/>
+<p>Lohnet die Sieger<lb/>
+Mit ewigen Wonnen!<lb/>
+Sie haben gestritten,<lb/>
+Sie haben gewonnen,<lb/>
+Sie haben gelitten,<lb/>
+Sie haben geweint.</p><lb/>
+<p>Führet sie freundlich<lb/>
+Durch heitre Azuren<lb/>
+Jn lichte Gefilde,<lb/>
+Auf goldene Fluren,<lb/>
+Wo Liebe so milde<lb/>
+Uns alle vereint.</p></sp><lb/>
+<sp who="#VIESTIMM"><speaker>Vier Stimmen.</speaker><lb/>
+<stage>(sie sind aus den Wolken gestiegen, und kränzen <hi rendition="#g">Zobea</hi><lb/>
+und <hi rendition="#g">Zelu</hi> mit Blumen.)</stage><lb/>
+<p>Mit Blumen wollen wir euch kränzen,<lb/>
+Die Blumen sind der Jugend Bild;<lb/>
+Jn ew'ger Jugend sollt ihr glänzen,<lb/>
+Ewig von Lieb' und Glück erfüllt.</p><lb/>
+<stage>(Sie verwandeln sich, <hi rendition="#g">Zelu</hi> in einen Sylphen, <hi rendition="#g">Zobea</hi><lb/>
+in eine Sylphide.)</stage></sp><lb/>
+<pb n="141" facs="#f0145"/>
+<sp who="#ZOBE"><speaker>Zobea.</speaker><lb/>
+<p>Einzig Geliebter, o darf ich es glauben!</p></sp><lb/>
+<sp who="#ZEL"><speaker>Zelu.</speaker><lb/>
+<p>O, darf ich es glauben!<lb/>
+Einzig Geliebter, wie bin ich entzückt!</p></sp><lb/>
+<sp who="#ZOBE"><speaker>Zobea.</speaker><lb/>
+<p>Wie bin ich entzückt.</p></sp><lb/>
+<sp who="#BEI"><speaker>Beide.</speaker><lb/>
+<p>Nichts kann die Seeligkeit uns rauben,<lb/>
+Wir sind auf ewig nun beglückt.</p><lb/>
+<stage>(Sie kehren in die Wolken zurück.)</stage></sp><lb/>
+<sp who="#ZEL"><speaker>Zelu</speaker><stage>(aus den Wolken.)</stage></sp><lb/>
+<sp who="#REC"><speaker>Recitativ.</speaker><lb/>
+<p>Der Böse ist gefallen,<lb/>
+Und aus dem Streite blühet schön der Frieden.<lb/>
+Wir müssen nun zu andern Sphären wallen,<lb/>
+Jhr aber bleibt hienieden<lb/>
+Jm regen Thaten-Wandel.<lb/>
+Saadi beherrschet nun fortan Samandel,<lb/>
+Almansor aber schiff' von diesem Strande<lb/>
+Zu seiner Väter Lande &#x2014;<lb/>
+Dienet der Welt, und leidet, um zu nützen,<lb/>
+So werden wir beglückend euch beschützen.</p></sp><lb/>
+<sp who="#CHORS"><speaker>Chor der Sylphen.</speaker><lb/>
+<p>Wir Sylphen, wir wohnen in goldnen Lüften,<lb/>
+Wir schützen und lieben, und trösten die Welt;<lb/>
+<pb n="142" facs="#f0146"/>
+Wir reden in Farben, in Tönen, in Düften,<lb/>
+Bis Ahnung des Himmels den Busen euch<lb/>
+schwellt.</p></sp><lb/>
+<sp who="#CHORV"><speaker>Schluß-Chor des Volks.</speaker><lb/>
+<p>Wallet zum Himmel, wir bleiben hienieden,<lb/>
+Vollenden den irdischen, menschlichen Lauf;<lb/>
+Ertragen in Demuth, was uns beschieden,<lb/>
+Leiden um Liebe, streiten um Frieden,<lb/>
+Und blicken voll Hoffnung zum Himmel hin-<lb/>
+auf.</p><lb/>
+<stage><hi rendition="#g">Saadi, Fatme, Almansor, Dilara</hi> und die<lb/>
+<hi rendition="#g">Frauen</hi> von der einen, <hi rendition="#g">Papageno, Papagena,<lb/>
+Minnewart, Larifari</hi> und <hi rendition="#g">Leporello</hi> von der<lb/>
+andern Seite gruppirt. Die Wolken steigen.</stage><lb/>
+<stage>(Der Vorhang fällt.)</stage><lb/>
+<p><hi rendition="#g">Ende.</hi></p></sp></div></div><lb/>
+</body>
+<pb facs="#f0147"/>
+<pb facs="#f0148"/>
+<pb facs="#f0149"/>
+<pb facs="#f0150"/>
+<pb facs="#f0151"/>
+<pb facs="#f0152"/>
+</text> </TEI>

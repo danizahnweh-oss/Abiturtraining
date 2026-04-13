@@ -1,0 +1,868 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://www.deutschestextarchiv.de/basisformat.rng" type="application/xml" schematypens="https://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://www.deutschestextarchiv.de/basisformat.sch" type="application/xml" schematypens="https://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">       <teiHeader>
+<fileDesc>
+<titleStmt>
+<title type="main">Das ärztliche Studium der Frauen</title>
+<author>
+<persName ref="http://d-nb.info/gnd/116822317">
+<surname>Buchner</surname>
+<forename>Wilhelm</forename>
+</persName>
+</author>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/115266127">
+<surname>Geyken</surname>
+<forename>Alexander</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1222198746">
+<surname>Haaf</surname>
+<forename>Susanne</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1019062681">
+<surname>Jurish</surname>
+<forename>Bryan</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Boenig</surname>
+<forename>Matthias</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Thomas</surname>
+<forename>Christian</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Wiegand</surname>
+<forename>Frank</forename>
+</persName>
+</editor>
+<respStmt xml:id="textsource-1" corresp="#availability-textsource-1">
+<orgName>
+Frauenstudium, betreut von Andreas Neumann und Anna Pfundt, FSU Jena und JLU Gießen
+</orgName>
+<resp>
+<note type="remarkResponsibility">Bereitstellung der Texttranskription.</note>
+<note type="remarkRevisionDTA">Bitte beachten Sie, dass die aktuelle Transkription (und Textauszeichnung) mittlerweile nicht mehr dem Stand zum Zeitpunkt der Übernahme des Werkes in das DTA entsprechen muss.</note>
+<date type="importDTA">2021-11-01T10:52:27Z</date>
+</resp>
+</respStmt>
+<respStmt>
+<persName>
+<surname>Pfundt</surname>
+<forename>Anna</forename>
+</persName>
+<persName>
+<surname>Nau</surname>
+<forename>Juliane</forename>
+</persName>
+<resp>
+<note type="remarkResponsibility">Bearbeitung der digitalen Edition.</note>
+<date type="importDTA">2021-11-01T10:52:27Z</date>
+</resp>
+</respStmt>
+<respStmt>
+<orgName ref="https://www.bbaw.de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<resp>
+<note type="remarkResponsibility">Langfristige Bereitstellung der DTA-Ausgabe</note>
+<ref target="https://www.bbaw.de"/>
+</resp>
+</respStmt>
+</titleStmt>
+<editionStmt><edition>Vollständige digitalisierte Ausgabe.</edition></editionStmt>
+<extent>
+<measure type="images">16</measure>
+<measure type="tokens">6001</measure>
+<measure type="types">1980</measure>
+<measure type="characters">44913</measure>
+</extent>
+<publicationStmt>
+<publisher xml:id="DTACorpusPublisher">
+<email>dta@bbaw.de</email>
+<orgName role="project">Deutsches Textarchiv</orgName>
+<orgName role="hostingInstitution" xml:lang="en">Berlin-Brandenburg Academy of Sciences and Humanities (BBAW)</orgName>
+<orgName role="hostingInstitution" xml:lang="de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<address>
+<addrLine>Jägerstr. 22/23, 10117 Berlin</addrLine>
+<country>Germany</country>
+</address>
+</publisher>
+<pubPlace>Berlin</pubPlace>
+<date type="publication">2025-10-24T08:22:24Z</date>
+<availability>
+<licence target="http://creativecommons.org/licenses/by/4.0/deed.de">
+<p>Namensnennung 4.0 International (CC BY 4.0)</p>
+</licence>
+</availability>
+<idno>
+<idno type="URLWeb">https://www.deutschestextarchiv.de/buchner_studium_1892</idno>
+<idno type="URLXML">https://www.deutschestextarchiv.de/book/download_xml/buchner_studium_1892</idno>
+<idno type="URLHTML">https://www.deutschestextarchiv.de/book/download_html/buchner_studium_1892</idno>
+<idno type="URLText">https://www.deutschestextarchiv.de/book/download_text/buchner_studium_1892</idno>
+<idno type="DTADirName">buchner_studium_1892</idno>
+<idno type="DTAID">35015</idno>
+<idno type="URN">urn:nbn:de:kobv:b4-35015-0</idno>
+</idno>
+</publicationStmt>
+<sourceDesc>
+<bibl type="JA">Buchner, Wilhelm: Das ärztliche Studium der Frauen. In: Die Grenzboten 3 (1892). S. 205-212, 251-258.</bibl>
+<biblFull>
+<titleStmt>
+<title level="a" type="main">Das ärztliche Studium der Frauen</title>
+<author>
+<persName ref="http://d-nb.info/gnd/116822317">
+<surname>Buchner</surname>
+<forename>Wilhelm</forename>
+</persName>
+</author>
+</titleStmt>
+<editionStmt>
+<edition n="1"/>
+</editionStmt>
+<publicationStmt>
+<publisher/>
+<pubPlace>Leipzig</pubPlace>
+<date type="publication">1892</date>
+</publicationStmt>
+<seriesStmt>
+<title level="j" type="main">Die Grenzboten</title>
+<biblScope unit="volume">51</biblScope>
+<biblScope unit="issue">3</biblScope>
+<biblScope unit="pages">205-212; 251-258</biblScope>
+</seriesStmt>
+</biblFull>
+<msDesc>
+<msIdentifier>
+<repository>Thüringer Landes- und Universitätsbibliothek Jena</repository>
+<idno>
+<idno type="shelfmark">8 Hist.lit.XVI,17 :51.1892,3</idno>
+</idno>
+</msIdentifier>
+<physDesc>
+<typeDesc>
+<p>Fraktur</p>
+</typeDesc>
+</physDesc>
+</msDesc>
+</sourceDesc>
+</fileDesc>
+<encodingDesc>
+<editorialDecl>
+<p>
+<![CDATA[
+<p>
+Bogensignaturen: gekennzeichnet;
+Druckfehler: keine Angabe;
+fremdsprachliches Material: keine Angabe;
+Geminations-/Abkürzungsstriche: keine Angabe;
+Hervorhebungen (Antiqua, Sperrschrift, Kursive etc.): wie Vorlage;
+i/j in Fraktur: keine Angabe;
+I/J in Fraktur: wie Vorlage;
+Kolumnentitel: gekennzeichnet;
+Kustoden: keine Angabe;
+langes s (&#x017F;): als s transkribiert;
+Normalisierungen: keine Angabe;
+rundes r (&#xA75B;): keine Angabe;
+Seitenumbrüche markiert: ja;
+Silbentrennung: wie Vorlage;
+u/v bzw. U/V: keine Angabe;
+Vokale mit übergest. e: keine Angabe;
+Vollständigkeit: keine Angabe;
+Zeichensetzung: wie Vorlage;
+Zeilenumbrüche markiert: ja;
+</p>
+]]>
+</p>
+</editorialDecl>
+<tagsDecl>
+<rendition scheme="css" xml:id="aq">font-family:sans-serif</rendition>
+<rendition scheme="css" xml:id="b">font-weight:bold</rendition>
+<rendition scheme="css" xml:id="blue">color:blue</rendition>
+<rendition scheme="css" xml:id="c">display:block; text-align:center</rendition>
+<rendition scheme="css" xml:id="et">display:block; margin-left:2em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et2">display:block; margin-left:4em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et3">display:block; margin-left:6em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="f">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="fr">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="g">letter-spacing:0.125em</rendition>
+<rendition scheme="css" xml:id="i">font-style:italic</rendition>
+<rendition scheme="css" xml:id="in">font-size:150%</rendition>
+<rendition scheme="css" xml:id="k">font-variant:small-caps</rendition>
+<rendition scheme="css" xml:id="larger">font-size:larger</rendition>
+<rendition scheme="css" xml:id="red">color:red</rendition>
+<rendition scheme="css" xml:id="right">display:block; text-align:right</rendition>
+<rendition scheme="css" xml:id="s">text-decoration:line-through</rendition>
+<rendition scheme="css" xml:id="smaller">font-size:smaller</rendition>
+<rendition scheme="css" xml:id="sub">vertical-align:sub; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="sup">vertical-align:super; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="u">text-decoration:underline</rendition>
+<rendition scheme="css" xml:id="uu">border-bottom:double 3px #000</rendition>
+</tagsDecl>
+</encodingDesc>
+<profileDesc>
+<langUsage>
+<language ident="deu">(Früh-)Neuhochdeutsch</language>
+<language ident="deu">German</language>
+</langUsage>
+<textClass>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1main">Gebrauchsliteratur</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1sub">Gesellschaft</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">ready</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">tdef</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">frauenstudium</classCode>
+</textClass>
+</profileDesc>
+</teiHeader>
+<text>     <body>
+<pb facs="#f0001" n="205"/>
+<div n="1" type="jArticle" xml:id="part01"> <head><hi rendition="#b">Das ärztliche Studium der Frauen</hi><note place="foot" n="*)">Wir haben diesem Aufsatze die Aufnahme nicht verweigern wollen, obwohl er keines-<lb/>
+wegs in allen Stücken unsern Anschauungen entspricht. Unsre abweichende Meinung werden<lb/>
+wir in einem der nächsten Hefte aussprechen. D.R.</note></head><lb/>
+<byline><hi rendition="#g">Von <persName ref="https://d-nb.info/gnd/116822317">Wilhelm Buchner</persName></hi></byline><lb/>
+<p><hi rendition="#in">D</hi>er 30. März 1892 ist ein wichtiger Tag in der Geschichte der<lb/>
+Frauenarbeit in Deutschland: das preußische Abgeordnetenhaus<lb/>
+hat ein Bittgesuch des Frauenvereins Reform, das die Zulassung<lb/>
+von Frauen zum medizinischen Studium und zu diesem Zwecke<lb/>
+die Erlaubnis zur Ablegung der Reifeprüfung an einem Gym-<lb/>
+nasium beantragte, der königlichen Staatsregierung zur Erwägung überwiesen.</p><lb/>
+<p>Seit Jahrzehnten schon ist in Deutschland der lebendigste Wunsch rege<lb/>
+nach Ärztinnen, natürlich zur Behandlung der Frauen selbst; denn an Ärzten<lb/>
+leiden wir wahrlich keinen Mangel. Es giebt zahlreiche Krankheitserscheinungen,<lb/>
+von denen einen Weib nur höchst ungern, nur unter dem Drange der eisernen<lb/>
+Notwendigkeit, dem Arzte Mitteilung macht. Die Gefahr liegt nahe, daß<lb/>
+diese Mitteilung so lange hinausgeschoben werde, bis es zum heilenden Eingriff<lb/>
+zu spät ist, und so mag gar manches teure Leben dem weiblichen Zartgefühl<lb/>
+zum Opfer gefallen sein, seit jene Maria von Burgund, die Gemahlin Kaiser<lb/>
+Maximilians des Ersten, nach einem unglücklichen Sturz vom Pferde sich<lb/>
+nicht entschließen konnte, die Hilfe eines Arztes anzurufen und lieber in der<lb/>
+Blüte der Jugend starb. Man mag es thöricht finden, aber schon die Mög-<lb/>
+lichkeit genügt, den Ruf nach Ärztinnen für Frauenkrankheiten berechtigt<lb/>
+erscheinen zu lassen. Anderwärts, nicht nur in Nordamerika, das dem alternden<lb/>
+Europa in solchen Dingen weit voraus ist, in Frankreich, in der Schweiz, in<lb/>
+Jtalien, sogar in dem sonst so zurückhaltenden England und Schottland ist<lb/>
+dem weiblichen Geschlecht das medizinische Studium eröffnet. Schon im<lb/>
+Heldengedicht des Mittelalters kommt Tristans Mutter Blancheflour als Ärztin<lb/>
+verkleidet zu dem todwunden Geliebten; den deutschen Frauen der Gegenwart<lb/>
+ist, wenigstens in der Heimat, jede Möglichkeit, zum Nutzen ihrer Mitschwestern<lb/>
+Heilkunde zu studiren, verschlossen. Warum?</p><lb/>
+<p>Da wehrt sich zunächst gegen die Zulassung der Frauen zum ärztlichen<lb/>
+<pb facs="#f0002" n="206"/>
+<fw type="header" place="top">Das ärztliche Studium der Frauen</fw><lb/>
+Studium die Ausschließlichkeit der akademischen Senate, die von der Zulassung<lb/>
+von Studentinnen eine Herabsetzung der Wissenschaft befürchten. Es<lb/>
+wehrt sich ferner dagegen der Eigennutz der Ärzte, die in den Ärztinnen un-<lb/>
+bequeme Mitbewerberinnen fürchten. Es wehrt sich auch dagegen der Chor<lb/>
+der sentimentalen Anhänger des Hergebrachten, deren ganze Weisheit darin<lb/>
+besteht, zu behaupten: das Weib gehört nicht in die Öffentlichkeit, das Weib<lb/>
+gehört ins Haus, obwohl wir doch wissen, daß ein starker Prozentsatz unsrer<lb/>
+Mädchen gebildeten Standes, aber in wenig vermögenden Verhältnissen er-<lb/>
+wachsen, unverehelicht bleibt, weil sich entweder keine Gelegenheit zur Ehe dar-<lb/>
+bot, oder weil sie nach Ed. von Hartmanns Ansicht thöricht genug sind, nicht<lb/>
+ohne Herzensneigung heiraten zu wollen. Und zu diesen Hindernissen, die<lb/>
+bisher dem ärztlichen Studium der Frauen entgegengestanden haben, gesellt<lb/>
+sich noch ein weiteres: die Gewerbeordnung legt zwar dem Weibe kein Hindernis<lb/>
+in den Weg, den ärztlichen Beruf auszuüben; aber die deutschen Universitäten<lb/>
+bieten ihm nicht die Möglichkeit zum Studium, und thäten sie es auch, so<lb/>
+ist doch das medizinische Studium abhängig von einer Reifeprüfung, wie sie<lb/>
+nur am Gymnasium möglich ist, und dazu gehört Griechisch und Latein und<lb/>
+höhere Mathematik, Wissensgebiete also, die dem weiblichen Geschlechte bisher<lb/>
+völlig verschlossen waren und wohl auch, besonders begabte Persönlichkeiten<lb/>
+ausgenommen, dauernd verschlossen bleiben werden. Daraus ergiebt sich ein<lb/>
+wunderbarer fehlerhafter Zirkel: die deutsche Frau, die die erforderlichen Kennt-<lb/>
+nisse nachweist, darf in Deutschland die ärztliche Praxis üben, aber sie findet<lb/>
+in Deutschland keine Lehranstalt, wo sie sich die zur Reifeprüfung für die<lb/>
+Universität erforderlichen Kenntnisse erwerben, keine Universität, wo sie Heil-<lb/>
+kunde studiren kann. So sind denn die wenigen mutigen und thatkräftigen<lb/>
+deutschen Frauen, die sich bisher zur ärztlichen Praxis in einigen unsrer Groß-<lb/>
+städte emporgerungen haben, überall, nur nicht in Deutschland gebildet, in<lb/>
+Zürich, Paris, England. Seltsame Zustände!</p><lb/>
+<p>Dabei ist es der gesamten Bewegung für das ärztliche Studium der<lb/>
+Frauen sehr nachteilig gewesen, daß die russischen Studentinnen, die sich in<lb/>
+Zürich den medizinischen Studien widmeten, bisweilen in unliebsamer Weise<lb/>
+zu zeigen schienen, diese Studien seien mit der Bewahrung einer idealen Weib-<lb/>
+lichkeit nicht vereinbar, und für ein echtes deutsches Gemüt ist mit vollem<lb/>
+Rechte nichts widerlicher als ein Weib, das sich unweiblich geberdet. Man hielt<lb/>
+es für unvereinbar mit der guten Sitte, daß ein junges Mädchen, auch wenn<lb/>
+es die scheinbar unübersteiglichen Schwierigkeiten der Vorbildung überwunden<lb/>
+hatte, gemeinsam mit jungen Männern im Kolleg sitzen, auf der Anatomie<lb/>
+arbeiten sollte. Man forderte daher nicht bloß besondre Mädchengymnasien<lb/>
+für die Vorbereitung, sondern auch Frauenkurse für Studentinnen der Heil-<lb/>
+kunde oder gar besondre Frauenuniversitäten. Das war natürlich auch wieder<lb/>
+arg übers Ziel geschossen, denn derartige Einrichtungen würden Geldmittel<lb/>
+<pb facs="#f0003" n="207"/>
+<fw type="header" place="top">Das ärztliche Studium der Frauen</fw><lb/>
+fordern, die zu dem wirklichen Ergebnis kaum im Verhältnis stehen würden.<lb/>
+Dazu kam noch etwas. Ein Teil der Frauenvereine, die sich bildeten, um<lb/>
+diese Bewegung im Fluß zu erhalten, fand es zweckmäßig, nicht bloß die<lb/>
+Forderung aufzustellen, daß den Frauen der Zugang zum medizinischen Stu-<lb/>
+dium eröffnet werde, sondern da sie einmal am Fordern waren, so forderten<lb/>
+sie gleich das Recht zum Studium überhaupt, und dagegen sträubte sich unser<lb/>
+gesunder deutscher Menschenverstand, der von Juristinnen und Theologinnen<lb/>
+ebensowenig wissen will wie von weiblichen Offizieren. So thaten eifrige<lb/>
+Widersacher und übereifrige Freunde das ihrige, den gesunden Kern der<lb/>
+ganzen Sache nicht gedeihen zu lassen. Und wenn sie es gar mit der Be-<lb/>
+gründung thaten, daß bei dem in der Gegenwart stetig schwerer werdenden<lb/>
+Kampf ums Dasein dem Weibe die Berechtigung zu jeder Thätigkeit offen-<lb/>
+stehen müsse, die bisher in dem Alleinbesitze des Mannes gewesen ist, so war<lb/>
+das freilich nicht das richtige Mittel, weitere Kreise für diese Bestrebungen<lb/>
+zu erwärmen.</p><lb/>
+<p>Bei alledem ist es sehr erklärlich, daß thatkräftige Frauen bestrebt waren,<lb/>
+ihr Geschlecht aus den bisherigen Zuständen herauszuführen. Jn dieser Rich-<lb/>
+tung arbeitete vor allem seit dem Jahre 1888 der Frauenverein Reform, der<lb/>
+seine Mitglieder in einer Reihe größerer Städte von Deutschland, Österreich<lb/>
+und der Schweiz hat; Vorort ist gegenwärtig Weimar, Leiterin eine Frau<lb/>
+J. Kettler, die eine Reihe von Abhandlungen über diese Fragen geschrieben<lb/>
+hat, eine Monatsschrift &#x201E;Frauenberuf&#x201C; herausgiebt und jedenfalls eine sehr<lb/>
+thatkräftige Frau ist.<note place="foot" n="*)">Vgl. übrigens den Aufsatz: Der Frauenverein Reform in Heft 2, 51. Jahrg. D. R.</note> Der Zweck des Vereins geht dahin, eine Steigerung der<lb/>
+Erwerbsfähigkeit des weiblichen Geschlechts durch Erschließung der auf wissen-<lb/>
+schaftlichen Studien beruhenden Berufe zu erzielen, &#x201E;und zwar vertritt der<lb/>
+Verein die Ansicht, daß die Frau gleich dem Manne zum Studium aller<lb/>
+Wissenschaften Zutritt haben soll, nicht aber auf vereinzelte derselben, wie<lb/>
+Medizin oder das höhere Lehrfach, beschränkt werden darf.&#x201C; Zu diesem Zwecke<lb/>
+will der Verein vorzüglich wirken für Errichtung von Mädchengymnasien mit<lb/>
+demselben Lehrplan, wie ihn die auf die Universität vorbereitenden Knaben-<lb/>
+schulen haben, für Erlangung des Rechts für diese Mädchengymnasien, Ab-<lb/>
+gangszeugnisse zum Studium an den Universitäten auszustellen, für die Zu-<lb/>
+lassung des weiblichen Geschlechts zum Studium auf Universitäten und andern<lb/>
+wissenschaftlichen Hochschulen, für Erlangung der staatlichen Erlaubnis, die auf<lb/>
+wissenschaftlichen Studien beruhenden Berufe, deren Ausübung einer Geneh-<lb/>
+migung der Behörden bedarf, auch wirklich auszuüben, soweit das praktisch<lb/>
+durchführbar ist, und sofern die betreffenden Prüfungsnachweise geliefert sind.</p><lb/>
+<p>Schon durch die Bemerkung &#x201E;soweit das praktisch durchführbar ist&#x201C; wird<lb/>
+ausgesprochen, daß es eine Anzahl von Gebieten männlicher Thätigkeit giebt,<lb/>
+<pb facs="#f0004" n="208"/>
+<fw type="header" place="top">Das ärztliche Studium der Frauen</fw><lb/>
+die nicht so ohne weiteres dem Mitbewerb weiblicher Kräfte offen stehen.<lb/>
+Daher hätte der Frauenverein Reform von Anfang an seine Ziele besser darauf<lb/>
+beschränkt, dem weiblichen Geschlecht den ärztlichen Beruf zu erschließen; da-<lb/>
+durch daß er auf allen Gebieten der Wissenschaft der Mannesarbeit den weib-<lb/>
+lichen Wettbewerb entgegenstellt, hat er bisher auch seinen Erfolg auf dem<lb/>
+engbegrenzten Gebiete beeinträchtigt, wo dieser Erfolg erwünscht gewesen wäre.</p><lb/>
+<p>Frau Kettler ist neuerdings namentlich bemüht, durch Petitionen an den<lb/>
+Reichstag und an die verschiednen deutschen Regierungen und Volksvertretungen<lb/>
+ihre Ziele zu fördern. Über eine derartige Eingabe an den Reichstag wurde<lb/>
+am 11. März 1891 zur Tagesordnung übergegangen, nachdem sich die Mehr-<lb/>
+heit gegen die Zulassung der Frauen zum medizinischen Studium ausgesprochen<lb/>
+hatte. Eine ähnliche Petition kam im Mai 1891 im preußischen Abgeord-<lb/>
+netenhause zur Verhandlung; sie sprach die Bitte um Errichtung eines Mädchen-<lb/>
+gymnasiums oder Zulassung des weiblichen Geschlechts zur Ablegung der an<lb/>
+den bestehenden Gymnasien eingeführten Reifeprüfung aus. Die Bitte war<lb/>
+begründet durch den Hinweis auf die große Zahl der aus den breiten Schichten<lb/>
+des sogenannten gebildeten Mittelstands, der Beamten, Offiziere, Künstler, her-<lb/>
+vorgehenden Mädchen, die, auf bescheidne Mittel beschränkt, nicht zur Ehe ge-<lb/>
+langten und daher der Ausbildung zur Erwerbsthätigkeit bedürften. Es sei<lb/>
+wünschenswert geworden, daß auch einzelne Teile der auf wissenschaftlichen<lb/>
+Studien beruhenden Berufe der heranwachsenden Mädchenwelt erschlossen würden.<lb/>
+Die Petition erbat demnach die Errichtung von Mädchengymnasien mit dem<lb/>
+gleichen Lehrplan und dem Rechte der Entlassung zum Studium aus Universi-<lb/>
+täten und andern Hochschulen und infolge davon die Zulassung der Frauen zu<lb/>
+allen auf wissenschaftlichen Studien beruhenden Berufen, &#x201E;soweit das praktisch<lb/>
+durchführbar ist.&#x201C; Allerdings ließen es die gegenwärtigen sozialen Verhält-<lb/>
+nisse in Deutschland wie die physische (!) Natur (!) des weiblichen Geschlechts als<lb/>
+thöricht erscheinen, die Zulassung der Frau zur Ausübung aller Berufe zu<lb/>
+fordern; dagegen (!) sei vor allem (!) die Zulassung zur Ausübung des ärzt-<lb/>
+lichen Berufes zu fordern. Der Frauenverein Reform hat also verständiger-<lb/>
+weise bereits Wasser in seinen Wein gethan.</p><lb/>
+<p>Der Berichterstatter Seyffardt hob sehr richtig hervor, daß die Petition<lb/>
+in einem Atem sehr weitgehende und verhältnismäßig beschränkte Forderungen<lb/>
+stelle. Halte man sich an die erstern, so werde man leicht zu einer abweichenden<lb/>
+Stellung gelangen; sehe man von den großen Theorien ab und fasse nur die<lb/>
+praktischen Einschränkungen ins Auge, so komme man zu einem viel günstigern<lb/>
+Ergebnis. Es sei Pflicht und Schuldigkeit, der aus dem Bedürfnis der<lb/>
+Gegenwart erwachsenen Frauenfrage, die in der Steigerung der Erwerbsfähig-<lb/>
+keit und Erwerbsthätigkeit des weiblichen Geschlechts ihr hervorragendstes Ziel<lb/>
+finde, Beachtung und Unterstützung zu gewähren; Deutschland sei in dieser<lb/>
+Beziehung hinter andern Kulturnationen, jedenfalls hinter Franzosen, Eng-<lb/>
+<pb facs="#f0005" n="209"/>
+<fw type="header" place="top">Das ärztliche Studium der Frauen</fw><lb/>
+ländern und Amerikanern zurückgeblieben. Es gebe in Deutschland tausende<lb/>
+und abertausende von Mädchen gerade in dem gebildeten Mittelstande, denen<lb/>
+unsre gesellschaftlichen Verhältnisse die Ehe, unsre Wirtschafts- und Unter-<lb/>
+richtsverhältnisse versagten, sich eine bescheidne Existenz zu schaffen. Die<lb/>
+Petition verlange zuerst alle wissenschaftlichen Berufe, dann zunächst und vor<lb/>
+allem die Ausübung des ärztlichen Berufs. Man habe außerdem wissen-<lb/>
+schaftliche Vorbereitung für den Beruf der Lehrerin gefordert; aber der Wunsch,<lb/>
+mehr Lehrerinnen auf der Oberstufe höherer Mädchenschulen zu beschäftigen,<lb/>
+gründe sich weniger auf die wissenschaftliche als auf die gemütliche Bedeutung<lb/>
+eines erhöhten Einflusses weiblicher Mitwirkung. Man werde doch wohl<lb/>
+Bedenken tragen müssen, dem in erster Linie stehenden Verlangen nach Errich-<lb/>
+tung eines Mädchengymnasiums zuzustimmen; einstweilen dürfte die Zulassung<lb/>
+von privatim ausgebildeten Mädchen zu den Prüfungen an den bestehenden<lb/>
+Gymnasien oder einigen von ihnen, wobei gleichzeitig die Berechtigung zum<lb/>
+Besuche wenigstens einer deutschen Universität ausgesprochen werden müßte,<lb/>
+vollständig genügen. Der Berichterstatter schlug demnach vor, über den ersten<lb/>
+Antrag der Petition zur Tagesordnung überzugehen, den zweiten, die Zu-<lb/>
+lassung zur Reifeprüfung der Gymnasien, der königlichen Regierung zur Er-<lb/>
+wägung zu überweisen.</p><lb/>
+<p>Der Regierungskommissar Geheimer Oberregierungsrat <hi rendition="#aq">Dr</hi>. Schneider<lb/>
+empfahl über beide Anträge zur Tagesordnung überzugehen. Der Zeitpunkt<lb/>
+sei übel gewählt, weil das Gymnasialwesen eben in einer Wandlung begriffen<lb/>
+sei. Der Vorschlag der Frau Kettler gefährde unsre Mädchenbildung und<lb/>
+-Erziehung. Die Gymnasiasten blieben in der Regel bis zum zwanzigsten Jahre<lb/>
+und würden in den letzten Jahren gerade besonders angestrengt; es sei be-<lb/>
+denklich, in diesen Jahren Mädchen eine andauernde sitzende Thätigkeit zuzu-<lb/>
+muten. Unser Mädchenschulwesen sei in glücklicher Entwicklung, die man nicht<lb/>
+stören dürfe, das geschehe aber, wenn man verlange, daß die Mädchen zu den<lb/>
+Bildungszielen auf denselben Wegen kämen wie die Knaben. Die Rücksicht<lb/>
+auf die verschwindend kleine Zahl der zukünftigen Ärztinnen könne ungünstig<lb/>
+auf den Charakter der höhern Mädchenschule wirken, wie es schon die Rücksicht<lb/>
+auf die Vorbildung einzelner Schülerinnen für den Lehrberuf thue. Nach<lb/>
+längerer Verhandlung für und wider wurde dem Antrage des Berichterstatters<lb/>
+gemäß beschlossen; übrigens kam die Frage wegen des Schlusses der Session<lb/>
+im Hause der Abgeordneten nicht mehr zur Verhandlung.</p><lb/>
+<p>Frau Kettler ließ sich aber durch diesen Mißerfolg nicht abschrecken,<lb/>
+sondern richtete wohl Ende 1891 oder Anfang 1892 &#x2013; an verschiedne deutsche<lb/>
+Abgeordnetenhäuser einen etwas veränderten Antrag. Die Zeitungen haben<lb/>
+über den Erfolg dieser Gesuche berichtet. Hessen lehnte, soviel mir erinnerlich<lb/>
+ist, ab; im badischen Abgeordnetenhause legte die Unterrichtskommission in der <lb/>
+Sitzung vom 5. März 1892 folgenden Antrag vor:</p><lb/>
+<fw type="sig" place="bottom">Grenzboten <hi rendition="#aq">III</hi> 1892<space dim="horizontal"/>27</fw><lb/>
+<pb facs="#f0006" n="210"/>
+<p>1. Das in der vorliegenden Petition hervortretende Streben der Frauen nach<lb/>
+Erweiterung ihrer Erwerbsmöglichkeit, insbesondre durch Erschließung einzelner<lb/>
+auf wissenschaftlicher Vorbildung beruhenden Berufe, ist gerechtfertigt und teilweise<lb/>
+erfüllbar. 2. Keinesfalls darf der Frau ein Beruf unter leichtern Bedingungen<lb/>
+zugänglich gemacht werden als dem Manne. Es muß darum für alle gelehrten<lb/>
+Berufe das Maturitätsexamen gefordert werden. 3. Zur Ablegung dieser Prüfung<lb/>
+können Jnländerinnen dem Examen an einem der bestehenden Gymnasien zugewiesen<lb/>
+werden. Dagegen ist die Schaffung von Mädchengymnasien zur Zeit ebenso un-<lb/>
+thunlich wie die Zuweisung von Mädchen zum Unterricht an den bestehenden<lb/>
+Knabengymnasien. 4. Der Besuch von Vorlesungen an der Universität kann auch<lb/>
+fernerhin ausnahmsweise und widerruflich solchen Frauen gestattet werden, bezüglich (!)<lb/>
+deren (!) die Fakultät es für zulässig erklärt. Er ist denjenigen Jnländerinnen zu<lb/>
+gestatten, welche das Abiturientenexamen abgelegt haben und im übrigen den für<lb/>
+Studirende geltenden Erfordernissen genügen. 5. Die Großherzogliche Regierung<lb/>
+wolle auch fernerhin die Entwicklung der Frauenfrage wohlwollend im Auge be-<lb/>
+halten.</p><lb/>
+<p>Es entspricht durchaus dem Wesen des badischen Landtags, daß er durch<lb/>
+den Vertreter der Regierung wohlmeinend unterstützt, den Antrag der Kom-<lb/>
+mission annahm und die Petition der Großherzoglichen Regierung zur Kenntnis-<lb/>
+nahme überwies.</p><lb/>
+<p>Wenige Tage darnach, am 11. März 1892, kam dieselbe Frage in der<lb/>
+Unterrichtskommission des preußischen Abgeordnetenhauses zur Verhandlung.<lb/>
+Es lagen zwei Petitionen vor. Die des Berliner Vereins &#x201E;Frauenwohl,&#x201C;<lb/>
+daß den Frauen nach erlangter privater oder durch Teilnahme am öffentlichen<lb/>
+Unterricht gewonnener Vorbildung die Ablegung (Erlangung?) des Reifezeug-<lb/>
+nisses an preußischen Gymnasien und Realgymnasien gestattet werde, können<lb/>
+wir hier, da sie in der Verhandlung kaum erwähnt wurde, übergehen. Der<lb/>
+Vorstand des deutschen Frauenvereins &#x201E;Reform&#x201C; zu Weimar, vertreten durch<lb/>
+die unermüdliche Frau Kettler, wiederholte mit geringer Änderung den Antrag<lb/>
+vom vorigen Jahre, daß a) einem vom Verein &#x201E;Reform&#x201C; zu errichtenden<lb/>
+Mädchenhumangymnasium (!) das Recht zur Abhaltung der zum Universitäts-<lb/>
+besuche berechtigenden Maturitätsprüfung seiner Schülerinnen zuerkannt werde,<lb/>
+sobald und solange diese Anstalt bezüglich ihres Lehrplans und der Quali-<lb/>
+fikation ihrer Lehrkräfte genau den Anforderungen entspricht, welche diesbe-<lb/>
+züglich (!) jeweils (!) für die bestehenden Humanitätsgymnasien gelten; b) den<lb/>
+mit dem Reifezeugnis entlaßnen Schülerinnen dieses Mädchengymnasiums der<lb/>
+Besuch der medizinischen und philosophischen Fakultät der preußischen Universi-<lb/>
+täten gestattet werde; c) bis zur Errichtung eines solchen Mädchengymnasiums<lb/>
+einstweilen die Zulassung von Mädchen zur Ablegung der Maturitätsprüfung<lb/>
+an einem der bestehenden Humangymnasien und den dort mit gutem Erfolge<lb/>
+geprüften der Besuch der genannten Fakultäten gestattet werden möge.</p><lb/>
+<p>Der Berichterstatter v. Kölichen erkannte an, daß die Reichs-Gewerbe-<lb/>
+ordnung der Ausübung der ärztlichen Praxis durch Frauen nicht im Wege<lb/>
+<pb facs="#f0007" n="211"/>
+<fw type="header" place="top">Das ärztliche Studium der Frauen</fw><lb/>
+stehe, sondern daß es ihnen nur durch die gegenwärtige Einrichtung der höhern<lb/>
+Unterrichtsanstalten unmöglich gemacht sei, die Bedingungen der Zulassung<lb/>
+zur ärztlichen Prüfung zu erfüllen. Diese Gestaltung der höhern Unterrichts-<lb/>
+anstalten aber sei Sache der Einzelregierungen. Ebensowenig schließe die<lb/>
+Prüfungsordnung für Ärzte das weibliche Element aus. Das Hindernis liege<lb/>
+also darin, daß Frauen auf preußischen Universitäten zum Studium der Me-<lb/>
+dizin bisher nicht zugelassen worden seien, oder doch nur ganz ausnahmsweise<lb/>
+mit besondrer Genehmigung des Ministers. Der Berichterstatter erwähnt den<lb/>
+Beschluß des badischen Abgeordnetenhauses, wonach der Besuch von Vor-<lb/>
+lesungen ausnahmsweise und widerruflich Frauen gestattet ist, bezüglich (!)<lb/>
+deren (!) es die Fakultät für zulässig erklärt; er vergißt aber zu erwähnen,<lb/>
+daß es Jnländerinnen gestattet ist, die die Reifeprüfung abgelegt haben, daß<lb/>
+also das badische Abgeordnetenhaus eine solche Reifeprüfung als möglich und<lb/>
+vielleicht einst durchführbar betrachtet. Der Berichterstatter erkennt an, daß<lb/>
+es Pflicht der Gesellschaft und des Staats sei, der Frau gesicherte Lebens-<lb/>
+und Existenzbedingungen offen zu halten; der Wettbewerb, der den Männern<lb/>
+durch die Frauen entstehe, dürfe kein Grund sein, die Frauen an der Er-<lb/>
+langung neuer Erwerbsquellen zu hindern. Auch müsse er das Bedürfnis<lb/>
+von Ärztinnen für Frauenkrankheiten anerkennen; es sei deshalb nicht richtig,<lb/>
+sie grundsätzlich vom Besuche der Universitäten auszuschließen. Aber es sei<lb/>
+ebenso unrichtig, das geforderte Mädchengymnasium in allen Punkten dem<lb/>
+Knabengymnasium gleich zu machen; nur die Ärztin, die zugleich im besten<lb/>
+und höchsten Sinne die Weiblichkeit bewahrt habe, werde das Vertrauen ihrer<lb/>
+Patienten gewinnen und damit die Konkurrenz der Ärzte besiegen können. Jn<lb/>
+welcher Weise die Vorbildung der Mädchen für die Universität und das medi-<lb/>
+zinische Studium zu regeln sei, könne allein von der Staatsregierung richtig<lb/>
+geprüft werden.</p><lb/>
+<p>Der Regierungskommissar Geheimer Oberregierungsrat <hi rendition="#aq">Dr</hi>. Schneider er-<lb/>
+klärte, daß bereits am 28. Februar 1892 der Kultusminister v. Zedlitz aus<lb/>
+eigner Entschließung die Universitätskuratoren ersucht habe, sich über die Frage<lb/>
+zu äußern, ob und wieweit eine Abänderung der Bestimmungen ratsam er-<lb/>
+scheine, wonach Frauen weder als Studirende aufgenommen noch als &#x201E;Gast-<lb/>
+zuhörerinnen&#x201C; zugelassen werden dürfen. Er erkannte einen gesunden Kern in<lb/>
+den Bestrebungen der Bittstellerinnen an; das Verlangen nach Erweiterung<lb/>
+der Erwerbsfähigkeit der Frau sei bei den gegenwärtigen Verhältnissen der<lb/>
+bürgerlichen Gesellschaft durchaus berechtigt, Frauen und Mädchen würden<lb/>
+ärztliche, namentlich wundärztliche Hilfe in manchen Fällen lieber von einer<lb/>
+Frau als von einem Manne begehren. Dagegen sei es bedenklich, den von<lb/>
+den Bittstellern vorgeschlagnen Weg einzuschlagen; der Gedanke, daß die Mädchen<lb/>
+ihren Bildungsgang unbedingt auf demselben Wege zu nehmen hätten, wie die<lb/>
+heranwachsende männliche Jugend, sei falsch. Jn einer Zeit, wo gegen den<lb/>
+<pb facs="#f0008" n="212"/>
+<fw type="header" place="top">Tuiskoland</fw><lb/>
+bisherigen Unterricht der Knaben laute Anklagen erhoben würden, sei es dop-<lb/>
+pelt bedenklich, den Unterricht der weiblichen Jugend in diese Bahnen hinüber-<lb/>
+zuführen und zu behaupten, daß die höhere Bildung der Mädchen durch Gym-<lb/>
+nasien und Universitäten gehen müsse. Man brauche bloß den Namen Moltkes<lb/>
+zu nennen, um sich zu vergegenwärtigen, daß jemand auch auf anderm Wege<lb/>
+zu hoher Bildung kommen könne, und ähnliche Beispiele hoher Bildung ohne<lb/>
+Gymnasium und Universität gebe es unter unsern Offizieren und Jndustriellen<lb/>
+mehr. Es sei daher Pflicht der Unterrichtsverwaltung, entsprechende eigne<lb/>
+Wege für die Mädchen zu suchen, aber die Erfüllung dieser Pflicht erfordre<lb/>
+besonnene Prüfung.</p><lb/>
+<p>Bei der Verhandlung in der Kommission sprachen sich fast alle Mitglieder<lb/>
+im Sinne des Berichterstatters und des Regierungskommissars aus; ebenso<lb/>
+wurde mit zehn Stimmen gegen eine der Antrag des Berichterstatters an-<lb/>
+genommen: über die Petitionen, soweit sie die Errichtung eines Mädchen-<lb/>
+gymnasiums und die Zulassung zum philosophischen Studium betreffen, zur<lb/>
+Tagesordnung überzugehen, soweit sie die Zulassung zum medizinischen<lb/>
+Studium und die Erlaubnis zur Ablegung des Maturitätsexamens an einem<lb/>
+Gymnasium beantragen, der Königlichen Staatsregierung zur Erwägung zu<lb/>
+überweisen.</p><lb/>
+<p><ref target="https://deutschestextarchiv.de/buchner_1892_studium/9#part02"><hi rendition="#c">(Schluß folgt)</hi></ref></p><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+</div>
+<pb facs="#f0009" n="251"/>
+<div n="1" type="jArticle" xml:id="part02">
+<head><hi rendition="#b">Das ärztliche Studium der Frauen</hi><lb/>
+</head><lb/>
+<byline><hi rendition="#g">Von <persName ref="https://d-nb.info/gnd/116822317">Wilhelm Buchner</persName></hi></byline><lb/>
+<head><ref target="https://www.deutschestextarchiv.de/buchner_1892_studium/1#part01">(Schluß)</ref></head><lb/>
+<p><hi rendition="#in">A</hi>m 30. März kam die Frage zur Verhandlung im Abgeordneten-<lb/>
+hause. Zunächst erklärte der Abgeordnete Hartmann im Namen<lb/>
+der großen Mehrzahl der Konservativen sich für &#x201E;Übergang<lb/>
+zur Tagesordnung,&#x201C; sie seien grundsätzlich der Ansicht, daß die<lb/>
+Frau in das Haus und in die Familie gehöre und dort<lb/>
+ihren Wirkungskreis finden müsse; lasse man die Frauen zum ärztlichen<lb/>
+Studium zu, so sei zu fürchten, daß dies schließlich zu einer allgemeinen<lb/>
+Emanzipation der Frauen, also zu einem nationalen Unglück führen werde.</p><lb/>
+<p>Anders äußerte sich der nationalliberale Abgeordnete Seyffardt. Es sei<lb/>
+hier nicht die Rede davon, die Frau dem Hause und der Familie zu entziehen;<lb/>
+man wolle nur dem in zahlreichen Kreisen der gebildeten Frauenwelt hervor-<lb/>
+tretenden Bedürfnis nach erweiterter Gelegenheit zur Bethätigung ihrer Ar-<lb/>
+beitskraft entsprechen. Es sei sehr erfreulich, daß zum erstenmal ein preußischer<lb/>
+Minister an die Universitäten die Bitte gerichtet habe, sich über die Zulassung<lb/>
+der Frauen zum Studium zu äußern, und daß endlich das, was fast alle<lb/>
+andern Kulturstaaten bereits in Angriff genommen und zum Teil durchgeführt<lb/>
+hätten, auch in Deutschland und in Preußen nicht mehr als schlechterdings<lb/>
+ungehörig bezeichnet werden dürfe. Der Kommissar habe sich zwar vorsichtig<lb/>
+verhalten, aber doch mit aller Bestimmtheit ausgesprochen, daß das ärztliche<lb/>
+Studium den Frauen nicht länger ganz entzogen werden dürfe. Die Gewerbe-<lb/>
+ordnung gewähre den Frauen die Zulassung zur ärztlichen Praxis, aber man<lb/>
+müsse ihnen auch die Möglichkeit gewähren, sich in Deutschland selbst für die<lb/>
+ärztliche Praxis vorzubereiten. Die Kommission wolle in keiner Weise einen<lb/>
+bestimmten Weg vorschreiben; sie habe nur das im Augenblick einzig mögliche<lb/>
+Auskunftsmittel der Zulassung zur Abiturientenprüfung vorgeschlagen, glaube<lb/>
+sogar, daß ein andrer Weg aus manchen Gründen richtiger sei. Hoffentlich<lb/>
+werde es das Abgeordnetenhaus für eine Ehrensache halten, in diesem Punkte<lb/>
+der Frauenfrage nicht eine absolut abwehrende Stellung einzunehmen, sondern<lb/>
+sich dem durchaus maßvollen Vorschlage der Kommission anschließen.</p><lb/>
+<pb facs="#f0010" n="252"/>
+<fw type="header" place="top">Das ärztliche Studium der Frauen</fw><lb/>
+<p>Ein Redner gegen den Antrag hatte sich nicht gemeldet, und der Ab-<lb/>
+geordnete Rickert konnte also in dessen Befürwortung fortfahren, und er that<lb/>
+das mit großer Lebhaftigkeit und Entschiedenheit. Es sei ein Mißbrauch der Ge-<lb/>
+walt, wenn die Herren der Schöpfung, die zu gleicher Zeit Herren der Gesetz-<lb/>
+gebung seien, die größere Hälfte der Menschheit von allen den Wohlthaten<lb/>
+ausschlössen, auf die jeder Mensch ein Recht habe, nämlich die Kräfte, die<lb/>
+Gott ihm gegeben, auch auszubilden. Es sei Thatsache, daß eine sehr große<lb/>
+Zahl der Frauen nicht heiraten könne; also müsse man ihnen die Möglichkeit<lb/>
+gewähren, ihre Erwerbsthätigkeit zu erweitern. Fehle den Frauen zum medi-<lb/>
+zinischen Studium die nötige Vorbildung, so überlasse man das (was?) denen,<lb/>
+die die Frauen prüfen sollen; woher die Frauen ihre Vorbildung erhielten,<lb/>
+sei ihre Sache. Jn Baden habe die Regierung bereits dahin entschieden, daß<lb/>
+wenigstens in Freiburg die Frauen zum Universitätsstudium zuzulassen seien.<lb/>
+Ein ganz besondrer Grund, die Frauen zum medizinischen Studium zuzulassen,<lb/>
+liege auf dem Gebiete der Sittlichkeit. Der Redner nannte es geradezu skan-<lb/>
+dalös, empörend, daß sich Frauen in manchen Krankheiten durch Männer<lb/>
+müßten untersuchen und ärztlich behandeln lassen. Hoffentlich werde die Mehr-<lb/>
+heit des Hauses diesen (?) milden Beschluß nicht ablehnen, sondern das be-<lb/>
+rechtigte Gefühl der Frauen, das doch alle die befördern sollten, die sonst<lb/>
+von Religion und Sittlichkeit überströmten, berücksichtigen und ihnen wenig-<lb/>
+stens Ärztinnen gewähren.</p><lb/>
+<p>Der konservative Abgeordnete Stöcker hatte eine andre Meinung in der<lb/>
+Sache als sein Freund und Kollege Hartmann. Auch er ist gegen Emanzi-<lb/>
+pation der Frauen. Aber die amerikanische oder englische Art der Emanzi-<lb/>
+pationsbestrebungen finde ja, abgesehn von der Sozialdemokratie, in der deutschen<lb/>
+Frauenwelt gar keine Stätte; die deutsche Frauenbewegung für Erweiterung<lb/>
+des weiblichen Berufs sei unter allen Völkern die maßvollste und besonnenste.<lb/>
+Gewiß gehöre die Frau in (?) den häuslichen Beruf; aber es blieben Tausende<lb/>
+von höher gebildeten Frauen übrig, die einen Beruf suchten und keinen fänden.<lb/>
+Diesen Notstand müsse man anerkennen, könne man nicht durch bloßes Ab-<lb/>
+weisen beseitigen; für diese Tausende von Frauen müßten die Schranken des<lb/>
+weiblichen Erwerbs erweitert werden. Und dazu biete sich zunächst die höhere<lb/>
+Schule. Der Redner hat als Leiter einer höhern Töchterschule in Metz<lb/>
+Lehrerinnen bis in die obersten Klassen unterrichten lassen und die besten Er-<lb/>
+folge damit erzielt. Es sei wünschenswert, daß dies mehr als bisher auch<lb/>
+in den Staats- und Gemeindeschulen geschehe. Ein zweites Feld ist die ärzt-<lb/>
+liche Praxis in der Beschränkung, die durch die weibliche Natur geboten ist.<lb/>
+Der Redner hat gar nichts dagegen, daß Frauen an Frauen und Kindern den<lb/>
+ärztlichen Beruf ausüben. Der Gedanke, daß die Schwierigkeiten des ärztlichen<lb/>
+Berufs die Kraft der Frau überstiegen, sei unrichtig; Hebammen. Diakonissinnen,<lb/>
+Krankenpflegerinnen hätten oft schwere und blutige Arbeit, warum solle nicht<lb/>
+<pb facs="#f0011" n="253"/>
+<fw type="header" place="top">Das ärztliche Studium der Frauen</fw><lb/>
+eine Ärztin gleiches leisten können? Die Hauptschwierigkeit liege in der Vor-<lb/>
+bildung. Gegen Gymnasien für das weibliche Geschlecht ist der Redner durchaus;<lb/>
+ebenso unmöglich sei es nach deutschen Anschauungen, so wie in Amerika, die<lb/>
+Mädchen mit den Knaben zusammengehen zu lassen. Aber die Frau brauche<lb/>
+gar nicht, um sich den höhern Fächern zu widmen, die Bildung des Gymnasiums;<lb/>
+man könne ihnen eine besondre Reifeprüfung auferlegen. Aber auch das habe<lb/>
+für ihn etwas Abschreckendes, zu denken, daß Studentinnen der Medizin mit<lb/>
+Studenten gemeinsam die Collegia besuchen, gemeinsam in der Klinik sein,<lb/>
+gemeinsam am Sezirtisch stehen sollten, er halte das nach deutschen Begriffen<lb/>
+für unmöglich. Warum könne man nicht an Krankenhäuser, an Diakonissen-<lb/>
+anstalten Akademien anschließen, wo Frauen, die den Beruf dazu fühlten, zu<lb/>
+Ärztinnen ausgebildet würden? &#x201E;Daß eine Notwendigkeit, die Frauen für die<lb/>
+höhern Fächer auszubilden, vorliegt, gestehe ich ohne weiteres zu. Und wenn<lb/>
+erst einmal im öffentlichen Leben diese Notwendigkeit allgemein anerkannt wird,<lb/>
+dann wird man auch die erforderlichen Veranstaltungen treffen müssen. Aller-<lb/>
+dings müßte die Sache auf eine Linie gestellt werden, wo sie mit unsern<lb/>
+deutschen christlichen Anschauungen nicht zusammenstieße. Aber es muß für<lb/>
+die Tausende von Frauen eine befriedigende Beschäftigung geschaffen werden.<lb/>
+Nichts ist schlimmer, als wenn Menschen gezwungen sind, ohne Beruf ihr<lb/>
+Leben hinzubringen. Nicht alle haben das Bedürfnis, einen bestimmten Beruf<lb/>
+zu ergreifen; für die Hunderte und Tausende aber, die dies Bedürfnis haben,<lb/>
+würde ich es gern sehen, wenn ihnen die Möglichkeit geschaffen würde, einen<lb/>
+Beruf und damit die Zufriedenheit zu finden, die darin liegt, wenn man seine<lb/>
+ganze Kraft anwendet, um den Mitmenschen zu dienen.&#x201C;</p><lb/>
+<p>Der Regierungskommissar sprach sich in demselben Sinne aus. Er er-<lb/>
+kannte die Pflicht der Unterrichtsverwaltung an, für diese Erweiterung des<lb/>
+Frauenberufs die nötigen Bildungswege zu suchen. Es gebe hochgebildete<lb/>
+Männer, die Gymnasium und Universität nicht ganz absolvirt hätten. &#x201E;Was<lb/>
+selbst bei der Erziehung und Bildung von Männern der Fall ist, muß bei<lb/>
+Frauen in noch höherm Maße zutreffen. Die Entwicklung der Frau, ihre<lb/>
+ganze bisherige Erziehung weisen darauf hin, daß sie den Weg nicht geführt<lb/>
+werden kann wie der Knabe, und so wird es unsre Aufgabe sein, einen andern<lb/>
+passendern Weg zu suchen.&#x201C; Die Mehrzahl der Mädchen werde sich erst in<lb/>
+vorgerücktern Lebensjahren entschließen, eine solche Laufbahn einzuschlagen, und<lb/>
+es dürfe ihnen daher auch nicht zugemutet werden, den alten bei uns gewöhn-<lb/>
+lichen Weg zu nehmen. Die Regierung werde die Frage pflichtmäßig erwägen,<lb/>
+wie sie das bereits früher gethan habe.</p><lb/>
+<p>Nach einem Schlußworte des Berichterstatters v. Kölichen wurde der An-<lb/>
+trag der Kommission angenommen.</p><lb/>
+<p>Dies ein kurzer Bericht über diese denkwürdige Verhandlung, in der sich<lb/>
+je ein Vertreter der nationalliberalen und der deutschfreisinnigen Partei wie<lb/>
+<pb facs="#f0012" n="254"/>
+<fw type="header" place="top">Das ärztliche Studium der Frauen</fw><lb/>
+der äußersten Rechten für Zulassung der Frauen zum ärztlichen Studium aus-<lb/>
+sprach, während ein Teil der Rechten, nach der Versicherung des Abgeordneten<lb/>
+Hartmann die Mehrheit der konservativen Partei, grundsätzlich Einspruch er-<lb/>
+hob; vom Zentrum trat kein Redner auf, aber es spendete den Worten des<lb/>
+Abgeordneten Stöcker Beifall. Daß auch vom Regierungstische kein Einspruch<lb/>
+erfolgte, sondern Billigung, war umso überraschender, weil man dies nach<lb/>
+den frühern Verhandlungen kaum erwarten durfte.</p><lb/>
+<p>Es mag das seinen Grund darin haben, daß nach den Umwandlungen<lb/>
+auf dem Gebiete des höhern Knabenunterrichts die bisherige Ausschließlichkeit<lb/>
+der Vorbereitung für die Universitäten sich wohl nicht mehr aufrecht erhalten<lb/>
+läßt. Das Studium der historischen Wissenschaften, der Theologie und Philo-<lb/>
+sophie, der Sprachforschung und Geschichte, wird auch weiterhin auf der Grund-<lb/>
+lage der Kenntnis der alten Sprachen aufgebaut werden müssen. Die Heil-<lb/>
+kunde gehört aber zu den Naturwissenschaften, die jener Grundlage nicht be-<lb/>
+dürfen. Daß das Gymnasium noch allein berechtigt ist, auf das Studium der<lb/>
+Medizin vorzubereiten, scheint nur eine Folge davon zu sein, daß unsre Uni-<lb/>
+versitätslehrer alle diesen Weg durchmessen haben. Es ist ein erfreuliches Er-<lb/>
+gebnis dieser Verhandlungen, daß, im Gegensatze zu den Anschauungen des<lb/>
+badischen Abgeordnetenhauses, vom Tische der preußischen Regierung aus die<lb/>
+Ansicht laut wurde, der Lehrgang des Gymnasiums sei zur Heranbildung<lb/>
+eines tüchtigen Arztes nicht der alleinseligmachende. Es ist nicht bloß zu-<lb/>
+gestanden worden, daß eine gemeinsame Vorbereitung auf dem Gymnasium für<lb/>
+Schüler und Schülerinnen nicht angehe, und daß die Einrichtung eigner<lb/>
+Mädchengymnasien unmöglich sei, es ist auch anerkannt worden &#x2013; und das<lb/>
+ist ungleich wichtiger &#x2013;, daß für Mädchen ein neuer und eigner Weg zum<lb/>
+medizinischen Studium ausgesucht werden müsse, ohne daß sie dadurch zu Stu-<lb/>
+dentinnen zweiter Stufe herabsteigen.</p><lb/>
+<p>Dieser neue und eigne Weg ergiebt sich von selbst. Ärztinnen, das ist<lb/>
+fast allseitig anerkannt worden, müssen wir haben. Der Weg des Gymnasiums<lb/>
+über Sophokles und Plato, Horaz und Tacitus und die höhere Mathematik<lb/>
+ist für das weibliche Geschlecht nicht gangbar; so mögen die Frauen wie bis-<lb/>
+her den Weg der modernen Bildung einschlagen, der im wesentlichen über die<lb/>
+neuen Sprachen und die Naturwissenschaften führt. Wenn unsre Ärzte Hippo-<lb/>
+krates und Galen halb im Schlafe lesen könnten, es würde ihnen doch nichts<lb/>
+helfen. Die Naturwissenschaft ist heutzutage die internationale Wissenschaft;<lb/>
+die hochentwickelte naturwissenschaftliche und medizinische Litteratur von Frank-<lb/>
+reich, England, Jtalien ist für den Arzt der Gegenwart unendlich wertvoller<lb/>
+als die Kenntnis der alten Sprachen. Die Unterrichtsverwaltungen werden<lb/>
+sich freimachen müssen von veralteten Anschauungen, sie werden dem weib-<lb/>
+lichen Geschlechte das medizinische Studium auf der Grundlage einer gediegnen<lb/>
+modernen Bildung ermöglichen müssen.</p><lb/>
+<pb facs="#f0013" n="255"/>
+<fw type="header" place="top">Das ärztliche Studium der Frauen</fw><lb/>
+<p>Jch denke mir eine derartige Vorbereitungsanstalt als eine vollausgebaute<lb/>
+zehnklassige höhere Mädchenschule, die ihre Schülerinnen mindestens bis zum<lb/>
+vollendeten sechzehnten Lebensjahre beschäftigt. Sie hat zunächst die Aufgabe,<lb/>
+den Mädchen eine allgemeine Bildung, wie sie die Gegenwart fordert, mit-<lb/>
+zugeben durch das allmähliche Aufsteigen vom elementaren Lernen zu mehr<lb/>
+wissenschaftlicher Durcharbeitung des Lehrstoffs. Hauptfächer sind: Religion,<lb/>
+Deutsch, Französisch, Englisch, Welt- und vaterländische Geschichte, dazu die<lb/>
+andern Schulfächer. Der Grundstock der Schülerinnen tritt vor oder mit<lb/>
+Vollendung des sechzehnten Lebensjahrs aus. Für die zukünftigen Studentinnen<lb/>
+der Medizin werden noch drei weitere Klassen aufgesetzt. Jn diesen werden<lb/>
+die wissenschaftlichen Hauptfächer weitergeführt und vertieft bis zu tüchtiger<lb/>
+Kenntnis, wobei die schriftliche und mündliche Beherrschung den beiden fremden<lb/>
+Sprachen erstrebt wird. Dazu kommt ausgiebig Naturwissenschaft, also Pflanzen-<lb/>
+kunde, Chemie, Physik, Gesundheitslehre, ebenso zur Schärfung der Denk-<lb/>
+thätigkeit Mathematik, jedoch nicht in der Ausdehnung wie in den Oberklassen<lb/>
+der Knabenschulen. Ob für das Rezeptiren und das Verständnis der Pharma-<lb/>
+kopöe ein Jahreskurs des Lateinischen, für die allgemeine Ausbildung ein<lb/>
+Jahrgang der Psychologie empfehlenswert sei, mag hier wenigstens frageweise<lb/>
+angedeutet werden. Jn diese dreiklassige Oberstufe können auch auswärts<lb/>
+vorgebildete Schülerinnen eintreten, doch nur nach dem Nachweis einer durch-<lb/>
+aus genügenden Vorbereitung. Ebenso können diese drei Klassen ohne den<lb/>
+Unterbau einer zehnjährigen höhern Mädchenschule eingerichtet werden; aber<lb/>
+auch da ist eine scharfe Aufnahmeprüfung erstes Erfordernis. Auch in den<lb/>
+Versetzungen muss Strenge herrschen, es muß stramme Arbeit gefordert werden;<lb/>
+nicht auf viele Stunden, sondern auf Anleitung zu eigner Thätigkeit kommt<lb/>
+es an. Natürlich würde dieser dreijährige Fortbildungs- oder Vorbereitungs-<lb/>
+kursus auch gediegne Lehrkräfte und wirklich wissenschaftliche Vertiefung des<lb/>
+Unterrichtsstoffes fordern, denn es ist durchaus festzuhalten: die künftige<lb/>
+Ärztin bedarf zum Wettbewerb mit dem an den alten Sprachen geschulten<lb/>
+Jüngling eines wohl ausgestatteten Schulsackes, einer tüchtigen, gründlich<lb/>
+wissenschaftlichen Vorbildung. Es giebt keinen Königsweg zur Mathematik,<lb/>
+und es giebt keinen bequemen Frauenweg zu einem so hochverantwortlichen<lb/>
+Berufe, wie es der ärztliche ist.</p><lb/>
+<p>Jst dann die Arbeitsaufgabe der oben aufgesetzten drei Jahrgänge durch-<lb/>
+gearbeitet, hat die Schülerin mindestens das neunzehnte Lebensjahr vollendet,<lb/>
+so folgt die Reifeprüfung vor einer besonders dazu niedergesetzten Kommission.<lb/>
+Festzustellen, was in dieser Prüfung zu fordern sei, wird Sache der staatlichen Be-<lb/>
+hörden sein; treten an die Stelle der alten die neuen Sprachen, an die Stelle der<lb/>
+Mathematik die Naturwissenschaften, so wird die Gleichheit der Anforderungen<lb/>
+zwischen gymnasialer und moderner Bildung wohl hergestellt sein, besonders<lb/>
+wenn wir bedenken, daß die Abiturienten der Gymnasien teilweise Mittelkräfte<lb/>
+<pb facs="#f0014" n="256"/>
+<fw type="header" place="top">Das ärztliche Studium der Frauen</fw><lb/>
+sind, die der Mädchenschulen voraussichtlich nur vorzügliche Kräfte sein werden.<lb/>
+Mädchen, die zehn Jahre gediegner Arbeit auf der höhern Mädchenschule und<lb/>
+weitere drei Jahre auf der Vorbereitungsstufe zur Universität hinter sich<lb/>
+haben, werden dann auch wissenschaftlich und sittlich reif genug für das<lb/>
+Studium sein. Natürlich wird dafür zu sorgen sein, daß sie nicht infolge<lb/>
+zu mannigfaltiger Anforderungen durch ein zersplittertes Examenbüffeln in<lb/>
+ihrer Gesundheit geschädigt, daß sie nicht mit einer für den zukünftigen Beruf<lb/>
+wertlosen Gelehrsamkeit belastet und zu bloßen Lernmaschinen herabgewürdigt<lb/>
+werden. Geschieht dies, wird das ideale Element an Geschichte, deutscher,<lb/>
+französischer und englischer Litteratur bis zur Prüfung genügend betont, so<lb/>
+ist auch nicht zu fürchten, daß tüchtige weibliche Naturen durch diese stramme<lb/>
+wissenschaftliche Arbeit eine Einbuße an echter Weiblichkeit erleiden.</p><lb/>
+<p>Wo und wie aber werden solche dreijährige Vorbereitungskurse einzu-<lb/>
+richten sein? Jedenfalls nicht überall, so wenig wie sich jede höhere Mädchen-<lb/>
+schule den Luxus einer Lehrerinnenbildungsanstalt erlaubt. Die Lehraufgabe<lb/>
+der höhern Mädchenschule im allgemeinen soll durch die künftige Möglichkeit<lb/>
+einer Vorbereitung für das ärztliche Studium in keiner Weise geändert werden.<lb/>
+Es genügt bis auf weiteres, wenn an einigen Orten, etwa in den bedeutendsten<lb/>
+Universitätsstädten Deutschlands, derartige dreijährige Vorbildungskurse ein-<lb/>
+gerichtet werden. Jch nenne als solche Orte, die bereits vollausgebaute höhere<lb/>
+Mädchenschulen besitzen, Berlin, Göttingen, Leipzig, München, Heidelberg. An<lb/>
+diesen Orten würde es sich allerdings um die staatliche Unterstützung der drei-<lb/>
+jährigen Vorbereitungsstufe handeln. Aber ich halte diese Forderung nicht<lb/>
+für unbescheiden; der Staat hat in den meisten Fällen für die höhern Mädchen-<lb/>
+schulen so wenig gethan, daß ihm zu thun noch sehr viel übrig bleibt. Es<lb/>
+handelt sich nur um einige wenige Anstalten, denen außerdem die an andern<lb/>
+Orten durch Privatstudium oder städtische Veranstaltung vorgebildeten Schüle-<lb/>
+rinnen zuströmen würden. Wäre z. B. in Baden, wie der Abgeordnete Rickert<lb/>
+äußerte, Freiburg für das medizinische Studium ausersehen, so hätte Baden<lb/>
+auch die Pflicht, für die tüchtige Vorbereitung der einstigen Studentinnen<lb/>
+durch eine in Freiburg oder anderwärts einzurichtende Vorschule Sorge zu<lb/>
+tragen. Jm übrigen liegt auch nach den jüngsten Vorgängen in Karlsruhe<lb/>
+und Berlin die ganze Frage noch so nebelhaft vor uns, daß es thöricht wäre,<lb/>
+jetzt schon mit genau festgestellten Vorschlägen zu kommen.</p><lb/>
+<p>Jch setze noch voraus, daß allerorten gleiche Bedingungen gestellt, gleiche<lb/>
+Rechte gewährt werden. Die Wahl der Universität muß freistehen, wenn auch<lb/>
+aus Zweckmäßigkeitsgründen für die dreijährigen Vorbereitungskurse deutsche<lb/>
+Universitätsstädte genannt wurden. Der Aufenthalt an einer nichtdeutschen<lb/>
+medizinischen Hochschule wäre den Studentinnen anzurechnen; ihre sprachliche<lb/>
+Vorbildung würde sie befähigen, auch die besten Hochschulen des Auslands<lb/>
+mit Erfolg aufzusuchen.</p><lb/>
+<pb facs="#f0015" n="257"/>
+<fw type="header" place="top">Das ärztliche Studium der Frauen</fw><lb/>
+<p>Dann gilt es auf der Universität herzhafte Arbeit. Jch teile nicht die<lb/>
+Ansicht Stöckers, es habe etwas Abschreckendes, zu denken, daß Studentinnen<lb/>
+mit Studenten gemeinsam die Kollegien und Kliniken besuchten, gemeinsam am<lb/>
+Sezirtische stünden. Das junge Mädchen, das sich zum ärztlichen Studium<lb/>
+entschließt, muß sich darüber klar sein, daß sie damit die Pflichten einer öffent-<lb/>
+lichen Stellung übernimmt, und bereit sein, auch die Unannehmlichkeiten der<lb/>
+Vorbereitung zu tragen. Die Ärztin muß nach Nerven und Willenskraft aus<lb/>
+einem festern Stoffe sein als der größere Teil ihrer Schwestern; was wir<lb/>
+Weiblichkeit nennen und als solche so hoch schätzen, braucht deswegen nicht<lb/>
+verloren zu gehen. Auf die Anfrage der Würzburger medizinischen Fakultät,<lb/>
+&#x201E;ob und welche Anstände sich bei der Zulassung von Personen weiblichen<lb/>
+Geschlechts und namentlich aus der Gemeinschaft mit männlichen Studi-<lb/>
+renden bei gewissen, für das weibliche Zartgefühl empfindlichen Vorlesungen<lb/>
+und Demonstrationen ergeben hätten,&#x201C; antwortete der akademische Senat der<lb/>
+Züricher Hochschule: &#x201E;Die Anwesenheit der weiblichen Studirenden in den theo-<lb/>
+retischen und praktischen Kursen giebt zu keinerlei Störungen Veranlassung.<lb/>
+Die Vorträge und Demonstrationen werden ohne Rücksicht auf die anwesenden<lb/>
+Damen gehalten, und auch bei den anatomischen Übungen und klinischen Vor-<lb/>
+weisungen wird der Lehrstoff grundsätzlich so behandelt, wie wenn nur männ-<lb/>
+liche Zuhörer anwesend wären. Trotzdem hat sich nie ein Anstand ergeben.&#x201C;</p><lb/>
+<p>Mich dünkt, die Universitäten stellen der deutschen studirenden Jugend ein<lb/>
+unverdient schlechtes Zeugnis aus, wenn sie der Meinung sind, daß einem<lb/>
+Mädchen, das zu medizinischen Studien die Universität besucht, daraus irgend-<lb/>
+welche Belästigung vonseiten der Studenten erwachsen werde. Unsre heutigen<lb/>
+Studenten, die, wie ihre Grußformen zeigen, vor einander selbst eine unbe-<lb/>
+grenzte Hochachtung an den Tag legen, werden sich doch zwanzig- bis vierund-<lb/>
+zwanzigjährigen Damen gegenüber gewiß nicht ungeziemend verhalten. Eine<lb/>
+Dame wird freilich den Spötter oder Beleidiger, wenn sich ein solcher finden<lb/>
+sollte, nicht vor die Klinge oder die Pistolenmündung fordern, aber vielleicht<lb/>
+werden es andre für sie thun oder noch besser, das Universitätsgericht brauchte<lb/>
+nur einem unnützen Gesellen, der die Achtung vor einem wissenschaftlich stre-<lb/>
+benden Weib außer Augen setzt, kurzerhand die Wege zu weisen. Aber es<lb/>
+wird schwerlich nötig sein, denn edle Weiblichkeit, fester Wille und ernste Arbeit<lb/>
+wirken auch auf ein rohes Gemüt. Darum spricht sich Professor Böhmert<lb/>
+zu Zürich nicht bloß entschieden gegen besondre Frauenfachschulen, sondern auch<lb/>
+gegen die Einrichtung besondrer Frauenkurse an den bestehenden Universitäten<lb/>
+aus. Die Zahl studirender Frauen wird noch lange Zeit eine viel zu be-<lb/>
+schränkte sein, als daß sie die Begründung besondrer Frauenkurse rechtfertigen<lb/>
+sollte, auch würde man von den Zöglingen eines Frauenkursus selbstver-<lb/>
+ständlich geringere Leistungen erwarten. Der letzte Grund erscheint mir be-<lb/>
+sonders durchschlagend; nur die Ärztin, die denselben wissenschaftlichen Lehrgang<lb/>
+<fw type="sig" place="bottom">Grenzboten <hi rendition="#aq">III</hi> 1892<space dim="horizontal"/>33</fw><lb/>
+<pb facs="#f0016" n="258"/>
+<fw type="header" place="top">Bischof Walter</fw><lb/>
+hinter sich hat wie der Arzt, wird auch gleiche Wertschätzung mit ihm bean-<lb/>
+spruchen können, wenn auch der Kreis ihrer Wirksamkeit beschränkter sein<lb/>
+wird. Wer also für die Frauen die Berechtigung zum medizinischen Studium<lb/>
+fordert, muß ihnen auch zutrauen und zumuten, daß sie denselben Lehrgang<lb/>
+wie der Arzt durchmachen.</p><lb/>
+<p>Übrigens sollte, scheint mir, den Studentinnen freistehen, nach Wunsch<lb/>
+das ganze Gebiet der Heilkunde zu erfassen oder sich auf dieses oder jenes<lb/>
+Sonderfach vorzubereiten und dementsprechend eine umfassende oder auch be-<lb/>
+schränktere Prüfung zu bestehen. Jch möchte z. B. der Meinung sein, daß nur<lb/>
+ein bescheidner Teil der künftigen Ärztinnen sich der operativen Chirurgie zu-<lb/>
+wenden werde, soweit sie nicht etwa bei Frauenkrankheiten erforderlich ist, daß<lb/>
+sie sich überhaupt so gut wie ausschließlich der Heilung von Frauen und<lb/>
+Kindern oder auch der Geburtshilfe widmen werden. Welche Anforderungen<lb/>
+der Staat überhaupt stellen soll, um einer Frau den Zutritt zum ärztlichen<lb/>
+Berufe zu gewähren, darüber zu entscheiden ist Sache der wissenschaftlichen<lb/>
+Autoritäten; jedenfalls scheint es mir, daß die Anforderungen vielleicht weniger<lb/>
+weitgreifend, aber keineswegs weniger tiefgehend sein dürfen. Man wird die<lb/>
+Anforderungen um so höher stellen dürfen, als überhaupt nur auserwählte<lb/>
+Kräfte sich dem Studium zuwenden werden. Das medizinische Studium<lb/>
+fordert, abgesehn von der zeitraubenden Vorbereitung, eine Freiheit des Geistes,<lb/>
+eine Kraft des Willens, eine Beherrschung weiblicher Schwachheiten, die nur<lb/>
+einer kleinen Zahl von Auserwählten gegeben sein werden. Jch glaube, daß<lb/>
+sich der Frauenverein Reform irrt, wenn er einen großen Zudrang der<lb/>
+Frauen zu dem ärztlichen Beruf erwartet, sobald die Möglichkeit dazu geboten<lb/>
+ist. Aber es ist an der Zeit, daß Deutschland, dem Vorgange andrer Nationen<lb/>
+folgend, dem Frauenstudium der Heilkunde eine Stätte bereite. Schon vor<lb/>
+zwanzig Jahren habe ich geschrieben: &#x201E;Jede größere Stadt wird eines Tages<lb/>
+ihre Ärztin haben.&#x201C; Hoffentlich hat Deutschland nicht noch weitere zwanzig<lb/>
+Jahre auf die Erfüllung dieses Wortes zu warten.</p><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+</div>     </body>     </text>
+</TEI>

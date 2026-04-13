@@ -1,0 +1,937 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.deutschestextarchiv.de/basisformat.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">     <teiHeader>
+<fileDesc>
+<titleStmt>
+<title type="main">Das Pfennig-Magazin der Gesellschaft zur Verbreitung gemeinnütziger Kenntnisse</title>
+<title type="sub">Nr. 176</title>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/115266127">
+<surname>Geyken</surname>
+<forename>Alexander</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1222198746">
+<surname>Haaf</surname>
+<forename>Susanne</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1019062681">
+<surname>Jurish</surname>
+<forename>Bryan</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Boenig</surname>
+<forename>Matthias</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Thomas</surname>
+<forename>Christian</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Wiegand</surname>
+<forename>Frank</forename>
+</persName>
+</editor>
+<respStmt>
+<orgName>Institut für Deutsche Sprache, Mannheim</orgName>
+<resp>
+<note type="remarkResponsibility">Bereitstellung der Bilddigitalisate und TEI
+Transkription</note>
+<ref target="http://hdl.handle.net/10932/00-01B8-B06D-0F2E-F501-4"/>
+</resp>
+</respStmt>
+<respStmt>
+<persName>
+<forename>Peter</forename>
+<surname>Fankhauser</surname>
+</persName>
+<resp>
+<note type="remarkResponsibility">
+Transformation von TUSTEP nach TEI P5.
+Transformation von TEI P5 in das DTA TEI P5 Format.
+</note>
+</resp>
+</respStmt>
+<respStmt>
+<orgName ref="https://www.bbaw.de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<resp>
+<note type="remarkResponsibility">Langfristige Bereitstellung der DTA-Ausgabe</note>
+<ref target="https://www.bbaw.de"/>
+</resp>
+</respStmt>
+</titleStmt>
+<editionStmt><edition>Vollständige digitalisierte Ausgabe.</edition></editionStmt>
+<extent>
+<measure type="images">8</measure>
+<measure type="tokens">5540</measure>
+<measure type="types">2173</measure>
+<measure type="characters">38052</measure>
+</extent>
+<publicationStmt>
+<publisher xml:id="DTACorpusPublisher">
+<email>dta@bbaw.de</email>
+<orgName role="project">Deutsches Textarchiv</orgName>
+<orgName role="hostingInstitution" xml:lang="en">Berlin-Brandenburg Academy of Sciences and Humanities (BBAW)</orgName>
+<orgName role="hostingInstitution" xml:lang="de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<address>
+<addrLine>Jägerstr. 22/23, 10117 Berlin</addrLine>
+<country>Germany</country>
+</address>
+</publisher>
+<pubPlace>Berlin</pubPlace>
+<date type="publication">2025-10-24T08:35:19Z</date>
+<availability>
+<licence target="http://creativecommons.org/publicdomain/zero/1.0/">
+<p>Dieses Werk steht unter der "Creative Commons Namensnennung -
+Nicht kommerziell 3.0 Deutschland Lizenz" (CC BY-NC).</p>
+</licence>
+</availability>
+<idno>
+<idno type="URLWeb">https://www.deutschestextarchiv.de/nn_pfennig176_1836</idno>
+<idno type="URLXML">https://www.deutschestextarchiv.de/book/download_xml/nn_pfennig176_1836</idno>
+<idno type="URLHTML">https://www.deutschestextarchiv.de/book/download_html/nn_pfennig176_1836</idno>
+<idno type="URLText">https://www.deutschestextarchiv.de/book/download_text/nn_pfennig176_1836</idno>
+<idno type="DTADirName">nn_pfennig176_1836</idno>
+<idno type="DTAID">34773</idno>
+<idno type="URN">urn:nbn:de:kobv:b4-34773-4</idno>
+</idno>
+</publicationStmt>
+<sourceDesc>
+<bibl type="J">Das Pfennig=Magazin der Gesellschaft zur Verbreitung gemeinnütziger Kenntnisse. Nr. 176. Leipzig (Sachsen), 13. August 1836.</bibl>
+<biblFull>
+<titleStmt>
+<title level="m" type="main">Das Pfennig-Magazin der Gesellschaft zur Verbreitung gemeinnütziger Kenntnisse</title>
+<title level="m" type="sub">Nr. 176</title>
+</titleStmt>
+<editionStmt>
+<edition n="1"/>
+</editionStmt>
+<publicationStmt>
+<publisher/>
+<pubPlace>Leibzig (Sachsen)</pubPlace>
+<date type="publication">1836</date>
+</publicationStmt>
+</biblFull>
+<msDesc>
+<msIdentifier/>
+<physDesc>
+<typeDesc>
+<p>Fraktur</p>
+</typeDesc>
+</physDesc>
+</msDesc>
+</sourceDesc>
+</fileDesc>
+<encodingDesc>
+<editorialDecl>
+<p>
+<![CDATA[
+<p>Siehe Dokumentation</p>
+]]>
+</p>
+</editorialDecl>
+<tagsDecl>
+<rendition scheme="css" xml:id="aq">font-family:sans-serif</rendition>
+<rendition scheme="css" xml:id="b">font-weight:bold</rendition>
+<rendition scheme="css" xml:id="blue">color:blue</rendition>
+<rendition scheme="css" xml:id="c">display:block; text-align:center</rendition>
+<rendition scheme="css" xml:id="et">display:block; margin-left:2em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et2">display:block; margin-left:4em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et3">display:block; margin-left:6em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="f">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="fr">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="g">letter-spacing:0.125em</rendition>
+<rendition scheme="css" xml:id="i">font-style:italic</rendition>
+<rendition scheme="css" xml:id="in">font-size:150%</rendition>
+<rendition scheme="css" xml:id="k">font-variant:small-caps</rendition>
+<rendition scheme="css" xml:id="larger">font-size:larger</rendition>
+<rendition scheme="css" xml:id="red">color:red</rendition>
+<rendition scheme="css" xml:id="right">display:block; text-align:right</rendition>
+<rendition scheme="css" xml:id="s">text-decoration:line-through</rendition>
+<rendition scheme="css" xml:id="smaller">font-size:smaller</rendition>
+<rendition scheme="css" xml:id="sub">vertical-align:sub; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="sup">vertical-align:super; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="u">text-decoration:underline</rendition>
+<rendition scheme="css" xml:id="uu">border-bottom:double 3px #000</rendition>
+</tagsDecl>
+</encodingDesc>
+<profileDesc>
+<langUsage>
+<language ident="deu">(Früh-)Neuhochdeutsch</language>
+<language ident="deu">German</language>
+</langUsage>
+<textClass>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1main">Gebrauchsliteratur</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1sub">Zeitschrift</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">ready</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">mkhz1</classCode>
+</textClass>
+</profileDesc>
+</teiHeader>
+<text>     <front>
+<pb facs="#f0001" n="[257]"/>
+<titlePage type="heading"><docTitle><titlePart type="main"><hi rendition="#c #fr">Das Pfennig=Magazin<lb/>
+<hi rendition="#g">der</hi><lb/>
+Gesellschaft zur Verbreitung gemeinnütziger Kenntnisse.</hi></titlePart></docTitle><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<docImprint><hi rendition="#fr">Nr</hi>. 176. ]              <hi rendition="#c">Erscheint jeden Sonnabend.</hi>              <docDate><hi rendition="#right">[<hi rendition="#g">August</hi> 13, 1836.</hi></docDate>            </docImprint></titlePage><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+</front>     <body>       <div n="1" type="jArticle" xml:id="Rom1"><head><hi rendition="#fr"><hi rendition="#g">Bilder aus Rom</hi>.</hi></head>       <figure>         <head>  Die Engelsburg in Rom.  </head>       </figure><lb/>
+<cb type="start"/>
+<head><hi rendition="#aq">I.</hi></head><lb/>
+<p><hi rendition="#in">W</hi>ir haben unsere Leser schon mehr als einmal in die<lb/>
+alte Hauptstadt der Welt geführt. Von der Engels-<lb/>
+brücke aus zeigten wir ihm die riesigen Denkmale heid-<lb/>
+nischer und christlicher Zeit <note place="foot" n="*)">Vgl. Pfennig=Magazin Nr. 64.</note>, begleiteten ihn durch die<lb/>
+ungeheuern Hallen der Peterskirche <note place="foot" n="**)">Vgl. Pfennig=Magazin Nr. 83.</note> und auf die<lb/>
+Piazza del Popolo <note place="foot" n="***)">Vgl. Pfennig=Magazin Nr. 110.</note> , wo mehr als irgendwo die<lb/>
+Contraste alter und neuer Zeit vor das Auge treten. Aber<lb/>
+diese Stadt ist so unermeßlich reich an historischen Er-<lb/>
+innerungen wie an Monumenten aller Jahrhunderte, sie<lb/>
+zieht, selbst von letztern abgesehen, durch ihre eigenthüm-<lb/>
+liche Stellung und ihre Verhältnisse, durch ihren localen<lb/>
+und ethnographischen Charakter, so sehr alle Blicke auf<lb/>
+sich, daß es nicht überflüssig sein mag, aus dem uner-<lb/>
+schöpflichen Schatze Dessen, was sich hier dem Beob-<lb/>
+<cb n="2"/>
+achter darbietet, noch Einiges in bunter Reihe zu wäh-<lb/>
+len, um nach und nach das Bild zu vervollständigen.</p><lb/>
+<p>Es ist das rechte Tiberufer, zu welchem wir zu-<lb/>
+erst unsere Schritte lenken wollen, über die Engels-<lb/>
+brücke, die Älische Brücke der Alten, gehend, welche<lb/>
+allein in diesem Viertel geblieben, nachdem die vatica-<lb/>
+nische längst zusammengestürzt ist und nur unförmliche<lb/>
+Trümmer im Flußbette zeigt. Auf sieben Bogen ru-<lb/>
+hend, mit Bernini's allzu viel manierirten Statuen<lb/>
+geschmückt, führt die erstgenannte Brücke zu dem in<lb/>
+der Leostadt ( auch il Borgo genannt ) gelegenen Mauso-<lb/>
+leum Hadrian's, welches die vorstehende Abbildung in<lb/>
+seiner gegenwärtigen Gestalt zeigt. Das Grabmal des<lb/>
+Kaisers, schon unter den letzten Jmperatoren als Fe-<lb/>
+stung gebraucht, war nicht das einzige, welches seine<lb/>
+Bestimmung auf solche Weise änderte; demjenigen der<lb/>
+Cäcilia Metella, wo man eines so herrlichen Blicks<lb/>
+auf Campagna und Stadt sich erfreut, ging es im Mit-<lb/>
+telalter ebenso. Wie sehr das alte Gebäude bei dem<lb/>
+<cb type="end"/>
+<pb facs="#f0002" n="258"/>
+<fw place="top" type="header"> <hi rendition="#g">Das Pfennig=Magazin.</hi> </fw><cb type="start"/>
+mannichfachen Wechsel, der es betroffen hat, sein Aus-<lb/>
+sehen ändern mußte, braucht kaum bemerkt zu werden.<lb/>
+Roch sieht man in seinem Jnnern die Grabkammer,<lb/>
+aber verschwunden sind die es schmückenden Marmor-<lb/>
+statuen, die man den anstürmenden Gothen auf die<lb/>
+Köpfe warf, und statt ihrer thront die kolossale bron-<lb/>
+zene Bildsäule des Erzengels Michael auf der Spitze,<lb/>
+da, wo dieser einst dem großen Papste Gregor während<lb/>
+der Seuche erschienen sein soll. Von ihr schreibt sich<lb/>
+der Name der Engelsburg ( Castel S.=Angelo ) her.<lb/>
+Gegenwärtig zum Staatsgefängnisse dienend, und ohne<lb/>
+Wichtigkeit als militairischer Punkt, war die Engels-<lb/>
+burg von um so größerm Belange im Mittelalter, wo<lb/>
+die verschiedenen kämpfenden Parteien sie abwechselnd<lb/>
+inne hatten. Am berühmtesten wurde sie durch die Ein-<lb/>
+schließung 1527, wo Papst Clemens <hi rendition="#aq">VII</hi>. sich mit ge-<lb/>
+nauer Noth dahin flüchtete, als die Truppen des Con-<lb/>
+netable von Bourbon die Stadt stürmten und auf ent-<lb/>
+setzliche Weise plünderten. Manche unserer Leser wer-<lb/>
+den diese Geschichte aus der lebendigen Schilderung ken-<lb/>
+nen, welche der florentinische Goldarbeiter und Bild-<lb/>
+hauer Benvenuto Cellini ( der sich rühmte, den Conne-<lb/>
+table durch einen Schuß getödtet zu haben ) in seiner<lb/>
+von Göthe übersetzten Selbstbiographie davon entwirft.</p><lb/>
+<p>Schon war die Rede von der frühern Beschaffenheit<lb/>
+des wegen seiner ungesunden Luft lange nicht zum An-<lb/>
+bau benutzten vaticanischen Gebiets, wo einst Cincin-<lb/>
+natus seine kleine Besitzung hatte, und wo zur Zeit<lb/>
+des höchsten Glanzes Nero's Gärten und die beiden<lb/>
+Circus lagen. Schritt für Schritt kann man die nach-<lb/>
+malige Umgestaltung des vaticanischen Hügels unter den<lb/>
+christlichen Kaisern und unter der Herrschaft der Päpste<lb/>
+verfolgen, von der Erbauung der ältesten Peterskirche<lb/>
+durch Kaiser Konstantin den Großen an, wobei ein be-<lb/>
+deckter Säulengang die Kirche mit dem Mausoleum Ha-<lb/>
+drian 's verband, bis zum Beginne des Baues der neuen<lb/>
+Kirche unter Nikolaus <hi rendition="#aq">V</hi>. um die Mitte des 15. Jahr-<lb/>
+hunderts und den großartigen Werken, welche Julius <hi rendition="#aq">II.,</hi><lb/>
+Leo <hi rendition="#aq">X</hi>. und ihren Nachfolgern das Dasein verdanken.</p><lb/>
+<p>Schon in den ältesten Zeiten finden sich Zeugnisse,<lb/>
+daß die Statthalter Christi neben der Basilika eine Woh-<lb/>
+nung gründeten, wo sie einen Theil des Jahres, wahr-<lb/>
+scheinlich die Wintermonate, zubrachten. Die eigent-<lb/>
+liche Bedeutung des vaticanischen Palastes beginnt aber<lb/>
+erst, nachdem 1376 das sogenannte babylonische Exil<lb/>
+der Kirche beendigt war und das lange verlassene Rom<lb/>
+seine Beherrscher wieder sah. Nikolaus <hi rendition="#aq">V</hi>. wollte auch den<lb/>
+Palast nach einem riesenhaften Plane bauen, wurde aber<lb/>
+durch den Tod von der Ausführung abgerufen. Seit-<lb/>
+dem ward nun unter fast allen Päpsten an dieser Re-<lb/>
+sidenz gebaut, verändert, zugefügt, erneuert. Der Um-<lb/>
+fang des ganzen Gebäudes, oder vielmehr der Gebäude-<lb/>
+masse, kommt dem einer bedeutenden Stadt gleich; die<lb/>
+Zahl der Säle und Gemächer soll sich auf 11,000 be-<lb/>
+laufen, welche Menge von einigen Schriftstellern indeß<lb/>
+auf 1800 und selbst auf 1100 herabgesetzt wird.</p><lb/>
+<p>Wenn der vaticanische Palast auch nicht die Wir-<lb/>
+kung eines architektonischen Ganzen gewährt, und, ver-<lb/>
+möge seines allmäligen Entstehens und seiner zahlreichen<lb/>
+Umgestaltungen, eine solche nicht gewähren kann, so im-<lb/>
+ponirt er doch durch seine gewaltigen Massen und entspricht<lb/>
+dem Begriffe von der Würde und Macht seiner Erbauer<lb/>
+und Bewohner. Auf der rechten Seite des Peters-<lb/>
+platzes, bei der Bildsäule Konstantin's des Großen, be-<lb/>
+ginnt die prächtige Marmortreppe, welche mit ionischen<lb/>
+Säulen geziert, und in ihrer gegenwärtigen Gestalt ein<lb/>
+Werk Bernini's, unter dem Namen der Scala regia<lb/>
+bekannt ist. Sie führt zu der Vorhalle oder Sala regia,<lb/>
+<cb n="2"/>
+die mit einer Menge von Verzierungen und Fresco-<lb/>
+gemälden prangt, welche zum Theil Scenen des Glan-<lb/>
+zes und der Macht der Päpste darstellen, und gut ge-<lb/>
+eignet sind, schon gleich beim Eintritte in die Residenz<lb/>
+der Kirchenfürsten das Bewußtsein recht deutlich werden<lb/>
+zu lassen, daß Petri Nachfolger nicht geringe Ansprüche<lb/>
+zu machen gewohnt sind. Von der Vorhalle aus ge-<lb/>
+langt man in die beiden Kapellen, die Paulinische, wo<lb/>
+man Petri Kreuzigung und Pauli Bekehrung von<lb/>
+Michel Angelo Buonaroti sieht, und die Sixtinische,<lb/>
+welche mit Recht die berühmteste der Christenheit ge-<lb/>
+nannt werden kann. Hier finden die großen, weltbe-<lb/>
+kannten Feierlichkeiten während der heiligen Woche statt,<lb/>
+die in jedem Jahre einen ungeheuern Zulauf von Men-<lb/>
+schen aus allen Gegenden und den fernsten Ländern ver-<lb/>
+anlassen, und wobei die römische Kirche alle ihre groß-<lb/>
+artige Pracht entfaltet. Man weiß, daß die geistliche<lb/>
+Musik bei dieser Gelegenheit noch immer ihren Triumph<lb/>
+feiert: wer das Miserere des Allegri, und Pergolese's<lb/>
+Stabat mater nicht von der päpstlichen Kapelle vortragen<lb/>
+hörte, umgeben von feierlicher Stille, das Auge wechsel-<lb/>
+weise angezogen von den reichen Gewändern, von den Tau-<lb/>
+senden flimmernder Kerzen, von den fast geisterhaft von<lb/>
+Wand und Decke herabschauenden Gestalten der Bilder,<lb/>
+kann sich von dem Ergreifenden dieser Eindrücke keinen Be-<lb/>
+griff machen. Jn der Sistina sieht man neben den Arbeiten<lb/>
+der berühmtesten Meister des 15. Jahrhunderts die Riesen-<lb/>
+werke Michel Angelo's, die Bilder aus der Genesis,<lb/>
+die Propheten und Sibyllen und das jüngste Gericht.</p><lb/>
+<p>Die berühmten Loggien umgeben auf drei Seiten<lb/>
+einen Hof, den man Cortile di S.=Damaso nennt. Das<lb/>
+erste der drei Stockwerke, aus welchem diese Arcaden<lb/>
+bestehen, führt zu dem Appartamento Borgia, so ge-<lb/>
+nannt, weil Alexander <hi rendition="#aq">VI</hi>. ( Roderich Borgia ) dort<lb/>
+wohnte. Auch dies ist mit schönen Frescogemälden<lb/>
+geziert. Die untern Loggien wurden von Johann<lb/>
+von Udine ausgeschmückt; zu den Gemälden der zwei-<lb/>
+ten Reihe lieferte Rafael selbst die Zeichnungen. Man<lb/>
+findet hier neben einer Menge äußerst geschmackvoller<lb/>
+Verzierungen jene Darstellungen, welche die sogenannte<lb/>
+Bibel bilden, 52 Bilder in 13 Arcaden. Von hier<lb/>
+gelangt man in die Stanze, die ehemalige Wohnung<lb/>
+Leo <hi rendition="#aq">X</hi>. Sie enthalten des unsterblichen Rafael's<lb/>
+größte Meisterwerke. Jn dem Saal, den man gewöhn-<lb/>
+lich Stanza della Segnatura nennt, und mit dem wir<lb/>
+beginnen, weil hier die frühern Arbeiten sich befinden,<lb/>
+bewundert man die vier großen Wandgemälde, welche<lb/>
+die Theologie, Philosophie, Poesie und Rechtswissen-<lb/>
+schaft darstellen, und deren drei erstere unter dem Na-<lb/>
+men der Disputa, der Schule von Athen, des Par-<lb/>
+nasses bekannt sind. Rafael's künstlerischer Charakter<lb/>
+spricht sich hier vielleicht in seiner größten Reinheit und<lb/>
+Eigenthümlichkeit aus. Die übrigen Gemächer enthal-<lb/>
+ten Scenen aus der alten wie aus der Papstgeschichte,<lb/>
+meist mit Anspielungen auf die Lebensereignisse Julius <hi rendition="#aq">II.</hi><lb/>
+und Leo <hi rendition="#aq">X</hi>., unter deren Regierung die Zimmer ge-<lb/>
+malt wurden. Man nennt sie den Saal des Heliodor,<lb/>
+des Jncendio del Borgo und des Konstantin. Zu letz-<lb/>
+term lieferte Rafael nur die Zeichnungen: die Gemälde<lb/>
+wurden, ebenso wie die der Loggie, ganz von seinen<lb/>
+Schülern ausgeführt. Außer den vier großen Wand-<lb/>
+gemälden, welche jedes Gemach schmücken, finden sich<lb/>
+darin noch Decken= und Sockelbilder und allegorische<lb/>
+Figuren. Rafael begann diese wundervollen Werke,<lb/>
+welche leider sehr gelitten haben, der gewöhnlichen An-<lb/>
+nahme gemäß, 1508 in einem Alter von 25 Jahren,<lb/>
+und arbeitete daran, freilich mit vielen Unterbrechungen,<lb/>
+bis zu seinem 1520 erfolgten Tode.</p><lb/>
+<cb type="end"/>
+<pb facs="#f0003" n="259"/>
+<fw place="top" type="header"><hi rendition="#g">Das Pfennig=Magazin.</hi> </fw>       <cb type="start"/>
+<p>Bei der Schilderung des noch übrigen Theils des<lb/>
+vaticanischen Palastes müssen wir uns nun kürzer fas-<lb/>
+sen, da wir hier des Merkwürdigen so viel finden, daß<lb/>
+jede auch noch so sehr gedrängte Beschreibung uns weit<lb/>
+über die Grenzen hinausführen würde, welche durch<lb/>
+Umfang und Zweck dieser Blätter geboten sind. Nur<lb/>
+im Vorbeigehen können wir also der berühmten Bi-<lb/>
+bliothek erwähnen, deren eigentliche Entstehung in die<lb/>
+Zeit Sixtus <hi rendition="#aq">IV</hi>. gehört, welche namentlich unter Leo <hi rendition="#aq">X.</hi><lb/>
+bedeutend vermehrt wurde, und nach Ankauf und Erwerb<lb/>
+vieler Privatsammlungen und nach wechselnden Schick-<lb/>
+salen ( namentlich während der französischen Herrschaft )<lb/>
+gegenwärtig etwa 24,000 Handschriften neben den vielen<lb/>
+gedruckten Büchern enthält. Das päpstliche Archiv be-<lb/>
+findet sich gleichfalls im Vatican. Das Antiquitäten-<lb/>
+museum, das reichste der Welt, befindet sich größten-<lb/>
+theils in dem Theile des Palastes, welchen man der<lb/>
+schönen Aussicht wegen das Belvedere nennt. Dieser<lb/>
+Theil umgibt einen länglich viereckigen Hof, in welchem<lb/>
+sich ein prächtiger Springbrunnen befindet, dessen antike<lb/>
+Schale von orientalischem Granit ist. Die hintere Ab-<lb/>
+theilung des Palastes, welche bis dicht an die Stadt-<lb/>
+mauer reicht, umschließt ebenfalls ein Quadrat, Giar-<lb/>
+dino della Ligna genannt; links davon liegt der mehre<lb/>
+Alterthümer enthaltende vaticanische Garten. Um nun<lb/>
+zum Museum zurückzukehren, so ist dies in das Museo<lb/>
+Chiaramonti ( nach dem Familiennamen des Stifters,<lb/>
+Pius <hi rendition="#aq">VII</hi>., geheißen ) und das Pio Clementino ( nach<lb/>
+Clemens <hi rendition="#aq">XIV</hi>. und Pius <hi rendition="#aq">VI</hi>., die das gegenwärtige<lb/>
+Local errichteten ) getheilt, denen sich kleinere Abtheilun-<lb/>
+gen anschließen. Man braucht nur den belvederischen<lb/>
+Apoll und Torso, den Laokoon, die Minerva medica,<lb/>
+den Ganymed zu nennen, um an diese Sammlungen<lb/>
+zu erinnern, in denen die Alterthumsforscher unerschöpf-<lb/>
+lichen Stoff zu gelehrten Untersuchungen fanden.</p><lb/>
+<p>Die berühmten Rafael'schen Tapeten, welche, 22<lb/>
+an der Zahl, Scenen aus dem Leben des Heilands und<lb/>
+der Apostel darstellen, sind jetzt in den Gemächern<lb/>
+Pius <hi rendition="#aq">V</hi>. zu sehen. Des Künstlers letztes Werk, die<lb/>
+Transfiguration, wird in der vaticanischen Gemälde-<lb/>
+sammlung aufbewahrt, die zwar nicht zahlreich ist, aber<lb/>
+einige wahre Perlen enthält. Wir rechnen dazu Ra-<lb/>
+fael 's Madonna von Foligno und Domenichino's Com-<lb/>
+munion des heiligen Hieronymus. Diese allein wiegen<lb/>
+manche andere Galerie auf.</p><lb/>
+<p><ref target="nn_pfennig177_1836#Rom2"><hi rendition="#c">( Die Fortsetzung folgt in Nr. 177. )</hi></ref></p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr"><hi rendition="#g">Die Seehundsjagd</hi>.</hi></head><lb/>
+<p><hi rendition="#in">D</hi>ie Gestalt und der Bau des Seehundes sind wol<lb/>
+den meisten Lesern schon bekannt, und um nicht schon<lb/>
+Gesagtes zu wiederholen, verweisen wir auf Nr. 8 und<lb/>
+90 des Pfennig=Magazins. Weniger vertraut dürfte je-<lb/>
+doch der Leser mit der Art und Weise sein, wie in<lb/>
+Grönland oder auf den Shetlandinseln dieses Thier,<lb/>
+welches den dortigen Eingeborenen so nützlich und un-<lb/>
+entbehrlich ist, gefangen und erlegt wird, und wir wollen<lb/>
+deshalb hierüber einiges Nähere mittheilen.</p><lb/>
+<p>Die Grönländer unterweisen ihre Kinder von früher<lb/>
+Jugend an in der Jagd auf die Seehunde, denn dort<lb/>
+wird Derjenige, der sich ungeschickt dabei zeigt, wenig ge-<lb/>
+achtet. Die Seehunde werden auf dreierlei Art gefangen.<lb/>
+Zuerst mittels der Blase, wie umstehende Abbildung verdeut-<lb/>
+licht. Der Grönländer nähert sich dem Thiere leise und vor-<lb/>
+sichtig, mit dem Winde und der Sonne, sodaß es seine An-<lb/>
+kunft nicht merkt, bis auf eine Entfernung von 4&#x2014;6 Klaf-<lb/>
+tern, aber mit der größten Eile. Hat er es so nahe als nöthig<lb/>
+ist, so faßt er schnell das Ruder mit der linken Hand, ergreift<lb/>
+<cb n="2"/>
+den Harpun, an welchen mittels einer langen Leine<lb/>
+eine aufgeschwellte Blase befestigt ist, mit der rechten<lb/>
+und schleudert ihn mit aller Kraft nach dem Seehund.<lb/>
+Sobald das Thier getroffen ist, wirft der Mann die am<lb/>
+Ende der Leine befestigte Blase ins Wasser, und zwar<lb/>
+auf dieselbe Seite, wohin der Seehund sich begibt, der<lb/>
+sogleich pfeilschnell untertaucht. Das Thier zieht nun<lb/>
+die Blase unter das Wasser; da sie aber groß und unbe-<lb/>
+hülflich ist, so ermüdet es bald und muß wieder herauf-<lb/>
+kommen, um Athem zu schöpfen. Genau muß nun<lb/>
+der Mann auf die Stelle Acht haben, wo der See-<lb/>
+hund wieder auftaucht, damit er diesen sogleich bei sei-<lb/>
+nem Erscheinen mit einem zweiten Lanzenwurfe be-<lb/>
+grüßen kann. Dies wiederholt sich so lange, bis<lb/>
+der Seehund völlig erschöpft ist, wo es dann dem<lb/>
+Jäger leicht wird, ihn mittels eines kleinen Speers<lb/>
+vollends zu tödten. Aber unmittelbar darauf verstopft<lb/>
+er alle Wunden des Thieres, um das Blut zu er-<lb/>
+halten. Dies ist die eine Art, die aber nur bei einer<lb/>
+gewissen Gattung des Seehunds, welche der Grön-<lb/>
+länder Attarsoack nennt, und die beiweitem die plumpste<lb/>
+und dümmste Race ist, in Anwendung kommen kann.<lb/>
+Die andern Gattungen, welche vorsichtiger und scheuer<lb/>
+sind, kann ein einziger Mann nicht fangen; es bege-<lb/>
+ben sich zu diesem Zwecke immer mehre zusammen, und<lb/>
+dies ist dann die Jagd, welche man, wegen des viel-<lb/>
+fachen Geräusches, womit sie verbunden ist, die Klap-<lb/>
+perjagd nennt. Das Verfahren besteht darin, daß die<lb/>
+Jäger den Seehund durch Klappern, Schreien, Stein-<lb/>
+werfen und andern Lärm aus seinem Asyl aufscheu-<lb/>
+chen und ins Wasser jagen. So oft nun das Thier,<lb/>
+um Athem zu schöpfen, auftaucht, wird ihm von den<lb/>
+Jägern arg zugesetzt, sodaß es, um Ruhe zu haben,<lb/>
+nun sehr lange unter dem Wasser bleibt. Da aber dar-<lb/>
+aus folgt, daß es auch wieder ebenso lange auf der<lb/>
+Oberfläche verweilen muß, so gewinnen während dessen<lb/>
+die Jäger volle Zeit, das erschöpfte Thier zu erlegen.</p><lb/>
+<p>Die dritte Art, den Seehund ( auf dem Eise )<lb/>
+zu fangen, ist in Disko, der größten der zahlrei-<lb/>
+chen Jnseln an der grönländischen Küste, sehr üblich,<lb/>
+und die am wenigsten beschwerliche. Zuweilen machen<lb/>
+sich die Seehunde selbst Luftlöcher in das Eis. Dicht<lb/>
+bei einem solchen setzt sich nun der Grönländer auf<lb/>
+einen Stuhl und stellt eine Art von Schemel zu sei-<lb/>
+nen Füßen, um sich nicht zu erkälten. Hier wartet<lb/>
+er nun so lange geduldig, bis ein Seehund seine Nase<lb/>
+aus dem Loche hervorstreckt, um zu athmen. Die-<lb/>
+sen Augenblick benutzt der Jäger sogleich und versetzt<lb/>
+dem Thiere einen derben Stoß mit dem Harpun, erwei-<lb/>
+tert dann die Öffnung und erlegt es vollends. Zuweilen<lb/>
+verbinden sich auch zwei Jäger zu diesem Zwecke.<lb/>
+Der eine sitzt und lauscht, der andere steht mit dem<lb/>
+Harpun in Bereitschaft. Endlich gibt es noch eine<lb/>
+vierte Jagdmethode, nämlich ein Mann streckt sich<lb/>
+lang auf dem Bauch hin auf einer Art von Schleife<lb/>
+oder Schlitten, unweit der Eislöcher, aus denen die<lb/>
+Seehunde herauszukommen pflegen, um sich im Son-<lb/>
+nenscheine zu lagern. Neben einer solchen Öff-<lb/>
+nung ist ein kleineres Loch gemacht, durch welches<lb/>
+der zweite Jäger seinen Harpun steckt, der mit einem<lb/>
+langen Schafte versehen ist. Erblickt nun der erste<lb/>
+oder der Aufpasser einen herauftauchenden Seehund, so<lb/>
+gibt er dem zweiten ein Zeichen, worauf dieser mit<lb/>
+dem Harpun zustößt und den Seehund gleich un-<lb/>
+ter dem Eise erlegt. Auch pflegen die Grönländer den<lb/>
+Seehund dadurch zu täuschen und anzulocken, daß sie<lb/>
+sein Grunzen nachahmen. Oft wird auch eine ganze<lb/>
+Heerde von Seehunden, wenn sie, um Luft zu schöpfen,<lb/>
+<cb type="end"/>
+<pb facs="#f0004" n="260"/>
+<fw place="top" type="header"> <hi rendition="#g">Das Pfennig=Magazin.</hi> </fw>       <figure>         <head>  Die Seehundsjagd in Grönland.  </head>       </figure><lb/>
+<cb type="start"/>
+heraufkommen, oder wenn sie im Sonnenscheine schla-<lb/>
+fen, ohne alle Mühe todtgeschlagen.</p><lb/>
+<p>An den Küsten der Orkney= und Shetlandinseln,<lb/>
+besonders auf den kleinern und kleinsten, die nichts<lb/>
+als kahle Klippen und Meerfelsen sind, gibt es viele<lb/>
+Seehunde; dort liegen sie haufenweise bei niedriger See<lb/>
+dicht aneinander gereiht. Sie schwimmen mit ungemei-<lb/>
+ner Schnelligkeit und zeigen sich vorzüglich hurtig, wenn<lb/>
+ein Sturm und Ungewitter bevorsteht; dann pflegen sie<lb/>
+die Nasen weit aus den bewegten Wellen hervorzu-<lb/>
+strecken, schnellen sich, wenn ihnen das Wetter gar<lb/>
+zu bedenklich vorkommt, unter allerlei seltsamen Sprün-<lb/>
+gen ans Land und verbergen sich in ihren Felsenhöh-<lb/>
+len so lange, bis das Unwetter vorüber ist. Man er-<lb/>
+zählt sich von diesen Thieren manche Eigenthümlich-<lb/>
+keiten. Sie sind sehr neugierig, auch zutraulich ge-<lb/>
+gen Menschen, schwimmen einem stark bemannten Boote,<lb/>
+auf welchem laut gesprochen wird, oft lange nach, sehen<lb/>
+sich die Mannschaft an und scheinen auf ihr Gespräch<lb/>
+zu horchen. Die Kirche von Hoy in Orkney liegt dicht an<lb/>
+einer kleinen sandigen Bucht, die von Seehunden öfters<lb/>
+belebt ist; wenn nun mit den Glocken zum Gottesdienste<lb/>
+geläutet wird, so kann man vom Ufer aus bemerken, wie<lb/>
+die Seehunde von allen Seiten dicht an dasselbe herange-<lb/>
+schwommen kommen und auf den Ton der Glocken horchen.</p><lb/>
+<p>Auch an den nördlichen Küsten Schottlands werden<lb/>
+jährlich eine außerordentliche Menge Seehunde erlegt, so-<lb/>
+wol des Thrans als des Felles wegen, in Nordronaldsha<lb/>
+auch wegen ihres Fleisches, und namentlich das der<lb/>
+<cb n="2"/>
+Jungen soll gar nicht übel schmecken. Jn frühern Zei-<lb/>
+ten kamen junge Seehunde sogar auf die Tafeln der<lb/>
+Vornehmen in England. Hier fängt man die See-<lb/>
+hunde folgendergestalt: es gibt dort gewaltige Höhlen,<lb/>
+welche sich in die See hinaus öffnen und sich bis 100<lb/>
+Ellen ins Land hinein erstrecken. Diese sind die Zufluchts-<lb/>
+örter der Seehunde in der Brutzeit, wo sie sich so lange<lb/>
+verborgen halten, bis die Jungen stark genug sind, um<lb/>
+mit in See zu gehen, was gemeiniglich in sechs bis<lb/>
+sieben Wochen der Fall ist. Der Eingang dieser Ufer-<lb/>
+höhlen ist so eng, daß nur ein einzelnes Boot hindurch<lb/>
+kann, im Jnnern jedoch sind sie sehr geräumig. Jm<lb/>
+Monat October oder Anfang November fahren nun die<lb/>
+Seehundjäger um die Nachtzeit in diese Felsenmün-<lb/>
+dungen ein und rudern, mit tüchtigen Knütteln und<lb/>
+Fackeln versehen, die sie beim Hineinfahren anzünden,<lb/>
+so weit hinein als möglich. Plötzlich erhebt die ganze<lb/>
+Mannschaft einen gewaltigen Lärm, worauf alle Thiere<lb/>
+erschreckt mit Schreien und Grunzen aus ihren Schlupf-<lb/>
+winkeln herausfahren. Dieses erste Aufschrecken ist für<lb/>
+die Jäger nicht ohne Gefahr, sie müssen mit dem<lb/>
+Boote vorsichtig zurückweichen, damit der große Haufe<lb/>
+der alten Seehunde sie nicht umwirft. Jst dieser<lb/>
+Strudel aber vorüber, dann haben die Jäger gewonnenes<lb/>
+Spiel; sie nähern sich alsdann mit dem Boote den<lb/>
+Löchern und Höhlungen der Felsenwand, wo die jungen<lb/>
+Seehunde sich befinden, schlagen diese mit ihren Stöcken<lb/>
+auf die Nasen &#x2014; dem empfindlichsten Körpertheil<lb/>
+dieser Thiere &#x2014; und erlegen sie so in kurzer Zeit.</p><lb/>
+<cb type="end"/>
+<pb facs="#f0005" n="261"/>
+<fw place="top" type="header"><hi rendition="#g">Das Pfennig=Magazin.</hi> </fw>       <figure>         <head>  Die Seehundsjagd in Schottland.  </head>       </figure><lb/>
+<cb type="start"/>
+<p>Um schließlich die unserer Skizze beigegebenen beiden<lb/>
+Abbildungen zu erläutern, müssen wir eine Stelle aus<lb/>
+der Beschreibung ausheben, die ein Reisender von<lb/>
+einer Seehundjagd macht, welche zum Vergnügen einer<lb/>
+kleinen Gesellschaft an der schottischen Küste veranstaltet<lb/>
+wurde. &#x201E;An einem schönen Octobermorgen&#x201C;, schreibt<lb/>
+Dieser, &#x201E;begleitete ich meinen militairischen Freund auf<lb/>
+die Seehundsjagd. Wir schifften uns in einem Boote<lb/>
+von Mull aus ( einer der hebridischen Jnseln ) ein.<lb/>
+Der Diener trug zwei Doppelflinten und außer die-<lb/>
+sen eine längliche Büchse, worauf sich ein Glas be-<lb/>
+fand, um in weiter Entfernung die getödteten Seehunde<lb/>
+auf der Oberfläche des Wassers zu erkennen, um keinen<lb/>
+Theil der Beute verloren gehen zu lassen. Das Boot<lb/>
+war bemannt mit vier stattlichen Hochländern, die uns<lb/>
+rüstig mitten unter die kleinen felsigen Eilande, womit<lb/>
+die See dort ganz angefüllt ist, hineinruderten. Zahl-<lb/>
+lose Ziegen und Schafe, welche an ihrem Rande hin-<lb/>
+klimmten, verliehen ihnen ein reges Leben. Auf einem<lb/>
+dieser Eilande, an einer schmalen Landspitze, stiegen wir<lb/>
+ans Land; hinter einem Felsenstücke, das sie verbarg,<lb/>
+krochen nun die Jäger mit ihren Doppelflinten auf<lb/>
+dem Bauche vorwärts; ihr geübter Blick strich über<lb/>
+den weiten Meeresspiegel hin; in ihrer ganzen Hal-<lb/>
+tung malten sich Vorsicht und Erwartung. Das<lb/>
+Meer war so ruhig wie ein Landsee, die Sonne<lb/>
+schien hell und warm darüber hin; luftige, mit Hai-<lb/>
+dekraut bedeckte Hügel tauchten aus dem besonnten<lb/>
+Spiegel hier und dort hervor; dann flogen wieder lange<lb/>
+Schatten, von leichten Wolken gebildet, über die Scene<lb/>
+und verliehen ihr einen eigenthümlichen, wildromantischen<lb/>
+Reiz. Weit hinaus in die See sprangen die jähen<lb/>
+Klippen der Küste, die ausgezackten Felsen in ihren<lb/>
+abenteuerlichen Bildungen. Es war für den ruhigen<lb/>
+und doch gespannten Beobachter eine höchst interessante<lb/>
+Scene. Bei solcher Meeresstille kommt aus der Tiefe<lb/>
+<cb n="2"/>
+langsam und behaglich der Seehund hervorgetaucht; er<lb/>
+schöpft die reine Luft in langen Zügen, scherzt und<lb/>
+spielt auf der ruhigen Welle oder erklimmt einen nie-<lb/>
+drigen Vorsprung, um sich dort, hingestreckt gleich einem<lb/>
+Hunde, von der milden Sonne bescheinen zu lassen.<lb/>
+Schon zeigten sich mehre dieser Thiere, welche die<lb/>
+Schützen, still und lauschend, in die Schußweite kom-<lb/>
+men ließen. Es gehört viel Übung dazu, so in der<lb/>
+Entfernung und in dieser Stellung den Seehund zu er-<lb/>
+legen; doch habe ich gesehen, daß dies vom Boote aus<lb/>
+und auf äußerste Schußweite im Stande geschah.&#x201C;</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr"><hi rendition="#g">Der Kuhbaum</hi>.</hi></head><lb/>
+<p><hi rendition="#in">S</hi>chon in den ältern Schriften über die Naturerzeug-<lb/>
+nisse der neuen Welt finden wir Nachrichten über einen<lb/>
+Baum, der eine genießbare Milch hervorbringe. Man<lb/>
+nannte ihn Milchbaum oder Himmelsbaum, und zu den<lb/>
+wunderbaren Sagen, die man davon erzählte, gehörte<lb/>
+auch, daß die Seelen der einige Tage nach der Geburt<lb/>
+gestorbenen Kinder um ihn säßen. Man hatte jedoch<lb/>
+später lange an dem Dasein eines solchen Baumes ge-<lb/>
+zweifelt, und als Alexander von Humboldt in Portoca-<lb/>
+bello zuerst davon hörte, glaubte er, daß der Kuhbaum, wie<lb/>
+man ihn hier nannte, zu der Art von Gewächsen gehöre,<lb/>
+die einen herben, mehr oder minder schädlichen milchigen<lb/>
+Saft enthalten. Erst als er und sein Gefährte Bon-<lb/>
+pland zu Barbula zwischen Portocabello und Valencia den<lb/>
+Saft des Baumes gekostet hatten, überzeugte er sich,<lb/>
+daß die ihm mitgetheilten Nachrichten weder erdichtet noch<lb/>
+übertrieben waren. Dieser Baum, der besonders an der<lb/>
+Küstenseite der Andeskette, vorzüglich von Barbula nach<lb/>
+dem See Maracaybo angetroffen wird, ist 30 &#x2014; 40<lb/>
+Fuß hoch, und so lange er jung ist sind seine Zweige<lb/>
+eckig und mit einem feinen Flaum bedeckt. Er hat<lb/>
+längliche, zähe und lederartige, sehr glatte, 9 &#x2014; 10<lb/>
+<cb type="end"/>
+<pb facs="#f0006" n="262"/>
+<fw place="top" type="header"> <hi rendition="#g">Das Pfennig=Magazin.</hi> </fw><cb type="start"/>
+Zoll lange und ungefähr vier Zoll breite Blätter. Die<lb/>
+Frucht ist der Wallnuß ähnlich und enthält einen ein-<lb/>
+fachen oder doppelten nußartigen Kern. Aus dem<lb/>
+Stamme fließt, wenn man einen Einschnitt macht,<lb/>
+reichlich ein milder und nährender Saft. &#x201E;Es sind<lb/>
+hier nicht&#x201C;, sagt Humboldt, &#x201E;die feierlichen Schatten der<lb/>
+Wälder, der majestätische Lauf der Ströme, die mit<lb/>
+ewigem Schnee bedeckten Berge, was unser Gemüth<lb/>
+aufregt. Einige Tropfen eines Pflanzensaftes erinnern<lb/>
+uns an die Allmacht und Fruchtbarkeit der Natur.<lb/>
+Auf einem nackten Felsenvorsprunge sehen wir einen<lb/>
+Baum, dessen große Wurzeln kaum in den harten<lb/>
+Boden dringen können, und dessen trockene Blätter<lb/>
+mehre Monate hindurch kein Regen befeuchtet. Seine<lb/>
+Zweige scheinen abgestorben zu sein, aber aus dem ver-<lb/>
+letzten Stamme fließt, besonders bei Sonnenaufgang,<lb/>
+eine süße nahrhafte Milch. Dann sieht man die Neger<lb/>
+und Jndianer aus allen Gegenden mit großen Näpfen<lb/>
+herbeieilen, um Milch zu holen. Einige leeren sie gleich<lb/>
+unter dem Baume aus, andere bringen sie nach Hause.&#x201C;<lb/>
+Die Milch ist ziemlich dick, ohne alle Herbheit, und<lb/>
+von balsamischem Geruche, nur wegen ihrer leimigen<lb/>
+Eigenschaft etwas unangenehm. Die Neger und die<lb/>
+armen Arbeiter in den Pflanzungen finden darin<lb/>
+ein Hauptnahrungsmittel. Man genießt sie mit den<lb/>
+Wurzeln der Cassava oder mit Mais, und in der<lb/>
+Jahreszeit, wo sie am reichlichsten fließt, haben die<lb/>
+Neger ein wohlgenährtes Ansehen. Nicht blos aber in<lb/>
+seinem Äußern und im Geschmacke gleicht dieser Saft der<lb/>
+Thiermilch, sondern auch in dem Umstande, daß er, der Luft<lb/>
+ausgesetzt, eine Substanz absondert, welchedem Käse ähn-<lb/>
+lich ist und von den Eingeborenen auch so genannt wird.</p><lb/>
+<p>Dieser merkwürdige Baum ist nicht blos auf<lb/>
+den schmalen Küstenstrich, wo Humboldt ihn fand, be-<lb/>
+schränkt, denn wie schon alte Überlieferungen andeu-<lb/>
+ten, war er den Mexicanern nicht unbekannt, und<lb/>
+angestellte Erkundigungen haben es bestätigt, daß ver-<lb/>
+schiedene Arten dieses Baumes in den Wäldern Mexicos<lb/>
+wachsen, besonders in den ausgedehnten feuchten Wäl-<lb/>
+dern der Provinzen Choco und Popayan. Ebenso findet<lb/>
+man in den Wäldern bei Ysconde in Choco drei Bäu-<lb/>
+me, welche die Eingeborenen Liria, Popa und Sande<lb/>
+nennen. Sie geben eine ebenso nahrhafte Milch als<lb/>
+der Kuhbaum in Venezuela, welche ebenfalls den ärmern<lb/>
+Volksclassen zur Nahrung dient. Die Wohlhabenden<lb/>
+benutzen sie wegen ihrer Klebrigkeit statt des Vogel-<lb/>
+leims bei Fangen der Papagaien. Der Sande, der<lb/>
+dem Kuhbaum in Venezuela im Äußern am ähnlichsten<lb/>
+ist, gibt eine reichliche, aber dünnere, bläuliche, minder<lb/>
+wohlschmeckende, daher nicht zur Nahrung dienende<lb/>
+Milch. Der Sonne ausgesetzt, verdickt sie zu einem<lb/>
+schwärzlichen Gummi, dem man arzneiliche Eigenschaf-<lb/>
+ten zuschreibt. Der Liriabaum ist dem Kuhbaum ganz<lb/>
+ähnlich. Der Popabaum gibt eine reichliche, süße und<lb/>
+gewürzhafte Milch, dick wie guter Rahm und blendend<lb/>
+weiß. Sie vermischt sich leicht mit Wasser oder Brannt-<lb/>
+wein und gibt mit beiden ein angenehmes Getränk.<lb/>
+Jn der Jahreszeit, wo sie am reichlichsten fließt, ist<lb/>
+sie auch hier die Hauptnahrung der Eingeborenen, und<lb/>
+selbst den Jaguar treibt sein Jnstinct, die Rinde mit<lb/>
+seinen Klauen aufzureißen, um sich an dem heraus-<lb/>
+tröpfelnden Safte zu laben.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr"><hi rendition="#g">Die Rechnenorgel</hi>.</hi></head><lb/>
+<p><hi rendition="#in">M</hi>ehre ausgezeichnete Mathematiker und Mechaniker<lb/>
+haben sich, um eine der anstrengendsten und ermüden-<lb/>
+sten Geistesbeschäftigungen, das Rechnen, zu erleichtern,<lb/>
+<cb n="2"/>
+mit der Verfertigung von Rechnenmaschinen beschäftigt.<lb/>
+Die erste solche Maschine erfand der bekannte franzö-<lb/>
+sische Schriftsteller Pascal, welche später von dem nicht<lb/>
+weniger berühmten Philosophen Diderot verbessert wurde;<lb/>
+eine andere verfertigte der Mechaniker Thomas von Col-<lb/>
+mar, eine dritte 1820 der Jtaliener Palmarini in<lb/>
+Piemont, und ungefähr gleichzeitig eine andere der aus-<lb/>
+gezeichnete englische Mathematiker Babbage. Das neueste<lb/>
+Kunstwerk dieser Art ist die Arbeit eines jungen Tischlers<lb/>
+zu Mailand und befand sich auf der dortigen letzten Jn-<lb/>
+dustrieausstellung. Diese Maschine hat die Form einer<lb/>
+kleinen Orgel mit doppelter Tastatur, jede von 18 Ta-<lb/>
+sten; die erste Reihe der Tasten ist mit den einfachen<lb/>
+und doppelten, die zweite mit den drei= und vierfachen<lb/>
+Zahlen bezeichnet. Es bedarf also nur der Berührung<lb/>
+derjenigen Ziffern, welche das Rechnenexempel bilden,<lb/>
+um auf der Stelle das Facit zu erhalten. Soll z. B.<lb/>
+150 mit 7 multiplicirt werden, so bezeichnet man im<lb/>
+Register die erste Zahl, greift dann die Taste der zwei-<lb/>
+ten, und sogleich treten in dem über den Claviaturen<lb/>
+befindlichen Raume die Ziffern des Products hervor.<lb/>
+Will man von diesem die Zahl 70 abziehen, so greift<lb/>
+man wieder das Register und dann die Taste 70, und<lb/>
+sogleich erscheint der Rest. Bis jetzt ist diese künstliche<lb/>
+Maschine nur für die drei ersten Species eingerichtet:<lb/>
+der Künstler aber, durch Ertheilung einer goldenen Me-<lb/>
+daille aufgemuntert, wird seinem Werke auch die vierte<lb/>
+Species hinzufügen.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle" xml:id="Blind2"><head><hi rendition="#fr">Über Blinde, Blindenunterricht und Blinden-<lb/>
+anstalten.</hi><lb/>
+<hi rendition="#aq">I</hi>. <hi rendition="#fr"><hi rendition="#g">Von den Blinden überhaupt</hi>.</hi><lb/>
+<ref target="nn_pfennig175_1836#Blind1">( Fortsetzung aus Nr. 175. )</ref></head><lb/>
+<p><hi rendition="#in">B</hi>ei dem Mangel eines so wichtigen Sinnes, wie<lb/>
+das Gesicht ist, treten schon in der ersten Jugend<lb/>
+sehr häufig Fälle ein, wo das Kind diesen Mangel<lb/>
+durch Anstrengung der übrigen Sinne so viel als<lb/>
+möglich zu ersetzen sucht. Dadurch entsteht eine große<lb/>
+Übung und Fertigkeit dieser Sinne, und dieses ist es<lb/>
+eigentlich, was den meisten Blinden einen Vorzug vor<lb/>
+den Sehenden, besonders in Rücksicht des Gehörs und<lb/>
+des Gefühls gibt. Die weise Einrichtung der Natur<lb/>
+bewirkt auf dem gewöhnlichen Wege durch Anstrengung<lb/>
+und Übung, was man oft als eine außerordentliche Wir-<lb/>
+kung, gleichsam als eine wohlthätige Entschädigung für<lb/>
+den mangelnden Gesichtssinn anzusehen pflegt. Die Er-<lb/>
+fahrung lehrt uns auch, daß manche Sehende, deren<lb/>
+Beruf es mit sich bringt, einen einzelnen Sinn vorzüg-<lb/>
+lich zu üben, darin eine bewundernswürdige Fertigkeit<lb/>
+und Sicherheit erlangen.</p><lb/>
+<p>Das in der Regel feine Gehör des Blinden kommt<lb/>
+ihm hauptsächlich bei dem Erlernen und Ausüben der<lb/>
+Musik zu statten. Ganz kleine blinde Kinder suchen<lb/>
+Allem, was ihnen in die Hände kommt, einen Ton ab-<lb/>
+zulocken, und so wird Das, was anfänglich nothdürfti-<lb/>
+ger Ersatz für die Unterhaltung war, welche andern Kin-<lb/>
+dern sichtbare Gegenstände gewähren, zum ersten Bildungs-<lb/>
+mittel für das Kunstgehör. Das gute Gehör des Blin-<lb/>
+den leistet ihm auch im täglichen Leben manche wesent-<lb/>
+liche Dienste. Er erkennt und unterscheidet in beträcht-<lb/>
+licher Entfernung die bei verschiedenen Arbeiten entste-<lb/>
+henden Töne, bemerkt jedes Geräusch, und entdeckt da-<lb/>
+durch oft eine nahende Gefahr. Besonders auffallend<lb/>
+aber ist bei den meisten Blinden, daß sie oft nach lan-<lb/>
+ger Zeit einen Menschen an der Stimme wieder erkennen.</p><lb/>
+<p>Auch der Geruch schärft und verfeinert sich sehr bei<lb/>
+<cb type="end"/>
+<pb facs="#f0007" n="263"/>
+<fw place="top" type="header"><hi rendition="#g">Das Pfennig=Magazin.</hi> </fw><cb type="start"/>
+Blinden, und oft, wenn man nicht begreifen kann, wor-<lb/>
+an sie einen Gegenstand erkennen, geschieht es durch die<lb/>
+Feinheit dieses Sinnes.</p><lb/>
+<p>Jn Rücksicht des Gefühls ist das Gemeinge-<lb/>
+fühl als Folge der durch den ganzen Körper verbreiteten<lb/>
+Nerven, wobei sich der Mensch leidend verhält und wo-<lb/>
+durch wir von dem innern Zustande unsers Körpers<lb/>
+unterrichtet werden, wol zu unterscheiden von dem eigent-<lb/>
+lichen Tastsinn, den thätigen Gefühlen, wozu vorzüg-<lb/>
+lich die Hände gebraucht werden.</p><lb/>
+<p>Ersteres, das allgemeine körperliche Gefühl, welches<lb/>
+die Grundlage aller übrigen Sinne ausmacht, ist den<lb/>
+meisten Blinden, wenn sie auch gar keine Bildung ha-<lb/>
+ben, in hohem Grade eigen. Jhre reizbaren Nerven<lb/>
+nehmen so feine Eindrücke an, daß Andere gar keinen<lb/>
+Sinn dafür haben. Durch den Druck oder eine beson-<lb/>
+dere Bewegung der Luft, in Verbindung mit dem ver-<lb/>
+schiedenen Hallen der Stimme, der Fußtritte oder an-<lb/>
+derer Laute erkennen sie die Nähe einer Wand, ein<lb/>
+offenes Thor, die Richtung einer Straße u. s. w. Selbst<lb/>
+im schnellen Laufen weichen sie jeder Säule, jedem Baume<lb/>
+aus, wenn sie auf sich selbst aufmerksam sind; dagegen<lb/>
+sie in Zimmern, wo kein freier Luftzug ist, an Alles<lb/>
+anstoßen, was ihnen im Wege und nicht an seinem<lb/>
+gewöhnlichen Orte steht.</p><lb/>
+<p>Weniger allgemein ist die Ausbildung und Stärke<lb/>
+des eigentlichen Tastsinnes bei den Blinden, und es<lb/>
+kommt dabei viel darauf an, wie die nächsten Umge-<lb/>
+bungen eines blinden Kindes beschaffen waren, und ob<lb/>
+man ihm frühe Veranlassung gegeben hat, diesen für<lb/>
+einen Blinden nicht nur zur mechanischen, sondern selbst<lb/>
+zur wissenschaftlichen Bildung so wichtigen Sinn zu<lb/>
+üben und zu vervollkommnen. Die blinden Kinder sind<lb/>
+sich hierin höchst ungleich. Einige, besonders Kinder<lb/>
+vom Lande, welche thätiger sind und sich viel Bewegung<lb/>
+machen, bekommen manche natürliche und einfache Kör-<lb/>
+per unter die Hände, mit denen sie sich durch das Gefühl<lb/>
+bekannt machen, und da ihnen von andern weniger<lb/>
+Hülfe geleistet wird, so lernen sie frühe sich selbst hel-<lb/>
+fen. Dagegen die blinden Kinder in der Stadt die<lb/>
+meiste Zeit zwischen vier Mauern zubringen, selbst wi-<lb/>
+der ihren Willen sich ruhig verhalten müssen, und von der<lb/>
+zur Bildung und Stärkung des Körpers und der Glie-<lb/>
+der nöthigen Bewegung, sowie von Handhabung irgend<lb/>
+eines Gegenstandes oder Werkzeuges, aus Furcht, daß<lb/>
+sie sich beschädigen möchten, abgehalten werden, und noch<lb/>
+dazu in den gewöhnlichsten, täglich vorkommenden Ver-<lb/>
+richtungen, z. B. beim An= und Auskleiden, beim Essen<lb/>
+und Trinken, dadurch, daß ihnen dabei Alles von Andern<lb/>
+gemacht, in die Hände und selbst in den Mund gege-<lb/>
+ben wird, gänzlich unerfahren und ungeschickt bleiben.</p><lb/>
+<p>Die Folgen einer solchen unnatürlichen und zweck-<lb/>
+widrigen Behandlung blinder Kinder sind um so trau-<lb/>
+riger, weil nicht nur dadurch ihr Unglück um Vieles er-<lb/>
+höht und ihr Zustand weit hülfloser wird, sondern auch,<lb/>
+weil durch eine solche Unterlassung aller Übung des Kör-<lb/>
+pers und der Glieder diese ganz unbehülflich, theils steif,<lb/>
+theils schlaff, und zu jeder, auch der kleinsten Verrich-<lb/>
+tung untauglich werden.</p><lb/>
+<p>Bei einem in gänzlicher Unthätigkeit bis in sein<lb/>
+zehntes Jahr erhaltenen blinden Kinde nehmen beson-<lb/>
+ders die Hände eine ganz eigne Form an. Die Finger<lb/>
+bleiben sehr kurz, die Knochen dünn, die ganze Hand<lb/>
+ungewöhnlich klein und schlaff. Weil beim Unterlassen<lb/>
+alles Greifens die zum Einwärtsbiegen der Fingergelenke<lb/>
+bestimmten Muskeln nicht geübt und gestärkt werden,<lb/>
+so lassen sich die Finger sehr weit auswärts gegen den<lb/>
+Rücken der Hand biegen, und eine solche vernachlässigte<lb/>
+<cb n="2"/>
+Hand gleicht kaum dem bewundernswürdigen Werkzeuge<lb/>
+der Natur, durch welches die größten und feinsten Kunst-<lb/>
+werke hervorgebrcht werden.</p><lb/>
+<p>Der Erzieher eines solchen Blinden ist doppelt<lb/>
+schlimm daran, weil hier in den meisten Fällen die<lb/>
+Hände die Stelle der Augen vertreten müssen, und selbst<lb/>
+das Lesen, sowie die meisten wissenschaftlichen Kennt-<lb/>
+nisse auf diesem Wege erlangt werden sollen. Es dauert<lb/>
+Jahre lang, bis die mechanischen Handgriffe, deren Ein-<lb/>
+übung in der ersten Jugend versäumt worden ist, nach-<lb/>
+geholt werden, und während die Geistesbildung oft schnelle<lb/>
+Fortschritte macht, hat man viele Mühe, die Schwierig-<lb/>
+keiten zu überwinden, welche in der Unbehülflichkeit des<lb/>
+Körpers, besonders der Hände, liegen.</p><lb/>
+<p>Obgleich diese Schwierigkeiten durch die Blind-<lb/>
+heit erzeugt und insofern dadurch unterhalten werden,<lb/>
+daß ein solches Kind durch Zusehen Anderer keine Hand-<lb/>
+griffe ablernen kann, so sind sie doch keineswegs unzer-<lb/>
+trennlich von dem Zustande der Blindheit, noch unüber-<lb/>
+windlich für denselben; dies bezeugen viele Beispiele von<lb/>
+solchen blinden Kindern, welche von Jugend auf durch<lb/>
+eine günstige Lage oder zweckmäßige Behandlung ihre<lb/>
+mechanischen Kräfte geübt und ausgebildet haben, und<lb/>
+daher viele Handgriffe selbst finden und andere durch<lb/>
+kurze Anleitung sich eigen machen, und durch fortge-<lb/>
+setzte Übung ihr Gefühl oder vielmehr ihren Tastsinn so<lb/>
+verfeinern, daß sie die kleinsten kaum sichtbaren Erhaben-<lb/>
+heiten durch das Gefühl unterscheiden, und dadurch zu<lb/>
+manchen Verrichtungen geschickt werden, von welchen sie<lb/>
+ihre Blindheit auszuschließen scheint.</p><lb/>
+<p>Blinde können durch ein sehr verfeinertes Gefühl<lb/>
+allerdings bei manchen Gegenständen die Farben unter-<lb/>
+scheiden. Allein dessenungeachtet darf man dies nicht<lb/>
+für ein wirkliches Farbenfühlen halten, da die Brechun-<lb/>
+gen der Lichtstrahlen durchaus nicht fühlbar sind. Wenn<lb/>
+dies geschieht, so wirkt nicht die Farbe selbst, sondern<lb/>
+nur die färbende Materie auf das Gefühl der Blinden.<lb/>
+Namentlich wird bei gefärbten Zeuchen durch den Färbe-<lb/>
+stoff die Oberfläche bedeutend verändert, z. B. der zur<lb/>
+schwarzen Farbe kommende Vitriol macht die Härchen<lb/>
+des Zeuches härter und steifer. Überdies erkennen Die-<lb/>
+jenigen, welche noch Schimmer haben, aber dessenunge-<lb/>
+achtet nach dem Sprachgebrauche blind genannt werden,<lb/>
+die Farben bei hellem Lichte. Wenn man dem Blinden im<lb/>
+Dunkeln Blumenblätter oder geschliffene Edelsteine fühlen<lb/>
+läßt, so findet man, daß sie die Farben ebenso wenig<lb/>
+als Sehende durch das Gefühl zu unterscheiden vermögen.</p><lb/>
+<p>Das, was der Blinde, der gern von Farben spricht,<lb/>
+weil er Sehende einen besondern Werth darauf legen<lb/>
+hört, an ihre Stelle setzt, ist ein Bild seiner Phantasie,<lb/>
+wodurch er diese ihm unzugängliche Eigenschaft der Kör-<lb/>
+per ergänzt. So verglich ein Blinder die Wirkung einer<lb/>
+hellen Farbe mit dem Schall einer Trompete, ein an-<lb/>
+derer hat als Ursache, warum ihm Schwarz nicht gefalle<lb/>
+angegeben, weil es keinen schönen Namen habe.</p><lb/>
+<p>Diese beiden Vorstellungsarten und Urtheile eines<lb/>
+Blinden von Farben gründen sich auf das Gehör. Die<lb/>
+Phantasie des Blinden stellt sich die Farbe selbst nicht<lb/>
+als etwas Fühlbares vor. Übrigens rechnet der Blinde<lb/>
+seinen Mangel der Farbenkenntniß nicht hoch an. Aus<lb/>
+dem Umgange mit Sehenden weiß er die meisten natür-<lb/>
+lichen Körper auch nach ihrer Farbe zu benennen, und<lb/>
+bei andern einzelnen Gegenständen pflegt er sich gewöhn-<lb/>
+lich nach der Farbe zu erkundigen, doch nicht, weil er<lb/>
+selbst einen besondern Werth darauf legt, da er die übri-<lb/>
+gen Eigenschaften eines Körpers, die er durch das Ge-<lb/>
+fühl erkennt, Gestalt, Größe, Schwere u. s. w. für weit<lb/>
+vorzüglicher hält.</p><lb/>
+<cb type="end"/>
+<pb facs="#f0008" n="264"/>
+<fw place="top" type="header"> <hi rendition="#g">Das Pfennig=Magazin.</hi> </fw>       <cb type="start"/>
+<p>Wirklich scheint auch der Blinde in dieser Rück-<lb/>
+sicht nicht schlimmer daran zu sein, als der Sehende,<lb/>
+wenn er Gegenstände in großer Entfernung oder bei eini-<lb/>
+ger Dunkelheit sieht, wo er zwar den Umriß und die<lb/>
+<cb n="2"/>
+Gestalt, aber nicht die Farbe derselben erkennen kann,<lb/>
+oder beim Kerzenlicht, wo sich Grün und Blau oder<lb/>
+Gelb und Weiß nicht unterscheiden lassen.</p><lb/>
+<p><ref target="nn_pfennig177_1836#Blind3"><hi rendition="#c">( Die Fortsetzung folgt in Nr. 177. )</hi></ref></p></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1"><figure><head><hi rendition="#fr"><hi rendition="#g">Rafael's Loggien im Vatican zu Rom</hi>.</hi></head></figure></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+</body>     <back><div n="1" type="imprint"><p><hi rendition="#c">Verantwortliche Herausgeber: <hi rendition="#g">Friedrich Brockhaus</hi> in <hi rendition="#g">Leipzig</hi> und <hi rendition="#aq">Dr</hi>. C. <hi rendition="#g">Dräxler=Manfred</hi> in <hi rendition="#g">Wien.</hi><lb/>
+Verlag von F. A. <hi rendition="#g">Brockhaus</hi> in Leipzig.</hi></p></div>     </back>   </text> </TEI>

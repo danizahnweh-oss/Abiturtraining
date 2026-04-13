@@ -1,0 +1,953 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.deutschestextarchiv.de/basisformat.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">     <teiHeader>
+<fileDesc>
+<titleStmt>
+<title type="main">Das Pfennig-Magazin für Belehrung und Unterhaltung</title>
+<title type="sub">Dritte Folge, Zweiter Jahrgang, Nr. 84</title>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/115266127">
+<surname>Geyken</surname>
+<forename>Alexander</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1222198746">
+<surname>Haaf</surname>
+<forename>Susanne</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1019062681">
+<surname>Jurish</surname>
+<forename>Bryan</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Boenig</surname>
+<forename>Matthias</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Thomas</surname>
+<forename>Christian</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Wiegand</surname>
+<forename>Frank</forename>
+</persName>
+</editor>
+<respStmt>
+<orgName>Institut für Deutsche Sprache, Mannheim</orgName>
+<resp>
+<note type="remarkResponsibility">Bereitstellung der Bilddigitalisate und TEI
+Transkription</note>
+<ref target="http://hdl.handle.net/10932/00-01B8-B0A4-CA5F-D901-C"/>
+</resp>
+</respStmt>
+<respStmt>
+<persName>
+<forename>Peter</forename>
+<surname>Fankhauser</surname>
+</persName>
+<resp>
+<note type="remarkResponsibility">
+Transformation von TUSTEP nach TEI P5.
+Transformation von TEI P5 in das DTA TEI P5 Format.
+</note>
+</resp>
+</respStmt>
+<respStmt>
+<orgName ref="https://www.bbaw.de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<resp>
+<note type="remarkResponsibility">Langfristige Bereitstellung der DTA-Ausgabe</note>
+<ref target="https://www.bbaw.de"/>
+</resp>
+</respStmt>
+</titleStmt>
+<editionStmt><edition>Vollständige digitalisierte Ausgabe.</edition></editionStmt>
+<extent>
+<measure type="images">8</measure>
+<measure type="tokens">5329</measure>
+<measure type="types">2149</measure>
+<measure type="characters">35023</measure>
+</extent>
+<publicationStmt>
+<publisher xml:id="DTACorpusPublisher">
+<email>dta@bbaw.de</email>
+<orgName role="project">Deutsches Textarchiv</orgName>
+<orgName role="hostingInstitution" xml:lang="en">Berlin-Brandenburg Academy of Sciences and Humanities (BBAW)</orgName>
+<orgName role="hostingInstitution" xml:lang="de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<address>
+<addrLine>Jägerstr. 22/23, 10117 Berlin</addrLine>
+<country>Germany</country>
+</address>
+</publisher>
+<pubPlace>Berlin</pubPlace>
+<date type="publication">2025-10-24T08:35:14Z</date>
+<availability>
+<licence target="http://creativecommons.org/licenses/by-sa/3.0/de/">
+<p>Dieses Werk steht unter der "Namensnennung - Weitergabe unter den gleichen Bedingungen 3.0 Deutschland" Lizenz (CC BY-SA 3.0 DE).</p>
+</licence>
+</availability>
+<idno>
+<idno type="URLWeb">https://www.deutschestextarchiv.de/nn_pfennig084_1854</idno>
+<idno type="URLXML">https://www.deutschestextarchiv.de/book/download_xml/nn_pfennig084_1854</idno>
+<idno type="URLHTML">https://www.deutschestextarchiv.de/book/download_html/nn_pfennig084_1854</idno>
+<idno type="URLText">https://www.deutschestextarchiv.de/book/download_text/nn_pfennig084_1854</idno>
+<idno type="DTADirName">nn_pfennig084_1854</idno>
+<idno type="DTAID">34734</idno>
+<idno type="URN">urn:nbn:de:kobv:b4-34734-1</idno>
+</idno>
+</publicationStmt>
+<sourceDesc>
+<bibl type="J">Das Pfennig-Magazin für Belehrung und Unterhaltung. Dritte Folge, Zweiter Jahrgang, Nr. 84. Leipzig (Sachsen), 3. August 1854.</bibl>
+<biblFull>
+<titleStmt>
+<title level="m" type="main">Das Pfennig-Magazin für Belehrung und Unterhaltung</title>
+<title level="m" type="sub">Dritte Folge, Zweiter Jahrgang, Nr. 84</title>
+</titleStmt>
+<editionStmt>
+<edition n="1"/>
+</editionStmt>
+<publicationStmt>
+<publisher/>
+<pubPlace>Leibzig (Sachsen)</pubPlace>
+<date type="publication">1854</date>
+</publicationStmt>
+</biblFull>
+<msDesc>
+<msIdentifier/>
+<physDesc>
+<typeDesc>
+<p>Fraktur</p>
+</typeDesc>
+</physDesc>
+</msDesc>
+</sourceDesc>
+</fileDesc>
+<encodingDesc>
+<editorialDecl>
+<p>
+<![CDATA[
+<p>Siehe Dokumentation</p>
+]]>
+</p>
+</editorialDecl>
+<tagsDecl>
+<rendition scheme="css" xml:id="aq">font-family:sans-serif</rendition>
+<rendition scheme="css" xml:id="b">font-weight:bold</rendition>
+<rendition scheme="css" xml:id="blue">color:blue</rendition>
+<rendition scheme="css" xml:id="c">display:block; text-align:center</rendition>
+<rendition scheme="css" xml:id="et">display:block; margin-left:2em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et2">display:block; margin-left:4em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et3">display:block; margin-left:6em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="f">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="fr">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="g">letter-spacing:0.125em</rendition>
+<rendition scheme="css" xml:id="i">font-style:italic</rendition>
+<rendition scheme="css" xml:id="in">font-size:150%</rendition>
+<rendition scheme="css" xml:id="k">font-variant:small-caps</rendition>
+<rendition scheme="css" xml:id="larger">font-size:larger</rendition>
+<rendition scheme="css" xml:id="red">color:red</rendition>
+<rendition scheme="css" xml:id="right">display:block; text-align:right</rendition>
+<rendition scheme="css" xml:id="s">text-decoration:line-through</rendition>
+<rendition scheme="css" xml:id="smaller">font-size:smaller</rendition>
+<rendition scheme="css" xml:id="sub">vertical-align:sub; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="sup">vertical-align:super; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="u">text-decoration:underline</rendition>
+<rendition scheme="css" xml:id="uu">border-bottom:double 3px #000</rendition>
+</tagsDecl>
+</encodingDesc>
+<profileDesc>
+<langUsage>
+<language ident="deu">(Früh-)Neuhochdeutsch</language>
+<language ident="deu">German</language>
+</langUsage>
+<textClass>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1main">Gebrauchsliteratur</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1sub">Zeitschrift</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">ready</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">mkhz1</classCode>
+</textClass>
+</profileDesc>
+</teiHeader>
+<text>     <front>
+<pb facs="#f0001" n="[249]"/>
+<titlePage type="heading"><docTitle><titlePart type="main"><hi rendition="#c #fr">Das Pfennig=Magazin<lb/>
+für<lb/>
+<hi rendition="#g">Belehrung und Unterhaltung</hi>.</hi></titlePart></docTitle><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<docImprint><hi rendition="#fr">Nr</hi>. 84. ]                <hi rendition="#c">Dritte Folge. Zweiter Jahrgang.</hi>                <docDate><hi rendition="#right">[ 3. <hi rendition="#g">August</hi> 1854.</hi></docDate>              </docImprint></titlePage><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+</front>     <body>       <div n="1"><figure><head><hi rendition="#fr">Ernte.</hi></head></figure></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle" xml:id="Spute2"><head><hi rendition="#fr"><hi rendition="#g">Spute dich</hi>!</hi><lb/>
+<ref target="nn_pfennig083_1854#Spute1">( Fortsetzung. )</ref></head><lb/>
+<cb type="start"/>
+<p><hi rendition="#in">J</hi>n Karl's Gesicht lagerte sich bei diesen Worten der<lb/>
+Ausdruck der Freude, wie das Morgenroth am heitern<lb/>
+Himmel. Er reichte dem Schöppen dankbar die Hand<lb/>
+und wartete gar nicht erst ab, was seine Mutter zu<lb/>
+dem Allen sagen werde. Diese wollte noch Einwen-<lb/>
+dungen machen, aber Zillmer wußte sofort alle Be-<lb/>
+denklichkeiten zurückzuweisen und schloß die Unterhal-<lb/>
+tung mit der sanften Ermahnung an Karl: &#x201E;Jch hoffe,<lb/>
+dein kleines Geschäft wird gut gehen und bin auch von<lb/>
+dir überzeugt, daß du der Gärtnerei nur deine Frei-<lb/>
+<cb n="2"/>
+stunden opfern, dabei jedoch nie die Schule und das<lb/>
+Lernen vernachlässigen wirst.&#x201C;</p><lb/>
+<p>Zillmer nahm Abschied und ging.</p><lb/>
+<p>Schon am nächsten Abend aber erschien er wieder<lb/>
+in der ärmlichen Wohnung und legte für Karl einen<lb/>
+großen Papiersack mit Sämereien auf den Tisch, welche<lb/>
+er in der Stadt theils gekauft, theils was den Blu-<lb/>
+mensamen betraf, von einem befreundeten Gärtner er-<lb/>
+beten hatte. Darauf nahm er Karl bei der Hand,<lb/>
+um ihm in seinem Garten die Beete anzuweisen. Die<lb/>
+<cb type="end"/>
+<pb facs="#f0002" n="250"/>
+<fw place="top" type="pageNum">250</fw><cb type="start"/>
+Mutter versuchte zwar noch einmal einzureden, wie<lb/>
+sie nie im Stande sein würde, die große unverdiente<lb/>
+Güte Zillmer's nur irgend einmal wieder zu vergelten;<lb/>
+aber dieser that gar nicht, als wenn er sie verstanden<lb/>
+habe, sondern er nahm mit einem derben Händedruck<lb/>
+freundlich Abschied, indem er sprach: &#x201E;Adieu, liebe<lb/>
+Frau Wirker! Wir haben heute Eile, weil wir noch<lb/>
+ein Geschäftchen in Gang bringen müssen.&#x201C;</p><lb/>
+<p>Daß Karl auf die Jdee mit der Gärtnerei gefallen<lb/>
+war, freute den Schöppen besonders deshalb, weil die-<lb/>
+ser nun wenigstens guten Grund hatte, den noch un-<lb/>
+verdorbenen Knaben von einzelnen Bauerhäusern für<lb/>
+immer zurückzuhalten, in welchen er nicht eben viel<lb/>
+Nachahmungswerthes erlernen konnte.</p><lb/>
+<p>Karl erhielt in Zillmer's Garten sechs hübsche<lb/>
+Beete zur Selbstbewirthschaftung angewiesen. Mit<lb/>
+kindlich frohem Danke verließ er seinen Wohlthäter<lb/>
+und eilte nach Hause, um seiner Mutter den Plan zu<lb/>
+verdeutlichen, nach welchem er seine Beete zu bebauen<lb/>
+gedachte.</p><lb/>
+<p>Am nächsten Tage war Karl kaum aus der Schule<lb/>
+nach Hause gekommen, da trieb ihn sein Gärtnereifer<lb/>
+in Zillmer's Garten. Welche Augen machte er, als<lb/>
+er gewahrte, daß seine Beete schon gut umgegraben<lb/>
+und bis zur Saat fertig gemacht worden waren!</p><lb/>
+<p>Das hat Herr Zillmer gethan! sprach Karl vor<lb/>
+sich hin. Der liebe, gute Mann! Ein wahrer Vater<lb/>
+für mich! Möge Gott ihm seine Liebe segnen!</p><lb/>
+<p>Zillmer hatte es allerdings durch seinen Knecht<lb/>
+thun lassen. Er stellte sich, als er Karl kommen sah,<lb/>
+in seine Gartenlaube, um zu beobachten, welches Ge-<lb/>
+sicht sein Pflegling, wie er ihn oft nannte, beim An-<lb/>
+blick der zugerichteten Beete machen werde. Mit Rüh-<lb/>
+rung hörte er, was der hocherfreute, doch auch be-<lb/>
+schämte Knabe sprach und wischte sich eine Thräne<lb/>
+aus dem Auge, indem er überlegte, wie wenig doch<lb/>
+dazu gehöre, um einem Armen eine recht innige Freude<lb/>
+zu bereiten. Endlich näherte er sich Karl und rief:<lb/>
+&#x201E;Nun, ist's recht so, kleiner Gärtner? Jch bin selbst<lb/>
+in meiner Jugend täglich im Garten beschäftigt gewe-<lb/>
+sen und hoffe, daß mein Traugott dir die Arbeit nach<lb/>
+meiner Angabe gewiß gut ausgeführt hat.&#x201C;</p><lb/>
+<p>O, Herr Zillmer, antwortete Karl, so schön hätte<lb/>
+ich's nicht gebracht! Aber daß ich es nicht selbst ge-<lb/>
+macht habe, wird meine Mutter nicht gern sehen; sie<lb/>
+wird glauben, daß ich mich nicht habe sputen wollen<lb/>
+und wahrlich, ich spute mich gern, auch wenn sie nicht<lb/>
+ruft: Spute dich!</p><lb/>
+<p>Jn diesem Jahre konntest du noch nicht anhaltend<lb/>
+graben, sprach Zillmer; aber nächstes Jahr, wenn du<lb/>
+älter und stärker geworden bist, magst du das Ge-<lb/>
+schäft ganz allein besorgen. Danke mir aber jetzt nicht,<lb/>
+mein Sohn, sondern beweise mir deinen Dank durch<lb/>
+die That und zwar durch Fleiß, Ehrlichkeit und An-<lb/>
+ständigkeit, insbesondere aber durch treue Anhänglich-<lb/>
+keit an deine gute Mutter, die es werth ist, daß du<lb/>
+ihr Alles an den Augen absiehst, um ihre einzige<lb/>
+Freude zu sein und zu bleiben.</p><lb/>
+<p>Ja, Herr Zillmer, rief Karl, das will ich, so<lb/>
+lange Gott im Himmel mir Kraft und Gesundheit<lb/>
+schenkt. Vielleicht kann ich, wenn ich noch einige<lb/>
+Jahre vorgeschritten bin, es dahin bringen, wohin ich<lb/>
+es gern haben möchte.</p><lb/>
+<p>Nun, fragte Zillmer, was ist denn dein Ziel, das<lb/>
+du zu erstreben gedenkst?</p><lb/>
+<p>Ein leidliches Auskommen für mich, antwortete<lb/>
+Karl, bei welchem meine Mutter nicht zu darben<lb/>
+braucht! Und das möchte ich unter Gottes Schutz<lb/>
+<cb n="2"/>
+und dem Beistande guter Menschen, wie Sie sind, durch<lb/>
+meine eigene Thätigkeit erreichen; denn meine gute<lb/>
+Mutter predigt mir täglich ein: &#x201E;Hilf dir selbst, dann<lb/>
+hilft dir Gott, dann sendet er dir Engel in Menschen-<lb/>
+gestalt als Beistand; darum spute dich!&#x201C;</p><lb/>
+<p>Deine liebe Mutter hat vollkommen Recht, ant-<lb/>
+wortete Zillmer. Ein selbstverdienter Groschen ist mehr<lb/>
+werth als ein geschenkter Thaler; darum habe ich ihr<lb/>
+auch beistimmen müssen, als sie mir die Gründe sagte,<lb/>
+warum sie dich noch bei sich behalten wollte. Doch,<lb/>
+mein Sohn, Zeit ist Geld; laß uns an die Arbeit ge-<lb/>
+hen, um deine Beete einzurichten! Jch werde dir<lb/>
+heute bei dem Säen beistehen, dann magst du in spä-<lb/>
+tern Tagen Alles selbst besorgen.</p><lb/>
+<p>Karl eilte nach Hause, holte seine Sämereien und<lb/>
+war schnell wieder da. Jetzt wurde ausgepackt und<lb/>
+gesäet, wobei Zillmer den Lehrer machte; hier Kohl-<lb/>
+rabi, Welsch= und Blumenkohl, da Rothkraut, Ma-<lb/>
+joran und Mangold, dort Kohl, Salat und wie die<lb/>
+Gemüsesorten alle hießen, die im Freien gebaut wer-<lb/>
+den konnten. Nun kamen die Sommerblumen daran.<lb/>
+Auf den Düten, in welchen sich der Same befand,<lb/>
+standen Namen, welche Karl in seinem Leben weder<lb/>
+gelesen noch gehört hatte. Auf Anrathen Zillmer's<lb/>
+schnitt er kleine Bretchen, schrieb den Namen der Blu-<lb/>
+men mit Bleistift auf dieselben und steckte sie da in<lb/>
+die Erde, wo er den Samen gesät hatte. Es dunkelte<lb/>
+schon, als die letzten Körnlein der Erde anvertraut<lb/>
+wurden und Karl rief: &#x201E;Nun, das walt' Gott!&#x201C;</p><lb/>
+<p>Walt' Gott, mein Sohn, walt' Gott! fügte Zill-<lb/>
+mer hinzu. Fange nur Alles mit Gott an, dann wird<lb/>
+er die Werke deiner Hand segnen. Gott hilft, wenn<lb/>
+wir das Unsere thun. Aber Eins noch haben wir zu<lb/>
+besorgen. Weil nämlich noch Nachtfröste kommen, so<lb/>
+wollen wir unsere Saat recht hübsch mit Stroh be-<lb/>
+decken und morgen werde ich dich etwas lehren, wie du<lb/>
+dir die Sache erleichtern kannst.</p><lb/>
+<p>Karl drückte, als er nach Hause gehen wollte, sei-<lb/>
+nem väterlichen Freunde mit Wärme die Hand und<lb/>
+sprach: &#x201E;Herr Zillmer! Meine Mutter sagt immer, Sie<lb/>
+wären für uns ein Bote vom lieben Gott. Jch lerne<lb/>
+immer mehr einsehen, was sie damit sagen will. Werde<lb/>
+ich größer, dann &#x2014; &#x2014;&#x201C;</p><lb/>
+<p>Still, mein Sohn, unterbrach ihn Zillmer, still<lb/>
+davon! Jch danke unserm himmlischen Vater, daß er<lb/>
+mich in den Stand gesetzt hat, für euch ein wenig<lb/>
+mitsorgen zu können; danke du ihm auch, daß er dich<lb/>
+bisher wohl gerathen ließ und bitte ihn, dir auch fer-<lb/>
+ner seinen schützenden Engel zu senden. Gute Nacht,<lb/>
+Karl, grüße deine Mutter und schlaft Beide wohl!&#x201C;</p><lb/>
+<p>Ehe es sich der Knabe versah, war sein Wohlthä-<lb/>
+ter über den Hof hinweg nach seinem Hause geeilt.<lb/>
+Karl schloß noch die Gartenthür und ging dann zu<lb/>
+seiner Mutter, um ihr die dankbare Freude über Zill-<lb/>
+mer 's Güte und seine Hoffnungen auf die Zukunft zu<lb/>
+schildern.</p><lb/>
+<p>Am folgenden Tage nach den Unterrichtsstunden<lb/>
+half Karl in Zillmer's Wirthschaft Einiges mit ver-<lb/>
+richten, dann führte der Schöppe ihn in seine Scheune,<lb/>
+um ihn das Fertigen der Strohdecken zu lehren.<lb/>
+Bindfaden und Stroh war genug vorhanden, daher<lb/>
+konnte die Arbeit sogleich beginnen. Karl begriff die<lb/>
+wenigen Handgriffe bei der Arbeit sehr bald und kam<lb/>
+an dem Tage wirklich mit einer Decke zu Ende. Jn<lb/>
+den Freistunden der folgenden Tage setzte er die Be-<lb/>
+schäftigung fort, sodaß seine Saatbeete bald alle be-<lb/>
+quem mit den auf Stangen liegenden Decken verwahrt<lb/>
+werden konnten.</p><lb/>
+<cb type="end"/>
+<pb facs="#f0003" n="251"/>
+<fw place="top" type="pageNum">251</fw>       <cb type="start"/>
+<p>Die Gärtnerei machte anfangs dem Knaben sehr<lb/>
+geringe Mühe; er konnte in Zillmer's Gute fast nach<lb/>
+wie vor die gewohnte Beihülfe leisten. Als aber die<lb/>
+Pflanzen aus der Erde guckten, wurde Karl schon<lb/>
+mehr in Anspruch genommen, denn er hatte mit dem<lb/>
+Unkraute tüchtig zu kämpfen.</p><lb/>
+<p>Nach Verlauf einiger Wochen stand Karl's Pflan-<lb/>
+zung ganz erwünscht. Zillmer und seine Nachbarn<lb/>
+hatten schon alle Freunde auf den jungen Gärtner auf-<lb/>
+merksam gemacht und Kundschaft für ihn geworben,<lb/>
+auch waren schon die sogenannten Pflanzenweiber von<lb/>
+Karl's Unternehmen in Kenntniß gesetzt.</p><lb/>
+<p>Die ersten Pflanzen, welche ziehbar wurden, nahm<lb/>
+Zillmer seinem Pfleglinge ab, indem er sprach: &#x201E;Das<lb/>
+Handgeld mußt du von mir erhalten!&#x201C;</p><lb/>
+<p>Bald kamen auch andere Nachbarn des Dorfs, als<lb/>
+sie die Pflanzung immer üppiger emporwachsen sahen<lb/>
+und kauften sich auch ihren Theil. Der junge Gärt-<lb/>
+ner konnte zuweilen nicht Pflanzen genug schaffen, um<lb/>
+alle Ansprüche zu befriedigen. Er hatte oft stunden-<lb/>
+lang nichts weiter zu thun, als Pflanzen zu ziehen<lb/>
+und dann für jedes Schock sein Geld einzustecken. Noch<lb/>
+nie war er so reich gewesen; er hielt sich für einen<lb/>
+Krösus. Seine Mutter fühlte sich überglücklich, wenn<lb/>
+er an Tagen, an welchen sein Geschäft schwunghaft<lb/>
+gegangen war, acht bis zehn Groschen nach Hause<lb/>
+brachte. Sie nahm an der Gärtnerei ihres Sohnes<lb/>
+bald so lebhaften Antheil, daß sie nicht selten mehre<lb/>
+Stunden ihm beistand, theils um ihm beim Pflanzen-<lb/>
+ziehen zu helfen, theils um das Unkraut auszujäten.<lb/>
+Die Beschäftigung in freier Luft sagte ihrem schwäch-<lb/>
+lichen Körper sehr zu und das Grün der Gewächse<lb/>
+that ihren kranken Augen ungemein wohl. Sie ver-<lb/>
+trat darum gern Karl's Stelle im Garten, wenn die-<lb/>
+ser in der Schule war oder vielleicht in Zillmer's<lb/>
+Hause Beschäftigung gefunden hatte.</p><lb/>
+<p>Pfingsten kam. Karl hatte sich unter Mithülfe sei-<lb/>
+ner Mutter mit den Pflanzen schon tüchtig geplagt,<lb/>
+aber auch einige blanke Thaler gegen die eingenomme-<lb/>
+nen Groschen eingewechselt, um sie in die blecherne<lb/>
+Sparbüchse seiner Mutter zu stecken. Das Pflanzen-<lb/>
+geschäft war im vollsten Gange.</p><lb/>
+<p>Nach der Kirche des zweiten Pfingstfeiertags stand<lb/>
+Frau Wirker mit ihrem Sohne in des Schöppen Gar-<lb/>
+ten. Sie betrachteten die schon sehr geplünderten Beete.</p><lb/>
+<p>Wie hat doch Gott, sprach Frau Wirker, so schnell<lb/>
+geholfen! Welche Pfingstfreude ist uns durch deinen<lb/>
+Einfall und die Güte des Herrn Zillmer gewährt wor-<lb/>
+den! Es ist mir auch, als wenn in dem schönen<lb/>
+Grün des Gartens meine Augen immer kräftiger wür-<lb/>
+den und mein lahmer Körper einige Stärke bekäme!<lb/>
+Siehe, mein Karl, Gott hat geholfen, Gott hilft noch,<lb/>
+Gott wird auch weiter helfen! Spute dich nur; ich<lb/>
+werde dir beistehen, soviel ich vermag. Das Eine be-<lb/>
+drückt mich nur, daß wir nicht im Stande sind, Herrn<lb/>
+Zillmer einen Beweis unserer Liebe und Dankbarkeit<lb/>
+zu bringen!</p><lb/>
+<p>Frau Wirker wurde im Weitersprechen durch Zill-<lb/>
+mer unterbrochen, der eben im Feststaate aus seiner<lb/>
+Wohnung trat.</p><lb/>
+<p>Ei, ei, rief er scherzend, kaum aus der Kirche und<lb/>
+schon wieder über der Sorge um das Jrdische!</p><lb/>
+<p>O nein, Herr Zillmer, antwortete Frau Wirker,<lb/>
+nur ein Weg in diesen Garten, an die Quelle unsers<lb/>
+Glücks, um Gott und guten Menschen zu danken!</p><lb/>
+<p>Der Schöppe merkte gleich, daß die bescheidene<lb/>
+Frau wieder auf die oft ausgesprochenen Gedanken ge-<lb/>
+rathen werde, darum lenkte er gleich das Gespräch auf<lb/>
+<cb n="2"/>
+eine Jdee, die er zum Wohle für seinen Pflegling und<lb/>
+dessen Mutter schon seit einigen Wochen sich gebildet<lb/>
+hatte und nun an den Mann bringen wollte, ohne<lb/>
+das bedrückende Gefühl der Verlegenheit beim Em-<lb/>
+pfange von Wohlthaten zu erwecken. Er sprach: &#x201E;He,<lb/>
+Frau Wirker, Sie wissen, daß ich in meinem Obst-<lb/>
+garten alle Jahre bestohlen worden bin, ohne den Dieb<lb/>
+zu erwischen, da mein Garten so versteckt liegt. Nun<lb/>
+stößt doch der Giebel meines Seitengebäudes gerade<lb/>
+an meinen Obstgarten an. Jn dem Seitengebäude<lb/>
+war aber eine unausgebaute Stube mit Kämmerchen,<lb/>
+diese habe ich denn wohnlich herrichten lassen und ich<lb/>
+komme heute, Sie um eine recht große Gefälligkeit zu<lb/>
+bitten.&#x201C;</p><lb/>
+<p>O, rief Frau Wirker, mit Freuden; was ich nur<lb/>
+vermag, thue ich für Sie. Jch bin ja ohnehin Jhre<lb/>
+große Schuldnerin und &#x2014;</p><lb/>
+<p>Und sehen Sie, unterbrach Zillmer, da habe ich<lb/>
+denn gedacht, daß mein Garten sofort geschützt sein<lb/>
+wird, wenn die übrigens furchtsamen Obstdiebe wissen,<lb/>
+daß Jemand in der Nähe wohnt und den hintern<lb/>
+Theil des Gutes bewacht, während der Besitzer die<lb/>
+Augen vorn heraus richtet. Jm ganzen Dorfe weiß<lb/>
+ich Niemand, den ich in mein Stübchen für passend<lb/>
+halten könnte und darum wollte ich nun Sie um den<lb/>
+Gefallen bitten, mein Seitengebäude zu beziehen. Es<lb/>
+gefällt Jhnen gewiß, da die Fenster ins Grüne hin-<lb/>
+ausführen, was Jhren Augen wohlthätig sein wird;<lb/>
+auch ist es hell und es stehen sogar schon einige Haus-<lb/>
+geräthe darin, die Sie benutzen können, als wären sie<lb/>
+Jhr Eigenthum. Das Stübchen ist freundlich ausge-<lb/>
+weißt, sodaß es mir selbst drinnen gefallen könnte. Jm<lb/>
+Kämmerchen können Sie mit Karl schlafen. Zins ver-<lb/>
+lange ich nicht von Jhnen, denn sie erweisen mir einen<lb/>
+Freundschaftsdienst, wenn Sie die Wohnung beziehen.<lb/>
+Sprechen Sie also ja, ich bitte darum!</p><lb/>
+<p>Die Frau war wie aus den Wolken gefallen. Zill-<lb/>
+mer führte sie ohne Umstände hinauf in das freund-<lb/>
+liche Logis und bemerkte mit Wohlbehagen, daß Mut-<lb/>
+ter und Sohn die hübschen Räume mit großem Ver-<lb/>
+gnügen betrachteten.</p><lb/>
+<p>Nun, nun, rief er, können Sie sich nicht ent-<lb/>
+schließen?</p><lb/>
+<p>Herr Zillmer! sprach die Frau in großer Bewe-<lb/>
+gung, das thun Sie nicht um Jhretwillen! Jhr Edel-<lb/>
+muth versteckt sich hinter Jhrem scheinbaren Eigennutz!<lb/>
+Ach, ich kann so viele Wohlthaten von Jhrer Seite<lb/>
+nicht annehmen; Sie thun zu viel an uns!</p><lb/>
+<p>Wohlthaten? meinte Zillmer und fuhr fort: Sie<lb/>
+können mir also die Gefälligkeit nicht erweisen?<lb/>
+Sie bleiben ja mit Karl zusammen, sollte es nicht<lb/>
+gehen?</p><lb/>
+<p>O verehrter Mann, entgegnete die Frau, Sie<lb/>
+wissen längst, daß eine solche von Jhnen mir dargebo-<lb/>
+tene Veränderung meiner Wohnung für mich nur eine<lb/>
+neue Freude sein kann; aber welche Unbescheidenheit,<lb/>
+welcher Misbrauch Jhrer Güte &#x2014; &#x2014;</p><lb/>
+<p>Also, unterbrach Zillmer abermals, Sie können<lb/>
+mir den Freundschaftsdienst nicht erweisen und ich soll<lb/>
+vielleicht die liederlichen Schmelzer's &#x2014; denn anders<lb/>
+Jemand wüßte ich nicht im Dorfe &#x2014; in mein Gehöfte<lb/>
+aufnehmen, um den Bock zum Gärtner zu setzen? Ei,<lb/>
+ei, Freundin, ich dächte doch, den Gefallen könnten<lb/>
+Sie mir thun, da Sie ja eine bessere Wohnung be-<lb/>
+kommen und ich nichts dafür fodere!</p><lb/>
+<p>So sei es denn, edler Freund, rief Frau Wirker.<lb/>
+Auch diese neue große Wohlthat wage ich anzuneh-<lb/>
+men, die Sie mir in so milder Art darbieten. Möge<lb/>
+<cb type="end"/>
+<pb facs="#f0004" n="252"/>
+<fw place="top" type="pageNum">252</fw><cb type="start"/>
+Gott Jhrem wohlthätigen Handeln den Lohn im Him-<lb/>
+mel folgen lassen!</p><lb/>
+<p>Abgemacht! sprach Zillmer. Morgen zum dritten<lb/>
+Feiertage ziehen Sie ein und Jhren Einzug wolle<lb/>
+Gott segnen!</p><lb/>
+<p>Karl sprang ellenhoch, als er mit seiner Mutter<lb/>
+nach Hause ging und Beide wurden nicht müde im<lb/>
+Lobe und Ruhme ihres edlen Wohlthäters.</p><lb/>
+<p>Jn kaum zwei Stunden war am folgenden Tage<lb/>
+<cb n="2"/>
+die Übersiedelung geschehen. Mutter und Sohn waren<lb/>
+in den neuen Räumen wie neugeboren. Sie wurden<lb/>
+von dem Besitzer des Gutes mit recht herzlichem Will-<lb/>
+kommen begrüßt.</p><lb/>
+<p>Für Frau Wirker und ihren Sohn war die Ver-<lb/>
+änderung schön und bequem. Die Pflanzenbeete ganz<lb/>
+in der Nähe, konnten sie nun jeden freien Augenblick<lb/>
+auf dieselben verwenden.</p><lb/>
+<p><ref target="nn_pfennig085_1854#Spute3"><hi rendition="#c">( Fortsetzung folgt. )</hi></ref></p></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Petra.</hi></head><lb/>
+<figure/><lb/>
+<cb type="start"/>
+<p><hi rendition="#in">P</hi>etra war die alte Hauptstadt des sogenannten stei-<lb/>
+nigen oder wüsten Arabiens, mitten in einem engen,<lb/>
+aber wasserreichen Felsenthale in der Nähe des Berges<lb/>
+Hor, auf dem angeblich Aaron begraben sein soll.<lb/>
+Lange waren die Ueberreste dieser alten Handelsstadt<lb/>
+den Europäern ganz unbekannt, bis der berühmte Rei-<lb/>
+<cb n="2"/>
+sende Burckhardt sie näher untersuchte. Die glänzend-<lb/>
+sten Überreste gehören einem Tempel an, der hier ab-<lb/>
+gebildet ist und der im Munde der eingeborenen Ara-<lb/>
+ber &#x201E;Schatzhaus Pharao's&#x201C; heißt. Man sehe die Be-<lb/>
+schreibung desselben im Pfennig=Magazin, Jahrgang<lb/>
+1836, Nr. 191.</p></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<pb facs="#f0005" n="253"/>
+<fw place="top" type="pageNum">253</fw><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Tempel von Tritchengour.</hi></head><lb/>
+<figure/><lb/>
+<cb type="start"/>
+<p><hi rendition="#in">D</hi>er Tempel von Tritchengour gehört zum Complexe<lb/>
+der merkwürdigen Gebäude, welche in Jndien, dem<lb/>
+ältesten und bekannten Sitze der menschlichen Cultur,<lb/>
+noch jetzt in ungeheuern Ruinen vorhanden sind. Auch<lb/>
+wenn jetzt ihre Bestimmung erloschen ist und für ihre<lb/>
+<cb n="2"/>
+Erhaltung nichts mehr gethan wird, werden sie noch<lb/>
+Jahrtausende ein Zeugniß des hohen Standpunktes<lb/>
+bleiben, auf welchen sich die Baukunst der Hindus er-<lb/>
+hoben hatte, und Abbilder des Cultus, der sonst das<lb/>
+Bindemittel dieses Volkes war.</p></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Unwesen der Flagellanten oder Geißelbrüder in Deutschland im spätern Mittelalter.</hi></head><lb/>
+<cb type="start"/>
+<p><hi rendition="#in">E</hi>s war um die Mitte des 14. Jahrhunderts, als ein<lb/>
+gar unheimlicher Gast, die Pestilenz oder der schwarze<lb/>
+Tod geheißen, von Asien nach Europa übersiedelte und<lb/>
+allenthalben mit einer Heftigkeit wüthete wie nimmer<lb/>
+zuvor, nie hernachmals wieder, einem Würgengel<lb/>
+gleich Land für Land durchziehend. Durch entsetzliche<lb/>
+Erdbeben, ungeheure Überschwemmungen, verdorbene<lb/>
+Luft und Miswachs war dieses Weltsterben erzeugt<lb/>
+und seine Aufnahme überall vorbereitet. Die Erde<lb/>
+war erkrankt; da siechten auch ihre Bewohner und star-<lb/>
+ben dahin!</p><lb/>
+<p>Deutschland besonders, wohin die Seuche im Jahre<lb/>
+1349 zuerst gelangte, war lange Zeit der Schauplatz<lb/>
+ihrer verheerenden Wirkungen, die zu schildern gleich-<lb/>
+zeitige Schriftsteller kaum Worte zu finden vermögen.<lb/>
+&#x201E;Man mende, id were de leste dag!&#x201C; sagt einer der-<lb/>
+selben, der Verfasser der magdeburgischen Schöppen-<lb/>
+chronik, und sein Zeugniß ist um so vollgültiger, als<lb/>
+gerade zu Magdeburg die Krankheit beinahe ein Jahr<lb/>
+lang ohne Unterbrechung die ungeheuersten Verwüstun-<lb/>
+<cb n="2"/>
+gen anrichtete. Opfer auf Opfer raffte sie dahin; kein<lb/>
+Alter, kein Stand, keine Familie blieb verschont, ja<lb/>
+viele der letztern starben völlig aus. Zuletzt boten die<lb/>
+Kirchhöfe nicht Raum genug, die vielen Todten auf-<lb/>
+zunehmen, und diese wurden daher täglich auf zwei<lb/>
+Karren und einem Wagen zur Stadt hinausgeschafft,<lb/>
+wo man sie in große Gruben warf. <note place="foot" n="*)"><p>Zu Erfurt begrub man, nachdem bereits alle Kirch-<lb/>
+höfe der Stadt über und über mit Leichen angefüllt waren,<lb/>
+die man nicht einmal gezählt hatte, noch 12,000 Menschen<lb/>
+in 11 großen Gruben vor der Stadt. Ebenso verlor die<lb/>
+damals durch ihren Handel sehr blühende und bevölkerte<lb/>
+Stadt Lübeck an dieser Pest 9000 Menschen, von denen 1500<lb/>
+am 10. August 1349 binnen 24 Stunden hinstarben. </p><lb/>
+<p>Spangenberg endlich berichtet in seiner Mansfeldischen<lb/>
+Chronik, daß in einem Barfüßerkloster ein alt Verzeichniß<lb/>
+gefunden worden, darinn gestanden, daß in dreyen Jahren<lb/>
+allein an der Pestilentz hundert Tausend, vier und zwantzig<lb/>
+Tausend, vierhundert und vier und dreißig Barfüßer Mönche<lb/>
+sollen gestorben sein.</p></note></p><lb/>
+<cb type="end"/>
+<pb facs="#f0006" n="254"/>
+<fw place="top" type="pageNum">254</fw>       <cb type="start"/>
+<p>Der Leser wolle uns jedoch die weitere Ausführung<lb/>
+dieses grausigen Bildes erlassen, welchem die Schrecken<lb/>
+der nur erst überstandenen Choleraepidemie kaum zur<lb/>
+Seite gestellt werden können. Ebenso berühren wir<lb/>
+auch nur vorübergehend, wie dies große Sterben an<lb/>
+verschiedenen Orten leider zu einer mehr oder minder<lb/>
+grausamen Verfolgung der Juden Veranlassung gab,<lb/>
+welche durch Vergiftung der Quellen und Brunnen<lb/>
+sowie durch andere böse Mittel die Seuche hervorgeru-<lb/>
+fen haben sollten und darum von dem fanatischen und<lb/>
+nach den Schätzen und Reichthümern der Kinder Jsraels<lb/>
+lüsternen Pöbel mit wahrhaft empörender Wuth ge-<lb/>
+martert wurden. Eine andere, höchst merkwürdige Er-<lb/>
+scheinung im Gefolge der Pestnoth ist es vielmehr,<lb/>
+welche in fast noch höherm Grade als jene Verfolgun-<lb/>
+gen unsere Aufmerksamkeit in Anspruch zu nehmen<lb/>
+geeignet ist; wir meinen die Überhandnahme und das<lb/>
+Unwesen der Flagellanten oder Geißler in Deutschland<lb/>
+um jene Zeit.</p><lb/>
+<p>Als Begründer dieser Sekte wird der Einsiedler<lb/>
+Rainer zu Perugia um das Jahr 1260 genannt, der<lb/>
+aus Mistrauen gegen die kirchlichen Heilmittel durch<lb/>
+Geißeln Sündenvergebung zu erlangen hoffte. Und<lb/>
+wie nun nichts ansteckender ist als religiöse Schwär-<lb/>
+merei, so konnte es nicht fehlen, daß er sehr bald fast<lb/>
+an allen Orten Jtaliens zahlreiche Anhänger fand.<lb/>
+Ein Jahr später ( 1261 ) brachen dieselben schon in meh-<lb/>
+ren Scharen über die Alpen in Deutschland ein und<lb/>
+fanden auch hier, namentlich im Elsaß, in Baiern,<lb/>
+Böhmen und Polen viele Nachahmer. So sehr indeß<lb/>
+das Volk dieser neuen Brüderschaft anhing, so wenig<lb/>
+fand sie die Billigung der Fürsten und der höhern<lb/>
+Geistlichkeit, deren entschiedenem Auftreten gegen das<lb/>
+allerdings zum Theil äußerst anstößige Thun und Trei-<lb/>
+ben der Geißler es denn auch gelang, die Sekte bei-<lb/>
+nahe völlig zu unterdrücken. Fast hundert Jahre spä-<lb/>
+ter erst, eben als die furchtbare Pest immer weiter in<lb/>
+Deutschland sich verbreitete, zeigten sich wiederum Geiß-<lb/>
+ler daselbst, und der Wahn, daß Gott jene Krankheit<lb/>
+über das menschliche Geschlecht als Strafe für dessen<lb/>
+Sünde verhängt habe und der vermeintliche Zorn des<lb/>
+höchstens Wesens nur durch harte Büßungen versöhnt<lb/>
+werden könnte, verschaffte der Brüderschaft aufs neue<lb/>
+ungeheuern Zulauf. Leute aus den verschiedensten<lb/>
+Ständen, selbst Priester und Mönche, Weltliche von<lb/>
+Adel und andere mehr versammelten sich zu ihnen.<lb/>
+Wer in die Brüderschaft eintrat, mußte sich wenigstens<lb/>
+34 Tage bei ihnen zu bleiben verpflichten, da sie sich<lb/>
+stets je 33 Tage lang nach der Zahl der 33 Lebens-<lb/>
+jahre Christi zwei mal täglich abgeißelten. Sie näh-<lb/>
+ten sich rothe Kreuze auf ihre meist weißen Kleider,<lb/>
+auch vorn und hinten auf ihre Hüte &#x2014; daher sie auch<lb/>
+Kreuzbrüder genannt wurden &#x2014;, und hielten in der<lb/>
+Regel in feierlicher Procession paarweise, unter Glocken-<lb/>
+geläute und Vortragung ihrer seidenen oder purpurnen<lb/>
+und schön gestickten Fahnen ihren Einzug in den ver-<lb/>
+schiedenen Orten. Da sie sagten, daß sie keine Frauen-<lb/>
+zimmer anrühren dürften, so mußten sich die Einwoh-<lb/>
+nerinnen von der Procession entfernt halten. Sie san-<lb/>
+gen auf ihrem Zuge ein langes Lied ganz im Geiste<lb/>
+jenes finstern Zeitalters, dessen Anfang etwa so lautete:</p><lb/>
+<lg>           <l>Nun tretet her die bussen wollen,</l><lb/>
+<l>Fliehen wir denn die heisse helle,</l><lb/>
+<l>Lucifer ist ein böß geselle.</l><lb/>
+<l>Wen er dann behafet,</l><lb/>
+<l>Mit heissem pech er ihn labet.</l><lb/>
+<l>Darumb fliehen wir mit ihm zu sein,</l><lb/>
+<l>Und vermeiden der hellen Pein.</l><lb/>
+<l>Wer diese busse nun wil pflegen,</l><lb/>
+<cb n="2"/>
+<l>Der soll gelten und wieder geben.</l><lb/>
+<l>So wird seine sünde gebußt,</l><lb/>
+<l>Und sein letztes ende gut.</l></lg><lb/>
+<p>Wenn sie nun auf Kirchhöfe oder andere geräu-<lb/>
+mige Plätze kamen, so bildeten sie einen weiten Kreis,<lb/>
+in dessen Mitte sie ihre Kleider bis auf das Unterkleid,<lb/>
+sowie die Schuhe ablegten. Ein Tuch oder weißes<lb/>
+Hemd hing um die Hüften und Lenden her bis auf<lb/>
+die Füße herab, sodaß der untere Theil des Körpers<lb/>
+ganz damit bedeckt, der obere Theil aber bis an den<lb/>
+Gürtel entblößt war. So gingen sie im Kreise herum<lb/>
+und legten sich dann auf die Erde nieder, jeder, nach-<lb/>
+dem er gesündigt hatte, in einer andern Stellung, so-<lb/>
+daß man eines Jeden Sünde leicht erkennen konnte.<lb/>
+War er ein Meineidiger, so legte er sich auf die Seite<lb/>
+und reckte die Finger in die Höhe; war er ein Ehe-<lb/>
+brecher, so legte er sich auf den Bauch; war er ein<lb/>
+Vollsäufer, so setzte er die Hand an den Mund, als<lb/>
+ob er tränke; war er ein falscher Spieler, so machte<lb/>
+er es mit der Hand, als wenn er Würfel darin hätte;<lb/>
+die Mörder aber legten sich wie todt auf den Rücken.<lb/>
+Alsdann schritt ihr Meister über Jeden hinweg, be-<lb/>
+rührte ihn mit der Geißel und sang dabei folgende<lb/>
+Verse:</p><lb/>
+<lg>           <l>Steh' auf durch der reinen Marter Ehre,</l><lb/>
+<l>Und hüte dich vor der Sünden mehre.</l></lg><lb/>
+<p>Jn dieser Weise schritt er über sie Alle dahin;<lb/>
+dann erhob sich einer nach dem andern wieder und<lb/>
+schritt dem Meister nach, bis zuletzt Alle aufgestanden<lb/>
+waren. Hierauf sangen sie:</p><lb/>
+<lg>         <l>Nun hebet up all' juwe Hände,</l><lb/>
+<l>Dat Gott das grote Sterben wende;</l><lb/>
+<l>Nun hebet up all juwe Arme,</l><lb/>
+<l>Dat sich Gott öwer ju erbarm!</l></lg><lb/>
+<p>und schlugen sich mit ihren Geißeln von dreifachen<lb/>
+Riemen, welche vorn Knoten hatten, in denen entwe-<lb/>
+der scharfe Nadeln oder vier eiserne Stacheln kreuzweis<lb/>
+befestigt waren. Damit peitschten sie sich heftig bis<lb/>
+aufs Blut; einzelne jedoch trieben es beiweitem nicht<lb/>
+so arg, sondern schlugen sich so sanft, daß sie es kaum<lb/>
+gefühlt haben mögen. Wenn sie also sich gegeißelt<lb/>
+und ihre Bußlieder gesungen hatten, las einer von ih-<lb/>
+nen einen Brief vor, den, wie sie vorgaben, ein En-<lb/>
+gel vom Himmel herabgebracht haben sollte und in<lb/>
+welchem geschrieben stand, wie Gott erzürnt wäre über<lb/>
+die Sünden der Welt und wie er sie habe wollen un-<lb/>
+tergehen lassen; wie aber seine Mutter und seine Engel<lb/>
+ihn um Erbarmen gebeten hätten u. s. w.</p><lb/>
+<p>Hierauf kleideten sie sich wieder an; dann aber tra-<lb/>
+ten die Bürger zu ihnen heran und baten sie Alle<lb/>
+mildthätig zu Tische; der eine nahm zwei, der andere<lb/>
+drei, ein dritter vier oder wol noch mehr mit sich,<lb/>
+wie er es ausführen konnte. Vor dem Hause, in<lb/>
+welches sie geladen waren, fielen sie erst auf ihre<lb/>
+Knien nieder und verrichteten ihr Gebet. Sie baten<lb/>
+um nichts; was man ihnen aber freiwillig gab, das<lb/>
+nahmen sie dankbar an.</p><lb/>
+<p>Bei dieser scheinbaren Heiligkeit waren sie indeß<lb/>
+dennoch nicht rein von Verbrechen; auch erlaubten sich<lb/>
+die zum größten Theile ungelehrten, einfältigen Leute<lb/>
+in ihrer Geißelbuße nicht selten Eingriffe ins Predigt-<lb/>
+amt. Jhre Meinungen und Äußerungen von den<lb/>
+Mönchen, den Geistlichen und den Sacramenten der<lb/>
+Kirche waren anstößig und nur sehr schwer ließen sie<lb/>
+sich zurechtweisen.</p><lb/>
+<p>Da aber endlich sogar die Weiber hin und wieder<lb/>
+in großer Menge anfingen, in Procession umherzuzie-<lb/>
+<cb type="end"/>
+<pb facs="#f0007" n="255"/>
+<fw place="top" type="pageNum">255</fw><cb type="start"/>
+hen und sich zu geißeln, wobei sie zwar ihr Gesicht<lb/>
+verhüllten, die Brust und den untern Theil des Kör-<lb/>
+pers vom Gürtel an mit Leinwand bedeckten, den<lb/>
+Rücken indeß ganz bloßließen; da die Flagellanten auf<lb/>
+diese Art überhaupt der öffentlichen Ruhe und Sittlich-<lb/>
+keit immer gefährlicher zu wrrden anfingen, so muß-<lb/>
+ten sie zuletzt überall auf Widerstand stoßen, auch da,<lb/>
+wo sie zuerst die günstigste Aufnahme gefunden hat-<lb/>
+ten. So verbot z. B. Kaiser Karl <hi rendition="#aq">IV</hi>. den Bettel-<lb/>
+mönchen und Geistlichen, sich unter die Geißelbrüder<lb/>
+zu mischen; Bischof Friedrich von Regensburg ver-<lb/>
+dammte die Buße der Flagellanten nach reiflicher Über-<lb/>
+legung und auf den Rath gelehrter und rechtskundiger<lb/>
+Männer. Erzbischof Otto von Magdeburg verbot die<lb/>
+Geißelfahrt in seinem Gebiete bei Strafe an Leib und<lb/>
+Gut und ebenso untersagte auch Bischof Johann <hi rendition="#aq">IV.</hi><lb/>
+in Lübeck die Geißelaufzüge.</p><lb/>
+<p>Zuletzt vernichtete Papst Clemens <hi rendition="#aq">VI</hi>. ihre Ver-<lb/>
+bindungen oder Brüderschaften, verbot ihr weiteres Um-<lb/>
+herziehen und befahl, sie überall in den Bann zu thun<lb/>
+und gefangen zu nehmen, wo sie sich blicken ließen.<lb/>
+Nun verloren sie sich bald von selbst und das Unwe-<lb/>
+sen hatte damit ein Ende.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Speisezettel von einem Festmahle des 15. Jahr-<lb/>
+hunderts.</hi></head><lb/>
+<p><hi rendition="#in">A</hi>ls Bischof Ruprecht aus Baiern, ein Sohn des<lb/>
+Herzogs Steffens und Kaiser Ruprecht's Enkel, Bi-<lb/>
+schof worden, trug man Dinstags vor St. Velten Tag<lb/>
+im Jahr 1499 folgend Essen und frembde Tracht uff.</p><lb/>
+<p>&#x201E;Dem Bischoff bracht man ein Gebachnes; das was<lb/>
+ein Schloß oder Burg, so groß als ein Sester. <note place="foot" n="*)">Sester, ein großes Weingefäß, wie es namentlich in<lb/>
+der Schweiz gebraucht wird.</note> Da<lb/>
+that der Bischoff am gebachen Schloß ein Fensterlein<lb/>
+uff; da flogen Vögelein herus; dornach thet er ein<lb/>
+Thürlein uff, do was ein Weyherlein darin gemacht,<lb/>
+das lief voll lebendiger Fischlein.</p><lb/>
+<p>Dornach bracht man jm ein ander Tracht, das<lb/>
+was ein Spinnfärlein gebraten, halber vergült und<lb/>
+halber versilbert. Zum dritten Eßen einen gebratenen<lb/>
+Pfawen mit sinen Federn.</p><lb/>
+<p>Es aßen auch in dem einen Saal mehr dann 300<lb/>
+Priester, und man gab jnen drey Geng und jedesmal<lb/>
+fünf Trachte, und was jedes Eßen anders, dann das<lb/>
+ander.</p><lb/>
+<list><head>Der erste Gang:</head><lb/>
+<item>1. Ein Kraut.</item><lb/>
+<item>2. Rindfleisch.</item><lb/>
+<item>3. Wüß Mandeln und Hüner darin.</item><lb/>
+<item>4. Schwarz Gallery Fisch.</item><lb/>
+<item>5. Pastet von Fladen.</item></list><lb/>
+<list><head>Der ander Gang:</head><lb/>
+<item>1. Schwarz Pfeffer, darin Schweinen-<lb/>
+Wildpret.</item><lb/>
+<item>2. Gebratenes von einem Hirs.</item><lb/>
+<item>3. Ein grünes Muoß mit braunem Zucker.</item><lb/>
+<item>4. Ein gefärbt Gebachenes.</item><lb/>
+<item>5. Ein Eßen was weiß und gel und lind<lb/>
+zu eßen.</item></list><lb/>
+<list><head>Der dritte Gang:</head><lb/>
+<item>1. Reiß mit Zucker besäet.</item><lb/>
+<item>2. Kappen, Hüner, Spinnfärlein gebraten.</item><lb/>
+<cb n="2"/>
+<item>3. Galry, darin Hüner und Kalbfleisch, und<lb/>
+Soß dabey.</item><lb/>
+<item>4. Gebachenes wie Regelsbieren.</item><lb/>
+<item>5. Quetzgen und Pflaumen.</item></list><lb/>
+<p>Es gingen auch vor dem Tisch acht Propheten,<lb/>
+die hetten ire Reimen und Sprüche, waren auch be-<lb/>
+kleidet wie die Propheten, hetten auch in iren Henden<lb/>
+allerley Saitenspiel und spielten vor dem Tisch.</p><lb/>
+<p>Die von Straßburg schenkten dem Bischoff 700<lb/>
+Goldgulden, 8 Fuder Wein, 100 Viertel Haber, auch<lb/>
+8 Ochsen und wurde sunst zu diese Panket 40 Kälber<lb/>
+gemetzigt.&#x201C;</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Die Condorjagd in Chile.</hi></head><lb/>
+<p><hi rendition="#in">M</hi>an macht von Strauchwerk einen Zaun von eini-<lb/>
+gen Fuß Höhe nach Art eines Pferchs, in welchen<lb/>
+Schafe eingeschlossen werden und legt in dessen Mitte<lb/>
+ein todtes Pferd oder Maulthier. Es dauert gar nicht<lb/>
+lange, so wittern die Raubvögel das Aas; denn sie<lb/>
+haben einen so feinen Geruch, daß sie es auf einige<lb/>
+Meilen weit spüren. Der ganze umzäunte Raum füllt<lb/>
+sich allmälig mit Condors; sie halten tüchtig Mahlzeit<lb/>
+und stopfen sich so voll, daß sie sich nicht gut erheben<lb/>
+können. Nun springen die versteckt gewesenen Leute<lb/>
+herzu, schließen die Pforte und fangen an, den Feind<lb/>
+mit tüchtigen Keulen zu bearbeiten. Die Condors ha-<lb/>
+ben nicht den nöthigen Platz, um ihre Flügel zu ent-<lb/>
+falten und sich emporzuschwingen; sie fliehen aus einer<lb/>
+Ecke in die andere, werfen sich auch wol auf ihre Ver-<lb/>
+folger, denen sie manche Schramme beibringen, müssen<lb/>
+aber zuletzt doch ihre Zeche mit dem Leben bezahlen.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1"><figure><head><hi rendition="#fr">Zweig vom Orangebaum.</hi></head><lb/>
+<p>Vergleiche Pfennig=Magazin, Jahrgang 1835, Nr. 43,<lb/>
+Jahrgang 1836, Nr. 150.</p></figure></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<cb type="end"/>
+<pb facs="#f0008" n="256"/>
+<fw place="top" type="pageNum">256</fw><lb/>
+<div n="1" type="jVarious"><head><hi rendition="#fr"><hi rendition="#g">Mannichfaltiges</hi>.</hi></head>       <cb type="start"/>
+<div n="2" type="jArticle"><p>Ursprung des studentikosen Namens: Philister.<lb/>
+Als auf der Universität Prag die hussitische Schwärmerei<lb/>
+aufkam und die Neugläubigen sich ausschließlich als &#x201E;Volk<lb/>
+Gottes&#x201C; zu denken liebten, gaben sie den ihnen gegenüber-<lb/>
+stehenden Gegnern und Neutralen die Namen: Philister,<lb/>
+Ammoniter, Moabiter u. s. w. Der erstere Name ward der<lb/>
+gewöhnlichste. Doch hat man auch noch eine andere Ablei-<lb/>
+tung. Die Universitätsstadt Paris hatte ehedem ein zur Ver-<lb/>
+pflegung von Pilgrimen bestimmtes Hospital und die Hospi-<lb/>
+taliten, welche fleißig von den Studenten besucht und belacht<lb/>
+wurden, erhielten wegen ihres oft abenteuerlichen und mal-<lb/>
+propren Aussehens den Spottnamen <hi rendition="#aq">Belistres</hi> =- schmuzige<lb/>
+Tölpel, Vogelscheuchen u. s. w. Die geduldigen <hi rendition="#aq">Belistres</hi> wur-<lb/>
+den die Stammväter des weitverbreiteten Philistervolks.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Schildkrötengerippe zu Hunderten, ja Tausenden fin-<lb/>
+det der Wanderer auf der südwestlichen Seite der Jnsel Java.<lb/>
+Hier werden nämlich die Schildkröten auf ihren nächtlichen<lb/>
+Wanderungen vom Saume des Meers bis zu den Dünen die<lb/>
+Beute der wilden Hunde auf Java, welche die Eingeborenen<lb/>
+Andijng adjag nennen. Diese kommen in Trupps von 40<lb/>
+&#x2014;50 Stück, packen die Schildkröte an allen zugänglichen<lb/>
+Stellen ihres umpanzerten Körpers an, zerren an den Fü-<lb/>
+ßen, am Kopfe, an den Beinen und wissen durch ihre ver-<lb/>
+einigte Kraft das Thier, ungeachtet seiner Größe, umzu-<lb/>
+wälzen, bis es auf den Rücken zu liegen kommt. Dann fan-<lb/>
+gen sie an allen Enden an zu nagen, reißen die Bauchschil-<lb/>
+der auf und halten an den Eingeweiden, dem Fleische und<lb/>
+den Eiern ihr blutiges Mahl. Viele Schildkröten entfliehen<lb/>
+ihrer Wuth und erreichen, oft die zerrenden Hunde hinter<lb/>
+sich herschleppend, glücklich das Meer. Aber nicht immer ver-<lb/>
+zehren die Hunde ihre Beute in Ruhe. Jn manchen Näch-<lb/>
+ten geschieht es, daß der Herr der Wildniß, der Königs-<lb/>
+tiger, aus dem Walde hervorbricht, einen Augenblick still-<lb/>
+hält, stutzt, mit funkelnden Augen den Strand überspäht,<lb/>
+dann leise hervorschleicht und endlich mit <hi rendition="#g">einem</hi> Satze, be-<lb/>
+gleitet von einem dumpfschnaufenden Geknurr, unter die<lb/>
+Hunde springt.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Das Städtlein Elz im Nassauischen ist die Heimat<lb/>
+sehr vieler Seitänzer und Harfenmädchen, die von da in<lb/>
+alle Welt ausziehen, ihre halsbrechenden Künste zu zeigen.<lb/>
+Der Patriarch dieser Seiltänzer war lange Jahre ein ge-<lb/>
+wisser Müller, um den sich einmal im Jahre, zur Zeit der<lb/>
+Kirchweihe, das ganze lustige springende und singende Völk-<lb/>
+chen zu sammeln pflegte. Es beginnt dann im Orte ein gar<lb/>
+lustiges Leben; es wechseln fröhliche Gelage, Tanz und Sai-<lb/>
+tenspiel, aber keiner der Eingeborenen spielt auf, das finden<lb/>
+sie unter ihrer Würde. Jn diesen Glanztagen wollen sie nur<lb/>
+<cb n="2"/>
+bedient sein und freigebig werfen sie den fremden Spielleu-<lb/>
+ten ihre blanken Thaler zu.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Die Schönheit der rauhen Erdzone. &#x201E;Es läßt sich<lb/>
+nichts Malerischeres denken&#x201C; &#x2014; schreibt Capitän Berthold<lb/>
+Seemann &#x2014; &#x201E;als die vom Vollmond beleuchtete Awatscha-<lb/>
+Bai. Klippen ragen in kühnen Umrissen empor, kegelför-<lb/>
+mige Vulkane thürmen sich zum Himmel auf und werfen<lb/>
+lange Schatten über die Thäler; die mächtige Wasserdecke<lb/>
+breitet sich aus wie ein Binnensee. Es ist ein erhabener<lb/>
+Anblick. Aber wie mächtig ergreifend er ist, so verschwin-<lb/>
+det er doch vor dem Schauspiel, das sich entfaltet, wenn die<lb/>
+Sonne hinter den Schneegipfeln der Berge emporsteigt. Das<lb/>
+ganze höhere Land scheint <hi rendition="#g">ein</hi> Feuerballen zu sein und der<lb/>
+Zuschauer wähnt sich von einem Zauber befangen, bis der<lb/>
+gänzliche Eintritt des Tageslichts die Täuschung zerstört und<lb/>
+ihn auf einmal wieder in das nüchterne Leben zurückwirft.&#x201C;</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Die Kalongs ( <hi rendition="#aq">Pteropis edulis L</hi>. ) , die sogenannten<lb/>
+fliegenden Hunde, sieht man in den Wäldern Javas zu Tau-<lb/>
+senden. Jn ungeheuern Scharen hängen sie, den Kopf zu<lb/>
+unterst, an den Bäumen; in der glühend heißen Sonne ha-<lb/>
+ben sie da ihren unveränderlichen Verbleib. Nur zuweilen,<lb/>
+wenn einer von dem andern verdrängt wird, sieht man sie<lb/>
+einen Augenblick herumflattern; sonst hängen sie, wie festge-<lb/>
+hakt, unbeweglich still, bis der einbrechende Abend sie zu<lb/>
+ihren nächtlichen Zügen ruft. Dann fliegen sie als riesen-<lb/>
+mäßige Fledermäuse durch die Luft. Wie sonderbar sieht ein<lb/>
+Feigen=, Dadap= oder Kapokbaum aus! Abgestorben, von<lb/>
+allem Laube entblößt, scheinen doch Hunderte ungeheurer<lb/>
+schwarzer Früchte herabzuhängen. Aber diese Früchte regen<lb/>
+sich hier und da, krümmen sich und lassen ein leises Gepiep<lb/>
+hören. Das sind denn die Kalongs, die sich aber schon aus<lb/>
+weiter Ferne durch einen penetranten ammoniakalischen Ge-<lb/>
+ruch zu erkennen geben.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Napoleon <hi rendition="#aq">III</hi>. ist ein firmer Schwimmer und im Rei-<lb/>
+ten hat er es zu wahrer Meisterschaft gebracht. Als er sich,<lb/>
+15 Jahre alt, bei seiner Tante, der Großherzogin Stepha-<lb/>
+nie in Manheim zum Besuch befand, machte er sich eines<lb/>
+Tages bei einer Spazierfahrt den Spaß, eben als er auf der<lb/>
+Mitte der Neckarbrücke fuhr, plötzlich den Wagenschlag zu<lb/>
+öffnen und Angesichts der ihn begleitenden Prinzessinnen, wie<lb/>
+er war, in den Neckar zu springen. Noch hatten sich die<lb/>
+entsetzten Fürstentöchter von dem fürchterlichen Schrecken nicht<lb/>
+erholt, da war der muthwillige Wagehals schon wieder da.<lb/>
+Er war im Nu an das Ufer geschwommen und erwartete,<lb/>
+von Wasser triefend, seine Bäschen. </p></div></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jAnnouncements"><head><hi rendition="#fr"><hi rendition="#g">Ankündigungen</hi>.</hi></head><lb/>
+<cb type="start"/>
+<div n="2" type="jAn"><figure/><lb/>
+<cb n="2"/>
+<p>Diese rühmlichst bekannten <hi rendition="#aq">Pates Pectorales,</hi><lb/>
+ein bewährtes Linderungsmittel bei Brustleiden aller<lb/>
+Art, Husten, Schnupfen, Katarrh <choice><abbr>ec.</abbr></choice>, werden verkauft<lb/>
+in Leipzig bei</p><lb/>
+<p> <space dim="horizontal"/>  <hi rendition="#fr">L. Tilebein,</hi><lb/>
+<space dim="horizontal"/>   Conditor in der Centralhalle. </p></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/></div><lb/>
+</body>     <back><div n="1" type="imprint"><p><hi rendition="#c">Verantwortlicher Redacteur: <hi rendition="#aq">M</hi>. J. E. Volbeding. &#x2014; Druck und Verlag von F. A. Brockhaus in Leipzig.</hi></p></div>     </back>   </text> </TEI>

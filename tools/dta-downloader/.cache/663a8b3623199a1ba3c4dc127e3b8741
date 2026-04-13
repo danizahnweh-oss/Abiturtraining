@@ -1,0 +1,939 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.deutschestextarchiv.de/basisformat.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">     <teiHeader>
+<fileDesc>
+<titleStmt>
+<title type="main">Das Pfennig-Magazin für Belehrung und Unterhaltung</title>
+<title type="sub">Dritte Folge, Dritter Jahrgang, Nr. 118</title>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/115266127">
+<surname>Geyken</surname>
+<forename>Alexander</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1222198746">
+<surname>Haaf</surname>
+<forename>Susanne</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1019062681">
+<surname>Jurish</surname>
+<forename>Bryan</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Boenig</surname>
+<forename>Matthias</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Thomas</surname>
+<forename>Christian</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Wiegand</surname>
+<forename>Frank</forename>
+</persName>
+</editor>
+<respStmt>
+<orgName>Institut für Deutsche Sprache, Mannheim</orgName>
+<resp>
+<note type="remarkResponsibility">Bereitstellung der Bilddigitalisate und TEI
+Transkription</note>
+<ref target="http://hdl.handle.net/10932/00-01B8-B0C1-27D0-5401-A"/>
+</resp>
+</respStmt>
+<respStmt>
+<persName>
+<forename>Peter</forename>
+<surname>Fankhauser</surname>
+</persName>
+<resp>
+<note type="remarkResponsibility">
+Transformation von TUSTEP nach TEI P5.
+Transformation von TEI P5 in das DTA TEI P5 Format.
+</note>
+</resp>
+</respStmt>
+<respStmt>
+<orgName ref="https://www.bbaw.de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<resp>
+<note type="remarkResponsibility">Langfristige Bereitstellung der DTA-Ausgabe</note>
+<ref target="https://www.bbaw.de"/>
+</resp>
+</respStmt>
+</titleStmt>
+<editionStmt><edition>Vollständige digitalisierte Ausgabe.</edition></editionStmt>
+<extent>
+<measure type="images">8</measure>
+<measure type="tokens">5216</measure>
+<measure type="types">2233</measure>
+<measure type="characters">36015</measure>
+</extent>
+<publicationStmt>
+<publisher xml:id="DTACorpusPublisher">
+<email>dta@bbaw.de</email>
+<orgName role="project">Deutsches Textarchiv</orgName>
+<orgName role="hostingInstitution" xml:lang="en">Berlin-Brandenburg Academy of Sciences and Humanities (BBAW)</orgName>
+<orgName role="hostingInstitution" xml:lang="de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<address>
+<addrLine>Jägerstr. 22/23, 10117 Berlin</addrLine>
+<country>Germany</country>
+</address>
+</publisher>
+<pubPlace>Berlin</pubPlace>
+<date type="publication">2025-10-24T08:35:16Z</date>
+<availability>
+<licence target="http://creativecommons.org/publicdomain/zero/1.0/">
+<p>Dieses Werk steht unter der "Creative Commons Namensnennung -
+Nicht kommerziell 3.0 Deutschland Lizenz" (CC BY-NC).</p>
+</licence>
+</availability>
+<idno>
+<idno type="URLWeb">https://www.deutschestextarchiv.de/nn_pfennig118_1855</idno>
+<idno type="URLXML">https://www.deutschestextarchiv.de/book/download_xml/nn_pfennig118_1855</idno>
+<idno type="URLHTML">https://www.deutschestextarchiv.de/book/download_html/nn_pfennig118_1855</idno>
+<idno type="URLText">https://www.deutschestextarchiv.de/book/download_text/nn_pfennig118_1855</idno>
+<idno type="DTADirName">nn_pfennig118_1855</idno>
+<idno type="DTAID">34750</idno>
+<idno type="URN">urn:nbn:de:kobv:b4-34750-1</idno>
+</idno>
+</publicationStmt>
+<sourceDesc>
+<bibl type="J">Das Pfennig=Magazin für Belehrung und Unterhaltung. Dritte Folge, Dritter Jahrgang, Nr. 118. Leipzig (Sachsen), 5. April 1855.</bibl>
+<biblFull>
+<titleStmt>
+<title level="m" type="main">Das Pfennig-Magazin für Belehrung und Unterhaltung</title>
+<title level="m" type="sub">Dritte Folge, Dritter Jahrgang, Nr. 118</title>
+</titleStmt>
+<editionStmt>
+<edition n="1"/>
+</editionStmt>
+<publicationStmt>
+<publisher/>
+<pubPlace>Leibzig (Sachsen)</pubPlace>
+<date type="publication">1855</date>
+</publicationStmt>
+</biblFull>
+<msDesc>
+<msIdentifier/>
+<physDesc>
+<typeDesc>
+<p>Fraktur</p>
+</typeDesc>
+</physDesc>
+</msDesc>
+</sourceDesc>
+</fileDesc>
+<encodingDesc>
+<editorialDecl>
+<p>
+<![CDATA[
+<p>Siehe Dokumentation</p>
+]]>
+</p>
+</editorialDecl>
+<tagsDecl>
+<rendition scheme="css" xml:id="aq">font-family:sans-serif</rendition>
+<rendition scheme="css" xml:id="b">font-weight:bold</rendition>
+<rendition scheme="css" xml:id="blue">color:blue</rendition>
+<rendition scheme="css" xml:id="c">display:block; text-align:center</rendition>
+<rendition scheme="css" xml:id="et">display:block; margin-left:2em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et2">display:block; margin-left:4em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et3">display:block; margin-left:6em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="f">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="fr">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="g">letter-spacing:0.125em</rendition>
+<rendition scheme="css" xml:id="i">font-style:italic</rendition>
+<rendition scheme="css" xml:id="in">font-size:150%</rendition>
+<rendition scheme="css" xml:id="k">font-variant:small-caps</rendition>
+<rendition scheme="css" xml:id="larger">font-size:larger</rendition>
+<rendition scheme="css" xml:id="red">color:red</rendition>
+<rendition scheme="css" xml:id="right">display:block; text-align:right</rendition>
+<rendition scheme="css" xml:id="s">text-decoration:line-through</rendition>
+<rendition scheme="css" xml:id="smaller">font-size:smaller</rendition>
+<rendition scheme="css" xml:id="sub">vertical-align:sub; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="sup">vertical-align:super; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="u">text-decoration:underline</rendition>
+<rendition scheme="css" xml:id="uu">border-bottom:double 3px #000</rendition>
+</tagsDecl>
+</encodingDesc>
+<profileDesc>
+<langUsage>
+<language ident="deu">(Früh-)Neuhochdeutsch</language>
+<language ident="deu">German</language>
+</langUsage>
+<textClass>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1main">Gebrauchsliteratur</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1sub">Zeitschrift</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">ready</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">mkhz1</classCode>
+</textClass>
+</profileDesc>
+</teiHeader>
+<text>     <front>
+<pb facs="#f0001" n="[105]"/>
+<titlePage type="heading"><docTitle><titlePart type="main"><hi rendition="#c #fr">Das Pfennig=Magazin<lb/>
+für<lb/>
+<hi rendition="#g">Belehrung und Unterhaltung</hi>.</hi></titlePart></docTitle><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<docImprint><hi rendition="#fr">Nr</hi>. 118. ]              <hi rendition="#c">Dritte Folge. Dritter Jahrgang.</hi>              <docDate><hi rendition="#right">[ 5. <hi rendition="#g">April</hi> 1855.</hi></docDate>            </docImprint></titlePage><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+</front>     <body>       <div n="1"><figure><head><hi rendition="#fr">Schloß Sion ( Sitten ) im Canton Wallis.</hi></head></figure></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Die Hindus.</hi></head><lb/>
+<cb type="start"/>
+<p><hi rendition="#in">J</hi>n Asien, diesseit des Ganges, breitet sich das große<lb/>
+Hindostan oder Bengalen aus, umkettet von dem un-<lb/>
+geheuern Himalayagebirge, umspült vom Arabischen<lb/>
+Meere und dem Jndischen Ocean und durchzogen von<lb/>
+theils wüsten, theils aber auch paradiesischen Länder-<lb/>
+strecken. Dort hausen noch wilde Thiere in Menge,<lb/>
+dort jagt der schreckliche Königstiger durch die bewal-<lb/>
+deten und schilfigen Umgebungen der Flüsse, dort woh-<lb/>
+nen Löwen und Wölfe und Schakals lauern auf ihre<lb/>
+Beute; unzählige Affen beleben die vogelreichen Wäl-<lb/>
+der, während Zibethkatzen und Moschusthiere die nörd-<lb/>
+lichen Gebirge aufsuchen; Vampyre flattern durch die<lb/>
+Scharen buntgefiederter Vögel und Elefanten und Ka-<lb/>
+meele dienen gezähmt den Menschen; die gefräßigen<lb/>
+Riesenschlangen setzen mit gewaltigen Sprüngen über<lb/>
+die gefährlichen Brillenschlangen und giftigen Skorpione<lb/>
+hinweg, Heuschreckenschwärme ziehen wie Wolken ein-<lb/>
+her und lästige Bremsen und Mosquitos martern die<lb/>
+Bewohner des Landes. Aber die Feinde in der Thier-<lb/>
+welt werden von dem Menschen bekämpft und besiegt<lb/>
+und die reichste und üppigste Vegetation erschließt ihm<lb/>
+den reichen Segen Hindostans. Reis, Mais, Weizen,<lb/>
+<cb n="2"/>
+Gerste, Hirse, Hafer, Hülsenfrüchte und Gartenge-<lb/>
+wächse gedeihen im guten Boden; Pfeffer, Baum-<lb/>
+wolle, Opium, Jndigo, Cocosnüsse, Palmwein, Ro-<lb/>
+senöl werden mit edlen Steinen von Bengalen aus<lb/>
+über das Meer gesendet und nirgends spinnt der Sei-<lb/>
+denwurm reicher als eben in diesem Lande.</p><lb/>
+<p>Ueber 130 Millionen Menschen, vorzüglich den<lb/>
+Engländern unterworfen, bevölkern die Städte mit ih-<lb/>
+ren engen, krummen Gassen, und die Dörfer, welche<lb/>
+meist nur aus Bambushütten bestehen; nur hier und<lb/>
+da öffnet sich an dem Hause eines Reichen die Ve-<lb/>
+randa, ein Schirmdach gegen die Sonnenstrahlen, ge-<lb/>
+stützt von vielen Säulen.</p><lb/>
+<p>Neben Europäern, Armeniern, Mongolen, Ara-<lb/>
+bern, Juden und vielen andern eingewanderten Frem-<lb/>
+den wohnen in Hindostan die ursprünglichen Einwoh-<lb/>
+ner, die Hindus, der Zahl nach noch mehr als 110<lb/>
+Millionen. Jhre Gesichtsfarbe ist bräunlich gelb, ihr<lb/>
+Körper zart und wohlgebildet, ihre Haut fein und<lb/>
+weich, ihr Haar glänzend schwarz. Bei aller Zierlich-<lb/>
+keit des Körpers vermögen die Hindus weite Märsche<lb/>
+zu machen und beschämen durch ihre Ausdauer nicht<lb/>
+<cb type="end"/>
+<pb facs="#f0002" n="106"/>
+<fw place="top" type="pageNum">106</fw><cb type="start"/>
+selten die Europäer. Die Geschicklichkeit ihrer, im<lb/>
+Verhältniß zu ihrem mittelgroßen Körper wirklich klei-<lb/>
+nen Hände verdient wahre Bewunderung. Obgleich<lb/>
+ihr Handwerkszeug und Hausgeräthe äußerst einfach<lb/>
+ist, so erscheinen ihre Arbeiten doch oft recht kunstvoll;<lb/>
+ihre Zeuche weben sie ohne Maschinen mit Meister-<lb/>
+hand. An Putz und Schmuck hängen die Hindus mit<lb/>
+Leidenschaft, daher besonders die Vornehmen und die<lb/>
+Frauen neben ihrem einfachen Gewande den Körper<lb/>
+mit Edelsteinen sowie mit Fuß=, Arm= und Halsbän-<lb/>
+dern schmücken. Jn Bezug auf ihre Lebensweise wird<lb/>
+vor Allem ihre Mäßigkeit gerühmt, welche durch die<lb/>
+Religionsvorschriften der Hindus zum Gesetz gemacht<lb/>
+ist, weshalb auch der Genuß geistiger Getränke unter-<lb/>
+bleibt. Reis, Früchte und Wasser gehören zu ihren<lb/>
+Hauptnahrungsmitteln, daher es kein Wunder ist, daß<lb/>
+sie wenig von Krankheiten wissen und meist ein sehr<lb/>
+hohes Alter erreichen. Eigenthümlich ist ihre Art zu<lb/>
+trinken. Sie setzen nämlich nie ein Trinkgefäß an die<lb/>
+Lippen, sondern gießen sich jedes Getränk mit himmel-<lb/>
+wärts gerichtetem Gesicht in den offenen Mund.</p><lb/>
+<p>Der Charakter der Hindus ist mild und sanft.<lb/>
+Sie behandeln alle Fremden mit Freundlichkeit und<lb/>
+Gastfreundschaft; ihre Frauen halten sie werth; Viel-<lb/>
+weiberei findet sich nur unter den Vornehmsten und<lb/>
+Ehelosigkeit gilt ihnen als eine Schande. Daß man den<lb/>
+Hindus Feigheit, Geiz, Lüge, Hinterlist und Hang<lb/>
+zur Gemächlichkeit nicht ohne Grund nachsagen muß,<lb/>
+daran tragen einen großen Theil der Schuld die Un-<lb/>
+terjocher des Landes selbst. Sie haben die Hindus in<lb/>
+Sklaverei geschlagen, sie haben dieselben körperlich und<lb/>
+geistig bedrückt und herabgewürdigt, sie haben ihnen<lb/>
+die Strebsamkeit verkümmert und mit der Selbstän-<lb/>
+digkeit zugleich den Sinn für politische Freiheit ge-<lb/>
+raubt. Daher ist es kein Wunder, daß das Volk<lb/>
+nach und nach in Unwissenheit und Aberglauben und<lb/>
+in mancherlei Sittenverderbniß versank, daß es sich der<lb/>
+Trägheit hingab und endlich nur noch an den Tände-<lb/>
+leien der Seiltänzer und Gaukler sowie am Rauchen,<lb/>
+Betelkauen, am Schachspiel und an dem Tanze der<lb/>
+Bajaderen Geschmack fand, obgleich heute noch ihre<lb/>
+Arbeiten von einem viel reinern, bessern Sinne Zeug-<lb/>
+niß ablegen.</p><lb/>
+<p>Ungeachtet aller Unterjochungen ist man aber bis<lb/>
+heute noch nicht im Stande gewesen, den Hindus ihre<lb/>
+Vorliebe für alte Sitten und Gebräuche zu entreißen,<lb/>
+welche seit Jahrtausenden sich bei ihnen eingebürgert<lb/>
+haben. Hierher gehört auch die Eintheilung des Volks<lb/>
+in vier Hauptkasten, die so streng voneinander geschie-<lb/>
+den sind, daß kein Mitglied derselben aus einer an-<lb/>
+dern Kaste heirathen oder in irgend eine andere Kaste<lb/>
+übertreten darf. Die Geburt weist also den Hindus<lb/>
+sofort ihre Stellung an. Jede Kaste hat wieder ihre<lb/>
+besondern Abtheilungen, von welchen einige thierische<lb/>
+Nahrung genießen, andere nicht, einige ihre Todten<lb/>
+beerdigen, andere sie verbrennen, einige wol gar Wit-<lb/>
+wen lebendig begraben, während andere dieselben mit<lb/>
+den Leichen ihrer Männer verbrennen lassen oder ihnen<lb/>
+auch gestatten, sich wieder zu verheirathen.</p><lb/>
+<p>Die <hi rendition="#g">Braminen</hi> nehmen unter den Kasten den<lb/>
+ersten Rang ein. Sie sind Priester, Lehrer, Richter<lb/>
+und Staatsbeamte der Hindus und werden von diesen<lb/>
+hoch geachtet, weil sie nach ihren religiösen Vorstellun-<lb/>
+gen aus dem Haupte ihrer höchsten Gottheit, des<lb/>
+Brahm, entsprangen. Daher wird ihre Person so hei-<lb/>
+lig gehalten, daß es eine untilgbare Schuld sein würde,<lb/>
+einen Braminen zu tödten. Hat ein solcher wirklich<lb/>
+ein todeswürdiges Verbrechen begangen, so wird er nur<lb/>
+<cb n="2"/>
+selten mit dem Tode bestraft; man stößt ihn höchstens<lb/>
+aus der Kaste oder sticht ihm die Augen aus. Nur<lb/>
+nach und nach können die Braminen zu höherm Range<lb/>
+aufsteigen, wobei sie sich unter mancherlei Zwang beu-<lb/>
+gen müssen. Sie haben sich des Fleisches, der Fische<lb/>
+und Eier als Nahrungsmittel zu enthalten, müssen in<lb/>
+den heiligen Büchern studiren, unterwerfen sich andern<lb/>
+strengen Prüfungen und üben sich vor allem im<lb/>
+Schweigen. Sie sind die Obersten ihres Volks, das<lb/>
+sie am Gängelbande führen. Als Heilige verehrt, kön-<lb/>
+nen sie mit den vernachlässigten Hindus machen, was<lb/>
+ihnen beliebt. Diesen ist nicht erlaubt, in den heili-<lb/>
+gen Religionsbüchern zu lesen, daher sie nie vorwärts<lb/>
+kommen können. Leider sind gerade die Braminen die<lb/>
+sittenlosesten und heuchlerischesten Menschen unter den<lb/>
+Hindus.</p><lb/>
+<p>Nach den Braminen folgt die zweite Kaste, die der <lb/>
+<hi rendition="#g">Krieger</hi> oder <hi rendition="#g">Rajas,</hi> nach der Sage entsprungen<lb/>
+aus den Schultern und Armen des Brahm; die dritte<lb/>
+Kaste aber, aus Brahm's Leibe und Schenkel ent-<lb/>
+sprossen, sind die <hi rendition="#g">Waischis,</hi> die Landbebauer, Vieh-<lb/>
+züchter und Kaufleute, und die vierte, aus Brahm's<lb/>
+Füßen entstandene Kaste umfaßt die <hi rendition="#g">Sudras,</hi> näm-<lb/>
+lich die Handwerker und Gewerbtreibenden. Sowol<lb/>
+bei dieser als bei allen andern Kasten besteht das Ge-<lb/>
+setz, daß der Sohn werden muß, was der Vater ist<lb/>
+und war, woher es kommt, daß das Volk einerseits<lb/>
+so langsam vorwärtsschreitet und daß sich andererseits<lb/>
+in gewissen Abtheilungen desselben Kunstgriffe und Ge-<lb/>
+heimnisse forterhalten, welche für alle andere Kasten<lb/>
+ganz unzugänglich sind.</p><lb/>
+<p>Außer diesen vier Kasten findet man in Hindostan<lb/>
+noch die unglücklichen, allgemein verachteten <hi rendition="#g">Parias,</hi><lb/>
+welche fast den Thieren gleichgestellt sind. Sie dürfen<lb/>
+weder einen Tempel betreten noch neben andern Hin-<lb/>
+dus wohnen; bekommen sie ja die Erlaubniß, mit<lb/>
+einem Hindu zu reden, so müssen sie, um diesen mit<lb/>
+ihrem Athem nicht zu verunreinigen, den Mund zu-<lb/>
+halten, wenn sie nicht sofort getödtet sein wollen; sie<lb/>
+werden zu den ekelhaftesten Arbeiten verwendet und<lb/>
+nähren sich oft vom Fleische gefallener Thiere. Jhr<lb/>
+Körper ist schmuzig, ihre Hautfarbe schwarz. Die<lb/>
+Engländer werben sie an und machen aus ihnen gute<lb/>
+Soldaten.</p><lb/>
+<p>So stehen die Hindus in der Gegenwart als ein<lb/>
+herabgekommenes Volk da, während ihre Vorfahren<lb/>
+vor Jahrtausenden unstreitig zu den ideenreichsten, kräf-<lb/>
+tigsten und gebildetsten Völkern der Vorzeit gehörten.<lb/>
+Aber die Braminen haben im Laufe der Jahrhunderte<lb/>
+die tiefsinnigen, reinen Jdeen ihrer Vorfahren zu ih-<lb/>
+rem Vortheile ausgebeutet und ins Gemeine herabge-<lb/>
+zogen, sie haben durch ihre Sinnlosigkeiten die frühern<lb/>
+klaren Vorstellungen verdrängt und von dem schönen<lb/>
+Gebäude der Wissenschaften ihrer Vorältern nur noch<lb/>
+einen ärmlichen Schatten bewahrt. Und doch spricht<lb/>
+aus Allem, was den heutigen Hindus aus der grauen<lb/>
+Vergangenheit noch geblieben ist, eine unendliche Tiefe<lb/>
+des Gefühls, ein Streben nach sittlicher Vervollkomm-<lb/>
+nung und die Ahnung einer Fortdauer nach dem Tode.<lb/>
+Was mögen die alten Bewohner Hindostans gedacht<lb/>
+und gegrübelt haben, wenn von ihnen heute noch bei<lb/>
+aller Verdummung Formeln in Versen vorhanden sind,<lb/>
+nach welchen die jetzigen beschränkten Braminen ohne<lb/>
+Schreibwerkzeuge unter Benutzung kleiner Muscheln im<lb/>
+Stande sind, die Sterne nach ihrem Laufe zu berech-<lb/>
+nen, ohne dabei die alten Formeln selbst zu verstehen.<lb/>
+Zu welcher Höhe geistiger Bildung mußten die Vor-<lb/>
+ältern der Hindus gelangen, ehe sie ihre wenn auch<lb/>
+<cb type="end"/>
+<pb facs="#f0003" n="107"/>
+<fw place="top" type="pageNum">107</fw><cb type="start"/>
+noch irrthümlichen religiösen Gedanken zu einer so sinn-<lb/>
+reichen Götterlehre vereinigten, bis sie endlich auf die<lb/>
+Annahme eines höchsten, vollkommensten Wesens, des<lb/>
+Brahm, kamen, das sie sich über alles Jrdische erha-<lb/>
+ben und als unendlich glücklich dachten, von welchem<lb/>
+nach ihrer Meinung Alles ausging, zu welchem Alles<lb/>
+zurückkehrte, das die Welt beherrschte mit den von<lb/>
+ihm geschaffenen hohen und niedern Geistern!</p><lb/>
+<p>War auch die Darstellung ihrer Götterbilder oft<lb/>
+recht sonderbar, streiften auch ihre Jdeen von Kämpfen<lb/>
+zwischen bösen und guten Wesen, von den Wanderun-<lb/>
+gen der Seele zu sehr in das Gebiet des Sinnlichen<lb/>
+hinüber, so tritt doch dabei der Glaube an einen Schö-<lb/>
+pfer und Erhalter schon deutlich hervor und ihre hei-<lb/>
+ligen Bücher sind reich an Mittheilungen über Stern-<lb/>
+kunde, Rechtswissenschaft und Sittenlehre sowie über<lb/>
+Arzneikunde und Anordnungen für den Cultus. Da<lb/>
+die Hindostaner aber, wie alle alten Völker, ihre my-<lb/>
+thologischen Vorstellungen zu verkörpern strebten, so<lb/>
+folgte daraus, daß sie ihre Götterbilder meist recht<lb/>
+eigenthümlich darstellten. So ließen sie den vom Brahm<lb/>
+ausgegangenen Brama oder Schöpfer mit vier Köpfen<lb/>
+auf einem im Wasser schwimmenden Schwane sitzend<lb/>
+abbilden, während sie dem Wischnu oder Erhalter nach<lb/>
+seinen verschiedenen Verwandlungen in Menschen= und<lb/>
+Thierkörper auch sehr verschiedene Gestaltungen gaben.<lb/>
+Jhr Schiwa, der Gott der Zerstörung, hatte drei Au-<lb/>
+gen und acht Arme und wurde von Blitzen umgeben<lb/>
+dargestellt. Außer Brahm und den nächsten Gotthei-<lb/>
+ten, Brahma, Wischnu und Schiwa, nahmen die Hin-<lb/>
+dus wenigstens noch 300 Millionen niederer Wesen<lb/>
+an, welche als Schutzgeister der Menschen oder auch<lb/>
+bei Krankheiten und andern Erscheinungen auf Erden<lb/>
+thätig waren, besonders aber Wissenschaften und Künste<lb/>
+sowie das sittliche Leben der Menschen leiteten. Unter<lb/>
+den sieben als heilig verehrten Flüssen stand der Gan-<lb/>
+ges obenan, in dessen Fluten zu baden als religiöser<lb/>
+Gebrauch erschien, dessen Wasser als heilbringend ver-<lb/>
+sendet ward, zu dessen Quellen auf den Himalaya man<lb/>
+wallfahrtete. Selbst Thiere und Pflanzen wurden hei-<lb/>
+lig gehalten.</p><lb/>
+<p>Der von den Braminen geleitete Gottesdienst der<lb/>
+Hindus besteht in Opferungen, Räuchern, Waschun-<lb/>
+gen und Tänzen. Diese führten die Bajaderen aus,<lb/>
+welche theils von den Priestern erzogen und zum Tem-<lb/>
+peldienste heraufgebildet werden, theils auch bei den<lb/>
+Schmausereien der Vornehmen die Sinnenlust durch<lb/>
+ihre Tänze aufzureizen haben. Die Tempel der Hin-<lb/>
+dus heißen Pagoden. Sie sind Bauwerke aus längst<lb/>
+vergangenen Jahrhunderten, welche an Großartigkeit<lb/>
+und Dauerhaftigkeit alle andern Schöpfungen der Bau-<lb/>
+kunst übertreffen. Jm Jnnern derselben sind im hei-<lb/>
+ligen Dunkel die goldenen, kupfernen oder steinernen<lb/>
+Götterstatuen, mit kostbaren Gewändern umhüllt, auf-<lb/>
+gestellt. Ueber dem Heiligthume wölbt sich eine große,<lb/>
+mit Elefantenköpfen und andern Bildern überladene<lb/>
+Kuppel, die von außen pyramidenförmig überdeckt ist.<lb/>
+Die Pyramide steht auf einem freien Raume, welcher<lb/>
+von Wohnungen der Priester und Bajaderen, von<lb/>
+Bogengängen und Kapellen umgeben ist; diese sind<lb/>
+wieder mit Mauern umzogen, durch welche vier Ein-<lb/>
+gänge führen. Das Ganze bildet ein längliches Viereck,<lb/>
+das nach den vier Himmelsgegenden ausläuft und<lb/>
+allenthalben mit Götter= und Thierbildern in halb er-<lb/>
+habener Arbeit bedeckt ist. Alles ist aus Granit gear-<lb/>
+beitet und zwar in so riesenhafter Form, daß man<lb/>
+Quadern von 10,000 Kubikfuß Größe findet. Und<lb/>
+diese Kolosse mußten oft 30 Meilen weit herbeigeschafft<lb/>
+<cb n="2"/>
+werden und aller Granit an den Tempeln ist spiegel-<lb/>
+glatt polirt! Was sind unsere Riesenbaue gegen die<lb/>
+Pagoden der Hindus! Bedenkt man aber, daß in<lb/>
+einem Tempel zu Chalembron eine fein polirte Kette<lb/>
+von Granit als vierfache Guirlande aufgehangen war,<lb/>
+daß dieselbe in ihrer ganzen Länge 540 Fuß betrug,<lb/>
+daß jedes Glied drei Fuß Länge und zwei bis drei<lb/>
+Fuß Dicke hatte, daß dieser Tempelschmuck als geglie-<lb/>
+derte Kette also aus einem einzigen Granitblocke gear-<lb/>
+beitet sein mußte, dann möchte man vor den riesigen<lb/>
+Jdeen der alten Hindus ehrfurchtsvoll erstaunen. Nun<lb/>
+haben sie und ihre Stammesgenossen aber auch Höh-<lb/>
+lentempel, Grotten, Paläste, Säle und andere Räume<lb/>
+in die Granitfelsen von so ungeheurer Größe eingemei-<lb/>
+selt, daß viele Tausende von Menschen darin Platz<lb/>
+haben.</p><lb/>
+<p><hi rendition="#c">( Beschluß folgt. )</hi></p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Eine Jugenderinnerung aus dem Leben Na-<lb/>
+poleon 's.</hi></head><lb/>
+<p><hi rendition="#in">A</hi>us seiner Kinderzeit erzählt Napoleon in den von<lb/>
+ihm selbst verfaßten Memoiren Folgendes:</p><lb/>
+<p>Jch erinnere mich noch, unter den mancherlei Mär-<lb/>
+chen, womit mich meine Wärterin einzuschläfern suchte,<lb/>
+daß sie in einer Nacht, da ich durchaus nicht einschla-<lb/>
+fen konnte und sie nicht in Ruhe ließ, zu mir sagte:<lb/>
+&#x201E;Napoleon, sei ruhig und still, und ich will dir das<lb/>
+Königreich Corsica geben, wenn du groß bist.&#x201C;</p><lb/>
+<p>Und Frankreich! sagte ich.</p><lb/>
+<p>Auch Frankreich dazu!</p><lb/>
+<p>Und die ganze Welt?</p><lb/>
+<p>Auch diese sollst du haben, aber nun sei still und<lb/>
+verlange nicht mehr, denn sonst müßtest du Gott den<lb/>
+Vater selbst entthronen wollen.</p><lb/>
+<p>Jch war von diesem Gespräche so ergriffen, daß,<lb/>
+als sich meine Augen schlossen, ich noch immer für<lb/>
+mich wiederholte: &#x201E;Jch werde König von Corsica, von<lb/>
+Frankreich und der Welt sein, so hat mir Saveria<lb/>
+( dies war der Name der Wärterin ) versprochen; aber<lb/>
+ich will nichts mehr verlangen, denn sonst müßte ich<lb/>
+Gott den Vater selbst entthronen wollen.</p><lb/>
+<p>Hiermit steht noch Folgendes in Verbindung, was<lb/>
+dort ebenfalls erzählt wird:</p><lb/>
+<p>Jch war außerordentlich wißbegierig; ich wollte die<lb/>
+Ursachen der Naturwunder, die mich umgaben, und<lb/>
+den Zustand des Landes kennenlernen. Meine Fragen<lb/>
+setzten meinen Großonkel Lucian oft in Erstaunen, der<lb/>
+sich übrigens darin gefiel, in mir ein künftiges Licht<lb/>
+der Kirche zu sehen. &#x201E;Er wird&#x201C;, sagte er, &#x201E; Archi-<lb/>
+diakonus werden, dieser kleine Napoleon; vielleicht auch<lb/>
+Bischof und Cardinal.&#x201C; Und dann, sich unterbrechend,<lb/>
+fragte er mich: &#x201E;Willst du Papst werden?&#x201C;</p><lb/>
+<p>Jch aber erwiderte: Nein, aber König von Corsica<lb/>
+und Frankreich.</p><lb/>
+<p>Nun, antwortete dann Lucian mit Lächeln, das ist<lb/>
+immer Etwas!</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<cb type="end"/>
+<pb facs="#f0004" n="108"/>
+<fw place="top" type="pageNum">108</fw><lb/>
+<div n="1"><figure><head><hi rendition="#fr">Alexander</hi><hi rendition="#aq">II</hi>. <hi rendition="#fr">Nikolajewitsch, Kaiser von Rußland.</hi></head></figure></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<pb facs="#f0005" n="109"/>
+<fw place="top" type="pageNum">109</fw><lb/>
+<div n="1"><figure><head><hi rendition="#fr">Alte Abtei von Germain des=Prés.</hi></head></figure></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Die Raspenburg.</hi></head><lb/>
+<cb type="start"/>
+<p><hi rendition="#in">J</hi>n der thüringer Goldenen Aue ragt hinter dem<lb/>
+Städtchen Rastenberg auf der Mitternachtsseite ein<lb/>
+Berg empor, welcher geschichtlich merkwürdig geblieben<lb/>
+ist, da er die Ruinen trägt, die noch von der alten<lb/>
+Raspenburg vorhanden sind. Schon um 1070 wurde<lb/>
+dieselbe erbaut. Jhr Gründer war Heinrich Raspe,<lb/>
+ein Mann, dessen Stärke und rauhen Sinn sein Bei-<lb/>
+name bezeichnet. Wie er sich gegen seine Unterthanen<lb/>
+nicht eben lieb und hold zeigte, so verfuhren auch seine<lb/>
+Nachfolger. Unter diesen schien ihm, ziemlich 200<lb/>
+Jahre später, ein Heinrich Raspe nicht nur dem Na-<lb/>
+men, sondern auch in seinem ganzen Auftreten nach<lb/>
+am ähnlichsten zu sein. Derselbe war hart gegen sein<lb/>
+Volk wie gegen seine Anverwandten. So wohnte seine<lb/>
+sanfte Schwägerin Elisabeth mit ihren zwei Kindern,<lb/>
+Hermann und Sophie, auf der Wartburg; Heinrich<lb/>
+aber ruhte nicht, bis er sie von der Burg entfernt<lb/>
+hatte. Nur der Tod seines Bruders konnte ihn nach-<lb/>
+sichtiger stimmen. Als er in Reinhardsbrunn an dem<lb/>
+Sarge desselben stand und die verwitwete Elisabeth dem<lb/>
+Verblichenen den letzten Abschiedsgruß brachte, da fühlte<lb/>
+Heinrich Raspe sein Herz weich werden; er reichte sei-<lb/>
+ner Schwägerin die Hand zur Versöhnung und bat<lb/>
+sie, die Wartburg, von welcher er sie vertrieben hatte,<lb/>
+wieder zu beziehen.</p><lb/>
+<p>Aerger noch verfuhr Heinrich Raspe mit seinen<lb/>
+<cb n="2"/>
+Unterthanen. Diese mußten sich vielerlei Unbill von<lb/>
+dem gestrengen Herrn gefallen lassen. Er schaltete mit<lb/>
+ihrem Eigenthume oft sehr willkürlich und soll es nicht<lb/>
+selten so weit getrieben haben, daß er ihnen eine oder<lb/>
+die andere schöne Tochter raubte, um sie auf seiner<lb/>
+Raspenburg festzuhalten. Die alte Raspenburg würde<lb/>
+viel erzählen, wenn sie reden könnte.</p><lb/>
+<p>Auch nach Heinrich ging es in Thüringen nicht<lb/>
+besser her. Gewaltthätigkeiten aller Art wurden geübt<lb/>
+und die Klagen über Ungerechtigkeiten blieben meist un-<lb/>
+gehört, da die Raubritter die Oberhand hatten. End-<lb/>
+lich erschien Rudolf von Habsburg. Empört über die<lb/>
+Wirthschaft der Ritter, brachte er etwa sechszig Raub-<lb/>
+nestern den Untergang; doch war es ihm nicht vorbe-<lb/>
+halten, das Uebel ganz auszurotten, da er bald in<lb/>
+einen Krieg verwickelt wurde, der zu seinem Nachtheil<lb/>
+endigte. Albrecht der Unartige hatte nämlich das ganze<lb/>
+Land Thüringen für 160,000 Thlr. an Kaiser Adolf<lb/>
+verkauft, was Albert's Söhne, Friedrich und Diez-<lb/>
+mann, nicht genehmigen konnten und so entstand neue<lb/>
+Noth im Lande, denn die beiden Brüder griffen nach<lb/>
+dem Schwerte und der Kaiser rückte mit seinem wil-<lb/>
+den Heere in Thüringen ein. Bei Raspenburg kam<lb/>
+es zur Schlacht und Adolf wurde geschlagen. Fried-<lb/>
+rich erkannte das Krebsübel, das an dem Glück seines<lb/>
+Landes fraß, daher er es sofort zu unterdrücken suchte;<lb/>
+<cb type="end"/>
+<pb facs="#f0006" n="110"/>
+<fw place="top" type="pageNum">110</fw><cb type="start"/>
+er zerstörte alle noch übrigen Raubburgen und ließ<lb/>
+auch 1321 die Raspenburg vernichten.</p><lb/>
+<p>An den Fall dieser Burg knüpfen die Thüringer<lb/>
+folgende Sage:</p><lb/>
+<p>Die letzten Raubritter auf der Raspenburg waren<lb/>
+zwei Brüder, Hayno und Wolfram von Raspenburg.<lb/>
+Sie hatten den friedlichen Bewohnern des Landes so-<lb/>
+wie vorüberziehenden Fremdlingen schon unendlich viel<lb/>
+Leid zugefügt, da wagten sie es auch, einen Brautzug<lb/>
+zu überfallen, als derselbe eben von der Trauung aus<lb/>
+der Kirche heimwärts kehrte. Alles Bitten der Land-<lb/>
+leute war umsonst; die Ritter schleppten nicht nur die<lb/>
+junge Frau, sondern auch selbst ihre Aeltern mit auf<lb/>
+ihr Raubnest. Als sie oben auf der Burg angekom-<lb/>
+men waren, sprach sich der Vater der jungen Frau<lb/>
+gegen die Ritter Hayno und Wolfram ziemlich derb<lb/>
+aus und rief ihnen drohend zu: &#x201E;Nur Geduld, Euch<lb/>
+trifft schon noch die Strafe und ehe Jhr es denkt,<lb/>
+wird mein Eidam mich und meine liebe Tochter be-<lb/>
+freien.&#x201C;</p><lb/>
+<p>Oho, lachten die Ritter, wer will uns auf unserer<lb/>
+Veste zu nahe kommen? Wenn sich die Schwalben<lb/>
+nicht gegen uns bewaffnen, werden wir wol sicher<lb/>
+wohnen</p><lb/>
+<p>Der alte Schwiegervater schwieg und wartete auf<lb/>
+die Hülfe seines Sohnes, aber vergebens. Als jedoch<lb/>
+Landgraf Friedrich mit seinen Truppen anrückte, befand<lb/>
+sich unter denselben auch ein armer Ritter mit Namen<lb/>
+Luitfried von Schwalb, dessen bewaffnete Scharen<lb/>
+nach ihrem Commandanten die Schwalben genannt<lb/>
+wurden.</p><lb/>
+<p>Luitfried hörte von dem durch Hayno und Wolfram<lb/>
+verübten Frauenraube und erfuhr gar bald, daß die<lb/>
+Geraubte einst seine Erkorene war. Er erbat sich<lb/>
+darum von seinem Landesfürsten sogleich die Erlaub-<lb/>
+niß, die Burg erstürmen und die Raubritter lebendig<lb/>
+oder todt seinem Herrn überbringen zu dürfen. Da<lb/>
+Luitfried von Schwalb die Burg genau kannte, so<lb/>
+wurde ihm die erbetene Erlaubniß gern gegeben. Als<lb/>
+er nun vor der Raspenburg erschien, verhöhnten die<lb/>
+zwei Raubhähne den jungen Retter und meinten, er<lb/>
+werde sich an ihrer Veste jedenfalls die Zähne verge-<lb/>
+bens ausbeißen. Aber Luitfried faßte die Burg an der<lb/>
+ihm wohlbekannten schwächsten Seite an, erstürmte sie<lb/>
+kampfesmuthig und ehe es sich Hayno und Wolfram<lb/>
+versahen, waren sie in seiner Gewalt. Sie wollten sich<lb/>
+ihm nicht ergeben und wurden darum erschlagen.</p><lb/>
+<p>Die junge Frau war nun befreit. Sie erkannte in<lb/>
+Luitfried von Schwalb bald ihren Liebling und Ret-<lb/>
+ter, darum verließ sie ihren angetrauten Eheherrn und<lb/>
+reichte ihre Hand dem Ritter, den der Landgraf als<lb/>
+Anerkenntniß seiner Tapferkeit mit Gütern und Ehren<lb/>
+belohnte.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Fürst Paskiewitsch und der Tatar.</hi></head><lb/>
+<p><hi rendition="#in">A</hi>ls in den ersten Tagen des October vorigen Jahres<lb/>
+die bekannte Tatarennachricht vom Falle Sewastopols<lb/>
+die Welt durchlief, erhielt ein vermögender, in War-<lb/>
+schau wohnender Gutsbesitzer aus dem galizischen Grenz-<lb/>
+städtchen S. einen Brief des Jnhalts, daß Odessa in<lb/>
+Asche gelegt und Sewastopol genommen sei. Eben<lb/>
+befanden sich bei besagtem Edelmann einige Gäste,<lb/>
+denen er den Brief vorlas, zugleich aber ersuchte er<lb/>
+dieselben, diese Kunde nicht weiter zu verbreiten. Letz-<lb/>
+<cb n="2"/>
+teres geschah aber dennoch und einige Stunden später<lb/>
+sprach man in ganz Warschau von nichts anderm als<lb/>
+von der Einäscherung Odessas und dem Falle Sewa-<lb/>
+stopols. Dies wurde dem Fürsten=Statthalter Pas-<lb/>
+kiewitsch gemeldet. Der Fürst ließ sogleich den Guts-<lb/>
+besitzer zu sich berufen und fragte ihn: &#x201E;Woher haben<lb/>
+Sie, Graf, solche Nachrichten?&#x201C;</p><lb/>
+<p>Der Gefragte übergab hierauf dem Fürsten den<lb/>
+erwähnten Brief.</p><lb/>
+<p>Das Alles ist aber nicht wahr! sagte der Fürst.</p><lb/>
+<p>Jch glaube es gern, erwiderte der Graf, und ich<lb/>
+habe diese mir zugekommene falsche Nachricht nur<lb/>
+im vertrauten kleinen Kreise einigen meiner Freunde<lb/>
+und sogar mit der Warnung mitgetheilt, solche ja<lb/>
+nicht zu verbreiten.</p><lb/>
+<p>Die Regierung setzt vollkommenes Zutrauen in<lb/>
+Sie, und da Sie bereits viele Beweise Jhrer Loyali-<lb/>
+tät geliefert haben, so sind wir fern von dem Gedan-<lb/>
+ken, Sie hierfür zu strafen. Jndessen wünsche ich,<lb/>
+Sie möchten sich durch eine Lustreise nach Odessa und<lb/>
+Sewastopol selbst überzeugen, daß das verbreitete Ge-<lb/>
+rücht völlig falsch ist.</p><lb/>
+<p>Wie Euer Durchlaucht befehlen!</p><lb/>
+<p>Begeben Sie sich also zu meinem Secretär und<lb/>
+dieser wird Jhnen die weitere Weisung ertheilen.</p><lb/>
+<p>Der Graf begab sich unverzüglich zu diesem und<lb/>
+erhielt von ihm einen bereits fertigen Reisepaß. Kaum<lb/>
+aber in seiner Wohnung angelangt, sieht er einen Feld-<lb/>
+jäger eintreten, der ihm meldet, daß Wagen und Post-<lb/>
+pferde schon in Bereitschaft ständen. Während nun in<lb/>
+ganz Europa der Freudenruf von der Einnahme Se-<lb/>
+wastopols und der Zerstörung Odessas ertönte, trat un-<lb/>
+ser Graf mit vier feurigen Kurierpferden die unfrei-<lb/>
+willige Reise an, um sich zu überzeugen, ob der Ta-<lb/>
+tar die Wahrheit gesprochen. Unterwegs ward ihm<lb/>
+kein Aufenthalt gestattet.</p><lb/>
+<p>Jn Odessa brachte man denselben vor den Palast<lb/>
+des Gouverneurs, der ihn sehr artig empfing, auf der<lb/>
+Stelle aber zur Weiterreise nach Sewastopol anwies.<lb/>
+Auch hier war dessen Aufnahme von Seiten des Für-<lb/>
+sten Mentschikoff sehr höflich. Er wurde überall her-<lb/>
+umgeführt, dann aber augenblicklich zur Rückreise nach<lb/>
+Warschau veranlaßt, wo er, kaum aus dem Wagen<lb/>
+gestiegen, dem Fürsten=Statthalter gemeldet ward.</p><lb/>
+<p>Nun, nicht wahr, empfing ihn dieser, Odessa und<lb/>
+Sewastopol sind nicht genommen?</p><lb/>
+<p>Ach, Durchlaucht, erwiderte der durch die weite<lb/>
+Kurierreise ganz ermattete Graf, beide Städte stehen<lb/>
+fest, so fest, daß sie niemals eingenommen werden<lb/>
+können.</p><lb/>
+<p>Gehen Sie also, Herr Graf, nach Hause, laden<lb/>
+Sie Jhre vertrauten Freunde zu sich ein und erzählen<lb/>
+Sie ihnen das unter dem Siegel der Verschwiegenheit,<lb/>
+damit heute noch ganz Warschau davon wisse.</p><lb/>
+<p>Kaum war der Graf nach Hause gekommen, trat<lb/>
+wiederum derselbe Feldjäger rasch ein und überreichte<lb/>
+ihm &#x2014; die Reisekostenrechnung. Siebentausend und<lb/>
+einige Hundert Silberrubel mußte der Graf bezahlen.</p><lb/>
+<p>Von nun an theilt in Warschau Niemand &#x2014; selbst<lb/>
+dem vertrautesten Freunde &#x2014; Nachrichten vom Kriegs-<lb/>
+schauplatze mit, selbst wenn dieselben in den amtlichen<lb/>
+Zeitungen stehen.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<cb type="end"/>
+<pb facs="#f0007" n="111"/>
+<fw place="top" type="pageNum">111</fw>       <cb type="start"/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Die wirkliche Jungfrau von Orléans.</hi></head><lb/>
+<p><hi rendition="#in">E</hi>in Franzose hat neuerdings alle Archive und alten<lb/>
+Schriften nach Nachrichten von der Jungfrau von Or-<lb/>
+léans mit außerordentlichem Fleiße durchforscht und das<lb/>
+Resultat der Welt mitgetheilt.</p><lb/>
+<p>Unter so kleinen Leuten, wie die Aeltern Johan-<lb/>
+na 's, waren im Anfange des 15. Jahrhunderts Fami-<lb/>
+liennamen fast ganz ungebräuchlich, auch hat die Jung-<lb/>
+frau niemals einen geführt, obwol ermittelt worden<lb/>
+ist, daß ihr Vater Darc hieß. Jn ihrem Dorfe hieß<lb/>
+das Mädchen Hannchen, im ganzen Lande aber, das<lb/>
+sie drei Jahre lang mit ihrem Ruhme erfüllte, nannte<lb/>
+man sie Johanna oder die Jungfrau. Die erste Ver-<lb/>
+anlassung zu ihren nachmaligen heroischen Thaten ga-<lb/>
+ben Schmerz und Unwille. Sie mußte nämlich mit<lb/>
+allen Bewohnern des Dorfs bei Annäherung feindli-<lb/>
+cher Truppen flüchten, und als sie zurückkamen, fand<lb/>
+man die Häuser geplündert und niedergebrannt. Als<lb/>
+sie bei dem Offizier Johann von Novelonpont in Vau-<lb/>
+couleurs erschien, trug sie ihr ärmliches rothes Röck-<lb/>
+chen und jener fragte sie, ob sie so ins Feld ziehen<lb/>
+wolle? Auf ihre Antwort, sie würde gern Männer-<lb/>
+kleider tragen, gab ihr Novelonpont die Sachen eines<lb/>
+seiner Diener. Nach einigen Tagen schossen indeß die<lb/>
+Leute in Vaucouleurs zusammen, um Johanna einen<lb/>
+neuen Anzug zu verschaffen. Jhr Haar wurde des-<lb/>
+halb kurz und rund abg.eschnitten, wie es damals die<lb/>
+jungen Männer trugen Sie erhielt eine Jacke ( eine<lb/>
+Art Weste ohne Knöpfe ) , Beinkleider, die an die Jacke<lb/>
+befestigt wurden, und einen kurzen Rock ( <hi rendition="#aq">bouque</hi> ) , der<lb/>
+etwa bis an die Knie reichte, außerdem Reiterstiefeln<lb/>
+( <hi rendition="#aq">nonzeaux</hi> ) mit langen Sporen, ferner ein Pferd, ein<lb/>
+Schwert, einen Dolch, einen Helm und eine Lanze,<lb/>
+kurz sie wurde ganz so ausgestattet wie ein Reiter jener<lb/>
+Zeit. So verließ sie Vaucouleurs am 25. Februar<lb/>
+1429, um sich 150 Stunden weit auf Umwegen nach<lb/>
+Chinon zu dem König zu begeben. Novelonpont und<lb/>
+die vier Andern in ihrer Begleitung waren junge Män-<lb/>
+ner und Johanna hatte ihr 17. Jahr erreicht. Sie<lb/>
+hatte schwarzes Haar, war groß, stark und gut ge-<lb/>
+baut, hatte aber eine ganz weibliche, sehr weiche<lb/>
+Stimme und alle Reize, welche begehrliche Blicke auf<lb/>
+sie ziehen konnten. Jn der Nacht schlief sie meist bei<lb/>
+einer achtbaren Frau da, wo man Halt machte; mußte<lb/>
+man unter freiem Himmel übernachten, was aber selten<lb/>
+geschah, so schlief sie in ihrem Mannsanzug neben den<lb/>
+andern und ihr Schutz war die Ehrfurcht, welche sie<lb/>
+schon damals umgab.... Jn dem spätern Lager-<lb/>
+leben haßte sie besonders die liederlichen Dirnen, die<lb/>
+sich in Menge unter den Soldaten herumtrieben; in<lb/>
+St.=Denis vertrieb sie dieselben einmal persönlich und<lb/>
+zerschlug auf dem Rücken der einen, die sich besonders<lb/>
+sträubte, ihr Schwert.</p><lb/>
+<p>Auch das Fluchen und Schwören der Soldaten<lb/>
+konnte sie nicht leiden, obgleich sie selbst nicht frei von<lb/>
+dieser bösen Angewohnheit war, doch schwor sie nur:<lb/>
+&#x201E; <hi rendition="#aq">Par mon martin</hi>!&#x201C; ( &#x201E;Bei meinem Stecken! ) , mit<lb/>
+dem sie sonst ihr Vieh getrieben hatte. Sie ritt sehr<lb/>
+gern, war eine ausgezeichnete Reiterin und war un-<lb/>
+ermüdlich zu Pferde. Auch schöne Waffen liebte sie<lb/>
+und allmälig suchte sie auch Putz an ihrer Reitertracht<lb/>
+anzubringen.</p><lb/>
+<p>Uebrigens war sie schon bei Lebzeiten über die<lb/>
+Grenzen ihres Vaterlandes hinaus berühmt, denn im<lb/>
+Jahre 1429 besah der Rath von Regensburg <hi rendition="#aq">in<lb/>
+corpore</hi> ein für Geld ausgestelltes Bild von ihr, das<lb/>
+ihre Thaten zeigte, und in den Stadtrechnungen fin-<lb/>
+<cb n="2"/>
+det sich verzeichnet: &#x201E; <hi rendition="#aq">item</hi> haben wir geben vor das<lb/>
+Gemälde zu schauen, wie die Junkfraw zu Frankreich<lb/>
+gefochten hat, 24 Pfennig.&#x201C;</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Der Papayer oder Melonenbaum.</hi></head><lb/>
+<figure/><lb/>
+<p><hi rendition="#in">A</hi>uf den Molukken einheimisch, ist dieser Baum sei-<lb/>
+nem Aeußern nach den Palmen ähnlich, ohne mit ih-<lb/>
+nen näher verwandt zu sein; er wird gegen 10 Ellen<lb/>
+hoch und hat große Blätter mit starken Rippen. Schon<lb/>
+in den ersten sechs Monaten steigt er aus dem Samen<lb/>
+fast mannshoch empor ohne Aeste, schlank und gerade;<lb/>
+dann erst treibt er fast ebenso schnell lange, kahle<lb/>
+Zweige, an denen Blätter und Blüten sich ansetzen.<lb/>
+Die letztern riechen sehr angenehm und die Früchte<lb/>
+schmecken wie unsere Melonen, denen sie auch ähnlich<lb/>
+sehen; sie sind voll Saft und löschen den Durst, lassen<lb/>
+sich aber durchaus nicht aufbewahren oder versenden.<lb/>
+Selbst die Blüten werden zu in Zucker eingesetzten<lb/>
+Früchten gemischt gern genossen. Jn unsern Gewächs-<lb/>
+häusern findet man den Melonenbaum wol auch, aber<lb/>
+seine Früchte bleiben so klein und dürr, daß sie nicht<lb/>
+zu genießen sind.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<cb type="end"/>
+<pb facs="#f0008" n="112"/>
+<fw place="top" type="pageNum">112</fw><lb/>
+<div n="1" type="jVarious"><head><hi rendition="#fr"><hi rendition="#g">Mannichfaltiges</hi>.</hi></head>       <cb type="start"/>
+<div n="2" type="jArticle"><p>Die Kleinkinder=Ausstellung zu Springfield im<lb/>
+Staate Ohio. Von Springfield war eine Einladung an alle<lb/>
+Mütter und Ammen in den Vereinigten Staaten ergangen,<lb/>
+ihre kleinen Kinder herbeizubringen und einer Prüfung ih-<lb/>
+res leiblichen Gedeihens zu unterwerfen und so erschienen<lb/>
+an dem festgesetzten Tage 127 Mütter und Ammen mit ih-<lb/>
+ren kleinen Preisbewerbern und Preisbewerberinnern. Jn<lb/>
+einem großen Kinderzelte saßen Herren und Damen als<lb/>
+Schiedsrichter und ertheilten schließlich drei silberne Tafel-<lb/>
+geschirre als Preise an die Mütter oder beziehentlich Ammen<lb/>
+der drei dicksten, gesündesten und muntersten Kinder. Von<lb/>
+nah und fern hatte die Eisenbahn Tausende von Zuschauern<lb/>
+und Zuschauerinnen herbeigeführt und die Theilnahme dieses<lb/>
+Publicums steigerte sich nach der Preisvertheilung so weit,<lb/>
+daß die Mütter und Ammen, welche jenen drei Glücklichen<lb/>
+zunächst standen und mit ihnen wetteifern konnten, durch Un-<lb/>
+terzeichnungen, welche man auf der Stelle machte, noch mit<lb/>
+schönen Geschenken bedacht wurden. Jm nächsten October<lb/>
+soll diese Ausstellung wiederholt werden.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Fatalitäten und Reussiren <hi rendition="#aq">post fata</hi> ( nach dem<lb/>
+Tode ) . Des großen Feldherrn Turenne Leiche war auf Be-<lb/>
+fehl seines dankbaren Monarchen der Ehre der Beisetzung in<lb/>
+der Königsgruft zu St.=Denis gewürdigt worden. Hier ent-<lb/>
+ging sie der Verscharrung in die Grube, in welche die revo-<lb/>
+lutionären Vandalen die irdischen Ueberreste von dreien Dy-<lb/>
+nastien französischer Könige warfen, nur dadurch, daß ein<lb/>
+wohlgesinnter Mann unter dem Vorwande ihrer ganz beson-<lb/>
+ders guten Erhaltung sie zur Aufbewahrung als Gegenstand<lb/>
+der Neugierde des Volks in Vorschlag brachte. Die Leiche<lb/>
+wurde demzufolge in das Naturaliencabinet des <hi rendition="#aq">Jardin des<lb/>
+plantes</hi> gebracht und Franzosen schämten sich nicht, die ehr-<lb/>
+würdigen Gebeine eines ihrer größten Feldherren zwischen<lb/>
+ausgestopften Affen und Leoparden zur Schau zu stellen.<lb/>
+Aus dem <hi rendition="#aq">Jardin des plantes</hi> ward die Leiche später in das<lb/>
+Museum <hi rendition="#aq">des petits Augustins</hi> gebracht. Der erste Consul<lb/>
+befahl ihre Beisetzung in dem Dome der Jnvaliden. Es ge-<lb/>
+schah unter würdevollen Feierlichkeiten. Am 22. September<lb/>
+1800 begaben sich die Behörden in das gedachte Museum,<lb/>
+um dem mit vier Schimmeln bespannten Leichenwagen voran-<lb/>
+zuschreiten. Der Degen des Helden ruhte auf der Decke des<lb/>
+Sarges, deren vier Enden von vier alten Generalen getra-<lb/>
+gen wurden. Eine dem für alle Zeiten berühmt gewordenen<lb/>
+Leibpferde Turenne's sehr ähnliche Schecke, nach der Sitte<lb/>
+seiner Zeit aufgeschirrt, erhöhte den Glanz des Zugs, der<lb/>
+sich unter dem Zuströmen einer ungeheuern Menschenmenge<lb/>
+nach dem Jnvalidenhotel bewegte, wo die alten Krieger den<lb/>
+Sarg in Empfang nahmen. Trauermusik durchrauschte die<lb/>
+Räume des Doms; Carnot hielt eine Rede; dann ward der<lb/>
+Sarg' in die Gruft gesenkt, dessen Steinplatte zur Jnschrift<lb/>
+nichts hat als den Namen: Turenne.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Woher die Feindschaft zwischen Katzen und Hun-<lb/>
+den? Vor Zeiten wollten einmal die Hunde die Knochen<lb/>
+nicht mehr fressen und fingen deshalb einen Proceß mit den<lb/>
+Menschen an. Sie versammelten sich und gingen in Masse<lb/>
+hin zu einem Advocaten. Als sie unterwegs auf eine Brücke<lb/>
+gekommen waren, kamen die Katzen und warfen ihnen die<lb/>
+Acten, welche sie auf ihren Schwänzen trugen, ins Wasser.<lb/>
+So verloren denn die Hunde ihren Proceß und müssen noch<lb/>
+bis diese Stunde die Knochen fressen. Daher ist die Feind-<lb/>
+schaft zwischen den Hunden und Katzen entstanden.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Scherz in der Todesstunde. Der berühmte englische<lb/>
+Schauspieler Matthews lag auf dem Sterbelager. Sein<lb/>
+Diener, der ihn pflegte und wohl sah, daß sein Herr dem<lb/>
+Verscheiden nahe war, vergriff sich, als er ihm nochmals<lb/>
+Arznei reichen wollte und gab ihm statt derselben einen Löffel<lb/>
+voll Tinte. Ein Freund, der zugegen war, bemerkte dies<lb/>
+<cb n="2"/>
+und gerieth außer sich darüber. &#x201E;Laß gut sein!&#x201C; antwortete<lb/>
+der Sterbende mit matter Stimme, &#x201E;ich verschlucke einen<lb/>
+Bogen Löschpapier und &#x2014; die Sache &#x2014; ist aus &#x2014; gegli-<lb/>
+chen.&#x201C; Er drehte sachte den Kopf auf die Seite und &#x2014;<lb/>
+verschied.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Die Fundamente der Alexandrinischen Bibliothek<lb/>
+sind neuerdings bei Gelegenheit des Baues einer griechischen<lb/>
+Schule entdeckt worden; sie sind von erstaunlicher Ausdeh-<lb/>
+nung. Die Grundmauern sind oft über 14 Fuß dick, erhe-<lb/>
+ben sich in stufenförmigen Absätzen zu einer beträchtlichen<lb/>
+Höhe und schließen lange kellerartige Gänge in sich, in denen<lb/>
+sich bisjetzt zwei Cisternen mit dem klarsten trinkbaren Wasser<lb/>
+vorgefunden haben.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Schnelligkeit englischer Rennpferde. Flying=Chil-<lb/>
+ders bewegte sich82 1 / 2 Fuß in der Secunde; Eclipse kam<lb/>
+ihm gleich und Firotail übertraf bei einem Wettrennen beide<lb/>
+noch bedeutend. Das ist die Geschwindigkeit eines Sturm-<lb/>
+windes, der Bäume entwurzelt und Ziegel von den Dä-<lb/>
+chern wirft. Diese Pferde verdanken ihre windartige Schnel-<lb/>
+ligkeit ihrem gestreckten Gliederbau bei steil gestellten Sprung-<lb/>
+gelenken und der damit verbundenen großen Spannweite.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Die älteste Linde in Deutschland steht bei Neustadt<lb/>
+am Kocher in Würtemberg. Sie war schon ein Jahrhun-<lb/>
+dert alt, als auf dem Vertrage zu Verdun 843 der Grund<lb/>
+zum Deutschen Reiche gelegt ward. Ein Gedicht vom Jahre<lb/>
+1408 sagt über diesen Baum:</p><lb/>
+<lg>         <l>Vor dem Thore eine Linde staht,</l><lb/>
+<l>Die siebenundsechzig Säulen hat.</l></lg><lb/>
+<p>Dies sind nämlich steinerne Pfeiler, welche zur Unterstützung<lb/>
+der weit ausgebreiteten Aeste dienen. Jetzt beträgt die Zahl<lb/>
+derselben 106. So steht sie noch immer da in ihrem hohen<lb/>
+Greisenalter. Zwar hat der Sturm manchen ihrer Riesen-<lb/>
+äste gebrochen; aber noch immer erfüllt sie den staunenden<lb/>
+Beobachter mit Ehrfurcht.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Der Kirchhof Père Lachaise in Paris wird von<lb/>
+Emma Niendorf also geschildert: &#x201E;Man kann sich müde ge-<lb/>
+hen in diesem Labyrinth. Die mittlere Hauptstraße nur<lb/>
+Gruftpaläste, wirklich eine Stadt, Haus an Haus, nicht<lb/>
+Hügel, nicht Rasen &#x2014; &#x2014; Cypressen bilden Alleen, die Luft<lb/>
+ist schwer von Blütenhauch. Zwischen der Blumenmenge<lb/>
+hölzerne Regendächlein über die wie Ringe aneinanderge-<lb/>
+reihte Jmmortellenkränze. Tiefer hinein kleine Kapellen in<lb/>
+Lauben verwandelt. Wände von dunkelm Epheu, Riesen-<lb/>
+blätter, saftig wie alles Grün auf diesem Friedhofe. Kasta-<lb/>
+nienwipfel, zu Baumgängen gewölbt, öffnen aus ihren Sma-<lb/>
+ragdhallen überraschende Perspectiven, führen über den Kamm<lb/>
+des Berges bis zum westlichen Gipfel, wo von den Stufen<lb/>
+eines Tempelbaues Paris sich vor dem staunenden Blicke<lb/>
+hinbreitet.&#x201C;</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Der Marienbaum. Jn einem Garten bei den Rui-<lb/>
+nen von Heliopolis in Aegypten, ungefähr zwei Stunden von<lb/>
+Kairo, liegt mitten unter einer Fläche Gerstenfelder ein Gar-<lb/>
+ten, dessen Eingang eine schmucklose Schilfthür verschließt.<lb/>
+Eine reiche Flor blühender Rosen, Nelken, Jasmin= und<lb/>
+Oleanderarten umgibt dort einen alten Sykomorenbaum,<lb/>
+dessen Stamm drei mächtige zusammengewachsene Aeste von<lb/>
+mehr als sieben Fuß Breite bilden und dessen Laub als herr-<lb/>
+liches Schattendach dient. Jn seinen Aesten und Zweigen<lb/>
+sind von oben bis unten Namen und Zahlen in den verschie-<lb/>
+densten Schriften eingeschnitten. Das ist der sogenannte Ma-<lb/>
+rienbaum, unter welchem der Sage nach die heilige Familie<lb/>
+bei ihrem Ausenthalte in Aegypten eine Ruhestätte fand.</p></div></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/><lb/>
+</body>     <back><div n="1" type="imprint"><p><hi rendition="#c">Verantwortlicher Redacteur: <hi rendition="#aq">M</hi>. J. E. Volbeding. &#x2014; Druck und Verlag von F. A. Brockhaus in Leipzig.</hi></p></div>     </back>   </text> </TEI>

@@ -1,0 +1,2809 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.deutschestextarchiv.de/basisformat.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="http://www.deutschestextarchiv.de/basisformat.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">   <teiHeader>
+<fileDesc>
+<titleStmt>
+<title type="main">Das A. B. C.</title>
+<title type="sub">oder eine in Frag und Antwort verfassete kurtze und Gründliche Anweisung das Buchstabiren und Lesen in kurtzer Zeit zu lernen </title>
+<author>
+<persName>
+<surname>N. N.</surname>
+</persName>
+</author>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/115266127">
+<surname>Geyken</surname>
+<forename>Alexander</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1222198746">
+<surname>Haaf</surname>
+<forename>Susanne</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1019062681">
+<surname>Jurish</surname>
+<forename>Bryan</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Boenig</surname>
+<forename>Matthias</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Thomas</surname>
+<forename>Christian</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Wiegand</surname>
+<forename>Frank</forename>
+</persName>
+</editor>
+<respStmt>
+<orgName ref="https://www.bbaw.de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<resp>
+<note type="remarkResponsibility">Langfristige Bereitstellung der DTA-Ausgabe</note>
+<ref target="https://www.bbaw.de"/>
+</resp>
+</respStmt>
+</titleStmt>
+<editionStmt><edition>Vollständige digitalisierte Ausgabe.</edition></editionStmt>
+<extent>
+<measure type="images">114</measure>
+<measure type="tokens">13039</measure>
+<measure type="types">3201</measure>
+<measure type="characters">84437</measure>
+</extent>
+<publicationStmt>
+<publisher xml:id="DTACorpusPublisher">
+<email>dta@bbaw.de</email>
+<orgName role="project">Deutsches Textarchiv</orgName>
+<orgName role="hostingInstitution" xml:lang="en">Berlin-Brandenburg Academy of Sciences and Humanities (BBAW)</orgName>
+<orgName role="hostingInstitution" xml:lang="de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<address>
+<addrLine>Jägerstr. 22/23, 10117 Berlin</addrLine>
+<country>Germany</country>
+</address>
+</publisher>
+<pubPlace>Berlin</pubPlace>
+<date type="publication">2025-02-28T15:07:46Z</date>
+<availability>
+<licence target="https://creativecommons.org/licenses/by-sa/4.0/deed.de">
+<p>Distributed under the Creative Commons Attribution-ShareAlike 4.0 License.</p>
+</licence>
+</availability>
+<idno>
+<idno type="URLWeb">https://www.deutschestextarchiv.de/nn_abc_1736</idno>
+<idno type="URLXML">https://www.deutschestextarchiv.de/book/download_xml/nn_abc_1736</idno>
+<idno type="URLHTML">https://www.deutschestextarchiv.de/book/download_html/nn_abc_1736</idno>
+<idno type="URLText">https://www.deutschestextarchiv.de/book/download_text/nn_abc_1736</idno>
+<idno type="DTADirName">nn_abc_1736</idno>
+<idno type="DTAID">25067</idno>
+<idno type="URN">urn:nbn:de:kobv:b4-25067-7</idno>
+</idno>
+</publicationStmt>
+<sourceDesc>
+<bibl type="M">[N. N.]: Das A. B. C. Köthen, 1736.</bibl>
+<biblFull>
+<titleStmt>
+<title level="m" type="main">Das A. B. C.</title>
+<title level="m" type="sub">oder eine in Frag und Antwort verfassete kurtze und Gründliche Anweisung das Buchstabiren und Lesen in kurtzer Zeit zu lernen </title>
+<author>
+<persName>
+<surname>N. N.</surname>
+</persName>
+</author>
+</titleStmt>
+<editionStmt>
+<edition n="1"/>
+</editionStmt>
+<extent>
+<measure type="pages">[1] Bl., 98 S., [2] gef. Bl.</measure>
+</extent>
+<publicationStmt>
+<publisher><name>Schöndorff</name></publisher>
+<pubPlace>Köthen</pubPlace>
+<date type="publication">1736</date>
+</publicationStmt>
+</biblFull>
+<msDesc>
+<msIdentifier>
+<repository>Staatsbibliothek zu Berlin &#x2013; Preußischer Kulturbesitz</repository>
+<idno>
+<idno type="shelfmark">Berlin SBB-PK, Ng 4579</idno>
+</idno>
+</msIdentifier>
+<physDesc>
+<typeDesc>
+<p>Fraktur</p>
+</typeDesc>
+</physDesc>
+</msDesc>
+</sourceDesc>
+</fileDesc>
+<encodingDesc>
+<editorialDecl>
+<p>Dieses Werk wurde gemäß den <ref target="https://www.deutschestextarchiv.de/doku/richtlinien">DTA-Transkriptionsrichtlinien</ref>
+im Double-Keying-Verfahren von Nicht-Muttersprachlern erfasst und in XML/TEI P5 nach
+<ref target="https://www.deutschestextarchiv.de/doku/basisformat">DTA-Basisformat</ref> kodiert.</p>
+<p/>
+</editorialDecl>
+<tagsDecl>
+<rendition scheme="css" xml:id="aq">font-family:sans-serif</rendition>
+<rendition scheme="css" xml:id="b">font-weight:bold</rendition>
+<rendition scheme="css" xml:id="blue">color:blue</rendition>
+<rendition scheme="css" xml:id="c">display:block; text-align:center</rendition>
+<rendition scheme="css" xml:id="et">display:block; margin-left:2em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et2">display:block; margin-left:4em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et3">display:block; margin-left:6em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="f">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="fr">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="g">letter-spacing:0.125em</rendition>
+<rendition scheme="css" xml:id="i">font-style:italic</rendition>
+<rendition scheme="css" xml:id="in">font-size:150%</rendition>
+<rendition scheme="css" xml:id="k">font-variant:small-caps</rendition>
+<rendition scheme="css" xml:id="larger">font-size:larger</rendition>
+<rendition scheme="css" xml:id="red">color:red</rendition>
+<rendition scheme="css" xml:id="right">display:block; text-align:right</rendition>
+<rendition scheme="css" xml:id="s">text-decoration:line-through</rendition>
+<rendition scheme="css" xml:id="smaller">font-size:smaller</rendition>
+<rendition scheme="css" xml:id="sub">vertical-align:sub; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="sup">vertical-align:super; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="u">text-decoration:underline</rendition>
+<rendition scheme="css" xml:id="uu">border-bottom:double 3px #000</rendition>
+</tagsDecl>
+</encodingDesc>
+<profileDesc>
+<langUsage>
+<language ident="deu">(Früh-)Neuhochdeutsch</language>
+<language ident="deu">German</language>
+</langUsage>
+<textClass>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dtamain">Gebrauchsliteratur</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dtasub">Handbuch</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1main">Gebrauchsliteratur</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1sub">Handbuch</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">core</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">ready</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">china</classCode>
+</textClass>
+</profileDesc>
+</teiHeader>
+<text><front>
+<pb facs="#f0001"/>
+<pb facs="#f0002"/>
+<pb facs="#f0003"/>
+<pb facs="#f0004"/>
+<pb facs="#f0005"/>
+<titlePage type="main"><docTitle><titlePart type="main"><hi rendition="#b">Das<lb/>
+<hi rendition="#in">A. B. C.</hi></hi><lb/>
+oder<lb/>
+<hi rendition="#b">eine in Frag und Antwort ver-<lb/>
+fa&#x017F;&#x017F;ete kurtze und<lb/>
+Gru&#x0364;ndliche Anwei&#x017F;ung<lb/>
+das Buch&#x017F;tabiren und Le&#x017F;en in kurtzer<lb/>
+Zeit zu lernen/</hi></titlePart><lb/>
+<titlePart type="sub">Neb&#x017F;t<lb/>
+<hi rendition="#b">no&#x0364;thigen dahin geho&#x0364;rigen An-<lb/>
+merckungen, Regeln, Exempeln<lb/>
+und anderer nu&#x0364;tzlichen Dinge.</hi><lb/>
+Wie auch<lb/>
+<hi rendition="#b">Kurtzer Hi&#x017F;tori&#x017F;cher Unterricht<lb/>
+der gantzen Heil. Schrift<lb/>
+und Heils-Ordnung,<lb/>
+um dadurch zarte Kinder zur ge&#x017F;egne-</hi><lb/>
+ten Le&#x017F;ung der H. Schrift und Fa&#x017F;&#x017F;ung einer her-<lb/>
+nach mit ihnen vo&#xA75B;zunehmenden Heils-Ord-<lb/>
+nung oder Catechi&#x017F;mi vorzubereiten,<lb/>
+<hi rendition="#fr">nach Herrn Hu&#x0364;bners beliebter Methode</hi><lb/>
+abgefa&#x017F;&#x017F;et, und um zugleich im Le&#x017F;en eine<lb/>
+Ubung zu geben,<lb/>
+<hi rendition="#fr">zu die&#x017F;em le&#x017F;erlichen Druck befo&#x0364;rdert.</hi><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+Zum Nutzen der Anhalt-Co&#x0364;thn. Schul-Jugend.</titlePart></docTitle><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<docImprint><pubPlace><hi rendition="#fr">Co&#x0364;then,</hi></pubPlace> <publisher>druckts J. C. Scho&#x0364;ndorff</publisher>, <docDate>1736</docDate>.</docImprint></titlePage><lb/>
+<pb facs="#f0006"/>
+</front><body>
+<pb n="[1]" facs="#f0007"/>
+<div type="dedication"><p><hi rendition="#c">Denen<lb/>
+Durchlauchtig&#x017F;ten Printzen und<lb/>
+Herren,<lb/>
+<hi rendition="#b"><hi rendition="#g">HERREN<lb/>
+<hi rendition="#in">C</hi>arl <hi rendition="#in">G</hi>eorge</hi><lb/>
+<hi rendition="#in">L</hi>ebrecht,<lb/>
+und<lb/>
+<hi rendition="#in">F</hi>riedr. <hi rendition="#in">E</hi>rdmann<lb/>
+Printzen zu Anhalt,<lb/>
+Hertzogen zu Sach&#x017F;en, Engern<lb/>
+und We&#x017F;tphalen &#xA75B;c.<lb/>
+Meinen Gna&#x0364;dig&#x017F;ten Prin-<lb/>
+tzen und Herren,</hi></hi></p><lb/>
+<closer><salute>u&#x0364;bergiebet die&#x017F;e geringe Ar-<lb/>
+beit in getreue&#x017F;ter <hi rendition="#aq">De-<lb/>
+votion.</hi><lb/>
+<hi rendition="#et"><hi rendition="#b">der Verfa&#x017F;&#x017F;er.</hi></hi></salute></closer></div><lb/>
+<pb n="[2]" facs="#f0008"/>
+<pb n="[3]" facs="#f0009"/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<div n="1"><head><hi rendition="#b">J. N. J.<lb/>
+Cap. <hi rendition="#aq">I.</hi><lb/>
+Von den Buch&#x017F;taben.</hi></head><lb/>
+<p><hi rendition="#c">1. <hi rendition="#fr">Wie viel Figuren oder Buch&#x017F;taben<lb/>
+haben wir Teut&#x017F;chen, wo mit wir alles<lb/>
+&#x017F;chreiben und benennen<lb/>
+ko&#x0364;nnen?</hi></hi></p><lb/>
+<p><hi rendition="#b">Antw. Fu&#x0364;nf und zwantzig.</hi></p><lb/>
+<p><hi rendition="#c">2. <hi rendition="#fr">Wie &#x017F;ehen &#x017F;ie aus, und wie hei&#x017F;&#x017F;en &#x017F;ie?</hi></hi></p><lb/>
+<table><row><cell/></row></table> <fw type="catch" place="bottom"><hi rendition="#b">g G</hi></fw><lb/>
+<pb n="4" facs="#f0010"/>
+<fw type="header" place="top"><milestone unit="section" rendition="#hr"/><lb/>
+</fw> <table><row><cell/></row></table> <fw type="catch" place="bottom"><hi rendition="#b">&#x017F; &#x017F;&#x017F;</hi></fw><lb/>
+<pb n="5" facs="#f0011"/>
+<fw type="header" place="top"><milestone unit="section" rendition="#hr"/><lb/>
+</fw> <table><row><cell/></row></table> <p><hi rendition="#c"><hi rendition="#b">Amerckungen.</hi></hi></p><lb/>
+<p>1. Will man die eine Art Nahmen der Buch-<lb/>
+&#x017F;taben, da &#x017F;ich alle auf o&#x0364; endigen, den Kindern<lb/>
+beybringen: &#x017F;o muß man &#x017F;ie die Buch&#x017F;taben ler-<lb/>
+nen ge&#x017F;chwind aus&#x017F;prechen, daß man das o&#x0364; fa&#x017F;t<lb/>
+nicht ho&#x0364;ret, aber doch mit was vor Mund-Art<lb/>
+<fw type="catch" place="bottom">der</fw><lb/>
+<pb n="6" facs="#f0012"/>
+<fw type="header" place="top"><milestone unit="section" rendition="#hr"/><lb/>
+</fw> der Buch&#x017F;tabe ausge&#x017F;prochen wird, damit &#x017F;ie<lb/>
+hernach beym Buch&#x017F;tabiren durch die Wegwerf-<lb/>
+fung der nach alter Art dabey &#x017F;tehenden a e i o u<lb/>
+nicht gehindert werden.</p><lb/>
+<p>2. Das er&#x017F;te &#x017F;imple a b c muß denen Kin-<lb/>
+dern &#x017F;o lange an die Tafel ge&#x017F;chrieben werden,<lb/>
+bis &#x017F;ie alle &#x017F;amt alle Buch&#x017F;taben au&#x017F;&#x017F;er der Ord-<lb/>
+nung kennen, &#x017F;o bald &#x017F;ie &#x017F;elbige an&#x017F;ehen. Her-<lb/>
+nach kan ihnen auch die zweyte Gattung der<lb/>
+Buch&#x017F;taben durch Zeigung ihrer Gleichheit mit<lb/>
+den &#x017F;chlechten leicht beygebracht: Die dritte Gat-<lb/>
+tung aber, wegen ihrer verkra&#x0364;u&#x017F;elung, ver&#x017F;paret<lb/>
+werden, bis &#x017F;ie im Buch&#x017F;tabiren ein wenig avan-<lb/>
+ciret.</p><lb/>
+<p>3. Die gantze Materie i&#x017F;t in Frag und Ant-<lb/>
+wort gebracht, nicht, daß im Anfange die Kin-<lb/>
+der &#x017F;olche le&#x017F;en und auswendig lernen &#x017F;olten;<lb/>
+denn &#x017F;ie &#x017F;ollen er&#x017F;t le&#x017F;en lernen: &#x017F;ondern der Leh-<lb/>
+rer muß ihnen &#x017F;olche &#x017F;o oft vor&#x017F;agen, bis &#x017F;ie end-<lb/>
+lich antworten ko&#x0364;nnen.</p><lb/>
+<p><hi rendition="#c">3. <hi rendition="#fr">Wie werden die&#x017F;e Buch&#x017F;taben ein-<lb/>
+getheilet?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. Jn &#x017F;tumme und laute Buch&#x017F;ta-<lb/>
+ben.</hi></p><lb/>
+<p><hi rendition="#c">4. <hi rendition="#fr">Wie hei&#x017F;&#x017F;en die &#x017F;tummen?</hi></hi></p><lb/>
+<p><hi rendition="#c"><hi rendition="#b">A. b c d f g h k l m n p q r &#x017F; t v w x z.</hi></hi></p><lb/>
+<p><hi rendition="#c">5. <hi rendition="#fr">Wie hei&#x017F;&#x017F;en die lauten?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. a e i o u und y.</hi></p><lb/>
+<p><hi rendition="#c">6. <hi rendition="#fr">Warum werden jene &#x017F;tumme Buch-<lb/>
+&#x017F;taben genennet?</hi></hi></p><lb/>
+<fw type="catch" place="bottom">A.</fw><lb/>
+<pb n="7" facs="#f0013"/>
+<fw type="header" place="top"><milestone unit="section" rendition="#hr"/><lb/>
+</fw> <p><hi rendition="#b">A. Weil &#x017F;ie ohne einen beyge&#x017F;etzten<lb/>
+lauten Buch&#x017F;taben keinen vernehmli-<lb/>
+chen Ton haben.</hi></p><lb/>
+<p><hi rendition="#c">7. <hi rendition="#fr">Warum hei&#x017F;&#x017F;en die andern laute<lb/>
+Buch&#x017F;taben?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. Weil &#x017F;ie von &#x017F;ich &#x017F;elb&#x017F;t ohne einen<lb/>
+beyge&#x017F;etzten &#x017F;tummen Buch&#x017F;taben ei-<lb/>
+nen Laut oder Ton haben.</hi></p><lb/>
+<p><hi rendition="#c">8. <hi rendition="#fr">Wie vielerley laute Buch&#x017F;taben ha-<lb/>
+ben die Teut&#x017F;chen?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. Einfach laute und zu&#x017F;ammen<lb/>
+ge&#x017F;etzte laute.</hi></p><lb/>
+<p><hi rendition="#c">9. <hi rendition="#fr">Wie hei&#x017F;&#x017F;en die einfach lauten?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. a e i o u und y.</hi></p><lb/>
+<p><hi rendition="#c">10. <hi rendition="#fr">Wie hei&#x017F;&#x017F;en die zu&#x017F;ammen ge&#x017F;etzten<lb/>
+lauten?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. aa a&#x0364; (oder ae) ai ay au a&#x0364;u a&#x0364;y<lb/>
+*ee ei eu ey *ie *oo o&#x0364; (oder oe) oi oy<lb/>
+*u&#x0364; uy.</hi></p><lb/>
+<p><hi rendition="#c">11. <hi rendition="#fr">Wie werden die laute Buch&#x017F;taben<lb/>
+weiter eingetheilet?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. Jn kurtze laute und lange laute<lb/>
+Buch&#x017F;taben.</hi></p><lb/>
+<p><hi rendition="#c">12. <hi rendition="#fr">Wie hei&#x017F;&#x017F;en die kurtze laute Buch-<lb/>
+&#x017F;taben?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. a e i o u und y.</hi></p><lb/>
+<p><hi rendition="#c">13. <hi rendition="#fr">Wie hei&#x017F;&#x017F;en die langen laute Buch-<lb/>
+&#x017F;taben?</hi></hi></p><lb/>
+<fw type="catch" place="bottom"><hi rendition="#b">A. aa</hi></fw><lb/>
+<pb n="8" facs="#f0014"/>
+<fw type="header" place="top"><milestone unit="section" rendition="#hr"/><lb/>
+</fw> <p><hi rendition="#b">A. aa ah a&#x0364;h ee eh ie ih oo oh o&#x0364;h uh u&#x0364;h.</hi></p><lb/>
+<p><hi rendition="#c">14. <hi rendition="#fr">Warum hei&#x017F;&#x017F;en &#x017F;ie lange laute<lb/>
+Buch&#x017F;taben?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. Weil durch die Verdoppelung<lb/>
+und durch das h und e angezeiget wird,<lb/>
+daß &#x017F;ie etwas lang gedehnet &#x017F;ollen aus-<lb/>
+ge&#x017F;prochen werden, z E in Ehre i&#x017F;t das<lb/>
+e durch das h lang: aber in Erde i&#x017F;t e<lb/>
+kurtz.</hi></p><lb/>
+<p><hi rendition="#c">15. <hi rendition="#fr">Wie werden die zu&#x017F;ammen ge&#x017F;etzte<lb/>
+laute Buch&#x017F;taben ausge&#x017F;prochen?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. Sie werden auf einmahl ausge-<lb/>
+&#x017F;prochen, und al&#x017F;o fu&#x0364;r einen gerechnet.<lb/>
+z. E. au, ei, nicht a-u e-i &#xA75B;c.</hi></p><lb/>
+<p><hi rendition="#c">16. <hi rendition="#fr">J&#x017F;t bey einfachen &#x017F;tummen Buch-<lb/>
+&#x017F;taben nichts zu mercken?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. Ver&#x017F;chiedenes.</hi></p><lb/>
+<p><hi rendition="#c">17. <hi rendition="#fr">Was mercke&#x017F;t du an bey ph und v?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. ph. und v werden wie f ausge-<lb/>
+&#x017F;prochen/ z. E. Pharao Vater Faden &#xA75B;c.</hi></p><lb/>
+<p><hi rendition="#c">18. <hi rendition="#fr">Was bey q?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. Q i&#x017F;t niemals ohne u und werden<lb/>
+beyde fu&#x0364;r einen Buch&#x017F;taben gerechnet,<lb/>
+und wie qw ausge&#x017F;prochen. z. E. Quel-<lb/>
+le &#xA75B;c.</hi></p><lb/>
+<p><hi rendition="#c">19. <hi rendition="#fr">Was bey J?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. Wenn auf J ein lauter Buch&#x017F;ta-<lb/>
+be folget: &#x017F;o hei&#x017F;&#x017F;et es Jo&#x0364;t, und wird</hi><lb/>
+<fw type="catch" place="bottom"><hi rendition="#b">fa&#x017F;t</hi></fw><lb/>
+<pb n="9" facs="#f0015"/>
+<fw type="header" place="top"><milestone unit="section" rendition="#hr"/><lb/>
+</fw> <hi rendition="#b">fa&#x017F;t wie ein g ausge&#x017F;prochen. z. E. Ja-<lb/>
+cob, Jeru&#x017F;alem, Jo&#x017F;eph, Jude &#xA75B;c.</hi></p><lb/>
+<p><hi rendition="#c">20. <hi rendition="#fr">Wenn aber ein &#x017F;tummer Buch&#x017F;ta-<lb/>
+be aufs J folget, wie denn?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. Wenn auf das J ein &#x017F;tummer<lb/>
+Buch&#x017F;tabe folget: &#x017F;o wird es wie ein i<lb/>
+gele&#x017F;en. z. E. Jhnen, Jmmanuel. &#xA75B;c.</hi></p><lb/>
+<p><hi rendition="#c">21. <hi rendition="#fr">Was i&#x017F;t bey c. zu mercken?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. Wenn auf c ein e i oder y folget:<lb/>
+&#x017F;o wird es wie z gele&#x017F;en. z. E. Centner,<lb/>
+Circkel, Cypern.</hi></p><lb/>
+<p><hi rendition="#c">22. <hi rendition="#fr">Wenn aber auf c ein a o u folget?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. Wenn auf c ein a o u folget: &#x017F;o<lb/>
+wird es wie k gele&#x017F;en. z. E. Cantzel,<lb/>
+Conrad, Cur &#xA75B;c.</hi></p><lb/>
+<p><hi rendition="#c">23. <hi rendition="#fr">Wenn aber auf c ein a&#x0364; oder o&#x0364; folger,<lb/>
+und nur ein &#x017F;tummer Buch&#x017F;tabe dar-<lb/>
+hinter &#x017F;tehet, wie denn?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. So wird c wie z ausge&#x017F;prochen,<lb/>
+z. E. Ca&#x0364;&#x017F;arien, Co&#x0364;li ro&#x017F;a &#xA75B;c.</hi></p><lb/>
+<p><hi rendition="#c">24. <hi rendition="#fr">Wie aber, wenn mehr als ein &#x017F;tum-<lb/>
+mer Buch&#x017F;tabe auf ca&#x0364; co&#x0364; folget?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. Wenn aber auf ca&#x0364; co&#x0364; mehr als<lb/>
+ein &#x017F;tummer Buch&#x017F;tabe folget: &#x017F;o<lb/>
+wird c wie k ausge&#x017F;prochen. z. E. Ca&#x0364;m-<lb/>
+merer, Co&#x0364;then, &#xA75B;c.</hi></p><lb/>
+<p><hi rendition="#c">25. <hi rendition="#fr">Was i&#x017F;t bey t zu mercken?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. Wenn auf t ein i mit noch einem</hi><lb/>
+<fw type="sig" place="bottom"><hi rendition="#b">A 5</hi></fw><fw type="catch" place="bottom"><hi rendition="#b">lau-</hi></fw><lb/>
+<pb n="10" facs="#f0016"/>
+<fw type="header" place="top"><milestone unit="section" rendition="#hr"/><lb/>
+</fw> <hi rendition="#b">lauten Buch&#x017F;taben folget: &#x017F;o wird es<lb/>
+wie z ausge&#x017F;prochen, z. E. Exercitia,<lb/>
+Patient, Lection/ Pontius &#xA75B;c.</hi></p><lb/>
+<p><hi rendition="#c">26. <hi rendition="#fr">Wenn aber vor dem t ein &#x017F; &#x017F;tehet,<lb/>
+wie denn?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. So wird es nicht wie zi; &#x017F;ondern<lb/>
+wie ti ausge&#x017F;prochen, z. E. Chri&#x017F;tian &#xA75B;c.</hi></p><lb/>
+<p><hi rendition="#c">27. <hi rendition="#fr">J&#x017F;t nichts mehr bey den &#x017F;tummen<lb/>
+Buch&#x017F;taben zu mercken?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. Ja, es giebet zu&#x017F;ammen ge&#x017F;etzte<lb/>
+&#x017F;tumme Buch&#x017F;taben, die &#x017F;ich im Buch-<lb/>
+&#x017F;tabiren und Abtheilen nicht trennen<lb/>
+la&#x017F;&#x017F;en: weil man damit Wo&#x0364;rter kan<lb/>
+anfangen, und gleich&#x017F;am fu&#x0364;r einen zu<lb/>
+rechnen &#x017F;ind.</hi></p><lb/>
+<p><hi rendition="#c">28. <hi rendition="#fr">Wie hei&#x017F;&#x017F;en &#x017F;ie?</hi></hi></p><lb/>
+<p><hi rendition="#b">Antw. bl. z. E. Bi-bliothec.</hi></p><lb/>
+<p>29. <hi rendition="#fr">Wie mehr?</hi> A. br. z. E. A-brico&#x017F;en.</p><lb/>
+<p>30. <hi rendition="#fr">Wie mehr?</hi> A. ch. z. E. Cate-chi&#x017F;inus.</p><lb/>
+<p>31. <hi rendition="#fr">Wie mehr?</hi> A. chr. z. E. Wider-chri&#x017F;t.</p><lb/>
+<p>32. <hi rendition="#fr">Wie mehr?</hi> A. ck. z. E. Zu-cker.</p><lb/>
+<p>33. <hi rendition="#fr">Wie mehr?</hi> A. cl. z. E. ver-cli&#x017F;tiren.</p><lb/>
+<p>34. <hi rendition="#fr">Wie mehr?</hi> A. cr. z. E. be-cro&#x0364;nt.</p><lb/>
+<p>35. <hi rendition="#fr">Wie mehr?</hi> A. ct. z. E. Per&#x017F;pe-ctiv.</p><lb/>
+<p>36. <hi rendition="#fr">Wie mehr?</hi> A. dr. z. E. An-dreas.</p><lb/>
+<p>37. <hi rendition="#fr">Wie mehr?</hi> A. fl. z. E. Sa-flor.</p><lb/>
+<p>38. <hi rendition="#fr">Wie mehr?</hi> A. fr. z. E. Sa-fran.</p><lb/>
+<fw type="catch" place="bottom">39.</fw><lb/>
+<pb n="11" facs="#f0017"/>
+<fw type="header" place="top"><milestone unit="section" rendition="#hr"/><lb/>
+</fw> <p>39. <hi rendition="#fr">Wie mehr?</hi> A. gl z. E. be-glaubt.</p><lb/>
+<p>40. <hi rendition="#fr">Wie mehr?</hi> A. gn. z. E. erei-gnen</p><lb/>
+<p>41. <hi rendition="#fr">Wie mehr?</hi> A. gr. z. E. be-graben.</p><lb/>
+<p>42. <hi rendition="#fr">Wie mehr?</hi> A. kl. z. E. ver-klagen.</p><lb/>
+<p>43. <hi rendition="#fr">Wie mehr?</hi> A. kn. z. E. zer-kneipen.</p><lb/>
+<p>44. <hi rendition="#fr">Wie mehr?</hi> A. kr. z. E. ge-kra&#x0364;ncket.</p><lb/>
+<p>45. <hi rendition="#fr">Wie mehr?</hi> A. pf. z. E. Su&#x0364;nd-O-pfer.</p><lb/>
+<p>46. <hi rendition="#fr">Wie mehr?</hi> A. pfl. z. E. ver-pflegen.</p><lb/>
+<p>47. <hi rendition="#fr">Wie mehr?</hi> A. ph. z. E. Pro-phet.</p><lb/>
+<p>48. <hi rendition="#fr">Wie mehr?</hi> A. phl. z. E. phlegmati&#x017F;ch.</p><lb/>
+<p>49. <hi rendition="#fr">Wie mehr?</hi> A. phr. z. E. Eu-phrat.</p><lb/>
+<p>50. <hi rendition="#fr">Wie mehr?</hi> A. pl. z. E. Ge-plerre.</p><lb/>
+<p>51. <hi rendition="#fr">Wie mehr?</hi> A. pr. z. E. ge-pru&#x0364;ft.</p><lb/>
+<p>52. <hi rendition="#fr">Wie mehr?</hi> A. pt. z. E Sce-pter.</p><lb/>
+<p>53. <hi rendition="#fr">Wie mehr?</hi> A. &#x017F;c. z. E. Mu-&#x017F;cate.</p><lb/>
+<p>54. <hi rendition="#fr">Wie mehr?</hi> A. &#x017F;ch. z. E. Ab-&#x017F;chied.</p><lb/>
+<p>55. <hi rendition="#fr">Wie mehr?</hi> A. &#x017F;cr. z. E. zer-&#x017F;crupuliren.</p><lb/>
+<p>56. <hi rendition="#fr">Wie mehr?</hi> A. &#x017F;chl. z. E. be-&#x017F;chlagen.</p><lb/>
+<p>57. <hi rendition="#fr">Wie mehr?</hi> A. &#x017F;chm z. E. Ge-&#x017F;chmack.</p><lb/>
+<p>58. <hi rendition="#fr">Wie mehr?</hi> A. &#x017F;chn. z. E. Ein-&#x017F;chnitt.</p><lb/>
+<p>59. <hi rendition="#fr">Wie mehr?</hi> A. &#x017F;chr. z E. ein-&#x017F;chrencken.</p><lb/>
+<p>60. <hi rendition="#fr">Wie mehr?</hi> A. &#x017F;chw. z. E. Ge-&#x017F;chwul&#x017F;t.</p><lb/>
+<p>61. <hi rendition="#fr">Wie mehr?</hi> A. &#x017F;in. z. E. J-&#x017F;mael.</p><lb/>
+<p>62. <hi rendition="#fr">Wie mehr?</hi> A. &#x017F;p. z. E. Ho-&#x017F;pital.</p><lb/>
+<p>63. <hi rendition="#fr">Wie mehr?</hi> A. &#x017F;pr. z. E. er-&#x017F;prießlich.</p><lb/>
+<p>64. <hi rendition="#fr">Wie mehr?</hi> A. &#x017F;t. z. E. Po-&#x017F;tille.</p><lb/>
+<p>65. <hi rendition="#fr">Wie mehr?</hi> A. &#x017F;tr. z. E. be-&#x017F;traffen.</p><lb/>
+<fw type="catch" place="bottom">66.</fw><lb/>
+<pb n="12" facs="#f0018"/>
+<fw type="header" place="top"><milestone unit="section" rendition="#hr"/><lb/>
+</fw> <p><hi rendition="#c">66. <hi rendition="#fr">Wie mehr?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. th. <hi rendition="#aq">NB.</hi> das t nimt das h im-<lb/>
+mer zu &#x017F;ich und zwar zur rechten.<lb/>
+Wenn nun in einer Sylbe ein t i&#x017F;t,<lb/>
+un&#x0303; es wird auch darin ein a e i &#xA75B;c. durch<lb/>
+h lang gemacht, &#x017F;o nimmt das t das h<lb/>
+zu &#x017F;ich, es mag &#x017F;o weit davon &#x017F;tehen,<lb/>
+als es immer will. z. E. Rath. da &#x017F;olte<lb/>
+das h bey dem a &#x017F;tehen. Jt. thun, da<lb/>
+&#x017F;olte das h hinter dem u &#x017F;tehen. &#xA75B;c.</hi></p><lb/>
+<p><hi rendition="#c">67. <hi rendition="#fr">Wie mehr?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. tr. z. E. Zeit Ver-treib.</hi></p><lb/>
+<p><hi rendition="#c">68. <hi rendition="#fr">Wie mehr?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. x das i&#x017F;t &#x017F;o viel als es chs, als He-<lb/>
+xe. Es wird auch an&#x017F;tatt des x o&#x0364;f-<lb/>
+ters chs gebrauchet, z. E. Dachs, Wachs,<lb/>
+Flachs, &#xA75B;c.</hi></p><lb/>
+<p><hi rendition="#c">69. <hi rendition="#fr">Wie mehr?</hi></hi></p><lb/>
+<p><hi rendition="#b">Antw. tz. z. E. Spitze.</hi></p></div><lb/>
+<div n="1"><head><hi rendition="#b">Cap. <hi rendition="#aq">II.</hi><lb/>
+Von den Sylben.</hi></head><lb/>
+<p><hi rendition="#c">70. <hi rendition="#fr">Was i&#x017F;t eine Sylbe?</hi></hi></p><lb/>
+<p><hi rendition="#b">Antw. Eine Sylbe i&#x017F;t die Aus&#x017F;pra-<lb/>
+che eines oder etlicher Buch&#x017F;taben.</hi></p><lb/>
+<p><hi rendition="#c">71. <hi rendition="#fr">Wie vielerley Sylben hat man?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. Dreyerley. 1.) Man hat Syl-</hi><lb/>
+<fw type="catch" place="bottom"><hi rendition="#b">ben,</hi></fw><lb/>
+<pb n="13" facs="#f0019"/>
+<fw type="header" place="top"><milestone unit="section" rendition="#hr"/><lb/>
+</fw> <hi rendition="#b">ben, die aus einem einfachen oder zu-<lb/>
+&#x017F;ammen ge&#x017F;etzten lauten Buch&#x017F;taben<lb/>
+allein be&#x017F;tehen, z. E. A-dam, Eu-le.</hi></p><lb/>
+<p><hi rendition="#b">2.) Sylben, die aus einem einfachen<lb/>
+oder zu&#x017F;ammen ge&#x017F;etzten lauten, und<lb/>
+einem &#x017F;tummen Buch&#x017F;taben be&#x017F;tehen.<lb/>
+z. E. Zi-on, Tu&#x0364;-cke, &#xA75B;c.</hi></p><lb/>
+<p><hi rendition="#b">3.) Die aus einem einfach- oder<lb/>
+zu&#x017F;ammen ge&#x017F;etzten lauten, und aus<lb/>
+2. 3. und mehr &#x017F;tummen Buch&#x017F;taben<lb/>
+be&#x017F;tehen, z. E. Pre-tzel, Jung-frau.</hi></p></div><lb/>
+<div n="1"><head><hi rendition="#b">Cap. <hi rendition="#aq">III.</hi><lb/>
+Von den Wo&#x0364;rtern.</hi></head><lb/>
+<p><hi rendition="#c">72. <hi rendition="#fr">Was i&#x017F;t ein Wort?</hi></hi></p><lb/>
+<p><hi rendition="#b">Antw. Die Aus&#x017F;prache einer oder<lb/>
+mehrerer Sylben, daß man ver&#x017F;tehen<lb/>
+kan, was es &#x017F;eyn &#x017F;oll.</hi></p><lb/>
+<p><hi rendition="#c">73. <hi rendition="#fr">Wie vielerley Wo&#x0364;rter giebt es?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. Sech&#x017F;erley Wo&#x0364;rter, als: Ein&#x017F;yl-<lb/>
+bige und viel&#x017F;ylbige Wo&#x0364;rter. Ein-<lb/>
+fache und zu&#x017F;ammen ge&#x017F;etzte Wo&#x0364;rter.<lb/>
+Haupt- und Bey-wo&#x0364;rter.</hi></p><lb/>
+<p><hi rendition="#c">74. <hi rendition="#fr">Gieb mit Exempel von ein &#x017F;ylbi-<lb/>
+gen Wo&#x0364;rtern?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. Z. E. GOtt, Tod, Weg, Hund.</hi></p><lb/>
+<fw type="catch" place="bottom">75.</fw><lb/>
+<pb n="14" facs="#f0020"/>
+<fw type="header" place="top"><milestone unit="section" rendition="#hr"/><lb/>
+</fw> <p><hi rendition="#c">75. <hi rendition="#fr">Gieb mir Exempel von viel&#x017F;yl-<lb/>
+bigen Wo&#x0364;rtern?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. Z. E. Va-ter, Cre-a-tur, Ge-<lb/>
+lehr-&#x017F;am-keit.</hi></p><lb/>
+<p><hi rendition="#c">76. <hi rendition="#fr">Gieb mir Exempel von einfachen<lb/>
+Wo&#x0364;rtern?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. Z. E. Mann, Kinder.</hi></p><lb/>
+<p><hi rendition="#c">77. <hi rendition="#fr">Gieb mit Exempel von zu&#x017F;ammen<lb/>
+ge&#x017F;etzten Wo&#x0364;rtern?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. Z. E. Manns-Per&#x017F;on, Gottes-<lb/>
+furcht &#xA75B;c.</hi></p><lb/>
+<p><hi rendition="#c">78. <hi rendition="#fr">Was &#x017F;ind Haupt-Wo&#x0364;rter?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. Die allein und fu&#x0364;r &#x017F;ich etwas be-<lb/>
+deuten, z. E. Vater, Mutter, Bru-<lb/>
+der, Schwe&#x017F;ter.</hi></p><lb/>
+<p><hi rendition="#c">79. <hi rendition="#fr">Was &#x017F;ind Beywo&#x0364;rter?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. Die allein und fu&#x0364;r &#x017F;ich nichts be-<lb/>
+deuten. z E. ver, zer, ge, be, aus, ein, &#xA75B;c.</hi></p><lb/>
+<p><hi rendition="#c">80. <hi rendition="#fr">Woraus be&#x017F;tehen zu&#x017F;ammen ge&#x017F;etz-<lb/>
+te Wo&#x0364;rter?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. Aus lauter Hauvt-Wo&#x0364;rtern,<lb/>
+oder aus Haupt-Wo&#x0364;rtern und Bey-<lb/>
+wo&#x0364;rtern zugleich.</hi></p><lb/>
+<p><hi rendition="#c">81. <hi rendition="#fr">Gieb mir Exempel von zu&#x017F;ammen<lb/>
+ge&#x017F;etzten Wo&#x0364;rtern, die aus lauter<lb/>
+Haupt-wo&#x0364;rtern be&#x017F;tehen?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. Z. E. Predig-Amt, Cantzeley-<lb/>
+Rath, &#xA75B;c.</hi></p><lb/>
+<fw type="catch" place="bottom">82.</fw><lb/>
+<pb n="15" facs="#f0021"/>
+<fw type="header" place="top"><milestone unit="section" rendition="#hr"/><lb/>
+</fw> <p><hi rendition="#c">82. <hi rendition="#fr">Gieb mir Exempel von zu&#x017F;ammen<lb/>
+ge&#x017F;etzten wo&#x0364;rtern, die aus Haupt- und<lb/>
+Beywo&#x0364;rtern be&#x017F;tehen?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. Z. E. ver-rei&#x017F;en, zer-&#x017F;treuen,<lb/>
+ge-horchen, be-fleißigen, aus-gehen/<lb/>
+ein-gehen &#xA75B;c.</hi></p></div><lb/>
+<div n="1"><head><hi rendition="#b">Cap. <hi rendition="#aq">VI.</hi><lb/>
+Vom Buch&#x017F;tabiren.</hi></head><lb/>
+<p><hi rendition="#c">83. <hi rendition="#fr">Was hei&#x017F;&#x017F;er Buch&#x017F;tabiren?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. Buch&#x017F;tabiren hei&#x017F;&#x017F;et: Die<lb/>
+Buch&#x017F;taben, die zu einer ieden Sylbe<lb/>
+geho&#x0364;ren, eintzeln nennen, und hernach<lb/>
+zu&#x017F;ammen aus&#x017F;prechen. z. E. <hi rendition="#g">Kind</hi><lb/>
+Kind.</hi></p><lb/>
+<p><hi rendition="#c">84. <hi rendition="#fr">Wo kommen aber die a e i oder o&#x0364; hin,<lb/>
+wodurch man die &#x017F;tummen Buch&#x017F;ta-<lb/>
+ben auszu&#x017F;prechen pfleget?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. Die wirfft man weg/ wie &#x017F;ie denn<lb/>
+ohne dem kaum du&#x0364;rffen geho&#x0364;ret wer-<lb/>
+den, und &#x017F;pricht die &#x017F;tummen durch die<lb/>
+lauten Buch&#x017F;taben aus, die in der Syl-<lb/>
+be &#x017F;eyn. Z. E. wenn ich Brod buch-<lb/>
+&#x017F;tabiren &#x017F;oll: &#x017F;o werffe ich von dem b<lb/>
+und r die o&#x0364; weg/ fu&#x0364;ge o hinzu, und &#x017F;a-<lb/>
+ge an&#x017F;tatt Bro&#x0364;d Brod.</hi></p><lb/>
+<fw type="catch" place="bottom">85.</fw><lb/>
+<pb n="16" facs="#f0022"/>
+<fw type="header" place="top"><milestone unit="section" rendition="#hr"/><lb/>
+</fw> <p><hi rendition="#c">85. <hi rendition="#fr">Wie buch&#x017F;tabiret man aber ein viel-<lb/>
+&#x017F;ylbiges Wort?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. Man nimmt eine Sylbe nach der<lb/>
+andern vor, und verfa&#x0364;hret mit ieder,<lb/>
+wie Fr. 83. und 84. gemeldet worden,<lb/>
+bis das gantze Wort durchbuch&#x017F;tabi-<lb/>
+ret. Z. E. Wenn ich das Wort beflei&#x017F;-<lb/>
+&#x017F;igen buch&#x017F;tabiren &#x017F;oll: &#x017F;o &#x017F;age ich:<lb/>
+bo&#x0364; e, be, flo&#x0364; ei &#x017F;, flei&#x017F;, &#x017F;o&#x0364; i, &#x017F;i, go&#x0364; e n, gen.<lb/>
+Man braucht nicht alle Sylben zu<lb/>
+wiederhohlen.</hi></p><lb/>
+<p><hi rendition="#c">86. <hi rendition="#fr">Wie weiß man aber, in wie viel<lb/>
+Sylben man ein Wort theilen<lb/>
+&#x017F;oll?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. Jch &#x017F;ehe, wie viel einfach laute,<lb/>
+oder zu&#x017F;ammen ge&#x017F;etzte laute Buch-<lb/>
+&#x017F;taben im gantzen Worte &#x017F;ind: &#x017F;o viel<lb/>
+Sylben hat das Wort, z. E. das<lb/>
+Wort Bra&#x0364;ute hat zween laute Buch-<lb/>
+&#x017F;taben a&#x0364;u und e: al&#x017F;o hat es auch zwo<lb/>
+Sylben.</hi></p><lb/>
+<p><hi rendition="#c">87. <hi rendition="#fr">Wenn aber 2. laute Buch&#x017F;taben bey<lb/>
+einander &#x017F;tehen, und ich kan doch kei-<lb/>
+nen zu&#x017F;ammen ge&#x017F;etzten lauten draus<lb/>
+machen: Wie buch&#x017F;tabiret man<lb/>
+alsdenn?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. Jch &#x017F;preche einen ieden be&#x017F;onders<lb/>
+aus. z. E. Ba-al. Jo-as/ Feu-er, Eli-<lb/>
+as, &#xA75B;c.</hi></p><lb/>
+<fw type="catch" place="bottom">88.</fw><lb/>
+<pb n="17" facs="#f0023"/>
+<fw type="header" place="top"><milestone unit="section" rendition="#hr"/><lb/>
+</fw> <p><hi rendition="#c">88. <hi rendition="#fr">Wenn ich aber aus denen lauten<lb/>
+zu&#x017F;ammen ge&#x017F;etzte laute machen kan:<lb/>
+Wie denn?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. Wenn es fremde Nahmen und<lb/>
+keine eigentliche teut&#x017F;che Wo&#x0364;rter find;<lb/>
+und ich ko&#x0364;nte aus denen bey einander<lb/>
+&#x017F;tehenden lauten Buch&#x017F;taben zu&#x017F;am-<lb/>
+men ge&#x017F;etzte laute machen: &#x017F;o thue ichs<lb/>
+doch nicht; &#x017F;ondern &#x017F;preche einen ieden<lb/>
+be&#x017F;onders aus. z. E. Ca-in, nicht Cain,<lb/>
+Athe-i&#x017F;t, nicht Athei&#x017F;t. Ptoloma&#x0364;-us,<lb/>
+nicht Ptolo-ma&#x0364;us. Ori-entali&#x017F;ch/ nicht<lb/>
+O-rien-tali&#x017F;ch.</hi></p><lb/>
+<p><hi rendition="#c">89. <hi rendition="#fr">Wenn aber ein &#x017F;tummer Buch&#x017F;tabe<lb/>
+zwi&#x017F;chen zween lauten &#x017F;tehet: nehme<lb/>
+ich ihn zu der er&#x017F;ten, oder folgen-<lb/>
+genden Sylbe?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. Zu der folgenden. z. E. Re-gel.</hi></p><lb/>
+<p><hi rendition="#c">90. <hi rendition="#fr">Wenn aber 2. &#x017F;tumme Buch&#x017F;taben<lb/>
+zwi&#x017F;chen 2. lauten &#x017F;tehen: wie thei-<lb/>
+le ich &#x017F;ie im Buch&#x017F;tabiren?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. Jch nehme den einen zu der er-<lb/>
+&#x017F;ten Sylbe, den andern zu der folgen-<lb/>
+den, z. E. e&#x017F;-&#x017F;en. J&#x017F;t aber ein zu-<lb/>
+&#x017F;ammen ge&#x017F;etzter &#x017F;tummer Buch&#x017F;ta-<lb/>
+be zwi&#x017F;chen zwey lauten: &#x017F;o wird er<lb/>
+fu&#x0364;r einen gerechnet, und zur folgenden</hi><lb/>
+<fw type="sig" place="bottom"><hi rendition="#b">B</hi></fw><fw type="catch" place="bottom"><hi rendition="#b">Syl-</hi></fw><lb/>
+<pb n="18" facs="#f0024"/>
+<fw type="header" place="top"><milestone unit="section" rendition="#hr"/><lb/>
+</fw> <hi rendition="#b">Sylbe genommen, z. E. E-ckel, Hi-tze,<lb/>
+A-pfel, &#xA75B;c.</hi></p><lb/>
+<p><hi rendition="#c">91. <hi rendition="#fr">Wenn aber mehr als 2. &#x017F;tumme<lb/>
+Buch&#x017F;taben zwi&#x017F;chen 2. lauten &#x017F;tehen:<lb/>
+wie theilet man &#x017F;ie im Buch&#x017F;ta-<lb/>
+biren?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. Jch nehme den letztern, er &#x017F;ey<lb/>
+ein einfacher, oder zu&#x017F;ammen ge&#x017F;etz-<lb/>
+ter, zu der folgenden; die u&#x0364;brigen aber<lb/>
+zu der er&#x017F;ten Sylbe, z. E. Ant-litz, a&#x0364;ng-<lb/>
+&#x017F;tigen.</hi></p><lb/>
+<p><hi rendition="#c">92. <hi rendition="#fr">Wie theile ich aber zu&#x017F;ammen ge-<lb/>
+&#x017F;etzte Wo&#x0364;rter beym Buch&#x017F;tabiren?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. Wie &#x017F;ie zu&#x017F;ammen ge&#x017F;etzet: &#x017F;o<lb/>
+theile ich &#x017F;ie auch, z. E. Manns-Per-<lb/>
+&#x017F;on, Weibs-Bild, dar-in, dar-aus, hin-<lb/>
+aus &#xA75B;c.</hi></p><lb/>
+<table><row><cell/></row></table> <fw type="catch" place="bottom"><hi rendition="#b">ab</hi></fw><lb/>
+<pb n="19" facs="#f0025"/>
+<fw type="header" place="top"><milestone unit="section" rendition="#hr"/><lb/>
+</fw> <table><row><cell/></row></table> <p><hi rendition="#c"><hi rendition="#fr">Sylben von drey Buch&#x017F;taben.</hi></hi></p><lb/>
+<p><hi rendition="#b">Bam bem bim bom bum bym.<lb/>
+cer cir cyr car cor cur.<lb/>
+dan fer gic hot Kuh log.<lb/>
+man nim pot Reh Sin Tag.<lb/>
+ver wol zur.</hi></p><lb/>
+<p><hi rendition="#c"><hi rendition="#fr">Sylben von 2. &#x017F;tummen und einem zu-<lb/>
+&#x017F;etzten lauten Buch&#x017F;taben.</hi></hi></p><lb/>
+<p><hi rendition="#b">Ba&#x0364;r Beer Bier Boot ca&#x0364;n<lb/>
+Daum fein go&#x0364;t hier Keil Looß<lb/>
+mu&#x0364;d neun Paar qua&#x0364;l rauh<lb/>
+Saat Teig vier Weib Zeit<lb/>
+Zeug.</hi></p><lb/>
+<p><hi rendition="#c"><hi rendition="#fr">Sylben von drey Buch&#x017F;taben, von zwey<lb/>
+untheilbaren &#x017F;tummen und einem<lb/>
+lauten.</hi></hi></p><lb/>
+<p><hi rendition="#b">Bla bre chi clo cru cto dre fli<lb/>
+fro glu gna gre kli kno kru pha<lb/>
+ple p&#x017F;i quo &#x017F;pu &#x017F;ta the tri zwo</hi></p><lb/>
+<fw type="sig" place="bottom"><hi rendition="#b">B 2</hi></fw><fw type="catch" place="bottom"><hi rendition="#fr">Syl-</hi></fw><lb/>
+<pb n="20" facs="#f0026"/>
+<fw type="header" place="top"><milestone unit="section" rendition="#hr"/><lb/>
+</fw> <p><hi rendition="#c"><hi rendition="#fr">Sylben von drey Buch&#x017F;taben, von zwey<lb/>
+untheilbaren &#x017F;tummen und einem<lb/>
+zu&#x017F;ammen ge&#x017F;etzten lauten?</hi></hi></p><lb/>
+<p><hi rendition="#b">Blau Brey clie dro&#x0364; flu&#x0364; Frau<lb/>
+glei grie klo&#x0364; kru&#x0364; Pfau phuy<lb/>
+prie p&#x017F;o&#x0364; quu&#x0364; &#x017F;pau &#x017F;tei thie<lb/>
+tro&#x0364; zwey.</hi></p><lb/>
+<p><hi rendition="#c"><hi rendition="#fr">Sylben von vier Buch&#x017F;taben.</hi></hi></p><lb/>
+<p><hi rendition="#b">Acht A&#x017F;ch Bahn bell bi&#x017F;t Blut<lb/>
+Born Brut Bund Carl Cham<lb/>
+Curs Damm denn dich Dorf<lb/>
+drum Erbs Fahn Fehl Fri&#x017F;t<lb/>
+Fleck Geld glat grob Hand<lb/>
+Jagd Joch jung Kann Klip<lb/>
+Knab Krug Lamm Mond Noth<lb/>
+Ob&#x017F;t Pech pfle pfro Pful phra<lb/>
+plum Prag Quel Rock Ruth<lb/>
+Saft Schal &#x017F;chle Spor Spra<lb/>
+Stub &#x017F;tra Tact Trog Vers<lb/>
+Wolf zart zwar.</hi></p><lb/>
+<p><hi rendition="#c"><hi rendition="#fr">Sylben von vier Buch&#x017F;taben mit zu-<lb/>
+&#x017F;ammen ge&#x017F;etzten lauten.</hi></hi></p><lb/>
+<p><hi rendition="#b">Auchs Bauch Braut Claus<lb/>
+Crain drauf ein&#x017F;t fei&#x017F;t flo&#x0364;h frier</hi><lb/>
+<fw type="catch" place="bottom"><hi rendition="#b">Gei&#x017F;t</hi></fw><lb/>
+<pb n="21" facs="#f0027"/>
+<fw type="header" place="top"><milestone unit="section" rendition="#hr"/><lb/>
+</fw> <hi rendition="#b">Gei&#x017F;t Glied Greis Hu&#x0364;lf ja&#x0364;ch<lb/>
+kühl Kraut Lu&#x0364;ck mei&#x017F;t Pfeil<lb/>
+Preis Quaal qua&#x0364;l reif &#x017F;cheu<lb/>
+&#x017F;iech Spiel Spreu Staub Thier<lb/>
+wo&#x0364;rt Za&#x0364;hn Zweig</hi></p><lb/>
+<p><hi rendition="#c"><hi rendition="#fr">Sylben von fu&#x0364;nf Buch&#x017F;taben.</hi></hi></p><lb/>
+<p><hi rendition="#b">Artzt Banck blind Brett Dachs<lb/>
+Druck Dumpf Falck Fluch Fraß<lb/>
+Gicht glatt Grimm Hertz<lb/>
+Kampf Klotz Knab Kraft Licht<lb/>
+Mertz Nacht Pferd plump<lb/>
+P&#x017F;alm Punct quart Sanct<lb/>
+&#x017F;chon Sclav Stund Strohm<lb/>
+Tacht Thron Werth Zanck<lb/>
+Zweck.</hi></p><lb/>
+<p><hi rendition="#c"><hi rendition="#fr">Sylben von &#x017F;echs Buch&#x017F;taben mit zu<lb/>
+&#x017F;ammen ge&#x017F;etzten lauten.</hi></hi></p><lb/>
+<p><hi rendition="#b">Bleibts braucht fa&#x0364;ll&#x017F;t fleucht<lb/>
+glaub&#x017F;t ho&#x0364;ch&#x017F;t ju&#x0364;ng&#x017F;t knu&#x0364;pft<lb/>
+kriegts la&#x0364;ng&#x017F;t na&#x0364;ch&#x017F;t Schmeer<lb/>
+Schroot &#x017F;chwu&#x0364;l Strauch &#x017F;tu&#x0364;rmt<lb/>
+teut&#x017F;ch.</hi></p><lb/>
+<fw type="sig" place="bottom"><hi rendition="#b">A 3</hi></fw><fw type="catch" place="bottom"><hi rendition="#fr">Syl-</hi></fw><lb/>
+<pb n="22" facs="#f0028"/>
+<fw type="header" place="top"><milestone unit="section" rendition="#hr"/><lb/>
+</fw> <p><hi rendition="#c"><hi rendition="#fr">Sylben von &#x017F;ieben Buch&#x017F;taben.</hi></hi></p><lb/>
+<p><hi rendition="#b">Bringts dre&#x017F;cht klopft man&#x017F;cht<lb/>
+Pfing&#x017F;t Pflicht pfropft prit&#x017F;cht<lb/>
+quet&#x017F;ch Schluck &#x017F;chmack Schrift<lb/>
+Schwamm &#x017F;pringt &#x017F;tich&#x017F;t &#x017F;tu&#x0364;rmts<lb/>
+Strunck Zwet&#x017F;ch.</hi></p><lb/>
+<p><hi rendition="#c"><hi rendition="#fr">Sylben von &#x017F;ieben, acht und neun<lb/>
+Buch&#x017F;taben.</hi></hi></p><lb/>
+<p><hi rendition="#b">Glu&#x0364;t&#x017F;cht gla&#x0364;ub&#x017F;ts kra&#x0364;nckts<lb/>
+&#x017F;chla&#x0364;gts &#x017F;chreibs &#x017F;chweigt<lb/>
+&#x017F;cha&#x0364;nd&#x017F;t &#x017F;chleichts &#x017F;chmier&#x017F;ts<lb/>
+&#x017F;treich&#x017F;ts &#x017F;chro&#x0364;pf&#x017F;t &#x017F;chwa&#x0364;rm&#x017F;t.</hi></p><lb/>
+<div n="2"><head><hi rendition="#b">Exempel.</hi></head><lb/>
+<p><hi rendition="#c"><hi rendition="#b">Wie man etwa nach obgedachten Fra-<lb/>
+gen die Kinder zum Buch&#x017F;tabiren<lb/>
+anfu&#x0364;hren ko&#x0364;nne.</hi></hi></p><lb/>
+<p>Das Wort, welches man die Kinder will buch-<lb/>
+&#x017F;tabiren la&#x017F;&#x017F;en, &#x017F;eye: <hi rendition="#fr">Bier-Kru&#x0364;ge.</hi> Da&#x017F;&#x017F;elbe<lb/>
+&#x017F;chreibe man an die Tafel und frage alsdenn<lb/>
+bald die&#x017F;es, bald jenes Kind.</p><lb/>
+<p><hi rendition="#c">1. <hi rendition="#fr">Was hab ich hier ge&#x017F;chrieben?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. Ein Wort.</hi></p><lb/>
+<p><hi rendition="#c">2. <hi rendition="#fr">Woher wißt ihr, daß es ein Wort i&#x017F;t?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. Weil es aus Sylben be&#x017F;tehet.<lb/>
+S. Fr. 70.</hi></p><lb/>
+<fw type="catch" place="bottom">3. Wo-</fw><lb/>
+<pb n="23" facs="#f0029"/>
+<fw type="header" place="top"><milestone unit="section" rendition="#hr"/><lb/>
+</fw> <p><hi rendition="#c">3. <hi rendition="#fr">Woher wi&#x017F;&#x017F;et ihr, daß diß Wort aus<lb/>
+Sylben be&#x017F;tehet?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. Weil laute Buch&#x017F;taben darin-<lb/>
+nen &#x017F;ind. Siehe Fr. 86.</hi></p><lb/>
+<p><hi rendition="#c">4. <hi rendition="#fr">Wie hei&#x017F;&#x017F;en die laute Buch&#x017F;taben in<lb/>
+die&#x017F;em Wort?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. ie u&#x0364; e.</hi></p><lb/>
+<p><hi rendition="#c">5. <hi rendition="#fr">Sind diß laute Buch&#x017F;taben?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. Ja.</hi></p><lb/>
+<p><hi rendition="#c">6. <hi rendition="#fr">Warum?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. Weil ich &#x017F;ie allein kan aus&#x017F;pre-<lb/>
+chen. S. Fr. 7.</hi></p><lb/>
+<p><hi rendition="#c">7. <hi rendition="#fr">Wie viel laute &#x017F;ind es?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. Drey.</hi></p><lb/>
+<p><hi rendition="#c">8. <hi rendition="#fr">Welches i&#x017F;t der er&#x017F;te?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. ie.</hi></p><lb/>
+<p><hi rendition="#c">9. <hi rendition="#fr">J&#x017F;t das ein einfacher, oder zu&#x017F;am-<lb/>
+men ge&#x017F;etzter lauter Buch&#x017F;tabe?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. Ein zu&#x017F;ammen ge&#x017F;etzter lauter.</hi></p><lb/>
+<p><hi rendition="#c">10. <hi rendition="#fr">Warum?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. Weil er aus mehr als einem lau-<lb/>
+ten be&#x017F;tehet. S. Fr. 10.</hi></p><lb/>
+<p><hi rendition="#c">11. <hi rendition="#fr">Fu&#x0364;r wie viel muß ich die zu&#x017F;ammen<lb/>
+ge&#x017F;etzten lauten rechnen?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. Fu&#x0364;r einen.</hi></p><lb/>
+<p><hi rendition="#c">12. <hi rendition="#fr">Nach welcher Frage?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. Jn der 15. Frage hei&#x017F;&#x017F;et es: Sie<lb/>
+werden auf einmal ausge&#x017F;prochen &#xA75B;c.</hi></p><lb/>
+<fw type="sig" place="bottom">B 4</fw><fw type="catch" place="bottom">13.</fw><lb/>
+<pb n="24" facs="#f0030"/>
+<fw type="header" place="top"><milestone unit="section" rendition="#hr"/><lb/>
+</fw> <p><hi rendition="#c">13. <hi rendition="#fr">Wie hri&#x017F;&#x017F;et der andere laute Buch&#x017F;ta-<lb/>
+be in die&#x017F;em Wort?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. u&#x0364;.</hi></p><lb/>
+<p><hi rendition="#c">14. <hi rendition="#fr">J&#x017F;t das ein einfacher, oder zu&#x017F;am-<lb/>
+men ge&#x017F;etzter lauter?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. Ein zu&#x017F;ammen ge&#x017F;etzter lauter.</hi><lb/>
+(Hier ko&#x0364;nnen wiederhohlet werden Fr. 10. bis 12.)</p><lb/>
+<p><hi rendition="#c">15. <hi rendition="#fr">Wie hei&#x017F;&#x017F;et der dritte laute?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. e.</hi></p><lb/>
+<p><hi rendition="#c">16. <hi rendition="#fr">Was i&#x017F;t das fu&#x0364;r ein lauter?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. Ein einfacher lauter. S. Fr. 9.</hi></p><lb/>
+<p><hi rendition="#c">17. <hi rendition="#fr">Warum?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. Weil er nur aus einem lauten be-<lb/>
+&#x017F;tehet.</hi> (Die&#x017F;e laute Buch&#x017F;taben kan man<lb/>
+hierauf an der Tafel unter&#x017F;treichen, z. E.<lb/>
+<hi rendition="#fr">B<hi rendition="#u">ie</hi>r-K<hi rendition="#u">ru&#x0364;</hi>ge.)</hi></p><lb/>
+<p><hi rendition="#c">18. <hi rendition="#fr">Wie viel Sylben &#x017F;ind al&#x017F;o in die&#x017F;em<lb/>
+Wort?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. Drey.</hi></p><lb/>
+<p><hi rendition="#c">19. <hi rendition="#fr">Warum?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. Weil drey laute Buch&#x017F;taben<lb/>
+drinne &#x017F;ind.</hi></p><lb/>
+<p><hi rendition="#c">20. <hi rendition="#fr">Wie hei&#x017F;&#x017F;et hievon die 86. Frage?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. Jch &#x017F;ehe wieviel einfach laute &#xA75B;c.</hi></p><lb/>
+<p><hi rendition="#c">21. <hi rendition="#fr">J&#x017F;t diß ein ein&#x017F;ylbiges, oder viel-<lb/>
+&#x017F;ylbiges Wort?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. Ein viel&#x017F;ylbiges Wort.</hi></p><lb/>
+<fw type="catch" place="bottom">22.</fw><lb/>
+<pb n="25" facs="#f0031"/>
+<fw type="header" place="top"><milestone unit="section" rendition="#hr"/><lb/>
+</fw> <p><hi rendition="#c">22. <hi rendition="#fr">Warum?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. Weil es aus viel Sylben be&#x017F;te-<lb/>
+het. S. Fr. 73. 74.</hi></p><lb/>
+<p><hi rendition="#c">23. <hi rendition="#fr">J&#x017F;t es ein einfach, oder zu&#x017F;ammen-<lb/>
+ge&#x017F;etzt Wort?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. Ein zufammenge&#x017F;etzt Wort. S.<lb/>
+Fr. 73. und 77.</hi></p><lb/>
+<p><hi rendition="#c">24. <hi rendition="#fr">Aus wie viel Wo&#x0364;rtern i&#x017F;t es zu&#x017F;am-<lb/>
+men ge&#x017F;etzt?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. Aus zween, nemlich aus Bier<lb/>
+und Krug.</hi></p><lb/>
+<p><hi rendition="#c">25. <hi rendition="#fr">Be&#x017F;tehet diß Wort aus einem<lb/>
+Haupt, und Beywort, oder aus zwey<lb/>
+Haupt-Wo&#x0364;rtern?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. Aus zwey Haupt-Wo&#x0364;rtern.</hi></p><lb/>
+<p><hi rendition="#c">26. <hi rendition="#fr">Was nennet man Haupt-Wo&#x0364;rter?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. Die allein und fu&#x0364;r &#x017F;ich etwas be-<lb/>
+deuten. S. Fr. 78.</hi></p><lb/>
+<p><hi rendition="#c">27. <hi rendition="#fr">Was nennet man Beywo&#x0364;rter?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. Die allein und fu&#x0364;r &#x017F;ich nichts be-<lb/>
+deuten. S. F. 79.</hi></p><lb/>
+<p><hi rendition="#c">28. <hi rendition="#fr">Was wollen wir mit die&#x017F;em Wort<lb/>
+machen?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. Wir wollen es buch&#x017F;tabiren.</hi></p><lb/>
+<p><hi rendition="#c">29. <hi rendition="#fr">Was hei&#x017F;&#x017F;et buch&#x017F;tabiren?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. Die Buch&#x017F;taben, die zu ieder<lb/>
+Sylbe geho&#x0364;ren, eintzeln nennen und<lb/>
+hernach zu&#x017F;ammen aus&#x017F;prechen. S.<lb/>
+Fr. 83.</hi></p><lb/>
+<fw type="sig" place="bottom">B 5</fw><fw type="catch" place="bottom">30.</fw><lb/>
+<pb n="26" facs="#f0032"/>
+<fw type="header" place="top"><milestone unit="section" rendition="#hr"/><lb/>
+</fw> <p><hi rendition="#c">30. <hi rendition="#fr">Wie erfahre ich aber, wieviel Buch-<lb/>
+&#x017F;taben zu ieder Sylbe geho&#x0364;ren?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. Jch muß das Wort 1.) in Syl-<lb/>
+ben abtheilen nach der 86. Fr. und 2.)<lb/>
+&#x017F;ehen, wie viel &#x017F;tumme Buch&#x017F;taben<lb/>
+zwi&#x017F;chen iedem lauten &#x017F;tehen.</hi></p><lb/>
+<p><hi rendition="#c">31. <hi rendition="#fr">Wie viel &#x017F;tumme Buch&#x017F;taben &#x017F;tehen<lb/>
+denn zwi&#x017F;chen dem ie und u&#x0364; in un-<lb/>
+&#x017F;erm Wort?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. Drey, nemlich r K r.</hi></p><lb/>
+<p>(<hi rendition="#aq">NB.</hi> Damit die Kinder eigentlich &#x017F;ehen, wie<lb/>
+viel &#x017F;tumme Buch&#x017F;taben zwi&#x017F;chen iedem lauten<lb/>
+&#x017F;tehen: &#x017F;o kan man von einem lauten<lb/>
+zu dem andern einen Bogen ziehen, z. E.<lb/>
+Bier&#x035C;Kru&#x0364;)</p><lb/>
+<p><hi rendition="#c">32. <hi rendition="#fr">Sind r K r &#x017F;tumme Buch&#x017F;taben?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. Ja.</hi></p><lb/>
+<p><hi rendition="#c">33. <hi rendition="#fr">Warum?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. Weil ich &#x017F;ie ohne einen beyge&#x017F;etz-<lb/>
+ten lauten &#xA75B;c. S. Fr. 6.</hi></p><lb/>
+<p><hi rendition="#c">34. <hi rendition="#fr">Sind die&#x017F;e drey &#x017F;tumme Buch&#x017F;ta-<lb/>
+ben r K r im Abtheilen auch fu&#x0364;r<lb/>
+drey zu rechnen?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. Nein, &#x017F;ondern nur fu&#x0364;r zwey.</hi></p><lb/>
+<p><hi rendition="#c">35. <hi rendition="#fr">Welche beyde rechnet man denn<lb/>
+fu&#x0364;r einen?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. Das Kr.</hi></p><lb/>
+<fw type="catch" place="bottom">36.</fw><lb/>
+<pb n="27" facs="#f0033"/>
+<fw type="header" place="top"><milestone unit="section" rendition="#hr"/><lb/>
+</fw> <p><hi rendition="#c">36. <hi rendition="#fr">Warum?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. Weil es zu&#x017F;ammen ge&#x017F;etzte &#x017F;tum-<lb/>
+me Buch&#x017F;taben giebet, die &#x017F;ich im Ab-<lb/>
+theilen nicht trennen la&#x017F;&#x017F;en &#xA75B;c. S. Fr.<lb/>
+7. und 44.</hi></p><lb/>
+<p><hi rendition="#c">37. <hi rendition="#fr">Kan man denn mir Kr ein Wort<lb/>
+anfangen?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. Ja, z. E. un&#x017F;er Wort: Krug,<lb/>
+Kraft &#xA75B;c.</hi></p><lb/>
+<p><hi rendition="#c">38. <hi rendition="#fr">Wenn ich nun zwey &#x017F;tumme Buch-<lb/>
+&#x017F;taben zwi&#x017F;chen zwey lauten habe:<lb/>
+wo nehme ich &#x017F;ie hin?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. Jch nehme einen zu der er&#x017F;ten<lb/>
+Sylbe, den andern zu der folgenden.<lb/>
+S. Fr. 90.</hi></p><lb/>
+<p><hi rendition="#c">39. <hi rendition="#fr">Wo ho&#x0364;ret al&#x017F;o die er&#x017F;te Sylbe auf?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. Bey r.</hi></p><lb/>
+<p><hi rendition="#c">40. <hi rendition="#fr">Wo fa&#x0364;nget die andere an?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. Mit Kr.</hi></p><lb/>
+<p>[Hier kan man zum Unter&#x017F;chied beyder Sylben<lb/>
+einen Strich machen, z. E. Bier|<choice><orig>&#xFFFC;</orig><reg>&#x035F;</reg></choice>Kru&#x0364;]</p><lb/>
+<p><hi rendition="#c">41. <hi rendition="#fr">Weiß man nun &#x017F;chon, was fu&#x0364;r<lb/>
+Buch&#x017F;taben zu der er&#x017F;ten Sylbe<lb/>
+geho&#x0364;ren?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. Ja.</hi></p><lb/>
+<p><hi rendition="#c">42. <hi rendition="#fr">Welche denn?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. B ie r.</hi></p><lb/>
+<fw type="catch" place="bottom">43.</fw><lb/>
+<pb n="28" facs="#f0034"/>
+<fw type="header" place="top"><milestone unit="section" rendition="#hr"/><lb/>
+</fw> <p><hi rendition="#c">43. <hi rendition="#fr">Zu welcher Art von Sylben i&#x017F;t die-<lb/>
+&#x017F;e wohl zu rechnen?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. Zu der dritten. Welche aus ei-<lb/>
+nem einfachen, oder zu&#x017F;ammen ge&#x017F;etz-<lb/>
+ten lauten, und aus zwey, drey und<lb/>
+mehrern &#x017F;tummen be&#x017F;tehet. S. Fr. 71.</hi></p><lb/>
+<p><hi rendition="#c">44. <hi rendition="#fr">Saget mir u&#x0364;berhaupt, woraus ei-<lb/>
+ne Sylbe be&#x017F;tehen ko&#x0364;nne?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. 1.) Hat man Sylben, die aus ei-<lb/>
+nem &#xA75B;c. S. Fr. 71.</hi></p><lb/>
+<p><hi rendition="#c">45. <hi rendition="#fr">Wie erfahre ich nun, wie viel Buch-<lb/>
+&#x017F;taben zu der andern Sylbe ge-<lb/>
+ho&#x0364;ren?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. Jch &#x017F;ehe, wie viel &#x017F;tumme Buch-<lb/>
+&#x017F;taben &#x017F;ich finden zwi&#x017F;chen dem lauten<lb/>
+Buch&#x017F;taben der andern, und zwi&#x017F;chen<lb/>
+dem lauten Buch&#x017F;taben der dritten<lb/>
+Sylbe.</hi></p><lb/>
+<p><hi rendition="#c">46. <hi rendition="#fr">Welche &#x017F;ind die lauten Buch&#x017F;taben<lb/>
+der andern und dritten Sylbe?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. u&#x0364; und e.</hi></p><lb/>
+<p><hi rendition="#c">47. <hi rendition="#fr">Aber wie viel &#x017F;tumme Buch&#x017F;taben<lb/>
+&#x017F;ind zwi&#x017F;chen die&#x017F;en beyden?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. Nur das g.</hi></p><lb/>
+<p><hi rendition="#c">48. <hi rendition="#fr">Zu welcher Sylbe rechne ich das g?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. Zu der folgenden. S. Fr. 89.</hi></p><lb/>
+<p><hi rendition="#c">49. <hi rendition="#fr">Wo ho&#x0364;ret al&#x017F;o die andere Sylbe<lb/>
+auf?</hi></hi></p><lb/>
+<fw type="catch" place="bottom"><hi rendition="#b">A. Bey</hi></fw><lb/>
+<pb n="29" facs="#f0035"/>
+<fw type="header" place="top"><milestone unit="section" rendition="#hr"/><lb/>
+</fw> <p><hi rendition="#b">A. Bey dem u&#x0364;/ z. E. Bier|<choice><orig>&#xFFFC;</orig><reg>&#x035F;</reg></choice>Kru&#x0364; ge.</hi></p><lb/>
+<p><hi rendition="#c">50. <hi rendition="#fr">Weiß ich nun, was fu&#x0364;r Buch&#x017F;taben<lb/>
+zu der andern Sylbe geho&#x0364;ren?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. Ja, Kr und u&#x0364;.</hi></p><lb/>
+<p><hi rendition="#c">51. <hi rendition="#fr">Zu welcher Art Sylben geho&#x0364;ret<lb/>
+die&#x017F;e?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. Zu der andern, nemlich, die aus<lb/>
+einem einfachen, oder zu&#x017F;am&#x0303;en ge&#x017F;etz-<lb/>
+ten lauten, und aus einem einfachen, o-<lb/>
+der zu&#x017F;am&#x0303;en ge&#x017F;etzten &#x017F;tum&#x0303;en &#xA75B;c. S. Fr.<lb/>
+71. n. 2. <hi rendition="#aq">NB.</hi> Jch rechne hier u&#x0364; fu&#x0364;r<lb/>
+einen lauten, und Kr fu&#x0364;r einen &#x017F;tum-<lb/>
+men. S. Fr. 15. und 44.</hi></p><lb/>
+<p><hi rendition="#c">52. <hi rendition="#fr">Weiß ich auch, welche Buch&#x017F;taben<lb/>
+zu der dritten Sylbe geho&#x0364;ren?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. Ja.</hi></p><lb/>
+<p><hi rendition="#c">53. <hi rendition="#fr">Welche?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. g e.</hi></p><lb/>
+<p><hi rendition="#c">54. <hi rendition="#fr">Wenn ich nun weiß/ was fu&#x0364;r Buch-<lb/>
+&#x017F;taben zu ieder Sylbe geho&#x0364;ren, was<lb/>
+kan ich alsdenn thun?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. Jch kan das Wort buch&#x017F;tabiren.</hi></p><lb/>
+<p><hi rendition="#c">55. <hi rendition="#fr">Was hei&#x017F;&#x017F;et ein viel &#x017F;ylbiges Wort<lb/>
+buch&#x017F;tabiren?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. Man nimt eine Sylbe nach<lb/>
+der andern vor, nennet die Buch&#x017F;ta-<lb/>
+ben in ieder Sylbe eintzeln, und &#x017F;pricht</hi><lb/>
+<fw type="catch" place="bottom"><hi rendition="#b">&#x017F;ie</hi></fw><lb/>
+<pb n="30" facs="#f0036"/>
+<fw type="header" place="top"><milestone unit="section" rendition="#hr"/><lb/>
+</fw> <hi rendition="#b">&#x017F;ie hernach zu&#x017F;ammen aus. S. Fr. 83.<lb/>
+84. und 85.</hi></p><lb/>
+<p><hi rendition="#c">56. <hi rendition="#fr">Wie macht mans, wenn man will<lb/>
+die Buch&#x017F;taben, die zu ieder Sylbe ge-<lb/>
+ho&#x0364;ren zu&#x017F;ammen aus&#x017F;prechen?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. Man wirfft die e oder o&#x0364;, wo-<lb/>
+durch man &#x017F;on&#x017F;t die &#x017F;tummen Buch-<lb/>
+&#x017F;taben auszu&#x017F;prechen pfleget, hinweg;<lb/>
+wie &#x017F;ie denn ohne dem kaum du&#x0364;rffen<lb/>
+geho&#x0364;ret werden: und &#x017F;pricht die &#x017F;tum-<lb/>
+men durch die lauten Buch&#x017F;taben aus,<lb/>
+die in der Sylbe &#x017F;ind. S. Fr. 84.</hi></p><lb/>
+<p><hi rendition="#c">57. <hi rendition="#fr">Wie hei&#x017F;&#x017F;en die &#x017F;tummen Buch&#x017F;ta-<lb/>
+ben, die in der er&#x017F;ten Sylbe &#x017F;ind?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. B und r.</hi></p><lb/>
+<p><hi rendition="#c">58. <hi rendition="#fr">Durch was fu&#x0364;r einen lauten werden<lb/>
+die&#x017F;e &#x017F;on&#x017F;t ausge&#x017F;prochen?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. Durch o&#x0364;, als Bo&#x0364;r.</hi></p><lb/>
+<p><hi rendition="#c">59. <hi rendition="#fr">Was machet man mit dem o&#x0364;?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. Man wirffet es weg.</hi></p><lb/>
+<p><hi rendition="#c">60. <hi rendition="#fr">Wie &#x017F;pricht man die beyden &#x017F;tum-<lb/>
+men Buch&#x017F;taben B r hernach aus?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. Durch den lauten ie/ der in der<lb/>
+Sylbe i&#x017F;t, nemlich/ <hi rendition="#g">Bier,</hi> Bier.</hi></p><lb/>
+<p><hi rendition="#c">61. <hi rendition="#fr">Wie hei&#x017F;&#x017F;en die &#x017F;tummen Buch&#x017F;ta-<lb/>
+ben in der andern Sylbe?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. Kr. Hier wiederhohle die 58.<lb/>
+59. und 60. Fr.</hi></p><lb/>
+<fw type="catch" place="bottom">62.</fw><lb/>
+<pb n="31" facs="#f0037"/>
+<fw type="header" place="top"><milestone unit="section" rendition="#hr"/><lb/>
+</fw> <p><hi rendition="#c">62. <hi rendition="#fr">Wie hei&#x017F;&#x017F;et der &#x017F;tumme Buch&#x017F;tabe<lb/>
+in der dritten Sylbe?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. g.</hi></p><lb/>
+<p><hi rendition="#c">63. <hi rendition="#fr">Wie buch&#x017F;tabiret ihr nun das<lb/>
+Wort?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. Bo&#x0364;/ ie, r, Bier, Kro&#x0364;/ u&#x0364;, Kru&#x0364;/<lb/>
+go&#x0364;, e, ge.</hi></p><lb/>
+<p><hi rendition="#aq">NB.</hi> Dergleichen Exempel mu&#x0364;&#x017F;&#x017F;en ta&#x0364;glich einige<lb/>
+an der Tafel gemachet werden, &#x017F;o lange, bis die<lb/>
+Kinder das Buch&#x017F;tabiren begriffen.</p></div></div><lb/>
+<div n="1"><head><hi rendition="#b">Cap. <hi rendition="#aq">V.</hi><lb/>
+Vom Le&#x017F;en.</hi></head><lb/>
+<p><hi rendition="#c">64. <hi rendition="#fr">Was hei&#x017F;&#x017F;et le&#x017F;en?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. Die Buch&#x017F;taben, die zu ieder<lb/>
+Sylbe geho&#x0364;ren, ge&#x017F;chwind im Sinn<lb/>
+eintzeln nennen, und zu&#x017F;ammen aus-<lb/>
+&#x017F;prechen.</hi></p><lb/>
+<p><hi rendition="#c">Exempel abgetheilter Wo&#x0364;rter zum Le&#x017F;en.</hi></p><lb/>
+<p><hi rendition="#b">Ba-al Ca-in Pni-el Che-ru-bim<lb/>
+Gna-de Pin-&#x017F;el Sma-ragd A-<lb/>
+cker Schu&#x0364;-tze E-&#x017F;ther Sce-pter<lb/>
+Ge-&#x017F;chwa&#x0364;tz Fi-&#x017F;cal Sa-fran Pto-<lb/>
+lo-ma&#x0364;-us Aa-ron Sa-voy-en<lb/>
+Chri-&#x017F;ti-an E-phra-im Le-cti-on</hi><lb/>
+<fw type="catch" place="bottom">Flam</fw><lb/>
+<pb n="32" facs="#f0038"/>
+<fw type="header" place="top"><milestone unit="section" rendition="#hr"/><lb/>
+</fw> <hi rendition="#b">Flam-me Gren-tze Klin-cke<lb/>
+Bu&#x0364;ch-&#x017F;e Schnupf-Tuch Jung-<lb/>
+frau ach-tzig A-do-na-i Chal-da&#x0364;-<lb/>
+a Pon-ti-us J&#x017F;-ra-el A-le-xan-der<lb/>
+Le-cker-maul Per-&#x017F;pe-ctiv Ar-ti-<lb/>
+&#x017F;chock Buch-dru-cker A&#x017F;-&#x017F;y-ri-en<lb/>
+Mar-do-cha-i Aur-Ochs Un-art<lb/>
+wor-in wor-aus dar-in dar-aus<lb/>
+hin-auf Be-ga&#x0364;ng-niß Danck-o-<lb/>
+pfer Wohl-ed-ler Ver-a&#x0364;ch-ter be-<lb/>
+trach-ten auf-rich-ten durch-le-<lb/>
+&#x017F;en.</hi></p><lb/>
+<p><hi rendition="#c">Exempel unabgetheilter Wo&#x0364;rter zum Le&#x017F;en.</hi></p><lb/>
+<p>1.) <hi rendition="#fr">Exempel:</hi> Wenn zween laute Buch&#x017F;ta-<lb/>
+ben im Worte &#x017F;ind, die keinen zu&#x017F;ammen ge&#x017F;etz-<lb/>
+ten lauten machen, nach Fr. 87.</p><lb/>
+<p><hi rendition="#b">Ocean Patriarch Phari&#x017F;a&#x0364;er<lb/>
+Reue Sa&#x0364;ue Schauer &#x017F;chneyen<lb/>
+Steuer thue trauen.</hi></p><lb/>
+<p>2.) <hi rendition="#fr">Exempel:</hi> Wenn zwar zwey laute<lb/>
+Buch&#x017F;taben im Worte &#x017F;ind, die einen zu&#x017F;ammen<lb/>
+ge&#x017F;etzten lauten machen ko&#x0364;nten: die man aber<lb/>
+doch; weil es fremde Wo&#x0364;rter &#x017F;ind, von einan-<lb/>
+der theilet. S. Fr. 88. <hi rendition="#et"><hi rendition="#fr">als:</hi></hi></p><lb/>
+<fw type="catch" place="bottom"><hi rendition="#b">Aloe</hi></fw><lb/>
+<pb n="33" facs="#f0039"/>
+<fw type="header" place="top"><milestone unit="section" rendition="#hr"/><lb/>
+</fw> <p><hi rendition="#b">Aloe Arie Audientz Be&#x017F;rie Ce-<lb/>
+remoniel Client Como&#x0364;die Furie<lb/>
+Genealogie Hi&#x017F;torie Kleinodien<lb/>
+Linie Mobilien Mo&#x017F;ai&#x017F;ch Orient<lb/>
+Patient Poe&#x017F;ie Ptoloma&#x0364;us Re-<lb/>
+galien Thubalkain &#xA75B;c.</hi></p><lb/>
+<p>3. <hi rendition="#fr">Exempel:</hi> Wenn ein &#x017F;tumme&#xA75B; zwi&#x017F;chen<lb/>
+zween lauten &#x017F;tehet. S. Fr. 89. <hi rendition="#fr">als</hi></p><lb/>
+<p><hi rendition="#b">Ader begu&#x0364;tigen Cami&#x017F;ol De-<lb/>
+muth ewig Feder Friede Gebet<lb/>
+Graupen Ha&#x0364;u&#x017F;er Ja&#x0364;ger Jgel<lb/>
+Knabe Kreide Leben Mu&#x0364;he<lb/>
+Nahme Ofen Paradies Pfei-<lb/>
+ler pflu&#x0364;gen predigen qua&#x0364;len Ru-<lb/>
+he &#x017F;a&#x0364;ugen Schafe Tugend Va-<lb/>
+ter Wa&#x0364;y&#x017F;en Y&#x017F;op Zukunft.</hi></p><lb/>
+<p>4. <hi rendition="#fr">Exempel:</hi> wenn zween &#x017F;tumme untheil-<lb/>
+bare Buch&#x017F;taben im Worte &#x017F;ind. S. Fr. 90. <hi rendition="#fr">als</hi></p><lb/>
+<p><hi rendition="#b">Abrico&#x017F;e Apfel Athem begleiten<lb/>
+begnu&#x0364;gen Begriff Cale&#x017F;che Ca-<lb/>
+tholic Clo&#x017F;ter Cri&#x017F;tall Die&#x017F;tel<lb/>
+Epi&#x017F;tel Fabric Fi&#x017F;cal zerfladde-<lb/>
+ren befragen begnadigen Hi&#x017F;to-</hi><lb/>
+<fw type="sig" place="bottom"><hi rendition="#b">C</hi></fw><fw type="catch" place="bottom"><hi rendition="#b">ri&#x017F;ch</hi></fw><lb/>
+<pb n="34" facs="#f0040"/>
+<fw type="header" place="top"><milestone unit="section" rendition="#hr"/><lb/>
+</fw> <hi rendition="#b">ri&#x017F;ch Ho&#x017F;pital Ja&#x017F;pis Ka&#x017F;ten<lb/>
+kleine&#x017F;te Knochen kriechen lo&#x0364;&#x017F;chen<lb/>
+Magnet Mu&#x017F;cat neutral Opfer<lb/>
+Pa&#x017F;tete Pfla&#x017F;ter pfropfen, Pro-<lb/>
+phet Ra&#x0364;the Safran Scepter<lb/>
+&#x017F;cheuchen &#x017F;chleichen &#x017F;chro&#x0364;pfen<lb/>
+Schwalbe Spectakel Sprache<lb/>
+Stachel Te&#x017F;tament Tractat Ve-<lb/>
+&#x017F;per Wagner Zwie&#x017F;palt.</hi></p><lb/>
+<p>5. Wenn zwey &#x017F;tumme Buch&#x017F;taben zwi&#x017F;chen<lb/>
+2. lauten &#x017F;tehen, da ich einen zu die&#x017F;er, den an-<lb/>
+dern zur folgenden Sylbe nehme S. Fr. 90. als</p><lb/>
+<p><hi rendition="#b">Altar barfuß Bla&#x0364;tter Bretter<lb/>
+Cantor Chur-Fu&#x0364;r&#x017F;t Cla&#x017F;&#x017F;e Don-<lb/>
+ner Dro&#x017F;&#x017F;el Eltern fordern Gei&#x017F;-<lb/>
+&#x017F;el glorwu&#x0364;rdig Grabmahl Harfe<lb/>
+irdi&#x017F;ch Ju&#x0364;nger Ka&#x0364;lte Klafter<lb/>
+Knorpel Kreb&#x017F;e Leinwand Mar-<lb/>
+ter nirgend Orgel Perle pfa&#x0364;nden<lb/>
+P&#x017F;alter Quartier Ribbe Scha&#x0364;rf-<lb/>
+fe &#x017F;chla&#x0364;frig &#x017F;chmei&#x017F;&#x017F;en Schnitter<lb/>
+&#x017F;chwa&#x0364;rmen Spo&#x0364;tter &#x017F;pringen<lb/>
+&#x017F;terben Straffe Tempel Tru&#x0364;b&#x017F;al</hi><lb/>
+<fw type="catch" place="bottom"><hi rendition="#b">ver-</hi></fw><lb/>
+<pb n="35" facs="#f0041"/>
+<fw type="header" place="top"><milestone unit="section" rendition="#hr"/><lb/>
+</fw> <hi rendition="#b">ver&#x017F;o&#x0364;hnen Ungern Vormund<lb/>
+Weißheit Zunge zwingen.</hi></p><lb/>
+<p>6. <hi rendition="#fr">Exempel:</hi> Wenn zwi&#x017F;chen zween lauten<lb/>
+drey &#x017F;tumme Buch&#x017F;taben &#x017F;tehen, davon aber<lb/>
+zween ein zu&#x017F;ammen ge&#x017F;etzter untheilbarer &#x017F;ind.<lb/>
+S. Fr. 90.</p><lb/>
+<p><hi rendition="#b">Balcke Cantzel darthun Deich&#x017F;el<lb/>
+empfehlen fechten Grab&#x017F;cheid<lb/>
+Ham&#x017F;ter Jachzorn ka&#x0364;mpfen klat-<lb/>
+&#x017F;chen, knir&#x017F;chen Morchel Na&#x0364;ch&#x017F;te<lb/>
+Pflichten quet&#x017F;chen rumpfen<lb/>
+Sapphier Stru&#x0364;mpfe ver&#x017F;chrum-<lb/>
+pfen Unflat Urtheil Wu&#x0364;r&#x017F;te<lb/>
+zeichnen Zwi&#x017F;tigkeit.</hi></p><lb/>
+<p>7. Wenn drey &#x017F;tumme Buch&#x017F;taben zwi&#x017F;chen<lb/>
+zween lauten &#x017F;tehen: &#x017F;o nehme ich zween zur<lb/>
+vorhergehenden, und einen zur folgenden Sylbe.<lb/>
+S. Fr. 91. <hi rendition="#aq">NB.</hi> Die&#x017F;er eine letzte mag ein<lb/>
+einfacher, oder doppelt untheilbarer &#x017F;eyn. Als</p><lb/>
+<p><hi rendition="#b">Antlitz Bettler Centner Drang-<lb/>
+&#x017F;al Ernte freundlich gottlos<lb/>
+Handwerck Jungfer, ku&#x0364;nftig<lb/>
+Landsmann mu&#x0364;ndlich *** Marg-<lb/>
+graf Oehlblatt Pfing&#x017F;ten ruhm-</hi><lb/>
+<fw type="sig" place="bottom"><hi rendition="#b">B 2</hi></fw><fw type="catch" place="bottom"><hi rendition="#b">ra&#x0364;-</hi></fw><lb/>
+<pb n="36" facs="#f0042"/>
+<fw type="header" place="top"><milestone unit="section" rendition="#hr"/><lb/>
+</fw> <hi rendition="#b">ra&#x0364;thig Schildkro&#x0364;te Sechstheil<lb/>
+Wachsthum Zahn&#x017F;to&#x0364;cher Zwirn-<lb/>
+Spinnrad.</hi></p><lb/>
+<p>8. <hi rendition="#fr">Exempel.</hi> Wenn ein Wort vorkommt,<lb/>
+das aus zween zu&#x017F;ammen ge&#x017F;etzet i&#x017F;t; &#x017F;o theile<lb/>
+ichs, wie es zu&#x017F;ammen ge&#x017F;etzet i&#x017F;t. S. Fr. 92. als</p><lb/>
+<p><hi rendition="#b">Aurochs Baumo&#x0364;hl Chri&#x017F;ttag<lb/>
+darauf daraus darin darum Ein-<lb/>
+o&#x0364;de Frantzob&#x017F;t gra&#x0364;flich Ha&#x0364;nfling<lb/>
+hinab hinauf Jahrstag ka&#x0364;rglich<lb/>
+Ko&#x0364;rblein lo&#x0364;blich Meineyd Na-<lb/>
+delo&#x0364;hr Predigamt Salbo&#x0364;hl<lb/>
+Schreibart Spannader Tranck-<lb/>
+opfer voru&#x0364;ber warum wohlan<lb/>
+Zeugniß.</hi></p><lb/>
+<p>9. <hi rendition="#fr">Exempel</hi> von langen lauten Buch&#x017F;ta-<lb/>
+ben. S. Fr. 13. als</p><lb/>
+<p><hi rendition="#b">Aal ahnden Za&#x0364;hne Meer mehr<lb/>
+Biene ihnen Loos Ohr Oehlberg<lb/>
+tho&#x0364;rigt Uhre Bru&#x0364;h.</hi></p></div><lb/>
+<fw type="catch" place="bottom"><hi rendition="#b">Cap.</hi></fw><lb/>
+<pb n="37" facs="#f0043"/>
+<fw type="header" place="top"><milestone unit="section" rendition="#hr"/><lb/>
+</fw> <div n="1"><head><hi rendition="#b">Cap. <hi rendition="#aq">VI.</hi><lb/>
+Von den Unter&#x017F;cheidungs-<lb/>
+Zeichen,<lb/>
+Welche zum Le&#x017F;en geho&#x0364;ren, und die<lb/>
+den Kindern ko&#x0364;nnen beygebracht werden:<lb/>
+&#x017F;o bald &#x017F;ie fertig im Le&#x017F;en<lb/>
+&#x017F;ind.</hi></head><lb/>
+<p><hi rendition="#c">1. <hi rendition="#fr">Wie viel Unter&#x017F;cheidungs-Zeichen<lb/>
+haben wir Teut&#x017F;chen in un&#x017F;er<lb/>
+Sprache?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. Folgende: Comma (,) Colon<lb/>
+(:) Semicolon (;) Punct (.) Frag-<lb/>
+Zeichen (?): Ausruffungs-Zeichen (!)<lb/>
+doppelt Ein&#x017F;chlie&#x017F;&#x017F;ungs-Zeichen () []<lb/>
+Anfu&#x0364;hrungs-Zeichen (&#x201D;) Abthei-<lb/>
+lungs-Zeichen (-) Aufmerckungs-Zei-<lb/>
+chen (da man im Schreiben die Schrift<lb/>
+unter&#x017F;treichet, und im Drucken die<lb/>
+Schrift vera&#x0364;ndert) Ab&#x017F;atz Zeichen (§)<lb/>
+Wiederhohlungs-Zeichen (/: oder :/:).</hi></p><lb/>
+<p><hi rendition="#c">2. Wenn gebrauchet man <hi rendition="#fr">das Comma</hi> (,)?</hi></p><lb/>
+<p><hi rendition="#b">A. Das Comma gebrauchet man,</hi><lb/>
+<hi rendition="#fr">wenn entweder blo&#x017F;&#x017F;e Wo&#x0364;rter, oder<lb/>
+kurtze Verbindungen der Rede zu un<supplied>-</supplied><lb/>
+ter&#x017F;cheiden &#x017F;eyn,</hi> <hi rendition="#b">und i&#x017F;t das ku&#x0364;rtze&#x017F;te</hi><lb/>
+<fw type="sig" place="bottom"><hi rendition="#b">C 3</hi></fw><fw type="catch" place="bottom"><hi rendition="#b">Un</hi></fw><lb/>
+<pb n="38" facs="#f0044"/>
+<fw type="header" place="top"><milestone unit="section" rendition="#hr"/><lb/>
+</fw> <hi rendition="#b">Unter&#x017F;cheidungs-Zeichen, da man nur<lb/>
+ein wenig im Le&#x017F;en inne ha&#x0364;lt.</hi></p><lb/>
+<p><hi rendition="#c">3. Gieb mir Exempel da blo&#x017F;&#x017F;e Wo&#x0364;rter durch<lb/>
+ein Comma unter&#x017F;chieden werden?</hi></p><lb/>
+<p><hi rendition="#b">A. Z. E. 1.) wenn man iemand an-<lb/>
+redet, als: Hilf mir, GOtt, durch dei-<lb/>
+nen Namen. P&#x017F;. 54, 3. 2.) Wenn ver-<lb/>
+&#x017F;chiedene Wo&#x0364;rter ohne ein Verbin-<lb/>
+dungs-Wort ge&#x017F;etzet werden, als:<lb/>
+Von innen, aus dem Hertzen der<lb/>
+Men&#x017F;chen, gehen heraus: bo&#x0364;&#x017F;e Gedan-<lb/>
+cken, Ehebruch Hurerey, Mord, Die-<lb/>
+berey, Geitz, &#xA75B;c. Marc 6, 21. 22.</hi></p><lb/>
+<p><hi rendition="#c">4. Gieb mir Exempel, da kurtze Verbindungen<lb/>
+der Rede durch ein Comma unter&#x017F;chie-<lb/>
+den werden?</hi></p><lb/>
+<p><hi rendition="#b">A. Z. E. Darum prei&#x017F;et GOtt &#x017F;ei-<lb/>
+ne Leibe gegen uns, daß Chri&#x017F;tus fu&#x0364;r<lb/>
+uns ge&#x017F;torben i&#x017F;t, da wir noch Su&#x0364;nder<lb/>
+waren. Ro&#x0364;m. 5, 8.</hi></p><lb/>
+<p><hi rendition="#c">5. Wenn gebrauchet man <hi rendition="#fr">das Colon</hi> (:)?</hi></p><lb/>
+<p><hi rendition="#b">A.</hi> <hi rendition="#fr">Wenn zwey Haupt&#x017F;tu&#x0364;cke einer<lb/>
+Rede zu unter&#x017F;cheiden &#x017F;eyn. Die&#x017F;es<lb/>
+Colon i&#x017F;t na&#x0364;ch&#x017F;t dem Punct das la&#x0364;ng&#x017F;te<lb/>
+Unter&#x017F;cheidungs-Zeichen, wo man im<lb/>
+Le&#x017F;en das la&#x0364;ng&#x017F;te einhalten muß.</hi></p><lb/>
+<p><hi rendition="#c">6. Was nennet man denn Haupt&#x017F;tu&#x0364;cke der Rede?</hi></p><lb/>
+<p><hi rendition="#b">A. Den Vor&#x017F;atz und Nach&#x017F;atz.</hi></p><lb/>
+<fw type="catch" place="bottom">7.</fw><lb/>
+<pb n="39" facs="#f0045"/>
+<fw type="header" place="top"><milestone unit="section" rendition="#hr"/><lb/>
+</fw> <p><hi rendition="#c">7. Woraus erkennet man einen Vor&#x017F;atz und<lb/>
+Nach&#x017F;atz?</hi></p><lb/>
+<p><hi rendition="#b">A. Aus die&#x017F;en Wo&#x0364;rtern: Weil: &#x017F;o.<lb/>
+Gleichwie: al&#x017F;o. Obgleich: &#x017F;o doch.<lb/>
+Wo: &#x017F;o. Wenn: &#x017F;o. Nachdem:<lb/>
+&#x017F;o &#xA75B;c.</hi></p><lb/>
+<p><hi rendition="#c">8. Gieb mir ein Exempel?</hi></p><lb/>
+<p><hi rendition="#b">A. Gleichwie der Leib ohne Gei&#x017F;t<lb/>
+tod i&#x017F;t: Al&#x017F;o auch der Glaube ohne<lb/>
+Wercke i&#x017F;t tod. Jac. 2, 21.</hi></p><lb/>
+<p><hi rendition="#c">9. Wenn gebraucht man das Colon mehr?</hi></p><lb/>
+<p><hi rendition="#b">A.</hi> <hi rendition="#fr">Wenn eines andern, oder un&#x017F;ere<lb/>
+eigene Worte angefu&#x0364;hret werden.</hi><lb/>
+<hi rendition="#b">z. E. Wahrlich, wahrlich, ich &#x017F;age euch:<lb/>
+So iemand mein Wort wird halten,<lb/>
+der wird den Tod nicht &#x017F;ehen ewiglich.<lb/>
+Joh. 8, 51.</hi></p><lb/>
+<p><hi rendition="#c">10. Wenn gebrauchet man <hi rendition="#fr">das Semico-<lb/>
+lon</hi> (;)?</hi></p><lb/>
+<p><hi rendition="#b">A.</hi> <hi rendition="#fr">Wenn ein Haupt&#x017F;tu&#x0364;ck der Rede<lb/>
+nach einem ge&#x017F;etzten Colon wieder in<lb/>
+be&#x017F;ondere Stu&#x0364;cke &#x017F;oll getheilet werden:<lb/>
+denn Semicolon hei&#x017F;&#x017F;et halb Colon.<lb/>
+und muß man al&#x017F;o nach einem Semi-<lb/>
+colon halb &#x017F;o lange im Le&#x017F;en einhalten,<lb/>
+als nach dem Colon. Wo aber kein<lb/>
+Colon i&#x017F;t: da muß auch kein Semico-<lb/>
+lon &#x017F;tehen.</hi></p><lb/>
+<fw type="sig" place="bottom"><hi rendition="#b">C 4</hi></fw><fw type="catch" place="bottom">11</fw><lb/>
+<pb n="40" facs="#f0046"/>
+<fw type="header" place="top"><milestone unit="section" rendition="#hr"/><lb/>
+</fw> <p><hi rendition="#c">11. Gieb mir ein Exempel?</hi></p><lb/>
+<p><hi rendition="#b">A. Z. E. Wohl dem, der nicht wan-<lb/>
+delt im Rath der Gottlo&#x017F;en; noch tritt<lb/>
+auf den Weg der Su&#x0364;nder; noch &#x017F;itzet,<lb/>
+da die Spo&#x0364;tter &#x017F;itzen: &#x017F;ondern hat Lu&#x017F;t<lb/>
+zum Ge&#x017F;etz des HErrn, und redet von<lb/>
+&#x017F;einem Ge&#x017F;etz Tag und Nacht. Pf. 1,<lb/>
+1. 2.</hi></p><lb/>
+<p><hi rendition="#c">12. Wenn gebraucht man <hi rendition="#fr">einen Punct</hi> (.)?</hi></p><lb/>
+<p><hi rendition="#b">A.</hi> <hi rendition="#fr">Wenn die Rede einen vollkomme-<lb/>
+nen Ver&#x017F;tand hat und aus i&#x017F;t, daß ent-<lb/>
+weder nichts oder gantz was anders<lb/>
+anfa&#x0364;nget. Nach die&#x017F;em Zeichen ha&#x0364;lt<lb/>
+man das la&#x0364;ng&#x017F;te im Le&#x017F;en ein, und ver-<lb/>
+a&#x0364;ndert in etwas die Stimme, wenn<lb/>
+man wieder anfa&#x0364;nget.</hi></p><lb/>
+<p><hi rendition="#c">13. Gieb mir ein Exempel?</hi></p><lb/>
+<p><hi rendition="#b">A. Z. E. Was nicht aus dem Glau-<lb/>
+ben gehet, das i&#x017F;t Su&#x0364;nde. Ro&#x0364;m. 14, 23.</hi></p><lb/>
+<p><hi rendition="#c">14. Wenn gebraucht man <hi rendition="#fr">das Frag-Zei-<lb/>
+chen</hi> (?)?</hi></p><lb/>
+<p><hi rendition="#b">A.</hi> <hi rendition="#fr">Nach einer Frage,</hi> <hi rendition="#b">z. E. Solte<lb/>
+GOtt ge&#x017F;agt haben: Du &#x017F;ollt nicht<lb/>
+e&#x017F;&#x017F;en von allerley Ba&#x0364;umen im Gar-<lb/>
+ten? 1. Mo&#x017F;. 3, 1.</hi></p><lb/>
+<p><hi rendition="#c">15. Wenn aber viel Fragen nach einander fol-<lb/>
+gen: Wo &#x017F;tehet denn das Zeichen?</hi></p><lb/>
+<p><hi rendition="#b">A.</hi> <hi rendition="#fr">Entweder nach ieder Frage, oder</hi><lb/>
+<fw type="catch" place="bottom"><hi rendition="#fr">nach</hi></fw><lb/>
+<pb n="41" facs="#f0047"/>
+<fw type="header" place="top"><milestone unit="section" rendition="#hr"/><lb/>
+</fw> <hi rendition="#fr">nach der letztern.</hi> <hi rendition="#b">Z. E. Wo &#x017F;ind die<lb/>
+Klugen? Wo &#x017F;ind die Schrifftgelehr-<lb/>
+ten? Wo &#x017F;ind die Wei&#x017F;en? hat nicht<lb/>
+GOtt die Weißheit die&#x017F;er Welt zur<lb/>
+Thorheit gemacht? 1. Cor. 1, 20.</hi></p><lb/>
+<p><hi rendition="#b">Oder es kan bey den er&#x017F;ten Fragen<lb/>
+ein Comma &#x017F;tehen, und nach der letz-<lb/>
+tern das Frage-Zeichen.</hi></p><lb/>
+<p><hi rendition="#c">16. Wenn gebrauchet man <hi rendition="#fr">das Ausruf-<lb/>
+fungs Zeichen</hi> (!)?</hi></p><lb/>
+<p><hi rendition="#b">A.</hi> <hi rendition="#fr">Nach einer Ausruffung, um den<lb/>
+Affect, den die Worte ausdru&#x0364;cken &#x017F;ol-<lb/>
+len, anzuzeigen.</hi></p><lb/>
+<p><hi rendition="#c">17. Nach welchen Wo&#x0364;rtern &#x017F;tehet es ohn-<lb/>
+gefehr?</hi></p><lb/>
+<p><hi rendition="#b">A. Nach O, ach, auweh, wehe, ey,<lb/>
+auf, wolauf, &#x017F;iehe &#xA75B;c. z. Ex. Ach daß du<lb/>
+den Himmel zerri&#x017F;&#x017F;e&#x017F;t, und fu&#x0364;hre&#x017F;t<lb/>
+herab! Je&#x017F;. 46, 1.</hi></p><lb/>
+<p><hi rendition="#c">18. Wenn gebrauchet man die&#x017F;e <hi rendition="#fr">Art Ein&#x017F;chlie&#x017F;-<lb/>
+&#x017F;ungs-Zeichen</hi> ()?</hi></p><lb/>
+<p><hi rendition="#b">A.</hi> <hi rendition="#fr">Wenn etwas zu unter&#x017F;cheiden i&#x017F;t,<lb/>
+das zum Ver&#x017F;tande der Rede nicht noth-<lb/>
+wendig geho&#x0364;ret: &#x017F;ondern nur mehre-<lb/>
+rer Deutlichkeit halber dazwi&#x017F;chen ge-<lb/>
+&#x017F;etzet wird.</hi></p><lb/>
+<p><hi rendition="#c">19. Gieb mir ein Exempel?</hi></p><lb/>
+<p><hi rendition="#b">A. Z. E. Die GOttes Gerechtigkeit</hi><lb/>
+<fw type="sig" place="bottom"><hi rendition="#b">C 5</hi></fw><fw type="catch" place="bottom"><hi rendition="#b">wi&#x017F;-</hi></fw><lb/>
+<pb n="42" facs="#f0048"/>
+<fw type="header" place="top"><milestone unit="section" rendition="#hr"/><lb/>
+</fw> <hi rendition="#b">wi&#x017F;&#x017F;en, (daß die &#x017F;olches thun, des To-<lb/>
+des wu&#x0364;rdig &#x017F;ind): thun &#x017F;ie es nicht al-<lb/>
+lein; &#x017F;ondern haben auch Gefallen an<lb/>
+denen, die es thun, Ro&#x0364;m. 1/ 32.</hi></p><lb/>
+<p><hi rendition="#c">20. Wenn gebrauchet man die andere Art Ein-<lb/>
+&#x017F;chlie&#x017F;&#x017F;ungs-Zeichen []?</hi></p><lb/>
+<p><hi rendition="#b">A.</hi> <hi rendition="#fr">Wenn eines Fremden und eigent-<lb/>
+lich zum Text nicht geho&#x0364;rige Worte<lb/>
+von der u&#x0364;brigen Rede unter&#x017F;chteden<lb/>
+werden.</hi></p><lb/>
+<p><hi rendition="#c">21. Gieb mir ein Exempel?</hi></p><lb/>
+<p><hi rendition="#b">A. Z. E. Wer an mich glaubet, der<lb/>
+glaubet nicht [&#x017F;o wol] an mich: &#x017F;on-<lb/>
+dern an den, der mich ge&#x017F;andt hat.<lb/>
+Joh. 12, 44.</hi></p><lb/>
+<p><hi rendition="#c">22. Wenn brauchet man <hi rendition="#fr">das Anfu&#x0364;hrungs-<lb/>
+Zeichen (&#x201E;)?</hi></hi></p><lb/>
+<p><hi rendition="#b">A.</hi> <hi rendition="#fr">Wenn eines andern Worte anzu-<lb/>
+fu&#x0364;hren, und von der u&#x0364;brigen Rede zu<lb/>
+unter&#x017F;cheiden &#x017F;eyn.</hi></p><lb/>
+<p><hi rendition="#c">23. Gieb mir ein Exempel?</hi></p><lb/>
+<p><hi rendition="#b">A. Z. Ex. Bo&#x0364;dicker &#x017F;chreibet in &#x017F;ei-<lb/>
+nen Grund&#x017F;a&#x0364;tzen der teut&#x017F;chen Spra-<lb/>
+che von un&#x017F;erer teut&#x017F;chen Bibel al&#x017F;o:</hi></p><lb/>
+<cit><quote><hi rendition="#b">&#x201E;Es i&#x017F;t kein be&#x017F;&#x017F;er Buch, das die Teut-<lb/>
+&#x201E;&#x017F;chen haben, als die teut&#x017F;che Bibel<lb/>
+&#x201E;durch den Sel. Dr. M. Luther u&#x0364;ber-<lb/>
+&#x201E;&#x017F;etzet: [und die Ha&#x0364;lli&#x017F;che Edition,]</hi><lb/>
+<fw type="catch" place="bottom"><hi rendition="#b">denn</hi></fw><lb/>
+<pb n="43" facs="#f0049"/>
+<fw type="header" place="top"><milestone unit="section" rendition="#hr"/><lb/>
+</fw> <hi rendition="#b">&#x201E;denn neb&#x017F;t andern Nutzbarkeiten,<lb/>
+&#x201E;kan auch die Jugend daraus lernen<lb/>
+&#x201E;eine gute Schreib-Art &#xA75B;c.</hi></quote></cit><lb/>
+<p><hi rendition="#c">24. Wenn gebrauchet man das Aufmer-<lb/>
+ckungs-Zeichen?</hi></p><lb/>
+<p><hi rendition="#b">A.</hi> <hi rendition="#fr">Wenn nach dru&#x0364;ckliche und vor an-<lb/>
+dern merckwu&#x0364;rdige Worte von der u&#x0364;bri-<lb/>
+gen Rede zu unter&#x017F;cheiden &#x017F;eyn, welches<lb/>
+beym Schreiben ge&#x017F;chiehet durch Un-<lb/>
+ter&#x017F;treichung, und beym Drucken durch<lb/>
+Vera&#x0364;nderung der Lettern.</hi> <hi rendition="#b">Z. E. JE-<lb/>
+&#x017F;us &#x017F;prach zu &#x017F;einen Ju&#x0364;ngern: Will<lb/>
+mir iemand nachfolgen, der verleug-<lb/>
+ne &#x017F;ich &#x017F;elb&#x017F;t, und nehme &#x017F;ein<lb/>
+Creutz auf &#x017F;ich, und folge mir.<lb/>
+Matth. 16, 24.</hi></p><lb/>
+<p><hi rendition="#c">25. Wenn brauchet man <hi rendition="#fr">das Abtheilungs-<lb/>
+Zeichen (-)?</hi></hi></p><lb/>
+<p><hi rendition="#b">A.</hi> <hi rendition="#fr">Wenn ein Wort in der Mitte ab-<lb/>
+zutheilen i&#x017F;t.</hi> <hi rendition="#b">Z. E.</hi> 1.) <hi rendition="#fr">Am Ende der<lb/>
+Reihe, wenn das gantze Wort nicht<lb/>
+hingehet. 2.) wenn bey Zu&#x017F;ammenfu&#x0364;-<lb/>
+gung &#x017F;olcher Wo&#x0364;rter, die eine gleiche<lb/>
+Endunghaben, vom er&#x017F;ten etwas abge-<lb/>
+brochen wird.</hi> <hi rendition="#b">Z. E. Sonn- und Mon-<lb/>
+tag, mu&#x0364;nd- und &#x017F;chriftlich.</hi> 3.) <hi rendition="#fr">Bey zu-<lb/>
+&#x017F;ammenge&#x017F;etzten Amts- und Ehren-</hi><lb/>
+<fw type="catch" place="bottom"><hi rendition="#fr">Wo&#x0364;r-</hi></fw><lb/>
+<pb n="44" facs="#f0050"/>
+<fw type="header" place="top"><milestone unit="section" rendition="#hr"/><lb/>
+</fw> <hi rendition="#fr">Wo&#x0364;rtern.</hi> <hi rendition="#b">z. E. Staats-Rath.</hi> 4.)<lb/>
+<hi rendition="#fr">Wenn ein Wort halb teut&#x017F;ch u. halb aus<lb/>
+einer andern Sprache i&#x017F;t.</hi> <hi rendition="#b">Z. E. Kirchen-<lb/>
+Vi&#x017F;ttation.</hi></p><lb/>
+<p><hi rendition="#c">26. Wenn gebrauchet man <hi rendition="#fr">das Ab&#x017F;atz-<lb/>
+Zeichen</hi> (§)?</hi></p><lb/>
+<p><hi rendition="#b">A. Wenn eine Rede in gewi&#x017F;&#x017F;e Ab-<lb/>
+&#x017F;a&#x0364;tze getheilet wird.</hi></p><lb/>
+<p><hi rendition="#c">27. Wenn brauchet man <hi rendition="#fr">das Wiederhoh-<lb/>
+lungs-Zeichen (,: oder :,:)?</hi></hi></p><lb/>
+<p><hi rendition="#b">A.</hi> <hi rendition="#fr">Wenn in dem Singen etwas zu<lb/>
+wiederhohlen i&#x017F;t.</hi></p></div><lb/>
+<div n="1"><head><hi rendition="#b">Cap. <hi rendition="#aq">VII.</hi><lb/>
+Von den Zahlen der Teut-<lb/>
+&#x017F;chen.</hi></head><lb/>
+<p><hi rendition="#c">1. <hi rendition="#fr">Wie kan man bald zehlen lernen?</hi></hi></p><lb/>
+<p><hi rendition="#b">A. Man muß 1.) die Zahlen von 1.<lb/>
+bis 9. kennen und aus&#x017F;prechen lernen.<lb/>
+Hernach 2.) die Zehner, als 10. 20. &#xA75B;c.<lb/>
+denn zu die&#x017F;en werden die er&#x017F;ten 9. all-<lb/>
+zeit wieder zugezehlet. z. E.</hi></p><lb/>
+<p>0 1 2 3 4 5 6 7 8 9</p><lb/>
+<p>10</p><lb/>
+<p>20</p><lb/>
+<p>30</p><lb/>
+<p>40</p><lb/>
+<fw type="catch" place="bottom">50</fw><lb/>
+<pb n="45" facs="#f0051"/>
+<fw type="header" place="top"><milestone unit="section" rendition="#hr"/><lb/>
+</fw> <p>50</p><lb/>
+<p>60</p><lb/>
+<p>70</p><lb/>
+<p>80</p><lb/>
+<p>90</p><lb/>
+<p>100</p><lb/>
+<p>500</p><lb/>
+<p>1000</p></div><lb/>
+<div n="1"><head><hi rendition="#b">Cap. <hi rendition="#aq">VIII.</hi><lb/>
+Von den Zahlen der Ro&#x0364;mer.</hi></head><lb/>
+<p><hi rendition="#c">2. <hi rendition="#fr">Wie &#x017F;ehen die Ro&#x0364;mi&#x017F;chen Zahlen aus,<lb/>
+die man in vielen Bu&#x0364;chern findet?</hi></hi></p><lb/>
+<p><hi rendition="#aq">I. II. III. IV. V. VI. VII. VIII. IX.<lb/>
+X. XX. XXX. XL. L. LX. LXX.<lb/>
+10 20. 30. 40. 50. 60. 70.<lb/>
+LXXX. XC. C. D. M.</hi><lb/>
+80. 90. 100. 500. 1000.</p><lb/>
+<p>Hiernech&#x017F;t kan man den Kindern die Na-<lb/>
+men der Bu&#x0364;cher in Heil. Schrift/ wie &#x017F;ie auf<lb/>
+einander folgen, it. wie &#x017F;ie in Capitel und<lb/>
+Ver&#x017F;e abgetheilet/ bekannt machen.</p></div><lb/>
+<fw type="catch" place="bottom"><hi rendition="#b">Cap.</hi></fw><lb/>
+<pb n="46" facs="#f0052"/>
+<fw type="header" place="top"><milestone unit="section" rendition="#hr"/><lb/>
+</fw> <div n="1"><head><hi rendition="#b">Cap. <hi rendition="#aq">IX.</hi><lb/>
+Von den acht Stu&#x0364;cken der<lb/>
+teut&#x017F;chen Sprache.</hi></head><lb/>
+<p><hi rendition="#in">F</hi>Erner ko&#x0364;nnen auch denen Kindern &#x017F;o<lb/>
+wol Knaben als Ma&#x0364;gdlein die &#x017F;o ge-<lb/>
+nannten acht (<hi rendition="#aq">Partes Orationis</hi>) Stu&#x0364;cke<lb/>
+der Rede/ woraus die teut&#x017F;che Sprache be-<lb/>
+&#x017F;tehet, beygebracht werden: damit &#x017F;ie &#x017F;o wol<lb/>
+gru&#x0364;ndlich le&#x017F;en und &#x017F;chreiben/ als auch das<lb/>
+Geredete/ Gedruckte und Ge&#x017F;chriebene be&#x017F;-<lb/>
+&#x017F;er ver&#x017F;tehen lernen. Die Knaben/ welche<lb/>
+etwas mehrers lernen wollen/ ko&#x0364;nnen die la-<lb/>
+teini&#x017F;chen Kun&#x017F;t-Wo&#x0364;rter &#x017F;ich zugleich be-<lb/>
+kannt machen.</p><lb/>
+<p>Die acht (<hi rendition="#aq">partes Orationis</hi>) Stu&#x0364;cke<lb/>
+der Rede &#x017F;ind folgende:</p><lb/>
+<p><hi rendition="#aq">I. (Nomen)</hi> der Namen eines Din-<lb/>
+ges/ als: der Knabe, die Schule, das<lb/>
+Ma&#x0364;gdlein.</p><lb/>
+<p><hi rendition="#aq">NB.</hi> Die&#x017F;e (<hi rendition="#aq">Nomina</hi>) Namen &#x017F;ind aber<lb/>
+ver&#x017F;chieden. Es giebet 1. (<hi rendition="#aq">Nomina &#x017F;ub-<lb/>
+&#x017F;tantiva</hi>) Haupt-Wo&#x0364;rter/ als der Va-<lb/>
+ter/ die Mutter/ und 2. (<hi rendition="#aq">Nomina adje-<lb/>
+ctiva</hi>) beygefu&#x0364;gte Wo&#x0364;rter, als: der flei&#x017F;-<lb/>
+&#x017F;ige/ die artige/ das &#x017F;cho&#x0364;ne. Die&#x017F;e hei&#x017F;&#x017F;en<lb/>
+<fw type="catch" place="bottom">bey-</fw><lb/>
+<pb n="47" facs="#f0053"/>
+<fw type="header" place="top"><milestone unit="section" rendition="#hr"/><lb/>
+</fw> beygefu&#x0364;gte Wo&#x0364;rter: weil &#x017F;ie bey ein Haupt-<lb/>
+Wort mu&#x0364;&#x017F;&#x017F;en gefu&#x0364;get werden; wenn man<lb/>
+ver&#x017F;tehen &#x017F;oll/ was man damit meinet. als:<lb/>
+der fleißige Knabe/ die <hi rendition="#fr">artige</hi> Tochter, das<lb/>
+&#x017F;cho&#x0364;ne Buch. Welches aber ein (<hi rendition="#aq">No-<lb/>
+men &#x017F;ub&#x017F;tantivum</hi>) Haupt-Wort &#x017F;ey/<lb/>
+kan ein Kind leicht erkennen: denn vor welch<lb/>
+Wort man der die das &#x017F;etzen kan/ oder wel-<lb/>
+ches in gedruckten Bu&#x0364;chern einen gro&#x017F;&#x017F;en<lb/>
+Anfangs-Buch&#x017F;taben hat/ das i&#x017F;t ein (<hi rendition="#aq">Nom.<lb/>
+&#x017F;ub&#x017F;t.</hi>) Haupt-Wort.</p><lb/>
+<p><hi rendition="#aq">II. (Pronomen)</hi> ein <hi rendition="#fr">Fu&#x0364;rwort/</hi> als: ich<lb/>
+Chri&#x017F;tian/ du Heinrich/ er/ der Gottfried/<lb/>
+&#x017F;ie/ die Henriette/ wir Schu&#x0364;ler/ ihr<lb/>
+Ma&#x0364;gdchens/ &#x017F;ie &#x017F;a&#x0364;mtlich. Mein Vater/<lb/>
+deine Mutter/ &#x017F;eine Schwe&#x017F;ter. Die&#x017F;e<lb/>
+werden (<hi rendition="#aq">Pronomina</hi>) Fu&#x0364;rwo&#x0364;rter genen-<lb/>
+net: weil &#x017F;ie fu&#x0364;r die Haupt-Wo&#x0364;rter/ oder<lb/>
+an&#x017F;tatt der&#x017F;elben ge&#x017F;etzet werden ko&#x0364;nnen.</p><lb/>
+<p>(<hi rendition="#aq">NB.</hi> Wenn die Kinder er&#x017F;t ein <hi rendition="#aq">Nomen &#x017F;ub&#x017F;t.<lb/>
+declinir</hi>en ko&#x0364;nnen: ko&#x0364;nnen &#x017F;ie auch leicht die<lb/>
+<hi rendition="#aq">Pronomina</hi> ich, du, &#x017F;ein, die&#x017F;er, jener, wel-<lb/>
+cher, mein, dein, &#x017F;ein &#xA75B;c. <hi rendition="#aq">declini</hi>ren lernen.)</p><lb/>
+<p><hi rendition="#aq">III. (Verbum)</hi> ein Wort, 1. welches ein<lb/>
+&#x017F;eyn oder Thun anzeiget, als: ich &#x017F;chreibe/<lb/>
+u. daher (<hi rendition="#aq">activum</hi>) das thuende hei&#x017F;&#x017F;et.<lb/>
+Oder welches ein Leiden anzeiget, als: ich<lb/>
+<fw type="catch" place="bottom">werde</fw><lb/>
+<pb n="48" facs="#f0054"/>
+<fw type="header" place="top"><milestone unit="section" rendition="#hr"/><lb/>
+</fw> werde ge&#x017F;chlagen/ und daher (<hi rendition="#aq">pa&#x017F;&#x017F;ivum</hi>)<lb/>
+oder das leidende hei&#x017F;&#x017F;et. 2. Wovor ich &#x017F;e-<lb/>
+tzen kan: ich/ du/ er/ wir/ ihr/ &#x017F;ie/ wodurch die<lb/>
+(<hi rendition="#aq">per&#x017F;onas</hi>) Per&#x017F;onen angezeiget werden/<lb/>
+die etwas thun oder leiden. 3. Welches an-<lb/>
+zeiget/ ob einer oder mehrere etwas thun<lb/>
+oder leiden/ als: ich, du, er &#x017F;ind eintzele<lb/>
+Per&#x017F;onen/ und hei&#x017F;&#x017F;en <hi rendition="#aq">Numerus &#x017F;ingula-<lb/>
+ris.</hi> Wir/ ihr/ &#x017F;ie &#x017F;ind mehrere Per&#x017F;onen/<lb/>
+und hei&#x017F;&#x017F;en <hi rendition="#aq">numerus pluralis.</hi> 4. Wel-<lb/>
+ches anzeiget/ ob etwas in der gegenwa&#x0364;r-<lb/>
+tigen Zeit, (<hi rendition="#aq">Tempus præ&#x017F;ens</hi>) ge&#x017F;chie-<lb/>
+het/ als: ich &#x017F;chreibe. Oder/ ob etwas in<lb/>
+der vergangenen Zeit (<hi rendition="#aq">tempus præte-<lb/>
+ritum</hi>) ge&#x017F;chehen/ als: Jch habe ge&#x017F;chrie-<lb/>
+ben &#xA75B;c. Oder/ ob etwas in der zuku&#x0364;nfti-<lb/>
+gen Zeit (<hi rendition="#aq">tempus futurum</hi>) noch ge&#x017F;che-<lb/>
+hen &#x017F;oll/ als: ich werde &#x017F;chreiben. <hi rendition="#aq">NB.</hi> Die<lb/>
+vergangene Zeit (<hi rendition="#aq">præteritum</hi>) wird in<lb/>
+drey Theile eingetheilet/ die er&#x017F;te hei&#x017F;&#x017F;et (<hi rendition="#aq">præ-<lb/>
+teritum imperfectum</hi>) die unvollkom-<lb/>
+men vergangene Zeit, da ich zwar ange-<lb/>
+fangen etwas zu thun/ aber nicht vollbracht/<lb/>
+als: ich &#x017F;chrieb. Die andere hei&#x017F;&#x017F;et (<hi rendition="#aq">præ-<lb/>
+teritum perfectum</hi>) die vollkommen<lb/>
+vergangene Zeit, da ich etwas &#x017F;chon wirck-<lb/>
+lich vollbracht habe/ als: ich habe ge&#x017F;chrieben.<lb/>
+<fw type="catch" place="bottom">Die</fw><lb/>
+<pb n="49" facs="#f0055"/>
+<fw type="header" place="top"><milestone unit="section" rendition="#hr"/><lb/>
+</fw> Die dritte hei&#x017F;&#x017F;et (<hi rendition="#aq">præteritum plusquam<lb/>
+perfectum</hi>) die &#x017F;chon la&#x0364;ng&#x017F;t vollkom-<lb/>
+men vergangene Zeit/ als: ich hatte ge-<lb/>
+&#x017F;chrieben. 5. Welches anzeiget (die <hi rendition="#aq">Mo-<lb/>
+dos</hi>) auf was Art und Wei&#x017F;e etwas ge-<lb/>
+&#x017F;chiehet. <hi rendition="#aq">a</hi>) Ob ich nur &#x017F;chlechthin et-<lb/>
+was anzeige mit Meldung der Per&#x017F;on,<lb/>
+als: ich lerne/ ich habe gelernet/ und ich will<lb/>
+lernen/ das hei&#x017F;&#x017F;et (<hi rendition="#aq">Modus indicativus</hi>)<lb/>
+die Anzeigungs-Rede. <hi rendition="#aq">b</hi>) Ob ich etwas<lb/>
+befehle oder bitte, als: &#x017F;chreib/ la&#x017F;&#x017F;et uns<lb/>
+&#x017F;chreiben &#xA75B;c. das hei&#x017F;&#x017F;et (<hi rendition="#aq">Modus imperati-<lb/>
+vus</hi>) die Befehl- oder Bitt-Rede. <hi rendition="#aq">c</hi>)<lb/>
+Ob ich etwas wu&#x0364;n&#x017F;che/ verlange, als: ich<lb/>
+mo&#x0364;chte e&#x017F;&#x017F;en/ ich ha&#x0364;tte gerne das &#xA75B;c. das hei&#x017F;-<lb/>
+&#x017F;et (<hi rendition="#aq">Modus optativus</hi>) die Wun&#x017F;ch-Re-<lb/>
+de. <hi rendition="#aq">d</hi>) ob ich &#x017F;chlechthin ein Thun oder<lb/>
+Leiden anzeige, ohne Meldung einer<lb/>
+Per&#x017F;on/ als: le&#x017F;en/ ge&#x017F;chlagen werden/ das<lb/>
+hei&#x017F;&#x017F;et (<hi rendition="#aq">Modus infinitivus</hi>) die unbe-<lb/>
+&#x017F;timmte Rede.</p><lb/>
+<p><hi rendition="#aq">IV. (Participium)</hi> ein Wort, &#x017F;o von<lb/>
+einem <hi rendition="#aq">Verbo</hi> herkommet, und mit ihm<lb/>
+in An&#x017F;ehung des <hi rendition="#aq">Temporis</hi> einige<lb/>
+Verwand&#x017F;chaft hat, als: ein le&#x017F;ender/ ei-<lb/>
+ne le&#x017F;ende/ oder einer/ eine/ eines/ der/ die/ das<lb/>
+<fw type="sig" place="bottom">D</fw><fw type="catch" place="bottom">da</fw><lb/>
+<pb n="50" facs="#f0056"/>
+<fw type="header" place="top"><milestone unit="section" rendition="#hr"/><lb/>
+</fw> da lie&#x017F;et/ oder le&#x017F;en wird. Die&#x017F;e <hi rendition="#aq">Partici-<lb/>
+pia</hi> aber kan man unter die &#x017F;chon gedachte<lb/>
+(<hi rendition="#aq">Nomina adjectiva</hi>) beygefu&#x0364;gte Wo&#x0364;rter<lb/>
+rechnen.</p><lb/>
+<p><hi rendition="#aq">V. (Adverbium)</hi> ein Beywort i&#x017F;t<lb/>
+ein &#x017F;olches/ daß zu den <hi rendition="#aq">verbis, nominibus,</hi><lb/>
+und <hi rendition="#aq">adjectivis</hi> ge&#x017F;etzet wird/ und gewi&#x017F;&#x017F;e<lb/>
+Um&#x017F;ta&#x0364;nde und Be&#x017F;chaffenheiten anzeiget/<lb/>
+als ich habe ge&#x017F;tern ge&#x017F;chrieben/ das Kind<lb/>
+i&#x017F;t hertzlich fromm.</p><lb/>
+<p><hi rendition="#aq">VI. (Præpo&#x017F;itio)</hi> ein Vorwort i&#x017F;t ein<lb/>
+&#x017F;olches Wort/ welches man vor ein <hi rendition="#aq">verbum</hi><lb/>
+u. (<hi rendition="#aq">nomen &#x017F;ub&#x017F;tantivum</hi>) Haupt-Wort<lb/>
+&#x017F;etzet/ z. Ex. bey den <hi rendition="#aq">verbis</hi> findet man ohn-<lb/>
+gefehr folgende/ als: mite&#x017F;&#x017F;en/ beytreten/<lb/>
+ab&#x017F;ehen/ auslernen &#xA75B;c. Bey die (<hi rendition="#aq">nomina</hi><lb/>
+und <hi rendition="#aq">pronomina</hi>) Haupt- und Fu&#x0364;rwo&#x0364;rter<lb/>
+werden folgende ge&#x017F;etzet/ als zu mir/ bey mir/<lb/>
+(auch bey mich/ wenn eine Bewegung an-<lb/>
+gezeiget wird.) vor mir/ vor dem Jahre/<lb/>
+gegen mich/ um mich/ au&#x017F;&#x017F;erhalb inner-<lb/>
+halb dem Hau&#x017F;e/ auch des Hau&#x017F;es wohnen/<lb/>
+drunten, droben in der Stube/ zwi&#x017F;chen<lb/>
+mir und dir/ wegen, halben des Schrei-<lb/>
+bens wegen/ halben/ durch mich/ nach dem<lb/>
+E&#x017F;&#x017F;en/ nach meinem Gewi&#x017F;&#x017F;en/ u&#x0364;ber, un-<lb/>
+<fw type="catch" place="bottom">ter</fw><lb/>
+<pb n="51" facs="#f0057"/>
+<fw type="header" place="top"><milestone unit="section" rendition="#hr"/><lb/>
+</fw> ter dem Ti&#x017F;ch/ di&#x017F;&#x017F;eit, jen&#x017F;eit der Schule/<lb/>
+von mir/ ohne mich/ vor mir/ vor meinem<lb/>
+Ange&#x017F;icht/ mit &#x017F;amt mir/ fu&#x0364;r mich/ das i&#x017F;t/<lb/>
+an&#x017F;tatt meiner/ aus dem Hau&#x017F;e.</p><lb/>
+<p><hi rendition="#aq">VII. (Conjunctio)</hi> ein Verbin-<lb/>
+dungs-Wort i&#x017F;t ein &#x017F;olches/ womit man die<lb/>
+Sachen im Reden und Schreiben wohl mit<lb/>
+einander verbinden kan/ als: auch, und,<lb/>
+weder ich: noch du, item, desgleichen, &#x017F;o-<lb/>
+wol ich: als du/ als/ nemlich/ [wenn manlet-<lb/>
+was anfu&#x0364;hren will] nicht ich: &#x017F;ondern du/<lb/>
+entweder ich: oder du/ wenn wo du das<lb/>
+thu&#x017F;t: &#x017F;o, &#x017F;intemal, weil du &#x017F;o unartig bi&#x017F;t:<lb/>
+&#x017F;o, wo nicht: &#x017F;o/ du mu&#x017F;t fromm werden/<lb/>
+&#x017F;on&#x017F;t, anders &#xA75B;c. ich bitte dich: aber du ho&#x0364;-<lb/>
+re&#x017F;t nicht/ ob&#x017F;chon, obwol, obgleich, ob<lb/>
+zwar du nicht fleißig gewe&#x017F;en: &#x017F;oll&#x017F;t du doch/<lb/>
+Du &#x017F;oll&#x017F;t was ge&#x017F;chenckt kriegen: denn, da-<lb/>
+rum daß, &#x017F;intemal, weil/ dieweil du<lb/>
+fleißig gewe&#x017F;en. Du bete&#x017F;t anda&#x0364;chtig: dan-<lb/>
+nenhero, darum, derohalben wird dich<lb/>
+GOtt &#x017F;egnen. Uber das, ferner, wei-<lb/>
+ter, zudem, hernach, endlich &#x017F;agte er<lb/>
+mir.</p><lb/>
+<p><hi rendition="#aq">VIII. (Interjectio)</hi> ein Zwi&#x017F;chen-<lb/>
+wort i&#x017F;t ein &#x017F;olches Wort/ das zuweilen zwi-<lb/>
+<fw type="sig" place="bottom">D 2</fw><fw type="catch" place="bottom">&#x017F;chen</fw><lb/>
+<pb n="52" facs="#f0058"/>
+&#x017F;chen die Rede ge&#x017F;etzet wird/ um eine &#x017F;onder-<lb/>
+bare Gemu&#x0364;ths-Bewegung anzudeuten. Es<lb/>
+giebet Zwi&#x017F;chenwo&#x0364;rter 1. womit man ein<lb/>
+Verlangen anzeiget/ als: <hi rendition="#fr">ey doch, ey</hi> thut<lb/>
+<hi rendition="#fr">es doch</hi> &#xA75B;c. 2. Womit man eine Verwun-<lb/>
+derung zu erkennen giebet/ als: <hi rendition="#fr">ach, o.</hi> 3.<lb/>
+Womit man ein Mitleiden anzeiget/ <hi rendition="#fr">ach,<lb/>
+o &#xA75B;c. ach</hi> wie wirds euch gehen!</p></div><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<div n="1"><head><hi rendition="#b">Etliche Mu&#x017F;ter,<lb/>
+Wonach die Kinder ko&#x0364;nnen ein<lb/>
+(<hi rendition="#aq">Nomen &#x017F;ub&#x017F;tantivum</hi>) Haupt-<lb/>
+Wort decliniren/ oder auf &#x017F;ech&#x017F;erley<lb/>
+Wei&#x017F;e vera&#x0364;ndern lernen.</hi></head><lb/>
+<p><hi rendition="#c"><hi rendition="#b"><hi rendition="#aq">I.</hi> Mu&#x017F;ter.</hi></hi></p><lb/>
+<p><hi rendition="#et">eines Worts/ wovor ich <hi rendition="#fr">der</hi> &#x017F;etzen kan/ als:<lb/>
+<hi rendition="#fr">der Vater.</hi></hi></p><lb/>
+<cb/>
+<p><hi rendition="#c"><hi rendition="#aq">(Numerus &#x017F;ingularis.)</hi></hi></p><lb/>
+<p><hi rendition="#c"><hi rendition="#fr">Einfache Zahl.</hi></hi></p><lb/>
+<p>1. <hi rendition="#aq">Nominativus</hi> der Vater</p><lb/>
+<p>2. <hi rendition="#aq">Genitivus</hi> des Vaters.</p><lb/>
+<p>3. <hi rendition="#aq">Dativus</hi> dem Vater.</p><lb/>
+<p>4. <hi rendition="#aq">Accu&#x017F;ativus</hi> den Vater.</p><lb/>
+<p>5. <hi rendition="#aq">Vocativus</hi> o du Vater.</p><lb/>
+<p>6. <hi rendition="#aq">Ablativus</hi> von dem Vater.</p><lb/>
+<cb/>
+<p><hi rendition="#c"><hi rendition="#aq">(Num. pluralis.)</hi></hi></p><lb/>
+<p><hi rendition="#c"><hi rendition="#fr">Mehrere Zahl.</hi></hi></p><lb/>
+<p>1. <hi rendition="#aq">N.</hi> die Va&#x0364;ter.</p><lb/>
+<p>2. <hi rendition="#aq">G.</hi> der Va&#x0364;ter.</p><lb/>
+<p>3. <hi rendition="#aq">D.</hi> den Va&#x0364;tern.</p><lb/>
+<p>4. <hi rendition="#aq">A.</hi> die Va&#x0364;ter.</p><lb/>
+<p>5. <hi rendition="#aq">V.</hi> o ihr Va&#x0364;ter.</p><lb/>
+<p>6. <hi rendition="#aq">A.</hi> von den Va&#x0364;-<lb/>
+<hi rendition="#c">te&#xA75B;n.</hi></p><lb/>
+<fw type="catch" place="bottom"><hi rendition="#b">2. Mu-</hi></fw><lb/>
+<pb n="53" facs="#f0059"/>
+<cb/>
+<p><hi rendition="#c"><hi rendition="#b">2. Mu&#x017F;ter</hi><lb/>
+eines Worts wovor<lb/>
+ich <hi rendition="#fr">die</hi> &#x017F;etzen kan/ als:<lb/>
+<hi rendition="#fr">die Mutter.</hi></hi></p><lb/>
+<p><hi rendition="#c"><hi rendition="#aq">(Numerus &#x017F;ingul.)</hi></hi></p><lb/>
+<p><hi rendition="#c"><hi rendition="#fr">Einfache Zahl.</hi></hi></p><lb/>
+<p>1. <hi rendition="#aq">N.</hi> die Mutter.</p><lb/>
+<p>2. <hi rendition="#aq">G.</hi> der Mutter.</p><lb/>
+<p>3. <hi rendition="#aq">D.</hi> der Mutter.</p><lb/>
+<p>4. <hi rendition="#aq">A.</hi> die Mutter.</p><lb/>
+<p>5. <hi rendition="#aq">V.</hi> o du Mutter.</p><lb/>
+<p>6. <hi rendition="#aq">A.</hi> von der Mutter.</p><lb/>
+<cb/>
+<p><hi rendition="#c"><hi rendition="#b">3. Mu&#x017F;ter.</hi><lb/>
+eines Worts/ wovor<lb/>
+ich <hi rendition="#fr">das</hi> &#x017F;etzen kan/<lb/>
+als: <hi rendition="#fr">das Kind.</hi></hi></p><lb/>
+<p><hi rendition="#c"><hi rendition="#aq">(Numerus &#x017F;ingular.)</hi></hi></p><lb/>
+<p><hi rendition="#c"><hi rendition="#fr">Einfache Zahl.</hi></hi></p><lb/>
+<p>1. <hi rendition="#aq">N.</hi> das Kind.</p><lb/>
+<p>2. <hi rendition="#aq">G.</hi> des Kinds.</p><lb/>
+<p>3. <hi rendition="#aq">D.</hi> dem Kinde.</p><lb/>
+<p>4. <hi rendition="#aq">A.</hi> das Kind.</p><lb/>
+<p>5. <hi rendition="#aq">V.</hi> o du Kind.</p><lb/>
+<p>6. <hi rendition="#aq">A.</hi> von dem Kinde.</p><lb/>
+<p><hi rendition="#et"><hi rendition="#aq">NB.</hi> Der <hi rendition="#aq">Pluralis</hi> i&#x017F;t bey allen Wo&#x0364;rtern einer-<lb/>
+ley.</hi></p><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<p><hi rendition="#c"><hi rendition="#fr">Hier i&#x017F;t auch ein Mu&#x017F;ter,</hi></hi></p><lb/>
+<list><item>Wornach die Kinder ko&#x0364;nnen alle <hi rendition="#aq">Ver-<lb/>
+ba conjungir</hi>en, oder durch die<lb/>
+(<hi rendition="#aq">per&#x017F;onas</hi>) Per&#x017F;onen, (<hi rendition="#aq">numeros</hi>)<lb/>
+Zahl, (<hi rendition="#aq">tempora</hi>) Zeiten und (<hi rendition="#aq">mo-<lb/>
+dos</hi>) Wei&#x017F;en vera&#x0364;ndern lernen.<lb/>
+Man kan es ihnen Spiel-Wei&#x017F;e bey-<lb/>
+bringen: Wenn man ihnen das<lb/>
+gantze <hi rendition="#aq">conjungir</hi>en unter dem Bil-<lb/>
+de eines Hau&#x017F;es beybringet. Nem<lb/>
+lich: die beyden Hu&#x0364;lffs-<hi rendition="#aq">Verba</hi> ich<lb/>
+habe und ich bin &#x017F;ind die kleinen<lb/>
+<fw type="sig" place="bottom">D 3</fw><fw type="catch" place="bottom">Vo-</fw><lb/>
+<pb n="54" facs="#f0060"/>
+Voder-Geba&#x0364;ude. Das <hi rendition="#aq">Activum</hi> i&#x017F;t<lb/>
+das Voder-Hauß, u. das <hi rendition="#aq">Pa&#x017F;&#x017F;ivum</hi><lb/>
+das Hinter-Hauß. Die 4. <hi rendition="#aq">Modi</hi><lb/>
+&#x017F;ind 4. Stockwercke. Die <hi rendition="#aq">Tem-<lb/>
+pora</hi> &#x017F;ind die Zimmer/ und die Per-<lb/>
+&#x017F;onen ich, du/ er, wir, ihr, &#x017F;ie &#x017F;ind<lb/>
+die Per&#x017F;onen, welche drinne arbei-<lb/>
+ten, oder leiden. Siehe mit meh-<lb/>
+rern <hi rendition="#aq">Tab. I. II. III. IV.</hi></item><lb/>
+<item><hi rendition="#aq">NB.</hi> Die Materie von den Unter&#x017F;cheidungs-<lb/>
+Zeichen/ it. von den Zahlen/ wie auch die<lb/>
+8. <hi rendition="#aq">Partes Orationis</hi> ko&#x0364;nnen ver&#x017F;paret<lb/>
+werden/ bis die Kinder in folgenden Le&#x017F;e-<lb/>
+Bu&#x0364;chlein im Le&#x017F;en &#x017F;ich er&#x017F;t wohl geu&#x0364;bet.</item></list><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<fw type="catch" place="bottom"><hi rendition="#b">Kur-</hi></fw><lb/>
+<pb facs="#f0061"/>
+<figure/>
+<pb facs="#f0062"/>
+<table><row><cell/></row></table>
+<pb facs="#f0063"/>
+<table><row><cell/></row></table>
+<pb facs="#f0064"/>
+<table><row><cell/></row></table></div>
+<pb n="55" facs="#f0065"/>
+<div n="1"><head><hi rendition="#b">Kurtzer<lb/>
+Hi&#x017F;tori&#x017F;cher Unterricht<lb/>
+der gantzen<lb/>
+<hi rendition="#in">H</hi>eiligen <hi rendition="#in">S</hi>chrift<lb/>
+und<lb/>
+<hi rendition="#in">H</hi>eyls-<hi rendition="#in">O</hi>rdnung.</hi></head></div><lb/>
+<fw type="catch" place="bottom"><hi rendition="#fr">J. N.</hi></fw><lb/>
+<pb n="56" facs="#f0066"/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<div n="1"><head><hi rendition="#fr">J. N. J.</hi><lb/>
+<hi rendition="#b">Des kurtzen<lb/>
+Hi&#x017F;tori&#x017F;chen Unterrichts<lb/>
+der gantzen H. Schrift<lb/>
+und Heyls-Ordnung</hi></head><lb/>
+<div n="2"><head><hi rendition="#b">Er&#x017F;tes Capitel.<lb/>
+Von der Hi&#x017F;torie des Al-<lb/>
+ten Te&#x017F;taments.</hi></head><lb/>
+<div n="3"><head><hi rendition="#b"><hi rendition="#aq">1.</hi> Lection.<lb/>
+Von Er&#x017F;chaffung der Welt und<lb/>
+der er&#x017F;ten Men&#x017F;chen.</hi></head><lb/>
+<p><note place="foot" n="1.">Wer hat alles er&#x017F;chaffen?</note> <hi rendition="#in">D</hi>Er Dreyeinige GOtt <note place="foot" n="2.">Was hat er er-<lb/>
+&#x017F;chaffen?</note> hat<lb/>
+Himmel und Erde, und al-<lb/>
+les, was darinnen i&#x017F;t, <note place="foot" n="3.">Woraus i&#x017F;t alles er&#x017F;chaffen?</note> aus<lb/>
+nichts, <note place="foot" n="4.">Wodurch i&#x017F;t alles er&#x017F;chaffen?</note> durch &#x017F;ein allma&#x0364;chtiges Wort,<lb/>
+<fw type="catch" place="bottom">5. vor</fw><lb/>
+<pb n="57" facs="#f0067"/>
+<note place="foot" n="5.">Wie lange i&#x017F;ts ohngefa&#x0364;hr, daß alles er&#x017F;chaf-<lb/>
+fen?</note> vor bey nahe &#x017F;echstau&#x017F;end Jahren, <note place="foot" n="6.">Jn wie viel Tagen hat GOtt alles er-<lb/>
+&#x017F;chaffen?</note><lb/>
+innerhalb &#x017F;echs Tagen <note place="foot" n="7.">Zu was Ende?</note> zu &#x017F;einer Eh-<lb/>
+re er&#x017F;chaffen. <note place="foot" n="8.">Was hat GOtt<lb/>
+zuletzt er&#x017F;chaffen?</note> Zuletzt aber den er&#x017F;ten<lb/>
+Men&#x017F;chen Adam <note place="foot" n="9.">Woraus?</note> aus Erde. <note place="foot" n="10.">Woraus<lb/>
+i&#x017F;t Adams Frau, die Eva er&#x017F;chaffen?</note> Und<lb/>
+aus einer &#x017F;einer Ribben &#x017F;eine Frau, die<lb/>
+Eva. <note place="foot" n="11.">Wo<lb/>
+&#x017F;ind die er&#x017F;ten Men&#x017F;chen er&#x017F;chaffen?</note> Jm Paradieß, <note place="foot" n="12.">Nach<lb/>
+was vor einem Mu&#x017F;ter, oder Bilde?</note> nach GOt-<lb/>
+tes Ebenbilde.</p></div><lb/>
+<div n="3"><head><hi rendition="#b">2. Lection.<lb/>
+Von dem glu&#x0364;ck&#x017F;eligen Zu&#x017F;tande<lb/>
+der er&#x017F;ten Men&#x017F;chen.</hi></head><lb/>
+<p><hi rendition="#in">D</hi>Aß &#x017F;ie al&#x017F;o <note place="foot" n="1.">Was waren al&#x017F;o die Men&#x017F;chen vor Bil-<lb/>
+der? Von was vor einem herrlichen GOtt?</note> lebendige Bilder wa-<lb/>
+ren von dem Un&#x017F;ichtbaren und<lb/>
+herrlichen GOtt. <note place="foot" n="2.">Von was vor einem herrlichen GOtt?</note> nemlich von dem<lb/>
+Wei&#x017F;en, heiligen, ho&#x0364;ch&#x017F;t&#x017F;eligen, Alles-<lb/>
+beherr&#x017F;chenden und Ewigen GOTT:<lb/>
+<note place="foot" n="3.">Wie?</note> in dem &#x017F;ie wei&#x017F;e, gerecht, heilig und &#x017F;e-<lb/>
+<fw type="catch" place="bottom">lig</fw><lb/>
+<pb n="58" facs="#f0068"/>
+lig, Herren u&#x0364;ber &#x017F;ich und u&#x0364;ber die Thie-<lb/>
+re, und ewig, oder un&#x017F;terblich waren.</p></div><lb/>
+<div n="3"><head><hi rendition="#b">3. Lection<lb/>
+Vom Fall und Su&#x0364;nde des<lb/>
+men&#x017F;chlichen Ge&#x017F;chlechts.</hi></head><lb/>
+<p><hi rendition="#in">A</hi>Ber <note place="foot" n="1.">Blieben die Men&#x017F;chen lange in &#x017F;olchem &#x017F;e-<lb/>
+ligen Zu&#x017F;tande?</note> die Men&#x017F;chen blieben nicht<lb/>
+lange in die&#x017F;em glu&#x0364;ck&#x017F;eligen Zu&#x017F;tan-<lb/>
+de: &#x017F;ondern <note place="foot" n="2.">Warum blieben &#x017F;ie nicht<lb/>
+la&#x0364;nger darin?</note> lie&#x017F;&#x017F;en &#x017F;ich verfu&#x0364;hren <note place="foot" n="3.">Durch wen?</note><lb/>
+durch den Satan, <note place="foot" n="4.">Wer war der<lb/>
+Satan?</note> das Haupt derer<lb/>
+von GOtt vorher abgefallenen Engel,<lb/>
+<note place="foot" n="5.">Jn was vor Ge&#x017F;talt tha&#x0364;t das der<lb/>
+Satan?</note> in Ge&#x017F;talt einer Schlange <note place="foot" n="6.">Wozu lie&#x017F;&#x017F;en &#x017F;ie &#x017F;ich verfu&#x0364;hren?</note> zum Un-<lb/>
+gehor&#x017F;am gegen GOtt, <note place="foot" n="7.">Zu was fu&#x0364;r einem Ungehor&#x017F;am?</note> daß &#x017F;ie von<lb/>
+dem verbotenen Baum der Erka&#x0364;nnt-<lb/>
+niß Gutes und Bo&#x0364;&#x017F;es a&#x017F;&#x017F;en. Welches<lb/>
+<note place="foot" n="8.">War denn<lb/>
+das e&#x017F;&#x017F;en eines Apfels &#x017F;o eine &#x017F;chwere Su&#x0364;nde?</note> eine &#x017F;chwere Su&#x0364;nde war, <note place="foot" n="9.">Warum?</note> in dem &#x017F;ie<lb/>
+durch &#x017F;olchen Ungehor&#x017F;am von GOtt<lb/>
+ihrem HErrn und ho&#x0364;ch&#x017F;ten Gut<lb/>
+abgefallen, und hingegen unter die<lb/>
+<fw type="catch" place="bottom">4. Le-</fw><lb/>
+<pb n="59" facs="#f0069"/>
+Herr&#x017F;chaft des Satans gerathen &#x017F;ind.</p></div><lb/>
+<div n="3"><head><hi rendition="#b">4. Lection.<lb/>
+Von der auf die Su&#x0364;nde erfolgten<lb/>
+Strafe und Elende des men&#x017F;ch-<lb/>
+lichen Ge&#x017F;chlechts.</hi></head><lb/>
+<p><hi rendition="#in">D</hi>Urch welchen Fall die er&#x017F;ten Men-<lb/>
+&#x017F;chen <note place="foot" n="1.">Wen haben denn die er&#x017F;ten Men&#x017F;chen<lb/>
+durch ihren Fall unglu&#x0364;cklich gemacht?</note> &#x017F;ich und alle ihre Nach-<lb/>
+kommen <note place="foot" n="2.">Jn<lb/>
+was vor Unglu&#x0364;ck &#x017F;ind &#x017F;ie denn gerathen?</note> bey GOtt in ho&#x0364;ch&#x017F;te Un-<lb/>
+gnade und <note place="foot" n="3.">War denn die Ungnade GOttes &#x017F;o ein Un-<lb/>
+glu&#x0364;ck?</note> zugleich in alles leibliche/<lb/>
+gei&#x017F;tliche und ewige Unglu&#x0364;ck gebracht.<lb/>
+Siebrachten &#x017F;ich vor <hi rendition="#aq">I.</hi> in leibliches Un-<lb/>
+glu&#x0364;ck: <note place="foot" n="4.">Wie brachten &#x017F;ie &#x017F;ich denn in leiblich<lb/>
+Unglu&#x0364;ck?</note> indem &#x017F;ie aus dem &#x017F;cho&#x0364;nen<lb/>
+Paradies hinaus gejaget wurden, und<lb/>
+<note place="foot" n="5.">War denn das eine Strafe?</note> au&#x017F;&#x017F;er dem&#x017F;elben, im Schweiß ihres<lb/>
+Ange&#x017F;ichts, in Hunger und Kummer,<lb/>
+Fro&#x017F;t und Hitze, Kranckheit und<lb/>
+Schmertzen ihr Brod &#x017F;uchen mußten.<lb/>
+Sie brachten &#x017F;ich auch <hi rendition="#aq">II.</hi> in gei&#x017F;tliches<lb/>
+<fw type="catch" place="bottom">ches</fw><lb/>
+<pb n="60" facs="#f0070"/>
+Unglu&#x0364;ck: <note place="foot" n="6.">Wie hatten &#x017F;ich denn die Men&#x017F;chen durch<lb/>
+die Su&#x0364;nde in gei&#x017F;tliches Unglu&#x0364;ck gebracht?</note> indem &#x017F;ie das &#x017F;cho&#x0364;ne E-<lb/>
+benbild GOttes verlohren, und das<lb/>
+&#x017F;cha&#x0364;ndliche Ebenbild des Teufels ange-<lb/>
+zogen hatten, &#x017F;o, daß &#x017F;ie nunmehro <note place="foot" n="7.">Was waren &#x017F;ie denn nun mehro?</note><lb/>
+lebendige Bilder vom Satan waren:<lb/>
+<note place="foot" n="8.">Wie<lb/>
+war denn ihr Ver&#x017F;tand?</note> denn ihr Ver&#x017F;tand war unwei&#x017F;e,<lb/>
+<note place="foot" n="9.">Wie ihr Wille?</note> ihr Wille ungerecht und unheilig;<lb/>
+<note place="foot" n="10.">Wie ihr Gemu&#x0364;the?</note> ihr Gemu&#x0364;the un&#x017F;elig: <note place="foot" n="11.">Wie &#x017F;tunds um die<lb/>
+Herr&#x017F;chaft?</note> aus Her-<lb/>
+ren u&#x0364;ber &#x017F;ich und die Thiere waren &#x017F;ie<lb/>
+Sclaven der Su&#x0364;nde und des Satans<lb/>
+worden, hatten die Herr&#x017F;chaft u&#x0364;ber die<lb/>
+Thiere verlohren, welche von ihnen<lb/>
+flohen, und <note place="foot" n="12.">Wie um die Un&#x017F;terblichkeit?</note> waren aus un&#x017F;terblichen<lb/>
+&#x017F;terbliche Men&#x017F;chen worden. Sie hat-<lb/>
+ten &#x017F;ich auch <hi rendition="#aq">III.</hi> <note place="foot" n="13.">Das mo&#x0364;chte noch hingehen, worin hatten<lb/>
+&#x017F;ie &#x017F;ich <hi rendition="#aq">III.</hi> gebracht?</note> in ewiges Unglu&#x0364;ck<lb/>
+gebracht/ <note place="foot" n="14.">Wie denn?</note> daß, wenn &#x017F;ich der liebe<lb/>
+Gott ihrer nicht erbarmet ha&#x0364;tte: &#x017F;o<lb/>
+ha&#x0364;tten &#x017F;ie mu&#x0364;&#x017F;&#x017F;en ewig von GOtt abge-<lb/>
+&#x017F;chieden bleiben, und mit den Teufeln<lb/>
+in der Ho&#x0364;lle verdammt werden.</p></div><lb/>
+<fw type="catch" place="bottom">5. Le-</fw><lb/>
+<pb n="61" facs="#f0071"/>
+<div n="3"><head><hi rendition="#b">5. Lection.<lb/>
+Von der Begnadigung des<lb/>
+men&#x017F;chlichen Ge&#x017F;chlechts.</hi></head><lb/>
+<p><hi rendition="#in">A</hi>Llein <note place="foot" n="1.">Allein erbarmete &#x017F;ich denn GOtt des gefal-<lb/>
+lenen men&#x017F;chlichen Ge&#x017F;chlechts nicht?</note> GOtt, der keinen Gefallen<lb/>
+hat am Tode des Su&#x0364;nders, erbar-<lb/>
+mete &#x017F;ich wieder des armen gefallenen<lb/>
+men&#x017F;chlichen Ge&#x017F;chlechts, und tha&#x0364;t ih-<lb/>
+me die&#x017F;e gna&#x0364;dige Verhei&#x017F;&#x017F;ung, <note place="foot" n="2.">Was<lb/>
+vor eine Verhei&#x017F;&#x017F;ung?</note> daß<lb/>
+er ihm wolle zu gewi&#x017F;&#x017F;er Zeit, &#x017F;einen<lb/>
+geliebten Sohn, der zugleich wahrer<lb/>
+GOtt &#x017F;eyn &#x017F;olte, zum Erlo&#x0364;&#x017F;er und Hei-<lb/>
+land in die&#x017F;e Welt &#x017F;enden. <note place="foot" n="3.">Was &#x017F;olte der in die-<lb/>
+&#x017F;er Welt machen?</note> Da &#x017F;olte<lb/>
+er aus eine&#xA75B; Jungfrau wahrer Men&#x017F;ch<lb/>
+gebohren, und un&#x017F;er Bruder werden.<lb/>
+Und in die&#x017F;er Men&#x017F;chheit, an un&#x017F;er<lb/>
+&#x017F;tatt, <note place="foot" n="4.">Was &#x017F;olte er in un&#x017F;erer<lb/>
+Men&#x017F;chheit, an un&#x017F;er &#x017F;tatt, thun?</note> <hi rendition="#aq">I.</hi> dem Ge&#x017F;etz GOttes durch ei-<lb/>
+nen vollkommenen Gehor&#x017F;am ein<lb/>
+Gnu&#x0364;gen thun. <hi rendition="#aq">II.</hi> <note place="foot" n="5.">Was<lb/>
+mehr?</note> Leiden, <note place="foot" n="6.">Was i&#x017F;t das?</note> das i&#x017F;t,<lb/>
+der Seelen nach, Ho&#x0364;llen-Ang&#x017F;t aus&#x017F;te-<lb/>
+hen: Und dem Leibe nach, &#x017F;ein Blut<lb/>
+vergie&#x017F;&#x017F;en und &#x017F;terben. Und <note place="foot" n="7." xml:id="seg2pn_1_1" next="#seg2pn_1_2">Was &#x017F;olte CHri-</note> &#x017F;olte<lb/>
+<fw type="catch" place="bottom">da-</fw><lb/>
+<pb n="62" facs="#f0072"/>
+damit, als mit einem Lo&#x0364;&#x017F;e-Gelde <hi rendition="#aq">I.</hi>)<lb/>
+fu&#x0364;r un&#x017F;ere Su&#x0364;nde bezahlen/ <note place="foot" n="8.">Was mehr?</note> <hi rendition="#aq">II.</hi>) das<lb/>
+men&#x017F;chliche Ge&#x017F;chlecht mit GOtt ver-<lb/>
+&#x017F;o&#x0364;hnen. Und <note place="foot" n="9.">Was<lb/>
+mehr?</note> <hi rendition="#aq">III.</hi> es aus der Gewalt<lb/>
+des Teufels und vom ewigen Tod und<lb/>
+Verdammniß erlö&#x017F;en. <note place="foot" n="10.">Solte er nicht auch dadurch dem<lb/>
+men&#x017F;chl. Ge&#x017F;chlecht etwas erwerben?</note> Und ihme<lb/>
+hingegen erwerben: <note place="foot" n="11.">Was<lb/>
+denn?</note> <hi rendition="#aq">I.</hi> eine vollkom-<lb/>
+mene Gerechtigkeit. <note place="foot" n="12.">Was mehr?</note> <hi rendition="#aq">II.</hi> Gnade und<lb/>
+Vergebung der Su&#x0364;nder. <note place="foot" n="13.">Was mehr?</note> <hi rendition="#aq">III.</hi> den<lb/>
+H. Gei&#x017F;t. <note place="foot" n="14.">Was noch mehr?</note> Und <hi rendition="#aq">IV.</hi> ein ewiges Leben<lb/>
+und Seligkeit bey GOtt in dem Him&#x0303;el.</p></div><lb/>
+<div n="3"><head><hi rendition="#b">6. Lection.<lb/>
+Daß GOtt die&#x017F;e gna&#x0364;dige Ver-<lb/>
+hei&#x017F;&#x017F;ung dem men&#x017F;chlichen Ge-<lb/>
+&#x017F;chlecht &#x017F;elb&#x017F;t kund gethan.</hi></head><lb/>
+<p><note place="foot" n="1.">Wer hat die&#x017F;e Verhei&#x017F;&#x017F;ung kund gethan?</note> <hi rendition="#in">D</hi>Je&#x017F;e gna&#x0364;dige Verhei&#x017F;&#x017F;ung nun<lb/>
+hat GOtt &#x017F;elb&#x017F;t kund gethan,<lb/>
+<note place="foot" n="2.">Wem?</note> denen er&#x017F;ten Men&#x017F;chen/ <note place="foot" n="3.">Wenn?</note> gleich nach<lb/>
+dem Falle, <note place="foot" n="4.">Wo?</note> im Paradies <note place="foot" n="5.">Wie?</note> mit die-<lb/>
+<fw type="catch" place="bottom">&#x017F;en</fw><lb/>
+<note place="foot" n="7." xml:id="seg2pn_1_2" prev="#seg2pn_1_1">&#x017F;tus durch &#x017F;einen Gehor&#x017F;am, Leiden u. Sterben<lb/>
+uns Su&#x0364;ndern helffen?</note><lb/>
+<pb n="63" facs="#f0073"/>
+&#x017F;en kurtzen Worten: <hi rendition="#fr">Jch will Feind-<lb/>
+&#x017F;chaft &#x017F;etzen zwi&#x017F;chen dir</hi> <note place="foot" n="6.">Zwi&#x017F;chen wem wolte GOtt eine Feind&#x017F;chaft<lb/>
+&#x017F;etzen, wenn er &#x017F;agt: zwi&#x017F;chen dir?</note> (nemlich:<lb/>
+zwi&#x017F;chen der Schlange, oder dem Sa-<lb/>
+tan in der Schlange,) <note place="foot" n="7.">Zwi&#x017F;chen<lb/>
+wem, mehr?</note> <hi rendition="#fr">und dem Wei-<lb/>
+be.</hi> <note place="foot" n="8.">Zwi&#x017F;chen was vor einem Wei-<lb/>
+be?</note> nemlich: der Eva/) <note place="foot" n="9.">Zwi&#x017F;chen wem mehr?</note> <hi rendition="#fr">und zwi-<lb/>
+&#x017F;chen deinen Saamen.</hi> <note place="foot" n="10.">Was i&#x017F;t das,<lb/>
+zwi&#x017F;chen deinem Saamen?</note> (das i&#x017F;t:<lb/>
+zwi&#x017F;chen deinen Teufeln, und denen<lb/>
+bo&#x0364;&#x017F;en Men&#x017F;chen/ die es mit dir halten<lb/>
+werden) <note place="foot" n="11.">Zwi&#x017F;cheu wem<lb/>
+mehr?</note> <hi rendition="#fr">und ihrem Saamen,</hi> <note place="foot" n="12.">Wer i&#x017F;t das ihrem Saamen?</note><lb/>
+(nemlich der Eva ihrem) <note place="foot" n="13.">Wen ver&#x017F;tehe&#x017F;t du durch den Weibes-Saa-<lb/>
+men?</note> Jch ver&#x017F;te-<lb/>
+he den Meßias, den Heyland der Welt,<lb/>
+der von der Eva Nachkommen, aus ei-<lb/>
+nem Weibe, oder Jungfrau &#x017F;olte ge-<lb/>
+bohren werden/ <note place="foot" n="14.">Wen mehr?</note> und alle Glaubige<lb/>
+und Fromme, die es mit dem Hey-<lb/>
+lande halten wu&#x0364;rden) <note place="foot" n="15.">Wie hei&#x017F;&#x017F;et die<lb/>
+Verhei&#x017F;&#x017F;ung weiter?</note> <hi rendition="#fr">Der&#x017F;elbe,</hi> <note place="foot" n="16.">Wer i&#x017F;t das, der&#x017F;el-<lb/>
+be?</note><lb/>
+(nemlich, die&#x017F;er Weibes-Saame, der<lb/>
+Heyland,) <note place="foot" n="17.">was &#x017F;oll der thun?</note> <hi rendition="#fr">&#x017F;oll dir,</hi> <note place="foot" n="18.">Wem?</note> (nemlich,<lb/>
+<fw type="catch" place="bottom"><hi rendition="#fr">der</hi></fw><lb/>
+<pb n="64" facs="#f0074"/>
+der Schlange, oder dem Teufel,) <note place="foot" n="19.">Was &#x017F;oller denn thun?</note><lb/>
+<hi rendition="#fr">den Kopf zertreten.</hi> <note place="foot" n="20.">Was i&#x017F;t das<lb/>
+den Kopf zertreten?</note> das i&#x017F;t: dir<lb/>
+dem Teufel deine verdammende und<lb/>
+mit Su&#x0364;nde vergiftende Gewalt u&#x0364;ber<lb/>
+die Men&#x017F;chen benehmen.) <note place="foot" n="21.">wie hei&#x017F;&#x017F;et es wei-<lb/>
+ter?</note> <hi rendition="#fr">und du,</hi><lb/>
+<note place="foot" n="22.">Wer?</note> (nemlich du Schlange, oder du Sa-<lb/>
+tan,) <note place="foot" n="23.">was wu&#x0364;rde der dem<lb/>
+Heylande thun?</note> <hi rendition="#fr">wir&#x017F;t ihn in die Fer&#x017F;e &#x017F;techen.</hi><lb/>
+<note place="foot" n="24.">was i&#x017F;t das?</note> (das i&#x017F;t: du mit deinem Anhange<lb/>
+wir&#x017F;t ihn, meinen lieben Sohn, an das<lb/>
+Creutz mit Ha&#x0364;nde und Fu&#x0364;&#x017F;&#x017F;en anna-<lb/>
+geln, und in den Tod bringen: aber e-<lb/>
+ben durch die&#x017F;en to&#x0364;dlichen Fer&#x017F;en-Stich<lb/>
+wird er dir den Kopf zertreten. Ja<lb/>
+auch &#x017F;eine Gla&#x0364;ubigen, die du immer-<lb/>
+hin mit giftigen Fer&#x017F;en-Stichen la&#x0364;-<lb/>
+&#x017F;teren, verfolgen und to&#x0364;dten wir&#x017F;t,<lb/>
+werden dich in &#x017F;einer Kraft u&#x0364;berwin-<lb/>
+den.) <note place="foot" n="*"><hi rendition="#aq">NB.</hi> Jm<lb/>
+Anfange, ko&#x0364;nnen die Kinder die er&#x017F;te Verhei&#x017F;-<lb/>
+&#x017F;ung &#x017F;chlechthin le&#x017F;en und lernen ohne Erkla&#x0364;-<lb/>
+rung, doch &#x017F;o, daß man ihnen den Ver&#x017F;tand<lb/>
+davon &#x017F;aget.</note></p></div><lb/>
+<fw type="catch" place="bottom">7. Le-</fw><lb/>
+<pb n="65" facs="#f0075"/>
+<div n="3"><head><hi rendition="#b">7. Lection.<lb/>
+Daß GOtt die&#x017F;e er&#x017F;te Verhei&#x017F;-<lb/>
+&#x017F;ung nachmals vielfa&#x0364;ltig noch deut-<lb/>
+licher offenbaret habe.</hi></head><lb/>
+<p><note place="foot" n="1.">Die&#x017F;e er&#x017F;te Verhei&#x017F;&#x017F;ung war doch ziem-<lb/>
+lich dunckel?</note> <hi rendition="#in">D</hi>Je&#x017F;e er&#x017F;te Verhei&#x017F;&#x017F;ung hat nach-<lb/>
+mals der liebe GOTT immer<lb/>
+kla&#x0364;rer und deutlicher offenbaret, und<lb/>
+denen Men&#x017F;chen vor Augen gemahlet,<lb/>
+<note place="foot" n="2.">Was hat er den Men&#x017F;chen vor<lb/>
+Augen mahlen wollen?</note> &#x017F;einen verhei&#x017F;&#x017F;enen Sohn mit &#x017F;einem<lb/>
+blutigen Opfer, und alle Gnade, die er<lb/>
+uns dadurch erwerben wu&#x0364;rde, <note place="foot" n="3.">Wie lange hat das<lb/>
+GOtt gethan?</note> fa&#x017F;t<lb/>
+zwey tau&#x017F;end Jahre vor dem ge&#x017F;chrie-<lb/>
+benen Ge&#x017F;etz Mo&#x017F;is, und bey nahe auch<lb/>
+zwey tau&#x017F;end Jahre unter dem Ge&#x017F;e-<lb/>
+tze bis auf Chri&#x017F;tum <note place="foot" n="4.">Wodurch?</note> durch tau&#x017F;en-<lb/>
+derley Dinge. <note place="foot" n="5.">Sage mir ei-<lb/>
+nige Exempel, wodurch vors 1.)?</note> Zum Exempel: 1.)<lb/>
+durch die dem Adam und &#x017F;einen Nach-<lb/>
+kommen befohlene Opferung und<lb/>
+Schlachtung der Thiere. <note place="foot" n="6.">Wo-<lb/>
+durch 2.)?</note> 2.) durch<lb/>
+die o&#x0364;ftere Er&#x017F;cheinungen des Sohnes<lb/>
+<fw type="sig" place="bottom">E</fw><fw type="catch" place="bottom">GOt-</fw><lb/>
+<pb n="66" facs="#f0076"/>
+GOttes in men&#x017F;chlicher Ge&#x017F;talt. <note place="foot" n="7.">Wodurch 3.)?</note><lb/>
+3.) durch die dem Abraham befohlene<lb/>
+Be&#x017F;chneidung, und durch die befohle-<lb/>
+ne Aufopferung &#x017F;eines einigen Soh-<lb/>
+nes J&#x017F;aacs. <note place="foot" n="8.">Wodurch 4.)?</note> 4.) durch die Erlo&#x0364;&#x017F;ung<lb/>
+des Volcks J&#x017F;rael aus der Egypti&#x017F;chen<lb/>
+Dien&#x017F;tbarkeit durch Mo&#x017F;es. <note place="foot" n="9.">Wo-<lb/>
+durch 5.)?</note> 5.)<lb/>
+durch die befohlene Be&#x017F;treichung der<lb/>
+Thu&#x0364;rpfo&#x017F;ten mit dem Blute des O&#x017F;ter-<lb/>
+Lammes, um dadurch gegen den<lb/>
+Wu&#x0364;rg-Engel &#x017F;icher zu &#x017F;eyn. <note place="foot" n="10.">Wodurch 6.)?</note> 6.)<lb/>
+durch die Ge&#x017F;etz-Gebung neb&#x017F;t den O-<lb/>
+pfern. <note place="foot" n="11.">Wodurch<lb/>
+7.)?</note> 7.) durch die in der Wu&#x0364;&#x017F;ten<lb/>
+erho&#x0364;hete Schlange wieder den Gift.<lb/>
+<note place="foot" n="12.">Wodurch 8.)?</note> 8.) durch den von GOtt angeord-<lb/>
+neten gantzen Gottesdien&#x017F;t der Ju&#x0364;den,<lb/>
+nemlich durch die Stiftshu&#x0364;tte, und<lb/>
+durch den an jener &#x017F;tatt hernach er-<lb/>
+baueten Tempel zu Jeru&#x017F;alem, und<lb/>
+durch alles/ was darin und darneben<lb/>
+war. Und <note place="foot" n="13.">wodurch 9.)?</note> 9.) durch die auf Got-<lb/>
+tes Befehl ge&#x017F;chehene Wei&#x017F;&#x017F;agungen<lb/>
+<fw type="catch" place="bottom">der</fw><lb/>
+<pb n="67" facs="#f0077"/>
+der Propheten &#xA75B;c. <note place="foot" n="14.">Was hat GOtt durch die&#x017F;e Bilder bey den<lb/>
+Men&#x017F;chen wu&#x0364;rcken wollen?</note> Durch diß alles<lb/>
+hat GOtt die Men&#x017F;chen zum Glauben<lb/>
+an den ku&#x0364;nftig fu&#x0364;r ihre Su&#x0364;nde zu o-<lb/>
+pferenden Heyland wollen erwecken,<lb/>
+darin &#x017F;ta&#x0364;rcken, und durch die&#x017F;en Glau-<lb/>
+ben ewig &#x017F;elig machen.</p></div><lb/>
+<div n="3"><head><hi rendition="#b">8. Lection.</hi> <note place="foot" n="*">Die&#x017F;e weitere Ausfu&#x0364;hrung von Lect. 8.<lb/>
+bis Ende der 15. Lect. braucht man die klei-<lb/>
+nern Kinder bey der ein und zweymaligen<lb/>
+Durchle&#x017F;ung die&#x017F;es Bu&#x0364;chleins weder Le&#x017F;en<lb/>
+noch auswendig lernen zu la&#x017F;&#x017F;en.</note><lb/>
+<hi rendition="#b">Weitere Ausfu&#x0364;hrung, wie GOtt<lb/>
+nach und nach &#x017F;eine er&#x017F;te Verhei&#x017F;-<lb/>
+&#x017F;ung deutlicher offenbaret.</hi></head><lb/>
+<p><note place="foot" n="1.">Blieb<lb/>
+die&#x017F;e er&#x017F;te Verhei&#x017F;&#x017F;ung &#x017F;o dunckel?</note> <hi rendition="#in">D</hi>Je&#x017F;e er&#x017F;te Verhei&#x017F;&#x017F;ung nun hat<lb/>
+der liebe GOtt, wie ge&#x017F;aget, nach<lb/>
+und nach immer kla&#x0364;rer und deutlicher<lb/>
+offenbaret <note place="foot" n="2.">Wem?</note> denen Frommen Va&#x0364;-<lb/>
+tern vor und nach der Su&#x0364;ndfluth.<lb/>
+Daher <note place="foot" n="3.">Wie hat denn GOTT die&#x017F;e er&#x017F;te Verhei&#x017F;-<lb/>
+&#x017F;ung deutlicher erkla&#x0364;ret?</note> hat er &#x017F;ogleich dem Adam<lb/>
+und &#x017F;einen Kindern und Nachkommen<lb/>
+<fw type="sig" place="bottom">E 2</fw><fw type="catch" place="bottom">das</fw><lb/>
+<pb n="68" facs="#f0078"/>
+das Opferen und Schlachten der<lb/>
+Thiere befohlen, <note place="foot" n="4.">Warum?</note> um ihnen den<lb/>
+ku&#x0364;nftig fu&#x0364;r &#x017F;ie zu kreutzigenden Hey-<lb/>
+land dadurch vor Augen zu mahlen.<lb/>
+<note place="foot" n="5.">Wie i&#x017F;t &#x017F;ie noch mehr offenba-<lb/>
+ret?</note> Es i&#x017F;t auch der Sohn GOttes o&#x0364;fters<lb/>
+in men&#x017F;chlicher Ge&#x017F;talt er&#x017F;chienen<lb/>
+<note place="foot" n="6.">Wem?</note> denen frommen Va&#x0364;tern der Ju&#x0364;-<lb/>
+den und aller Gla&#x0364;ubigen, <note place="foot" n="7.">Welche waren die?</note> welche<lb/>
+waren Abraham, J&#x017F;aac und Jacob,<lb/>
+<note place="foot" n="8.">Wa-<lb/>
+rum?</note> um ihnen &#x017F;eine ku&#x0364;nftige Men&#x017F;ch-<lb/>
+werdung dadurch vorzubilden, und<lb/>
+<note place="foot" n="9.">J&#x017F;t er nur bloß er&#x017F;chienen?</note> hat ihnen zugleich die er&#x017F;te Verhei&#x017F;-<lb/>
+&#x017F;ung noch deutlicher offenbaret.</p></div><lb/>
+<div n="3"><head><hi rendition="#b">9. Lection.<lb/>
+Von der Be&#x017F;chneidung und O-<lb/>
+pferung des J&#x017F;aacs.</hi></head><lb/>
+<p><hi rendition="#in">S</hi>O hat auch der liebe GOtt die er&#x017F;te<lb/>
+Verhei&#x017F;&#x017F;ung erleutert <note place="foot" n="1.">Wodurch hat GOtt die er&#x017F;te Verhei&#x017F;-<lb/>
+&#x017F;ung deutlicher offenbaret?</note> durch<lb/>
+die dem Abraham befohlene Be&#x017F;chnei-<lb/>
+dung, <note place="foot" n="2.">An wem, und<lb/>
+wie ge&#x017F;chahe die Be&#x017F;chneidung?</note> daß nemlich er und alle Ju&#x0364;den<lb/>
+<fw type="catch" place="bottom">ihre</fw><lb/>
+<pb n="69" facs="#f0079"/>
+ihre So&#x0364;hne be&#x017F;chneiden, und dabey<lb/>
+deren Blut vergie&#x017F;&#x017F;en mußten, <note place="foot" n="3.">Warum ge&#x017F;chahe &#x017F;ie?</note> um<lb/>
+ihnen dadurch gleich&#x017F;am ein Siegel zu<lb/>
+geben, <note place="foot" n="4.">Wovon?</note> daß, wenn &#x017F;ie an den ku&#x0364;nftig<lb/>
+fu&#x0364;r &#x017F;ie zu kreutzigenden Sohn GOt-<lb/>
+tes glauben wu&#x0364;rden/ &#x017F;ie durch de&#x017F;&#x017F;en<lb/>
+Leiden und Blutver gie&#x017F;&#x017F;en &#x017F;olten Ver-<lb/>
+gebung aller ihrer Su&#x0364;nden haben,<lb/>
+<note place="foot" n="5.">Wo-<lb/>
+von mehr war &#x017F;ie ein Siegel?</note> und daß ihnen &#x017F;ein Gei&#x017F;t &#x017F;olte ge-<lb/>
+&#x017F;chencket werden, <note place="foot" n="6.">Wozu?</note> um durch de&#x017F;&#x017F;en<lb/>
+Kraft gleich&#x017F;am am Hertzen be&#x017F;chnit-<lb/>
+ten, und von ihrem angebohrnen Ver-<lb/>
+derben gereiniget zu werden. <note place="foot" n="7.">Womit hat GOtt die er&#x017F;te Verhei&#x017F;&#x017F;ung noch<lb/>
+weiter erleutert?</note> Es<lb/>
+kriegte auch Abraham Befehl von<lb/>
+GOtt/ daß er &#x017F;einen einigen Sohn J-<lb/>
+&#x017F;aac &#x017F;chlachten und opferen &#x017F;olte; ob-<lb/>
+&#x017F;chon <note place="foot" n="8.">Ge&#x017F;chahe es denn auch?</note> &#x017F;olches von GOtt &#x017F;elb&#x017F;t verhin-<lb/>
+dert wurde/ <note place="foot" n="9.">Warum befahl das der liebe GOTT?</note> Um denen Ju&#x0364;den und<lb/>
+allen Men&#x017F;chen dadurch vorzubilden,<lb/>
+wie GOtt aus gro&#x017F;&#x017F;er Liebe &#x017F;einen ei-<lb/>
+nigen, geliebten Sohn fu&#x0364;r &#x017F;ie derein&#x017F;t<lb/>
+<fw type="sig" place="bottom">E 3</fw><fw type="catch" place="bottom">zum</fw><lb/>
+<pb n="70" facs="#f0080"/>
+zum Ver&#x017F;o&#x0364;hn-Opfer wolte in den<lb/>
+Tod geben.</p></div><lb/>
+<div n="3"><head><hi rendition="#b">10. Lection.<lb/>
+Fernere Erleuterung durch die<lb/>
+Erlo&#x0364;&#x017F;ung des Volcks J&#x017F;rael aus der<lb/>
+Egypti&#x017F;chen Dien&#x017F;tbarkeit durch<lb/>
+Mo&#x017F;es.</hi></head><lb/>
+<p><hi rendition="#in">A</hi>Uch hat der liebe GOtt denen Men-<lb/>
+&#x017F;chen &#x017F;eine er&#x017F;te Verhei&#x017F;&#x017F;ung noch<lb/>
+weiter erleutern wollen <note place="foot" n="1.">Womit hat GOtt noch weiter die er&#x017F;te Ve&#xA75B;-<lb/>
+hei&#x017F;&#x017F;ung erleutert?</note> durch die<lb/>
+Ausfu&#x0364;hrung des Volcks J&#x017F;rael aus<lb/>
+der Egypti&#x017F;chen Dien&#x017F;tbarkeit: Denn<lb/>
+die <note place="foot" n="2.">Was wiederfuhr dem<lb/>
+Volck J&#x017F;rael in Egypten?</note> harte Dien&#x017F;tbarkeit und &#x017F;chwe-<lb/>
+re Plagen, womit &#x017F;ie der Ko&#x0364;nig Pha-<lb/>
+rao plagete, <note place="foot" n="3.">warum wieder-<lb/>
+fuhren ihnen &#x017F;olche Plagen?</note> Solten &#x017F;ie und alle<lb/>
+Men&#x017F;chen erinneren, in was vor Elend<lb/>
+und Sclaverey des Teufels &#x017F;ie durch<lb/>
+die Su&#x0364;nde gerathen, daß aber <note place="foot" n="4.">Wer hat denn<lb/>
+die Kinder J&#x017F;rael aus der Egypti&#x017F;chen Dien&#x017F;t-<lb/>
+barkeit erlo&#x0364;&#x017F;et?</note> Mo-<lb/>
+&#x017F;es kam/ <note place="foot" n="5." xml:id="seg2pn_2_1" next="#seg2pn_2_2">Wodurch hat er &#x017F;ich als einen</note> durch &#x017F;eine Worte und<lb/>
+Wunder-Wercke &#x017F;ich als einen Ge-<lb/>
+<fw type="catch" place="bottom">&#x017F;and-</fw><lb/>
+<pb n="71" facs="#f0081"/>
+&#x017F;andten GOttes bewie&#x017F;e, und &#x017F;ie aus<lb/>
+der Egypti&#x017F;chen Dien&#x017F;tbarkeit erlo&#x0364;&#x017F;e-<lb/>
+te: <note place="foot" n="6.">Was &#x017F;olte ihnen das<lb/>
+alles vo&#xA75B;bilden?</note> Das &#x017F;olte ihnen vorbilden, wie<lb/>
+derein&#x017F;ten GOttes lieber Sohn als ein<lb/>
+anderer Mo&#x017F;es kommen, <note place="foot" n="7.">Was mehr?</note> &#x017F;ich als ei-<lb/>
+nen Ge&#x017F;andten GOTTes durch &#x017F;eine<lb/>
+Lehre und Wunder legitimiren, oder<lb/>
+bewei&#x017F;en, und <note place="foot" n="8.">Was<lb/>
+mehr?</note> &#x017F;ie aus der Gewalt des<lb/>
+Teufels und aus allem Elende erlo&#x0364;&#x017F;en<lb/>
+&#x017F;olte.</p></div><lb/>
+<div n="3"><head><hi rendition="#b">11. Lection.<lb/>
+Weitere Erleuterung durch die<lb/>
+den J&#x017F;raeliten befohlene Be&#x017F;treichung<lb/>
+der Thu&#x0364;r-Pfo&#x017F;ten mit dem Blute des<lb/>
+O&#x017F;ter-Lammes wieder den<lb/>
+Wu&#x0364;rg-Engel.</hi></head><lb/>
+<p><hi rendition="#in">D</hi>Aß aber be&#x017F;onders diejenige Ju&#x0364;-<lb/>
+den aus der Dien&#x017F;tbarkeit erlo&#x0364;&#x017F;et,<lb/>
+beym Leben erhalten, und in Canaan<lb/>
+gefu&#x0364;hret wurden, <note place="foot" n="1.">Welche Ju&#x0364;den wurden denn beym Leben er-<lb/>
+halten, erlo&#x0364;&#x017F;et und ins Land Canaan gefu&#x0364;hret,<lb/>
+da GOtt durch einen Engel die Egypter to&#x0364;dtete?</note> die auf GOttes<lb/>
+<fw type="sig" place="bottom">E 4</fw><fw type="catch" place="bottom">Be-</fw><lb/>
+<note place="foot" n="5." xml:id="seg2pn_2_2" prev="#seg2pn_2_1">Ge&#x017F;andten erwie&#x017F;en?</note><lb/>
+<pb n="72" facs="#f0082"/>
+Befehl mit dem ge&#x017F;chlachteten Lam-<lb/>
+mes-Blut ihre Thu&#x0364;r-Pfo&#x017F;ten be&#x017F;tri-<lb/>
+chen: <note place="foot" n="2.">Was tha&#x0364;ten &#x017F;ie mehr?</note> und dabey glaubeten, daß &#x017F;ie<lb/>
+dadurch von dem Wu&#x0364;rg-Engel/ der<lb/>
+die Egypter er&#x017F;chlug wu&#x0364;rden ver&#x017F;cho-<lb/>
+net bleiben: <note place="foot" n="3.">Was &#x017F;olte ihnen<lb/>
+das vorbilden?</note> Das &#x017F;olte ihnen und al-<lb/>
+len Men&#x017F;chen vorbilden, daß diejeni-<lb/>
+gen allein wu&#x0364;rden vor dem ho&#x0364;lli&#x017F;chen<lb/>
+Wu&#x0364;rg-Engel und Seelen-Mo&#x0364;rder<lb/>
+&#x017F;icher &#x017F;eyn, erlo&#x0364;&#x017F;et, zum ewigen Leben<lb/>
+erhalten und ins himmli&#x017F;che Canaan<lb/>
+eingefu&#x0364;hret werden, <note place="foot" n="4.">Welche?</note> welche gleich-<lb/>
+&#x017F;am ihr Hertz im Glauben mit dem<lb/>
+Blute des Lammes, des Sohnes Got-<lb/>
+tes be&#x017F;treichen wu&#x0364;rden.</p></div><lb/>
+<div n="3"><head><hi rendition="#b">12. Lection.<lb/>
+Noch weitere Erleuterung der<lb/>
+der er&#x017F;ten Verhei&#x017F;&#x017F;ung durch die<lb/>
+Ge&#x017F;etzgebung neb&#x017F;t den<lb/>
+Opferen.</hi></head><lb/>
+<p><note place="foot" n="1.">Wodu&#xA75B;ch hat GOtt &#x017F;eine er&#x017F;te Verhei&#x017F;-<lb/>
+&#x017F;ung noch weiter erleutert?</note> <hi rendition="#in">D</hi>Aß GOTT hernach auch denen<lb/>
+Ju&#x0364;den neb&#x017F;t den Opfern &#x017F;ein<lb/>
+<fw type="catch" place="bottom">heili-</fw><lb/>
+<pb n="73" facs="#f0083"/>
+heiliges Ge&#x017F;etz oder zehen Gebothe gab<lb/>
+<note place="foot" n="2.">Worauf waren &#x017F;ie ge&#x017F;chrieben?</note> auf zwo &#x017F;teinern Tafeln <note place="foot" n="3.">Durch<lb/>
+wen?</note> durch<lb/>
+Mo&#x017F;es <note place="foot" n="4.">Wo?</note> auf dem Berge Sinai: <note place="foot" n="5.">Warum that das GOtt?</note><lb/>
+Das that er nicht darum, als ob die<lb/>
+Men&#x017F;chen durch Gehor&#x017F;am des Ge&#x017F;e-<lb/>
+tzes ko&#x0364;nten und &#x017F;olten gerecht und &#x017F;elig<lb/>
+werden; &#x017F;ondern, <note place="foot" n="6.">Wozu &#x017F;olte ihnen denn das Ge&#x017F;etz GOttes<lb/>
+dienen?</note> daß &#x017F;ie aus de&#x017F;&#x017F;en<lb/>
+heiligen Jnhalt und Drohungen Got-<lb/>
+tes Heiligkeit und Gerechtigkeit er&#x017F;e-<lb/>
+hen: <note place="foot" n="7.">wozu mehr?</note> hingegen ihr unheiliges und<lb/>
+verderbtes Hertz und verdammlichen<lb/>
+Zu&#x017F;tand erkennen, <note place="foot" n="8.">wozu mehr?</note> und de&#x017F;to begie-<lb/>
+riger den ihnen durch die blutigen O-<lb/>
+pfer vor Augen ge&#x017F;tellten Heyland Je-<lb/>
+&#x017F;um CHri&#x017F;tum und &#x017F;ein blutiges Lo&#x0364;&#x017F;e-<lb/>
+Geld im Glauben ergreiffen &#x017F;olten, <note place="foot" n="9.">warum das?</note><lb/>
+um dadurch allein gerecht und &#x017F;elig zu<lb/>
+werden. Hierna&#x0364;ch&#x017F;t aber, wen&#x0303; &#x017F;ie durch<lb/>
+Chri&#x017F;ti Blut gerecht, und durch &#x017F;einen<lb/>
+Gei&#x017F;t geheiliget worden: <note place="foot" n="10." xml:id="seg2pn_3_1" next="#seg2pn_3_2">Wenn &#x017F;ie aber durch Chri-<lb/>
+&#x017F;ti Blut gerecht, und durch &#x017F;einen Gei&#x017F;t gehei-</note> &#x017F;o &#x017F;olte ih-<lb/>
+nen freylich auch diß heilige Ge&#x017F;etz ein<lb/>
+<fw type="sig" place="bottom">E 5</fw><fw type="catch" place="bottom">Mu-</fw><lb/>
+<pb n="74" facs="#f0084"/>
+Mu&#x017F;ter &#x017F;eyn, wie &#x017F;ie GOtt und ihren<lb/>
+Na&#x0364;ch&#x017F;ten lieben &#x017F;olten. <note place="foot" n="11.">wozu &#x017F;olte es mehr<lb/>
+dienen?</note> Auch &#x017F;olte<lb/>
+es denen Gottlo&#x017F;en einiger ma&#x017F;&#x017F;en zum<lb/>
+Zaum dienen.</p></div><lb/>
+<div n="3"><head><hi rendition="#b">13. Lection.<lb/>
+Weitere Erleuterung der er&#x017F;ten<lb/>
+Verhei&#x017F;&#x017F;ung durch die in der Wu&#x0364;&#x017F;ten<lb/>
+erho&#x0364;hete Schlange wieder den<lb/>
+Gift.</hi></head><lb/>
+<p><note place="foot" n="1.">Wodurch i&#x017F;t die er&#x017F;te Verhei&#x017F;&#x017F;ung noch<lb/>
+weiter erleutert worden?</note> <hi rendition="#in">D</hi>aß auch die Ju&#x0364;den auf ihrer Rei-<lb/>
+&#x017F;e nach Canaan, wegen ihres<lb/>
+Ungehor&#x017F;ams und Unglaubens von<lb/>
+giftigen Schlangen gebi&#x017F;&#x017F;en wurden,<lb/>
+<note place="foot" n="2.">Sturben denn<lb/>
+daran welche?</note> woran viel tau&#x017F;end &#x017F;turben, und <note place="foot" n="3.">was mußten &#x017F;ie thun, wenn<lb/>
+&#x017F;ie gebi&#x017F;&#x017F;en worden?</note><lb/>
+eine auf GOttes Befehl von Mo&#x017F;es,<lb/>
+auf einer Stange erho&#x0364;hete/ von Ertz<lb/>
+gego&#x017F;&#x017F;ene Schlange gla&#x0364;ubig an&#x017F;ehen<lb/>
+mu&#x017F;ten/ <note place="foot" n="4.">warum?</note> wenn &#x017F;ie an dem Gift nicht<lb/>
+&#x017F;terben wolten: Das &#x017F;olte ihnen abbil-<lb/>
+den, <note place="foot" n="5." xml:id="seg2pn_4_1" next="#seg2pn_4_2">Was</note> daß alle, die auf ihrer Rei&#x017F;e nach<lb/>
+<fw type="catch" place="bottom">dem</fw><lb/>
+<note place="foot" n="10." xml:id="seg2pn_3_2" prev="#seg2pn_3_1">liget worden: &#x017F;olte alsdenn das Ge&#x017F;etz keinen<lb/>
+weitern Nutzen haben?</note><lb/>
+<pb n="75" facs="#f0085"/>
+dem himmli&#x017F;chen Canaan von der ho&#x0364;l-<lb/>
+li&#x017F;chen Schlange gebi&#x017F;&#x017F;en, mit der Su&#x0364;n-<lb/>
+de vergiftet worden, und den Brand<lb/>
+fu&#x0364;hleten, den ku&#x0364;nftig am Creutz zu er-<lb/>
+ho&#x0364;henden Heyland im Glauben an&#x017F;e-<lb/>
+hen &#x017F;olten; <note place="foot" n="6.">warum?</note> wo &#x017F;ie nicht an der Su&#x0364;n-<lb/>
+de des ewigen Todes &#x017F;terben wolten.</p></div><lb/>
+<div n="3"><head><hi rendition="#b">14. Lection.<lb/>
+Fernere Erleuterung der er&#x017F;ten<lb/>
+Verhei&#x017F;&#x017F;ung durch den von GOtt an-<lb/>
+geordenten gautzen GOttesdien&#x017F;t<lb/>
+der Ju&#x0364;den.</hi></head><lb/>
+<p><hi rendition="#in">S</hi>O waren auch <note place="foot" n="1.">Hatten die Ju&#x0364;den nicht nochmehr Ge-<lb/>
+ma&#x0364;hlde und Bilder, wodurch GOtt ihrem<lb/>
+Glauben das blutige Opfer &#x017F;eines Sohnes<lb/>
+und alle uns zu erwerbende Gnade vor&#x017F;tellete?</note> die Stifts-Hu&#x0364;t-<lb/>
+te, und der an jener &#x017F;tatt hernach<lb/>
+erbauete Tempel zu Jeru&#x017F;alem/ und<lb/>
+alles, was darinnen und darneben<lb/>
+war, als <note place="foot" n="2.">was waren denn im Tempel vor Bilder?</note> die Bundes-Lade, der gu&#x0364;l-<lb/>
+dene Leuchter, der Rauch-Altar, der<lb/>
+Ti&#x017F;ch der Schau-Brote, <note place="foot" n="3.">was war darneben und anderswo?</note> der Brand-<lb/>
+Opfer-Altar, das Wa&#x017F;ch-Faß, die<lb/>
+<fw type="catch" place="bottom">Prie-</fw><lb/>
+<note place="foot" n="5." xml:id="seg2pn_4_2" prev="#seg2pn_4_1">&#x017F;olte ihnen die&#x017F;es abbilden?</note><lb/>
+<pb n="76" facs="#f0086"/>
+Prie&#x017F;ter und mancherley Opfer, be-<lb/>
+&#x017F;onders der Ver&#x017F;o&#x0364;hn-Bock am Ver-<lb/>
+&#x017F;o&#x0364;hnungs-Fe&#x017F;t, der Goel, oder der Er-<lb/>
+lo&#x0364;&#x017F;ende Bluts-Verwanter, die Frey-<lb/>
+&#x017F;ta&#x0364;dte, das waren, &#x017F;age ich, <note place="foot" n="4.">was waren die&#x017F;e Dinge vor Bilder?</note> lauter<lb/>
+Bilder, von JESU CHri&#x017F;to und &#x017F;ei-<lb/>
+ner uns zu erwerbenden Gnade.</p></div><lb/>
+<div n="3"><head><hi rendition="#b">15. Lection.<lb/>
+Weitere Erleuterung der er&#x017F;ten<lb/>
+Verhei&#x017F;&#x017F;ung durch die auf GOTTes<lb/>
+Befehl ge&#x017F;chehene Wei&#x017F;&#x017F;agung der<lb/>
+Propheten.</hi></head><lb/>
+<p><note place="foot" n="1.">Hat nicht GOtt durch gewi&#x017F;&#x017F;e Leute die<lb/>
+er&#x017F;te Verhei&#x017F;&#x017F;ung noch na&#x0364;her erkla&#x0364;ret?</note> <hi rendition="#in">E</hi>S hat auch GOtt be&#x017F;ondere Leute<lb/>
+unter den Ju&#x0364;den erwecket, <note place="foot" n="2.">Was war ihr Amt?</note> die<lb/>
+zuku&#x0364;nftige Dinge durch GOttes Gei&#x017F;t,<lb/>
+gewei&#x017F;&#x017F;aget, oder vorausge&#x017F;aget, und<lb/>
+<note place="foot" n="3.">Was mu&#x017F;ten &#x017F;ie mehr<lb/>
+thun?</note> das Volck zugleich zur Bu&#x017F;&#x017F;e, zum<lb/>
+Glauben und gott&#x017F;eligen Leben ermah-<lb/>
+nen mu&#x017F;ten. <note place="foot" n="4.">Wie wurden &#x017F;ie genennet?</note> Welche Propheten ge-<lb/>
+nennet wurden. Die haben denen<lb/>
+Men&#x017F;chen voraus verku&#x0364;ndigen mu&#x0364;&#x017F;-<lb/>
+<fw type="catch" place="bottom">&#x017F;en,</fw><lb/>
+<pb n="77" facs="#f0087"/>
+&#x017F;en/ <note place="foot" n="5.">Was haben &#x017F;ie denen Men&#x017F;chen verku&#x0364;ndi-<lb/>
+gen mu&#x0364;&#x017F;&#x017F;en?</note> wer der verhei&#x017F;&#x017F;ene Weibes-<lb/>
+Saame &#x017F;eyn &#x017F;olte, nemlich <note place="foot" n="6.">Wer &#x017F;olte er denn &#x017F;eyn?</note> GOttes<lb/>
+Sohn, wahrer GOtt und Men&#x017F;ch. <note place="foot" n="7.">Was mehr?</note><lb/>
+daß er wu&#x0364;rde von einer Jungfrau ge-<lb/>
+bohren werden. <note place="foot" n="8.">Was mehr?</note> Wenn und wo. <note place="foot" n="9.">Was mehr?</note><lb/>
+Was er wu&#x0364;rde lehren und vor Wun-<lb/>
+der thun. <note place="foot" n="10.">Wasmehr?</note> Wie er wu&#x0364;rde leben, lei-<lb/>
+den und &#x017F;terben/ und <note place="foot" n="11.">Was mehr?</note> warum, <note place="foot" n="12.">Warum<lb/>
+denn?</note><lb/>
+nemlich, uns dadurch mit GOtt zu<lb/>
+ver&#x017F;o&#x0364;hnen, uns Gerechtigkeit, Gnade,<lb/>
+Vergebung der Su&#x0364;nde, den Heiligen<lb/>
+Gei&#x017F;t, Leben und Seligkeit zu erwer-<lb/>
+ben. <note place="foot" n="13.">Was mehr?</note> Wie er wu&#x0364;rde begraben wer-<lb/>
+den, <note place="foot" n="14.">Was mehr?</note> aufer&#x017F;tehen, <note place="foot" n="15.">Was mehr?</note> gen Himmel<lb/>
+fahren, <note place="foot" n="16.">Was mehr?</note> zur Rechten GOttes &#x017F;itzen,<lb/>
+und fu&#x0364;r uns bitten. <note place="foot" n="17.">Was mehr?</note> Daß er wu&#x0364;rde<lb/>
+den Heiligen Gei&#x017F;t ausgie&#x017F;&#x017F;en, <note place="foot" n="18.">Was mehr?</note> &#x017F;ein<lb/>
+gei&#x017F;tliches Reich in den Hertzen der<lb/>
+Men&#x017F;chen aufrichten. <note place="foot" n="19.">Was mehr?</note> Die Heyden<lb/>
+beruffen; <note place="foot" n="20." xml:id="seg2pn_5_1" next="#seg2pn_5_2">Was</note> die Ju&#x0364;den aber, wegen<lb/>
+<fw type="catch" place="bottom">ihres</fw><lb/>
+<pb n="78" facs="#f0088"/>
+ihres Unglaubens eine Zeitlang ver-<lb/>
+werffen, und <note place="foot" n="21.">Was mehr?</note> wie er wieder kom-<lb/>
+men wu&#x0364;rde zum Gericht.</p></div></div><lb/>
+<div n="2"><head><hi rendition="#b"><hi rendition="#aq">II.</hi> Cap.<lb/>
+Von der Hi&#x017F;torie des Neu-<lb/>
+en Te&#x017F;taments.</hi></head><lb/>
+<div n="3"><head><hi rendition="#b">1. Lection.<lb/>
+Das alles, was GOtt von dem<lb/>
+Weibes-Saamen verhei&#x017F;&#x017F;en, an un-<lb/>
+&#x017F;erm Heylande, JE&#x017F;u CHri&#x017F;to<lb/>
+erfu&#x0364;llet worden,<lb/>
+<hi rendition="#fr">und zwar</hi><lb/>
+Daß er zur be&#x017F;timmten Zeit gekom-<lb/>
+men/ gebohren und von GOtt bekannt<lb/>
+gemachet worden.</hi></head><lb/>
+<p><hi rendition="#in">D</hi>A nun die von Gott be&#x017F;timmte<lb/>
+und zuvor verku&#x0364;ndigte Zeit kam,<lb/>
+<note place="foot" n="1.">Da nun die von GOtt be&#x017F;timmte Zeit<lb/>
+kam, was that GOtt?</note> da &#x017F;andte Gott &#x017F;einen Sohn, <note place="foot" n="2.">Wie &#x017F;andte er ihn?</note> und<lb/>
+ließ ihn, als den verhei&#x017F;&#x017F;enen Weibes-<lb/>
+<fw type="catch" place="bottom">Saa-</fw><lb/>
+<note place="foot" n="20." xml:id="seg2pn_5_2" prev="#seg2pn_5_1">mehr?</note><lb/>
+<pb n="79" facs="#f0089"/>
+Saamen gebohren werden, <note place="foot" n="3.">J&#x017F;t er denn etwa durch einen Men&#x017F;chen ge-<lb/>
+zeuget worden?</note> durch<lb/>
+die Kraft &#x017F;eines heiligen Gei&#x017F;tes, ohne<lb/>
+Mann, <note place="foot" n="4.">Von wem i&#x017F;t er geboh-<lb/>
+ren?</note> von einem Weibe, nemlich<lb/>
+der Jungfrau Maria/ <note place="foot" n="5.">Wo?</note> zu Bethle-<lb/>
+hem im Ju&#x0364;di&#x017F;chen Lande. Und <note place="foot" n="6.">Wie wurde &#x017F;olche Geburth<lb/>
+denen Men&#x017F;chen bekant?</note> &#x017F;olche<lb/>
+Geburth des Heylandes machte GOtt<lb/>
+denen Men&#x017F;chen bekant <note place="foot" n="7.">Durch wen?</note> er&#x017F;tlich durch<lb/>
+&#x017F;eine heiligen Engel, <note place="foot" n="8.">Wie?</note> die die&#x017F;e fro&#x0364;liche<lb/>
+Both&#x017F;chaft denen Hirten auf dem Felde<lb/>
+unter Singen und Jubiliren brachten<lb/>
+<note place="foot" n="9.">Was mu&#x017F;ten &#x017F;ie &#x017F;agen?</note> und dabey &#x017F;agten: Fu&#x0364;rchtet euch<lb/>
+nicht, &#x017F;iehe! wir verku&#x0364;ndigen euch gro&#x017F;-<lb/>
+&#x017F;e Freude, die allem Volck wiederfah-<lb/>
+ren &#x017F;oll: denn euch i&#x017F;t heute der Hey-<lb/>
+land gebohren, welcher i&#x017F;t Chri&#x017F;tus,<lb/>
+der HErr in der Stadt David. <note place="foot" n="10.">Was mehr?</note><lb/>
+Ehre &#x017F;ey nun Gott in der Ho&#x0364;he, Frie-<lb/>
+de auf erden, und den Men&#x017F;chen ein<lb/>
+Wohlgefallen.</p></div><lb/>
+<fw type="catch" place="bottom">2. Le-</fw><lb/>
+<pb n="80" facs="#f0090"/>
+<div n="3"><head><hi rendition="#b">2. Lection.<lb/>
+Fernere Bekantmachung der Ge-<lb/>
+burth des Heylandes durch die<lb/>
+Wei&#x017F;en.</hi></head><lb/>
+<p><hi rendition="#in">H</hi>Ernach machte auch Gott die Ge-<lb/>
+burth des Heylandes bekannt <note place="foot" n="1.">Durch wen machte GOtt die Geburth<lb/>
+des Heylandes noch mehr bekant?</note><lb/>
+durch die Wei&#x017F;en aus Morgenlande,<lb/>
+<note place="foot" n="2.">Wie<lb/>
+machte GOtt den&#x017F;elben die Geburth CHri&#x017F;ti<lb/>
+bekant?</note> welchen er nicht nur durch einen be-<lb/>
+&#x017F;ondern Stern die Geburth des Hey-<lb/>
+landes der Welt kund tha&#x0364;t; &#x017F;ondern<lb/>
+<note place="foot" n="3.">Was mu&#x017F;ten &#x017F;ie darauf thun?</note> ihnen auch einen Trieb ins Hertz gab,<lb/>
+daß &#x017F;ie die&#x017F;em Stern mu&#x017F;ten nachge-<lb/>
+hen, gen Jeru&#x017F;alem rei&#x017F;en, und nach<lb/>
+die&#x017F;em Heylande fragen, <note place="foot" n="4.">Funden &#x017F;ie ihn denn?</note> welchen &#x017F;ie<lb/>
+auch zu Bethlehem funden. <note place="foot" n="5.">Wie war ihnen<lb/>
+da?</note> Sie<lb/>
+freueten &#x017F;ich al&#x017F;o hoch u&#x0364;ber ihn, beteten<lb/>
+ihn an, und be&#x017F;chenckten ihn: <note place="foot" n="6." xml:id="seg2pn_6_1" next="#seg2pn_6_2">Die Ju&#x0364;den werden &#x017F;ich doch nochmehr</note> Die<lb/>
+Ju&#x0364;den abe&#xA75B;, die &#x017F;ich am mein&#x017F;ten ha&#x0364;tten<lb/>
+freuen &#x017F;ollen, daß endlich der Heyland<lb/>
+gekommen, welchen ihnen GOtt von<lb/>
+<fw type="catch" place="bottom">An-</fw><lb/>
+<pb n="81" facs="#f0091"/>
+Anfang der Welt verhei&#x017F;&#x017F;en, worauf<lb/>
+ihre Va&#x0364;ter &#x017F;o &#x017F;ehnlich gehoffet, und<lb/>
+wovon ihr gantzer Gottesdien&#x017F;t ein Ge-<lb/>
+ma&#x0364;hlde war, die freueten &#x017F;ich nicht,<lb/>
+<note place="foot" n="7.">Sie werden ihn doch ge&#x017F;u-<lb/>
+chet haben?</note> Sie &#x017F;uchten auch die&#x017F;en Heyland mit<lb/>
+den Wa&#x0364;y&#x017F;en nicht: <note place="foot" n="8.">Was tha&#x0364;ten &#x017F;ie denn?</note> &#x017F;ondern ihrer<lb/>
+Regenten einer, der Ko&#x0364;nig Herodes<lb/>
+&#x017F;uchte ihn gar zu to&#x0364;dten, <note place="foot" n="9.">Wa-<lb/>
+rum?</note> aus Furcht,<lb/>
+er mo&#x0364;chte ihm nach &#x017F;einer irdi&#x017F;chen<lb/>
+Crone &#x017F;tehen. Und <note place="foot" n="10.">Was tha&#x0364;t er denn?</note> weil er nicht ei-<lb/>
+gentlich wu&#x017F;te, welches Kind der Me&#x017F;-<lb/>
+&#x017F;ias und Heyland wa&#x0364;re: &#x017F;o ließ er viel<lb/>
+tau&#x017F;end un&#x017F;chuldige Kinder ermor-<lb/>
+den, in Meynung, eines darunter<lb/>
+wu&#x0364;rde der Heyland &#x017F;eyn. Daher mu-<lb/>
+&#x017F;te <note place="foot" n="11.">Wie wurde<lb/>
+denn JE&#x017F;us errettet?</note> JE&#x017F;us auf GOttes Befehl vor<lb/>
+die&#x017F;em Mo&#x0364;rder in Egypten fliehen,<lb/>
+<note place="foot" n="12.">Mit wem?</note> mit &#x017F;einer Mutter und &#x017F;einem Pfle-<lb/>
+ge-Vater Jo&#x017F;eph.</p></div><lb/>
+<div n="3"><head><hi rendition="#b">3. Lection.<lb/>
+Von der Be&#x017F;chneidung und Tau-<lb/>
+fe des HErrn JE&#x017F;u.</hi></head><lb/>
+<fw type="sig" place="bottom">F</fw><fw type="catch" place="bottom">1. Es</fw><lb/>
+<p><note place="foot" n="6." xml:id="seg2pn_6_2" prev="#seg2pn_6_1">freuet haben?</note></p><lb/>
+<pb n="82" facs="#f0092"/>
+<p><note place="foot" n="1.">Weil denn JE&#x017F;us von einer Ju&#x0364;din ge-<lb/>
+bohren, i&#x017F;t er auch be&#x017F;chnitten worden?</note> <hi rendition="#in">E</hi>S wurde auch die&#x017F;er Heyland,<lb/>
+nach Ju&#x0364;di&#x017F;cher Art, am achten<lb/>
+Tage &#x017F;eines Alters be&#x017F;chnitten, und <note place="foot" n="2.">Was kriegt er vor einen Namen?</note><lb/>
+es i&#x017F;t ihm dabey, auf GOttes Befehl,<lb/>
+der Name JESUS gegeben, <note place="foot" n="3.">Was<lb/>
+bedeutet der Name?</note> Wel-<lb/>
+cher einen Heyland oder Seligmacher<lb/>
+bedeutet. <note place="foot" n="4.">Es wird doch der<lb/>
+Heyland den Ju&#x0364;den bald &#x017F;eyn bekannt wor-<lb/>
+den?</note> Es blieb aber den mein-<lb/>
+&#x017F;ten Men&#x017F;chen die&#x017F;er Heyland verbor-<lb/>
+gen <note place="foot" n="5.">Wie lange?</note> bis ins drey&#x017F;ich&#x017F;te Jahr &#x017F;eines<lb/>
+Alters, <note place="foot" n="6.">Was ge&#x017F;chahe da?</note> Da er &#x017F;ich von Johannes/<lb/>
+einem frommen Ju&#x0364;di&#x017F;chen Lehrer und<lb/>
+Ta&#x0364;ufer im Jordan taufen ließ. <note place="foot" n="7.">Was begab &#x017F;ich dabey?</note> Wo-<lb/>
+bey GOtt durch eine Stimme vom<lb/>
+Himmel rief: <note place="foot" n="8.">Wie?</note> Dies i&#x017F;t mein lieber<lb/>
+Sohn, an dem ich Wohlgefallen ha-<lb/>
+be; <note place="foot" n="9.">Was<lb/>
+tha&#x0364;t GOtt mehr?</note> Und ließ zugleich &#x017F;einen Heiligen<lb/>
+Gei&#x017F;t in Ge&#x017F;talt einer Taube u&#x0364;ber ihn<lb/>
+kommen.</p></div><lb/>
+<fw type="catch" place="bottom">4. Le-</fw><lb/>
+<pb n="83" facs="#f0093"/>
+<div n="3"><head><hi rendition="#b">4. Lection.<lb/>
+Von Johannes und JE&#x017F;us<lb/>
+Lehr-Amt.</hi></head><lb/>
+<p><note place="foot" n="1.">Was ge&#x017F;chahe auf JE&#x017F;us Taufe?</note> <hi rendition="#in">H</hi>Jerauf fieng Johannes an o&#x0364;f-<lb/>
+fentlich von JE&#x017F;u zu lehren,<lb/>
+und <note place="foot" n="2.">Was lehrete er von JE&#x017F;u?</note> &#x017F;agte den Leuten: Die&#x017F;er i&#x017F;t der<lb/>
+verhei&#x017F;&#x017F;ene Heyland, und das wahre<lb/>
+Lamm GOttes, welches der Welt<lb/>
+Su&#x0364;nde tra&#x0364;get. <note place="foot" n="3.">Hat JE&#x017F;us<lb/>
+nicht &#x017F;elb&#x017F;t gelehret?</note> Ja, JE&#x017F;us trat &#x017F;elb&#x017F;t<lb/>
+&#x017F;ein Predig-Amt an, und lehrete al-<lb/>
+lenthalben die Men&#x017F;chen, <note place="foot" n="4.">Was lehrete er denn?</note> daß er der<lb/>
+von GOtt ge&#x017F;andte Heyland der Welt<lb/>
+&#x017F;ey. <note place="foot" n="5.">Was mehr?</note> Wie er mu&#x0364;&#x017F;&#x017F;e ein Opfer fu&#x0364;r die<lb/>
+Su&#x0364;nden der Welt werden, leyden und<lb/>
+&#x017F;terben, <note place="foot" n="6.">was mehr?</note> und am dritten Tage wie-<lb/>
+der aufer&#x017F;tehen. <note place="foot" n="7.">Was mehr?</note> Desgleichen, wie die<lb/>
+Men&#x017F;chen nun ko&#x0364;nten und &#x017F;olten durch<lb/>
+ihn mit GOtt ver&#x017F;u&#x0364;hnet und &#x017F;elig wer-<lb/>
+den. <note place="foot" n="8.">Wie denn?</note> Aber die Men&#x017F;chen hingegen<lb/>
+mu&#x0364;&#x017F;ten ihre Su&#x0364;nden erkennen, be-<lb/>
+reuen, ha&#x017F;&#x017F;en, oder Bu&#x017F;&#x017F;e thun, <note place="foot" n="9.">Wie mehr?</note> und<lb/>
+ihn als ihr Lo&#x0364;&#x017F;egeld und Gerechtigkeit<lb/>
+<fw type="sig" place="bottom">F 2</fw><fw type="catch" place="bottom">vor</fw><lb/>
+<pb n="84" facs="#f0094"/>
+vor GOtt im Glauben annehmen/ <note place="foot" n="10.">wie mehr?</note><lb/>
+und zugleich durch Kraft &#x017F;eines Gei-<lb/>
+&#x017F;tes, nach &#x017F;einer heiligen Lehre leben,<lb/>
+das i&#x017F;t, <note place="foot" n="11.">Wie &#x017F;olten &#x017F;ie leben?</note> in Liebe und Gehor&#x017F;am gegen<lb/>
+Gott, und ihn, ihren Heyland, &#x017F;ich<lb/>
+danckbar erwei&#x017F;en.</p></div><lb/>
+<div n="3"><head><hi rendition="#b">5. Lection.<lb/>
+Von JE&#x017F;us Wunder-Wercken<lb/>
+und Berufung der zwo&#x0364;lf Ju&#x0364;nger.</hi></head><lb/>
+<p><note place="foot" n="1.">Was tha&#x0364;t der Heyland noch neb&#x017F;t &#x017F;einer<lb/>
+Lehre?</note> <hi rendition="#in">E</hi>R bewie&#x017F;e &#x017F;ich auch durch viele<lb/>
+herliche Wunder-Wercke, <note place="foot" n="2.">wie bewieß er &#x017F;ich damit?</note> als<lb/>
+den von Gott ge&#x017F;andten Heyland der<lb/>
+Welt, und <note place="foot" n="3.">Was be-<lb/>
+wieß er weiter damit?</note> daß &#x017F;eine Lehre Wahrheit<lb/>
+&#x017F;ey. <note place="foot" n="4.">Was tha&#x0364;t er fu&#x0364;r<lb/>
+Wunder?</note> Er machte nemlich die Blinden<lb/>
+&#x017F;ehend, die Tauben ho&#x0364;rend, die Stum-<lb/>
+men redend, die Lahmen gehend, die<lb/>
+Todten lebendig &#xA75B;c. und <note place="foot" n="5.">Was zeigete er hiermit an?</note> zeigete hier-<lb/>
+mit zugleich an, daß er &#x017F;olche Wunder-<lb/>
+Curen auch an un&#x017F;er krancken Seelen<lb/>
+thun wolte; wenn man ihn als den<lb/>
+Seelen-Artzt im Glauben annehmen<lb/>
+wu&#x0364;rde. <note place="foot" n="6." xml:id="seg2pn_7_1" next="#seg2pn_7_2"/> Er erwehlte &#x017F;ich auch zwo&#x0364;lf<lb/>
+<fw type="catch" place="bottom">Ju&#x0364;n-</fw><lb/>
+<pb n="85" facs="#f0095"/>
+Ju&#x0364;nger/ oder Schu&#x0364;ler, <note place="foot" n="7.">Wie begegnete er denen?</note> denen er &#x017F;ich<lb/>
+als den Heyland noch na&#x0364;her offenbare-<lb/>
+te <note place="foot" n="8.">Unterrichtete er &#x017F;ie auch?</note> un&#x0303; unterrichtete &#x017F;ie von dem Wege<lb/>
+des Lebens, <note place="foot" n="9.">Warum?</note> weil &#x017F;ie nach &#x017F;einem Tode<lb/>
+und Himmelfahrt die Men&#x017F;chen in &#x017F;ei-<lb/>
+nem Namen lehren &#x017F;olten.</p></div><lb/>
+<div n="3"><head><hi rendition="#b">6. Lection.<lb/>
+Daß JE&#x017F;us denen Ju&#x0364;den verra-<lb/>
+then und von die&#x017F;en dem heydni&#x017F;chen<lb/>
+Richter zum Tode u&#x0364;ber geben worden.</hi></head><lb/>
+<p><hi rendition="#in">A</hi>ls er nun &#x017F;o &#x017F;ein Lehr-Amt <note place="foot" n="1.">Wenn hat JE&#x017F;us &#x017F;ein Lehr-Amt gefu&#x0364;hret?</note> die vier<lb/>
+letzten Jahre &#x017F;eines Lebens <note place="foot" n="2.">Wie lange?</note> bis<lb/>
+ins vier und drey&#x017F;ich&#x017F;te Jahr &#x017F;eines Al-<lb/>
+ters fu&#x0364;hrete: <note place="foot" n="3.">Was ge&#x017F;chahe dabey</note> beneydeten ihn die da-<lb/>
+malige Ju&#x0364;di&#x017F;chen Lehrer, <note place="foot" n="4.">Wes-<lb/>
+wegen?</note> wegen &#x017F;ei-<lb/>
+ner Lehre und Wunder, <note place="foot" n="5.">Was tha&#x0364;ten &#x017F;ie mehr?</note> la&#x0364;&#x017F;terten<lb/>
+und verfolgeten ihn. <note place="foot" n="6.">Warum?</note> Weil &#x017F;ie ihn<lb/>
+wegen &#x017F;einer Armuth und geringen<lb/>
+An&#x017F;ehens fu&#x0364;r den verhei&#x017F;&#x017F;enen Hey-<lb/>
+land nicht erkennen wolten. <note place="foot" n="7.">Konte ihn denn GOtt nicht &#x017F;chu&#x0364;tzen?</note> Da<lb/>
+kam endlich die Zeit, daß er ein Opfer<lb/>
+<fw type="sig" place="bottom">F 3</fw><fw type="catch" place="bottom">fu&#x0364;r</fw><lb/>
+<note place="foot" n="6." xml:id="seg2pn_7_2" prev="#seg2pn_7_1">Was tha&#x0364;t er weiter?</note><lb/>
+<pb n="86" facs="#f0096"/>
+fu&#x0364;r die Welt zu ihrer Ver&#x017F;u&#x0364;hnung mit<lb/>
+Gott werden &#x017F;olte. Daher ge&#x017F;chahe<lb/>
+es <note place="foot" n="8.">Wenn &#x017F;olte er denn ein Opfer werden?</note> am damaligen O&#x017F;ter-Fe&#x017F;te, da die<lb/>
+Ju&#x0364;den das O&#x017F;ter-Lam&#x0303; &#x017F;chlachteten, u.<lb/>
+<note place="foot" n="9.">wenn<lb/>
+ging denn eigentlich &#x017F;ein Leyden an?</note> nachdem JE&#x017F;us &#x017F;elb&#x017F;t es des Nachts<lb/>
+mit &#x017F;einen Ju&#x0364;ngern gege&#x017F;&#x017F;en hatte, und<lb/>
+an de&#x017F;&#x017F;en &#x017F;tatt hernach <note place="foot" n="10.">was hat<lb/>
+er an&#x017F;tatt des O&#x017F;ter-Lamms einge&#x017F;etzet?</note> einge&#x017F;etzet<lb/>
+das heilige Abendmahl: <note place="foot" n="11.">was<lb/>
+ge&#x017F;chahe da?</note> daß ihn ei-<lb/>
+ner &#x017F;einer Ju&#x0364;nger mit Namen Judas<lb/>
+J&#x017F;chariot, denen Obri&#x017F;ten der Ju&#x0364;den<lb/>
+verriethe und verkauffte. <note place="foot" n="12.">was tha&#x0364;ten die&#x017F;e darauf?</note> Worauf<lb/>
+ihn die&#x017F;e dem heydni&#x017F;chen Richter Pon-<lb/>
+tius Pilatus u&#x0364;berlieferten, <note place="foot" n="13.">was mehr?</note> Jhn al-<lb/>
+lerley bo&#x0364;&#x017F;er Dinge be&#x017F;chuldigten, <note place="foot" n="14.">was mehr?</note><lb/>
+und no&#x0364;thigten endlich den Richter, ob<lb/>
+er ihn wol vor un&#x017F;chuldig erkennete/<lb/>
+ihn kreutzigen zu la&#x017F;&#x017F;en.</p></div><lb/>
+<div n="3"><head><hi rendition="#b">7. Lection.<lb/>
+Von der Kreutzigung Chri&#x017F;ti.</hi></head><lb/>
+<p><note place="foot" n="1.">Was ge&#x017F;chahe darauf?</note> <hi rendition="#in">D</hi>Arauf wurde er denn zum<lb/>
+Creutz-Tode verdammet/ <note place="foot" n="2.">Was mehr?</note> von<lb/>
+<fw type="catch" place="bottom">de-</fw><lb/>
+<pb n="87" facs="#f0097"/>
+denen Ju&#x0364;den und heydni&#x017F;chen Solda-<lb/>
+ten ver&#x017F;pottet, <note place="foot" n="3.">Was mehr?</note> ver&#x017F;peiet, <note place="foot" n="4.">Was mehr?</note> ge&#x017F;chla-<lb/>
+gen, <note place="foot" n="5.">Was mehr?</note> mit einer Dornen-Crone gecro&#x0364;-<lb/>
+net, <note place="foot" n="6.">was mehr?</note> nackend grau&#x017F;am gegei&#x017F;&#x017F;elt, <note place="foot" n="7.">was mehr?</note><lb/>
+hernach ihme das Creutz auf &#x017F;einen<lb/>
+verwundeten Ru&#x0364;cken geleget, <note place="foot" n="8.">was mehr?</note> mit<lb/>
+zween Mo&#x0364;rdern nach dem Richt-Platz<lb/>
+Golgotha gefu&#x0364;hret, und mit den&#x017F;elben<lb/>
+gekreutziget, <note place="foot" n="9.">wie gieng das zu?</note> nemlich &#x017F;ie nagelten<lb/>
+ihn nackend mit Ha&#x0364;nden und Fu&#x0364;&#x017F;&#x017F;en<lb/>
+ans Creutz, und vergo&#x017F;&#x017F;en ihm alles<lb/>
+&#x017F;ein Blut. <note place="foot" n="10.">was hat er am Creutz ge-<lb/>
+than?</note> An welchem Creutz er<lb/>
+noch viele tro&#x0364;&#x017F;tliche Worte redete, <note place="foot" n="11.">was mehr?</note><lb/>
+einen der Mo&#x0364;rder bekehrete, <note place="foot" n="12.">was mehr?</note> viel<lb/>
+gro&#x017F;&#x017F;e Wunder ge&#x017F;chehen ließ/ <note place="foot" n="13.">was ge-<lb/>
+&#x017F;chahe endlich?</note> und<lb/>
+endlich unter der La&#x017F;t un&#x017F;erer Su&#x0364;n-<lb/>
+den/ unter dem Gefu&#x0364;hl des Zorns<lb/>
+Gottes und Ho&#x0364;llen-Ang&#x017F;t, in tau&#x017F;end<lb/>
+Schmertzen, als das wahre O&#x017F;ter-<lb/>
+Lamm und Ver&#x017F;o&#x0364;hn-Opfer der Welt<lb/>
+&#x017F;turbe.</p></div><lb/>
+<fw type="sig" place="bottom">F 4</fw><fw type="catch" place="bottom">8. Le-</fw><lb/>
+<pb n="88" facs="#f0098"/>
+<div n="3"><head><hi rendition="#b">8. Lection.<lb/>
+Von dem, was &#x017F;ich mit JESU<lb/>
+nach &#x017F;einem Tode und Aufer&#x017F;tehung<lb/>
+zugetragen.</hi></head><lb/>
+<p><note place="foot" n="1.">Was ge&#x017F;chahe nach &#x017F;einem Tode?</note> <hi rendition="#in">H</hi>Jerauf wurde er begraben/ <note place="foot" n="2">Von<lb/>
+wem?</note> von<lb/>
+Jo&#x017F;eph einem vornehmen Ju&#x0364;-<lb/>
+den, der gla&#x0364;ubig worden war. Und <note place="foot" n="3.">was ge&#x017F;chahe mehr?</note><lb/>
+&#x017F;tunde am dritten Tage, aller Gegen-<lb/>
+An&#x017F;talten der Ju&#x0364;den ohngeachtet, wie-<lb/>
+der auf, <note place="foot" n="4.">was ge&#x017F;chahe<lb/>
+nach &#x017F;einer Aufer&#x017F;tehung?</note> er&#x017F;chiene o&#x0364;ffters &#x017F;einen Ju&#x0364;n-<lb/>
+gern und andern Gla&#x0364;nbigen zur<lb/>
+gro&#x017F;&#x017F;en Freude, <note place="foot" n="5.">was mehr?</note> unterrichtete &#x017F;ie<lb/>
+noch deutlicher von der Ur&#x017F;ache und<lb/>
+Nutzen &#x017F;eines Leidens, <note place="foot" n="6.">Was that er endlich?</note> Fu&#x0364;hrete &#x017F;ie<lb/>
+endlich auf einen Berg, <note place="foot" n="7.">was tha&#x0364;t er da?</note> Befahl ih-<lb/>
+nen, daß &#x017F;ie nach &#x017F;einer Himmelfahrt<lb/>
+&#x017F;olten ausgehen in alle Welt, und <note place="foot" n="8.">wa-<lb/>
+rum &#x017F;olten &#x017F;ie das thun?</note><lb/>
+ihn als den Erlo&#x0364;&#x017F;er der Men&#x017F;chen be-<lb/>
+kant machen, und &#x017F;agen: <note place="foot" n="9.">was &#x017F;olten &#x017F;ie &#x017F;agen?</note> wie die<lb/>
+Men&#x017F;chen nun mit GOtt ver&#x017F;o&#x0364;hnet,<lb/>
+und <note place="foot" n="10.">Was mehr?</note> wie &#x017F;ie durch Bu&#x017F;&#x017F;e und Glau-<lb/>
+<fw type="catch" place="bottom">ben</fw><lb/>
+<pb n="89" facs="#f0099"/>
+ben an JE&#x017F;um CHri&#x017F;tum ko&#x0364;nten und<lb/>
+&#x017F;olten &#x017F;elig werden. Und <note place="foot" n="11.">Was &#x017F;olten &#x017F;ie mehr thun?</note> wer ihn<lb/>
+im Glauben annehmen wu&#x0364;rde/ den<lb/>
+&#x017F;olten &#x017F;ie taufen <note place="foot" n="12.">Warum?</note> damit ein ieder da-<lb/>
+durch &#x017F;owol, als durchden Geb&#xA75B;auch des<lb/>
+heiligen Abendmahls &#x017F;ich &#x017F;eines Todes<lb/>
+und Aufer&#x017F;tehung gla&#x0364;ubig und danck-<lb/>
+barlich erinnern mo&#x0364;chte. Jndem er<lb/>
+dabey glauben &#x017F;olte: <note place="foot" n="13.">Was &#x017F;olte ein ieder dabey glauben?</note> daß er gewiß-<lb/>
+lich an aller durch &#x017F;einen Tod erworbe-<lb/>
+nen Gnade und Seligkeit theil habe,<lb/>
+<note place="foot" n="14.">was<lb/>
+&#x017F;olte aber auch ein ieder glauben, daß &#x017F;eine<lb/>
+Pflicht &#x017F;ey?</note> daß er aber auch in &#x017F;einer Kraft<lb/>
+mu&#x0364;&#x017F;&#x017F;e ta&#x0364;glich, mit ihm, &#x017F;ich &#x017F;elb&#x017F;t, der<lb/>
+Su&#x0364;nde und Welt ab&#x017F;terben, <note place="foot" n="15.">Was mehr?</note> und<lb/>
+auch mit ihm im Glauben zum neuen<lb/>
+Leben aufer&#x017F;tehen, und &#x017F;ich ihme mit<lb/>
+Seele und Leib ergeben. <note place="foot" n="16.">Was that<lb/>
+JE&#x017F;us he&#xA75B;nach?</note> Er &#x017F;egnete<lb/>
+&#x017F;ie hierauf, <note place="foot" n="17.">Was mehr?</note> und fuhr am viertzig-<lb/>
+&#x017F;ten Tage/ auf einer Wolcken gen Him-<lb/>
+mel/ <note place="foot" n="18.">Was mehr?</note> und goß acht Tage hernach den<lb/>
+heiligen Gei&#x017F;t u&#x0364;ber &#x017F;ie und alle Gla&#x0364;u-<lb/>
+bigen in gro&#x017F;&#x017F;em maaß aus.</p></div><lb/>
+<fw type="sig" place="bottom">F 5</fw><fw type="catch" place="bottom">9. Le-</fw><lb/>
+<pb n="90" facs="#f0100"/>
+<div n="3"><head><hi rendition="#b">9. Lection.<lb/>
+Woher wir das Heilige Evange-<lb/>
+lium bekommen, und Chri&#x017F;ten hei&#x017F;&#x017F;en/<lb/>
+und von CHri&#x017F;ti Wiederkunft zum<lb/>
+Gericht.</hi></head><lb/>
+<p><note place="foot" n="1.">Was i&#x017F;t durch die&#x017F;e Ju&#x0364;nger, Chri&#x017F;ti Befehl<lb/>
+zu Folge, ge&#x017F;chehen?</note><hi rendition="#in">D</hi>Urch die&#x017F;e Ju&#x0364;nger und Apo&#x017F;tel<lb/>
+i&#x017F;t hernach die Lehre CHri&#x017F;ti in<lb/>
+aller Welt ausgebreitet/ <note place="foot" n="2.">Was mehr?</note> und von ih-<lb/>
+nen in Schrifften verfa&#x017F;&#x017F;et worden,<lb/>
+welche wir nennen <note place="foot" n="3.">Wie<lb/>
+nennen wir diejenige Schriften?</note> das Evangelium,<lb/>
+oder Neue Te&#x017F;tament. <note place="foot" n="4.">J&#x017F;t dis Ev-<lb/>
+angelium auch zu uns gekommen?</note> Die&#x017F;es hei-<lb/>
+lige Evangelium und Chri&#x017F;tliche Lehre<lb/>
+i&#x017F;t auch durch Gottes be&#x017F;ondere Gnade<lb/>
+in die&#x017F;es Land und zu uns gekommen,<lb/>
+<note place="foot" n="5.">Wie hei&#x017F;-<lb/>
+&#x017F;en wir davon?</note> von der&#x017F;elben nun und von CHri&#x017F;to<lb/>
+hei&#x017F;&#x017F;en wir Chri&#x017F;ten oder Ge&#x017F;albte.</p><lb/>
+<p><note place="foot" n="6.">Wo i&#x017F;t ietzt un&#x017F;er lieber Hey-<lb/>
+land?</note> Un&#x017F;er lieber Heyland i&#x017F;t nun zwar<lb/>
+ietzt im Himmel: <note place="foot" n="7.">J&#x017F;t er nicht auch bey uns auf Erden?</note> i&#x017F;t aber auch alle-<lb/>
+zeit bey uns auf Erden durch &#x017F;ein<lb/>
+Wort, Sacramente, Gnade und<lb/>
+<fw type="catch" place="bottom">Gei&#x017F;t.</fw><lb/>
+<pb n="91" facs="#f0101"/>
+Gei&#x017F;t. <note place="foot" n="8.">Wird er nicht wiederkommen?</note> Er wird aber &#x017F;ichtbarlich wie-<lb/>
+derkommen am ju&#x0364;ng&#x017F;ten, oder letzten<lb/>
+Tage der Welt, <note place="foot" n="9.">Wenn<lb/>
+&#x017F;ind wir de&#x017F;&#x017F;en gewa&#x0364;rtig?</note> de&#x017F;&#x017F;en wir alle Ta-<lb/>
+ge gewa&#x0364;rtiget &#x017F;eyn mu&#x0364;&#x017F;&#x017F;en, <note place="foot" n="10.">Warum will er<lb/>
+wieder kommen?</note> zu rich-<lb/>
+ten die Lebendigen und die Todten. <note place="foot" n="11.">Was mu&#x0364;&#x017F;&#x017F;en nun Chri&#x017F;tli-<lb/>
+che Kinder thun, wenn &#x017F;ie am ju&#x0364;ng&#x017F;ten Gericht<lb/>
+nicht wollen verdammet werden?</note><lb/>
+Diejenige nun, die ihn im Glauben<lb/>
+annehmen, als ihre Weißheit, Gerech-<lb/>
+tigkeit, Heiligung und Erlo&#x0364;&#x017F;ung, <note place="foot" n="12.">Was mehr?</note><lb/>
+ihn hertzlich lieb haben, und <note place="foot" n="13.">Was mehr?</note><lb/>
+&#x017F;einer Lehre und Exempel nachfolgen,<lb/>
+<note place="foot" n="14.">Was haben die zu erwar-<lb/>
+ten?</note> die wird er alsdenn mit &#x017F;ich in &#x017F;ein<lb/>
+Reich der Herrlichkeit fu&#x0364;hren, <note place="foot" n="15.">Was werden &#x017F;ie da kriegen?</note> wo<lb/>
+&#x017F;ie &#x017F;ich freuen werden mit unaus-<lb/>
+&#x017F;prechlicher Freude. <note place="foot" n="16.">Was<lb/>
+wird er aber den bo&#x0364;&#x017F;en Kindern thun?</note> Die Ungla&#x0364;u-<lb/>
+bigen und Gottlo&#x017F;en aber wird er mit<lb/>
+den Teufeln in das ewige Feuer ver-<lb/>
+wei&#x017F;en, <note place="foot" n="17.">Was<lb/>
+wird ihnen da wiederfahren?</note> wo &#x017F;ie werden ohn Ende,<lb/>
+gantz unbe&#x017F;chreiblich gepeiniget wer-<lb/>
+den.</p></div><lb/>
+<fw type="catch" place="bottom">10. Le-</fw><lb/>
+<pb n="92" facs="#f0102"/>
+<div n="3"><head><hi rendition="#b">10. Lection.<lb/>
+Von der Heyls-Ordnung.</hi></head><lb/>
+<p><hi rendition="#in">W</hi>As nun die&#x017F;e Erlo&#x0364;&#x017F;ung Chri&#x017F;ti<lb/>
+und &#x017F;eine uns erworbene Selig-<lb/>
+keit betrifft/ <note place="foot" n="1.">Wer hat &#x017F;ich nun vor 1.) die&#x017F;e&#xA75B; Erlo&#x0364;&#x017F;ung<lb/>
+und erworbenen Seligkeit zu getro&#x0364;&#x017F;ten?</note> der&#x017F;elben hat &#x017F;ich nie-<lb/>
+mand zu getro&#x0364;&#x017F;ten, als welcher <hi rendition="#aq">I.</hi>) &#x017F;ein<lb/>
+Elend, Verdammniß und bo&#x0364;&#x017F;es Hertz,<lb/>
+mit bußfertigen/ betru&#x0364;bten Hertzen er-<lb/>
+kennet, und <note place="foot" n="2.">Wer<lb/>
+mehr?</note> dabey die Su&#x0364;nde, die<lb/>
+ihn &#x017F;o un&#x017F;elich/ und JESU &#x017F;o viel<lb/>
+Schmertzen gemacht, ha&#x017F;&#x017F;et. <note place="foot" n="3.">wermehr?</note> Und<lb/>
+der nach Gottes Gnade in CHri&#x017F;to<lb/>
+JE&#x017F;u verlanget. <note place="foot" n="4.">Wer hat &#x017F;ich vors 2.) des<lb/>
+Herrn Chri&#x017F;ti Gnugthuung zu getro&#x0364;&#x017F;ten?</note> <hi rendition="#aq">II.</hi>) Welcher zu<lb/>
+JE&#x017F;u CHri&#x017F;to mit &#x017F;einem Elende flie-<lb/>
+het, <note place="foot" n="5.">Wer mehr?</note> der ihn als &#x017F;ein Lo&#x0364;&#x017F;e-Geld und<lb/>
+Gerechtigkeit im Glauben annimt/<lb/>
+<note place="foot" n="6.">Wer mehr?</note> und der al&#x017F;o in Vereinigung mit<lb/>
+JE&#x017F;u bey GOtt Gnade &#x017F;uchet, und <note place="foot" n="7.">Wer hat &#x017F;ich<lb/>
+vors 3.) des HErrn CHri&#x017F;ti zu getro&#x0364;&#x017F;ten?</note><lb/>
+welcher <hi rendition="#aq">III.</hi>) als ein &#x017F;olcher Begnadig-<lb/>
+ter und mit dem Heiligen Gei&#x017F;t be-<lb/>
+<fw type="catch" place="bottom">gab-</fw><lb/>
+<pb n="93" facs="#f0103"/>
+gabter gegen Gott &#x017F;einen himmli&#x017F;chen<lb/>
+Vater, und gegen &#x017F;einen lieben Hey-<lb/>
+land &#x017F;ich in Liebe und Gehor&#x017F;am/ oder<lb/>
+mit einem gott&#x017F;eligen Leben danckbar<lb/>
+erwei&#x017F;et.</p></div><lb/>
+<div n="3"><head><hi rendition="#b">11. Lection.<lb/>
+Von dem Mittel, wie man in<lb/>
+die&#x017F;e Heyls-Ordnung<lb/>
+kommt.</hi></head><lb/>
+<p><note place="foot" n="1.">Ein Kind hat doch von ihm &#x017F;elb&#x017F;t keine<lb/>
+Kraft zur Bu&#x017F;&#x017F;e, zum Glauben und gott&#x017F;eligen<lb/>
+Leben, wo bekommet es &#x017F;olche?</note> <hi rendition="#in">S</hi>Olche Gnade aber zur Bu&#x017F;&#x017F;e,<lb/>
+zum Glauben und gott&#x017F;eligen<lb/>
+Leben hat der liebe Heyland denen Kin-<lb/>
+dern &#x017F;chon erworben, und <note place="foot" n="2.">J&#x017F;t &#x017F;ie ihnen</note> der drey-<lb/>
+einige GOtt hat &#x017F;ie bey der Heiligen<lb/>
+Taufe, wie auch im gantzen Evangelio<lb/>
+ihnen zu geben verhei&#x017F;&#x017F;en: <note place="foot" n="3." xml:id="seg2pn_8_1" next="#seg2pn_8_2">Wem?</note> nemlich<lb/>
+allen denen, die ihn darum hertzlich<lb/>
+bitten werden. Welches Kind al&#x017F;o<lb/>
+gedencket von &#x017F;einen Su&#x0364;nden und von<lb/>
+der Verdammniß, durch CHri&#x017F;tum<lb/>
+errettet und ewig &#x017F;elig gemacht zu<lb/>
+<fw type="catch" place="bottom">wer-</fw><lb/>
+<pb n="94" facs="#f0104"/>
+werden, <note place="foot" n="4.">Was muß<lb/>
+al&#x017F;o ein Kind thun, welches gedencket von &#x017F;einen<lb/>
+Su&#x0364;nden und Verdammniß durch CHri&#x017F;tum er-<lb/>
+rettet, und ewig &#x017F;elig gemacht zu werden?</note> das muß offters von Her-<lb/>
+tzen al&#x017F;o beten:</p></div><lb/>
+<div n="3"><head><hi rendition="#b">12. Lection.<lb/>
+Gebet, um in die Heyls-Ord-<lb/>
+nung zu kommen, und darin<lb/>
+zu bleiben.</hi></head><lb/>
+<p><hi rendition="#in">H</hi>Eiliger GOtt, du ha&#x017F;t meine er&#x017F;ten<lb/>
+Eltern wei&#x017F;e, heilig, gerecht/ &#x017F;elig<lb/>
+und un&#x017F;terblich er&#x017F;chaffen und ihnen<lb/>
+gnug&#x017F;ame Kra&#x0364;fte mitgetheilet, dich zu<lb/>
+lieben. Aber ach! &#x017F;ie &#x017F;ind in die&#x017F;em &#x017F;e-<lb/>
+ligen Zu&#x017F;tande nicht geblieben: &#x017F;on-<lb/>
+dern haben &#x017F;ich vom Satan zum Un-<lb/>
+gehor&#x017F;am verfu&#x0364;hren la&#x017F;&#x017F;en, und &#x017F;ind<lb/>
+von dir abgefallen, daru&#x0364;ber &#x017F;ie dein<lb/>
+&#x017F;cho&#x0364;nes Ebenbild und alle Kraft zum<lb/>
+Guten verlohren, und hingegen das<lb/>
+&#x017F;cha&#x0364;ndliche Ebenbild des Satans an ge-<lb/>
+zogen und Kinder des Todes worden.<lb/>
+Die&#x017F;es Verderben und erba&#x0364;rmliches<lb/>
+Elend haben &#x017F;ie auf ihre Nachkommen<lb/>
+<fw type="catch" place="bottom">und</fw><lb/>
+<note place="foot" n="3." xml:id="seg2pn_8_2" prev="#seg2pn_8_1">nicht auch verhei&#x017F;&#x017F;en?</note><lb/>
+<pb n="95" facs="#f0105"/>
+und al&#x017F;o auch auf mich fortgepflantzet,<lb/>
+daher ich zu allem Guten untu&#x0364;chtig,<lb/>
+und zum Bo&#x0364;&#x017F;en geneigt bin.</p><lb/>
+<p>Ach! was habe ich, ein bo&#x0364;&#x017F;es Hertz,<lb/>
+und von Jugend an viele tau&#x017F;end<lb/>
+wirckliche Su&#x0364;nden begangen/ und<lb/>
+mich al&#x017F;o deines Zorns und ewigen<lb/>
+Verdammniß &#x017F;chuldig gemacht. Dir<lb/>
+&#x017F;ey aber, lieber himmli&#x017F;cher Vater,<lb/>
+hertzlich Danck ge&#x017F;aget, daß du dich<lb/>
+der armen gefallenen Men&#x017F;chen, und<lb/>
+al&#x017F;o auch meiner wieder erbarmet,<lb/>
+und ihnen deinen eingebohrnen Sohn<lb/>
+zum Erlo&#x0364;&#x017F;er ge&#x017F;chencket, Jhn auch<lb/>
+wircklich ge&#x017F;endet, und uns von Su&#x0364;n-<lb/>
+de, Tod, Teufel und Ho&#x0364;lle erlo&#x0364;&#x017F;en la&#x017F;-<lb/>
+&#x017F;en.</p><lb/>
+<p>Aber auch dir &#x017F;ey Lob und Danck<lb/>
+ge&#x017F;aget, HErr JESU, daß du aus<lb/>
+Gehor&#x017F;am gegen deinen Vater und<lb/>
+aus Liebe zu mir in die&#x017F;e Welt ge-<lb/>
+kommen, mein Flei&#x017F;ch und Bruder<lb/>
+worden, und durch einen vollkomme-<lb/>
+Gehor&#x017F;am, Leiden und Sterben fu&#x0364;r<lb/>
+alle meine Su&#x0364;nden vollko&#x0364;mmlich be-<lb/>
+zahlet, mich von Fluch und Zorne<lb/>
+<fw type="catch" place="bottom">GOt-</fw><lb/>
+<pb n="96" facs="#f0106"/>
+GOttes, Ho&#x0364;lle und Verdammniß er-<lb/>
+lo&#x0364;&#x017F;et, und mir hingegen Gnade/ Ge-<lb/>
+rechtigkeit, den Heiligen Gei&#x017F;t, Leben<lb/>
+und Seligkeit erworben. Habe<lb/>
+Danck, daß du auch mir zu gut gen<lb/>
+Himmel gefahren, dich zur Rechten<lb/>
+GOttes ge&#x017F;etzet, fu&#x0364;r mich zu bitten,<lb/>
+deinen Heiligen Gei&#x017F;t u&#x0364;ber mich aus-<lb/>
+zugie&#x017F;&#x017F;en, und mich derein&#x017F;t mit Leib<lb/>
+und Seele deiner Herrlichkeit theil-<lb/>
+hafftig zu machen.</p><lb/>
+<p>Ja habe Danck, dreyeiniger Bun-<lb/>
+des GOTT, daß du in der Heiligen<lb/>
+Tauffe einen Gnaden-Bund mit mir<lb/>
+gemachet, und mir alle durch CHri-<lb/>
+&#x017F;tum erworbene Gnade und Selig-<lb/>
+keit ver&#x017F;prochen und ver&#x017F;iegelt ha&#x017F;t,<lb/>
+woferne ich wu&#x0364;rde dich um deine Gna-<lb/>
+de bitten, mich in die Ordnung des<lb/>
+Heyls ziehen la&#x017F;&#x017F;en, und mich als dei-<lb/>
+nen Bundes-Geno&#x017F;&#x017F;en in Liebe und<lb/>
+Gehor&#x017F;am, und in Haß gegen die<lb/>
+Su&#x0364;nde bis ans Ende meines Lebens<lb/>
+auffu&#x0364;hren. Darum &#x017F;o bitte ich dich<lb/>
+denn meinen gna&#x0364;digen dreyeinigen<lb/>
+Bundes-GOtt, du wolle&#x017F;t deine Ver-<lb/>
+<fw type="catch" place="bottom">hei&#x017F;-</fw><lb/>
+<pb n="97" facs="#f0107"/>
+hei&#x017F;&#x017F;ung an mir erfu&#x0364;llen, mich in die<lb/>
+Ordnung der Bu&#x017F;&#x017F;e und Glaubens<lb/>
+bringen, meine Su&#x0364;nden, womit ich<lb/>
+dich von Anfang meines Lebens an, be-<lb/>
+leidiget, mir um JE&#x017F;u Chri&#x017F;ti, mei-<lb/>
+nes Heylandes, Bezahlung, Verdien-<lb/>
+&#x017F;tes und Fu&#x0364;rbitte willen vergeben,<lb/>
+mein gna&#x0364;diger Bundes-GOtt ewig<lb/>
+bleiben, und mich alles erworbenen<lb/>
+Heyls CHri&#x017F;ti theilhaftig machen.<lb/>
+Gieb mir Gnade ku&#x0364;nftig als ein treu-<lb/>
+es Kind vor deinem Ange&#x017F;icht zu leben,<lb/>
+mein Elend immer be&#x017F;&#x017F;er zu erken-<lb/>
+nen, aber auch JE&#x017F;um CHri&#x017F;tum im<lb/>
+Glauben be&#x017F;&#x017F;er zufa&#x017F;&#x017F;en, verleihe mir<lb/>
+auch Kraft durch deinen Heiligen<lb/>
+Gei&#x017F;t die Su&#x0364;nde immer mehr zu ha&#x017F;-<lb/>
+&#x017F;en, und u&#x0364;ber &#x017F;ie zu herr&#x017F;chen, damit ich<lb/>
+den alten Adam/ und gar&#x017F;tiges Sa-<lb/>
+tans-Bild und alle Unarten, Eigen-<lb/>
+liebe, Eigen&#x017F;inn, Ungehor&#x017F;am, Flad-<lb/>
+derhaftigkeit/ Tra&#x0364;gheit zum Gebet<lb/>
+und allem Guten, Zorn, Lu&#x0364;gen &#xA75B;c.<lb/>
+ta&#x0364;glich ablege, und hingegen in dein<lb/>
+&#x017F;cho&#x0364;nes Bild, mein GOtt und Hey-<lb/>
+land ta&#x0364;glich verkla&#x0364;ret werde. Hilff<lb/>
+<fw type="sig" place="bottom">G</fw><fw type="catch" place="bottom">mir</fw><lb/>
+<pb n="98" facs="#f0108"/>
+mir auch Glauben und gut Gewi&#x017F;&#x017F;en<lb/>
+bewahren/ dein Wort lieb haben, ge-<lb/>
+gen die Su&#x0364;nde wachen, beten und ka&#x0364;m-<lb/>
+pfen. Laß mich al&#x017F;o Chri&#x017F;tlich leben,<lb/>
+geduldig leiden/ &#x017F;elig &#x017F;terben, und am<lb/>
+Ju&#x0364;ng&#x017F;ten-Tage deiner Seligkeit mit<lb/>
+Leib und Seele ewig genie&#x017F;&#x017F;en. A-<lb/>
+men, um Chri&#x017F;ti willen.<lb/>
+Amen.</p></div></div></div><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<pb facs="#f0109"/>
+<pb facs="#f0110"/>
+<pb facs="#f0111"/>
+<pb facs="#f0112"/>
+<pb facs="#f0113"/>
+<pb facs="#f0114"/>
+</body></text> </TEI>

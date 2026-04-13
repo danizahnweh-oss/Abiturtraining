@@ -1,0 +1,940 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.deutschestextarchiv.de/basisformat.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">     <teiHeader>
+<fileDesc>
+<titleStmt>
+<title type="main">Das Pfennig-Magazin für Belehrung und Unterhaltung</title>
+<title type="sub">Dritte Folge, Zweiter Jahrgang, Nr. 95</title>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/115266127">
+<surname>Geyken</surname>
+<forename>Alexander</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1222198746">
+<surname>Haaf</surname>
+<forename>Susanne</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1019062681">
+<surname>Jurish</surname>
+<forename>Bryan</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Boenig</surname>
+<forename>Matthias</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Thomas</surname>
+<forename>Christian</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Wiegand</surname>
+<forename>Frank</forename>
+</persName>
+</editor>
+<respStmt>
+<orgName>Institut für Deutsche Sprache, Mannheim</orgName>
+<resp>
+<note type="remarkResponsibility">Bereitstellung der Bilddigitalisate und TEI
+Transkription</note>
+<ref target="http://hdl.handle.net/10932/00-01B8-B0AD-6290-0501-F"/>
+</resp>
+</respStmt>
+<respStmt>
+<persName>
+<forename>Peter</forename>
+<surname>Fankhauser</surname>
+</persName>
+<resp>
+<note type="remarkResponsibility">
+Transformation von TUSTEP nach TEI P5.
+Transformation von TEI P5 in das DTA TEI P5 Format.
+</note>
+</resp>
+</respStmt>
+<respStmt>
+<orgName ref="https://www.bbaw.de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<resp>
+<note type="remarkResponsibility">Langfristige Bereitstellung der DTA-Ausgabe</note>
+<ref target="https://www.bbaw.de"/>
+</resp>
+</respStmt>
+</titleStmt>
+<editionStmt><edition>Vollständige digitalisierte Ausgabe.</edition></editionStmt>
+<extent>
+<measure type="images">9</measure>
+<measure type="tokens">5147</measure>
+<measure type="types">2198</measure>
+<measure type="characters">35478</measure>
+</extent>
+<publicationStmt>
+<publisher xml:id="DTACorpusPublisher">
+<email>dta@bbaw.de</email>
+<orgName role="project">Deutsches Textarchiv</orgName>
+<orgName role="hostingInstitution" xml:lang="en">Berlin-Brandenburg Academy of Sciences and Humanities (BBAW)</orgName>
+<orgName role="hostingInstitution" xml:lang="de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<address>
+<addrLine>Jägerstr. 22/23, 10117 Berlin</addrLine>
+<country>Germany</country>
+</address>
+</publisher>
+<pubPlace>Berlin</pubPlace>
+<date type="publication">2025-10-24T08:35:15Z</date>
+<availability>
+<licence target="http://creativecommons.org/publicdomain/zero/1.0/">
+<p>Dieses Werk steht unter der "Creative Commons Namensnennung -
+Nicht kommerziell 3.0 Deutschland Lizenz" (CC BY-NC).</p>
+</licence>
+</availability>
+<idno>
+<idno type="URLWeb">https://www.deutschestextarchiv.de/nn_pfennig095_1854</idno>
+<idno type="URLXML">https://www.deutschestextarchiv.de/book/download_xml/nn_pfennig095_1854</idno>
+<idno type="URLHTML">https://www.deutschestextarchiv.de/book/download_html/nn_pfennig095_1854</idno>
+<idno type="URLText">https://www.deutschestextarchiv.de/book/download_text/nn_pfennig095_1854</idno>
+<idno type="DTADirName">nn_pfennig095_1854</idno>
+<idno type="DTAID">34740</idno>
+<idno type="URN">urn:nbn:de:kobv:b4-34740-7</idno>
+</idno>
+</publicationStmt>
+<sourceDesc>
+<bibl type="J">Das Pfennig=Magazin für Belehrung und Unterhaltung. Dritte Folge, Zweiter Jahrgang, Nr. 95. Leipzig (Sachsen), 26. Oktober 1854.</bibl>
+<biblFull>
+<titleStmt>
+<title level="m" type="main">Das Pfennig-Magazin für Belehrung und Unterhaltung</title>
+<title level="m" type="sub">Dritte Folge, Zweiter Jahrgang, Nr. 95</title>
+</titleStmt>
+<editionStmt>
+<edition n="1"/>
+</editionStmt>
+<publicationStmt>
+<publisher/>
+<pubPlace>Leibzig (Sachsen)</pubPlace>
+<date type="publication">1854</date>
+</publicationStmt>
+</biblFull>
+<msDesc>
+<msIdentifier/>
+<physDesc>
+<typeDesc>
+<p>Fraktur</p>
+</typeDesc>
+</physDesc>
+</msDesc>
+</sourceDesc>
+</fileDesc>
+<encodingDesc>
+<editorialDecl>
+<p>
+<![CDATA[
+<p>Siehe Dokumentation</p>
+]]>
+</p>
+</editorialDecl>
+<tagsDecl>
+<rendition scheme="css" xml:id="aq">font-family:sans-serif</rendition>
+<rendition scheme="css" xml:id="b">font-weight:bold</rendition>
+<rendition scheme="css" xml:id="blue">color:blue</rendition>
+<rendition scheme="css" xml:id="c">display:block; text-align:center</rendition>
+<rendition scheme="css" xml:id="et">display:block; margin-left:2em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et2">display:block; margin-left:4em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et3">display:block; margin-left:6em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="f">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="fr">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="g">letter-spacing:0.125em</rendition>
+<rendition scheme="css" xml:id="i">font-style:italic</rendition>
+<rendition scheme="css" xml:id="in">font-size:150%</rendition>
+<rendition scheme="css" xml:id="k">font-variant:small-caps</rendition>
+<rendition scheme="css" xml:id="larger">font-size:larger</rendition>
+<rendition scheme="css" xml:id="red">color:red</rendition>
+<rendition scheme="css" xml:id="right">display:block; text-align:right</rendition>
+<rendition scheme="css" xml:id="s">text-decoration:line-through</rendition>
+<rendition scheme="css" xml:id="smaller">font-size:smaller</rendition>
+<rendition scheme="css" xml:id="sub">vertical-align:sub; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="sup">vertical-align:super; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="u">text-decoration:underline</rendition>
+<rendition scheme="css" xml:id="uu">border-bottom:double 3px #000</rendition>
+</tagsDecl>
+</encodingDesc>
+<profileDesc>
+<langUsage>
+<language ident="deu">(Früh-)Neuhochdeutsch</language>
+<language ident="deu">German</language>
+</langUsage>
+<textClass>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1main">Gebrauchsliteratur</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1sub">Zeitschrift</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">ready</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">mkhz1</classCode>
+</textClass>
+</profileDesc>
+</teiHeader>
+<text>     <front>
+<pb facs="#f0001" n="[337]"/>
+<titlePage type="heading"><docTitle><titlePart type="main"><hi rendition="#c #fr">Das Pfennig=Magazin<lb/>
+für<lb/>
+<hi rendition="#g">Belehrung und Unterhaltung</hi>.</hi></titlePart></docTitle><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<docImprint><hi rendition="#fr">Nr</hi>. 95. ]                <hi rendition="#c">Dritte Folge. Zweiter Jahrgang.</hi>                <docDate><hi rendition="#right">[ 26. <hi rendition="#g">October</hi> 1854.</hi></docDate>              </docImprint></titlePage><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+</front>     <body>       <div n="1"><figure><head><hi rendition="#fr">Zu Kleist's Jdylle: &#x201E;Der Fischer Jrin und sein Sohn</hi> &#x201C;.</head></figure></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Die Teufelsmühle.</hi><lb/>
+Sage.</head><lb/>
+<cb type="start"/>
+<p><hi rendition="#in">U</hi>nter den Höhen des Harzgebirges ragt die nach dem<lb/>
+Landesfürsten benannte Victorshöhe oder der Ramberg<lb/>
+<cb n="2"/>
+als ein Glanzpunkt empor und bietet nicht nur eine<lb/>
+prächtige Umschau in die üppige, reiche Natur, son-<lb/>
+<cb type="end"/>
+<pb facs="#f0002" n="338"/>
+<fw place="top" type="pageNum">338</fw><cb type="start"/>
+dern führt auch den Freund der geschwätzigen Sage in<lb/>
+die Vergangenheit zurück, denn in der Nähe des be-<lb/>
+quemen Aussichtsthurms liegt auf dem Berge ein<lb/>
+Stück Land mit Steinblöcken besäet, wo einst die Teu-<lb/>
+felsmühle stand.</p><lb/>
+<p>Heute noch heißt das Plätzchen die Teufelsmühle.<lb/>
+Vor vielen Jahrhunderten nämlich besaß ein Müller<lb/>
+am Fuße des Rambergs eine Windmühle, welche seit<lb/>
+undenklichen Zeiten immer wieder von dem Vater auf<lb/>
+den Sohn vererbt worden war. Nun lag aber die<lb/>
+Mühle nicht gut, denn sie wurde nur bewegt, wenn<lb/>
+der Wind aus Mittag oder Morgen kam. Das war<lb/>
+freilich für alle Müller recht schlimm gewesen, doch<lb/>
+hatten sie es nicht ändern können.</p><lb/>
+<p>Bei dem jüngsten Besitzer der Mühle ging es aber<lb/>
+am schlechtesten. Die Winde bliesen immer aus Abend<lb/>
+oder Mitternacht, sodaß die Flügel nur selten einmal<lb/>
+in Bewegung gesetzt werden konnten.</p><lb/>
+<p>Der arme Müller war untröstlich, denn seine Ver-<lb/>
+hältnisse verschlechterten sich täglich. Er machte Schul-<lb/>
+den, ohne sie wieder abstoßen zu können; er verkaufte,<lb/>
+was er entbehren konnte, doch die Noth wich nicht von<lb/>
+seiner Schwelle, da der rechte Wind nicht erscheinen<lb/>
+wollte.</p><lb/>
+<p>Anfangs hatte der sorgende Mann oft um Hülfe<lb/>
+zum Himmel aufgeblickt; weil aber nicht gleich Ret-<lb/>
+tung kam, so verlor er auch das Vertrauen zu Gott<lb/>
+und zu sich selbst und nun setzte er sich oft stunden-<lb/>
+lang hin an den Berg, grübelte hin und her und<lb/>
+weinte wol auch.</p><lb/>
+<p>Da fiel ihm denn gar oft ein, wie einfältig seine<lb/>
+Vorfahren doch gewesen waren, daß sie ihre Mühle<lb/>
+nicht hoch hinauf auf den Berg gesetzt hatten, wo ih-<lb/>
+nen der Wind von allen Seiten zu Theil geworden<lb/>
+wäre.</p><lb/>
+<p>Hätte ich nur Geld, meinte er, ich wollte mich<lb/>
+schon herausreißen aus meiner Schuldenlast; ein reicher<lb/>
+Mann müßte ich werden, könnte ich meine Mühle auf<lb/>
+den Berg hinaufbauen!</p><lb/>
+<p>Mit solchen und ähnlichen Gedanken trug sich der<lb/>
+Müller stets herum. Er durchstreifte Wald und Flur,<lb/>
+um die Sorgen loszuwerden; aber kein Freund fand<lb/>
+sich, der ihm half, seine Noth ward immer größer<lb/>
+und seine Kinder schrien immer lauter nach Brot. Der<lb/>
+arme Mann fühlte sich ganz und gar unglücklich; er<lb/>
+mochte lieber nicht mehr leben und kam auf gottes-<lb/>
+lästerliche Jdeen.</p><lb/>
+<p>Einst saß der Müller unter einem Baume und<lb/>
+sann und sann und kam doch zu keinem Entschlusse.<lb/>
+Bis tief in die Nacht hinein hatte er gesonnen; seiner<lb/>
+Brust entstiegen schwere Seufzer. Der Mond schien<lb/>
+durch die Blätter in das geheimnißvolle Dunkel, wo<lb/>
+der Müller fast regungslos saß; es war still um ihn<lb/>
+herum. Da klopfte ihn Jemand auf die Schulter.<lb/>
+Erschrocken hob der arme, sorgenvolle Mann das ge-<lb/>
+senkte Haupt. Vor ihm stand ein kräftiger Hand-<lb/>
+werksmann, angethan mit Arbeitswamms und leder-<lb/>
+nem Schurz, doch gelb und braun wie ein Mensch<lb/>
+aus fremden Landen.</p><lb/>
+<p>Dem Müller ward es fast unheimlich. Er redete<lb/>
+den Fremden an und sprach: &#x201E;Was ist dein Begehr,<lb/>
+womit kann ich dienen? Mit der Hand helf' ich gern,<lb/>
+aber Geld hab' ich nicht; keinen Heller hab' ich, arme<lb/>
+Ritter back' ich mit Frau und Kind!&#x201C;</p><lb/>
+<p>Weiß wohl! antwortete der Fremde. Du lebst in<lb/>
+Noth und gehst unter, wenn nicht bald Hülfe kommt;<lb/>
+darum bin ich gekommen.</p><lb/>
+<p>Der Müller wunderte sich nicht wenig, daß dieser<lb/>
+<cb n="2"/>
+fremde Mann alle seine Verhältnisse kannte und be-<lb/>
+trachtete ihn nun noch genauer im Mondscheine. Mit<lb/>
+Schrecken bemerkte er, daß die Hände des Fremdlings<lb/>
+den menschlichen Händen wenig ähnlich waren und<lb/>
+daß der räthselhafte Handwerksmann auf einem Fuße<lb/>
+lahm ging.</p><lb/>
+<p>&#x201E;Höllische Mächte wollen mich umstricken!&#x201C; mur-<lb/>
+melte der Müller in den Bart und sein geängstigtes<lb/>
+Herz schlug hörbar. Aber der unheimliche Gast ließ<lb/>
+ihm nicht Zeit zum Nachdenken, sondern er spiegelte<lb/>
+ihm das Glück vor, was ihm zu Theil werden müsse,<lb/>
+wenn seine Mühle oben auf dem Berge stände, fest<lb/>
+wie ein Thurm auf den Burgen, gebaut aus Granit-<lb/>
+gestein und trotzend jedem Sturm und Wetter.</p><lb/>
+<p>Diese Vorspiegelungen umnebelten die Sinne des<lb/>
+Müllers dermaßen, daß er selbst nicht recht wußte,<lb/>
+was er dachte, that und versprach. Er sah im Geiste<lb/>
+eine schöne Zukunft vor sich und rief aus: &#x201E;O hätte<lb/>
+ich doch eine solche Mühle, ich gäbe Alles darum!&#x201C;</p><lb/>
+<p>Der Fremde sprach: &#x201E;Jch will sie dir bauen und<lb/>
+zwar in einer einzigen Nacht. Wenn es die Mitter-<lb/>
+nachtsstunde schlägt, werde ich mit meinen Gesellen<lb/>
+das Werk beginnen und ehe der Hahn am andern<lb/>
+Morgen kräht, muß die Mühle fertig sein. Wird sie<lb/>
+bis dahin nicht fertig, so sollst du mir nichts schuldig<lb/>
+sein; haben wir aber den letzten Stein eingefügt vor<lb/>
+dem ersten Hahnenschrei, so erfüllst du mir Das, was<lb/>
+auf diesem Zettel steht!&#x201C;</p><lb/>
+<p>Der Schwarze reichte dabei dem Müller ein Pa-<lb/>
+pier hin und foderte ihn auf, sich die Haut aufzu-<lb/>
+ritzen und die wenigen Worte auf dem Papiere mit<lb/>
+seinem Blute zu unterschreiben.</p><lb/>
+<p>Des Müllers ganzes Sinnen hing an den golde-<lb/>
+nen Bergen, welche eine Mühle auf der Höhe ihm<lb/>
+bringen würden, an dem Glück, mit den Seinen sor-<lb/>
+genlos zu leben, an der Freude, nach und nach der<lb/>
+geachtetste Müller der Umgegend zu werden und ver-<lb/>
+gaß dabei alles Übrige, selbst seiner Seele Seligkeit,<lb/>
+wie dies die hoffärtigen und habsüchtigen Menschen zu<lb/>
+thun pflegen. Er griff nach einem Dorn, ritzte sich<lb/>
+damit den Arm auf und kritzelte sein Namenszeichen<lb/>
+auf das ihm dargereichte Papier. Als er aber dieses<lb/>
+aus den Händen gegeben und der Fremde sich mit<lb/>
+Blitzesschnelle weggewendet hatte, da wurde ihm dop-<lb/>
+pelt weh um das Herz, die Sucht nach Reichthum<lb/>
+wurde von der Angst seiner Seele überwunden. Bleich<lb/>
+und verstört, wie er noch nie ausgesehen hatte, starrte<lb/>
+er nach dem Ramberge hinauf. Jm Thale fand er<lb/>
+nicht Ruhe, daher er in der stürmischer gewordenen<lb/>
+Nacht die Wälder am Abhange des Berges durch-<lb/>
+streifte. Es zog ihn höher und höher, die Wolken<lb/>
+brachen sich, der Mond trat wieder hervor und der<lb/>
+Müller stand um Mitternacht oben auf dem Berge,<lb/>
+gemartert von der Erwartung der letzten Stunde sei-<lb/>
+nes verfehlten Lebens.</p><lb/>
+<p>Doch, was sah, was hörte er! Entsetzen er-<lb/>
+griff ihn.</p><lb/>
+<p>Der zwölfte Glockenschlag war eben erklungen, da<lb/>
+wurde auf dem stillen, öden Berge plötzlich Leben.<lb/>
+Der höllische Baumeister erschien und mit ihm viele<lb/>
+schwarze, grauenerregende Gehülfen. Jm Nu began-<lb/>
+nen dieselben ihr Werk. Wenige Minuten vergingen<lb/>
+nur, da waren mächtige Steinblöcke mit Riesengewalt<lb/>
+unter Prasseln und Rasseln auf die Seite geworfen<lb/>
+und ein schöner freier Platz lag geebnet vor des Mül-<lb/>
+lers Augen. Jetzt erklangen die Schläge der Äxte aus<lb/>
+dem Walde heraus; überall hämmerte, meißelte und<lb/>
+klopfte es, als wären alle Bauleute der Welt versam-<lb/>
+<cb type="end"/>
+<pb facs="#f0003" n="339"/>
+<fw place="top" type="pageNum">339</fw><cb type="start"/>
+melt. Unter der Leitung des finstern Meisters stiegen<lb/>
+die Mauern der Mühle mit Windesschnelle empor, im-<lb/>
+mer heißer wurde es dem Müller unter der Stirn<lb/>
+und immer sehnlicher wünschte er sein altes Leben der<lb/>
+Noth zurück, um nur nicht den höllischen Mächten zu<lb/>
+verfallen.</p><lb/>
+<p>Je mehr die Nacht verschwand, desto schneller<lb/>
+rückte der Mühlenbau seinem Ende zu. Zuletzt blieb<lb/>
+weiter nichts übrig als das Einsetzen des großen run-<lb/>
+den Mahlsteins. Der Müller stand dabei, als der-<lb/>
+selbe eben herbeigeschleppt wurde und sogleich in die<lb/>
+Mühle hineingetragen werden sollte.</p><lb/>
+<p>Todesangst ergriff den armen Mann beim Anblick<lb/>
+des letzten Stücks, das zur Vervollständigung der<lb/>
+neuen Mühle gehörte. Es war dem Müller schon,<lb/>
+als würde er von den Dienern des Satans in die<lb/>
+Qual der Unterwelt hinabgezerrt; seine Sinne wollten<lb/>
+schwinden &#x2014; da kam in seine Seele noch ein lichter<lb/>
+Augenblick und mit ihm der Vorsatz, sich zu retten,<lb/>
+ehe der Hahn schrie.</p><lb/>
+<p>Mit der Gewalt, die nur die fürchterlichste Ver-<lb/>
+zweiflung geben kann, erfaßte der zitternde Müller den<lb/>
+eben gebrachten Mühlstein und gab ihm einen so hef-<lb/>
+tigen Stoß, daß der Stein sich in Bewegung setzte<lb/>
+und wie der Blitz am Berge hinab in die Tiefe rollte.<lb/>
+Dies sah der Meister der Hölle. Jn wilder Wuth<lb/>
+stürzte er dem Steine nach und holte ihn ein, als er<lb/>
+eben im Thale zur Ruhe kam; in demselben Augen-<lb/>
+blicke krähte aber auch der Hahn und oben auf dem<lb/>
+Berge verschwanden die schwarzen Gesellen. Da ent-<lb/>
+fiel dem Satan Werkzeug, Wamms und Lederschurz;<lb/>
+große Fledermausflügel breitete er auf dem Rücken<lb/>
+aus; ingrimmig griff er nach dem Mühlsteine, erfaßte<lb/>
+ihn mit seinen großen Krallenhänden, schwang sich in<lb/>
+die Luft empor, schwebte fluchend über der neugebau-<lb/>
+ten Mühle und schleuderte den Mühlstein auf den jun-<lb/>
+gen Bau, daß sofort die Mühle bis auf den Grund<lb/>
+erschüttert ward und in Trümmer zerfiel, wie sie heute<lb/>
+noch liegt.</p><lb/>
+<p>Der Müller blieb in seiner alten Mühle; er war<lb/>
+froh, seine Seele gerettet zu haben und suchte nie wie-<lb/>
+der Gewinn und Hülfe im Bunde mit dem Bösen.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Die innere Beschaffenheit der Pflanze.</hi></head><lb/>
+<p><hi rendition="#in">W</hi>enn man in den Stamm eines Baums oder eines<lb/>
+Strauchs einen horizontalen Einschnitt macht, so fin-<lb/>
+det man seine verschiedenen Bestandtheile in kreisförmi-<lb/>
+ger Lage und Aufeinanderfolge rings um einen gemein-<lb/>
+schaftlichen Mittelpunkt gruppirt, wie die nachstehende<lb/>
+Abbildung sie darstellt.</p><lb/>
+<p>Jn der Mitte ( bei <hi rendition="#aq">C</hi> ) sieht man zuerst das Mark<lb/>
+des Baums, das bei jungen Trieben mehr Raum ein-<lb/>
+nimmt als bei ältern, indem im Verfolge des Wachs-<lb/>
+thums die Holzbildung auch nach innen vorschreitet.<lb/>
+Dieses Mark besteht aus drüsigem Zellgewebe, ist meist<lb/>
+mit gefärbten Saftbläschen angefüllt und setzt jährlich<lb/>
+einen der dasselbe umgebenden Holzringe ab, die des-<lb/>
+halb auch Jahrringe genannt werden. Alle Jahrringe<lb/>
+sind von gleichem Bau und bilden das Kernholz ( <hi rendition="#aq">D )</hi><lb/>
+mit Ausnahme der heller gefärbten äußern, welche<lb/>
+noch nicht verholzt sind und der Splint ( <hi rendition="#aq">E</hi> ) oder das<lb/>
+Saftholz heißen. Dieses ist von weißer Farbe und<lb/>
+voll Feuchtigkeit; es besteht aus unzähligen Tuben<lb/>
+oder Röhren von sehr verschiedenartigen Formen, durch<lb/>
+<cb n="2"/>
+welche der Saft aufsteigt und niedersinkt und auf<lb/>
+diese Weise durch das ganze Gewächs gleichmäßig ver-<lb/>
+theilt wird.</p><lb/>
+<figure/><lb/>
+<p>Außer den einander umschließenden Ringen läßt<lb/>
+aber die Durchschnittsfläche eines Baums noch eine<lb/>
+andere Zeichnung wahrnehmen, welche sich strahlenför-<lb/>
+mig vom Marke im Mittelpunkte aus nach der Rinde<lb/>
+zu verbreitet und mit den von der Büchse eines Rades<lb/>
+ausgehenden Speichen viel Ähnlichkeit besitzt. Dies<lb/>
+sind die sogenannten Markstrahlen, welche vorzugsweise<lb/>
+die Bestimmung haben, die im Saftholze auf= und<lb/>
+absteigenden Säfte in der ganzen innern Masse des<lb/>
+Holzkörpers zu verbreiten.</p><lb/>
+<p>Die folgenden Abbildungen stellen die verschiede-<lb/>
+nen Formen der Röhren oder innern Nahrungswerk-<lb/>
+zeuge der Pflanze dar. Die einfachen Röhren ( Fig. 1 )<lb/>
+<figure><head>Fig. 1.</head></figure><figure><head>Fig. 2.</head></figure><lb/>
+enthalten die harzartigen und öligen Flüssigkeiten, die<lb/>
+man in verschiedenen Pflanzen antrifft. Die porösen<lb/>
+Röhren ( Fig. 2 ) werden ebenfalls von solchen Flui-<lb/>
+dums durchdrungen, bewirken aber schon den Ver-<lb/>
+<cb type="end"/>
+<pb facs="#f0004" n="340"/>
+<fw place="top" type="pageNum">340</fw><cb type="start"/>
+wandlungsproceß derselben in den eigentlichenNahrungs-saft. Andere ( Fig. 3 und 4 ) sind gewöhnlich mit wässerigen Feuchtigkeiten angefüllt und dazu bestimmt, Fig. 3.Fig. 4. den überflüssigen Saft abzuleiten und, wenn dieporö-senRöhren den eigentlichen Saft herstellen, ihrerseits diesen Saft wieder in die härtere und feste Substanz zu verwandeln.</p>       <cb type="end"/>
+<pb facs="#f0005" n="340"/>
+<fw place="top" type="pageNum">340</fw>       <cb type="start"/>
+<p>wandlungsproceß derselben in den eigentlichen Nahrungs-<lb/>
+saft. Andere ( Fig. 3 und 4 ) sind gewöhnlich mit<lb/>
+wässerigen Feuchtigkeiten angefüllt und dazu bestimmt,<lb/>
+<figure><head>Fig. 3.</head></figure><figure><head>Fig. 4.</head></figure><lb/>
+den überflüssigen Saft abzuleiten und, wenn die porö-<lb/>
+sen Röhren den eigentlichen Saft herstellen, ihrerseits<lb/>
+diesen Saft wieder in die härtere und feste Substanz<lb/>
+zu verwandeln.</p><lb/>
+<p>Der äußerste Theil des Baumstamms heißt die<lb/>
+Rinde oder Borke ( <hi rendition="#aq">F</hi> ) und besteht aus Lagen von<lb/>
+Baströhren, über den wieder schalenartige Schichten<lb/>
+von faseriger Bildung und in ein Zellgewebe einge-<lb/>
+schlossene Saftgefäße liegen. Die Röhren der faseri-<lb/>
+gen Theile scheinen Organe zur Aufnahme des Saftes<lb/>
+zu sein, während die Zellen wahrscheinlich zur Verar-<lb/>
+beitung des letztern und zum Austrieb desselben nach<lb/>
+der freien Luft hin bestimmt sind. Der äußerste Theil<lb/>
+der Rinde endlich ist die Epidermis oder Oberhaut,<lb/>
+die nicht bei allen Pflanzen gleichartig ist und nur an<lb/>
+jüngern Stammtheilen gefunden wird, weil sie mit den<lb/>
+Jahren abfällt und sich nicht wieder ersetzt. Gräser,<lb/>
+Riedgräser, Schilfe und dahin gehörige Pflanzen, die<lb/>
+einen hohlen Stengel haben, besitzen eine stärkere Epi-<lb/>
+dermis, die bei einigen Rohrarten so fest und vollkom-<lb/>
+men steinartig ist, daß sie am Stahl Funken gibt.<lb/>
+Diese wunderbare Rinde nimmt sich unter dem Ver-<lb/>
+größerungsglase wie ein Netzwerk von Glas aus.</p><lb/>
+<p>Man war sonst der Meinung, daß die Pflanzen<lb/>
+gleichsam auf instinktmäßige und zufällige Weise ihre<lb/>
+Wurzeln hinabwärts richteten; allein dies verhält sich<lb/>
+nicht so, vielmehr ist es die Gravitation oder Schwer-<lb/>
+kraft der Erde, welche man auch als Anziehungskraft<lb/>
+bezeichnen kann, welche die Wurzel hinabwärts zieht,<lb/>
+ganz nach demselben Naturgesetz, nach welchem ein sich<lb/>
+ablösender Stein hinabwärts fällt. Deshalb nehmen<lb/>
+auch die Wurzeln einer Pflanze sogleich eine verschie-<lb/>
+denartige Richtung, wenn jener Anziehungskraft durch<lb/>
+irgend eine andere entgegengearbeitet wird.</p><lb/>
+<p>Um diese Wahrnehmung anschaulich zu machen,<lb/>
+hat man folgendes Experiment angestellt: Man nahm<lb/>
+<figure/><lb/>
+<cb n="2"/>
+eine gewisse Anzahl Scharlachbohnen und steckte sie<lb/>
+rings um die Peripherie eines Walzenrades, nachdem<lb/>
+man sie vorher gut mit Feuchtigkeit versorgt hatte.<lb/>
+Hierauf drehte man das Rad mit immer gesteigerter<lb/>
+Geschwindigkeit und der Erfolg zeigte, daß alle Wur-<lb/>
+zeln die Richtung nach auswärts annahmen, die Blät-<lb/>
+ter dagegen sich nach dem Centrum zuwandten. Als<lb/>
+man dem Rade eine horizontale Stellung gegeben hatte<lb/>
+und die Bewegung nicht mehr schnell genug geschah,<lb/>
+um den Druck der Schwere zu überwiegen, so nah-<lb/>
+men die Wurzeln und Blätter die Richtung an, die<lb/>
+auf der folgenden Abbildung vorgestellt ist. Jn die-<lb/>
+<figure/><lb/>
+sem letztern Falle war es die der Attraction entgegen-<lb/>
+gesetzte Kraft, welche man die Centrifugalkraft nennt,<lb/>
+welche die Wurzeln verhinderte, sich abwärts zu sen-<lb/>
+ken und sie nöthigte, eine horizontale Richtung anzu-<lb/>
+nehmen.</p><lb/>
+<p>Weiterhin nun werden die Gefäße, die man in<lb/>
+dem Stamme der Pflanze unterscheiden kann, und<lb/>
+ihre verschiedenen Bestandtheile auch, wiewol in ver-<lb/>
+änderter Gestalt und verringerter Größe, durch die<lb/>
+Zweige und bis in die Blätterstiele fortgesetzt, ja sogar<lb/>
+durch das Blatt selbst, sodaß man sie dort zum größ-<lb/>
+ten Theil bei einer genauen Untersuchung noch wahr-<lb/>
+nehmen kann. So gibt die beigefügte letzte Abbildung<lb/>
+<figure/><lb/>
+eine Ansicht von der Art, wie jene spiralförmigen<lb/>
+Röhren sich nach dem Centrum eines Blattes hin ver-<lb/>
+zweigen.</p><lb/>
+<p>Obgleich Wasser und Luft die vorzüglichsten Be-<lb/>
+förderungsmittel des Wachsthums einer Pflanze sind,<lb/>
+so bedarf sie doch, wenn sie blühen und Früchte tra-<lb/>
+gen soll, noch einer Art Nahrungsstoffe, welche vor-<lb/>
+züglich durch Verwesung vegetabilischer und animali-<lb/>
+scher Substanzen dem Boden mitgetheilt werden. Seine<lb/>
+Ergiebigkeit hängt von dem Reichthume daran ab und<lb/>
+es ist daher die hauptsächlichste Sorge des Landwirths,<lb/>
+wo der Boden sich in dieser Hinsicht mangelhaft zeigt,<lb/>
+diesem Mangel auf künstlichem Wege durch Düngung<lb/>
+abzuhelfen.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<cb type="end"/>
+<pb facs="#f0006" n="341"/>
+<fw place="top" type="pageNum">341</fw><lb/>
+<div n="1"><figure><head><hi rendition="#fr">Das Kameel.</hi></head></figure></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Friedrich der Große und sein Justizminister.</hi></head><lb/>
+<cb type="start"/>
+<p><hi rendition="#in">D</hi>er Graf von F., dem der große König besonders<lb/>
+wohl wollte, wurde mit Wechselexecution verfolgt und<lb/>
+erhielt von dem Monarchen eine schriftliche Ordre an<lb/>
+den damaligen Justizminister von Münchhausen, daß<lb/>
+das Executionsverfahren gegen den persönlich Verfolg-<lb/>
+ten eingestellt werden sollte.</p><lb/>
+<p>Diesen Befehl überreichte Letzterer dem Minister<lb/>
+persönlich und zu eigenen Händen; Münchhausen ließ<lb/>
+jedoch den Grafen auf der Stelle festnehmen. Auf<lb/>
+eine in Entrüstung an den Chef der Justiz, mit dem<lb/>
+Befehle, sich zu vertheidigen, gerichtete Anfrage: Wie<lb/>
+er es hätte wagen können, dem königlichen Willen ent-<lb/>
+gegen zu verfahren? erwiderte der für das Recht un-<lb/>
+erschütterliche Mann in einer ehrfurchtsvollen, gedrun-<lb/>
+genen Vorstellung: &#x201E;Se. Majestät hätten ihn zur Hut<lb/>
+der Gesetze verpflichtet; was er gethan, sei infolge<lb/>
+dessen geschehen. Sein Kopf stehe Sr. Majestät jeden<lb/>
+Augenblick zu Befehl, sein Gewissen aber habe nur<lb/>
+Gott Rechenschaft zu geben!&#x201C;</p><lb/>
+<p>Und wirklich wurde Graf F. nur dadurch frei, daß<lb/>
+der König die verfallenen Wechsel desselben selbst<lb/>
+auslöste.</p><lb/>
+<p>Ein Herr von <hi rendition="#sup">***</hi> aus einer alten, sehr angesehe-<lb/>
+nen adeligen Familie war durch Verschwendung in<lb/>
+Concurs versunken. Sein Antrag auf die bei unver-<lb/>
+schuldeter Vermögensinsufficienz dem Concursverfalle-<lb/>
+nen gesetzlich gestattete Rechtswohlthat einer Unterhal-<lb/>
+tungssumme aus den Revenüen der Concursmasse ( <hi rendition="#aq">be-<lb/>
+neficium competentiae</hi> ) wurde durch gleichlautende Er-<lb/>
+kenntnisse in den Rechtsinstanzen zurückgewiesen. Er<lb/>
+wandte sich hierauf an den König, der, vielleicht aus<lb/>
+<cb n="2"/>
+Rücksicht auf die sehr achtbare Familie des Verschul-<lb/>
+deten dem Justizminister von Münchhausen Befehl er-<lb/>
+theilte, dem Kammergericht die Feststellung einer jähr-<lb/>
+lichen Competenz von 1500 Thalern für den Bitt-<lb/>
+steller aufzutragen. Münchhausen indessen gab dem<lb/>
+Kammergericht auf, die Concursgläubiger zu befragen,<lb/>
+ob sie die erbetene Competenz bewilligen wollten?</p><lb/>
+<p>Dies geschah; wie jedoch vorauszusehen war, fiel<lb/>
+die Erklärung der Betheiligten bei den an sich schon<lb/>
+für Jeden empfindlich gewordenen Verlusten einstim-<lb/>
+mig verneinend aus, worüber Münchhausen unverzüg-<lb/>
+lich Allerhöchsten Orts einberichtete. Der König resol-<lb/>
+virte hierauf, daß das Kammergericht die jährliche Com-<lb/>
+petenz wenigstens auf 1200 Thaler feststellen sollte.<lb/>
+Münchhausen schlug dasselbe Verfahren ein wie zuvor<lb/>
+und es ergab sich ein gleiches Resultat.</p><lb/>
+<p>Hierauf erfolgte ein in solennester Form erlassener<lb/>
+Cabinetsbefehl an den Minister von Münchhausen:</p><lb/>
+<p>&#x201E;Wir, Friedrich <choice><abbr>ec.</abbr></choice> <choice><abbr>ec.</abbr></choice> befehlen Euch, vermöge Un-<lb/>
+serer Königlichen Gewalt und bei Vermeidung Unserer<lb/>
+Allerhöchsten Ungnade, dem pp. in Sachen pp. eine<lb/>
+jährliche Competenz von 1200 Thalern mittelst Justiz-<lb/>
+Ministerial=Rescripts festzusetzen.&#x201C;</p><lb/>
+<p>Münchhausen entwarf nun selbst einen Befehl, aber<lb/>
+nicht in der Form eines Justiz=Ministerial=Rescripts,<lb/>
+sondern einer Allerhöchsten Cabinetsbestimmung, zur<lb/>
+unmittelbaren Allerhöchst eigenhändigen Vollziehung und<lb/>
+sprach sich in einem Begleitschreiben dahin aus, daß<lb/>
+von dem Chef der Justiz ein allen gesetzlichen Vorschrif-<lb/>
+ten zuwiderlaufender Befehl nicht ausgehen und die<lb/>
+Verantwortlichkeit dafür nicht übernommen werden könne.</p><lb/>
+<cb type="end"/>
+<pb facs="#f0007" n="342"/>
+<fw place="top" type="pageNum">342</fw>       <cb type="start"/>
+<p>Wahrscheinlich in die Feder dictirt, erfolgte hier-<lb/>
+auf nichts weiter als: &#x201E;Mein lieber Justizminister von<lb/>
+Münchhausen! <hi rendition="#g">Er ist ein sehr rechtschaffener<lb/>
+Mann, aber ein recht grober Esel!</hi> &#x201C;</p><lb/>
+<p>Und hiermit war die Hauptsache beendet, aber ein<lb/>
+äußerst interessantes, schönes Nachspiel schloß sich hin-<lb/>
+terher an.</p><lb/>
+<p>Münchhausen erkannte nämlich in der lakonischen<lb/>
+Äußerung seines Souverains sowol die Stärke des<lb/>
+Geistes, welche den Sieg des Gesetzes über den Eigen-<lb/>
+willen zu erringen vermocht hatte, als auch in den<lb/>
+Schlußworten, daß dieser Sieg ohne Anstrengung nicht<lb/>
+gewonnen sein konnte, und sprach seinen Dank gerührt<lb/>
+darüber aus, wie er nicht anders habe erwarten kön-<lb/>
+nen, als daß das große Herz seines Königs sich der<lb/>
+Gerechtigkeit zuwenden müsse u. s. w. Dabei erlaubte<lb/>
+er sich indessen noch folgenden eigenthümlichen Schluß-<lb/>
+satz: &#x201E;Er erdreiste sich aber, Se. Majestät darauf auf-<lb/>
+merksam zu machen, daß der Concipient des königli-<lb/>
+chen Erlasses sich gegen den ersten Diener der Krone<lb/>
+sehr unziemlicher Ausdrücke bedient habe und lebe der<lb/>
+Ueberzeugung, Se. Majestät werde demselben das Un-<lb/>
+fügliche darin alles Ernstes verweisen.&#x201C;</p><lb/>
+<p>Jahr und Tag vergingen; Münchhausen wurde we-<lb/>
+der an den Hof noch an die Tafel des Monarchen<lb/>
+eingeladen. Seine Ministercollegen mußten ihn für<lb/>
+gänzlich vergessen, wenn nicht geradezu in Ungnade<lb/>
+gefallen erachten, indessen er selbst, unbekümmert und<lb/>
+nicht weiter gestört, seinem wichtigen Berufe nachging,<lb/>
+als er unvermuthet zu einer Ministerconferenz nach<lb/>
+Charlottenburg beschieden ward. Der König besprach<lb/>
+sich gewöhnlich, und so auch diesmal, in einem Par-<lb/>
+terrezimmer des Schlosses mit den Vorständen der ver-<lb/>
+schiedenen Ministerien, die ihn alsdann in einem Kreise<lb/>
+umstanden, und es war seine Gewohnheit, die Unter-<lb/>
+redung in der Reihe von Einem zum Andern überge-<lb/>
+hen zu lassen. Zufällig hatte Münchhausen seinen<lb/>
+Platz in einer Vertiefung der Fensternische gefunden.<lb/>
+Der König richtete seine Fragen und Äußerungen auf<lb/>
+die leutseligste Weise an die übrigen Minister, warf<lb/>
+aber, als er sich Münchhausen näherte, ihm einen je-<lb/>
+ner durchbohrenden Blicke zu, wodurch er in Momen-<lb/>
+ten des Unwillens die vernichtende Gewalt seines Au-<lb/>
+ges so oft während seiner 46jährigen Regierung zu<lb/>
+bethätigen Gelegenheit hatte, und ging, ohne ihn eines<lb/>
+Wortes zu würdigen, an ihm vorüber. Münchhausen<lb/>
+ertrug diesen Blick mit fester und stoischer Haltung<lb/>
+und kein Zug im Ausdrucke des Gesichts verrieth eine<lb/>
+veränderte Regung des Gemüths. Der König wie-<lb/>
+derholte demnächst die Runde und wurde immer mil-<lb/>
+der und freundlicher, je mehr er zum zweiten male<lb/>
+sich Münchhausen näherte.</p><lb/>
+<p>Als er ihm gegenüberstand, legte er ihm vertrau-<lb/>
+lich mit den Worten die Hand auf die Schulter:<lb/>
+&#x201E;Na, lieber Münchhausen, ich habe es meinem Se-<lb/>
+cretair gesagt!&#x201C;</p><lb/>
+<p>Die naive Form dieser Abbitte, bei völliger Scho-<lb/>
+nung der fürstlichen Würde des Souverains dem<lb/>
+Beamten und Unterthanen gegenüber, und die öffent-<lb/>
+liche Anerkennung vor den Collegen des zwar schroffen,<lb/>
+aber höchst verehrungswürdigen Mannes trägt doch<lb/>
+gewiß einen wahrhaft königlichen Charakter in ihrem<lb/>
+Gepräge!</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<cb n="2"/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Mortier in Breslau.</hi></head><lb/>
+<p><hi rendition="#in">P</hi>rinz Jerome hatte im Jahre 1807 das Commando<lb/>
+über das neunte Armeecorps, welches in Schlesien stand.<lb/>
+Dem armen Lande wurde viel, sehr viel zugemuthet<lb/>
+und seine Bewohner seufzten unter der Last der ver-<lb/>
+schiedenen Requisitionen. Am 31. Juli 1807 wurde<lb/>
+der Prinz vom Kaiser Napoleon plötzlich nach Dresden<lb/>
+berufen und seine Stelle vertrat nun in Schlesien der<lb/>
+Marschall Mortier, welcher sich durch seine billigen<lb/>
+Rücksichten, die er in feindlichen Ländern zu nehmen<lb/>
+wußte, schon in Hannover sehr beliebt gemacht hatte.<lb/>
+Wo Mortier konnte, suchte er Übelständen abzuhelfen,<lb/>
+Klagen zu mindern und das Eigenthum der Schlesier<lb/>
+zu schonen und zu erhalten.</p><lb/>
+<p>Ein besonderes Jnteresse legte Marschall Mortier<lb/>
+für Kunst und Wissenschaft an den Tag, daher er sich<lb/>
+in Breslau bald einen geselligen Kreis schuf, zu welchem<lb/>
+die gebildetsten Männer der Stadt gezogen wurden.<lb/>
+Mortier bewegte sich in demselben mit ausgezeichneter<lb/>
+Gewandtheit und machte sich, ungeachtet er Herzog von<lb/>
+Treviso, Marschall, Großkreuz u. s. w. war, durch<lb/>
+Wohlwollen und Freundlichkeit höchst beliebt. Mit ihm<lb/>
+befanden sich zugleich seine Gemahlin und seine vier<lb/>
+Kinder in der Hauptstadt Schlesiens, in welcher er<lb/>
+14 Monate lang als ein Vorbild edler Sitte, künstle-<lb/>
+rischen Strebens, geselligen Verhaltens und häuslicher<lb/>
+Tugend erkannt wurde.</p><lb/>
+<p>Zu seinen Hausfreunden gehörte unter Andern auch<lb/>
+der Hofrath und Professor Bach in Breslau. Dieser<lb/>
+hatte dem Marschall eine schöne Zeichnung überreicht,<lb/>
+welche eine Jagdscene im Oderwalde bei Ohlau dar-<lb/>
+stellte und dem Mortier so sehr gefiel, daß dieser nicht<lb/>
+eher ruhte, bis Bach sich bereit erklärte, den Kindern<lb/>
+des Marschalls Unterricht im Zeichnen zu geben.</p><lb/>
+<p>Bach übernahm den Unterricht, war aber nicht zu<lb/>
+bewegen, dafür irgend eine Entschädigung, obgleich eine<lb/>
+solche ihm oft aufgedrungen werden sollte, anzunehmen.</p><lb/>
+<p>Nun lud einst der Marschall seinen lieben Professor<lb/>
+zu einem Familienfeste ein und ließ bei Tische auch ver-<lb/>
+schiedene aus Paris erhaltene Dragées auftragen. Dies<lb/>
+waren aus Zucker geformte Nachbildungen von Früch-<lb/>
+ten aller Art. Bach sah die Dragées und schien sich<lb/>
+über dieselben wie ein Kind zu freuen. Mortier merkte<lb/>
+dies sehr bald und meinte: &#x201E;Warten Sie, Freund, ich<lb/>
+bekomme noch schönere und künstlichere Sachen der<lb/>
+Art, die werden Jhnen gewiß nicht misfallen!&#x201C;</p><lb/>
+<p>Das Familienfest verlief in ungetrübter Heiterkeit,<lb/>
+aber Niemand dachte wieder an die vom Marschall<lb/>
+versprochenen Dragées.</p><lb/>
+<p>Jm September 1808 erhielt Mortier Befehl, nach<lb/>
+Spanien zu gehen. Gerührt nahm der edle, wohl-<lb/>
+wollende Mann von seinen Breslauern Abschied und<lb/>
+schnell bereitete er Alles zur Abreise. Als der Tag<lb/>
+derselben gekommen war, befand sich Professor Bach<lb/>
+schon früh in seinem Atelier, da schellte die Thürklin-<lb/>
+gel seines Hauses. Bach öffnete und staunte nicht we-<lb/>
+nig, als er den Marschall vor sich stehen sah.</p><lb/>
+<p>Jch habe Eile, rief der edle Mortier, aber ich<lb/>
+kann nicht aus Breslau gehen, ohne sie noch einmal<lb/>
+gesehen zu haben!</p><lb/>
+<p>Mit diesen Worten umarmte er den Professor,<lb/>
+nahm von ihm den herzlichsten Abschied und verließ<lb/>
+eilig das Haus des bewegten Künstlers.</p><lb/>
+<p>Bald nach dieser rührenden Scene trat in Bach's<lb/>
+Zimmer ein Adjutant des Marschalls, überreichte dem<lb/>
+Professor ein Kästchen mit den seit langer Zeit ver-<lb/>
+sprochenen Dragées als Andenken und bemerkte, daß<lb/>
+<cb type="end"/>
+<pb facs="#f0008" n="343"/>
+<fw place="top" type="pageNum">343</fw><cb type="start"/>
+der Herzog in der Eile der Abreise vergessen habe,<lb/>
+das kleine Geschenk bei seinem Abschiedsbesuche selbst<lb/>
+mitzubringen.</p><lb/>
+<p>Bach nahm die Dragées als einen lieben Beweis<lb/>
+von dem freundschaftlichen Wohlwollen des Marschalls<lb/>
+an und betrachtete oft die schönen künstlichen Formen<lb/>
+derselben, die ein ungetrübtes Auge leicht zu täuschen<lb/>
+vermochten, da sie der Natur so trefflich nachgeahmt<lb/>
+waren.</p><lb/>
+<p>Einst erinnerte sich Bach beim Anblick der Dra-<lb/>
+gées auch wieder des edlen Herzogs, da entglitten<lb/>
+einige seiner Hand, fielen auf den Fußboden und zer-<lb/>
+brachen. Wie erstaunte aber Bach, als er aus dem<lb/>
+hohlen Zuckerwerke mehre Dukaten rollen sah! Er<lb/>
+prüfte nun die Dragées genauer und entnahm densel-<lb/>
+ben nach und nach 100 Dukaten, die der Marschall<lb/>
+dem lieben, uneigennützigen Künstler auf eine so zarte<lb/>
+Weise als Entschädigung für seine Mühen in die<lb/>
+Hände gespielt hatte.</p><lb/>
+<p>Das war gegeben, ohne zu verletzen!</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Der Yak.</hi></head><lb/>
+<p><hi rendition="#in">E</hi>uropa soll mit einem neuen Hausthiere bereichert<lb/>
+werden, mit einem Thiere, welches Pferd und Stier<lb/>
+zugleich ersetzt, ja das mehr als beide zusammen nützt<lb/>
+und doch weniger als jedes derselben zu seinem Unter-<lb/>
+halte erfodert. Der seidenhaarige Stier der asiatischen<lb/>
+Hochgebirge, der Yak der Tataren, soll künftig unser<lb/>
+einziges Zug= und Lastthier sein, wird uns Kleidung,<lb/>
+fette Milch, Butter und kräftig nährendes Fleisch lie-<lb/>
+fern. Herr Martigny, französischer Consul, hat zwölf<lb/>
+<cb n="2"/>
+Stiere und trächtige Kühe des Yak nach Paris ge-<lb/>
+bracht und sie arbeiten und gedeihen hier zu Aller<lb/>
+Freude, sodaß eine allgemeine und massenhafte Ein-<lb/>
+führung in Europa nicht lange mehr auf sich warten<lb/>
+lassen wird. Aber es wird wol nicht so schnell damit<lb/>
+gehen.</p><lb/>
+<p>Als Hausthier wird der Yak von den wandernden<lb/>
+Tatarenstämmen in den hohen, schneegipfligen Gebir-<lb/>
+gen zwischen Tibet und Bootan besonders gepflegt und<lb/>
+vertritt bei diesen das Renn des eisigen Nordens und<lb/>
+das Kameel der tropischen Ebenen. Er wird bei gu-<lb/>
+ter Pflege, reichlicher Nahrung und erträglichem Klima<lb/>
+sehr groß und schwer, unter weniger günstigen Um-<lb/>
+ständen bleibt er klein und unbedeutend. Seine unge-<lb/>
+heure Körperkraft macht ihn zu einem vortrefflichen<lb/>
+Lastthier, sein ruhiger, lenksamer Charakter auch geeig-<lb/>
+net zum Ackerbau. Das kräftige Fleisch und die sehr<lb/>
+reichliche und fette Milch liefern den Tataren die<lb/>
+Hauptnahrung, das lange Haar Kleidung. Der Schweif<lb/>
+wird besonders von den Chinesen sehr gesucht und<lb/>
+theuer bezahlt.</p><lb/>
+<p>Das Vaterland des Yak dehnt sich über Ladak,<lb/>
+Tibet, das nördliche China und die Mongolei aus und<lb/>
+zwar in den höhern gebirgigen Regionen, aus denen<lb/>
+sie tiefer hinabsteigen erst wenn der Schnee die Weide<lb/>
+verdeckt. Jn Ober=Kanawar geht er nicht unter<lb/>
+10,000 Fuß Meereshöhe herab und verliert, wie die<lb/>
+Kaschmirziege, in tiefern Gegenden überall an Güte.<lb/>
+Die Einführung des Yak in Europa wird besonders<lb/>
+wegen des Klimas und Terrains große Schwierigkei-<lb/>
+ten haben und wenn sie wirklich ausführbar ist, wird<lb/>
+wahrscheinlich der Yak unter diesen ihm wenig zusa-<lb/>
+genden Verhältnissen einen großen Theil seiner heimat-<lb/>
+lichen Nutzbarkeit verlieren und vielleicht hinter unsere<lb/>
+Kühe und Ochsen zurücktreten.</p></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1"><figure><head><hi rendition="#fr">Gotthardsstraße.</hi></head></figure></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<pb facs="#f0009" n="344"/>
+<fw place="top" type="pageNum">344</fw><lb/>
+<div n="1" type="jVarious"><head><hi rendition="#fr"><hi rendition="#g">Mannichfaltiges</hi>.</hi></head><lb/>
+<cb type="start"/>
+<div n="2" type="jArticle"><p>Das Grün der Wiesen, Felder und Wälder stand<lb/>
+bei unsern altdeutschen Vorfahren ungemein hoch. Sehr<lb/>
+viele deutsche Ortsnamen sind mit den Worten Wiese,<lb/>
+Aue und Wang ( dem altsächsischen Ausdruck für Waldwiese )<lb/>
+zusammengesetzt und zeugen noch heute von der Freude, welche<lb/>
+die ersten Ansiedler an dem friedlichen Grün der Aue hat-<lb/>
+ten. Jm altsächsischen Epos Heliand ( der Heiland ) wird der<lb/>
+Aufenthalt der Seligen, das Himmelreich, durchgängig auf<lb/>
+schöne, aber ganz heidnische Weise durch das Wort <hi rendition="#aq">wang,</hi><lb/>
+d. h. Waldwiese, bezeichnet; <hi rendition="#aq">himilriki, grôni godes wang,</hi><lb/>
+das Himmelreich, die grüe Gottesaue und <hi rendition="#aq">hebhenes wang,</hi><lb/>
+die Himmelswiese, ist die häufig wiederkehrende Bezeichnung<lb/>
+der Wohnung der Seligen. Ebenso heißt bei Cädmon ( dem<lb/>
+Angelsachsen ) das irdische Paradies <hi rendition="#aq">grêne geardas</hi>, grüner<lb/>
+Garten, und in der nordischen Poesie der Himmel die grüne<lb/>
+Heimat. Die grünen Wiesen des zukünftigen Lebens sind<lb/>
+aus der Edda und aus den Märchen als deutsche Poesie der<lb/>
+Mythologie bekannt genug, der Asphodeloswiese und ähnli-<lb/>
+cher antiker Vorstellungen zu geschweigen; haben wir doch<lb/>
+die &#x201E;Paradiesesauen&#x201C; und die &#x201E;himmlischen Gefilde&#x201C; bis auf<lb/>
+diesen Tag beibehalten, freilich oft nur als poetischen Schmuck<lb/>
+und als Phrase. Für das tiefe und innige Naturgefühl un-<lb/>
+serer Alten waren jedoch die stillen, freundlichen, grünen<lb/>
+Waldwiesen voll blühender Kräuter im Gegensatz gegen die<lb/>
+tiefe, finstere Waldeswüste, gegen die Steinholme, die ho-<lb/>
+hen Holmklippen und die grausenden Wogen der grimmen<lb/>
+See mehr als Bild und Phrase; sie waren ihnen die Stät-<lb/>
+ten der Ruhe, der Freude und des Friedens in diesem Le-<lb/>
+ben, und solche Stätten suchten sie auch jenseits.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Stadt und Land gibt es in England nicht mehr,<lb/>
+nicht einmal lokal geschieden, geschweige als Gegensatz. Die<lb/>
+Städte wachsen nach allen Seiten in die Dörfer hinaus und<lb/>
+die Dörfer in die Städte hinein. London ist in diesem be-<lb/>
+deutungsvollsten Culturprocesse am weitesten und nichts we-<lb/>
+niger als eine Stadt. Es ist ursprünglich eine Vereinigung<lb/>
+zweier Städte und neuerdings ein sich jährlich meilenweit<lb/>
+ausdehnender Zusammenfluß von mehr als 100 ehemaligen<lb/>
+Dörfern. Es ist ein Organismus urbanisirter Dörfer. So<lb/>
+finden wir im Nordwesten oben 8&#x2014;10 englische Quadrat-<lb/>
+meilen dicht mit Villas und Cottages bedeckt, alle im Grü-<lb/>
+nen, in Blumen und Bäumen und in den cultivirtesten<lb/>
+Gärten mit Obst, Treibhäusern, Hühnerenthusiasmus, einem<lb/>
+Pony oder gar zwei Pferden, alle einzeln, selbständig hinter<lb/>
+Mauern, Epheu und grüner Undurchsichtigkeit, jede eine<lb/>
+niedliche moderne Ritterburg mit einer Klingel für <hi rendition="#aq">visitors</hi><lb/>
+( Besuchende ) und einer andern für <hi rendition="#aq">servants</hi> ( das dienende<lb/>
+Personal ) . Hinter den 8&#x2014;10 so urbanisirten Quadratmei-<lb/>
+len dehnen sich gegen 30 Meilen lang Dörfer und Städte<lb/>
+in einer fast ununterbrochenen Reihe urbanisirter Landwirth-<lb/>
+schaften und ländlicher Stadtindustrie aus. Jm Süden nach<lb/>
+dem Krystallpalaste hin, im Westen an der Themse hinauf<lb/>
+hat sich dieser Proceß zum Theil noch großartiger und land-<lb/>
+schaftlich unbeschreiblich reizend ausgebildet. Und so fängt<lb/>
+eigentlich London nirgends mehr an und hört nirgends mehr<lb/>
+auf. Nach allen Seiten sind Stadt und Land ineinander ge-<lb/>
+wachsen und ineinander aufgegangen. Man kann sich davon<lb/>
+von den obern Außengalerien des Krystallpalastes durch die<lb/>
+herrlichste Augenweide überzeugen. Die von London abge-<lb/>
+wandte Seite bietet nichts als ein unbegrenztes Gewebe von<lb/>
+sanften Hügelwellen und Senkungen mit Wald, Park, Feld,<lb/>
+Villatrauben, Palästen und Gärtnernestchen zwischen Obst-<lb/>
+bäume hingebaut. Das Fernrohr enthüllt Städte, die im-<lb/>
+mer nach allen Seiten ineinander übergehen, indem sie sich<lb/>
+zu Landsitzen ausdehnen.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Die Falklandsinseln, gelegen zwischen dem 51. und<lb/>
+53. Grade südlicher Breite, sollen von England zu einer<lb/>
+neuen Verbrechercolonie auserwählt sein. Sie haben ein sehr<lb/>
+<cb n="2"/>
+gesundes Klima, das für Europäer kaum etwas zu wünschen<lb/>
+übriglassen würde. Die Falklandsgruppe besteht aus zwei<lb/>
+großen und mehren hundert kleinern Jnseln, zusammen etwa<lb/>
+halb so groß als das Königreich Belgien. Port=Stanley,<lb/>
+auf dem äußersten Osten von Ost=Falkland, ist schon jetzt der<lb/>
+Sitz eines englischen Gouverneurs und es baut sich hier<lb/>
+schon ein Weltverkehr an. Denn da die Falklandsinseln un-<lb/>
+gefähr auf halbem Wege zwischen England und Australien<lb/>
+sich befinden, so eignen sie sich trefflich zu einem Relais, zu<lb/>
+einer Anhalt=, Provisions= und Ausbesserungsstation.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Unverfängliche Stellvertretung. Jn Böhmen hat<lb/>
+das Landvolk folgenden frommen Spruch, der manchem böh-<lb/>
+mischen Bauer hinter seinem Pfluge durch den Kopf geht,<lb/>
+wenn er von fern das Meßglöcklein hört:</p><lb/>
+<lg type="poem">         <l>Ein Glöcklein hör' ich läuten &#x2014;</l><lb/>
+<l>Was soll das wohl bedeuten?</l><lb/>
+<l>Es soll bedeuten die heilige Messe</l><lb/>
+<l>Derselben kann ich nicht beiwohnen.</l><lb/>
+<l>Heil'ger Engel! Geh' hinein,</l><lb/>
+<l>Setze dich an meinen Ort,</l><lb/>
+<l>Höre für mich Gottes Wort,</l><lb/>
+<l>Bet' auch ein Gebetlein dort</l><lb/>
+<l>Und wenn du wirst kommen zurück,</l><lb/>
+<l>Bring mir heil'gen Segen mit.</l></lg></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Die üblichste Art der Zubereitung der indischen<lb/>
+Schwalbennester auf Java und in China ist die Suppen-<lb/>
+form. Jn kleine viereckige Stücke geschnitten werden sie den<lb/>
+schon an sich kräftigen Hühnersuppen beigemischt. Eine an-<lb/>
+dere an europäischen Tafeln vorkommende Zubereitungsweise<lb/>
+besteht darin, daß das Nest mit frischem, würfelförmig ge-<lb/>
+schnittenen Fleisch gefüllt und in dem dicken sich absetzenden<lb/>
+Rahm von Milch geschmort wird. Jn China gilt der Ge-<lb/>
+nuß der Salanganennester nicht nur für nahrhaft, sondern<lb/>
+auch bei Brust= und Zehrkrankheiten für sehr heilsam.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Das Leuchten todter Seefische wird an den See-<lb/>
+küsten von den Fischern zum Fangen der Seekrebse in Kör-<lb/>
+ben benutzt. Sie legen frisch getödtete abgezogene Seefische<lb/>
+ungefähr 24 Stunden an die Luft, bringen in jeden dazu<lb/>
+vorbereiteten Korb einen leuchtenden Fisch und versenken ihn<lb/>
+mit diesem Köder in das Meer. Der Fisch beleuchtet auch<lb/>
+unter dem Wasser den ganzen Korb sowie auch den Eingang<lb/>
+für die Krebse, welche schon aus der Ferne ihre Nahrung<lb/>
+gewahr werden und so werden sie in Unzahl gefangen.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Niederländische Sprüchwörter. Wenn eine Hand<lb/>
+die andere wäscht, so sind sie beide schön. &#x2014; Wenn der<lb/>
+Wolf alt wird, so reiten auf ihm die Krähen. &#x2014; Ein krum-<lb/>
+mes Stück Holz brennt ebenso gut wie ein gerades. &#x2014;<lb/>
+Mancher schneidet sich eine Gerte für seinen eigenen Rücken.<lb/>
+&#x2014; Aus Liebe zum Talg leckt die Katze den Leuchter. &#x2014; Es<lb/>
+ist schlechtes Wasser &#x2014; sprach der Reiher, weil er nicht<lb/>
+schwimmen konnte.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Zur Orientirung in betreffenden Fällen: &#x2014; nach<lb/>
+einem altdeutschen Gedichte:</p><lb/>
+<lg type="poem">         <head><hi rendition="#g">Lauter Herz</hi>.</head><lb/>
+<l>Ein Lanzknecht, welcher sehr verzagt,</l><lb/>
+<l>Seinem Rottgesellen heftig klagt,</l><lb/>
+<l>Wie ihm sein Herz so zittern thu,</l><lb/>
+<l>Wenn er dem Feind soll nahen zu.</l><lb/>
+<l>Der And're sprach: Jst dies das Herz,</l><lb/>
+<l>Das so zittert, sag' ich ohne Scherz</l><lb/>
+<l>Und thu' es dir bekennen frei,</l><lb/>
+<l>Daß wahrlich lauter Herz ich sei.</l></lg></div></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/><lb/>
+</body>     <back><div n="1" type="imprint"><p><hi rendition="#c">Verantwortlicher Redacteur: <hi rendition="#aq">M</hi>. J. E. Volbeding. &#x2014; Druck und Verlag von F. A. Brockhaus in Leipzig.</hi></p></div>     </back>   </text> </TEI>

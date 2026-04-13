@@ -1,0 +1,1559 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://www.deutschestextarchiv.de/basisformat.rng" type="application/xml" schematypens="https://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://www.deutschestextarchiv.de/basisformat.sch" type="application/xml" schematypens="https://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="https://www.tei-c.org/ns/1.0">
+<teiHeader>
+<fileDesc>
+<titleStmt>
+<title type="main">Gleiche Bildung für Mann und Frau!</title>
+<title type="sub">Vortrag, gehalten im &#x201E;Deutschen Frauenverein Reform&#x201C; in Berlin am 24. April 1891.</title>
+<author>
+<persName ref="http://d-nb.info/gnd/116616318">
+<surname>Kettler</surname>
+<forename>Hedwig Johanna</forename>
+</persName>
+</author>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/115266127">
+<surname>Geyken</surname>
+<forename>Alexander</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1222198746">
+<surname>Haaf</surname>
+<forename>Susanne</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1019062681">
+<surname>Jurish</surname>
+<forename>Bryan</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Boenig</surname>
+<forename>Matthias</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Thomas</surname>
+<forename>Christian</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Wiegand</surname>
+<forename>Frank</forename>
+</persName>
+</editor>
+<respStmt xml:id="textsource-1" corresp="#availability-textsource-1">
+<orgName>Frauenstudium, betreut von Andreas Neumann und Anna Pfundt, FSU Jena
+und JLU Gießen</orgName>
+<resp>
+<note type="remarkResponsibility">Bereitstellung der
+Texttranskription.</note>
+<note type="remarkRevisionDTA">Bitte beachten Sie, dass die aktuelle
+Transkription (und Textauszeichnung) mittlerweile nicht mehr dem Stand
+zum Zeitpunkt der Übernahme des Werkes in das DTA entsprechen
+muss.</note>
+<date type="importDTA">2022-02-08T18:24:57Z</date>
+</resp>
+</respStmt>
+<respStmt>
+<persName>
+<surname>Neumann</surname>
+<forename>Andreas</forename>
+</persName>
+<persName>
+<surname>Dietrich</surname>
+<forename>Dennis</forename>
+</persName>
+<resp>
+<note type="remarkResponsibility">Bearbeitung der digitalen Edition.</note>
+<date type="importDTA">2022-02-08T18:24:57Z</date>
+</resp>
+</respStmt>
+<respStmt>
+<orgName ref="https://www.bbaw.de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<resp>
+<note type="remarkResponsibility">Langfristige Bereitstellung der DTA-Ausgabe</note>
+<ref target="https://www.bbaw.de"/>
+</resp>
+</respStmt>
+</titleStmt>
+<editionStmt><edition>Vollständige digitalisierte Ausgabe.</edition></editionStmt>
+<extent>
+<measure type="images">22</measure>
+<measure type="tokens">6608</measure>
+<measure type="types">1698</measure>
+<measure type="characters">44019</measure>
+</extent>
+<publicationStmt>
+<publisher xml:id="DTACorpusPublisher">
+<email>dta@bbaw.de</email>
+<orgName role="project">Deutsches Textarchiv</orgName>
+<orgName role="hostingInstitution" xml:lang="en">Berlin-Brandenburg Academy of Sciences and Humanities (BBAW)</orgName>
+<orgName role="hostingInstitution" xml:lang="de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<address>
+<addrLine>Jägerstr. 22/23, 10117 Berlin</addrLine>
+<country>Germany</country>
+</address>
+</publisher>
+<pubPlace>Berlin</pubPlace>
+<date type="publication">2025-10-24T08:30:42Z</date>
+<availability>
+<licence target="http://creativecommons.org/licenses/by/4.0/deed.de">
+<p>Namensnennung 4.0 International (CC BY 4.0)</p>
+</licence>
+</availability>
+<idno>
+<idno type="URLWeb">https://www.deutschestextarchiv.de/kettler_bildung_1891</idno>
+<idno type="URLXML">https://www.deutschestextarchiv.de/book/download_xml/kettler_bildung_1891</idno>
+<idno type="URLHTML">https://www.deutschestextarchiv.de/book/download_html/kettler_bildung_1891</idno>
+<idno type="URLText">https://www.deutschestextarchiv.de/book/download_text/kettler_bildung_1891</idno>
+<idno type="DTADirName">kettler_bildung_1891</idno>
+<idno type="DTAID">35020</idno>
+<idno type="URN">urn:nbn:de:kobv:b4-35020-1</idno>
+</idno>
+</publicationStmt>
+<sourceDesc>
+<bibl type="MS">Kettler, Hedwig Johanna: Gleiche Bildung für Mann und Frau! Weimar, 1891 (= Bibliothek der Frauenfrage, Bd. 6).</bibl>
+<biblFull>
+<titleStmt>
+<title level="m" type="main">Gleiche Bildung für Mann und Frau!</title>
+<title level="m" type="sub">Vortrag, gehalten im &#x201E;Deutschen Frauenverein Reform&#x201C; in Berlin am 24. April 1891.</title>
+<author>
+<persName ref="http://d-nb.info/gnd/116616318">
+<surname>Kettler</surname>
+<forename>Hedwig Johanna</forename>
+</persName>
+</author>
+</titleStmt>
+<editionStmt>
+<edition n="1"/>
+</editionStmt>
+<publicationStmt>
+<publisher><name>Weimarer Verlagsanstalt</name></publisher>
+<pubPlace>Weimar</pubPlace>
+<date type="publication">1891</date>
+</publicationStmt>
+</biblFull>
+<msDesc>
+<msIdentifier>
+<repository>Forschungsbibliothek Gotha</repository>
+<idno>
+<idno type="shelfmark">J 8° 01513/14</idno>
+<idno type="URLCatalogue">https://opac.uni-erfurt.de/DB=1/XMLPRS=N/PPN?PPN=13830419X</idno>
+</idno>
+</msIdentifier>
+<physDesc>
+<typeDesc>
+<p>Fraktur</p>
+</typeDesc>
+</physDesc>
+</msDesc>
+</sourceDesc>
+</fileDesc>
+<encodingDesc>
+<editorialDecl>
+<p>
+<![CDATA[
+<p>Verfahren der Texterfassung: OCR mit Nachkorrektur.</p>
+<p> Bogensignaturen: keine Angabe; Druckfehler: dokumentiert; fremdsprachliches
+Material: keine Angabe; Geminations-/Abkürzungsstriche: keine Angabe;
+Hervorhebungen (Antiqua, Sperrschrift, Kursive etc.): wie Vorlage; i/j in
+Fraktur: keine Angabe; I/J in Fraktur: wie Vorlage; Kolumnentitel: keine Angabe;
+Kustoden: keine Angabe; langes s (&#x017F;): als s transkribiert; Normalisierungen:
+keine Angabe; rundes r (&#xA75B;): keine Angabe; Seitenumbrüche markiert:
+ja; Silbentrennung: wie Vorlage; u/v bzw. U/V: keine Angabe; Vokale mit
+übergest. e: keine Angabe; Vollständigkeit: vollständig erfasst; Zeichensetzung:
+wie Vorlage; Zeilenumbrüche markiert: ja; </p>
+]]>
+</p>
+</editorialDecl>
+<tagsDecl>
+<rendition scheme="css" xml:id="aq">font-family:sans-serif</rendition>
+<rendition scheme="css" xml:id="b">font-weight:bold</rendition>
+<rendition scheme="css" xml:id="blue">color:blue</rendition>
+<rendition scheme="css" xml:id="c">display:block; text-align:center</rendition>
+<rendition scheme="css" xml:id="et">display:block; margin-left:2em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et2">display:block; margin-left:4em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et3">display:block; margin-left:6em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="f">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="fr">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="g">letter-spacing:0.125em</rendition>
+<rendition scheme="css" xml:id="i">font-style:italic</rendition>
+<rendition scheme="css" xml:id="in">font-size:150%</rendition>
+<rendition scheme="css" xml:id="k">font-variant:small-caps</rendition>
+<rendition scheme="css" xml:id="larger">font-size:larger</rendition>
+<rendition scheme="css" xml:id="red">color:red</rendition>
+<rendition scheme="css" xml:id="right">display:block; text-align:right</rendition>
+<rendition scheme="css" xml:id="s">text-decoration:line-through</rendition>
+<rendition scheme="css" xml:id="smaller">font-size:smaller</rendition>
+<rendition scheme="css" xml:id="sub">vertical-align:sub; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="sup">vertical-align:super; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="u">text-decoration:underline</rendition>
+<rendition scheme="css" xml:id="uu">border-bottom:double 3px #000</rendition>
+</tagsDecl>
+</encodingDesc>
+<profileDesc>
+<particDesc>
+<person sex="f" role="author">
+<persName ref="http://d-nb.info/gnd/116616318">
+<surname>Kettler</surname>
+<forename>Hedwig Johanna</forename>
+</persName>
+</person>
+</particDesc>
+<langUsage>
+<language ident="deu">(Früh-)Neuhochdeutsch</language>
+<language ident="deu">German</language>
+</langUsage>
+<textClass>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1main">Gebrauchsliteratur</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1sub">Gesellschaft</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">ready</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">tdef</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">frauenstudium</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#collections">women</classCode>
+</textClass>
+</profileDesc>
+</teiHeader>
+<text>
+<front>
+<pb facs="#f0001"/>
+<titlePage type="halftitle">
+<titlePart type="series">
+<hi rendition="#b"><hi rendition="#k">Bibliothek der Frauenfrage</hi>,</hi>
+<lb/>
+<hi rendition="#aq">herausgegeben von Frau <hi rendition="#b">J.
+Kettler.</hi></hi>
+<lb/>
+</titlePart>
+<titlePart type="price">
+<hi rendition="#aq"><hi rendition="#g">Preis jeder Nummer 30 Pfg</hi></hi>.<lb/>
+</titlePart>
+<titlePart type="volume">
+<hi rendition="#u">
+<hi rendition="#b">Nr. 13.</hi>
+</hi>
+<lb/>
+</titlePart>
+<titlePart type="price">
+<hi rendition="#b">30 Pfennig.</hi>
+<lb/>
+</titlePart>
+<milestone unit="section" rendition="#hr"/>
+<lb/>
+<docTitle>
+<titlePart type="main">
+<hi rendition="#b">Gleiche Bildung für Mann und Frau!</hi>
+<lb/>
+</titlePart>
+</docTitle>
+<byline>Von<lb/>
+<docAuthor><hi rendition="#b">Frau J. Kettler.</hi><lb/>
+</docAuthor></byline>
+<docEdition>
+<hi rendition="#b">Fünfte Auflage.</hi>
+<lb/>
+</docEdition>
+<milestone unit="section" rendition="#hr"/>
+<lb/>
+<docImprint>
+<publisher>
+<hi rendition="#b">Weimarer Verlagsanstalt</hi>
+<lb/>
+</publisher>
+<pubPlace>
+<hi rendition="#b">in Weimar.</hi>
+<lb/>
+</pubPlace>
+</docImprint>
+</titlePage>
+<pb facs="#f0002"/>
+<pb facs="#f0003"/>
+<titlePage type="main">
+<titlePart type="series">
+<hi rendition="#k">Bibliothek der Frauenfrage</hi>,<lb/>
+<hi rendition="#aq">herausgegeben von Frau <hi rendition="#b">J.
+Kettler.</hi></hi><lb/>
+</titlePart>
+<milestone unit="section" rendition="#hr"/>
+<lb/>
+<titlePart type="volume">Heft 6.<lb/>
+</titlePart>
+<docTitle>
+<titlePart type="main">Gleiche Bildung für Mann und Frau!<lb/>
+</titlePart>
+</docTitle>
+<byline>Von<lb/>
+<docAuthor><hi rendition="#g">Frau</hi>
+<persName ref="http://d-nb.info/gnd/117323969">J. <hi rendition="#g">Kettler</hi></persName>.</docAuthor><lb/>
+</byline>
+<space dim="vertical"/>
+<milestone unit="section" rendition="#hr"/>
+<lb/>
+<space dim="vertical"/>
+<docImprint>
+<publisher>
+<hi rendition="#g">Weimarer Verlagsanstalt</hi>
+<lb/>
+</publisher>
+<pubPlace>in Weimar.<lb/>
+</pubPlace>
+</docImprint>
+</titlePage>
+<pb facs="#f0004"/>
+</front>
+<body>
+<pb facs="#f0005" n="[3]"/>
+<div n="1">
+<head>
+<hi rendition="#b">Gleiche Bildung für Mann und Frau!</hi>
+</head>
+<lb/>
+<dateline>Vortrag, gehalten im &#x201E;Deutschen Frauenverein Reform&#x201C; in Berlin<lb/>
+<hi rendition="#et3">am 24. April 1891.</hi></dateline>
+<lb/>
+<p>Verehrte Anwesende!</p>
+<lb/>
+<p>Wer eine Reform empfiehlt und dabei auf irgend einen Erfolg hoffen<lb/>
+will, der
+muß diese Reform als notwendig erweisen können.</p>
+<lb/>
+<p>Unser Verein hat bekanntlich an den Reichstag eine Petition gerichtet um<lb/>
+Zulassung des weiblichen Geschlechts zum medizinischen Studium und Beruf,<lb/>
+weil auch bei uns in Deutschland sich mehr und mehr die Überzeugung Bahn<lb/>
+bricht, daß die Frau berechtigt ist, für sich einen Arzt ihres eigenen Ge­<lb/>
+schlechts zu verlangen. Da nun das Studium der Medizin an einer Uni­<lb/>
+versität nur durch die Maturitätsprüfung erschlossen wird, und da diese<lb/>
+Prüfung nur durch eine auf dieselbe vorbereitende Ausbildung zu erreichen<lb/>
+ist, so ist es selbstverständlich, daß ein Verein, der von der Nation den<lb/>
+weiblichen Arzt fordert, auch die Schule fordert, die zur Zeit allein für<lb/>
+dieses ärztliche Studium vorzubereiten vermag, und daß er um Ermög­<lb/>
+lichung
+dieser Schulung bei den zuständigen gesetzgebenden Körperschaften<lb/>
+petitioniert. Darum hat unser Verein &#x201E;Reform&#x201C; den Landtagen
+sämtlicher<lb/>
+Einzelstaaten des Deutschen Reiches eine Petition um Gründung
+eines Mädchengymnasiums eingereicht.</p>
+<lb/>
+<p>Wenn der Bescheid auf diese Petitionen vorderhand auch noch ein un­<lb/>
+günstiger ist, <note place="foot" n="*)" xml:id="fn01" next="#fn02">Jnzwischen
+sind dem &#x201E;Deutschen Frauenverein Reform&#x201C; zwei günstigere
+Be-<lb/>
+scheide zugegangen. Einerseits hat nämlich der Landtag des
+Fürstentums Neuß j. L.<lb/>
+die genannte Petition der Regierung für den Fall
+gleichartigen Vorgehens größerer</note><lb/>
+so heißt das nicht zugleich,
+daß dieselben auch niemals <choice>
+<sic>au</sic>
+<corr>an</corr>
+</choice><lb/>
+<fw type="sig" place="bottom">1*</fw><lb/>
+<pb facs="#f0006" n="4"/>
+<fw type="header" place="top">Gleiche Bildung für Mann und Frau!</fw><lb/>
+einen
+<hi rendition="#g">günstigen</hi> Bescheid zu rechnen hätten. Denn wenn der
+jetzige un­<lb/>
+günstige Bescheid Zeugnis davon giebt, wie unsere Nation sich
+noch nicht<lb/>
+klar bewußt ist, daß sie der Ehre ihrer Frauen den weiblichen
+Arzt schuldet,<lb/>
+so wäre die Anschauung, daß Deutschland von allen
+Kulturnationen allein<lb/>
+den weiblichen Arzt auch für alle Zukunft nicht
+brauchen würde, das Zu­<lb/>
+geständnis, daß unsere Nation sich jener
+Verpflichtung gegen ihre Frauen<lb/>
+auch <hi rendition="#g">nie</hi> klar
+bewußt sein würde. Und daß sie ein solches Zugeständnis<lb/>
+zu machen gewillt
+wäre, ist doch nicht wohl anzunehmen.</p>
+<lb/>
+<p>&#x201E;Gut also, der dem männlichen Arzt ebenbürtige weibliche Arzt ist<lb/>
+eine berechtigte Forderung&#x201C;, sagen viele, &#x201E;dieser <hi rendition="#g">einen</hi> Sorte von gelehrten<lb/>
+Frauen wollen wir eine
+gelehrte Bildung gestatten; aber damit Punktum,<lb/>
+für sonstige gelehrte
+Frauen danken wir!&#x201C;</p>
+<lb/>
+<p>Jst es die Majorität der Männer, der gesetzgebenden Hälfte unserer<lb/>
+Nation,
+welche so denkt, so wird sie dieser Denkungsart entsprechend ihre<lb/>
+Verfügungen treffen. Jst es einmal der Stolz der deutschen Männer, dieser<lb/>
+einen Hälfte unserer Nation, auf die Frauen, die andere Hälfte unserer<lb/>
+Nation, herabzusehen, und dies auf die bequemste Weise sich zu ermöglichen,<lb/>
+so wird sie natürlich diesen Stolz sich nicht rauben lassen, so wird sie
+an­<lb/>
+ordnen, daß diese andere Hälfte künstlich unten gehalten werde, damit
+sie<lb/>
+nicht erst die Mühe hat, hinauszusteigen. Jch meinerseits freilich
+würde,<lb/>
+wenn ich das angenehme Gefühl, auf eine ganze Hälfte der Nation
+herab­<lb/>
+zusehen, nur zu erreichen vermöchte, indem ich diese ganze Hälfte
+künstlich<lb/>
+unten halte, d. h. also sie zuvor erniedrige, für dieses
+angenehme Gefühl<lb/>
+mich bedanken, das gestehe ich offen.</p>
+<lb/>
+<p>Nun also, die gelehrten Frauen, die Ärztinnen etwa ausgenommen,<lb/>
+wären durch
+das Diktum des Mannes, daß er sie eben nicht will, vorläufig<lb/>
+kurzer Hand
+erledigt; und es wäre für die dem Gesetz Gehorchenden ein<lb/>
+ganz vergebliches
+Bemühen, wollten sie den Gesetzgebern etwas klar zu<lb/>
+machen versuchen, das
+diesen noch gar nicht klar gemacht werden <hi rendition="#g">kann</hi>, das<lb/>
+diese noch gar nicht klar gemacht haben <hi rendition="#g">wollen</hi>, würden
+sie ihnen sagen:<lb/>
+&#x201E;Jhr habt die moralische Pflicht, dem Weibe, das
+Gott so gut wie Euch<lb/>
+zu seinem Ebenbilde erschaffen, dieselbe Ausbildung
+des Geistes zu ge­<lb/>
+währen, die Jhr genießt, falls es danach verlangt; und
+zwar schon ganz<lb/>
+<note place="foot" n="*)" xml:id="fn02" prev="#fn01">Nachbarstaaten zur
+wohlwollenden Erwägung überwiesen; andererseits hat auch die<lb/>
+Unterrichtskommission des preußischen Abgeordnetenhauses den Eventualantrag
+obiger<lb/>
+Petition also die Zulassung von Mädchen zur Ablegung des
+gymnasialen Reife-Examens)<lb/>
+zur Überweisung an die Staatsregierung
+behufs Erwägung empfohlen.</note><lb/>
+<pb facs="#f0007" n="5"/>
+<fw type="header" place="top">Gleiche Bildung für Mann und Frau!</fw><lb/>
+allein aus dem einzigen Grunde, weil es danach verlangt. Denn seine und<lb/>
+Eure Menschenrechte sind dieselben, und das edelste dieser Rechte ist das
+auf<lb/>
+Bildung, mag diese Bildung auch die allergelehrteste der Welt sein.
+Denn<lb/>
+der Geist ist Gottes, und Euch hat Gott nicht zu dessen Kerkermeistern
+er­<lb/>
+nannt!&#x201C; Wie gesagt, schon heute bei uns in Deutschland so
+sprechen zu<lb/>
+wollen, wäre thöricht; denn wer eine solche Verpflichtung noch
+nicht ein­<lb/>
+mal zu <hi rendition="#g">fühlen</hi> vermag, der kann doch auch
+noch nicht nach ihren Geboten<lb/>
+<hi rendition="#g">handeln</hi>.</p>
+<lb/>
+<p>Solche höchste Anforderungen der Civilisation zu erfüllen, müssen wir<lb/>
+einer
+erleuchteten Zukunft überlassen; einer Zukunft, deren erste Strahlen<lb/>
+soeben
+beginnen, die Dämmerung unserer Tage zu erhellen. Wir müssen<lb/>
+einstweilen
+mit dem rechnen, was <hi rendition="#g">heute</hi> existiert, und das ist der
+unbeug­<lb/>
+same Wille des Mannes, der Frau nur so viel von ihrem
+rechtmäßigen<lb/>
+Eigentum herauszugeben, als ihm für sich selbst vorteilhaft
+erscheint. Jch<lb/>
+wundere mich häufig, daß man von dem Manne einzelne
+Äußerungen einer<lb/>
+Eigenschaft erwartet, die er gar nicht besitzt, ich meine
+die Eigenschaft, die<lb/>
+Angelegenheiten der Frau von einem andern Standpunkt
+als dem seines<lb/>
+persönlichen Vorteils zu betrachten und demgemäß zu
+erledigen.</p>
+<lb/>
+<p>Doch ich möchte nicht ungenau sein, ich will daher <hi rendition="#g">nicht</hi>
+behaupten,<lb/>
+daß der Mann nur <hi rendition="#g">seinen persönlichen
+Vorteil</hi> im Auge habe; nein,<lb/>
+auch den der <choice>
+<sic>Gesammtheit</sic>
+<corr>Gesamtheit</corr>
+</choice>. Aber, bitte, bemerken Sie, nur den der Ge­<lb/>
+samtheit der Männer,
+nicht den der ganzen Menschheit. Vom Stand­<lb/>
+punkt des Vorteils der
+Gesamtheit der Männer aus regelt er die Zu­<lb/>
+stände der Gesamtheit der
+Menschen, wobei es ihm natürlich sehr leicht<lb/>
+passiert, daß er glaubt, die
+Gesamtheit der Menschen befände sich sehr wohl,<lb/>
+wenn es nur die Gesamtheit
+der Männer thut. Da wir nun aber doch<lb/>
+die Gesamtheit der <hi rendition="#g">Menschen</hi> als ein Ganzes betrachten müssen und die<lb/>
+Gesamtheit der
+Männer sowohl wie die der Frauen als <hi rendition="#g">Teile</hi> dieses<lb/>
+Ganzen, so scheint es mir sehr selbstverständlich, daß die Benachteiligung<lb/>
+<hi rendition="#g">eines</hi> dieser Teile den Gesamtorganismus schädigen muß.
+Und da von<lb/>
+der Gesundheit des Gesamtorganismus doch wieder die Gesundheit
+<hi rendition="#g">aller</hi><lb/>
+einzelnen Teile abhängt, so leidet
+natürlich der <hi rendition="#g">eine</hi> Teil, die Gesamtheit<lb/>
+der <hi rendition="#g">Männer</hi>, mit unter dem Schaden, den der <hi rendition="#g">andere</hi> Teil, die Gesamt­<lb/>
+heit der <hi rendition="#g">Frauen</hi> erleidet. Wenn wir nun <hi rendition="#g">beweisen</hi> könnten, daß die<lb/>
+Benachteiligung der Frauen die
+Gesamtheit der Menschen, also auch der<lb/>
+Männer, schädigen muß &#x2013; was
+meinen Sie, verehrte Anwesende, würde<lb/>
+der Mann sich <hi rendition="#g">dann</hi> nicht vielleicht bereit finden lassen, die Mittel gütigst<lb/>
+zu
+bewilligen, die ihn vor diesem Schaden zu behüt<supplied>e</supplied>n
+vermöchten?</p>
+<lb/>
+<pb facs="#f0008" n="6"/>
+<fw type="header" place="top">Gleiche Bildung für Mann und Frau!</fw>
+<lb/>
+<p>Er verweigert die Erfüllung der Ansprüche der Frau, die einen nur<lb/>
+ihm bisher
+reservierten Beruf zu erfüllen trachtet, mit dem Hinweis auf<lb/>
+ihren
+&#x201E;natürlichen&#x201C; Beruf, der nicht vernachlässigt werden dürfe, wenn
+nicht<lb/>
+die ganze Nation Schaden nehmen solle.</p>
+<lb/>
+<p>Gut, wir sind einverstanden, wir geben ihm ganz recht, daß unser Volk<lb/>
+einer
+Unzahl von Gattinnen und Müttern absolut bedarf und vorderhand<lb/>
+nur einer
+kleinen Zahl von gelehrten Frauen.</p>
+<lb/>
+<p>&#x201E;Und trotz dieses Zugeständnisses verlangt Jhr bessere Bildung für<lb/>
+die Frau, als sie ihr heute zu Teil wird?&#x201C; fragt der Mann.
+&#x201E;&#x201E;Trotzdem?&#x201C;&#x201C; <lb/>
+antworten wir ihm,
+&#x201E;&#x201E;nein, nicht <hi rendition="#g">trotzdem</hi>, sondern im
+Gegenteil <hi rendition="#g">gerade<lb/>
+deswegen</hi>.&#x201C;&#x201C;</p>
+<lb/>
+<p>&#x201E;Ja, aber diese Gattinnen und Mütter, erfüllen sie nicht ihren hohen<lb/>
+Beruf so vollkommen wie nur möglich?&#x201C; &#x201E; &#x201E;So vollkommen wie
+nur<lb/>
+möglich? Keineswegs! Jm besten Falle so vollkommen, wie Jhr es<lb/>
+ihnen ermöglicht auf Grund der ihnen heute gewährten Bildung. Und diese<lb/>
+Vollkommenheit ist von der überhaupt möglichen Vollkommenheit ganz be­<lb/>
+denklich verschieden.&#x201C;&#x201C;</p>
+<lb/>
+<p>Das zu beweisen, ist überflüssig; der Mann selbst giebt uns ja mehr<lb/>
+Beweise,
+als wir nötig haben. Der Mann, der Abend für Abend den<lb/>
+Kreis der Seinen
+flieht, um im Wirtshaus mit seinesgleichen &#x201E;ein ver­<lb/>
+nünftiges
+Wort&#x201C; reden zu können, wie man das nennt, weil er das, wie<lb/>
+man ganz
+offenherzig sagt, &#x201E;zu Hause mit seiner Frau natürlich nicht
+kann&#x201C;;<lb/>
+der Mann, der die Bubenstreiche eines ungeratenen Sohnes, die
+Nutzlosig­<lb/>
+keit einer Tag aus Tag ein faulenzenden Tochter verdammt: der
+Mann,<lb/>
+der mit seiner Gattin ein Leben voll Harmonie, ein Leben gleicher
+Jnteressen<lb/>
+zu führen hoffte und statt dessen die angenehme Entdeckung
+macht, daß sie<lb/>
+über seine Jnteressen nur zu gähnen vermag, &#x2013; diese
+Männer alle mit­<lb/>
+einander sprechen, ohne es zu wissen und zu wollen, selbst
+das Urteil über<lb/>
+die von ihnen verfügte heutige Bildung der Frau. Gattinnen,
+die so schlechte<lb/>
+Gattinnen sind, daß sie dem Manne nicht zu genügen
+vermögen; Mütter,<lb/>
+die so schlechte Mütter sind, daß sie ihre Söhne und
+Töchter nicht zu einem<lb/>
+ehrenhaften, nützlichen Lebenswandel zu erziehen
+vermögen &#x2013; sind es solche<lb/>
+Gattinnen, solche Mütter, die wir
+brauchen? Sind sie es, die ihren Beruf<lb/>
+so trefflich erfüllen, wie das Wohl
+unserer Nation das erfordert? Nein,<lb/>
+durchaus nicht. Und wer möchte
+behaupten, daß diese Gattinnen, diese<lb/>
+Mütter ganz seltene Ausnahmen wären?
+Wer kann leugnen, daß diese<lb/>
+Unfähigkeit vieler Frauen, gerade ihren <hi rendition="#g">natürlichen</hi> Beruf zu erfüllen,<lb/>
+diese Fähigkeit
+vieler Frauen, dadurch ihre Familien unglücklich zu machen,<lb/>
+<pb facs="#f0009" n="7"/>
+<fw type="header" place="top">Gleiche Bildung für Mann und Frau!</fw><lb/>
+das
+Wohl unserer Nation ganz empfindlich schädigt? Niemand, der seine<lb/>
+gesunden
+fünf Sinne hat, nicht wahr?</p>
+<lb/>
+<p>&#x201E;Nun, und wodurch meint Jhr, seien diese Mißstände zu beseitigen?&#x201C;
+<lb/>
+fragt der Mann. &#x201E;&#x201E;Dadurch, daß man die <hi rendition="#g">Ursachen</hi> dieser Mißstände<lb/>
+beseitigt&#x201C;&#x201C;, antworten
+wir ihm. &#x2013;&#x2013;Da letztere die Folgen einer Ent­<lb/>
+fremdung
+zwischen beiden Geschlechtern sind, einer Entfremdung, die man<lb/>
+durch
+verschiedene Bildung Beider erst künstlich geschaffen hat, so sind sie<lb/>
+nur
+dadurch gründlich zu beseitigen, daß man aufhört, diese künstliche Ent­<lb/>
+fremdung immer wieder zu schaffen, dadurch, daß man beiden Geschlechtern<lb/>
+die gleiche Erziehung, die gleiche Bildung giebt, damit nur<hi rendition="#g">die</hi> Verschiedenheit<lb/>
+zwischen ihnen bleibe, welche von der Natur
+gewollt ist. &#x201C;&#x201C;</p>
+<lb/>
+<milestone unit="section" rendition="#hr"/>
+<lb/>
+<p>Wer nun der Ansicht ist, daß wir den weiblichen Arzt brauchen, der<lb/>
+muß auch
+zugeben, daß wir das <choice>
+<sic>Mittet</sic>
+<corr>Mittel</corr>
+</choice> zur Erlangung desselben brauchen:<lb/>
+Gymnasium und Universität. Und
+wer der Ansicht ist, daß wir bessere<lb/>
+Gattinnen und Mütter brauchen, als wir
+sie heute durchschnittlich haben<lb/>
+können infolge ihrer mangelhaften Bildung,
+der muß auch zugeben, daß<lb/>
+wir das Mittel zur Erlangung derselben brauchen,
+das Mittel, welches die<lb/>
+künstliche Entfremdung zwischen den Geschlechtern
+beseitigen würde: gleiche<lb/>
+Bildung für beide Geschlechter.</p>
+<lb/>
+<p>So wenig alle Schüler des Gymnasiums auf die Universität gehen,<lb/>
+so wenig
+wollen wir alle Frauen auf die Universität schicken. Aber so<lb/>
+wenig man für
+die <hi rendition="#g">Männer</hi>, welche <hi rendition="#g">nicht</hi>
+studieren wollen, schlechtere<lb/>
+Schulen errichtet, als für jene, die
+studieren wollen, so wenig finden wir<lb/>
+es erforderlich, daß man den <hi rendition="#g">Frauen</hi>, die nicht studieren wollen, eine<lb/>
+möglichst
+gute <hi rendition="#g">Schulbildung</hi> überhaupt vorenthalte. Für die
+verschiedensten<lb/>
+Berufe ist die Vorbildung, die der Mann erhält, als die
+geeignetste aner­<lb/>
+kannt, um als Grundlage für die spätere Fachausbildung zu
+dienen, da<lb/>
+sie die Verstandesthätigkeit, welche diese verschiedenen Berufe
+erfordern, in<lb/>
+der geeignetsten Weise zu entwickeln vermag. Sollte der vom
+Mann als<lb/>
+höchster idealster Beruf gepriesene, jener der Frau, der Gattin
+und Mutter,<lb/>
+sollte dieser Beruf allein einer möglichst gut entwickelten
+Verstandesthätigkeit ent­<lb/>
+behren können? Nach den Resultaten zu urteilen,
+welche die heute sehr mangel­<lb/>
+haft entwickelte Verstandesthätigkeit vieler
+Frauen gezeitigt hat, gewiß nicht.</p>
+<lb/>
+<p>Die Männer sagen &#x201E;Unseren Frauen vertrauen wir die Zukunft unseres<lb/>
+Landes an, ihnen legen wir die Erziehung der jungen Generation, unserer<lb/>
+Kinder, in die Hände.&#x201C; Schön! und damit sie diese Kinder <hi rendition="#g">so gut</hi> als<lb/>
+möglich erziehen können, darum dürfen
+diese Frauen <hi rendition="#g">selbst nicht so gut</hi><lb/>
+<pb facs="#f0010" n="8"/>
+<fw type="header" place="top">Gleiche Bildung für Mann und Frau!</fw><lb/>
+als
+möglich erzogen werden; damit sie diese Unmündigen möglichst <hi rendition="#g">gut</hi> führen<lb/>
+und leiten können, darum müssen <hi rendition="#g">sie
+selbst</hi> möglichst unmündig sein?!<lb/>
+Gott sei Dank, daß wir diese
+Logik nicht auf unserm Gewissen haben!</p>
+<lb/>
+<p>Also: für die Frau, welche der gelehrten Bildung bedarf, fordern wir<lb/>
+dieselben Bildungsanstalten, die dem Manne, welche der gelehrten Bildung<lb/>
+bedarf, gewährt sind: Gymnasium und Universität. Für die Frau, welche<lb/>
+<hi rendition="#g">nicht</hi> der gelehrten Bildung bedarf, sondern nur einer
+möglichst guten<lb/>
+Vorbereitung zur Erfüllung ihres <hi rendition="#g">nicht</hi> gelehrten, ihres natürlichen Berufs,<lb/>
+fordern
+<choice><sic>wie</sic><corr>wir</corr></choice> dieselben
+Bildungsanstalten, die dem Manne, welcher ebenfalls<lb/>
+nicht der gelehrten
+Bildung bedarf, sondern ebenfalls nur einer möglichst<lb/>
+guten Vorbereitung
+zur Erfüllung <hi rendition="#g">seines</hi> nicht gelehrten Berufs, zur
+Ver­<lb/>
+fügung stehen. Diese Gleichheit in der Erziehung der beiden
+Geschlechter ist es,<lb/>
+die wir erstreben, zum Wohle der Frau und damit zum
+Wohle der Gesamtheit,<lb/>
+zum Wohle der Gesamtheit und damit zum Wohle des
+Mannes. Wir halten<lb/>
+diese Reform für notwendig, weil wir ihre Resultate für
+notwendig halten.</p>
+<lb/>
+<p>Auf diese notwendige Reform möchte ich Jhre Aufmerksamkeit aber<lb/>
+noch aus
+einem anderen Grunde richten, aus einem Grunde, der in meinen<lb/>
+Augen der
+umfassendste, tendenziös wichtigste ist. Sie wissen, meine Damen,<lb/>
+was
+Frauenemanzipation ist; ich meine, was Frauenemanzipation ist, ver­<lb/>
+glichen
+mit dem, was man vielfach irrtümlich darunter versteht. Nun<lb/>
+denn! nichts
+kann für die Vertreter dieser Frauenemanzipation von größerer<lb/>
+Bedeutung
+sein, als eine Untersuchung über die Ursache, welche, wie man<lb/>
+behauptet,
+die Unterordnung der Frau, also jenen Zustand herbeigeführt hat,<lb/>
+der von
+der Emanzipation bekämpft wird. Für die Ursache dieses Zustandes<lb/>
+erklärt
+man die angeborene geistige Jnferiorität der Frau. Diese hält man<lb/>
+für
+erwiesen. Die Resultate einer der Frau gewährten <hi rendition="#g">schlechteren</hi><lb/>
+Schulbildung vergleicht man mit den Resultaten einer
+dem Manne ge­<lb/>
+währten <hi rendition="#g">besseren</hi> Schulbildung; und da
+diese Resultate genau diesen<lb/>
+beiden Arten von Schulbildung entsprechen
+&#x2013; d. h. da die Leistungen der<lb/>
+schlecht unterrichteten Frauen im
+Vergleich zu denen der gut unterrichteten<lb/>
+Männer im allgemeinen inferiore
+sind &#x2013; so folgert man <hi rendition="#g">daraus</hi> die<lb/>
+angeborene
+geistige Jnferiorität der Frau. Da, wie gesagt, diese Folgerung<lb/>
+die Basis
+bildet für die heutige Behandlung der Frau, so müssen die Ver­<lb/>
+treter der
+Frauenemanzipation, welche diese Behandlung als eine unhaltbare<lb/>
+erweisen
+wollen, zunächst den Beweis erbringen können, daß die <hi rendition="#g">Basis</hi><lb/>
+dieser Behandlung eine unhaltbare ist: die Annahme von der
+angeborenen<lb/>
+geistigen Jnferiorität der Frau.</p>
+<lb/>
+<milestone unit="section" rendition="#hr"/>
+<lb/>
+<pb facs="#f0011" n="9"/>
+<fw type="header" place="top">Gleiche Bildung für Mann und Frau!</fw>
+<lb/>
+<p>Denken Sie sich zwei Kinder: Hans und Grete. Wenn Hans<lb/>
+und Grete nicht
+dieselbe Fibel haben, sondern wenn Hans eine gute und Grete<lb/>
+eine schlechte
+Fibel hat, und wenn dann Grete aus ihrer schlechten Fibel<lb/>
+weniger gelernt
+hat, als Hans aus seiner guten Fibel &#x2013; an wem liegt<lb/>
+dann die Schuld,
+an Grete oder an ihrer schlechten Fibel? Nun, natürlich<lb/>
+doch an ihrer
+schlechten Fibel, nicht wahr? Und warum an ihrer schlechten<lb/>
+Fibel und nicht
+an Grete? Nun, weil es ganz unmöglich war, daß<lb/>
+Grete aus ihrer <hi rendition="#g">schlechten</hi> Fibel das lernen <hi rendition="#g">konnte</hi>, was Hans aus<lb/>
+seiner <hi rendition="#g">guten</hi> Fibel
+lernen konnte, denn das stand in Gretens Fibel ja<lb/>
+garnicht drin.</p>
+<lb/>
+<p>Wenn Mann und Frau nicht dieselbe Schulbildung erhalten, sondern<lb/>
+wenn der
+Mann eine gute und die Frau eine schlechte Schulbildung erhält,<lb/>
+und wenn
+dann die Frau infolge ihrer schlechten Schulbildung weniger ge­<lb/>
+lernt hat,
+als der Mann infolge seiner guten Schulbildung &#x2013; an wem<lb/>
+liegt dann
+die Schuld, an der Frau oder an ihrer schlechten Schulbildung?<lb/>
+Nun,
+natürlich doch an ihrer schlechten Schulbildung, nicht wahr? Und<lb/>
+warum an
+ihrer schlechten Schulbildung und nicht an der Frau? Nun,<lb/>
+weil es ganz
+unmöglich war, daß sie bei ihrer <hi rendition="#g">schlechten</hi>
+Schulbildung<lb/>
+das lernen <hi rendition="#g">konnte</hi>, was der Mann bei
+seiner <hi rendition="#g">guten</hi> Schulbildung lernen<lb/>
+konnte, denn das
+haben ihre Lehrer sie ja garnicht gelehrt.</p>
+<lb/>
+<p>Können Sie sich nun vorstellen, daß, wenn Grete zu Jhnen käme und<lb/>
+sagte:
+&#x201E;Bitte, schenk mir eine neue Fibel, ebensolche Fibel, wie Hans
+hat&#x201C;,<lb/>
+daß Sie dann sagen würden &#x201E;Jawohl, mein liebes Kind,
+eine neue Fibel<lb/>
+sollst du haben; aber erst mußt du mir die schönen
+Geschichten erzählen,<lb/>
+die darin stehen, sonst kann ich ja garnicht wissen,
+ob du die neue Fibel<lb/>
+auch verdienst.&#x201C; Jch weiß, Sie wären nicht im
+Stande, das zu sagen.<lb/>
+Aber angenommen, Sie sprächen so; dann, das glaube
+ich bestimmt, würde<lb/>
+das Kind Sie groß ansehen und erwidern: &#x201E;Aber
+ich möchte ja gerade<lb/>
+darum die neue Fibel haben, damit ich die schönen
+Geschichten, die darin<lb/>
+stehen, erst kennen lerne; jetzt kann ich sie ja
+noch garnicht erzählen, weil<lb/>
+ich sie ja noch gar nicht kenne. &#x201C;</p>
+<lb/>
+<p>Verehrte Anwesende, ich gestehe, es wäre mir peinlich, wenn ich mir<lb/>
+vorstellen sollte, daß ein Kind mich mit seiner Logik des gesunden Ver­<lb/>
+standes beschämte. Und nun bedenken Sie, wie viel peinlicher noch müßte<lb/>
+dies eigentlich einem Manne an meiner Stelle sein, der doch schon durch<lb/>
+das
+bekannte Uebergewicht seines Gehirns eine viel größere Verpflichtung<lb/>
+hat,
+logisch zu denken, als ich. Und nun giebt es Männer, und, wie Sie<lb/>
+wissen,
+nicht einzelne, nein tausende, die ganz offen und unbefangen er­<lb/>
+<pb facs="#f0012" n="10"/>
+<fw type="header" place="top">Gleiche Bildung für Mann und Frau!</fw><lb/>
+klären: &#x201E;Will die Frau eine andere Fibel, als sie bis jetzt gehabt hat,
+will<lb/>
+sie dieselbe Fibel haben, wie der Mann, so muß sie uns erst die
+schönen<lb/>
+Geschichten erzählen können, die darin stehen. Bis jetzt hat sie
+das noch<lb/>
+nicht gekonnt; das beweist also, daß sie die neue Fibel auch gar
+nicht ver­<lb/>
+dient.&#x201C; Nun, meine Herrschaften, ich gestatte mir die
+ergebenste Bemerkung:<lb/>
+&#x201E;Wenn wir die neue Fibel, die wir uns
+wünschen, bereits auswendig<lb/>
+kennten &#x2013; dann brauchten wir sie uns ja
+garnicht erst noch zu wünschen.&#x201C;</p>
+<lb/>
+<p>Wir sollen also bereits &#x2013; die Sache ist nämlich sehr tiefsinnig!
+&#x2013;<lb/>
+wir sollen also bereits die <hi rendition="#g">Resultate</hi>
+einer Schulbildung aufweisen, um<lb/>
+deren Gewährung wir heute noch
+petitionieren. Und daß wir das nicht<lb/>
+können, das beweist, daß wir diese
+Schulbildung überhaupt garnicht wert sind.</p>
+<lb/>
+<p>Verehrte Anwesende! Lassen Sie uns dafür sorgen, daß die Logik<lb/>
+dieser
+Beweisführung in ihrer ganzen Hoheit der unparteiischen Kritik der<lb/>
+Nachwelt
+überliefert werde; es wäre jammerschade, wenn sie ver­<lb/>
+loren ginge!</p>
+<lb/>
+<p>&#x201E;Was wollen diese Frauen?&#x201C; fragen die Männer. &#x201E;Bessere
+Schul­<lb/>
+bildung? Aber du lieber Himmel, sie eignen sich ja garnicht dafür,
+das<lb/>
+sieht doch jeder, der es sehen will.&#x201C;</p>
+<lb/>
+<p>&#x201E;&#x201E;Ja allerdings,&#x201C;&#x201C; erwidern wir ihnen,
+&#x201E;&#x201E;das sieht jeder, daß die<lb/>
+Frauen, wie Jhr sie bisher erzogen
+habt, sich zu verschiedenem nicht eignen;<lb/>
+darum gerade verlangen wir ja,
+daß sie von jetzt an besser erzogen werden.<lb/>
+Das Mißtrauensvotum, das Jhr
+selbst Eurer Erziehungsmethode erteilt,<lb/>
+indem Jhr deren Resultate verhöhnt,
+das ist denn doch wahrhaftig keine<lb/>
+besondere Empfehlung für diese Methode,
+das ist im Gegenteil ein ganz<lb/>
+besonderer Grund für die Erzogenen, die <hi rendition="#g">Verbesserung</hi> dieser Methode<lb/>
+auf das dringendste zu
+fordern. Wenn der Erzieher selbst die Resultate<lb/>
+seiner Erziehung einer so
+vernichtenden Kritik unterzieht, so muß doch diese<lb/>
+Kritik eine
+wohlverdiente sein und gebieterisch Abhülfe fordern!&#x201C;&#x201C;</p>
+<lb/>
+<p>Erst die Frau miserabel unterrichten und dann triumphierend sagen:<lb/>
+&#x201E;Nun seht einmal, wie miserabel das alles ist, was sie weiß; verlohnt
+es<lb/>
+sich da vielleicht, sie besser zu unterrichten?&#x201C; Nicht wahr,
+meine Damen,<lb/>
+das dürfen wir, ohne unbescheiden zu sein, wohl sagen:
+&#x201E;Wie dumm wir<lb/>
+auch sein mögen, so dumm wären wir doch nicht, uns so
+zu blamieren!&#x201C;</p>
+<lb/>
+<p>Der Mann ist ein schlechter Erzieher für uns gewesen, aber das<lb/>
+Schlechteste,
+was er gethan hat, ist, daß er für diese <hi rendition="#g">seine</hi> schlechte
+Er­<lb/>
+ziehung <hi rendition="#g">uns</hi> eine schlechte Zensur geschrieben
+hat. Sich selbst hätte er in<lb/>
+das Zeugnis schreiben müssen
+&#x201E;ungenügend, mangelhaft, schlecht,&#x201C; sich selbst,<lb/>
+nicht uns
+und unserer Natur!</p>
+<lb/>
+<pb facs="#f0013" n="11"/>
+<fw type="header" place="top">Gleiche Bildung für Mann und Frau!</fw>
+<lb/>
+<p>Wenn er unsere Natur beurteilt nach dem, was er aus ihr <hi rendition="#g">gemacht</hi><lb/>
+hat, so kommt <supplied cert="high">nur</supplied> das so
+vor, als wenn ein Gärtner sagen wollte: &#x201E;Was,<lb/>
+Sie behaupten, es
+giebt <hi rendition="#g">grüne</hi> Pflanzen?! Erlauben Sie, ich kann Jhnen<lb/>
+beweisen, daß es keine grünen Pflanzen giebt. Sehen Sie dieses Makart­<lb/>
+bouquet! Jst das vielleicht grün? Ueberzeugen Sie sich selbst, es ist<lb/>
+keine
+einzige grüne Pflanze darin. Da haben Sie den Beweis, daß es<lb/>
+keine grünen
+Pflanzen giebt. Und ich, verstehen Sie, muß das wissen, denn<lb/>
+ich habe dies
+Makartbouquet selbst gemacht&#x201C;</p>
+<lb/>
+<p>Das ist doch gewiß: Gärtner, die etwas so dummes sagen könnten,<lb/>
+giebt es
+garnicht; und andere Männer, die etwas ebenso dummes sagen<lb/>
+können, sollte
+es eigentlich auch nicht geben, aber &#x2013; nun, ich will nichts<lb/>
+gesagt
+haben!</p>
+<lb/>
+<p>Will man irgend Jemandes Natur daraufhin beurteilen, ob sie irgend<lb/>
+einer
+anderen Natur inferior sei, so muß man sie, scheint mir, erst kennen<lb/>
+lernen, aber nicht glauben, sie genügend zu kennen, wenn man sie mit der<lb/>
+Kultur dieser Natur verwechselt.</p>
+<lb/>
+<p>Zwei Pflanzen, die man in die Sonne gestellt hat, kann man mit­<lb/>
+einander
+vergleichen. Zwei Pflanzen, die man in den Schatten gestellt hat,<lb/>
+kann man
+auch miteinander vergleichen. Aber zwei Pflanzen, von denen<lb/>
+man die eine in
+die Sonne und die andere in den Schatten gestellt hat,<lb/>
+die kann man <hi rendition="#g">nicht</hi> mit einander vergleichen. Denn wenn eine
+Pflanze,<lb/>
+die man in die Sonne stellte, eine schönere Blüte treibt als eine
+andere,<lb/>
+die im Schatten stand, hat sie dann bewiesen, daß sie eine bessere,
+eine<lb/>
+kräftigere Pflanze ist als diese? Mir scheint, sie hat ganz einfach
+bewiesen,<lb/>
+daß <hi rendition="#g">ihr</hi> die <hi rendition="#g">Sonne</hi>
+besser bekommen ist, als der <hi rendition="#g">andern</hi> Pflanze der<lb/>
+<hi rendition="#g">Schatten</hi>, und daß sie deshalb schöner geblüht hat.</p>
+<lb/>
+<p>Will man zwei Pflanzen wirklich miteinander vergleichen, so muß man<lb/>
+sie ganz
+gleich behandeln: entweder beide in die Sonne oder beide in den<lb/>
+Schatten
+stellen. Wenn sie sich <hi rendition="#g">dann</hi> noch ungleich entwickeln
+sollten, <hi rendition="#g">dann</hi><lb/>
+hätte man ein Recht zu sagen:
+&#x201E;Diese beiden Pflanzen haben sich bei der<lb/>
+gleichen <hi rendition="#g">Kultur</hi> ungleich entwickelt, also haben sie verschiedene
+<hi rendition="#g">Natur</hi>.&#x201C;</p>
+<lb/>
+<p>Will man männliche und weibliche Jntelligenz mit einander vergleichen,<lb/>
+so
+muß man sie unter denselben Bedingungen sich entwickeln lassen, man<lb/>
+muß den
+Naturanlagen der beiden Geschlechter die gleiche Kultur, die<lb/>
+gleiche
+Ausbildung geben. Wenn sie sich <hi rendition="#g">dann</hi> noch ungleich
+entwickeln sollten,<lb/>
+<hi rendition="#g">dann</hi> hätte man ein Recht, zu sagen: &#x201E;Diese beiden
+Jntelligenzen haben<lb/>
+sich bei der gleichen <hi rendition="#g">Kultur</hi>
+ungleich entwickelt, also sind sie von<lb/>
+<hi rendition="#g">Natur</hi> verschieden. &#x201C;</p>
+<lb/>
+<pb facs="#f0014" n="12"/>
+<fw type="header" place="top">Gleiche Bildung für Mann und Frau!</fw>
+<lb/>
+<p>Ein solcher Vergleich könnte nun auf zweierlei Weise gemacht werden.<lb/>
+Entweder nämlich gäbe man den Söhnen dieselbe Ausbi<supplied>ld</supplied>ung,
+welche die<lb/>
+Töchter heute haben, oder man gäbe den Töchtern dieselbe
+Ausbildung,<lb/>
+welche die Söhne heute haben. Auf beiderlei Art wären
+interessante Ver­<lb/>
+gleiche zu ermitteln.</p>
+<lb/>
+<p>Würden die Söhne, nachdem sie die Bildung einer &#x201E;höheren Töchter­<lb/>
+schule&#x201C; genossen, ihre Staatsexamina noch mit derselben Auszeichnung
+be­<lb/>
+stehen wie bisher, so hätten sie damit den Beweis erbracht, daß
+ihre<lb/>
+Jntelligenz der weiblichen entschieden überlegen ist und daß die
+schlechteste<lb/>
+Schulbildung nichts daran zu ändern vermag. Und würden die
+Töchter<lb/>
+nach Absolvierung von Gymnasium und Universität noch ebenso
+schlecht<lb/>
+dispositionierte und mangelhaft interpunktierte deutsche Aufsätze
+schreiben<lb/>
+wie bisher, so hätten <hi rendition="#g">sie</hi> damit den
+Beweis erbracht, daß ihre Jntelligenz<lb/>
+der männlichen entschieden
+untergeordnet ist und daß die beste Schulbildung<lb/>
+nichts daran zu ändern
+vermag. Sollte sich aber das überraschende Resultat<lb/>
+ergeben, daß die höhere
+Töchterschulerziehung der Söhne doch irgend<lb/>
+welchen hemmenden Einfluß auf
+deren Qualifikation zum höheren Staats­<lb/>
+dienst z. B., zum Gelehrtenberuf u.
+s. w. auszuüben vermöchte, sowie<lb/>
+andererseits, daß die Gymnasial- und
+Universitätsbildung der Mädchen die<lb/>
+berüchtigte &#x201E;weibliche
+Logik&#x201C; so ziemlich beseitigen würde &#x2013; so wäre es<lb/>
+meines
+Erachtens für kluge Leute nicht so schwer, hieraus den Schluß zu<lb/>
+ziehen:
+&#x201E;Die verschiedene <hi rendition="#g">Kultur</hi> hat die Schuld, nicht
+die verschiedene<lb/>
+<hi rendition="#g">Natur</hi>. Weil die Töchter von ihrem sechsten bis zu ihrem
+zwanzigsten<lb/>
+Jahre schlechter <hi rendition="#g">unterrichtet</hi> werden
+als die Söhne, darum sind auch ihre<lb/>
+Leistungen schlechtere, darum <hi rendition="#g">müssen</hi> ihre Leistungen schlechtere sein. Jn<lb/>
+der
+Wiege waren unsere Töchter nicht unwissender als unsere Söhne, sie<lb/>
+sind es
+erst jetzt, nachdem sie erzogen worden.&#x201C;</p>
+<lb/>
+<p><supplied>Seh</supplied>en Sie, und da spricht dann der Mann von der <hi rendition="#g">angeborenen</hi><lb/>
+Jnferiorität des weiblichen
+Geschlechts! Für die angeborene <hi rendition="#g">Superiorität<lb/>
+seines</hi>
+Geistes ist das ein schlagender Beweis, nicht wahr?</p>
+<lb/>
+<p>Ob die weibliche Jntelligenz der männlichen inferior ist, das vermöchte<lb/>
+man,
+wie gesagt, doch wohl erst zu konstatieren, nachdem man beide Jn­<lb/>
+telligenzen mit einander vergleichen konnte. Und vergleichen konnte man<lb/>
+sie
+erst, nachdem man beiden die gleiche Entwicklungsmöglichkeit gegeben.<lb/>
+Wo
+und wann hat man in unsern Vaterlande das gethan? Von ganz<lb/>
+vereinzelten
+Ausnahmen abgesehen, nie und nirgends. Also kann auch nie<lb/>
+und nirgends in
+unserem Vaterlande der Beweis erbracht sein von der<lb/>
+angeborenen
+Jnferiorität des weiblichen Geistes.</p>
+<lb/>
+<pb facs="#f0015" n="13"/>
+<fw type="header" place="top">Gleiche Bildung für Mann und Frau!</fw>
+<lb/>
+<p>Die <hi rendition="#g">angeborene</hi> geistige Jnferiorität der Frau aber
+beweisen wollen<lb/>
+uns ihrer <hi rendition="#g">anerzogenen</hi> Jnferiorität,
+die <hi rendition="#g">Natur</hi> des Weibes beurteilen<lb/>
+wollen nach den
+Resultaten der <hi rendition="#g">Kultur</hi>, die man dieser Natur hat an­<lb/>
+gedeihen lassen, das ist &#x2013; verzeihen Sie mir das offene Wort &#x2013;
+das<lb/>
+ist Unsinn!</p>
+<lb/>
+<milestone unit="section" rendition="#hr"/>
+<lb/>
+<p>Nun ist es schon schlimm genug, wenn ein Unsinn nicht allgemein als<lb/>
+ein
+solcher erkannt und gebührend gewürdigt wird, noch viel schlimmer indes<lb/>
+ist
+es, wenn man einen solchen Unsinn zur Basis nimmt für die Behandlung<lb/>
+einer
+ganzen Hälfte der Menschheit, der Frauen. Aber wissen Sie, was<lb/>
+das
+Allerschlimmste ist? Das Allerschlimmste ist, daß es diese ganze Hälfte<lb/>
+der
+Menschheit, die Frauen, gar nicht einmal empört, auf solche unsinnige<lb/>
+Weise
+behandelt zu werden. Das Allerschlimmste ist, daß sie sich gar nicht<lb/>
+bewußt
+sind, wie ihre unwürdige Lage die Folge ihrer Unmündigkeit, wie ihre<lb/>
+Unmündigkeit die Folge ihrer mangelhaft entwickelten Jntelligenz, und wie<lb/>
+ihre mangelhaft entwickelte Jntelligenz die Folge ihrer schlechten Schul­<lb/>
+bildung ist. Das Allerschlimmste ist, daß die Frau darum auch gar nicht<lb/>
+weiß, daß sie dieselbe Schulbildung braucht wie der Mann, wenn sie die­<lb/>
+selbe Jntelligenzentwicklung braucht wie er; daß sie dieselbe
+Jntelligenzent-<lb/>
+wickelung braucht wie der Mann, wenn sie dieselbe
+Mündigkeit braucht wie<lb/>
+er; und daß sie dieselbe Mündigkeit braucht wie der
+Mann, wenn sie die­<lb/>
+<supplied>s</supplied>elben Menschenrechte braucht wie er. Die Frau, welche
+gleiche Menschen­<lb/>
+re<supplied>ch</supplied>te fordert mit dem Manne, muß
+zuvor das erste und wichtigste dieser<lb/>
+Rechte fordern: das Recht auf gleiche
+Bildung mit dem Mann.</p>
+<lb/>
+<p>Dadurch, daß der Mann der Frau dies erste wichtigste Recht entzogen,<lb/>
+dadurch
+hat er ihr auch alle aus diesem ersten Recht resultierenden anderen<lb/>
+Rechte
+entzogen und sie für sich allein reserviert. Und kraft der Macht­<lb/>
+stellung,
+die er durch diese Folgerechte sich erobert hat, verschließt er ihr<lb/>
+immer
+wieder von neuem dieses erste Recht, u. s. w. <hi rendition="#aq">ad
+infinitum</hi>.</p>
+<lb/>
+<p>Man kann sich einen Erzieher denken, der den Erzogenen hart straft<lb/>
+für einen
+Fehler, den der Erzogene begangen hat: man wird einen solchen<lb/>
+Erzieher
+&#x201E;hart&#x201C; nennen. Man kann sich einen Erzieher denken, der den<lb/>
+Erzogenen hart straft für einen Fehler, den er, der Erzieher, begangen hat:<lb/>
+man wird einen solchen Erzieher nicht allein &#x201E;hart&#x201C;, man wird ihn
+auch<lb/>
+&#x201E;ungerecht&#x201C; nennen. Aber kann man sich einen Erzieher
+denken, der so<lb/>
+hart und ungerecht ist, daß er den Erzogenen nicht allein
+wegen seines, des<lb/>
+Erziehers, Fehler bestraft, sondern daß er von dem
+Bestraften auch noch<lb/>
+<pb facs="#f0016" n="14"/>
+<fw type="header" place="top">Gleiche Bildung für Mann und Frau!</fw><lb/>
+ausdrücklich die Versicherung verlangt, daß er ihn nur zu dessen Bestem<lb/>
+hart bestraft und ungerecht behandelt habe? Nein, einen solchen Erzieher<lb/>
+gebe es nicht, meinen Sie? Doch, es giebt ihn, dieser Erzieher ist der<lb/>
+Mann, und diese Erzogene ist die Frau; dieser Mann, der von der Frau<lb/>
+kaltblütig die Versicherung verlangt, &#x201E;er kann nichts dafür, daß er
+mich<lb/>
+schlecht behandelt, das liegt eben in meiner Natur&#x201C;, und diese
+Frau, die<lb/>
+diese Versicherung ebenso kaltblütig zu geben vermag.</p>
+<lb/>
+<p>Und diese Ungerechtigkeit und Härte, die unwissende Kinder zu empören<lb/>
+vermöchte, vermag wissende Erwachsene &#x2013; ganz kühl zu lassen.
+Verehrte<lb/>
+Anwesende! Auf Männer, die sich nicht scheuen, Ungerechtigkeit zu
+üben,<lb/>
+oder auf Frauen, die sich nicht scheuen, Ungerechtigkeit zu dulden
+&#x2013; was<lb/>
+meinen Sie, auf welche von beiden kann eine Nation stolzer
+sein?</p>
+<lb/>
+<p>Sehen Sie, der Mann hat es der Frau unmöglich gemacht, mitzu­<lb/>
+reden, und
+nachdem er das gethan hat, sagt er ihr: &#x201E;weil du Ärmste ja<lb/>
+nicht
+reden <hi rendition="#g">kannst</hi>, darum will ich für dich mitreden. &#x201C;
+Nun, und wie<lb/>
+er da für sie mitgeredet hat, wie ritterlich &#x2013; das
+wissen wir ja, das ist<lb/>
+ja in allen Gesetzesparagraphen niedergeschrieben.
+Und glauben Sie mir,<lb/>
+von vielen dieser Gesetzesparagraphen wissen viele
+Frauen zu erzählen!</p>
+<lb/>
+<p>Wenn nun unter Umständen diese Vormundschaft ihr Amt dazu be­<lb/>
+nutzt, daß sie
+die Bevormundeten, statt sie an Leib und Seele zu schützen,<lb/>
+an Leib und
+Seele &#x2013; ruiniert (ich übertreibe nicht, der materielle und<lb/>
+geistige
+Notstand der Frauen beweist das), so möchte ich mir die Anfrage<lb/>
+erlauben,
+ob man den Mut hat, eine solche Vormundschaft auf die Dauer zu<lb/>
+empfehlen,
+ob man den Mut hat, zu sagen: &#x201E;Es ist nicht nötig, daß die<lb/>
+Frau
+mündig werde, sie hat ja den besten Vormund.&#x201C; Jch glaube, kein<lb/>
+Gerichtshof der Welt würde einem Vormunde, der seine Qualifikation zu<lb/>
+seinem Amte auf solche eigenartige Manier zu erbringen vermöchte, auch<lb/>
+nur
+ein einziges unmündiges Kind anvertrauen. Jch glaube, daß es die<lb/>
+höchste
+Zeit ist, die Frau mündig zu machen, damit sie diesen Vormund ent­<lb/>
+behren
+kann!</p>
+<lb/>
+<p>Ja, ich glaube sogar, daß es in Zukunft einen Gerichtshof geben wird,<lb/>
+der
+strenges Urteil spricht über jeden zum Nachteil des Beschützten ausge­<lb/>
+übten Schutz, über jede unter dem Deckmantel der Nächstenliebe ausgeübte<lb/>
+Teufelei, mit einem Wort: über jedes unter dem Titel des Rechts be­<lb/>
+gangene
+Unrecht. Und die Richter dieses Tribunals werden alle rechtlich<lb/>
+und hoch
+denkenden Männer und Frauen der ganzen Nation sein; dies Tri­<lb/>
+bunal selbst
+aber, das kräftige und unbestechliche, wird heißen: die öffent-<lb/>
+<pb facs="#f0017" n="15"/>
+<fw type="header" place="top">Gleiche Bildung für Mann und Frau!</fw><lb/>
+liche
+Meinung. Das sind nur Zukunftsträumereien allerdings! Aber ent­<lb/>
+wickelt
+sich nicht die Zukunft aus der Gegenwart? Hat nicht eine Gene­<lb/>
+ration die
+Pflicht, für die andere zu arbeiten? Und sollten wir diese<lb/>
+Pflicht nicht
+mit Begeisterung erfüllen, wenn die Generationen, für die<lb/>
+wir arbeiten,
+unsere eigenen Kinder und Kindeskinder sind! Keine echte<lb/>
+deutsche Mutter
+wird sich dieser Pflicht entziehen wollen, denn sie vermöchte<lb/>
+ja ihre
+Teilnahmslosigkeit nicht einmal mit der bekannten Hausfrauenausrede<lb/>
+zu
+entschuldigen: &#x201E;Bedaure sehr, ich habe keine Zeit dazu, ich muß für<lb/>
+meine Kinder sorgen.&#x201C; Denn gerade <hi rendition="#g">weil</hi> sie für
+ihre Kinder sorgen muß,<lb/>
+gerade darum muß sie an deren Zukunft mitbauen
+helfen und nicht jener<lb/>
+guten thörichten Frau ähnlich sein, von der
+Gottfried Keller in seinem<lb/>
+&#x201E;Grünen Heinrich&#x201C; sagt:
+&#x201E;Sie hoffte einen großen Mann aus ihrem Sohn<lb/>
+zu machen, indem sie
+Strümpfe für ihn strickte.&#x201C;</p>
+<lb/>
+<p>Die Zeit ist hin, wo die Frau dem Manne zutrauen und der Mann<lb/>
+sich einbilden
+durfte, das Wohl der Familie allein in der Hand zu haben,<lb/>
+nachdem jeder,
+der sehen will, sich davon hat überzeugen können, daß die<lb/>
+Aufgabe des <hi rendition="#g">ganzen</hi> Menschengeschlechts nicht von der Hälfte
+desselben<lb/>
+gelöst worden ist; und zwar nicht von ihr gelöst worden ist, weil
+sie nicht<lb/>
+von ihr gelöst werden <hi rendition="#g">konnte</hi>.</p>
+<lb/>
+<p>&#x201E;Die Stütze des Staats ist die Familie&#x201C; sagt man, und man sagt es
+mit<lb/>
+Recht. Nun denn, wenn man will, daß dieser Staat gesund sei, dann
+sorge<lb/>
+man doch dafür, daß diese Stütze des Staats gesund werde, daß man
+sie<lb/>
+von der schweren Krankheit befreie, an der noch heute die Gattin,
+die<lb/>
+Mutter, die Tochter, der ganze weibliche Teil der Familie leidet: von
+dem<lb/>
+Anachronismus der Erziehung. Wie kann man nur glauben, eine Nation<lb/>
+in Blüte zu erhalten, wenn man ihre eine ganze Hälfte täglich und stündlich<lb/>
+zum Tode verurteilt; ich meine das an dieser Hälfte, was in einem zivili­<lb/>
+sierten Staate an erster Stelle stehen soll: ihren Geist, ihre Seele! Eine<lb/>
+Nation, welche so wenig Jntelligenz hat, daß sie die Jntelligenz ihrer
+einen<lb/>
+ganzen Hälfte systematisch zu Grunde richtet, beweist damit, daß sie
+noch<lb/>
+lange nicht intelligent genug ist, um die Jntelligenz dieser einen
+ganzen<lb/>
+Hälfte entbehren zu können! So gut <hi rendition="#g">die
+Familie</hi> der Frau bedarf,<lb/>
+so gut bedarf ihrer <hi rendition="#g">der ganze Staat</hi>, diese Gesamtheit der Familien!<lb/>
+&#x201E;Aus der
+Kraft der Familie erwächst die Kraft des Staats,&#x201C; sagt man.<lb/>
+Nun
+wohl, so <hi rendition="#g">muß</hi> der Staat, der sich selber kräftigen will,
+die Familie<lb/>
+kräftigen! Aber man kräftigt die Familie nicht, indem man ihre
+Frauen<lb/>
+zu schwachen unmündigen Kindern erzieht.</p>
+<lb/>
+<p>Wem das noch nie klar geworden, nun, dem wird es wohl überhaupt<lb/>
+<pb facs="#f0018" n="16"/>
+<fw type="header" place="top">Gleiche Bildung für Mann und Frau!</fw><lb/>
+dunkel bleiben. Denen das aber klar geworden ist, denen ist es erschreckend<lb/>
+klar geworden; und schon heute giebt es deren eine große Zahl &#x2013; und diese
+Zahl<lb/>
+wächst von Tag zu Tag und wird zuletzt riesengroß sein &#x2013; die es
+ver­<lb/>
+standen haben, daß es kein Recht für Alle geben kann, wenn das
+Recht<lb/>
+nur auf der einen Seite ist, ja, daß es schlimm aussieht um dieses
+Recht<lb/>
+Aller, wenn die Einen sich das Recht nehmen, den Andern
+vorzuschreiben,<lb/>
+was Recht sein soll. Denn ein solches Recht heißt nicht
+mehr Recht, es<lb/>
+heißt Willkür, Gewalt, Ungerechtigkeit.</p>
+<lb/>
+<p>Und schon heute haben viele verstanden, daß eine Bevormundung, die<lb/>
+dahin
+geführt hat, den Bevormundeten zu degradieren, auch den Bevor-<lb/>
+munder
+degradiert; daß der Schutz, der den Beschützten verunehrt, dem<lb/>
+Beschützer
+nicht zur Ehre gereichen kann; und daß der Grundsatz, nach dem<lb/>
+noch heute
+Tausenden von Frauen zu leben befohlen wird, der Grundsatz<lb/>
+&#x201E;damit
+ich's gut habe, darum sollst du verderben&#x201C; entwürdigend, infamierend<lb/>
+ist für den Befehlenden nicht weniger als für den Gehorchenden! Und sie<lb/>
+haben begriffen, daß es die höchste Zeit ist, ja, daß ihre Ehre es
+gebieterisch<lb/>
+erfordert, den ersten, den entscheidenden Schritt zur
+Beseitigung dieser häß­<lb/>
+lichen Dinge zu thun, tiefer Dinge, deren sie sich
+schämen.</p>
+<lb/>
+<p>Wenn es erst einer großen Zahl von klugen und edlen Frauen ganz<lb/>
+zum
+Bewußtsein gekommen sein wird, wie wenig ruhmvoll es ist, für an­<lb/>
+erzogene
+Fehler, Fehler also, an denen man ganz unschuldig ist, sich noch<lb/>
+schmähen
+und strafen zu lassen, und dann diese Schmähung und diese<lb/>
+Strafe noch als
+eine wohlverdiente öffentlich anzuerkennen &#x2013; so werden<lb/>
+sie dagegen
+protestieren, daß man diese Selbsterniedrigung ihnen noch länger<lb/>
+zumute.
+Und wenn es erst einer großen Zahl von klugen und edlen<lb/>
+<hi rendition="#g">Männern</hi> ganz zum Bewußtsein gekommen sein wird, wie
+unverständig<lb/>
+es ist, die Frauen für Fehler verantwortlich machen zu wollen,
+die ihnen<lb/>
+mit Gewalt eingeimpft wurden; wie ungerecht es ist, ihnen auf
+Grund<lb/>
+dieser Fehler die Möglichkeit zu verschließen, sie abzulegen; und wie
+ver­<lb/>
+ächtlich es ist, sich dieser Heldenthaten noch zu rühmen &#x2013; so
+werden sie<lb/>
+wie <hi rendition="#g">ein</hi> Mann aufstehen und verlangen,
+daß dieses blamable Verfahren<lb/>
+ihnen nicht länger zur Last gelegt werde,
+sondern den unverständigen, den<lb/>
+ungerechten Männern allein. Und dann werden
+wir das haben, was wir<lb/>
+außer einer Emanzipation der <hi rendition="#g">Frau</hi> noch brauchen, soll vieles besser werden:<lb/>
+Die Emanzipation
+des klugen und wohlwollenden Mannes von der Kamerad­<lb/>
+schaft des rohen und
+beschränkten Mannes. Nicht die Frauen allein sind<lb/>
+es, die sich heute
+emanzipieren müssen: jeder anständig und vorurteilslos<lb/>
+denkende Mann ist
+ihr willkommener Partner!</p>
+<lb/>
+<pb facs="#f0019" n="17"/>
+<fw type="header" place="top">Gleiche Bildung für Mann und Frau!</fw>
+<lb/>
+<p>Es giebt nur <hi rendition="#g">eine</hi> Möglichkeit für den Mann, sich die
+Scham darüber<lb/>
+zu ersparen, daß er Ungerechtigkeit ausübt: er muß aufhören,
+sie aus­<lb/>
+zuüben; und es giebt nur <hi rendition="#g">eine</hi> Möglichkeit
+für die <hi rendition="#g">Frau</hi>, sich die Scham<lb/>
+darüber zu ersparen,
+daß sie Ungerechtigkeit erträgt: sie muß aufhören,<lb/>
+sie zu ertragen. Und
+wenn diese Ungerechtigkeit in der ungleichen Bildung <lb/>
+beider Geschlechter
+ihre tiefste Wurzel hat, so muß diese Wurzel mit <hi rendition="#g">allen</hi><lb/>
+Fasern ausgerottet werden, nicht nur mit einigen. Weil wir
+genau dasselbe<lb/>
+Menschenrecht brauchen wie der Mann, nicht nur ein Stück
+davon, darum<lb/>
+brauchen wir genau dieselbe Bildung, wie der Mann, nicht nur
+ein Stück<lb/>
+davon! Und wenn wir diese Bildung ernsthaft und aufrecht
+fordern,<lb/>
+nicht sie erbetteln und erwinseln, so glauben wir, daß dies nach
+dem Ge­<lb/>
+schmack eines jeden ernsten und aufrechten Mannes ist, und daß er
+es ver­<lb/>
+schmähen wird, uns das als eine Gnade zu erweisen, was er als
+unser<lb/>
+vorenthaltenes Recht uns einfach schuldet.</p>
+<lb/>
+<p>Es kann in der Frage der Mündigkeit der Frau nur zwei Parteien<lb/>
+geben, die
+ernst genommen zu werden verdienen: eine, welche diese Mündig-<lb/>
+<choice>
+<sic>kein</sic>
+<corr>keit</corr>
+</choice><hi rendition="#g">entschieden will</hi>, und eine, welche sie <hi rendition="#g">entschieden nicht</hi> will.<lb/>
+Wer die <hi rendition="#g">Folgen</hi> der Unmündigkeit der Frau, diese Folgen, die in der<lb/>
+Bevormundung der Frau, in ihrer Benachteiligung, also in der Ungerechtig­<lb/>
+keit, Willkür, Gewalt bestehen, verwerflich findet, der muß auch diese Un­<lb/>
+mündigkeit verwerfen. Und wer die Unmündigkeit der Frau <hi rendition="#g">gutheißt</hi>,<lb/>
+der muß auch ihre <hi rendition="#g">Folgen</hi>, die
+Bevormundung der Frau, ihre Benach­<lb/>
+teiligung, also Ungerechtigkeit,
+Willkür, Gewalt <hi rendition="#g">gutheißen</hi>. Denn eins<lb/>
+ohne das
+andere existiert nicht. Aber man kann nicht ein Freund des<lb/>
+Rechts sein und
+seine Ursache <hi rendition="#g">verdammen</hi>, und nicht ein Feind der<lb/>
+Gewalt und ihre Ursache <hi rendition="#g">nicht</hi> verdammen. Und wer davon
+überzeugt<lb/>
+ist, daß die <hi rendition="#g">Folge</hi> der Unmündigkeit der
+Frau Zustände sind, die er ver­<lb/>
+dammen und zu beseitigen bestrebt sein muß,
+Zustände der Willkür, der<lb/>
+Gewalt, der <hi rendition="#g">muß</hi> auch die
+<hi rendition="#g">Ursache</hi> dieser Unmündigkeit verdammen und zu<lb/>
+beseitigen bestrebt sein: die ungleiche Bildung von Mann und Weib. Nichts<lb/>
+anderes also ist der Kampf für die Mündigkeit gegen die Unmündigkeit<lb/>
+der
+Frau als der Kampf des Rechts mit der Gewalt.</p>
+<lb/>
+<p>Bis heute hat man der Frau ihr Recht mit Gewalt genommen; heute<lb/>
+beginnt man
+damit, dem Mann seine Gewalt mit Recht zu nehmen. Wer<lb/>
+sich aber sein Recht
+gewaltsam vorenthalten lassen will, und wer seine Ge­<lb/>
+walt widerrechtlich
+behalten will, nun &#x2013; der ist eben ein Feind aller<lb/>
+Kultur und sollte
+als solcher in einem Kulturstaate eigentlich nicht mitzu­<lb/>
+reden haben.</p>
+<lb/>
+<fw type="sig" place="bottom">2</fw>
+<lb/>
+<pb facs="#f0020" n="18"/>
+<fw type="header" place="top">Gleiche Bildung für Mann und Frau!</fw>
+<lb/>
+<p>Gewalt setzen an Stelle von Recht, ziemt sich für den Mann, der<lb/>
+seine größte
+Kraft in seinen Fäusten trägt; aber Recht setzen an Stelle<lb/>
+von Gewalt,
+ziemt sich für jenen, der seine größte Kraft in Hirn und<lb/>
+Herzen weiß.</p>
+<lb/>
+<p>Recht oder Gewalt &#x2013; unsere Nation hat die Wahl!</p>
+<lb/>
+<milestone unit="section" rendition="#hr"/>
+<lb/>
+<p>Gestatten Sie mir, verehrte Anwesende, noch ein kurzes Resum<hi rendition="#aq">é</hi> des<lb/>
+Dargelegten.</p>
+<lb/>
+<p>Die heutige Behandlung der Frau gründet sich auf die Annahme ihrer<lb/>
+angeborenen geistigen Jnferiorität.</p>
+<lb/>
+<p>Diese Jnferiorität ist eine bloße Hypothese.</p>
+<lb/>
+<p>Sie ist eine bloße Hypothese, weil sie noch nicht bewiesen worden ist.<lb/>
+Sie
+ist noch nicht bewiesen worden, weil sie nicht bewiesen werden <hi rendition="#g">konnte</hi>.<lb/>
+Sie konnte nicht bewiesen werden, weil das
+einzige Mittel, sie zu beweisen,<lb/>
+bis heute nicht existiert hat und auch
+heute noch nicht existiert.</p>
+<lb/>
+<p>Denn das einzige Mittel, das es giebt, um die Entwicklungsfähigkeit<lb/>
+weiblicher Jntelligenz mit der Entwicklungsfähigkeit männlicher Jntelligenz<lb/>
+zu vergleichen, besteht in der Untersuchung, wie gleichartig oder wie ver-<lb/>
+schieden beide sich unter den <hi rendition="#g">gleichen</hi> Bedingungen
+entwickeln. Diese<lb/>
+gleichen Bedingungen würden in einer gleichen Kultur der
+Naturanlagen<lb/>
+der beiden Geschlechter gegeben sein: in einer gleichen
+Schulung derselben.<lb/>
+Diese gleiche Schulung existiert bei uns bis heute
+nicht &#x2013; also kann auch<lb/>
+nicht bewiesen sein, was nur durch diese noch
+nicht existierende Schul­<lb/>
+bildung bewiesen werden <hi rendition="#g">kann</hi>: die angeborene Jnferiorität des weiblichen<lb/>
+Geistes.</p>
+<lb/>
+<p>Und auf dieser <hi rendition="#g">bloßen Hypothese</hi> von der angeborenen
+geistigen<lb/>
+Jnferiorität der Frau hat man eine Behandlung der Frau aufgebaut,
+die<lb/>
+man nur auf dem unzweifelhaften, weil erbrachten <hi rendition="#g">Beweise</hi> dieser Jn­<lb/>
+feriorität hätte aufbauen dürfen. Mithin ist
+die heutige Behandlung der<lb/>
+Frau eine ungerechtfertigte, eine willkürliche,
+weil unlogische.</p>
+<lb/>
+<p>Für jeden Menschen, der sich auch nur des primitivsten Gerechtigkeits­<lb/>
+gefühls und der primitivsten Denkfähigkeit erfreut, ergiebt sich hieraus
+die<lb/>
+kategorische Forderung, daß an Stelle der bloßen Hypothese der
+erbrachte<lb/>
+Beweis gesetzt werde; daß man den Frauen gestatte, zu <hi rendition="#g">beweisen</hi>, ob sie<lb/>
+die ihnen heute widerfahrende
+Behandlung verdienen; und daß man diese<lb/>
+Behandlung verurteile, falls sie
+beweisen sollten, daß sie sie nicht verdienen.</p>
+<lb/>
+<p>Wir brauchen für beide Geschlechter die gleiche Schulung, damit die<lb/>
+<pb facs="#f0021" n="19"/>
+<fw type="header" place="top">Gleiche Bildung für Mann und Frau!</fw><lb/>
+Jntelligenzen Beider nicht von anfang an <hi rendition="#g">willkürlich</hi>
+differenziert werden;<lb/>
+damit man diese willkürlich herbeigeführte Differenz
+nicht zum Vorwande<lb/>
+nehme für eine willkürlich differenzierte Behandlung
+beider Geschlechter.<lb/>
+Da wir allen Grund haben, diese Behandlung zu
+bekämpfen, so haben wir<lb/>
+auch allen Grund, deren erste Veranlassung zu
+bekämpfen: die ungleiche<lb/>
+Bildung von Mann und Frau.</p>
+<lb/>
+<p>Weil die Folge ungleicher Bildung von Mann und Weib Ungerechtig­<lb/>
+keit ist,
+und weil die Sanktion der Ungerechtigkeit für die Nation, welche<lb/>
+sie
+erteilt, für diese <hi rendition="#g">ganze</hi> Nation ein Makel ist, &#x2013;
+in den Augen eines<lb/>
+jeden gerecht denkenden und empfindenden Mannes, in den
+Augen einer<lb/>
+jeden gerecht denkenden und empfindenden Frau &#x2013; darum
+fordern wir, daß<lb/>
+die Ursache dieser Folge vernichtet werde: daß ungleiche
+Bildung aufhöre<lb/>
+und gleiche Bildung an ihre Stelle trete. Gleiche Bildung
+für Mann und<lb/>
+Weib im Namen der Gerechtigkeit!</p>
+<lb/>
+<p>Der Urteilsspruch, in dem alles zusammengefaßt ist, was die Frauen­<lb/>
+emanzipation zu bekämpfen hat, der Urteilsspruch, der noch heut' über die<lb/>
+Frau gefällt wird, heißt: &#x201E;Die Frau soll nicht als dem Manne geistig<lb/>
+ebenbürtig behandelt werden, weil sie dem Manne nicht ebenbürtig sein<lb/>
+<hi rendition="#g">kann</hi>&#x201C;. Ob sie es aber nicht sein kann, das hat
+noch Niemand bei uns<lb/>
+untersucht, denn das <hi rendition="#g">konnte</hi>
+bisher noch niemand untersuchen. Also hat<lb/>
+man die Frau zu der ihr heute
+widerfahrenden Behandlung verurteilt auf<lb/>
+Grund eines Beweises &#x2013; der
+gar nicht existiert; d. h. <hi rendition="#g">ohne</hi> Beweise!</p>
+<lb/>
+<p>Meine Damen! Die schlimmsten Verbrecher, Räuber und Mörder,<lb/>
+verurteilt man
+erst, <hi rendition="#g">nachdem</hi> man Beweise gegen sie erbracht hat; <hi rendition="#g">nicht<lb/>
+vorher</hi>!</p>
+<lb/>
+<p>
+<hi rendition="#b">Nun denn, dieses Minimalmaß der Gerechtigkeit: nicht ohne
+Be­<lb/>
+weise verurteilt zu werden, &#x2013; dieses Recht, das man selbst
+den Ver­<lb/>
+brechern vergönnt, das verlangen wir, die Vertreter der
+Frauen-<lb/>
+emanzipation, auch für die Frauen; für die Frauen eines Landes,
+das<lb/>
+ein Rechts- und Kulturstaat ersten Ranges ist, für die Frauen
+unseres<lb/>
+Vaterlandes! <hi rendition="#g">Jst das zu viel
+verlangt</hi>?</hi>
+</p>
+<lb/>
+<figure/>
+<lb/>
+<fw type="sig" place="bottom">2*</fw>
+<lb/>
+</div>
+</body>
+<back>
+<pb facs="#f0022"/>
+<div type="advertisement">
+<p>Jn <hi rendition="#b">sechster</hi> Auflage erschien:</p>
+<lb/>
+<p><hi rendition="#c">Was wird aus unseren Töchtern?<lb/>
+Von<lb/>
+Frau J.
+Kettler.</hi><lb/>
+Preis 50 Pf.<lb/>
+Zu beziehen durch jede
+Buchhandlung.</p>
+<lb/>
+</div>
+</back>
+</text>
+</TEI>

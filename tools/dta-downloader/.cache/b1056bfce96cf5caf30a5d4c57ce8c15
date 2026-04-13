@@ -1,0 +1,987 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.deutschestextarchiv.de/basisformat.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">     <teiHeader>
+<fileDesc>
+<titleStmt>
+<title type="main">Das Pfennig-Magazin für Belehrung und Unterhaltung</title>
+<title type="sub">Dritte Folge, Dritter Jahrgang, Nr. 111</title>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/115266127">
+<surname>Geyken</surname>
+<forename>Alexander</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1222198746">
+<surname>Haaf</surname>
+<forename>Susanne</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1019062681">
+<surname>Jurish</surname>
+<forename>Bryan</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Boenig</surname>
+<forename>Matthias</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Thomas</surname>
+<forename>Christian</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Wiegand</surname>
+<forename>Frank</forename>
+</persName>
+</editor>
+<respStmt>
+<orgName>Institut für Deutsche Sprache, Mannheim</orgName>
+<resp>
+<note type="remarkResponsibility">Bereitstellung der Bilddigitalisate und TEI
+Transkription</note>
+<ref target="http://hdl.handle.net/10932/00-01B8-B0B9-7540-3B01-9"/>
+</resp>
+</respStmt>
+<respStmt>
+<persName>
+<forename>Peter</forename>
+<surname>Fankhauser</surname>
+</persName>
+<resp>
+<note type="remarkResponsibility">
+Transformation von TUSTEP nach TEI P5.
+Transformation von TEI P5 in das DTA TEI P5 Format.
+</note>
+</resp>
+</respStmt>
+<respStmt>
+<orgName ref="https://www.bbaw.de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<resp>
+<note type="remarkResponsibility">Langfristige Bereitstellung der DTA-Ausgabe</note>
+<ref target="https://www.bbaw.de"/>
+</resp>
+</respStmt>
+</titleStmt>
+<editionStmt><edition>Vollständige digitalisierte Ausgabe.</edition></editionStmt>
+<extent>
+<measure type="images">8</measure>
+<measure type="tokens">5669</measure>
+<measure type="types">2406</measure>
+<measure type="characters">38837</measure>
+</extent>
+<publicationStmt>
+<publisher xml:id="DTACorpusPublisher">
+<email>dta@bbaw.de</email>
+<orgName role="project">Deutsches Textarchiv</orgName>
+<orgName role="hostingInstitution" xml:lang="en">Berlin-Brandenburg Academy of Sciences and Humanities (BBAW)</orgName>
+<orgName role="hostingInstitution" xml:lang="de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<address>
+<addrLine>Jägerstr. 22/23, 10117 Berlin</addrLine>
+<country>Germany</country>
+</address>
+</publisher>
+<pubPlace>Berlin</pubPlace>
+<date type="publication">2025-10-24T08:35:16Z</date>
+<availability>
+<licence target="http://creativecommons.org/publicdomain/zero/1.0/">
+<p>Dieses Werk steht unter der "Creative Commons Namensnennung -
+Nicht kommerziell 3.0 Deutschland Lizenz" (CC BY-NC).</p>
+</licence>
+</availability>
+<idno>
+<idno type="URLWeb">https://www.deutschestextarchiv.de/nn_pfennig111_1855</idno>
+<idno type="URLXML">https://www.deutschestextarchiv.de/book/download_xml/nn_pfennig111_1855</idno>
+<idno type="URLHTML">https://www.deutschestextarchiv.de/book/download_html/nn_pfennig111_1855</idno>
+<idno type="URLText">https://www.deutschestextarchiv.de/book/download_text/nn_pfennig111_1855</idno>
+<idno type="DTADirName">nn_pfennig111_1855</idno>
+<idno type="DTAID">34747</idno>
+<idno type="URN">urn:nbn:de:kobv:b4-34747-9</idno>
+</idno>
+</publicationStmt>
+<sourceDesc>
+<bibl type="J">Das Pfennig=Magazin für Belehrung und Unterhaltung. Dritte Folge, Dritter Jahrgang, Nr. 111. Leipzig (Sachsen), 16. Februar 1855.</bibl>
+<biblFull>
+<titleStmt>
+<title level="m" type="main">Das Pfennig-Magazin für Belehrung und Unterhaltung</title>
+<title level="m" type="sub">Dritte Folge, Dritter Jahrgang, Nr. 111</title>
+</titleStmt>
+<editionStmt>
+<edition n="1"/>
+</editionStmt>
+<publicationStmt>
+<publisher/>
+<pubPlace>Leibzig (Sachsen)</pubPlace>
+<date type="publication">1855</date>
+</publicationStmt>
+</biblFull>
+<msDesc>
+<msIdentifier/>
+<physDesc>
+<typeDesc>
+<p>Fraktur</p>
+</typeDesc>
+</physDesc>
+</msDesc>
+</sourceDesc>
+</fileDesc>
+<encodingDesc>
+<editorialDecl>
+<p>
+<![CDATA[
+<p>Siehe Dokumentation</p>
+]]>
+</p>
+</editorialDecl>
+<tagsDecl>
+<rendition scheme="css" xml:id="aq">font-family:sans-serif</rendition>
+<rendition scheme="css" xml:id="b">font-weight:bold</rendition>
+<rendition scheme="css" xml:id="blue">color:blue</rendition>
+<rendition scheme="css" xml:id="c">display:block; text-align:center</rendition>
+<rendition scheme="css" xml:id="et">display:block; margin-left:2em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et2">display:block; margin-left:4em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et3">display:block; margin-left:6em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="f">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="fr">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="g">letter-spacing:0.125em</rendition>
+<rendition scheme="css" xml:id="i">font-style:italic</rendition>
+<rendition scheme="css" xml:id="in">font-size:150%</rendition>
+<rendition scheme="css" xml:id="k">font-variant:small-caps</rendition>
+<rendition scheme="css" xml:id="larger">font-size:larger</rendition>
+<rendition scheme="css" xml:id="red">color:red</rendition>
+<rendition scheme="css" xml:id="right">display:block; text-align:right</rendition>
+<rendition scheme="css" xml:id="s">text-decoration:line-through</rendition>
+<rendition scheme="css" xml:id="smaller">font-size:smaller</rendition>
+<rendition scheme="css" xml:id="sub">vertical-align:sub; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="sup">vertical-align:super; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="u">text-decoration:underline</rendition>
+<rendition scheme="css" xml:id="uu">border-bottom:double 3px #000</rendition>
+</tagsDecl>
+</encodingDesc>
+<profileDesc>
+<langUsage>
+<language ident="deu">(Früh-)Neuhochdeutsch</language>
+<language ident="deu">German</language>
+</langUsage>
+<textClass>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1main">Gebrauchsliteratur</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1sub">Zeitschrift</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">ready</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">mkhz1</classCode>
+</textClass>
+</profileDesc>
+</teiHeader>
+<text>     <front>
+<pb facs="#f0001" n="[49]"/>
+<titlePage type="heading"><docTitle><titlePart type="main"><hi rendition="#c #fr">Das Pfennig=Magazin<lb/>
+für<lb/>
+<hi rendition="#g">Belehrung und Unterhaltung</hi>.</hi></titlePart></docTitle><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<docImprint><hi rendition="#fr">Nr</hi>. 111. ]              <hi rendition="#c">Dritte Folge. Dritter Jahrgang.</hi>              <docDate><hi rendition="#right">[ 15. <hi rendition="#g">Februar</hi> 1855.</hi></docDate>            </docImprint></titlePage><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+</front>     <body>       <div n="1" type="jArticle"><head><hi rendition="#fr">Hector Berlioz.</hi></head><lb/>
+<figure/><lb/>
+<cb type="start"/>
+<p><hi rendition="#in">D</hi>ieser ausgezeichnete französische Musiker, der in sei-<lb/>
+nen großartigen Compositionen namentlich die Jnstru-<lb/>
+mentalmusik auf eine früher nicht dagewesene Höhe<lb/>
+emporgebracht hat, ward am 11. December 1803 zu<lb/>
+La=C<hi rendition="#aq">ô</hi>te=St.=André im Departement Jsère geboren,<lb/>
+wo sein Vater als geschätzter Arzt wirkte. Der junge<lb/>
+Hector war auch zunächst für die medicinische Laufbahn<lb/>
+bestimmt und schlug die dahin abzielende Studienlauf-<lb/>
+bahn ein. Aber in Paris machte sich sein Drang zur<lb/>
+Musik, der schon in dem Knaben sich offenbart hatte,<lb/>
+Luft; er ließ sich nicht abschrecken, daß sein Vater ihm<lb/>
+alle Unterstützung entzog, er half sich als Chorist bei<lb/>
+dem <hi rendition="#aq">Theâtre des nouveautés</hi> fort, bald darauf als<lb/>
+Gesanglehrer und sah sich dann in den Stand gesetzt,<lb/>
+<cb n="2"/>
+seine theoretischen Studien auf dem Conservatorium der<lb/>
+Musik unter Reicha und Lesueur fortzusetzen und zu<lb/>
+vollenden. Symphonien, Ouverturen und Opern mach-<lb/>
+ten seinen Namen bald rühmlich bekannt, obschon er<lb/>
+auch durch das Außergewöhnliche, welches er in seinen<lb/>
+Compositionen anzubringen liebte, Zwiespalt unter die<lb/>
+Kenner der Kunst brachte. Auf einer Kunstreise durch<lb/>
+Belgien und Deutschland machte er auch das Ausland<lb/>
+mit seinen Compositionen bekannt; zu einer allgemei-<lb/>
+nern Verbreitung hat er es aber bisjetzt noch nicht zu<lb/>
+bringen vermocht und die Meinungen der Kunstver-<lb/>
+ständigen über den Werth seiner Leistungen sind noch<lb/>
+immer getheilt.</p></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<pb facs="#f0002" n="50"/>
+<fw place="top" type="pageNum">50</fw>       <cb type="start"/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Anna Zwingli.</hi></head><lb/>
+<p><hi rendition="#in">A</hi>nna, in Zürich einst &#x201E;die apostolische Dorkas&#x201C;<lb/>
+( Rehe, Apostelgesch. 9, 30 ) genannt, war die Tochter<lb/>
+des Junkers Oswald Reinhard, Gastwirths zum Rößli,<lb/>
+und der Elisabetha Wynzürn. Sie wurde einige Jahre<lb/>
+nach Zwingli, um 1487, geboren. Mit seltener weib-<lb/>
+licher Anmuth des Körpers verband sich in ihr eine<lb/>
+große Lebhaftigkeit des Geistes, eine edle, feinfühlende<lb/>
+Seele und ein kindliches Gemüth, das ihr alle Her-<lb/>
+zen gewann. Sie heißt in den alten Familienschriften<lb/>
+ihres Geschlechts &#x201E;ein überaus schön Mentsch&#x201C; und<lb/>
+zog schon dadurch die allgemeine Aufmerksamkeit auf<lb/>
+sich, noch mehr aber wissen die Zeugnisse ihrer Zeit-<lb/>
+genossen von ihrer Frömmigkeit, Sittsamkeit, Treue,<lb/>
+Sanftmuth und Herzlichkeit zu sprechen.</p><lb/>
+<p>Einige Jahre älter war Johannes, einziger Sohn<lb/>
+des altadeligen Gerold Meyer von Knonau, Raths-<lb/>
+herrn von Zürich, und der Anna von Hinweil. Der<lb/>
+gewann die schöne Anna Reinhard lieb &#x2014; aber das<lb/>
+war nicht nach dem Willen des Vaters, der damals<lb/>
+Zeugherr in Zürich und ein sehr geschätzter, ernster<lb/>
+Mann war. Er sandte daher den Sohn zu weiterer<lb/>
+Ausbildung an den Hof seines Vetters, des weithin<lb/>
+herrschenden Bischofs von Konstanz, Hugo von Lan-<lb/>
+denberg. Unterdessen zeigte sich eine Verbindung des<lb/>
+Sohnes mit einer Tochter aus einem angesehenen ade-<lb/>
+ligen Hause im Thurgau möglich und der Vater, nach<lb/>
+alter Sitte über seine Familie unumschränkt verfügend,<lb/>
+rief den Sohn schnell zurück, um ihm seine Willens-<lb/>
+meinung zu eröffnen und die Heirath in Vollzug zu<lb/>
+bringen.</p><lb/>
+<p>Hans aber wurde nach seiner Heimkehr nur noch<lb/>
+mehr zu der kaum zur Jungfrau herangeblühten Anna<lb/>
+Reinhard hingezogen, und da die Jhrigen es nicht mis-<lb/>
+billigten, verlobte er sich eilends mit ihr. Während<lb/>
+der Vater seinen Sohn auf der Brautreise ins Thur-<lb/>
+gau glaubte, ließ sich Hans mit seiner Anna heimlich<lb/>
+in einer Dorfkapelle des Cantons trauen. Der Vater<lb/>
+war von solcher Nachricht wie vom Donner gerührt,<lb/>
+und das Familienbuch schreibt: &#x201E;Da hat man die schon<lb/>
+eingeleitete Heirath, nicht ohne große Verkleinerung,<lb/>
+abschlagen und davon mit Spott abstehen müssen.<lb/>
+Welches dem Vater so mächtig ins Herz gegriffen und<lb/>
+ihn erzürnet hat, daß er den Sohn, sobald er die<lb/>
+Reinhardin hinterrucks und ohne Vorwissen des Vat-<lb/>
+ters und ganzer Früntschaft genommen, niemals mehr<lb/>
+begnadet, und Jst Jnn syn Huß mit wüssen und an<lb/>
+synen Tisch niemals mehr khommen. Es hatt auch<lb/>
+der Vatter die schönsten Kleinoten, die dieß Geschlecht<lb/>
+gehabt, in solchem Unwillen verkauft, vermacht, ver-<lb/>
+schenkt und seinem Tochtermann auch viel angehenkt.<lb/>
+Aber die Reinhardin hatte diesen ihren Ehegemahl und<lb/>
+er sie hinwieder herzlich lieb.&#x201C;</p><lb/>
+<p>Die ersten Jahre waren kinderlos, dann gebar<lb/>
+Anna 1509 den nachher berühmt gewordenen Gerold,<lb/>
+und ihm folgten 1510 und 1512 zwei Mädchen, Mar-<lb/>
+garetha und Agathe, nach. Trotz dem väterlichen Un-<lb/>
+willen erhielt Hans mehre städtische Ehrenstellen.</p><lb/>
+<p>Von seinem Vater getrennt nahm er in fremden<lb/>
+Kriegsdiensten als Schützenfähnrich Theil an dem gro-<lb/>
+ßen Siege der Eidgenossen bei Novara, wo seine<lb/>
+Kriegsgenossen die Nacht darauf ihn &#x201E;unter den Ka-<lb/>
+nonen &#x201C; schlafen sahen. Wenige Jahre nachher begann<lb/>
+seine Gesundheit zu wanken und am 26. November<lb/>
+1516 ließ er die, um der gemeinsamen Uebertretung<lb/>
+des vierten Gebots willen schon viel genug geprüfte<lb/>
+Anna &#x2014; in ihren Armen sterbend &#x2014; als Witwe zu-<lb/>
+<cb n="2"/>
+rück. Sie aber lebte ihren Kindern in Gottesfurcht,<lb/>
+hielt sich eingezogen und still, als eine rechte Witwe,<lb/>
+und so mußte es ihr zuletzt auch wieder wohlgehen.</p><lb/>
+<p>Schon das war ihr ein Glück, daß der alte<lb/>
+Schwiegervater bereits vorher sich ihres Knaben ange-<lb/>
+nommen hatte. Wenige Wochen nämlich, nachdem der<lb/>
+alte eiserne Rathsherr in fortwährendem und von au-<lb/>
+ßen fortgenährtem Grolle 1512 die Herrschaft Knonau<lb/>
+um den Spottpreis von 1650 rheinischen Gulden an<lb/>
+die Regierung verkauft hatte, befand er sich in Ge-<lb/>
+sellschaft anderer angesehener Züricher auf der Gesell-<lb/>
+schaftsstube zur Schnecke, die ans Rathhaus gegen<lb/>
+den Fischmarkt zu angebaut war. &#x201E;Auf diese Zeit&#x201C;<lb/>
+&#x2014; so erzählt die Familienchronik &#x2014; &#x201E;hat des Hansen<lb/>
+Magd den Gerold, der etwan dreijährig gewesen, mit<lb/>
+sich in den Fischmarkt genommen, dahin sie geschickt<lb/>
+worden, Fisch zu kaufen, da hat sie denselben in eine<lb/>
+Fischbränte gesetzt, bis sie den Fischer bezahlt hat. Jn<lb/>
+solchem luget des Kindes Großvatter zum Schnecken<lb/>
+zum Fenster uß, und ersah das Kind in der Bränten<lb/>
+so frisch und fröhlich sitzen, fraget bald, weß doch das<lb/>
+schön lustig Kind wäre, dem bald geantwortet ward,<lb/>
+ob er's nit kenne, es sei synes Sohns, Hansen Meyer.<lb/>
+Wie das der Großvater gehört, befahl er ohne Ver-<lb/>
+zug, man sollte ihm das Kind bringen, nahm dasselbe<lb/>
+in seine Arme, weinet und sagt: wiewohl dein Vater<lb/>
+mich erzürnt, will Jch doch dich dessen nit entgelten<lb/>
+lassen, und will dich an deines Vaters Statt zum<lb/>
+Kind und Erben nehmen. Und ließ es gleich darauf<lb/>
+heim in sein Haus, inn Meyerhof ( in Zürch ) tragen,<lb/>
+und hielt es da als wan es sein eigen Kind wäre, bis<lb/>
+daß er gestorben ( ein Jahr nach dem Sohne Hans ) ,<lb/>
+und folgends hat auch die Regin ( seine zweite Gattin )<lb/>
+das Kind behalten ihr Leben lang.&#x201C;</p><lb/>
+<p>Anna, die natürlich ihr Kind heimholen lassen<lb/>
+konnte, so oft sie wollte, hatte ihre Kinder in der Zucht<lb/>
+und Vermahnung zum Herrn zu erziehen treulich für<lb/>
+ihren Mutter= und Witwenberuf gehalten. Der Knabe<lb/>
+Gerold namentlich sollte die neu aufgerichteten und sich<lb/>
+immer mehr hebenden und mehrenden Unterrichtsan-<lb/>
+stalten seiner Vaterstadt wohl benützen, und als durch<lb/>
+Ulrich Zwingli über Stadt und Land ein neues Leben<lb/>
+sich verbreitete, so waren Mutter und Kinder unter den<lb/>
+Ersten, bei welchen dies bemerkbar wurde.</p><lb/>
+<p>Zwingli, wie Luther Alles von Heranbildung der<lb/>
+Jugend hoffend, suchte jedes Pfund auch in Andern<lb/>
+zu entdecken und zu Wucher zu bringen. Sein Blick<lb/>
+fiel bald auf den durch Fleiß, Anlagen und feine Sitte,<lb/>
+durch einnehmendes Aeußere und ansprechende Gesichts-<lb/>
+züge sich auszeichnenden Gerold, zog ihn hervor, wid-<lb/>
+mete ihm manche Privatstunde und bildete ihn in den<lb/>
+alten Sprachen aus. Schon 1520 hielt er den elfjäh-<lb/>
+rigen Jüngling für reif zur hohen Schule in Basel,<lb/>
+dem damaligen Hauptsitze der schweizerischen Gelehr-<lb/>
+samkeit. Als derselbe im Sommer 1523 zu Baden<lb/>
+im Aargau das Bad gebrauchte, schickte ihm Zwingli<lb/>
+als Badgeschenk einen trefflich geschriebenen lateinischen<lb/>
+Brief, &#x201E;wie man die Jugend in guten Sitten und<lb/>
+christlicher Zucht ziehen und lehren solle&#x201C;, worin er in<lb/>
+drei Abschnitten über Glauben, Wissen und Leben eines<lb/>
+rechten Gottesgelehrten und Christen einen köstlichen<lb/>
+Jugendspiegel aufstellte, der damit schließt, daß &#x201E; voll-<lb/>
+kommen Der sein wird, der sich vorsetzte, einzig Chri-<lb/>
+stum nachzuahmen.&#x201C;</p><lb/>
+<p>Schon mehr als fünf Jahre war Zwingli thätig<lb/>
+in seinem großen Werke. Seit 1523 war auch in der<lb/>
+Schweiz die Priesterehe von der evangelisch erneuerten<lb/>
+Kirche wieder aufgenommen worden. Jm Gegensatze<lb/>
+<cb type="end"/>
+<pb facs="#f0003" n="51"/>
+<fw place="top" type="pageNum">51</fw><cb type="start"/>
+zu den herrschenden Sünden der ehelosen katholischen<lb/>
+Geistlichkeit wurde sogar die Ehelichung von den Pre-<lb/>
+digern des Evangeliums bald gefodert, nachdem das<lb/>
+erste Gemurmel des Volks durchs Evangelium be-<lb/>
+schwichtigt war. So entschloß sich nach andern Vor-<lb/>
+gängen auch Zwingli in seinem 40. Jahre zu dem<lb/>
+ernsten Schritte.</p><lb/>
+<p>Gleich von seinem ersten Auftreten an war Anna<lb/>
+eine seiner aufmerksamsten Zuhörerinnen gewesen, mochte<lb/>
+er in der Stadt predigen, oder im Kloster am Oeten-<lb/>
+bach den Nonnen die Lehre von dem Reiche Gottes<lb/>
+nach der Schrift verkündigen, oder den Stiftsfrauen<lb/>
+am Frauenmünster die Bibel erklären. Jhre Fröm-<lb/>
+migkeit, Bescheidenheit und Muttertreue konnten dem<lb/>
+Seelsorger, in dessen Nähe sie wohnte, nicht verbor-<lb/>
+gen bleiben. Gerold und dessen kindliche Liebe für den<lb/>
+Lehrer und Leiter seines Lernens wurden das Mittel,<lb/>
+den Pflegevater und die sorgsame Mutter noch näher<lb/>
+miteinander zu verbinden. Anna war über die Ju-<lb/>
+gendzeit hinaus, schwere Erfahrungen hatten ihrem<lb/>
+ganzen Wesen und Benehmen einen Ernst aufgedrückt,<lb/>
+aus dem ihre stillen, aber thätigen Tugenden desto<lb/>
+lieblicher hervorleuchteten. Jhr Vermögen bestand aus<lb/>
+nicht mehr denn 400 Gulden. Aus dem ganzen gro-<lb/>
+ßen Nachlasse, der nach des Großvaters und seiner<lb/>
+zweiten Ehefrau Ableben den Kindern zufiel, war ihr<lb/>
+nur ein Leibgeding von 30 Gulden vorbehalten. Sie<lb/>
+konnte, obschon mit dem &#x201E;Weinstocke&#x201C; tiefinnerlich ver-<lb/>
+bunden, der seine Reben nicht welken noch verderben<lb/>
+läßt, doch eine Stütze in ihrer Schwachheit brauchen,<lb/>
+und an wen unter Menschen durfte sie sich getroster<lb/>
+anlehnen als an einen Mann, der wie Zwingli die<lb/>
+tiefe Bedeutung der Ehe aus dem Evangelium erkannt<lb/>
+hatte.</p><lb/>
+<p>Er hatte gesehen, wie Anna in schwieriger Lage,<lb/>
+aller häuslichen Misverhältnisse ungeachtet, als Toch-<lb/>
+ter, Gattin und Mutter sich auszeichnete, daß in ih-<lb/>
+ren Kindern bereits edle Früchte einer echt christlichen<lb/>
+Kinderzucht heranreiften, dazu war sie ganz geeignet<lb/>
+für sein munter ernstes Wesen; er konnte nicht zwei-<lb/>
+feln, durch ihre Ehelichung ein evangelisches Vorbild<lb/>
+weiter für seine Heerde zu geben. Nachdem er die<lb/>
+vom Herrn ihm zugesandte Freundin an der Hand der<lb/>
+Schrift dem ernsten Berufe der Pfarrfrau einige Jahre<lb/>
+hindurch näher zugebildet hatte, ließ er sich Samstags<lb/>
+den 2. April 1524 mit ihr ehelich einsegnen. Bei der<lb/>
+Hochzeit war manch ehrlicher, redlicher Mann. Freunde<lb/>
+wünschten ihm Glück, und namentlich Capito ( Wolf<lb/>
+Köpflin ) , Propst zu St.=Thomas in Strasburg, schrieb<lb/>
+ihm: &#x201E;Herzlich wünsch ich, daß deine Gattin, die treu<lb/>
+bewährte Schwester, in der Erkenntniß täglich wachse.<lb/>
+Sie ist durch die Verbindung mit dir gewissermaßen<lb/>
+mit Christo selbst in eheliches Verlöbniß getreten. Sie<lb/>
+ist eine Mitdienerin des Wortes als Gehülfin eines<lb/>
+solchen Apostels.&#x201C;</p><lb/>
+<p>Es fehlte nicht an hämischen Feinden und Läste-<lb/>
+rern, namentlich hörten Zwingli's Gegner in seinem<lb/>
+Vaterlande Toggenburg nicht auf, ihn beim dortigen<lb/>
+Landrathe zu verunglimpfen, er habe eine reiche Witwe<lb/>
+geheirathet und lebe mit ihr jetzt flott und locker zum<lb/>
+Aergerniß einer ehrbaren Welt. Da rechtfertigte er<lb/>
+sich in einem Schreiben, worin er angibt, seiner lie-<lb/>
+ben Ehefrau baares Vermögen bestehe aus mehr nicht<lb/>
+als 400 Gulden. &#x201E;Mit schönen Kleidern, Ringen<lb/>
+und allerlei Geschmeide ist sie zwar versehen, aber von<lb/>
+dem Tage ihrer Verehelichung an hat sie den Plunder<lb/>
+nicht angerührt, geschweige ihn zur Schau getragen.<lb/>
+Wie sich's für eine ehrbare Altfrau geziemt, ist sie<lb/>
+<cb n="2"/>
+gerade wie unsere Bürgerweiber gekleidet, schlecht und<lb/>
+recht, daß man ihr den vorigen ( adeligen ) Stand nun<lb/>
+gar nicht anmerkt. Das Geld der Kinder berührt die<lb/>
+Gattin nicht, als was sie für den Leib bedarf, und<lb/>
+jährlich 30 Gulden Leibdingzinses. Die Brautgeschenke,<lb/>
+welche ihr gesetzlich gehört hätten, wollte ich nicht ein-<lb/>
+mal rechtlich einfodern. All ihr Vermögen aber sehe<lb/>
+ich an als fremdes, mir anvertrautes Gut.&#x201C; Jn glei-<lb/>
+cher Weise erwiderte er dem konstanzer Vicar Johann<lb/>
+Faber, der sich sogar über Zwingli's Freude an Mu-<lb/>
+sik und Saitenspiel ärgerte. Den Schluß seiner der-<lb/>
+ben Antwort machte er mit dem Worte des alten<lb/>
+Dichters: Er hasse solch gemeines Volk und es soll<lb/>
+ihm von der Schwelle bleiben.</p><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<p>Für den Reformator begann mit seiner Vereheli-<lb/>
+chung ein neues Leben. Er arbeitete noch einmal so<lb/>
+munter und leicht, denn Leid und Freud theilte Anna<lb/>
+mit ihm wie sein zweites Jch. Sie betrachtete sich nur<lb/>
+als Gehülfin ihres Mannes und erleichterte ihm seine<lb/>
+mannichfaltigen Berufspflichten, schriftstellerischen Ar-<lb/>
+beiten, seinen ausgebreiteten Briefwechsel. Jn trüben<lb/>
+Stunden erheiterte sie ihn. Jhr verständiges und un-<lb/>
+befangenes Urtheil diente ihm nicht selten als gewichti-<lb/>
+ger Rath und bei dem allgemeinen Vertrauen, das sie<lb/>
+genoß, und bei dem reichen Schatze ihres für Gott und<lb/>
+den Nächsten schlagenden Herzens befriedete und beru-<lb/>
+higte sie, wenn der Gatte von Geschäften überladen<lb/>
+sich nicht jedem der vielen Besuche unbedingt hingeben<lb/>
+konnte, manches des Trostes und Rathes bedürftige<lb/>
+Gemüth durch die freundliche und herzliche Auskunft,<lb/>
+den ihr theilnehmendes Wort gewährte. Die züricher<lb/>
+Rathsherren, die Prediger und übrigen Gelehrten, die<lb/>
+sich häufig in Zwingli's Hause einfanden, waren alle<lb/>
+voll Achtung für die verständige Hausfrau und für ihr<lb/>
+immer bescheidenes und schüchternes, aber desto richti-<lb/>
+geres Benehmen, das oft durch bloße Fragen manchem<lb/>
+raschen Worte die gefährliche Spitze abbrach. Da war<lb/>
+Anna nicht blos die alle Hausgeschäfte pünktlich be-<lb/>
+sorgende Martha, die selbst vieles Amtliche dem Manne<lb/>
+abzunehmen wußte, sondern die anmuthige Gesellschaf-<lb/>
+terin, welche die Gäste sogar lehrreich unterhielt, bis<lb/>
+der Gatte erschien und das Gespräch fortsetzte, bei dem<lb/>
+er sie gern behielt, wenn sie Zeit hatte. Die neuen<lb/>
+Zeit und Flugblätter und die andern gelehrten Sachen<lb/>
+aus Basel, welche immer frisch von der Presse oder<lb/>
+Messe ankamen, gaben reichen Stoff zur Unterredung.</p><lb/>
+<p>Diese Schriften las Anna aufs begierigste und<lb/>
+theilte sie ihren vertrauten Freundinnen mit. Durch<lb/>
+ihre Besuche bei den Nonnen am Oetenbach und bei<lb/>
+den Stiftsfrauen zu Münster wirkte sie eine schnellere<lb/>
+Bekehrung vom Papstthum zum Evangelium. Nicht<lb/>
+selten war sie Veranlassung zu ihrer Verehelichung mit<lb/>
+wackern Pfarrherren. Denn, sagte sie, &#x201E;Priester und<lb/>
+Nonnen passen wol am besten zusammen und beide<lb/>
+schmachten nach Erlösung aus ihrem bisherigen Klo-<lb/>
+sterhimmel. Sie sind auch nicht verzärtelt, ja gewisser-<lb/>
+maßen der Welt abgestorben und machen nicht viel<lb/>
+Geräusch. Wer sollte besser wissen als sie, was keu-<lb/>
+scher Wandel ist und was der Weiber Zierde sein<lb/>
+soll?&#x201C;</p><lb/>
+<p>Vor allen Schriften aber war für Anna die wich-<lb/>
+tigste die Heilige Schrift. Zwingli las ihr gewöhnlich,<lb/>
+ehe sie sich zur Ruhe legte, die ersten aus der Presse<lb/>
+kommenden Bogen der züricher Bibelübersetzung vor,<lb/>
+welche bei Froschauer vom Herbste 1525 an heraus-<lb/>
+kam und woran er soviel Antheil hatte, daß man sie<lb/>
+<cb type="end"/>
+<pb facs="#f0004" n="52"/>
+<fw place="top" type="pageNum">52</fw><cb type="start"/>
+für ein gemeinschaftliches Werk von ihm und Leo Judä<lb/>
+halten konnte. Jm Jahre 1529 konnte er ihr das<lb/>
+erste vollständige Exemplar der kleinen Handbibel brin-<lb/>
+gen. Diese blieb ihr Lieblingsbuch bis zum Tode und<lb/>
+durch ihre Empfehlung kam sie schnell in die Haus-<lb/>
+haltungen der Bürger. Anna selbst konnte jetzt sich<lb/>
+auch selber in der Schrift erbauen und brauchte nicht<lb/>
+daheim zu kurz zu kommen, während ihr Mann von<lb/>
+den Auswärtigen und von Geschäften ganz in Be-<lb/>
+schlag genommen wurde.</p><lb/>
+<p>Um so fleißiger ging Anna für ihn zu den Kran-<lb/>
+ken, besonders zu den Wöchnerinnen, und brachte<lb/>
+Speise und Trank, Arznei und Kleidung. Die Armen<lb/>
+fanden bei ihr stets Gehör und sie war auch darin<lb/>
+ganz die rechte Hand ihres Eheherrn, der mit stetem<lb/>
+Eifer für Anstalten zu wohlthätigen Zwecken predigte<lb/>
+und wirkte. Durch ihn kam es dazu, daß die Ein-<lb/>
+künfte der reichen Frauenmünsterabtei zu solchen Zwecken<lb/>
+bestimmt und ein Almosenamt für den Canton an-<lb/>
+geordnet wurde, in welches bald bedeutende Vermächt-<lb/>
+<cb n="2"/>
+nisse flossen; daß das Augustinerkloster sich in eine<lb/>
+Küche für Arme umgestaltete; daß aus dem Barfüßer-<lb/>
+gebäude ein Speicher des Almosens, aus den Klöstern<lb/>
+am Oetenbach und Selnau ein Hospital für Kranke<lb/>
+und eine Herberge für Fremde, später ein Waisenhaus<lb/>
+wurde.</p><lb/>
+<p>Ebenso freundlich und zuvorkommend wie gegen die<lb/>
+Armen war Anna gegen Fremde, besonders solche,<lb/>
+welche anderwärts vertrieben in Zürich Schutz und Un-<lb/>
+terkommen suchten. Jhr Haus war selten von Frem-<lb/>
+den leer und Alle bewunderten, wie ihr heiteres Ge-<lb/>
+müth und ihre Selbstverleugnung unerschöpflich an<lb/>
+Mitteln war, die Gäste zu erfreuen und zu erheitern.<lb/>
+Man hieß sie ebendaher nur die apostolische Rehe; sie<lb/>
+war zu einer Pflege= und Herbergsmutter wie ge-<lb/>
+schaffen. Bis Zwingli den Vertriebenen in Zürich<lb/>
+Brot und Anstellung verschafft hatte, sorgte sie gewöhn-<lb/>
+lich für einstweilige Nahrung und Kleidung, theils aus<lb/>
+eigenen Mitteln, theils durch Fürsprache bei Andern.</p><lb/>
+<p>( Beschluß folgt. )</p></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1"><figure><head><hi rendition="#fr">Der Kreml in Moskau.</hi></head><lb/>
+<p>Vergleiche Pfennig=Magazin, Jahrgang 1834, Nr. 63; Jahrgang 1836, Nr. 169.</p></figure></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<pb facs="#f0005" n="53"/>
+<fw place="top" type="pageNum">53</fw><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Die Petersinsel.</hi></head><lb/>
+<figure/><lb/>
+<cb type="start"/>
+<p><hi rendition="#in">S</hi>ie liegt in dem Bielersee, der mit seinen Jnseln<lb/>
+und wallenden Rohrdickichten, mit seinen Gestaden, die<lb/>
+abwechselnd als waldgekrönte Felsen und als sanft an-<lb/>
+schwellende Matten erscheinen, einen der herrlichsten<lb/>
+Seen der Schweiz bildet.</p><lb/>
+<p>Die Petersinsel selbst hat nur eine Viertelstunde<lb/>
+im Umfang, ist aber mit allen den mannichfaltigen<lb/>
+Reizen ausgestattet, welche eine Landschaft schön und<lb/>
+lieblich machen. Sie war einmal Rousseau's Zufluchts-<lb/>
+stätte und er selbst nannte die wenigen Monate, die er<lb/>
+<cb n="2"/>
+hier verlebte, die friedevollste Zeit seines Lebens. Die<lb/>
+berner Regierung vertrieb ihn aus diesem Asyle; aber<lb/>
+sein Schatten, die Erinnerung an ihn redet zu dem<lb/>
+Besucher aus jeder Wiesenstelle, aus jedem Garten-<lb/>
+beet, aus jeder stillen Uferbucht, aus dem Säuseln der<lb/>
+Blätter und aus dem Leuchten des Abendroths, das<lb/>
+im Scheiden die Wipfel der hohen Kastanienbäume<lb/>
+vergoldet. Sein Denkmal ist das ganze schöne Eiland,<lb/>
+nicht blos Haus und Zimmer, in welchem er einst<lb/>
+wohnte und die man den Fremden jetzt noch zeigt.</p></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Der Tokayer=Wein.</hi></head><lb/>
+<cb type="start"/>
+<p><hi rendition="#in">G</hi>enauere Auskunft über diesen <hi rendition="#g">König der Weine</hi><lb/>
+dürfte nicht Wenigen willkommen sein.</p><lb/>
+<p>Es hat sich im Auslande vielfach die Meinung ver-<lb/>
+breitet, daß der eigentliche und echte Tokayer=Wein auf<lb/>
+einem Berge bei Tokay ( oder Tokaj ) wachse, und da die-<lb/>
+ser Berg dem Kaiser von Oestreich gehöre, so käme der<lb/>
+beste Tokayer in die kaiserlichen Keller und würde später<lb/>
+zu Geschenken an hohe Herrschaften verwendet und es<lb/>
+könne daher echter Tokayer=Wein in den Handel gar<lb/>
+nicht kommen. Aber der Tokayerberg gehört keines-<lb/>
+wegs dem Kaiser, sondern er ist in viele hundert Par-<lb/>
+zellen vertheilt, Eigenthum der Bewohner der Stadt,<lb/>
+und diese können ihren darauf geernteten Wein an<lb/>
+Jedermann verkaufen, der ihn nur bezahlen will. Aber<lb/>
+auch die Meinung, daß bei Tokay und auf dem Berge<lb/>
+Mezés mále ( Honigkuchen ) daselbst der beste Wein er-<lb/>
+zeugt werde, ist ebenfalls unrichtig. Der Name To-<lb/>
+kayer=Wein kommt zwar allerdings von der Stadt<lb/>
+Tokay her, weil sie die größte Stadt jener Gegend ist,<lb/>
+wo der herrlichste ungarische Wein erzeugt wird, aber<lb/>
+gerade auf dem Tokayerberge wird in den meisten Jah-<lb/>
+<cb n="2"/>
+ren nur ein untergeordneter Wein gewonnen. Das<lb/>
+Tokayer Weingebirge, in Ungarn unter dem Namen<lb/>
+Hegyalja ( spr. Hedjalja ) bekannt, liegt im Zempliner<lb/>
+Comitate über dem 48. Grade nördlicher Breite, also<lb/>
+auf einer Linie, wo die Weincultur in andern Ländern<lb/>
+nur einen säuerlichen Wein erzeugt, der mit diesem sü-<lb/>
+ßen trinkbaren Golde gar nicht im entferntesten ver-<lb/>
+glichen werden kann. Nur noch wenige Grade nörd-<lb/>
+licher hört die Weincultur gänzlich auf. Aber die<lb/>
+Hegyalja ( Untergebirge ) , von den Magyaren in Bezug<lb/>
+auf das nördlich von demselben gelegene Karpatenge-<lb/>
+birge so genannt, hat von dem Marktflecken Szanto<lb/>
+bis Tokay eine Breite von vier und von Tokay bis Kis<lb/>
+Toronya eine Länge von sechs geographischen Meilen,<lb/>
+welche ein Dreieck von 14 Quadratmeilen bilden. Jn<lb/>
+diesem Dreieck liegen 21 Ortschaften. Der größte<lb/>
+Theil derselben baut Weine, welche im Auslande un-<lb/>
+ter dem Namen Tokayer bekannt sind oder mit dem<lb/>
+noch allgemeinern in ihren gewöhnlichern Sorten &#x201E; Ober-<lb/>
+ungar &#x201C; bezeichnet werden.</p><lb/>
+<p>Der auf dem Tokayerberge erzeugte Wein gehört<lb/>
+<cb type="end"/>
+<pb facs="#f0006" n="54"/>
+<fw place="top" type="pageNum">54</fw><cb type="start"/>
+wie schon erwähnt nicht zu den edelsten Erzeugnissen,<lb/>
+sondern mehre Weine der andern Ortschaften, als der<lb/>
+Máder, der Kereszturer, Tályaer u. s. w. laufen ihm<lb/>
+den Rang ab.</p><lb/>
+<p>Wenn auch die Weinlese für die Bewohner der<lb/>
+Weinländer etwas sehr Gewöhnliches und im Allge-<lb/>
+meinen etwas Bekanntes ist, so ist doch die Gewin-<lb/>
+nung des Weins im Tokayer Weingebirge mit einem<lb/>
+eigenthümlichen von allen übrigen Weinländern abwei-<lb/>
+chenden Verfahren begleitet. Wenn die Zeit der Wein-<lb/>
+lese in der Hegyalja herangekommen ist, so strömen<lb/>
+die Menschen aus den nördlichern Gegenden Ungarns<lb/>
+sowie aus dem benachbarten Galizien scharenweise her-<lb/>
+bei, um hier während der Lesezeit Beschäftigung zu<lb/>
+finden, nachdem die Arbeit in den Getreidegegenden<lb/>
+bereits vollendet ist. Letzteres ist schon deshalb der Fall,<lb/>
+weil in Ungarn das Getreide nicht den Herbst und den<lb/>
+Winter hindurch in den Scheunen ausgedroschen, son-<lb/>
+dern auf weit kürzerm Proceß bald nach der Ernte<lb/>
+auf den frei liegenden Tennen durch Pferde ausgetrie-<lb/>
+ben wird, ein Verfahren, wobei allerdings viel Ge-<lb/>
+treide verloren geht, aber wodurch die in jenen Ge-<lb/>
+genden verhältnißmäßig theuern Arbeitskräfte wieder<lb/>
+erspart werden. Wie überall, so ist auch in der<lb/>
+Hegyalja das weibliche Geschlecht sehr zahlreich während<lb/>
+der Weinlese vertreten, und die Leserinnen sind dort<lb/>
+in dem bunten Gemisch der verschiedenen in jener Ge-<lb/>
+gend lebenden Nationalitäten vertreten. Das sonst so<lb/>
+stille Leben in der Hegyalja ist nun um diese Zeit<lb/>
+sehr lebhaft. Alle größern Weinbergbesitzer, welche<lb/>
+das Jahr über in Wien, Pesth oder Presburg woh-<lb/>
+nen, kommen zur Zeit der Lese mit ihren Familien<lb/>
+und mit Gästen in ihre Weinberge, wo sie zum Theil<lb/>
+sehr ansehnliche Schlösser besitzen. Auch viele fremde<lb/>
+Käufer finden sich ein und so entsteht eine Weinlese-<lb/>
+Saison, bei welcher auch Bälle und Spielbanken nicht<lb/>
+fehlen. Auch der gemeine Tagarbeiter, obgleich er nur<lb/>
+Speck, Brot und Wein zu verzehren hat, lebt in die-<lb/>
+ser Zeit vergnügt und wird von seiner Herrschaft selbst<lb/>
+dazu ermuntert, damit er mehr Lust zur Arbeit be-<lb/>
+komme. Gesänge und Tänze sind daher vor und nach<lb/>
+der Arbeit an der Ordnung, und besonders die Zigeu-<lb/>
+ner sind es, welche bei solchen Gelegenheiten die be-<lb/>
+liebtesten Nationalweisen aufspielen, wobei sonst wenig-<lb/>
+stens bei den Magyaren der Rákóczymarsch nie fehlen<lb/>
+durfte. Die Weinlese beginnt in der Hegyalja erst<lb/>
+Ende October und ist eigentlich Anfangs November<lb/>
+allgemein. Es ist dies in Anbetracht anderer Wein-<lb/>
+länder ein sehr später Termin der Weinlese, und doch<lb/>
+lassen viele Besitzer viel später, ja oft bis Mitte De-<lb/>
+cember lesen, wenn dieselben nicht etwa von dem früh<lb/>
+eintretenden Froste gezwungen werden, dies eher zu<lb/>
+thun. Der Grund hiervon ist, um wo möglich viel<lb/>
+Trockenbeeren zu gewinnen. Es ist aber die Trocken-<lb/>
+beere ein Product, welches nur den Tokayertrauben<lb/>
+eigenthümlich ist, und diese Eigenthümlichkeit ist die<lb/>
+Ursache, daß die Bearbeitung der Trauben in der Lese<lb/>
+und die Gewinnung des Tokayer=Weins sich so sehr<lb/>
+von dem in andern Weinländern üblichen Verfahren<lb/>
+unterscheidet. Die Entstehung der Trockenbeeren aber<lb/>
+ist folgende:</p><lb/>
+<p>Das Klima des Tokayer=Gebirgs ist, wie dies aus<lb/>
+seiner erwähnten nördlichen Lage und noch dazu im<lb/>
+Osten Europas hervorgeht, nur ein gemäßigtes und es<lb/>
+reift deshalb dort der Wein langsamer als im südli-<lb/>
+chern Ungarn und in den meisten andern Weinlän-<lb/>
+dern, der Boden aber ist warm, denn nur äußerst sel-<lb/>
+ten bleibt der Schnee auf den Weinbergen liegen, wäh-<lb/>
+<cb n="2"/>
+rend er in der Ebene häufig zu finden ist; es ist dies<lb/>
+leicht erklärlich, wenn man bedenkt, daß der Boden<lb/>
+vulkanischen Ursprungs ist, in dem sich viel Gerölle<lb/>
+von Bimsstein und Kreide vorfindet. Die Nähe der<lb/>
+kaum 15 Meilen entfernten Karpaten und überhaupt<lb/>
+die hohe Lage der Hegyalja bringt es mit sich, daß<lb/>
+das Ende des September und der Monat October beson-<lb/>
+ders die Nächte hindurch und am Morgen schon ziem-<lb/>
+lich kalt sind. Diese Temperatur verursacht ein allmä-<lb/>
+liges Stocken der Säfte im Weinstocke, während die<lb/>
+heiße Sonne am Tage die Trauben wieder kocht. Die<lb/>
+Trauben erhalten nun wenig Nahrung mehr, die<lb/>
+Stengel fangen an nach und nach zu vertrocknen und<lb/>
+zwar in zunehmendem Grade, je mehr und je früher<lb/>
+die nächtlichen Reifen eintreten, welche zur Erzeugung<lb/>
+der Trockenbeeren unumgänglich nothwendig sind. Die<lb/>
+Hülsen oder, wie man sie dort nennt, die Bälge der<lb/>
+Beeren springen endlich auf und um so leichter ver-<lb/>
+dünsten dann die wässerigen Theile ihres Jnhalts, mit<lb/>
+der Verminderung des Wassergehalts verdicken sich die<lb/>
+edlern Theile des Gehalts der Beere und der Zucker-<lb/>
+stoff, durch dessen künftige Zersetzung der Alkoholge-<lb/>
+halt und folglich die Stärke und der Adel des Weins<lb/>
+bedingt wird, concentrirt sich immer mehr und mehr.<lb/>
+Mit dem Entweichen der wässerigen Theile verliert na-<lb/>
+türlich die Beere auch einen Theil ihres Umfangs und<lb/>
+es schrumpft daher die nunmehr zu große Hülse immer<lb/>
+mehr zusammen und bekommt endlich das Ansehen gro-<lb/>
+ßer spanischer Rosinen. Es ist also das Ganze hier<lb/>
+ein Werk der großen Chemikerin Natur, welche bei<lb/>
+der eigenthümlichen Beschaffenheit der Lage und des<lb/>
+Klimas ein Product schafft, das man in andern Wein-<lb/>
+ländern durch Kunst vergeblich zu erreichen gesucht hat,<lb/>
+z. B. am Rhein, wo man bei der Erzeugung des<lb/>
+Strohweins die reifen Trauben auf Stroh trocknet,<lb/>
+oder in Spanien, wo ein Theil des Mostes zu Syrup<lb/>
+eingesotten und dann dem übrigen gepreßten Weine zu-<lb/>
+gesetzt wird. Aber alle diese Künsteleien entfernen die<lb/>
+der Traube in einem gewissen Grade eigenthümliche<lb/>
+Säure nicht gänzlich. Da nun aber nie die ganze<lb/>
+Traube zu solchen Trockenbeeren einschrumpft, sondern<lb/>
+nach der Vorzüglichkeit des Jahrgangs nur mehr oder<lb/>
+weniger einzelne Beeren, so werden diese, ehe die<lb/>
+Traube gekeltert wird, herausgepflückt und in großen<lb/>
+Bottichen besonders aufbewahrt. Von diesem Heraus-<lb/>
+pflücken der Trockenbeeren aus der Traube, welches<lb/>
+man auch Ausbrechen nennt, erhält künftig der Wein<lb/>
+der Trockenbeere den Namen <hi rendition="#g">Ausbruch.</hi> </p><lb/>
+<p>Wenn nun die in der erwähnten Weise gesammel-<lb/>
+ten Trockenbeeren sofort der Presse übergeben würden,<lb/>
+so würde man wenig oder gar keinen Saft erhalten;<lb/>
+man hat daher ein Mittel ersonnen, sie in einen Brei<lb/>
+zu verwandeln, und dies geschieht durch das Treten<lb/>
+mit den bloßen Füßen, und so viele Versuche schon<lb/>
+gemacht worden sind, diese Arbeit durch Maschinen<lb/>
+verrichten zu lassen, so sind doch alle diese Versuche<lb/>
+bisjetzt gescheitert; nur der menschliche Fuß kann diese<lb/>
+Masse so verarbeiten, daß man fast gar keine Hülse<lb/>
+mehr in dem Brei vorfindet. So wenig appetitlich<lb/>
+nun auch diese Arbeit, welche durch Tagarbeiter ver-<lb/>
+richtet wird, anzuschauen ist, so kann man sich mit<lb/>
+der Ueberzeugung trösten, daß die später eintretende<lb/>
+Gährung jeden etwa hinzugekommenen fremden Stoff<lb/>
+entfernt. Durch Zusatz dieser Trockenbeermasse zu dem<lb/>
+übrigen von den gewöhnlichen Trauben gewonnenen<lb/>
+Wein, welcher wie in allen andern Weinländern ge-<lb/>
+preßt wird, entstehen nun die verschiedenen Sorten des<lb/>
+Tokayer=Weins, welche Ordinari ( ordinärer Wein ) ,<lb/>
+<cb type="end"/>
+<pb facs="#f0007" n="55"/>
+<fw place="top" type="pageNum">55</fw><cb type="start"/>
+Samorodne ( natürlicher ) , Máschlásch und Ausbruch ge-<lb/>
+nannt werden. Letzterm wird am meisten von der<lb/>
+Trockenbeermasse zugegeben und schon wenige Stunden<lb/>
+nach dieser Procedur beginnt sich die Masse zu heben;<lb/>
+sämmtliche Körner und Hülsen steigen empor und bil-<lb/>
+den eine 6&#x2014;12 Zoll starke Rinde, über welcher ein<lb/>
+darüber gehaltenes Licht sofort erlischt. Je wärmer<lb/>
+die Atmosphäre ist, desto früher erfolgt dieses sogenannte<lb/>
+Aufwerfen, und je mehr Trockenbeermasse dem Weine<lb/>
+zugesetzt wird, desto mehr Zeit braucht er, um sie zu<lb/>
+verarbeiten. Jst diese erste brausende stürmische Gäh-<lb/>
+rung des Weins vorüber, so wird die ganze Masse<lb/>
+noch einmal mit Stangen untereinandergerührt und<lb/>
+durch Säcke gedrückt, und der in den Tretsäcken zu-<lb/>
+rückbleibende Rest wird mit der Presse ausgepreßt.<lb/>
+Nun wird der durch dieses Verfahren gewonnene Wein<lb/>
+in Fässer gefüllt, und zwar in Kufen, welche zwei<lb/>
+Eimer enthalten, oder in Antheile, welche einen Eimer<lb/>
+enthalten; gewöhnlich aber werden nur die feinsten To-<lb/>
+kayer=Weine auf Antheile gefüllt, während alle übri-<lb/>
+gen Tokayer= oder oberungarischen Hegyalja=Weine in<lb/>
+zweieimerigen Kufen auch ins Ausland verfahren werden.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Englische Verhandlung.</hi></head><lb/>
+<p><hi rendition="#in">E</hi>ine preußische Dampfschiffahrtsgesellschaft hatte sich<lb/>
+bei Vernon in Liverpool ein Postdampfschiff, &#x201E;Der<lb/>
+preußische Adler&#x201C; ( <hi rendition="#aq">Prussian eagle</hi> ) , bauen lassen. Man<lb/>
+machte mit ihm von Stettin nach Kopenhagen eine<lb/>
+Probefahrt, nahm ihn aber nach dem Ausfall dersel-<lb/>
+ben nicht an, weil er nicht contractmäßig gebaut sei.<lb/>
+Man machte die Ausstellungen, das Schiff gehe zu tief,<lb/>
+<cb n="2"/>
+Räder und Radkasten seien zu tief angebracht, die<lb/>
+Schlafstellen am Bord seien zu beschränkt und zu klein<lb/>
+und dergleichen mehr. Der Erbauer des Schiffs solle,<lb/>
+verlangte man, den erhaltenen Vorschuß von 142,000<lb/>
+Thalern zurückzahlen und man machte sich auf lange<lb/>
+verdrießliche Verhandlungen gefaßt. Ein Termin ward<lb/>
+festgesetzt mit dem Verhandlungsorte Berlin; eine Com-<lb/>
+mission daselbst war beauftragt, die Gründe für die<lb/>
+Nichtannahme dem dazu abgesandten Engländer auch<lb/>
+noch mündlich darzulegen. Er erscheint, grüßt die ver-<lb/>
+sammelten Herren, übergibt ohne weiteres Wechsel im<lb/>
+Betrage jener Summe und empfiehlt sich mit einem<lb/>
+trockenen: &#x201E; <hi rendition="#aq">Good morning, Gentlemen</hi>!&#x201C;</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Das russische Einerlei.</hi></head><lb/>
+<p><hi rendition="#in">J</hi>n Groß=Rußland gibt es nur <hi rendition="#g">eine</hi> Sprache ohne<lb/>
+örtliche Varietät, ohne Unterschied zwischen Reichen und<lb/>
+Armen, keine oder wenig Abwechselung in der Cultur<lb/>
+des Bodens, in dem Bau der Häuser, zwischen Dorf<lb/>
+und Stadt, selbst eine merkwürdige Aehnlichkeit der<lb/>
+Trachten und ein beinahe völliges Einerlei der Schä-<lb/>
+delbildungen. Diese physische und intellectuelle Einför-<lb/>
+migkeit ist vielleicht die Ursache des bei den Russen so<lb/>
+stark ausgeprägten Associationstriebs. Jhr entspringt<lb/>
+auch das starke Einheitsgefühl der Nation und die pa-<lb/>
+triarchalische Gliederung innerhalb der Familien und<lb/>
+Gemeinden und zuletzt innerhalb des unumschränkt be-<lb/>
+herrschten Staats; darin liegt auch das Geheimniß der<lb/>
+großen politischen Macht Rußlands, um derenwillen<lb/>
+es besonders zu fürchten ist.</p></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Das Seepferd.</hi></head><lb/>
+<figure/><lb/>
+<cb type="start"/>
+<p><hi rendition="#in">D</hi>as Seepferd, ein höchstens einen Fuß langer und<lb/>
+einen Zoll dicker Fisch, der sehr zahlreich in den mei-<lb/>
+sten Meeren vorkommt, hat seinen Namen von der<lb/>
+Aehnlichkeit erhalten, welchen die Vorderhälfte seines<lb/>
+Körpers, nachdem das Thier getödtet worden, im Klei-<lb/>
+nen mit einem Pferdekopfe hat. Unsere Abbildung ist<lb/>
+darum auch die eines todten Seepferdes, denn leben-<lb/>
+dig ist diese Aehnlichkeit nicht vorhanden, indem der<lb/>
+auf dem Bilde herabgebogene, schnabelförmig verlän-<lb/>
+<cb n="2"/>
+gerte Kopf dann geradeaus steht. Der Körper des<lb/>
+Seepferdes ist siebenseitig und anstatt in Schuppen, in<lb/>
+harte Ringe gekleidet, die an den Kanten mit hervor-<lb/>
+stehenden Spitzen und fleischigen Fädchen versehen sind.<lb/>
+Seine Farbe ist sehr verschieden, bald blaugrau, bald<lb/>
+braun und grünlich, manchmal zieren es auch silber-<lb/>
+glänzende Punkte; allerlei kleine Wasserthiere dienen<lb/>
+ihm zur Nahrung.</p></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<pb facs="#f0008" n="56"/>
+<fw place="top" type="pageNum">56</fw><lb/>
+<div n="1" type="jVarious"><head><hi rendition="#fr"><hi rendition="#g">Mannichfaltiges</hi>.</hi></head>       <cb type="start"/>
+<div n="2" type="jArticle"><p>Wohlberechnet. Nach einer Misernte, als die Ge-<lb/>
+treidepreise bereits zu bedenklicher Höhe gestiegen waren und<lb/>
+Vieler Herzen in Sorgen um die Zukunft erbangten, hielt<lb/>
+ein Dorfpfarrer die Erntepredigt, gedachte jener Besorgnisse<lb/>
+und der Klagen der Armen und sagte dann in freudig erho-<lb/>
+benem Tone: Doch, doch... Dies war das verabredete<lb/>
+Stichwort mit dem Schullehrer und dieser stimmte mit seiner<lb/>
+kräftigen, schönen Stimme den bekannten Vers an:</p><lb/>
+<lg>           <l>Was unser Gott erschaffen hat,</l><lb/>
+<l>Das will er auch erhalten.</l></lg><lb/>
+<p>Die Gemeinde stimmte fröhlich ein und der Eindruck war<lb/>
+ein gewaltiger; noch nach Jahren sprach man von der allge-<lb/>
+meinen Rührung, welche die ganze Gemeinde ergriffen hatte.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>&#x201E; <hi rendition="#aq">Si tschas</hi> &#x201C; ist ein Ausdruck in Rußland, den man in<lb/>
+den ersten Tagen seines Aufenthalts daselbst kennenlernt<lb/>
+und unendlich oft, aus dem Munde Aller, an die man irgend<lb/>
+ein Verlangen stellt, hört. Er bedeutet &#x201E;sogleich!&#x201C; Aber<lb/>
+man sollte glauben, er bedeute gerade das Gegentheil, denn<lb/>
+die Leute sind in allen ihren Verrichtungen sehr saumselig.<lb/>
+&#x201E;Oft &#x2014; so erzählt ein Reisender &#x2014; wenn ich des Wartens<lb/>
+überdrüssig war, wiederholte ich die Worte: &#x201E; <hi rendition="#aq">Si tschas</hi>!&#x201C;<lb/>
+um mein Misbehagen auszudrücken; wenn ich um etwas an-<lb/>
+gesprochen wurde, verweigerte ich es mit demselben &#x201E; <hi rendition="#aq">Si<lb/>
+tschas</hi>!&#x201C; Sie lächelten dann, wenn sie merkten, daß ich<lb/>
+hinter ihre tiefeingewurzelte Gewohnheit, Alles auf den mor-<lb/>
+genden Tag zu verschieben, gekommen war, eine Gewohn-<lb/>
+heit, die ganz besonders den Orientalen eigen ist, sich aber<lb/>
+auch unter den Bewohnern des nördlichen Europa verbreitet<lb/>
+zu haben scheint.&#x201C;</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Freie Uebersetzungen aus dem Deutschen ins<lb/>
+Deutsche gibt uns das Leben nicht selten auf. Sagt ein nei-<lb/>
+discher Selbstling heuchlerisch zu uns: &#x201E;Jch freue mich herz-<lb/>
+lich über Jhr Glück!&#x201C; so übersetze: &#x201E;Jch wollte, dich holte<lb/>
+Dieser und Jener!&#x201C; Hörst du dagegen einen ehrlichen Kerl<lb/>
+in einer mislichen Lage alle Teufel zusammenfluchen und ein<lb/>
+Pelotonfeuer mit Donnerwettern eröffnen, so denke getrost,<lb/>
+das heiße! &#x201E;Lieber Vater im Himmel! Schicke mir doch eine<lb/>
+Legion Engel zu Hülfe!&#x201C;</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p><hi rendition="#aq">Tout comme chez nous</hi>. Die Pariser sind leiden-<lb/>
+schaftliche Jäger. Da ist kein Gewürzkrämer, kein Strumpf-<lb/>
+fabrikant, der nicht einmal den Ehrgeiz hätte, in Jagdrock,<lb/>
+Kamaschenstiefeln und Mütze mit Flinte, Pulverhorn und<lb/>
+Jagdtasche vor den Damen Figur zu machen und nebenbei<lb/>
+einem Hasen nachzulaufen, ohne ihm ein Leid zu thun, selbst<lb/>
+wenn er Nationalgardist ist, da er als solcher gar nicht nö-<lb/>
+thig hat, mit Feuerwaffen Bescheid zu wissen. Jst die Jagd<lb/>
+vorbei, dann wird mit den Kameraden in irgend einem<lb/>
+dörflichen Gasthause ein gutes Mahl eingenommen und ein<lb/>
+Stück Wildpret gekauft, das der Frau Gemahlin in Paris<lb/>
+als Siegesbeute zu Füßen gelegt wird. </p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Die militärische Organisation der Türkei. Die<lb/>
+ganze Armee zerfällt in sechs Truppenkörper oder Lager ( Or-<lb/>
+düs ) ; jedes dieser Ordüs bildet wieder zwei Divisionen, jede<lb/>
+Division drei Brigaden, Alles mit Ausschluß der Reserven.<lb/>
+Eine Brigade wird von einem Liva, eine Division von einem<lb/>
+Ferik commandirt; ein ganzes Ordü steht unter den Befeh-<lb/>
+len eines Feldmarschalls ( Muschirs ) .</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Die Feuerberge in Pennsylvanien sind ein Theil<lb/>
+der Broad=Mountains nordöstlich von Harrisburg; dort steht<lb/>
+schon seit länger als 15 Jahren ein großes Anthracitlager<lb/>
+<cb n="2"/>
+in Brand. Jetzt betrachtet man die Passage über diesen<lb/>
+Theil des Gebirges als gefährlich, weil man annimmt, daß<lb/>
+die Oberfläche des Bodens nur noch aus einer dünnen Erd-<lb/>
+kruste bestehe, unter welcher die Kohle ausgebrannt sei, wes-<lb/>
+halb die Decke selbst bei nur leichtem Drucke zusammenbre-<lb/>
+chen könne. Am Fuße des Berges entspringt eine fast bis<lb/>
+zum Siedepunkte erhitzte Quelle. Das Aussehen der Berge<lb/>
+gewährt, so weit die Blicke reichen, einen grauenhaften An-<lb/>
+blick der Verödung und Zerrissenheit. An einzelnen Stellen,<lb/>
+wo das Kohlenfeuer die Oberfläche erreichte, ist der Boden<lb/>
+bis zu großer Tiefe eingesunken oder gähnt in Klüften auf;<lb/>
+geschwärzte Baumstämme und Wurzeln starren aus minerali-<lb/>
+scher Asche hervor und die Luft ist mit Schwefeldünsten an-<lb/>
+gefüllt, welche aus der Tiefe emporsteigen.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p><hi rendition="#aq">Quos ego</hi>! Jn einem Dorfe konnte die Probe zur Kir-<lb/>
+chenmusik am Erntedankfeste wegen späten Eintreffens der<lb/>
+fremden Musiker in der Kirche erst in der letzten halben<lb/>
+Stunde vor Anfang des Gottesdienstes gehalten werden. Ein<lb/>
+Theil der Gemeinde hatte nach und nach bereits in der Kirche<lb/>
+Platz genommen und als nun in dem Musikstücke auch die<lb/>
+Textesworte: &#x201E;Nun danket Alle Gott&#x201C; vorkamen, stimmten<lb/>
+die anwesenden Kirchkinder in den ihnen bekannten Vers ge-<lb/>
+trost und laut mit ein. Da rief der eifrige Schulmeister voll<lb/>
+Aerger mit lautex Stimme vom Chore herab: &#x201E;Stille doch!<lb/>
+Stille doch! Das geht euch gar nichts an!&#x201C;</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Das Haus Rothschild hat in einem Zeitraume von<lb/>
+12 Jahren gegen 500 Millionen Dollars ( 720 Millionen<lb/>
+Thaler ) für verschiedene Regierungen als Anleihe aufge-<lb/>
+bracht. Diese ungeheure Summe vertheilt sich in folgenden<lb/>
+Verhältnissen auf die verschiedenen Länder: für England 200<lb/>
+Millionen, für Oestreich 50, für Preußen 40, für Frank-<lb/>
+reich 80, für Neapel 50, für Rußland 25, für verschiedene<lb/>
+deutsche Höfe 4, für Brasilien 12 Millionen; außerdem noch<lb/>
+verschiedene andere kleine Summen. Der große Erfolg, den<lb/>
+die Rothschild's in allen ihren Unternehmungen haben, be-<lb/>
+ruht, abgesehen von dem Zusammentreffen glücklicher Um-<lb/>
+stände, hauptsächlich auf ihrer strengen Beobachtung zweier<lb/>
+Grundsätze. Der erste ist, daß sie in Gemäßheit einer von<lb/>
+dem Gründer des Hauses auf dem Sterbebette getroffenen<lb/>
+Anordnung alle ihre Operationen gemeinschaftlich ausführen.<lb/>
+Sobald ein größeres Geschäft einem von ihnen angetragen<lb/>
+wird, so legt er es einer gemeinsamen Berathung vor, und<lb/>
+auf keins wird eingegangen, ehe es nicht vollständig bespro-<lb/>
+chen ist. Einmal angenommen, wird es sodann mit verein-<lb/>
+ten Kräften ausgeführt. Ein zweiter Grundsatz ist, nicht<lb/>
+nach übermäßigem Gewinn zu streben, bei jeder Operation<lb/>
+sich selbst bestimmte Grenzen zu stecken und, soweit als<lb/>
+menschliche Vorsicht und Klugheit dies möglich machen kann,<lb/>
+das Unternehmen unabhängig von zufälligen Ereignissen her-<lb/>
+zustellen. Jn diesen Grundsätzen liegt das Hauptgeheimniß<lb/>
+des mächtigen Einflusses, den das Haus Rothschild auf die<lb/>
+europäischen Regierungen und somit auf die Geschicke Euro-<lb/>
+pas ausübt.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Das Rothe Meer hat seinen Namen von den vielen<lb/>
+langen Streifen und Zügen röthlicher Stoffe, die zu ver-<lb/>
+schiedenen Zeiten auf dem Wasser schwimmen; sie riechen<lb/>
+wie frisch gemähtes Heu und bestehen aus Grassamen und<lb/>
+Blüten. Die schlammigen Flüßchen und Küsten haben näm-<lb/>
+lich Ueberfluß an Gras, dessen Blüten und Samen eine rauhe<lb/>
+See oder eine ungewöhnlich hohe Wasserzeit wegschwemmt<lb/>
+und die der Wind viele Meilen weit in die See hinausjagt.<lb/>
+Jn ein Tuch gesammelt und durch Papier geseiht geben diese<lb/>
+Pflanzenreste eine schöne Carmoisinfarbe.</p></div></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/><lb/>
+</body>     <back><div n="1" type="imprint"><p><hi rendition="#c">Verantwortlicher Redacteur: <hi rendition="#aq">M</hi>. J. E. Volbeding. &#x2014; Druck und Verlag von F. A. Brockhaus in Leipzig.</hi></p></div>     </back>   </text> </TEI>

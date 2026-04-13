@@ -1,0 +1,1145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.deutschestextarchiv.de/basisformat.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">     <teiHeader>
+<fileDesc>
+<titleStmt>
+<title type="main">Das Pfennig-Magazin für Belehrung und Unterhaltung</title>
+<title type="sub">Neue Folge, Erster Jahrgang, Nr. 15</title>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/115266127">
+<surname>Geyken</surname>
+<forename>Alexander</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1222198746">
+<surname>Haaf</surname>
+<forename>Susanne</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1019062681">
+<surname>Jurish</surname>
+<forename>Bryan</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Boenig</surname>
+<forename>Matthias</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Thomas</surname>
+<forename>Christian</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Wiegand</surname>
+<forename>Frank</forename>
+</persName>
+</editor>
+<respStmt>
+<orgName>Institut für Deutsche Sprache, Mannheim</orgName>
+<resp>
+<note type="remarkResponsibility">Bereitstellung der Bilddigitalisate und TEI
+Transkription</note>
+<ref target="http://hdl.handle.net/10932/00-01B8-B079-E23F-3201-1"/>
+</resp>
+</respStmt>
+<respStmt>
+<persName>
+<forename>Peter</forename>
+<surname>Fankhauser</surname>
+</persName>
+<resp>
+<note type="remarkResponsibility">
+Transformation von TUSTEP nach TEI P5.
+Transformation von TEI P5 in das DTA TEI P5 Format.
+</note>
+</resp>
+</respStmt>
+<respStmt>
+<orgName ref="https://www.bbaw.de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<resp>
+<note type="remarkResponsibility">Langfristige Bereitstellung der DTA-Ausgabe</note>
+<ref target="https://www.bbaw.de"/>
+</resp>
+</respStmt>
+</titleStmt>
+<editionStmt><edition>Vollständige digitalisierte Ausgabe.</edition></editionStmt>
+<extent>
+<measure type="images">8</measure>
+<measure type="tokens">6975</measure>
+<measure type="types">2675</measure>
+<measure type="characters">46920</measure>
+</extent>
+<publicationStmt>
+<publisher xml:id="DTACorpusPublisher">
+<email>dta@bbaw.de</email>
+<orgName role="project">Deutsches Textarchiv</orgName>
+<orgName role="hostingInstitution" xml:lang="en">Berlin-Brandenburg Academy of Sciences and Humanities (BBAW)</orgName>
+<orgName role="hostingInstitution" xml:lang="de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<address>
+<addrLine>Jägerstr. 22/23, 10117 Berlin</addrLine>
+<country>Germany</country>
+</address>
+</publisher>
+<pubPlace>Berlin</pubPlace>
+<date type="publication">2025-10-24T08:35:10Z</date>
+<availability>
+<licence target="http://creativecommons.org/publicdomain/zero/1.0/">
+<p>Dieses Werk steht unter der "Creative Commons Namensnennung -
+Nicht kommerziell 3.0 Deutschland Lizenz" (CC BY-NC).</p>
+</licence>
+</availability>
+<idno>
+<idno type="URLWeb">https://www.deutschestextarchiv.de/nn_pfennig015_1843</idno>
+<idno type="URLXML">https://www.deutschestextarchiv.de/book/download_xml/nn_pfennig015_1843</idno>
+<idno type="URLHTML">https://www.deutschestextarchiv.de/book/download_html/nn_pfennig015_1843</idno>
+<idno type="URLText">https://www.deutschestextarchiv.de/book/download_text/nn_pfennig015_1843</idno>
+<idno type="DTADirName">nn_pfennig015_1843</idno>
+<idno type="DTAID">34712</idno>
+<idno type="URN">urn:nbn:de:kobv:b4-34712-2</idno>
+</idno>
+</publicationStmt>
+<sourceDesc>
+<bibl type="J">Das Pfennig=Magazin für Belehrung und Unterhaltung, Neue Folge, Erster Jahrgang, Nr. 15. Leipzig (Sachsen), 15. April 1843</bibl>
+<biblFull>
+<titleStmt>
+<title level="m" type="main">Das Pfennig-Magazin für Belehrung und Unterhaltung</title>
+<title level="m" type="sub">Neue Folge, Erster Jahrgang, Nr. 15</title>
+</titleStmt>
+<editionStmt>
+<edition n="1"/>
+</editionStmt>
+<publicationStmt>
+<publisher/>
+<pubPlace>Leibzig (Sachsen)</pubPlace>
+<date type="publication">1843</date>
+</publicationStmt>
+</biblFull>
+<msDesc>
+<msIdentifier/>
+<physDesc>
+<typeDesc>
+<p>Fraktur</p>
+</typeDesc>
+</physDesc>
+</msDesc>
+</sourceDesc>
+</fileDesc>
+<encodingDesc>
+<editorialDecl>
+<p>
+<![CDATA[
+<p>Siehe Dokumentation</p>
+]]>
+</p>
+</editorialDecl>
+<tagsDecl>
+<rendition scheme="css" xml:id="aq">font-family:sans-serif</rendition>
+<rendition scheme="css" xml:id="b">font-weight:bold</rendition>
+<rendition scheme="css" xml:id="blue">color:blue</rendition>
+<rendition scheme="css" xml:id="c">display:block; text-align:center</rendition>
+<rendition scheme="css" xml:id="et">display:block; margin-left:2em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et2">display:block; margin-left:4em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et3">display:block; margin-left:6em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="f">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="fr">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="g">letter-spacing:0.125em</rendition>
+<rendition scheme="css" xml:id="i">font-style:italic</rendition>
+<rendition scheme="css" xml:id="in">font-size:150%</rendition>
+<rendition scheme="css" xml:id="k">font-variant:small-caps</rendition>
+<rendition scheme="css" xml:id="larger">font-size:larger</rendition>
+<rendition scheme="css" xml:id="red">color:red</rendition>
+<rendition scheme="css" xml:id="right">display:block; text-align:right</rendition>
+<rendition scheme="css" xml:id="s">text-decoration:line-through</rendition>
+<rendition scheme="css" xml:id="smaller">font-size:smaller</rendition>
+<rendition scheme="css" xml:id="sub">vertical-align:sub; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="sup">vertical-align:super; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="u">text-decoration:underline</rendition>
+<rendition scheme="css" xml:id="uu">border-bottom:double 3px #000</rendition>
+</tagsDecl>
+</encodingDesc>
+<profileDesc>
+<langUsage>
+<language ident="deu">(Früh-)Neuhochdeutsch</language>
+<language ident="deu">German</language>
+</langUsage>
+<textClass>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1main">Gebrauchsliteratur</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1sub">Zeitschrift</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">ready</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">mkhz1</classCode>
+</textClass>
+</profileDesc>
+</teiHeader>
+<text>     <front>
+<pb facs="#f0001" n="[113]"/>
+<titlePage type="heading"><docTitle><titlePart type="main"><hi rendition="#c #fr">Das Pfennig=Magazin<lb/>
+für<lb/>
+<hi rendition="#g">Belehrung und Unterhaltung</hi>.</hi></titlePart></docTitle><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<docImprint><hi rendition="#fr">Nr</hi>. 15. ]                <hi rendition="#c">Neue Folge. Erster Jahrgang.</hi>                <docDate><hi rendition="#right">[ 15. <hi rendition="#g">April</hi> 1843.</hi></docDate>              </docImprint></titlePage><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+</front>     <body>       <div n="1" type="jArticle"><head><hi rendition="#fr">Königin Anna Zingha.</hi></head><lb/>
+<figure/><lb/>
+<cb type="start"/>
+<p><hi rendition="#in">D</hi>ie Schilderung dieser Frau, die wir dem Capuciner<lb/>
+Anton von Gaeta verdanken, versetzt uns auf einen<lb/>
+Schauplatz, auf dem seit Jahrhunderten der Aberglaube<lb/>
+des Fetischismus vergeblich bekämpft wird, auf einen<lb/>
+Schauplatz, auf welchem die äußere Natur den höchsten<lb/>
+Grad der Vollkommenheit, der Geist aber noch nicht die<lb/>
+niedrigste Stufe der Gesittung einnimmt, kurz nach An-<lb/>
+gola in Niederguinea, einem Negerreiche von 1500 &#x25A1;M.,<lb/>
+in welchem sich die Portugiesen seit 1488 festsetzten, bald<lb/>
+zu hohem Ansehen gelangten, aber in den neuesten Zei-<lb/>
+ten durch die Verworrenheit ihrer heimischen Verhältnisse<lb/>
+fast alle Macht verloren.</p><lb/>
+<p>Die Küste ist überall mit dem ewigen Grün tropi-<lb/>
+scher Urwälder bedeckt. Terrassenförmig erhebt sich das<lb/>
+Land von der Küste bis zum Hochlande. So weit die<lb/>
+Ebene reicht bis zum Fuße der Mittelterrasse, zeigt sich<lb/>
+die volle Pracht der colossalen Tropenvegetation. Gesel-<lb/>
+lig zieren die Hügel 100 Fuß hohe Palmen, mit andern<lb/>
+wunderschönen Formen der Pflanzenwelt des Hochwaldes<lb/>
+gemischt, und nichts kann herrlicher gedacht werden als<lb/>
+die immerblühenden Lianen, welche mit ihrer Farben-<lb/>
+pracht die Gipfel der Wälder bis zur höchsten Luftregion<lb/>
+umspinnen, wirklich sind. Die Baumwollenstaude wächst<lb/>
+hier mit dem Zuckerrohr und mancherlei Pfeffer= und<lb/>
+Gewürzpflanzen wild; die Wiesen oder vielmehr Savan-<lb/>
+nen prangen hier mit mannshohem Grase, mit den schön-<lb/>
+sten Liliengewächsen untermischt. Wenn nach der Reife<lb/>
+desselben der Neger das Gras anzündet, stürzt das plumpe<lb/>
+Flußpferd hundertweise in den nächsten Fluß, und wü-<lb/>
+<cb n="2"/>
+thend rennen Löwen und Leoparden, Hyänen und Scha-<lb/>
+kale, der Elefant und das Nashorn, das Zebra und das<lb/>
+Mohrenschwein auf die grasleeren Stellen.</p><lb/>
+<p>Jm Jnnern wohnt ein tapferer kriegerischer Neger-<lb/>
+stamm, der, durch die Fruchtbarkeit des Landes in seiner<lb/>
+Vermehrung auf alle Weise unterstützt, seit vielen Jahr-<lb/>
+hunderten neue Völkerschaften auf die Mittelstraße zwi-<lb/>
+schen O. und W. absetzt und die vorgefundenen theils<lb/>
+vertilgt, theils in sich aufnimmt. Von diesem Volke<lb/>
+stammen die Schaggas, welche im J. 1542 unter ih-<lb/>
+rem Anführer Zimbo oder Zingho, nach welchem sie<lb/>
+auch Zimbos oder Zinghis heißen, in Kongo einfielen<lb/>
+und, wie die Tataren des Mittelalters in Europa, Alles<lb/>
+verheerten und plünderten, nachdem sie früher schon Mo-<lb/>
+nomotapa ein gleiches Schicksal bereitet hatten.</p><lb/>
+<p>Zu diesem Volke, das mit portugiesischer Hülfe wie-<lb/>
+der ins Jnnere zurückgedrängt worden war, gehörte auch<lb/>
+Bandi Angola, König von Mazamba. Die Favoritin<lb/>
+dieses Königs gebar 1582 eine Tochter, von welcher die<lb/>
+bei dieser Gelegenheit zusammenberufenen Zauberer des<lb/>
+Landes aussagten, daß sie ein Ungeheuer von Grausam-<lb/>
+keit sein würde. Das lasen sie aus den Linien ihres<lb/>
+Gesichts, doch daneben gab es auch andere Zeichen,<lb/>
+welche verkündigten, daß sie ein Weib sein würde weit<lb/>
+über alle ihres Gleichen. Dem Vater gefiel das Eine wie<lb/>
+das Andere, denn Grausamkeit ist bei den Negerfürsten<lb/>
+eine Tugend, die ihm Unterwürfigkeit verschafft. Bandi<lb/>
+Angola richtete danach die Erziehung dieser Tochter ein,<lb/>
+die er, um mit dem Namen anzudeuten, was sie wer-<lb/>
+<cb type="end"/>
+<pb facs="#f0002" n="114"/>
+<fw place="top" type="pageNum">114</fw><cb type="start"/>
+den sollte, Zingha nannte. Umgeben von den Leichna-<lb/>
+men aller neugeborenen Kinder seines Volks, die mit<lb/>
+Zingha zugleich das Licht der Welt erblickt hatten, ihr<lb/>
+Blut aus der heiligen Opferschale mit vollen Zügen trin-<lb/>
+kend, rief er den Segen des Himmels auf das Haupt<lb/>
+der neugeborenen Mohrenfürstin herab. Er gab ihr eine<lb/>
+noch kriegerischere Erziehung als seinen übrigen Töchtern<lb/>
+und benahm ihr frühzeitig die Scheu vor Menschenblut.</p><lb/>
+<p>Bandi Angola starb. Sein Begräbniß mußte mit<lb/>
+200 unschuldigen Schlachtopfern verherrlicht werden.<lb/>
+Zingha war unter den Opfernden und lobte die Götter,<lb/>
+indem sie die Brust eines jungen Mädchens öffnete und<lb/>
+ihr Blut trank. Zwar hatte sie kein Vergnügen daran,<lb/>
+Menschenblut zu trinken, noch weniger an der Mahlzeit<lb/>
+Antheil zu nehmen, mit welcher die Feier beschlossen<lb/>
+wurde, aber sie strebte nach Gewalt und diese konnte sie<lb/>
+nur durch das Volk erlangen. Sie mußte also seinen<lb/>
+Leidenschaften schmeicheln und vor allen Dingen in seine<lb/>
+religiösen Vorstellungen eingehen.</p><lb/>
+<p>Einige Jahre vor dem Tode ihres Vaters hatte sie<lb/>
+einen Sohn bekommen, den sie mit Zärtlichkeit liebte.<lb/>
+Der alte König liebte ihn ebenfalls, weil er Zingha<lb/>
+liebte. Das setzte den Thronerben Ngolam Bandi in<lb/>
+Angst und das unglückliche Kind wurde auf sein Anstif-<lb/>
+ten in einem Bade siedenden Wassers umgebracht. Die<lb/>
+Mutter fühlte tiefen Schmerz über ihren Verlust, denn<lb/>
+auch die Hyäne liebt ihre Jungen, aber sie schwur, ihn<lb/>
+nicht eher laut werden zu lassen, als bis sie gerächt sein<lb/>
+würde.</p><lb/>
+<p>Sie zog sich nach dem Tode ihres Vaters in die<lb/>
+entfernte Provinz Cabazzo zurück und reizte von da die<lb/>
+Völker Matambas zur Empörung. Ngolam entdeckte<lb/>
+verschiedene Complotte und züchtigte die Schuldigen mit<lb/>
+der seiner Nation eigenen Wildheit, doch begnügte er sich<lb/>
+damit nicht, sondern sann auch auf ein Mittel, sich bei<lb/>
+seinen Völkern beliebt zu machen. Dieses Mittel glaubte<lb/>
+er in einem Kriege mit den Portugiesen zu finden, wel-<lb/>
+chen Angola wieder abzunehmen war; aber was vermoch-<lb/>
+ten undisciplinirte Horden, nackte Menschen mit schlech-<lb/>
+ten Waffen gegen so tapfere Männer, als die Portugie-<lb/>
+sen damals waren? Die Neger wurden geschlagen, die<lb/>
+Hauptstadt derselben eingenommen, der König verjagt<lb/>
+und seine Gemahlin mit seinen Schwestern gefangen.<lb/>
+Zingha wurde wegen ihrer Empörung geschont.</p><lb/>
+<p>Ngolam Bandi sah nur in der Verstellung das Mit-<lb/>
+tel, wenn nicht zu siegen, doch wiederzubekommen, was<lb/>
+er verloren. Er schickte Gesandte an den portugiesischen<lb/>
+Vicekönig nach Angola, welche in seinem Namen große<lb/>
+Versprechungen machten und einen Vertrag zu Stande<lb/>
+brachten, nach welchem die Portugiesen das Land räum-<lb/>
+ten und die königlichen Gefangenen zurückgaben. Aber<lb/>
+als Ngolam seine Versprechungen erfüllen sollte, wich er<lb/>
+aus. Der Krieg war in Begriff wieder auszubrechen.<lb/>
+Zu Angola war in Don Juan Correa de Souza ein<lb/>
+neuer Vicekönig angekommen. Er war ein Portugiese,<lb/>
+wie es deren damals viele gab, ein Ehrenmann, der den<lb/>
+Ruhm liebte und sein schönes Vaterland durch den Treu-<lb/>
+bruch eines wilden Negers nicht gedemüthigt sehen wollte.<lb/>
+Er sprach mit Festigkeit und Ngolam bekam Furcht. Er<lb/>
+wollte den Vicekönig durch eine feierliche Gesandtschaft<lb/>
+besänftigen, und da er die geistige Gewandtheit und den<lb/>
+Muth seiner Schwester Zingha kannte, so bot er ihr<lb/>
+seine brüderliche Versöhnung an und bat sie, ihr Vater-<lb/>
+land zu retten und mit dem Vicekönig selbst zu verhan-<lb/>
+deln. Zingha ging lächelnd darauf ein. Sie wünschte<lb/>
+seit langer Zeit die Europäer kennen zu lernen und wußte,<lb/>
+daß nur unter ihnen die Civilisation zu Hause sei, die sie<lb/>
+brauchte, um aus den Horden Matambas ein Volk zu<lb/>
+<cb n="2"/>
+machen. Noch geschickter in der Verstellungskunst als<lb/>
+ihr königlicher Bruder, that sie um so mehr, als ob sie<lb/>
+an seine Reue glaubte, da die Stunde der Rache noch<lb/>
+nicht geschlagen hatte. Sie ging unter einem prächtigen<lb/>
+Geleite nach Angola, denn ihr Bruder hatte Alles auf-<lb/>
+geboten, was in seinen Kräften stand, ihrem Auftreten<lb/>
+in Angola durch äußern Glanz Nachdruck zu geben.<lb/>
+Schneller als mancher europäische Fürst vor der Errich-<lb/>
+tung der Eisenbahnen mit untergelegten Pferden, reiste sie<lb/>
+auf den Schultern ihrer Sklaven von Cabazzo nach<lb/>
+Angola.</p><lb/>
+<p>Die Obrigkeit der Stadt, begleitet von der Miliz<lb/>
+unter Waffen, empfing sie an den Thoren der Stadt<lb/>
+und die Linientruppen und die Artillerie des Platzes be-<lb/>
+grüßten sie mit einer Ehrensalve. Sie wurde im Pa-<lb/>
+laste Ruez Avagazo untergebracht und mit ihrem zahl-<lb/>
+reichen Gefolge auf Kosten des Königs von Portugal<lb/>
+aufs glänzendste bewirthet.</p><lb/>
+<p>Als sie in den Audienzsaal des Vicekönigs trat, be-<lb/>
+merkte sie, daß darin für den Vicekönig ein Armstuhl<lb/>
+stand, welcher mit goldbefranztem Sammet überzogen<lb/>
+war, und ihm gegenüber ein prächtiger Fußteppich mit<lb/>
+nur zwei Kissen von Brocat für sie. Dieser Unterschied<lb/>
+misfiel ihr, aber sie sagte nichts, sondern gab einer der<lb/>
+jungen Sklavinnen aus ihrem Gefolge ein Zeichen, worauf<lb/>
+sich diese wie ein Blitz auf dem Teppiche niederließ und,<lb/>
+auf die Ellbogen und Knie gestützt, eine Bank bildete,<lb/>
+auf welcher die Mohrenfürstin Platz nahm.</p><lb/>
+<p>Zingha zeigte bei dieser Conferenz ein außerordent-<lb/>
+liches Talent und einen scharfen Verstand; sie bat auf<lb/>
+eine Weise, die ihrer Würde nicht den geringsten Ab-<lb/>
+bruch that, um Frieden und Verzeihung des Treubruchs<lb/>
+für ihren Bruder und stellte dem Vicekönig vor, daß,<lb/>
+wenn die Portugiesen den Vortheil der Civilisation und<lb/>
+einer unter den Afrikanern unbekannten Mannszucht hät-<lb/>
+ten, letztere dafür in ihrem Vaterlande mitten unter<lb/>
+Hülfsquellen wären, welche die ganze Macht des Königs<lb/>
+von Portugal seinen Unterthanen nicht verschaffen könne.<lb/>
+Der Vicekönig bestand nicht weiter auf Krieg, verlangte<lb/>
+aber einen jährlichen Tribut von Ngolam. Das aber<lb/>
+dünkte Zingha eine zu große Schmach und sie wußte<lb/>
+durch ihre Beredtsamkeit auch hierin den Vicekönig auf<lb/>
+andere Gedanken zu bringen, und der Vertrag wurde<lb/>
+noch in derselben Audienz abgeschlossen. Als hierauf der<lb/>
+Vicekönig die Negerfürstin aus dem Saale begleitete,<lb/>
+blieb die Sklavin, welche ihr zum Sitze gedient hatte,<lb/>
+noch immer in derselben Stellung, obgleich ihre Herrin<lb/>
+längst aufgestanden war. Man machte Zingha darauf<lb/>
+aufmerksam und erhielt die Antwort, daß sich die Ge-<lb/>
+sandtin eines großen Königs derselben Sache nie zwei<lb/>
+Mal bediene; das Mädchen hätte ihr zum Sitze gedient,<lb/>
+gehöre ihr daher nicht mehr an.</p><lb/>
+<p>Da sie wegen Ratification des Vertrags noch einige<lb/>
+Zeit in Angola bleiben mußte, benutzte sie diese Zeit, um<lb/>
+sich die Gunst der Europäer zu erwerben. Sie ließ sich<lb/>
+für diesen Zweck in der christlichen Religion unterrichten;<lb/>
+ihrem Bruder ließ sie sagen, daß das geschehe, um die<lb/>
+Portugiesen besser kennen zu lernen. Nach einiger Zeit<lb/>
+ließ sie sich sogar in der Hauptkirche von Loanda tau-<lb/>
+fen, wobei der Vicekönig und seine Gemahlin Donna<lb/>
+Anna Meneses Pathenstelle vertraten, und bekam den<lb/>
+Namen Anna. Mit Ehren überhäuft, zog sie hierauf<lb/>
+wieder ab und kehrte nach Matamba zurück.</p><lb/>
+<p>Ngolam Bandi empfing sie mit anscheinender Dank-<lb/>
+barkeit. Er stellte sich nun ebenfalls, als wollte er Christ<lb/>
+werden, und bekam sogar Unterricht von einem Missio-<lb/>
+nar, aber in dieser Zeit rüstete er sich heimlich zum<lb/>
+Kriege. Statt seiner mußten zwei Schwestern Zingha's<lb/>
+<cb type="end"/>
+<pb facs="#f0003" n="115"/>
+<fw place="top" type="pageNum">115</fw><cb type="start"/>
+nach Angola gehen, um sich taufen zu lassen. Als sie<lb/>
+zurückkamen, war er gerüstet und fiel ohne irgend einen<lb/>
+Beweggrund in das portugiesische Gebiet.</p><lb/>
+<p>Das geschah auf heimlichen Antrieb Zingha's, welche<lb/>
+so sein Verderben herbeiführen wollte. Sie hatte das<lb/>
+Haupt der Wahrsager gewonnen, dem König einen voll-<lb/>
+ständigen Sieg über die Portugiesen zu verkündigen, und<lb/>
+hatte fast alle seine Truppen verführt, kein Wunder, daß<lb/>
+sie in der ersten Schlacht alle davonliefen. Ngolam<lb/>
+konnte sich nur mit Mühe durch Schwimmen über einen<lb/>
+Arm des Coanza auf eine wüste Jnsel retten. Nur<lb/>
+einige Diener folgten ihm, aber auch diese nicht aus<lb/>
+Treue, wie er meinte, sondern als Diener der Rache,<lb/>
+die sie an ihm vollziehen sollten. Auf der Jnsel bela-<lb/>
+gert, sah sich der Fürst bald in der äußersten Noth. Er<lb/>
+starb, vergiftet von der Hand seiner Leute, und wurde mit<lb/>
+denselben blutigen Ceremonien begraben wie sein Vater.</p><lb/>
+<p>Sobald Zingha von seinem Tode hörte, begab sie<lb/>
+sich nach Cabazzo, ließ sich krönen, schwur das Christen-<lb/>
+thum ab und brachte den Götzen Weihrauch und Opfer.</p><lb/>
+<p>Jhr Bruder hinterließ einen Sohn, welcher dem<lb/>
+Schagga=Kasa, dem ersten Seher des Landes, anver-<lb/>
+traut war; diesen ihren Neffen mußte Zingha tödten,<lb/>
+um ihren Sohn in seinem Grabe zu beruhigen, und<lb/>
+mehr noch, um die Krone auf ihrem Haupte zu befesti-<lb/>
+gen. Aber der junge König war geborgen und durch<lb/>
+keine Gewalt zu erlangen. Da nahm Zingha zur List<lb/>
+ihre Zuflucht. Sie ließ dem Schagga=Kasa eröffnen,<lb/>
+daß sie ihn seit langer Zeit liebe und heirathen wolle,<lb/>
+aber der Schagga=Kasa fürchtete Gefahr für seinen Zög-<lb/>
+ling und schlug den ehrenvollen Antrag der schönen Frau<lb/>
+aus. Da begab sie sich ohne Gefolge, fast einzig und<lb/>
+allein, in das Lager ihres Neffen, liebkoste ihn und ver-<lb/>
+führte den Schagga. Der Unglückliche liebte sie wirk-<lb/>
+lich. Die Hochzeit wurde gefeiert und nichts gespart,<lb/>
+um ihn mit seinem Zöglinge nach Cabazzo zu ziehen,<lb/>
+wo sie etwas vermochte. Endlich gelang es; Lehrer und<lb/>
+Schüler folgten ihr in die Stadt. Als sie hier auf den<lb/>
+Hauptplatz gekommen waren, ergriff Zingha mit einer<lb/>
+Hand den Neffen und mit der andern ihren Dolch, er-<lb/>
+würgte das arme Kind mit eigenen Händen und warf<lb/>
+den Leichnam in den Fluß, welcher die Mauern der<lb/>
+Stadt bespült.</p><lb/>
+<p>Niemand hatte gewagt, sich dieser That zu wider-<lb/>
+setzen, und Zingha erkannte daraus, wie mächtig sie sei.<lb/>
+Sie vernichtete nun Alles, was irgend einen Anspruch auf<lb/>
+die Krone haben konnte und schonte nur ihre beiden Schwe-<lb/>
+stern, wahrscheinlich wegen ihrer völligen Nichtigkeit.</p><lb/>
+<p>Bis hieher hatte sie sich des Beistandes der Portu-<lb/>
+giesen bedient, jetzt bedurfte sie den der Afrikaner. Jhrer<lb/>
+Zeit weit vorausgeeilt, wollte sie aus den zahlreichen Hor-<lb/>
+den derselben ein einziges Volk machen. Sie wußte,<lb/>
+daß die Christen bei ihnen nicht beliebt waren und daß<lb/>
+die Erlösungstaufe ihr Ansehen unter ihnen nicht ver-<lb/>
+mehrt hatte. Sie beschloß daher, jene Taufe durch eine<lb/>
+neue in Vergessenheit zu bringen. Sie ließ Hunderte<lb/>
+von Menschen schlachten, um durch ihr Blut die Flecken<lb/>
+wieder wegzuspülen, mit denen sie sich in den Augen<lb/>
+ihrer Unterthanen durch den Umgang mit den Portugiesen<lb/>
+verunreinigt hatte, und rief die schauderhaftesten Ge-<lb/>
+bräuche, die jemals unter den Schaggas im Schwunge<lb/>
+gewesen, wieder ins Leben, kurz sie übertraf an Wild-<lb/>
+heit und Unmenschlichkeit die Tem=Ban=Dumba, welche<lb/>
+die Schaggas als ihre Gesetzgeberin verehrten und deren<lb/>
+Gesetze tausendmal mehr mit Blut geschrieben zu heißen<lb/>
+verdienten, als die des Drakon.</p><lb/>
+<p><hi rendition="#c">( Beschluß folgt in Nr. 16. )</hi></p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<cb n="2"/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Glaspapier zum Durchzeichnen</hi></head><lb/>
+<p><hi rendition="#in">U</hi>m schönes, durchsichtiges, farbloses Papier anzuferti-<lb/>
+gen, bedient man sich am besten des Dammarfirnisses<lb/>
+und verfährt dabei folgendermaßen. Man legt die Bo-<lb/>
+gen, die man zu diesem Zwecke zubereiten will, auf-<lb/>
+einander und streicht auf den obern mit einem Pinsel<lb/>
+so lange Firniß, bis der Bogen vollkommen durchsichtig<lb/>
+erscheint, ohne daß jedoch Flüssigkeit darauf zu bemer-<lb/>
+ken ist. Nun nimmt man ihn weg, und hängt ihn<lb/>
+zum Trocknen auf, um mit dem folgenden ebenso zu<lb/>
+verfahren. Nach dem Trocknen kann auf solches Pa-<lb/>
+pier mit Stiften, Stahlfedern und Kreide gezeichnet<lb/>
+werden, ohne daß es seine farblose Durchsichtigkeit ver-<lb/>
+liert oder gelb wird.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Stechen und Boxen.</hi></head><lb/>
+<p><hi rendition="#in">J</hi>n der Stadt Nürnberg gab es einst eine Kampfart,<lb/>
+die man das <hi rendition="#g">Stechen</hi> nannte; man fuhr mit geball-<lb/>
+ten Fäusten aufeinander los und suchte den Gegner da-<lb/>
+mit zwischen Augen und Nase zu treffen. Diese bar-<lb/>
+barische Sitte ist aber, Gott Lob! nicht mehr in der guten<lb/>
+Stadt zu finden. &#x2014; Ein Engländer, der, durch seine<lb/>
+zahlreichen Siege aufgebläht, sich für unüberwindlich hielt,<lb/>
+kam auf den Einfall, seine heimische Jnsel zu verlassen<lb/>
+und den Continent mit seinen Stößen und Püffen zu<lb/>
+beehren. Er kam auf seiner Reise auch nach dem gu-<lb/>
+ten alten Nürnberg, allwo er im besten Gasthof abstieg<lb/>
+und sofort, wie es sein Brauch war, nach den stärksten<lb/>
+Männern der Stadt fragte, um sich mit ihnen zu mes-<lb/>
+sen. Unter mehren nannte ihm der Kellner den Mei-<lb/>
+ster Quack und erhielt vom Engländer den Befehl, den<lb/>
+Meister zu ihm auf einen ehrlichen Faustzweikampf<lb/>
+einzuladen. Als Meister Quack die Einladung erhielt,<lb/>
+warf er seinen alten Schafpelz um, setzte die Pudel-<lb/>
+mütze auf und ging mit dem Kellner in den rothen<lb/>
+Ochsen, wo der Engländer, ungeduldig harrend, im Geiste<lb/>
+sich als Sieger sah. Als ihm der ehrliche Meister Quack<lb/>
+vorgestellt wurde, gerieth der Engländer gewaltig in<lb/>
+Zorn; er meinte, man wolle ihn gut deutsch narren;<lb/>
+denn Meister Quack war kein Riese, sondern <hi rendition="#g">fast</hi> ein<lb/>
+Zwerg, und wer genau zusah, konnte ihn <hi rendition="#g">fast</hi> für<lb/>
+buckelig halten. Meister Quack aber beruhigte den Eng-<lb/>
+länder mit der ruhigen Erklärung, der Herr Engländer<lb/>
+möge bald anfangen, denn er habe zu Hause viel zu<lb/>
+thun und könne sich nicht lange aufhalten. Sofort<lb/>
+warf der Boxer Rock und Weste ab, streifte das Hemde<lb/>
+zurück und brachte ein Paar Arme zur Ansicht, wie sie<lb/>
+weiland Herkules nicht besser aufzuweisen hatte. Mei-<lb/>
+ster Quack war auch nicht müßig, er schüttelte den be-<lb/>
+quemen Pelz von der Schulter und entblößte ebenfalls<lb/>
+seine Arme, die freilich gegen die des Engländers ab-<lb/>
+stachen, wie Baum und Rohr, dagegen Sehne an<lb/>
+Sehne zeigten. Nachdem Alles vorher genau bestimmt<lb/>
+war, nahm der Engländer seinen Anlauf; er zog den<lb/>
+Kopf ein, wie ein wüthender Stier und stürzte auf<lb/>
+seinen Gegner los; der aber sprang behend zur Seite,<lb/>
+gab aber dabei dem Engländer einen solchen <hi rendition="#g">Stich</hi><lb/>
+mit der geballten Faust zwischen Augen und Nase, daß<lb/>
+dieser blutend an die Wand taumelte. Meister Quack<lb/>
+stellte sich ruhig wieder auf seinen Platz und sagte:<lb/>
+&#x201E;Guten Morgen!&#x201C; Nachdem sich der Engländer er-<lb/>
+holt, begann der zweite Gang; der bekam aber dem<lb/>
+Jnsulaner noch schlimmer. Quack gab ihm einen zwei-<lb/>
+ten Stich, und der Engländer fiel besinnungslos zu<lb/>
+<cb type="end"/>
+<pb facs="#f0004" n="116"/>
+<fw place="top" type="pageNum">116</fw><cb type="start"/>
+Boden. &#x201E;Guten Abend!&#x201C; rief Meister Quack, zog den<lb/>
+Pelz an, rief die Kellner und bemühte sich nun, den<lb/>
+Besiegten wieder zu sich zu bringen. Als dieser sich so<lb/>
+leidlich erholt hatte, erhob er sich, umarmte den kleinen<lb/>
+Meister und lobte, echt edelmüthig=englisch, dessen Kraft<lb/>
+<cb n="2"/>
+und Geschicklichkeit. Die beiden Kämpfer blieben noch<lb/>
+lange zusammen und leerten manche Flasche Wein, bis<lb/>
+Meister Quack aufstand, seine kurze Pfeife anbrannte<lb/>
+und dem Engländer die Hand drückte mit den Wor-<lb/>
+ten: &#x201E;Nix für ungut, Herr Bruder!&#x201C;</p></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Der Anolis der Antillen.</hi></head><lb/>
+<figure/><lb/>
+<cb type="start"/>
+<p><hi rendition="#in">D</hi>er Anolis, eine Gattung der Salamander= oder<lb/>
+Schuppeneidechsen, welche man auch Mopseidechsen nennt,<lb/>
+lebt auf den Antillen. Er hat einen dünnen Leib, lan-<lb/>
+gen Schwanz, kleine Schuppen, meist einen Luftkropf,<lb/>
+quergestreifte Sohlenscheiben, gekerbte Zähne im Gaumen<lb/>
+und in den Kinnladen, und sehr scharfe Nägel. Er klet-<lb/>
+tert sehr gut, frißt Jnsekten und Beeren, ist ein mun-<lb/>
+teres Thierchen und kämpft mit seines Gleichen oft bis<lb/>
+auf den Tod; der Überwinder frißt gewöhnlich den Über-<lb/>
+wundenen auf. Man bereitet in Amerika ein Öl aus<lb/>
+ihm, das man Anoliöl nennt und zur Beförderung des<lb/>
+Haarwuchses, sowie gegen Wunden anwendet.</p><lb/>
+<p>Unter den verschiedenen Arten dieser Eidechsengattung<lb/>
+ist der hier abgebildete antillische Anolis, die Blasen-<lb/>
+eidechse ( <hi rendition="#aq">lacerta bullaris</hi> ) besonders hervorzuheben. Er<lb/>
+<cb n="2"/>
+hat eine kurze, braungetüpfelte Schnauze, vorspringende<lb/>
+Augenlider und unter dem Halse einen blasenartigen<lb/>
+Kropf, welcher, wenn er erzürnt ist, anschwillt und<lb/>
+kirschroth wird. Seine gewöhnliche Farbe ist grün und<lb/>
+seine Größe übertrifft nicht die unserer kleinen grauen<lb/>
+Mauereidechsen. Außer ihm gibt es noch einen großen<lb/>
+und kleinen Kammanolis, welche auf der Hälfte des<lb/>
+Schwanzes einen Kamm haben, einen Sattelanolis, wel-<lb/>
+cher auf der Schulter eine weiße Binde hat u. a. m.</p><lb/>
+<p>Die Gabe der Farbenveränderung haben alle Mops-<lb/>
+eidechsen, ganz besonders der antillische Anolis, mit dem<lb/>
+Chamäleon <note place="end" n="*)" xml:id="EN01" next="#EN02"/> gemein.</p></div><lb/>
+<note place="end" n="*)" xml:id="EN02" prev="#EN01">Vergl. über dasselbe Nr. 169 der alten Folge des<lb/>
+Pfennig=Magazins.</note><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Der Handel mit Menschenhaar.</hi></head><lb/>
+<cb type="start"/>
+<p><hi rendition="#in">D</hi>er Handel mit Menschenhaar war früher viel be-<lb/>
+deutender. Seit nicht mehr allgemein Perücken getragen<lb/>
+werden, hat er sehr abgenommen. Jm Allgemeinen<lb/>
+liefern die nördlichen Länder das meiste und schönste<lb/>
+Menschenhaar; in Deutschland erhält man das schönste<lb/>
+und längste aus der Altmark, aus Westfalen, Thürin-<lb/>
+gen, aus dem Altenburgischen. Das, welches Brabant<lb/>
+liefert, ist oft drei Ellen lang. Jn Frankreich liefert<lb/>
+die Normandie das beste. Das preußische und russische<lb/>
+geht aus den preußischen und russischen Häfen in Packe-<lb/>
+ten von 50, 60&#x2014;100 Pfund nach Hamburg und<lb/>
+Holland, und wird hier nach Farbe, Länge und Güte<lb/>
+sortirt und in Bündel von 2&#x2014;3 Pfunden gebunden.</p><lb/>
+<cb n="2"/>
+<p>Man unterscheidet im Handel vier Hauptfarben:<lb/>
+blond, braun, schwarz und roth, deren jede ihre Ab-<lb/>
+weichungen hat, welche man roh oder gewaschen, oder<lb/>
+gekraust, oder dressirt, oder gefärbt, oder gebleicht in<lb/>
+den Handel bringt. Das Waschen geschieht mit Seife,<lb/>
+Kleien, Puder und Wasser, das Krausen dadurch, daß<lb/>
+man es siedet, das gesottene um ein rundes Holz win-<lb/>
+det und 14 Tage lang auf einem warmen Ofen trock-<lb/>
+nen läßt.</p><lb/>
+<p>Das blonde Haar schätzt man am meisten und<lb/>
+zieht dabei das goldgelbe dem milchblonden vor. Der<lb/>
+hohe Preis desselben führte auf die Entdeckung, durch<lb/>
+eine Beize mit Citronensaft und darauf folgendes Aus-<lb/>
+<cb type="end"/>
+<pb facs="#f0005" n="117"/>
+<fw place="top" type="pageNum">117</fw><cb type="start"/>
+bleichen in der Sonne kastanienbraunes in blondes zu<lb/>
+verwandeln. Für das schönste Haar wird das aschfar-<lb/>
+bige gehalten, das man nur bei nördlichen Völkern an-<lb/>
+trifft und lothweise zu hohen Preisen verkauft, wenn<lb/>
+es an den Spitzen nicht ins Gelbe oder Röthliche fällt.<lb/>
+Auch das schwarze, das einem warmen Klima eigen ist,<lb/>
+wird, wenn es glänzend und, wie man sagt, pech-<lb/>
+schwarz ist, sehr gesucht und gut bezahlt, weil es sich<lb/>
+selten in der gehörigen Länge findet. Das gewöhnlichste<lb/>
+ist das braune. Es ist das Erzeugniß eines gemäßig-<lb/>
+ten Klimas und unterscheidet sich in eine dunkle und<lb/>
+eine helle Farbe, wovon die letztere oft ins Gelbe oder<lb/>
+Blonde und ins Röthliche, die erstere aber ins Schwarze<lb/>
+übergeht. Das rothe Haar färbt man gewöhnlich mit<lb/>
+Wismuth, wodurch es eine schöne aschgraue oder dun-<lb/>
+kelgraue Farbe annimmt.</p><lb/>
+<p>Das starke oder harte Haar wird im Allgemeinen<lb/>
+dem feinen und weichen vorgezogen, doch darf es nicht<lb/>
+zu stark und grob sein, weil es sich dann nicht gut<lb/>
+kräuselt und lockt. Ein von Natur krauses Haar ist<lb/>
+theurer, weil es sich nach der künstlichen Behandlung<lb/>
+in jeder Witterung besser in seiner Form erhält. Bei<lb/>
+dem glatten und schlichten Haare bestimmen die Farbe<lb/>
+und die Länge die Preise. Jn Wien bezahlte man<lb/>
+noch vor wenig Jahren die schönsten Sorten aus-<lb/>
+ländischen Haars mit 20&#x2014;60 Gulden das Pfund,<lb/>
+während inländisches nur mit 2&#x2014;3 Gulden bezahlt<lb/>
+wurde. Sonst stand das brabanter Haar über jedem<lb/>
+andern, weil es seiner Derbheit wegen den Perücken-<lb/>
+machern unentbehrlich war, und jetzt noch geht vie-<lb/>
+les nach Wien und Jtalien. &#x2014; Das Aufkaufen aus<lb/>
+der ersten Hand geschieht in den meisten Gegenden<lb/>
+durch Juden oder kleine Krämer, die im Sommer, wo<lb/>
+das Haar am längsten ist, im Lande herumziehen, wie<lb/>
+im nördlichen Deutschland, in Thüringen, an der Elbe,<lb/>
+an der Weser, am Niederrhein, in Flandern, in Bra-<lb/>
+bant, und was sie zusammenkaufen, dann an die Haar-<lb/>
+händler in größern Städten absetzen.</p><lb/>
+<p>Während der Handel mit Menschenhaar überall ge-<lb/>
+sunken ist, hat er sich in Frankreich, vorzüglich in den<lb/>
+letzten 15 Jahren, auf eine außerordentliche Höhe geho-<lb/>
+ben. Verschiedene große Häuser haben sich daselbst dem<lb/>
+alleinigen Betriebe dieses Handels gewidmet.</p><lb/>
+<p>Sie beschäftigen in verschiedenen über die einzelnen<lb/>
+Provinzen zerstreuten Etablissements eine große Menge<lb/>
+Leute, welche alle Jahre in den Monaten April und Mai,<lb/>
+mit allerlei Waaren beladen, durch die ihnen angewiese-<lb/>
+nen Districte wandern und die Frauen und Mädchen<lb/>
+bereden, schöne Tücher und andere Putzsachen gegen<lb/>
+ihre langen vollen Zöpfe einzutauschen. Sie heißen<lb/>
+Haarschneider und finden sich auf allen Messen, Märk-<lb/>
+ten und Plätzen ein, wo viele Menschen zusämmenkom-<lb/>
+men, und manches Mädchen kehrt von solchen Plätzen,<lb/>
+mit künstlichem Putzkram beladen, aber des werthvollern<lb/>
+natürlichen Schmuckes ihrer Locken beraubt, in ihr Dorf<lb/>
+zurück, wo zum Glück für sie der verlorene Schmuck<lb/>
+von Wenigen bemerkt, der gewonnene aber von Allen be-<lb/>
+neidet wird.</p><lb/>
+<p>Diese Haarschneider wandern nicht aufs Gerathewohl<lb/>
+von Dorf zu Dorf, um die in das Depot ihres Prin-<lb/>
+cipals zu liefernde Quantität Haare zusammenzubringen;<lb/>
+sie führen Buch und Rechnung über die Dörfer, aus<lb/>
+denen sie ihren jährlichen Bedarf ziehen, und erscheinen<lb/>
+in keinem Dorfe zwei Mal des Jahres, da in jedem<lb/>
+nur eine Ernte möglich ist.</p><lb/>
+<p>Jede Gegend liefert jährlich das Haar nicht nur in<lb/>
+bestimmter Quantität, sondern auch in bestimmter Qua-<lb/>
+<cb n="2"/>
+lität, die den Haarschneidern nicht minder bekannt ist,<lb/>
+und die oft schon in Entfernungen von wenigen Meilen<lb/>
+so verschieden ist, daß das Pfund mit 3&#x2014;4 Groschen<lb/>
+mehr oder weniger bezahlt wird. Wenn ein Haarschnei-<lb/>
+der die ihm zugewiesenen Ortschaften bereist, sendet er<lb/>
+das gewonnene Haar seinem Principal, der es nun an-<lb/>
+dern Arbeitern übergibt, um es nach Länge und Güte<lb/>
+sortiren und flechten zu lassen. Wenn das geschehen<lb/>
+ist, wird es nach Paris, Bordeaux, Marseille, Lyon,<lb/>
+oder auf die Messen zu Caen, Guibrain, Beaucaire<lb/>
+versandt, wo die Fremden ihre Einkäufe zu machen<lb/>
+pflegen. Dasjenige, das zur Verwendung zu Perücken<lb/>
+bestimmt ist, wird eigenen Handwerkern übergeben, die<lb/>
+es reinigen, kräuseln und für den beabsichtigren Zweck<lb/>
+zubereiten müssen.</p><lb/>
+<p>Der ursprüngliche Preis des Haars, wie es von<lb/>
+den Dorfmädchen gekauft wird, beträgt 2 Gulden für das<lb/>
+Pfund; sortirt und geflochten, wie es in die Hände der<lb/>
+eben genannten Handwerker kommt, kostet das Pfund<lb/>
+4 Gulden, und wenn es durch die Hände der letztern<lb/>
+gegangen ist, 10&#x2014;30 Gulden. Zu diesem Preise kau-<lb/>
+fen es die Haarflechter, durch deren Geschicklichkeit der<lb/>
+Preis abermals gesteigert wird und eine außerordentliche<lb/>
+Höhe erreichen kann. So wird eine Perücke, welche drei<lb/>
+Unzen Haar enthält, also ursprünglich etwa 8 Groschen<lb/>
+kostet, oft zu dem Preise von 10 Gulden verkauft.</p><lb/>
+<p>Die Menge des Haars, welches in Frankreich jähr-<lb/>
+lich durch die Haarschneider gewonnen wird, beläuft sich<lb/>
+auf 200,000 Pfund. Ein pariser Haus, das im We-<lb/>
+sten vier Haarschneidereien besitzt, verkauft allein jährlich<lb/>
+für mehr als 100,000 Thlr.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Der Hund des Königs.</hi></head><lb/>
+<p><hi rendition="#in">D</hi>er König Ferdinand von Neapel hatte einen Lieb-<lb/>
+lingshund, einen kleinen Pudel, der bei ihm schlief<lb/>
+und von seiner Schüssel Maccaroni bekam, die der<lb/>
+König selbst für sein Leben gern aß. Was diesen Hund<lb/>
+besonders in Gnade gesetzt hatte, war der Glaube, daß<lb/>
+er die Witterung von Verschwörungen haben sollte und<lb/>
+jeden Hochverräther sogleich entdecken könne, in jener<lb/>
+Zeit der Verschwörungen eine vortreffliche Eigenschaft.</p><lb/>
+<p>Eines Tages war ein Bettelmönch aus Calabrien<lb/>
+in den königlichen Palast gekommen, der ein Gesuch<lb/>
+an den Monarchen hatte. Man wies ihn daher an ei-<lb/>
+nen Platz, wo der König vorüberzugehen pflegte, und<lb/>
+sagte ihm: &#x201E;Wenn Jhr einen kleinen Pudel erblicken<lb/>
+werdet, so ist der Mann, der gleich darauf erscheinen<lb/>
+wird, der König selbst.&#x201C; Der Mönch harrte geduldig;<lb/>
+da er aber sein letztes Nachtquartier sehr zeitig verlassen<lb/>
+hatte, so kam ihn der Hunger an und er nahm daher<lb/>
+ein Stück Brot und Käse aus seinem Schnappsacke<lb/>
+und fing an mit großem Appetit zu essen. Plötzlich<lb/>
+kommt der Hund gelaufen; der Mönch schiebt sogleich<lb/>
+sein Frühstück in die weiten Ärmel seiner Kutte, wischt<lb/>
+sich Mund und Bart und setzt sich in eine ehrerbietige<lb/>
+Haltung. Der König war auch gleich hinter dem Pu-<lb/>
+del da, dieser aber guckt den Mönch an, läuft unruhig<lb/>
+um ihn her und springt ihm dann mit lautem Ge-<lb/>
+bell nach dem Ärmel. Das ist ein Hochverräther, nicht<lb/>
+anders, denkt das Gefolge; der König will ihn<lb/>
+selbst verhören und befiehlt, daß man den verkappten<lb/>
+Franziskaner sogleich durchsuche. Es geschieht &#x2014; allein<lb/>
+Alles, was man bei ihm findet, ist eine Brotrinde und<lb/>
+ein Stückchen Käse, nach welchem der Hund gierig<lb/>
+schnappt. Das Räthsel war hiermit gelöst und der Hoch-<lb/>
+<cb type="end"/>
+<pb facs="#f0006" n="118"/>
+<fw place="top" type="pageNum">118</fw><cb type="start"/>
+verräther entdeckt. Der König streichelte seinen vierfüßi-<lb/>
+gen Spion uud sagte lachend zu ihm im schönsten<lb/>
+Lazzaroniwälsch: &#x201E;Ah, Bricongello! hast Du nicht eben<lb/>
+Huhn und Maccaroni mit mir gegessen und bist so lü-<lb/>
+stern nach einem Stückchen Käse? Du bist ein echter<lb/>
+Neapolitaner!&#x201C;</p><lb/>
+<p>Dem armen Mönch aber wurde sein Gesuch bewil-<lb/>
+ligt: der Hund stieg noch mehr in der königlichen Gunst.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Erdbeben in Westindien.</hi></head><lb/>
+<p><hi rendition="#in">D</hi>as große Unglück, welches am 8. Februar d. J. West-<lb/>
+indien betroffen, hat die Aufmerksamkeit aller Welt der-<lb/>
+maßen auf diesen Erdtheil gezogen, daß eine geographi-<lb/>
+sche Notiz über diese Gegenden wol an seiner Stelle<lb/>
+sein wird.</p><lb/>
+<p>Westindien umfaßt eine Gruppe von vier größern<lb/>
+und vielen kleinern Jnseln, welche sich unter dem Namen<lb/>
+der großen und kleinen Antillen von der Südspitze der<lb/>
+Halbinsel Florida in einem 420 Meilen langen Bogen<lb/>
+bis zu der Mündung des Orinoco hinziehen. Die Ba-<lb/>
+hama- und lucayischen Jnseln sollten nicht zu Westindien<lb/>
+gezählt werden, denn sie tragen das Gepräge desselben<lb/>
+nicht an sich. Jn der nachstehenden Übersicht führen wir<lb/>
+von den kleinen Antillen nur die wichtigern an und fol-<lb/>
+gen der Richtung von W. nach O. und dann südlich<lb/>
+hinab bis zur südlichsten, der Jnsel Trinidad.</p><lb/>
+<table><head><hi rendition="#aq">I</hi>. <hi rendition="#g">Große Antillen.</hi></head><lb/>
+<row>           <cell>Cuba.....</cell>           <cell rendition="#right">2000</cell>           <cell>&#x25A1;M.</cell>           <cell rendition="#right">1,000,000</cell>           <cell>E.</cell>           <cell>spanisch.</cell>         </row>         <lb/>
+<row>           <cell>Haiti.....</cell>           <cell rendition="#right">1400</cell>           <cell>-</cell>           <cell rendition="#right">1,000,000</cell>           <cell>-</cell>           <cell>unabhängig</cell>         </row>         <lb/>
+<row>           <cell>Jamaica....</cell>           <cell rendition="#right">300</cell>           <cell>-</cell>           <cell rendition="#right">400,000</cell>           <cell>-</cell>           <cell>britisch.</cell>         </row>         <lb/>
+<row>           <cell>Portorico...</cell>           <cell rendition="#right">200</cell>           <cell>-</cell>           <cell rendition="#right">250,000</cell>           <cell>-</cell>           <cell>spanisch.</cell>         </row>       </table>       <lb/>
+<table><head><hi rendition="#aq">II</hi>. <hi rendition="#g">Kleine Antillen oder caraibische Jnseln.</hi></head><lb/>
+<row>           <cell>St.=Thomas.</cell>           <cell rendition="#right">2</cell>           <cell>&#x25A1;M.</cell>           <cell rendition="#right">7000</cell>           <cell>E.</cell>           <cell>dänisch.</cell>         </row>         <lb/>
+<row>           <cell>St.=Jean...</cell>           <cell rendition="#right">2</cell>           <cell>-</cell>           <cell rendition="#right">7000</cell>           <cell>-</cell>           <cell>dänisch.</cell>         </row>         <lb/>
+<row>           <cell>St.=Croix...</cell>           <cell rendition="#right">5</cell>           <cell>-</cell>           <cell rendition="#right">32,000</cell>           <cell>-</cell>           <cell>dänisch.</cell>         </row>         <lb/>
+<row>           <cell>Tortola....</cell>           <cell rendition="#right">4</cell>           <cell>-</cell>           <cell rendition="#right">8000</cell>           <cell>-</cell>           <cell>britisch.</cell>         </row>         <lb/>
+<row>           <cell>Anguilla....</cell>           <cell rendition="#right">2</cell>           <cell>-</cell>           <cell rendition="#right">1500</cell>           <cell>-</cell>           <cell>britisch.</cell>         </row>         <lb/>
+<row>           <cell>St.=Martin..</cell>           <cell rendition="#right">4</cell>           <cell>-</cell>           <cell rendition="#right">4000</cell>           <cell>-</cell>           <cell>niederländ.</cell>         </row>         <lb/>
+<row>           <cell>Saba.....</cell>           <cell rendition="#right">1</cell>           <cell>-</cell>           <cell rendition="#right">1000</cell>           <cell>-</cell>           <cell>niederländ.</cell>         </row>         <lb/>
+<row>           <cell>St.=Eustache.</cell>           <cell rendition="#right">2</cell>           <cell>-</cell>           <cell rendition="#right">5000</cell>           <cell>-</cell>           <cell>niederländ.</cell>         </row>         <lb/>
+<row>           <cell>St.=Barthélemy</cell>           <cell rendition="#right">3</cell>           <cell>-</cell>           <cell rendition="#right">16,000</cell>           <cell>-</cell>           <cell>schwedisch.</cell>         </row>         <lb/>
+<row>           <cell>Barbuda....</cell>           <cell rendition="#right">4</cell>           <cell>-</cell>           <cell rendition="#right">2000</cell>           <cell>-</cell>           <cell>britisch.</cell>         </row>         <lb/>
+<row>           <cell>St.=Christoph.</cell>           <cell rendition="#right">3</cell>           <cell>-</cell>           <cell rendition="#right">25,000</cell>           <cell>-</cell>           <cell>britisch.</cell>         </row>         <lb/>
+<row>           <cell>Newis.....</cell>           <cell rendition="#right">2</cell>           <cell>-</cell>           <cell rendition="#right">10,000</cell>           <cell>-</cell>           <cell>britisch.</cell>         </row>         <lb/>
+<row>           <cell>Antigua....</cell>           <cell rendition="#right">5</cell>           <cell>-</cell>           <cell rendition="#right">38,000</cell>           <cell>-</cell>           <cell>britisch.</cell>         </row>         <lb/>
+<row>           <cell>Montserrat..</cell>           <cell rendition="#right">2</cell>           <cell>-</cell>           <cell rendition="#right">7500</cell>           <cell>-</cell>           <cell>britisch.</cell>         </row>         <lb/>
+<row>           <cell>Guadeloupe..</cell>           <cell rendition="#right">36</cell>           <cell>-</cell>           <cell rendition="#right">150,000</cell>           <cell>-</cell>           <cell>französisch.</cell>         </row>         <lb/>
+<row>           <cell>Dominica...</cell>           <cell rendition="#right">14</cell>           <cell>-</cell>           <cell rendition="#right">22,000</cell>           <cell>-</cell>           <cell>britisch.</cell>         </row>         <lb/>
+<row>           <cell>Martinique..</cell>           <cell rendition="#right">26</cell>           <cell>-</cell>           <cell rendition="#right">106,000</cell>           <cell>-</cell>           <cell>französisch.</cell>         </row>         <lb/>
+<row>           <cell>St.=Lucie...</cell>           <cell rendition="#right">10</cell>           <cell>-</cell>           <cell rendition="#right">20,000</cell>           <cell>-</cell>           <cell>französisch.</cell>         </row>         <lb/>
+<row>           <cell>Barbados...</cell>           <cell rendition="#right">10</cell>           <cell>-</cell>           <cell rendition="#right">110,000</cell>           <cell>-</cell>           <cell>französisch.</cell>         </row>         <lb/>
+<row>           <cell>St.=Vincent..</cell>           <cell rendition="#right">8</cell>           <cell>-</cell>           <cell rendition="#right">30,000</cell>           <cell>-</cell>           <cell>französisch.</cell>         </row>         <lb/>
+<row>           <cell>Grenadillen..</cell>           <cell rendition="#right">3</cell>           <cell>-</cell>           <cell rendition="#right">3000</cell>           <cell>-</cell>           <cell>französisch.</cell>         </row>         <lb/>
+<row>           <cell>Grenada....</cell>           <cell rendition="#right">9</cell>           <cell>-</cell>           <cell rendition="#right">30,000</cell>           <cell>-</cell>           <cell>französisch.</cell>         </row>         <lb/>
+<row>           <cell>Tabago....</cell>           <cell rendition="#right">6</cell>           <cell>-</cell>           <cell rendition="#right">16,000</cell>           <cell>-</cell>           <cell>britisch.</cell>         </row>         <lb/>
+<row>           <cell>Trinidad....</cell>           <cell rendition="#right">80</cell>           <cell>-</cell>           <cell rendition="#right">60,000</cell>           <cell>-</cell>           <cell>britisch.</cell>         </row>       </table><lb/>
+<p>Alle diese Jnseln sind, mit Ausnahme von Trinidad<lb/>
+und Tabago, welche den Charakter des südamerikanischen<lb/>
+Festlandes haben, in dessen Nähe sie liegen, gebirgig und<lb/>
+vulkanisch. Zwar sind nur wenige ihrer Vulkane in<lb/>
+Thätigkeit, aber die neueste Zeit hat gezeigt, daß deshalb<lb/>
+der vulkanische Herd, über welchem sie gelagert zu sein<lb/>
+scheinen, noch nicht todt ist.</p><lb/>
+<cb n="2"/>
+<p>Unter allen Antillen ist Guadeloupe von dem Erd-<lb/>
+beben am schrecklichsten heimgesucht worden. Guadeloupe<lb/>
+besteht aus zwei nur durch einen sehr schmalen Meeres-<lb/>
+arm, den sogenannten Salzfluß, getrennten Jnseln,<lb/>
+Grande Terre und Basse Terre. Mit dem erstern Na-<lb/>
+men bezeichnet man auf den Antillen ziemlich allgemein,<lb/>
+was nach Osten oder im Winde, mit dem letztern, was<lb/>
+nach Westen oder unter dem Winde liegt. Diese Na-<lb/>
+men stehen oft mit der Natur der durch sie bezeichneten<lb/>
+Jnseln ganz im Widerspruch, denn die Grande Terre<lb/>
+von Guadeloupe ist der kleinere ebene, die Basse Terre<lb/>
+der größere gebirgige Theil der Jnsel. Unter den Ge-<lb/>
+birgen der Basse Terre ist die Souffrière 5000 F. hoch<lb/>
+und durch ihren Schwefeldampf merkwürdig. Die<lb/>
+Grande Terre ist fruchtbarer als die Basse Terre und<lb/>
+durch ganze Berge von Korallen ausgezeichnet.</p><lb/>
+<p>Hauptstadt und Sitz der Regierung ist La Basse<lb/>
+Terre auf Basse Terre mit 9000 Einwohnern, einer<lb/>
+Rhede und einem Fort. Größer und wegen seines Han-<lb/>
+dels wichtiger ist Pointe=à=Pitre auf Grande Terre am<lb/>
+Salzflusse, mit 16,000 Einwohnern und einem guten<lb/>
+Hafen. Moule, Port Louis und Petit Canal sind<lb/>
+neben La Basse Terre und Pointe=à=Pitre die Haupt-<lb/>
+orte der Jnsel.</p><lb/>
+<p>Der große Erdstoß, welcher auf allen Antillen mehr<lb/>
+oder minder verspürt wurde, begann am 8. Februar Vor-<lb/>
+mittags um halb 11 Uhr und dauerte 70 Secunden.<lb/>
+Er kam nicht ganz ohne Vorboten. Schwere Dünste,<lb/>
+welche den Horizont seit dem 7. bedeckten, ließen allge-<lb/>
+mein ein Naturereigniß befürchten. Jm Augenblicke der<lb/>
+Katastrophe ward die Jnsel mit einem Staube bedeckt,<lb/>
+der beim Aufsteigen überall Flammen zeigte. Die Erde<lb/>
+borst an mehren Punkten und warf Wasser und Sand<lb/>
+aus. Am furchtbarsten hat Pointe=à=Pitre gelitten; die<lb/>
+Stadt ist ein einziger Trümmerhaufen, kaum zehn Häu-<lb/>
+ser sind im wohnlichen Zustande geblieben. Unmittelbar<lb/>
+nach dem Erdbeben brach an 2&#x2014;300 Punkten zugleich<lb/>
+Feuer aus. Durch einen glücklichen Zufall hatte die<lb/>
+Garnison noch zu rechter Zeit ihr Quartier geräumt,<lb/>
+weshalb sie nur drei Mann verlor. Ohne sie wäre die<lb/>
+Unordnung noch größer geworden, denn Bösewichter,<lb/>
+meist nordamerikanische Matrosen und entlaufene Skla-<lb/>
+ven, streiften, die Unordnung benutzend, überall herum,<lb/>
+um Feuer anzulegen und zu plündern. Von den 16,000<lb/>
+Einwohnern wurden 5000 erschlagen. Jn einem Kaf-<lb/>
+feehause wurde gerade ein Schiff verkauft und es waren<lb/>
+daselbst über 200 der angesehensten Personen, von de-<lb/>
+nen sich nicht eine einzige retten konnte.</p><lb/>
+<p>Die Stadt Moule wurde auch zerstört, doch wurden<lb/>
+hier nicht so viele Menschen getödtet, die meisten in<lb/>
+einer Mädchenerziehungsanstalt, welche beim Einstürzen<lb/>
+23 Schülerinnen nebst ihren Lehrerinnen zerschmetterte.</p><lb/>
+<p>Merkwürdig ist es, daß gerade in dem vulkanischen<lb/>
+Theile der Jnsel, auf Basse Terre, das Erdbeben weit<lb/>
+weniger Schaden anrichtete. Zwar stürzten auch hier an<lb/>
+verschiedenen Orten Häuser ein und tödteten und verwun-<lb/>
+deten im Sturze die Bewohner derselben, aber es geschah<lb/>
+doch nicht in so schrecklichem Maße wie auf Grande<lb/>
+Terre. Hier, besonders zu Pointe=à=Pitre, vermehrte<lb/>
+das ausgebrochene Feuer das Unglück auf eine schauder-<lb/>
+hafte Weise; denn nicht nur daß die wenigen stehenge-<lb/>
+bliebenen hölzernen Häuser ebenfalls verschwanden, ver-<lb/>
+breitete sich die Feuersbrunst auch noch über die zusam-<lb/>
+mengestürzten Häuser und verwandelte die ganzen Trüm-<lb/>
+merhaufen in kurzem in einen Glühofen, dessen Hitze es<lb/>
+unmöglich machte, den armen Verschütteten, von denen<lb/>
+die meisten noch lebten und um Hülfe schrieen, nahe<lb/>
+genug zu kommen, um sie zu retten. Mit Windeseile<lb/>
+<cb type="end"/>
+<pb facs="#f0007" n="119"/>
+<fw place="top" type="pageNum">119</fw><cb type="start"/>
+wälzte sich das Flammenmeer daher, nicht nur den Ver-<lb/>
+schütteten einen gräßlichen, langsamen Tod bringend, son-<lb/>
+dern auch die Fliehenden, Kinder, Weiber, Greise, selbst<lb/>
+starke Männer erfassend und in den allgemeinen Tod<lb/>
+ziehend.</p><lb/>
+<p>Die Stelle der Feuerspritzen, welche unter den zu-<lb/>
+sammengestürzten Gebäuden vergraben waren, mußten<lb/>
+die Kanonen vertreten, um durch Niederschießung der Ge-<lb/>
+bäude dem Feuer Einhalt zu thun; aber es ließ sich<lb/>
+durch nichts aufhalten, bis das Zerstörungswerk vollendet<lb/>
+war. Von den sämmtlichen Gebäuden der Stadt stand<lb/>
+am 12. Febr. nur die Fa<hi rendition="#aq">ç</hi>ade der Hauptkirche noch auf-<lb/>
+recht mit dem Zifferblatte der Uhr, auf dem der Wei-<lb/>
+ser, welcher in dem Augenblicke des Erdstoßes stehen ge-<lb/>
+blieben war, 10 Uhr 35 Minuten zeigte.</p><lb/>
+<p>Auf den britischen Antillen hat das Erdbeben eben-<lb/>
+falls sehr niederschlagende Wirkungen hervorgebracht. Jn<lb/>
+Basse Terre, der Hauptstadt der Jnsel St.=Christoph,<lb/>
+ist fast kein Privathaus unbeschädigt geblieben; die Jn-<lb/>
+sel Newis hat ebenfalls großen Schaden erlitten, am<lb/>
+übelsten aber ist es Antigua ergangen. Jn der Haupt-<lb/>
+stadt St.=Johns hat das Erdbeben jede Kirche, jedes<lb/>
+Bethaus, mit Ausnahme des hölzernen der mährischen<lb/>
+Brüder, zerstört oder unbrauchbar gemacht; ebenso ist es<lb/>
+den Privathäusern ergangen, sodaß die Bewohner auf<lb/>
+den Schiffen Zuflucht suchen mußten.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Federposen</hi>. <note place="foot" n="*)">Vgl. Nr. 226 der alten Folge des Pfennig=Magazins.</note></head><lb/>
+<p><hi rendition="#in">D</hi>ie Federposen, auch Federkiele, Federspulen genannt,<lb/>
+welche zum ordentlichen Schreiben dienen sollen, werden<lb/>
+im Frühjahre von den Bauern gesammelt und an die<lb/>
+Federposenfabrikanten ( Posenschraper ) verkauft. Am besten<lb/>
+sind diejenigen, welche den Gänsen einzeln zur Mauser-<lb/>
+zeit, im Mai und Juni, von selbst ausfallen; alle Fe-<lb/>
+dern der übrigen Jahreszeiten taugen nicht zu Schreib-<lb/>
+federn, ebenso wenig diejenigen, welche man mit Gewalt<lb/>
+aus den Flügeln der todten Gänse zieht.</p><lb/>
+<p>Kein Gänseflügel hat mehr als fünf zum Schreiben<lb/>
+dienliche Federn. Die Eckpose ist die kürzeste, härteste<lb/>
+und rundeste, aber auch die schlechteste. Sie heißt die<lb/>
+Ortpose; auf sie folgen zwei andere, welche die Schlacht-<lb/>
+posen genannt werden. Diese behaupten den Vorzug<lb/>
+vor allen andern; die zwei sogenannten Breitfedern,<lb/>
+welche auf die Schlachtposen folgen, stehen ihnen an<lb/>
+Güte weit nach, sind aber doch viel besser als die Eck-<lb/>
+pose. Um die Schlachtposen zu erkennen, muß man auf<lb/>
+die Beschaffenheit der schmalen Seite der Feder achten;<lb/>
+bei den Schlachtposen hat die schmale Seite der Fahne<lb/>
+nach unten zu von Natur einen auswärts gekehrten<lb/>
+Ausschnitt.</p><lb/>
+<p>Für die rechte Hand, mit der wir schreiben, schicken<lb/>
+sich die Federn des linken Flügels besser als die des<lb/>
+rechten, weil sie sich bequemer halten lassen. Man er-<lb/>
+kennt sie daran, daß, wenn man sie aufschneidet und ih-<lb/>
+ren Rücken nach unten hält, die Öffnung nicht gegen<lb/>
+die rechte, sondern gegen die linke Seite von der gera-<lb/>
+den Linie abweicht.</p><lb/>
+<p>Der Fabrikant gibt den Kielen mittels heißen San-<lb/>
+des oder heißer Asche, wodurch alles in ihnen befindliche<lb/>
+Fett herausgezogen wird, Glanz und Härte, bisweilen<lb/>
+auch zugleich zwei oder mehre Streifen. Nach dieser<lb/>
+Behandlung heißen sie gezogene Spulen. Eine gut ge-<lb/>
+zogene Schreibfeder darf weder zu hart noch zu weich<lb/>
+<cb n="2"/>
+sein; man wählt diejenigen, welche an der Spitze etwas<lb/>
+nachgeben, wenn man sie zwischen dem Daumen und<lb/>
+Zeigefinger drückt.</p><lb/>
+<p>Die nach englischer Art gezogenen sind durchgehends<lb/>
+klar, sodaß die Seele inwendig los ist und hin und her<lb/>
+läuft, wenn man sie schüttelt; die holländischen bestehen<lb/>
+in lauter großen Posen, die nur an der Stelle ganz<lb/>
+klar sind, wo man die Spalte an der Schreibfeder macht.<lb/>
+Die hamburger sogenannten Seespulen, die von Vielen<lb/>
+für die besten Federspulen gehalten werden, werden meist<lb/>
+durch heiße Asche zugerichtet, und das ist der Grund,<lb/>
+warum sie oft Zähne bekommen. Die Asche hat näm-<lb/>
+lich selten die gehörige Temperatur, sie ist meist entweder<lb/>
+zu heiß oder zu kalt. Jm erstern Falle wird die Spule<lb/>
+zu schnell weich, was die Feder statt hart zähe macht<lb/>
+und beim Spalten keinen freien Aufsprung zuläßt; im<lb/>
+letztern Falle erweicht die Spule nicht genug, die Wärme<lb/>
+durchdringt nicht alle Theilchen derselben und die Feder<lb/>
+bleibt auch hier zähe.</p><lb/>
+<p>Am besten thut man, wenn man die Schreibfedern<lb/>
+vorsichtig über Kohlenfeuer behandelt. Die brennenden<lb/>
+Kohlen dürfen keine Flamme geben, denn diese würde<lb/>
+die Feder verbrennen; beim Halten über das Kohlenfeuer<lb/>
+muß man die Feder schnell hin und her bewegen und<lb/>
+oft vom Feuer nehmen, um zu fühlen, ob sie durchaus<lb/>
+und in gleichem Grade erweicht sei. Jst dies der Fall,<lb/>
+so nimmt man den Kiel mit abwärts gekehrtem Rücken<lb/>
+in die linke Hand, hält sie auf das mit einem wollenen<lb/>
+Lappen bedeckte Knie oder auf einen mit Tuch bedeckten<lb/>
+Tisch, drückt mit dem Rücken eines breiten Messers oben<lb/>
+auf den Anfang des Rohrs, zieht den Kiel rückwärts<lb/>
+darunter weg und gibt ihm seine vorige runde Gestalt<lb/>
+wieder, indem man ihn einige Male durch ein Tuch an-<lb/>
+haltend hindurchzieht. Es streift sich dabei das äußere<lb/>
+Häutchen ab, von dem Zusammendrücken aber entstehen<lb/>
+durchsichtige Striemen.</p><lb/>
+<p>Wer sehr harte Spulen liebt, kann dieselben zwei-<lb/>
+mal ziehen und sie das erste Mal auf dem Rücken, das<lb/>
+zweite Mal auf einer Seite mit einem Messer überstrei-<lb/>
+chen; nur darf das nicht gleich hintereinander geschehen,<lb/>
+sondern die Feder muß erkalten, ehe sie zum zweiten<lb/>
+Male gezogen wird.</p><lb/>
+<p>Einige pflegen die Kiele bis an die Fahne in heiße<lb/>
+Asche oder heißen Sand zu stecken, dann in kalte Lauge<lb/>
+zu tauchen, wieder aufs neue in heiße Asche zu stecken<lb/>
+und dann auf die bereits angegebene Art zu verfahren.</p><lb/>
+<p>Rabatz in Prag legt die Kiele 40 Stunden in rei-<lb/>
+nes Wasser, steckt dann jeden Kiel 3 Minuten in stark<lb/>
+erhitzten weißen Sand, zieht ihn mit einer Klinge in<lb/>
+seiner ganzen Länge ab, legt ihn wieder 18 Stunden in<lb/>
+Wasser, dann wieder in heißen Sand und polirt ihn<lb/>
+endlich durch Reiben mit Flanell.</p><lb/>
+<p>Die Federkielfabrikanten binden die Federn gewöhn-<lb/>
+lich zu 25, 50 oder 100 Stück in ein Bund zusam-<lb/>
+men. Die Farbe des Bindfadens bezeichnet die Güte<lb/>
+der Gebinde. Die erste und theuerste Sorte heißt &#x201E; <hi rendition="#aq">ex-<lb/>
+tra</hi> großes Gut&#x201C;; sie ist mit einem rothfarbenen Bande<lb/>
+umwunden und besteht aus lauter großen ausgesuchten<lb/>
+Posen. Auf diese Sorte folgt &#x201E;groß Gut&#x201C; mit grünem<lb/>
+und rothem Hanf umwickelt, auf diese eine Mittelsorte,<lb/>
+roth und grün umwickelt, auf diese &#x201E;Meß <hi rendition="#aq">extra</hi> &#x201C;, kurzge-<lb/>
+bunden roth; auf diese der steife Kleingelbband, klein<lb/>
+Blauband, klein Roth, weitläufig gebunden, und zuletzt<lb/>
+die Ortposen, als die schlechtesten von allen.</p><lb/>
+<p>Jn Canstanjen's Fabrik zu Düsseldorf wird die Fe-<lb/>
+derkielfabrikation ins Große getrieben. Man sortirt hier<lb/>
+die Federn mittels einer eigenen Wage in 54 Sorten<lb/>
+oder Schweren. Das Bewickeln der Federn geschieht<lb/>
+<cb type="end"/>
+<pb facs="#f0008" n="120"/>
+<fw place="top" type="pageNum">120</fw><cb type="start"/>
+hier mittels einer Rädermaschine, welche täglich 10&#x2014;<lb/>
+24,000 Federn mit Bindfaden umwindet. Canstanjen<lb/>
+erfand auch eine besondere Appretirungsart, wodurch die<lb/>
+Schreibfedern alle möglichen guten Eigenschaften bekom-<lb/>
+men. Er nannte so appretirte Federn renommirte Fe-<lb/>
+dern ( <hi rendition="#aq">plumes à la renommée</hi> ) , welche trotz ihres höhern<lb/>
+Preises sehr gesucht wurden und besonders nach dem<lb/>
+südlichen Frankreich und Spanien gingen.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Verbrecherverwegenheit.</hi></head><lb/>
+<p><hi rendition="#in">A</hi>m 16. Februar d. J. entsprang in Helmstedt der am<lb/>
+10. in Ketten dahin gebrachte berüchtigte Räuberhaupt-<lb/>
+mann Rose, welcher lange der Schrecken der ganzen<lb/>
+Umgegend gewesen war. Durch dreitägiges Fasten und<lb/>
+simulirte Krankheit hatte er den Jnstructionsrichter be-<lb/>
+wogen, ihm die Ketten abnehmen zu lassen. Als ihm<lb/>
+am 16. das Frühstück gebracht wurde, entsloh er aus<lb/>
+seiner Zelle, überwältigte einen ihm entgegentretenden Po-<lb/>
+liceijäger, dann den Gefängnißwärter, übersprang die hohe<lb/>
+Mauer des Gefängnißhofs, nahm seinen Weg durch ein<lb/>
+Fenster eines unbewohnten Gebäudes, erreichte durch ein<lb/>
+anderes die Straße und entkam so, obgleich von Vielen<lb/>
+gesehen, am hellen Tage über die Stadtmauer und den<lb/>
+Wall ins Freie. Der in der Nacht frisch gefallene<lb/>
+Schnee erleichterte seine Verfolgung, die von dem gan-<lb/>
+zen Forstpersonal und einer großen Anzahl Bürger un-<lb/>
+ternommen wurde. Der Schnee schmolz indeß bald und<lb/>
+die Verfolgung blieb ohne Erfolg. Am andern Morgen<lb/>
+erhielt man die Nachricht, daß sich Rose auf einer Anhöhe<lb/>
+in der Kohli, einem Forstorte unweit Helmstedt, ein<lb/>
+Feuer angemacht habe. Sogleich brach ein Corps von<lb/>
+10 Mann, mit dem Kreisamtmann und Oberförster an<lb/>
+der Spitze, zu seiner Verfolgung auf. Vorsichtig nahte<lb/>
+man sich, unterwegs durch einige Holzhacker verstärkt,<lb/>
+dem Ruheplatze Rose's, aber dieser merkte die ihm dro-<lb/>
+hende Gefahr und entfloh in eine starke Fichtendickung.<lb/>
+Nachdem ein ungeregelter Verfolg in derselben zu keinem<lb/>
+Resultate geführt hatte, umstellte der Förster die ganze<lb/>
+Dickung mit einem Cordon und drang darauf, da un-<lb/>
+terdessen noch mehr Menschen herbeigekommen waren,<lb/>
+mit einer Abtheilung von acht Mann in dieselbe, um<lb/>
+jeden dicken Horst vorsichtig zu durchsuchen. Bei dieser<lb/>
+Untersuchung entdeckte der Förster Rose unter einer stark<lb/>
+bezweigten Fichte und nahm ihn trotz eines abermaligen<lb/>
+verzweifelten Fluchtversuchs gefangen. Unter dem Jubel<lb/>
+der Menge wurde nun der Gefürchtete zum zweiten<lb/>
+Male in Ketten nach Helmstedt gebracht, der Oberför-<lb/>
+ster aber empfing ein Danksagungsschreiben von der<lb/>
+Behörde für seine umsichtige Leitung und eine Prä-<lb/>
+mie von 50 Thlrn., die er aber großmüthig der unter<lb/>
+seinen Befehlen ausgezogenen Mannschaft abtrat.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Galvanismus.</hi></head><lb/>
+<p><hi rendition="#in">E</hi>ine neue Anwendung der galvanischen Kraft ist gegen-<lb/>
+wärtig in München gemacht worden. Zwölf große Wand-<lb/>
+uhren mit Schlagwerken, bestimmt für die verschiedenen<lb/>
+Säle eines dortigen Erziehungsinstituts, sind, nach der<lb/>
+Erfindung des Prof. Steinheil, durch die Einwirkung<lb/>
+eines galvanischen Stroms gezwungen, genau miteinan-<lb/>
+der zu gehen, sodaß alle immer gleichzeitig zusammen<lb/>
+<cb n="2"/>
+schlagen und folglich im ganzen Gebäude und in allen<lb/>
+Lehrzimmern nur eine und dieselbe Zeitangabe ist. Die<lb/>
+Angabe der Zeit geht von einer Normaluhr aus. Dieses<lb/>
+Princip läßt sich auch auf die Stadtuhren ausdehnen.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jVarious"><head><hi rendition="#fr"><hi rendition="#g">Miscellen</hi>.</hi></head><lb/>
+<div n="2" type="jArticle"><p>Durch einen Vertrag mit den vier Emirn von Sind,<lb/>
+dem Land am untern Jndus, in welchem diese die fünf Städte<lb/>
+Karratschi, Tatta, Sukkur, Bukkur und Nori nebst einem<lb/>
+500 englische Meilen langen Streifen Landes längs dem Jn-<lb/>
+dus an England abtreten müssen, wird England Herr des<lb/>
+untern Jndus, denn Karratschi ist die Hafenstadt an der<lb/>
+westlichsten Mündung des Jndus, Tatta weiter aufwärts an<lb/>
+dem Punkte, wo sich die meisten Arme desselben schneiden,<lb/>
+während Sukkur, Bukkur und Nori, ganz in der Nähe von-<lb/>
+einander gelegen, den Weg aus Sind über Schikarpur durch<lb/>
+Beludschistan nach Afghanistan beherrschen. Nun wird auch<lb/>
+das Pendschab und der obere Jndus die Herrschaft der Eng-<lb/>
+länder bald anerkennen müssen.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Jm vorigen Jahre kam ein Schiff aus Peru, das eine<lb/>
+neue Düngerart, <hi rendition="#g">Guano</hi> genannt, mitbrachte, welche die er-<lb/>
+freulichsten Wirkungen auf das Wachsthum der Gewächse äu-<lb/>
+ßert. Jn England hat man davon schon die schönsten Erfolge<lb/>
+gesehen und beabsichtigt, ausgedehntern Gebrauch davon zu<lb/>
+machen. Der Guano ist eine aus Vogeldünger und erdigen<lb/>
+Theilen bestehende Masse, die sich vielleicht seit Jahrhunderten<lb/>
+in ungeheuren Mengen gesammelt hat.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Der englische Arzt <hi rendition="#aq">Dr</hi>. Bims hat eine Anatomie des <lb/>
+<hi rendition="#g">Schlafs</hi> herausgegeben. Um schnell einzuschlafen, muß man<lb/>
+folgendermaßen verfahren: Der Schlaflose wende sich auf die<lb/>
+rechte Seite, lege das Haupt bequem auf die Kissen und zwar<lb/>
+so, daß er, wenn man sich eine Linie vom Kopf bis zu den<lb/>
+Schultern denkt, genau einen Winkel beschreibt; dann athme<lb/>
+er recht tief, mit leicht geschlossenen Lippen, auf, dergestalt,<lb/>
+daß er so viel Luft wie nur immer möglich durch die Nase<lb/>
+einzieht. Doch ist dies, wie der Herr Doctor meint, nicht<lb/>
+unumgänglich nöthig, da Manche stets durch den Mund Athem<lb/>
+holen und dennoch vortrefflich schlafen. Nach diesem einmali-<lb/>
+gen tiefen Athemzuge überlasse man die Lungen ihrer eigenen<lb/>
+Thätigkeit, d. h. das Athmen sei weder zu lang gehalten noch<lb/>
+zu kurz. Jetzt muß die Aufmerksamkeit sich allein auf fol-<lb/>
+gende Art richten: er muß sich nämlich vorstellen, als sehe er<lb/>
+den Athem in Gestalt eines ununterbrochenen Stroms aus sei-<lb/>
+ner Nase ziehen, und in demselben Augenblicke, wo er im<lb/>
+Stande ist, fern von allen andern Jdeen, nur allein daran<lb/>
+zu denken, schwinden Bewußtsein und Erinnerung, die Vorstel-<lb/>
+lungskraft schlummert, die Phantasie wird schläfrig, der Gedanke<lb/>
+ist unterjocht, die Sinne verlieren ihre Empfänglichkeit, das<lb/>
+Gangliensystem erhält die Oberherrschaft, mit einem Worte:<lb/>
+der Mensch &#x2014; schläft! </p></div></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jAn"><head><hi rendition="#fr">Literarische Anzeige.</hi></head><lb/>
+<p>Bei mir ist erschienen und durch alle Buchhandlungen zu<lb/>
+erhalten:</p><lb/>
+<p><hi rendition="#b #c #fr #larger">Gedichte</hi><lb/>
+<hi rendition="#c"> vom <lb/>
+<hi rendition="#fr"><hi rendition="#g">Fürsten zu Lynar</hi>.</hi><lb/>
+Gr. 8. Geh. 1 Thlr. 18 Ngr.</hi></p><lb/>
+<p>Früher erschienen von dem Verfasser ebendaselbst:</p><lb/>
+<p>Der Ritter von Rhodus. Trauerspiel in vier<lb/>
+Acten. Gr. 8. Geh. 20 Ngr.</p><lb/>
+<p>Die Mediceer. Drama in fünf Acten. Gr. 8.<lb/>
+Geh. 24 Ngr.</p><lb/>
+<p>Leipzig, im April 1843.</p><lb/>
+<p><space dim="horizontal"/><hi rendition="#fr">F. A. Brockhaus.</hi></p></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/><lb/>
+</body>     <back><div n="1" type="imprint"><p><hi rendition="#c">Herausgegeben unter Verantwortlichkeit der Verlagshandlung F. A. <hi rendition="#g">Brockhaus</hi> in <hi rendition="#g">Leipzig</hi>.</hi></p></div>     </back>   </text> </TEI>

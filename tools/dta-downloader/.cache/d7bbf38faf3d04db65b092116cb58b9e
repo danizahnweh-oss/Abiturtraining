@@ -1,0 +1,1110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.deutschestextarchiv.de/basisformat.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">     <teiHeader>
+<fileDesc>
+<titleStmt>
+<title type="main">Das Pfennig-Magazin für Belehrung und Unterhaltung</title>
+<title type="sub">Neue Folge, Erster Jahrgang, Nr. 38</title>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/115266127">
+<surname>Geyken</surname>
+<forename>Alexander</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1222198746">
+<surname>Haaf</surname>
+<forename>Susanne</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1019062681">
+<surname>Jurish</surname>
+<forename>Bryan</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Boenig</surname>
+<forename>Matthias</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Thomas</surname>
+<forename>Christian</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Wiegand</surname>
+<forename>Frank</forename>
+</persName>
+</editor>
+<respStmt>
+<orgName>Institut für Deutsche Sprache, Mannheim</orgName>
+<resp>
+<note type="remarkResponsibility">Bereitstellung der Bilddigitalisate und TEI
+Transkription</note>
+<ref target="http://hdl.handle.net/10932/00-01B8-B097-624F-A501-B"/>
+</resp>
+</respStmt>
+<respStmt>
+<persName>
+<forename>Peter</forename>
+<surname>Fankhauser</surname>
+</persName>
+<resp>
+<note type="remarkResponsibility">
+Transformation von TUSTEP nach TEI P5.
+Transformation von TEI P5 in das DTA TEI P5 Format.
+</note>
+</resp>
+</respStmt>
+<respStmt>
+<orgName ref="https://www.bbaw.de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<resp>
+<note type="remarkResponsibility">Langfristige Bereitstellung der DTA-Ausgabe</note>
+<ref target="https://www.bbaw.de"/>
+</resp>
+</respStmt>
+</titleStmt>
+<editionStmt><edition>Vollständige digitalisierte Ausgabe.</edition></editionStmt>
+<extent>
+<measure type="images">8</measure>
+<measure type="tokens">6684</measure>
+<measure type="types">2692</measure>
+<measure type="characters">46351</measure>
+</extent>
+<publicationStmt>
+<publisher xml:id="DTACorpusPublisher">
+<email>dta@bbaw.de</email>
+<orgName role="project">Deutsches Textarchiv</orgName>
+<orgName role="hostingInstitution" xml:lang="en">Berlin-Brandenburg Academy of Sciences and Humanities (BBAW)</orgName>
+<orgName role="hostingInstitution" xml:lang="de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<address>
+<addrLine>Jägerstr. 22/23, 10117 Berlin</addrLine>
+<country>Germany</country>
+</address>
+</publisher>
+<pubPlace>Berlin</pubPlace>
+<date type="publication">2025-10-24T08:35:12Z</date>
+<availability>
+<licence target="http://creativecommons.org/publicdomain/zero/1.0/">
+<p>Dieses Werk steht unter der "Creative Commons Namensnennung -
+Nicht kommerziell 3.0 Deutschland Lizenz" (CC BY-NC).</p>
+</licence>
+</availability>
+<idno>
+<idno type="URLWeb">https://www.deutschestextarchiv.de/nn_pfennig038_1843</idno>
+<idno type="URLXML">https://www.deutschestextarchiv.de/book/download_xml/nn_pfennig038_1843</idno>
+<idno type="URLHTML">https://www.deutschestextarchiv.de/book/download_html/nn_pfennig038_1843</idno>
+<idno type="URLText">https://www.deutschestextarchiv.de/book/download_text/nn_pfennig038_1843</idno>
+<idno type="DTADirName">nn_pfennig038_1843</idno>
+<idno type="DTAID">34727</idno>
+<idno type="URN">urn:nbn:de:kobv:b4-34727-0</idno>
+</idno>
+</publicationStmt>
+<sourceDesc>
+<bibl type="J">Das Pfennig=Magazin für Belehrung und Unterhaltung. Neue Folge, Erster Jahrgang, Nr. 38. Leipzig (Sachsen), 23. September 1843.</bibl>
+<biblFull>
+<titleStmt>
+<title level="m" type="main">Das Pfennig-Magazin für Belehrung und Unterhaltung</title>
+<title level="m" type="sub">Neue Folge, Erster Jahrgang, Nr. 38</title>
+</titleStmt>
+<editionStmt>
+<edition n="1"/>
+</editionStmt>
+<publicationStmt>
+<publisher/>
+<pubPlace>Leibzig (Sachsen)</pubPlace>
+<date type="publication">1843</date>
+</publicationStmt>
+</biblFull>
+<msDesc>
+<msIdentifier/>
+<physDesc>
+<typeDesc>
+<p>Fraktur</p>
+</typeDesc>
+</physDesc>
+</msDesc>
+</sourceDesc>
+</fileDesc>
+<encodingDesc>
+<editorialDecl>
+<p>
+<![CDATA[
+<p>Siehe Dokumentation</p>
+]]>
+</p>
+</editorialDecl>
+<tagsDecl>
+<rendition scheme="css" xml:id="aq">font-family:sans-serif</rendition>
+<rendition scheme="css" xml:id="b">font-weight:bold</rendition>
+<rendition scheme="css" xml:id="blue">color:blue</rendition>
+<rendition scheme="css" xml:id="c">display:block; text-align:center</rendition>
+<rendition scheme="css" xml:id="et">display:block; margin-left:2em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et2">display:block; margin-left:4em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et3">display:block; margin-left:6em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="f">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="fr">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="g">letter-spacing:0.125em</rendition>
+<rendition scheme="css" xml:id="i">font-style:italic</rendition>
+<rendition scheme="css" xml:id="in">font-size:150%</rendition>
+<rendition scheme="css" xml:id="k">font-variant:small-caps</rendition>
+<rendition scheme="css" xml:id="larger">font-size:larger</rendition>
+<rendition scheme="css" xml:id="red">color:red</rendition>
+<rendition scheme="css" xml:id="right">display:block; text-align:right</rendition>
+<rendition scheme="css" xml:id="s">text-decoration:line-through</rendition>
+<rendition scheme="css" xml:id="smaller">font-size:smaller</rendition>
+<rendition scheme="css" xml:id="sub">vertical-align:sub; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="sup">vertical-align:super; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="u">text-decoration:underline</rendition>
+<rendition scheme="css" xml:id="uu">border-bottom:double 3px #000</rendition>
+</tagsDecl>
+</encodingDesc>
+<profileDesc>
+<langUsage>
+<language ident="deu">(Früh-)Neuhochdeutsch</language>
+<language ident="deu">German</language>
+</langUsage>
+<textClass>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1main">Gebrauchsliteratur</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1sub">Zeitschrift</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">ready</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">mkhz1</classCode>
+</textClass>
+</profileDesc>
+</teiHeader>
+<text>     <front>
+<pb facs="#f0001" n="[297]"/>
+<titlePage type="heading"><docTitle><titlePart type="main"><hi rendition="#c #fr">Das Pfennig=Magazin<lb/>
+für<lb/>
+<hi rendition="#g">Belehrung und Unterhaltung</hi>.</hi></titlePart></docTitle><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<docImprint><hi rendition="#fr">Nr</hi>. 38. ]                <hi rendition="#c">Neue Folge. Erster Jahrgang.</hi>                <docDate><hi rendition="#right">[ 23. <hi rendition="#g">September</hi> 1843.</hi></docDate>              </docImprint></titlePage><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+</front>     <body>       <div n="1" type="jArticle"><head><hi rendition="#fr">Christoph Friedrich von Ammon.</hi></head><lb/>
+<figure/><lb/>
+<cb type="start"/>
+<p><hi rendition="#in">C</hi>hristoph Friedrich von Ammon, gegenwärtig Viceprä-<lb/>
+sident des Oberconsistoriums, Mitglied des Staatsraths<lb/>
+und Oberhofprediger zu Dresden, einer der ausgezeich-<lb/>
+netsten Theologen und geistreichsten Kanzelredner, wurde<lb/>
+am 16. Januar 1766 zu Baireuth geboren. Er stu-<lb/>
+dirte in Erlangen und wurde daselbst bereits 1789 Pro-<lb/>
+fessor der Philosophie und 1792 ordentlicher Professor<lb/>
+der Theologie. Vom Jahre 1794&#x2014;1804 wirkte er un-<lb/>
+ter dem Titel eines Consistorialraths an der Universität<lb/>
+zu Göttingen, in dem zuletzt genannten Jahre aber kehrte<lb/>
+er wieder nach Erlangen zurück, wo er außer seiner Pro-<lb/>
+fessur auch das Pfarramt in der Neustadt versah, spä-<lb/>
+ter Superintendent und endlich seiner ausgezeichneten Lei-<lb/>
+stungen wegen bairischer Kirchenrath wurde. Als durch<lb/>
+den Tod Reinhard's ( 1813 ) die Oberhofpredigerstelle<lb/>
+zu Dresden erledigt worden war, wußte man in der<lb/>
+theologischen Welt Deutschlands keinen würdigern Be-<lb/>
+kleider dieser Stelle aufzufinden als den bereits durch<lb/>
+<cb n="2"/>
+ganz Deutschland berühmten erlanger Theologen. Er er-<lb/>
+hielt daher den Antrag, Reinhard's Nachfolger zu wer-<lb/>
+den, und nahm ihn an. Gewiß verbarg er sich die<lb/>
+Schwierigkeiten nicht, welche mit dem Oberhofprediger-<lb/>
+amte in Sachsen verbunden sind und welche damals<lb/>
+durch die feindliche Besetzung des Landes und den um<lb/>
+sich greifenden Mysticismus um ein Bedeutendes größer<lb/>
+wurden; aber mit der Klarheit des Geistes, welche den<lb/>
+ungewöhnlichen Mann noch heute auszeichnet, verglich er<lb/>
+die Kräfte, die er in sich trug, mit den Kräften, die sein<lb/>
+neues Amt foderte, und mußte sich sagen, daß er ganz<lb/>
+dazu berufen sei, die schwierige Stellung auszufüllen, die<lb/>
+man ihm anbot. Jn der That möchte unter den Hun-<lb/>
+derten von Theologen, welche damals in der theologischen<lb/>
+Welt einen Namen hatten, schwerlich Einer gewesen sein,<lb/>
+der auch nur annäherungsweise Ammon erreicht hätte.<lb/>
+Männer wie Ammon, in denen das Menschliche in allen<lb/>
+Richtungen bis zu einem hienieden selten erreichbaren<lb/>
+<cb type="end"/>
+<pb facs="#f0002" n="298"/>
+<fw place="top" type="pageNum">298</fw><cb type="start"/>
+Grade harmonisch entwickelt ist, die sich durch Gelehr-<lb/>
+samkeit und Philosophie, durch innere und äußere Ge-<lb/>
+wandtheit, durch Charakterfestigkeit und Unparteilichkeit<lb/>
+gleich sehr auszeichnen, an denen Leib und Seele, Geist<lb/>
+und Gemüth, Verstand und Wille gleich kräftig und ge-<lb/>
+sund ist, sind Phänomene, an denen keine Zeit reich ist.<lb/>
+Ammon ist in jeder Beziehung groß; man mag ihn als<lb/>
+Redner, Examinator, als Schriftsteller oder als Gesell-<lb/>
+schafter kennen lernen, man wird von Bewunderung er-<lb/>
+griffen. Eine nie versiegende, stets sich gleichbleibende<lb/>
+Heiterkeit, der Abschein der innern Harmonie seines We-<lb/>
+sens, fesselt die Aufmerksamkeit seiner Umgebung, noch<lb/>
+ehe er gesprochen<gap reason="illegible"/> hat; wenn aber die Worte erst über<lb/>
+die Lippen strömen, müssen sich ihm auch die verschlos-<lb/>
+sensten Herzen öffnen. Er ist nun bereits über 77 Jahre<lb/>
+alt, aber immer noch bewundert man ihn, er mag sich<lb/>
+auf der Kanzel, auf der Rednerbühne des Landtags, in<lb/>
+einer Schrift oder im alltäglichen Leben vernehmen las-<lb/>
+sen. Trotz seiner ungeheuern Arbeiten ist ihm so viel<lb/>
+Zeit übriggeblieben, sich zu einem tüchtigen Pianoforte-<lb/>
+spieler zu bilden und für Alles, was Kunst heißt, einen<lb/>
+regen Sinn zu bewahren.</p><lb/>
+<p>Menschen, die in ihren Mitmenschen nichts als per-<lb/>
+sonificirte Begriffe sehen, die sie sich oft sonderbar genug<lb/>
+zusammenreimen, können eine Persönlichkeit wie Ammon,<lb/>
+in der nichts verschroben, sondern Alles naturgemäß har-<lb/>
+monisch ineinander greift, nicht richtig würdigen und ha-<lb/>
+ben so Manches, was nur das Resultat seiner Univer-<lb/>
+salitat sein konnte, als tadelhaft angegriffen. Es ist hier<lb/>
+der Ort nicht, den großen Mann zu vertheidigen, und<lb/>
+deshalb sollte auch von Angriffen auf ihn geschwiegen<lb/>
+werden; aber die Angriffe bezeichnen zum Theil sehr<lb/>
+charakteristisch den Standpunkt unserer Bildung, und<lb/>
+darum mag ihrer gedacht werden, in der Voraussetzung,<lb/>
+daß sie Jedem in ihrer Nichtigkeit erkennbar sein werden.<lb/>
+Man fand es unrecht, daß Ammon den seiner Familie<lb/>
+in Baiern zurückgegebenen Adel auch in Sachsen zur<lb/>
+Anerkenntniß bringen ließ; daß er der preußischen Agende<lb/>
+das Wort redete; daß er sich der Vereinigung der Luthe-<lb/>
+raner und Reformirten widersetzte; daß er das berühmte<lb/>
+Werk &#x201E;Die Fortbildung des Christenthums zur Welt-<lb/>
+religion &#x201C; schrieb; daß er als ein geschickter Steuermann<lb/>
+das Schiff seines Lebens vor allen Klippen, Sandbän-<lb/>
+ken und Untiefen zu bewahren wußte; daß er gegen die<lb/>
+katholische Kirche nicht wacker zu Felde zog u. s. w.</p><lb/>
+<p>Von der geistigen Selbständigkeit und Lebendigkeit<lb/>
+Ammon's gibt vorzüglich der Umstand Kunde, daß er<lb/>
+aller formellen Consequenzmacherei fremd ist und sich im-<lb/>
+mer auf dem Standpunkte einer Fortentwickelung befand,<lb/>
+von dem freilich Diejenigen nichts wissen, welche da mei-<lb/>
+nen, der Gelehrte gehe, wie weiland Pallas Athene aus<lb/>
+dem Haupte Jupiter's, fix und fertig für alle Zeiten<lb/>
+aus den Hörsälen der Universität in das öffentliche Le-<lb/>
+ben über. Ein solcher knöcherner Gelehrter war Ammon<lb/>
+nie; in ihm schlugen alle Pulse der Gegenwart und Ver-<lb/>
+gangenheit zusammen und modificirten fort und fort sein<lb/>
+geistiges Leben, sodaß es frisch und grün blieb bis in<lb/>
+sein Greisenalter.</p><lb/>
+<p>Jn der Erklärung der heiligen Schrift folgte er an-<lb/>
+fangs den Grundsätzen Heyne's, Eichhorn's und Koppe's,<lb/>
+welche die Auslegungskunde in eine Philosophie der Aus-<lb/>
+legung verwandelt hatten, die, einseitig bis ins Extreme<lb/>
+getrieben, vom Bibeltexte nichts übrig ließ als den Aus-<lb/>
+leger. Ammon schützte sich vor diesem Abwege in seinen<lb/>
+Forschungen als Lehrer und Kanzelredner durch die Kant' -<lb/>
+sche Philosophie, die mehr als irgend ein anderes System<lb/>
+die höchste Aufgabe der echten Theologie, die Vereini-<lb/>
+gung des Wissens und Glaubens, befördert. Seine re-<lb/>
+<cb n="2"/>
+ligiösen Ansichten und Forschungen beruhen auf dem<lb/>
+Grundsatze, daß die Wahrheit sich weder im Gefühl,<lb/>
+noch in der Formel, noch in irgend einem Buchstaben<lb/>
+findet, sondern in der den Gesetzen des Gemüths ange-<lb/>
+messenen Erkenntniß des lebendigen Seins. Jnsofern<lb/>
+der Supernaturalismus keine Wissenschaft, der Rationa-<lb/>
+lismus keinen Glauben bedarf, konnte ihm der eine so<lb/>
+wenig zusagen als der andere, und er entschied sich für<lb/>
+einen rationalen Supernaturalismus, in welchem der<lb/>
+Glaube da beginnt, wo die Wissenschaft aufhört. Scharf-<lb/>
+sinniges Forschen und demüthiges Erkennen der mensch-<lb/>
+lichen Grenzen, das zum Glauben führt, leuchtet aus<lb/>
+allen seinen Reden und Schriften hervor. Mit seltener<lb/>
+Gewandtheit und Leichtigkeit weiß er aufzufassen, zu un-<lb/>
+terscheiden und darzustellen und so auf gleiche Weise den<lb/>
+Verstand zu überzeugen und das Herz zu erwärmen.<lb/>
+Sein Hauptwerk ist seine &#x201E;Fortbildung des Christenthums<lb/>
+zur Weltreligion&#x201C;, in welchem er der Theologie die stu-<lb/>
+fenweise Fortentwickelung der christlichen Glaubenslehre<lb/>
+und die Vermittelung ihrer immer neuen Verbindung mit<lb/>
+der fortschreitenden Wissenschaft als ihre höchste Aufgabe<lb/>
+nachweist. Dieses Werk bildet eine neue Epoche für die<lb/>
+Geschichte der christlichen Dogmatik; mit ihm hat Am-<lb/>
+mon 's Geist seine irdische Bestimmung erreicht, denn ein<lb/>
+höheres Ziel konnte die Universalität desselben nicht ha-<lb/>
+ben. Wenn man dieses Werk liest, muß man unwill-<lb/>
+kürlich die reiche Ausstattung seines Geistes für ein Werk<lb/>
+der Vorsehung ansehen, um dadurch eine neue Zeit in<lb/>
+der Entwickelung der christlichen Glaubenslehre herbeizu-<lb/>
+führen. Nur ein Gelehrter von der umfassenden Bil-<lb/>
+dung Ammon's, der mit dem Besitze der classischen und<lb/>
+orientalischen Sprachen und aller damit zusammenhän-<lb/>
+genden geschichtlichen und archäologischen Kenntnisse das<lb/>
+ganze unermeßliche Gebiet des modernen Wissens verei-<lb/>
+nigt, war im Stande, ein solches Buch zu schreiben.<lb/>
+Es ist ein Buch, das für alle Zeiten geschrieben ist und<lb/>
+hoffentlich allen kommenden Zeitaltern zum Antrieb und<lb/>
+Muster dienen wird, Ähnliches zu leisten.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Die Jnsel Hongkong.</hi></head><lb/>
+<p><hi rendition="#in">B</hi>ekanntlich haben sich die Engländer in dem Frieden<lb/>
+mit China die Jnsel Hongkong abtreten lassen. Diese<lb/>
+Jnsel ist nach der neuesten Angabe ungefähr acht Miles<lb/>
+lang und2 1 / 2 Miles breit. Die sie vom Festlande schei-<lb/>
+dende Meerenge hat an einigen Stellen eine Breite von<lb/>
+nur einer, an andern Stellen von fünf bis sechs Mi-<lb/>
+les. Die den Hafen bildende Bucht ist für die Schiff-<lb/>
+fahrt unübertrefflich. Nicht genug, daß sie Raum für<lb/>
+eine ungeheure Menge Schiffe hat, ist sie auch so tief,<lb/>
+daß ein Linienschiff von 74 Kanonen bis auf die Länge<lb/>
+eines Kabeltaus vom Ufer ankern kann, und gewährt<lb/>
+außerdem gegen Stürme einen bessern Schutz als irgend<lb/>
+ein anderer Hafen Chinas. Das Jnnere der Jnsel be-<lb/>
+sitzt zwei wesentliche Dinge: unerschöpflichen, selbst im<lb/>
+heißesten Sommer aushaltenden Überfluß an köstlichem<lb/>
+Trinkwasser und einen unermeßlichen Reichthum an Gra-<lb/>
+nit, der zu Waarenhäusern und Werften das schönste<lb/>
+Material liefert.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Der blinde Musikus.</hi><lb/>
+Aus dem Holländischen.</head><lb/>
+<p><hi rendition="#in">A</hi>uf einer Reise, die ich vor mehren Jahren durch Holland<lb/>
+machte, traf ich in einem Dorfe Gelderns, vor einem der<lb/>
+<cb type="end"/>
+<pb facs="#f0003" n="299"/>
+<fw place="top" type="pageNum">299</fw><cb type="start"/>
+schönen Landhäuser, die so zahlreich über diese Provinz<lb/>
+zerstreut sind, einen blinden Musikus, der auf seiner Geige<lb/>
+ein Lied spielte, das er mit einer reinen und wohltönen-<lb/>
+den Stimme begleitete. Jch blieb stehen, oder vielmehr,<lb/>
+die melodische Stimme des Künstlers hielt mich gefesselt.<lb/>
+Obgleich er elend gekleidet war, war doch seine Haltung<lb/>
+und sein Antlitz Ehrfurcht gebietend. Er spielte mit be-<lb/>
+wundernswürdigem Talent. Jch näherte mich ihm und<lb/>
+als mich der Knabe sah, der des Blinden Führer war,<lb/>
+warf er zu gleicher Zeit mit mir einen Blick des Mit-<lb/>
+leids auf ihn, als wollte er mir sagen, daß er das Loos<lb/>
+seines Herrn tief beklage. Als ich den Mann genauer<lb/>
+betrachtete, sein ehrwürdiges Haupt mit dem Silberhaar,<lb/>
+seine edlen Züge, in denen der Gram tiefe Spuren ge-<lb/>
+furcht, zweifelte ich nicht, daß er einer der ausgezeichne-<lb/>
+ten Classen der Gesellschaft angehöre.</p><lb/>
+<p>Seid Jhr aus Geldern? fragte ich ihn.</p><lb/>
+<p>Nein, Herr, entgegnete der Greis, sichtlich bewegt,<lb/>
+doch bin ich ein Holländer. Jndem er dies sagte, er-<lb/>
+weiterten sich seine Augen, gleich als wolle er den Mann<lb/>
+sehen, der sich für ihn interessire. Er schien ein gehei-<lb/>
+mes Bedürfniß zu haben, sein Unglück einer mitfühlen-<lb/>
+den Seele mitzutheilen, denn im Augenblicke, wo ich das<lb/>
+Gespräch mit ihm begonnen, öffnete sich auch sein Herz<lb/>
+ganz vertraulichen Eröffnungen.</p><lb/>
+<p>&#x201E;Jch war&#x201C;, erzählte er, &#x201E;der jüngste der zwei Söhne<lb/>
+des reichen Bankiers W... in Amsterdam. Nach dem<lb/>
+Tode unsers Vaters fiel uns sein ganzes Vermögen zu.<lb/>
+Mein Bruder, welcher als der ältere für den Handel<lb/>
+gebildet worden war, setzte das Geschäft unsers Vaters<lb/>
+fort; was mich betrifft, ich war noch Student. Der<lb/>
+frühzeitige Tod meines Vaters brachte mich, ach! nur<lb/>
+zu bald in den Besitz eines bedeutenden Vermögens. Jch<lb/>
+glaubte meine Schätze unerschöpflich und war thöricht<lb/>
+genug, meine Studien aufzugeben. Bald darauf beging<lb/>
+ich alle Arten von Ausschweifungen; ich machte bedeu-<lb/>
+tende Ausgaben mit alten Freunden vom Collegium, die<lb/>
+ich freihielt, und deren Zahl sich täglich vermehrte. Jch<lb/>
+betrachtete diese Welt als einen Pfad mit Rosen bestreut,<lb/>
+ich glaubte den Versicherungen ewiger Freundschaft mei-<lb/>
+ner Genossen; aber ach! wie grausam bin ich getäuscht<lb/>
+worden!&#x201C;</p><lb/>
+<p>Ein tiefer Seufzer hob hier die Brust des Unglück-<lb/>
+lichen und er hatte Mühe, zu athmen. Nachdem er sich<lb/>
+erholt hatte, fuhr er fort:</p><lb/>
+<p>&#x201E;Als mein Vater starb, war ich 20 Jahre alt, und<lb/>
+fünf Jahre lang zog ich von Stadt zu Stadt, im Stru-<lb/>
+del wilden Lebens fortgerissen. Amsterdam war am häu-<lb/>
+figsten Zeuge meines wüsten Wandels und mein Bru-<lb/>
+der war tief ergriffen von meiner Erniedrigung. Er er-<lb/>
+mahnte, warnte mich; ich mied ihn, und als er sich<lb/>
+endlich vermählte, kam ich nie mehr zu ihm. Aber fünf<lb/>
+Jahre eines so ungeregelten Lebens hatten mein Vermö-<lb/>
+gen gewaltig zersplittert und ich hielt es fürs Beste, nach<lb/>
+der Weise der jungen holländischen Verschwender, nach<lb/>
+Jndien zu gehen. Mit dem Reste meines Vermö-<lb/>
+gens schiffte ich mich in Texel ein und wir kamen<lb/>
+glücklich in Batavia an. Hier aber wandte mir das<lb/>
+Glück ganz den Rücken. Nichts, was ich unternahm,<lb/>
+gelang, war es nun Folge meiner Ungeschicklichkeit<lb/>
+oder war es die strafende Hand Gottes. Jch war<lb/>
+nach Jndien gegangen, um mein Vermögen wieder zu<lb/>
+gewinnen, aber ach! die Reste meines Geldes schwan-<lb/>
+den von Tag zu Tag mehr und ich sah mit Entsetzen<lb/>
+den Augenblick nahen, wo ich von Allem entblößt war.<lb/>
+Da benutzte ich die Gelegenheit, in mein Vaterland zu-<lb/>
+rückzukehren, um hier mein Fortkommen zu suchen und<lb/>
+<cb n="2"/>
+mich wo möglich den Vorwürfen meines Gewissens zu<lb/>
+entreißen.&#x201C;</p><lb/>
+<p>&#x201E;Wir schifften uns ein und zum zweiten Male be-<lb/>
+fand ich mich auf dem unendlichen Ocean. Die Über-<lb/>
+fahrt war stürmisch und in der Nähe der englischen Kü-<lb/>
+sten erhob sich ein Orkan, der unser Schiff auf die Klip-<lb/>
+pen trieb und zerschellte. Der Capitain, zwei Passagiere,<lb/>
+der Steuermann und einige von der Mannschaft retteten<lb/>
+sich ins Boot, sechs Matrosen und ich klammerten uns<lb/>
+an ein Trümmer des Schiffs, den gewissen Tod vor<lb/>
+uns. Achtzehn Stunden verbrachten wir in dieser schau-<lb/>
+dervollen Lage, von Hunger und Entkräftung gequält,<lb/>
+als einer der Matrosen plötzlich &#x201E;Land!&#x201C; rief. Da war-<lb/>
+fen sich Alle in die Wogen, um schwimmend das Ufer<lb/>
+zu erreichen. Jch war der Einzige, der nicht schwimmen<lb/>
+konnte, aber einer von ihnen erbarmte sich meiner und<lb/>
+unter unendlichen Anstrengungen brachte er mich glücklich<lb/>
+ans Land.&#x201C;</p><lb/>
+<p>&#x201E;So war denn das Leben gerettet, aber sonst besaß<lb/>
+ich auch weiter nichts in der Welt. Wol fanden wir<lb/>
+Menschenfreunde, die sich unserer annahmen, und ich<lb/>
+brachte acht Tage in einem gastfreundlichen Hause zu.<lb/>
+Da wurde ich krank und man brachte mich in ein Hospi-<lb/>
+tal. Aber o Jammer! obwol ich unter der sorgfältigen<lb/>
+Pflege bald meine Kräfte wieder erhielt, warf sich die<lb/>
+Krankheit auf meine Augen und aller Mühe ungeachtet<lb/>
+erblindete ihr Licht, ich wurde blind!&#x201C;</p><lb/>
+<p>Der Ärmste! Als er dies sprach, war seine Bewe-<lb/>
+gung so heftig, daß er nicht weiter sprechen konnte.<lb/>
+Sein Haupt, das Sorgen und Trübsal vor der Zeit<lb/>
+gebleicht hatten, fiel auf seine Brust. Nach einer Weile<lb/>
+fuhr er fort:</p><lb/>
+<p>&#x201E;Jch war also genesen, aber was sollte aus mir wer-<lb/>
+den? Die Noth, die gebieterische Noth machte mich<lb/>
+zum Bettler, denn anders vermochte ich nicht mein Le-<lb/>
+ben zu fristen. Gerührt von meinem Elend, gaben mir<lb/>
+die Vorsteher des Hospitals den Knaben zum Führer<lb/>
+Von dem Erbettelten legten wir täglich etwas zurück,<lb/>
+damit ich eine Geige kaufen konnte, um mein Brot auf<lb/>
+eine weniger demüthigende Weise zu verdienen, indem ich<lb/>
+die geringe Fertigkeit in Musik und Gesang benutzte, die<lb/>
+ich in den glücklichen Tagen meiner Jugend erwarb.<lb/>
+O was habe ich erduldet! Wie oft behandelte man mich<lb/>
+als Landstreicher, als Spitzbuben, nannte mich einen blin-<lb/>
+den Schurken.&#x201C;</p><lb/>
+<p>&#x201E;So durchstreifte ich wieder fünf Jahre England, bis<lb/>
+ich die Mittel fand, nach Holland zurückzukehren. Aber<lb/>
+sonderbar, es gelang mir nicht, meinen Bruder aufzu-<lb/>
+finden. Denn da ich nicht wagte, mich selbst an ihn<lb/>
+zu wenden, da ich ihn durch so viel Verachtung so tief<lb/>
+verletzt hatte, so waren alle meine geheimen <gap reason="illegible" unit="chars" quantity="11"/>Bemühun-<lb/>
+gen vergebens, ihn zu erfragen. So verließ ich das Jn-<lb/>
+nere von Holland und bin nach Geldern gekommen.<lb/>
+O wollte Gott, daß ich mein trauriges Loos nicht lange<lb/>
+mehr tragen muß!&#x201C;</p><lb/>
+<p>Der Blinde endete seine Erzählung. Thränen dräng-<lb/>
+ten sich durch meine Augenlider über so viel Elend, und<lb/>
+nachdem ich ihm einiges Geld gegeben, verließ ich ihn.</p><lb/>
+<p>Als ich am andern Tage spazieren ging, hörte ich<lb/>
+wieder die melodischen Töne, welche mich am Abend vor-<lb/>
+her so tief ergriffen. Es war wirklich der Blinde, wel-<lb/>
+cher vor einem glänzenden Landhause stand. Bald kam<lb/>
+ein Bedienter, der dem Armen etwas gab. Erfreut,<lb/>
+eine Musik zu hören, die in dieser Gegend so selten<lb/>
+war, blieb er bei ihm stehen und fragte den wandernden<lb/>
+Künstler, wo er her sei? &#x201E;Aus Amsterdam&#x201C;, antwortete<lb/>
+dieser. &#x201E;Waret Jhr immer blind?&#x201C; &#x201E;Nein, Herr;<lb/>
+seit fünf Jahren.&#x201C; &#x201E;Wie heißt Jhr denn?&#x201C; &#x201E;Jch heiße<lb/>
+<cb type="end"/>
+<pb facs="#f0004" n="300"/>
+<fw place="top" type="pageNum">300</fw><cb type="start"/>
+W...&#x201C; &#x201E;Jhr heißt W... und seid aus Amsterdam?&#x201C;<lb/>
+rief der Bediente, erstaunt, den Namen seines Herrn<lb/>
+zu hören. Er eilte ins Haus und erzählte es mehren<lb/>
+Personen. Herr W..., davon unterrichtet, wollte das<lb/>
+Geheimniß aufklären und ließ den Blinden holen. Ein<lb/>
+Mann in Lumpen erschien, aber Hr. W... erkannte so-<lb/>
+gleich die Züge seines Bruders. &#x201E;Himmel! er ist's!&#x201C;<lb/>
+rief er. &#x201E;Das bist du, mein Bruder&#x201C;, rief in demsel-<lb/>
+ben Augenblicke der Blinde, welcher die Stimme des<lb/>
+Bankiers erkannt hatte.</p><lb/>
+<p>Die beiden Brüder fielen sich in die Arme und hiel-<lb/>
+ten sich sprachlos umschlungen.</p><lb/>
+<p>Als Hr. W... seinen Bruder in seine reiche Woh-<lb/>
+<cb n="2"/>
+nung führte, sagte er zu ihm: &#x201E;Hier wirst du wohnen,<lb/>
+frei, ruhig, ohne Sorgen, du wirst den Reichthum<lb/>
+theilen, den mir der Himmel verliehen.&#x201C;</p><lb/>
+<p>Mitten in einer Freude, die sein Herz trunken machte,<lb/>
+dachte der Blinde an seinen kleinen treuen Begleiter.<lb/>
+&#x201E;Beunruhige dich nicht&#x201C;, sagte sein Bruder, &#x201E;sein Platz<lb/>
+ist gefunden; du brauchst Jemanden, der dich leitet,<lb/>
+und wenn er bei dir bleiben will, so sollt ihr nicht ge-<lb/>
+trennt werden.&#x201C;</p><lb/>
+<p>Noch heute leben die beiden Brüder in der Ruhe<lb/>
+und allen den Freuden, die eine ehrenhafte Stellung und<lb/>
+glänzendes Vermögen gewähren.</p><lb/>
+<p> <space dim="horizontal"/>  G. A. van D...</p></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Nürnberg</hi>. <note place="foot" n="*)"> Vergl. Nr. 103 und 104 der Alten Folge des Pfen-<lb/>
+nig=Magazins, wo der Nassauische Hof und Albrecht Dürer's<lb/>
+Haus abgebildet sind.</note></head>       <figure>         <head>  Die Lorenzkirche.  </head>       </figure><lb/>
+<cb type="start"/>
+<p><hi rendition="#in">E</hi>s gibt wenig Städte in Deutschland, die sich in der<lb/>
+Geschichte so hohen Ruhm erworben haben wie Nürn-<lb/>
+berg, welches einst ein Mittelpunkt des europäischen Han-<lb/>
+dels war, sich durch Künste und Gewerbfleiß auszeich-<lb/>
+nete und die wohlhabendsten und kräftigsten Bürger in<lb/>
+<cb n="2"/>
+seinen Mauern einschloß. Die Stadt ist auch jetzt noch<lb/>
+eine berühmte Stadt, die man in allen Welttheilen kennt;<lb/>
+sie nimmt unter den angesehenen Städten Baierns den<lb/>
+ersten Rang ein und ist dessen erster Fabrik= und Han-<lb/>
+delsplatz.</p><lb/>
+<p>Nürnberg liegt in einer ziemlich ebenen, sandigen,<lb/>
+aber trefflich angebauten Gegend. Die Pegnitz theilt die<lb/>
+Stadt in zwei fast ganz gleiche Theile, von denen der<lb/>
+nördliche die Sebaldus=, der südliche die Lorenzseite heißt.<lb/>
+<cb type="end"/>
+<pb facs="#f0005" n="301"/>
+<fw place="top" type="pageNum">301</fw><cb type="start"/>
+Die Stadt erhält ihr Trinkwasser durch ein Druckwerk<lb/>
+und 2 große und 133 kleine Springbrunnen.</p><lb/>
+<p>Unter den vielen Bauwerken und Denkmalen des<lb/>
+Mittelalters ist vor allen die Lorenzkirche zu erwähnen,<lb/>
+welche die größte und schönste Kirche der Stadt ist.<lb/>
+Sie ist gegen Ende des 13. Jahrhunderts gegründet und<lb/>
+nach und nach ausgebaut worden. Das ursprüngliche<lb/>
+Gebäude zeigt die altdeutsche Bauart in ihrer Einfachheit,<lb/>
+das Portal und der Giebel aber schon den überladenen<lb/>
+Schmuck einer spätern Zeit. Der Bau wurde größten-<lb/>
+theils durch milde Beiträge im 15. Jahrhunderte vollen-<lb/>
+det. Die Kirche ist 312 Fuß lang und 105 Fuß breit.<lb/>
+Der ältere Thurm wurde 1498 mit vergoldetem Blech,<lb/>
+das noch immer seinen alten Glanz hat, der jüngere<lb/>
+1680 mit zinnernen Platten gedeckt. Der Vorderbau<lb/>
+der Kirche zeichnet sich besonders aus. Zwei schlanke<lb/>
+Thürme schließen die Vorderseite ein, die unten ein präch-<lb/>
+tiges Portal von 32 Fuß Höhe ziert, die aus acht, sich<lb/>
+stets in abwechselnder Lage wiederholenden spitzenartigen<lb/>
+Durchbrechungen besteht. Die zwei großen, mit schöner<lb/>
+Bildhauerarbeit verzierten Thüren wurden 1824 nach<lb/>
+Heideloff's Zeichnung von dem bald nachher verstorbenen<lb/>
+Bildhauer Rotermund verfertigt. Die Vorhalle der so-<lb/>
+genannten Brautthüre ist mit vorzüglich gearbeiteten Ver-<lb/>
+zierungen über ihren Logen, sowie mit steinernen Bildsäu-<lb/>
+len der Jungfrau Maria mit dem Kinde und der drei<lb/>
+Weisen aus dem Morgenlande geschmückt. Das Jnnere<lb/>
+der Kirche wird durch schön gemalte Fenster mit einem<lb/>
+wunderbaren Lichte erfüllt und hat einen Schatz altdeut-<lb/>
+scher Gemälde.</p><lb/>
+<p>Die Sebalduskirche steht im Mittelpunkte des ältesten<lb/>
+Stadttheils, mit dem sie wahrscheinlich gleichzeitig entstan-<lb/>
+den ist. Sie ist vorzüglich dadurch merkwürdig, daß sich<lb/>
+an ihr der Stufengang der altdeutschen Baukunst von<lb/>
+ihren ersten Anfängen bis zu ihrer höchsten Vollendung<lb/>
+im 14. Jahrhunderte verfolgen läßt. Der Vordertheil<lb/>
+zwischen den beiden Thürmen ist der älteste. Ein Mei-<lb/>
+sterstück altdeutscher Baukunst ist die Brautthüre, über<lb/>
+deren Spitzbogen die Vermählung Adam's und Eva's<lb/>
+durch den segnenden Gott den Vater abgebildet ist. An<lb/>
+einer andern äußern Wand bemerkt man die Grablegung<lb/>
+des Heilands, ein trefflich erhaltenes Werk des Bildhauers<lb/>
+Kraft. Jm Jnnern ist das bedeutendste das Grab<lb/>
+des heiligen Sebaldus, das Peter Vischer mit seinen<lb/>
+fünf Söhnen von 1506&#x2014;19 vollendete. Den mit Gold-<lb/>
+und Silberblech überzogenen Sarg des Heiligen bedeckt<lb/>
+ein künstlich durchbrochener Baldachin von Bronze, mit<lb/>
+den Bildern der Apostel, der Kirchenväter und andern<lb/>
+Figuren verziert.</p><lb/>
+<p>Die Stadt hat noch jetzt einen tiefen Wallgraben,<lb/>
+von einer Meile im Umfang, und doppelte Mauern,<lb/>
+die früher mit vielen großen und kleinen Thürmchen und<lb/>
+Kanonen versehen waren. Die Häuser sind größtentheils<lb/>
+hoch, in alterthümlichem oft großartigem Stile gebaut,<lb/>
+mit Thürmchen, Erkern, Vorsprüngen, hin und wieder<lb/>
+in der Fa<hi rendition="#aq">ç</hi>ade mit Malereien versehen. Die Stadt hat<lb/>
+überhaupt noch ganz das Gepräge des Mittelalters, in<lb/>
+dem sie so angesehen war. Sie zeigt, von fern gesehen,<lb/>
+dem Beobachter nicht weniger als 119 große und kleine<lb/>
+Thürme. Nürnberg ist durch eine Reihe glänzender Na-<lb/>
+men ausgezeichnet, deren Träger hier lebten und wirkten.<lb/>
+Albrecht Dürer fertigte hier seine Meisterwerke; Hans<lb/>
+Sachs dichtete hier seine Lieder; Peter Hele erfand hier<lb/>
+die Taschenuhren, die sogenannten Nürnberger Eier;<lb/>
+Erasmus Ebner das Messing, Troxdorf das Pedal, Den-<lb/>
+ner die Clarinette. Auch die Kupferstecherkunst wurde hier<lb/>
+erfunden, ebenso das Schießgewehr. Die 126 Handwerke,<lb/>
+die man gegen Ende des vorigen Jahrhunderts hier zählte,<lb/>
+<cb n="2"/>
+haben sich bis auf die neueste Zeit bedeutend vervielfältigt,<lb/>
+und man zählt in den hiesigen Fabriken und Handwer-<lb/>
+ken 4300 Meister. Die sogenannten Nürnberger kurzen<lb/>
+Waaren, der Nürnberger Tand, wie sie früher genannt<lb/>
+wurden, kommen in die fernsten Länder der Erde. Über-<lb/>
+haupt wird mit eigenen Fabrikaten ein ausgebreiteter<lb/>
+Handel getrieben.</p><lb/>
+<p>Jm Süden, Osten und Norden wird Nürnberg von<lb/>
+dem Reichswalde begrenzt, wo Wallenstein am 6. Juli<lb/>
+1632 mit seinem Heere erschien, sich Angesichts des<lb/>
+schwedischen Lagers verschanzte und den Angriff Gustav<lb/>
+Adolf's am 4. September zurückschlug. Jn den Jahren<lb/>
+1522 und 1524 wurde in Nürnberg Reichstag gehalten,<lb/>
+wo vergeblich auf die Achtserklärung Luther's gedrungen<lb/>
+wurde. Am 23. Juli 1532 wurde hier ein Religions-<lb/>
+friede unterzeichnet und 1538 ein dem Schmalkaldischen<lb/>
+entgegengesetzter Bund mehrer katholischer Fürsten gestif-<lb/>
+tet. Nürnberg war schon im 10. Jahrhunderte reichsun-<lb/>
+mittelbar und seine Patricier, unter denen die Tucher,<lb/>
+Welser, Holzschuher, Ebner u. s. w. besonders oft ge-<lb/>
+nannt werden, stammten zum Theil aus noch ältern<lb/>
+Zeiten.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Das Arbeiten der Kinder und jungen Leute<lb/>
+in den englischen Bergwerken.</hi><lb/>
+<hi rendition="#aq">I.</hi></head><lb/>
+<p><hi rendition="#in">E</hi>rst seit dem Jahre 1840 wurden in einer Schrift<lb/>
+die ungeheuern, in den Bergwerken Englands bestehenden<lb/>
+Misbräuche aufgedeckt. Freilich gehören in diesem Lande<lb/>
+die Bergwerke dem Eigenthümer des Bodens, er kann<lb/>
+damit machen, was er will, sie bearbeiten oder ruhen<lb/>
+lassen, selbst oder durch Andere in Pacht ausbeuten lassen,<lb/>
+Niemand darf sie beaufsichtigen oder auch nur besehen<lb/>
+gegen seinen Willen. Diese Schrift, dem Parlament<lb/>
+übergeben, war Veranlassung, daß dieses eine Untersu-<lb/>
+chung veranstalten ließ und der Bericht darüber bildete<lb/>
+einen Band von 270 Seiten nebst zwei ungeheuern Fo-<lb/>
+liobänden, in denen auf 1800 Seiten die Beweisstücke<lb/>
+enthalten waren. Die beigegebenen Abbildungen geben<lb/>
+eine getreue Darstellung der traurigen Lage der jungen<lb/>
+Arbeiter. Man sieht sie gebeugt unter ungeheuern La-<lb/>
+sten einherkeuchen, halb, auch völlig nackt gleich Zugthie-<lb/>
+ren an kohlenbeladene Wagen gespannt, die sie oft, we-<lb/>
+gen der Niedrigkeit der Gruben, auf Händen und Füßen<lb/>
+kriechend ziehen müssen.</p><lb/>
+<p>Vom achten bis neunten Jahre, ja sogar vom vier-<lb/>
+ten, fünften und sechsten Lebensjahre an beginnen die<lb/>
+Mühen dieser Kleinen, von denen die meisten den Fami-<lb/>
+lien der Bergleute oder vielmehr der einheimischen Bevöl-<lb/>
+kerung der Umgegend angehören. Jn manchen Bezirken<lb/>
+werden sie von den erwachsenen Arbeitern ausgewählt und<lb/>
+bezahlt, in andern geschieht dies durch den Eigenthümer<lb/>
+oder Unternehmer; außerdem gibt es auch noch Bezirke,<lb/>
+wo die Kinder als Lehrlinge angenommen werden, die<lb/>
+dann bis zum 21. Jahre ihre ganze Zeit ihren Herren<lb/>
+widmen müssen und dafür nichts erhalten als Nahrung<lb/>
+und Kleidung. Es ist dies ein wahrer Sklavenzustand,<lb/>
+der 10&#x2014;12 Jahre dauert, während dessen sie für einen<lb/>
+Herrn arbeiten müssen, der gewöhnlich selbst Bergwerks-<lb/>
+arbeiter ist und immer verabscheut wird, weil er keine<lb/>
+Barmherzigkeit kennt. Die grausame Behandlung, welche<lb/>
+die Lehrlinge erfahren, beweist die Roheit, den tiefen<lb/>
+Egoismus, die stupide Barbarei vieler dieser Herren und<lb/>
+erklärt die Muthlosigkeit, die Schwäche, die Apathie und<lb/>
+die Verdummung dieser Opfer und ihre moralische und<lb/>
+intellectuelle Herabwürdigung.</p><lb/>
+<cb type="end"/>
+<pb facs="#f0006" n="302"/>
+<fw place="top" type="pageNum">302</fw>       <cb type="start"/>
+<p>Der Luftwechsel und die Entwässerung, zwei so wich-<lb/>
+tige Geschäfte in den Bergwerken, werden den jüngsten<lb/>
+Kindern übertragen und täglich, bei Beginn der Arbeit<lb/>
+in den Gruben, müssen sie sich dorthin begeben und blei-<lb/>
+ben, bis alle Übrigen zu arbeiten aufgehört haben. Die<lb/>
+gefährlichen Wetter ( bösen Dünste ) in den Gruben müs-<lb/>
+sen Abzüge haben, wenn nicht die furchtbarsten Unglücks-<lb/>
+fälle entstehen sollen, und diese Kinder haben nun das<lb/>
+traurige Geschäft, an den Wetterthüren zu stehen, mit-<lb/>
+ten in undurchdringlicher Finsterniß, und zu warten, bis<lb/>
+ein Arbeiter kommt mit beladenem Wagen, dem sie die<lb/>
+Thür öffnen. Wehe ihnen, wenn die Nacht um sie her<lb/>
+und die Einsamkeit sie zum Schlafen zwang; die furcht-<lb/>
+barsten Schläge wecken sie auf. Von den Wetterthü-<lb/>
+ren, <hi rendition="#aq">traps</hi>, werden diese kleinen Hüter Trappers genannt.<lb/>
+Der ewige Mangel an Licht macht diese Kinder furcht-<lb/>
+sam und oft stumpfsinnig.</p><lb/>
+<p>Mit der Zeit wird der Trapper der Führer eines von<lb/>
+Pferden gezogenen Wagenzuges in den Hauptstollen der<lb/>
+Grube, Gehülfe des Putter, d. h. Desjenigen, der den<lb/>
+Wagen oder Schlitten von dem Punkte, wo die Kohlen<lb/>
+gewonnen werden, bis zu den Hauptstollen, wo der Trans-<lb/>
+port mit Pferden beginnt, fortstößt. Hierzu werden viele<lb/>
+Kinder verwendet; Andere arbeiten als Hewers ( Häuer )<lb/>
+oder eigentlich sogenannte Bergleute, welche die Kohlen<lb/>
+von dem Grunde der Grube hinwegschaffen. Jn denjeni-<lb/>
+gen Gruben, wo das Kohlenflöz nur eine sehr geringe<lb/>
+Mächtigkeit hat und folglich auch die Stollen sehr nie-<lb/>
+drig sind, müssen die Hewers natürlich Kinder oder junge<lb/>
+Leute sein, und dessenungeachtet sind sie häufig genöthigt,<lb/>
+um bis zu den abgelösten Kohlen zu gelangen, in sehr<lb/>
+unbequemen Stellungen zu arbeiten. Bei jeder Beförde-<lb/>
+rung des ehemaligen Trappers steigt sein Lohn; die letzte<lb/>
+Beförderung tritt aber selten vor dem zwanzigsten Jahre<lb/>
+und dann nur in den reichern Gruben ein.</p><lb/>
+<p>Die dem Berichte beigegebenen Abbildungen geben<lb/>
+eine treue Anschauung von den verschiedenen mühseligen<lb/>
+Arbeiten der Kinder. Vom sechsten Jahre an ziehen sie<lb/>
+die mit Kohlen beladenen Karren, eine ermüdende, an-<lb/>
+strengende Arbeit; bald ziehen sie, bald müssen sie schie-<lb/>
+ben; oft hat ein solches Kind einen breiten Ledergürtel<lb/>
+um den Leib, von dem aus eine Kette zwischen den Bei-<lb/>
+nen durchgeht, die an dem Wagen befestigt wird; völlig<lb/>
+nackt, auf der Erde kriechend, weil die Gruben zu nie-<lb/>
+drig zum Aufrechtstehen sind, zieht es so den Wagen. Ein<lb/>
+anderes Bild zeigt, wie es den Wagen mit Kopf und<lb/>
+Händen fortstößt; ein anderes wieder, wie drei Kinder<lb/>
+zugleich einen Wagen befördern; das erste mit Ledergür-<lb/>
+tel und Ketten vor dem Wagen, zwei hinter demselben,<lb/>
+die ihn fortschieben helfen. Die hinter dem Wagen be-<lb/>
+findlichen Kinder verlieren durch die Reibungen und durch<lb/>
+die Vorsprünge des Gesteins das Haar auf dem Scheitel;<lb/>
+sie sind fast kahlköpfig.</p><lb/>
+<p>Jn den Bezirken, wo man die Kinder beiderlei Ge-<lb/>
+schlechts in den Minen arbeiten läßt, werden sie zusam-<lb/>
+men, bei denselben Arbeiten und während derselben An-<lb/>
+zahl Stunden beschäftigt. Gewöhnlich arbeiten sie, ohne<lb/>
+Rücksicht auf Alter und Geschlecht, fast ganz nackt, und<lb/>
+in mehren Gruben sind die männlichen Arbeiter völlig<lb/>
+nackt. Alle Zeugenaussagen stimmen darüber überein, daß<lb/>
+durch die Verwendung der Frauen zu Bergwerksarbeiten<lb/>
+die Unsittlichkeit befördert werde. Der Bericht und die<lb/>
+Beweisstücke enthalten in dieser Beziehung Dinge, die un-<lb/>
+glaublich erscheinen, einen so hohen Grad von Verwor-<lb/>
+fenheit bei einem Theile der Arbeiter, von Gleichgültigkeit<lb/>
+und Egoismus bei ihren Herren und von Verachtung<lb/>
+aller guten Sitten und alles Schicklichkeitsgefühls bei<lb/>
+den Einen wie bei den Andern legen sie an den Tag.</p><lb/>
+<cb n="2"/>
+<p>Wenn sehr viele Nachfrage nach Steinkohlen ist, so<lb/>
+beträgt die gewöhnliche Arbeitszeit der Kinder und jungen<lb/>
+Leute selten weniger als 11 Stunden, am häufigsten jedoch<lb/>
+12 Stunden, in einigen Districten 13 und in einem<lb/>
+sogar 14 Stunden. Es ist mithin keine Übertreibung,<lb/>
+wenn man sagt, daß die Bergwerksarbeiter die Hälfte<lb/>
+ihres Lebens in den Eingeweiden der Erde zubringen.</p><lb/>
+<p>Die schlechteste Art der Bearbeitung findet sich in<lb/>
+den Minen von Yorkshire. Einer der Untercommissare ist<lb/>
+durch die langen Stollen, die oft nur 20 englische Zoll<lb/>
+Höhe haben, hindurchgekrochen. Jn mehren Gruben hat<lb/>
+er sich, um diese Anstrengungen zu vermeiden, auf eine<lb/>
+Planke, die auf vier kleinen Rädern ruhte, oder in eine<lb/>
+Art Korb gelegt, über den seine Füße und sein Kopf<lb/>
+hinausragten, und während er auf diese Weise vorwärts<lb/>
+geschoben wurde, fürchtete er, die hervorragenden Fels-<lb/>
+stücke würden ihn skalpiren oder ein herabstürzender Fels-<lb/>
+block ihn zerschmettern. Und diese so schwer zu passi-<lb/>
+renden Stollen sind zahlreich und oft sehr lang; so mußte<lb/>
+er bald gehend, bald kriechend, bald auf der Planke lie-<lb/>
+gend, eine Strecke von 1800 Yards ( mehr als 5000<lb/>
+preuß. Fuß ) zurücklegen, um einen dem Förderungsschachte<lb/>
+am nächsten liegenden Ablagerungsort der Steinkohlen zu<lb/>
+erreichen; von da aus waren noch 200 Yards ( etwa 580<lb/>
+preuß. Fuß ) bis zu dem entferntesten Ablagerungsplatze.<lb/>
+Man sieht ein, daß zum Fortschaffen der Kohlen in so un-<lb/>
+bequemen Gruben nur Kinder verwendet werden können.</p><lb/>
+<p>Jn allen Kohlengruben ereignen sich sehr häufig die<lb/>
+traurigsten Vorfälle. Die Beantwortungen der von den<lb/>
+Commissaren gestellten Fragen zeigen, daß unter den<lb/>
+verunglückenden Arbeitern die Zahl der Kinder oder jun-<lb/>
+gen Leute selten geringer als die der Erwachsenen und<lb/>
+zuweilen ebenso groß ist. Die Unglücksfälle sind beson-<lb/>
+ders häufig seit dem Jahre 1816, von welchem Zeit-<lb/>
+punkte an die Consumtion der Steinkohlen in Großbri-<lb/>
+tannien durch die wunderbare Entwickelung der Jndustrie,<lb/>
+wozu jene Consumtion selbst beigetragen, sowie durch die<lb/>
+Erfindung der Davy'schen Sicherheitslampe, welche die<lb/>
+Bearbeitung vieler bis dahin für gefährlich gehaltenen<lb/>
+Minen möglich machte, von Jahr zu Jahr mit reißen-<lb/>
+der Schnelligkeit zugenommen.</p><lb/>
+<p>Jm Jahre 1838 kamen in diesen Gruben 351 Un-<lb/>
+glücksfälle vor, die den Tod zur Folge hatten; die Zahl<lb/>
+der Verwundeten ist noch viel größer, und bei diesen<lb/>
+Mühen und Gefahren erhalten die Arbeiter erbärmliches<lb/>
+Lohn. Dabei herrscht noch das Trucksystem, eine Zah-<lb/>
+lungsweise, die leider nicht nur in England, sondern auch<lb/>
+in Deutschland häufig vorkommt und darin besteht, daß<lb/>
+den Arbeitern statt des Geldes ein Theil der Lebensmit-<lb/>
+tel oder Waaren, deren sie bedürfen, geliefert wird.</p><lb/>
+<p>Dieser Gebrauch besteht namentlich in den ärmsten<lb/>
+Districten und hat die beklagenswerthesten Folgen. Häu-<lb/>
+fig machen die Bergwerksunternehmer selbst den Arbeitern<lb/>
+Vorschüsse auf ihr Arbeitslohn, um sie in Schulden zu<lb/>
+bringen und sie zum Trinken und zur Schwelgerei zu<lb/>
+veranlassen. Und um dies Resultat um so besser herbei-<lb/>
+zuführen, findet die Auszahlung ihres Lohnes in einer<lb/>
+Art Schenke oder in einem Waarenmagazin statt, indem<lb/>
+man sie durch die darin aufgestellten Gegenstände zu ver-<lb/>
+führen hofft. Haben sie einmal Vorschüsse empfangen,<lb/>
+so sind sie verloren; man betrügt sie, verkauft ihnen Al-<lb/>
+les zu einem übermäßig hohen Preise, man plündert sie<lb/>
+ohne Schonung und Mitleid, man raubt ihnen jedes<lb/>
+Mittel, sich eines Tages aus dieser Lage zu befreien,<lb/>
+man bringt sie zur Verzweiflung und läßt sie alle La-<lb/>
+ster ausüben.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<cb type="end"/>
+<pb facs="#f0007" n="303"/>
+<fw place="top" type="pageNum">303</fw>       <cb type="start"/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Stiftung Jllnau bei Achern in Baden.</hi><lb/>
+( Beschluß aus Nr. 37. )</head><lb/>
+<p><hi rendition="#in">B</hi>eide Haupthälften des großen Gebäudes sind völlig<lb/>
+symmetrisch gebaut und nur die innere Eintheilung ist<lb/>
+verschieden, aber gewiß höchst zweckmäßig. Jch werde<lb/>
+mit Beschreibung der hintern Fa<hi rendition="#aq">ç</hi>ade oder der eigentlichen<lb/>
+Heilanstalt den Anfang machen. Zunächst der Kirche<lb/>
+befinden sich ( dreistöckig ) die Wohnräume für Pension-<lb/>
+nairs, d. h. für Kranke, welche aus eigenen Mitteln die<lb/>
+Kosten der Unterhaltung und Heilung bestreiten, und<lb/>
+außerhalb nach der Feldseite liegen die Spaziergärten für<lb/>
+diese Krankenclasse. Es verdient bemerkt zu werden, daß<lb/>
+grundsätzlich nur die Zinsen des Vermögens der Pensio-<lb/>
+naire in Anspruch genommen werden, das Capital aber<lb/>
+unangetastet bleibt und den Genesenen unverkürzt vorbe-<lb/>
+halten wird; reichen die Zinsen zur Bestreitung der Un-<lb/>
+kosten für die Unterhaltung nicht aus, so wird der Mehr-<lb/>
+betrag aus dem Fonds der Anstalt bestritten. Dies ist<lb/>
+eine lobenswerthe, höchst wohlwollende Einrichtung, deren<lb/>
+Segen in die Augen springt; denn was nützt am Ende<lb/>
+einem Wohlhabenden die Wiederkehr seiner Gesundheit,<lb/>
+wenn mittlerweile sein Vermögen über der Heilung drauf-<lb/>
+gegangen ist? Neben den Pensionairen wohnen ( zwei-<lb/>
+stöckig ) die Kranken aus höhern Ständen, neben diesen<lb/>
+( dreistöckig ) die Kranken aus den mittlern und untern<lb/>
+Ständen, und auf den Flügeln die Jrren leichtern<lb/>
+Grades. Alle diese verschiedenen Abtheilungen haben jede<lb/>
+ihre eigenen Spaziergärten vor dem Erdgeschoß. Die<lb/>
+Tobsüchtigen und Unreinlichen sind ganz von den andern<lb/>
+Kranken getrennt, ihr Geschrei kann das Ohr der erstern<lb/>
+nicht erreichen und sie haben statt eines Gartens blos<lb/>
+einen kleinen ummauerten Hof, worin sie in lichten Au-<lb/>
+genblicken sich ergehen dürfen. Ganz in ähnlicher Weise<lb/>
+ist die &#x201E;Pflegeanstalt&#x201C; in der vordern Fa<hi rendition="#aq">ç</hi>ade eingerichtet,<lb/>
+links für die Männer, rechts für die Frauen, und deren<lb/>
+Spaziergärten liegen ebenfalls außerhalb der Gebäude vor<lb/>
+( hinter ) dem Erdgeschoß. Auch in der Pflegeanstalt be-<lb/>
+finden sich ganz abgesonderte Nebengebäude und Höfe<lb/>
+für die Tobsüchtigen u. s. w.</p><lb/>
+<p>Beide Hauptfa<hi rendition="#aq">ç</hi>aden sind durch vier Quer= oder<lb/>
+Transversalgebäude miteinander verbunden, worin sich be-<lb/>
+sondere Nebenanstalten befinden, nämlich 1 ) auf der<lb/>
+Männerseite die Werkstätten für Tischler, Drechsler,<lb/>
+Schlosser, Schuhmacher und Schneider, da es den Kran-<lb/>
+ken, welche diese Professionen trieben und noch hinrei-<lb/>
+chende Fähigkeit zum Betriebe besitzen, nicht nur gestat-<lb/>
+tet wird, sondern für sie sogar wünschenswerth ist, ihre<lb/>
+gewohnte Beschäftigung fortzusetzen; 2 ) auf der Frauen-<lb/>
+seite eine große Waschküche ( Dampfküche ) mit Bügelstu-<lb/>
+ben und Roll= ( Mangel= ) kammer; 3 ) auf der Män-<lb/>
+nerseite mit der Fronte nach dem Haupthofe ein schönes<lb/>
+Gebäude, worin unten die Geschäftszimmer für die Ärzte<lb/>
+und den Verwalter, die Wohnung des Portiers, das<lb/>
+Sprechzimmer für Fremde und die Wohnung des Se-<lb/>
+cretairs sich befinden; im zweiten Stock die Wohnung<lb/>
+des Directors, im dritten die des Verwalters; 4 ) diesem<lb/>
+schönen Gebäude gegenüber auf der Frauenseite, ebenfalls<lb/>
+Front nach dem mittlern Hofe, steht ein ganz ähnliches,<lb/>
+nur mit andern Bestimmungen, nämlich die große, wun-<lb/>
+derschön eingerichtete prachtvolle Haus= ( Dampf= ) küche<lb/>
+mit den dazu gehörigen Gemüsestuben im Erdgeschoß;<lb/>
+im zweiten und dritten Stock die Wohnungen des zwei-<lb/>
+ten und dritten Arztes und der beiden Geistlichen, eines<lb/>
+katholischen und eines evangelischen; 5 ) Ökonomiegebäude<lb/>
+für die Beamten. Jnmitten der Gebäude auf jeder Ge-<lb/>
+schlechtsseite liegt ein geräumiger Ökonomiehof mit einem<lb/>
+Brunnen, von vier Röhren des krystallreinsten Quell-<lb/>
+<cb n="2"/>
+wassers. Endlich ist noch der sehr ausgedehnten Bade-<lb/>
+anstalten zu gedenken, die an passenden Orten ganz<lb/>
+zweckmäßig eingeschoben sind. Auch für Bäder in flie-<lb/>
+ßendem Wasser für die dazu Befähigten soll bald ge-<lb/>
+sorgt werden. Jm Allgemeinen ist zu bemerken, daß<lb/>
+man die Stellung des großen Vierecks absichtlich in Be-<lb/>
+zug auf die Himmelsgegenden so gewählt hat, daß keine<lb/>
+Seite desselben ganz gegen Norden gerichtet steht. Die<lb/>
+hintere Seite ( nach dem Gebirge zu ) wurde deshalb für<lb/>
+die Heilbaren bestimmt, weil hier die schönere Aussicht<lb/>
+ist. Der Corridor läuft sowol in der Heil= als in der<lb/>
+Pflegeanstalt an der Hofseite rundherum ununterbrochen<lb/>
+fort, sodaß die Ärzte, Wärter oder sonstige Angestellte<lb/>
+freie Circulation haben, ohne einen Hof passiren zu dür-<lb/>
+fen. Alle Zwischenthüren sind mit Stiftschlössern verse-<lb/>
+hen, die nur durch einen eigenen Schlüssel, aber schnell und<lb/>
+ohne Mühe sich öffnen lassen. Alle Zimmer der einzelnen<lb/>
+Abtheilungen sind mit ihren Fenstern in Gottes freie Na-<lb/>
+tur gerichtet. Nur in den dreistöckigen Pavillons befinden<lb/>
+sich doppelte Zimmerreihen, doch liegen die Versamm-<lb/>
+lungszimmer, deren jede Abtheilung eines hat, nach der<lb/>
+Feldseite. Jede Abtheilung hat außerdem ihre Schlaf-<lb/>
+zimmer, eigene Treppen, eigene Galerien, eigene Höfe<lb/>
+und Ausgang ins Freie. Von den Pensionairen erhal-<lb/>
+ten die meisten neben einer eigenen Stube auch noch eine<lb/>
+Kammer, die übrigen theils eigene Zimmer, theils ge-<lb/>
+meinschaftliche Schlafsäle. Kranke aus den höhern Stän-<lb/>
+den finden sowol in der Heil= als Pflegeanstalt einen<lb/>
+Billardsaal, da man den Grundsatz festhält, den See-<lb/>
+lenkranken so viel als möglich in dem Bereiche seiner ge-<lb/>
+wohnten oder liebgewonnenen Bedürfnisse oder Beschäfti-<lb/>
+gungen und Zerstreuungen zu erhalten. Daß sich unter<lb/>
+der Kirche ein Saal zu gemeinschaftlichen Festen befin-<lb/>
+det, habe ich schon erwähnt, in der Kirche selbst sind<lb/>
+aber die Geschlechter durch eine Scheidewand voneinander<lb/>
+abgesondert. Unter Festhaltung der gestellten Hauptbe-<lb/>
+dingungen und bei dem so verschiedenartigen Raumbe-<lb/>
+dürfnisse war es gewiß keine leichte Aufgabe für den<lb/>
+Baumeister, die äußere Symmetrie beizubehalten. Jn<lb/>
+der Regel ist die Zahl der männlichen Seelenkranken grö-<lb/>
+ßer als die der weiblichen, es mußten also die disponiblen<lb/>
+Räume auf der Frauenseite mit Geschicklichkeit anderwei-<lb/>
+tig benutzt werden, wenn die Symmetrie der Architektur<lb/>
+nicht leiden sollte, und man muß gestehen, daß die Auf-<lb/>
+gabe mit großem Geschick gelöst worden ist.</p><lb/>
+<p>Der Besuch der Zimmer, welche durch Kranke be-<lb/>
+wohnt sind, ist den Fremden in der Regel nicht gestat-<lb/>
+tet, womit man sich nur einverstanden erklären kann;<lb/>
+einem gemüthvollen Menschen wird es ohnehin kein Ver-<lb/>
+gnügen gewähren, durch den Anblick seiner unglücklichen<lb/>
+Mitmenschen eine oft unzeitige Neugierde befriedigt zu se-<lb/>
+hen. Zu den unbewohnten Zimmern erhält jeder anständige<lb/>
+Fremde Zutritt. Sie sind in dem ersten und zweiten<lb/>
+Stock 12 Fuß, im dritten 10 Fuß hoch, überall freund-<lb/>
+lich gemalt, für die Kranken aus höhern Ständen und<lb/>
+die Pensionaire sogar gefällig tapezirt. Musterhafte<lb/>
+Ordnung und die höchste Reinlichkeit verbreiten sich wie<lb/>
+ein wahres Festkleid über alle Theile dieser vortrefflichen<lb/>
+Anstalt.</p><lb/>
+<p>Das Princip für die Behandlung der Kranken und<lb/>
+Pfleglinge heißt: Menschlichkeit, Menschenfreundlichkeit,<lb/>
+Liebe, Güte und Duldung. Jn der Ausübung dieser<lb/>
+echt christlichen Tugenden wetteifert das ärztliche Perso-<lb/>
+nal, sowie alle Beamte und Angestellte in Stiftung Jll-<lb/>
+nau von seinem würdigen Director bis zum letzten Wär-<lb/>
+ter herunter. Jede gewaltthätige Behandlung der Kran-<lb/>
+ken in Form von Bestrafung ist streng ausgeschlossen.<lb/>
+Was irgend nur im weitesten und engsten Sinne des<lb/>
+<cb type="end"/>
+<pb facs="#f0008" n="304"/>
+<fw place="top" type="pageNum">304</fw><cb type="start"/>
+Worts zur Linderung des beweinenswerthen Looses jener<lb/>
+Unglücklichen geschehen kann, das geschieht mit Freuden,<lb/>
+mit Eifer, mit liebevollem Wohlwollen. Das sind keine<lb/>
+eitlen Lobsprüche, noch weniger erzwungene oder aus Pri-<lb/>
+vatrücksichten herbeigeführte, denn der Einsender dieses<lb/>
+Aufsatzes ist keinem einzigen Beamten zu Jllnau näher<lb/>
+bekannt oder befreundet, sondern der Tribut der Aner-<lb/>
+kennung, des Dankes im Namen der leidenden Mensch-<lb/>
+heit, gewonnen aus eigener Anschauung. Hunderte von<lb/>
+Reisenden, welche jeden Sommer das schöne badener<lb/>
+Land durchfliegen, um über Heidelberg, Baden und Frei-<lb/>
+burg entweder dem herrlichen Schwarzwalde oder dem<lb/>
+Rheine zuzueilen, werden durch Achern kommen und<lb/>
+vielleicht nicht der zehnte sich die Mühe nehmen, einen<lb/>
+Ausflug nach Stiftung Jllnau zu machen; vielleicht fin-<lb/>
+det Mancher sich durch Lesung dieses aufrichtigen Berichts<lb/>
+bewogen, den kurzen Gang zu unternehmen. Macht es<lb/>
+ihm Freude und besitzt er Gemüth genug, an der stillen,<lb/>
+rühmlichen Wirksamkeit edler, thätiger Menschenfreunde<lb/>
+sich zu erfreuen und der Landesregierung den Tribut der<lb/>
+Hochachtung für so milde, gütige Stiftung zu zollen, so<lb/>
+wird Jllnau ihm volle Gelegenheit dazu bieten. Die<lb/>
+jährlichen Unkosten der Anstalt belaufen sich auf 50&#x2014;<lb/>
+54,000 Gulden, von denen 6&#x2014;8000 durch die Pen-<lb/>
+sionaire, das Übrige aus Staatskassen gedeckt wird.<lb/>
+Die Anstalt ist zur Aufnahme von etwa 400 Kranken<lb/>
+und Pfleglingen eingerichtet.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jVarious"><head><hi rendition="#fr"><hi rendition="#g">Miscellen</hi>.</hi></head><lb/>
+<div n="2" type="jArticle"><p>Unter den vielen <hi rendition="#g">fossilen Überresten</hi> von Säugthieren,<lb/>
+die in den letzten Zeiten in der Grafschaft Essex gefunden wor-<lb/>
+den sind, zeichnet sich ein zu Crays Thurock gefundenes Bruch-<lb/>
+stück eines Elefanten= oder Mammuthkiefers aus. Es ist von<lb/>
+so ungeheuern Dimensionen, daß es schwerlich seines Gleichen<lb/>
+haben möchte. Es ist von beiden Seiten abgebrochen und scheint<lb/>
+das mittlere Drittel einer Kinnnlade gebildet zu haben, die we-<lb/>
+nigstens 9 Fuß lang gewesen ist. Das Bruchstück wurde in<lb/>
+einem Lager von Gerölle in einer Tiefe von 30 Fuß unter der<lb/>
+Oberfläche der Erde gefunden.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Gegen die Erfindung des Schweden Pasch, die wir in<lb/>
+Nr. 36 der Neuen Folge des Pfennig=Magazins mitgetheilt<lb/>
+haben, erheben sich schon Einwände; es wird diesem <hi rendition="#g">hydrau-<lb/>
+lischen Mörtel</hi> Schuld gegeben, daß die ungetrocknete un-<lb/>
+tere Seite wasserhaltig bleibe und daher den Mörtel dort<lb/>
+weich erhalte.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p><hi rendition="#g">Fruchtbarkeit Algeriens.</hi> Französische Versuche thun<lb/>
+dar, daß die Colonie Algerien Wein erzeugen kann, wie der<lb/>
+Madeira ist, ebenso den besten Taback in der Welt, schönere<lb/>
+Baumwolle als die levantische, Cochenille, die der mexicani-<lb/>
+schen nichts nachgibt, treffliches Öl, vollkommene Seide, wie<lb/>
+sie China liefert, fast alle Fruchtgattungen der Welt und Ge-<lb/>
+treide im Überfluß.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Die <hi rendition="#g">Donau=Dampfschiffahrtsgesellschaft</hi> besitzt<lb/>
+gegenwärtig mit Einschluß des im Bau begriffenen &#x201E;Hercules&#x201C;<lb/>
+von 200 Pferdekraft 26 Dampfboote, zusammen von 2346 Pfer-<lb/>
+dekraft, und zwar 19 Flußdampfboote von 1556 und 7 See-<lb/>
+dampfboote von 760 Pferdekraft.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Der <hi rendition="#g">Seeleim,</hi> dessen Erfindung wir in Nr. 34 der<lb/>
+Neuen Folge des Pfennig=Magazins berichteten, wird folgen-<lb/>
+dermaßen bereitet: man löst in 4 Gallonen ( 18 Litres ) Stein-<lb/>
+kohlennaphtha 453 Grammen zerschnittenes Kautschuk auf,<lb/>
+welche Auflösung nach 10&#x2014;12 Tagen erfolgt, setzt jedem Ge-<lb/>
+wichtstheile von Flüssigkeit zwei Theile Gummilack oder noch<lb/>
+besser Tafellack zu und erwärmt dann das Ganze unter stetem<lb/>
+Umrühren in einem eisernen, am untern Theile mit einem Ab-<lb/>
+<cb n="2"/>
+laßhahne versehenen Gefäße. Nach erfolgter Vereinigung gießt<lb/>
+man die Masse auf Steinplatten aus und zerbricht sie nach<lb/>
+erfolgter Abkühlung in Stücke, die man aufbewahrt bis zum<lb/>
+Gebrauche. Zu diesem erwärmt man den Leim bis auf 96°<lb/>
+Réaumur, und streicht ihn mit einem Pinsel auf; nachdem die<lb/>
+Schicht fest geworden, erweicht man sie durch Auflegen von<lb/>
+Eisenplatten, die man auf 48° Réaumur erwärmt hat, über-<lb/>
+streicht beide Flächen nochmals mit dem Leim und vereinigt sie<lb/>
+dann durch Pressen. Setzt man größere Mengen Gummilack<lb/>
+zu, so widersteht der Leim besser den Abwechselungen der Tem-<lb/>
+peratur, vermehrt man aber die Menge des Naphtha oder des<lb/>
+Kautschuk, so wird der Leim geschmeidiger und biegsamer.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p><hi rendition="#g">Statistisches.</hi> Wenn man alle Staatsschulden Eu-<lb/>
+ropas zusammenrechnet, so bekommt man ein Facit von<lb/>
+13,605,439,000 Thlrn., wornach jeder europäische Kopf im<lb/>
+Durchschnitt 51 Thlr. schuldig ist. Jn der Wirklichkeit aber<lb/>
+sind diese ungeheuern Schulden sehr verschieden vertheilt. Jn<lb/>
+Sachsen kommen auf den Kopf 6 Thlr., in Preußen 10, in<lb/>
+Sachsen=Weimar 14, in Östreich16 1 / 2, in Sachsen=Koburg-<lb/>
+Gotha, in Baden, Baiern und Braunschweig 17, in Sachsen-<lb/>
+Meiningen=Hildburghausen 18, in Dänemark39 1 / 2, in An-<lb/>
+halt=Köthen 43, in Portugal über35 1 / 2 in Frankreich41 1 / 2,<lb/>
+in Belgien fast48 1 / 2, in Spanien 54, in England205 1 / 2,<lb/>
+in Holland ohne die ungeheure Colonialschuld409 1 / 2 Thlr.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Die einzige Stadt <hi rendition="#g">Bremen</hi> besitzt eine Handelsmarine,<lb/>
+die dem vierten Theile der ganzen Handelsmarine Frankreichs<lb/>
+gleichkommt.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p><hi rendition="#g">Artesische Brunnen.</hi> Am Ende des Kettenhafen-<lb/>
+damms zu Brighton bohrt man jetzt im Meere einen arte-<lb/>
+sischen Brunnen. Man hofft, das Bohrloch nicht über 70<lb/>
+Fuß in den Meeresgrund treiben zu müssen, um die Quelle<lb/>
+zu erhalten.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Der <hi rendition="#g">preußische Staat</hi> hat gegenwärtig 15,300,000<lb/>
+Einwohner.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Die Bevölkerung Neuyorks wurde im Juni d. J. von ei-<lb/>
+ner großen Landplage heimgesucht. Alle Gärten und öffent-<lb/>
+lichen Spaziergänge waren von Myriaden von <hi rendition="#g">Heuschrecken</hi><lb/>
+von der Gattung <hi rendition="#aq">Lettigenea septendecim</hi>          gleichsam übersäet.<lb/>
+Nach der Versicherung von Beobachtern kommt dieses Jnsekt<lb/>
+allemal nach 17 Jahren an denselben Localitäten wieder zum<lb/>
+Vorschein. So ist es seit 1827 in Neuyork, Massachusetts,<lb/>
+Connecticut, Jersey und Virginien nicht erschienen. Jn Lui-<lb/>
+siana dagegen zeigte es sich 1836, daher es daselbst im Jahre<lb/>
+1853 wieder erwartet wird. Jm Jahre 1834 war es in Ohio,<lb/>
+Georgien, Maryland, Nordcarolina, Pennsylvanien und Dela-<lb/>
+ware und hier erwartet man es daher schon 1851 wieder.</p></div></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jAn"><head><hi rendition="#fr">Literarische Anzeige.</hi></head><lb/>
+<p>Bei mir ist neu erschienen und durch alle Buchhandlun-<lb/>
+gen zu erhalten:</p><lb/>
+<p><hi rendition="#c"><hi rendition="#fr #g #larger #b">Das Dekameron</hi><lb/>
+von <lb/>
+<hi rendition="#fr">Giovanni Boccaccio.</hi></hi></p><lb/>
+<p><hi rendition="#c"><hi rendition="#g">Aus dem Jtalienischen übersetzt</hi><lb/>
+von <lb/>
+<hi rendition="#fr"><hi rendition="#g">Karl Witte</hi>.</hi></hi></p><lb/>
+<p><hi rendition="#c"><hi rendition="#g">Zweite</hi> verbesserte Auflage.<lb/>
+Drei Theile.<lb/>
+Gr. 12. Geh. 2 Thlr. 15 Ngr.</hi></p><lb/>
+<p>Leipzig, im September 1843.</p><lb/>
+<p><space dim="horizontal"/><hi rendition="#fr">F. A. Brockhaus.</hi></p></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/><lb/>
+</body>     <back><div n="1" type="imprint"><p><hi rendition="#c">Herausgegeben unter Verantwortlichkeit der Verlagshandlung F. A. <hi rendition="#g">Brockhaus</hi> in <hi rendition="#g">Leipzig</hi>.</hi></p></div>     </back>   </text> </TEI>

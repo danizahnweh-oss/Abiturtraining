@@ -1,0 +1,871 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://www.deutschestextarchiv.de/basisformat.rng" type="application/xml" schematypens="https://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://www.deutschestextarchiv.de/basisformat.sch" type="application/xml" schematypens="https://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">   <teiHeader>
+<fileDesc>
+<titleStmt>
+<title type="main">Ein Besuch in Zürich bei den weiblichen Studierenden der Medizin</title>
+<title type="sub">Ein Beitrag zur Klärung der Frage des Frauenstudiums</title>
+<author>
+<persName>
+<surname>Weber</surname>
+<forename>Mathilde</forename>
+</persName>
+</author>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/115266127">
+<surname>Geyken</surname>
+<forename>Alexander</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1222198746">
+<surname>Haaf</surname>
+<forename>Susanne</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1019062681">
+<surname>Jurish</surname>
+<forename>Bryan</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Boenig</surname>
+<forename>Matthias</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Thomas</surname>
+<forename>Christian</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Wiegand</surname>
+<forename>Frank</forename>
+</persName>
+</editor>
+<respStmt xml:id="textsource-1" corresp="#availability-textsource-1">
+<orgName>Frauenstudium, betreut von Andreas Neumann und Anna Pfundt, FSU Jena und JLU Gießen</orgName>
+<resp>
+<note type="remarkResponsibility">Bereitstellung der Texttranskription.</note>
+<note type="remarkRevisionDTA">Bitte beachten Sie, dass die aktuelle Transkription (und Textauszeichnung) mittlerweile nicht mehr dem Stand zum Zeitpunkt der Übernahme des Werkes in das DTA entsprechen muss.</note>
+<date type="importDTA">2021-06-15T13:53:57Z</date>
+</resp>
+</respStmt>
+<respStmt>
+<persName>
+<surname>Pfundt</surname>
+<forename>Anna</forename>
+</persName>
+<persName>
+<surname>Nau</surname>
+<forename>Juliane</forename>
+</persName>
+<resp>
+<note type="remarkResponsibility">Bearbeitung der digitalen Edition.</note>
+<date type="importDTA">2021-06-15T13:53:57Z</date>
+</resp>
+</respStmt>
+<respStmt>
+<orgName ref="https://www.bbaw.de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<resp>
+<note type="remarkResponsibility">Langfristige Bereitstellung der DTA-Ausgabe</note>
+<ref target="https://www.bbaw.de"/>
+</resp>
+</respStmt>
+</titleStmt>
+<editionStmt><edition>Vollständige digitalisierte Ausgabe.</edition></editionStmt>
+<extent>
+<measure type="images">15</measure>
+<measure type="tokens">5690</measure>
+<measure type="types">2214</measure>
+<measure type="characters">41480</measure>
+</extent>
+<publicationStmt>
+<publisher xml:id="DTACorpusPublisher">
+<email>dta@bbaw.de</email>
+<orgName role="project">Deutsches Textarchiv</orgName>
+<orgName role="hostingInstitution" xml:lang="en">Berlin-Brandenburg Academy of Sciences and Humanities (BBAW)</orgName>
+<orgName role="hostingInstitution" xml:lang="de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<address>
+<addrLine>Jägerstr. 22/23, 10117 Berlin</addrLine>
+<country>Germany</country>
+</address>
+</publisher>
+<pubPlace>Berlin</pubPlace>
+<date type="publication">2025-10-24T08:37:34Z</date>
+<availability>
+<licence target="http://creativecommons.org/licenses/by/4.0/deed.de">
+<p>Namensnennung 4.0 International (CC BY 4.0)</p>
+</licence>
+</availability>
+<idno>
+<idno type="URLWeb">https://www.deutschestextarchiv.de/weber_besuch_1888</idno>
+<idno type="URLXML">https://www.deutschestextarchiv.de/book/download_xml/weber_besuch_1888</idno>
+<idno type="URLHTML">https://www.deutschestextarchiv.de/book/download_html/weber_besuch_1888</idno>
+<idno type="URLText">https://www.deutschestextarchiv.de/book/download_text/weber_besuch_1888</idno>
+<idno type="DTADirName">weber_besuch_1888</idno>
+<idno type="DTAID">35002</idno>
+<idno type="URN">urn:nbn:de:kobv:b4-35002-1</idno>
+</idno>
+</publicationStmt>
+<sourceDesc>
+<bibl type="M">Weber, Mathilde: Ein Besuch in Zürich bei den weiblichen Studierenden der Medizin. Stuttgart, 1888.</bibl>
+<biblFull>
+<titleStmt>
+<title level="m" type="main">Ein Besuch in Zürich bei den weiblichen Studierenden der Medizin</title>
+<title level="m" type="sub">Ein Beitrag zur Klärung der Frage des Frauenstudiums</title>
+<author>
+<persName>
+<surname>Weber</surname>
+<forename>Mathilde</forename>
+</persName>
+</author>
+</titleStmt>
+<editionStmt>
+<edition n="1"/>
+</editionStmt>
+<publicationStmt>
+<publisher><name>Verlag von W. Kohlhammer</name></publisher>
+<pubPlace>Stuttgart</pubPlace>
+<date type="publication">1888</date>
+</publicationStmt>
+</biblFull>
+<msDesc>
+<msIdentifier>
+<repository>Thüringer Universitäts- und Landesbibliothek Jena</repository>
+<idno>
+<idno type="shelfmark">8 Med.I,27/20(42)</idno>
+<idno type="URLCatalogue">https://kataloge.thulb.uni-jena.de/DB=1/XMLPRS=N/PPN?PPN=387974466</idno>
+</idno>
+</msIdentifier>
+<physDesc>
+<typeDesc>
+<p>Fraktur</p>
+</typeDesc>
+</physDesc>
+</msDesc>
+</sourceDesc>
+</fileDesc>
+<encodingDesc>
+<editorialDecl>
+<p>
+<![CDATA[
+<p>Verfahren der Texterfassung: OCR mit Nachkorrektur.</p>
+<p>
+Bogensignaturen: keine Angabe;
+Druckfehler: dokumentiert;
+fremdsprachliches Material: keine Angabe;
+Geminations-/Abkürzungsstriche: keine Angabe;
+Hervorhebungen (Antiqua, Sperrschrift, Kursive etc.): wie Vorlage;
+i/j in Fraktur: keine Angabe;
+I/J in Fraktur: wie Vorlage;
+Kolumnentitel: keine Angabe;
+Kustoden: keine Angabe;
+langes s (&#x017F;): als s transkribiert;
+Normalisierungen: keine Angabe;
+rundes r (&#xA75B;): keine Angabe;
+Seitenumbrüche markiert: ja;
+Silbentrennung: wie Vorlage;
+u/v bzw. U/V: keine Angabe;
+Vokale mit übergest. e: keine Angabe;
+Vollständigkeit: vollständig erfasst;
+Zeichensetzung: wie Vorlage;
+Zeilenumbrüche markiert: ja;
+</p>
+]]>
+</p>
+</editorialDecl>
+<tagsDecl>
+<rendition scheme="css" xml:id="aq">font-family:sans-serif</rendition>
+<rendition scheme="css" xml:id="b">font-weight:bold</rendition>
+<rendition scheme="css" xml:id="blue">color:blue</rendition>
+<rendition scheme="css" xml:id="c">display:block; text-align:center</rendition>
+<rendition scheme="css" xml:id="et">display:block; margin-left:2em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et2">display:block; margin-left:4em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et3">display:block; margin-left:6em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="f">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="fr">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="g">letter-spacing:0.125em</rendition>
+<rendition scheme="css" xml:id="i">font-style:italic</rendition>
+<rendition scheme="css" xml:id="in">font-size:150%</rendition>
+<rendition scheme="css" xml:id="k">font-variant:small-caps</rendition>
+<rendition scheme="css" xml:id="larger">font-size:larger</rendition>
+<rendition scheme="css" xml:id="red">color:red</rendition>
+<rendition scheme="css" xml:id="right">display:block; text-align:right</rendition>
+<rendition scheme="css" xml:id="s">text-decoration:line-through</rendition>
+<rendition scheme="css" xml:id="smaller">font-size:smaller</rendition>
+<rendition scheme="css" xml:id="sub">vertical-align:sub; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="sup">vertical-align:super; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="u">text-decoration:underline</rendition>
+<rendition scheme="css" xml:id="uu">border-bottom:double 3px #000</rendition>
+</tagsDecl>
+</encodingDesc>
+<profileDesc>
+<particDesc>
+<person sex="f" role="author">
+<persName>
+<surname>Weber</surname>
+<forename>Mathilde</forename>
+</persName>
+</person>
+</particDesc>
+<langUsage>
+<language ident="deu">(Früh-)Neuhochdeutsch</language>
+<language ident="deu">German</language>
+</langUsage>
+<textClass>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1main">Gebrauchsliteratur</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1sub">Gesellschaft</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">ready</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">tdef</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">frauenstudium</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#collections">women</classCode>
+</textClass>
+</profileDesc>
+</teiHeader>
+<text>         <front>
+<pb facs="#f0001"/>
+<titlePage type="main"> <docTitle><titlePart type="main">Ein Besuch in Zürich<lb/>
+bei den<lb/>
+<hi rendition="#g">weiblichen Studierenden der Medizin</hi>.</titlePart><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<titlePart type="sub">Ein Beitrag zur Klärung der Frage des Frauenstudiums</titlePart><lb/>
+</docTitle>                 <byline>von<lb/>
+<hi rendition="#g"><persName ref="http://d-nb.info/gnd/119148633">Mathilde Weber</persName></hi><lb/>
+Tübingen.</byline><lb/>
+<space dim="vertical"/>             <milestone unit="section" rendition="#hr"/><lb/>
+<docImprint> Separatabdruck aus:<lb/>
+Die Frau im gemeinnützigen Leben.<lb/>
+Archiv für die Gesamtinteressen des Frauen-Arbeits-, Erwerbs- und Vereinslebens<lb/>
+im Deutschen Reich und im Ausland<lb/>
+von <hi rendition="#g">Marie Loeper-Housselle</hi> und <hi rendition="#g">Amélie Sohr</hi>.<lb/>
+<hi rendition="#aq">II</hi>. Vierteljahrsheft 1888.<lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<pubPlace>Stuttgart.</pubPlace><lb/>
+<publisher><hi rendition="#g">Verlag von W. Kohlhammer</hi>.</publisher><lb/>
+<docDate>1888.</docDate><lb/>
+</docImprint>             </titlePage>
+<pb facs="#f0002"/>
+<div type="Imprint"> <p>L. Fr. Fues'sche Buchdruckerei, Tübingen.</p><lb/>
+</div>         </front>         <body>
+<pb facs="#f0003" n="[3]"/>
+<div n="1"> <head>Ein Besuch in Zürich bei den weiblichen Studierenden<lb/>
+der Medizin.</head><lb/>
+<byline>Ein Beitrag zur Klärung der Frage des Frauenstudiums von <hi rendition="#g">Mathilde Weber</hi>.</byline><lb/>
+<p>Vor wenigen Monaten bekam ich einen freundlichen Brief von der<lb/>
+Vorsitzenden des neu gegründeten allgemeinen Studentinnenvereins aus<lb/>
+Zürich. Sie sprach mir in demselben den Dank des Vereins aus, weil<lb/>
+ich in meiner kleinen Schrift (Aerztinnen für Frauenkrankheiten, eine ethische<lb/>
+und sanitäre Notwendigkeit, bei Franz Fues, Tübingen 1888) eine Lanze<lb/>
+für das Studium der Medizin der Frauen gebrochen hatte.</p><lb/>
+<p>Der Verein ließ mich einladen, einer seiner Monatsversammlungen bei-<lb/>
+zuwohnen. Gerne folgte ich der Einladung. War es doch längst mein<lb/>
+Wunsch, vor der im Oktober erscheinenden vierten Auflage obiger kleinen<lb/>
+Schrift persönlich in Zürich Erfahrungen zu sammeln über den seitherigen<lb/>
+Verlauf und Erfolg des Frauenstudiums daselbst. Namentlich wollte ich<lb/>
+auch an Ort und Stelle unbefangen Urteile hören über das Thun und<lb/>
+Leben der Studentinnen selbst. Wob sich doch in der Ferne längst durch<lb/>
+engherziges Vorurteil der Gesellschaft ein schwarzer Schleier abenteuerlicher<lb/>
+Vorstellungen um die &#x2013; &#x201E;Studentinnen&#x201C;.</p><lb/>
+<p>Jch gestehe es. das Herz schlug mir deshalb höher, als ich am Abend<lb/>
+des zwölften Juli in den Verein eingeführt wurde durch die Medizin<lb/>
+studierende Tochter meiner gütigen Gastfreundin, Frau Eishold aus Dresden,<lb/>
+die um ihrer Tochter willen nach Zürich gezogen war. Die Vereinszu-<lb/>
+sammenkünfte wurden in dem Salon einer zur Universität gehörenden<lb/>
+Dame bei einer Tasse Thee abgehalten. Bereits hatten etliche vierzig<lb/>
+Damen Platz genommen.</p><lb/>
+<p>Trotzdem ich den Abend zuvor schon von den bei Frau E. eingelade-<lb/>
+nen deutschen Studentinnen den besten Eindruck empfangen hatte, überfiel<lb/>
+mich doch plötzlich eine geheime Furcht. Hatte ich nicht doch vielleicht diese<lb/>
+Studienfrage zu ideal und vertrauensvoll aufgefaßt? &#x2013; Und doch war<lb/>
+nun durch meine kleine Broschüre für immer mein Name daran geknüpft.<lb/>
+Mußte ich nicht vielleicht hier eine große Enttäuschung durchmachen beim<lb/>
+persönlichen Kennenlernen dieser jungen Mitkämpferinnen für Frauenbildung<lb/>
+und geistige Berufsarbeit? Diese Fragen stürzten plötzlich über mich her-<lb/>
+ein; angstvoll fühlte ich mich von Glut übergossen. Nun, seit ich in Zürich<lb/>
+<pb facs="#f0004" n="4"/>
+selbst war, konnte ich mir nicht verhehlen, welche mannigfache Gefahren<lb/>
+und Anfechtungen eine solche exponierte Sonderstellung mit sich bringt.</p><lb/>
+<p>Doch dem Himmel sei Dank gesagt; es wurde mir immer leichter im<lb/>
+Herzen, je eindringlicher ich während der von einer Frl. Neunreuter aus<lb/>
+Straßburg trefflich geleiteten Verhandlungen Umschau in dem Salon hielt.</p><lb/>
+<p>Wo war denn das von den Gegnern, z. B. von Herrn Prof. Dr.<lb/>
+Bischof befürchtete extravagante, unweibliche Benehmen zu sehen, wo die<lb/>
+oft geschilderten Cigarretten und Herrenkostüme? Wo die bleichen, nervösen,<lb/>
+von der geistig ungewohnten Anstrengung grämlich gewordenen, schrecklichen<lb/>
+Zwitterwesen.</p><lb/>
+<p>Jch fand nur frische, kräftige Frauen und Mädchen, voll weiblichen<lb/>
+Anstandes und vernünftigen, sich an die herrschende Mode anschließenden,<lb/>
+nicht auffallenden Toiletten.</p><lb/>
+<p>Aeußerst wohlthuend berührte das würdige, gehaltene Benehmen. Man<lb/>
+sah, sie waren Alle erfüllt von dem ganzen Ernst ihrer schwierigen Lebens-<lb/>
+arbeit, zu der sie sich durch zahllose Hindernisse erst das Recht erkämpfen<lb/>
+mußten. Man rühmte mir schon vorher einstimmig in den verschiedensten Züricher<lb/>
+Kreisen das Benehmen der Studentinnen. Nun durfte ich mich zu meiner<lb/>
+Freude selbst überzeugen, wie richtig der Ausspruch des von den Damen<lb/>
+hochgeschätzten Herrn Prof. Dr. von Meier war, mit welchem er einen<lb/>
+Angriff auf die Damen entgegnete: daß er &#x201E;von all den Bischoffischen<lb/>
+Gespenstern nie etwas gesehen habe&#x201C;. Auch ich konnte nun selbst bezeugen,<lb/>
+wie diese geistige Lernfreiheit und das Selbstbestimmungsrecht zu einer<lb/>
+sympathischen Berufsarbeit beglückend und erfrischend auf die ganze Ent-<lb/>
+wicklung und Persönlichkeit der anwesenden Damen eingewirkt hatte.</p><lb/>
+<p>Dagegen findet man unter den Schülerinnen der Lehrerinnenseminarien<lb/>
+bleiche, abgehärmte, nervöse Mädchen, weil sie sich oft gegen Neigung und<lb/>
+mit mangelndem Talent in diesen einzigen seither den Frauen gestatteten,<lb/>
+<choice><sic>üeistigen</sic><corr>geistigen</corr></choice> Beruf einzwängten und dort mit Gedächtnißarbeit über ihre Kraft<lb/>
+<choice><sic>gberbürdet</sic><corr>überbürdet</corr></choice> werden müssen. Denn aus staatlichen Sparsamkeitsgründen<lb/>
+dürfen häufig diese Aermsten fast nur die Hälfte der Jahre auf die Vor-<lb/>
+bereitung verwenden, wie die Jünglinge, weil leider immer noch manche<lb/>
+maßgebende deutsche Behörden den Wert der Frauen-Arbeit und der Frauen-<lb/>
+Erziehung zu sehr unterschätzen.</p><lb/>
+<p>Es scheint, daß das auswärts verbreitete Vorurteil gegen die<lb/>
+Studentinnen noch von früheren Vorgängen herstammt, und nur durch die<lb/>
+Gedankenlosigkeit der Menge und den Mangel an selbständiger Beobachtung<lb/>
+auch noch auf die heutige Generation der Schülerinnen übertragen wird.<lb/>
+Damals, vor fünfzehn bis zwanzig Jahren, studierten vorherrschend nur<lb/>
+Russinnen. Dieselben standen auf einer uns fremdartigen Kulturstufe und<lb/>
+hatten auch andere gesellschaftliche Anschauungen als wir Westeuropäer.<lb/>
+Daher ist es sehr begreiflich, wie diese erste Vorkämpferinnen einer neuen<lb/>
+Zeitidee etwas Kühnes, ja gewissermaßen Herausforderndes gegen die ihrem<lb/>
+Beginnen meist mißtrauisch und feindlich entgegentretende Umgebung hatte.</p><lb/>
+<p>Durch dieses mit so vielen Hindernissen erkämpfte Wissen, welches<lb/>
+man seither nur bei Männern für möglich hielt, entwickelte sich natürlich<lb/>
+auch bei Einzelnen ein zu großes Selbstbewußtsein und eine trotzige Nicht-<lb/>
+achtung gegen die herkömmlichen Sitten und Formen der Gesellschaft,<lb/>
+welche sie um dieses selbständige Betreten neuer, ungewöhnlicher Berufswege<lb/>
+gewissermaßen geächtet hatte. Konnten es aber auch wohl, objektiv be-<lb/>
+<pb facs="#f0005" n="5"/>
+trachtet, damals andere, als besonders Mutige, gegen herkömmliche Gebräuche<lb/>
+und falschen Schein Gleichgiltige wagen, diese neue Berufsart für unser<lb/>
+Geschlecht zu erobern? Müßte man sich nicht eher wundern, wenn schüchterne,<lb/>
+ängstliche Mädchen es selbst bei höchster Begabung zuerst gewagt hätten,<lb/>
+den Kampf gegen langeingewurzelte Anschauungen aufzunehmen.</p><lb/>
+<p>Die heutigen Studentinnen haben es darin schon viel besser. Sie<lb/>
+stehen durch die sich während zwanzig Jahren befestigte Berechtigung zu<lb/>
+diesem Studium nun auf einer sichereren Basis. Sie sind auch deshalb<lb/>
+von dem früheren Jrrwahn geheilt, als müßten sie durch das ebenbürtige<lb/>
+Lernen mit den Männern mehr von deren Sitten und Trachten annehmen.</p><lb/>
+<p>Jch konnte mit Vergnügen bemerken, daß das nun ein überwundener<lb/>
+Standpunkt ist. Die meisten haben richtig erkannt, daß sie durch das<lb/>
+Eingreifen ihres speziell dem Frauenwohl dienenden Berufes praktisch zur<lb/>
+Lösung der Frauenfrage beitragen, und wie es ihnen deshalb Ehrensache<lb/>
+sein muß, durch echt weibliches Benehmen und feine Sitten zu zeigen, daß<lb/>
+höchstes geistiges Streben, Wissen und Lernen ganz wohl in den Rahmen<lb/>
+normaler Weiblichkeit hineinpaßt. Ja, daß dasselbe wie jede ernste Arbeit<lb/>
+veredelnd wirkt und den Fluch des vielen geistigen Müßiggangs und der<lb/>
+leidigen, häufigen Halbbildung von uns nimmt.</p><lb/>
+<p>Unsere jungen, mutigen Mitarbeiterinnen für Frauen-Ehre und Erhebung<lb/>
+wollen durch ihren Fleiß, ihre Ausdauer und Selbstüberwindung zeigen,<lb/>
+daß sie das Frauenideal hoch halten; wollen zeigen, was Frauen leisten<lb/>
+können, wenn bei entsprechender Begabung alle Fähigkeiten und Kräfte<lb/>
+durch die Lernfreiheit zu einer strammen Anspannung veranlaßt werden.</p><lb/>
+<p>Jst der Drang zu helfen, zu heilen nicht eine echt weibliche Grund-<lb/>
+tugend? Schmerzen zu lindern, zu trösten und zu pflegen ehrt man ja<lb/>
+längst an der Diakonissin und barmherzigen Schwester. Sollte es nicht<lb/>
+ebenso freudig von der Gesellschaft begrüßt werden, wenn einzelne der<lb/>
+an Geistes- und Körperkräften hervorragenden Frauen und Mädchen<lb/>
+wünschen, nicht unter fremder Bevormundung, und nur die niedrig-<lb/>
+sten Dienste darin thun zu müssen? Sollte denn die von den<lb/>
+Männern vorherrschend in Anspruch genommene Leitung der weiblichen<lb/>
+Schulung wirklich nicht auch 1-2 % der Schülerinnen soweit gefördert<lb/>
+haben, daß dieselben, begeistert von dem allgemeinen Drang nach Fort-<lb/>
+schritt, auch eine höhere Wissensstufe, als seither, erklimmen dürften? Gilt<lb/>
+es doch vornehmlich dem edlen Zwecke, Heilung und erhöhte Gesundheit<lb/>
+denjenigen des eigenen Geschlechts zu bringen, welchen es bei Frauenkrank-<lb/>
+heiten zu peinlich erscheint, einen männlichen Arzt beraten zu sollen, so<lb/>
+daß sie oft erst Hilfe suchen, wenn es zu spät ist.</p><lb/>
+<p>Erst wenn die Gesellschaft diese Mission des Frauenstudiums richtig<lb/>
+erkannt hat, wird sich eine gerechtere Beurteilung der Studentinnen vollends<lb/>
+allgemein Bahn brechen. Vorerst müssen sie wohl noch oftmals als Märty-<lb/>
+rerinnen für ihre Ueberzeugung leiden. Wie oft kommt es z. B. noch<lb/>
+vor, daß sie flüstern hören: &#x201E;Das ist eine Studentin&#x201C; und dann sich<lb/>
+so neugierig prüfen und betrachtet fühlen, ob nichts Absonderliches<lb/>
+an ihnen zu finden sei, nicht auch wenigstens kurzgeschnittene Haare oder<lb/>
+ein Herrenhut oder eine Cigarrette.</p><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<pb facs="#f0006" n="6"/>
+<p>Hoffen wir, daß der neu gegründete Verein wesentlich dazu beitragen<lb/>
+wird, die veraltete Voreingenommenheit nach und nach vollends zu be-<lb/>
+seitigen. Die böse Erbschaft von den früheren Russinnen wirkt leider bis-<lb/>
+weilen noch nach. So ging ich z. B. mit einem eingewanderten deutschen<lb/>
+Fräulein über die Straße, eine höchst auffallend gekleidete Dame begegnete<lb/>
+uns. Jch lachte. Das Fräulein sagte wegwerfend: &#x201E;O, das wird<lb/>
+wohl wieder eine Studentin sein.&#x201C; &#x201E;Wissen Sie das genau,&#x201C; fragte ich.<lb/>
+&#x201E;Nein, aber man denkt sich, es müßte eine sein.&#x201C; &#x201E;Kennen Sie denn welche?&#x201C;<lb/>
+&#x201E;O nein, gewiß nicht!&#x201C; sagte sie, diese Zumutung zurückweisend. Jch be-<lb/>
+trübte mich sehr. War doch dieser kleine Vorfall einer der zahllosen Be-<lb/>
+weise, wie schwer es bahnbrechende Elemente haben. Denn selbst die besten<lb/>
+Menschen nehmen sich selten die Mühe, auf den Grund zu gehen, ob eine<lb/>
+vorgefaßte Meinung verdient oder unverdient ist.</p><lb/>
+<p>Möchten es doch die Gründerinnen des Vereins immer recht ver-<lb/>
+stehen, denselben möglichst vorteilhaft, für die Jnteressen der Studentinnen<lb/>
+zu leiten, und nie uns Rücksicht es gestatten, daß ein zweifelhaftes<lb/>
+Element aufgenommen wird. Vor allem sollten sie darauf bestehen, daß<lb/>
+die Deutschen und Schweizerinnen, die ihn gegründet, stets darin vorherrschen<lb/>
+und das Präsidium bilden, damit es nicht vorkommen kann, daß durch eine<lb/>
+andere Nation deren Beschlüsse durchgesetzt oder durch dieselbe das Präsidium<lb/>
+gebildet wird in einer deutsch lehrenden Universität und deutsch sprechenden<lb/>
+Stadt.</p><lb/>
+<p>Leicht würde sonst durch die unvergessenen, so fest gewurzelten Tradi-<lb/>
+tionen von den früheren Russinnen das Mißtrauen gegen den Verein  auf-<lb/>
+tauchen, als beschäftige er sich mit sozialen oder sogar politischen Fragen.</p><lb/>
+<p>Mit aller Jnnigkeit und Dringlichkeit, die mir zu Gebot steht, möchte<lb/>
+ich deßhalb unsere jungen Gesinnungsgenossinnen warnen, sie möchten sich<lb/>
+nie in Abhandlungen oder Betrachtungen und Urteile über die soziale oder<lb/>
+Frauenfrage einlassen.</p><lb/>
+<p>Die Widersprüche und Rätsel dieser modernen Sphinx können doch<lb/>
+von ihnen neben dem alle Kräfte und Zeit absorbierenden Berufsstudium<lb/>
+weder gelöst noch beseitigt werden. Möge es den Studentinnen genügen,<lb/>
+daß sie durch ihren Beruf selbst praktisch zur Lösung beitragen.<lb/>
+Möchten sie aber nie in den Wahn verfallen, daß sie dadurch schon,<lb/>
+trotz ihrer Jugend, nun gleich ein volles Verständniß und Ein- und Ueber-<lb/>
+blick über das ganze soziale Problem bekommen hätten.</p><lb/>
+<p>Das bildet wieder ein langes Studium für sich. Und man darf dieses<lb/>
+geheimnißvolle, verschleierte Bild nicht mit unbefugter Hand enthüllen<lb/>
+wollen; es wäre ein so gefährliches und unheilvolles Beginnen, als<lb/>
+das jenes unglücklichen, wißbegierigen Jünglings von Saïs, welches uns<lb/>
+der Dichter so warnend vor Augen führt.</p><lb/>
+<p>Es wäre gewiß das Förderlichste, wenn in den Vereinsabenden ein<lb/>
+kleiner Vortrag für allgemeine Bildung entweder über ein litterarisches,<lb/>
+historisches, künstlerisches oder ästhetisches Thema gehalten würde; denn es<lb/>
+ist für die spätere soziale Stellung der Aerztinnen von großem Werte, daß<lb/>
+ihre allgemeine Bildung nicht unter dem Fachstudium notleidet.</p><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<p>Während meines weiteren Aufenthaltes suchte ich zu erfahren, was<lb/>
+die Jnteressen der Studentinnen am meisten fördern könnte.</p><lb/>
+<pb facs="#f0007" n="7"/>
+<p>Wenn ich das Resumé der Mitteilungen, sowohl aus der Mitte der<lb/>
+Herren Universitätslehrer selbst heraus, als auch aus den verschiedenen<lb/>
+Kreisen der Züricher Gesellschaft zusammenstelle, so wird es kurz etwa<lb/>
+folgenderweise lauten:</p><lb/>
+<p>Jn erster Linie sollte das Gymnasialstudium weniger kostspielig<lb/>
+zu erreichen sein. Zweitens wäre ein &#x201E;College&#x201C; oder Heim nach den<lb/>
+trefflichen englischen und amerikanischen Vorbildern sehr zweckmäßig, eben-<lb/>
+so ein Lesezimmer; dann Turnen und gymnastische Spiele und Uebungen.<lb/>
+Auch eine Verminderung der sogenannten &#x201E;Hörerinnen&#x201C; oder wie man bei<lb/>
+uns sagen würde, Hospitanten wäre erwünscht, damit keine Elemente her-<lb/>
+einkommen, die dem Studium absolut nicht gewachsen sind, besonders fürchtet<lb/>
+man dadurch ein Zunehmen des fremden, unvorbereiteten Elementes der<lb/>
+Russinnen. Viel hofft man von einer zweckmäßigen Leitung des neu ge-<lb/>
+gründeten &#x201E;Studentinnenvereins&#x201C; und einem Zusammengehen mit den<lb/>
+Frauenvereinen. Man müßte die Welt überzeugen, daß beide Teile nicht im<lb/>
+Gegensätze stehen, sondern daß das Studium nur ein weiteres Glied in<lb/>
+der Kette der Schöpfungen ist, welche diese Vereine in den letzten zwanzig<lb/>
+Jahren durch materielle und ideelle Agitation allmählig für die Erziehung,<lb/>
+Schulung und Erwerbstüchtigkeit unseres Geschlechtes ins Leben gerufen<lb/>
+haben.</p><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<p>Daß es in Zürich mit einem großen Heim, wie in England und<lb/>
+Amerika, nicht recht gehen will, davon ließ ich mich mit schwerem Herzen<lb/>
+erst in Zürich überzeugen, denn ich schwärmte wie viele andere dafür.<lb/>
+Fr. Eishold arbeitete auch bereits einen vorzüglichen Prospekt dafür<lb/>
+aus, zu dessen Verwirklichung nur fehlte, daß noch manche reiche, edel-<lb/>
+mütige Gönner Stiftungen und Vermächtnisse gemacht hätten. &#x2013; Das<lb/>
+Hinderniß für ein Heim sind die verschiedenen Nationalitäten der augen-<lb/>
+blicklich 70 studierenden Damen und die damit verbundenen verschieden-<lb/>
+artigen Geschmacksrichtungen und Lebensanschauungen. Man unterscheidet<lb/>
+in Zürich 3 Gruppen von Studentinnen: <hi rendition="#aq">I</hi>. Schweizerinnen und Deutsche,<lb/>
+<hi rendition="#aq">II</hi>. Amerikanerinnen und Engländerinnen, <hi rendition="#aq">III</hi>. Russinnen und Polinnen.<lb/>
+Kleinere Pensionen aber unter Leitung einer gebildeten Familie speziell<lb/>
+für die gleichen Landsmänninnen würden sich gewiß mit der Zeit einrichten<lb/>
+lassen. Daselbst müßte jede Einzelne, je nach ihren Verhältnissen, ein bis<lb/>
+zwei Zimmer für sich haben können. Ein gemeinsames Speise- und<lb/>
+Konversationszimmer würde die Damen nur zu gewissen Stunden ver-<lb/>
+einigen.</p><lb/>
+<p>Verschiedene der studierenden Damen halten uns entgegen, daß gerade<lb/>
+dieses isolirte Leben den Fleiß befördere. Nur dadurch könnten sie bei<lb/>
+den vielseitigen Hindernissen und der oft knappen Vorbildung und kleinen<lb/>
+Mitteln bald ein gutes Examen fertig bringen. Trotzdem glaube ich,<lb/>
+daß manche Eltern ihre Tochter leichteren Herzens ihrem Studiendrange<lb/>
+folgen lassen würden, wenn dieses unsern Gewohnheiten unsympatische,<lb/>
+wenn auch nach allseitigsten Versicherungen tadellose, Alleinleben außerhalb<lb/>
+der Familie und Freundeskreisen nicht wäre.</p><lb/>
+<p>Jm Gegensatz zu dem fröhlichen, sorgenlosen, kameradschaftlichen<lb/>
+Studentenleben führen die Studentinnen ein wahrhaft klösterliches Leben<lb/>
+unter strengster Klausur aus Sorge vor schlimmer Nachrede. Natürlich<lb/>
+müssen sie das sowohl um ihrer selbst willen als im Jnteresse ihres ganzes<lb/>
+<pb facs="#f0008" n="8"/>
+Standes auf das dringendste vermeiden. Nirgends ist die Parole &#x201E;Einer<lb/>
+für Alle, Alle für Einen&#x201C; von größerer Bedeutung, als hier, wo es immer<lb/>
+noch gilt, sich eine feste soziale Stellung und Geltung zu gewinnen. Es<lb/>
+haben dadurch auch Manche, besonders von den Jüngeren, im Zweifel über<lb/>
+die richtige Mitte, oft ein zu schroffes, unfreundliches Benehmen, nament-<lb/>
+lich gegen die Studenten, angenommen. Alle die Damen aber geben diesen<lb/>
+das ehrende Zeugnis, daß sie ihnen niemals einen Grund zu einer Klage<lb/>
+gegeben, sondern stets ein achtungsvolles, würdiges Benehmen gegen die<lb/>
+neuen Mitschülerinnen beobachtet haben.</p><lb/>
+<p>Was den wünschenswertesten Lehrgang betrifft, so stimmen sowohl die<lb/>
+Lehrer als die erfahreneren Schülerinnen darin überein, daß für alle die<lb/>
+vielen zu beobachtenden Rücksichten es am zweckmäßigsten, besonders auch<lb/>
+für das körperliche Wohlergehen sei, wenn die Damen nicht vor dem<lb/>
+zwanzigsten bis vierundzwanzigsten Jahre die Hochschule beziehen. Die<lb/>
+meisten unter ihnen haben etwa folgende Vorbildung gehabt: Zuerst eine<lb/>
+gute, höhere Töchterschule absolviert, dann ein bis zwei Jahre vom fünf-<lb/>
+zehnten bis siebzehnten Jahre die weiblichen Hand- und Hausarbeiten er-<lb/>
+lernt und langsam mit den alten Sprachen begonnen, dann drei bis vier<lb/>
+Jahre sich ganz den Gymnasialstudien durch Privatstunden gewidmet. &#x2013;<lb/>
+Man sieht, daß bis jetzt bloß Wohlhabenden dieses Studium möglich wird<lb/>
+trotz der Stipendien, die der allgemeine deutsche Frauenverein bereits einzelnen<lb/>
+tüchtigen, deutschen Mädchen geben kann.</p><lb/>
+<p>Jn der Schweiz und in Schweden sind die maßgebenden Be-<lb/>
+hörden darin abermals mit gutem Beispiel vorangegangen. Dort besteht<lb/>
+bereits seit Jahren in den Lehrerinnenseminarien die Gelegenheit, sich zur<lb/>
+Maturitätsprüfung vorzubereiten. Es wurde daselbe schon von vielen<lb/>
+Mädchen, namentlich wohlhabenden, oft nur zur eigenen Befriedigung be-<lb/>
+standen. Jn Zürich erwirkte es vornehmlich der auch um das Frauen-<lb/>
+studium sehr verdiente Herr Prof. Schweizer-Siedler. Aus Zürich wurde<lb/>
+der Herausgeberin dieses Blattes, &#x201E;die Frau im gemeinnützigen Leben&#x201C;, un-<lb/>
+längst geschrieben:</p><lb/>
+<p>&#x201E;Die Jnkonsequenz, die darin liegt, den Frauen die Universität zu<lb/>
+erschließen, ohne ihnen Gymnasialbildung zu bieten, machte sich schon längst<lb/>
+fühlbar und ein neues Schulgesetz, das im Laufe des Jahres den Behörden<lb/>
+unterbreitet werden wird, nimmt auch in Aussicht, entweder die Mädchen<lb/>
+an Gymnasien zuzulassen oder &#x2013; und das ist natürlich das bevorzugte<lb/>
+Projekt &#x2013; denjenigen höheren städtischen Töchterschulen eine Subvention zu<lb/>
+geben, welche die Maturitätsprüfung ermöglichen.&#x201C;</p><lb/>
+<p>Auch in der Volksabstimmung, die endgiltig über das ganze Gesetz zu<lb/>
+entscheiden hat, wird dieser Vorschlag schwerlich auf Widerstand stoßen, da<lb/>
+sich das Universitätsstudium der Frauen ganz eingelebt hat und besonders<lb/>
+weibliche Aerzte sich als durchaus tüchtig und als ein großer Segen für<lb/>
+die leidende Frauenwelt bewährt hat. Als Anstaltsärzte sind sie wieder-<lb/>
+holt auch an staatlichen Kanton- oder Lehranstalten angestellt worden.<lb/>
+&#x201E;Jch bin überzeugt, daß wenn in Deutschland der Versuch gemacht<lb/>
+würde, den Frauen die ärztliche Praxis durch Gewährung der Vor- und<lb/>
+Ausbildung zu ermöglichen, die Vorurteile wie bei uns sich von selbst<lb/>
+widerlegen und die Maßnahmen sich als äußerst segensreich erweisen würden.<lb/>
+So lange aber über die Frage immer nur theoretisiert wird, bleibt sie<lb/>
+natürlich eine unentschiedene Streitfrage. Gewiß kann hier einzig und<lb/>
+<pb facs="#f0009" n="9"/>
+allein die Praxis ein endgiltiges Urteil abgeben&#x201C; &#x2013; das schreibt und denkt<lb/>
+eine praktische Schweizerin, die treffliche Präsidentin des Frauenvereins<lb/>
+Zürich, Sektion des Schweizer Frauenverbandes: Frau Boos-Jegher.</p><lb/>
+<p>Wir Frauen haben alle Ursache, die Schweizer Männer hochzuschätzen.<lb/>
+Sie gaben zuerst in Europa das Beispiel objektiver Gerechtigkeit auch für<lb/>
+unser Geschlecht, und handelten nach dem Satze: &#x201E;Gleiche Pflichten, gleiche<lb/>
+Rechte.&#x201C; Sie sahen ein, daß wenn der Staat nicht selbst die arbeitslosen<lb/>
+Mädchen versorgen will, er ihnen auch die freie Wahl, wie dem Manne<lb/>
+lassen muß, die ihrer Persönlichkeit am meisten zusagende Erwerbsarbeit<lb/>
+ergreifen zu dürfen und die Gelegenheit zur Schulung dazu zu erhalten.<lb/>
+Mit ihrem praktischen Rechtsgefühl erkannten die Schweizer es zuerst als<lb/>
+eine staatliche Pflicht, dem durch die Maschinenarbeit immer größer<lb/>
+werdenden Ueberfluß an weiblicher Arbeitskraft auch wieder neue Arbeits-<lb/>
+gebiete zu eröffnen. Sie finden es unwürdig, immer wieder zu sagen,<lb/>
+die Frauen sollen haushalten, nähen und stricken, wenn faktisch Tausende<lb/>
+von Händen dazu entbehrlich geworden sind.</p><lb/>
+<p>Es gab seiner Zeit in Zürich über die Erlaubnis zum Frauen-<lb/>
+<choice><sic>studiumleider</sic><corr>studium leider</corr></choice> einen Kampf gegen einzelne deutsche Professoren, welche<lb/>
+nach den vaterländischen Traditionen den Frauen dieses Recht nicht ein-<lb/>
+räumen wollten. Aber doch drang die Berechtigung durch mit der Bei-<lb/>
+hilfe anderer deutscher Professoren &#x2013; o, wie gerne nenne ich diejenigen<lb/>
+deutschen Namen, die mir bekannt wurden: Geheimer Rat <hi rendition="#aq">Dr</hi>. <hi rendition="#g">Böhmert</hi>,<lb/>
+jetzt in Dresden, Professor <hi rendition="#aq">Dr</hi>. <hi rendition="#g">Rose</hi>, jetzt in Berlin, und vor Allen den<lb/>
+wohlgesinnten Professor <hi rendition="#aq">Dr</hi>. von <hi rendition="#g">Mayer</hi>.</p><lb/>
+<p>Wir wünschen von ganzem Herzen, daß bald eine Mehrzahl von wohl-<lb/>
+wollenden Professoren in Deutschland seinen Standpunkt teilen möchten,<lb/>
+dann könnten wir hoffen, daß in absehbarer Zeit wenigstens <hi rendition="#g">eine</hi> deutsche<lb/>
+Universität ihre Pforte denjenigen wißbegierigen, opferfreudigen Mädchen<lb/>
+und Frauen öffnen würde, welche seither auswärts lernen und auswärts<lb/>
+ihre Kräfte zu Gunsten der leidenden Frauenwelt verwenden mußten.</p><lb/>
+<p>Jn der Zeitschrift &#x201E;Alma Mater 1878&#x201C; wurde aus einem Brief<lb/>
+von Herrn Prof. <hi rendition="#g">Mayer</hi> unter Anderem veröffentlicht: &#x201E;Jch habe<lb/>
+der betreffenden Frage gegenüber stets eine sehr einfach zu bezeichnende<lb/>
+Stellung eingenommen, es ist die: die Frauen wollen versuchen, ob sie<lb/>
+durch das Studium (vorherrschend Medizin) einen neuen Wirkungskreis<lb/>
+gewinnen können, so mögen sie es versuchen; an uns ist es nicht, es ihnen<lb/>
+zu wehren oder zu erschweren. Geben wir ihnen allen Unterricht, den sie<lb/>
+verlangen, dann können sie wenigstens, wenn der Versuch nicht gerät, uns<lb/>
+nicht sagen, wir hätten ihnen aus Brodneid den Versuch verdorben.&#x201C;</p><lb/>
+<p>Daß der geehrte Herr Professor seinen Vorschlag nicht zu bereuen<lb/>
+brauchte, zeigt eine andere Stelle des vorgedachten Briefes: &#x201E; &#x2013; Für die<lb/>
+schwebende Frage aber (ob die Frauen studieren dürfen und fähig dazu<lb/>
+sind) genügt es zu wissen, daß eine gewisse Anzahl von Frauen und<lb/>
+Fräulein sich dem Studium durchaus gewachsen zeigten, und daß davon<lb/>
+eine gewisse Anzahl das Studium bereits in einer solchen Weise absolviert<lb/>
+hat, daß jeder Studierende sich ein Beispiel daran nehmen darf.&#x201C; &#x2013;</p><lb/>
+<p>Wie richtig ist es, daß der Herr Professor nur von einer &#x201E;gewissen,<lb/>
+beschränkten Anzahl&#x201C; studierender Frauen spricht. Das ist es, was wir<lb/>
+im Jnteresse unseres Geschlechts erstreben wollen. Gewiß begehren wir<lb/>
+nicht, wie die Gegner spotten, als ob plötzlich die Frauen im Allgemeinen<lb/>
+studieren sollten.</p><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<pb facs="#f0010" n="10"/>
+<p>Sollte nicht bald ein ähnliches gerechtes Vorgehen, wie in den uns<lb/>
+umgrenzenden Kulturländern, auch bei uns möglich werden?</p><lb/>
+<p>Die Toleranz ist doch das Kennzeichen großer Menschen und großer<lb/>
+Zeiten. Sollten die verbitterten Schwarzseher Recht bekommen, welche<lb/>
+nach den großen Erhebungen und Errungenschaften der letzten Jahrzehnte<lb/>
+einen gewissen Stillstand oder Rückgang in der sozialen Entwicklung als<lb/>
+eine logische Naturnotwendigkeit befürchten?</p><lb/>
+<p>Es würde sich bei einer praktischen Erledigung dieser Frage eigentlich<lb/>
+nur um eine endliche Realisierung des Ausspruchs handeln, mit welchem<lb/>
+vor beinahe zwanzig Jahren ein edler Beschützer der Frauenarbeit, Fabri-<lb/>
+kant Müller aus Pforzheim, in der badischen Kammer unser Jnteresse<lb/>
+vertrat; er sagte: &#x201E;die Frauen sollten auch arbeiten dürfen, zu was sie<lb/>
+fähig sind.&#x201C; Macht dieses logisch einfache Natur-Prinzip nicht alle die<lb/>
+weitgesuchten, oft widerspruchsvollen, kränkenden, gehässigen und demütigen-<lb/>
+den Gründe der Gegner tot, mit welchen sie uns ewig unter Vormund-<lb/>
+schaft halten wollen.</p><lb/>
+<p>Reguliert die Natur, auf die uns die Gegner so oft hinweisen, nicht<lb/>
+am besten selbst die Grenzen unserer Thätigkeit? Bedarf es da noch, daß<lb/>
+das stärkere und mächtigere Geschlecht uns, &#x201E;dem schwachen&#x201C;, überall durch<lb/>
+hemmende Fesseln und Ketten die volle Entwicklung unserer Leistungsfähig-<lb/>
+keiten unmöglich macht?</p><lb/>
+<p>Unter den Gegengründen, die mir auch in Zürich von einzelnen Deutschen<lb/>
+entgegengehalten wurden, gehört zu den kränkendsten und das Rechtsgefühl<lb/>
+verletzendsten stets der: daß man damit noch mehr die ohnehin große<lb/>
+Konkurrenz der Männer auf dem Arbeitsmarkt vermehre. Warum sollen<lb/>
+denn die armen Mädchen, für die weder der Staat, noch ein Gatte oder<lb/>
+Bruder, oder das Vermögen der Eltern, ein arbeits- und sorgenloses Leben<lb/>
+schaffen, nicht auch arbeiten dürfen und sich in die allgemeine Arbeits-<lb/>
+konkurrenz einreihen, wie sie wollen und können? Verbietet man es denn<lb/>
+je den Männern, daß sie die eigentlich rein weiblichen Berufe der Frauen-<lb/>
+ärzte, Mädchenlehrer, Köche, Konditoren, Damenschneider, Damen-Kon-<lb/>
+fektions-Verkäufer, und speziell weibliche Fabrikarbeiten u. s. w. betreiben?<lb/>
+Jn Amerika bügeln und waschen bereits die Chinesen, wer weiß, wie<lb/>
+bald das auch hier die Männer uns noch wegnehmen wollen!</p><lb/>
+<p>Soll nur bei uns allein nicht jenes goldene Zeitalter für die Arbeit-<lb/>
+suchenden beginnen, wo nicht mehr das Geschlecht, sondern nur die beste<lb/>
+Leistung bei jedwelchem Angebot entscheidet?</p><lb/>
+<p>Die deutschen Dichter besingen am häufigsten die Frauen, trotzdem<lb/>
+stellen die größere Mehrzahl der Männer uns heute noch in den<lb/>
+sozialen Lebensverhältnissen, in den Gesetzen und Rechten, und in der Be-<lb/>
+urteilung niedriger als die meisten andern modernen Kulturvölker.</p><lb/>
+<p>Auch manche gebildete Männer, halten leider noch immer unberech-<lb/>
+tigter und unerprobter Weise an dem veralteten einseitigen Standpunkt<lb/>
+fest: Wissen und Bildung vertrage sich nicht mit den hauswirtschaftlichen<lb/>
+Leistungen und Pflichten: Hörte ich doch selbst unlängst noch einen hoch-<lb/>
+gestellten Beamten, der seine Haushälterin geheiratet hatte, sagen: eine<lb/>
+gute deutsche Hausfrau bedürfe eigentlich kaum viel mehr Lektüre als die<lb/>
+Bibel, das Kochbuch und das Tagblatt, und die Mädchen sollten lieber<lb/>
+heiraten als studieren wollen. Mit diesem gedankenlos hingeworfenen,<lb/>
+wohlmeinenden Rat glauben Manche das Jhrige für die Frauenfrage ge-<lb/>
+<pb facs="#f0011" n="11"/>
+than zu haben, und am leichtesten den Ruf nach mehr Arbeit abschneiden<lb/>
+zu können.</p><lb/>
+<p>Und doch läßt sich statistisch leicht berechnen, daß selbst, wenn man<lb/>
+alle die Junggesellen, <hi rendition="#g">welche eine Frau ernähren können</hi>, zum<lb/>
+Heiraten zwingen könnte, doch noch die mormonischen oder türkischen Ehe-<lb/>
+verhältnisse eingeführt werden müßten oder wie ein junger Arzt halb<lb/>
+scherzend rieth, müssen wie in China gleich 30 % Mädchen nach der Geburt<lb/>
+getödtet werden, wenn der Jammer um ersprießliche weibliche selbständige<lb/>
+Arbeiten verstummen sollte. Denn auch im Hause der Brüder und<lb/>
+Schwäger, wie obige Ratgeber allein stehenden Mädchen so gerne empfehlen,<lb/>
+giebt es nicht genug Strümpfe mehr zu stricken und Hemden zu nähen<lb/>
+u. s. w., seit die Maschinen das Alles erleichtern, auch ist in den theuren<lb/>
+Wohnungen selten mehr ein behagliches Plätzchen für die alternde Schwester,<lb/>
+welche einst Jugendkraft und Vermögen für das Studium des Bruders<lb/>
+geopfert hatte.</p><lb/>
+<p>Leider scheinen dem Staate seine Töchter nicht gleich wert zu sein,<lb/>
+wie seine Söhne, sonst würden seine Behörden nicht das mächtigere Geschlecht<lb/>
+<hi rendition="#g">schützen gegen die Konkurrenz mit dem schwächeren</hi>.</p><lb/>
+<p>Sollten nicht endlich die armen Handarbeiterinnen von der Mitarbeit<lb/>
+der höher gebildeten Mädchen entlastet werden, indem den letzteren mehr<lb/>
+geistige Arbeit gestattet wird?</p><lb/>
+<p>Erzählt nicht die Frauengeschichte größerer Städte Entsetzliches von dem<lb/>
+Elend und der Verzweiflung der Arbeitslosigkeit und &#x2013; der Schande, zu<lb/>
+welcher sie häufig endlich führt! Solange diese aber noch in Glanz und<lb/>
+Luxus wandeln kann, und die Trinklokale sich immer vermehren und ver-<lb/>
+schönern, sollte &#x2013; Konkurrenzfurcht kein Grund sein dürfen zu irgend<lb/>
+welcher Beschränkung ehrenhafter Frauenarbeit.</p><lb/>
+<p>Müssen wir nicht in dieser Bevormundung unserer Arbeit noch einen<lb/>
+Rest der Zeitanschauung vom Anfang des Jahrhunderts erblicken? Damals<lb/>
+durfte keine Nähterin selbständig arbeiten. Sie mußte Gehilfin bei einem<lb/>
+Schneidermeister sein, welcher ihr dann nach <hi rendition="#g">seinem</hi> Ermessen einen Teil<lb/>
+der Einnahmen zukommen ließ! &#x2013; Wie wird das zwanzigste Jahrhundert<lb/>
+beim Studium unserer heutigen Frauenstellung einfach unsere Zeit höhnend<lb/>
+mit <hi rendition="#g">jener</hi> zusammenwerfen!</p><lb/>
+<p>Dürfen wir uns wundern, wenn manchen der deutschen Studentinnen,<lb/>
+welche sowohl durch ihre Lehrzeit, als ihren späteren Lebensberuf aus<lb/>
+ihrem Vaterland verbannt sind, der Sozialismus, der ihnen freundlichere<lb/>
+Staatsverhältnisse vorspiegelt, ein verlockendes Zaubergebilde sein würde?</p><lb/>
+<p>Ein weiteres, eigentümliches Bedenken, welches ich auch schon öfter<lb/>
+von gebildeter Seite hörte, sprach eine ehrsame Züricher Bürgersfrau aus.<lb/>
+Dieselbe war im Allgemeinen den Studentinnen gewogen, namentlich ver-<lb/>
+ehrte sie die Frauenärztinnen, denn Frl. Falner, eine der beiden weib-<lb/>
+lichen Aerzte in Zürich, hatte sie schon aus schwerer Krankheit nicht nur<lb/>
+errettet, sondern auch liebevoll gepflegt. &#x201E;Aber&#x201C;, meinte sie, &#x201E;wenn nun<lb/>
+die Studentinnen heiraten, dann ist meist das ganze Studium umsonst<lb/>
+gewesen&#x201C;. &#x2013;</p><lb/>
+<p>Als ob es nicht ein Gewinn für die Gesellschaft wäre, wenn sich die<lb/>
+Summen des wirklichen Wissens und Könnens vermehrte!</p><lb/>
+<p>Wird z. B. eine Mutter, welche Medizin studiert hat, nicht gesündere<lb/>
+Kinder erziehen, als eine Modedame, welcher jede Sanitätsregel gleichgiltig<lb/>
+<pb facs="#f0012" n="12"/>
+ist. Oder sollte ein Mann seine Frau weniger lieben und schätzen, weil<lb/>
+sie für die höhere Lehrerinnenkarrière noch Philologie studierte, eine Wissen-<lb/>
+schaft, für welche Herr Prof. Schweizer-Sidler manche Mädchen besonders<lb/>
+begabt findet. Sollte der Gatte nicht finden, daß eine solche Vertiefung<lb/>
+in ein Studium statt dem oft oberflächlichen Herumnippen an den verschie-<lb/>
+densten Disziplinen seine Frau zu einer geistig noch ebenbürdigeren Le-<lb/>
+bensgefährtin und zu einer umsichtigen, selbständigen, pflichtgetreuen<lb/>
+Erfassung ihrer Lebensaufgaben befähigt? &#x2013; Und kann wohl eine<lb/>
+Dame aus den höheren Gesellschaftskreisen, welche<note place="foot" n="1)">Wie bei uns das Lehrerinnenexamen.</note>, wie es in England,<lb/>
+Schweden, Amerika und der Schweiz bereits vielfach geschieht, zu ihrem<lb/>
+Vergnügen das Maturitätsexamen gemacht hat, nicht gerade deshalb, weil<lb/>
+sie logisch denken gelernt hat, einst die Häuslichkeit ihres Gatten auf das<lb/>
+Angenehmste und Zweckmäßigste gestalten. Wird er und seine Söhne<lb/>
+die Hausfrau nicht doppelt respektieren, wenn sie daneben des Sohnes<lb/>
+lateinische Schulaufgaben leitet. Daß viele Männer das hochschätzen, be-<lb/>
+weist, daß sie doch vielfach hochgebildete Frauen, den oberflächlichen,<lb/>
+hauptsächlich der Mode und der Gesellschaft huldigenden selbst &#x2013; <hi rendition="#g">reichen</hi><lb/>
+Mädchen vorziehen. Wenn es aber auch in Zukunft noch mehr solche Frauen<lb/>
+geben sollte, so dürfen darum doch jene gebildeten Männer, welche zur Gattin<lb/>
+eine einfache Haushälterin bequemer finden, nicht bange werden. Die soge-<lb/>
+nannten &#x201E;Musterhausfrauen&#x201C;, werden niemals in die Minderheit kommen.<lb/>
+Ebenso diejenigen Frauen, welche auch im reichsten wie im kleinsten Haus-<lb/>
+halt nie fertig werden und nie dazukommen, ein gutes Buch zu lesen<lb/>
+oder einem anregenden, genußreichen Gedankenaustausch mit Mann und<lb/>
+Kindern zu pflegen, weil sie sich aus geistiger Jnteresselosigkeit ein planloses,<lb/>
+langsames Arbeitstempo angewöhnt haben. Denn nach der verblendeten,<lb/>
+veralteten Anschauung Vieler soll eine gute Hausfrau immerfort Beschäfti-<lb/>
+gung im Hause suchen und finden.</p><lb/>
+<p>Nun komme ich noch zum Ende meiner durch die Züricher Reise und<lb/>
+deren Eindrücke hervorgerufenen Reflektionen, auf die so notwendige Gym-<lb/>
+nasialvorbildung. Die verschiedenen Herren Professoren erklärten das als<lb/>
+eine der wichtigsten und naheliegendsten Aufgaben der deutschen Frauenvereine.</p><lb/>
+<p>Einer der wohlwollendsten Herrn sagte: &#x201E;Bestürmen sie einige reiche,<lb/>
+edle Männer und Frauen zu baldigen, großen Stiftungen. Dieses zer-<lb/>
+splitterte, kostbare Vorstudium durch einzelne Privatstunden erschwert den<lb/>
+strebsamen, bahnbrechenden Frauen und Mädchen sehr das Universitäts-<lb/>
+studium. Denn die knappe, zum Teil autodidaktische Vorbildung konnte nicht so,<lb/>
+wie die systematisch fortlaufende der Knaben, in Fleisch und Blut übergehen.</p><lb/>
+<p>Durch ihren gewissenhaften Fleiß beantworten die Damen zwar meist<lb/>
+die speziellen Fragen gut und schnell, aber doch für den allgemeinen Ueber-<lb/>
+blick, für das ganze Erfassen und das Judicium fehlt es oft noch an dem<lb/>
+gründlichen Fonds der in sich verarbeiteten Vorkenntnisse. Das kann na-<lb/>
+türlich nicht den Schülerinnen, sondern nur den ungünstigen Verhältnissen<lb/>
+zur Last gelegt werden.&#x201C;</p><lb/>
+<p>Er riet uns dasselbe, wie schon früher verschiedene der zahlreichen,<lb/>
+unsern Bestrebungen <hi rendition="#g">wohlgesinnten deutschen Männer</hi>: &#x201E;Wir<lb/>
+sollten uns bemühen, bald durch Privatmittel ein Mädchengymnasium oder<lb/>
+wenigstens einmal Parallelkurse zu errichten. Der Staat würde sicher,<lb/>
+<pb facs="#f0013" n="13"/>
+wenn sie sich lebensfähig zeigten, entweder eine Subvention geben, oder<lb/>
+sie ganz übernehmen. Aehnlich seien vielfach auch zuerst die Töchter-<lb/>
+schulen, Frauenarbeits- und Haushaltungsschulen gegründet worden.&#x201C; &#x2013;<lb/>
+Haben wir das erreicht, und hat die erste Promotion sechzehnjähriger Schüler-<lb/>
+innen vier Jahre dort gelernt, so ist allerdings zu hoffen, daß bis dorthin<lb/>
+auch in Deutschland das Eis vollends gebrochen sein wird. Die Strömung<lb/>
+<hi rendition="#g">für die</hi> Erlaubnis <hi rendition="#g">zum Studium</hi> nimmt doch sehr erfreulich von Jahr<lb/>
+zu Jahr mehr zu. &#x2013; Beharrt aber Deutschland noch länger auf seiner<lb/>
+Weigerung, so fehlt es den in der Schweiz examinierten Aerztinnen weder<lb/>
+in Europa noch Amerika an Praxis<note place="foot" n="1)">Leider verläßt auch die sowohl von Lehrern als Mitschülerinnen als die beste<lb/>
+medizinische Candidatin gepriesene Frl. Kunow aus Brandenburg nach vollendetem<lb/>
+Examen Europa, und folgt einer Aufforderung nach Amerika. Daselbst sind die in der<lb/>
+Schweiz ausgebildeten Aerztinnen sehr gesucht und glänzend honoriert. Möchte sie doch<lb/>
+bald von einer deutschen Fürstin als Leibärztin für Frauen- und Kinderkrankheiten<lb/>
+zurückgerufen werden, wie würde das unsre Sache fördern. Zwei junge studierende<lb/>
+Berlinerinnen hoffen zuversichtlich, in Berlin sich setzen zu dürfen.</note>. &#x2013; Auch Oesterreich zeigt durch<lb/>
+den neugegründeten Verein von Männer und Frauen für Einführung von<lb/>
+Gymnasialbildung, daß es einen Schritt vorwärts geht. &#x2013; Schon durfte<lb/>
+dort eine begabte Wienerin, welche mir vorgestellt wurde, privatim das<lb/>
+Maturitätsexamen machen.</p><lb/>
+<p>Es hatte für mich etwas Ergreifendes, der Drang zum ernstesten Stu-<lb/>
+dium, der diese schöne, reiche, adelige Dame beseelte. Sie erzählte mir, sie<lb/>
+habe von den ewigen Vergnügungen, vom Ball zum Konzert, von Gesell-<lb/>
+schaften ins Theater, von den Badereisen und Toilettensorgen, von dem<lb/>
+Teppichesticken und Spitzenhäckeln endlich eine solche Oede und Leere und ein<lb/>
+innerliches Unglücklichsein empfunden, daß sie eine immer größere Sehnsucht<lb/>
+nach ernster, geistiger Lebensarbeit durchdrungen habe, und ein immer<lb/>
+heißeres Verlangen, den Menschen zu helfen und zu dienen.</p><lb/>
+<p>Jhre Stimmung sei immer trüber, ihre Gesundheit schwankend ge-<lb/>
+worden. Sie habe oft daran gedacht, Diakonissin zu werden, aber für<lb/>
+ihre geistige Strebsamkeit hätte es ihr nicht genügt.</p><lb/>
+<p>Ein trauriges Erlebnis habe sie vollends bestimmt, Frauenärztin werden<lb/>
+zu wollen. Eine Freundin sei unheilbar erkrankt, weil sie sich aus Scham-<lb/>
+gefühl weigerte, für eine Frauenkrankheit einen männlichen Spezialarzt zu<lb/>
+beraten. Jhre Eltern hätten endlich ihrem Wunsche nachgegeben, und nun<lb/>
+sei sie glücklich.</p><lb/>
+<p>Wie manches treffliche Mädchen, dem aber die Mittel fehlen, mag<lb/>
+wohl ähnlich empfinden.</p><lb/>
+<p>Das Fräulein studiert nun seit anderthalb Jahren, ist blühend und<lb/>
+gesund, und erscheint durch ihre innere Befriedigung viel jugendlicher, als<lb/>
+ihre achtundzwanzig Jahre es eigentlich für möglich erscheinen lassen.</p><lb/>
+<p>Die Erzählung des für unsere Wünsche und Bitten um weibliche<lb/>
+Frauenärzte wichtigste, lehrreichste und günstigste Ergebnis meines Züricher<lb/>
+Besuches habe ich mir zum Schluß gespart. Es ist dies mein Besuch im<lb/>
+Hause der Spezialärztin Fr. <hi rendition="#aq">Dr</hi>. Heim.</p><lb/>
+<p>Dadurch kann ich nun abermals, wie einst nach meinem Gang durch<lb/>
+die Klinik der Al. Tiburtius und Lehmus in Berlin, die Thatsache der<lb/>
+Möglichkeit weiblicher Aerzte konstatieren. Wie vorzüglich und erfolgreich<lb/>
+<pb facs="#f0014" n="14"/>
+Fr. Heim ihren Beruf seit 15 Jahren ausübt, darüber herrscht nur <hi rendition="#g">eine</hi><lb/>
+Stimme der Anerkennung und Verehrung in Zürich.<note place="foot" n="1)">Frl. <hi rendition="#aq">Dr</hi>. Falner praktiziert auch mit großem Erfolg und Anerkennung, nur<lb/>
+noch nicht so lange in Zürich, leider fehlte mir die Zeit, sie auch noch zu besuchen.</note></p><lb/>
+<p>Auch die Herrn mediz. Professoren, die ich im Jnteresse der Aerztinnen-<lb/>
+frage besuchte, sprachen alle mit größter Hochachtung von ihr, und empfahlen<lb/>
+mir einen Besuch bei ihr als das beste Ueberzeugungsmittel, was eine<lb/>
+<hi rendition="#g">tüchtige</hi> Aerztin zu leisten vermöge. Eine ihrer Patientinnen rühmte<lb/>
+von ihr, sie ist ein Engel am Kranken- und namentlich Wochenbett, so sanft,<lb/>
+so sorglich, so gut und umsichtig, man fühle sich so sicher in ihrer Behand-<lb/>
+lung, daß man sich unbedingt ihrer geschickten <hi rendition="#g">kleinen</hi> und doch kunst-<lb/>
+vollen Hand anvertraue.</p><lb/>
+<p>Eine andere von schwerer Operation glücklich genesene Verehrerin von<lb/>
+ihr sagte: &#x201E;Die Aerztinnen haben eine Zukunft, das kann keine Frage<lb/>
+sein, wenn sie dazu noch, wie Fr. <hi rendition="#aq">Dr</hi>. Heim und Frl. Falner, auch fürs<lb/>
+Häusliche so praktisch, so gut gebildet sind, hat es den großen Vorteil,<lb/>
+daß sie leichter die Verhältnisse, unter denen die zu behandelnden Kranken<lb/>
+leben und gepflegt werden müssen, beurteilen können, und auch den peku-<lb/>
+niären notwendigen Standpunkt eher berücksichtigen, als die mit den häus-<lb/>
+lichen Vorkommnissen unbewanderten männlichen Aerzte, welche in solchen<lb/>
+Fällen öfter anordnen, was bei bescheidenen Mitteln nicht durchgeführt<lb/>
+werden kann. &#x2013; Frau <hi rendition="#aq">Dr</hi>. Heim hat jährlich durchschnittlich 45-50 Ge-<lb/>
+burten zu besorgen, worunter wenigstens 30 Zangenoperationen, darunter<lb/>
+natürlich verschiedene schwere.</p><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<p>Jn 15 Jahren starben nur drei Wöchnerinnen, zu welchen sie zu spät<lb/>
+gerufen wurde. Die andern Alle, und mehrere hundert Operierte, sind<lb/>
+glücklich genesen, nur drei haben entzündliche, fieberhafte Krankheiten von<lb/>
+kürzerer Dauer durchgemacht.</p><lb/>
+<p>Jch könnte noch manches Jnteressante aus ihrer Praxis anführen,<lb/>
+aber das wäre mehr für Aerzte als für Laien.</p><lb/>
+<p>Nur noch gegen den oft von Aerzten angeführten Grund der Un-<lb/>
+möglichkeit weiblicher Aerzte, die mangelnde Körperkraft u. s. w. muß noch<lb/>
+entgegnet werden.</p><lb/>
+<p>Ein deutscher praktischer Arzt, der dem Frauenstudium zugethan ist,<lb/>
+sagte mir, daß die meisten praktischen Aerzte in Zürich der Fr. <hi rendition="#aq">Dr</hi>. Heim<lb/>
+mit freundlicher Kollegialität begegneten, und die in ihrem Spezialfach zu<lb/>
+behandelnden Patienten ihr mit gleichem Vertrauen zuweisen, wie einem<lb/>
+männlichen Spezialisten. Er setzte hinzu, ein wichtiges Konkurrenzmittel<lb/>
+gegen die größere männliche Kraft ist für die Frauen für dieses Fach die<lb/>
+kleine Hand. Besonders da bei den hier vorkommenden Operationen nur<lb/>
+selten extreme Gewalt angewendet werden muß.</p><lb/>
+<p>Auch Fr. <hi rendition="aq">Dr</hi>. H. teilte mir mit, daß sie nur ein einzigesmal der<lb/>
+Hilfe bedurft hätte, und dieselbe leistete ihr eine Kollegin. Sie setzte hinzu,<lb/>
+daß sie allerdings robust sei und viel aushalten könne, aber durchaus<lb/>
+keinen in Beziehung ans Kraft über Durchschnitt gehenden Körperbau habe.<lb/>
+Sie sei zu der Annahme berechtigt, daß jede andere normale, gesunde<lb/>
+Frau, die an körperliche Uebungen gewöhnt worden und die nötige Ge-<lb/>
+<pb facs="#f0015" n="15"/>
+wandtheit hat, dieses Fach mit Leichtigkeit ausüben kann. &#x2013; Jn seltenen<lb/>
+Fällen geschieht es ja auch den Aerzten, daß ihre Kraft nicht ausreicht.</p><lb/>
+<p>Die große Praxis der Fr. <hi rendition="#aq">Dr</hi>. Heim widerlegt am besten die äußerst<lb/>
+cynischen unser ganzes Geschlecht verletzenden Behauptungen einiger Aerzte,<lb/>
+daß die kranken Frauen selbst nicht nach weiblicher Behandlung ver-<lb/>
+langen; hoffen wir, daß in zwanzig Jahren, wenn man erst überall weib-<lb/>
+liche Spezialärzte beraten kann, die Frauen diese häßlichen Ergüsse eines<lb/>
+niedrigen Materialismus thatsächlich widerlegen werden.</p><lb/>
+<p>Eilen wir zu einem freundlichen Schlußbild, welches die weiteren Ein-<lb/>
+würfe, daß das Familienleben unter dem Berufe der Frau notleide, glänzend<lb/>
+widerlegte.</p><lb/>
+<p>Die Stunde auf dem Züriberg in dem reizenden Chalet der Sommer-<lb/>
+wohnung von Herrn und Frau Professor <hi rendition="#aq">Dr</hi>. Heim wird mir unver-<lb/>
+geßlich bleiben.</p><lb/>
+<p>Und mit der Erinnerung an dieses ideal schöne Heimwesen einer<lb/>
+Aerztin, die zugleich die glücklichste, pflichtgetreueste Gattin und zärtlichste<lb/>
+Mutter zweier kräftigen schönen Kinder ist, nehmen wir Abschied von der<lb/>
+prächtigen Schweizer-Stadt.</p><lb/>
+<p>Für alle Zeiten wird Zürich ein Ruhmesblatt einnehmen in der<lb/>
+Geschichte der Frauenbewegung. Und herzlicher Dank sei den Schweizer-<lb/>
+männer gesagt, daß sie zuerst in Europa den Ausspruch eines deutschen<lb/>
+Mannes praktisch realisierten &#x2013; &#x2013; daß endlich wieder naturgemäß &#x2013; &#x2013;<lb/>
+&#x201E;<hi rendition="#g">Die Frauen auch alles arbeiten dürfen, zu was sie fähig<lb/>
+sind</hi>.&#x201C;</p><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+</div>         </body>              </text>
+</TEI>

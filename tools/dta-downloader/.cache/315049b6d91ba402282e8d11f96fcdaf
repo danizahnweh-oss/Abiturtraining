@@ -1,0 +1,915 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.deutschestextarchiv.de/basisformat.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">     <teiHeader>
+<fileDesc>
+<titleStmt>
+<title type="main">Das Pfennig-Magazin der Gesellschaft zur Verbreitung gemeinnütziger Kenntnisse</title>
+<title type="sub">Nr. 167</title>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/115266127">
+<surname>Geyken</surname>
+<forename>Alexander</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1222198746">
+<surname>Haaf</surname>
+<forename>Susanne</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1019062681">
+<surname>Jurish</surname>
+<forename>Bryan</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Boenig</surname>
+<forename>Matthias</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Thomas</surname>
+<forename>Christian</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Wiegand</surname>
+<forename>Frank</forename>
+</persName>
+</editor>
+<respStmt>
+<orgName>Institut für Deutsche Sprache, Mannheim</orgName>
+<resp>
+<note type="remarkResponsibility">Bereitstellung der Bilddigitalisate und TEI
+Transkription</note>
+<ref target="http://hdl.handle.net/10932/00-01B8-B061-FB3E-CF01-E"/>
+</resp>
+</respStmt>
+<respStmt>
+<persName>
+<forename>Peter</forename>
+<surname>Fankhauser</surname>
+</persName>
+<resp>
+<note type="remarkResponsibility">
+Transformation von TUSTEP nach TEI P5.
+Transformation von TEI P5 in das DTA TEI P5 Format.
+</note>
+</resp>
+</respStmt>
+<respStmt>
+<orgName ref="https://www.bbaw.de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<resp>
+<note type="remarkResponsibility">Langfristige Bereitstellung der DTA-Ausgabe</note>
+<ref target="https://www.bbaw.de"/>
+</resp>
+</respStmt>
+</titleStmt>
+<editionStmt><edition>Vollständige digitalisierte Ausgabe.</edition></editionStmt>
+<extent>
+<measure type="images">8</measure>
+<measure type="tokens">5263</measure>
+<measure type="types">2198</measure>
+<measure type="characters">36464</measure>
+</extent>
+<publicationStmt>
+<publisher xml:id="DTACorpusPublisher">
+<email>dta@bbaw.de</email>
+<orgName role="project">Deutsches Textarchiv</orgName>
+<orgName role="hostingInstitution" xml:lang="en">Berlin-Brandenburg Academy of Sciences and Humanities (BBAW)</orgName>
+<orgName role="hostingInstitution" xml:lang="de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<address>
+<addrLine>Jägerstr. 22/23, 10117 Berlin</addrLine>
+<country>Germany</country>
+</address>
+</publisher>
+<pubPlace>Berlin</pubPlace>
+<date type="publication">2025-10-24T08:35:19Z</date>
+<availability>
+<licence target="http://creativecommons.org/publicdomain/zero/1.0/">
+<p>Dieses Werk steht unter der "Creative Commons Namensnennung -
+Nicht kommerziell 3.0 Deutschland Lizenz" (CC BY-NC).</p>
+</licence>
+</availability>
+<idno>
+<idno type="URLWeb">https://www.deutschestextarchiv.de/nn_pfennig167_1836</idno>
+<idno type="URLXML">https://www.deutschestextarchiv.de/book/download_xml/nn_pfennig167_1836</idno>
+<idno type="URLHTML">https://www.deutschestextarchiv.de/book/download_html/nn_pfennig167_1836</idno>
+<idno type="URLText">https://www.deutschestextarchiv.de/book/download_text/nn_pfennig167_1836</idno>
+<idno type="DTADirName">nn_pfennig167_1836</idno>
+<idno type="DTAID">34768</idno>
+<idno type="URN">urn:nbn:de:kobv:b4-34768-3</idno>
+</idno>
+</publicationStmt>
+<sourceDesc>
+<bibl type="J">Das Pfennig=Magazin der Gesellschaft zur Verbreitung gemeinnütziger Kenntnisse. Nr. 167. Leipzig (Sachsen), 11. Juni 1836.</bibl>
+<biblFull>
+<titleStmt>
+<title level="m" type="main">Das Pfennig-Magazin der Gesellschaft zur Verbreitung gemeinnütziger Kenntnisse</title>
+<title level="m" type="sub">Nr. 167</title>
+</titleStmt>
+<editionStmt>
+<edition n="1"/>
+</editionStmt>
+<publicationStmt>
+<publisher/>
+<pubPlace>Leibzig (Sachsen)</pubPlace>
+<date type="publication">1836</date>
+</publicationStmt>
+</biblFull>
+<msDesc>
+<msIdentifier/>
+<physDesc>
+<typeDesc>
+<p>Fraktur</p>
+</typeDesc>
+</physDesc>
+</msDesc>
+</sourceDesc>
+</fileDesc>
+<encodingDesc>
+<editorialDecl>
+<p>
+<![CDATA[
+<p>Siehe Dokumentation</p>
+]]>
+</p>
+</editorialDecl>
+<tagsDecl>
+<rendition scheme="css" xml:id="aq">font-family:sans-serif</rendition>
+<rendition scheme="css" xml:id="b">font-weight:bold</rendition>
+<rendition scheme="css" xml:id="blue">color:blue</rendition>
+<rendition scheme="css" xml:id="c">display:block; text-align:center</rendition>
+<rendition scheme="css" xml:id="et">display:block; margin-left:2em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et2">display:block; margin-left:4em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et3">display:block; margin-left:6em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="f">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="fr">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="g">letter-spacing:0.125em</rendition>
+<rendition scheme="css" xml:id="i">font-style:italic</rendition>
+<rendition scheme="css" xml:id="in">font-size:150%</rendition>
+<rendition scheme="css" xml:id="k">font-variant:small-caps</rendition>
+<rendition scheme="css" xml:id="larger">font-size:larger</rendition>
+<rendition scheme="css" xml:id="red">color:red</rendition>
+<rendition scheme="css" xml:id="right">display:block; text-align:right</rendition>
+<rendition scheme="css" xml:id="s">text-decoration:line-through</rendition>
+<rendition scheme="css" xml:id="smaller">font-size:smaller</rendition>
+<rendition scheme="css" xml:id="sub">vertical-align:sub; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="sup">vertical-align:super; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="u">text-decoration:underline</rendition>
+<rendition scheme="css" xml:id="uu">border-bottom:double 3px #000</rendition>
+</tagsDecl>
+</encodingDesc>
+<profileDesc>
+<langUsage>
+<language ident="deu">(Früh-)Neuhochdeutsch</language>
+<language ident="deu">German</language>
+</langUsage>
+<textClass>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1main">Gebrauchsliteratur</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1sub">Zeitschrift</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">ready</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">mkhz1</classCode>
+</textClass>
+</profileDesc>
+</teiHeader>
+<text>     <front>
+<pb facs="#f0001" n="[185]"/>
+<titlePage type="heading"><docTitle><titlePart type="main"><hi rendition="#c #fr">Das Pfennig=Magazin<lb/>
+<hi rendition="#g">der</hi><lb/>
+Gesellschaft zur Verbreitung gemeinnütziger Kenntnisse.</hi></titlePart></docTitle><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<docImprint><hi rendition="#fr">Nr</hi>. 167. ]              <hi rendition="#c">Erscheint jeden Sonnabend.</hi>              <docDate><hi rendition="#right">[<hi rendition="#g">Juni</hi> 11, 1836.</hi></docDate>            </docImprint></titlePage><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+</front>     <body>       <div n="1" type="jArticle"><head><hi rendition="#fr"><hi rendition="#g">Der ägyptische Geier</hi>.</hi></head><lb/>
+<figure/><lb/>
+<cb type="start"/>
+<p><hi rendition="#in">D</hi>ie Geier ( <hi rendition="#aq">Vultures</hi> ) sind diejenigen Raubvögel, de-<lb/>
+ren Geschlecht auf dem Erdboden am weitesten verbreitet<lb/>
+ist. Besonders zahlreich finden sie sich in den heißen<lb/>
+<cb n="2"/>
+Ländern, wo ihr großer Nutzen, der in Wegschaffung des<lb/>
+Aases von den Feldern und von den Straßen der Dörfer<lb/>
+und Städte besteht, allgemein anerkannt ist. Je mehr<lb/>
+<cb type="end"/>
+<pb facs="#f0002" n="186"/>
+<fw place="top" type="header"> <hi rendition="#g">Das Pfennig=Magazin.</hi> </fw><cb type="start"/>
+man sich der gemäßigten Zone nähert, desto seltener<lb/>
+werden die Geier, bis sie endlich in den kalten Erdge-<lb/>
+genden ganz verschwinden. Jn Amerika wird der <hi rendition="#g">türki-<lb/>
+sche Geier</hi> vom Feuerlande an bis nach Neuschottland<lb/>
+gefunden, und der <hi rendition="#g">schwarze Geier</hi> vorzüglich in Ca-<lb/>
+rolina. Abarten von diesen findet man auch im südli-<lb/>
+chen, aber seltener in Mitteleuropa, wobei es nicht nö-<lb/>
+thig ist, den sogenannten <hi rendition="#g">Lämmergeier,</hi> der eigent-<lb/>
+lich den Übergang von dem scheuen, gefräßigen und phleg-<lb/>
+matischen Geschlechte der Geier zu den muthigern und<lb/>
+lebhaftern Adlern bildet, als eine besondere zu erwäh-<lb/>
+nen. Jn den Gebirgen von Mitteleuropa kommen der <lb/>
+<hi rendition="#g">Greif</hi> und eine andere Abart vor, welche über den gan-<lb/>
+zen südlichern Theil der alten Welt verbreitet sind.<lb/>
+Eine verschiedene Familie bildet der auf unserm Bilde<lb/>
+vorgestellte <hi rendition="#g">ägyptische Geier,</hi> auch das Pharaons-<lb/>
+huhn genannt, und auch in Spanien häufig.</p><lb/>
+<p>Der ägyptische Geier, der kleinste unter allen Geiern<lb/>
+der alten Welt, nähert sich in seinem Baue und in<lb/>
+seiner Lebensweise am meisten dem in Amerika einhei-<lb/>
+mischen türkischen Geier. Jn Ägypten und in den ihm<lb/>
+zunächst liegenden Ländern Europas, Asiens und Afrikas<lb/>
+ist er häufig, auch zuweilen in Jtalien und der Schweiz;<lb/>
+selbst in England wurde einer als große Seltenheit im<lb/>
+Jahre 1825 geschossen. Er ist der eigentliche sogenannte <lb/>
+<hi rendition="#g">Aasgeier,</hi> weil er nur von Aas und todtem Fleische<lb/>
+lebt, und wird dadurch, vorzüglich in Ägypten, sehr<lb/>
+nützlich. Er war ebendeshalb der <hi rendition="#g">heilige</hi> Geier bei<lb/>
+den alten Ägyptern und kommt häufig auf den Denk-<lb/>
+mälern dieses Landes vor. Stets begleitet er die Kara-<lb/>
+vanen, besucht die Fleischbänke und ist unermüdlich im<lb/>
+Aufspüren des Aases.</p><lb/>
+<p>Mit allen übrigen Geiern hat der ägyptische die<lb/>
+schönen, langen und breiten Schwingen gemein, die<lb/>
+ihn eben zu seinem hohen und sanften Fluge fähig<lb/>
+machen. Gefräßig, wie alle Vögel dieser Gattung, frißt<lb/>
+er sich in der Regel bei einer Mahlzeit so dick und<lb/>
+voll, daß ihm dann das Emporschwingen sehr beschwer-<lb/>
+lich wird.</p><lb/>
+<p>Alle Geierarten fliegen unermeßlich hoch, höher als<lb/>
+selbst der ihnen verwandte Adler und Falke. Auf den<lb/>
+Anden in Amerika findet man den Condor noch in einer<lb/>
+Höhe von 19,000 Fuß über dem Meere. Der Geier<lb/>
+schwimmt, ruhig wie der Schwan auf seinem Wasser-<lb/>
+spiegel, mit fast bewegungslosen Schwingen in dem<lb/>
+unermeßlichen Luftraume. Sein ungemein scharfes Ge-<lb/>
+sicht läßt ihn jedoch selbst von einer solchen Höhe her-<lb/>
+ab die Gegenstände auf der Erde erkennen. Wie ein<lb/>
+Pfeil durchschießt er die Luft, wenn er eine Beute<lb/>
+entdeckt hat. Diese Vögel, namentlich die ägyptischen<lb/>
+Geier, sind, ehe man ihre Nähe im Geringsten ahnet,<lb/>
+sobald ein Thier gefallen oder getödtet ist, auf der Stelle,<lb/>
+und zwar in großen Haufen. Es ist viel darüber ge-<lb/>
+stritten worden, ob sie durch ihr scharfes Gesicht oder<lb/>
+ihren feinen Geruch dazu in Stand gesetzt werden; die<lb/>
+neuern Beobachtungen des Naturforschers Audubon aber<lb/>
+scheinen gegen das Vorwalten des Geruchs zu entschei-<lb/>
+den. Er stopfte eine vollkommen getrocknete Rehhaut<lb/>
+mit Heu aus und legte sie auf das offene Feld. Ein<lb/>
+Geier flog sogleich herab, griff seine Beute wie ge-<lb/>
+wöhnlich an, riß die Haut auf und schien das Fleisch<lb/>
+zu suchen, dessen Mangel ihm seine Sinne nicht verra-<lb/>
+then hatten, bis er endlich davon flog. Ein todtes<lb/>
+Schwein, 20 Fuß tief in eine Grube gelegt und mit<lb/>
+Reisern und Binsen belegt, ward von den darüber fliegenden<lb/>
+Geiern nicht gewittert, wogegen Hunde die Spur bald ge-<lb/>
+funden hatten. Junge Geier, in einen Käfig gesetzt, entdeck-<lb/>
+ten das nahe liegende Futter nicht, wenn sie es nicht sahen.</p><lb/>
+<cb n="2"/>
+<p>An Größe übertrifft der ägyptische Geier in etwas<lb/>
+den Raben; seine Länge beträgt zwei Fuß, fünf bis sechs<lb/>
+Zoll, und mit ausgespannten Flügeln mißt er 5&#x2014;5 1 / 2<lb/>
+Fuß. Er ist von Farbe fast ganz weiß, mit Aus-<lb/>
+nahme der großen Schwungfedern, welche schwarz sind.<lb/>
+Der Vorderkopf, die Backen und der Hals sind nackt<lb/>
+und die Haut an diesen Stellen ist schwarzgelb; die<lb/>
+Augen sind ganz dunkel. Er verändert sein Gefieder<lb/>
+mehre Male, zuerst, wenn er noch jung ist, wo es<lb/>
+umbrabraun ist, dann wird er mit jeder Mauser<lb/>
+immer lichter, bis er zuletzt eine schneeweiße Farbe be-<lb/>
+kommt. Er baut in die Klüfte der Felsen und sonst<lb/>
+auf erhabene Orte, aber sein Nest muß sehr unzugäng-<lb/>
+lich sein, da man seine Eier nirgend auch nur beschrie-<lb/>
+ben findet.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Folgt nach einem sehr heißen Sommer ein sehr<lb/>
+kalter Winter?</hi></head><lb/>
+<p><hi rendition="#in">D</hi>er außerordentlich heiße Sommer des Jahres 1834<lb/>
+ließ bei Vielen die Meinung laut werden, daß auch ein<lb/>
+ebenso anhaltender und heftiger Winter folgen würde.<lb/>
+Sie hätten zur Unterstützung dieser Meinung auf die<lb/>
+Theorie so gut als auf die Erfahrung sich berufen kön-<lb/>
+nen. Zwar läßt sich annehmen, daß das ganze Jahr<lb/>
+gleichsam eine gewisse Menge von Wärme enthalte,<lb/>
+und wird diese in einer Reihe von Tagen hintereinander<lb/>
+aufgebraucht, so muß nothwendig in einer ebenso gro-<lb/>
+ßen Reihe von Tagen eine jenem Wärmeverbrauch ent-<lb/>
+sprechende Kälte erfolgen. Gesetzt, daß im Durchschnitt<lb/>
+auf jeden der 365 Tage des Jahrs eine Wärme von<lb/>
+10° Réaumur käme und wir hätten nun 150 Tage, wie<lb/>
+es im Sommer 1834 so ziemlich mit Einschluß des<lb/>
+Herbstes der Fall war, wo immer eine Wärme von<lb/>
+15 &#x2014; 25° und auch wol darüber herrschte, so müßte<lb/>
+dann natürlich dieser Verbrauch sich im folgenden Win-<lb/>
+ter empfindlich genug zeigen und an den Tagen, wel-<lb/>
+chen die ihnen zukommenden 10° entzogen wären, eine<lb/>
+Kälte von 5&#x2014;15° herrschen. Nun hatten zwar sicher<lb/>
+nicht Alle, welche einen sehr kalten Winter fürchteten,<lb/>
+eine solche Berechnung gemacht, aber die dunkle Vor-<lb/>
+stellung, daß die Natur nichts schuldig bleibe und von<lb/>
+ihr eine ungewöhnliche Hitze durch eine ungewöhnliche<lb/>
+Kälte ausgeglichen werde, mag doch bei den Meisten ob-<lb/>
+gewaltet haben. Noch viel mehr jedoch konnten sie auf<lb/>
+die Erfahrung pochen. Einer der härtesten Winter war<lb/>
+der von 1708&#x2014;9, aber ihm ging ein außerordentlich<lb/>
+heißer Sommer mit Erdnebeln, anhaltender Trockenheit,<lb/>
+schweren Gewittern, merkwürdigen Donnerschlägen vor-<lb/>
+aus, wie sich eine Schrift aus jener Zeit, &#x201E;Der neube-<lb/>
+stellte Agent von Haus aus&#x201C; ( 1709 ) ausdrückt. Die<lb/>
+Erdnebel waren ohne Zweifel nichts als der noch jetzt<lb/>
+ziemlich räthselhafte Höherauch, welcher auch im vori-<lb/>
+gen heißen Sommer häufig beobachtet wurde. Noch<lb/>
+fürchterlicher durch Dauer, wie durch hohen Kältegrad,<lb/>
+war der Winter von 1739&#x2014;40; auch ihm ging aber<lb/>
+ein äußerst heißer Sommer voraus, namentlich war im<lb/>
+Juli eine ganz unerträgliche Hitze. Einen furchtbar kal-<lb/>
+ten Winter hatten wir 1783&#x2014;84, allein der Sommer<lb/>
+vorher war ebenfalls außerordentlich heiß, voller Erd-<lb/>
+beben, oft mit Höherauch begleitet gewesen und der<lb/>
+Professor Wiedeburg in Jena prophezeihte aus den beiden<lb/>
+letztern Erscheinungen den folgenden harten Winter. Die-<lb/>
+selbe Erscheinung that sich 1822&#x2014;23 kund, wo einer<lb/>
+der härtesten Winter herrschte, welcher oft 20&#x2014;28°<lb/>
+Kälte hatte, aber der vorhergegangene Sommer zeich-<lb/>
+<cb type="end"/>
+<pb facs="#f0003" n="187"/>
+<fw place="top" type="header"><hi rendition="#g">Das Pfennig=Magazin.</hi> </fw><cb type="start"/>
+nete sich bekanntlich auch durch eine Hitze aus, welche der<lb/>
+des Sommers 1834 im Grade und in der Dauer nichts<lb/>
+oder wenig nachgab. Jndessen sind alle solche Erfah-<lb/>
+rungen doch trüglich. Man achtet auf sie, wenn sie<lb/>
+zutreffen, und vergißt ihrer, wo sie getäuscht haben.<lb/>
+Einer der heißesten Sommer war 1750. Man berech-<lb/>
+nete damals in Berlin, daß die Erde sich immer mehr<lb/>
+der Sonne nähere und es nur eine gewisse Zeit dauern<lb/>
+könne, bis sie von ihr angezogen, dann aber natürlich in<lb/>
+Feuer aufgehen werde. Niemand aber hat bemerkt, daß<lb/>
+ein sehr kalter Winter darauf gefolgt sei. Sehr Vielen<lb/>
+wird noch der heiße Sommer von 1811 erinnerlich sein,<lb/>
+und ihm folgte ein äußerst gelinder Winter mit unge-<lb/>
+heuerm Schnee, wie wir ihn auch von 1834 zu 1835<lb/>
+in den gebirgigen Gegenden wenigstens gehabt haben.<lb/>
+Übrigens ist ja auch ebenso häufig ein äußerst kalter<lb/>
+Winter nach einem nur mäßig warmen Sommer er-<lb/>
+schienen, wo also der Grund, den man etwa anführen<lb/>
+könnte, daß nach einem heißen Sommer ein harter<lb/>
+Winter folgen müsse, grade einen gelinden bedingen<lb/>
+würde. So war z. B. der Winter 1829&#x2014;30 einer<lb/>
+der härtesten in ganz Europa, der Sommer vorher aber<lb/>
+sehr wenig durch Wärme ausgezeichnet. Der Winter<lb/>
+von 1834&#x2014;35 hat die von uns aufgeworfene Frage<lb/>
+ebenfalls verneind beantwortet; er war sehr gelind<lb/>
+und veränderlich. Überhaupt aber dürfte ein harter Win-<lb/>
+ter oder das Gegentheil nie vom vorausgegangenen<lb/>
+Sommer abhängig sein, denn umgekehrt würde ja auch<lb/>
+der Schluß gelten, daß einem harten Winter ein heißer<lb/>
+Sommer folgen müsse. Jm Gegentheil scheint nach<lb/>
+meinen Beobachtungen nur ein Moment hier haupt-<lb/>
+sächlich zu entscheiden, die Richtung des Windes.<lb/>
+Herrscht anhaltend Süd= und besonders Südwestwind<lb/>
+vor, so ist der Winter gelind und veränderlich, es mag<lb/>
+der vorhergegangene Sommer heiß oder kühl, trocken oder<lb/>
+naß gewesen sein. Anhaltender Ost= oder Nordost=, ja<lb/>
+selbst Südostwind bedingt das Gegentheil. <note place="foot" n="*)">Vergl. in Nr. 106 des Pfennig=Magazins den Auf-<lb/>
+satz: Die Witterung des Jahres 1834.</note> Fast hätte<lb/>
+man fürchten sollen, daß die Natur das Versäumte im<lb/>
+Winter von 1835 zu 1836 nachholen werde. Der<lb/>
+ihm vorausgegangene Sommer zeichnete sich hier zwar<lb/>
+keineswegs durch anhaltende Wärme oder hohen Wär-<lb/>
+megrad aus. Bis zu Ende des Juni gab es meist<lb/>
+naßkalte Witterung, und von da an trat eine Trocken-<lb/>
+heit ein, welche die im Sommer von 1834 noch bei-<lb/>
+weitem übertraf, doch die Wärme war immer nur sehr<lb/>
+mäßig und stieg fast kaum einmal bis 25° R. Äuf<lb/>
+dem Fuße aber folgte dieser Dürre, welche in einem<lb/>
+großen Theile Deutschlands, in ganz Böhmen, Ungarn<lb/>
+und Preußen u. s. w. die Heu= und Getreideernte<lb/>
+vernichtete und große Theuerung zu begründen schien,<lb/>
+gleich vom 1. November an eine täglich zunehmende<lb/>
+Kälte in ganz Europa, im südlichen wie im nördlichen,<lb/>
+sodaß sie zuletzt bis 16 Grad in unsern Gegenden stieg;<lb/>
+allein mitten im November hatte sie ein Ende, und<lb/>
+von dieser Zeit an herrschte sie zwar in ungewöhnlichem<lb/>
+Grade im Norden und Süden Europas, Deutschland<lb/>
+selbst aber klagte nur über eine außerordentliche Ab-<lb/>
+wechselung der Temperatur, welche Regen, ungeheuern<lb/>
+Schnee in den meisten Gebirgsgegenden, Frost und<lb/>
+Thauwetter dermaßen aufeinander folgten, daß es selten<lb/>
+48 Stunden lang einerlei Witterung gab. Der Süd-<lb/>
+und Westwind herrschte, zur Bestätigung unserer oben<lb/>
+mitgetheilten Ansicht, stets vor und wurde nur vom<lb/>
+Nordwind dann durchkreuzt, wenn ein heftiges Gewitter<lb/>
+getobt hatte, deren von Neujahr an, begleitet von brau-<lb/>
+<cb n="2"/>
+senden Stürmen und leuchtenden Meteoren, sehr viele<lb/>
+zum Vorschein kamen, die selbst an manchen Orten auf<lb/>
+eine gefährliche Art, z. B. am 12. Februar in West-<lb/>
+falen, auf dem Harz, am Rheine, zündeten. Doch ge-<lb/>
+nug zum Beweise, daß ein kalter Winter von einem<lb/>
+heißen Sommer so wenig bedingt wird, wie ein heißer<lb/>
+Sommer von diesem. Ob und wann ein solcher er-<lb/>
+scheint, hängt von Ursachen ab, die, wie Alles, was<lb/>
+auf Meteorologie hinausläuft, noch nicht erforscht sind<lb/>
+und auch schwerlich je ermittelt werden dürften.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr"><hi rendition="#g">Würzburg</hi>.</hi></head><lb/>
+<p><hi rendition="#in">W</hi>ürzburg, die Hauptstadt des Untermainkreises im<lb/>
+Königreiche Baiern, theilte die Schicksale des gleichna-<lb/>
+migen Bisthums, das 741 durch den deutschen Apostel<lb/>
+Bonifacius gestiftet wurde, nachdem schon 100 Jahre frü-<lb/>
+her der Jrländer Kilian den Grund zum Christenthume<lb/>
+in Franken gelegt hatte. Das Bisthum gehörte seit-<lb/>
+dem zu dem Sprengel des erzbischöflichen Stuhles zu<lb/>
+Mainz, den Bonifacius 748 erhielt. Die neue Stif-<lb/>
+tung wurde von den fränkischen Königen und den deut-<lb/>
+schen Kaisern mit manchen Gütern begabt, und die<lb/>
+Bischöfe selbst erwarben von den Grafen und Herren<lb/>
+in Franken mehre Besitzungen, aus welchen das an-<lb/>
+sehnliche Gebiet des Fürstenthums Würzburg erwuchs.<lb/>
+Die Bischöfe führten den Titel Herzoge von Franken, aber<lb/>
+erst seit der Mitte des 15. Jahrhunderts, veranlaßt durch<lb/>
+den zufälligen Umstand, daß der Herzog von Sachsen,<lb/>
+Sigismund, ein Bruder des Kurfürsten Friedrich's des<lb/>
+Sanftmüthigen, 1440 zum Bischof erwählt ward, und<lb/>
+unerweislich ist die Angabe, daß bereits der fränkische<lb/>
+König Pipin dem ersten Bischof Burkhard das Her-<lb/>
+zogthum Franken verliehen habe. Die geistreichen Für-<lb/>
+sten erwarben sich große Verdienste um die Cultur des<lb/>
+Landes und das Gedeihen ihrer Hauptstadt, besonders<lb/>
+der Bischof Julius Echter von Mespelbrunn, die Bi-<lb/>
+schöfe aus dem Hause Schönborn und der vorletzte Fürst-<lb/>
+bischof Franz Ludwig von Erthal. Das Bisthum, das<lb/>
+einen Flächenraum von 87 Quadratmeilen mit 250,000<lb/>
+Einwohnern hatte, fiel 1803 als weltliches Fürsten-<lb/>
+thum an Baiern zur Entschädigung für die verlorenen<lb/>
+rheinischen Besitzungen. Durch den Frieden von Pres-<lb/>
+burg ( 1805 ) erhielt es der Großherzog Ferdinand von<lb/>
+Toscana für das an Östreich abgetretene Salzburg und<lb/>
+beherrschte das anfangs zum Kurstaat erhobene Land<lb/>
+nach der Auflösung des deutschen Reichs als Großher-<lb/>
+zog, bis er nach den Ereignissen des Jahres 1813 sein<lb/>
+Erbland Toscana wieder erhielt und Würzburg an<lb/>
+Baiern zurückfiel.</p><lb/>
+<p>Die Stadt Würzburg liegt in einem reizenden<lb/>
+Thale am Main, der sie in zwei ungleiche Theile trennt,<lb/>
+auf zwei Seiten von hohen Weinbergen eingeschlossen.<lb/>
+Um das feste Bergschloß Marienberg auf dem linken<lb/>
+Stromufer, den Sitz der thüringisch=fränkischen Herzoge,<lb/>
+bildete sich allmälig die Stadt, die später auf das rechte<lb/>
+Ufer sich ausdehnte, besonders seitdem die erste Kirche,<lb/>
+auf der Stelle des jetzigen Neumünster, unter Kilian,<lb/>
+als die Wiege des Christenthums in Franken, war ge-<lb/>
+gründet worden. Die schönste und umfassendste Ansicht<lb/>
+der Stadt und ihrer nächsten Umgebungen finden wir<lb/>
+auf dem nördlich sich erhebenden, wegen seines treffli-<lb/>
+chen Weins berühmten Steinberg. Beide Stadttheile<lb/>
+verbindet eine, in der Abbildung auf S. 192 dargestellte,<lb/>
+540 Fuß lange steinerne Brücke von acht Bögen,<lb/>
+die im 15. Jahrhundert erbaut ward und auf bei-<lb/>
+<cb type="end"/>
+<pb facs="#f0004" n="188"/>
+<fw place="top" type="header"> <hi rendition="#g">Das Pfennig=Magazin.</hi> </fw>       <figure>         <head>  Die Liebfrauenkapelle zu Würzburg.  </head>       </figure><lb/>
+<cb type="start"/>
+den Seiten mit kolossalen Statuen der Schutzheiligen<lb/>
+von Franken und Deutschland geziert ist. Der ältere<lb/>
+Stadttheil ist unregelmäßig gebaut und überhaupt hat<lb/>
+Würzburg nur wenige breite und gerade Straßen. Die<lb/>
+schönste und durch vielfachen Verkehr belebte ist die Dom-<lb/>
+straße, die von der Brücke zu dem großen Freiplatze vor<lb/>
+dem Rathhause und zu der Domkirche führt und durch<lb/>
+den großen, mit Sinnbildern, Wappen und Jnschriften<lb/>
+verzierten Vierröhrenbrunnen sich auszeichnet. Auch in<lb/>
+der Nähe des schönen Schloßplatzes sind die Straßen<lb/>
+breit und regelmäßig.</p><lb/>
+<p>Beginnen wir nun den Überblick der merkwür-<lb/>
+digsten Bauwerke mit der alten Feste Marienberg,<lb/>
+die sich an einem 400 Fuß hohen Berge erhebt und<lb/>
+bereits an den Bischof Burkhard abgetreten wurde.<lb/>
+Bonifacius verwandelte einen heidnischen Tempel, der<lb/>
+hier stand, in eine der heiligen Jungfrau gewidmete<lb/>
+Kirche, von welcher die Burg ihren Namen erhielt.<lb/>
+Sie war vom 14. bis zum 18. Jahrhundert der ge-<lb/>
+wöhnliche Sitz der Bischöfe. Jm 15. Jahrhundert er-<lb/>
+hielt sie bedeutende Veränderungen, und nachdem sie<lb/>
+1512 größtentheils abgebrannt war, wurde sie von dem<lb/>
+Bischofe Julius wiederhergestellt und nach einem zwei-<lb/>
+ten Brande 1600 abermals erneut. Gustav Adolf er-<lb/>
+stürmte 1631 das Schloß, das aber 1635 wieder in<lb/>
+den Besitz des Bischofs kam, und 1650 starke, nach<lb/>
+Vauban's Grundsätzen erbaute Außenwerke erhielt, die<lb/>
+später vollendet wurden. Seit 1688 wurde die Feste<lb/>
+mehre Male belagert und erobert. Zu den Merkwür-<lb/>
+digkeiten des Schlosses gehören das 1711 erbaute Zeug-<lb/>
+haus, der mittlere hohe Wartthurm, die im 16. Jahr-<lb/>
+hundert vergrößerte alte Kirche, ein 388 Fuß tiefer<lb/>
+Brunnen und zwei Springbrunnen, die durch ein Druck-<lb/>
+werk 500 Fuß hoch vom Main heraufgeleitet werden.<lb/>
+<cb n="2"/>
+Die Abhänge des Berges sind auf der Morgen= und<lb/>
+Mittagseite mit Reben bepflanzt, und auf einem dersel-<lb/>
+ben, der sogenannten Leiste, wächst der Leistenwein. Auf<lb/>
+der linken Mainseite liegt die ursprünglich von dem Bi-<lb/>
+schof Burkhard gegründete Burkhardskirche, die im 11.<lb/>
+Jahrhundert neu gebaut wurde und im 16. und 17.<lb/>
+Jahrhunderte im Äußern und Jnnern mehre Verände-<lb/>
+rungen erhielt, doch haben sich manche Theile des alten<lb/>
+Gebäudes erhalten. Jhre beiden Thürme sind bis zur<lb/>
+höchsten Spitze ganz von Steinen aufgeführt. Der mit<lb/>
+einem Gemälde von Onghers gezierte Hochaltar steht<lb/>
+auf einem Bogengewölbe, durch welches die Straße zu<lb/>
+einem Stadtthore führt. Die im 13. Jahrhunderte<lb/>
+erbaute Deutschhauskirche hat eine zierliche Hauptthüre<lb/>
+in schönem mittelalterlichen Styl. Die Schottenkloster-<lb/>
+kirche ward im 12. Jahrhundert für Mönche aus Jr-<lb/>
+land, zu jener Zeit noch häufig Schottland genannt,<lb/>
+in dankbarer Erinnerung an die Wohlthaten gegründet,<lb/>
+welche Franken von den irländischen Glaubensboten er-<lb/>
+halten hatte. Das zu Ende des 16. Jahrhunderts<lb/>
+eingegangene Kloster wurde später erneuert, in neuern<lb/>
+Zeiten aber in ein Kriegsspital verwandelt.</p><lb/>
+<p>Gehen wir über die Mainbrücke, so erblicken wir<lb/>
+gleich bei dem Ausgange derselben das im 14. Jahr-<lb/>
+hundert erbaute Rathhaus mit seinem hohen Thurme,<lb/>
+zum Grafen Eckard genannt. Am Ende der langen<lb/>
+Straße, der wir von hier folgen, ragen die hohen grauen<lb/>
+Massen der Domkirche empor. Sie ward ursprünglich<lb/>
+im 9. Jahrhundert gegründet, im folgenden in dem<lb/>
+byzantinischen Styl erbaut, später aber durch vielfache<lb/>
+Anbaue bedeutend vergrößert und zeigt in ihrem Äußern<lb/>
+und Jnnern den wechselnden Baugeschmack mehrer Jahr-<lb/>
+hunderte. Die Kirche hat vier Thürme, zwei über<lb/>
+dem Chore, zwei am Haupteingange. Das großartige<lb/>
+<cb type="end"/>
+<pb facs="#f0005" n="189"/>
+<fw place="top" type="header"><hi rendition="#g">Das Pfennig=Magazin.</hi> </fw>       <figure>         <head>  Das ehemalige bischöfliche, gegenwärtig königliche Schloß zu Würzburg.  </head>       </figure><lb/>
+<cb type="start"/>
+Mittelschiff der Kirche wird auf beiden Seiten von 14<lb/>
+Pfeilern getragen und ist trefflich erleuchtet. Mehre<lb/>
+Altargemälde, marmorne und eherne Grabmäler, die<lb/>
+Schönborn'sche Kapelle, das Baptisterium von 1279,<lb/>
+die mit Bildwerken von Alabaster verzierte Kanzel ge-<lb/>
+hören zu den Merkwürdigkeiten des Jnnern. Das be-<lb/>
+reits erwähnte Neumünster mit einer schönen Kuppel<lb/>
+wurde, nachdem die alte von dem Bischof Burkhard er-<lb/>
+baute Kirche im 9. Jahrhundert abgebrannt und an<lb/>
+ihrer Stelle später eine Kapelle errichtet war, in eine<lb/>
+neue Kirche umgewandelt, von welcher aber bei dem zu<lb/>
+Anfange des 18. Jahrhunderts vorgenommenen Umbau<lb/>
+nur wenige den Übergang von der byzantinischen zur<lb/>
+gothischen Baukunst bezeichnende Überreste geblieben sind.<lb/>
+Eins der vorzüglichsten Denkmäler des altdeutschen Bau-<lb/>
+styls ist die auf Seite 188 in Abbildung gegebene<lb/>
+Liebfrauenkapelle. Sie ward in der zweiten Hälfte<lb/>
+des 14. Jahrhunderts begonnen, aber erst 100 Jahre<lb/>
+später vollendet. Am Hauptportal auf der West-<lb/>
+seite verjüngt sich ein weiter Spitzbogen nach innen<lb/>
+in immer kleinere Bögen und enthält eine figuren-<lb/>
+reiche Abbildung des jüngsten Gerichts in Hautrelief.<lb/>
+Über dem südlichen Eingange stellt ein Kniebild die<lb/>
+Krönung der heiligen Jungfrau in altchristlicher Weise<lb/>
+dar, und an den Pfeilern sieht man Adam und Eva<lb/>
+und die zwölf Apostel. Der Thurm erhebt sich an der<lb/>
+Nordseite bis zum Dachstuhl ohne allen Schmuck. Von<lb/>
+hier an steigt, auf allen Seiten frei abstehend, ein schön<lb/>
+durchbrochenes Bauwerk empor und beginnt eine treffliche<lb/>
+steinerne Wendeltreppe, welche auf 54 Stufen in das<lb/>
+Glockenhaus und weiter aufwärts in ein schönes gothi-<lb/>
+sches Gewölbe führt. Der höhere Theil des Thurmes<lb/>
+wurde 1711 gebaut und auf der Spitze steht ein 18<lb/>
+Fuß hohes Marienbild von reich vergoldetem Kupfer.<lb/>
+Wir treten durch das Hauptportal in das Jnnere, das<lb/>
+von schlank und kühn emporstrebenden Pfeilern getragen<lb/>
+wird, die oben nach allen Richtungen wie Baumäste<lb/>
+<cb n="2"/>
+sich trennen und die Gurten der Gewölbefelder bilden.<lb/>
+Hohe schmale Fenster erhellen das Jnnere. Eines der<lb/>
+schönsten Gebäude ist die ehemalige Stiftskirche, die<lb/>
+Pfarrkirche zu Haug, die diesen Namen daher führt,<lb/>
+weil das Stift bis zu Ende des 17. Jahrhunderts au-<lb/>
+ßerhalb der Stadt, unweit des Steinberges, auf einer<lb/>
+kleinen Anhöhe ( altdeutsch Haug ) lag. Sie zeichnet<lb/>
+sich durch ihre neurömische Bauart, durch zwei schöne<lb/>
+und hohe Thürme und eine kühne Kuppel vorzüglich<lb/>
+aus. Das ehemalige bischöfliche Schloß, von wel-<lb/>
+chem wir eine Abbildung geben, das vorzüglichste<lb/>
+Gebäude Würzburgs und einer der prächtigsten Für-<lb/>
+stenpaläste Deutschlands, liegt im östlichen Theile der<lb/>
+Stadt auf einem großen Freiplatze und ward 1720<lb/>
+von dem Bischofe Johann Philipp von Schönborn be-<lb/>
+gonnen. Es bildet ein längliches Viereck, dessen vor-<lb/>
+dere Seite 571 Fuß lang ist. Eine steinerne, mit Tro-<lb/>
+phäen, Urnen und Statuen besetzte Galerie läuft auf<lb/>
+dem obersten Gesimse um den drei Stockwerk hohen<lb/>
+Palast und verdeckt einen Theil des Daches. An das<lb/>
+Schloß stoßen rechts und links zwei ansehnliche Ge-<lb/>
+bäude von gleicher Höhe, welchen sich Bogenstellungen<lb/>
+anreihen, deren Pfeiler mit Säulen dorischer Ordnung<lb/>
+geziert sind, und am Ende derselben erheben sich über<lb/>
+100 Fuß hoch zwei freistehende Säulen, in welchen<lb/>
+eine Wendeltreppe zu einer offenen Galerie führt. Die<lb/>
+prachtvolle Haupttreppe, von einem mit vielen Mar-<lb/>
+morbildern verzierten Steingeländer umgeben, führt zum<lb/>
+Hauptstockwerke und verdoppelt sich in der Hälfte ihrer<lb/>
+Höhe. Das Treppenhaus hat ein großes Deckengemälde<lb/>
+von Tiepolo, in der Mitte den Olymp, auf den vier<lb/>
+Seiten die vier Welttheile darstellend. Unter den präch-<lb/>
+tigen Zimmern des Schlosses ist der Kaisersaal das<lb/>
+größte, durch zwei Stockwerke gehend, und 88 Fuß<lb/>
+lang, 50 Fuß breit. Kanelirte Säulen von Gypsmar-<lb/>
+mor tragen das vergoldete Gesimse. Das Deckenge-<lb/>
+mälde von Tiepolo stellt die in Würzburg vollzogene<lb/>
+<cb type="end"/>
+<pb facs="#f0006" n="190"/>
+<fw place="top" type="header"> <hi rendition="#g">Das Pfennig=Magazin.</hi> </fw><cb type="start"/>
+Vermählung Friedrich Barbarossa's mit Beatrix von<lb/>
+Burgund dar. Am Ende des vordern linken Schloß-<lb/>
+flügels befindet sich die Hofkapelle, die sich durch reiche<lb/>
+Verzierungen und zwei Altargemälde von Tiepolo aus-<lb/>
+zeichnet. Auf der Ost= und Südseite umgibt das<lb/>
+Schloß der Hofgarten, der durch anmuthige Anlagen<lb/>
+und großen Pflanzenreichthum anzieht.</p><lb/>
+<p>Eine Hauptzierde der Stadt ist das große palast-<lb/>
+ähnliche Juliushospital am nördlichen Stadtwalle, von<lb/>
+dem trefflichen Bischof Julius Echter von 1576&#x2014;79<lb/>
+gebaut, aber nach einem Brande seit 1704 und am<lb/>
+Ende des 18. Jahrhunderts vielfach verändert. Jn dem<lb/>
+prächtigen Mittelgeschoß des innern Hauptflügels befindet<lb/>
+sich eine einfache und geschmackvoll eingerichtete Kapelle.<lb/>
+Die mit einem Vermögen von 5 Millionen Gulden<lb/>
+ausgestattete Anstalt nimmt jährlich eine große Anzahl<lb/>
+armer Kranken zur Verpflegung auf und gewährt ge-<lb/>
+brechlichen Alten lebenslängliche Versorgung. Mit dem<lb/>
+Spitale sind noch andere Anstalten in verschiedenen Ge-<lb/>
+bäuden vereinigt, nämlich das eigentliche Krankenhaus,<lb/>
+die Heilanstalt für Epileptische und Wahnsinnige, das<lb/>
+Entbindungshaus, das anatomische Theater, das chemi-<lb/>
+sche Laboratorium und der botanische Garten. Jn na-<lb/>
+her Verbindung mit dem Juliushospitale, als dem ei-<lb/>
+gentlichen Mittelpunkte des praktisch=medicinischen Stu-<lb/>
+diums, steht die Universität, die der Bischof Julius<lb/>
+1582 gründete, nachdem die schon 1403 nach dem<lb/>
+Muster von Bologna gestiftete Hochschule bald wieder<lb/>
+eingegangen war. Sie wurde von ihrem Stifter reich<lb/>
+ausgestattet und erhielt besonders unter der Regierung<lb/>
+des vorletzten erleuchteten Fürstbischofs von Erthal<lb/>
+einen höhern Aufschwung, der auch nach der Vereini-<lb/>
+gung des Landes mit Baiern fortdauerte. Die Ver-<lb/>
+bindung mit dem Juliushospitale hat sie stets zu einer<lb/>
+der ersten medicinischen Schulen Deutschlands gemacht.<lb/>
+Unter den übrigen gemeinnützigen Anstalten sind vor-<lb/>
+züglich auszuzeichnen das Gymnasium, Heine's ortho-<lb/>
+pädisches Jnstitut, die Blindenlehranstalt, die Thier-<lb/>
+arzneischule, die Schwimmschule, das von einem Ver-<lb/>
+ein unterhaltene und wohlthätig wirkende polytechnische<lb/>
+Jnstitut oder die Centralindustrieschule, das musikalische<lb/>
+Jnstitut, das im Gesange und in der Jnstrumental-<lb/>
+musik unentgeltlichen Unterricht ertheilt und besonders<lb/>
+auch dazu beiträgt, unter den Landschullehrern Baierns<lb/>
+musikalische Bildung zu verbreiten.</p><lb/>
+<p>Würzburg hat gegen 24,000 Einwohner, die sich<lb/>
+mit einigen nicht sehr bedeutenden Fabrikzweigen beschäf-<lb/>
+tigen, aber einen ansehnlichen Handel mit dem Haupt-<lb/>
+erzeugnisse der Umgegend, Wein, treiben, welcher durch<lb/>
+die Mainschiffahrt sehr begünstigt wird. Jn dem benach-<lb/>
+barten ehemaligen Cistercienserkloster Oberzell befindet sich<lb/>
+seit 1817 die mechanische Werkstatt für die von den<lb/>
+beiden Deutschen König und Bauer erfundenen und<lb/>
+zuerst 1814 von ihnen in England ausgeführten Schnell-<lb/>
+pressen oder Druckmaschinen, deren sie verschiedene, doch<lb/>
+auf <hi rendition="#g">einem</hi> Princip beruhende Arten verfertigen.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr"><hi rendition="#g">Jspahan</hi>.</hi><lb/>
+( Beschluß aus Nr. 166. )</head><lb/>
+<p><hi rendition="#in">W</hi>as Jspahan an neuen Prachtbauten aufzuweisen<lb/>
+hat, verdankt es seinem jetzigen Statthalter, der von ei-<lb/>
+nem bescheidenen Krämer sich zu seiner Würde emporge-<lb/>
+schwungen hat, und dessen Ehrgeiz es ist, seine Vaterstadt<lb/>
+zu ihrem alten Glanze wieder emporzuheben. Alle diese<lb/>
+Prachtgebäude kommen in gewissen Grundzügen über-<lb/>
+<cb n="2"/>
+ein. Eine offene von Säulen getragene Halle in der<lb/>
+Fronte, oder verschlossen von bunten Glasfenstern, die<lb/>
+ein sanftes Licht einlassen, öffnet sich auf einen Platz,<lb/>
+den ein Wasserbecken oder ein Springbrunnen ziert, um<lb/>
+den sich die Dienerschaft versammelt. Die Säulen sind<lb/>
+meist vergoldet oder mit Arabesken geschmückt, das<lb/>
+Ganze erscheint luftig und leicht, wie es dem Klima<lb/>
+angemessen ist.</p><lb/>
+<p>Ehemals hatte Jspahan nicht weniger als 162<lb/>
+Moscheen und 48 große Lehranstalten, viele derselben<lb/>
+stehen noch. Unter allen nimmt die Medsched=Schah oder<lb/>
+Königsmoschee den ersten Rang ein, unstreitig eines der<lb/>
+prachtvollsten kirchlichen Gebäude Asiens, von Abbas<lb/>
+dem Großen erbaut und dem Jmaum Mehedi gewidmet.<lb/>
+Ein hoher Porticus führt in ihren innern Hof. Auf<lb/>
+jeder Seite neben ihm erhebt sich ein schlanker Thurm<lb/>
+mit einer offenen Galerie endend. Jn der Mitte ist der<lb/>
+Eingang, welchen zwei mächtige, 12 Fuß breite Flügel-<lb/>
+thüren schließen. Diese Thüren sind mit Silberplatten<lb/>
+belegt und mit Jnschriften aus dem Koran geziert. Eine<lb/>
+schwere eiserne Kette zieht sich vor dieser Pforte hin,<lb/>
+welche uns in den Vorhof der Moschee führt, die sich<lb/>
+selbst am Ende desselben in einer gewaltigen Kuppel,<lb/>
+das Wunder Persiens, erhebt. Der Hof, wie der Haupt-<lb/>
+tempel selbst ist von Quadern erbaut, die, mit glasir-<lb/>
+ten Ziegeln bekleidet und mit Jnschriften bedeckt, den<lb/>
+Glanz der Sonne zurückspiegeln. Das Jnnere der<lb/>
+Moschee steht mit diesem prachtvollen Vorhof im Ein-<lb/>
+klang; hier herrschen Größe und Feierlichkeit, wie in<lb/>
+keinem andern mohammedanischen Tempel.</p><lb/>
+<p>Die Moschee von Lutf=allah ist einfacher, aber<lb/>
+nicht minder groß; Verhältnisse und Arbeit sind hier<lb/>
+noch zierlicher, und der schöne gelbliche und durchsich-<lb/>
+tige Marmor von Tabris, Gemälde, glasirte Ziegel und<lb/>
+Jnschriften auf Bronze und Silberplatten bilden den<lb/>
+Schmuck dieses Tempels.</p><lb/>
+<p>Unter den höhern Lehranstalten ist die Medresseh<lb/>
+Dschedda die berühmteste. Ein hoher Porticus von<lb/>
+phantastisch gewundenen Säulen führt zu einem Paar<lb/>
+mächtigen Flügelthüren von Bronze, mit Silber ausge-<lb/>
+legt und mit Blumen und Sprüchen aus dem Koran<lb/>
+geziert, in eine gewölbte Vorhalle, aus der man in den<lb/>
+geräumigen, mit Bäumen und Blumen bepflanzten<lb/>
+Hof tritt, dessen rechte Seite die schöne Moschee mit<lb/>
+ihren zwei hohen Minarets einnimmt, indeß auf der<lb/>
+Linken ein schöner Porticus, und ihm zur Seite die<lb/>
+Wohnzimmer der Lernenden, zwölf auf jeder Seite, in<lb/>
+zwei Stockwerken liegen, kleine viereckige Zellen mit Tep-<lb/>
+pichen belegt, die unter diesen Umgebungen von grünen<lb/>
+Sträuchern, spielenden Wassern, Tempeln und bei der<lb/>
+Stille des Orts wie zum Studium geschaffen sind. Ge-<lb/>
+wöhnlich wohnen hier über hundert Jünger der Wissen-<lb/>
+schaft, welche Unterhalt und Lehre kostenfrei erhalten.</p><lb/>
+<p>Nach den neuesten Schätzungen rechnet man die<lb/>
+Zahl der Einwohner Jspahans auf 200,000. Sie sind<lb/>
+mit Recht die Pariser Asiens genannt worden. Leicht,<lb/>
+lebhaft und höflich, unterscheiden sie sich auffallend von<lb/>
+den übrigen Asiaten. Voller Anlagen für Künste und<lb/>
+Wissenschaften, lebhaften Geistes und von schneller Fas-<lb/>
+sungskraft, kann fast jeder Jspahaner lesen und schreiben<lb/>
+und ist mit den Lieblingsdichtern des Vaterlandes ver-<lb/>
+traut. Thätig, fleißig und betriebsam, aber wegen ihrer<lb/>
+Weichlichkeit und Feigheit der Spott der übrigen Pro-<lb/>
+vinzen, sind sie immer berühmte Seidenweber, aber sehr<lb/>
+schlechte Soldaten gewesen, und man nennt die Fabri-<lb/>
+ken Jspahans als die ersten in Asien, und seine Krie-<lb/>
+ger als die feigsten.</p><lb/>
+<p>Auch sind Jspahans Manufacturen in Baumwolle,<lb/>
+<cb type="end"/>
+<pb facs="#f0007" n="191"/>
+<fw place="top" type="header"><hi rendition="#g">Das Pfennig=Magazin.</hi> </fw><cb type="start"/>
+Sammt, Seide, Tuch, die Fabriken von gefärbtem<lb/>
+Glas, Leder, Zucker, Töpferwaaren und Waffen, in<lb/>
+welchen ein bedeutender Handel geführt wird, sehr be-<lb/>
+rühmt, kurz, Jspahan ist eine der ersten Gewerbsstädte<lb/>
+Asiens.</p><lb/>
+<p>Die Bewohner Jspahans sind, wie die Perser<lb/>
+überhaupt, ihrem Glaubensbekenntnisse nach Schiiten oder<lb/>
+Anhänger Ali's, welche die Türken und Sunniten als<lb/>
+Ketzer ansehen. Dieser Religionsunterschied entstand da-<lb/>
+durch, daß beim Tode Mohammed's zwischen Ali, seinem<lb/>
+Schwiegersohn, und Abubekr, seinem Schwiegervater,<lb/>
+ein Streit über die Nachfolge ausbrach. Der Letzte be-<lb/>
+hielt die Oberhand und behauptete2 1 / 2 Jahre lang<lb/>
+das Khalifat. Jhm folgte Omar und diesem Osman,<lb/>
+nach dessen Tode endlich Ali seine langbestrittenen Rechte<lb/>
+erlangte. Seine Anhänger sahen nun Abubekr, Omar<lb/>
+und Osman als falsche Khalifen an und verwarfen<lb/>
+Alles, was zwischen ihnen und Mohammed in Reli-<lb/>
+gionssachen festgesetzt worden; so leugnen sie daher auch<lb/>
+alle Traditionen, die auf ihrer Autorität beruhen, an<lb/>
+welche dagegen die Sunniten glauben.</p><lb/>
+<p>Das Christenthum hat in Persien nie Anhang<lb/>
+gefunden, ungeachtet es an Bemühungen der Missio-<lb/>
+nare nicht gefehlt hat. Jn den Bergen von Kurdi-<lb/>
+stan wohnt jedoch eine kleine Gemeinde von Nestoria-<lb/>
+nern, und in Jspahan selbst gibt es eine katholische<lb/>
+Mission. Die Vorstadt Dschulfa wird noch fast ganz<lb/>
+von Armeniern bewohnt, deren Gottesdienst nicht gestört<lb/>
+wird, und die man als fleißige Handwerker schätzt.<lb/>
+Minder zahlreich und verachtet sind die Juden. Jn<lb/>
+Kerman und Yezd allein verbergen sich noch einige An-<lb/>
+hänger Zoroasters oder Feueranbeter, da sie, streng ver-<lb/>
+folgt, meist nach Jndien vertrieben wurden.</p><lb/>
+<p>Der Aberglaube ist ein charakteristischer Zug des<lb/>
+Persers. Jeder, vom Fürsten bis zum Lastträger herab,<lb/>
+glaubt an Vorzeichen, günstige Constellationen und<lb/>
+Stunden. Jedermann trägt Amulete und Talismane,<lb/>
+und fast nichts geschieht in Persien ohne vorgängige Be-<lb/>
+fragung der Sterne. Keine Reise wird unternommen,<lb/>
+kein neues Kleid angelegt, kein Fest wird gefeiert, ohne<lb/>
+erst den Kalender zu befragen.</p><lb/>
+<p>Es ist auffallend, daß die Perser, unter allen Asia-<lb/>
+ten das heiterste und phantasiereichste Volk, zu ihren<lb/>
+Trachten grade die dunkelsten Farben gewählt haben,<lb/>
+während die übrigen Asiaten an hellen und bunten Ge-<lb/>
+fallen finden, denn im Gegensatz von ehedem sieht man<lb/>
+jetzt nur dunkelfarbige Kleider bei ihnen; ein Paar weite<lb/>
+Pantalons bis auf die Knöchel herabreichend, ein Hemd<lb/>
+darüber bis zu den Hüften herunter; über diesem eine<lb/>
+knappe Weste mit aufgeschlitzten Ärmeln, und endlich<lb/>
+ein langer, oben eng anliegender Rock, von den Hüf-<lb/>
+ten abwärts offen und mit Knöpfen auf jeder Seite<lb/>
+besetzt, bilden den Auzug des Persers von Stande. Ein<lb/>
+mehre Ellen langes Stück Zeuch von Muslin um den<lb/>
+Leib vertritt die Stelle des Gürtels und trägt den<lb/>
+Dolch, dessen prachtvoller, aber bescheidener Griff den<lb/>
+Rang und den Reichthum des Besitzers zur Schau<lb/>
+trägt. Das Haupt bedeckt eine schwarze Mütze von<lb/>
+Schaffell, anderthalb Fuß hoch, sonst mit einem Shawl<lb/>
+umwunden, der jetzt aber nur noch von wenigen Vor-<lb/>
+nehmen getragen wird. Den Fuß bedeckt ein spitziger<lb/>
+und nach oben gebogener Schuh mit bis anderthalb<lb/>
+Zoll hohen eisernen Absätzen versehen, oft ein furcht-<lb/>
+bares Strafinstrument gegen ungehorsame Diener, und<lb/>
+so ist es nicht auffallend, daß die Gestalt des Persers<lb/>
+mit seiner hohen thurmähnlichen Mütze und seinen hohen<lb/>
+Schuhen riesenhaft erscheint.</p><lb/>
+<p>Juwelen trägt nur der Schah. Die Perser be-<lb/>
+<cb n="2"/>
+haupten, daß, wenn der Schah seinen vollen Schmuck<lb/>
+anlegt und sich in die Sonne setzt, kein menschliches<lb/>
+Auge ihn anzusehen vermöge. Kein Fürst besitzt Dia-<lb/>
+manten, die denen des Königs von Persien gleich kä-<lb/>
+men, welche meist noch aus dem Schatze des Groß-<lb/>
+moguls und der Plünderung von Delhi herstammen.<lb/>
+Unter ihnen ist &#x201E;das Meer des Lichts&#x201C;, 186 Karat<lb/>
+schwer, als der schönste Diamant der Erde bekannt, die<lb/>
+&#x201E;Krone des Mondes&#x201C; wiegt 146 Karat, und die Arm-<lb/>
+bänder, welche diese Steine zieren, haben allein einen<lb/>
+Werth von mehr als 6 Millionen Thaler.</p><lb/>
+<p>Die Sitte der Perser ist fein, fröhlich und ent-<lb/>
+gegenkommend, wie irgendwo in Asien. Die höhern<lb/>
+Classen der Gesellschaft sind wohl unterrichtet und ihr<lb/>
+äußeres Benehmen hat viel natürliche Anmuth. Jhre<lb/>
+Unterhaltung ist lebhaft und witzig, und namentlich der<lb/>
+Jspahaner ist durchaus liebenswürdig, wenn er einmal<lb/>
+die Fesseln des Ceremoniels abgestreift hat. Dafür aber<lb/>
+steht er auch in dem Rufe großer Falschheit und Dop-<lb/>
+pelzüngigkeit. Nirgend hört man mehr Betheuerungen<lb/>
+und Schwüre als in Persien; oft aber, wenn die Un-<lb/>
+gläubigkeit des Fremden unbesieglich ist, ruft er aus:<lb/>
+&#x201E;Glaubet mir, obgleich ich ein Perser bin.&#x201C;</p><lb/>
+<p>Trotz dem Vorwurfe der Weichlichkeit, den man<lb/>
+den Einwohnern Jspahans macht, kennt man viele von<lb/>
+den Verweichlichungen der Türken hier nicht. Selten<lb/>
+trifft man Divane an. Der Jspahaner sitzt gewöhnlich<lb/>
+nur auf einem dicken Filzteppich, Nummud, mit unter-<lb/>
+geschlagenen Beinen auf den Fersen. Wie die übrigen<lb/>
+Orientalen steht er vor Sonnenaufgang auf, denn das<lb/>
+erste seiner vorgeschriebenen Gebete muß vor Tage verrich-<lb/>
+tet werden. Zuerst geschieht die Waschung mit der rech-<lb/>
+ten Hand, denn der linken bedient sich der Perser fast<lb/>
+nie. Dann wird der Teppich zum Gebet entfaltet; er<lb/>
+kniet darauf nieder, legt die Hände mit geschlossener<lb/>
+Faust auf die Brust, wendet sein Antlitz nach der Rich-<lb/>
+tung von Mekka hin und murmelt das vorgeschriebene<lb/>
+Gebet, an bestimmten Stellen den Teppich mit der<lb/>
+Stirn berührend. Dies abgethan, frühstückt er und<lb/>
+nimmt seine Wasserpfeife ( Kaliun ) , die ihn nun den<lb/>
+ganzen Tag lang nicht mehr verläßt. Um Mittag<lb/>
+folgt das zweite Gebet, worauf ein zweites nährenderes<lb/>
+Frühstück folgt. Um drei Uhr abermaliges Gebet und<lb/>
+bei Sonnenuntergang ein viertes. Eine Stunde dar-<lb/>
+auf folgt das Hauptessen. Das fünfte Gebet vor dem<lb/>
+Schlafengehen ist seinem Belieben überlassen, und es<lb/>
+verrichten, heißt fromm sein.</p><lb/>
+<p>Nie betritt ein Perser das Zimmer mit Schuhen,<lb/>
+weil der Teppich, welcher so wesentlich beim Gebete ist,<lb/>
+nicht anders als mit Socken berührt werden darf.</p><lb/>
+<p>Der Jspahaner ist ein Freund der Gesellschaft und<lb/>
+die ungemeine Wohlfeilheit aller Lebensbedürfnisse, der<lb/>
+Überfluß an Früchten u. s. w. macht, daß auch die<lb/>
+geringern Stände verhältnißmäßig gut leben. Seine<lb/>
+Kochkunst ist wenig ausgezeichnet, aber er verzehrt eine<lb/>
+unglaubliche Menge von Zuckerwerk und Leckereien, und<lb/>
+zahllose Läden versorgen ihn mit diesen Lebensbedürfnissen.<lb/>
+Wein und Schweinfleisch ist ihm untersagt; indeß wird<lb/>
+das Weinverbot oft übertreten. Jm Allgemeinen aber<lb/>
+ist der Perser mäßig und sparsam und im Alter oft<lb/>
+selbst geizig.</p><lb/>
+<p>Der vorzüglichsten Zweige des Gewerbfleißes in<lb/>
+Jspahan haben wir oben schon gedacht. Jn großer<lb/>
+Vollkommenheit werden hier noch die Brocatzeuche ver-<lb/>
+fertigt, welche zu Ehrenkleidern, die der Schah als Aus-<lb/>
+zeichnungen verschenkt, verwendet werden. Zu den Baum-<lb/>
+wollengeweben wird die in der Umgebung gewonnene<lb/>
+Baumwolle gebraucht, und diese Gewebe kommen unter<lb/>
+<cb type="end"/>
+<pb facs="#f0008" n="192"/>
+<fw place="top" type="header"> <hi rendition="#g">Das Pfennig=Magazin.</hi> </fw><cb type="start"/>
+dem Namen Nankings auch nach Europa. Jeder Per-<lb/>
+ser, vom Schah bis zum Bauer herab, trägt sie; auch<lb/>
+gehen große Massen davon nach Rußland aus den Hä-<lb/>
+fen des kaspischen Meeres. Papier, Pulver, Säbel-<lb/>
+<cb n="2"/>
+klingen, Töpferwaaren, auch Glas bilden nächst Sam-<lb/>
+met- und Seidengeweben die vorzüglichsten Handelsar-<lb/>
+tikel, welche Jspahan auf fremde Märkte bringt.</p></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1"><figure><head><hi rendition="#fr">Ansicht der Mainbrücke und des Marienbergs zu Würzburg.</hi></head></figure></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+</body>     <back><div n="1" type="imprint"><p><hi rendition="#c">Verantwortliche Herausgeber: <hi rendition="#g">Friedrich Brockhaus</hi> in <hi rendition="#g">Leipzig</hi> und <hi rendition="#aq">Dr</hi>. C. <hi rendition="#g">Dräxler=Manfred</hi> in <hi rendition="#g">Wien.</hi><lb/>
+Verlag von F. A. <hi rendition="#g">Brockhaus</hi> in Leipzig.</hi></p></div>     </back>   </text> </TEI>

@@ -1,0 +1,876 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.deutschestextarchiv.de/basisformat.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">     <teiHeader>
+<fileDesc>
+<titleStmt>
+<title type="main">Das Pfennig-Magazin der Gesellschaft zur Verbreitung gemeinnütziger Kenntnisse</title>
+<title type="sub">Nr. 165</title>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/115266127">
+<surname>Geyken</surname>
+<forename>Alexander</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1222198746">
+<surname>Haaf</surname>
+<forename>Susanne</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1019062681">
+<surname>Jurish</surname>
+<forename>Bryan</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Boenig</surname>
+<forename>Matthias</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Thomas</surname>
+<forename>Christian</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Wiegand</surname>
+<forename>Frank</forename>
+</persName>
+</editor>
+<respStmt>
+<orgName>Institut für Deutsche Sprache, Mannheim</orgName>
+<resp>
+<note type="remarkResponsibility">Bereitstellung der Bilddigitalisate und TEI
+Transkription</note>
+<ref target="http://hdl.handle.net/10932/00-01B8-B05E-9B2E-C001-3"/>
+</resp>
+</respStmt>
+<respStmt>
+<persName>
+<forename>Peter</forename>
+<surname>Fankhauser</surname>
+</persName>
+<resp>
+<note type="remarkResponsibility">
+Transformation von TUSTEP nach TEI P5.
+Transformation von TEI P5 in das DTA TEI P5 Format.
+</note>
+</resp>
+</respStmt>
+<respStmt>
+<orgName ref="https://www.bbaw.de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<resp>
+<note type="remarkResponsibility">Langfristige Bereitstellung der DTA-Ausgabe</note>
+<ref target="https://www.bbaw.de"/>
+</resp>
+</respStmt>
+</titleStmt>
+<editionStmt><edition>Vollständige digitalisierte Ausgabe.</edition></editionStmt>
+<extent>
+<measure type="images">8</measure>
+<measure type="tokens">5045</measure>
+<measure type="types">2001</measure>
+<measure type="characters">34467</measure>
+</extent>
+<publicationStmt>
+<publisher xml:id="DTACorpusPublisher">
+<email>dta@bbaw.de</email>
+<orgName role="project">Deutsches Textarchiv</orgName>
+<orgName role="hostingInstitution" xml:lang="en">Berlin-Brandenburg Academy of Sciences and Humanities (BBAW)</orgName>
+<orgName role="hostingInstitution" xml:lang="de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<address>
+<addrLine>Jägerstr. 22/23, 10117 Berlin</addrLine>
+<country>Germany</country>
+</address>
+</publisher>
+<pubPlace>Berlin</pubPlace>
+<date type="publication">2025-10-24T08:35:18Z</date>
+<availability>
+<licence target="http://creativecommons.org/publicdomain/zero/1.0/">
+<p>Dieses Werk steht unter der "Creative Commons Namensnennung -
+Nicht kommerziell 3.0 Deutschland Lizenz" (CC BY-NC).</p>
+</licence>
+</availability>
+<idno>
+<idno type="URLWeb">https://www.deutschestextarchiv.de/nn_pfennig165_1836</idno>
+<idno type="URLXML">https://www.deutschestextarchiv.de/book/download_xml/nn_pfennig165_1836</idno>
+<idno type="URLHTML">https://www.deutschestextarchiv.de/book/download_html/nn_pfennig165_1836</idno>
+<idno type="URLText">https://www.deutschestextarchiv.de/book/download_text/nn_pfennig165_1836</idno>
+<idno type="DTADirName">nn_pfennig165_1836</idno>
+<idno type="DTAID">34766</idno>
+<idno type="URN">urn:nbn:de:kobv:b4-34766-4</idno>
+</idno>
+</publicationStmt>
+<sourceDesc>
+<bibl type="J">Das Pfennig=Magazin der Gesellschaft zur Verbreitung gemeinnütziger Kenntnisse. Nr. 165. Leipzig (Sachsen), 28. Mai 1836.</bibl>
+<biblFull>
+<titleStmt>
+<title level="m" type="main">Das Pfennig-Magazin der Gesellschaft zur Verbreitung gemeinnütziger Kenntnisse</title>
+<title level="m" type="sub">Nr. 165</title>
+</titleStmt>
+<editionStmt>
+<edition n="1"/>
+</editionStmt>
+<publicationStmt>
+<publisher/>
+<pubPlace>Leibzig (Sachsen)</pubPlace>
+<date type="publication">1836</date>
+</publicationStmt>
+</biblFull>
+<msDesc>
+<msIdentifier/>
+<physDesc>
+<typeDesc>
+<p>Fraktur</p>
+</typeDesc>
+</physDesc>
+</msDesc>
+</sourceDesc>
+</fileDesc>
+<encodingDesc>
+<editorialDecl>
+<p>
+<![CDATA[
+<p>Siehe Dokumentation</p>
+]]>
+</p>
+</editorialDecl>
+<tagsDecl>
+<rendition scheme="css" xml:id="aq">font-family:sans-serif</rendition>
+<rendition scheme="css" xml:id="b">font-weight:bold</rendition>
+<rendition scheme="css" xml:id="blue">color:blue</rendition>
+<rendition scheme="css" xml:id="c">display:block; text-align:center</rendition>
+<rendition scheme="css" xml:id="et">display:block; margin-left:2em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et2">display:block; margin-left:4em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et3">display:block; margin-left:6em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="f">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="fr">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="g">letter-spacing:0.125em</rendition>
+<rendition scheme="css" xml:id="i">font-style:italic</rendition>
+<rendition scheme="css" xml:id="in">font-size:150%</rendition>
+<rendition scheme="css" xml:id="k">font-variant:small-caps</rendition>
+<rendition scheme="css" xml:id="larger">font-size:larger</rendition>
+<rendition scheme="css" xml:id="red">color:red</rendition>
+<rendition scheme="css" xml:id="right">display:block; text-align:right</rendition>
+<rendition scheme="css" xml:id="s">text-decoration:line-through</rendition>
+<rendition scheme="css" xml:id="smaller">font-size:smaller</rendition>
+<rendition scheme="css" xml:id="sub">vertical-align:sub; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="sup">vertical-align:super; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="u">text-decoration:underline</rendition>
+<rendition scheme="css" xml:id="uu">border-bottom:double 3px #000</rendition>
+</tagsDecl>
+</encodingDesc>
+<profileDesc>
+<langUsage>
+<language ident="deu">(Früh-)Neuhochdeutsch</language>
+<language ident="deu">German</language>
+</langUsage>
+<textClass>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1main">Gebrauchsliteratur</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1sub">Zeitschrift</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">ready</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">mkhz1</classCode>
+</textClass>
+</profileDesc>
+</teiHeader>
+<text>     <front>
+<pb facs="#f0001" n="[169]"/>
+<titlePage type="heading"><docTitle><titlePart type="main"><hi rendition="#c #fr">Das Pfennig=Magazin<lb/>
+<hi rendition="#g">der</hi><lb/>
+Gesellschaft zur Verbreitung gemeinnütziger Kenntnisse.</hi></titlePart></docTitle><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<docImprint><hi rendition="#fr">Nr</hi>. 165. ]              <hi rendition="#c">Erscheint jeden Sonnabend.</hi>              <docDate><hi rendition="#right">[<hi rendition="#g">Mai</hi> 28, 1836.</hi></docDate>            </docImprint></titlePage><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+</front>     <body>       <div n="1" type="jArticle"><figure><head><hi rendition="#fr"><hi rendition="#g">Cordova</hi>.</hi></head><lb/>
+<p>         Ansicht der Stadt Cordova und der Brücke über den Guadalquivir       </p></figure><lb/>
+<pb facs="#f0002" n="170"/>
+<fw place="top" type="header"> <hi rendition="#g">Das Pfennig=Magazin.</hi> </fw>       <cb type="start"/>
+<head><hi rendition="#fr"><hi rendition="#g">Cordova</hi>.</hi></head><lb/>
+<p><hi rendition="#g"><hi rendition="#in">C</hi>&#x014D;rd&#x014F;v&#x0103;,</hi> Hauptstadt in der gleichnamigen spanischen<lb/>
+Provinz und die zweite Stadt Andalusiens, wurde wahr-<lb/>
+scheinlich von den Römern angelegt, welche sie <hi rendition="#aq">Colonia pa-<lb/>
+tricia</hi> und später <hi rendition="#aq">Corduba</hi> nannten. Sie war ein ansehnli-<lb/>
+cher Ort, hatte eine berühmte Akademie und war die Heimat<lb/>
+zweier ausgezeichneten römischen Gelehrten, das ältern und<lb/>
+des jüngern Seneca, und des Dichters Lucan. Nach dem<lb/>
+Falle des römischen Reiches wurde, wie ganz Spanien,<lb/>
+auch Cordova von den Westgothen erobert und blieb in de-<lb/>
+ren Besitze, bis zur Landung der Araber. Als Roderich,<lb/>
+der letzte König der Westgothen, 711 bei Xeres eine Nie-<lb/>
+derlage erlitten hatte, überfiel ein feindlicher Reiterhaufen<lb/>
+während der Nacht die Stadt Cordova und trieb den Be-<lb/>
+fehlshaber derselben mit 400 tapfern Gothen in die Haupt-<lb/>
+kirche, wo sie sich befestigten. Sie hielten sich hier drei<lb/>
+Monate lang, da ihnen ihr Wasserbedarf durch eine unter-<lb/>
+irdische Leitung aus einer Quelle am Fuße des Gebirges<lb/>
+zugeführt wurde. Wie ein arabischer Schriftsteller erzählt,<lb/>
+ward ein Neger aus dem Heerhaufen der Mohammeda-<lb/>
+ner von den Belagerten gefangen, und da sie nie einen<lb/>
+Schwarzen gesehen hatten, so führten sie ihn an ihre<lb/>
+unterirdische Wasserleitung und versuchten es ernstlich,<lb/>
+ihn weiß zu waschen. Nach siebentägiger Gefangenschaft<lb/>
+gelang es dem Neger zu entkommen, und als er dem<lb/>
+Befehlshaber des Heerhaufens seine Beobachtungen mit-<lb/>
+getheilt hatte, wurde die Wasserleitung entdeckt und ab-<lb/>
+geschnitten. Die Belagerten hatten nun keine Hoff-<lb/>
+nung mehr, aber sie verwarfen standhaft die ihnen vor-<lb/>
+gelegten Bedingungen, zum Mohammedanismus über-<lb/>
+zugehen oder Tribut zu bezahlen. Die Kirche wurde<lb/>
+angezündet, und Alle kamen in den Flammen um. Un-<lb/>
+gefähr 50 Jahre später war Cordova die Hauptstadt<lb/>
+des mohammedanischen Reiches in Spanien. Als der<lb/>
+Stamm der Abbassiden das herrschende Geschlecht der<lb/>
+Omajjiden verdrängt und sich des Khalifats zu Da-<lb/>
+mask bemächtigt hatte, ging Abderrhaman, der letzte<lb/>
+Sprößling des verbannten Stammes, nach Spanien,<lb/>
+machte sich nach einem glücklichen Kampfe zum Herrn<lb/>
+der mohammedanischen Besitzungen und nahm 759 sei-<lb/>
+nen Sitz in Cordova, das den Namen des westlichen<lb/>
+Khalifats erhielt. Die Stadt wurde nun der Mittel-<lb/>
+punkt arabischer Cultur und Pracht, ein Sitz der Ge-<lb/>
+lehrsamkeit, Kunst und Betriebsamkeit, während das<lb/>
+übrige Europa in Roheit versunken war, ein glänzen-<lb/>
+des Vorbild ritterlicher Waffenspiele. Abderrhaman ver-<lb/>
+größerte und verschönerte die Stadt, umgab sie mit ei-<lb/>
+ner Mauer, baute einen prächtigen Palast mit reizen-<lb/>
+den Gärten und begann den Bau der großen Moschee,<lb/>
+die so berühmt in der ganzen mohammedanischen<lb/>
+Welt wurde. Zwar störten später den innern Frieden<lb/>
+stete Unruhen, bald Empörungen der Statthalter in<lb/>
+den Provinzen und Städten des Khalifats, bald der<lb/>
+den Mohammedanern unterworfenen westgothischen Chri-<lb/>
+sten, und die Landungen der Normannen an den spa-<lb/>
+nischen Küsten im 9. Jahrhunderte vermehrten die Ver-<lb/>
+wirrung im Jnnern; aber Cordova wurde mitten un-<lb/>
+ter diesen Drangsalen verschönert, und hob sich noch<lb/>
+mehr, als Abderrhaman <hi rendition="#aq">III</hi>. in der zweiten Hälfte des<lb/>
+10. Jahrhunderts die innere Ruhe und den Glanz des<lb/>
+Khalifats wiederherstellte, die Grenzen seines Reichs<lb/>
+erweiterte und durch eine weise Staatsverwaltung seine<lb/>
+Macht vermehrte. Um diese Zeit wurden die Häuser<lb/>
+in Cordova gezählt, und man fand nach der Versiche-<lb/>
+rung eines arabischen Schriftstellers über 200,000, die<lb/>
+blos von dem gemeinen Volke bewohnt wurden, über<lb/>
+66,000, wo Edle, Staatsbeamte und Kriegsleute wohn-<lb/>
+<cb n="2"/>
+ten; Kaufläden wurden über 80,000 gezählt. Die<lb/>
+Zahl der Einwohner stand damit in Verhältniß und<lb/>
+wurde zu einer Million angegeben. Was auch in die-<lb/>
+sen Angaben übertrieben sein mag, so geht doch aus<lb/>
+andern arabischen Schriftstellern hervor, daß die Stadt<lb/>
+mit ihren Zubehörungen einen beträchtlichen Flächen-<lb/>
+raum einnahm. Einer derselben erzählt, er sei durch<lb/>
+die Stadt und ihre ausgedehnten Vorstädte eine Strecke<lb/>
+von zwei Meilen bei dem Lampenlichte einer ununter-<lb/>
+brochenen Häuserreihe gezogen, und es wird bestimmt<lb/>
+angegeben, daß die Gebäude einen Raum von fünfte-<lb/>
+halb Meilen in einer Richtung und von mehr als ei-<lb/>
+ner Meile in einer andern bedeckt haben; überall Wohn-<lb/>
+häuser, Paläste, Moscheen und Gärten längs dem Ufer<lb/>
+des Guadalquivir. Die Mauren in Cordova waren<lb/>
+in mancher Hinsicht von den Bewohnern der übrigen<lb/>
+großen Städte Spaniens verschieden. Jhre Widersetz-<lb/>
+lichkeit gegen ihre Beherrscher war sprüchwörtlich ge-<lb/>
+worden. Einer derselben vergleicht sie mit Kameelen, die<lb/>
+immer Klagelaute ausstoßen, mag man ihnen Lasten<lb/>
+abnehmen oder auflegen, sodaß man nicht weiß, was<lb/>
+ihnen gefalle, um es ihnen zu gewähren, oder was ih-<lb/>
+nen misfalle, um es zu vermeiden. Auch zeichneten<lb/>
+sie sich durch zierlichen Anzug aus, durch strenge Er-<lb/>
+füllung ihrer Glaubenspflichten, durch ihren Eifer, die<lb/>
+Weinschenken zu zerstören, wiewol sie sonst verbotenen<lb/>
+Genüssen sich hingaben, durch ihren Stolz auf edle<lb/>
+Herkunft und kriegerische Geschicklichkeit. Der alte Ruhm<lb/>
+der Gelehrsamkeit wurde während der Herrschaft der<lb/>
+Mauren nicht vermindert. Unter Abderrhaman's Sohn,<lb/>
+Al Hakkam <hi rendition="#aq">II</hi>., der bis 976 herrschte, wurde noch<lb/>
+mehr als früher für die Cultur des Landes gethan;<lb/>
+Ackerbau, Gewerbe, Künste, besonders Baukunst, blüh-<lb/>
+ten, eine Gelehrtenschule ward in Cordova errichtet,<lb/>
+fremde arabische Gelehrte wurden in das Land gezogen,<lb/>
+und der Khalif legte eine Büchersammlung an, die er<lb/>
+aus vielen Ländern zusammenbrachte, und unter den<lb/>
+zahlreichen Werken derselben war, wie man sagt, nicht<lb/>
+ein einziges, das er nicht selber sorgfältig durchgesehen<lb/>
+und dem er nicht mit eigner Hand eine Nachricht über<lb/>
+die Lebensumstände des Verfassers beigeschrieben hätte.<lb/>
+Seit dem Anfange des 11. Jahrhunderts zerfiel das<lb/>
+Khalifat Cordova nach und nach in einzelne arabische<lb/>
+Fürstenthümer, und als die Herrschaft der Mohamme-<lb/>
+daner immer mehr in Verfall gerathen war, während<lb/>
+die kleinen christlichen Königreiche in Spanien erstark-<lb/>
+ten, ward endlich Cordova im Jahre 1236 den Mau-<lb/>
+ren durch Ferdinand den Heiligen entrissen. Er ver-<lb/>
+trieb alle Mauren, und Cordova verödete bald. Gras<lb/>
+wuchs in seinen Straßen und den Höfen seiner Paläste<lb/>
+und Häuser, und ungehört murmelten seine kühlen Spring-<lb/>
+brunnen. Einige unbetriebsame Menschen ließen sich<lb/>
+durch die Verleihung von Häusern und Ländereien be-<lb/>
+wegen, aus andern Gegenden Spaniens in die öde<lb/>
+Stadt zu ziehen, und die Abkömmlinge dieser Einwan-<lb/>
+derer sind die jetzigen Bewohner Cordovas.</p><lb/>
+<p>Die Stadt liegt am rechten Ufer des Guadalquivir,<lb/>
+am Fuße der Sierra Morena, in einer reizenden Land-<lb/>
+schaft, ein längliches Viereck bildend, von Mauern und<lb/>
+mächtigen Thürmen umgeben. Die ebene Gegend am<lb/>
+Stromufer erzeugt in Überfluß alle Früchte des südlichen<lb/>
+Spaniens. Eine Reihe der umliegenden niedrigen Berge<lb/>
+ist bis zum Gipfel bewaldet; Gärten, Pomeranzenwäld-<lb/>
+chen und Landhäuser beleben die Landschaft längs dem<lb/>
+Ufer und beschränken die Aussicht gegen Süden, wäh-<lb/>
+rend die Gebirgskette der Sierra Morena ihre maleri-<lb/>
+schen Vorberge fast bis zu den Mauern der Stadt aus-<lb/>
+streckt. Das anziehende Bild, das Cordova in der<lb/>
+<cb type="end"/>
+<pb facs="#f0003" n="171"/>
+<fw place="top" type="header"><hi rendition="#g">Das Pfennig=Magazin.</hi> </fw><cb type="start"/>
+Ferne darbietet, verliert seine Reize, wenn wir die Stadt<lb/>
+betreten. Jhre Straßen sind enge, krumm und schmuzig.<lb/>
+Viele Gebäude sind verfallen, überall Spuren unterge-<lb/>
+gangener Herrlichkeit. Zahlreiche Gärten bedecken einen<lb/>
+großen Theil des einst bewohnten Raumes. Die Ein-<lb/>
+wohnerzahl ist auf 30,000 herabgesunken. Der große<lb/>
+Platz ist regelmäßig und ein schöner Säulengang um-<lb/>
+gibt ihn. Von dem alten Schlosse der maurischen Kö-<lb/>
+nige sieht man noch Überreste, die einen Theil des bi-<lb/>
+schöflichen Palastes bilden. Eins der prachtvollsten<lb/>
+Denkmale der maurischen Vorzeit ist die Domkirche,<lb/>
+einst eine Moschee, nach den Tempeln zu Jerusalem<lb/>
+und Mekka die heiligste in der mohammedanischen Welt.<lb/>
+Sie wurde von Abderrhaman auf den Trümmern einer<lb/>
+von den westgothischen Königen gebauten Kirche errich-<lb/>
+tet, von seinem Sohne um das Jahr 800 vollendet,<lb/>
+von spätern Khalifen vergrößert und nach der Erobe-<lb/>
+rung in eine christliche Kirche umgeschaffen. Die Moschee<lb/>
+war 620 Fuß lang und 440 F. breit und von vier<lb/>
+Straßen umgeben, die sie von jeder Berührung mit an-<lb/>
+dern Gebäuden ausschlossen. Das Dach stützten mehr<lb/>
+als 1200 Säulen von dem kostbarsten Marmor und<lb/>
+Jaspis, welche 19 Gänge in der Breite und 29 in<lb/>
+der Länge bildeten. Der Tempel hatte 21 Eingänge,<lb/>
+alle mit künstlichen ehernen Verzierungen bedeckt. Die<lb/>
+Hauptthüre, die zu dem Allerheiligsten, der Maksura,<lb/>
+führte, war von Gold und der Fußboden dieses geweih-<lb/>
+ten Raumes von Silber. Hier ward auf einem Throne<lb/>
+von Aloeholz mit goldenen Nägeln in einem goldenen,<lb/>
+mit Perlen und Rubinen besetzten Behältnisse eine Ab-<lb/>
+schrift des Korans aufbewahrt. Das Minaret der<lb/>
+Moschee war gegen 70 Ellen hoch und mit drei Ku-<lb/>
+geln gekrönt, zwei von Gold, die mittlere von Silber,<lb/>
+jede viertehalb Spannen im Umfange haltend. Zweiund<lb/>
+achtzig Lampen von Erz oder Silber erleuchteten das<lb/>
+Jnnere und verbrauchten jährlich 1000 Pfund Baum-<lb/>
+wolle und 27,000 Pfund Öl. Die Zahl der an der<lb/>
+Moschee angestellten Priester, Vorleser, Aufseher, Gebet-<lb/>
+rufer betrug 300. Ein Theil des viereckigen Gebäudes<lb/>
+enthielt einen noch jetzt vorhandenen Hof, in welchem<lb/>
+vor dem Eintritte in die Moschee die vorgeschriebenen<lb/>
+Abwaschungen vorgenommen wurden. Er war auf drei<lb/>
+Seiten von einem Säulengange umgeben, hatte drei<lb/>
+Springbrunnen, und viele Cypressen=, Palmen= und<lb/>
+Orangebäume gewährten stets einen erquickenden Schatten.<lb/>
+Man sieht noch jetzt in dem Vorhofe Orangebäume von<lb/>
+außerordentlicher Größe, die aus der Zeit der maurischen<lb/>
+Könige stammen sollen. Nach der Eroberung der Stadt<lb/>
+ließ König Ferdinand das Gebäude größtentheils in der<lb/>
+arsprünglichen Gestalt, seit 1528 aber fing man an, das<lb/>
+schöne Ebenmaß des prächtigen Bauwerks durch neue An-<lb/>
+baue zu stören, und vergebens haben Freunde der Kunst<lb/>
+des Alterthums bei dem Domcapitel Vorstellungen gegen<lb/>
+jene geschmacklosen Veränderungen gemacht, wozu beson-<lb/>
+ders die Errichtung eines großen Chors mitten in der<lb/>
+Kirche gehört, der zwar an sich eine treffliche Arbeit im<lb/>
+gothischen Style zeigt, aber mit dem Jnnern einer mau-<lb/>
+rischen Moschee nicht zusammenstimmt. Eine Art von<lb/>
+Zelle hat, bis auf einen Altar und ein Grabmal,<lb/>
+noch ganz den maurischen Charakter mit allen ursprüng-<lb/>
+lichen Verzierungen, die Form des maurischen Bogens,<lb/>
+die schnörkelartigen Vergoldungen, die arabischen Jn-<lb/>
+schriften in Mosaik. Das Jnnere des großartigen Tem-<lb/>
+pels, in welches uns nachstehende Abbildung ( S. 176 )<lb/>
+einen Blick gewährt, gleicht einem Walde von Säulen,<lb/>
+und nichts ist ergreifender als ein Blick durch einen jener<lb/>
+Säulengänge, in welchen die Aussicht nicht durch neue<lb/>
+Kapellen gehemmt wird. Das Licht fällt durch die<lb/>
+<cb n="2"/>
+Thüren und durch mehre kleine Kuppeln ein, doch<lb/>
+herrscht im Jnnern eine geheimnißvolle Dämmerung.</p><lb/>
+<p>Die Brücke über den Guadalquivir, die wir auf<lb/>
+vorstehender Abbildung sehen, ist ebenfalls ein prächtiges<lb/>
+Bauwerk, hat 16 Bögen und ist 1000 Fuß lang. Die<lb/>
+Mauren begannen den Bau 721; gegen Ende des 8.<lb/>
+Jahrhunderts aber wurde sie von Abderrhaman's Sohn<lb/>
+gänzlich umgebaut. Als das Werk vollendet war, er-<lb/>
+zählen die arabischen Geschichtschreiber, fragte der Khalif,<lb/>
+was das Volk zu dem Baue sage. &#x201E;Sie sagen&#x201C;, war die<lb/>
+Antwort, &#x201E;ihr Fürst habe sie nur gebaut, um darüber<lb/>
+auf die Jagd zu gehen.&#x201C; Als der Khalif dies hörte,<lb/>
+verband er sich durch einen Eid, nie über die Brücke<lb/>
+zu gehen, und hielt dies Gelübde treu.</p><lb/>
+<p>Ungefähr zwei Stunden von Cordova stand einst der<lb/>
+Palast Azzahra, den Abderrhaman <hi rendition="#aq">III</hi>. nach dem Wunsche<lb/>
+seiner geliebtesten Gemahlin erbaute und nach ihr nannte.<lb/>
+Er ließ die berühmtesten Baumeister aus Bagdad, Kon-<lb/>
+stantinopel und andern Theilen des Morgenlandes kom-<lb/>
+men, und wie die arabischen Geschichtschreiber erzählen,<lb/>
+waren täglich mehre tausend Menschen bei dem Baue<lb/>
+beschäftigt, es wurden nicht weniger als 1400 Last-<lb/>
+thiere dabei gebraucht, und das Werk ward in 25 Jah-<lb/>
+ren vollendet. Der Palast hatte 4300 Säulen von<lb/>
+verschiedener Größe und mehre tausend kostbar verzierte<lb/>
+Thüren. Der Prachtsaal der Khalifen bestand aus<lb/>
+buntem, mit Gold ausgelegtem Marmor. Jn der Mitte<lb/>
+des Saals befand sich ein großes, mit Quecksilber ge-<lb/>
+fülltes Marmorbecken. Auf jeder Seite waren acht<lb/>
+Thüren, in Gewänden mit Gold und Elfenbein verziert<lb/>
+und an Säulen von Marmor und Krystallen hangend.<lb/>
+Fiel das Sonnenlicht durch die geöffneten Thüren, so<lb/>
+war der von der Decke und den Wänden zurückgewor-<lb/>
+fene Glanz so groß, daß das Auge geblendet wurde.<lb/>
+Wollte der Khalif Jemand in seinem Gefolge überra-<lb/>
+schen oder erschrecken, so ließ er das Quecksilber in Be-<lb/>
+wegung setzen, wo dann der ganze Saal in Bewegung zu<lb/>
+sein schien, bis das Quecksilber wieder ruhig war. Al<lb/>
+Hakkam, Abderrhaman's Sohn, vergrößerte den Palast.<lb/>
+Eine arme Witwe, erzählt man, besaß ein kleines Stück<lb/>
+Feld, das an den Garten des Khalifen grenzte. Sie wies<lb/>
+jedes Anerbieten ab, das Erbe ihrer Väter zu verkaufen;<lb/>
+aber einer der Beamten des Khalifen nahm ihr mit Gewalt,<lb/>
+was sie nicht abtreten wollte. Die untröstliche Frau ging<lb/>
+nach Cordova und brachte ihre Klage vor dem Richter<lb/>
+an. Der Beamte sah, daß das Gesetz klar und ent-<lb/>
+scheidend zu Gunsten der Frau sprach, aber er fühlte, daß<lb/>
+es schwer sein würde, den Khalifen davon zu überzeugen.<lb/>
+Er setzte sich auf einen Esel, nahm einen ungeheuern Sack<lb/>
+mit und erschien vor dem Khalifen, der eben in einem<lb/>
+Kiosk saß, welcher auf dem der armen Frau genomme-<lb/>
+nen Felde erbaut war. Der Khalif wunderte sich, den<lb/>
+Richter mit einem großen Sacke auf den Schultern zu<lb/>
+sehen. Der Beamte warf sich vor ihm nieder und bat<lb/>
+ihn um die Erlaubniß, seinen Sack mit Erde von dem<lb/>
+Boden zu füllen, auf welchem sie standen. Die Bitte<lb/>
+wurde gewährt, und als der Sack gefüllt war, bat der<lb/>
+Richter den Fürsten, ihm den Sack auf den Esel heben<lb/>
+zu helfen. Dieses seltsame Gesuch überraschte den Kha-<lb/>
+lifen noch mehr, und er sagte dem Richter, die Last<lb/>
+wäre zu schwer. &#x201E;O Fürst&#x201C;, sprach der Richter, &#x201E;dieser<lb/>
+Sack enthält nur einen kleinen Theil der Erde, die du<lb/>
+ungerechter Weise einer armen Frau genommen hast,<lb/>
+und wie schwer wirst du am Tage des Gerichts an<lb/>
+dem Ganzen zu tragen haben.&#x201C; Der Khalif, nicht er-<lb/>
+zürnt über den dreisten Vorwurf, erkannte seinen Feh-<lb/>
+ler und gab das Feld zurück mit Allem, was er dar-<lb/>
+auf hatte erbauen lassen. Keine Spur von dem präch-<lb/>
+<cb type="end"/>
+<pb facs="#f0004" n="172"/>
+<fw place="top" type="header"> <hi rendition="#g">Das Pfennig=Magazin.</hi> </fw><cb type="start"/>
+tigen Palast ist mehr zu sehen; er wurde während der<lb/>
+innern Kriege des 11. Jahrhunderts zerstört.</p><lb/>
+<p>Cordova war einst berühmt durch die Treff-<lb/>
+lichkeit seiner vielen Manufacturen, besonders durch<lb/>
+ein feines Leder, das von der Stadt, wo es zuerst<lb/>
+und ausschließend verfertigt wurde, den Namen <hi rendition="#g">Cor-<lb/>
+duan</hi> erhielt. Am nördlichen Ufer des Guadalquivir<lb/>
+findet man noch mehre, mit Ziegeln ausgemauerte Ger-<lb/>
+bergruben, welche die Mauren bei der Bereitung dieses<lb/>
+Leders benutzten. Sie hatten eine außerordentliche Ge-<lb/>
+schicklichkeit in dieser Gerberei, und nachdem sie die<lb/>
+Häute durch Anwendung verschiedener Mittel zubereitet<lb/>
+hatten, gaben sie ihnen eine lebhafte Farbe und zuletzt<lb/>
+<cb n="2"/>
+einen so hohen Glanz, als ob ein Firniß wäre aufge-<lb/>
+tragen worden. Man findet noch in einigen Gegenden<lb/>
+Andalusiens Überreste dieses Zweiges der Betriebsamkeit,<lb/>
+der bei der Vertreibung der Mauren fast ganz vernich-<lb/>
+tet ward und mit ihnen nach Marokko wanderte, wo<lb/>
+noch jetzt ähnliche feine Lederarten bereitet werden, die<lb/>
+den Namen <hi rendition="#g">Maroquin</hi> führen. Die dürftigen Ma-<lb/>
+nufacturen in Cordova beschränken sich jetzt meist auf die<lb/>
+Verfertigung von Bändern und baumwollenen Maul-<lb/>
+thierdecken. Nur mit Pferden wird noch ein bedeuten-<lb/>
+der Handel getrieben, und das königliche Gestüte im<lb/>
+alten maurischen Palaste gilt für das vorzüglichste in<lb/>
+Spanien.</p></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Das Reliquienkästchen des heiligen Spire zu Corbeil.</hi></head><lb/>
+<figure/><lb/>
+<cb type="start"/>
+<p><hi rendition="#in">D</hi>ieses kunstvoll gearbeitete alterthümliche Meisterwerk,<lb/>
+das sich ehedem in der Kirche des heiligen Spire zu<lb/>
+Corbeil befand, und in welchem die Überreste des heiligen<lb/>
+Leo, des heiligen Regnobert und des Schutzpatrons der<lb/>
+Kirche selbst aufbewahrt wurden, war aus vergoldetem<lb/>
+Silber, wie die Abbildung zeigt, in Form einer gothi-<lb/>
+<cb n="2"/>
+schen Kapelle, gearbeitet, und die darin enthaltenen Re-<lb/>
+liquien waren drei Köpfe, ebenfalls aus vergoldetem<lb/>
+Silber, welche die wirklichen Häupter der Heiligen dar-<lb/>
+stellten. Zur Zeit der französischen Revolution machte<lb/>
+die Stadtbehörde von Corbeil mit diesem Schatz der Regie-<lb/>
+rung ein Geschenk, welche das Ganze einschmelzen ließ.</p></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<pb facs="#f0005" n="173"/>
+<fw place="top" type="header"><hi rendition="#g">Das Pfennig=Magazin.</hi> </fw>       <cb type="start"/>
+<div n="1" type="jArticle"><head><hi rendition="#fr"><hi rendition="#g">Die Henkerflasche</hi>.</hi></head><lb/>
+<figure/><lb/>
+<p><hi rendition="#in">D</hi>ies war der Name einer runden Flasche, die vor<lb/>
+mehren hundert Jahren solchen Leuten, die sich policei-<lb/>
+licher Vergehungen, öffentlichen Skandals u. s. w. schul-<lb/>
+dig gemacht hatten, an einem Riemen um den Hals<lb/>
+gehängt, und womit sie dann öffentlich durch die Stra-<lb/>
+ßen oder um das Rathhaus herumgeführt wurden.<lb/>
+Unsere Abbildung stellt eine solche Henkerflasche vor, auf<lb/>
+welcher zwei Weiber dargestellt sind, die sich auf öffent-<lb/>
+lichem Markte schimpfen und schlagen. War das Ver-<lb/>
+gehen mit erschwerenden Umständen verbunden, so schritt<lb/>
+ihnen ein Gerichtsdiener und ein Tambour voran und<lb/>
+verkündete laut das begangene Unrecht. Ähnliche Stra-<lb/>
+fen waren namentlich im 17. Jahrhundert durch ganz<lb/>
+Europa üblich.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr"><hi rendition="#g">Die vergleichende Anatomie</hi>.</hi></head><lb/>
+<p><hi rendition="#in">E</hi>ine der interessantesten Seiten der Naturwissenschaft<lb/>
+ist unstreitig die wissenschaftliche Beobachtung der Ver-<lb/>
+schiedenheiten in den Körperformen der einzelnen Thier-<lb/>
+arten. Die aus diesem Studium sich ergebende Verglei-<lb/>
+chung des Mannichfaltigen und Unterschiedenen, das Zu-<lb/>
+rückführen des Einzelnen auf allgemeine Principien ist<lb/>
+der Gegenstand der vergleichenden Anatomie, einer Wis-<lb/>
+senschaft, die sich namentlich in unsern Tagen durch<lb/>
+die ausgezeichnetsten Gelehrten zu einem hohen Grade<lb/>
+ausgebildet hat. Bleibt aber auch das streng wissen-<lb/>
+schaftliche Resultat dieser Studien nur den Gelehrten<lb/>
+von Beruf vorbehalten, so muß es doch auch für den<lb/>
+<cb n="2"/>
+bloßen Naturfreund, der sich zu belehren wünscht, von<lb/>
+Jnteresse sein, aus den abweichenden Gestaltungen seiner<lb/>
+Mitgeschöpfe sich über deren eigenthümlichste Bestim-<lb/>
+mung, über ihre Lebensverrichtungen und über die beson-<lb/>
+dere Stellung, welche ihnen die Allmacht des Schöpfers<lb/>
+in dem Weltall angewiesen, zu unterrichten.</p><lb/>
+<p>Das Princip, welches uns hierbei zu einem allge-<lb/>
+meinern Überblick der gesammten Natur leitet, ist, daß<lb/>
+die Organisation nach den Bedingungen und Umständen,<lb/>
+unter denen das Thier auf seinen Platz hingestellt ist,<lb/>
+und durch die es nur leben kann, immer wechselt.<lb/>
+So ist jede wichtige Verrichtung des animalischen Lebens<lb/>
+genau bedingt, durch die Organe ( Werkzeuge ) , welche<lb/>
+das Thier dazu besitzt. Die Verdauung z. B. ist<lb/>
+bei allen Thieren dieselbe; aber in der Organisation<lb/>
+herrscht doch eine bedeutende Verschiedenheit, der Bau<lb/>
+des Magens ist mannichfaltig, hinsichtlich seiner Ge-<lb/>
+stalt, der Anzahl seiner Höhlungen, nach Maßgabe<lb/>
+des Fraßes, den das Thier zu sich nimmt, ob es<lb/>
+Vogel, Fisch, Jnsekt u. s. w. ist. Diese Abweichungen<lb/>
+sind keineswegs von der Größe des Thieres abhängig,<lb/>
+sondern beziehen sich lediglich auf seine Nahrung. So<lb/>
+ist der Magen eines Fisches, eines Jnsekts so vollständig<lb/>
+wie bei dem Geflügel. Ebenso ist in Beziehung auf den<lb/>
+Blutumlauf in der Art und Weise des Einathmens ein<lb/>
+großer Unterschied, und die dazu dienenden Organe müs-<lb/>
+<figure><head>Der Kopf eines äthiopischen Ebers.</head></figure><lb/>
+<figure><head>Das Skelett eines deutschen Ebers.</head></figure><lb/>
+sen sich darnach richten, ob das Thier im Wasser, in<lb/>
+der Luft oder in der Erde lebt. Ein noch größerer<lb/>
+Unterschied, wie bei den innern Organen herrscht je-<lb/>
+doch unter den äußern Körpertheilen der Thiere, mit-<lb/>
+tels derer sie ihre Nahrung sich verschaffen oder sich ihrer<lb/>
+Beute bemächtigen müssen. Wie vielgestaltig müssen<lb/>
+<cb type="end"/>
+<pb facs="#f0006" n="174"/>
+<fw place="top" type="header"> <hi rendition="#g">Das Pfennig=Magazin.</hi> </fw>       <cb type="start"/>
+die Extremitäten des Thieres sein, je nachdem es<lb/>
+lauft, springt, hüpft, kriecht oder schleicht. Der Bau<lb/>
+des Kopfs, der Hörner, des Gebisses u. s. w. muß sich<lb/>
+danach richten, wie es seine Nahrung erlangt, ob es<lb/>
+Feinde zu bekämpfen, und wie es sie zu überwälti-<lb/>
+gen hat. Ein aufmerksamer Blick auf den Kopf des<lb/>
+Ebers zeigt uns z. B. seine ganze Lebensweise und die<lb/>
+besondere Richtung seiner Kraft. Er lebt von Wurzeln,<lb/>
+die er aus der Erde wühlen muß; die Werkzeuge, mit<lb/>
+denen er dies verrichtet, dienen auch zu seiner Verthei-<lb/>
+digung. Durch die eigenthümliche Stellung der Fang-<lb/>
+zähne ist das Auge beim Aufwühlen der Erde geschützt;<lb/>
+die Bildung des Rückgrats, die merkwürdige Richtung<lb/>
+des hintern Schädels, um sich fest mit den starken<lb/>
+Muskeln zu verbinden, Alles zeigt, wie das ganze Ge-<lb/>
+wicht und die Kraft dieses Thieres nach vorwärts geht,<lb/>
+und sich in den mächtigen Fängen concentrirt. Jetzt<lb/>
+sieht man den Grund ein, warum der Hals so kurz<lb/>
+und steif ist, warum die ganze Stärke der Schultern<lb/>
+dem Kopfe und den mächtigen Hauern zustrebt.</p><lb/>
+<p>Unsere Abbildung stellt den Kopf eines äthiopischen<lb/>
+Ebers dar. Die gewaltigen Hauer zeigen, welch ein<lb/>
+furchtbares Thier dies sein muß. Daneben ist das<lb/>
+Skelett eines deutschen Ebers abgebildet <note place="foot" n="*)">Vergl. über den wilden Eber Pfennig=Magazin Nr. 122.</note>, an dessen<lb/>
+kraftvollem Rückgrath man das oben Gesagte bestätigt<lb/>
+finden wird.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle" xml:id="Pferde4"><head><hi rendition="#fr"><hi rendition="#g">Pferderacen</hi>.</hi><lb/>
+<ref target="nn_pfennig164_1836#Pferde3">( Beschluß aus Nr. 164. )</ref></head><lb/>
+<p><hi rendition="#in">G</hi>ehen wir nach diesen geschichtlichen Andeutungen<lb/>
+zu den verschiedenen Racen der englischen Pferde über.<lb/>
+Das gewöhnliche <hi rendition="#g">Reitpferd</hi> ist in den verschiedenen<lb/>
+Landestheilen verschieden. Man sieht dabei vorzüglich<lb/>
+auf regelmäßige Bildung der Schuliern und der Vorder-<lb/>
+füße. Die Schultern dürfen nicht zu sehr aufrecht ste-<lb/>
+hen, sondern müssen rückwärts abfallen. Ein Pferd,<lb/>
+dessen Schultern gut sind, steht in seiner natürlichen<lb/>
+Stellung mit den Vorderfüßen in einer senkrechten Linie<lb/>
+auf dem Boden, daher ein vorsichtiger Käufer es im<lb/>
+Stalle ansieht, ehe es aus seiner gewöhnlichen Stellung<lb/>
+gebracht ist. Ein gut gebauter Vorderfuß muß unter<lb/>
+dem Knie so stark als über dem Hufhaare sein. Das<lb/>
+gewöhnliche Ackerpferd, das sowol zum Reiten als zum<lb/>
+Ziehen gebraucht wird, muß höher als das gemeine<lb/>
+Reitpferd sein, wenigstens 15 Hand 2 Zoll hoch. Es<lb/>
+muß eine stärkere Schulter als dieses haben. Der eng-<lb/>
+lische Landwirth zieht jetzt rüstige Pferde den ehemaligen<lb/>
+schweren und plumpen vor. Die Pferdezucht wird haupt-<lb/>
+sächlich nur in den nördlichen Grafschaften Englands ge-<lb/>
+trieben, obgleich jeder Landwirth, der Gelegenheit hat,<lb/>
+Füllen zu erziehen, sich mit Nutzen auf diese Zucht le-<lb/>
+gen könnte. Diese Bemerkung gilt nicht blos für Eng-<lb/>
+land, sondern ist von allgemeiner Anwendbarkeit. Der<lb/>
+englische Landwirth beachtet übrigens zu wenig den er-<lb/>
+probten Grundsatz der Araber, daß bei einer guten Zucht<lb/>
+es vorzüglich auf die Stute ankommt.</p><lb/>
+<p>Das englische <hi rendition="#g">Kutschpferd</hi> gehört schon zu der<lb/>
+höher veredelten Zucht und ist jetzt ganz anders als vor<lb/>
+50 Jahren. Das plump gebaute, dickfüßige, feiste,<lb/>
+schwarze Familienpferd, das eine Meile in einer Stunde<lb/>
+zurücklegte und nach einer Tagereise erschöpft war, sieht<lb/>
+man jetzt nicht mehr, und man hat dagegen schön ge-<lb/>
+baute Thiere, die stärker und dreimal so schnell sind.<lb/>
+<cb n="2"/>
+Die besten Kutschpferde kommen aus der Grafschaft<lb/>
+York. Aus demselben Theile Englands kommen die<lb/>
+schweren und hohen Zugpferde, die man von ihrer Hei-<lb/>
+mat Clevelandpferde nennt. Sie können mehr als 700<lb/>
+Pfund 12 Meilen weit in 24 Stunden ziehen und<lb/>
+diese Reise viermal wöchentlich machen; doch ist dieser<lb/>
+Stamm jetzt fast ausgestorben. Jhnen ähnlich sind die<lb/>
+gleichfalls jetzt seltenen Suffolkpferde, sehr starke Thiere,<lb/>
+mit großem Kopfe, sehr niedrigen Schultern und von<lb/>
+rothbrauner Farbe, aber dabei sehr behende und sicher.<lb/>
+Eine gute Zucht für Pferde zu demselben Gebrauche<lb/>
+gibt es auch im Clydethale in Schottland. Sie wer-<lb/>
+den im südlichen Schottland nicht nur für landwirth-<lb/>
+schaftliche Arbeiten, sondern selbst als Kutschpferde und<lb/>
+zum Reiten benutzt. Durch Stärke und stattliche Gestalt<lb/>
+ausgezeichnet ist noch das sogenannte schwere schwarze<lb/>
+Pferd, das vorzüglich in Lincolnshire gezogen wird.<lb/>
+Die Landwirthe, die sie ziehen, verkaufen sie gewöhnlich<lb/>
+zu dem Gebrauche auf den Landstraßen in der Nähe<lb/>
+der Hauptstadt, die kräftige Zugthiere fodern, und berei-<lb/>
+ten sie zu dieser Bestimmung vor, indem sie dieselben<lb/>
+sehr jung, oft vier nebeneinander, einen Pflug ziehen<lb/>
+lassen. Man sieht deren einige, welche in einem Alter<lb/>
+von dritthalb Jahren 17 Hand hoch sind. Die stärk-<lb/>
+sten Pferde dieser Gattung, die sich durch eine breite<lb/>
+Brust und hohe Schultern auszeichnen, werden als<lb/>
+Karrengäule gebraucht. Man hat sie in neuern Zei-<lb/>
+ten durch Kreuzung mit Pferden von flamändischer<lb/>
+Zucht verbessert. Eine leichter gebaute feurigere Art<lb/>
+von diesem Stamme wird bei der englischen Reiterei<lb/>
+benutzt. Jn frühern Zeiten wurden für die Reiterei<lb/>
+meist starke und schwere Pferde gewählt, später aber<lb/>
+behielt man diese nur in den Garderegimentern bei<lb/>
+und wählte für die übrige Reiterei leichtere und schnel-<lb/>
+lere Pferde, doch war man darin zum Theil zu weit<lb/>
+gegangen, und es zeigte sich, daß vor und in der<lb/>
+Schlacht bei Waterloo nur die Gardereiter den heftigen<lb/>
+Angriffen der französischen schweren Reiterei widerstehen<lb/>
+konnten.</p><lb/>
+<p>Besondere Sorgfalt wird in England auf die Zucht<lb/>
+der <hi rendition="#g">Rennpferde</hi> ( <hi rendition="#aq">race horses</hi> ) gewendet. Über den<lb/>
+Ursprung derselben ist man nicht einig. Nach einigen<lb/>
+stammen sie von väterlicher und mütterlicher Seite von<lb/>
+morgenländischen Pferden, nach andern von einheimischen,<lb/>
+die mit Berbern oder türkischen und arabischen Thieren<lb/>
+gekreuzt wurden. Mögen die Rennpferde in frühern Zei-<lb/>
+ten, wie man behauptet, alle von morgenländischem<lb/>
+Ursprunge gewesen sein, so kann man doch im Allge-<lb/>
+meinen annehmen, daß der jetzige Stamm im Ganzen<lb/>
+zwar von fremder Herkunft ist, aber durch den Ein-<lb/>
+fluß des Klimas und sorgfältige Pflege sich veredelt hat.<lb/>
+Die Erfahrung hat gezeigt, daß die in England gezoge-<lb/>
+nen Pferde dieser Art an Schönheit, Schnelligkeit und<lb/>
+Stärke die berühmten Renner aus der arabischen<lb/>
+Wüste übertroffen haben. Seit 50 Jahren hat man<lb/>
+in England die Stammbäume der Renner mit großer<lb/>
+Sorgfalt fortgeführt. Der Stammvater der besten<lb/>
+Rennpferde ist der Darley=Araber, der in der Wüste<lb/>
+bei Palmyra gezogen und von dem Engländer Darley<lb/>
+in Aleppo gekauft wurde. Zu seinen berühmte-<lb/>
+sten Nachkommen gehören der Sampson, der Eclipse<lb/>
+und der windschnelle Childers, von welchem man er-<lb/>
+zählt, daß er eine englische Meile in einer Minute lau-<lb/>
+fen konnte. Der Eclipse, der 1789 starb, siegte in<lb/>
+334 Wettrennen und verdiente seinen Eigenthümern<lb/>
+über 160,000 Pfund Sterling, und ein Abkömmling<lb/>
+des Childers, der König Herodes, siegte 497mal und<lb/>
+gewann gegen 200,000 Pfund. Ein anderer Stamm-<lb/>
+<cb type="end"/>
+<pb facs="#f0007" n="175"/>
+<fw place="top" type="header"><hi rendition="#g">Das Pfennig=Magazin.</hi> </fw><cb type="start"/>
+vater der englischen Renner, der eine zahlreiche Nach-<lb/>
+kommenschaft hinterlassen hat, war ein in Frankreich<lb/>
+von dem Lord Godolphin gekaufter Berber, der dort<lb/>
+einen Karren zog und 1753 in England starb. Eine<lb/>
+innige Freundschaft bestand zwischen ihm und einer<lb/>
+Katze, die im Stalle entweder auf seinem Rücken saß<lb/>
+oder sich dicht neben ihm ihren Platz suchte, und nach<lb/>
+seinem Tode nichts mehr fraß und bald starb. Man<lb/>
+versichert, es sei eine ungegründete Behauptung, daß<lb/>
+der gegenwärtige Stamm der englischen Rennpferde aus-<lb/>
+geartet sei; aber allerdings könnte die Gewohnheit, die<lb/>
+Pferde, ehe sie völlig ausgewachsen sind, auf die Renn-<lb/>
+bahn zu bringen, eine Ausartung veranlassen. Der<lb/>
+Eclipse und der Childers kamen nicht eher zum Ren-<lb/>
+nen, bis sie fünf Jahre alt waren.</p><lb/>
+<p>Unter den veredelten Pferden steht nächst dem<lb/>
+Renner das <hi rendition="#g">Jagdpferd</hi> ( <hi rendition="#aq">hunter</hi> ) am höchsten in äu-<lb/>
+ßern Vorzügen und im Werthe, und es wird auf die<lb/>
+Zucht und Pflege desselben große Sorgfalt gewendet.<lb/>
+Es wird nicht leicht unter 15 und nicht über 16 Hand<lb/>
+hoch genommen, und das Vordertheil muß etwas höher<lb/>
+sein als das Hintertheil, das dagegen bei dem Renner<lb/>
+höher sein kann, weil seine Hauptstärke in den Hinter-<lb/>
+beinen liegt. Eine Haupteigenschaft des Jagdpferdes<lb/>
+ist, daß es sich leicht führen läßt, und daher muß es<lb/>
+einen kleinen Kopf und einen dünnen Hals haben. Es<lb/>
+muß überdies durch eine breite Brust sich auszeichnen,<lb/>
+damit der Lunge freie Thätigkeit gewährt sei und das<lb/>
+Pferd, wie die Engländer sagen, guten Wind habe;<lb/>
+und da es über Gräben und Hecken zu setzen und mehr<lb/>
+Schwierigkeiten des Bodens zu überwinden hat als der<lb/>
+Renner, so muß es beim Laufe die Beine höher heben<lb/>
+als dieser. Es ist interessant, das Feuer selbst alter<lb/>
+Jagdpferde zu beobachten. Wenn es, nach mancher<lb/>
+Winterarbeit im Parke weidend, die Ruhe des Alters<lb/>
+genießt und dann das entfernte Gebell der Jagdhunde<lb/>
+hört, springt es oft über die Einfriedigung, setzt über<lb/>
+Hecke und Bach und folgt dem Zuge der Jagd. Ein<lb/>
+auf der Jagd verwundetes starkes Pferd stand in einem<lb/>
+Breterverschlage, über dessen verschlossener, vier Fuß ho-<lb/>
+her Thüre sich eine drei Fuß im Gevierte haltende Öff-<lb/>
+nung befand. Es hörte das ferne Geschrei der Jäger<lb/>
+und der Hunde und sprang durch die Öffnung, ohne<lb/>
+sich im mindesten zu verletzen.</p><lb/>
+<p>Eine eigne einheimische Race sind die kleinen <lb/>
+<hi rendition="#g">Gallowaypferde</hi> aus dem südlichen Schottland, nicht<lb/>
+über 14 Hand hoch und durch ihren zierlichen Bau<lb/>
+ausgezeichnet, wiewol sie in neuern Zeiten sehr ausgear-<lb/>
+tet sind. Sie sollen von einigen spanischen Pferden<lb/>
+abstammen, die mit einem der Schiffe der sogenann-<lb/>
+ten unüberwindlichen Flotte Philipp's <hi rendition="#aq">II</hi>. an der schot-<lb/>
+tischen Küste scheiterten. Doch hatte man schon im<lb/>
+13. Jahrhunderte einen guten Pferdeschlag in jener<lb/>
+Gegend. Die Gallowaypferde, die den schwedischen und<lb/>
+isländischen ähnlich sind, werden besonders zum Reiten<lb/>
+für Frauen und Kinder gebraucht. Durch zierlichen<lb/>
+Bau sind auch die in Wales gezogenen Pferdchen ( <hi rendition="#aq">po-<lb/>
+nies</hi> ) ausgezeichnet; sie sind unermüdlich und mit der<lb/>
+schlechtesten Nahrung zufrieden. Von geringem Werthe<lb/>
+sind dagegen die in Lincolnshire und in Exmoor gezo-<lb/>
+genen kleinen Pferde. Die kleinen Pferde im schotti-<lb/>
+schen Hochlande ( <hi rendition="#aq">Highland ponies</hi> ) stehen weit unter<lb/>
+den Gallowaypferden. Sie sind plump gebaut, aber<lb/>
+von großer Dauerhaftigkeit und leben im Sommer und<lb/>
+Winter fast immer im Freien. Das kleinste Pferd auf<lb/>
+den britischen Jnseln findet man auf Shetland; es heißt<lb/>
+in Schottland <hi rendition="#aq">Shettie</hi> und ist zuweilen nicht7 1 / 2 Hand<lb/>
+hoch, aber ungemein zierlich gebaut und sehr geleh-<lb/>
+<cb n="2"/>
+rig. Die irländischen Pferde haben selten den schönen<lb/>
+Bau und den Werth der englischen, und sind gewöhn-<lb/>
+lich kleiner als diese, da sie, von dem armen Landwirthe<lb/>
+zu früh zur Arbeit gebraucht, in ihrem Wuchse ver-<lb/>
+krüppelt werden. Selbst die veredelten irländischen Pferde<lb/>
+stehen den englischen nach; doch nichts kommt ihrer<lb/>
+Gewandtheit im Springen gleich; aber es ist nicht die<lb/>
+Bewegung des englischen Pferdes, das in vollem Laufe<lb/>
+über eine Hecke setzt, sondern mehr der Sprung eines<lb/>
+Hirsches.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr"><hi rendition="#g">Gebräuche der Jndianer</hi>.</hi></head><lb/>
+<p><hi rendition="#in">D</hi>ie Jndianer in Nordamerika gehen mit einer Ruhe<lb/>
+aus der Welt, welche durch nichts übertroffen werden<lb/>
+kann. Jn den Vereinigten Staaten von Nordamerika<lb/>
+verschwindet das ursprüngliche Bild der Jndianer frei-<lb/>
+lich immer mehr; aber höher hinauf gibt es Völkerschaf-<lb/>
+ten, wo es in aller eigenthümlicher Roheit noch vor-<lb/>
+kommt. Dort schneidet sich die Mutter ein Glied vom<lb/>
+Finger ab, so oft sie ein Kind verliert, und manche Hand<lb/>
+wird dadurch gänzlich verstümmelt. Der Freund trauert<lb/>
+um den verstorbenen Freund, indem er sich ein Messer<lb/>
+durch den Arm sticht oder sich die Stirne zerfetzt. Allein das<lb/>
+Schrecklichste ist die Art, wie die Kinder dort ihre Väter<lb/>
+auf deren Geheiß tödten müssen. Häufig lassen sich alte<lb/>
+Jndianer, wenn sie dem nahen Tode entgegensehen, ihr<lb/>
+Grab aushöhlen, und in vollem Schmucke rufen sie ihre<lb/>
+Familie zusammen und verkündigen Allen, daß sie nun<lb/>
+zum Lande der Geister gehen wollten, wo es Fische und<lb/>
+Wildpret im Überflusse gibt. Sie befehlen, daß man ihnen<lb/>
+Flinte, Feuerzeug und auch den Kessel ins Grab lege, und<lb/>
+erwarten, so ausgerüstet, den Tod mit Ruhe. Noch<lb/>
+häufiger aber bitten sie, ohne ihn erwarten zu können,<lb/>
+die eignen Kinder, ihnen den letzten Liebesdienst zu er-<lb/>
+weisen und sie zu erdrosseln. Der Greis setzt sich dann<lb/>
+in sein Grab, raucht seine letzte Pfeife, trinkt noch ein-<lb/>
+mal mit den Söhnen und gibt endlich das Zeichen,<lb/>
+worauf ihm zwei derselben den Hals zuschnüren. &#x201E;Es<lb/>
+ist besser zu sitzen als zu stehen, zu schlafen als zu<lb/>
+wachen, zu sterben als zu leben!&#x201C; sagt der Jndianer<lb/>
+und sieht den Tod für eine Wohlthat an, sobald ihm<lb/>
+die Kräfte fehlen, welche zur Jagd und Fischerei nöthig<lb/>
+sind. Nur der große Mangel, der dort oft herrscht,<lb/>
+wenn der Fischfang fehlschlägt, die Gefahren und Be-<lb/>
+schwerden, welche mit dem Jägerleben verbunden sind,<lb/>
+können zu solchen Sitten führen.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Die Ackerbaugesellschaft in Kamtschatka.</hi></head><lb/>
+<p><hi rendition="#in">J</hi>n der Halbinsel Kamtschatka, wo bis jetzt so gut wie<lb/>
+nichts wächst, was einer nahrhaften Frucht ähnlich<lb/>
+sieht, hat sich auf die Auffoderung der russischen Re-<lb/>
+gierung eine Gesellschaft gebildet, um den bisher hier<lb/>
+gar nicht betriebenen Ackerbau zu befördern; denn da<lb/>
+das Land zwischen 51 und 62° N. B. liegt, so ist der<lb/>
+Ackerbau durch die Natur keineswegs ausgeschlossen.<lb/>
+Jn dem Berichte über die Erfolge des Jahres<lb/>
+1834 bekennen übrigens die Directoren der Gesell-<lb/>
+schaft, daß ihre Versuche nicht überall den Erwar-<lb/>
+tungen entsprochen haben. Von drei Aussaaten Win-<lb/>
+ter- und Sommerkorn hat nur eine die darauf ge-<lb/>
+wandte Mühe und Kosten belohnt, die zwei andern<lb/>
+sind zu Grunde gegangen, und zwar beide zu einer<lb/>
+Zeit, wo alle Gefahr für die Frucht muthmaßlich<lb/>
+<cb type="end"/>
+<pb facs="#f0008" n="176"/>
+<fw place="top" type="header"> <hi rendition="#g">Das Pfennig=Magazin.</hi> </fw><cb type="start"/>
+schon vorüber war: die Winterfrucht füllte sich auf dem<lb/>
+einen Acker nicht wegen der heftigen Regen zur Zeit<lb/>
+der Blüte, die Sommerfrucht aber war schon einge-<lb/>
+schossen, als sie am 22. August durch einen Reif gro-<lb/>
+ßen Schaden litt, auf einem andern Acker wurden die<lb/>
+Halme der Gerste von den Mäusen angefressen, deren<lb/>
+<cb n="2"/>
+es in diesem Jahre in ganz ungewöhnlicher Menge in<lb/>
+Kamtschatka gab. Diese Ursachen der unergiebigen Ernte<lb/>
+waren also nur zufällig, und die Gesellschaft schmeichelt<lb/>
+sich daher, daß ihre Hoffnungen doch noch in Erfül-<lb/>
+lung gehen werden, und ist entschlossen, ihre Bemühun-<lb/>
+gen fortzusetzen.</p></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1"><figure>         <head>  Das Jnnere der Domkirche zu Cordova.  </head>       </figure></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+</body>     <back><div n="1" type="imprint"><p><hi rendition="#c">Verantwortliche Herausgeber: <hi rendition="#g">Friedrich Brockhaus</hi> in <hi rendition="#g">Leipzig</hi> und <hi rendition="#aq">Dr</hi>. C. <hi rendition="#g">Dräxler=Manfred</hi> in <hi rendition="#g">Wien.</hi><lb/>
+Verlag von F. A. <hi rendition="#g">Brockhaus</hi> in Leipzig.</hi></p></div>     </back>   </text> </TEI>

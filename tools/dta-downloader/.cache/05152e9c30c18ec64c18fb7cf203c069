@@ -1,0 +1,526 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.deutschestextarchiv.de/basisformat_ms.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">       <teiHeader>
+<fileDesc>
+<titleStmt>
+<title type="main">Brief an Joachim Meyer</title>
+<author>
+<persName ref="http://d-nb.info/gnd/119242044">
+<surname>Sanders</surname>
+<forename>Daniel</forename>
+</persName>
+</author>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/115266127">
+<surname>Geyken</surname>
+<forename>Alexander</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1222198746">
+<surname>Haaf</surname>
+<forename>Susanne</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1019062681">
+<surname>Jurish</surname>
+<forename>Bryan</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Boenig</surname>
+<forename>Matthias</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Thomas</surname>
+<forename>Christian</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Wiegand</surname>
+<forename>Frank</forename>
+</persName>
+</editor>
+<respStmt>
+<persName><surname>Göttel</surname>
+<forename>Sebastian</forename>
+</persName>
+<resp>
+<note type="remarkResponsibility">Herausgeber.</note>
+</resp>
+</respStmt>
+<respStmt>
+<persName xml:id="LM" ref="https://orcid.org/0000-0002-4634-2386">
+<surname>Martin</surname>
+<forename>Linda</forename>
+</persName>
+<resp>
+<note type="remarkResponsibility">Transkription und TEI-Textannotation.</note>
+</resp>
+</respStmt>
+<respStmt>
+<orgName ref="https://www.bbaw.de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<resp>
+<note type="remarkResponsibility">Langfristige Bereitstellung der DTA-Ausgabe</note>
+<ref target="https://www.bbaw.de"/>
+</resp>
+</respStmt>
+</titleStmt>
+<editionStmt><edition>Vollständige digitalisierte Ausgabe.</edition></editionStmt>
+<extent>
+<measure type="images">14</measure>
+<measure type="tokens">2788</measure>
+<measure type="types">1203</measure>
+<measure type="characters">19429</measure>
+</extent>
+<publicationStmt>
+<publisher xml:id="DTACorpusPublisher">
+<email>dta@bbaw.de</email>
+<orgName role="project">Deutsches Textarchiv</orgName>
+<orgName role="hostingInstitution" xml:lang="en">Berlin-Brandenburg Academy of Sciences and Humanities (BBAW)</orgName>
+<orgName role="hostingInstitution" xml:lang="de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<address>
+<addrLine>Jägerstr. 22/23, 10117 Berlin</addrLine>
+<country>Germany</country>
+</address>
+</publisher>
+<pubPlace>Berlin</pubPlace>
+<date type="publication">2025-10-24T08:36:58Z</date>
+<availability>
+<licence target="https://creativecommons.org/licenses/by-sa/4.0/">
+<p>Distributed under the Creative Commons Attribution-ShareAlike 4.0 International license.</p>
+</licence>
+</availability>
+<idno>
+<idno type="URLWeb">https://www.deutschestextarchiv.de/sanders_meyer2_1859</idno>
+<idno type="URLXML">https://www.deutschestextarchiv.de/book/download_xml/sanders_meyer2_1859</idno>
+<idno type="URLHTML">https://www.deutschestextarchiv.de/book/download_html/sanders_meyer2_1859</idno>
+<idno type="URLText">https://www.deutschestextarchiv.de/book/download_text/sanders_meyer2_1859</idno>
+<idno type="DTADirName">sanders_meyer2_1859</idno>
+<idno type="DTAID">33398</idno>
+<idno type="URN">urn:nbn:de:kobv:b4-33398-4</idno>
+</idno>
+</publicationStmt>
+<sourceDesc>
+<bibl type="MAN">Sanders, Daniel: Brief an Joachim Meyer. Altstrelitz, 4. Juni 1859.</bibl>
+<biblFull>
+<titleStmt>
+<title level="m" type="main">Brief an Joachim Meyer</title>
+<author>
+<persName ref="http://d-nb.info/gnd/119242044">
+<surname>Sanders</surname>
+<forename>Daniel</forename>
+</persName>
+</author>
+</titleStmt>
+<editionStmt>
+<edition n="1"/>
+</editionStmt>
+<publicationStmt>
+<publisher/>
+<pubPlace>Altstrelitz</pubPlace>
+<date type="publication">1859</date>
+</publicationStmt>
+</biblFull>
+<msDesc>
+<msIdentifier>
+<repository>DLA Marbach</repository>
+<idno>
+<idno type="shelfmark">COTTA:Briefe, Schiller E6</idno>
+</idno>
+</msIdentifier>
+<physDesc>
+<handDesc>
+<p>Current</p>
+</handDesc>
+<typeDesc>
+<p>Handschrift</p>
+</typeDesc>
+</physDesc>
+</msDesc>
+</sourceDesc>
+</fileDesc>
+<encodingDesc>
+<editorialDecl>
+<p>
+<![CDATA[
+<p>Dieses Werk wurde in XML/TEI P5 nach <a href="http://www.deutschestextarchiv.de/doku/basisformat">DTA-Basisformat</a> kodiert.</p>
+]]>
+</p>
+</editorialDecl>
+<tagsDecl>
+<rendition scheme="css" xml:id="aq">font-family:sans-serif</rendition>
+<rendition scheme="css" xml:id="b">font-weight:bold</rendition>
+<rendition scheme="css" xml:id="blue">color:blue</rendition>
+<rendition scheme="css" xml:id="c">display:block; text-align:center</rendition>
+<rendition scheme="css" xml:id="et">display:block; margin-left:2em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et2">display:block; margin-left:4em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et3">display:block; margin-left:6em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="f">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="fr">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="g">letter-spacing:0.125em</rendition>
+<rendition scheme="css" xml:id="i">font-style:italic</rendition>
+<rendition scheme="css" xml:id="in">font-size:150%</rendition>
+<rendition scheme="css" xml:id="k">font-variant:small-caps</rendition>
+<rendition scheme="css" xml:id="larger">font-size:larger</rendition>
+<rendition scheme="css" xml:id="red">color:red</rendition>
+<rendition scheme="css" xml:id="right">display:block; text-align:right</rendition>
+<rendition scheme="css" xml:id="s">text-decoration:line-through</rendition>
+<rendition scheme="css" xml:id="smaller">font-size:smaller</rendition>
+<rendition scheme="css" xml:id="sub">vertical-align:sub; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="sup">vertical-align:super; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="u">text-decoration:underline</rendition>
+<rendition scheme="css" xml:id="uu">border-bottom:double 3px #000</rendition>
+</tagsDecl>
+</encodingDesc>
+<profileDesc>
+<langUsage>
+<language ident="deu">(Früh-)Neuhochdeutsch</language>
+<language ident="deu">German</language>
+</langUsage>
+<textClass>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1main">Gebrauchsliteratur</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1sub">Brief</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">ready</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">sanders-briefe</classCode>
+</textClass>
+</profileDesc>
+</teiHeader>
+<text>
+<pb facs="#f0001" n="[1r]"/>
+<body>              <div type="letter">                  <note place="mTop right" hand="#DS"/><lb/>
+<opener><salute>Verehrter Herr.</salute></opener><lb/>
+<space dim="vertical"/>                  <p>Vor allen Dingen sage ich Ihnen für Ihre vortrefflichen<lb/>
+&#x201E;Beiträge zur Feststellung des <hi rendition="#aq">Schiller</hi><supplied>'</supplied>schen Textes&#x201C;<note type="editorial"><bibl>Meyer, Joachim: Beiträge zur Feststellung, Verbesserung und Vermehrung des Schiller&#x2019;schen Textes. Nürnberg 1858.</bibl> <ref target="https://books.google.de/books?id=uP46AAAAcAAJ">Online verfügbar: GoogleBooks, abgerufen am 31.05.2019.</ref></note> aufrichtigen<lb/>
+innigen Dank. Ich gehe hier nicht näher auf das Werk selbst<lb/>
+ein, weil ich beabsichtig<subst><del rendition="#ow" hand="#DS">te</del><add place="across" hand="#DS">e</add></subst>, eine Besprechung desselben ins<lb/>
+<hi rendition="#aq">Herrig</hi>&#x2019;sche Archiv<note type="editorial"><bibl>Archiv für das Studium der neueren Sprachen und Literaturen. Herausgegeben von Ludwig Herrig et al. Braunschweig, Berlin 1846&#x2013;Gegenwart.</bibl></note> einrücken zu lassen. Lassen Sie mich aber<lb/>
+wenigstens auch hier schon den Wunsch aussprechen, daß<lb/>
+der gründliche Ken&#x0303;er der <hi rendition="#aq"><persName ref="http://d-nb.info/gnd/118607626">Schiller</persName></hi>'schen Werke, der sich mit so<lb/>
+liebevoller Hingabe ihnen bis <choice><sic>in</sic><corr>ins</corr></choice> Einzelnste widmet, bei der<lb/>
+zu erwartenden Kritischen Ausgabe sich betheiligen möge,<lb/>
+so weit es nur irgend möglich ist. Hoffentlich wird ein<lb/>
+solcher Wunsch, öffentlich ausgesprochen, Ihnen in Ihrem Ver-<lb/>
+hältnis zu <hi rendition="#aq"><persName ref="http://d-nb.info/gnd/11879972X">Cotta</persName></hi> nicht unangenehm sein ich bitte aber,<lb/>
+weil ich dies nicht ganz kenne, <choice><abbr>gefl.</abbr><expan>gefälligste</expan></choice> Auskunft.</p><lb/>
+<p>Auch für die Mittheilung des <hi rendition="#aq"><persName ref="http://d-nb.info/gnd/118625063">Uhland</persName></hi>&#x2019;schen Briefs bin<lb/>
+ich Ihnen sehr verpflichtet, obgleich ich offen bekenne, daß<lb/>
+die Ansicht des hochverehrten Man&#x0303;es mich nicht ganz be-<lb/>
+friedigt, fast so wenig wie d<subst><del rendition="#ow" hand="#DS">ie</del><add place="across" hand="#DS">er</add></subst> von mir in meinem vori-<lb/>
+gen Brief aufgestellte Erklärungsversuch. Darf ich <hi rendition="#aq"><persName ref="http://d-nb.info/gnd/118625063">Uhland</persName>s</hi><lb/>
+<pb facs="#f0002" n="[1v]"/>
+Namen ohne Indiskretion bei der Besprechung erwähnen? Umgehende<lb/>
+Beantwortung dieser Frage wäre mit &#x2013; weil ich in den nächsten Wochen<lb/>
+schon die Korrektur des Buchstaben &#x201E;F<supplied>.</supplied>&#x201C; begin&#x0303;e &#x2013; doppelt erwünscht.</p><lb/>
+<p>Über die Stelle im Fiesco<note type="editorial"><bibl>Schiller, Friedrich: Die Verschwörung des Fiesko zu Genua. Ein Republikanisches Trauerspiel. 2. Auflage. Frankfurt und Leipzig 1786.</bibl> <ref target="https://books.google.de/books?id=ymsAAAAAcAAJ">Online verfügbar: GoogleBooks, abgerufen am 03.06.2019.</ref></note>: <quote>&#x201E;Mein Genie <hi rendition="#u">geilte</hi> frühzei-<lb/>
+tig über jedes Gehege&#x201C;</quote><note type="editorial"><bibl>Schiller, Friedrich: Die Verschwörung des Fiesko zu Genua. Ein Republikanisches Trauerspiel. 2. Auflage. Frankfurt und Leipzig 1786, S. 27.</bibl> <ref target="https://books.google.de/books?id=ymsAAAAAcAAJ">Online verfügbar: GoogleBooks, abgerufen am 03.06.2019.</ref></note> erwarte ich Ihre fernere Mittheilung<lb/>
+zur Begründung der allerdings leichtern Lesart <hi rendition="#u">&#x201E;eilte&#x201C;</hi>, doch<lb/>
+erlauben Sie mir wohl beizu<del rendition="#s" hand="#DS">sch</del>bringen, was sich für &#x201E;geilte&#x201C; sa-<lb/>
+gen lässt, das ich &#x2013; wen&#x0303; &#x201E;eilte&#x201C; nicht auf einer <choice><abbr>handschriftl.</abbr><expan>handschriftlichen</expan></choice> <choice><abbr>p<supplied>.</supplied></abbr><expan>pp.</expan></choice><lb/>
+Auktorität, sondern auf bloßer Konjunktur beruht, so leichten<lb/>
+Kaufes nicht aufgeben möchte. Ich setze <choice><sic>deßhalb</sic><corr>deshalb</corr></choice> aus dem <choice><abbr>Mscr.</abbr><expan>Manuscript</expan></choice><lb/>
+meines Wörterbuchs Folgendes her:</p><lb/>
+<p>&#x201E;Geilen: I, <choice><abbr>intr<supplied>.</supplied></abbr><expan>intransitiv</expan></choice> (haben): a, wählig springen <choice><abbr>p<supplied>.</supplied></abbr><expan>pp.</expan></choice>: Ist hier nicht Ei-<lb/>
+ner, reich an Herden, welchem geilt &#x2013; der wohlgenährte Hengst auf<lb/>
+fetten Masten? <hi rendition="#aq"><persName ref="http://d-nb.info/gnd/118603817">Rückert</persName></hi> Mak.<note type="editorial"><bibl>Rückert, Friedrich: Die Verwandlungen des Ebu Seid von Seræg oder die Makámen des Haríri in freier Nachbildung. Stuttgart und Tübingen 1826&#x2013;1837.</bibl> <ref target="https://books.google.de/books?id=NeffAAAAMAAJ">Erster Band. Stuttgart und Tübingen 1826. Online verfügbar: GoogleBooks, abgerufen am 31.05.2019.</ref></note> I,57; <hi rendition="#aq"><persName ref="http://d-nb.info/gnd/118607626">Schiller</persName></hi> 150a [<choice><abbr>d.i.</abbr><expan>das ist</expan></choice> die zu bespre-<lb/>
+chende Stelle]; <hi rendition="#aq"><persName ref="http://d-nb.info/gnd/118538209">Keisersberg</persName></hi> Post.<note type="editorial"><bibl>Kaysersberg, Johann Geiler von: Postill. Veber die fyer Euangelia durchs jor / sampt den Quadragesimal / vnd von ettlichen Heyligen / newlich ußgangen. o.A. 1522.</bibl> <ref target="https://books.google.de/books?id=xaphAAAAcAAJ">Online verfügbar: GoogleBooks, abgerufen am 31.05.2019.</ref></note> 42;221b (nach <hi rendition="#aq"><persName ref="http://d-nb.info/gnd/118536095">Frisch</persName></hi>) &#x2026;&#x2026;.. d, gierig<lb/>
+nach Etwas trachten: Arbeitslieb&#x2019; <choice><abbr>i<supplied>.</supplied></abbr><expan>in</expan></choice> flinke Hand &#x2013; geilte wie nach<lb/>
+Stutzertand. <hi rendition="#aq"><persName ref="http://d-nb.info/gnd/118511963">Blumauer</persName></hi> I<note type="editorial"><bibl>Blumauer, Aloys: An die deutschen Mädchen. In: Blumauer, Aloys (Hg.): Gedichte. Wien 1787, S. 165&#x2013;174.</bibl> <ref target="https://books.google.de/books?id=KvBRPo0tLCUC">Erster Band. Online verfügbar: GoogleBooks, abgerufen am 31.05.2019.</ref></note>, 101 <choice><abbr>p.</abbr><expan>pp.</expan></choice>&#x201C;<note type="editorial"><bibl>Sanders, Daniel: Wörterbuch der deutschen Sprache. Mit Belegen von Luther bis auf die Gegenwart. Leipzig 1860-1865, S. 566.</bibl> <ref target="https://books.google.de/books?id=MpREAAAAcAAJ">Erster Band. Online verfügbar: GoogleBooks, abgerufen am 23.01.2019.</ref></note><lb/>
+Ich glaube, daß sich darauf &#x201E;geilte&#x201C; wohl vertheidigen<lb/>
+lässt und daß es gegen &#x201E;eilte&#x201C; &#x2013; wen&#x0303; dies bloße Konjunktur<lb/>
+ist (worüber ich Ihre Mittheilung erwarte) &#x2013; im Text bleiben muß.</p><lb/>
+<p>Diese Besprechung hat mich auf mein Wörterbuch ge-<lb/>
+führt und hier fühle ich mich gedrungen, Ihnen meine leb-<lb/>
+haftesten Dank für die Freundlichkeit auszusprechen, womit<lb/>
+Sie <subst><del rendition="#ow" hand="#DS">s</del><add place="across" hand="#DS">S</add></subst>ich meiner Anzeige derselben in der Augsburger <choice><abbr>Allgem.</abbr><expan>Allgemeinen</expan></choice><lb/>
+<pb facs="#f0003" n="[2r]"/>
+Zeitung unterziehen wollen. Sie erweisen mir <choice><abbr>u<supplied>.</supplied></abbr><expan>und</expan></choice> meinem<lb/>
+Werk dadurch einen wesentlichen Dienst. Sie wünschen aber da-<lb/>
+zu &#x2013; indem Sie mit liebenswürdiger allzu großer Bescheidenheit<lb/>
+Sich mit den Leistungen auf diesem Felde zu wenig bekan&#x0303;t<lb/>
+nen&#x0303;en &#x2013; von mir selbst die Angabe dessen, worin <del rendition="#s" hand="#DS">ich</del> meiner Ar-<lb/>
+beit sich von denen meiner Vorgänger und Mitstrebenden unter-<lb/>
+scheidet. Und ich glaube in der That unbefangenen Blick genug<lb/>
+zu besitzen, um in gerechter Würdigung ohne Über- <choice><abbr>u<supplied>.</supplied></abbr><expan>und</expan></choice> Un-<lb/>
+terschätzung meiner selbst dies angeben zu können; jeden-<lb/>
+falls geht mein Streben im Folgenden auf die größte Objek-<lb/>
+tivität und in diesem Streben erlaube ich mir auch eine<lb/>
+mit großer Fach- <choice><abbr>u<supplied>.</supplied></abbr><expan>und</expan></choice> Sachken&#x0303;tnis geschriebene Besprechung des<lb/>
+Prof. <hi rendition="#aq"><persName>Raschig</persName></hi> in der <choice><abbr>Nation.<supplied>-</supplied>Zeit.</abbr><expan>National-Zeitung</expan></choice> beizulegen.</p><lb/>
+<p>Von meinen Vorgängern und Mitstrebenden,&#x2013; die Sie<lb/>
+in genügender Vollständigkeit in der Vorrede des <hi rendition="#aq"><persName ref="http://d-nb.info/gnd/1083009273">Grim&#x0303;</persName></hi>&#x2019;schen<lb/>
+Wörterbuchs<note type="editorial"><bibl>Grimm, Wilhelm; Grimm, Jacob: Deutsches Wörterbuch. Erster Band. A &#x2013; Biermolke. Leipzig 1854.</bibl> <ref target="https://books.google.de/books?id=HmhoAAAAcAAJ">Online verfügbar: GoogleBooks, abgerufen am 31.05.2019.</ref></note> (<choice><abbr>p<supplied>.</supplied></abbr><expan>pagina</expan></choice> XXff<supplied>.</supplied>) <choice><abbr>u<supplied>.</supplied></abbr><expan>und</expan></choice> des Deutschen <choice><abbr>Wörterb.</abbr><expan>Wörterbuchs</expan></choice><note type="editorial"><bibl>Weigand, Karl: Deutsches Wörterbuch. Gießen 1857.</bibl> <ref target="http://mdz-nbn-resolving.de/urn:nbn:de:bvb:12-bsb11023621-5">Zweite Auflage. Gießen 1873. Erster Band online verfügbar: BSB digital, abgerufen am 31.05.2019.</ref>, <ref target="http://mdz-nbn-resolving.de/urn:nbn:de:bvb:12-bsb11023622-1">Zweite Auflage. Gießen 1876. Zweiter Band online verfügbar: BSB digital, abgerufen am 31.05.2019.</ref></note> <add place="superlinear" hand="#DS">[sehe: <gap reason="illegible" unit="words" quantity="1"/> <choice><abbr>u<supplied>.</supplied></abbr><expan>und</expan></choice> <gap reason="illegible" unit="words" quantity="1"/>]</add> <choice><abbr>v.</abbr><expan>von</expan></choice> <hi rendition="#aq">Weigand</hi> (<choice><abbr>p.</abbr><expan>pagina</expan></choice> Xff<supplied>.</supplied>)<lb/>
+aufgeführt finden, wen&#x0303; Sie dazu ausser <hi rendition="#aq"><persName ref="http://d-nb.info/gnd/1083009273">Grim&#x0303;</persName></hi> <choice><abbr>u<supplied>.</supplied></abbr><expan>und</expan></choice> <hi rendition="#aq"><persName ref="http://d-nb.info/gnd/119133733">Weigand</persName></hi> noch<lb/>
+<hi rendition="#aq"><persName ref="http://d-nb.info/gnd/119556936">Wurm</persName></hi> fügen wollen, über dessen Arbeit Sie mit vollstem<lb/>
+Recht Ihre Bedenklichkeit kundgeben &#x2013; glaube ich mich vor<lb/>
+allen Dingen durch die nie ausser Augen gesetzte Rück-<lb/>
+sicht auf das Publikum, für das ich mein Werk bestim&#x0303;t,<lb/>
+zu unterscheiden. Es ist dies nämlich nicht ein Publikum <choice><abbr>v.</abbr><expan>von</expan></choice><lb/>
+lauter Sprachforschern <choice><abbr>u<supplied>.</supplied></abbr><expan>und</expan></choice> &#x201E;Wurzelgräbern&#x201C;, sondern der wei-<lb/>
+te Kreis aller gebildeten Deutschen und dazu unter den<lb/>
+<pb facs="#f0004" n="[2v]"/>
+Ausländern aller derer, die sich <subst><del rendition="#s" hand="#DS">für</del><add place="superlinear">über</add></subst> unsere Sprache <choice><abbr>u<supplied>.</supplied></abbr><expan>und</expan></choice> Literatur<lb/>
+nach dem Standpunkt ihrer heutigen Ausbildung unterrichten<lb/>
+wollen. Daher habe ich mit vollem Bewusstsein <choice><abbr>v.</abbr><expan>von</expan></choice> der Fülle<lb/>
+<choice><abbr>u<supplied>.</supplied></abbr><expan>und</expan></choice> dem Reichthum, der als ein solcher zu be<del rendition="#s" hand="#DS">sch</del>wältigender<lb/>
+mir bleibt, <del rendition="#s" hand="#DS">auf</del> alles ganz Veraltete oder nur Mundartli-<lb/>
+che ausgeschloßen, Jenes den Gloßarien, Dies den Idiotiken<lb/>
+überlaßend, deren wir schon vorzügliche besitzen, <choice><abbr>z.B.</abbr><expan>zum Beispiel</expan></choice> das<lb/>
+als Muster für <del rendition="#s" hand="#DS">A</del> alle ähnlichen Arbeiten gelten kan&#x0303;, <hi rendition="#aq"><persName ref="http://d-nb.info/gnd/118608533"><choice><abbr>J.</abbr><expan>Johann</expan></choice><lb/>
+Schmeller</persName></hi>&#x2019;s bayerisches Wörterbuch<note type="editorial"><bibl>Schmeller, Johann Andreas: Bayerisches Wörterbuch. München 1827&#x2013;1837.</bibl> <ref target="https://www.bavarikon.de/object/bav:BSB-MDZ-00000BSB10378236">Erster Band. Online verfügbar: bavarikon&#x2013;BSB digital, abgerufen am 31.05.2019.</ref> <ref target="https://www.bavarikon.de/object/bav:BSB-MDZ-00000BSB10378237">Zweiter Band. Online verfügbar: bavarikon&#x2013;BSB digital, abgerufen am 31.05.2019.</ref> <ref target="https://www.bavarikon.de/object/bav:BSB-MDZ-00000BSB10385918">Dritter Band. Online verfügbar: bavarikon&#x2013;BSB digital, abgerufen am 31.05.2019.</ref> <ref target="https://www.bavarikon.de/object/bav:BSB-MDZ-00000BSB10385918">Vierter Band. Online verfügbar: bavarikon&#x2013;BSB digital, abgerufen am 31.05.2019.</ref></note>, ferner &#x2013; da<del rendition="#s" hand="#DS"><gap reason="illegible" unit="chars" quantity="1"/></del> zumal<lb/>
+<del rendition="#s" hand="#DS">für</del> mit Rücksicht auf die Zeit seines Erscheinens <add place="superlinear" hand="#DS">(1767)</add> ebenfalls<lb/>
+musterhaft heißen kan&#x0303;, &#x2013; den Versuch eines bremisch-nieder-<lb/>
+sächsischen Wörterbuchs<note type="editorial"><bibl>Bremisch-Deutsche Gesellschaft: Versuch eines bremisch-niedersächsischen Wörterbuchs. Bremen 1767.</bibl> <ref target="https://books.google.de/books?id=v71AAAAAYAAJ">Erster Band. Online verfügbar: GoogleBooks, abgerufen am 31.05.2019.</ref></note> <choice><abbr>u.ä.m.</abbr><expan>und ähnliches mehr</expan></choice>, zu deren fortwährender<lb/>
+Vervollständigung die <choice><abbr>v.</abbr><expan>von</expan></choice> <hi rendition="#aq"><persName ref="http://d-nb.info/gnd/115373675">From&#x0303;an&#x0303;</persName></hi> herausgegebene <choice><abbr>Zeitschr.</abbr><expan>Zeitschrift</expan></choice><lb/>
+&#x201E;<choice><sic>die</sic><corr>Die</corr></choice> deutschen Mundarten&#x201C;<note type="editorial"><bibl>Die deutschen Mundarten. Eine Monatsschrift für Dichtung, Forschung und Kritik. Herausgegeben von Georg Karl Frommann. Nürnberg 1854&#x2013;1877.</bibl></note> das Ihrige beiträgt. Doch habe<lb/>
+ich diese <choice><abbr>u<supplied>.</supplied></abbr><expan>und</expan></choice> ähnliche Werke wie <choice><abbr>z.B.</abbr><expan>zum Beispiel</expan></choice> <hi rendition="#aq"><persName ref="http://d-nb.info/gnd/11720613X">Stalder</persName></hi>&#x2019;s schweizeri-<lb/>
+sches<note type="editorial"><bibl>Stalder, Franz Josef: Versuch eines Schweizerischen Idiotikon mit ethymologischen Bedeutungen untermischt. Basel und Aarau 1806&#x2013;1812.</bibl> <ref target="https://archive.org/details/versucheinessch01stalgoog">Erster Band. Online verfügbar: Internet Archive, abgerufen am 31.05.2019.</ref> <ref target="https://archive.org/details/versucheinessch00unkngoog">Zweiter Band. Online verfügbar: Internet Archive, abgerufen am 31.05.2019.</ref></note>, <hi rendition="#aq"><persName><persName ref="http://d-nb.info/gnd/104158735">Schütze</persName></persName></hi>&#x2019;s holsteinisches Idiotikon<note type="editorial"><bibl>Schütze, Johann Friedrich: Holsteinisches Idiotikon, ein Beitrag zur Volkssittengeschichte oder Sammlung plattdeutscher, alter und neugebildeter Worte, Wortformen, Redensarten, Volkwitzes, Sprichwörter, Spruchreime, Wiegenlieder, Anekdoten und aus dem Sprachschatze erklärter Sitten, Gebräuche, Spiele, Feste der alten und neuen Holsteiner. Villaume, Hamburg, Hammerich, Altona 1800-1806.</bibl> <ref target="https://archive.org/details/holsteinischesi03schgoog">Erster und Zweiter Band. Online verfügbar: Internet Archive, abgerufen am 31.05.2019.</ref> <ref target="https://archive.org/details/holsteinischesi01schgoog">Dritter Band. Online verfügbar: Internet Archive, abgerufen am 31.05.2019.</ref> <ref target="https://archive.org/details/holsteinischesi02schgoog">Vierter Band. Online verfügbar: Internet Archive, abgerufen am 31.05.2019.</ref></note>, <hi rendition="#aq"><persName ref="http://d-nb.info/gnd/118806521">Weinhold</persName></hi>&#x2019;s Beiträge zu<lb/>
+einem schlesischen Wörterbuch<note type="editorial"><bibl>Weinhold, Karl: Beiträge zu einem schlesischen Wörterbuche. Wien 1853&#x2013;1855.</bibl> <ref target="https://archive.org/details/bub_gb_QJwIAQAAIAAJ">Erster Band. Online verfügbar: Internet Archive, abgerufen am 31.05.2019.</ref> <ref target="https://archive.org/details/bub_gb_3Mw9AAAAYAAJ">Zweiter Band. Online verfügbar: Internet Archive, abgerufen am 31.05.2019.</ref></note> <choice><abbr>p.</abbr><expan>pp.</expan></choice> Ferner vor Allem das für<lb/>
+die ältere Sprache so ungemein schätzenswerthe &#x201E;teutsch-<lb/>
+lateinische Wörterbuch&#x201C;<note type="editorial"><bibl>Frisch, Johann Leonhard: Teutsch-Lateinisches Wörter-Buch. Berlin 1741.</bibl> <ref target="https://archive.org/details/bub_gb_DY8NAAAAQAAJ">Online verfügbar: Internet Archive, abgerufen am 31.05.2019.</ref></note> von <hi rendition="#aq"><persName ref="http://d-nb.info/gnd/118536095"><choice><abbr>Joh.</abbr><expan>Johann</expan></choice> <choice><abbr>Leonh.</abbr><expan>Leonhard</expan></choice> Frisch</persName></hi> wie die Wör-<lb/>
+terbücher der althochdeutschen <choice><abbr>u<supplied>.</supplied></abbr><expan>und</expan></choice> mittelhochdeutschen Sprache<lb/>
+sorgfältig benutzt, nicht ihren vollständigen Inhalt mei-<lb/>
+nem Wörterbuch einverleibend, sondern aus ihren<lb/>
+schöpfend<lb/>
+<pb facs="#f0005" n="[3r]"/>
+<note place="mTop right" hand="#DS"/><lb/>
+schöpfend, was auf die Abstam&#x0303;ung der Wörter und auf den heuti-<lb/>
+gen hochdeutschen Sprachgebrauch ein helleres Lichte zu werfen im<lb/>
+Stande ist. Dafür zeugen hoffentlich die den Stam&#x0303;wörtern bei-<lb/>
+gefügten Anmerkungen, wie den&#x0303; hoffentlich auch ein Vergleich<lb/>
+eine <hi rendition="#u">selbständige</hi> Benutzung unsererer älteren Literatur,<lb/>
+namentlich <choice><abbr>v.</abbr><expan>von</expan></choice> <hi rendition="#aq"><persName ref="http://d-nb.info/gnd/118575449">Luther</persName></hi>&#x2019;s Werken, darthun wird. Hier will<lb/>
+ich übrigens gleich noch darauf aufmerksam machen, daß<lb/>
+ich mich bestrebt habe, <del rendition="#s" hand="#DS">den f</del> unter das &#x201E;Veraltete <choice><abbr>u<supplied>.</supplied></abbr><expan>und</expan></choice> Mund-<lb/>
+artliche&#x201C; Nichts kom&#x0303;en zu lassen, was ihn nicht entschieden<lb/>
+zugehört, vielmehr habe ich es mir angelegen sein lassen,<lb/>
+das Alterthümliche, wie es sich zumal in der Bibel <choice><abbr>u<supplied>.</supplied></abbr><expan>und</expan></choice> in der<lb/>
+gehobenen Rede erhalten hat, sorgfältig zu verzeichnen <choice><abbr>u<supplied>.</supplied></abbr><expan>und</expan></choice><lb/>
+manches Wort <choice><abbr>u<supplied>.</supplied></abbr><expan>und</expan></choice> manche Wendung, die Mancher allzu vor-<lb/>
+eilig als &#x201E;mundartlich&#x201C; verwirft, durch Belege aus muster-<lb/>
+gültigen Schriftstellern, dem hochdeutschen Sprachschatz zu <del rendition="#s" hand="#DS">v</del>indi-<lb/>
+cieren. &#x2013; In dem durch Ausschluß des Veralteten <choice><abbr>u<supplied>.</supplied></abbr><expan>und</expan></choice> Mund-<lb/>
+artlichen beschränkten Kreise habe ich mich nun aber auch<lb/>
+einer um so größeren Vollständigkeit befleißigt <choice><abbr>u<supplied>.</supplied></abbr><expan>und</expan></choice> ich<lb/>
+darf kühn behaupten, daß ich meine Vorgänger <choice><abbr>u<supplied>.</supplied></abbr><expan>und</expan></choice> Mit-<lb/>
+strebende <del rendition="#s" hand="#DS">sehr beide</del> in der Zahl der aufgenom&#x0303;enen Wör-<lb/>
+ter &#x2013; welche, wie die Belege zeigen, der heutigen hochdeutschen<lb/>
+Sprache angehören, &#x2013; sehr bedeutend hinter mir  zurück-<lb/>
+lasse. Ich darf hier vielleicht auf einen Aufsatz <choice><abbr>v.</abbr><expan>von</expan></choice> mir<lb/>
+in <hi rendition="#aq">Herrig</hi>&#x2019;s Archiv <add place="superlinear" hand="#DS"><choice><abbr>Bd.</abbr><expan>Band</expan></choice></add> 18, <choice><abbr>S.</abbr><expan>Seite</expan></choice> 212ff<supplied>.</supplied><note type="editorial"><bibl>Sanders, Daniel: Miscellen. Zur deutschen Lexikographie I. In: Herrig, Ludwig (Hg.): Archiv für das Studium der neueren Sprachen und Literaturen. Zehnter Jahrgang, Nr. 18. Braunschweig 1855, S. 212&#x2013;220.</bibl> <ref target="https://archive.org/details/archivfrdasstu18brauuoft">Online verfügbar: Internet Archive, abgerufen am 31.05.2019.</ref></note> verweisen, in welchem ich<lb/>
+<pb facs="#f0006" n="[3v]"/>
+ca. 650 Wörter zusam&#x0303;engestellt habe, die im <hi rendition="#aq"><persName ref="http://d-nb.info/gnd/1083009273">Grim&#x0303;</persName></hi>&#x2019;schen Wör<supplied>-</supplied><lb/>
+terbuch<note type="editorial"><bibl>Grimm, Wilhelm; Grimm, Jacob: Deutsches Wörterbuch. Erster Band. A &#x2013; Biermolke. Leipzig 1854.</bibl> <ref target="https://books.google.de/books?id=HmhoAAAAcAAJ">Online verfügbar: GoogleBooks, abgerufen am 31.05.2019.</ref></note> auf den ersten 161 Spalten fehlen; fügt man dazu die schon<lb/>
+in meinem Program&#x0303; als ebendaselbst fehlend nachgewiesenen,<lb/>
+ca. 440, so ergiebt das über 1000 fehlende Wörter auf 160<lb/>
+Spalten <choice><abbr>od.</abbr><expan>oder</expan></choice> durchschnittlich <add place="superlinear" hand="#DS">6-7</add> 67 fehlende Wörter auf jeder Spalte in<lb/>
+unserem größten Wörterbuch. Da haben Sie einen ungefähren<lb/>
+Maßstab, da der Vergleich durch die verschiedene Anordnung<lb/>
+in meinem Wörterbuch <choice><abbr>u<supplied>.</supplied></abbr><expan>und</expan></choice> den übrigen seine Schwierigkeit<lb/>
+hat. Und doch lege ich mehr Gewicht als auf dieses äußere<lb/>
+Vollständigkeit auf die in&#x0303;ere, die beide auf einen<lb/>
+mich selbst überraschend geringem Raume hauptsäch-<lb/>
+lich nur durch die erwähnte Anordnungsweise ermöglicht<lb/>
+wurden, &#x2013; die organische <add place="superlinear" hand="#DS">Anordnung</add> nan&#x0303;te sie mit einem schlagenden<lb/>
+Ausdruck eine <del rendition="#s" hand="#DS">Bes</del> kurze Besprechung in einem Züricher<lb/>
+Blatt, worin es zugleich <quote>&#x201E;für das Gemüth erhebend&#x201C;</quote> genan&#x0303;t<lb/>
+wurde zu sehen, wie aus der Wurzel ein Baum in vol-<lb/>
+lem Wachsthum sich erhebt <choice><abbr>u<supplied>.</supplied></abbr><expan>und</expan></choice> Zweige <choice><abbr>u<supplied>.</supplied></abbr><expan>und</expan></choice> Äste hierhin <choice><abbr>u<supplied>.</supplied></abbr><expan>und</expan></choice> dort[-]<lb/>
+hin breitet (Das war ungefähr der Sin&#x0303;, den&#x0303; ich citiere,<lb/>
+das flüchtig Gelesene jetzt nur aus dem Gedächtnis). Über<lb/>
+die Vortheile <choice><abbr>u<supplied>.</supplied></abbr><expan>und</expan></choice> Vorzüge <del rendition="#s" hand="#DS"><unclear reason="illegible" resp="#LM">d.</unclear></del> meiner naturgemäßen Anordnung<lb/>
+darf ich auf die &#x201E;Ankündigung&#x201C; (auf den Umschlag meines<lb/>
+Wörterbuchs<note type="editorial"><bibl>Sanders, Daniel: Wörterbuch der deutschen Sprache. Mit Belegen von Luther bis auf die Gegenwart. Leipzig 1860-1865.</bibl> <ref target="https://books.google.de/books?id=MpREAAAAcAAJ">Erster Band. Online verfügbar: GoogleBooks, abgerufen am 31.05.2019.</ref> <ref target="https://books.google.de/books?id=VjQTAAAAQAAJ">Zweiter Band. Erste Hälfte. Online verfügbar: GoogleBooks, abgerufen am 31.05.2019.</ref> <ref target="https://books.google.de/books?id=hyBJAAAAcAAJ">Zweiter Band. Zweite Hälfte. Online verfügbar: GoogleBooks, abgerufen am 31.05.2019.</ref></note>) <choice><abbr>u<supplied>.</supplied></abbr><expan>und</expan></choice> die beifolgende <hi rendition="#aq"><persName>Raschig</persName></hi>&#x2019;sche Besprechung ver-<lb/>
+weisen. Die Hauptsache bleibt im&#x0303;er, daß das Zusam&#x0303;engehörige<lb/>
+<pb facs="#f0007" n="[4r]"/>
+nicht auseinandergerissen ist, sondern vielmehr die zerstreu-<lb/>
+ten Strahlen in einen Fokus gesam&#x0303;elt sind, von dem aus<lb/>
+Licht <choice><abbr>u<supplied>.</supplied></abbr><expan>und</expan></choice> belebende Wärme sich über das Einzelne verbreitet,<lb/>
+<choice><abbr>u<supplied>.</supplied></abbr><expan>und</expan></choice> die nur so mögliche in&#x0303;ere Vollständigkeit in Bezug auf die<lb/>
+nach dem Wesen unsrer Sprache ins Unendliche zu mehrenden<lb/>
+Zusam&#x0303;ensetzungen. Zu der in&#x0303;ern <choice><abbr>Vollständigk.</abbr><expan>Vollständigkeit</expan></choice> zähle ich na-<lb/>
+mentlich die möglichst erschöpfende Aufzählung der verschiedenen<lb/>
+Bedeutungen, in denen dasselbe vorkom&#x0303;t. Und grade hier<lb/>
+glaube ich ebenfalls sehr viel mehr geleistet zu haben als<lb/>
+meine Mitbewerber. Sie vergön&#x0303;en mir wohl, ein Beispiel<lb/>
+zu geben. Ich wähle <hi rendition="#u">Abend</hi> (<choice><abbr>S.</abbr><expan>Seite</expan></choice> 4). In der <choice><abbr>Bed.</abbr><expan>Bedeutung</expan></choice> I. &#x201E;die Zeit ds Son&#x0303;en-<lb/>
+untergangs, das Ende des Tages <choice><abbr>u<supplied>.</supplied></abbr><expan>und</expan></choice> Begin&#x0303; der Nacht&#x201C; habe ich die <choice><abbr>gewöhnl.</abbr><expan>gewöhnlichen</expan></choice><lb/>
+Verbindungen <add place="superlinear" hand="#DS">aufgeführt</add>, <del rendition="#s" hand="#DS">wenn</del> mit <choice><abbr>Eigenschaftsw.</abbr><expan>Eigenschaftswort</expan></choice> (der Abend ist hell, glän-<lb/>
+zend&#x2026;, dunkel...:, ruhig, labend&#x2026;), ferner mit <choice><abbr>Zeitw.</abbr><expan>Zeitwörtern</expan></choice>: <choice><abbr>A.</abbr><expan>Abend</expan></choice> <del rendition="#s" hand="#DS"><gap reason="illegible" unit="chars" quantity="2"/></del><lb/>
+[=Feierabend] machen; Es wird, geht gegen (auf, den <choice><abbr>A.</abbr><expan>Abend</expan></choice>;<lb/>
+der <choice><abbr>A.</abbr><expan>Abend</expan></choice> kom&#x0303;t (heran)<del rendition="#s" hand="#DS">)</del>, naht, sinkt (hernieder)....., ferner mit <choice><abbr>Hauptw.</abbr><expan>Hauptwort</expan></choice><lb/>
+(Gold, Schim&#x0303;ter, Schatten, Dunkel, Dunst, &#x2026; Thau des <choice><abbr>A's.</abbr><expan>Abends</expan></choice>)<supplied>.</supplied> Schon davon<lb/>
+finden Sie in den <del rendition="#s" hand="#DS">f</del> übrigen Wörterbüchern fast Nichts,<lb/>
+höchstens ein <choice><abbr>od.</abbr><expan>oder</expan></choice> die andre Wendung, weil sie sich &#x2013; rein<lb/>
+zufällig &#x2013; in einer angeführten Stelle findet. Von dem unter<lb/>
+besprochene Grüße &#x201E;Guten <choice><abbr>A.</abbr><expan>Abend</expan></choice>&#x201C; ist <subst><del rendition="#s" hand="#DS"><add place="superlinear" hand="#DS">freilich</add></del></subst> unbegreiflicherweise bei<lb/>
+<hi rendition="#aq">Wurm</hi><note type="editorial"><bibl>Wurm, Christian: Wörterbuch der deutschen Sprache von der Druckerfindung bis zum heutigen Tage. 6. Auflage. Freiburg i. B. 1859.</bibl> <ref target="http://mdz-nbn-resolving.de/urn:nbn:de:bvb:12-bsb10584622-4">Online verfügbar: BSB digital, abgerufen am 03.06.2019.</ref></note> gar nicht die Rede, andre <choice><abbr>Wörterb.</abbr><expan>Wörterbücher</expan></choice> wie <hi rendition="#aq">Adelung</hi><note type="editorial"><bibl>Adelung, Johann Christoph: Grammatisch-kritisches Wörterbuch der Hochdeutschen Mundart. Leipzig 1774&#x2013;1801.</bibl> <ref target="http://mdz-nbn-resolving.de/urn:nbn:de:bvb:12-bsb10523237-1">Erster Band. Online verfügbar: BSB digital, abgerufen am 03.06.2019.</ref> <ref target="http://mdz-nbn-resolving.de/urn:nbn:de:bvb:12-bsb10523238-7">Zweiter Band. Online verfügbar: BSB digital, abgerufen am 03.06.2019.</ref> <ref target="http://mdz-nbn-resolving.de/urn:nbn:de:bvb:12-bsb10523239-7">Dritter Band. Online verfügbar: BSB digital, abgerufen am 03.06.2019.</ref> <ref target="http://mdz-nbn-resolving.de/urn:nbn:de:bvb:12-bsb10711892-7">Vierter Band. Online verfügbar: BSB digital, abgerufen am 03.06.2019.</ref></note>, <hi rendition="#aq">Campe</hi><note type="editorial"><bibl>Campe, Joachim Heinrich: Wörterbuch der Deutschen Sprache. Braunschweig 1807&#x2013;1811.</bibl> <ref target="http://mdz-nbn-resolving.de/urn:nbn:de:bvb:12-bsb10523275-2">Erster Band. Online verfügbar: BSB digital, abgerufen am 03.06.2019.</ref> <ref target="http://mdz-nbn-resolving.de/urn:nbn:de:bvb:12-bsb10523281-5">Zweiter Band. Online verfügbar: BSB digital, abgerufen am 03.06.2019.</ref> <ref target="http://mdz-nbn-resolving.de/urn:nbn:de:bvb:12-bsb10523277-2">Dritter Band. Online verfügbar: BSB digital, abgerufen am 03.06.2019.</ref> <ref target="http://mdz-nbn-resolving.de/urn:nbn:de:bvb:12-bsb10523283-6">Vierter Band. Online verfügbar: BSB digital, abgerufen am 03.06.2019.</ref> <ref target="http://mdz-nbn-resolving.de/urn:nbn:de:bvb:12-bsb10523279-8">Fünfter Band. Online verfügbar: BSB digital, abgerufen am 03.06.2019.</ref></note>,<lb/>
+<hi rendition="#aq">Grim&#x0303;</hi><note type="editorial"><bibl>Grimm, Wilhelm; Grimm, Jacob: Deutsches Wörterbuch. Erster Band. A &#x2013; Biermolke. Leipzig 1854.</bibl> <ref target="https://books.google.de/books?id=HmhoAAAAcAAJ">Online verfügbar: GoogleBooks, abgerufen am 31.05.2019.</ref></note> <choice><abbr>p<supplied>.</supplied></abbr><expan>pp.</expan></choice> erwähnen sie freilich, aber nur in dem meinigen<lb/>
+<pb facs="#f0008" n="[4v]"/>
+finden Sie vermerkt; daß diese Grußformel auch als ein<lb/>
+Wort vorkom&#x0303;t (mit einem Beleg aus aus <hi rendition="#aq"><persName ref="http://d-nb.info/gnd/118557211"><choice><abbr>J<supplied>.</supplied></abbr><expan>Jean</expan></choice> Paul</persName></hi>), wovon selbst ein<lb/>
+Plural gebildet wird, wie ein Beleg aus <hi rendition="#aq"><persName ref="http://d-nb.info/gnd/118540238">Goethe</persName></hi> zeigt. Den unter<lb/>
+b, auseinandergesetzten Unterschied zwischen der genitivi-<lb/>
+schen <choice><abbr>u<supplied>.</supplied></abbr><expan>und</expan></choice> accusativischen Zeitbestim&#x0303;ung: &#x201E;(den) <choice><abbr>A.</abbr><expan>Abend</expan></choice>&#x201C; u(.) &#x201E;des Abends&#x201C; finden<lb/>
+Sie ebenfalls nur in meinem Wörterbuch, ebenso das verstär-<lb/>
+kende Adverb &#x201E;allabends&#x201C;, das selbst bei <hi rendition="#aq">Grim&#x0303;</hi><note type="editorial"><bibl>Grimm, Wilhelm; Grimm, Jacob: Deutsches Wörterbuch. Erster Band. A &#x2013; Biermolke. Leipzig 1854.</bibl> <ref target="https://books.google.de/books?id=HmhoAAAAcAAJ">Online verfügbar: GoogleBooks, abgerufen am 31.05.2019.</ref></note> <choice><abbr>u<supplied>.</supplied></abbr><expan>und</expan></choice> <hi rendition="#aq">Wurm</hi><note type="editorial"><bibl>Wurm, Christian: Wörterbuch der deutschen Sprache von der Druckerfindung bis zum heutigen Tage. 6. Auflage. Freiburg i. B. 1859.</bibl> <ref target="http://mdz-nbn-resolving.de/urn:nbn:de:bvb:12-bsb10584622-4">Online verfügbar: BSB digital, abgerufen am 03.06.2019.</ref></note> fehlt,<lb/>
+die doch &#x201E;allabendlich&#x201C; verzeichnen. Die unter 5 folgenden <choice><abbr>Verbind.</abbr><expan>Verbindungen</expan></choice>,<lb/>
+wo Abend abhängig <choice><abbr>v.</abbr><expan>von</expan></choice> den <choice><abbr>Präpos.</abbr><expan>Präpositionen</expan></choice> &#x2013; die <choice><abbr>alphabet.</abbr><expan>alphabetisch</expan></choice> geordnet sind &#x2013;<lb/>
+&#x201E;an, auf, bei, bis, gegen, in, mit, um, vor, zu, zwischen Abends(s)&#x201C;<lb/>
+vermisst man in dieser Vollständigkeit ebenfalls in allen bisherigen <choice><abbr>Wörterb.</abbr><expan>Wörterbüchern</expan></choice>; ich hoffe<lb/>
+die ungewöhnlichern genügend belegt <del rendition="#s" hand="#DS">zu haben</del> <choice><abbr>u<supplied>.</supplied></abbr><expan>und</expan></choice> zugleich<lb/>
+gram&#x0303;atische Freiheiten für denkende Leser zur Genüge<lb/>
+eingeordnet zu haben, <choice><abbr>z.B.</abbr><expan>zum Beispiel</expan></choice> daß die Verbindung <choice><abbr>v.</abbr><expan>von</expan></choice> Abend<lb/>
+mit &#x201E;bei&#x201C; <choice><abbr>u<supplied>.</supplied></abbr><expan>und</expan></choice> &#x201E;in&#x201C; nur gewöhnlich ist, wen&#x0303; ein <choice><abbr>Eigenschaftsw.</abbr><expan>Eigenschaftswort</expan></choice><lb/>
+zu &#x201E;Abend&#x201C; hinzutritt, ferner den Unterschied des seltenern &#x201E;an<lb/>
+dem Abend&#x201C; bei <hi rendition="#aq"><persName ref="http://d-nb.info/gnd/118540238">Goethe</persName></hi> 14,115 statt des <choice><abbr>gewöhnl.</abbr><expan>gewöhnlichen</expan></choice> &#x201E;am Abend&#x201C; <choice><abbr>p.</abbr><expan>pp.</expan></choice> &#x2013;<lb/>
+die in <del rendition="#s" hand="#DS">Bed</del> d, aufgeführte <del rendition="#s" hand="#DS">B</del> durch ein <choice><abbr>Bsp.</abbr><expan>Beispiel</expan></choice> aus <hi rendition="#aq"><persName>König</persName></hi> belegte<lb/>
+<choice><abbr>Bed.</abbr><expan>Bedeutung</expan></choice> &#x201E;Abend = Abendgesellschaft, Soiree&#x201C; fehlte in den andern<lb/>
+Wörterbüchern. &#x2013; Die unter 2, angeführte <choice><abbr>Bed.</abbr><expan>Bedeutung</expan></choice> &#x201E;übertragen, wie<lb/>
+des Tags, so auch andrer Zeiträumen Ende&#x201C;, die ich mit <choice><abbr>Bsp.</abbr><expan>Beispielen</expan></choice><lb/>
+<del rendition="#s" hand="#DS">aus guten <gap reason="illegible" unit="words" quantity="1"/></del> belege, findet sich bei Andern gar nicht,<lb/>
+bei <hi rendition="#aq"><persName ref="http://d-nb.info/gnd/118518658">Campe</persName></hi> und <hi rendition="#aq"><persName ref="http://d-nb.info/gnd/1083009273">Grim&#x0303;</persName></hi> nur in der beschränkten Anwendung<lb/>
+&#x201E;Abend des Lebens&#x201C;, vgl<supplied>.</supplied> dagegen bei mir: Am <choice><abbr>A.</abbr><expan>Abend</expan></choice> des vergan-<lb/>
+<fw place="bottom" type="catch">genen</fw><lb/>
+<pb facs="#f0009" n="[5r]"/>
+<note place="mTop right" hand="#DS"/><lb/>
+genen Jahrhunderts. <hi rendition="#aq"><persName ref="http://d-nb.info/gnd/118549553">Herder</persName></hi>; Am <choice><abbr>A.</abbr><expan>Abend</expan></choice> seiner Regierung. <hi rendition="#aq"><persName ref="http://d-nb.info/gnd/12989432X">Tieck</persName></hi> <choice><abbr>p<supplied>.</supplied></abbr><expan>pp.</expan></choice> <choice><abbr>u<supplied>.</supplied></abbr><expan>und</expan></choice> die nach<lb/>
+diesen <choice><abbr>Bsp.</abbr><expan>Beispiel</expan></choice> ins Unendliche zu mehrenden Zusam&#x0303;ensetzungen wie: Alters-,<lb/>
+Lebens-, Weltgerichts-Abend. &#x2013; Wen&#x0303; es den&#x0303; unter 3, heißt: &#x201E;Wie der Be-<lb/>
+gin&#x0303; der Nacht, <choice><abbr>p<supplied>.</supplied></abbr><expan>pp.</expan></choice> <choice><abbr>nam.</abbr><expan>namentlich</expan></choice> bei Festen in <choice><abbr>Zsstzg.</abbr><expan>Zusammensetzung</expan></choice> <choice><abbr>od.</abbr><expan>oder</expan></choice> in Verbindung mit &#x201E;heilig&#x201C; der<lb/>
+Vorabend, Tag vorher&#x201C; <choice><abbr>p<supplied>.</supplied></abbr><expan>pp.</expan></choice>, so ist das allerdings auch in andern Wörter-<lb/>
+büchern erwähnt, aber die <choice><abbr>Anm.</abbr><expan>Anmerkung</expan></choice>, <choice><abbr>v.</abbr><expan>von</expan></choice> der ich <choice><sic>hofte</sic><corr>hoffte</corr></choice>, daß man sie als<lb/>
+vieles Hierhergehörige erhellend anerken&#x0303;en wird, wird man<lb/>
+vergebens bei Andern suchen: &#x201E;In <choice><abbr>Zsstzg.</abbr><expan>Zusammensetzung</expan></choice> bleibt &#x201E;Tag&#x201C; weg; der<lb/>
+Thomastag ist <choice><abbr>z.B.</abbr><expan>zum Beispiel</expan></choice> der 21<supplied>.</supplied> <choice><abbr>Dec<supplied>.</supplied></abbr><expan>December</expan></choice>; Thomastag Abend, der Abend des 21<supplied>.</supplied><lb/>
+<choice><abbr>Dec.</abbr><expan>December</expan></choice> aber: Am <choice><abbr>S.</abbr><expan>Sankt</expan></choice> Thomasabend den 20<supplied>.</supplied> <choice><abbr>Dec.</abbr><expan>December</expan></choice> Stumpf <supplied><choice><abbr>S.</abbr><expan>Seite</expan></choice></supplied>726a<note type="editorial"><bibl>Stumpf, Johannes: Gemeiner loblicher Eydgnoschafft Stetten, Landen vnd Völckeren Chronick wirdiger thaaten beschreybung. Zürich 1548, S. 419.</bibl> <ref target="https://books.google.de/books?id=7a7vOu9_S5cC">Online verfügbar: GoogleBooks, abgerufen am 03.06.2019.</ref></note>&#x2026;&#x2026; Ebenso<lb/>
+verschieden: Son&#x0303;tagabend, Ende des Son&#x0303;tags; Son&#x0303;abend<del rendition="#s" hand="#DS">,</del>, der Tag vorher<lb/>
+<choice><abbr>u<supplied>.</supplied></abbr><expan>und</expan></choice> dazu Son&#x0303;abend, Abend <choice><abbr>p<supplied>.</supplied></abbr><expan>pp.</expan></choice>... Hiermit sind sofort <del rendition="#s" hand="#DS">alle</del> die <choice><abbr>Zsstzg.</abbr><expan>Zusammensetzung</expan></choice><lb/>
+&#x201E;mit den Namen aller Feste&#x201C; klar, <choice><abbr>z.B.</abbr><expan>zum Beispiel</expan></choice> Johan&#x0303;is-, Oster-, Weih-<lb/>
+nachts-, Fest-Abend <choice><abbr>p.</abbr><expan>pp.</expan></choice> Das ist die in&#x0303;ere Vollständigkeit, die &#x2013;<lb/>
+wie gesagt &#x2013; nur bei dieser Anordnung möglich ist, denn<lb/>
+in einem rein <choice><abbr>alphabet.</abbr><expan>alphabetischen</expan></choice> Wörterbuch, das auf <choice><abbr>Vollständigk.</abbr><expan>Vollständigkeit</expan></choice><lb/>
+Anspruch machen will, müsste es bei dem unter &#x201E;F.&#x201C; zu verzeichnen-<lb/>
+den &#x201E;Festabend&#x201C; heißen: Der Abend vor einem Fest, &#x2013; dan&#x0303;<lb/>
+unter &#x201E;Johan&#x0303;isabend&#x201C; (in &#x201E;J<supplied>.</supplied>&#x201C;) wieder: der Abend vor dem <choice><abbr>S.</abbr><expan>Sankt</expan></choice> Johan&#x0303;is-<lb/>
+feste <choice><abbr>u.s.w.</abbr><expan>und so fort</expan></choice> <hi rendition="#aq"><foreign xml:lang="lat">mutatis mutandis</foreign></hi> unter säm&#x0303;tlichen Festen. Das<lb/>
+Werk würde eine unermessliche <del rendition="#s" hand="#DS">E</del> Umfang einnehmen<lb/>
+<choice><abbr>u<supplied>.</supplied></abbr><expan>und</expan></choice> der Nachschlagende würde dan&#x0303; freilich in jedem einzelnem<lb/>
+Falle das Gesuchte finden, aber zu dem Denken über die Sprache<lb/>
+würde er nicht geleitet, wie hier, <del rendition="#s" hand="#DS">&#x2013;</del> wo (um einen oben gebrauch-<lb/>
+<pb facs="#f0010" n="[5v]"/>
+ten Ausdruck zu wiederholen) die zerstreuten Strahlen in einem<lb/>
+Bren&#x0303;punkt vereinigt sind. Ich will &#x2013; weil mir dies ein besonders<lb/>
+zu betonender Punkt scheint &#x2013; gleich nachher noch einige <choice><abbr>Bsp.</abbr><expan>Beispiel</expan></choice> bei-<lb/>
+bringen <choice><abbr>v.</abbr><expan>von</expan></choice> Gesichtspunkten, zu denen ein Wörterbuchschrei-<lb/>
+ber schwerlich gelangt bei der bisherigen zerstreuten <choice><abbr>u<supplied>.</supplied></abbr><expan>und</expan></choice><lb/>
+zerstreuenden Behandlung, die sich aber mir bei meiner Be-<lb/>
+handlung, wobei ich das Zerstreute zusam&#x0303;en <choice><abbr>u<supplied>.</supplied></abbr><expan>und</expan></choice> aus einem<lb/>
+höhern Gesichtspunkte ins Auge fassen müsste, förmlich auf-<lb/>
+gedrungen haben, nur will ich die Besprechung <choice><abbr>v.</abbr><expan>von</expan></choice> Abend noch erst<lb/>
+rasch zu Ende führen. &#x2013; Die <choice><abbr>Bed.</abbr><expan>Bedeutung</expan></choice> 4, = Westen findet sich auch bei<lb/>
+Andern, nur wird man vergebens die sorgfältig gesam&#x0303;elten<lb/>
+Belege des seltenen Gebrauchs <choice><abbr>v.</abbr><expan>von</expan></choice> Abend <hi rendition="#u">mit dem <del rendition="#s" hand="#DS">G</del> Artikel</hi> in<lb/>
+dieser <choice><abbr>Bed.</abbr><expan>Bedeutung</expan></choice> anderswo suchen, &#x2013; ebenso den in der <choice><abbr>Anm.</abbr><expan>Anmerkung</expan></choice> auseinan-<lb/>
+der gesetzten <choice><abbr>Untersch.</abbr><expan>Unterschiede</expan></choice> <choice><abbr>zw.</abbr><expan>zwischen</expan></choice> &#x201E;alle Abend&#x201C; <choice><abbr>u<supplied>.</supplied></abbr><expan>und</expan></choice> &#x201E;alle Abende&#x201C;, wobei<lb/>
+ich die Abweichungen guter Schriftsteller <choice><abbr>v.</abbr><expan>von</expan></choice> dem von mir auf-<lb/>
+gestellten Unterschiede nicht verschwiegen habe, weil ich &#x2013; wie<lb/>
+ich es in dem Vorwort zu meinem Katechismus der Orthogra-<lb/>
+phie<note type="editorial"><bibl>Sanders, Daniel: Katechismus der deutschen Orthographie. Leipzig 1856.</bibl> <ref target="https://archive.org/details/bub_gb_8IoNAAAAYAAJ">Dritte Auflage. Leipzig 1873. Online verfügbar: Internet Archive, abgerufen am 31.05.2019.</ref></note> ausgesprochen, die Sprache nicht &#x201E;machen&#x201C;, sondern die<lb/>
+&#x201E;geworden&#x201C; anerken&#x0303;en <choice><abbr>u<supplied>.</supplied></abbr><expan>und</expan></choice> die Gründe ihres Werdens soweit<lb/>
+ich kan&#x0303;, erken&#x0303;en <choice><abbr>u<supplied>.</supplied></abbr><expan>und</expan></choice> entwickeln will. &#x2013; Auch die Belege für den<lb/>
+seltenen <choice><abbr>Genit.</abbr><expan>Genitiv</expan></choice> des Abendes (aus einer prosaïschen <choice><abbr>u<supplied>.</supplied></abbr><expan>und</expan></choice> einer<lb/>
+<choice><sic>goetischen</sic><corr>goethischen</corr></choice> Schrift) finden sich nur bei mir. &#x2013;</p><lb/>
+<p>Nun noch einige der oben angekündigten <choice><abbr>Bsp.</abbr><expan>Beispiele</expan></choice>, wobei ich<lb/>
+<pb facs="#f0011" n="[6r]"/>
+mich aber mit Rücksicht auf den Raum auf 2 beschränke:</p><lb/>
+<p>Wen&#x0303; es bei mir <choice><abbr>S.</abbr><expan>Seite</expan></choice> 37 <choice><abbr>Sp.</abbr><expan>Spalte</expan></choice> 2 heißt: &#x201E;Apfel zuw. = Apfelbaum&#x201C;, mit einem Beleg<lb/>
+aus <hi rendition="#aq"><persName ref="http://d-nb.info/gnd/118540238">Goethe</persName></hi> <choice><abbr>u<supplied>.</supplied></abbr><expan>und</expan></choice> einem aus <hi rendition="#aq"><persName ref="http://d-nb.info/gnd/118549553">Herder</persName></hi>, so habe ich damit allerdings <add place="superlinear" hand="#DS">eine</add> bei allen An-<lb/>
+dern fehlende <choice><abbr>Bed.</abbr><expan>Bedeutung</expan></choice> aufgeführt, die man in der Wendung: <supplied>&#x201E;</supplied>Die Äpfel<lb/>
+blühen&#x201C; sehr gewöhnlich ist, aber ich füge zugleich bei,<choice><abbr>s.</abbr><expan> siehe</expan></choice> Baum II 2<lb/>
+<choice><abbr>u<supplied>.</supplied></abbr><expan>und</expan></choice> wen&#x0303; Sie <choice><abbr>gefl.</abbr><expan>gefälligst</expan></choice> dies <choice><abbr>S.</abbr><expan>Seite</expan></choice> 98 nachlesen wollen, so hoffe ich, daß Sie<lb/>
+Ihren Beifall dieser Zusam&#x0303;enstellung nicht versagen werden, in der<lb/>
+nachgewiesen wird, daß <choice><abbr>u<supplied>.</supplied></abbr><expan>und</expan></choice> wan&#x0303; in den nach den Früchten benan&#x0303;ten<lb/>
+Bäumen wie Apfel-, Birn-, <add place="superlinear" hand="#DS">Kirsch-,</add> <choice><sic>Lorber</sic><corr>Lorbeer</corr></choice>-, Mandel-, Nuß-Baum <choice><abbr>u.s.w.</abbr><expan>und so weiter</expan></choice><lb/>
+der Name der Frucht für den Baum stehen kann. Ich glaube, es<lb/>
+ist dies einer <choice><abbr>v.</abbr><expan>von</expan></choice> den Fällen, in denen durch die Zusam&#x0303;enstellung<lb/>
+des Zusam&#x0303;engehörigen ohne Weiteres auf das Einzelne Licht<lb/>
+fällt. Daß es wie nun möglich wird, unter &#x201E;Birne&#x201C; <choice><abbr>S.</abbr><expan>Seite</expan></choice> 143 durch<lb/>
+die Bem. &#x201E;zuw. auch für den Baum selbst stehend<del rendition="#s" hand="#DS">&#x201C;</del> (<choice><abbr>s.</abbr><expan>siehe</expan></choice> Baum<lb/>
+II 2a)&#x201C; <choice><abbr>u.s.w.</abbr><expan>und so weiter</expan></choice> bei den ähnlichen Früchten <add place="superlinear" hand="#DS">eine</add> Bedeutung, die in den<lb/>
+andern <choice><abbr>Wörterb.</abbr><expan>Wörterbüchern</expan></choice> fehlt, klar <choice><abbr>u<supplied>.</supplied></abbr><expan>und</expan></choice> kurz aufzuführen, bedarf<lb/>
+wohl keiner Bemerkung <choice><abbr>u<supplied>.</supplied></abbr><expan>und</expan></choice> doch erklärt sich nur durch die<lb/>
+Erwägung solcher <choice><abbr>Bsp.</abbr><expan>Beispiele</expan></choice>, wie es mir möglich ward, schon in den<lb/>
+ersten vier Lieferungen (die 4te wird, denk' ich, in spä-<lb/>
+testens 14 Tagen ausgegeben) bis &#x201E;D<supplied>.</supplied>&#x201C; zu kom&#x0303;en, wohin es die <add place="superlinear" hand="#DS"><hi rendition="#aq"><persName ref="http://d-nb.info/gnd/1083009273">Grim&#x0303;</persName></hi></add> &#x2013;<lb/>
+ohne<del rendition="#s" hand="#DS">,</del> wenigstens in dem, was das Interesse des gebildeten<lb/>
+Publikums im Allgemeinen, nicht der bloße Sprachforscher<lb/>
+in Anspruch nim&#x0303;t &#x2013; mit mir rivalisieren zu können.<note place="left" hand="#DS">Kaum in 2 Bänden gebracht.</note> Dazu<lb/>
+war freilich auch nöthig, daß ich unter den schon mit Auswahl <add place="superlinear" hand="#DS"><choice><abbr>u<supplied>.</supplied></abbr><expan>und</expan></choice> nach bewusstem Plan</add> für<lb/>
+<pb facs="#f0012" n="[6v]"/>
+das Wörterbuch<note type="editorial"><bibl>Sanders, Daniel: Wörterbuch der deutschen Sprache. Mit Belegen von Luther bis auf die Gegenwart. Leipzig 1860-1865.</bibl> <ref target="https://books.google.de/books?id=MpREAAAAcAAJ">Erster Band. Online verfügbar: GoogleBooks, abgerufen am 31.05.2019.</ref> <ref target="https://books.google.de/books?id=VjQTAAAAQAAJ">Zweiter Band. Erste Hälfte. Online verfügbar: GoogleBooks, abgerufen am 31.05.2019.</ref> <ref target="https://books.google.de/books?id=hyBJAAAAcAAJ">Zweiter Band. Zweite Hälfte. Online verfügbar: GoogleBooks, abgerufen am 31.05.2019.</ref></note> gesam&#x0303;elten Belegstellen, tüchtig beutelnd <choice><abbr>u<supplied>.</supplied></abbr><expan>und</expan></choice> schütteln-<lb/>
+des Mehl <choice><abbr>v.</abbr><expan>von</expan></choice> der Klein gesondert, nur das Schlagendste ausgewählt <choice><abbr>u<supplied>.</supplied></abbr><expan>und</expan></choice><lb/>
+nicht wenigstens bestrebt, keinen Beleg zu geben, der nicht für Form<lb/>
+<choice><abbr>od.</abbr><expan>oder</expan></choice> Bedeutung <choice><abbr>p<supplied>.</supplied></abbr><expan>pp.</expan></choice> eines Wortes beweisend wäre, <choice><abbr>u<supplied>.</supplied></abbr><expan>und</expan></choice> die Belege so kurz<lb/>
+als möglich <choice><abbr>u.s.w.</abbr><expan>und so weiter</expan></choice> &#x2013; das zweite <choice><abbr>Bsp.</abbr><expan>Beispiel</expan></choice> sei, da ich mich kurz fassen<lb/>
+muß, nur angedeutet. Sehen Sie <choice><abbr>gefl.</abbr><expan>gefälligst</expan></choice> <choice><abbr>S.</abbr><expan>Seite</expan></choice> 85, Spalte 2 unter 4: Die<lb/>
+<choice><abbr>Zsstzg.</abbr><expan>Zusammensetzung</expan></choice> <choice><abbr>v.</abbr><expan>von</expan></choice> gebären <choice><abbr>u<supplied>.</supplied></abbr><expan>und</expan></choice> <choice><abbr>vgl<supplied>.</supplied></abbr><expan>vergleiche</expan></choice> <choice><abbr>z.B.</abbr><expan>zum Beispiel</expan></choice> &#x201E;Angebären&#x201C; bei <hi rendition="#aq"><persName ref="http://d-nb.info/gnd/119556936">Wurm</persName></hi> <choice><abbr>u<supplied>.</supplied></abbr><expan>und</expan></choice> die Dre-<lb/>
+hungen <choice><abbr>u.</abbr><expan>und</expan></choice> Wendungen, die die Andern machen, um <add place="superlinear" hand="#DS">über</add> die einfache<lb/>
+Thatsache wegzukom&#x0303;en, daß <choice><abbr>v.</abbr><expan>von</expan></choice> solchen <choice><abbr>Zeitw.</abbr><expan>Zeitwendungen</expan></choice> der Natur der Sache<lb/>
+gemäß das <hi rendition="#aq"><choice><abbr>Partic.</abbr><expan>Particip</expan></choice></hi> am häufigsten ist. Wollten Sie Sich aber zu<lb/>
+einem Vergleich entschließen, wie viel <choice><abbr>od.</abbr><expan>oder</expan></choice> vielmehr wie wenig<lb/>
+die übrigen Wörterbücher <choice><abbr>v.</abbr><expan>von</expan></choice> die <choice><abbr>Zsstzg.</abbr><expan>Zusammensetzung</expan></choice> <choice><abbr>v.</abbr><expan>von</expan></choice> &#x201E;gebären&#x201C; bringen,<lb/>
+Sie würden staunen. &#x2013; Doch ich eile zum Schluß. Daß ich mit Müh<lb/>
+<choice><abbr>u<supplied>.</supplied></abbr><expan>und</expan></choice> Sorgfalt die technischen <choice><abbr>u<supplied>.</supplied></abbr><expan>und</expan></choice> gewerblichen Ausdrücke aufgenom&#x0303;en,<lb/>
+wird &#x2013; als durchaus zeitgemäß &#x2013; sicher Zustim&#x0303;ung <choice><abbr>u<supplied>.</supplied></abbr><expan>und</expan></choice> Beifall fin-<lb/>
+den, in Bezug auf die Fremdwörter glaube ich das <subst><del rendition="#s" hand="#DS">R</del><add place="intralinear" hand="#DS">r</add></subst>ichti-<lb/>
+ge Maß getroffen zu haben. Sie sind einmal in der Sprache <choice><abbr>u<supplied>.</supplied></abbr><expan>und</expan></choice><lb/>
+ich will weder noch kan&#x0303; ich die Sprache &#x2013; wie ich bereits gesagt &#x2013;<lb/>
+&#x201E;machen&#x201C;, sondern ich will die gewordene, so wie sie ist, darlegen.<lb/>
+Außerdem ist die Aushülfe eigner Fremdwörter<add place="sublinear" hand="#DS">bücher</add> ein wunderli-<lb/>
+cher Behelf, zu dem kein andres Volk gegriffen <choice><abbr>u<supplied>.</supplied></abbr><expan>und</expan></choice> soll man<lb/>
+etwa &#x201E;Disputieren&#x201C; im Fremdwörterbuch, &#x201E;Einem Etwas <hi rendition="#u">ab</hi>dispu-<lb/>
+tieren&#x201C; im <choice><abbr>Deutsch.</abbr><expan>Deutschen</expan></choice> <choice><abbr>Wörterb.</abbr><expan>Wörterbuch</expan></choice> nachschlagen? Nebenbei bemerkt, ver-<lb/>
+misse ich selbst in unsern besten <choice><abbr>Fremdwörterb.</abbr><expan>Fremdwörterbüchern</expan></choice> die nöthigen<lb/>
+<choice><sic>Formbemerk</sic><corr>Formbemerke</corr></choice>. Wer ein solches Buch nachschlagen <hi rendition="#u">muß</hi>, der weiß<lb/>
+auch so ohne Weiteres eben nicht, daß <choice><abbr>z.B.</abbr><expan>zum Beispiel</expan></choice> <choice><abbr>v.</abbr><expan>von</expan></choice> Monolog, Dialog <choice><abbr>p<supplied>.</supplied></abbr><expan>pp.</expan></choice><lb/>
+der gewöhnliche <choice><abbr>Genit.</abbr><expan>Genitiv</expan></choice> auf &#x201E;s&#x201C;, die <choice><abbr>Mehrz.</abbr><expan>Mehrzahl</expan></choice> auf &#x201E;n&#x201C; ausgeht,<lb/>
+<fw type="catch" place="bottom">daß da-</fw><lb/>
+<pb facs="#f0013" n="[7r]"/>
+<note place="mTop right" hand="#DS"/><lb/>
+daß dagegen <choice><abbr>v.</abbr><expan>von</expan></choice> &#x201E;Philolog&#x201C; <choice><abbr>p<supplied>.</supplied></abbr><expan>pp.</expan></choice> der <choice><abbr>Genit.</abbr><expan>Genitiv</expan></choice> <choice><abbr>u<supplied>.</supplied></abbr><expan>und</expan></choice> die <choice><abbr>Mehrz.</abbr><expan>Mehrzahl</expan></choice> auf &#x201E;en&#x201C; gebil-<lb/>
+det werden <choice><abbr>u<supplied>.</supplied></abbr><expan>und</expan></choice> doch lassen hierüber <choice><abbr>u<supplied>.</supplied></abbr><expan>und</expan></choice> über ähnliche Punkte <choice><abbr>z.B.</abbr><expan>zum Beispiel</expan></choice><lb/>
+das <hi rendition="#aq">Heyse</hi>&#x2019;sche <choice><abbr>Fremdwörterb.</abbr><expan>Fremdwörterbuch</expan></choice><note type="editorial"><bibl>Heyse, Johann: Allgemeines verdeutschendes und erklärendes Fremdwörterbuch mit Bezeichnung der Aussprache und Betonung der Wörter und genauer Angabe ihrer Abstammung und Bildung. Oldenburg 1804.</bibl> <ref target="http://mdz-nbn-resolving.de/urn:nbn:de:bvb:12-bsb10583827-6">Elfte Auflage. Hannover 1853. Online verfügbar: BSB digital, abgerufen am 31.05.2019.</ref></note> <choice><abbr>u.ä.m.</abbr><expan>und ähnliches mehr</expan></choice> den Nachschlagenden durch-<lb/>
+aus im Stich. &#x2013; Und nun genug von meiner Leistung, wen&#x0303; ich<lb/>
+nur noch das aufrichtige Beken&#x0303;tnis beigefügt, daß ich<lb/>
+trotz allen Selbstgefühls weiß <choice><abbr>u<supplied>.</supplied></abbr><expan>und</expan></choice>, noch mehr als ich es weiß,<lb/>
+ahne, wieviel meinem Werk noch fehlt. Vollkom&#x0303;enes, in<lb/>
+allen Stücken gleich Genügendes hier zu leisten, ist ab-<lb/>
+solut unmöglich, setzt namentlich eine Universalität des<lb/>
+Geistes, eine gleichmäßige Vertrautheit mit den Ausdrücken<lb/>
+der verschiedensten Fächer <choice><abbr>u<supplied>.</supplied></abbr><expan>und</expan></choice> Wissenschaften voraus, die<lb/>
+vielleicht kein Mensch je erreicht und von der namentlich<lb/>
+ich mich sehr entfernt fühle. Redlichen Strebens aber,<lb/>
+unverdrossenen Fleißes <choice><abbr>u<supplied>.</supplied></abbr><expan>und</expan></choice> rastlosen Eifers das Rich-<lb/>
+tige zu erkennen und, wo ich es nicht selbst erken&#x0303;en<lb/>
+kan&#x0303;, es von Kundigern zu erfragen bin ich mir be-<lb/>
+wusst <choice><abbr>u<supplied>.</supplied></abbr><expan>und</expan></choice> trotz Fehler <choice><abbr>u<supplied>.</supplied></abbr><expan>und</expan></choice> Irrthümern im Einzelnen<lb/>
+weiß ich mich im Ganzen <choice><abbr>u<supplied>.</supplied></abbr><expan>und</expan></choice> Großen auf dem richtigen<lb/>
+Wege. Mit diesem offnen Geständnis schließe ich<lb/>
+diese lange Epistel.</p><lb/>
+<p>Sie machen mir in Ihrem Brief Hoffnung auf<lb/>
+ein nächstens erscheinendes Werk <choice><abbr>v.</abbr><expan>von</expan></choice> Ihnen. Ich bin<lb/>
+äußerst verlangend danach. Darf ich mir die Frage<lb/>
+<pb facs="#f0014" n="[7v]"/>
+erlauben, ob es sich auf <hi rendition="#aq"><persName ref="http://d-nb.info/gnd/118607626">Schiller</persName></hi> bezieht?</p><lb/>
+<closer>Und nun leben Sie wohl und bewahren Sie mir<lb/>
+die freundliche Gesin&#x0303;ung, die ich mit lebhaftem Danke<lb/>
+anerkenne.<salute>Mit aufrichtiger Hochachtung<lb/>
+ergebenst der Ihre<lb/>
+</salute>                      <signed><persName ref="http://d-nb.info/gnd/119242044"><choice><abbr>Dan.</abbr><expan>Daniel</expan></choice> Sanders</persName><supplied>.</supplied></signed><lb/>
+<dateline><placeName ref="http://www.geonames.org/2825922">Strelitz</placeName><supplied>,</supplied> 4.6.59</dateline>.</closer>              </div>          </body>      </text>  </TEI>

@@ -1,0 +1,938 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.deutschestextarchiv.de/basisformat.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">     <teiHeader>
+<fileDesc>
+<titleStmt>
+<title type="main">Das Pfennig-Magazin für Belehrung und Unterhaltung</title>
+<title type="sub">Dritte Folge, Zweiter Jahrgang, Nr. 97</title>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/115266127">
+<surname>Geyken</surname>
+<forename>Alexander</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1222198746">
+<surname>Haaf</surname>
+<forename>Susanne</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1019062681">
+<surname>Jurish</surname>
+<forename>Bryan</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Boenig</surname>
+<forename>Matthias</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Thomas</surname>
+<forename>Christian</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Wiegand</surname>
+<forename>Frank</forename>
+</persName>
+</editor>
+<respStmt>
+<orgName>Institut für Deutsche Sprache, Mannheim</orgName>
+<resp>
+<note type="remarkResponsibility">Bereitstellung der Bilddigitalisate und TEI
+Transkription</note>
+<ref target="http://hdl.handle.net/10932/00-01B8-B0B1-68A0-1501-B"/>
+</resp>
+</respStmt>
+<respStmt>
+<persName>
+<forename>Peter</forename>
+<surname>Fankhauser</surname>
+</persName>
+<resp>
+<note type="remarkResponsibility">
+Transformation von TUSTEP nach TEI P5.
+Transformation von TEI P5 in das DTA TEI P5 Format.
+</note>
+</resp>
+</respStmt>
+<respStmt>
+<orgName ref="https://www.bbaw.de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<resp>
+<note type="remarkResponsibility">Langfristige Bereitstellung der DTA-Ausgabe</note>
+<ref target="https://www.bbaw.de"/>
+</resp>
+</respStmt>
+</titleStmt>
+<editionStmt><edition>Vollständige digitalisierte Ausgabe.</edition></editionStmt>
+<extent>
+<measure type="images">8</measure>
+<measure type="tokens">5351</measure>
+<measure type="types">2295</measure>
+<measure type="characters">36234</measure>
+</extent>
+<publicationStmt>
+<publisher xml:id="DTACorpusPublisher">
+<email>dta@bbaw.de</email>
+<orgName role="project">Deutsches Textarchiv</orgName>
+<orgName role="hostingInstitution" xml:lang="en">Berlin-Brandenburg Academy of Sciences and Humanities (BBAW)</orgName>
+<orgName role="hostingInstitution" xml:lang="de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<address>
+<addrLine>Jägerstr. 22/23, 10117 Berlin</addrLine>
+<country>Germany</country>
+</address>
+</publisher>
+<pubPlace>Berlin</pubPlace>
+<date type="publication">2025-10-24T08:35:15Z</date>
+<availability>
+<licence target="http://creativecommons.org/publicdomain/zero/1.0/">
+<p>Dieses Werk steht unter der "Creative Commons Namensnennung -
+Nicht kommerziell 3.0 Deutschland Lizenz" (CC BY-NC).</p>
+</licence>
+</availability>
+<idno>
+<idno type="URLWeb">https://www.deutschestextarchiv.de/nn_pfennig097_1854</idno>
+<idno type="URLXML">https://www.deutschestextarchiv.de/book/download_xml/nn_pfennig097_1854</idno>
+<idno type="URLHTML">https://www.deutschestextarchiv.de/book/download_html/nn_pfennig097_1854</idno>
+<idno type="URLText">https://www.deutschestextarchiv.de/book/download_text/nn_pfennig097_1854</idno>
+<idno type="DTADirName">nn_pfennig097_1854</idno>
+<idno type="DTAID">34742</idno>
+<idno type="URN">urn:nbn:de:kobv:b4-34742-6</idno>
+</idno>
+</publicationStmt>
+<sourceDesc>
+<bibl type="J">Das Pfennig=Magazin für Belehrung und Unterhaltung. Dritte Folge, Zweiter Jahrgang, Nr. 97. Leipzig (Sachsen), 9. November 1854.</bibl>
+<biblFull>
+<titleStmt>
+<title level="m" type="main">Das Pfennig-Magazin für Belehrung und Unterhaltung</title>
+<title level="m" type="sub">Dritte Folge, Zweiter Jahrgang, Nr. 97</title>
+</titleStmt>
+<editionStmt>
+<edition n="1"/>
+</editionStmt>
+<publicationStmt>
+<publisher/>
+<pubPlace>Leibzig (Sachsen)</pubPlace>
+<date type="publication">1854</date>
+</publicationStmt>
+</biblFull>
+<msDesc>
+<msIdentifier/>
+<physDesc>
+<typeDesc>
+<p>Fraktur</p>
+</typeDesc>
+</physDesc>
+</msDesc>
+</sourceDesc>
+</fileDesc>
+<encodingDesc>
+<editorialDecl>
+<p>
+<![CDATA[
+<p>Siehe Dokumentation</p>
+]]>
+</p>
+</editorialDecl>
+<tagsDecl>
+<rendition scheme="css" xml:id="aq">font-family:sans-serif</rendition>
+<rendition scheme="css" xml:id="b">font-weight:bold</rendition>
+<rendition scheme="css" xml:id="blue">color:blue</rendition>
+<rendition scheme="css" xml:id="c">display:block; text-align:center</rendition>
+<rendition scheme="css" xml:id="et">display:block; margin-left:2em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et2">display:block; margin-left:4em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et3">display:block; margin-left:6em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="f">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="fr">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="g">letter-spacing:0.125em</rendition>
+<rendition scheme="css" xml:id="i">font-style:italic</rendition>
+<rendition scheme="css" xml:id="in">font-size:150%</rendition>
+<rendition scheme="css" xml:id="k">font-variant:small-caps</rendition>
+<rendition scheme="css" xml:id="larger">font-size:larger</rendition>
+<rendition scheme="css" xml:id="red">color:red</rendition>
+<rendition scheme="css" xml:id="right">display:block; text-align:right</rendition>
+<rendition scheme="css" xml:id="s">text-decoration:line-through</rendition>
+<rendition scheme="css" xml:id="smaller">font-size:smaller</rendition>
+<rendition scheme="css" xml:id="sub">vertical-align:sub; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="sup">vertical-align:super; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="u">text-decoration:underline</rendition>
+<rendition scheme="css" xml:id="uu">border-bottom:double 3px #000</rendition>
+</tagsDecl>
+</encodingDesc>
+<profileDesc>
+<langUsage>
+<language ident="deu">(Früh-)Neuhochdeutsch</language>
+<language ident="deu">German</language>
+</langUsage>
+<textClass>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1main">Gebrauchsliteratur</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1sub">Zeitschrift</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">ready</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">mkhz1</classCode>
+</textClass>
+</profileDesc>
+</teiHeader>
+<text>     <front>
+<pb facs="#f0001" n="[353]"/>
+<titlePage type="heading"><docTitle><titlePart type="main"><hi rendition="#c #fr">Das Pfennig=Magazin<lb/>
+für<lb/>
+<hi rendition="#g">Belehrung und Unterhaltung</hi>.</hi></titlePart></docTitle><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<docImprint><hi rendition="#fr">Nr</hi>. 97. ]              <hi rendition="#c">Dritte Folge. Zweiter Jahrgang.</hi>              <docDate><hi rendition="#right">[ 9. <hi rendition="#g">November</hi> 1854.</hi></docDate>            </docImprint></titlePage><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+</front>     <body>       <div n="1"><figure><head><hi rendition="#fr">Der Hirt.</hi><lb/>
+Nach einer antiken Statue.</head></figure></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle" xml:id="Waise2"><head><hi rendition="#fr"><hi rendition="#g">Die Waise</hi>.</hi><lb/>
+<ref target="nn_pfennig096_1854#Waise1">( Fortsetzung. )</ref></head><lb/>
+<cb type="start"/>
+<div n="2"><p><hi rendition="#in">E</hi>rst gegen Morgen verließ Albert den Hund wieder,<lb/>
+zog sich wieder in sein Waldthal zurück und verschlief<lb/>
+ruhig den Tag in seiner warmen Höhle. Jede Nacht<lb/>
+wiederholte er von da an seinen Besuch und beide,<lb/>
+der Knabe und der Hund, gewöhnten sich so aneinan-<lb/>
+der, daß dieser regelmäßig Jenem entgegenkam, sobald<lb/>
+die Stunde der Zusammenkunft sich nahte. Von den<lb/>
+beständigen Nachtwanderungen war jedoch Albert mit-<lb/>
+<cb n="2"/>
+unter so ermüdet, daß er oft auf dem Lager des Hun-<lb/>
+des einschlief und das kluge Thier, als ob es ahne,<lb/>
+sein Umgang mit dem Knaben wäre ein von der Herr-<lb/>
+schaft keineswegs gutgeheißener, weckte ihn jedesmal<lb/>
+durch Lecken im Gesicht, sobald der Hahn zu krähen<lb/>
+begann.</p><lb/>
+<p>Der redliche Jakob Müller hatte auch den Knaben<lb/>
+noch keineswegs vergessen. Mit Wehmuth war er an<lb/>
+<cb type="end"/>
+<pb facs="#f0002" n="354"/>
+<fw place="top" type="pageNum">354</fw><cb type="start"/>
+jenem Abend die Flucht des Knaben gewahr geworden<lb/>
+und noch immer tief betrübt darüber, klagte er oft ge-<lb/>
+gen seine Frau über das traurige Geschick des armen<lb/>
+Buben, dem Andres aber, seinem Schwiegersohne,<lb/>
+machte er nicht selten die bittersten Vorwürfe über<lb/>
+seine Härte. Jn einer mondhellen Nacht, als ihn hef-<lb/>
+tige Gichtschmerzen, so häufig das Übel alter Fuhrleute,<lb/>
+quälten und er im Bett nicht auszudauern vermochte,<lb/>
+stand er traurig an seinem kleinen Kammerfenster, das<lb/>
+nach dem Hofe ging, und wieder weilten seine Gedan-<lb/>
+ken bei dem armen Knaben. Dieser war gerade in<lb/>
+jener Nacht dicht unter Jakob's Fenster bei dem Hunde<lb/>
+eingeschlafen und kaum hatte Müller den Schläfer be-<lb/>
+merkt und erkannt, als er auch schon hinausging, den<lb/>
+Knaben weckte und ihm sanfte Vorwürfe über seine<lb/>
+Flucht machte. Albert erschrak anfangs, dann aber<lb/>
+vergoß er Thränen, lehnte es indeß aufs bestimmteste<lb/>
+ab, seinen Aufenthalt im Walde zu verlassen und in<lb/>
+Jakob's Haus zu kommen. Die Furcht vor Andres,<lb/>
+das leuchtete deutlich aus Albert's Weigerung hervor,<lb/>
+war es, welche ihn nicht dazu kommen ließ, auf Ja-<lb/>
+kob 's Wunsch und Bitte einzugehen, und dieser, aus<lb/>
+gleich großem Widerwillen gegen den harten Mann<lb/>
+sowie nicht minder aus Mitleid mit dem geängsteten<lb/>
+Knaben, dessen abermaliges Entlaufen er zugleich be-<lb/>
+fürchten mußte, ließ ihn denn auch nach Verlauf einer<lb/>
+Stunde in sein Waldthal zurückkehren, wo er ihn zu<lb/>
+besuchen versprach.</p><lb/>
+<p>Außer manchen Kleinigkeiten, die dem Knaben an-<lb/>
+genehm waren, brachte er ihm auch eine warme Decke<lb/>
+mit, weil der Winter schon sein eisiges Haupt über<lb/>
+die Gegend mächtig zu schütteln begann, und versah<lb/>
+ihn mit Speise für einige Zeit, da die Waldbeeren<lb/>
+und wilden Wurzeln schon im tiefen Schnee vergraben<lb/>
+waren. Albert's Höhle war indessen so trocken und<lb/>
+warm, das Thal, worin sie sich befand, durch einen<lb/>
+Kranz von hohen Bergen so geschützt gegen Sturm<lb/>
+und Wetter, daß ein anderes Klima in demselben zu<lb/>
+herrschen schien und Jakob, so oft er den Knaben be-<lb/>
+suchte, ihn auch beneidete, daß er, so ganz der Sohn<lb/>
+der Natur, in friedlicher Einsamkeit lebte und die reine<lb/>
+Luft des Himmels athmete. Da das Geschäft des<lb/>
+Fuhrmanns im Winter ruhte, so brachte der biedere<lb/>
+Alte manche Stunde heimlich bei dem Knaben zu,<lb/>
+dem er das Versprechen gegeben hatte, seinen Aufent-<lb/>
+halt Niemand zu verrathen, und versorgte ihn von<lb/>
+Zeit zu Zeit mit den nöthigen Bedürfnissen. Albert<lb/>
+besuchte dagegen nach wie vor während der Nacht oft-<lb/>
+mals die Hofstelle und unterhielt die treueste Freund-<lb/>
+schaft mit dem Hunde.</p><lb/>
+<p>Endlich erwachte der Frühling und Jakob schickte<lb/>
+sich an, sein Gewerbe als Frachtfahrer wieder zu be-<lb/>
+treiben. Da er unterwegs einen flinken Burschen bei<lb/>
+den Gäulen gut gebrauchen konnte, so machte er Al-<lb/>
+bert den Vorschlag, mitzugehen, wozu dieser sich auch<lb/>
+bereiterklärte. Jn der Nacht vor der Abreise fand<lb/>
+sich Albert auf dem Hofe ein, verkroch sich auf Ja-<lb/>
+kob 's Rath mit dem Hunde im dichten Stroh des<lb/>
+Wagens und entschlief sanft. Unglücklicherweise war<lb/>
+jedoch dem alten Müller am Abend zuvor eine Krank-<lb/>
+heit plötzlich zugestoßen, sodaß Andres am Morgen der<lb/>
+Abreise seine Stelle übernehmen mußte. Dieser unter-<lb/>
+suchte noch einmal vorsorglich das ganze Geschirr und<lb/>
+namentlich den Wagen und &#x2014; fand bei dieser Gele-<lb/>
+genheit den Knaben schlafend neben dem Hunde. Hä-<lb/>
+misch, wie er war, langte er behende nach der Peit-<lb/>
+sche und weckte den armen Schläfer so unsanft damit<lb/>
+auf, daß dieser bis zum Tode erschreckt in die Höhe<lb/>
+<cb n="2"/>
+fuhr, mit einem wilden Satze vom Wagen sprang und<lb/>
+zum zweiten male entfloh. Der Hund folgte ihm in-<lb/>
+stinctmäßig, weil auch auf ihn eine Portion Schläge<lb/>
+von Andres kam und Beide erreichten bald darauf die<lb/>
+bekannte Waldhöhle.</p><lb/>
+<p>Albert war jedoch unschlüssig, ob er ferner darin<lb/>
+bleiben solle oder nicht. Da er kaum aus dem Schlafe<lb/>
+erwacht und im nächsten Augenblicke auch schon ent-<lb/>
+sprungen war, so hatte er durchaus nicht genau wahr-<lb/>
+nehmen können, wer ihn eigentlich geschlagen. Zwar<lb/>
+rieth er richtig auf Andres, doch wußte er von Ja-<lb/>
+kob 's plötzlicher Erkrankung nichts und mußte daher<lb/>
+glauben, daß Beide im Einverständnisse waren. Er<lb/>
+fürchtete mit Gewalt fortgeführt zu werden und suchte<lb/>
+darum lieber von freien Stücken das Weite mit sei-<lb/>
+nem Hunde, der ihm auch getreulich folgte. <hi rendition="#g">Ein</hi><lb/>
+Übelstand erfüllte indeß den Knaben täglich mit immer<lb/>
+größerer Sorge. Die Nahrung, welche Albert genoß,<lb/>
+verschmähte nämlich der Hund, sodaß zuletzt dem Kna-<lb/>
+ben nichts Anderes übrigblieb, als Brot für denselben<lb/>
+zu betteln, was leider nicht immer glücken wollte.</p><lb/>
+<p>Einst war der Abend schon hereingebrochen und der<lb/>
+Hund hatte noch keinen Bissen Brot erhalten können,<lb/>
+als Albert in einer Köhlerhütte einen letzten Versuch<lb/>
+machte, Brot zu erhalten. Da er aber sehr verwil-<lb/>
+dert und abgerissen aussah, drohte ihm ein altes Weib<lb/>
+mit dem Stocke, wenn er nicht auf der Stelle seiner<lb/>
+Wege gehen würde, und hieß ihn einen Galgenvogel.<lb/>
+Schon wollte er bekümmert der Hütte der Rücken<lb/>
+wenden, als er in einem Winkel derselben ein Kind<lb/>
+mit einem Butterbrote sitzen sah. Wie ein Stoßvogel<lb/>
+fuhr er darauf hin, entriß es dem Kinde und ent-<lb/>
+sprang. Der Hund bekam den ganzen Raub und ver-<lb/>
+gnügt wanderte er weiter. Sein Bett war überall ge-<lb/>
+macht, und so ruhig, wie er im Walde oder Felde<lb/>
+entschlief, so heiter und gestärkt erwachte er zu neuen<lb/>
+Beschwerden. Einmal bettelte er auch auf einem ein-<lb/>
+samen Bauernhofe um Brot. Der Hausherr schlug<lb/>
+ihm scheltend seine Bitte ab, doch gefiel ihm der Hund<lb/>
+und er fragte den Knaben, ob er ihn verkaufen wolle?<lb/>
+Dieser verneinte es trotzig und war schon im Begriff,<lb/>
+den Hof zu verlassen, als der Bauer seinen in der<lb/>
+Nähe arbeitenden Knechten zurief, das Thor zu sper-<lb/>
+ren. Albert ward gefangen, derb durchgeprügelt, der<lb/>
+Hund ihm abgenommen und er darauf, seiner Bitten<lb/>
+und Thränen ungeachtet, vom Hofe gejagt.</p><lb/>
+<p>Jn Verzweiflung irrte er mehre Tage in der Ge-<lb/>
+gend umher. Kaum daß er ein wenig Trank und<lb/>
+Speise genoß, so sehr war all sein Dichten und Trach-<lb/>
+ten darauf gerichtet, wie er den Hund wiederbekomme.<lb/>
+Endlich entschloß er sich, bei Nacht den Versuch zu<lb/>
+wagen, ihn zu stehlen, da er sich die Kammer ge-<lb/>
+merkt hatte, in welche das Thier eingesperrt worden<lb/>
+war. Um Mitternacht schlich er sich auf den Hof, er-<lb/>
+spähte jenes Kämmerchen, nahm behende eine Scheibe<lb/>
+aus dem niedrigen Fenster, öffnete dann dasselbe vor-<lb/>
+sichtig und stieg ein. Unglücklicherweise aber schliefen<lb/>
+zwei Knechte in dem Zimmer, und da ihr Bett an<lb/>
+der Fensterwand stand, so ergriffen sie den Knaben bei<lb/>
+den Füßen, als sie von dem Geräusch erwachten, wel-<lb/>
+ches sein Einsteigen trotz aller Vorsicht verursachte.<lb/>
+Eine zweite, noch härtere Züchtigung von denselben<lb/>
+rohen Fäusten erging über den bedauernswürdigen Al-<lb/>
+bert. Dann aber ward er gebunden und am andern<lb/>
+Morgen dem Gericht in dem nächsten Orte als Dieb<lb/>
+überliefert. Weder seine Thränen noch die wiederhol-<lb/>
+ten Betheuerungen, daß er nur sich seines Hundes habe<lb/>
+bemächtigen wollen, rührten die Beamten des Gerichts.<lb/>
+<cb type="end"/>
+<pb facs="#f0003" n="355"/>
+<fw place="top" type="pageNum">355</fw><cb type="start"/>
+Sie schalten ihn einen verschmitzten Buben, der um<lb/>
+Ausreden nicht verlegen sei, und sahen ihn als den<lb/>
+Späher und Gelegenheitsmacher einer Räuberbande an,<lb/>
+welche schon seit längerer Zeit die Gegend unsicher<lb/>
+machte. Ein trauriges Loch in einem Thurme ward<lb/>
+sein Gefängniß und eine Behandlung wie die eines<lb/>
+Verbrechers sein Theil.</p><lb/>
+<p>Der Thurm war sehr hoch und zugleich von au-<lb/>
+ßerordentlicher Festigkeit, sodaß ein Entkommen aus<lb/>
+demselben beinahe unmöglich schien. Eben deswegen<lb/>
+hatte man auch wol die Fenster dieses Bollwerks<lb/>
+anstatt mit eisernen nur mit hölzernen Gittern ver-<lb/>
+sehen, die jedoch im Laufe der Jahrhunderte vom<lb/>
+Zahne der Zeit schon arg verwüstet worden wa-<lb/>
+ren. Um keine Reparatur an denselben vornehmen zu<lb/>
+müssen, sollten die Fenster eben damals bis zu einer<lb/>
+gewissen Höhe zugemauert werden, und zu diesem<lb/>
+Zwecke hatte man ein Gerüst außen vor denselben an-<lb/>
+gebracht. Mit einem Blicke bemerkte Albert die hier<lb/>
+gebotene Möglichkeit, zu entkommen, und beschloß, in<lb/>
+der nächsten Nacht einen Versuch für seine Freiheit zu<lb/>
+wagen.</p><lb/>
+<p>Als sie angebrochen war, rüttelte er vorsichtig an<lb/>
+dem Gitter, bis es nachgab und zerbrach. Er stieg<lb/>
+aus dem Fenster auf das Gerüst und erblickte sich nun<lb/>
+vor einer schwindelnden Tiefe. Noch schien ihm ein<lb/>
+Sprung hinab zu gewagt und er beschloß daher, an<lb/>
+dem Gerüste niederzuklettern. Schon hatte er die<lb/>
+Hälfte der Höhe zurückgelegt, als eine Schildwache den<lb/>
+Flüchtling bemerkte und Lärm machte. Jetzt, von der<lb/>
+entsetzlichsten Angst gefoltert, bedachte er sich nicht län-<lb/>
+ger, den Sprung auf Leben und Tod zu wagen und<lb/>
+wunderbar! völlig unverletzt erreichte der Knabe den<lb/>
+Boden und &#x2014; war gerettet. Schon hatte er auch<lb/>
+die Stadt ziemlich weit hinter sich, als er bemerkte,<lb/>
+daß man ihm nachsetze. Eilenden Laufs stürzte er da-<lb/>
+her nach der offenstehenden Kirche eines nahen Dor-<lb/>
+fes, und hier zeigte ihm der Schein einer Lampe,<lb/>
+welche vor einem Heiligenbilde brannte, einen sichern<lb/>
+Zufluchtsort &#x2014; ein düsteres Grabgewölbe. Furchtlos<lb/>
+wie es von dem naturwüchsigen Burschen nicht anders<lb/>
+zu erwarten war, schlüpfte er hinter die morschen<lb/>
+Särge und bald schloß ein sanfter Schlummer die<lb/>
+Augen des von der übermächtigen Anstrengung bis<lb/>
+zum Tode Ermüdeten.</p></div><lb/>
+<div n="2"><head><hi rendition="#aq">III.</hi></head><lb/>
+<p>Die Sonne stand schon hoch am Himmel, als Al-<lb/>
+bert erwachte und sich zugleich von einem wahren Heiß-<lb/>
+hunger gepeinigt fühlte. Da aber ein Tischler in der<lb/>
+Kirche an den Stühlen beschäftigt war, so getraute<lb/>
+sich der Ärmste nicht aus seinem Versteck hervor, son-<lb/>
+dern wartete lieber bis die Mittagsstunde den Arbeiter<lb/>
+nach Hause rief. Nun lugte er vorsichtig zwischen den<lb/>
+Särgen hindurch und der Anblick des freundlichen<lb/>
+Kirchleins war für ihn, der bis dahin wol nie ein<lb/>
+Gotteshaus betreten, ein überraschender. Die vielen<lb/>
+Bilder und Kreuze, die bunten Todtenkränze hinge-<lb/>
+schiedener Gemeindeglieder gefielen ihm, so wenig er<lb/>
+auch ihre wahre Bedeutung kannte, gar sehr, sodaß er<lb/>
+fast seinen Hunger darüber vergaß. Jetzt näherte er<lb/>
+sich dem Taufsteine, löschte seinen brennenden Durst<lb/>
+mit dem Wasser, das von der letzten Taufhandlung<lb/>
+her im Becken zurückgeblieben war, und betrachtete<lb/>
+mit kindlichem Wohlgefallen den zierlich geschnitzten und<lb/>
+reichlich vergoldeten Engel, der über der Taufschüssel<lb/>
+schwebte, mild auf ihn niederzulächeln und ihm zu<lb/>
+winken schien. Jmmer tiefer versenkte er sich in das<lb/>
+<cb n="2"/>
+Anschauen des freundlichen Bildes, als plötzlich ein<lb/>
+furchtbares Gewitter, verbunden mit heftigen Regen-<lb/>
+güssen, die vom Sturm getrieben rauschend an die<lb/>
+Fenster des Kirchleins anschlugen, ihn aufrüttelte, und<lb/>
+in demselben Augenblicke war es ihm, als flüstere eine<lb/>
+Stimme ihm leise zu, den Aufruhr der Elemente zu<lb/>
+seiner Flucht zu benutzen. Da zögerte er denn auch<lb/>
+nicht länger, verließ das Kirchlein und erreichte unge-<lb/>
+sehen das Freie, weil Alles im Dorfe bei diesem Un-<lb/>
+wetter das schützende Obdach der Behausung aufge-<lb/>
+sucht hatte.</p><lb/>
+<p>Nur kurze Zeit verfolgte er die Landstraße, dann<lb/>
+wendete er sich feldeinwärts und gelangte bald nachher<lb/>
+auf einen wenig betretenen Fußpfad, der sich am<lb/>
+Saume eines Waldes hinzog. Der Regen hatte in-<lb/>
+zwischen nachgelassen und sinnend, den Blick auf den<lb/>
+Boden geheftet, verfolgte Albert seine Straße. Da<lb/>
+sah er etwas im Wege liegen. Er hob es auf und<lb/>
+siehe, es war ein schwerer, voller Geldbeutel. Noch<lb/>
+hielt er den Fund in seinen Händen, und nach allen<lb/>
+Seiten hin nach dem Eigenthümer desselben spähend,<lb/>
+ward er weit hinter sich einen Mann gewahr, der in<lb/>
+Begleitung eines Hundes ziemlich eilig auf unsern Al-<lb/>
+bert zuzukommen schien. Schnell sprang er in den<lb/>
+Wald, verbarg sich hinter einen Gebüsch und ließ nun<lb/>
+den Fremden ganz nahe herankommen.</p><lb/>
+<p>Dieser blieb endlich auf der Stelle, wo Albert den<lb/>
+Geldbeutel gefunden hatte, stehen und aus den ängst-<lb/>
+lich am Boden umhersuchenden Blicken desselben sowie<lb/>
+aus den lauten Seufzern, welche von Zeit zu Zeit<lb/>
+über seine Lippen drangen, erkannte der im Gebüsch<lb/>
+Verborgene deutlich, daß er hier den Eigenthümer des<lb/>
+Geldbeutels vor sich habe. Gutmüthig trat er daher<lb/>
+mit seinem Funde hervor, und hochentzückt, sein Geld<lb/>
+wieder zu erhalten, zugleich aber auch verwundert über<lb/>
+die Ehrlichkeit des Knaben, herzte und küßte der Fremde<lb/>
+denselben und bat ihn, mitzukommen in sein Dorf.<lb/>
+Der Mann war ein Scherenschleifer, hatte das Geld<lb/>
+zum Kaufe eines Hauses gehoben und es beim Aus-<lb/>
+ruhen auf der Stelle, wo es Albert gefunden, in der<lb/>
+Eile liegen lassen, als er, vor dem herannahenden Ge-<lb/>
+witter sich zu bergen, schleunigst seines Wegs weiter<lb/>
+gezogen war. Der Ausdruck seines Gesichts flößte dem<lb/>
+Knaben Zutrauen ein, mehr aber noch der Umstand,<lb/>
+daß er einen Hund bei sich hatte, für welche Thiere<lb/>
+Albert nun einmal eine besondere Vorliebe besaß.<lb/>
+Schnell entschlossen sagte er daher zu und erzählte dem<lb/>
+Manne treuherzig den letzten Theil seiner Geschichte,<lb/>
+klagte ihm, wie hülflos und verlassen er sei und nahm<lb/>
+dadurch den wackern Schleifer noch mehr für sich ein.</p><lb/>
+<p><ref target="nn_pfennig098_1854#Waise3"><hi rendition="#c">( Fortsetzung folgt. )</hi></ref></p></div></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Hirtentanz in den Alpen.</hi></head><lb/>
+<p><hi rendition="#in">Z</hi>wischen der Via mala und dem Montblanc liegt eine<lb/>
+hohe Gebirgskette, von keiner Heerstraße durchzogen<lb/>
+und selten von einem Reisenden besucht. Eine Menge<lb/>
+Thäler, durch natürliche Mauern von der Welt abge-<lb/>
+schlossen, bilden dort gleichsam ein selbständiges Reich.<lb/>
+Die Mehrzahl seiner Bewohner kommt nie über die<lb/>
+engen Grenzen der Heimat hinaus, spricht einen eigen-<lb/>
+thümlichen Dialekt, hat seine besondern Sitten, seine<lb/>
+unschuldigen Hirtengebräuche vor jedem fremden Ein-<lb/>
+flusse bewahrt und ahnt nichts von allen den Sorgen<lb/>
+und Bedürfnissen der Städter jenseit der Berge. Das<lb/>
+sind frohe, unverderbte Naturmenschen! Zur Herbst-<lb/>
+<cb type="end"/>
+<pb facs="#f0004" n="356"/>
+<fw place="top" type="pageNum">356</fw><cb type="start"/>
+zeit treiben sie ihre Heerden herab von den Sennereien<lb/>
+ins niedere Dörflein und leben sechs Monate friedlich<lb/>
+und eng nebeneinander unter den romantischen Schrecken<lb/>
+donnernder Schneelavinen. Dies sind ihre schlimmsten<lb/>
+Tage, aber sie sind doch schön, denn der Lenz folgt<lb/>
+ihnen. Sobald dann die milde Frühlingssonne die Ge-<lb/>
+birgsströme mit Schneewasser füllt, so treiben sie die<lb/>
+Heerden wieder heraus aus den Winterställen und zer-<lb/>
+streuen sich über die Höhen der grünenden Alp. Das<lb/>
+ist eine Freude, wenn Alles wieder hinauszieht in die<lb/>
+herrliche, freie Natur. Der Hirt spielt den ländlichen<lb/>
+Reigen, singend findet die frühe Morgensonne den<lb/>
+lustigen Sennen und der abendliche Westwind trägt<lb/>
+das harmonische Geläute der muntern Heerden und<lb/>
+den Reigen der Schalmeien von Matte zu Matte.</p><lb/>
+<p>Unsere Abbildung stellt das Vorspiel eines solchen<lb/>
+Abzugs in die Alphöhen dar. Lange hat der Hirt<lb/>
+<cb n="2"/>
+diesmal auf den Frühling gewartet. Das Heu in den<lb/>
+Ställen ist auf die Neige gegangen und zum ersten<lb/>
+mal drohte der geliebten Heerde ein bedenklicher Fut-<lb/>
+termangel. Da bricht plötzlich die wärmende Sonne<lb/>
+durch die schweren Wolken, der Nebel schwindet, die<lb/>
+Gebirgswässer schwellen an und der Mai überzieht die<lb/>
+Anhöhen rasch mit seinem grünen blühenden Teppiche.<lb/>
+Jubelnd treten Waidmann, Hirt, Senne und Senne-<lb/>
+rin aus der niedern Thalhütte. Es ist keine Täu-<lb/>
+schung, der Frühling entfaltet seine Kraft und morgen<lb/>
+ziehen sie hinauf auf die liebe Alp. Die Kerkerzeit im<lb/>
+engen Thale ist wieder zu Ende. Der dicke gemüth-<lb/>
+liche Schulmeister, der im Sommer zugleich Senne ist,<lb/>
+bläst auf seiner Pfeife den Abschied, der hagere Kü-<lb/>
+ster setzt sich mit der Geige in Positur und der phleg-<lb/>
+matische Knecht des Dorfpfarrers hämmert nach dem<lb/>
+Takte des Schulmeisters träg auf seiner Pauke. So<lb/>
+<cb type="end"/>
+<figure/><lb/>
+<cb type="start"/>
+wird der Abend unter den sprossenden Bäumen zu<lb/>
+einem improvisirten Feste. Der reiche Käsehändler mit<lb/>
+seinem Dreispitzhute, der alte Ortsvorsteher mit seinem<lb/>
+abgetragenen Klaventiner beginnen den Nationaltanz;<lb/>
+ihre Weiber, fleißig waltende Hausfrauen, folgen dem<lb/>
+Beispiel; Knechte und Mägde im Hintergrunde jodeln<lb/>
+einen ländlichen Gebirgswalzer, der die idyllischen Freu-<lb/>
+den des wiederkehrenden Alpenlebens ausdrücken soll.<lb/>
+Staunend sitzen die Kinder links im Vordergrunde,<lb/>
+neben ihnen der treue Mops und der muntere kleine<lb/>
+George, der kaum stehen kann. Sie haben ihre Äl-<lb/>
+tern lange nicht so fröhlich gesehen und Mops, der<lb/>
+alte Wächter des Vorstehers, folgt mit besonderer Auf-<lb/>
+merksamkeit den graziösen Sprüngen seines Herrn.<lb/>
+Zwischen seiner Enkelin und dem Paukenschläger hat<lb/>
+sich der älteste Mann des Thals, ein 80jähriger Greis,<lb/>
+auf den Rasen niedergelassen. Aber sein Gesicht strahlt<lb/>
+<cb n="2"/>
+heute von jugendlichem Feuer. Seit 70 Jahren kennt<lb/>
+er alle Wege und Stege der heimatlichen Höhen und<lb/>
+will auch die Alpfahrt heuer wieder mitmachen. Selbst<lb/>
+der ehrwürdige Seelsorger ist nicht unter seinem Dache<lb/>
+geblieben. Jn seinem schönsten Anzuge steht er da,<lb/>
+seine Gemeinde, die ihn wie einen Vater liebt, auch<lb/>
+in ihrer Freude zu segnen, ehe sich ein Theil derselben<lb/>
+auf sechs lange Monate verabschiedet, denn nicht alle<lb/>
+steigen Sonntags wieder herab zu der niedern Thal-<lb/>
+kirche. Jhre Alpen sind zu hoch und zu weit entfernt<lb/>
+von der Winterwohnung. Sie beten Gott an in sei-<lb/>
+nem herrlichen Naturtempel, neben all den Wundern<lb/>
+ihres romantischen Gartens auf den ewigen Säulen<lb/>
+und Thürmen der Alpen. Glückliches, einfaches, bie-<lb/>
+deres Naturvolk, das so den Frühling begrüßt und<lb/>
+den Sommer erwartet!</p></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Abtei Saint=Clond.</hi></head><lb/>
+<cb type="start"/>
+<p><hi rendition="#in">S</hi>aint=Cloud, ein Flecken etwa eine Meile von Pa-<lb/>
+ris, am Abhange eines Hügels am linken Ufer der<lb/>
+<cb n="2"/>
+Seine gelegen und berühmt durch sein prachtvolles kö-<lb/>
+nigliches, von einem Parke umgebenes Schloß, hat<lb/>
+<cb type="end"/>
+<pb facs="#f0005" n="357"/>
+<fw place="top" type="pageNum">357</fw><cb type="start"/>
+seinen Namen von dem heiligen Clodowald ( franz. Saint-<lb/>
+Cloud ) , dem einzigen von den Söhnen König Clodo-<lb/>
+mir 's von Orleans, den sein Oheim Childebert <hi rendition="#aq">I</hi>. nicht<lb/>
+umbringen ließ, weil er Mönch ward. Er stiftete das<lb/>
+nach seinem Namen bezeichnete Kloster in der Nähe<lb/>
+von Paris, welches eins der prächtigsten und reichsten<lb/>
+<cb n="2"/>
+in Frankreich ward. Unsere Abbildung zeigt den Haupt-<lb/>
+eingang zu dieser Abtei, der mit Bildhauerarbeit aller<lb/>
+Art aufs herrlichste verziert war. Das Meiste davon<lb/>
+ist in den Stürmen der Revolution, die besonders<lb/>
+auch alle geistlichen Stiftungen umbrausten, zerstört<lb/>
+worden.</p><lb/>
+<cb type="end"/>
+<figure/></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Christoph von Schmid</hi>. <note place="foot" n="*)">Vergleiche über ihn auch Pfennig=Magazin, Jahr-<lb/>
+gang 1850, Nr. 389, wo auch sein Bildniß eingerückt ist.</note></head><lb/>
+<cb type="start"/>
+<p><hi rendition="#in">C</hi>hristoph von Schmid, der allbekannte Verfasser der<lb/>
+&#x201E;Ostereier&#x201C; ist nicht mehr; er starb in Augsburg am<lb/>
+3. September 1854 im 86. Jahre seines Lebens.<lb/>
+Seine Schriften, insbesondere seine Erzählungen für<lb/>
+Kinder, bewahren ihm ein ewiges Andenken.</p><lb/>
+<p>Er wurde am 15. August 1768 in Dinkelsbühl<lb/>
+in Baiern geboren, im Vaterhause gut erzogen, dar-<lb/>
+auf nach Dellingen gebracht und hier besonders durch<lb/>
+die Professoren Weber und Sailer, von welchen letz-<lb/>
+terer ihm selbst noch als Bischof zu Regensburg ein<lb/>
+<cb n="2"/>
+lebenslänglicher Freund blieb, in die Hallen der Wissen-<lb/>
+schaft eingeführt. Schon 1791 empfing Schmid die<lb/>
+Priesterweihe, dann amtirte er als Pfarrgehülfe, spä-<lb/>
+ter als Districtsschulinspector zu Thanhausen, wo er<lb/>
+seine hundert kleinen Erzählungen schrieb; hernach nahm<lb/>
+er ein Pfarramt im Würtembergischen an und endlich<lb/>
+folgte er, nachdem er eine Professur zu Tübingen aus-<lb/>
+geschlagen hatte, auf König Ludwig's Ruf 1826 als<lb/>
+Domcapitular nach Augsburg wieder nach Baiern<lb/>
+zurück.</p><lb/>
+<p>Jn Augsburg stand Schmid in hoher Achtung.<lb/>
+Der König machte ihn zum Kreisscholarchen und er-<lb/>
+nannte ihn zum Ritter des Verdienstordens der bairi-<lb/>
+<cb type="end"/>
+<pb facs="#f0006" n="358"/>
+<fw place="top" type="pageNum">358</fw><cb type="start"/>
+schen Krone. Soviel Schmid auch beschäftigt war,<lb/>
+so konnte er doch nicht von seiner Lieblingsbeschäfti-<lb/>
+gung, Kinderschriften zu bearbeiten, lassen. An jedem<lb/>
+Morgen saß er schon zu jeder Jahreszeit früh 4 Uhr<lb/>
+am Tische, um seine lehrreichen Erzählungen zu schaffen,<lb/>
+da ihm nur die Zeit von früh 4&#x2014;8 Uhr, wie er selbst<lb/>
+versicherte, zu derartigen Arbeiten übrigblieb. Und<lb/>
+doch hat der thätige Mann bei so beschränkten Stun-<lb/>
+den viel Gutes und Schönes geliefert. Seine Jugend-<lb/>
+schriften, wie &#x201E;Heinrich von Eichenfels&#x201C;, &#x201E;Genoveva&#x201C;,<lb/>
+&#x201E;Der Weihnachtsabend&#x201C;, &#x201E;Das Husarenkind&#x201C;, &#x201E;Das<lb/>
+Lämmchen&#x201C; u. s. w. sind fast in allen Familien des<lb/>
+gebildeten Deutschland bekannt, ja sie sind sogar in<lb/>
+fremde Sprachen übersetzt worden und gelten heute<lb/>
+noch in England, Frankreich, Jtalien und selbst in<lb/>
+Nordamerika als treffliche Unterhaltungsschriften für<lb/>
+die Jugend. Alle Werke von Schmid umfassen in<lb/>
+einer Gesammtausgabe 24 Bändchen.</p><lb/>
+<p>Auch das Greisenalter des edeln Mannes blieb<lb/>
+nicht ohne seltene Auszeichnung von außenher; 1841<lb/>
+foderte ihn die Bürgerschaft seines Heimatsortes Din-<lb/>
+kelsbühl auf, in ihren Mauern sich einzufinden und<lb/>
+die Huldigungen zu empfangen, die man ihm zu sei-<lb/>
+nem 50jährigen Priesterjubelfeste bringen wollte. Schmid<lb/>
+folgte der Einladung und empfing die glänzendsten<lb/>
+Beweise der Liebe und Verehrung seiner Landsleute.<lb/>
+Sechs Jahre später feierte die Stadt Augsburg seinen<lb/>
+80jährigen Geburtstag in erhebender Weise und bald<lb/>
+darauf machte ihn die Universität zu Prag zum Doctor<lb/>
+der Theologie. Auch König Maximilian wollte nicht<lb/>
+zurückbleiben in Bezeigung seiner Achtung vor dem<lb/>
+biedern Greise, daher er ihm 1850 das Comthurkreuz<lb/>
+des Verdienstordens vom heiligen Michael übersendete.</p><lb/>
+<p>Jm Jahre 1853 begann Schmid noch ein neues<lb/>
+Werk, das er aber nicht vollenden konnte: &#x201E; Erinne-<lb/>
+rungen aus meinem Leben&#x201C;, in welchem er besonders<lb/>
+seinem theuern Lehrer, dem Bischof Sailer zu Regens-<lb/>
+burg, den Zoll kindlicher Liebe und Dankbarkeit, mit<lb/>
+frischen, lebendigen Farben gezeichnet, darbrachte. Schmid<lb/>
+sendete sein Werk, aus zwei Bänden bestehend, dem<lb/>
+König Ludwig und dieser schrieb ihm unterm 15. Ja-<lb/>
+nuar 1854 Folgendes:</p><lb/>
+<p>&#x201E;Soeben habe ich Jhre Erinnerungen an Sailer<lb/>
+beendigt. Thränen stehen in meinen Augen. Es ist<lb/>
+ein neues Verdienst, das Sie zu Jhren vielen Ver-<lb/>
+diensten fügen &#x2014; diese Jhn und Sie ehrenden Erin-<lb/>
+nerungen! Schmid's Kinderschriften, wie trefflich sind<lb/>
+solche! Hätten Sie, die Sie so viele gute verfaßt,<lb/>
+auch nur diese aufgesetzt, würden Sie schon segenver-<lb/>
+breitend sein.... Daß Sie aus Sailer's und daß<lb/>
+Sie aus Jhrem Leben diese Erinnerungen aufgezeich-<lb/>
+net, ist nutzreich und erfreulich. Mit diesen Gefühlen</p><lb/>
+<p> <space dim="horizontal"/>  Jhr<lb/>
+<space dim="horizontal"/>  Jhnen wiederholt dankender<lb/>
+<space dim="horizontal"/>  <hi rendition="#g">Ludwig.</hi> &#x201C;</p><lb/>
+<p>Schmid blieb bis zu den achtziger Jahren körperlich<lb/>
+gesund und geistig frisch, daher der treue Kinderfreund<lb/>
+unablässig bemüht war, zum Besten der Jugend zu<lb/>
+schaffen und zu wirken. Nur in der letztern Zeit sei-<lb/>
+nes thätigen, menschenfreundlichen Lebens zeigten sich<lb/>
+die Gebrechen des Alters, die ihm nicht mehr gestat-<lb/>
+teten, aus seinem Hause zu gehen. Dazu kam, daß<lb/>
+der Tod ihm unerwartet einen Bruder und zwei<lb/>
+Schwestern raubte und so wurde sein liebendes, ge-<lb/>
+fühlvolles Herz in der gealterten Hütte des matten<lb/>
+Leibes aufs tiefste erschüttert.</p><lb/>
+<p>Kurz vor seinem Tode wurde ihm noch eine ganz<lb/>
+besondere Freude zutheil. Die bairischen Bischöfe wa-<lb/>
+<cb n="2"/>
+ren nämlich in Augsburg versammelt und beschlossen,<lb/>
+dem ehrwürdigen Greise Christoph von Schmid einen<lb/>
+Besuch abzustatten, was denn auch bald ausgeführt<lb/>
+wurde. Schmid war durch diese Ehre ebenso erfreut<lb/>
+als gerührt, daher er, als die Bischöfe ihm aufs herz-<lb/>
+lichste Lebewohl sagten, sich an den Erzbischof von<lb/>
+München wendete und sprach: &#x201E;Jch stehe nahe dem<lb/>
+Grabe und es wird mir das hohe Glück in diesem Le-<lb/>
+ben nie mehr zutheil werden, meine Herren Kirchen-<lb/>
+fürsten zu sehen; ich bitte Ew. Excellenz, mir altem<lb/>
+Manne den erzbischöflichen Segen zu ertheilen.&#x201C;</p><lb/>
+<p>Der Greis kniete nun nieder vor der bischöflichen<lb/>
+Versammlung und der Erzbischof von München legte<lb/>
+segnend die Hände auf sein ehrwürdiges Haupt, wor-<lb/>
+auf er mit seinen Amtsgenossen den theuern Mann<lb/>
+verließ, der bald seine Prophezeiung von der Nähe sei-<lb/>
+nes Grabes in Erfüllung gehen sehen sollte.</p><lb/>
+<p>Jeder Verehrer Schmid's wird geglaubt haben,<lb/>
+daß der greise Mann einst sanft hinüberschlummern<lb/>
+werde zu einem bessern Sein; aber Gott wollte es<lb/>
+anders. Christoph von Schmid starb, ein 86jähriger<lb/>
+Greis, am 3. September 1854 an der &#x2014; Cholera,<lb/>
+einen Tod, den er selbst wol am allerwenigsten geahnt<lb/>
+hatte.</p><lb/>
+<p>Möge er ausruhen, der edle Mann, von seinem<lb/>
+langen Tagewerke und droben den reichen Lohn für<lb/>
+seine aufopfernde Thätigkeit auf Erden finden!</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Calabrien und die Calabresen.</hi></head><lb/>
+<p><hi rendition="#in">N</hi>eapel wurde früher in die vier großen Provinzen<lb/>
+Abruzzo, Campania, Puglia und Calabria eingetheilt.<lb/>
+Die letztere bildete den südlichen Theil des Landes auf<lb/>
+der südlichsten Landzunge Jtaliens. Calabrien möchte<lb/>
+man die gesegnetste und zugleich die verwildertste Pro-<lb/>
+vinz des Reichs nennen. Die Apenninen ziehen sich<lb/>
+mit ihren hohen, schön bewaldeten Rücken unter dem<lb/>
+warmen, tiefblauen Himmel hin und senden Quellen<lb/>
+und Bäche in die üppig schwellenden Thäler hinab,<lb/>
+während im Jnnern der Berge das unterirdische Feuer<lb/>
+lodert, das im Jahre 1783 den Wohlstand Tausender<lb/>
+vernichtete, weite Länderstrecken verwüstete und in ver-<lb/>
+schiedenen Städten die furchtbarste Zerstörung an-<lb/>
+richtete.</p><lb/>
+<p>Die Calabresen haben aber die Tage des Schreckens<lb/>
+von 1783 längst vergessen. Sie bauen ihre Süd-<lb/>
+früchte in einer Vollkommenheit und Schönheit, wie<lb/>
+sie ganz Jtalien nicht aufweisen kann; ihren Trauben<lb/>
+entpressen sie den allbekannten Feuerwein, über dem<lb/>
+vulkanischen Herde erzeugt; sie gewinnen prächtiges<lb/>
+Öl in großer Menge und in ihrem Boden vermögen<lb/>
+sie selbst Dattelpalmen und Aloe im Freien zu ziehen.<lb/>
+Wären die Calabresen nicht so unwissend und träge,<lb/>
+so könnten sie dem Jnnern der Erde außerordentliche<lb/>
+Schätze abringen, da ihr Land Massen von Minera-<lb/>
+lien besitzt. Die Wälder in Calabrien bieten nicht<lb/>
+nur treffliches Holz zum Schiffsbau, sondern auch<lb/>
+Wild in Menge und am Gestade des Meers beschäf-<lb/>
+tigen sich Hunderte von Calabresen mit Fischfang, wel-<lb/>
+cher reiche Ausbeute gibt.</p><lb/>
+<p>Welch glückliches Volk könnten die Calabresen sein,<lb/>
+wenn sie Bildung und Wissenschaft in ihrem Lande ge-<lb/>
+pflegt hätten und wenn sie sich mit rührigem Fleiße<lb/>
+bemühen wollten, die Schätze zu heben, die auf und<lb/>
+in ihrem Boden verborgen liegen! Das Volk ist von<lb/>
+<cb type="end"/>
+<pb facs="#f0007" n="359"/>
+<fw place="top" type="pageNum">359</fw><cb type="start"/>
+Natur so gutmüthig und vertrauensvoll und hat sich<lb/>
+vor allen Neapolitanern den Ruhm der Tapferkeit zu<lb/>
+bewahren gewußt; auch kann man dem Calabresen die<lb/>
+Tücke des Jtalieners, der durch sein meuchlerisches<lb/>
+Wesen so allgemein verhaßt ist, nicht vorwerfen. Wol<lb/>
+ist er als ungebildeter Natursohn aufbrausend und hef-<lb/>
+tig, aber von Meuchelmord hört man bei ihm selten<lb/>
+etwas und Dolch und Gift verabscheuen sie wie wir.</p><lb/>
+<p>Wie tief der Calabrese noch in seinem rohen Na-<lb/>
+turzustande versunken liegt, das lehrt ein einziger Blick<lb/>
+in seine Haushaltung. Seine Kleidung besteht häufig<lb/>
+nur aus Lumpen, denn er ist kein Freund vom Wech-<lb/>
+sel derselben und trägt sie meist so lange auf dem<lb/>
+Leibe, bis sie von selbst herabfallen. Die Hütte des<lb/>
+Calabresen ähnelt mehr einem Stalle für das Vieh.<lb/>
+Ein einziger Raum in derselben macht seine ganze<lb/>
+Wohnung, seine Vorrathskammer und sein Schlaf-<lb/>
+zimmer aus und in diesen Raum hat er sich noch mit<lb/>
+seinen Hausthieren getheilt. Schweine, Hühner, Hunde<lb/>
+und Katzen laufen ungenirt in seiner Wohnstube umher,<lb/>
+um sich mit seinen Kindern täglich vertrauter zu machen.</p><lb/>
+<p>Am widrigsten und auffälligsten ist die grenzenlose<lb/>
+Unreinlichkeit des Calabresen am eigenen Leibe wie in<lb/>
+dem Hauswesen. Es fällt ihm nicht ein, sein Geschirr<lb/>
+aufzuwaschen. Hat er seine Mahlzeit verzehrt, so streicht<lb/>
+er, wenn sich noch Überbleibsel auf den Tellern befinden,<lb/>
+ohne Umstände Alles wieder von den Tellern in den<lb/>
+Topf ab, in welchem die Speise bereitet wurde und<lb/>
+Brühe, Fleischstücken <choice><abbr>ec.</abbr></choice> bilden nun, von den Händen<lb/>
+und Zähnen der Kinder zum Ueberflusse bearbeitet, ein<lb/>
+Gemengsel, welches als Vorrath zur nächsten Mahlzeit<lb/>
+aufbewahrt wird. Die entleerten Teller werden hierauf<lb/>
+den Hunden und Katzen überlassen. Haben diese das<lb/>
+Geschirr gehörig ausgeleckt, dann stellt man es, ohne<lb/>
+an das Auswaschen derselben zu denken, bei Seite und<lb/>
+benutzt es später in dem reinen Zustande, in welchen<lb/>
+die Jungen der Hausthiere das Geschirr versetzt haben.<lb/>
+Der Calabrese trinkt meist aus Flaschen, die ein Je-<lb/>
+der reihum an den Mund setzt; sie werden zwar von<lb/>
+neuem gefüllt, aber an das Ausspülen denkt Niemand.</p><lb/>
+<p>Viel ließe sich noch hinzufügen, um die Calabre-<lb/>
+sen in ihrem rohen Zustande zu schildern, doch sei es<lb/>
+hiermit genug. Aber der Freund der Menschheit hängt<lb/>
+mit betrübtem Blicke an dem Bilde, das die Betrach-<lb/>
+tung eines Volkes bietet, welches bei bürgerlichem und<lb/>
+sittlichen Vorwärtsschreiten zu den glücklichsten Men-<lb/>
+schen gerechnet werden müßte. Tausende von geschick-<lb/>
+ten, fleißigen und gebildeten Männern suchen jenseit<lb/>
+des fernen Oceans ihr Heil und doch hat Europa noch<lb/>
+weit ausgestreckte Länder, welche sich nach ihren Er-<lb/>
+lösern sehnen, um mit ihren schlummernden Reichthü-<lb/>
+mern, die nur des Weckens bedürfen, Millionen zu er-<lb/>
+freuen und zu beglücken.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Zähmung und Cultur wilder Thiere.</hi></head><lb/>
+<p><hi rendition="#in">D</hi>ie Zähmung und Cultur wilder Thiere stand bei<lb/>
+den Römern sehr hoch. Sie hatten es darin unglaub-<lb/>
+lich weit gebracht, leider aber nicht in Bezug auf alle<lb/>
+die nützlichen Thiergattungen, deren Vermehrung und<lb/>
+Vervollkommnung wirksam für die Fortschritte in der<lb/>
+Agricultur oder überhaupt in der Jndustrie sein konn-<lb/>
+ten. Alle ihre Bemühungen haben, gegen Ende der<lb/>
+Republik und unter der Kaiserherrschaft, sich nur auf<lb/>
+diejenigen Gattungen bezogen, welche das Vergnügen<lb/>
+<cb n="2"/>
+bei den Spielen im Circus vermehrten oder dem Luxus<lb/>
+ihrer Tafelfreuden dienen konnten.</p><lb/>
+<p>Was sie in Beziehung auf den ersten Punkt ge-<lb/>
+leistet, setzt nach Allem, was die moderne Zeit in der<lb/>
+Art zum Vorschein gebracht, immer noch in Erstau-<lb/>
+nen. Jn den letzten Jahrhunderten hatten die Con-<lb/>
+suln und die Aedilen dem römischen Volke oft das ab-<lb/>
+scheuliche Vergnügen dargeboten, zu sehen, wie große<lb/>
+Mengen seltener Thirre vor ihm niedergemetzelt wur-<lb/>
+den. Als man dahin gelangt war, bei feierlichen Ge-<lb/>
+legenheiten, wie bei der Einweihung des pompejani-<lb/>
+schen Theaters, im Jahre 55, Hunderte von Panthern<lb/>
+und Löwen dem Tode zu weihen, mußte man darauf<lb/>
+bedacht sein, dem Volke, um ihm zu gefallen, Schau-<lb/>
+spiele einer andern Art zu verschaffen: man führte ihm<lb/>
+abgerichtete Thiere vor.</p><lb/>
+<p>Marcus Antoninus war der Erste, der auf einem<lb/>
+mit Löwen bespannten Wagen in Rom einfuhr. Helio-<lb/>
+gabalus that Dasselbe, als er die Cybele, die Mutter<lb/>
+der Götter, vorstellte; auch mit Tigern fuhr er, dem<lb/>
+Gott Bacchus nachahmend; bisweilen spannte er auch<lb/>
+zwei Hirsche vor seinen Wagen, ein anderes mal vier<lb/>
+Hunde. Der Kaiser Firmus ließ seinen Wagen von<lb/>
+ausnehmend großen Straußen ziehen, sodaß der Wa-<lb/>
+gen mehr zu fliegen als zu rollen schien.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Der Hybiscus.</hi></head><lb/>
+<figure/><lb/>
+<p><hi rendition="#in">E</hi>r ist, wie der erste Anblick lehrt, mit den Malven<lb/>
+verwandt und gehört zu den Gewächsen, die fast überall<lb/>
+fortkommen und fast das ganze Jahr hindurch Blüten<lb/>
+haben. Mehres über ihn und verwandte Arten siehe<lb/>
+Pfennig=Magazin, Jahr=gang 1835, Nr. 110.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<cb type="end"/>
+<pb facs="#f0008" n="360"/>
+<fw place="top" type="pageNum">360</fw><lb/>
+<div n="1" type="jVarious"><head><hi rendition="#fr"><hi rendition="#g">Mannichfaltiges</hi>.</hi></head><lb/>
+<cb type="start"/>
+<div n="2" type="jArticle"><p>Der schädliche Einfluß des Mondlichts. Bei allen<lb/>
+Seeleuten ist der Glaube verbreitet, daß der Mondschein gif-<lb/>
+tig, wie sie sagen, einwirke. Jm Mondenscheine wird nie<lb/>
+ein Seemann mit unbedecktem Haupte auf dem Deck erschei-<lb/>
+nen. Aber selten wird irgend ein ähnlicher Glaube allge-<lb/>
+mein unter irgend einem Stande verbreitet sein, ohne daß<lb/>
+irgendwie eine Wahrheit, ein Thatsächliches zugrunde liegt.<lb/>
+Die Folge des Schlafens oder überhaupt nur das Liegen mit<lb/>
+unverhülltem Antlitz im Mondenscheine soll Geschwulst im<lb/>
+Gesicht, Lähmung, Blindheit, in manchen Fällen Wahnsinn<lb/>
+und mit dem Tode endende Raserei herbeiführen. Jn Eu-<lb/>
+ropa sind ähnliche Erfahrungen gemacht worden. Soldaten,<lb/>
+welche des Nachts auf den Wällen einer Festung Schildwacht<lb/>
+standen, wurden &#x201E;mondblind&#x201C;. Mondblindheit ( <hi rendition="#aq">Nyctalopia )</hi><lb/>
+ist der wissenschaftliche Ausdruck für das Leiden, und die<lb/>
+vorzüglichste Erscheinung, mit welcher es, nach der Aussage<lb/>
+eines deutschen Arztes in Valparaiso, auftritt, ist eine mehr<lb/>
+oder weniger verbreitete Geschwulst in der Augengegend, und<lb/>
+die Eigenthümlichkeit, daß des Nachts vollständige Blindheit<lb/>
+eintritt, sei nun Mondlicht oder Feuerbeleuchtung. &#x2014; Ob wirk-<lb/>
+lich der keusche, unschuldige Mond die Schuld an dem Übel<lb/>
+trägt? Soviel steht indessen fest, daß man dem Liegen im<lb/>
+Mondschein viele Schuld aufbürdet und daß eine leichte Ver-<lb/>
+hüllung des Gesichts dagegen schützen soll. Es verdient noch<lb/>
+bemerkt zu werden, daß unter den Seeleuten der Glaube<lb/>
+herrscht, daß Fleisch geschlachteter Thiere, besonders aber das<lb/>
+von Fischen, dem Scheine des Vollmondes ausgesetzt, leich-<lb/>
+ter in Fäulniß übergehe als anderes, ja daß solches Fleisch<lb/>
+<cb n="2"/>
+beim Genusse selbst schädliche Eigenschaften habe. Es liegt<lb/>
+eine eigene Mystik in diesem Glauben, der zusammenzuhän-<lb/>
+gen scheint wit mancherlei Erfahrungen über die Einflüsse<lb/>
+des Mondes, welche man von andern Seiten her gewonnen<lb/>
+haben will.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Das Grün bildet, nach Schubert, den polarischen<lb/>
+Gegensatz des Rothen; an dem Pflanzenreiche deutet mithin<lb/>
+schon die herrschende Farbe auf den Gegensatz hin, welcher<lb/>
+zwischen ihm und dem Thierreiche besteht, an dessen vollkom-<lb/>
+menen Formen überall das Roth des Blutes vorherrschen<lb/>
+würde, wenn bei ihnen das innere Getriebe der Säfte nicht<lb/>
+durch die bergenden Decken des Fells überkleidet, sondern<lb/>
+ebenso offen dargelegt wäre wie bei den Kräutern. Wie also<lb/>
+die grüne Farbe, bekanntlich die einfache Aufhebung des Ge-<lb/>
+gensatzes der Grundfarben Blau und Gelb, in uns ein Ge-<lb/>
+fühl ruhiger Befriedigung erweckt, so scheint sie der affect-<lb/>
+vollen Farbe des Thierbluts gegenüber zugleich auszuspre-<lb/>
+chen, daß im ganzen Wesen der Pflanze noch keine Empfin-<lb/>
+dung und Leidenschaft, nur still und stumm fortgährendes<lb/>
+Säfteleben ist; da ist Erholung, Gefühl der Gesundheit; die<lb/>
+Farbe selbst haucht stille, labende Kühle. Das wiederkeh-<lb/>
+rende Grün der Wiese erfüllt uns, so oft es das Erwachen<lb/>
+der Erde aus ihrem Winterschlafe verkündet, mit der sichern<lb/>
+und ruhigen Zuversicht, daß in allem Wechsel der Erschei-<lb/>
+nungen der Kern und Saft des Lebens ausharren werde.</p></div></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jAnnouncements"><head><hi rendition="#fr"><hi rendition="#g">Ankündigungen</hi>.</hi></head><lb/>
+<div n="2" type="jAn"><head><hi rendition="#b #fr">Karl Gutzkow's</hi><lb/>
+<hi rendition="#b #fr #larger">Unterhaltungen am häuslichen Herd.</hi></head><lb/>
+<p>Jn einer großen Auflage erscheinend, ist diese vierteljährlich nur 16 Ngr. kostende Unterhaltungs-<lb/>
+schrift ihrem Ziele,</p><lb/>
+<p><hi rendition="#c #fr #larger">ein deutsches Haus= und familienbuch</hi></p><lb/>
+<p>zu werden, immer nähergerückt. Zwei Jahrgänge liegen vollendet vor. Es sind Sammelwerke der gediegen-<lb/>
+sten und geistreichsten Lecture. Ausgezeichnete Namen, wie Auerbach, Cotta, Förster, Fortlage, Frankl,<lb/>
+Frenzel, Hebbel, Hettner, Klemm, Kohl, Masius, Müller, Orges, Schedler, Steub, Strauß<lb/>
+und viele Andere, besonders auch jüngere Kräfte fördern durch den lebhaftesten Beistand das Unternehmen<lb/>
+Gutzkow's, der als Herausgeber auch für den neuen dritten Jahrgang denselben regen Eifer in<lb/>
+Aussicht gestellt hat, welcher die beiden ersten Jahrgänge bereits zu einer Lieblingslecture aller Gebildeten<lb/>
+machte. Jeder der bisher erschienenen beiden Bände ( von dem ersten Bande ist bereits eine unveränderte<lb/>
+zweite Auflage nöthig geworden ) kostet geheftet 2 Thlr. 4 Ngr., elegant gebunden 2 Thlr. 16 Ngr.</p><lb/>
+<p>Unterzeichnungen auf das neue Quartal werden von allen Buchhandlungen und Postämtern angenom-<lb/>
+men. Wöchentlich erscheint eine Nummer, es findet aber auch eine Ausgabe in Monatsheften<lb/>
+statt. Alle Buchhandlungen können Probenummern sowie von Ende d. M. an das erste Heft der Monats-<lb/>
+ausgabe zur Ansicht liefern.</p><lb/>
+<p>Leipzig, im November 1854.</p><lb/>
+<p><space dim="horizontal"/><hi rendition="#fr">F. A. Brockhaus.</hi></p></div></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+</body>     <back><div n="1" type="imprint"><p><hi rendition="#c">Verantwortlicher Redacteur: <hi rendition="#aq">M</hi>. J. E. Volbeding. &#x2014; Druck und Verlag von F. A. Brockhaus in Leipzig.</hi></p></div>     </back>   </text> </TEI>

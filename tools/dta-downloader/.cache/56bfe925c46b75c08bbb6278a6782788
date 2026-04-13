@@ -1,0 +1,2896 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.deutschestextarchiv.de/basisformat.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="http://www.deutschestextarchiv.de/basisformat.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">   <teiHeader>
+<fileDesc>
+<titleStmt>
+<title type="main">Canut</title>
+<title type="sub">Ein Trauerspiel</title>
+<author>
+<persName ref="http://d-nb.info/gnd/118608002">
+<surname>Schlegel</surname>
+<forename>Johann Elias</forename>
+</persName>
+</author>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/115266127">
+<surname>Geyken</surname>
+<forename>Alexander</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1222198746">
+<surname>Haaf</surname>
+<forename>Susanne</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1019062681">
+<surname>Jurish</surname>
+<forename>Bryan</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Boenig</surname>
+<forename>Matthias</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Thomas</surname>
+<forename>Christian</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Wiegand</surname>
+<forename>Frank</forename>
+</persName>
+</editor>
+<respStmt>
+<orgName ref="https://www.bbaw.de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<resp>
+<note type="remarkResponsibility">Langfristige Bereitstellung der DTA-Ausgabe</note>
+<ref target="https://www.bbaw.de"/>
+</resp>
+</respStmt>
+</titleStmt>
+<editionStmt><edition>Vollständige digitalisierte Ausgabe.</edition></editionStmt>
+<extent>
+<measure type="images">97</measure>
+<measure type="tokens">15494</measure>
+<measure type="types">3143</measure>
+<measure type="characters">98251</measure>
+</extent>
+<publicationStmt>
+<publisher xml:id="DTACorpusPublisher">
+<email>dta@bbaw.de</email>
+<orgName role="project">Deutsches Textarchiv</orgName>
+<orgName role="hostingInstitution" xml:lang="en">Berlin-Brandenburg Academy of Sciences and Humanities (BBAW)</orgName>
+<orgName role="hostingInstitution" xml:lang="de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<address>
+<addrLine>Jägerstr. 22/23, 10117 Berlin</addrLine>
+<country>Germany</country>
+</address>
+</publisher>
+<pubPlace>Berlin</pubPlace>
+<date type="publication">2025-02-28T15:16:20Z</date>
+<availability>
+<licence target="https://creativecommons.org/licenses/by-sa/4.0/deed.de">
+<p>Distributed under the Creative Commons Attribution-ShareAlike 4.0 License.</p>
+</licence>
+</availability>
+<idno>
+<idno type="URLWeb">https://www.deutschestextarchiv.de/schlegel_canut_1746</idno>
+<idno type="URLXML">https://www.deutschestextarchiv.de/book/download_xml/schlegel_canut_1746</idno>
+<idno type="URLHTML">https://www.deutschestextarchiv.de/book/download_html/schlegel_canut_1746</idno>
+<idno type="URLText">https://www.deutschestextarchiv.de/book/download_text/schlegel_canut_1746</idno>
+<idno type="DTADirName">schlegel_canut_1746</idno>
+<idno type="DTAID">20538</idno>
+<idno type="URN">urn:nbn:de:kobv:b4-20538-9</idno>
+</idno>
+</publicationStmt>
+<sourceDesc>
+<bibl type="M">Schlegel, Johann Elias: Canut. Kopenhagen, 1746.</bibl>
+<biblFull>
+<titleStmt>
+<title level="m" type="main">Canut</title>
+<title level="m" type="sub">Ein Trauerspiel</title>
+<author>
+<persName ref="http://d-nb.info/gnd/118608002">
+<surname>Schlegel</surname>
+<forename>Johann Elias</forename>
+</persName>
+</author>
+</titleStmt>
+<editionStmt>
+<edition n="1"/>
+</editionStmt>
+<extent>
+<measure type="pages">[5] Bl., 78 S.</measure>
+</extent>
+<publicationStmt>
+<publisher><name>Mumme</name></publisher>
+<pubPlace>Kopenhagen</pubPlace>
+<date type="publication">1746</date>
+</publicationStmt>
+</biblFull>
+<msDesc>
+<msIdentifier>
+<repository>Staatsbibliothek zu Berlin &#x2013; Preußischer Kulturbesitz</repository>
+<idno>
+<idno type="shelfmark">Berlin SBB-PK, Yr 948</idno>
+</idno>
+</msIdentifier>
+<physDesc>
+<typeDesc>
+<p>Fraktur</p>
+</typeDesc>
+</physDesc>
+</msDesc>
+</sourceDesc>
+</fileDesc>
+<encodingDesc>
+<editorialDecl>
+<p>Dieses Werk wurde gemäß den <ref target="https://www.deutschestextarchiv.de/doku/richtlinien">DTA-Transkriptionsrichtlinien</ref>
+im Double-Keying-Verfahren von Nicht-Muttersprachlern erfasst und in XML/TEI P5 nach
+<ref target="https://www.deutschestextarchiv.de/doku/basisformat">DTA-Basisformat</ref> kodiert.</p>
+<p/>
+</editorialDecl>
+<tagsDecl>
+<rendition scheme="css" xml:id="aq">font-family:sans-serif</rendition>
+<rendition scheme="css" xml:id="b">font-weight:bold</rendition>
+<rendition scheme="css" xml:id="blue">color:blue</rendition>
+<rendition scheme="css" xml:id="c">display:block; text-align:center</rendition>
+<rendition scheme="css" xml:id="et">display:block; margin-left:2em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et2">display:block; margin-left:4em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et3">display:block; margin-left:6em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="f">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="fr">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="g">letter-spacing:0.125em</rendition>
+<rendition scheme="css" xml:id="i">font-style:italic</rendition>
+<rendition scheme="css" xml:id="in">font-size:150%</rendition>
+<rendition scheme="css" xml:id="k">font-variant:small-caps</rendition>
+<rendition scheme="css" xml:id="larger">font-size:larger</rendition>
+<rendition scheme="css" xml:id="red">color:red</rendition>
+<rendition scheme="css" xml:id="right">display:block; text-align:right</rendition>
+<rendition scheme="css" xml:id="s">text-decoration:line-through</rendition>
+<rendition scheme="css" xml:id="smaller">font-size:smaller</rendition>
+<rendition scheme="css" xml:id="sub">vertical-align:sub; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="sup">vertical-align:super; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="u">text-decoration:underline</rendition>
+<rendition scheme="css" xml:id="uu">border-bottom:double 3px #000</rendition>
+</tagsDecl>
+</encodingDesc>
+<profileDesc>
+<langUsage>
+<language ident="deu">(Früh-)Neuhochdeutsch</language>
+<language ident="deu">German</language>
+</langUsage>
+<textClass>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dtamain">Belletristik</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dtasub">Drama</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1main">Belletristik</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1sub">Drama</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">core</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">ready</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">china</classCode>
+</textClass>
+</profileDesc>
+</teiHeader>
+<text><front>
+<pb facs="#f0001"/>
+<pb facs="#f0002"/>
+<pb facs="#f0003"/>
+<pb facs="#f0004"/>
+<pb facs="#f0005"/>
+<titlePage type="main"> <docTitle> <titlePart type="main"> <hi rendition="#b"><hi rendition="#in">C</hi>anut,</hi><lb/>
+</titlePart> </docTitle> <docTitle> <titlePart type="desc"> <hi rendition="#b">Ein<lb/>
+<hi rendition="#in">T</hi>rauer&#x017F;piel.</hi><lb/>
+</titlePart> </docTitle> <figure rendition="#c"/><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<docImprint> <pubPlace><hi rendition="#b">Copenhagen,</hi></pubPlace><lb/>
+Bey <publisher>Frantz Chri&#x017F;tian Mumme</publisher>,<lb/>
+auf der Bo&#x0364;r&#x017F;e.<lb/>
+<docDate>1746</docDate>.<lb/>
+</docImprint> </titlePage></front><body>
+<pb facs="#f0006"/>
+<pb facs="#f0007"/>
+<div n="1"><head><hi rendition="#b">Anrede<lb/>
+Canuts des Gro&#x017F;&#x017F;en<lb/>
+An Se. Maje&#x017F;t.<lb/>
+<hi rendition="#g">Friedrich</hi><lb/>
+den Fu&#x0364;nften,<lb/>
+Ko&#x0364;nig in Da&#x0364;nnemark, Norwegen &#xA75B;c. &#xA75B;c.</hi></head><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<p><hi rendition="#in">M</hi>ein Gei&#x017F;t, der noch zuru&#x0364;ck auf die&#x017F;e La&#x0364;n-<lb/>
+<hi rendition="#et">der &#x017F;ieht,</hi><lb/>
+Die vormals mich geliebt, die &#x017F;on&#x017F;t<lb/>
+<hi rendition="#et">durch mich geblu&#x0364;ht;</hi><lb/>
+Den, da die Zeit von mir die A&#x017F;che &#x017F;elb&#x017F;t zer&#x017F;treuet,<lb/>
+Noch &#x017F;tets der Vo&#x0364;lker Glu&#x0364;ck, die ich regiert, erfreuet;<lb/>
+Mein Gei&#x017F;t erblickt vergnu&#x0364;gt, aufmerk&#x017F;am, hof-<lb/>
+<hi rendition="#et">nungsvoll</hi><lb/>
+Dich, <hi rendition="#fr">Friedrich,</hi> auf dem Thron, der durch dich pran-<lb/>
+<hi rendition="#et">gen &#x017F;oll.</hi><lb/>
+Jch weide mich an dir, und &#x017F;uch in deinen Werken.<lb/>
+Dein Anfang la&#x0364;ßt mich &#x017F;chon Fleiß, Recht und Gu&#x0364;te<lb/>
+<hi rendition="#et">merken.</hi><lb/>
+Entzu&#x0364;ckt &#x017F;chließ ich daraus mit iedem Unterthan,<lb/>
+Daß man aufs ku&#x0364;nftige &#x017F;chon mehr als hoffen kann:<lb/>
+<fw type="sig" place="bottom">*</fw><fw type="catch" place="bottom">Aus</fw><lb/>
+<pb facs="#f0008"/>
+Aus Gru&#x0364;nden &#x017F;chließ ich es, aus Zeichen, die nicht<lb/>
+<hi rendition="#et">tru&#x0364;gen.</hi><lb/>
+J&#x017F;t es nicht wahr<choice><sic><choice><sic>&#x2E2E;</sic><corr>?</corr></choice></sic><corr>?</corr></choice> du fu&#x0364;hl&#x017F;t das go&#x0364;ttliche Vergnu&#x0364;gen,<lb/>
+Das niemand als ein Gei&#x017F;t, der edel denkt, genießt,<lb/>
+Das &#x017F;ich durch Wohlthun na&#x0364;hrt, und aus dem<lb/>
+<hi rendition="#et">Wohlthun fließt?</hi><lb/>
+Du fu&#x0364;hl&#x017F;t, wie &#x017F;cho&#x0364;n es &#x017F;ey, fu&#x0364;r frohe Vo&#x0364;lker wachen,<lb/>
+Ein ganzes Reich erfreun, und Herzen glu&#x0364;cklich machen,<lb/>
+Mit ern&#x017F;ter Weisheit &#x017F;ich der Men&#x017F;chenliebe weyhn,<lb/>
+Jhr Vater, Sorger, Freund und auch ihr Bey&#x017F;piel<lb/>
+<hi rendition="#et">&#x017F;eyn,</hi><lb/>
+Und treibt ein &#x017F;trenger Zwang das Rach&#x017F;chwerdt nicht<lb/>
+<hi rendition="#et">zum Kriegen,</hi><lb/>
+Durch &#x017F;einer La&#x0364;nder Flor bloß u&#x0364;ber andre &#x017F;iegen?<lb/>
+Dieß war, als ich gelebt, die Freude meiner Bru&#x017F;t,<lb/>
+Sprich, <hi rendition="#fr">Friedrich,</hi> fu&#x0364;hl&#x017F;t du nicht in dir itzt gleiche<lb/>
+<hi rendition="#et">Lu&#x017F;t<choice><sic>&#x2E2E;</sic><corr>?</corr></choice></hi><lb/>
+Du fu&#x0364;hl&#x017F;t &#x017F;ie, ja! genug. Du wir&#x017F;t un&#x017F;terblich wer-<lb/>
+<hi rendition="#et">den.</hi><lb/>
+Durch Wohlthun &#x017F;teiget man zum Himmel von der<lb/>
+<hi rendition="#et">Erden.</hi><lb/>
+Kein &#x017F;olcher Nahme &#x017F;inkt in Sterblichkeit und Nacht.<lb/>
+Die Welt muß dankbar &#x017F;eyn, wenn man &#x017F;ie glu&#x0364;cklich<lb/>
+<hi rendition="#et">macht.</hi><lb/>
+Vielleicht wird &#x017F;ie derein&#x017F;t mich darum &#x017F;eltner nennen,<lb/>
+Wenn &#x017F;ie, was mich erhub, an dir wird finden ko&#x0364;nnen.<lb/>
+Und zur Ermunterung an meines Ruhmes &#x017F;tatt<lb/>
+Jn deinen Tugenden ein na&#x0364;her Bey&#x017F;piel hat.<lb/>
+Wie glu&#x0364;cklich &#x017F;a&#x0364;h ich denn auch meinen Ruhm be-<lb/>
+<hi rendition="#et">graben,</hi><lb/>
+Zufrieden, was du thu&#x017F;t, vordem gethan zu haben,<lb/>
+Erblickte nur dein Reich im fu&#x0364;nften <hi rendition="#fr">Friederich</hi><lb/>
+Mich wieder auferweckt, und gro&#x0364;&#x017F;&#x017F;er noch als mich!</p><lb/>
+<fw type="catch" place="bottom"><hi rendition="#b">Vor-</hi></fw><lb/>
+<pb facs="#f0009"/>
+<figure rendition="#c"/><lb/>
+</div> <div n="1"><head><hi rendition="#b">Vorbericht.</hi></head><lb/>
+<p><hi rendition="#in">S</hi>o wenig diejenigen, welche die Ge-<lb/>
+&#x017F;chichte der alten Zeiten be&#x017F;chreiben, be-<lb/>
+&#x017F;onders was die Begebenheit betrifft, die<lb/>
+ich zum Grunde die&#x017F;es Trauer&#x017F;piels ge-<lb/>
+nommen, in den Nebenum&#x017F;ta&#x0364;nden u&#x0364;berein&#x017F;timmen:<lb/>
+&#x017F;o einig &#x017F;ind &#x017F;ie darinnen, daß der zweyte Canut einer<lb/>
+der gro&#x0364;ßten Ko&#x0364;nige von Da&#x0364;nnemark gewe&#x017F;en, wel-<lb/>
+cher durch &#x017F;eine Tapferkeit nach dem Ausdrucke des<lb/>
+Saxo ein Be&#x017F;itzer von &#x017F;echs Ko&#x0364;nigreichen ward, wie-<lb/>
+wohl er laut eines Documents, das Hvitfeld anfu&#x0364;hret,<lb/>
+&#x017F;ich nur Ko&#x0364;nig u&#x0364;ber ganz England, Da&#x0364;nnemark,<lb/>
+Norwegen und einen Theil von Schweden &#x017F;chrieb,<lb/>
+und daß die&#x017F;er Ko&#x0364;nig &#x017F;ich eben &#x017F;o groß durch &#x017F;eine Ge-<lb/>
+rechtigkeit und Gu&#x0364;tigkeit, als durch &#x017F;eine Tapferkeit ge-<lb/>
+macht. Das alte Hof-Recht, oder, wie es genannt<lb/>
+wird, <hi rendition="#fr">Witherlaghs-Ra&#x0364;tt,</hi> welches bis auf un&#x017F;ere<lb/>
+Zeiten u&#x0364;brig geblieben i&#x017F;t, und ihn zum er&#x017F;ten Urheber<lb/>
+hat, giebt zu erkennen, wie hoch er die Einigkeit und das<lb/>
+Blut &#x017F;einer Unterthanen ge&#x017F;cha&#x0364;tzet, indem er denjeni-<lb/>
+gen, welcher den andern beleidiget und verwundet ha&#x0364;tte,<lb/>
+fu&#x0364;r einen nichtswu&#x0364;rdigen Men&#x017F;chen (<hi rendition="#fr">Nithing</hi>) ange-<lb/>
+&#x017F;ehen, und in keinem von &#x017F;einen Reichen geduldet wi&#x017F;&#x017F;en<lb/>
+<fw type="sig" place="bottom">* 2</fw><fw type="catch" place="bottom">wollte.</fw><lb/>
+<pb facs="#f0010"/>
+<fw type="header" place="top"><hi rendition="#b">Vorbericht.</hi></fw><lb/>
+wollte. Von &#x017F;einen andern Tugenden reden &#x017F;o vie-<lb/>
+le Bey&#x017F;piele, welche &#x017F;o wohl Saxo als andre Ge-<lb/>
+&#x017F;chicht&#x017F;chreiber anfu&#x0364;hren, von denen der er&#x017F;tere ihm<lb/>
+das Zeugniß giebt, daß die Unwi&#x017F;&#x017F;enheit und das Al-<lb/>
+terthum, welche das Andenken &#x017F;o vieler andern Ko&#x0364;-<lb/>
+nige verdunkelt, dem Ruhme die&#x017F;es Helden nichts an-<lb/>
+haben ko&#x0364;nnen.</p><lb/>
+<p>Gleichfalls i&#x017F;t es eine Begebenheit, welche von<lb/>
+keinem Ge&#x017F;chicht&#x017F;chreiber gela&#x0364;ugnet wird, daß die&#x017F;er<lb/>
+gu&#x0364;tige Canut, nachdem er dem Ulfo &#x017F;einer Verra&#x0364;the-<lb/>
+rey wegen Gnade erwie&#x017F;en, durch den Trutz und die<lb/>
+Ruhmredigkeit die&#x017F;es Mannes &#x017F;o weit gebracht wor-<lb/>
+den, daß er ihm das Leben nehmen ließ.</p><lb/>
+<p>Die&#x017F;es &#x017F;ind fa&#x017F;t die einzigen gewi&#x017F;&#x017F;en und un-<lb/>
+be&#x017F;trittenen Um&#x017F;ta&#x0364;nde die&#x017F;er Begebenheit. Jn den<lb/>
+u&#x0364;brigen bin ich mei&#x017F;tentheils dem Saxo gefolget,<lb/>
+und was er davon im <hi rendition="#aq">X</hi>ten Buche &#x017F;einer Da&#x0364;ni&#x017F;chen<lb/>
+Ge&#x017F;chichte berichtet, i&#x017F;t folgendes: Ulfo, ein geborner<lb/>
+Schwede, den die Knytlinga Saga einen Grafen<lb/>
+nennet, hatte lange Zeit unter dem Canut gedient,<lb/>
+und ihm in allen &#x017F;einen Kriegen be&#x017F;onders in England<lb/>
+beyge&#x017F;tanden. Er war bey &#x017F;einer gro&#x017F;&#x017F;en Tapferkeit<lb/>
+von &#x017F;ehr wildem Gemu&#x0364;the, ein Carakter von welchem<lb/>
+ich mich zu &#x017F;agen getraue, daß er vormals bey den<lb/>
+Deut&#x017F;chen und Nordi&#x017F;chen Vo&#x0364;lkern &#x017F;ehr gemein war,<lb/>
+und daß die mei&#x017F;ten unter ihnen die Tapferkeit fu&#x0364;r die<lb/>
+einzige Tugend hielten. Eine Eifer&#x017F;ucht gegen den<lb/>
+Ruhm des Canut, den er, gerne wo nicht u&#x0364;bertrof-<lb/>
+fen, doch ihm gleich gekommen wa&#x0364;re, machte ihn zum<lb/>
+Feinde desjenigen Ko&#x0364;nigs, unter dem er &#x017F;ich bisher &#x017F;o<lb/>
+wohl verhalten hatte.</p><lb/>
+<fw type="catch" place="bottom">Canut</fw><lb/>
+<pb facs="#f0011"/>
+<fw type="header" place="top"><hi rendition="#b">Vorbericht.</hi></fw><lb/>
+<p>Canut hatte eine Schwe&#x017F;ter mit Nahmen E&#x017F;t-<lb/>
+rithe, welche anfangs mit Richard einem Grafen in<lb/>
+der Normandie verheyrathet gewe&#x017F;en, und von ihm<lb/>
+&#x017F;o vieles ausge&#x017F;tanden hatte, daß Canut endlich ge-<lb/>
+no&#x0364;thiget war, die&#x017F;en Grafen aus &#x017F;einen Landen zu ver-<lb/>
+jagen, &#x017F;eine Schwe&#x017F;ter aber zuru&#x0364;ckzunehmen, die er &#x017F;o<lb/>
+&#x017F;ehr liebte, daß er ihr einen Theil der Regierung an-<lb/>
+vertraute. Ulfo, welcher Gelegenheit &#x017F;uchte, &#x017F;einen<lb/>
+Haß gegen den Canut zu vergnu&#x0364;gen, ergriff hierzu<lb/>
+einen Einfall der Schweden in Schonen, die er ohne<lb/>
+Mu&#x0364;he zuru&#x0364;ckzutreiben ver&#x017F;prach, wenn Canut ihm ei-<lb/>
+nen Brief an &#x017F;eine Schwe&#x017F;ter E&#x017F;trithe geben wollte,<lb/>
+darinnen ihr befohlen wu&#x0364;rde, alles zu thun, was ihr<lb/>
+Ulfo &#x017F;agte. Die&#x017F;en Brief misbrauchte er als einen<lb/>
+Befehl des Canut an die E&#x017F;trithe, ihn zu heyrathen.<lb/>
+Nachdem er die&#x017F;es erhalten hatte, gieng er mit ihr nach<lb/>
+Schweden, verband &#x017F;ich mit dem Ko&#x0364;nige Omund von<lb/>
+Schweden und mit Oluf Ko&#x0364;nige in Norwegen, den<lb/>
+Canut zu bekriegen, &#x017F;o daß der eine nach Schonen,<lb/>
+der andre nach Seeland gehen &#x017F;ollte. Ulfo aber &#x017F;etzte<lb/>
+&#x017F;ich mit einer Flotte in dem Fluß Helga, welcher auf der<lb/>
+Gra&#x0364;nze von Schweden und Schonen &#x017F;ich in das Meer<lb/>
+ergie&#x017F;&#x017F;et. Der Ko&#x0364;nig Canut, der von die&#x017F;em Vorha-<lb/>
+ben &#x017F;chon durch den Haqvin Nachricht erhalten hatte,<lb/>
+gieng &#x017F;elb&#x017F;t auf dem Omund los, und &#x017F;chickte einen an-<lb/>
+dern Theil &#x017F;einer Macht dem Ulfo entgegen. Die An-<lb/>
+fu&#x0364;hrer die&#x017F;er Macht ho&#x0364;rten kaum, daß Canut den O-<lb/>
+mund ge&#x017F;chlagen hatte, &#x017F;o wollten &#x017F;ie nicht lang&#x017F;amer<lb/>
+gewe&#x017F;en &#x017F;eyn, als er, und &#x017F;chlugen an einem Orte, wo<lb/>
+der Fluß Helga &#x017F;ehr breit war, eine Bru&#x0364;cke, um auf<lb/>
+eine Jn&#x017F;ul zu kommen, wo der Feind gelandet hatte.<lb/>
+Ulfo ließ &#x017F;ie in Ruhe bis der gro&#x0364;ßte Theil der Da&#x0364;nen<lb/>
+<fw type="sig" place="bottom">* 3</fw><fw type="catch" place="bottom">mitten</fw><lb/>
+<pb facs="#f0012"/>
+<fw type="header" place="top"><hi rendition="#b">Vorbericht.</hi></fw><lb/>
+mitten auf der Bru&#x0364;cke war. Er &#x017F;tellte &#x017F;ich &#x017F;odann,<lb/>
+als ob er diejenigen, die ans Land ka&#x0364;men, angreiffen<lb/>
+wollte und verur&#x017F;achte dadurch unter den Da&#x0364;ni&#x017F;chen<lb/>
+Vo&#x0364;lkern eine &#x017F;olche Eilfertigkeit und ein &#x017F;olches Ge-<lb/>
+dra&#x0364;nge auf der Bru&#x0364;cke, daß die&#x017F;elbe zerbrach, und fa&#x017F;t<lb/>
+das ganze Kriegsvolk er&#x017F;auffen mußte. Da &#x017F;ich<lb/>
+unterde&#x017F;&#x017F;en der Ko&#x0364;nig herannahte, &#x017F;ah &#x017F;ich Ulfo nicht<lb/>
+mehr &#x017F;icher, und be&#x017F;chloß, &#x017F;eine Flotte zu verla&#x017F;&#x017F;en. Er<lb/>
+verrichtete die&#x017F;es des Nachts durch Hu&#x0364;lfe der Boote,<lb/>
+mit denen er &#x017F;eine Vo&#x0364;lker an Land &#x017F;etzte, und in Si-<lb/>
+cherheit brachte, und die Da&#x0364;nen, welche des andern<lb/>
+Tages &#x017F;eine Flotte angreiffen wollten, fanden nichts<lb/>
+als leere Schiffe.</p><lb/>
+<p>Nachdem hierauf E&#x017F;trithe den Ulfo wieder bey<lb/>
+ihrem Bruder ausge&#x017F;o&#x0364;hnet hatte, &#x017F;o that &#x017F;ich Ulfo<lb/>
+noch immer auf die&#x017F;en erhaltnen Sieg &#x017F;o viel zu gu-<lb/>
+te, daß er ihn bey allen Gelegenheiten ru&#x0364;hmte. Er<lb/>
+that die&#x017F;es zumal auf eine &#x017F;o trotzige und beleidigende<lb/>
+Art, daß Canut ihm endlich das Leben deswegen neh-<lb/>
+men ließ, wie wohl ihn die&#x017F;e That &#x017F;ehr betru&#x0364;bte, und er<lb/>
+&#x017F;ie durch Wohlthaten gegen &#x017F;eine Schwe&#x017F;ter auf alle<lb/>
+Art und Wei&#x017F;e wieder gut zu machen &#x017F;uchte.</p><lb/>
+<p>Es erza&#x0364;hlet Torfa&#x0364;us ganz andre Um&#x017F;ta&#x0364;nde der<lb/>
+Sache, denen ich gefolgt &#x017F;eyn wu&#x0364;rde, wenn ich<lb/>
+eine Ge&#x017F;chichte und nicht ein Trauer&#x017F;piel &#x017F;chreiben<lb/>
+wollen. Jch habe diejenigen Um&#x017F;ta&#x0364;nde gewa&#x0364;hlet,<lb/>
+die mir am beqvem&#x017F;ten ge&#x017F;chienen, Caraktere ins Licht<lb/>
+zu &#x017F;etzen und Gemu&#x0364;thsbewegungen zu erwecken, und<lb/>
+die&#x017F;es mit einer Freyheit, die &#x017F;chon la&#x0364;ng&#x017F;tens in Ge-<lb/>
+dichten vergo&#x0364;nnet gewe&#x017F;en. Jch habe Um&#x017F;ta&#x0364;nde dazu<lb/>
+erdichtet, wie ich fu&#x0364;r dienlich erachtet, und andre wie-<lb/>
+derum vera&#x0364;ndert, weil &#x017F;ie ohne weitla&#x0364;uftige Erkla&#x0364;rung<lb/>
+<fw type="catch" place="bottom">unwahr</fw><lb/>
+<pb facs="#f0013"/>
+<fw type="header" place="top"><hi rendition="#b">Vorbericht.</hi></fw><lb/>
+unwahr&#x017F;cheinlich ausge&#x017F;ehen haben wu&#x0364;rden, und die-<lb/>
+&#x017F;e Erkla&#x0364;rungen mich von der Hauptfabel abgefu&#x0364;hret<lb/>
+ha&#x0364;tten.</p><lb/>
+<p>Unter die&#x017F;e Erdichtungen geho&#x0364;ret auch dasjenige,<lb/>
+was den God&#x017F;chalk betrifft. Die Ge&#x017F;chichte &#x017F;agt<lb/>
+von ihm, daß er zu der&#x017F;elben Zeit in Canuts Dien&#x017F;te<lb/>
+gegangen, und daß er &#x017F;on&#x017F;t, da er die Wi&#x017F;&#x017F;en&#x017F;chaften<lb/>
+erlernen &#x017F;ollte, auf die Nachricht, daß &#x017F;ein Vater er-<lb/>
+&#x017F;chlagen worden, die Ku&#x0364;n&#x017F;te &#x017F;ogleich verla&#x017F;&#x017F;en habe,<lb/>
+u&#x0364;ber einen Fluß ge&#x017F;chwommen &#x017F;ey und Vo&#x0364;lker ge-<lb/>
+&#x017F;ammlet habe, die&#x017F;en Tod zu ra&#x0364;chen.</p><lb/>
+<p>Man hat der Dichtkun&#x017F;t &#x017F;chon la&#x0364;ng&#x017F;t eine &#x017F;ol-<lb/>
+che, ja eine noch gro&#x0364;&#x017F;&#x017F;re Gewalt u&#x0364;ber die Ge&#x017F;chichte,<lb/>
+um de&#x017F;to williger vergo&#x0364;nnet, da diejenigen, die mit<lb/>
+Hauptbegriffen von der Hi&#x017F;torie zufrieden &#x017F;ind, an<lb/>
+dergleichen Nebenum&#x017F;ta&#x0364;nden nichts verlieren, diejeni-<lb/>
+<hi rendition="#c">gen aber, &#x017F;o die Begebenheiten vergangner Zeiten<lb/>
+auf das genau&#x017F;te kennen wollen, &#x017F;ie nicht<lb/>
+in den Gedichten &#x017F;uchen.</hi></p></div><lb/>
+<figure rendition="#c"/><lb/>
+<fw type="catch" place="bottom"><hi rendition="#b">Per-</hi></fw><lb/>
+<pb facs="#f0014"/>
+<div n="1"><head><hi rendition="#c"><hi rendition="#b">Per&#x017F;onen des Trauer&#x017F;piels.</hi></hi></head><castList><lb/>
+<castItem><role xml:id="CAN"><hi rendition="#fr">Canut,</hi></role> <roleDesc>Ko&#x0364;nig von Da&#x0364;nnemark, England, Nor-<lb/>
+wegen, und einem Theile von Schweden.</roleDesc></castItem><lb/>
+<castItem><role xml:id="EST"><hi rendition="#fr">E&#x017F;trithe,</hi></role><roleDesc> de&#x017F;&#x017F;en Schwe&#x017F;ter.</roleDesc></castItem><lb/>
+<castItem><role xml:id="GUN"><hi rendition="#fr">Gunilde,</hi></role> <roleDesc>ihre Vertraute.</roleDesc></castItem><lb/>
+<castItem><role xml:id="ULF"><hi rendition="#fr">Ulfo,</hi></role> <roleDesc>E&#x017F;trithens Gemahl.</roleDesc></castItem><lb/>
+<castGroup rendition="#rightBraced"><castItem><role xml:id="HAQ"><hi rendition="#fr">Haqvin</hi></role></castItem><lb/>
+<castItem><role xml:id="GOD"><hi rendition="#fr">Godewin</hi></role></castItem> <roleDesc>Kriegsbediente des Canut.</roleDesc></castGroup><lb/>
+<castItem><role xml:id="GOT"><hi rendition="#fr">God&#x017F;chalk,</hi></role> <roleDesc>Prinz der Slaven.</roleDesc></castItem></castList><lb/>
+<p><hi rendition="#c"><hi rendition="#fr">Der Schauplatz &#x017F;tellet ein Gemach des<lb/>
+Ko&#x0364;nigl. Schlo&#x017F;&#x017F;es vor.</hi></hi></p></div><lb/>
+<fw type="catch" place="bottom"><hi rendition="#b">Er&#x017F;ter</hi></fw><lb/>
+<pb n="[1]" facs="#f0015"/>
+<div n="1"><head><hi rendition="#b"><hi rendition="#g">Er&#x017F;ter Aufzug.</hi></hi></head><lb/>
+<div n="2"><head><hi rendition="#b">Er&#x017F;ter Auftritt.</hi></head><lb/>
+<p><hi rendition="#c"><hi rendition="#b">Ulfo, E&#x017F;trithe.</hi></hi></p><lb/>
+<sp who="#ULF"><speaker><hi rendition="#fr">Ulfo.</hi></speaker><lb/>
+<p><hi rendition="#in">E</hi>rwarte weiter nichts. Dein Wun&#x017F;ch i&#x017F;t dir ge-<lb/>
+<hi rendition="#et">wa&#x0364;hrt.</hi><lb/>
+Jch habe dich gefu&#x0364;hrt, wohin du es begehrt.<lb/>
+Du &#x017F;ieh&#x017F;t nun Da&#x0364;nnemarks beru&#x0364;hmte Haupt&#x017F;tadt<lb/>
+<hi rendition="#et">wieder.</hi><lb/>
+Geh, wirf dich, wenn du will&#x017F;t, vor deinem Bruder<lb/>
+<hi rendition="#et">nieder;</hi><lb/>
+Er&#x017F;uche den Canut um gna&#x0364;diges Verzeihn;<lb/>
+Bereu, eut&#x017F;chuldige, ja, mi&#x017F;che Thra&#x0364;nen ein;<lb/>
+Heiß meine That vor ihm ein u&#x0364;bereilt Verbrechen,<lb/>
+Erniedrige dich nur: Jch will als Sieger &#x017F;prechen.</p></sp><lb/>
+<sp who="#EST"><speaker><hi rendition="#fr">E&#x017F;trithe.</hi></speaker><lb/>
+<p>Ach! Ulfo! kann&#x017F;t du mich &#x017F;o grau&#x017F;am hintergehn?<lb/>
+Ha&#x017F;t du mich hergefu&#x0364;hrt, hier deinen Tod zu &#x017F;ehn?<lb/>
+Bedenke, was du &#x017F;chon fu&#x0364;r deinen Trutz gelitten.<lb/>
+Mein Bruder i&#x017F;t erzu&#x0364;rnt, und du will&#x017F;t ihn nicht bitten?</p><lb/>
+<fw type="sig" place="bottom">A</fw><fw type="catch" place="bottom"><hi rendition="#fr">Ulfo.</hi></fw></sp><lb/>
+<pb n="2" facs="#f0016"/>
+<fw type="header" place="top"><hi rendition="#b">Canut,</hi></fw><lb/>
+<sp who="#ULF"><speaker><hi rendition="#fr">Ulfo.</hi></speaker><lb/>
+<p>Rein! deinen Ehgemahl &#x017F;oll niemand bitten &#x017F;ehn.<lb/>
+Des Ulfo Schick&#x017F;al i&#x017F;t zu &#x017F;treiten, nicht zu flehn.<lb/>
+Sprich &#x017F;elber: &#x017F;eit mein Herz, da ich es dir ge&#x017F;chenket,<lb/>
+Der Knecht&#x017F;chaft abge&#x017F;agt und &#x017F;ich nach Ehre lenket,<lb/>
+Seit mir des Ko&#x0364;nigs Ruhm den Ehrgeitz beygebracht,<lb/>
+Der, um ihm gleich zu &#x017F;eyn, mich ihm zum Feinde<lb/>
+<hi rendition="#et">macht,</hi><lb/>
+Seit ich mit Da&#x0364;nnemarks und Englands Herr&#x017F;cher<lb/>
+<hi rendition="#et">kriegte:</hi><lb/>
+So &#x017F;prich: Wer hat ge&#x017F;iegt, und wer i&#x017F;t der Be&#x017F;iegte?<lb/>
+Jch hab ihn ohne Land und ohne Macht er&#x017F;chreckt:<lb/>
+Da alles ihn gefurcht, hab ich ihm Feind erweckt.</p></sp><lb/>
+<sp who="#EST"><speaker><hi rendition="#fr">E&#x017F;trithe.</hi></speaker><lb/>
+<p>Wo &#x017F;ind die Feinde nun, die &#x017F;ich mit dir verbunden?<lb/>
+Norwegens Haupt i&#x017F;t todt und Omud u&#x0364;berwunden.</p></sp><lb/>
+<sp who="#ULF"><speaker><hi rendition="#fr">Ulfo.</hi></speaker><lb/>
+<p>Doch ich bin ungebeugt. Es &#x017F;chwimmen in der<lb/>
+<hi rendition="#et">Fluth</hi><lb/>
+Durch meine Li&#x017F;t er&#x017F;a&#x0364;ufft die Vo&#x0364;lker des Canut.<lb/>
+Trotzt ich nicht unge&#x017F;traft die Sta&#x0364;rke &#x017F;einer Flotten?<lb/>
+Ein Boot be&#x017F;chu&#x0364;tzte mich, ihn &#x017F;icher zu ver&#x017F;potten.<lb/>
+Der keinem Feinde &#x017F;on&#x017F;t vergebens nachgejagt,<lb/>
+Hat in den Wu&#x0364;&#x017F;ten mich zu &#x017F;uchen nicht gewagt.<lb/>
+Und ich, ich ka&#x0364;me &#x017F;elb&#x017F;t und wollt um Gnade bitten,<lb/>
+Dieß heißt zu viel verlangt, wofu&#x0364;r ha&#x0364;tt ich ge&#x017F;tritten?</p></sp><lb/>
+<sp who="#EST"><speaker><hi rendition="#fr">E&#x017F;trithe.</hi></speaker><lb/>
+<p>Ach! Ulfo find ich &#x017F;tets dieß harte Herz bey dir?<lb/>
+Je mehr ich dir gehorcht, ie mehr ver&#x017F;ag&#x017F;t du mir.<lb/>
+<fw type="catch" place="bottom">Hab</fw><lb/>
+<pb n="3" facs="#f0017"/>
+<fw type="header" place="top"><hi rendition="#b">ein Trauer&#x017F;piel.</hi></fw><lb/>
+Hab ich nicht, &#x017F;eit Canut mein Herz dir u&#x0364;bergeben,<lb/>
+Mir zum Ge&#x017F;etz gemacht, nach deinem Wink zu leben?<lb/>
+Wie willig floh ich mit zu Nordens tief&#x017F;tem Schnee?<lb/>
+Durch Wa&#x0364;lder folgt ich dir, und gieng mit dir zur<lb/>
+<hi rendition="#et">See.</hi><lb/>
+Jch &#x017F;ah, um den Canut undankbar zu be&#x017F;treiten,<lb/>
+Die Schiffe fertig &#x017F;tehn, die Heere &#x017F;ich bereiten:<lb/>
+Und doch be&#x017F;chwert ich nie dein unerbittlich Ohr.<lb/>
+Gela&#x017F;&#x017F;en &#x017F;tellt ich dir dein und mein Unglu&#x0364;ck vor.<lb/>
+Jch &#x017F;eufzte, daß du dich durch Untreu &#x017F;chimpfen &#x017F;ollte&#x017F;t.<lb/>
+Jch haßte, was du that&#x017F;t, und that doch, was du woll-<lb/>
+<hi rendition="#et">te&#x017F;t.</hi><lb/>
+Dieß i&#x017F;t nunmehr der Dank fu&#x0364;r alles, was ich that.<lb/>
+Du &#x017F;chla&#x0364;g&#x017F;t mir ab, was ich zu deinem Wohl&#x017F;eyn<lb/>
+<hi rendition="#et">bath;</hi><lb/>
+Du fu&#x0364;hre&#x017F;t mich hieher, Grau&#x017F;amer, mir zu &#x017F;agen,<lb/>
+Du wolle&#x017F;t hier durch Trutz dein Glu&#x0364;ck, dein Leben<lb/>
+<hi rendition="#et">wagen.</hi><lb/>
+J&#x017F;t denn nicht, was du bi&#x017F;t, des Ko&#x0364;nigs Eigenthum?<lb/>
+Was hat dich wieder ihn &#x017F;o aufgebracht?</p></sp><lb/>
+<sp who="#ULF"><speaker><hi rendition="#fr">Ulfo.</hi></speaker><lb/>
+<p><hi rendition="#et">Sein Ruhm.</hi><lb/>
+Soll er allein die Welt mit &#x017F;einen Thaten fu&#x0364;llen?<lb/>
+Sein Nahme wird genennt, und meiner bleibt im<lb/>
+<hi rendition="#et">Stillen.</hi><lb/>
+Es i&#x017F;t ihm nicht genug, daß er befehlen kann.<lb/>
+Jn allem thut er mehr, als ieder Unterthan.<lb/>
+Wer findet unter ihm Gelegenheit zu &#x017F;iegen?<lb/>
+Jhn prei&#x017F;et man allein im Frieden und in Kriegen.<lb/>
+Nur er heißt tapfer, groß, fromm, gu&#x0364;tig, klug, geu&#x0364;bt.<lb/>
+Er wird allein geehrt; Er wird allein geliebt.<lb/>
+<fw type="sig" place="bottom">A 2</fw><fw type="catch" place="bottom">Sein</fw><lb/>
+<pb n="4" facs="#f0018"/>
+<fw type="header" place="top"><hi rendition="#b">Canut,</hi></fw><lb/>
+Sein Gei&#x017F;t, den nichts um&#x017F;chra&#x0364;nkt, will allen Ruhm<lb/>
+<hi rendition="#et">umfa&#x017F;&#x017F;en,</hi><lb/>
+Uns, die wir &#x017F;chlechter &#x017F;ind, will er nichts u&#x0364;brig<lb/>
+<hi rendition="#et">la&#x017F;&#x017F;en.</hi><lb/>
+Was bleibt mir, &#x017F;oll mich nicht zu leben ganz gereun,<lb/>
+Zur Ehre fu&#x0364;r ein Weg, als der, &#x017F;ein Feind zu &#x017F;eyn?<lb/>
+J&#x017F;t Sta&#x0364;rke, Muth, Ver&#x017F;tand an denen denn ver-<lb/>
+<hi rendition="#et">lohren,</hi><lb/>
+Die kein partheyi&#x017F;ch Glu&#x0364;ck zu Ko&#x0364;nigen gebohren?<lb/>
+Hab ich zur Ewigkeit nicht &#x017F;oviel Recht als er?<lb/>
+Vom Schick&#x017F;al ko&#x0364;mmt der Thron, von uns die Ehre<lb/>
+<hi rendition="#et">her.</hi><lb/>
+Er bleibe, was er i&#x017F;t, ein Ko&#x0364;nig von &#x017F;echs Reichen.<lb/>
+An Macht geb ich ihm nach, an Ruhm will ich nicht<lb/>
+<hi rendition="#et">weichen.</hi></p></sp><lb/>
+<sp who="#EST"><speaker><hi rendition="#fr">E&#x017F;trithe.</hi></speaker><lb/>
+<p>Wie qva&#x0364;le&#x017F;t du mich nicht mit deiner Ruhmbegier?<lb/>
+Bi&#x017F;t du noch &#x017F;tets &#x017F;ein Feind, &#x017F;prich, warum bi&#x017F;t du<lb/>
+<hi rendition="#et">hier?</hi><lb/>
+Hier liebt man den Canut, hier i&#x017F;t ihm alles eigen.<lb/>
+Soll hier dein &#x017F;chwacher Haß &#x017F;ich dir zum Unglu&#x0364;ck<lb/>
+<hi rendition="#et">zeigen?</hi></p></sp><lb/>
+<sp who="#ULF"><speaker><hi rendition="#fr">Ulfo.</hi></speaker><lb/>
+<p>Das Unglu&#x0364;ck, daß er bringt, &#x017F;ey wichtig oder klein!<lb/>
+Kein Unglu&#x0364;ck i&#x017F;t &#x017F;o groß, als lebend todt zu &#x017F;eyn.<lb/>
+Wenn un&#x017F;re Thaten uns nicht aus dem dunkeln heben,<lb/>
+Was fu&#x0364;r ein Unter&#x017F;cheid i&#x017F;t leben und nicht leben?<lb/>
+Zur Ehre hab ich &#x017F;chon den er&#x017F;ten Schritt gethan.<lb/>
+Die Welt &#x017F;ieht meinen Sieg &#x017F;chon mit Bewundrung<lb/>
+<hi rendition="#et">an.</hi><lb/>
+<fw type="catch" place="bottom">Man</fw><lb/>
+<pb n="5" facs="#f0019"/>
+<fw type="header" place="top"><hi rendition="#b">ein Trauer&#x017F;piel.</hi></fw><lb/>
+Man &#x017F;agt &#x017F;chon daß Canut, den &#x017F;on&#x017F;t nichts u&#x0364;berwun-<lb/>
+<hi rendition="#et">den,</hi><lb/>
+Am Ulfo einen Feind, der &#x017F;iegen kann, gefunden.<lb/>
+Doch daß ich ihn durch Li&#x017F;t und ohne Schwerdt&#x017F;treich<lb/>
+<hi rendition="#et">&#x017F;chlug,</hi><lb/>
+Daß ich &#x017F;ein Heer er&#x017F;a&#x0364;ufft, i&#x017F;t mir noch nicht genug.<lb/>
+Hier &#x017F;elb&#x017F;t in &#x017F;einem Sitz will ich ihm Krieg erwecken.<lb/>
+Hat er mich er&#x017F;t gefurcht: nun will ich ihn er&#x017F;chrecken.<lb/>
+Geh nur, und bitte du bey ihm fu&#x0364;r mein Vergehn;<lb/>
+Du &#x017F;oll&#x017F;t es bald geha&#x0364;ufft, und ihn &#x017F;elb&#x017F;t bittend &#x017F;ehn.<lb/>
+Er mag mir meine That zurechnen oder &#x017F;chenken:<lb/>
+Es werden Helden &#x017F;eyn, die mit mir edel denken.<lb/>
+Jch &#x017F;uch &#x017F;ie, &#x017F;ey gewiß, daß die&#x017F;er Arm nicht ruht,<lb/>
+Mich nenne denn die Welt, den Sieger des Canut.</p><lb/>
+<stage><hi rendition="#fr">(Geht ab.)</hi></stage></sp></div><lb/>
+<div n="2"><head><hi rendition="#b">Zweyter Auftritt.</hi></head><lb/>
+<p><hi rendition="#c"><hi rendition="#b">Gunilde, E&#x017F;trithe.</hi></hi></p><lb/>
+<sp who="#GUN"><speaker><hi rendition="#fr">Gunilde.</hi></speaker><lb/>
+<p><hi rendition="#in">D</hi>er Ko&#x0364;nig wußte &#x017F;chon, daß du hier angekommen.<lb/>
+Des Ulfo Wiederkehr hat ihm das Herz genommen.<lb/>
+Canut i&#x017F;t immer noch der Held voll Gu&#x0364;tigkeit,<lb/>
+Der nur aus Zwange zu&#x0364;rnt, aus Neigung &#x017F;tets ver-<lb/>
+<hi rendition="#et">zeiht.</hi><lb/>
+Er wird von &#x017F;einer Huld dich itzt ver&#x017F;ichern la&#x017F;&#x017F;en,<lb/>
+Und zeigen, wie bereit er &#x017F;ey, dich zu umfa&#x017F;&#x017F;en.</p></sp><lb/>
+<sp who="#EST"><speaker><hi rendition="#fr">E&#x017F;trithe.</hi></speaker><lb/>
+<p>Ach! wa&#x0364;r ich wiederum in Wa&#x0364;ldern tief ver&#x017F;teckt,<lb/>
+Vom Mangel unterdru&#x0364;ckt und von Gefahr er&#x017F;chreckt!</p><lb/>
+<fw type="sig" place="bottom">A 3</fw><fw type="catch" place="bottom"><hi rendition="#fr">Gunil-</hi></fw></sp><lb/>
+<pb n="6" facs="#f0020"/>
+<fw type="header" place="top"><hi rendition="#b">Canut,</hi></fw><lb/>
+<sp who="#GUN"><speaker><hi rendition="#fr">Gunilde.</hi></speaker><lb/>
+<p>Was ho&#x0364;r ich? i&#x017F;t dein Herz denn unaufho&#x0364;rlich bange?</p></sp><lb/>
+<sp who="#EST"><speaker><hi rendition="#fr">E&#x017F;trithe.</hi></speaker><lb/>
+<p>Wie kann es ruhig &#x017F;eyn, da ich doch nichts erlange?</p></sp><lb/>
+<sp who="#GUN"><speaker><hi rendition="#fr">Gunilde.</hi></speaker><lb/>
+<p>Du &#x017F;eufze&#x017F;t, da Canut &#x017F;ich &#x017F;o ver&#x017F;o&#x0364;hnlich zeigt?</p></sp><lb/>
+<sp who="#EST"><speaker><hi rendition="#fr">E&#x017F;trithe.</hi></speaker><lb/>
+<p>Wenn er &#x017F;ich beugen la&#x0364;ßt, i&#x017F;t Ulfo drum gebeugt<choice><sic>&#x2E2E;</sic><corr>?</corr></choice></p></sp><lb/>
+<sp who="#GUN"><speaker><hi rendition="#fr">Gunilde.</hi></speaker><lb/>
+<p>Die Gnade beut &#x017F;ich an, und er will &#x017F;ie nicht nehmen?</p></sp><lb/>
+<sp who="#EST"><speaker><hi rendition="#fr">E&#x017F;trithe.</hi></speaker><lb/>
+<p>Er meynt, ein edler Gei&#x017F;t muß &#x017F;ich zu bitten &#x017F;cha&#x0364;men.</p></sp><lb/>
+<sp who="#GUN"><speaker><hi rendition="#fr">Gunilde.</hi></speaker><lb/>
+<p>Und die&#x017F;er edle Gei&#x017F;t hat dieß nicht eh bedacht?<lb/>
+J&#x017F;t dieß der Augenblick, da er&#x017F;t &#x017F;ein Stolz erwacht?<lb/>
+Jhn, da er hergeeilt und vor des Thrones Stuffen<lb/>
+Jtzt niederfallen &#x017F;oll, zu &#x017F;pa&#x0364;th zuru&#x0364;ckzuruffen?<lb/>
+Jn Norden, wo er noch entfernt von der Ge&#x017F;ahr,<lb/>
+Verachtet vom Canut und &#x017F;elb&#x017F;t &#x017F;ein Ko&#x0364;nig war;<lb/>
+Wo ihn kein andrer Feind als Fro&#x017F;t und Mangel<lb/>
+<hi rendition="#et">dru&#x0364;kte,</hi><lb/>
+Da war es Zeit zu &#x017F;ehn, ob Flehn &#x017F;ich fu&#x0364;r ihn &#x017F;chickte;<lb/>
+Da &#x017F;tund ihm noch die Wahl von &#x017F;einem Schick&#x017F;al<lb/>
+<hi rendition="#et">frey,</hi><lb/>
+Ob Elend reitzender als der Gehor&#x017F;am &#x017F;ey.<lb/>
+Doch hier, wo man den Trutz kann durch ein Wort<lb/>
+<hi rendition="#et">beza&#x0364;hmen,</hi><lb/>
+Hier darf, wer &#x017F;trafbar i&#x017F;t, &#x017F;ich nicht zu bitten &#x017F;cha&#x0364;men.</p><lb/>
+<fw type="catch" place="bottom"><hi rendition="#fr">E&#x017F;tri-</hi></fw></sp><lb/>
+<pb n="7" facs="#f0021"/>
+<fw type="header" place="top"><hi rendition="#b">ein Trauer&#x017F;piel.</hi></fw><lb/>
+<sp who="#EST"><speaker><hi rendition="#fr">E&#x017F;trithe.</hi></speaker><lb/>
+<p>Jch fu&#x0364;rchte, die&#x017F;er Stolz i&#x017F;t nicht er&#x017F;t itzt erwacht?<lb/>
+Ach! nichts als die&#x017F;er Stolz hat ihn hieher gebracht.<lb/>
+Jndeß daß ich geglaubt, er ho&#x0364;re mein Verlangen,<lb/>
+Gunilde, &#x017F;o hat mich der Fal&#x017F;che hintergangen.<lb/>
+Du weißt, wie oft ich ihm mit Thra&#x0364;nen zuge&#x017F;etzt,<lb/>
+Wie ich ihm vorge&#x017F;tellt, daß er die Pflicht verletzt.<lb/>
+Wie deutlich zeigt ich ihm des Stolzes Folgerungen,<lb/>
+Dadurch er &#x017F;tatt des Ruhms nur Schand und Noth<lb/>
+<hi rendition="#et">errungen,</hi><lb/>
+Sein wu&#x0364;&#x017F;ter Aufenthalt, &#x017F;ein Heer, daß ihn verließ,<lb/>
+Bezeugten, daß ich ihm nichts als die Wahrheit wies,<lb/>
+Jch rieth ihm, wiederum zu &#x017F;einer Pflicht zu kehren.<lb/>
+Wie vielmal bath ich ihn! Zuletzt &#x017F;chien er zu ho&#x0364;ren.<lb/>
+Der Fal&#x017F;che billigte den Rath, den ich ihm gab;<lb/>
+Er trocknete mir &#x017F;elb&#x017F;t die na&#x017F;&#x017F;en Wangen ab.<lb/>
+Er &#x017F;prach: Wahr i&#x017F;ts, wer wird <hi rendition="#fr">mich hier in Wa&#x0364;l-<lb/>
+<hi rendition="#et">dern prei&#x017F;en?</hi></hi><lb/>
+Hier i&#x017F;t kein Ruhm fu&#x0364;r mich, wohlan denn! ich will<lb/>
+<hi rendition="#et">rei&#x017F;en.</hi><lb/>
+Doch itzo, da mich &#x017F;chon die edle Freude ru&#x0364;hrt,<lb/>
+Daß ich ein tapfres Herz zur Pflicht zuru&#x0364;ck gefu&#x0364;hrt:<lb/>
+Ko&#x0364;mmt der Verra&#x0364;ther, mir die Bosheit zu entdecken,<lb/>
+Sein Zweck &#x017F;ey, dem Canut hier Feinde zu erwecken.</p></sp><lb/>
+<sp who="#GUN"><speaker><hi rendition="#fr">Gunilde.</hi></speaker><lb/>
+<p>O Himmel! und du &#x017F;elb&#x017F;t hilf&#x017F;t &#x017F;einer Frevelthat,<lb/>
+Und da du fu&#x0364;r ihn fleh&#x017F;t, be&#x017F;cho&#x0364;n&#x017F;t du den Verrath.</p></sp><lb/>
+<sp who="#EST"><speaker><hi rendition="#fr">E&#x017F;trithe.</hi></speaker><lb/>
+<p>Wie grau&#x017F;am martert mich der Streit von meinen<lb/>
+<hi rendition="#et">Pflichten,</hi><lb/>
+Von welcher geh ich ab? wornach &#x017F;oll ich mich richten?<lb/>
+<fw type="sig" place="bottom">A 4</fw><fw type="catch" place="bottom">Gilt</fw><lb/>
+<pb n="8" facs="#f0022"/>
+<fw type="header" place="top"><hi rendition="#b">Canut,</hi></fw><lb/>
+Gilt hier der Liebe Recht? gilt hier die Schwe&#x017F;tertreu<choice><sic>&#x2E2E;</sic><corr>?</corr></choice><lb/>
+Jch red, ich &#x017F;chweige &#x017F;till; &#x017F;o i&#x017F;ts Verra&#x0364;therey.</p></sp><lb/>
+<sp who="#GUN"><speaker><hi rendition="#fr">Gunilde.</hi></speaker><lb/>
+<p>Das heilig&#x017F;te Ge&#x017F;etz i&#x017F;t &#x017F;tets des Ko&#x0364;nigs Leben.</p></sp><lb/>
+<sp who="#EST"><speaker><hi rendition="#fr">E&#x017F;trithe.</hi></speaker><lb/>
+<p>Er hat mir den Gemahl, der es verfolgt, gegeben.<lb/>
+Er &#x017F;elber &#x017F;chickte mir den Undankbaren zu,<lb/>
+Und &#x017F;chrieb mir den Befehl: Was Ulfo &#x017F;agt, das thu.<lb/>
+Es mußte Godewin, der er&#x017F;t mein Herz be&#x017F;e&#x017F;&#x017F;en,<lb/>
+Von mir verge&#x017F;&#x017F;en &#x017F;eyn; Jch hab ihn auch verge&#x017F;&#x017F;en.<lb/>
+Mein Ehgemahl zu &#x017F;eyn ward Ulfo werthge&#x017F;cha&#x0364;tzt;<lb/>
+Drum hab ich meine Ruh, ja mich ihm nachge&#x017F;etzt.<lb/>
+Es war des Ko&#x0364;nigs Wink, den Ulfo mir entdecket;<lb/>
+Jch ehrte die&#x017F;en Wink: Drum hab ich ihn voll-<lb/>
+<hi rendition="#et">&#x017F;trecket.</hi><lb/>
+Wie meyn&#x017F;t du, daß Canut nun von mir fordern darf,<lb/>
+Die Pflicht zu hintergehn, der er mich unterwarf,<lb/>
+Und aus &#x017F;trafbarem Haß fu&#x0364;r Ulfons Uebelthaten,<lb/>
+Jhn, dem ich meine Treu geheiligt, zu verrathen?</p></sp><lb/>
+<sp who="#GUN"><speaker><hi rendition="#fr">Gunilde.</hi></speaker><lb/>
+<p>Erhalt den Ulfo denn, und &#x017F;tu&#x0364;rze den Canut,<lb/>
+Erkauff dir den Gemahl durch deines Bruders Blut.<lb/>
+Dein Schweigen wir&#x017F;t du &#x017F;elb&#x017F;t in kurzer Zeit ver-<lb/>
+<hi rendition="#et">fluchen,</hi></p></sp><lb/>
+<sp who="#EST"><speaker><hi rendition="#fr">E&#x017F;trithe.</hi></speaker><lb/>
+<p>Was ich ver&#x017F;chweigen muß, kann ich zu hindern<lb/>
+<hi rendition="#et">&#x017F;uchen.</hi><lb/>
+Ach! wu&#x0364;ßt ich, daß der Grund von Ulfons Ra&#x017F;erey<lb/>
+<fw type="catch" place="bottom">Nichts</fw><lb/>
+<pb n="9" facs="#f0023"/>
+<fw type="header" place="top"><hi rendition="#b">ein Trauer&#x017F;piel.</hi></fw><lb/>
+Nichts als ein blo&#x0364;der Stolz, der ungern bittet, &#x017F;ey,<lb/>
+Der lieber alles wagt, eh er &#x017F;ich &#x017F;trafbar nennet,<lb/>
+Und eh die Fehler ha&#x0364;ufft, als ein Vergehn bekennet.<lb/>
+Wie gern befreyt ich ihn, und tru&#x0364;g an &#x017F;einer &#x017F;tatt<lb/>
+Die Schuld, in die mein Herz doch nie gewilligt hat.<lb/>
+Jch wollte dem Canut mich &#x017F;elb&#x017F;t zu Fu&#x0364;&#x017F;&#x017F;en werfen,<lb/>
+Jhn bitten, &#x017F;einen Zorn auf mich allein zu &#x017F;cha&#x0364;rfen,<lb/>
+Und &#x017F;agen, daß von mir des Ulfo Trutz geru&#x0364;hrt,<lb/>
+Daß ihn mein Stolz verhetzt, daß ihn mein Rath<lb/>
+<hi rendition="#et">verfu&#x0364;hrt.</hi><lb/>
+Um ihn vor wahrer Schmach auf ku&#x0364;nftig zu ver-<lb/>
+<hi rendition="#et">wahren,</hi><lb/>
+Will ich ihm itzt den Schimpf zu bitten gern er&#x017F;paren,<lb/>
+Nur mich erniedrigen nun ihn ver&#x017F;chont zu &#x017F;ehn,<lb/>
+Und da ich nichts gethan, doch um Vergebung flehn.</p></sp><lb/>
+<sp who="#GUN"><speaker><hi rendition="#fr">Gunilde.</hi></speaker><lb/>
+<p>Ach! daß die Za&#x0364;rtlichkeit, die deine Bru&#x017F;t entzu&#x0364;ndet,<lb/>
+Jn Ulfons Herzen doch nicht gleiche Regung findet!</p></sp><lb/>
+<sp who="#EST"><speaker><hi rendition="#fr">E&#x017F;trithe.</hi></speaker><lb/>
+<p>Geh, daß er meinen Schluß, weil Rettung i&#x017F;t, erfa&#x0364;hrt,<lb/>
+Eh &#x017F;eine Ra&#x017F;erey &#x017F;ich aller Welt erkla&#x0364;rt.<lb/>
+Sprich, will er nur nicht &#x017F;elb&#x017F;t der Straf entgegen<lb/>
+<hi rendition="#et">lauffen,</hi><lb/>
+Er braucht die Gnade nicht durch Bitten zu erkauffen,<lb/>
+Sein Fehl &#x017F;oll unerwa&#x0364;hnt und unge&#x017F;chehen &#x017F;eyn:<lb/>
+Ja! man er&#x017F;part ihm auch den Schimpf ihn zu ver-<lb/>
+<hi rendition="#et">zeihn.</hi><lb/>
+Er &#x017F;age dem Canut: Nur mein &#x017F;ey das Verbrechen.<lb/>
+Mich &#x017F;chimpft das Bitten nicht: Jch will mich &#x017F;chul-<lb/>
+<hi rendition="#et">dig &#x017F;prechen.</hi><lb/>
+<fw type="sig" place="bottom">A 5</fw><fw type="catch" place="bottom">Geh!</fw><lb/>
+<pb n="10" facs="#f0024"/>
+<fw type="header" place="top"><hi rendition="#b">Canut,</hi></fw><lb/>
+Geh! eile, &#x017F;ag ihm dieß. Wer ko&#x0364;mmt hier? Go-<lb/>
+<hi rendition="#et">dewin!</hi><lb/>
+O Himmel! &#x017F;oll ich wohl ihn &#x017F;prechen oder fliehn?</p></sp></div><lb/>
+<div n="2"><head><hi rendition="#b">Dritter Auftritt.</hi></head><lb/>
+<p><hi rendition="#c"><hi rendition="#b">Godewin, E&#x017F;trithe.</hi></hi></p><lb/>
+<sp who="#GOD"><speaker><hi rendition="#fr">Godewin.</hi></speaker><lb/>
+<p><hi rendition="#in">P</hi>rinzeßin, zwar du &#x017F;chein&#x017F;t mich ungern zu erblicken:<lb/>
+Doch glaub, ich komme nicht, dir etwas vorzuru&#x0364;cken,<lb/>
+Jch ha&#x0364;tte deinen Haß &#x017F;tets fern von dir verehrt,<lb/>
+Und niemals deine Ruh durch meinen Blick ge&#x017F;to&#x0364;rt:<lb/>
+Doch es hat meiner Pflicht mein Vor&#x017F;atz weichen<lb/>
+<hi rendition="#et">mu&#x0364;&#x017F;&#x017F;en,</hi><lb/>
+Mein Ko&#x0364;nig la&#x0364;ßt durch mich dir &#x017F;eine Freude wi&#x017F;&#x017F;en.<lb/>
+Jtzt ko&#x0364;mmt er, dich zu &#x017F;ehn, doch eh er dich umfaßt,<lb/>
+So wi&#x017F;&#x017F;e, daß du &#x017F;chon nichts mehr zu bitten ha&#x017F;t.<lb/>
+Sprich ihm nicht von Verzeihn, viel minder von Ver-<lb/>
+<hi rendition="#et">brechen:</hi><lb/>
+Dein Bruder will mit dir von nichts als Liebe &#x017F;prechen.<lb/>
+Auch Ulfo, da du ihm dein ganzes Herz geweyht,<lb/>
+Verdient durch deine Gun&#x017F;t, daß ihm Canut verzeyht.</p></sp><lb/>
+<sp who="#EST"><speaker><hi rendition="#fr">E&#x017F;trithe.</hi></speaker><lb/>
+<p>Jch weiß nicht, warum ich dich ungern &#x017F;ollt erblicken,<lb/>
+Und welchen Grund du ha&#x017F;t, mir etwas vorzuru&#x0364;cken.<lb/>
+Heißt dich dein eignes Herz nur mein Ge&#x017F;icht nicht<lb/>
+<hi rendition="#et">&#x017F;cheun,</hi><lb/>
+Da dich mein Bruder &#x017F;chickt, muß mich dein Blick er-<lb/>
+<hi rendition="#et">freun.</hi><lb/>
+Jch ehre voller Dank die Zeichen &#x017F;einer Gu&#x0364;te.<lb/>
+Er wei&#x017F;t auch im Verzeihn &#x017F;ein Ko&#x0364;niglich Gemu&#x0364;the.<lb/>
+<fw type="catch" place="bottom">Doch</fw><lb/>
+<pb n="11" facs="#f0025"/>
+<fw type="header" place="top"><hi rendition="#b">ein Trauer&#x017F;piel.</hi></fw><lb/>
+Doch da er, was ge&#x017F;chehn, &#x017F;o großmuthsvoll vergißt,<lb/>
+Weiß ich, daß meine Pflicht es zu erwa&#x0364;hnen i&#x017F;t.<lb/>
+Darf ich ie &#x017F;ein Geboth zu brechen mich erku&#x0364;hnen,<lb/>
+So i&#x017F;ts, um &#x017F;eine Huld durch Bitten zu verdienen.<lb/>
+Ha&#x0364;tt ich dem Ulfo gleich mein Herz auch nicht geweyht,<lb/>
+Der Ehrgeitz i&#x017F;t ein Fehl, dem leicht ein Held verzeiht.<lb/>
+Da ich dich, Godewin, begnadigt angetroffen.<lb/>
+Darf Ulfo noch vielmehr auf gleiche Gu&#x0364;te hoffen.</p></sp><lb/>
+<sp who="#GOD"><speaker><hi rendition="#fr">Godewin.</hi></speaker><lb/>
+<p>Daß ich begnadigt &#x017F;ey, Prinzeßin, weiß ich nicht,<lb/>
+Vergebung braucht nur der, der &#x017F;eine Pflichten bricht.<lb/>
+Mein Herz verwahrte &#x017F;tets in unge&#x017F;chwa&#x0364;chtem Triebe,<lb/>
+Dem Ko&#x0364;nig meine Treu, &#x017F;o wie dir meine Liebe.<lb/>
+Die letzte ha&#x017F;t du &#x017F;elb&#x017F;t dem Ulfo nachge&#x017F;etzt:<lb/>
+Die er&#x017F;te &#x017F;teht noch fe&#x017F;t, und nichts hat &#x017F;ie verletzt.<lb/>
+Mein Ehrgeitz treibt mich nicht aus des Gehor&#x017F;ams<lb/>
+<hi rendition="#et">Schranken,</hi><lb/>
+Kein unbieg&#x017F;amer Stolz bekro&#x0364;nt mich in Gedanken.<lb/>
+Canut, der meine Treu &#x017F;tets zu erkennen &#x017F;chien,<lb/>
+Hat oft mir Gun&#x017F;t erzeigt, doch niemals mir verziehn.<lb/>
+Zwar dich, Prinzeßin, ru&#x0364;hrt der Glanz weit ho&#x0364;hrer<lb/>
+<hi rendition="#et">Dinge;</hi><lb/>
+Der Ruhm, getreu zu &#x017F;eyn, &#x017F;cheint bey dir nur geringe.<lb/>
+Ha&#x0364;tt ich vielleicht ein Herz, das herr&#x017F;chen will, gezeigt:<lb/>
+So ha&#x0364;tt ich zwar gefehlt, doch du wa&#x0364;r&#x017F;t mir geneigt.<lb/>
+Nicht daß ich Ulfons Werth bey dir verkleinern<lb/>
+<hi rendition="#et">wollte:</hi><lb/>
+Jch ehre dich zu &#x017F;ehr, daß ich ihn ha&#x017F;&#x017F;en &#x017F;ollte.<lb/>
+Doch &#x017F;elb&#x017F;t die Ehrbegier &#x017F;eh ich fu&#x0364;r &#x017F;chimpflich an,<lb/>
+Die mich verge&#x017F;&#x017F;en lehrt, ich &#x017F;ey ein Unterthan.</p><lb/>
+<fw type="catch" place="bottom"><hi rendition="#fr">E&#x017F;tri-</hi></fw></sp><lb/>
+<pb n="12" facs="#f0026"/>
+<fw type="header" place="top"><hi rendition="#b">Canut,</hi></fw><lb/>
+<sp who="#EST"><speaker><hi rendition="#fr">E&#x017F;trithe.</hi></speaker><lb/>
+<p>Jch glaub es, daß dich nicht der Herr&#x017F;ch&#x017F;ucht Triebe<lb/>
+<hi rendition="#et">qva&#x0364;len,</hi><lb/>
+Nicht ieder i&#x017F;t ge&#x017F;chickt, aus Ehrbegier zu fehlen.<lb/>
+Die Fehler, Godewin, &#x017F;ind nicht &#x017F;tets einerley,<lb/>
+Und auch durch zaghaft &#x017F;eyn verletzt man &#x017F;eine Treu.</p></sp><lb/>
+<sp who="#GOD"><speaker><hi rendition="#fr">Godewin.</hi></speaker><lb/>
+<p>Mich nenne&#x017F;t du verzagt?</p></sp><lb/>
+<sp who="#EST"><speaker><hi rendition="#fr">E&#x017F;trithe.</hi></speaker><lb/>
+<p><hi rendition="#et">Kann ich dich herzhaft nennen?</hi></p></sp><lb/>
+<sp who="#GOD"><speaker><hi rendition="#fr">Godewin.</hi></speaker><lb/>
+<p>Wie hab ich die&#x017F;e Schmach bey dir verdienen ko&#x0364;nnen?</p></sp><lb/>
+<sp who="#EST"><speaker><hi rendition="#fr">E&#x017F;trithe.</hi></speaker><lb/>
+<p>Die Schmach ru&#x0364;hrt nicht von mir, du &#x017F;elb&#x017F;t entehre&#x017F;t<lb/>
+<hi rendition="#et">dich.</hi></p></sp><lb/>
+<sp who="#GOD"><speaker><hi rendition="#fr">Godewin.</hi></speaker><lb/>
+<p>Er&#x017F;t nahm&#x017F;t du mir dein Herz, und nun be&#x017F;chimpf&#x017F;t du<lb/>
+<hi rendition="#et">mich?</hi></p></sp><lb/>
+<sp who="#EST"><speaker><hi rendition="#fr">E&#x017F;trithe.</hi></speaker><lb/>
+<p>Ver&#x017F;telle nur vor mir dein &#x017F;chimpfliches Verbrechen.<lb/>
+Wenn du es gleich ver&#x017F;chweig&#x017F;t, &#x017F;o wird die Welt doch<lb/>
+<hi rendition="#et">&#x017F;prechen.</hi><lb/>
+Meyn&#x017F;t du, daß ich allein, bey dem, was du gethan,<lb/>
+Aus Neigung gegen dich die Augen &#x017F;chlie&#x017F;&#x017F;en kann?<lb/>
+Wenn alles von dir &#x017F;pricht, &#x017F;oll ich allein nicht ho&#x0364;ren,<lb/>
+Wenn andre dich ver&#x017F;chma&#x0364;hn, &#x017F;oll ich dich noch ver-<lb/>
+<hi rendition="#et">ehren.</hi><lb/>
+<fw type="catch" place="bottom">Erin-</fw><lb/>
+<pb n="13" facs="#f0027"/>
+<fw type="header" place="top"><hi rendition="#b">ein Trauer&#x017F;piel.</hi></fw><lb/>
+Erinner&#x017F;t du dich nicht, wie du in jener Schlacht<lb/>
+Jn Schottlands Bergen dich der Welt zum Spott<lb/>
+<hi rendition="#et">gemacht?</hi><lb/>
+Wie du durch feige Flucht aus Sorge fu&#x0364;r dein<lb/>
+<hi rendition="#et">Leben,</hi><lb/>
+Dem feindlichen Gewehr den Ru&#x0364;cken bloß gegeben;<lb/>
+Und daß du, wenn ein Held auf der benarbten Bru&#x017F;t<lb/>
+Ruhmvolle Wunden zeigt, die deinen bergen mußt<choice><sic>&#x2E2E;</sic><corr>?</corr></choice><lb/>
+Dieß hat, Unwu&#x0364;rdiger, mir la&#x0364;ng&#x017F;t der Ruff entdecket,<lb/>
+Wie &#x017F;chamroth hab ich mich vor alle Welt ver&#x017F;tecket;<lb/>
+Wie zitternd und voll Zorn hab ich den Spott geho&#x0364;rt,<lb/>
+Der, den ich liebte &#x017F;ey vor aller Welt entehrt?<lb/>
+Jch &#x017F;cha&#x0364;me mich noch itzt, daß du mein Herz be&#x017F;e&#x017F;&#x017F;en.<lb/>
+Mich kra&#x0364;nkt noch die&#x017F;e Schmach, und du ha&#x017F;t &#x017F;ie ver-<lb/>
+<hi rendition="#et">ge&#x017F;&#x017F;en.</hi><lb/>
+Du tritt&#x017F;t nach &#x017F;olcher That noch ku&#x0364;hn vor mein Ge-<lb/>
+<hi rendition="#et">&#x017F;icht,</hi><lb/>
+Du thu&#x017F;t, als wu&#x0364;ßte&#x017F;t du von deiner Schande nicht.<lb/>
+Du meyn&#x017F;t, ich &#x017F;cheue mich noch &#x017F;elb&#x017F;t vor deinen<lb/>
+<hi rendition="#et">Blicken,</hi><lb/>
+Und fu&#x0364;rchte nur, du ka&#x0364;m&#x017F;t mir etwas vorzuru&#x0364;cken.<lb/>
+Ha&#x017F;t du noch Lieb und Treu vielleicht von mir begehrt?<lb/>
+Wer keinen Rnhm verdient, i&#x017F;t keiner Liebe werth:<lb/>
+Hab ich dich nicht mit Recht dem Ulfo nachge&#x017F;etzet?<lb/>
+Jch brach nicht meine Treu, nein! du ha&#x017F;t &#x017F;ie verletzet.<lb/>
+Dein Herz hat Ehr und Pflicht und wen du lieb&#x017F;t ver-<lb/>
+<hi rendition="#et">kannt:</hi><lb/>
+Drum hab ich dich mit Recht aus meiner Bru&#x017F;t ver-<lb/>
+<hi rendition="#et">bannt.</hi><lb/>
+Sollt ich dein feiges Herz noch &#x017F;tets als mein be-<lb/>
+<hi rendition="#et">trachten,</hi><lb/>
+Mich dir zu eigen weyhn, da ich dich mu&#x017F;t verachten?<lb/>
+<fw type="catch" place="bottom">So</fw><lb/>
+<pb n="14" facs="#f0028"/>
+<fw type="header" place="top"><hi rendition="#b">Canut,</hi></fw><lb/>
+So ha&#x0364;tt ich ja den Spott, den du verdien&#x017F;t, getheilt.<lb/>
+Und wa&#x0364;re willig &#x017F;elb&#x017F;t zur Schande zugeeilt.</p></sp><lb/>
+<sp who="#GOD"><speaker><hi rendition="#fr">Godewin.</hi></speaker><lb/>
+<p>Wie unrecht du mir thu&#x017F;t, kann ich dich leicht belehren.</p></sp><lb/>
+<sp who="#EST"><speaker><hi rendition="#fr">E&#x017F;trithe.</hi></speaker><lb/>
+<p>Jch weiß genug von dir, um weiter nichts zu ho&#x0364;ren.</p></sp><lb/>
+<sp who="#GOD"><speaker><hi rendition="#fr">Godewin.</hi></speaker><lb/>
+<p>Nachdem du mich be&#x017F;chimpft, entweiche&#x017F;t du von mir?</p></sp><lb/>
+<sp who="#EST"><speaker><hi rendition="#fr">E&#x017F;trithe.</hi></speaker><lb/>
+<p>Dich weiter nicht zu &#x017F;ehn, &#x017F;on&#x017F;t will ich nichts von dir.</p></sp><lb/>
+<sp who="#GOD"><speaker><hi rendition="#fr">Godewin.</hi></speaker><lb/>
+<p>Soll ich be&#x017F;chuldigt &#x017F;eyn, und kein Geho&#x0364;r erlangen?</p></sp><lb/>
+<sp who="#EST"><speaker><hi rendition="#fr">E&#x017F;trithe.</hi></speaker><lb/>
+<p>Was kann&#x017F;t du &#x017F;agen?</p></sp><lb/>
+<sp who="#GOD"><speaker><hi rendition="#fr">Godewin.</hi></speaker><lb/>
+<p><hi rendition="#et">Dieß: Jch habe nichts begangen.</hi></p></sp><lb/>
+<sp who="#EST"><speaker><hi rendition="#fr">E&#x017F;trithe.</hi></speaker><lb/>
+<p>Entweich, und la&#x0364;ugne nicht, was alle Welt ge&#x017F;ehn.</p></sp><lb/>
+<sp who="#GOD"><speaker><hi rendition="#fr">Godewin.</hi></speaker><lb/>
+<p>O Himmel! mußte mir noch die&#x017F;e Schmach ge&#x017F;chehn!</p></sp></div></div><lb/>
+<fw type="catch" place="bottom"><hi rendition="#b">Zwey-</hi></fw><lb/>
+<pb n="15" facs="#f0029"/>
+<fw type="header" place="top"><hi rendition="#b">ein Trauer&#x017F;piel.</hi></fw><lb/>
+<div n="1"><head><hi rendition="#b"><hi rendition="#g">Zweyter Aufzug.</hi></hi></head><lb/>
+<div n="2"><head><hi rendition="#b">Er&#x017F;ter Auftritt.</hi></head><lb/>
+<p><hi rendition="#c"><hi rendition="#b">Canut, Godewin.</hi></hi></p><lb/>
+<sp who="#CAN"><speaker><hi rendition="#fr">Canut.</hi></speaker><lb/>
+<p><hi rendition="#in">S</hi>o glaub&#x017F;t du, daß in ihr die Za&#x0364;rtlichkeit &#x017F;ich ru&#x0364;hre?<lb/>
+Daß nicht ihr Unglu&#x0364;ck bloß &#x017F;ie wieder zu mir fu&#x0364;hre,<lb/>
+Daß ihre Wiederkunft nicht bloß erzwungne Reu,<lb/>
+Sie &#x017F;elb&#x017F;t mir noch geneigt und noch E&#x017F;trithe &#x017F;ey.<lb/>
+Jhr Herz war nicht gemacht, den Bruder &#x017F;tets zu<lb/>
+<hi rendition="#et">ha&#x017F;&#x017F;en;</hi><lb/>
+Die Tugend konnte &#x017F;ie auf immer nicht verla&#x017F;&#x017F;en.<lb/>
+Ein Gei&#x017F;t, der denkt und fu&#x0364;hlt, der irrt nur kurze Zeit.<lb/>
+Dieß hofft ich.</p></sp><lb/>
+<sp who="#GOD"><speaker><hi rendition="#fr">Godewin.</hi></speaker><lb/>
+<p><hi rendition="#et">Herr, fu&#x0364;r dich i&#x017F;t &#x017F;ie voll Za&#x0364;rtlichkeit.</hi></p></sp><lb/>
+<sp who="#CAN"><speaker><hi rendition="#fr">Canut.</hi></speaker><lb/>
+<p>Doch &#x017F;age Godewin, wie hat &#x017F;ie dich empfangen?<lb/>
+Stieg ihr kein wallend Roth auf die be&#x017F;cha&#x0364;mten<lb/>
+<hi rendition="#et">Wangen?</hi><lb/>
+Vermied nicht deinen Blick ihr &#x017F;chu&#x0364;chternes Ge&#x017F;icht?<lb/>
+Verwies &#x017F;ie nicht &#x017F;ich &#x017F;elb&#x017F;t die dir gebrochne Pflicht?<lb/>
+Hat &#x017F;ie, nachdem &#x017F;ie &#x017F;ich von dir auf &#x017F;tets entzweyet,<lb/>
+Was &#x017F;ie nicht a&#x0364;ndern kann, nicht wenig&#x017F;tens gereuet?<lb/>
+Und hat ihr nicht ihr Herz, das &#x017F;ich zur Tugend neigt,<lb/>
+Jhr Unrecht gegen dich, wie gegen mich gezeigt.</p><lb/>
+<fw type="catch" place="bottom"><hi rendition="#fr">Gode-</hi></fw></sp><lb/>
+<pb n="16" facs="#f0030"/>
+<fw type="header" place="top"><hi rendition="#b">Canut,</hi></fw><lb/>
+<sp who="#GOD"><speaker><hi rendition="#fr">Godewin.</hi></speaker><lb/>
+<p>Da dich die Großmuth treibt, dein Unrecht ihr zu<lb/>
+<hi rendition="#et">&#x017F;chenken,</hi><lb/>
+So i&#x017F;t das meine, Herr, zu klein, daran zu denken.</p></sp></div><lb/>
+<div n="2"><head><hi rendition="#b">Zweyter Auftritt.</hi></head><lb/>
+<p><hi rendition="#c"><hi rendition="#b">E&#x017F;trithe, Canut, Godewin.</hi></hi></p><lb/>
+<sp who="#EST"><speaker><hi rendition="#fr">E&#x017F;trithe.</hi></speaker><lb/>
+<p><hi rendition="#in">M</hi>ein Ko&#x0364;nig, deine Huld, die du mir wiedergieb&#x017F;t,<lb/>
+Be&#x017F;cha&#x0364;mt mich, da &#x017F;ie mir bezeigt, wie du mich lieb&#x017F;t.</p></sp><lb/>
+<sp who="#CAN"><speaker><hi rendition="#fr">Canut.</hi></speaker><lb/>
+<p>Die Liebe, die du ru&#x0364;hm&#x017F;t, braucht dich nicht zu be-<lb/>
+<hi rendition="#et">&#x017F;cha&#x0364;men,</hi><lb/>
+Die geb ich dir nicht er&#x017F;t, nichts konnte dir &#x017F;ie nehmen.</p></sp><lb/>
+<sp who="#EST"><speaker><hi rendition="#fr">E&#x017F;trithe.</hi></speaker><lb/>
+<p>So &#x017F;ehr dich meine Flucht mit Recht erzu&#x0364;rnen kann ...</p></sp><lb/>
+<sp who="#CAN"><speaker><hi rendition="#fr">Canut.</hi></speaker><lb/>
+<p>Sie hat mich nicht erzu&#x0364;rnt, &#x017F;ie hat mir wehgethan.</p></sp><lb/>
+<sp who="#EST"><speaker><hi rendition="#fr">E&#x017F;trithe.</hi></speaker><lb/>
+<p>So &#x017F;ehr auch mein Vergehn mich zuverklagen &#x017F;cheinet,<lb/>
+So glaub, ich hab es mehr, als du wohl denk&#x017F;t, be-<lb/>
+<hi rendition="#et">weinet.</hi><lb/>
+Erlaube, daß ich dir den Grund verhehlen darf,<lb/>
+Warum ich aus dem Glu&#x0364;ck mich in dieß Unglu&#x0364;ck<lb/>
+<hi rendition="#et">warf,</hi><lb/>
+Ob Lieb, ob Ra&#x017F;erey, ob Ehr&#x017F;ucht mich bewogen,<lb/>
+Daß ich mich deiner Gun&#x017F;t und meiner Pflicht ent-<lb/>
+<hi rendition="#et">zogen.</hi><lb/>
+<fw type="catch" place="bottom">Da</fw><lb/>
+<pb n="17" facs="#f0031"/>
+<fw type="header" place="top"><hi rendition="#b">ein Trauer&#x017F;piel.</hi></fw><lb/>
+Da du fu&#x0364;r mein Vergehn Vergebung mir gewa&#x0364;hr&#x017F;t,<lb/>
+Was braucht es, daß du noch was mich verfu&#x0364;hrt, er-<lb/>
+<hi rendition="#et">fa&#x0364;hr&#x017F;t?</hi><lb/>
+Wer kennet &#x017F;tets den Trieb, der ihn dahin geri&#x017F;&#x017F;en?<lb/>
+Man irrt oft, ohne &#x017F;elb&#x017F;t, warum man irrt, zu wi&#x017F;&#x017F;en.<lb/>
+Nur &#x017F;ieh den Ulfo nicht als den Verbrecher an.<lb/>
+Glaub, alles was ge&#x017F;chehn, hab ich allein gethan.<lb/>
+Jch, die du lebenslang mit Wohlthun u&#x0364;ber&#x017F;chu&#x0364;ttet,<lb/>
+Jch bin es itzt allein, die um Vergebung bittet.<lb/>
+Du brauche&#x017F;t keinem &#x017F;on&#x017F;t als mir nur zu verzeihn:<lb/>
+Son&#x017F;t niemand hat gefehlt, nnd alle Schuld i&#x017F;t mein.<lb/>
+Mein war des Ulfo Flucht, von mir kam &#x017F;ein Em-<lb/>
+<hi rendition="#et">po&#x0364;ren,</hi><lb/>
+Jch fu&#x0364;hrte Krieg zur See, ich &#x017F;tand bey &#x017F;einen Heeren.<lb/>
+Er&#x017F;taune&#x017F;t du, daß ich &#x017F;o ku&#x0364;hn zu der Gefahr,<lb/>
+Und mehr, als du geglaubt, zum Ha&#x017F;&#x017F;en fa&#x0364;hig war?<lb/>
+Jch &#x017F;elb&#x017F;t verwundre mich, wie vieles ich verbrochen.<lb/>
+Doch, Herr, es i&#x017F;t ge&#x017F;chehn, und ich bin losge&#x017F;prochen.<lb/>
+Du frag&#x017F;t, um zu verzeyhn, nicht was begangen &#x017F;ey,<lb/>
+Den gro&#x0364;ßten Fehler tilgt bey dir die klein&#x017F;te Reu.<lb/>
+Gieb zu, daß die&#x017F;e Reu den Jrrthum gantz durch-<lb/>
+<hi rendition="#et">&#x017F;treiche,</hi><lb/>
+Der nur &#x017F;o kurz gewa&#x0364;hrt, und da ich mir nicht gleiche.<lb/>
+Dein Auge, das mich &#x017F;on&#x017F;t voll Lieb und Ehrfurcht<lb/>
+<hi rendition="#et">fand,</hi><lb/>
+Soll &#x017F;tets mich wieder&#x017F;ehn, wie es mich er&#x017F;t gekannt:<lb/>
+Bis endlich dieß mein Herz durchs ku&#x0364;nftige vertheidigt,<lb/>
+Dich u&#x0364;berreden wird, als wa&#x0364;r&#x017F;t du nie beleidigt.</p></sp><lb/>
+<sp who="#CAN"><speaker><hi rendition="#fr">Canut.</hi></speaker><lb/>
+<p>Hierzu bedarf es nichts als deine Wiederkehr.<lb/>
+Von allem i&#x017F;t bey mir &#x017F;chon kein Geda&#x0364;chtniß mehr.<lb/>
+<fw type="sig" place="bottom">B</fw><fw type="catch" place="bottom">E&#x017F;trithe,</fw><lb/>
+<pb n="18" facs="#f0032"/>
+<fw type="header" place="top"><hi rendition="#b">Canut,</hi></fw><lb/>
+E&#x017F;trithe, laß uns nichts von dem vergangnen &#x017F;agen,<lb/>
+Mein Herz i&#x017F;t allzufroh, &#x017F;ich weiter zu beklagen.<lb/>
+Es &#x017F;ey genug an dem, was mich bisher gekra&#x0364;nkt,<lb/>
+Daß meiner Schwe&#x017F;ter Herz &#x017F;ich von mir abgelenkt,<lb/>
+Und alles mein Bemu&#x0364;hn &#x017F;ich fruchtlos enden mußte,<lb/>
+Weil es mir dein Vertraun nicht zu erwerben wußte.<lb/>
+Was dir gewa&#x0364;hret i&#x017F;t, hoff auch fu&#x0364;r den Gemahl:<lb/>
+Wa&#x0364;r alles wider ihn, &#x017F;o &#x017F;chu&#x0364;tzt ihn deine Wahl.<lb/>
+Er darf nur ohne Furcht vor meinem Blick er&#x017F;cheinen,<lb/>
+Jch hab ihn nie gehaßt und lieb ihn als den Deinen.<lb/>
+Warum ha&#x017F;t du zuvor dein Herz vor mir verhehlt?<lb/>
+Da du ihn dir er&#x017F;ehn, ha&#x0364;tt ich ihn auch gewa&#x0364;hlt.<lb/>
+Die Herr&#x017F;chaft u&#x0364;ber dich i&#x017F;t dir &#x017F;tets frey gewe&#x017F;en.<lb/>
+Behalt &#x017F;ie, lieb ihn.</p></sp><lb/>
+<sp who="#EST"><speaker><hi rendition="#fr">E&#x017F;trithe.</hi></speaker><lb/>
+<p><hi rendition="#et">Herr, du ha&#x017F;t mir ihn erle&#x017F;en.</hi></p></sp><lb/>
+<sp who="#CAN"><speaker><hi rendition="#fr">Canut.</hi></speaker><lb/>
+<p>Jch?</p></sp><lb/>
+<sp who="#EST"><speaker><hi rendition="#fr">E&#x017F;trithe.</hi></speaker><lb/>
+<p>Ja! du ha&#x017F;t ihn &#x017F;elb&#x017F;t mir als Gemahl ge&#x017F;andt.<lb/>
+Er ward mir darum lieb. Er kam von deiner Hand.<lb/>
+Du &#x017F;chrieb&#x017F;t mir, das zu thun, was er von mir begehrte.<lb/>
+Jch nahm ihn an, als den, der deinen Wink erkla&#x0364;rte.<lb/>
+Er zeigte mir voll Dank und Liebe gegen dich,<lb/>
+Das, was er forderte und du ihm ga&#x0364;b&#x017F;t, &#x017F;ey ich.<lb/>
+Er wies mir dein Geboth: was braucht er mehr zu-<lb/>
+<hi rendition="#et">zeigen?</hi><lb/>
+So war mein Herz erlangt, und &#x017F;ein Glu&#x0364;ck ward mein<lb/>
+<hi rendition="#et">eigen.</hi><lb/>
+So &#x017F;orglos hab ich &#x017F;tets auf deine Huld gebaut,<lb/>
+Und deiner Fu&#x0364;hrung bloß mein ganzes Glu&#x0364;ck vertraut.<lb/>
+<fw type="catch" place="bottom">Was</fw><lb/>
+<pb n="19" facs="#f0033"/>
+<fw type="header" place="top"><hi rendition="#b">ein Trauer&#x017F;piel.</hi></fw><lb/>
+Was du fu&#x0364;r gut ge&#x017F;cha&#x0364;tzt, fu&#x0364;r meine Pflicht geachtet,<lb/>
+Und was ich wu&#x0364;n&#x017F;chen &#x017F;oll, allein durch dich betrachtet.<lb/>
+Sollt auch gleich die&#x017F;e Wahl dir itzt zuwider &#x017F;eyn:<lb/>
+So war es doch dein Werk, erkenn es noch als dein.<lb/>
+Und laß mich nur noch dieß von deiner Huld erlangen,<lb/>
+Zu glauben, was ge&#x017F;chehn, hat Ulfo nicht begangen.</p></sp><lb/>
+<sp who="#CAN"><speaker><hi rendition="#fr">Canut.</hi></speaker><lb/>
+<p>Jtzt eben, da du mir von &#x017F;einer Un&#x017F;chuld &#x017F;ag&#x017F;t,<lb/>
+So weißt du nicht, wie &#x017F;ehr du ihn vor mir verklag&#x017F;t.</p></sp><lb/>
+<sp who="#EST"><speaker><hi rendition="#fr">E&#x017F;trithe.</hi></speaker><lb/>
+<p>Ach! &#x017F;o i&#x017F;t mir fu&#x0364;r ihn zu &#x017F;prechen nicht erlaubet?</p></sp><lb/>
+<sp who="#CAN"><speaker><hi rendition="#fr">Canut.</hi></speaker><lb/>
+<p>So &#x017F;trafbar, als er i&#x017F;t, ha&#x0364;tt ich ihn nicht geglaubet.</p></sp><lb/>
+<sp who="#EST"><speaker><hi rendition="#fr">E&#x017F;trithe.</hi></speaker><lb/>
+<p>Kann er noch &#x017F;trafbar &#x017F;eyn, da du ihm &#x017F;chon ver-<lb/>
+<hi rendition="#et">ziehn?</hi></p></sp><lb/>
+<sp who="#CAN"><speaker><hi rendition="#fr">Canut.</hi></speaker><lb/>
+<p>Doch, da ich ihm verzeyh, be&#x017F;chuldige&#x017F;t du ihn.</p></sp><lb/>
+<sp who="#EST"><speaker><hi rendition="#fr">E&#x017F;trithe.</hi></speaker><lb/>
+<p>Jch kann, was er gethan, und was du &#x017F;ag&#x017F;t, nicht fa&#x017F;&#x017F;en.</p></sp><lb/>
+<sp who="#CAN"><speaker><hi rendition="#fr">Canut.</hi></speaker><lb/>
+<p>Dein Jrrthum dienet dir, drum will ich dir ihn la&#x017F;&#x017F;en.<lb/>
+Da du den Ulfo lieb&#x017F;t: &#x017F;o hat er nichts gethan.<lb/>
+Dein Bruder &#x017F;ieht ihn bloß mit deinen Augen an.<lb/>
+Du wei&#x017F;t nicht &#x017F;eine Schuld: ich will daran nicht<lb/>
+<hi rendition="#et">denken,</hi><lb/>
+Du nenn&#x017F;t ihn mein Ge&#x017F;chenk: wohl! ich will dir ihn<lb/>
+<hi rendition="#et">&#x017F;chenken.</hi></p></sp></div><lb/>
+<fw type="sig" place="bottom">B 2</fw><fw type="catch" place="bottom"><hi rendition="#b">Drit-</hi></fw><lb/>
+<pb n="20" facs="#f0034"/>
+<fw type="header" place="top"><hi rendition="#b">Canut,</hi></fw><lb/>
+<div n="2"><head><hi rendition="#b">Dritter Auftritt.</hi></head><lb/>
+<p><hi rendition="#c"><hi rendition="#b">Godewin, E&#x017F;trithe.</hi></hi></p><lb/>
+<sp who="#EST"><speaker><hi rendition="#fr">E&#x017F;trithe.</hi></speaker><lb/>
+<p><hi rendition="#in">O</hi> Himmel! la&#x0364;ßt er mich in Ang&#x017F;t und zweifelsvoll?<lb/>
+Verzieh doch, Godewin, &#x017F;prich was ich denken &#x017F;oll.<lb/>
+Erkla&#x0364;re, was Canut vom Ulfo mir ge&#x017F;aget.<lb/>
+Verra&#x0364;ther, du ha&#x017F;t ihn wohl mehr als ich verklaget.<lb/>
+Jch kenne &#x017F;chon die Art der Men&#x017F;chen ohne Muth,<lb/>
+Den Schaden thut ihr Mund, den uns ihr Arm nicht<lb/>
+<hi rendition="#et">thut.</hi><lb/>
+Sie &#x017F;cheuen die Gefahr, &#x017F;ich Rache zu ver&#x017F;chaffen<lb/>
+Und an des Schwerdtes &#x017F;tatt, &#x017F;ind Reden ihre Waffen.</p></sp><lb/>
+<sp who="#GOD"><speaker><hi rendition="#fr">Godewin.</hi></speaker><lb/>
+<p>So glaub&#x017F;t du denn von mir nichts, als was mich<lb/>
+<hi rendition="#et">entehrt?</hi><lb/>
+Werd ich denn &#x017F;tets be&#x017F;chimpft und niemals angeho&#x0364;rt?<lb/>
+Jndeß, da &#x017F;ich mein Herz bemu&#x0364;ht fu&#x0364;r dich zu &#x017F;prechen,<lb/>
+So &#x017F;ucht das deine &#x017F;tets an mir ein neu Verbrechen.<lb/>
+Bey die&#x017F;er Qvaal, von dir nicht hochge&#x017F;cha&#x0364;tzt zu &#x017F;eyn,<lb/>
+J&#x017F;t &#x017F;elber dein Verlu&#x017F;t mir nur geringe Pein.<lb/>
+Und doch um die&#x017F;e Qvaal noch ha&#x0364;rter zu empfinden,<lb/>
+Muß ich dich ohne Schuld und edelmuthig finden.<lb/>
+Prinzeßin, ha&#x0364;tt ich wohl mein Unglu&#x0364;ck ie geglaubt?<lb/>
+So i&#x017F;ts kein Trieb von dir, der mir dein Herz geraubt?<lb/>
+So haben Ruff, Betrug und Jrrthum &#x017F;ich ver-<lb/>
+<hi rendition="#et">&#x017F;chworen,</hi><lb/>
+Daß ich das Edel&#x017F;te, was ich be&#x017F;aß, verloren?<lb/>
+So hat ein fal&#x017F;ch Geru&#x0364;cht, das man dir vorgebracht,<lb/>
+Jn deinen Augen mich verachtungswerth gemacht?<lb/>
+<fw type="catch" place="bottom">Und</fw><lb/>
+<pb n="21" facs="#f0035"/>
+<fw type="header" place="top"><hi rendition="#b">ein Trauer&#x017F;piel.</hi></fw><lb/>
+Und da es deine Gun&#x017F;t mir mit der Ehr entri&#x017F;&#x017F;en,<lb/>
+So hat uns ein Betrug auf ewig trennen mu&#x0364;&#x017F;&#x017F;en?<lb/>
+So i&#x017F;t des Ulfo Glu&#x0364;ck kein Werk von deiner Wahl?<lb/>
+So gab Canuts Geboth dir ihn zum Ehgemahl<choice><sic>&#x2E2E;</sic><corr>?</corr></choice><lb/>
+Und ach! ein &#x017F;olch Geboth...</p></sp><lb/>
+<sp who="#EST"><speaker><hi rendition="#fr">E&#x017F;trithe.</hi></speaker><lb/>
+<p><hi rendition="#et">Antworte meinen Fragen,</hi><lb/>
+Sprich, hab ich was ge&#x017F;agt, den Ulfo zu verklagen<choice><sic>&#x2E2E;</sic><corr>?</corr></choice><lb/>
+Sprach ich den Ko&#x0364;nig nicht fu&#x0364;r ihn mit Demuth an?<lb/>
+Dru&#x0364;ckt ich nicht deutlich aus, er habe nichts gethan.<lb/>
+Hat nicht Canuts Befehl dem Ulfo mich verma&#x0364;hlet?<lb/>
+Was &#x017F;agt mein Bruder denn, daß ich ihn &#x017F;elb&#x017F;t ge-<lb/>
+<hi rendition="#et">wa&#x0364;hlet<choice><sic>&#x2E2E;</sic><corr>?</corr></choice></hi><lb/>
+Brach Ulfo, oder ich hierbey die klein&#x017F;te Pflicht?<lb/>
+Warum entdecke&#x017F;t du mir dieß Verbrechen nicht?<lb/>
+Vielleicht damit ein Fehl nach &#x017F;chon erlangter Gnade,<lb/>
+Noch unverziehen &#x017F;ey und unverhoffter &#x017F;chade.</p></sp><lb/>
+<sp who="#GOD"><speaker><hi rendition="#fr">Godewin.</hi></speaker><lb/>
+<p>Verlaß dich doch darauf, daß ihn Canut vergißt.<lb/>
+Was &#x017F;uch&#x017F;t du eine Schuld, die &#x017F;chon getilget i&#x017F;t?<lb/>
+Erlaube daß ich dir den gro&#x017F;&#x017F;en Dien&#x017F;t erzeige,<lb/>
+Und was Canut ver&#x017F;chweigt, dir ebenfalls ver-<lb/>
+<hi rendition="#et">&#x017F;chweige.</hi><lb/>
+Prinzeßin, for&#x017F;che nicht, und &#x017F;chone deiner Ruh.<lb/>
+Es i&#x017F;t des Ulfo Fehl, drum &#x017F;chließ die Augen zu.<lb/>
+Halt die&#x017F;e Rechte hoch, die dich und ihn verbinden,<lb/>
+Und hu&#x0364;te dich dafu&#x0364;r, ihn &#x017F;trafbar zu befinden.<lb/>
+Glaub nur, ich &#x017F;cha&#x0364;tze mich zu edel fu&#x0364;r das Amt,<lb/>
+Der Zwietracht Mund zu &#x017F;eyn, der Zorn und Haß<lb/>
+<hi rendition="#et">entflammt,</hi><lb/>
+<fw type="sig" place="bottom">B 3</fw><fw type="catch" place="bottom">Mit</fw><lb/>
+<pb n="22" facs="#f0036"/>
+<fw type="header" place="top"><hi rendition="#b">Canut,</hi></fw><lb/>
+Mit andern zu entzweyn, wen ich nicht kann ge-<lb/>
+<hi rendition="#et">winnen,</hi><lb/>
+Und in der Eintracht Schooß Unfrieden zuent&#x017F;pinnen.<lb/>
+Wahr i&#x017F;ts, ich wu&#x0364;n&#x017F;chte mir noch itzt des Ulfo Glu&#x0364;ck.<lb/>
+Doch mein betrogner Wun&#x017F;ch la&#x0364;ßt keinen Neid zuru&#x0364;ck.<lb/>
+Jch will den Ulfo dir und dich dem Ulfo go&#x0364;nnen,<lb/>
+Nur zeig dich &#x017F;o gerecht, und lern mich be&#x017F;&#x017F;er kennen,<lb/>
+Behalt nicht ungepru&#x0364;ft den &#x017F;chimpflichen Verdacht,<lb/>
+Durch den du mich vorhin un&#x017F;chuldig roth gemacht.<lb/>
+Jch habe meinen Ruhm durch Zagheit nie beflecket,<lb/>
+Jch habe meine Bru&#x017F;t den Feinden nie ver&#x017F;tecket,<lb/>
+Und hat ein fal&#x017F;cher Ruff dein Herz von mir gekehrt,<lb/>
+Die Wahrheit &#x017F;pricht fu&#x0364;r mich: Jch bleib &#x017F;tets deiner<lb/>
+<hi rendition="#et">werth.</hi><lb/>
+Befrag nur den Canut, befrage tau&#x017F;end Zeugen,<lb/>
+Such meine Fehler auf, von andern laß uns<lb/>
+<hi rendition="#et">&#x017F;chweigen.</hi><lb/>
+Hier ko&#x0364;mmt auch dein Gemahl, der fu&#x0364;r mich zeugen<lb/>
+<hi rendition="#et">kann,</hi><lb/>
+Befrag ihn, ob ich was zu meinem Schimpf gethan.</p></sp></div><lb/>
+<div n="2"><head><hi rendition="#b">Vierter Auftritt.</hi></head><lb/>
+<p><hi rendition="#c"><hi rendition="#b">Godewin, Ulfo, E&#x017F;trithe.</hi></hi></p><lb/>
+<sp who="#GOD"><speaker><hi rendition="#fr">Godewin.</hi></speaker><lb/>
+<p><hi rendition="#in">K</hi>omm! ich darf ohne Furcht mich auf dein Zeugniß<lb/>
+<hi rendition="#et">&#x017F;tu&#x0364;tzen,</hi><lb/>
+Wer &#x017F;elb&#x017F;t nach Ehre &#x017F;trebt, muß andrer Ehre &#x017F;chu&#x0364;tzen.<lb/>
+Komm, &#x017F;prich hier als ein Held, der Lu&#x0364;gen &#x017F;chimpflich<lb/>
+<hi rendition="#et">heißt,</hi><lb/>
+Der die Verla&#x0364;umdung haßt und iedem Recht erwei&#x017F;t:<lb/>
+<fw type="catch" place="bottom">Du</fw><lb/>
+<pb n="23" facs="#f0037"/>
+<fw type="header" place="top"><hi rendition="#b">ein Trauer&#x017F;piel.</hi></fw><lb/>
+Du kenn&#x017F;t mich, und du war&#x017F;t oft mein Gehu&#x0364;lf im<lb/>
+<hi rendition="#et">Streite,</hi><lb/>
+Hier &#x017F;tand ich an Canuts und hier an deiner Seite,<lb/>
+Mit dir eilt ich zugleich ins Mittel der Gefahr,<lb/>
+Mit dir kam ich zuru&#x0364;ck, wenn &#x017F;ie be&#x017F;ieget war.<lb/>
+Erinner&#x017F;t du dich noch der unvergeßnen Schlachten,<lb/>
+Die un&#x017F;erm Ko&#x0364;nige der Schotten Krone brachten?<lb/>
+Sag der Prinzeßin doch, wie that ich meine Pflicht?</p></sp><lb/>
+<sp who="#ULF"><speaker><hi rendition="#fr">Ulfo.</hi></speaker><lb/>
+<p>Du fochte&#x017F;t, wie man &#x017F;oll, wenn man um Ehre ficht.</p></sp><lb/>
+<sp who="#GOD"><speaker><hi rendition="#fr">Godewin.</hi></speaker><lb/>
+<p>Wer &#x017F;ah mich einen Schritt iemals zuru&#x0364;ckekehren,<lb/>
+Eh man ein froh Ge&#x017F;chrey den Sieg ausruffen ho&#x0364;ren<choice><sic>&#x2E2E;</sic><corr>?</corr></choice><lb/>
+Wenn hab ich meinem Feind den Ru&#x0364;cken zugewandt?<lb/>
+Wenn floh ich, Ulfo?</p></sp><lb/>
+<sp who="#ULF"><speaker><hi rendition="#fr">Ulfo.</hi></speaker><lb/>
+<p><hi rendition="#et">Nie, &#x017F;o lang ich dich gekannt.</hi></p></sp><lb/>
+<sp who="#GOD"><speaker><hi rendition="#fr">Godewin.</hi></speaker><lb/>
+<p>Wo i&#x017F;t der La&#x0364;&#x017F;trer nun, der meinen Schimpf erdichtet,<lb/>
+Der meinen Ruhm befleckt, und der mein Glu&#x0364;ck zer-<lb/>
+<hi rendition="#et">nichtet?</hi><lb/>
+Wer hat den Ruff erdacht, als ha&#x0364;tt ich durch die Flucht<lb/>
+Die Rettung meines Bluts in meiner Schmach ge-<lb/>
+<hi rendition="#et">&#x017F;ucht<choice><sic>&#x2E2E;</sic><corr>?</corr></choice></hi><lb/>
+Prinzeßin, die&#x017F;er Ruff hat mir dein Herz entri&#x017F;&#x017F;en,<lb/>
+Laß mich mit dir zugleich nicht auch die Ehre mi&#x017F;&#x017F;en.<lb/>
+Sprich, wer entdeckte dir dieß alles wider mich?<lb/>
+Wer hintergieng dich &#x017F;o?</p></sp><lb/>
+<sp who="#ULF"><speaker><hi rendition="#fr">Ulfo.</hi></speaker><lb/>
+<p><hi rendition="#et">Der, den du &#x017F;uch&#x017F;t, bin ich.</hi></p><lb/>
+<fw type="sig" place="bottom">B 4</fw><fw type="catch" place="bottom"><hi rendition="#fr">Gode-</hi></fw></sp><lb/>
+<pb n="24" facs="#f0038"/>
+<fw type="header" place="top"><hi rendition="#b">Canut,</hi></fw><lb/>
+<sp who="#GOD"><speaker><hi rendition="#fr">Godewin.</hi></speaker><lb/>
+<p>Du?</p></sp><lb/>
+<sp who="#ULF"><speaker><hi rendition="#fr">Ulfo.</hi></speaker><lb/>
+<p>Jch.</p></sp><lb/>
+<sp who="#EST"><speaker><hi rendition="#fr">E&#x017F;trithe.</hi></speaker><lb/>
+<p><hi rendition="#et">Unglu&#x0364;cklicher, &#x017F;o ha&#x017F;t du mich betrogen?</hi></p></sp><lb/>
+<sp who="#ULF"><speaker><hi rendition="#fr">Ulfo.</hi></speaker><lb/>
+<p>Mein Kun&#x017F;tgriff reut mich nicht; er war zuwohl et<lb/>
+<hi rendition="#et">wogen.</hi><lb/>
+Jch habe dir durch Li&#x017F;t E&#x017F;trithens Herz entfu&#x0364;hrt,<lb/>
+Du war&#x017F;t dieß Herz nicht werth, nur mir hat es ge-<lb/>
+<hi rendition="#et">bu&#x0364;hrt.</hi><lb/>
+Jch wiederruffe nicht, was ich von dir ge&#x017F;aget,<lb/>
+Du bi&#x017F;t bey allem Muth ein Herz, das &#x017F;klavi&#x017F;ch zaget,<lb/>
+Der Ruff von deiner Flucht &#x017F;ey immerhin Betrug.<lb/>
+Die That nur i&#x017F;t erdacht, dein Schimpf i&#x017F;t wahr<lb/>
+<hi rendition="#et">genug.</hi><lb/>
+Dein Arm, der nur gehorcht, u&#x0364;bt &#x017F;ich um&#x017F;on&#x017F;t im<lb/>
+<hi rendition="#et">Streiten:</hi><lb/>
+Die Ehre, die dich flieht, die kenn&#x017F;t du nur von weiten.<lb/>
+Du ha&#x017F;t nicht das Gefu&#x0364;hl, das &#x017F;ich in Helden regt.<lb/>
+Kein Ruhm hat dich gereitzt, kein Schimpf hat dich<lb/>
+<hi rendition="#et">bewegt.</hi><lb/>
+Du mach&#x017F;t dein feiles Blut zu andrer Eigenthume,<lb/>
+Du leb&#x017F;t zu deiner Schmach und nur zu fremdem<lb/>
+<hi rendition="#et">Ruhme,</hi><lb/>
+Du thu&#x017F;t aus blo&#x0364;der Furcht, was auch ein Sklave<lb/>
+<hi rendition="#et">thut.</hi><lb/>
+Dein Arm kann tapfer &#x017F;eyn, dein Gei&#x017F;t i&#x017F;t ohne Muth.</p><lb/>
+<fw type="catch" place="bottom"><hi rendition="#fr">Gode-</hi></fw></sp><lb/>
+<pb n="25" facs="#f0039"/>
+<fw type="header" place="top"><hi rendition="#b">ein Trauer&#x017F;piel.</hi></fw><lb/>
+<sp who="#GOD"><speaker><hi rendition="#fr">Godewin.</hi></speaker><lb/>
+<p>Wenn die&#x017F;e Schma&#x0364;hungen dich &#x017F;elb&#x017F;t nicht treffen<lb/>
+<hi rendition="#et">&#x017F;ollen,</hi><lb/>
+So komm, &#x017F;o weißt du &#x017F;chon, wie wir &#x017F;ie enden wollen.</p></sp><lb/>
+<sp who="#ULF"><speaker><hi rendition="#fr">Ulfo.</hi></speaker><lb/>
+<p>Ja! brauche nur dein Schwerdt, iedoch nicht wider<lb/>
+<hi rendition="#et">mich.</hi><lb/>
+Jch bins nicht, der dich &#x017F;chimpft, die Knecht&#x017F;chaft<lb/>
+<hi rendition="#et">&#x017F;chimpfet dich:</hi><lb/>
+Find ich denn u&#x0364;berall, &#x017F;o eyfrig ich hier &#x017F;uche,<lb/>
+Kein Herz, das edel &#x017F;ey, und das der Herr&#x017F;chaft<lb/>
+<hi rendition="#et">fluche?</hi><lb/>
+Ru&#x0364;hmt mir denn ieder nur des Ko&#x0364;nigs Gu&#x0364;tigkeit?<lb/>
+J&#x017F;t keiner, der &#x017F;ich nicht ihm zu gehorchen freut?<lb/>
+Weiß denn Canut allein das Kun&#x017F;t&#x017F;tu&#x0364;ck auf der Erde,<lb/>
+Wie man vergo&#x0364;ttert &#x017F;ey, doch nicht beneidet werde?<lb/>
+Fa&#x017F;t ieden weck ich auf, den ich nur finden kann,<lb/>
+Doch ieder ho&#x0364;ret mich mit Haß und Schauer an.<lb/>
+Die Ehre des Canut &#x017F;ucht ieder zu erheben;<lb/>
+Doch keiner hat das Herz, nach gleichem Ruhm zu<lb/>
+<hi rendition="#et">&#x017F;treben.</hi><lb/>
+Sind die&#x017F;e Zeiten denn &#x017F;o ganz von Helden leer?<lb/>
+J&#x017F;t denn ihr ganzer Schmuck Canut und niemand<lb/>
+<hi rendition="#et">mehr?</hi><lb/>
+Wo &#x017F;ind die Jahre hin, da nur der Streit ergetzte,<lb/>
+Da ieder nur &#x017F;ich &#x017F;elb&#x017F;t der Krone wu&#x0364;rdig &#x017F;cha&#x0364;tzte,<lb/>
+Da, wenn ein tapfrer Arm kaum &#x017F;eine Kraft erkannt,<lb/>
+Er unterthan zu &#x017F;eyn fu&#x0364;r &#x017F;ich zu &#x017F;chimpflich fand,<lb/>
+Sich aus dem Staube hub, ein Heer zu&#x017F;ammen-<lb/>
+<hi rendition="#et">raffte,</hi><lb/>
+Und &#x017F;ich Gelegenheit zu gro&#x017F;&#x017F;en Thaten &#x017F;chaffte,<lb/>
+<fw type="sig" place="bottom">B 5</fw><fw type="catch" place="bottom">Da</fw><lb/>
+<pb n="26" facs="#f0040"/>
+<fw type="header" place="top"><hi rendition="#b">Canut,</hi></fw><lb/>
+Da &#x017F;ich ein edler Gei&#x017F;t durch Trutz und Unruh wieß,<lb/>
+Und wider&#x017F;pa&#x0364;n&#x017F;tig &#x017F;eyn doch kein Verbrechen hieß?<lb/>
+Das Feld ward, da man es noch nicht bepflu&#x0364;gen<lb/>
+<hi rendition="#et">lernte,</hi><lb/>
+Mit Leichen nur be&#x017F;a&#x0364;t, und trug nur Ruhm zur<lb/>
+<hi rendition="#et">Erndte.</hi><lb/>
+Jtzt glaubt ein ieder &#x017F;ich als Unterthan beglu&#x0364;ckt,<lb/>
+Die Gu&#x0364;te des Canut hat allen Muth er&#x017F;tickt.<lb/>
+Die Stolzen lieben &#x017F;chon der Herr&#x017F;chaft &#x017F;anfte Bande,<lb/>
+Und ein Verzagter ha&#x0364;lt den Ehrgeitz fa&#x017F;t fu&#x0364;r Schande.<lb/>
+Erwache, Godewin, aus der Verdro&#x017F;&#x017F;enheit,<lb/>
+Erhebe dich mit mir zu der Un&#x017F;terblichkeit.<lb/>
+Gehorchen i&#x017F;t ein Ruhm, doch nur fu&#x0364;r &#x017F;chlechte Seelen:<lb/>
+Fu&#x0364;r gro&#x0364;ßre Gei&#x017F;ter i&#x017F;t die Ehre zu befehlen.<lb/>
+Erkla&#x0364;re dich mit mir als Feind von dem Canut,<lb/>
+Was du aus Haß nicht thu&#x017F;t, das thu aus Heldenmuth.<lb/>
+Gieb wenig&#x017F;tens von dir der Nachwelt was zu melden.<lb/>
+Sie &#x017F;ag ein&#x017F;t: die&#x017F;e Zeit war unfruchtbar an Helden;<lb/>
+Drey Gei&#x017F;ter waren doch zu gro&#x017F;&#x017F;en Thaten ku&#x0364;hn,<lb/>
+Er&#x017F;t Ulfo, denn Canut, und endlich Godewin.</p></sp><lb/>
+<sp who="#GOD"><speaker><hi rendition="#fr">Godewin.</hi></speaker><lb/>
+<p>Jch fodre keinen Ruhm, der aus dem Unrecht gru&#x0364;net,<lb/>
+Der &#x017F;ich durch Unglu&#x0364;ck na&#x0364;hrt, und der nur Fluch ver-<lb/>
+<hi rendition="#et">dienet.</hi><lb/>
+Eh ro&#x017F;te die&#x017F;es Schwerdt in unberu&#x0364;hmter Ruh,<lb/>
+Eh es bekannt zu &#x017F;eyn der Pflicht zuwider thu.<lb/>
+Such nur aus Heldenmuth des Landes Glu&#x0364;ck zu<lb/>
+<hi rendition="#et">&#x017F;to&#x0364;ren:</hi><lb/>
+Jch will verzagter &#x017F;eyn, und meinen Ko&#x0364;nig ehren.<lb/>
+Wenn unter ihm durch mich ein Feind der Ruh erliegt,<lb/>
+Den Ruhm halt ich fu&#x0364;r groß, mit dem bin ich vergnu&#x0364;gt.<lb/>
+<fw type="catch" place="bottom">Vielleicht</fw><lb/>
+<pb n="27" facs="#f0041"/>
+<fw type="header" place="top"><hi rendition="#b">ein Trauer&#x017F;piel.</hi></fw><lb/>
+Vielleicht wird dich und mich derein&#x017F;t die Nachwelt<lb/>
+<hi rendition="#et">nennen,</hi><lb/>
+Mich wird &#x017F;ie als getreu, dich als Verra&#x0364;ther kennen.</p></sp><lb/>
+<sp who="#ULF"><speaker><hi rendition="#fr">Ulfo.</hi></speaker><lb/>
+<p>Jch &#x017F;eh &#x017F;chon, daß dein Gei&#x017F;t nie edle Thaten wagt.<lb/>
+Jch nannte dich mit Recht, feig, &#x017F;klavi&#x017F;ch und verzagt.<lb/>
+Begehre&#x017F;t du Beweis, nimm ihn von meinem Degen.</p></sp><lb/>
+<sp who="#GOD"><speaker><hi rendition="#fr">Godewin.</hi></speaker><lb/>
+<p>Jch fodre den Beweis, und will ihn widerlegen.</p></sp><lb/>
+<sp who="#EST"><speaker><hi rendition="#fr">E&#x017F;trithe.</hi></speaker><lb/>
+<p>Wohin? Unglu&#x0364;ckliche!</p></sp><lb/>
+<sp who="#GOD"><speaker><hi rendition="#fr">Godewin.</hi></speaker><lb/>
+<p><hi rendition="#et">Komm, Ulfo, folge mir.</hi></p></sp><lb/>
+<sp who="#EST"><speaker><hi rendition="#fr">E&#x017F;trithe.</hi></speaker><lb/>
+<p>Was thu&#x017F;t du, Godewin? Ach! Ulfo bleib doch hier.</p></sp><lb/>
+<sp who="#ULF"><speaker><hi rendition="#fr">Ulfo.</hi></speaker><lb/>
+<p>Jch will dich wieder &#x017F;ehn.</p></sp><lb/>
+<sp who="#EST"><speaker><hi rendition="#fr">E&#x017F;trithe.</hi></speaker><lb/>
+<p><hi rendition="#et">Nein! itzt mußt du mich ho&#x0364;ren.</hi></p></sp><lb/>
+<sp who="#ULF"><speaker><hi rendition="#fr">Ulfo.</hi></speaker><lb/>
+<p>Man ruffet mich zum Kampf, und ich &#x017F;oll mich ent-<lb/>
+<hi rendition="#et">ehren?</hi></p></sp><lb/>
+<sp who="#EST"><speaker><hi rendition="#fr">E&#x017F;trithe</hi></speaker><lb/>
+<p>Ein Augenblick Verzug thut nichts zu deiner Schmach?</p></sp><lb/>
+<sp who="#ULF"><speaker><hi rendition="#fr">Ulfo.</hi></speaker><lb/>
+<p>So geh denn, Godewin, und glaub ich, folge nach.</p></sp></div><lb/>
+<fw type="catch" place="bottom"><hi rendition="#b">Fu&#x0364;nfter</hi></fw><lb/>
+<pb n="28" facs="#f0042"/>
+<fw type="header" place="top"><hi rendition="#b">Canut,</hi></fw><lb/>
+<div n="2"><head><hi rendition="#b">Fu&#x0364;nfter Auftritt.</hi></head><lb/>
+<p><hi rendition="#c"><hi rendition="#b">Ulfo, E&#x017F;trithe.</hi></hi></p><lb/>
+<sp who="#EST"><speaker><hi rendition="#fr">E&#x017F;trithe.</hi></speaker><lb/>
+<p><hi rendition="#in">J</hi>ch will nicht dem Ge&#x017F;etz der Ehre wieder&#x017F;tehen.<lb/>
+Du ha&#x017F;t den Streit erregt und darf&#x017F;t ihm nicht ent-<lb/>
+<hi rendition="#et">gehen.</hi><lb/>
+Doch, daß dein hartes Herz, das nur von Mordgier<lb/>
+<hi rendition="#et">brennt,</hi><lb/>
+E&#x017F;trithen nicht einmal ein Lebewohl vergo&#x0364;nnt,<lb/>
+Daß du, in dem ich &#x017F;eh, wie du mich hintergangen,<lb/>
+Mir nicht einmal erlaub&#x017F;t, dich, Fal&#x017F;cher, zu um-<lb/>
+<hi rendition="#et">fangen,</hi><lb/>
+Denk, i&#x017F;t dieß nicht zu viel? i&#x017F;t dieß nicht Grau&#x017F;amkeit?<lb/>
+J&#x017F;ts mo&#x0364;glich zwar vielleicht, daß noch dein Herz &#x017F;ich<lb/>
+<hi rendition="#et">&#x017F;cheut,</hi><lb/>
+Du fu&#x0364;rchte&#x017F;t wohl, daß ich mich nur beklagen wollte,<lb/>
+Und meyn&#x017F;t, ich ha&#x017F;&#x017F;e dich, weil ich dich ha&#x017F;&#x017F;en &#x017F;ollte.<lb/>
+Nein! du ha&#x017F;t &#x017F;chon gepru&#x0364;ft, daß ich nicht ha&#x017F;&#x017F;en kann.<lb/>
+Ach! wu&#x0364;ßt ich alles nur, was du an mir gethan!<lb/>
+Jch ho&#x0364;r itzt &#x017F;on&#x017F;t von nichts als deinem Frevel &#x017F;prechen,<lb/>
+Ein jeder Augenblick zeigt mir ein neu Verbrechen.<lb/>
+Was ich &#x017F;on&#x017F;t &#x017F;o beweint, das &#x017F;cheint mir itzt nur klein.<lb/>
+Du lehr&#x017F;t mich, Grau&#x017F;amer, dir alles zu verzeihn.<lb/>
+Daß du mein a&#x0364;ng&#x017F;tlich Flehn durch fal&#x017F;che Reu be-<lb/>
+<hi rendition="#et">trogen,</hi><lb/>
+Mich &#x017F;elb&#x017F;t in den Verrath, auf den du denk&#x017F;t, gezogen,<lb/>
+Und daß dein trotzig Herz an der Ver&#x017F;o&#x0364;hnung &#x017F;tatt,<lb/>
+Die du zu &#x017F;tiften kam&#x017F;t, nur Haß zur Ab&#x017F;icht hat,<lb/>
+Daß du den tollen Zweck vor aller Welt entdecke&#x017F;t,<lb/>
+Und mich vor deiner Wut betru&#x0364;bten Folgen &#x017F;chrecke&#x017F;t,<lb/>
+<fw type="catch" place="bottom">Daß</fw><lb/>
+<pb n="29" facs="#f0043"/>
+<fw type="header" place="top"><hi rendition="#b">ein Trauer&#x017F;piel.</hi></fw><lb/>
+Daß du durch einen Ruff, der andrer Ehre raubt,<lb/>
+Mein Herz, das Lu&#x0364;gen haßt, an dich zu ziehn geglaubt,<lb/>
+Den, der dich u&#x0364;berwei&#x017F;t, durch neuen Schimpf be-<lb/>
+<hi rendition="#et">leidig&#x017F;t,</hi><lb/>
+Verla&#x0364;umdungen er&#x017F;inn&#x017F;t und &#x017F;ie durch Mord ver-<lb/>
+<hi rendition="#et">theidig&#x017F;t:</hi><lb/>
+So viel Verbrechen zeigt mir fa&#x017F;t ein Augenblick.<lb/>
+Grau&#x017F;amer, fahr nur fort, es i&#x017F;t noch mehr zuru&#x0364;ck,<lb/>
+Ero&#x0364;ffne, was man mir aus Mitleid will verhehlen,<lb/>
+Da du kein Mitleid ha&#x017F;t, kann&#x017F;t du mir es erza&#x0364;hlen.<lb/>
+Jch bath bey dem Canut fu&#x0364;r dein und mein Vergehn,<lb/>
+Weil dich das Flehen &#x017F;chimpft, er&#x017F;part ich dir das<lb/>
+<hi rendition="#et">Flehn.</hi><lb/>
+Jch nahm auf mich allein, was du allein verbrochen.<lb/>
+Du kenn&#x017F;t &#x017F;chon den Canut, du wurde&#x017F;t losge&#x017F;prochen.<lb/>
+Doch da ich ihm erwa&#x0364;hnt, um ihn geru&#x0364;hrt zu &#x017F;ehn,<lb/>
+Daß ich dich liebe, &#x017F;ey auf &#x017F;einen Wink ge&#x017F;chehn,<lb/>
+Da ich von dem Befehl, den du mir brachte&#x017F;t, &#x017F;age,<lb/>
+Antwortet er darauf, daß ich dich nur verklage.<lb/>
+Sprich, was i&#x017F;t dein Vergehn, wie kann dieß mo&#x0364;g-<lb/>
+<hi rendition="#et">lich &#x017F;eyn?</hi><lb/>
+Sa gab dich mir Canut nicht zum Gemahle?</p></sp><lb/>
+<sp who="#ULF"><speaker><hi rendition="#fr">Ulfo.</hi></speaker><lb/>
+<p><hi rendition="#et">Nein!</hi></p></sp><lb/>
+<sp who="#EST"><speaker><hi rendition="#fr">E&#x017F;trithe.</hi></speaker><lb/>
+<p>Und &#x017F;ein Befehl zu thun, was du von mir begehret,<lb/>
+Die Schrift von &#x017F;einer Hand?</p></sp><lb/>
+<sp who="#ULF"><speaker><hi rendition="#fr">Ulfo.</hi></speaker><lb/>
+<p><hi rendition="#et">Die hab ich fal&#x017F;ch erkla&#x0364;ret.</hi></p><lb/>
+<fw type="catch" place="bottom"><hi rendition="#fr">E&#x017F;tri-</hi></fw></sp><lb/>
+<pb n="30" facs="#f0044"/>
+<fw type="header" place="top"><hi rendition="#b">Canut,</hi></fw><lb/>
+<sp who="#EST"><speaker><hi rendition="#fr">E&#x017F;trithe.</hi></speaker><lb/>
+<p>Verra&#x0364;ther!</p></sp><lb/>
+<sp who="#ULF"><speaker><hi rendition="#fr">Ulfo.</hi></speaker><lb/>
+<p><hi rendition="#et">Die&#x017F;es Glu&#x0364;ck, daß du mein eigen bi&#x017F;t,</hi><lb/>
+Daß ich dein Herz erhielt, dank ich bloß meiner Li&#x017F;t.<lb/>
+Jch &#x017F;ollte, wo du war&#x017F;t, des Sveno Aufruhr &#x017F;to&#x0364;ren,<lb/>
+Durch dich und ohne Heer ver&#x017F;prach ich ihm zu wehren.<lb/>
+Ein Wort verlangt ich nur von deines Bruders Hand,<lb/>
+Jch wu&#x0364;ßte &#x017F;einen Wink und &#x017F;ey an dich ge&#x017F;andt.<lb/>
+Dieß Wort, dieß mußte mir zu be&#x017F;&#x017F;erm Zwecke nu&#x0364;tzen,<lb/>
+Und kurz, ich liebte dich, drum mußt ich dich be&#x017F;itzen.</p></sp><lb/>
+<sp who="#EST"><speaker><hi rendition="#fr">E&#x017F;trithe.</hi></speaker><lb/>
+<p>Du liebte&#x017F;t, &#x017F;age&#x017F;t du? Was that ich dir Barbar,<lb/>
+Daß ich geqva&#x0364;lt zu &#x017F;eyn von dir erle&#x017F;en war?<lb/>
+Daß du dich durch Betrug in die&#x017F;es Herz gedrungen,<lb/>
+Mich meiner Pflicht entfu&#x0364;hrt, mich dein zu &#x017F;eyn ge-<lb/>
+<hi rendition="#et">zwungen,</hi><lb/>
+Und durch verfluchte Li&#x017F;t, die nun dein Herz belacht,<lb/>
+Aufru&#x0364;hri&#x017F;ch, ungetreu und dir &#x017F;elb&#x017F;t gleich gemacht?<lb/>
+Unwi&#x017F;&#x017F;end hab ich &#x017F;elb&#x017F;t, als Bey&#x017F;tand deiner Thaten,<lb/>
+Den Godewin verletzt, und den Canut verrathen.<lb/>
+Was that ich nicht bisher, was litt ich nicht fu&#x0364;r dich?<lb/>
+Nur meine Pflicht, &#x017F;on&#x017F;t nichts, war noch ein Tro&#x017F;t fu&#x0364;r<lb/>
+<hi rendition="#et">mich.</hi><lb/>
+Ach! was wird ku&#x0364;nftig &#x017F;eyn? was kann mir Tro&#x017F;t ver-<lb/>
+<hi rendition="#et">&#x017F;prechen?</hi><lb/>
+Selb&#x017F;t daß ich die&#x017F;es litt, war auch noch ein Ver-<lb/>
+<hi rendition="#et">brechen,</hi><lb/>
+Grau&#x017F;amer! ach! Canut! ach! Pflicht! ach! Go-<lb/>
+<hi rendition="#et">dewin!</hi></p><lb/>
+<fw type="catch" place="bottom"><hi rendition="#fr">Ulfo.</hi></fw></sp><lb/>
+<pb n="31" facs="#f0045"/>
+<fw type="header" place="top"><hi rendition="#b">ein Trauer&#x017F;piel.</hi></fw><lb/>
+<sp who="#ULF"><speaker><hi rendition="#fr">Ulfo.</hi></speaker><lb/>
+<p>J&#x017F;t deine Pflicht dein Tro&#x017F;t, den kann dir nichts ent-<lb/>
+<hi rendition="#et">ziehn:</hi><lb/>
+Du ha&#x017F;t &#x017F;on&#x017F;t keine Pflicht als die, nur mich zu lieben.<lb/>
+Halt dich an die&#x017F;e Pflicht, &#x017F;o darf dich nichts betru&#x0364;ben.<lb/>
+Wiß, ich bin dein Gemahl.</p></sp><lb/>
+<sp who="#EST"><speaker><hi rendition="#fr">E&#x017F;trithe.</hi></speaker><lb/>
+<p><hi rendition="#et">Gemahl! ach &#x017F;chwere Pflicht!</hi><lb/>
+Du foder&#x017F;t Liebe zwar, doch du verdien&#x017F;t &#x017F;ie nicht.</p></sp><lb/>
+<sp who="#ULF"><speaker><hi rendition="#fr">Ulfo.</hi></speaker><lb/>
+<p>J&#x017F;t der nicht liebenswerth, der nur nach Ruhme jaget?<lb/>
+Verdient der keinen Ruhm, der gro&#x017F;&#x017F;e Thaten waget.?<lb/>
+Jch eile, du &#x017F;oll&#x017F;t &#x017F;ehn, daß Ulfo deiner Treu<lb/>
+Weit mehr als Godewin und einzig wu&#x0364;rdig &#x017F;ey.</p></sp><lb/>
+<sp who="#EST"><speaker><hi rendition="#fr">E&#x017F;trithe.</hi></speaker><lb/>
+<p>Wohin? ach! Grau&#x017F;amer! den, dem ich untreu worden,<lb/>
+Den, dem du mich geraubt, den will&#x017F;t du noch er-<lb/>
+<hi rendition="#et">morden.</hi><lb/>
+Ach! trage denn nur ich das Joch von meiner Pflicht?<lb/>
+Jndeß daß mein Gemahl der Men&#x017F;chheit Pflichten<lb/>
+<hi rendition="#et">bricht.</hi><lb/>
+Sieh doch! dieß Herz, das du geraubt, geqva&#x0364;lt, be-<lb/>
+<hi rendition="#et">trogen,</hi><lb/>
+Wird immer noch zu dir bloß durch die Pflicht gezogen.<lb/>
+Ach! ho&#x0364;re doch dieß Herz, und bi&#x017F;t du mein Gemahl:<lb/>
+So ha&#x0364;uffe doch nicht &#x017F;tets durch Frevel meine Qvaal.<lb/>
+Ho&#x0364;r doch.. Jch liebe dich. Will&#x017F;t du mich denn noch<lb/>
+<hi rendition="#et">kra&#x0364;nken?</hi><lb/>
+Will&#x017F;t du mir nicht &#x017F;ein Blut fu&#x0364;r meine Liebe &#x017F;chenken?</p><lb/>
+<fw type="catch" place="bottom"><hi rendition="#fr">Ulfo.</hi></fw></sp><lb/>
+<pb n="32" facs="#f0046"/>
+<fw type="header" place="top"><hi rendition="#b">Canut,</hi></fw><lb/>
+<sp who="#ULF"><speaker><hi rendition="#fr">Ulfo.</hi></speaker><lb/>
+<p>Die Ehre &#x017F;ieht &#x017F;ein Blut &#x017F;chon als ihr Opfer an.<lb/>
+Wie meyn&#x017F;t du, daß ich es der Liebe &#x017F;chenken kann?</p></sp><lb/>
+<sp who="#EST"><speaker><hi rendition="#fr">E&#x017F;trithe.</hi></speaker><lb/>
+<p>Nein! &#x017F;ollt ich zwi&#x017F;chen euch von deinem Schwerdt er-<lb/>
+<hi rendition="#et">bla&#x017F;&#x017F;en,</hi><lb/>
+Jch kann die Barbarey euch nicht voll&#x017F;trecken la&#x017F;&#x017F;en.<lb/>
+Jch eile, Grau&#x017F;amer, und bitte den Canut<lb/>
+Um Hu&#x0364;lfe fu&#x0364;r euch &#x017F;elb&#x017F;t und wider eure Wut.<lb/>
+Jch weiß, er i&#x017F;t gerecht und wird die Mordgier da&#x0364;mpfen.</p></sp><lb/>
+<sp who="#ULF"><speaker><hi rendition="#fr">Ulfo.</hi></speaker><lb/>
+<p>Da du zu bitten geh&#x017F;t, geh ich indeß zu ka&#x0364;mpfen.</p></sp></div></div><lb/>
+<div n="1"><head><hi rendition="#b">Dritter Aufzug.</hi></head><lb/>
+<div n="2"><head><hi rendition="#b">Er&#x017F;ter Auftritt.</hi></head><lb/>
+<p><hi rendition="#c"><hi rendition="#b">Canut, E&#x017F;trithe, Haqvin.</hi></hi></p><lb/>
+<sp who="#EST"><speaker><hi rendition="#fr">E&#x017F;trithe.</hi></speaker><lb/>
+<p><hi rendition="#in">V</hi>ielleicht eilt ihre Bru&#x017F;t den Schwerdtern &#x017F;chon ent-<lb/>
+<hi rendition="#et">gegen.</hi><lb/>
+Es rauchen &#x017F;chon vielleicht die blutbe&#x017F;pritzte Degen,<lb/>
+Und wenn ihr Arm erfu&#x0364;llt, was ihre Wut gedroht,<lb/>
+J&#x017F;t die&#x017F;er Augenblick vielleicht des einen Tod.<lb/>
+Mit Bitten hab ich kaum, eh &#x017F;ie den Streit begonnen,<lb/>
+Ein Wort voll Ungeduld vom Ulfo noch gewonnen.</p></sp><lb/>
+<sp who="#HAQ"><speaker><hi rendition="#fr">Haqvin.</hi></speaker><lb/>
+<p>Hier i&#x017F;t bey deinem Schloß der Schauplatz von dem<lb/>
+<hi rendition="#et">Streit.</hi><lb/>
+Herr, es &#x017F;ieht alles Volk auf ihre Tapferkeit.<lb/>
+<fw type="catch" place="bottom">Jch</fw><lb/>
+<pb n="33" facs="#f0047"/>
+<fw type="header" place="top"><hi rendition="#b">ein Trauer&#x017F;piel.</hi></fw><lb/>
+Jch &#x017F;ah, es &#x017F;tund umher, mit aufmerk&#x017F;amen<lb/>
+<hi rendition="#et">Schweigen,</hi><lb/>
+Jn einen Kreyß gedra&#x0364;ngt ein ganzes Heer von Zeugen.<lb/>
+Die Ka&#x0364;mpfer, die voll Zorn &#x017F;o wie voll Großmuth &#x017F;ind,<lb/>
+Be&#x017F;tim&#x0303;ten ihren Platz, und theilten Sonn und Wind.<lb/>
+Jhr uner&#x017F;chrockner Arm ficht u&#x0364;ber gro&#x017F;&#x017F;en Rechten.<lb/>
+Denn der muß &#x017F;einen Ruhm, und der &#x017F;ein Wort ver-<lb/>
+<hi rendition="#et">fechten.</hi></p></sp><lb/>
+<sp who="#EST"><speaker><hi rendition="#fr">E&#x017F;trithe.</hi></speaker><lb/>
+<p>Du billig&#x017F;t noch, Haqvin, die mo&#x0364;rderi&#x017F;che Wut?<lb/>
+So i&#x017F;t ihr Richter denn ihr Schwerdt und nicht Canut?<lb/>
+Soll, um ein eitles Wort nicht unge&#x017F;traft zu la&#x017F;&#x017F;en,<lb/>
+Jm Frieden durch &#x017F;ich &#x017F;elb&#x017F;t der Helden Kern er-<lb/>
+<hi rendition="#et">bla&#x017F;&#x017F;en?</hi><lb/>
+Selb&#x017F;t vor dem Ange&#x017F;icht des Ko&#x0364;nigs, den ihr ehrt,<lb/>
+Ver&#x017F;chwendet ihr das Blut, das doch nur ihm geho&#x0364;rt?<lb/>
+Damit ein Held nicht darf bey fal&#x017F;chem Schimpf er-<lb/>
+<hi rendition="#et">ro&#x0364;then,</hi><lb/>
+Muß der Beleidiger, wen er verletzt, noch to&#x0364;dten,<lb/>
+Wo nicht ein gu&#x0364;tig Glu&#x0364;ck fu&#x0364;r den Be&#x017F;chimpften wacht,<lb/>
+Jhn er&#x017F;t wahrhaftig &#x017F;chimpft, und ihn zum Mo&#x0364;rder<lb/>
+<hi rendition="#et">macht.</hi><lb/>
+So werd ich, nein! Canut, dieß la&#x0364;ßt du nicht ge-<lb/>
+<hi rendition="#et">&#x017F;chehen,</hi><lb/>
+Als Mo&#x0364;rder oder todt den Ulfo wieder&#x017F;ehen?<lb/>
+Sein Blut zwar &#x017F;cha&#x0364;tz ich nicht fu&#x0364;r mehr als &#x017F;einen<lb/>
+<hi rendition="#et">Ruhm:</hi><lb/>
+Vergießt er es fu&#x0364;r dich, es i&#x017F;t dein Eigenthum.<lb/>
+Er &#x017F;terbe, &#x017F;oll es &#x017F;eyn, im ru&#x0364;hmlichen Gefechte<lb/>
+Als Schild des Vaterlands, als Opfer deiner Rechte.<lb/>
+Dann will ich &#x017F;einem Tod zufriedne Thra&#x0364;nen weyhn.<lb/>
+Was Ehre bringt, das muß auf Recht gegru&#x0364;ndet &#x017F;eyn.<lb/>
+<fw type="sig" place="bottom">C</fw><fw type="catch" place="bottom">Doch</fw><lb/>
+<pb n="34" facs="#f0048"/>
+<fw type="header" place="top"><hi rendition="#b">Canut,</hi></fw><lb/>
+Doch die&#x017F;es &#x017F;chimpfliche, dieß ungerechte Wu&#x0364;ten,<lb/>
+Dieß macht Ent&#x017F;etzen, Herr, dieß eile zu verbiethen.</p></sp><lb/>
+<sp who="#CAN"><speaker><hi rendition="#fr">Canut.</hi></speaker><lb/>
+<p>Haqvin, ruff aus dem Kampf &#x017F;ie beyde gleich herbey.<lb/>
+Sag ihnen, daß ihr Blut des Vaterlandes &#x017F;ey,<lb/>
+Daß ich den wilden Muth, der Zwietracht &#x017F;uchet, ha&#x017F;&#x017F;e,<lb/>
+Und niemand Unrecht thun noch Unrecht leiden la&#x017F;&#x017F;e,<lb/>
+Daß den Beleidiger mein Arm zur Strafe zieht,<lb/>
+Und de&#x017F;&#x017F;en Sache fu&#x0364;hrt, der &#x017F;ich beleidigt &#x017F;ieht.<lb/>
+Jch will nicht, daß mit mir Gewalt und Zwi&#x017F;t re-<lb/>
+<hi rendition="#et">gieren,</hi><lb/>
+Und Bu&#x0364;rger meines Reichs mit Bu&#x0364;rgern Kriege fu&#x0364;hren.<lb/>
+Und daß man den erhebt und noch mit Ruhm bekro&#x0364;nt,<lb/>
+Der der Ge&#x017F;elligkeit geweyhte Rechte ho&#x0364;hnt.<lb/>
+Den &#x017F;oll mein ganzes Reich aus &#x017F;einen Gra&#x0364;nzen jagen,<lb/>
+Die Erde &#x017F;oll ihn nur zu andrer Ab&#x017F;cheu tragen,<lb/>
+Und an der Ehre &#x017F;tatt, die er durch Unrecht &#x017F;ucht,<lb/>
+Sey er fu&#x0364;r nichts ge&#x017F;cha&#x0364;tzt, be&#x017F;chimpfet und verflucht.<lb/>
+Wer &#x017F;ein zank&#x017F;u&#x0364;chtig Schwerdt aus fal&#x017F;chem Helden-<lb/>
+<hi rendition="#et">muthe</hi><lb/>
+Mit anderm Blute fa&#x0364;rbt, als mit des Feindes Blute.<lb/>
+Dieß &#x017F;age, ruff &#x017F;ie her. Gieb keinem Aufenthalt.<lb/>
+Folgt Ulfo dir nicht nach: &#x017F;o fu&#x0364;hr ihn mit Gewalt.</p></sp></div><lb/>
+<div n="2"><head><hi rendition="#b">Zweyter Auftritt.</hi></head><lb/>
+<p><hi rendition="#c"><hi rendition="#b">Canut, E&#x017F;trithe.</hi></hi></p><lb/>
+<sp who="#EST"><speaker><hi rendition="#fr">E&#x017F;trithe.</hi></speaker><lb/>
+<p><hi rendition="#in">D</hi>u zu&#x0364;rne&#x017F;t. J&#x017F;t nun dieß die Wu&#x0364;rkung meiner<lb/>
+<hi rendition="#et">Za&#x0364;hren?</hi><lb/>
+J&#x017F;t die&#x017F;es nun der Schutz, den du mir &#x017F;oll&#x017F;t gewa&#x0364;hren?<lb/>
+<fw type="catch" place="bottom">Ach!</fw><lb/>
+<pb n="35" facs="#f0049"/>
+<fw type="header" place="top"><hi rendition="#b">ein Trauer&#x017F;piel.</hi></fw><lb/>
+Ach! warum hab ich dir des Ulfo Wut entdeckt?<lb/>
+Hat deine Strenge denn &#x017F;o wenig mich ge&#x017F;chreckt?<lb/>
+Was hab ich doch gethan? aus Sorge fu&#x0364;r &#x017F;ein Leben,<lb/>
+Hab ich ihn deinem Zorn zum Opfer u&#x0364;bergeben.</p></sp><lb/>
+<sp who="#CAN"><speaker><hi rendition="#fr">Canut.</hi></speaker><lb/>
+<p>E&#x017F;trithe, fu&#x0364;rchte nichts. Er i&#x017F;t durch dich be&#x017F;chu&#x0364;tzt.<lb/>
+Den fa&#x0364;llt kein Zorn von mir, den deine Liebe &#x017F;tu&#x0364;tzt.<lb/>
+Er &#x017F;oll, i&#x017F;t nicht &#x017F;ein Herz, der Men&#x017F;chheit ganz entri&#x017F;&#x017F;en,<lb/>
+Da er mich ehren lernt, zugleich mich lieben mu&#x0364;&#x017F;&#x017F;en.<lb/>
+Er fu&#x0364;hle nur hierdurch, er &#x017F;ey mein Unterthan,<lb/>
+Er u&#x0364;berzeuge &#x017F;ich, daß ich ihn zwingen kann.<lb/>
+Glaub, ich will, um den Trutz des Ulfo zu beza&#x0364;hmen,<lb/>
+Jhn an der Strenge &#x017F;tatt durch Gu&#x0364;te nur be&#x017F;cha&#x0364;men.<lb/>
+Ja er &#x017F;oll nicht einmal erfahren, was ich weiß.<lb/>
+Sein ha&#x0364;rte&#x017F;tes Vergehn verberg ich ihm mit Fleiß.<lb/>
+E&#x017F;trithe, &#x017F;ollte&#x017F;t du &#x017F;ein ganzes Herz er&#x017F;t kennen,<lb/>
+Du wu&#x0364;rde&#x017F;t gegen ihn mich allzugu&#x0364;tig nennen.</p></sp><lb/>
+<sp who="#EST"><speaker><hi rendition="#fr">E&#x017F;trithe.</hi></speaker><lb/>
+<p>Jch kenne ja dieß Herz und weiß, wie &#x017F;tolz es i&#x017F;t,<lb/>
+Wie &#x017F;chlecht es deine Huld und &#x017F;eine Pflicht ermißt.<lb/>
+Doch fu&#x0364;r dieß Herz, daß ich mit Thra&#x0364;nen oft be-<lb/>
+<hi rendition="#et">&#x017F;tritten,</hi><lb/>
+Das ich nicht beugen kann, fu&#x0364;r dieß muß ich noch<lb/>
+<hi rendition="#et">bitten.</hi><lb/>
+Jch weiß, ohn dein Geboth durch &#x017F;chimpflichen Betrug,<lb/>
+Hat er mein Herz geraubt.</p></sp><lb/>
+<sp who="#CAN"><speaker><hi rendition="#fr">Canut.</hi></speaker><lb/>
+<p><hi rendition="#et">Du weißt noch nicht genug.</hi></p><lb/>
+<fw type="sig" place="bottom">C 2</fw><fw type="catch" place="bottom"><hi rendition="#fr">E&#x017F;tri-</hi></fw></sp><lb/>
+<pb n="36" facs="#f0050"/>
+<fw type="header" place="top"><hi rendition="#b">Canut,</hi></fw><lb/>
+<sp who="#EST"><speaker><hi rendition="#fr">E&#x017F;trithe.</hi></speaker><lb/>
+<p>Ach! leider! weiß ich wohl, was ich verhindern wollte,<lb/>
+Was ich nicht &#x017F;agen kann, und ach! doch &#x017F;agen &#x017F;ollte.<lb/>
+Ach! &#x017F;oll ich Kla&#x0364;gerin bey &#x017F;einem Frevel &#x017F;eyn?<lb/>
+Doch er betrifft ja dich. Ach! &#x017F;oll ich reden? Nein!</p></sp><lb/>
+<sp who="#CAN"><speaker><hi rendition="#fr">Canut.</hi></speaker><lb/>
+<p>Du darf&#x017F;t nur ohne Furcht mit mir von allem &#x017F;prechen.<lb/>
+Was du dem Bruder &#x017F;ag&#x017F;t, wird nie der Ko&#x0364;nig<lb/>
+<hi rendition="#et">ra&#x0364;chen.</hi><lb/>
+Werd ich nicht mehr von dir fu&#x0364;r die&#x017F;en Freund ge-<lb/>
+<hi rendition="#et">&#x017F;cha&#x0364;tzt,</hi><lb/>
+Der alles wi&#x017F;&#x017F;en darf was dich in Sorge &#x017F;etzt,<lb/>
+Dem du, um nicht allein und hu&#x0364;lflos dich zu qva&#x0364;len,<lb/>
+Auch dein geheim&#x017F;tes Leid geruhig darf&#x017F;t erza&#x0364;hlen<choice><sic>&#x2E2E;</sic><corr>?</corr></choice><lb/>
+Jch merk es allzu&#x017F;ehr, ein Kummer martert dich.<lb/>
+Was dein Gemahl auch thut, ja wa&#x0364;r es wider mich.<lb/>
+Sprich nur, es bleibt bey mir in tiefen Fin&#x017F;terni&#x017F;&#x017F;en,<lb/>
+Wer nicht zu &#x017F;trafen liebt, muß, was er ho&#x0364;rt, nicht<lb/>
+<hi rendition="#et">wi&#x017F;&#x017F;en.</hi><lb/>
+Jch &#x017F;eh, daß dein Ge&#x017F;icht bey die&#x017F;em Wort erbleicht.<lb/>
+Was du ver&#x017F;chweigen will&#x017F;t, das weiß ich &#x017F;chon viel-<lb/>
+<hi rendition="#et">leicht.</hi><lb/>
+Jch weiß, wie irrig ihn &#x017F;ein wilder Ehrgeitz leitet.<lb/>
+Es &#x017F;agt mir alle Welt, was er mir zubereitet,<lb/>
+Und wie die Ruhmbegier &#x017F;ein &#x017F;tolzes Herz empo&#x0364;rt,<lb/>
+Das, um nur groß zu &#x017F;eyn, mir &#x017F;tete Feind&#x017F;chaft<lb/>
+<hi rendition="#et">&#x017F;chwo&#x0364;rt.</hi><lb/>
+Als wa&#x0364;re die&#x017F;er Haß zu &#x017F;cho&#x0364;n, ihn zu ver&#x017F;tecken,<lb/>
+Sucht er &#x017F;ich o&#x0364;ffentlich Gehu&#x0364;lfen zu erwecken,<lb/>
+Wirbt Feinde wider mich, wo er &#x017F;ie finden kann,<lb/>
+Und ku&#x0364;ndigt mir den Krieg in meinen Mauern an.</p><lb/>
+<fw type="catch" place="bottom"><hi rendition="#fr">E&#x017F;tri-</hi></fw></sp><lb/>
+<pb n="37" facs="#f0051"/>
+<fw type="header" place="top"><hi rendition="#b">ein Trauer&#x017F;piel.</hi></fw><lb/>
+<sp who="#EST"><speaker><hi rendition="#fr">E&#x017F;trithe.</hi></speaker><lb/>
+<p>Wahr i&#x017F;ts. Sein Fehl i&#x017F;t groß. Doch, Herr! &#x017F;o &#x017F;ehr<lb/>
+<hi rendition="#et">er wu&#x0364;tet,</hi><lb/>
+Ein Thron &#x017F;teht allzufe&#x017F;t, den &#x017F;o viel Gun&#x017F;t behu&#x0364;tet,<lb/>
+Und &#x017F;ein vergebliches, &#x017F;ein tho&#x0364;richtes Bemu&#x0364;hn,<lb/>
+J&#x017F;t mir zu deinem Ruhm und &#x017F;einer Schande ku&#x0364;hn.<lb/>
+Er &#x017F;uche, wen er kann, zum Aufruhr zu entzu&#x0364;nden;<lb/>
+Nennt er &#x017F;ich deinen Feind, wo wird er Freunde<lb/>
+<hi rendition="#et">finden?</hi><lb/>
+Sein Haß wird gegen dich ohnma&#x0364;chtig und allein<lb/>
+Verab&#x017F;cheut von der Welt und dir vera&#x0364;chtlich &#x017F;eyn.<lb/>
+Und wenn ihn iedermann er&#x017F;taunt zuru&#x0364;cke wei&#x017F;et,<lb/>
+Und &#x017F;tatt ihm beyzu&#x017F;tehn noch deinen Zepter prei&#x017F;et;<lb/>
+Wenn er aus deiner Huld und deines Volkes Treu,<lb/>
+Gezwungen &#x017F;ehen muß, wie groß &#x017F;ein Ko&#x0364;nig &#x017F;ey:<lb/>
+Wie &#x017F;ollt er nicht zuletzt dieß unfruchtbare Ha&#x017F;&#x017F;en,<lb/>
+Dem niemand Beyfall giebt, be&#x017F;cha&#x0364;met fahren la&#x017F;&#x017F;en?<lb/>
+Du kann&#x017F;t wohl ruhig &#x017F;eyn, &#x017F;o lang ich ruhig bin.<lb/>
+O Himmel, wie viel Qvaal erwart ich bis dahin!<lb/>
+Wie viel wird, eh die Zeit kann die&#x017F;en Stolz bezwingen,<lb/>
+Mir &#x017F;eine Ra&#x017F;erey Verdruß und Zittern bringen!<lb/>
+Wie vielmal werd ich ihm bethra&#x0364;nt entgegen gehn,<lb/>
+Und unerho&#x0364;ret &#x017F;eyn, und doch von neuen flehn,<lb/>
+Und wenn ich mit Gewalt dem Unglu&#x0364;ck ihn entri&#x017F;&#x017F;en,<lb/>
+Durch meine Marter noch &#x017F;ein Wohl erkauffen<lb/>
+<hi rendition="#et">mu&#x0364;&#x017F;&#x017F;en!</hi><lb/>
+So vieles ko&#x017F;tet mir das unglu&#x0364;cksvolle Band,<lb/>
+Worein mich &#x017F;ein Betrug ohn meine Neigung wand,<lb/>
+Das ich beweinen muß, und doch aus Pflicht noch<lb/>
+<hi rendition="#et">liebe,</hi><lb/>
+Das, litt ich auch noch mehr, mir doch &#x017F;tets heilig<lb/>
+<hi rendition="#et">bliebe:</hi><lb/>
+<fw type="sig" place="bottom">C 3</fw><fw type="catch" place="bottom">Wenn</fw><lb/>
+<pb n="38" facs="#f0052"/>
+<fw type="header" place="top"><hi rendition="#b">Canut,</hi></fw><lb/>
+Wenn einmal un&#x017F;er Herz mit unverfa&#x0364;l&#x017F;chter Treu<lb/>
+Ein Bu&#x0364;ndniß fe&#x017F;tge&#x017F;tellt, daß es untrennbar &#x017F;ey:<lb/>
+Wie viel ertragen wir um die&#x017F;es Bundes willen!<lb/>
+Wie vieles thun wir nicht, die Pflichten zu erfu&#x0364;llen!<lb/>
+Man bittet, a&#x0364;ng&#x017F;tet &#x017F;ich, man leidet, man verzeyht,<lb/>
+Man &#x017F;ieht oft, den man liebt, zu &#x017F;einem Fall bereit,<lb/>
+Man muß ent&#x017F;chuldigen, was man doch niemals<lb/>
+<hi rendition="#et">billigt,</hi><lb/>
+Und bu&#x0364;&#x017F;&#x017F;et Fehler mit, worein man nie gewilligt.</p></sp><lb/>
+<sp who="#CAN"><speaker><hi rendition="#fr">Canut.</hi></speaker><lb/>
+<p>Jch &#x017F;eh, daß Ulfo ko&#x0364;mmt. E&#x017F;trithe, laß mich nun.<lb/>
+Jtzt will ich auf &#x017F;ein Herz allein den Angriff thun.</p></sp></div><lb/>
+<div n="2"><head><hi rendition="#b">Dritter Auftritt.</hi></head><lb/>
+<p><hi rendition="#c"><hi rendition="#b">Canut, Ulfo.</hi></hi></p><lb/>
+<sp who="#CAN"><speaker><hi rendition="#fr">Canut.</hi></speaker><lb/>
+<p><hi rendition="#in">S</hi>o muß ich, dich als Freund ver&#x017F;o&#x0364;hnet zu umfa&#x017F;&#x017F;en,<lb/>
+Dir &#x017F;elb&#x017F;t entgegen gehn und er&#x017F;t dich ruffen la&#x017F;&#x017F;en?<lb/>
+Du brauch&#x017F;t nicht mein Ge&#x017F;icht zu meiden noch zu<lb/>
+<hi rendition="#et">&#x017F;cheun.</hi><lb/>
+Mein Herz i&#x017F;t &#x017F;tets gewohnt, aufrichtig zu verzeyhn.<lb/>
+Vom abgelegten Zorn bleibt mir kein Ern&#x017F;t im Blicke,<lb/>
+Jm Herzen kein Verdruß und kein Verdacht zuru&#x0364;cke.<lb/>
+Wer die verletzte Treu mir ern&#x017F;tlich wiedergiebt,<lb/>
+Und wer &#x017F;ie niemals brach, &#x017F;ind beyde gleich geliebt,<lb/>
+Und keiner, der mich &#x017F;ucht, i&#x017F;t meines Blicks beraubet,<lb/>
+Wem &#x017F;ein Gewi&#x017F;&#x017F;en nur mich anzu&#x017F;ehn erlaubet.<lb/>
+Du weißt, wie gern mein Blick vergnu&#x0364;gte Men&#x017F;chen<lb/>
+<hi rendition="#et">&#x017F;ieht,</hi><lb/>
+Und ieden, der mir dient, zu kennen &#x017F;ich bemu&#x0364;ht:<lb/>
+<fw type="catch" place="bottom">Und</fw><lb/>
+<pb n="39" facs="#f0053"/>
+<fw type="header" place="top"><hi rendition="#b">ein Trauer&#x017F;piel.</hi></fw><lb/>
+Und du, der mich noch mehr als andre lieben &#x017F;ollte,<lb/>
+Du wa&#x0364;re&#x017F;t es allein, der mich nicht &#x017F;prechen wollte.<lb/>
+Glaub, Ulfo, die&#x017F;es Band, das dich mit mir vereint,<lb/>
+Erfodert ein Vertraun, das dir zu fehlen &#x017F;cheint.<lb/>
+Du ha&#x017F;t dieß Band geknu&#x0364;pft, ich will es nicht zer-<lb/>
+<hi rendition="#et">rei&#x017F;&#x017F;en.</hi><lb/>
+Eh du mich drum er&#x017F;ucht, hab ich es gut gehei&#x017F;&#x017F;en.<lb/>
+Dieß Band wird deine Treu noch ku&#x0364;nftig fe&#x017F;ter ziehn.<lb/>
+Doch we&#x017F;&#x017F;en i&#x017F;t dieß Schwerdt?</p></sp><lb/>
+<sp who="#ULF"><speaker><hi rendition="#fr">Ulfo.</hi></speaker><lb/>
+<p><hi rendition="#et">Es i&#x017F;t des Godewin.</hi></p></sp><lb/>
+<sp who="#CAN"><speaker><hi rendition="#fr">Canut.</hi></speaker><lb/>
+<p>Und er<choice><sic>&#x2E2E;</sic><corr>?</corr></choice></p></sp><lb/>
+<sp who="#ULF"><speaker><hi rendition="#fr">Ulfo.</hi></speaker><lb/>
+<p><hi rendition="#et">Mir i&#x017F;t genug, daß ich ihm dieß genommen.</hi><lb/>
+Entwafnet i&#x017F;t durch mich noch niemand umgekommen.</p></sp><lb/>
+<sp who="#CAN"><speaker><hi rendition="#fr">Canut.</hi></speaker><lb/>
+<p>Die Großmuth &#x017F;eh ich zwar: wo i&#x017F;t die Bu&#x0364;rgertreu?<lb/>
+Jch will, daß die&#x017F;er Sieg hinfort der letzte &#x017F;ey,<lb/>
+Wo Glieder eines Staats gewinnen und verlieren,<lb/>
+Und Bu&#x0364;rger im Triumph die Nebenbu&#x0364;rger fu&#x0364;hren.<lb/>
+Ein Sieg verdienet Ruhm, iedoch nicht iederzeit;<lb/>
+Dem Feinde zeige Muth, dem Freund Vertra&#x0364;g-<lb/>
+<hi rendition="#et">lichkeit.</hi><lb/>
+Du &#x017F;oll&#x017F;t dem Godewin dieß Schwerdt zuru&#x0364;ckegeben.</p></sp><lb/>
+<sp who="#ULF"><speaker><hi rendition="#fr">Ulfo.</hi></speaker><lb/>
+<p>Jch gab ihm mehr als dieß: denn ich &#x017F;chenkt ihm das<lb/>
+<hi rendition="#et">Leben.</hi></p><lb/>
+<fw type="sig" place="bottom">C 4</fw><fw type="catch" place="bottom"><hi rendition="#fr">Canut.</hi></fw></sp><lb/>
+<pb n="40" facs="#f0054"/>
+<fw type="header" place="top"><hi rendition="#b">Canut,</hi></fw><lb/>
+<sp who="#CAN"><speaker><hi rendition="#fr">Canut.</hi></speaker><lb/>
+<p>Was &#x017F;eh ich hier fu&#x0364;r Blut, das deine Kleider netzt?</p></sp><lb/>
+<sp who="#ULF"><speaker><hi rendition="#fr">Ulfo.</hi></speaker><lb/>
+<p>Eh ich dieß Schwerdt er&#x017F;iegt: &#x017F;o hat es mich verletzt.</p></sp><lb/>
+<sp who="#CAN"><speaker><hi rendition="#fr">Canut.</hi></speaker><lb/>
+<p>So ha&#x017F;t du deinen Sieg nicht ohne Mu&#x0364;h gefunden?</p></sp><lb/>
+<sp who="#ULF"><speaker><hi rendition="#fr">Ulfo.</hi></speaker><lb/>
+<p>Er bringt mir Ruhm genug, und ko&#x017F;tet wenig Wunden.</p></sp><lb/>
+<sp who="#CAN"><speaker><hi rendition="#fr">Canut.</hi></speaker><lb/>
+<p>Du leide&#x017F;t, daß dieß Blut &#x017F;o ungehindert fließt?</p></sp><lb/>
+<sp who="#ULF"><speaker><hi rendition="#fr">Ulfo.</hi></speaker><lb/>
+<p>Es flie&#x017F;&#x017F;et ohne Schimpf, weil es gera&#x0364;chet i&#x017F;t.</p></sp><lb/>
+<sp who="#CAN"><speaker><hi rendition="#fr">Canut.</hi></speaker><lb/>
+<p>Um es ge&#x017F;tillt zu &#x017F;ehn, darf&#x017F;t du dich nur entfernen.</p></sp><lb/>
+<sp who="#ULF"><speaker><hi rendition="#fr">Ulfo.</hi></speaker><lb/>
+<p>Du weißt, daß ich mein Blut &#x017F;chon la&#x0364;ng&#x017F;t verachten<lb/>
+<hi rendition="#et">lernen.</hi><lb/>
+Vor Wunden i&#x017F;t noch nie mein Ange&#x017F;icht verblaßt.<lb/>
+Fahr fort, und rede nur, was du zu &#x017F;prechen ha&#x017F;t.<lb/>
+Zu thun, wozu mich Muth und Ehrbegierde treiben,<lb/>
+Wird &#x017F;tets noch Blut genug in mir zuru&#x0364;cke bleiben.</p></sp><lb/>
+<sp who="#CAN"><speaker><hi rendition="#fr">Canut.</hi></speaker><lb/>
+<p>Fu&#x0364;r die&#x017F;en Muth, der &#x017F;tets zu deiner Ehre wacht,<lb/>
+Hab ich ein wu&#x0364;rdig Werk, das ihn vergnu&#x0364;gt, erdacht.<lb/>
+Du klag&#x017F;t, daß ich allein die Ehre zu mir rei&#x017F;&#x017F;e,<lb/>
+Und andre nur fu&#x0364;r mich ihr Blut vergie&#x017F;&#x017F;en hei&#x017F;&#x017F;e,<lb/>
+<fw type="catch" place="bottom">Daß</fw><lb/>
+<pb n="41" facs="#f0055"/>
+<fw type="header" place="top"><hi rendition="#b">ein Trauer&#x017F;piel.</hi></fw><lb/>
+Daß niemand unter mir un&#x017F;terblich werden kann;<lb/>
+Jch ma&#x017F;&#x017F;e mich allein des Rechts zum Himmel an;<lb/>
+Kein Sieg, den man erha&#x0364;lt, werd ohne mich erfochten,<lb/>
+Und nie ein Lorbeerkranz, als fu&#x0364;r mein Haupt, ge-<lb/>
+<hi rendition="#et">flochten;</hi><lb/>
+Jch &#x017F;orge nur fu&#x0364;r mich, und wolle &#x017F;elb&#x017F;t allein<lb/>
+Den Meinigen geliebt, den Feinden furchtbar &#x017F;eyn.<lb/>
+Du weißt, ob ich das Lob, das ich vielleicht ereile,<lb/>
+Nicht, &#x017F;o wie Sorg und Schweiß, mit meinen Helden<lb/>
+<hi rendition="#et">theile,</hi><lb/>
+Ob iemand unbelohnt was gro&#x017F;&#x017F;es &#x017F;ich erku&#x0364;hnt,<lb/>
+Und ob der Dank dem fehlt, der Dank von mir ver-<lb/>
+<hi rendition="#et">dient.</hi><lb/>
+Doch andern gleich zu &#x017F;eyn, das kann dich nicht ver-<lb/>
+<hi rendition="#et">gnu&#x0364;gen.</hi><lb/>
+Der Ruhm i&#x017F;t dir zu &#x017F;chlecht, nur unter mir zu &#x017F;iegen.<lb/>
+Ein Sieg &#x017F;cheint dir kein Sieg, i&#x017F;t er nicht ga&#x0364;nzlich<lb/>
+<hi rendition="#et">dein.</hi><lb/>
+Du &#x017F;elb&#x017F;t will&#x017F;t Oberhaupt und andrer Fu&#x0364;hrer &#x017F;eyn.<lb/>
+So nimm denn, was du &#x017F;uch&#x017F;t. Ein junger Prinz der<lb/>
+<hi rendition="#et">Slaven,</hi><lb/>
+Der muntre Gott&#x017F;chalk, will des Vaters Mo&#x0364;rder<lb/>
+<hi rendition="#et">&#x017F;trafen,</hi><lb/>
+Den Harni&#x017F;ch, den er itzt zum er&#x017F;tenmale tra&#x0364;gt,<lb/>
+Hat er voll Rachbegier mit Drohen angelegt.<lb/>
+Um dem gerechten Zorn den Nachdruk zu ver&#x017F;chaffen:<lb/>
+So &#x017F;tu&#x0364;tz ich &#x017F;einen Muth durch meines Heeres Waffen.<lb/>
+Ein Hauffe, der &#x017F;chon la&#x0364;ng&#x017F;t bey meinen Fahnen<lb/>
+<hi rendition="#et">&#x017F;tand,</hi><lb/>
+Von Kriegern &#x017F;eines Volks, die &#x017F;ich zu mir gewandt,<lb/>
+J&#x017F;t ihm von mir ge&#x017F;chenkt, und will mit edlen Werken<lb/>
+Den hier erlangten Ruhm im Vaterland be&#x017F;ta&#x0364;rken.</p><lb/>
+<fw type="sig" place="bottom">C 5</fw><fw type="catch" place="bottom"><hi rendition="#fr">Ulfo.</hi></fw></sp><lb/>
+<pb n="42" facs="#f0056"/>
+<fw type="header" place="top"><hi rendition="#b">Canut,</hi></fw><lb/>
+<sp who="#ULF"><speaker><hi rendition="#fr">Ulfo.</hi></speaker><lb/>
+<p>Und dieß erle&#x017F;ne Heer ha&#x017F;t du &#x017F;chon fertig &#x017F;tehn?</p></sp><lb/>
+<sp who="#CAN"><speaker><hi rendition="#fr">Canut.</hi></speaker><lb/>
+<p>Es lieget vor der Stadt, und wu&#x0364;n&#x017F;cht zur See zu gehn.<lb/>
+Den Prinzen und dieß Heer geb ich dir zu regieren.<lb/>
+Zur Rache &#x017F;oll&#x017F;t du &#x017F;ie und auch zum Ruhme fu&#x0364;hren.<lb/>
+Der Sache ganzes Glu&#x0364;ck leg ich in deine Hand.<lb/>
+Des Prinzen jungen Muth beza&#x0364;hme dein Ver&#x017F;tand.<lb/>
+Dein Bey&#x017F;piel und dein Rath &#x017F;oll ihm zur Richt&#x017F;chnur<lb/>
+<hi rendition="#et">dienen,</hi><lb/>
+Und ohne deinen Wink &#x017F;oll niemand was erku&#x0364;hnen.<lb/>
+Hier, Ulfo, ha&#x017F;t du nun ein Feld fu&#x0364;r deinen Ruhm;<lb/>
+Der Lorbeer, den du brich&#x017F;t, i&#x017F;t ganz dein Eigenthum.<lb/>
+Hier laß nun deinen Muth und deine Klugheit blicken.<lb/>
+Hier kann, was dich erhebt, kein andrer unterdru&#x0364;cken.<lb/>
+Hier ha&#x017F;t du u&#x0364;ber dir kein neidi&#x017F;ch Oberhaupt,<lb/>
+Das &#x017F;tets dir einen Theil von deinen Thaten raubt.<lb/>
+Du &#x017F;elb&#x017F;t wir&#x017F;t nun die Frucht von andrer Schweiß<lb/>
+<hi rendition="#et">genie&#x017F;&#x017F;en,</hi><lb/>
+Nur dir zur Ehre wird dein Heer &#x017F;ein Blut vergie&#x017F;&#x017F;en,<lb/>
+Ja wenn man ein&#x017F;t den Ruhm des Prinzen &#x017F;challen<lb/>
+<hi rendition="#et">ho&#x0364;rt,</hi><lb/>
+Sagt noch die &#x017F;pa&#x0364;the Welt, er &#x017F;ey durch dich gelehrt,<lb/>
+Und mir bleibt von dem Werk, das ich dir anbefehle,<lb/>
+Kein Lob, als daß ich dich dabey zum Fu&#x0364;hrer wa&#x0364;hle.<lb/>
+Sprich ob dich die&#x017F;e Wahl zufrieden &#x017F;tellen wird.</p></sp><lb/>
+<sp who="#ULF"><speaker><hi rendition="#fr">Ulfo.</hi></speaker><lb/>
+<p>Jn die&#x017F;er Wahl, Canut, ha&#x017F;t du dich nicht geirrt.<lb/>
+Gieb mir nur die&#x017F;es Heer; auch ohne dein Ermahnen<lb/>
+Will ich mir &#x017F;chon damit den Weg zur Ehre bahnen,</p><lb/>
+<fw type="catch" place="bottom"><hi rendition="#fr">Canut.</hi></fw></sp><lb/>
+<pb n="43" facs="#f0057"/>
+<fw type="header" place="top"><hi rendition="#b">ein Trauer&#x017F;piel.</hi></fw><lb/>
+<sp who="#CAN"><speaker><hi rendition="#fr">Canut.</hi></speaker><lb/>
+<p>Es hat &#x017F;chon den Befehl. Doch hier ko&#x0364;mmt Godewin.<lb/>
+Nicht anders, als ver&#x017F;o&#x0364;hnt, laß ich dich von mir ziehn.<lb/>
+Der Kampf &#x017F;oll keinen Zorn in beyden hinterla&#x017F;&#x017F;en.<lb/>
+Die, &#x017F;o ich lieben &#x017F;oll, die du&#x0364;rfen &#x017F;ich nicht ha&#x017F;&#x017F;en.</p></sp></div><lb/>
+<div n="2"><head><hi rendition="#b">Vierter Auftritt.</hi></head><lb/>
+<p><hi rendition="#c"><hi rendition="#b">Canut, Ulfo, Godewin.</hi></hi></p><lb/>
+<sp who="#CAN"><speaker><hi rendition="#fr">Canut.</hi></speaker><lb/>
+<p><hi rendition="#in">T</hi>ritt na&#x0364;her, Godewin, hier nimm dein Schwerdt<lb/>
+<hi rendition="#et">zuru&#x0364;ck,</hi><lb/>
+Dieß fiel aus deiner Hand durch ein gerechtes Glu&#x0364;ck.<lb/>
+Es war dir ru&#x0364;hmlicher, dieß Schwerdt be&#x017F;iegt ver-<lb/>
+<hi rendition="#et">lieren,</hi><lb/>
+Als es zum Untergang des Nebenbu&#x0364;rgers fu&#x0364;hren.<lb/>
+Brauch ku&#x0364;nftig es allein fu&#x0364;r mich und fu&#x0364;r mein Reich,<lb/>
+Aus Pflicht und nicht aus Zorn. Umarmt euch, lie-<lb/>
+<hi rendition="#et">bet euch.</hi><lb/>
+Den Zwi&#x017F;t, der euch getrennt, &#x017F;ollt ihr nicht mehr er-<lb/>
+<hi rendition="#et">wa&#x0364;hnen,</hi><lb/>
+Er ko&#x017F;tet euren Ruhm und meiner Schwe&#x017F;ter Thra&#x0364;nen.<lb/>
+Der Ausfall die&#x017F;es Kampfs hat keinen ganz vergnu&#x0364;gt:<lb/>
+Er i&#x017F;t von dir verwundt, du bi&#x017F;t von ihm be&#x017F;iegt.<lb/>
+Griff er an deinen Ruhm: nun &#x017F;chenkt er dir das Leben,<lb/>
+So viel er dir er&#x017F;t nahm, hat er dir itzt gegeben.<lb/>
+Sieht dich dein Ko&#x0364;nig nur fu&#x0364;r treu und tapfer an,<lb/>
+Was ra&#x0364;che&#x017F;t du ein Wort, das dich nicht &#x017F;chimpfen<lb/>
+<hi rendition="#et">kann?</hi><lb/>
+Und du, bey dem das Glu&#x0364;ck das Recht er&#x017F;etzen mu&#x0364;&#x017F;&#x017F;en,<lb/>
+Denk, Ulfo, was du &#x017F;chon dem Godewin entri&#x017F;&#x017F;en.<lb/>
+<fw type="catch" place="bottom">Du</fw><lb/>
+<pb n="44" facs="#f0058"/>
+<fw type="header" place="top"><hi rendition="#b">Canut,</hi></fw><lb/>
+Du ha&#x017F;t durch eine Li&#x017F;t, die kein Ge&#x017F;etz erlaubt,<lb/>
+Ein Herz, das er be&#x017F;aß, mit Unrecht ihm geraubt,<lb/>
+Den Ruff, der Helden Lohn, den man vor alles &#x017F;etzet,<lb/>
+Den ha&#x017F;t du ohne Grund durch Schma&#x0364;bungen ver-<lb/>
+<hi rendition="#et">letzet;</hi><lb/>
+Und da er Rechen&#x017F;chaft von deinem Arm begehrt:<lb/>
+So hat des Kampfes Glu&#x0364;ck &#x017F;ich wieder ihn erkla&#x0364;rt.<lb/>
+Hier &#x017F;tecke dir ein Ziel, die Feind&#x017F;chaft zu verla&#x017F;&#x017F;en.<lb/>
+Wer nicht beleidigt i&#x017F;t, der hat kein Recht zu ha&#x017F;&#x017F;en.<lb/>
+Dem andern Unrecht thun, und noch &#x017F;ein Feind zu &#x017F;eyn,<lb/>
+J&#x017F;t nur dem Volk erlaubt, fu&#x0364;r Helden zu gemein.</p></sp><lb/>
+<sp who="#ULF"><speaker><hi rendition="#fr">Ulfo.</hi></speaker><lb/>
+<p>Der i&#x017F;t nicht mehr mein Feind, den ich &#x017F;chon u&#x0364;ber-<lb/>
+<hi rendition="#et">wunden.</hi><lb/>
+Daß ich ver&#x017F;o&#x0364;hnet &#x017F;ey, hat Godewin empfunden.</p></sp><lb/>
+<sp who="#GOD"><speaker><hi rendition="#fr">Godewin.</hi></speaker><lb/>
+<p>Jch weiß, ein Unglu&#x0364;cksfall entwandte mir mein<lb/>
+<hi rendition="#et">Schwerdt;</hi><lb/>
+Des deinen Spitze war auf meine Bru&#x017F;t gekehrt;<lb/>
+Es &#x017F;tund in deiner Macht das Leben mir zu nehmen;<lb/>
+Jch bin von dir be&#x017F;iegt, und darf es mich nicht &#x017F;cha&#x0364;men.<lb/>
+Be&#x017F;iegt &#x017F;eyn i&#x017F;t kein Schimpf, und &#x017F;tark &#x017F;eyn i&#x017F;t kein<lb/>
+<hi rendition="#et">Ruhm.</hi><lb/>
+Die Ehre bleibt allein des Herzens Eigenthum.<lb/>
+Nicht immer kann der Arm dem Muth an Sta&#x0364;rke<lb/>
+<hi rendition="#et">gleichen.</hi><lb/>
+J&#x017F;t die&#x017F;er unbewegt, &#x017F;o muß doch jener weichen.<lb/>
+Es wich mein Arm. Du weißt, war mir das Leben lieb?<lb/>
+Daß du es mir ge&#x017F;chenkt, war bloß dein eigner Trieb.<lb/>
+Kein Seufzer und kein Flehn hat es von dir erhalten.<lb/>
+Mein Herz erwartete geruhig zu erkalten.<lb/>
+<fw type="catch" place="bottom">Doch</fw><lb/>
+<pb n="45" facs="#f0059"/>
+<fw type="header" place="top"><hi rendition="#b">ein Trauer&#x017F;piel.</hi></fw><lb/>
+Doch da du es ver&#x017F;chont: &#x017F;o endet un&#x017F;er Zwi&#x017F;t.<lb/>
+Der Kampf be&#x017F;chlie&#x017F;&#x017F;et ihn, durch den du Sieger bi&#x017F;t.<lb/>
+Nach allem, was von dir zu meiner Schmach ge-<lb/>
+<hi rendition="#et">&#x017F;chehen,</hi><lb/>
+So &#x017F;oll&#x017F;t du, wer ich &#x017F;ey, aus der Ver&#x017F;o&#x0364;hnung &#x017F;ehen;<lb/>
+Und treff ich nur den Weg mich dir zu zeigen an,<lb/>
+Ge&#x017F;tehn, daß man be&#x017F;iegt noch edel bleiben kann.</p></sp><lb/>
+<sp who="#CAN"><speaker><hi rendition="#fr">Canut.</hi></speaker><lb/>
+<p>Kommt! laßt uns dieß zum Tro&#x017F;t auch nun E&#x017F;trithen<lb/>
+<hi rendition="#et">&#x017F;agen.</hi></p></sp><lb/>
+<sp who="#ULF"><speaker><hi rendition="#fr">Ulfo.</hi></speaker><lb/>
+<p>Jch eil er&#x017F;t zu dem Heer, das du mir angetragen.</p></sp></div><lb/>
+<div n="2"><head><hi rendition="#b">Fu&#x0364;nfter Auftritt.</hi></head><lb/>
+<sp who="#ULF"><speaker><hi rendition="#fr">Ulfo.</hi></speaker><lb/>
+<p><hi rendition="#in">O</hi> Ehre! wer nur dich einmal ge&#x017F;chmecket hat,<lb/>
+Wird &#x017F;tets von dir gereitzt und niemals von dir &#x017F;att.<lb/>
+Ein Sieg i&#x017F;t nicht genug, um Helden zu vergnu&#x0364;gen.<lb/>
+Sie &#x017F;ammlen Sieg zu Sieg und wa&#x0364;hlen in den Siegen.<lb/>
+Und wie? ich zo&#x0364;ge hin in ein barbari&#x017F;ch Land,<lb/>
+Um eines Fu&#x0364;r&#x017F;ten Mord, den kaum die Welt gekannt<choice><sic>&#x2E2E;</sic><corr>?</corr></choice><lb/>
+Canut, der &#x017F;ich dadurch vor mir ge&#x017F;ichert glaubet,<lb/>
+Meynt, daß man mir &#x017F;o leicht die Macht zu &#x017F;chaden<lb/>
+<hi rendition="#et">raubet.</hi><lb/>
+Wen man zu fu&#x0364;rchten hat, dem gebe man kein Heer.<lb/>
+Canut nur i&#x017F;t mein Feind: &#x017F;on&#x017F;t kein Sieg reitzt mich<lb/>
+<hi rendition="#et">mehr.</hi><lb/>
+Nun geh ich freudenvoll, die Wunden zu verbinden,<lb/>
+Jch will mit gro&#x0364;ßrem Ruhm bald wieder andre finden.</p></sp></div></div><lb/>
+<fw type="catch" place="bottom"><hi rendition="#b">Vierter</hi></fw><lb/>
+<pb n="46" facs="#f0060"/>
+<fw type="header" place="top"><hi rendition="#b">Canut,</hi></fw><lb/>
+<div n="1"><head><hi rendition="#b"><hi rendition="#g">Vierter Aufzug.</hi></hi></head><lb/>
+<div n="2"><head><hi rendition="#b">Er&#x017F;ter Auftritt.</hi></head><lb/>
+<p><hi rendition="#c"><hi rendition="#b">E&#x017F;trithe, Haqvin.</hi></hi></p><lb/>
+<sp who="#EST"><speaker><hi rendition="#fr">E&#x017F;trithe.</hi></speaker><lb/>
+<p><hi rendition="#in">W</hi>ie? da mir &#x017F;elb&#x017F;t Canut die frohe Both&#x017F;chaft<lb/>
+<hi rendition="#et">bringt,</hi><lb/>
+Daß endlich &#x017F;eine Huld des Ulfo Haß bezwingt;<lb/>
+Da mein Gemahl be&#x017F;cha&#x0364;mt die Ehr&#x017F;ucht, die ihn<lb/>
+<hi rendition="#et">qva&#x0364;let,</hi><lb/>
+Zu be&#x017F;&#x017F;erm Zwecke lenkt und fremde Feinde wa&#x0364;hlet;<lb/>
+Da er voll Ungeduld &#x017F;chon &#x017F;eine Vo&#x0364;lker za&#x0364;hlt,<lb/>
+Und ihm, vergnu&#x0364;gt zu &#x017F;eyn, nur noch &#x017F;ein Aufbruch<lb/>
+<hi rendition="#et">fehlt:</hi><lb/>
+So ko&#x0364;mm&#x017F;t du noch, Haqvin, den Grund von &#x017F;einem<lb/>
+<hi rendition="#et">Herzen</hi><lb/>
+Bey &#x017F;einem Ko&#x0364;nige durch Argwohn anzu&#x017F;chwa&#x0364;rzen,<lb/>
+Verklage&#x017F;t nun zu &#x017F;pa&#x0364;th die &#x017F;chon ge&#x017F;tillte Wut,<lb/>
+Entdeck&#x017F;t, er ru&#x0364;hme &#x017F;ich als Sieger des Canut,<lb/>
+Und muntre durch das Lob von &#x017F;einen eignen Thaten<lb/>
+Viel hundert Helden auf die Treue zu verrathen?<lb/>
+Um&#x017F;on&#x017F;t be&#x017F;chreibe&#x017F;t du den Trieb, von dem er brennt,<lb/>
+Wie er &#x017F;on&#x017F;t keinen Feind als &#x017F;einen Ko&#x0364;nig kennt,<lb/>
+Und wie beredt er noch vor kurzer Zeit ge&#x017F;chworen,<lb/>
+Jhn zu be&#x017F;a&#x0364;nftigen &#x017F;ey alle Huld verloren.<lb/>
+Du kenne&#x017F;t nicht, Haqvin, des Wohlthuns &#x017F;tarke<lb/>
+<hi rendition="#et">Kraft,</hi><lb/>
+Wie &#x017F;chnell es Aenderung in edlen Seelen &#x017F;chafft,<lb/>
+Und das be&#x017F;cha&#x0364;mte Herz, das dann den Feind verehret,<lb/>
+Wen es aus Stolz gehaßt aus Großmuth lieben lehret.</p><lb/>
+<fw type="catch" place="bottom"><hi rendition="#fr">Haqvin.</hi></fw></sp><lb/>
+<pb n="47" facs="#f0061"/>
+<fw type="header" place="top"><hi rendition="#b">ein Trauer&#x017F;piel.</hi></fw><lb/>
+<sp who="#HAQ"><speaker><hi rendition="#fr">Haqvin.</hi></speaker><lb/>
+<p>Prinzeßin, &#x017F;prich vielmehr du kenn&#x017F;t den Ehrgeitz nicht,<lb/>
+Wenn du dir &#x017F;chmeicheln kann&#x017F;t, daß ihn die Gu&#x0364;te<lb/>
+<hi rendition="#et">bricht.</hi><lb/>
+Mit Unmuth fu&#x0364;hlet er &#x017F;ich fremde Gun&#x017F;t vonno&#x0364;then.<lb/>
+Wer Dank von ihm verdient, der machet ihn erro&#x0364;then.<lb/>
+Er &#x017F;ieht des Feindes Huld, die er gezwungen prei&#x017F;t,<lb/>
+Nur fu&#x0364;r ein Denkmal an, das &#x017F;eine Schwa&#x0364;che wei&#x017F;t,<lb/>
+Und glaubt, daß er alsdann er&#x017F;t die&#x017F;em Schimpf ent-<lb/>
+<hi rendition="#et">gangen,</hi><lb/>
+Wenn er den unterdru&#x0364;ckt, von dem er ihn empfangen.</p></sp><lb/>
+<sp who="#EST"><speaker><hi rendition="#fr">E&#x017F;trithe.</hi></speaker><lb/>
+<p>Was i&#x017F;t das fu&#x0364;r ein Trieb, der dich zum Kla&#x0364;ger<lb/>
+<hi rendition="#et">macht?</hi><lb/>
+Wer bloß aus Eifer warnt, &#x017F;tu&#x0364;tzt &#x017F;ich nicht auf Ver-<lb/>
+<hi rendition="#et">dacht,</hi><lb/>
+Du will&#x017F;t vom ku&#x0364;nftigen aus dem vergangnen &#x017F;pre-<lb/>
+<hi rendition="#et">chen:</hi><lb/>
+Sprich, wenn du &#x017F;prechen will&#x017F;t, von itzigen Ver-<lb/>
+<hi rendition="#et">brechen.</hi><lb/>
+Nein! Ulfo i&#x017F;t nicht mehr der unbieg&#x017F;ame Feind,<lb/>
+Dem niemand ru&#x0364;hmlicher als ein Verra&#x0364;ther &#x017F;cheint.<lb/>
+Um&#x017F;on&#x017F;t hat er geglaubt, er werde nie erweichet.<lb/>
+Die Huld hat mehr in ihm, als er gewollt, erreichet.<lb/>
+Ein Strahl der Dankbarkeit, der unvermerkt erwacht,<lb/>
+Hat wider Willen ihn zu &#x017F;einer Pflicht gebracht.<lb/>
+Sein Ehrgeitz, der allein zum Ha&#x017F;&#x017F;en ihn entzu&#x0364;ndet,<lb/>
+Und was er hier ge&#x017F;ucht, nun bey den Slaven findet,<lb/>
+Braucht keiner Untreu mehr, und nimmt das Glu&#x0364;ck<lb/>
+<hi rendition="#et">erfreut,</hi><lb/>
+Das ohne La&#x017F;ter ihm nun reine Lorbeern beut.<lb/>
+<fw type="catch" place="bottom">Ver-</fw><lb/>
+<pb n="48" facs="#f0062"/>
+<fw type="header" place="top"><hi rendition="#b">Canut,</hi></fw><lb/>
+Ver&#x017F;chwu&#x0364;r er nicht auf &#x017F;tets &#x017F;ein unge&#x017F;tu&#x0364;mes Wu&#x0364;ten,<lb/>
+Warum vergnu&#x0364;gt ihn denn des Ko&#x0364;nigs Anerbiethen?<lb/>
+Warum na&#x0364;hm er voll Dank ein Heer von &#x017F;einer Hand,<lb/>
+Und zo&#x0364;g auf &#x017F;einen Wink in ein entlegnes Land<choice><sic>&#x2E2E;</sic><corr>?</corr></choice><lb/>
+Entfernt man &#x017F;ich von dem, dem man zu &#x017F;chaden<lb/>
+<hi rendition="#et">dichtet?</hi><lb/>
+Wen man verfolgen will, i&#x017F;t man dem gern verpflich-<lb/>
+<hi rendition="#et">tet?</hi><lb/>
+Sein Herz, das dem Canut nur zu gefallen denkt,<lb/>
+Hat ihm auch &#x017F;einen Zwi&#x017F;t mit Godewin ge&#x017F;chenkt.</p></sp><lb/>
+<sp who="#HAQ"><speaker><hi rendition="#fr">Haqvin.</hi></speaker><lb/>
+<p>Wie? die&#x017F;er &#x017F;tolze Gei&#x017F;t wird nun &#x017F;o leicht gefu&#x0364;hret?<lb/>
+Hat Ulfo nun ein Herz, das bloß ein Wink regieret?<lb/>
+Der unbieg&#x017F;ame Trutz, den nichts erweichen kann,<lb/>
+Soll nun verwandelt &#x017F;eyn, und nimmt Ermahnung an?<lb/>
+Die Zeichen &#x017F;chrecken mich, die dich &#x017F;o &#x017F;ehr erfreuen.<lb/>
+Ein Ehrgeitz, der &#x017F;ich zwingt, i&#x017F;t allezeit zu &#x017F;cheuen.<lb/>
+Daß er ge&#x017F;chmeidig weicht, ge&#x017F;chieht nie ohne Frucht,<lb/>
+Erla&#x0364;ßt &#x017F;ich nur herab, wenn er zu &#x017F;teigen &#x017F;ucht.<lb/>
+Jch geh, um iedem Schritt aufmerk&#x017F;am nachzu-<lb/>
+<hi rendition="#et">&#x017F;tellen,</hi><lb/>
+Er &#x017F;oll, wen er bedroht, nicht ungewarnet fa&#x0364;llen.<lb/>
+Hier ko&#x0364;mmt er? Pru&#x0364;fe &#x017F;elb&#x017F;t inde&#x017F;&#x017F;en &#x017F;eine Treu,<lb/>
+Und &#x017F;ieh aus welchem Trieb ich &#x017F;ein Verkla&#x0364;ger &#x017F;ey.</p></sp></div><lb/>
+<div n="2"><head><hi rendition="#b">Zweyter Auftritt.</hi></head><lb/>
+<p><hi rendition="#c"><hi rendition="#b">Ulfo, E&#x017F;trithe.</hi></hi></p><lb/>
+<sp who="#ULF"><speaker><hi rendition="#fr">Ulfo.</hi></speaker><lb/>
+<p><hi rendition="#in">N</hi>un &#x017F;oll&#x017F;t du ferner nicht dich u&#x0364;ber mich beklagen,<lb/>
+E&#x017F;trithe, ho&#x0364;r nun auf, dein eignes Herz zu plagen.<lb/>
+<fw type="catch" place="bottom">Die</fw><lb/>
+<pb n="49" facs="#f0063"/>
+<fw type="header" place="top"><hi rendition="#b">ein Trauer&#x017F;piel.</hi></fw><lb/>
+Die Ur&#x017F;ach i&#x017F;t getilgt, die du &#x017F;o &#x017F;ehr beweint,<lb/>
+Canut kann &#x017F;icher &#x017F;eyn, ich bin nicht mehr &#x017F;ein Feind.</p></sp><lb/>
+<sp who="#EST"><speaker><hi rendition="#fr">E&#x017F;trithe.</hi></speaker><lb/>
+<p>Wie? &#x017F;o kann ich einmal mit Freuden dich erblicken?<lb/>
+Darf meine Za&#x0364;rtlichkeit kein Seufzer mehr er&#x017F;ticken?<lb/>
+Mein Herz, das dir &#x017F;o oft der Liebe Proben giebt,<lb/>
+Soll nun auch einmal &#x017F;ehn, daß Ulfo wiederliebt?<lb/>
+Sprich, welcher Zufall hat mir die&#x017F;es Glu&#x0364;ck be&#x017F;cheret,<lb/>
+Und meinen Thra&#x0364;nen noch dieß Wunderwerk ge-<lb/>
+<hi rendition="#et">wa&#x0364;hret?</hi><lb/>
+Was bringt, da ich be&#x017F;tu&#x0364;rzt die Hofnung &#x017F;elb&#x017F;t verlor,<lb/>
+Jn deinem Herzen noch den edlen Trieb hervor?<lb/>
+Doch &#x017F;age, darf ich auch mich auf dein Wort ver-<lb/>
+<hi rendition="#et">la&#x017F;&#x017F;en?</hi><lb/>
+J&#x017F;t nun dein Ruhm vergnu&#x0364;gt? ho&#x0364;r&#x017F;t du nun auf zu<lb/>
+<hi rendition="#et">ha&#x017F;&#x017F;en?</hi><lb/>
+J&#x017F;ts wahr, daß du ver&#x017F;o&#x0364;hnt in ferne Kriege zieh&#x017F;t?</p></sp><lb/>
+<sp who="#ULF"><speaker><hi rendition="#fr">Ulfo.</hi></speaker><lb/>
+<p>Wie zweifel&#x017F;t du an dem, was du vor Augen &#x017F;ieh&#x017F;t?</p></sp><lb/>
+<sp who="#EST"><speaker><hi rendition="#fr">E&#x017F;trithe.</hi></speaker><lb/>
+<p>Verzeyh, daß die&#x017F;es Herz, das du in Furcht ge&#x017F;etzet,<lb/>
+Zu glauben nicht gewagt, was mich &#x017F;o &#x017F;ehr ergo&#x0364;tzet.<lb/>
+Der Ausgang, der &#x017F;o oft mein Hoffen widerlegt,<lb/>
+Hat meiner bangen Bru&#x017F;t dieß Mistraun eingepra&#x0364;gt.<lb/>
+O mo&#x0364;chten doch einmal &#x017F;o vieler gute Zeichen,<lb/>
+Geliebte&#x017F;ter, dein Herz, nach dem man &#x017F;trebt, er-<lb/>
+<hi rendition="#et">reichen!</hi><lb/>
+Mo&#x0364;cht ich dich den Canut nach abge&#x017F;chworner Li&#x017F;t<lb/>
+So ern&#x017F;tlich lieben &#x017F;ehn, als er dir gu&#x0364;n&#x017F;tig i&#x017F;t.<lb/>
+<fw type="sig" place="bottom">D</fw><fw type="catch" place="bottom">Mo&#x0364;cht</fw><lb/>
+<pb n="50" facs="#f0064"/>
+<fw type="header" place="top"><hi rendition="#b">Canut,</hi></fw><lb/>
+Mo&#x0364;cht ich doch im Gemahl nicht mehr zu meinem<lb/>
+<hi rendition="#et">Schrecken,</hi><lb/>
+Nach la&#x0364;ng&#x017F;t ver&#x017F;prochner Ruh, &#x017F;tets neuen Haß ent-<lb/>
+<hi rendition="#et">decken!</hi><lb/>
+Ach! &#x017F;ind denn nun einmal die frohen Tage da,<lb/>
+Die ich &#x017F;o oft gewu&#x0364;n&#x017F;cht, und nie er&#x017F;cheinen &#x017F;ah?</p></sp><lb/>
+<sp who="#ULF"><speaker><hi rendition="#fr">Ulfo.</hi></speaker><lb/>
+<p>Doch da mich Ruhm und Pflicht von deiner Seite<lb/>
+<hi rendition="#et">trennen,</hi><lb/>
+Sprich, wir&#x017F;t du mich auch noch abwe&#x017F;end lieben<lb/>
+<hi rendition="#et">ko&#x0364;nnen?</hi></p></sp><lb/>
+<sp who="#EST"><speaker><hi rendition="#fr">E&#x017F;trithe.</hi></speaker><lb/>
+<p>Wie? du entfernte&#x017F;t dich? und ich verweilte hier?<lb/>
+Da du mich er&#x017F;t vergnu&#x0364;g&#x017F;t, verbann&#x017F;t du mich von dir?<lb/>
+Nein! Pflicht und Ruhm, die dich hier nicht verweilen<lb/>
+<hi rendition="#et">hei&#x017F;&#x017F;en,</hi><lb/>
+Erdenken kein Ge&#x017F;etz, um mich von dir zu rei&#x017F;&#x017F;en.<lb/>
+Jch bin dir nachgefolgt, da Mangel und Gefahr<lb/>
+Noch die ertra&#x0364;glich&#x017F;te von meinen Sorgen war;<lb/>
+Da, wenn mich das Ge&#x017F;chick mit dir in Noth ver-<lb/>
+<hi rendition="#et">&#x017F;enkte,</hi><lb/>
+Des Unglu&#x0364;cks Qvelle mich mehr als das Unglu&#x0364;ck<lb/>
+<hi rendition="#et">kra&#x0364;nkte.</hi><lb/>
+Jtzt fu&#x0364;hre mich mit dir, daß ich mit gleicher Treu<lb/>
+Gefa&#x0364;hrtin der Gefahr, des Ruhmes Zeugin &#x017F;ey,<lb/>
+Um als Zu&#x017F;chauerin an den gerechten Siegen,<lb/>
+Die du erka&#x0364;mpfen &#x017F;oll&#x017F;t, mich mit dir zu vergnu&#x0364;gen.<lb/>
+Wie werd ich mich erfreun, wenn du, von Muth erhitzt,<lb/>
+Den Arm, &#x017F;o wu&#x0364;rdig brauch&#x017F;t, der &#x017F;o viel Krafft be-<lb/>
+<hi rendition="#et">&#x017F;itzt,</hi><lb/>
+<fw type="catch" place="bottom">Und</fw><lb/>
+<pb n="51" facs="#f0065"/>
+<fw type="header" place="top"><hi rendition="#b">ein Trauer&#x017F;piel.</hi></fw><lb/>
+Und, ohne deinen Ruhm durch Untreu zu beflecken,<lb/>
+Der Feinde Schrecken wir&#x017F;t doch ein gerechtes<lb/>
+<hi rendition="#et">Schrecken!</hi><lb/>
+Wie werd ich mich erfreun, wenn meiner Liebe Pflicht<lb/>
+Der &#x017F;treng&#x017F;ten Schwe&#x017F;tertreu nicht weiter wider-<lb/>
+<hi rendition="#et">&#x017F;pricht,</hi><lb/>
+Wenn mich nichts kra&#x0364;nkt, nichts zwingt, und ich in<lb/>
+<hi rendition="#et">deinem Suchen</hi><lb/>
+Dir Fortgang wu&#x0364;n&#x017F;chen darf, ohn dem Canut zu<lb/>
+<hi rendition="#et">fluchen,</hi><lb/>
+Und wenn ich ihm entzu&#x0364;ckt die Bu&#x0364;rg&#x017F;chaft lei&#x017F;ten kann,<lb/>
+Es &#x017F;ey &#x017F;ein gro&#x0364;ßter Held &#x017F;ein treu&#x017F;ter Unterthan!</p></sp><lb/>
+<sp who="#ULF"><speaker><hi rendition="#fr">Ulfo.</hi></speaker><lb/>
+<p>Nur daß auch die&#x017F;es Heer, als de&#x017F;&#x017F;en Haupt ich ziehe,<lb/>
+Sich mit mir um den Ruhm, auf den du hoff&#x017F;t, be-<lb/>
+<hi rendition="#et">mu&#x0364;he:</hi><lb/>
+So bitte den Canut, daß er ins Lager geh,<lb/>
+Und dieß erle&#x017F;ne Volk beym Aufbruch noch be&#x017F;eh;<lb/>
+Die Hauffen, die indeß um die gepflanzten Fahnen<lb/>
+Schon dicht ver&#x017F;ammlet &#x017F;tehn, zum Eifer zu ermahnen.</p></sp><lb/>
+<sp who="#EST"><speaker><hi rendition="#fr">E&#x017F;trithe.</hi></speaker><lb/>
+<p>Ein &#x017F;o gerechter Wun&#x017F;ch braucht meinen Vor&#x017F;pruch<lb/>
+<hi rendition="#et">nicht.</hi><lb/>
+Er wird erho&#x0364;ret &#x017F;eyn, &#x017F;o bald dein Mund nur &#x017F;pricht.<lb/>
+Doch weil du es begehr&#x017F;t, erfu&#x0364;ll ich dein Begehren.<lb/>
+Jch &#x017F;uche nichts &#x017F;o &#x017F;ehr, als deinen Ruhm zu mehren,<lb/>
+Wenn nur nicht die&#x017F;er Ruhm den Pflichten wider-<lb/>
+<hi rendition="#et">&#x017F;trebt,</hi><lb/>
+Und andrer Unglu&#x0364;ck wird, indem er dich erhebt.</p></sp></div><lb/>
+<fw type="sig" place="bottom">D 2</fw><fw type="catch" place="bottom"><hi rendition="#b">Drit-</hi></fw><lb/>
+<pb n="52" facs="#f0066"/>
+<fw type="header" place="top"><hi rendition="#b">Canut,</hi></fw><lb/>
+<div n="2"><head><hi rendition="#b">Dritter Auftritt.</hi></head><lb/>
+<p><hi rendition="#c"><hi rendition="#b">Ulfo, God&#x017F;chalk.</hi></hi></p><lb/>
+<sp who="#ULF"><speaker><hi rendition="#fr">Ulfo.</hi></speaker><lb/>
+<p><hi rendition="#in">S</hi>prich, God&#x017F;chalk, &#x017F;ind nunmehr die Schaaren, die<lb/>
+<hi rendition="#et">uns dienen,</hi><lb/>
+Auf meinen Wink bereit, &#x017F;ich alles zu erku&#x0364;hnen?<lb/>
+Ha&#x017F;t du in ihrer Bru&#x017F;t ein Feuer angefacht,<lb/>
+Das die Gefahren trutzt und &#x017F;elb&#x017F;t den Tod verlacht?<lb/>
+Ha&#x017F;t du &#x017F;ie angefu&#x0364;hrt, als ob &#x017F;ie &#x017F;chon den Heeren,<lb/>
+Die deine Rachbegier bedroht, vor Augen wa&#x0364;ren?<lb/>
+J&#x017F;t ihnen eingepra&#x0364;gt, daß &#x017F;ich ihr tapfrer Gei&#x017F;t<lb/>
+Zum Denken zu um&#x017F;chra&#x0364;nkt bloß durch Gehorchen<lb/>
+<hi rendition="#et">wei&#x017F;t,</hi><lb/>
+Und daß ihr Fu&#x0364;hrer bloß den Schluß zu fa&#x017F;&#x017F;en wi&#x017F;&#x017F;e,<lb/>
+Wen man bekriegen &#x017F;oll, wen man ver&#x017F;chonen mu&#x0364;&#x017F;&#x017F;e?</p></sp><lb/>
+<sp who="#GOT"><speaker><hi rendition="#fr">God&#x017F;chalk.</hi></speaker><lb/>
+<p>Dieß alles und noch mehr hab ich dem Heer ge&#x017F;agt.<lb/>
+Jhr Murmeln hat darauf mein Mistraun angeklagt,<lb/>
+Daß man, da uns vom Feind noch weite Fluthen<lb/>
+<hi rendition="#et">trennen,</hi><lb/>
+Schon itzt von Pflichten &#x017F;pricht, die &#x017F;ie &#x017F;o lange kennen.</p></sp><lb/>
+<sp who="#ULF"><speaker><hi rendition="#fr">Ulfo.</hi></speaker><lb/>
+<p>Sie &#x017F;ollen ihren Feind, eh &#x017F;te vermuthet, &#x017F;ehn.</p></sp><lb/>
+<sp who="#GOT"><speaker><hi rendition="#fr">God&#x017F;chalk.</hi></speaker><lb/>
+<p>Um ihn zu &#x017F;ehn, laß uns nur bald zu Schiffe gehn.<lb/>
+Was hilft es, daß wir uns entfernet &#x017F;chon bereiten?<lb/>
+Die Zeit, die hier vergeht, verlieren wir zum Streiten.<lb/>
+<fw type="catch" place="bottom">Was</fw><lb/>
+<pb n="53" facs="#f0067"/>
+<fw type="header" place="top"><hi rendition="#b">ein Trauer&#x017F;piel.</hi></fw><lb/>
+Was hilft es, daß man hier Muth und Gehor&#x017F;am<lb/>
+<hi rendition="#et">prei&#x017F;t,</hi><lb/>
+Eh &#x017F;ich Gelegenheit &#x017F;ie auszuu&#x0364;ben wei&#x017F;t?<lb/>
+Wenn wir das Land erreicht, nach welchem wir uns<lb/>
+<hi rendition="#et">&#x017F;a&#x0364;hnen,</hi><lb/>
+Dann i&#x017F;t es Zeit genug, dieß alles zu erwa&#x0364;hnen.</p></sp><lb/>
+<sp who="#ULF"><speaker><hi rendition="#fr">Ulfo.</hi></speaker><lb/>
+<p>Dieß &#x017F;ag&#x017F;t du, weil dein Gei&#x017F;t, der ohn Erfahrung<lb/>
+<hi rendition="#et">denkt,</hi><lb/>
+Den Weg noch nicht erkannt, der dich zum Zwecke<lb/>
+<hi rendition="#et">lenkt.</hi></p></sp><lb/>
+<sp who="#GOT"><speaker><hi rendition="#fr">God&#x017F;chalk.</hi></speaker><lb/>
+<p>J&#x017F;t denn nicht die&#x017F;er Zweck, des Vaters Mord zu<lb/>
+<hi rendition="#et">&#x017F;trafen?</hi></p></sp><lb/>
+<sp who="#ULF"><speaker><hi rendition="#fr">Ulfo.</hi></speaker><lb/>
+<p>J&#x017F;t die&#x017F;er Zweck denn nicht die Wohlfarth deiner<lb/>
+<hi rendition="#et">Glaven?</hi></p></sp><lb/>
+<sp who="#GOT"><speaker><hi rendition="#fr">God&#x017F;chalk.</hi></speaker><lb/>
+<p>Er i&#x017F;t es. Doch dabey vergiß die Rache nicht.</p></sp><lb/>
+<sp who="#ULF"><speaker><hi rendition="#fr">Ulfo.</hi></speaker><lb/>
+<p>Lern einen Weg von mir, der beydes dir ver&#x017F;pricht.<lb/>
+Doch, ha&#x017F;t du auch ein Herz, das wahre Gro&#x0364;&#x017F;&#x017F;e &#x017F;cha&#x0364;tzet?<lb/>
+Das kein gewohnter Glanz, kein niedrig Lob ergo&#x0364;tzet?<lb/>
+Das keine &#x017F;teile Ho&#x0364;h, kein tiefer Abgrund &#x017F;chreckt,<lb/>
+An deren Aeu&#x017F;&#x017F;er&#x017F;tem fu&#x0364;r dich ein Lorbeer &#x017F;teckt?<lb/>
+Das fu&#x0364;r gleich &#x017F;chimpflich ha&#x0364;lt, &#x017F;ich alles Ruhms be-<lb/>
+<hi rendition="#et">geben,</hi><lb/>
+Als in der dunkeln Schaar gemeiner Helden leben<choice><sic>&#x2E2E;</sic><corr>?</corr></choice></p><lb/>
+<fw type="sig" place="bottom">D 3</fw><fw type="catch" place="bottom"><hi rendition="#fr">God-</hi></fw></sp><lb/>
+<pb n="54" facs="#f0068"/>
+<fw type="header" place="top"><hi rendition="#b">Canut,</hi></fw><lb/>
+<sp who="#GOT"><speaker><hi rendition="#fr">Gott&#x017F;chalk.</hi></speaker><lb/>
+<p>Du frage&#x017F;t, ob mein Herz nach Ruhme &#x017F;treben kann?<lb/>
+Die Frage hat man mir nie unge&#x017F;traft gethan?</p></sp><lb/>
+<sp who="#ULF"><speaker><hi rendition="#fr">Ulfo.</hi></speaker><lb/>
+<p>Und gleich wohl fu&#x0364;hre&#x017F;t du von hier zu deiner Schande<lb/>
+Das Joch der Dien&#x017F;tbarkeit nach deinem Vaterlande.<lb/>
+Zeig nur mit die&#x017F;em Volk die Wege durch das Meer,<lb/>
+Dem Heere folget bald vielleicht ein andres Heer.<lb/>
+Zuletzt wird man dahin mit Schaaren u&#x0364;ber Schaa-<lb/>
+<hi rendition="#et">ren,</hi><lb/>
+Dir anfangs beyzu&#x017F;tehn, dann dich zu &#x017F;tu&#x0364;rzen, fahren,<lb/>
+Dein Volk wird nicht zu er&#x017F;t &#x017F;o li&#x017F;tig unterdru&#x0364;ckt,<lb/>
+Und an der Hu&#x0364;lfe &#x017F;tatt ihm Fe&#x017F;&#x017F;el zuge&#x017F;chickt.<lb/>
+Sieh alle Reich umher, die &#x017F;chon in Ketten liegen!<lb/>
+Nun trifft dein kleines Land die Reyh, es zu be&#x017F;iegen.<lb/>
+Und dennoch nimm&#x017F;t du den zu deinem Helfer an,<lb/>
+Der dich als Nachbarhaßt, als ma&#x0364;chtig &#x017F;chaden kann.<lb/>
+Jtzt eile die&#x017F;em Schlag durch Klugheit vorzukommen,<lb/>
+Bald i&#x017F;t dir auch die Macht dir vorzu&#x017F;ehn benommen.<lb/>
+Jtzt i&#x017F;t der Augenblick. Ein Schluß, ein Wort, ein<lb/>
+<hi rendition="#et">Streich</hi><lb/>
+Erobert deinem Volk der Da&#x0364;nen ganzes Reich.<lb/>
+Denn ha&#x017F;t du Zeit genug, des Vaters Tod zu ra&#x0364;chen,<lb/>
+Dann, God&#x017F;chalk, laß uns er&#x017F;t von un&#x017F;erm Aufbruch<lb/>
+<hi rendition="#et">&#x017F;prechen.</hi></p></sp><lb/>
+<sp who="#GOT"><speaker><hi rendition="#fr">God&#x017F;chalk.</hi></speaker><lb/>
+<p>Was &#x017F;ag&#x017F;t du?</p></sp><lb/>
+<sp who="#ULF"><speaker><hi rendition="#fr">Ulfo.</hi></speaker><lb/>
+<p><hi rendition="#et">Du er&#x017F;taun&#x017F;t und beb&#x017F;t bey meinem Rath.</hi><lb/>
+Den &#x017F;chwachen Gei&#x017F;t beta&#x0364;ubt die Gro&#x0364;&#x017F;&#x017F;e die&#x017F;er That.<lb/>
+<fw type="catch" place="bottom">Getro&#x017F;t!</fw><lb/>
+<pb n="55" facs="#f0069"/>
+<fw type="header" place="top"><hi rendition="#b">ein Trauer&#x017F;piel.</hi></fw><lb/>
+Getro&#x017F;t! laß dich von mir bey iedem Schritt re-<lb/>
+<hi rendition="#et">gieren.</hi><lb/>
+Jch will dich bey der Hand bis zu dem Throne fu&#x0364;hren.<lb/>
+Halbtra&#x0364;umend, eh du &#x017F;elb&#x017F;t begreiff&#x017F;t, wie dir ge&#x017F;chehn,<lb/>
+Soll&#x017F;t du dies Reich be&#x017F;iegt und dich gekro&#x0364;net &#x017F;ehn.<lb/>
+Jch &#x017F;uche nichts fu&#x0364;r mich, und find ein wahr Ergo&#x0364;tzen,<lb/>
+Nicht Ko&#x0364;nig &#x017F;elb&#x017F;t zu &#x017F;eyn, nur Ko&#x0364;nige zu &#x017F;etzen.<lb/>
+Reitzt dich die Macht, der Ruhm, die Krone des<lb/>
+<hi rendition="#et">Canut,</hi><lb/>
+Zu werden, was er i&#x017F;t, brauch&#x017F;t du nichts mehr als<lb/>
+<hi rendition="#et">Muth.</hi><lb/>
+Die Bahn i&#x017F;t kurz und leicht dieß alles zu erlangen.<lb/>
+Er wird ins Lager gehn; behalt ihn da gefangen.<lb/>
+Es hat dein Heer und dich ein Vaterland erzeugt.<lb/>
+Wen liebte &#x017F;on&#x017F;t dieß Heer, wa&#x0364;r es nicht dir geneigt<choice><sic>&#x2E2E;</sic><corr>?</corr></choice><lb/>
+Es wird, lehr&#x017F;t du es nur &#x017F;ein wahres Wohl erme&#x017F;&#x017F;en,<lb/>
+Wem es bisher gedient, im Augenblick verge&#x017F;&#x017F;en.<lb/>
+Mit Recht erbeutet es nun an des Lohnes &#x017F;tatt<lb/>
+Dieß Reich, fu&#x0364;r das es oft &#x017F;ein Blut gewaget hat.</p></sp><lb/>
+<sp who="#GOT"><speaker><hi rendition="#fr">God&#x017F;chalk.</hi></speaker><lb/>
+<p>Was ho&#x0364;r ich? J&#x017F;t nun dieß der Weg mich zu erheben<choice><sic>&#x2E2E;</sic><corr>?</corr></choice><lb/>
+Geh! du kann&#x017F;t die&#x017F;en Rath nur tra&#x0364;gern Seelen<lb/>
+<hi rendition="#et">geben.</hi></p></sp><lb/>
+<sp who="#ULF"><speaker><hi rendition="#fr">Ulfo.</hi></speaker><lb/>
+<p>Wie? &#x017F;cheint dir der Ent&#x017F;chluß, den &#x017F;olch ein Werk<lb/>
+<hi rendition="#et">begehrt,</hi><lb/>
+Die Klugheit, die Gefahr nicht edler Seelen werth<choice><sic>&#x2E2E;</sic><corr>?</corr></choice><lb/>
+J&#x017F;t dir es denn &#x017F;o klein, ein ganzes Reich erbeuten,<lb/>
+Mit einer Hand voll Volks &#x017F;o manches Heer be&#x017F;treiten?<lb/>
+Sich u&#x0364;berall umringt auf fremdem Boden &#x017F;ehn?<lb/>
+Der u&#x0364;berlegnen Zahl doch &#x017F;elb&#x017F;t entgegen gehn,<lb/>
+<fw type="sig" place="bottom">D 4</fw><fw type="catch" place="bottom">Und</fw><lb/>
+<pb n="56" facs="#f0070"/>
+<fw type="header" place="top"><hi rendition="#b">Canut,</hi></fw><lb/>
+Und ohne Bey&#x017F;tand &#x017F;on&#x017F;t vom Schrecken bloß ge-<lb/>
+<hi rendition="#et">&#x017F;tu&#x0364;tzet,</hi><lb/>
+Sich einem Throne nahn, den &#x017F;o ein Held be&#x017F;itzet?<lb/>
+Die Helden des Canut, die mancher Streit geu&#x0364;bt,<lb/>
+Die ihm bisher gedient, noch mehr die ihn geliebt,<lb/>
+Meyn&#x017F;t du die werden itzt ver&#x017F;aumen ihn zu retten,<lb/>
+Als ob &#x017F;ie nur zum Schein Gewehr und Arme<lb/>
+<hi rendition="#et">ha&#x0364;tten?</hi><lb/>
+J&#x017F;t nun noch die Gefahr fu&#x0364;r deinen Muth zu klein?<lb/>
+Soll die&#x017F;es noch ein Rath fu&#x0364;r tra&#x0364;ge Seelen &#x017F;eyn?<lb/>
+Ein gro&#x017F;&#x017F;es u&#x0364;bergiebt die Li&#x017F;t zwar un&#x017F;ern Ha&#x0364;nden:<lb/>
+Doch was die Li&#x017F;t beginnt, das muß der Muth vollen-<lb/>
+<hi rendition="#et">den.</hi><lb/>
+Pru&#x0364;f, ob du &#x017F;tark genug um dieß zu wagen bi&#x017F;t.<lb/>
+Hier kann man furcht&#x017F;am &#x017F;eyn, auch wenn man tapfer<lb/>
+<hi rendition="#et">i&#x017F;t.</hi><lb/>
+Doch laß die Sorge mir, mich &#x017F;oll kein Fleiß ver-<lb/>
+<hi rendition="#et">drie&#x017F;&#x017F;en.</hi><lb/>
+Die Mu&#x0364;h nehm ich auf mich: die Frucht &#x017F;oll&#x017F;t du ge-<lb/>
+<hi rendition="#et">nie&#x017F;&#x017F;en.</hi><lb/>
+Hier, God&#x017F;chalk, &#x017F;tellet &#x017F;ich &#x017F;chon dein Gefangner ein.<lb/>
+Dieß An&#x017F;ehn, die&#x017F;e Macht, dieß Reich &#x017F;ind nun bald<lb/>
+<hi rendition="#et">dein.</hi><lb/>
+Jtzt laß den edlen Muth durch keinen Zweifel beugen,<lb/>
+Ent&#x017F;chließ dich, und wo nicht, ent&#x017F;chließ dich nur zu<lb/>
+<hi rendition="#et">&#x017F;chweigen.</hi></p></sp></div><lb/>
+<fw type="catch" place="bottom"><hi rendition="#b">Vierter</hi></fw><lb/>
+<pb n="57" facs="#f0071"/>
+<fw type="header" place="top"><hi rendition="#b">ein Trauer&#x017F;piel.</hi></fw><lb/>
+<div n="2"><head><hi rendition="#b">Vierter Auftritt.</hi></head><lb/>
+<p><hi rendition="#c"><hi rendition="#b">Canut, Godewin, Haqvin, Ulfo,<lb/>
+God&#x017F;chalk.</hi></hi></p><lb/>
+<sp who="#ULF"><speaker><hi rendition="#fr">Ulfo.</hi></speaker><lb/>
+<p><hi rendition="#in">H</hi>err, heute brech ich auf. Was nu&#x0364;tzen wir noch hier?<lb/>
+Den Prinz, das Heer, und mich treibt gleiche Ruhm-<lb/>
+<hi rendition="#et">begier.</hi><lb/>
+Jch wu&#x0364;n&#x017F;che kund zu thun, wie leicht ich mich begnu&#x0364;ge,<lb/>
+Der Prinz wu&#x0364;n&#x017F;cht Rach und Blut, das Heer wu&#x0364;n&#x017F;cht<lb/>
+<hi rendition="#et">Streit und Siege.</hi><lb/>
+Doch noch ein Blick von dir begnadige dieß Heer.<lb/>
+Es denkt zu viel an dich, es liebet dich zu &#x017F;ehr,<lb/>
+Daß es &#x017F;o unvermerkt dieß Reich verla&#x017F;&#x017F;en wollte,<lb/>
+Und &#x017F;einen Eifer dir nicht er&#x017F;t noch zeigen &#x017F;ollte.<lb/>
+Die Maje&#x017F;ta&#x0364;t, der Wink, die Rede des Canut<lb/>
+Verneu in ihrer Bru&#x017F;t die oft gezeigte Glut,<lb/>
+Mit der &#x017F;ie neben dir nur &#x017F;pielend u&#x0364;berwanden,<lb/>
+Den Tod verachteten und Wunden nicht empfanden,<lb/>
+Sag ihnen, daß dein Ruhm mit mir und ihnen zieht,<lb/>
+Und daß dein Auge &#x017F;ie noch in der Ferne &#x017F;ieht.</p></sp><lb/>
+<sp who="#CAN"><speaker><hi rendition="#fr">Canut.</hi></speaker><lb/>
+<p>Es ruht allein auf dir, &#x017F;o bald du will&#x017F;t, zu rei&#x017F;en,<lb/>
+Denn Vo&#x0364;lker, die du fu&#x0364;hr&#x017F;t, darf ich nicht unterwei&#x017F;en.<lb/>
+Dir hab ich &#x017F;ie vertraut. Die Sorg i&#x017F;t ga&#x0364;nzlich dein,<lb/>
+Die Glut, von der du &#x017F;prich&#x017F;t, in ihnen zu verneun.<lb/>
+Du wu&#x0364;rde&#x017F;t, wollt ich &#x017F;ie &#x017F;tatt deiner &#x017F;iegen lehren,<lb/>
+Als raubt ich deinen Ruhm, dich u&#x0364;ber mich be&#x017F;chwe-<lb/>
+<hi rendition="#et">ren.</hi></p><lb/>
+<fw type="sig" place="bottom">D 5</fw><fw type="catch" place="bottom"><hi rendition="#fr">Ulfo.</hi></fw></sp><lb/>
+<pb n="58" facs="#f0072"/>
+<fw type="header" place="top"><hi rendition="#b">Canut,</hi></fw><lb/>
+<sp who="#ULF"><speaker><hi rendition="#fr">Ulfo.</hi></speaker><lb/>
+<p>Doch kennt mich auch dieß Heer, das mir gehorchen<lb/>
+<hi rendition="#et">&#x017F;oll?</hi><lb/>
+Wer macht es von Vertraun, von Furcht und Liebe<lb/>
+<hi rendition="#et">voll,</hi><lb/>
+Wenn du nicht dieß Vertraun er&#x017F;t durch mein Lob er-<lb/>
+<hi rendition="#et">wecke&#x017F;t,</hi><lb/>
+Und ihm, wie du mich ehr&#x017F;t und wer ich &#x017F;ey, entdecke&#x017F;t?<lb/>
+Lehr es durch deinen Mund, wem es zu folgen hat;<lb/>
+Mir &#x017F;ey dein Schwerdt vertraut, ich &#x017F;teh an deiner<lb/>
+<hi rendition="#et">&#x017F;tatt;</hi><lb/>
+Jch habe &#x017F;chon gezeigt, daß ich zu kriegen wi&#x017F;&#x017F;e;<lb/>
+Jch kenne keine Furcht und keine Hinderni&#x017F;&#x017F;e;<lb/>
+Darum befa&#x0364;hle&#x017F;t du ihm den Gehor&#x017F;am an,<lb/>
+Ohn den kein gro&#x017F;&#x017F;es Werk zum Zweck gelangen kann.<lb/>
+Kennt mich &#x017F;odann das Heer, und weiß es &#x017F;eine<lb/>
+<hi rendition="#et">Pflichten,</hi><lb/>
+So kann ich &#x017F;ie zum Ruhm mit Nachdruck unter-<lb/>
+<hi rendition="#et">richten.</hi></p></sp><lb/>
+<sp who="#CAN"><speaker><hi rendition="#fr">Canut.</hi></speaker><lb/>
+<p>So komm denn, wird mein Lob von dir &#x017F;o hochge&#x017F;cha&#x0364;tzt,<lb/>
+Und fu&#x0364;hre mich zum Heer, dem ich dich vorge&#x017F;etzt,<lb/>
+Jch brauch ihm, wer du &#x017F;ey&#x017F;t, nicht er&#x017F;tlich zu erza&#x0364;hlen,<lb/>
+Und will &#x017F;tatt aller Pflicht dein Bey&#x017F;piel ihm empfehlen.</p></sp><lb/>
+<sp who="#GOT"><speaker><hi rendition="#fr">God&#x017F;chalk.</hi></speaker><lb/>
+<p>O! Himmel! Herr, wohin? .. Nein! dieß ge&#x017F;tatt ich<lb/>
+<hi rendition="#et">nicht.</hi></p></sp><lb/>
+<sp who="#CAN"><speaker><hi rendition="#fr">Canut.</hi></speaker><lb/>
+<p>Wie? Ulfo fodert es, und God&#x017F;chalk wider&#x017F;pricht?</p><lb/>
+<fw type="catch" place="bottom"><hi rendition="#fr">Ulfo.</hi></fw></sp><lb/>
+<pb n="59" facs="#f0073"/>
+<fw type="header" place="top"><hi rendition="#b">ein Trauer&#x017F;piel.</hi></fw><lb/>
+<sp who="#ULF"><speaker><hi rendition="#fr">Ulfo.</hi></speaker><lb/>
+<p>Wie? Niederta&#x0364;chtiger, &#x017F;o &#x017F;to&#x0364;r&#x017F;t du &#x017F;elb&#x017F;t dein Glu&#x0364;cke?</p></sp><lb/>
+<sp who="#GOT"><speaker><hi rendition="#fr">God&#x017F;chalk.</hi></speaker><lb/>
+<p>Herr! liebe&#x017F;t du dein Wohl, &#x017F;o bitt ich, bleib zuru&#x0364;cke.</p></sp><lb/>
+<sp who="#ULF"><speaker><hi rendition="#fr">Ulfo.</hi></speaker><lb/>
+<p>Unglu&#x0364;cklicher! i&#x017F;t dieß nun meiner Lehren Kraft?</p></sp><lb/>
+<sp who="#CAN"><speaker><hi rendition="#fr">Canut.</hi></speaker><lb/>
+<p>Und &#x017F;prich! was fu&#x0364;r Gefahr ...</p></sp><lb/>
+<sp who="#GOT"><speaker><hi rendition="#fr">God&#x017F;chalk.</hi></speaker><lb/>
+<p><hi rendition="#et">Herr, die Gefangen&#x017F;chaft...</hi></p></sp><lb/>
+<sp who="#ULF"><speaker><hi rendition="#fr">Ulfo.</hi></speaker><lb/>
+<p>Verra&#x0364;ther!</p></sp><lb/>
+<sp who="#CAN"><speaker><hi rendition="#fr">Canut.</hi></speaker><lb/>
+<p><hi rendition="#et">Lehre mich doch, was du &#x017F;ag&#x017F;t, ver&#x017F;tehen.</hi><lb/>
+Sprich! warum &#x017F;oll ich nicht mein eignes Heer be-<lb/>
+<hi rendition="#et">&#x017F;ehen?</hi></p></sp><lb/>
+<sp who="#GOT"><speaker><hi rendition="#fr">God&#x017F;chalk.</hi></speaker><lb/>
+<p>Es i&#x017F;t zu deinem Fall, wenn du ihm dieß gewa&#x0364;hr&#x017F;t.<lb/>
+Der An&#x017F;chlag i&#x017F;t gemacht, daß du nicht wiederkehr&#x017F;t.<lb/>
+Dieß Heer, das du ihm gab&#x017F;t, das &#x017F;ollte dich um-<lb/>
+<hi rendition="#et">ringen,</hi><lb/>
+Und wenn du Fe&#x017F;&#x017F;el tru&#x0364;g&#x017F;t, dann auch dein Reich be-<lb/>
+<hi rendition="#et">zwingen.</hi></p></sp><lb/>
+<sp who="#ULF"><speaker><hi rendition="#fr">Ulfo.</hi></speaker><lb/>
+<p>Jch both dem Tho&#x0364;richten doch Kron und Zepter an,<lb/>
+Und er hat nicht den Muth, daß er nur &#x017F;chweigen kann.</p><lb/>
+<fw type="catch" place="bottom"><hi rendition="#fr">Canut.</hi></fw></sp><lb/>
+<pb n="60" facs="#f0074"/>
+<fw type="header" place="top"><hi rendition="#b">Canut,</hi></fw><lb/>
+<sp who="#CAN"><speaker><hi rendition="#fr">Canut.</hi></speaker><lb/>
+<p>Und du ge&#x017F;teh&#x017F;t die That?</p></sp><lb/>
+<sp who="#ULF"><speaker><hi rendition="#fr">Ulfo.</hi></speaker><lb/>
+<p><hi rendition="#et">Wie &#x017F;ollt ich &#x017F;ie verhehlen?</hi><lb/>
+Mein An&#x017F;chlag war &#x017F;o groß! ach! mußt er denn ver-<lb/>
+<hi rendition="#et">fehlen?</hi></p></sp><lb/>
+<sp who="#CAN"><speaker><hi rendition="#fr">Canut.</hi></speaker><lb/>
+<p>Haqvin, befiehl der Wacht, daß &#x017F;ie ihn mit &#x017F;ich fu&#x0364;hrt.</p></sp><lb/>
+<sp who="#ULF"><speaker><hi rendition="#fr">Ulfo.</hi></speaker><lb/>
+<p>Was hilft es, daß ein Herz der Trieb nach Ehre<lb/>
+<hi rendition="#et">ru&#x0364;hrt,</hi><lb/>
+Wenn andre tra&#x0364;ge &#x017F;ind, und &#x017F;ucht man &#x017F;ie zu heben,<lb/>
+Doch immer mit Gewalt zur Erde nieder&#x017F;treben?<lb/>
+Wenn es der &#x017F;cho&#x0364;n&#x017F;ten That &#x017F;tets an Gehu&#x0364;lfen fehlt;<lb/>
+Und wenn man Prinzen &#x017F;elb&#x017F;t zu den Verzagten<lb/>
+<hi rendition="#et">za&#x0364;hlt?</hi><lb/>
+Zu neidi&#x017F;ches Ge&#x017F;chick, das meine Werke &#x017F;to&#x0364;ret!<lb/>
+Wird meine Ruhmbegier denn nie von dir erho&#x0364;ret?<lb/>
+Daß doch dein Eigen&#x017F;inn, der edle Gei&#x017F;ter dru&#x0364;ckt,<lb/>
+Nicht einen Augenblick den gro&#x0364;ßten Muth beglu&#x0364;ckt!<lb/>
+Nun bin ich dir zur Schmach erniedrigt und verla&#x017F;&#x017F;en,<lb/>
+Nun hilft nicht Muth, nicht Li&#x017F;t, und niemand &#x017F;cheut<lb/>
+<hi rendition="#et">mein Ha&#x017F;&#x017F;en.</hi><lb/>
+Der oft betrogne Feind lernt endlich klu&#x0364;ger &#x017F;eyn,<lb/>
+Und windet meinen Arm in &#x017F;chlechte Ketten ein.<lb/>
+Du raub&#x017F;t mir alles hin, und kann&#x017F;t nichts wieder-<lb/>
+<hi rendition="#et">geben.</hi><lb/>
+Du ha&#x017F;t noch nicht genug: hier ha&#x017F;t du auch mein<lb/>
+<hi rendition="#et">Leben.</hi></p><lb/>
+<fw type="catch" place="bottom"><hi rendition="#fr">Gode-</hi></fw></sp><lb/>
+<pb n="61" facs="#f0075"/>
+<fw type="header" place="top"><hi rendition="#b">ein Trauer&#x017F;piel.</hi></fw><lb/>
+<sp who="#GOD"><speaker><hi rendition="#fr">Godewin.</hi></speaker><lb/>
+<p>Was thu&#x017F;t du?</p></sp><lb/>
+<sp who="#ULF"><speaker><hi rendition="#fr">Ulfo.</hi></speaker><lb/>
+<p><hi rendition="#et">Weich zuru&#x0364;ck!</hi></p></sp><lb/>
+<sp who="#GOD"><speaker><hi rendition="#fr">Godewin.</hi></speaker><lb/>
+<p><hi rendition="#et">Halt ein!</hi></p></sp><lb/>
+<sp who="#ULF"><speaker><hi rendition="#fr">Ulfo.</hi></speaker><lb/>
+<p><hi rendition="#et">Wie? Godewin,</hi><lb/>
+So &#x017F;chimpflich nahm ich dir den Degen nicht vorhin.<lb/>
+Canut! nun kann einmal dein Thron ge&#x017F;ichert pran-<lb/>
+<hi rendition="#et">gen.</hi><lb/>
+Hier i&#x017F;t die Wache. Kommt, und fu&#x0364;hrt mich nur ge-<lb/>
+<hi rendition="#et">fangen.</hi><lb/>
+Verwundert ihr euch nicht, daß ich euch folgen muß?<lb/>
+Son&#x017F;t furchtet ihr mich mehr dort bey dem Helga-<lb/>
+<hi rendition="#et">fluß.</hi></p></sp></div><lb/>
+<div n="2"><head><hi rendition="#b">Fu&#x0364;nfter Auftritt.</hi></head><lb/>
+<p><hi rendition="#c"><hi rendition="#b">Canut, Godewin, God&#x017F;chalk.</hi></hi></p><lb/>
+<sp who="#GOD"><speaker><hi rendition="#fr">Godewin.</hi></speaker><lb/>
+<p><hi rendition="#in">H</hi>err! laß, eh du ihn &#x017F;traf&#x017F;t, doch deinen Zorn ve<supplied>r</supplied>-<lb/>
+<hi rendition="#et">rauchen.</hi></p></sp><lb/>
+<sp who="#CAN"><speaker><hi rendition="#fr">Canut.</hi></speaker><lb/>
+<p>Sein Frevel, nicht mein Zorn, heißt mich die Scha&#x0364;rfe<lb/>
+<hi rendition="#et">brauchen.</hi></p><lb/>
+<fw type="catch" place="bottom"><hi rendition="#fr">Gode-</hi></fw></sp><lb/>
+<pb n="62" facs="#f0076"/>
+<fw type="header" place="top"><hi rendition="#b">Canut,</hi></fw><lb/>
+<sp who="#GOD"><speaker><hi rendition="#fr">Godewin.</hi></speaker><lb/>
+<p>Er i&#x017F;t der Strafe werth, doch du kann&#x017F;t ja verzeyhn.</p></sp><lb/>
+<sp who="#CAN"><speaker><hi rendition="#fr">Canut.</hi></speaker><lb/>
+<p>Die Strenge &#x017F;chmerzet mich: die Huld wird mich<lb/>
+<hi rendition="#et">gereun.</hi><lb/>
+Prinz, de&#x017F;&#x017F;en junges Herz der fal&#x017F;che Glanz nicht<lb/>
+<hi rendition="#et">blendet,</hi><lb/>
+Der oft den klu&#x0364;g&#x017F;ten Greiß noch &#x017F;pa&#x0364;th zur Untreu<lb/>
+<hi rendition="#et">wendet,</hi><lb/>
+Geh, zeig auch deinem Heer das Bey&#x017F;piel deiner Treu,<lb/>
+Sey &#x017F;elb&#x017F;t ihr Oberhaupt, &#x017F;ieh ob es ruhig &#x017F;ey.<lb/>
+Der Muth, die Redlichkeit, die deine Jugend zieren,<lb/>
+Die machten dich &#x017F;chon werth, ein großres Heer zu<lb/>
+<hi rendition="#et">fu&#x0364;hren.</hi></p></sp><lb/>
+<sp who="#GOT"><speaker><hi rendition="#fr">God&#x017F;chalk.</hi></speaker><lb/>
+<p>Dieß Heer wird ewig fe&#x017F;t in &#x017F;einer Treu be&#x017F;tehn,<lb/>
+Und mit Verlangen nur nach Ulfons Strafe &#x017F;ehn.</p></sp><lb/>
+<sp who="#GOD"><speaker><hi rendition="#fr">Godewin.</hi></speaker><lb/>
+<p>Herr, denke du be&#x017F;traf&#x017F;t in ihm zugleich E&#x017F;trithen.</p></sp><lb/>
+<sp who="#CAN"><speaker><hi rendition="#fr">Canut.</hi></speaker><lb/>
+<p>Komm! folge mir zu ihr.</p></sp><lb/>
+<sp who="#GOD"><speaker><hi rendition="#fr">Godewin.</hi></speaker><lb/>
+<p><hi rendition="#et">Doch ho&#x0364;r auch auf ihr Bitten.</hi></p></sp></div></div><lb/>
+<fw type="catch" place="bottom"><hi rendition="#b">Fu&#x0364;nf-</hi></fw><lb/>
+<pb n="63" facs="#f0077"/>
+<fw type="header" place="top"><hi rendition="#b">ein Trauer&#x017F;piel.</hi></fw><lb/>
+<div n="1"><head><hi rendition="#b"><hi rendition="#g">Fu&#x0364;nfter Aufzug.</hi></hi></head><lb/>
+<div n="2"><head><hi rendition="#b">Er&#x017F;ter Auftritt.</hi></head><lb/>
+<p><hi rendition="#c"><hi rendition="#b"><hi rendition="#g">Godewin, E&#x017F;trithe.</hi></hi></hi></p><lb/>
+<sp who="#GOD"><speaker><hi rendition="#fr">Godewin.</hi></speaker><lb/>
+<p><hi rendition="#in">V</hi>erlaß dich doch getro&#x017F;t auf deiner Thra&#x0364;nen Kraft.<lb/>
+Nein! ihnen wider&#x017F;tehn wa&#x0364;r allzufrevelhaft;<lb/>
+Sie wu&#x0364;rden manches Herz, das &#x017F;ie mit Leid durch-<lb/>
+<hi rendition="#et">dringen,</hi><lb/>
+So weit, als kaum vielleicht die Pflicht erlaubte,<lb/>
+<hi rendition="#et">bringen:</hi><lb/>
+Sollt Ulfo denn allein bey &#x017F;o gerechtem Flehn<lb/>
+Sich &#x017F;elb&#x017F;t zum Be&#x017F;ten nicht die Men&#x017F;chlichkeit ge-<lb/>
+<hi rendition="#et">&#x017F;tehn?</hi><lb/>
+Der gu&#x0364;tig&#x017F;te Canut ver&#x017F;pricht ihm zu verzeyhen.<lb/>
+Die That i&#x017F;t &#x017F;chon ge&#x017F;chenkt, er darf &#x017F;ie nur bereuen.<lb/>
+Ein einzig Wort von ihm, daß er &#x017F;ich &#x017F;chuldig nennt,<lb/>
+Soll alle Strafe &#x017F;eyn, die man ihm zuerkennt.<lb/>
+Jtzt wird er hergefu&#x0364;hrt: bitt ihn, dieß Wort zu &#x017F;prechen.<lb/>
+Jch weiß, &#x017F;ein eignes Herz zeigt ihm &#x017F;chon &#x017F;ein Ver-<lb/>
+<hi rendition="#et">brechen?</hi><lb/>
+Jhn ru&#x0364;hrt des Ko&#x0364;nigs Huld und daß er dich betru&#x0364;bt,<lb/>
+Und meyn&#x017F;t du, daß ein Held nicht auch das Leben<lb/>
+<hi rendition="#et">liebt?</hi><lb/>
+Wie &#x017F;ollt er fu&#x0364;hllos &#x017F;eyn, wenn &#x017F;ich mit deinem Wei-<lb/>
+<hi rendition="#et">nen</hi><lb/>
+Erkenntlichkeit und Recht und die Natur vereinen,<lb/>
+Und alles, was nur ie ein Herz gefangen nimmt,<lb/>
+Und was nur Reu erweckt, in ihm zu &#x017F;ammen &#x017F;timmt?</p><lb/>
+<fw type="catch" place="bottom"><hi rendition="#fr">E&#x017F;trithe.</hi></fw></sp><lb/>
+<pb n="64" facs="#f0078"/>
+<fw type="header" place="top"><hi rendition="#b">Canut,</hi></fw><lb/>
+<sp who="#EST"><speaker><hi rendition="#fr">E&#x017F;trithe.</hi></speaker><lb/>
+<p>Um&#x017F;on&#x017F;t bemu&#x0364;h&#x017F;t du dich fu&#x0364;r &#x017F;ein verlornes Leben.<lb/>
+Wenn alles dich erho&#x0364;rt, wird er dir wider&#x017F;treben.<lb/>
+Zu großmuthsvoller Freund, &#x017F;tell deinen Eifer ein;<lb/>
+Sein Herz i&#x017F;t nicht ge&#x017F;chickt, um etwas zu bereun.<lb/>
+Er weiß nichts &#x017F;chimpflichers, als &#x017F;ich verzeyhn zu<lb/>
+<hi rendition="#et">la&#x017F;&#x017F;en,</hi><lb/>
+Und eh er bitten wird, eh wa&#x0364;hlt er zu erbla&#x017F;&#x017F;en.<lb/>
+Jch kenne &#x017F;chon den Stolz, der niemals &#x017F;ich vergißt:<lb/>
+Jch habe &#x017F;chon gepru&#x0364;ft, wie unbewegt er i&#x017F;t.<lb/>
+Wie ko&#x0364;nnt ich ihm vertraun? Was ko&#x0364;nnt ich wohl<lb/>
+<hi rendition="#et">erlangen?</hi><lb/>
+O Himmel! &#x017F;o vielmal hat er mich hintergangen!<lb/>
+Gelobt er nicht er&#x017F;t itzt, da er auf Bosheit &#x017F;ann,<lb/>
+Mit fal&#x017F;cher Freundlichkeit mir die Ver&#x017F;o&#x0364;hnung an?<lb/>
+Ach! &#x017F;eine letzte Wut entreißt mir alles Hoffen.<lb/>
+Was tha&#x0364;t ich, ha&#x0364;tte &#x017F;ie dießmal ihr Ziel getroffen?<lb/>
+Ver&#x017F;u&#x0364;hrt ich den Canut nicht &#x017F;elb&#x017F;t zu &#x017F;oviel Huld?<lb/>
+Wenn er ins Lager gieng: &#x017F;o war es meine Schuld.<lb/>
+Betru&#x0364;bte Willigkeit! bald ha&#x0364;tte mein Gewi&#x017F;&#x017F;en<lb/>
+Von mir des Bruders Blut verzweifelnd fodern<lb/>
+<hi rendition="#et">mu&#x0364;&#x017F;&#x017F;en.</hi><lb/>
+Wer &#x017F;ieht den tiefen Grund von Ulfons Herzen ein?<lb/>
+Kann iemals &#x017F;o viel Muth bey &#x017F;o viel La&#x017F;tern &#x017F;eyn?<lb/>
+Ge&#x017F;etzt, daß wir ihn itzt zur Reu bewogen ha&#x0364;tten,<lb/>
+Weißt du, ob wir ihn nicht zu neuem Frevel retten?<lb/>
+Ob er &#x017F;ein Leben nicht nur darum noch erha&#x0364;lt,<lb/>
+Damit er endlich den, der es ihm &#x017F;chenket, fa&#x0364;llt?<lb/>
+Nein! ich kann nicht auf mich des Reiches Unglu&#x0364;ck<lb/>
+<hi rendition="#et">laden.</hi><lb/>
+Scheint er erweicht zu &#x017F;eyn, &#x017F;o i&#x017F;t es um zu &#x017F;chaden.<lb/>
+<fw type="catch" place="bottom">O to&#x0364;d-</fw><lb/>
+<pb n="65" facs="#f0079"/>
+<fw type="header" place="top"><hi rendition="#b">ein Trauer&#x017F;piel.</hi></fw><lb/>
+O to&#x0364;dlich harter Zwang! o Schick&#x017F;al voller Pein!<lb/>
+Ach! er i&#x017F;t mein Gemahl, und er muß hu&#x0364;lflos &#x017F;eyn!<lb/>
+Wie &#x017F;chwerlich kann ihn doch mein Herz verloren<lb/>
+<hi rendition="#et">&#x017F;ehen!</hi><lb/>
+Doch ach! was kann ich thun? es i&#x017F;t um ihn ge&#x017F;chehen!</p></sp><lb/>
+<sp who="#GOD"><speaker><hi rendition="#fr">Godewin.</hi></speaker><lb/>
+<p>J&#x017F;ts mo&#x0364;glich? da &#x017F;ein Herr und Richter ihm ver-<lb/>
+<hi rendition="#et">ziehn,</hi><lb/>
+Sprich&#x017F;t du an de&#x017F;&#x017F;en &#x017F;tatt das Urtheil u&#x0364;ber ihn?<lb/>
+Grau&#x017F;ame, den Gemahl, um den du mich verla&#x017F;&#x017F;en,<lb/>
+Verdamme&#x017F;t du nun &#x017F;elb&#x017F;t &#x017F;o ruhig, zu erbla&#x017F;&#x017F;en.<lb/>
+Hilf ihm doch &#x017F;einem Wohl nicht auch noch wider-<lb/>
+<hi rendition="#et">&#x017F;tehn.</hi><lb/>
+Muß man auch noch zu dir um &#x017F;eine Rettung flehn?<lb/>
+Am Abgrund, wo er &#x017F;teht, &#x017F;oll&#x017F;t du ihm Hu&#x0364;lfe reichen,<lb/>
+Und bi&#x017F;t noch weniger, als Ulfo, zu erweichen.<lb/>
+Spricht dein Gewi&#x017F;&#x017F;en denn allein fu&#x0364;r den Canut<choice><sic>&#x2E2E;</sic><corr>?</corr></choice><lb/>
+Empfiehlt es dir denn nicht auch des Gemahles Blut?<lb/>
+Was fu&#x0364;rchte&#x017F;t du, wenn ihn dein Bitten wieder-<lb/>
+<hi rendition="#et">bra&#x0364;chte,</hi><lb/>
+Daß nur &#x017F;ein &#x017F;tolzes Herz auf neuen Frevel da&#x0364;chte?<lb/>
+Wach du fu&#x0364;r den Gemahl, laß andern ihre Pflicht;<lb/>
+Die Wohlfahrt des Canut &#x017F;ey deine Sorge nicht.<lb/>
+Kann denn &#x017F;o mancher Arm, der Feinde Fall und<lb/>
+<hi rendition="#et">Schrecken,</hi><lb/>
+Vor eines Men&#x017F;chen Haß nicht un&#x017F;ern Ko&#x0364;nig decken?<lb/>
+Zum Meuchelmord zu &#x017F;tolz, und zur Gewalt zu &#x017F;chwach,<lb/>
+Zieht Ulfons Wut nur ihm, &#x017F;on&#x017F;t niemand, Schaden<lb/>
+<hi rendition="#et">nach.</hi><lb/>
+Kann&#x017F;t du dem Unglu&#x0364;ck ihn &#x017F;o &#x017F;orglos u&#x0364;bergeben:<lb/>
+Nein! ich bin nicht &#x017F;o hart; Er &#x017F;chenkte mir das Leben.<lb/>
+<fw type="sig" place="bottom">E</fw><fw type="catch" place="bottom">So</fw><lb/>
+<pb n="66" facs="#f0080"/>
+<fw type="header" place="top"><hi rendition="#b">Canut,</hi></fw><lb/>
+So muß ich denn, da &#x017F;ich in dir kein Mitleid regt,<lb/>
+Ver&#x017F;uchen, ob mein Flehn ihn ohne dich bewegt.<lb/>
+Vermo&#x0364;cht ich nur vor ihm die Thra&#x0364;nen zu vergie&#x017F;&#x017F;en,<lb/>
+Die &#x017F;o beredt und &#x017F;tark aus deinen Augen flie&#x017F;&#x017F;en!<lb/>
+Ha&#x0364;tt ich die Za&#x0364;rtlichkeit und die&#x017F;er Worte Kraft,<lb/>
+Die du nicht brauchen will&#x017F;t, und die doch alles &#x017F;chaft!<lb/>
+Hier i&#x017F;t er. Will&#x017F;t du nicht &#x017F;ein Wohl von ihm erbitten?</p></sp><lb/>
+<sp who="#EST"><speaker><hi rendition="#fr">E&#x017F;trithe.</hi></speaker><lb/>
+<p>O Himmel! welcher Stolz blickt noch aus &#x017F;einen<lb/>
+<hi rendition="#et">Schritten.</hi></p></sp></div><lb/>
+<div n="2"><head><hi rendition="#b">Zweyter Auftritt.</hi></head><lb/>
+<p><hi rendition="#c"><hi rendition="#b">E&#x017F;trithe, Godewin, Ulfo von Wache<lb/>
+begleitet.</hi></hi></p><lb/>
+<sp who="#ULF"><speaker><hi rendition="#fr">Ulfo.</hi></speaker><lb/>
+<p><hi rendition="#in">W</hi>as fu&#x0364;hrt man mich hieher? ich will zum Tode gehn.<lb/>
+Wer will hier &#x017F;eine Lu&#x017F;t an meinem Falle &#x017F;ehn?</p></sp><lb/>
+<sp who="#GOD"><speaker><hi rendition="#fr">Godewin.</hi></speaker><lb/>
+<p>Aus Mitleid rufft man dich, bloß um dich zu befreyen.<lb/>
+Dein Fehl i&#x017F;t &#x017F;chon verziehn.</p></sp><lb/>
+<sp who="#ULF"><speaker><hi rendition="#fr">Ulfo.</hi></speaker><lb/>
+<p><hi rendition="#et">Und wer &#x017F;oll mir verzeyhen?</hi></p></sp><lb/>
+<sp who="#GOD"><speaker><hi rendition="#fr">Godewin.</hi></speaker><lb/>
+<p>Dein Ko&#x0364;nig.</p></sp><lb/>
+<sp who="#ULF"><speaker><hi rendition="#fr">Ulfo.</hi></speaker><lb/>
+<p><hi rendition="#et">Bloß die Macht erhebt ihn u&#x0364;ber mich.</hi><lb/>
+Hat er mehr Ruhmbegier, hat er mehr Muth als ich<choice><sic>&#x2E2E;</sic><corr>?</corr></choice></p><lb/>
+<fw type="catch" place="bottom"><hi rendition="#fr">Gode-</hi></fw></sp><lb/>
+<pb n="67" facs="#f0081"/>
+<fw type="header" place="top"><hi rendition="#b">ein Trauer&#x017F;piel.</hi></fw><lb/>
+<sp who="#GOD"><speaker><hi rendition="#fr">Godewin.</hi></speaker><lb/>
+<p>Verehr die Macht, zu der ihn Recht und GOtt er-<lb/>
+<hi rendition="#et">heben.</hi><lb/>
+Der Himmel konnte &#x017F;ie nie einem Gro&#x0364;&#x017F;&#x017F;ern geben.<lb/>
+Zum Herr&#x017F;chen braucht man mehr, als Ruhmbegier<lb/>
+<hi rendition="#et">und Muth.</hi><lb/>
+Die Wut ent&#x017F;tellet dich, die Huld &#x017F;chmu&#x0364;ckt den Canut.<lb/>
+Jn wem die Billigkeit bey edlem Ehrgeitz wohnet,<lb/>
+Wer &#x017F;tets voll Mitleid &#x017F;traft, &#x017F;tets freudenvoll be-<lb/>
+<hi rendition="#et">lohnet,</hi><lb/>
+Wer aus der Men&#x017F;chen Wohl &#x017F;ich &#x017F;elb&#x017F;t Ge&#x017F;etze<lb/>
+<hi rendition="#et">nimmt,</hi><lb/>
+Den hat &#x017F;elb&#x017F;t die Natur zum Throne &#x017F;chon be&#x017F;timmt.<lb/>
+Wo ha&#x017F;t du einen Feind von dem Canut gefunden<choice><sic>&#x2E2E;</sic><corr>?</corr></choice><lb/>
+Dem, welchen alles liebt, gieb dich doch u&#x0364;berwunden.<lb/>
+Er &#x017F;ieht die Untreu &#x017F;elb&#x017F;t, und was du ihm gethan,<lb/>
+Nicht als Beleidigter, nur als dein Richter, an,<lb/>
+Als Richter, der nur wu&#x0364;n&#x017F;cht, es mo&#x0364;chte dich gereuen,<lb/>
+Den du vergnu&#x0364;gen wir&#x017F;t, la&#x0364;ßt du dir nur verzeyhen.<lb/>
+Freund, de&#x017F;&#x017F;en Unglu&#x0364;cksfall zuer&#x017F;t mich weinen lehrt,<lb/>
+Sprich, daß es dich gereut, und leb und &#x017F;ey geehrt.<lb/>
+Wenn dir es ru&#x0364;hmlich &#x017F;cheint, nicht der Gewalt zu<lb/>
+<hi rendition="#et">weichen:</hi><lb/>
+Durch Huld be&#x017F;iegt zu &#x017F;eyn i&#x017F;t ja der Großmuth Zeichen.</p></sp><lb/>
+<sp who="#ULF"><speaker><hi rendition="#fr">Ulfo.</hi></speaker><lb/>
+<p>Spar deine Thra&#x0364;nen nur. Man fu&#x0364;hre mich zuru&#x0364;ck.</p></sp><lb/>
+<sp who="#EST"><speaker><hi rendition="#fr">E&#x017F;trithe.</hi></speaker><lb/>
+<p>Wohin? ach! Grau&#x017F;amer! du go&#x0364;nn&#x017F;t mir keinen<lb/>
+<hi rendition="#et">Blick?</hi></p><lb/>
+<fw type="sig" place="bottom">E 2</fw><fw type="catch" place="bottom"><hi rendition="#fr">Ulfo.</hi></fw></sp><lb/>
+<pb n="68" facs="#f0082"/>
+<fw type="header" place="top"><hi rendition="#b">Canut,</hi></fw><lb/>
+<sp who="#ULF"><speaker><hi rendition="#fr">Ulfo.</hi></speaker><lb/>
+<p>Du bi&#x017F;t die einzige, die ich zu &#x017F;prechen &#x017F;cheue.<lb/>
+Nein! fodre nur von mir nicht Demuth oder Reue.<lb/>
+Mein Herz, das, wer ich bin, auch &#x017F;terbend nicht ver-<lb/>
+<hi rendition="#et">gißt,</hi><lb/>
+Weiß, welchen Schluß es nun &#x017F;ich &#x017F;elber &#x017F;chuldig i&#x017F;t.<lb/>
+Das Glu&#x0364;ck haßt meinen Ruhm, und will mich nicht er-<lb/>
+<hi rendition="#et">heben:</hi><lb/>
+Was die&#x017F;es mir ver&#x017F;agt, will ich mir &#x017F;elber geben,<lb/>
+Und zeigen, was es mir fu&#x0364;r Unrecht angethan,<lb/>
+Und daß man auch durch Muth das Schick&#x017F;al trutzen<lb/>
+<hi rendition="#et">kann.</hi></p></sp><lb/>
+<sp who="#EST"><speaker><hi rendition="#fr">E&#x017F;trithe.</hi></speaker><lb/>
+<p>So trutze das Ge&#x017F;chick, trutz es durch dein Verderben.<lb/>
+J&#x017F;t denn der Ruhm &#x017F;o groß, als ein Verbrecher &#x017F;ter-<lb/>
+<hi rendition="#et">ben?</hi><lb/>
+Daß er des Glu&#x0364;ckes Gun&#x017F;t, das dich zu &#x017F;chlecht ge-<lb/>
+<hi rendition="#et">&#x017F;cha&#x0364;tzt,</hi><lb/>
+Dein Leben und auch mich, wenn du mich lieb&#x017F;t, er-<lb/>
+<hi rendition="#et">&#x017F;etzt?</hi><lb/>
+Doch ha&#x0364;tte die&#x017F;es Glu&#x0364;ck dich, wie du will&#x017F;t, geehret,<lb/>
+Und deinen &#x017F;cha&#x0364;ndlichen, verfluchten Wun&#x017F;ch erho&#x0364;ret;<lb/>
+Ha&#x0364;tt es dir den Canut in Ketten vorge&#x017F;tellt:<lb/>
+Dann wa&#x0364;r es er&#x017F;t gerecht, dann prie&#x017F;e dich die Welt.<lb/>
+Erkenn, Undankbarer, die Gun&#x017F;t von deinem Glu&#x0364;cke.<lb/>
+So vielmal ha&#x0364;lt es dich vom Frevel &#x017F;chon zuru&#x0364;cke,<lb/>
+La&#x0364;ßt dich nicht la&#x017F;terhaft, als nur im Willen, &#x017F;eyn,<lb/>
+Und &#x017F;tu&#x0364;rzet mit Gewalt der Bosheit An&#x017F;chlag ein.<lb/>
+Es la&#x0364;ßt dich, da dein Herz &#x017F;ich &#x017F;elb&#x017F;t zum Schaden<lb/>
+<hi rendition="#et">wu&#x0364;tet,</hi><lb/>
+Stets einen Ko&#x0364;nig &#x017F;ehn, der dir Vergebung bietet.<lb/>
+<fw type="catch" place="bottom">Wie</fw><lb/>
+<pb n="69" facs="#f0083"/>
+<fw type="header" place="top"><hi rendition="#b">ein Trauer&#x017F;piel.</hi></fw><lb/>
+Wie lange &#x017F;uch&#x017F;t du Ruhm auf einer fal&#x017F;chen Bahn?<lb/>
+Wa&#x0364;hl einen Weg, wo dich das Glu&#x0364;ck nicht hindern<lb/>
+<hi rendition="#et">kann.</hi><lb/>
+Was klag&#x017F;t du um das Lob, das dir &#x017F;o oft entgangen?<lb/>
+Durch Tugend wu&#x0364;rde&#x017F;t du es ohne Mu&#x0364;h erlangen.</p></sp><lb/>
+<sp who="#ULF"><speaker><hi rendition="#fr">Ulfo.</hi></speaker><lb/>
+<p>So ho&#x0364;r ich denn von dir er&#x017F;t, was die Ehre &#x017F;ey<choice><sic>&#x2E2E;</sic><corr>?</corr></choice></p></sp><lb/>
+<sp who="#EST"><speaker><hi rendition="#fr">E&#x017F;trithe.</hi></speaker><lb/>
+<p>Jhr Grund i&#x017F;t Redlichkeit, und nicht verletzte Treu.</p></sp><lb/>
+<sp who="#ULF"><speaker><hi rendition="#fr">Ulfo.</hi></speaker><lb/>
+<p>Mein Ruhm kennt &#x017F;einen Grund, er ruht auf ku&#x0364;hnen<lb/>
+<hi rendition="#et">Werken,</hi><lb/>
+Durch Reue &#x017F;chwa&#x0364;cht ich ihn, mein Tod &#x017F;oll ihn be-<lb/>
+<hi rendition="#et">&#x017F;ta&#x0364;rken.</hi></p></sp><lb/>
+<sp who="#GOD"><speaker><hi rendition="#fr">Godewin.</hi></speaker><lb/>
+<p>Die Reu erniedrigt nicht. Nim doch dein Leben an.</p></sp><lb/>
+<sp who="#ULF"><speaker><hi rendition="#fr">Ulfo.</hi></speaker><lb/>
+<p>Glaub, wa&#x0364;r ich Godewin, ich ha&#x0364;tt es &#x017F;chon gethan.</p></sp><lb/>
+<sp who="#GOD"><speaker><hi rendition="#fr">Godewin.</hi></speaker><lb/>
+<p>Vielleicht, ohn daß du &#x017F;prich&#x017F;t, &#x017F;chenkt dir Canut das<lb/>
+<hi rendition="#et">Leben.</hi></p></sp><lb/>
+<sp who="#ULF"><speaker><hi rendition="#fr">Ulfo.</hi></speaker><lb/>
+<p>Doch wer wird mir Vertraun, Gewalt und Vo&#x0364;lker<lb/>
+<hi rendition="#et">geben.</hi></p></sp><lb/>
+<sp who="#GOD"><speaker><hi rendition="#fr">Godewin.</hi></speaker><lb/>
+<p>Verlo&#x0364;&#x017F;ch durch deine Treu, was dich darum gebracht:<lb/>
+So hat Canut fu&#x0364;r dich Vertrauen, Volk und Macht.</p><lb/>
+<fw type="sig" place="bottom">E 3</fw><fw type="catch" place="bottom"><hi rendition="#fr">E&#x017F;tri-</hi></fw></sp><lb/>
+<pb n="70" facs="#f0084"/>
+<fw type="header" place="top"><hi rendition="#b">Canut,</hi></fw><lb/>
+<sp who="#EST"><speaker><hi rendition="#fr">E&#x017F;trithe.</hi></speaker><lb/>
+<p>Sieh! wie viel Herzen &#x017F;ind, die dich zu retten trachten.</p></sp><lb/>
+<sp who="#ULF"><speaker><hi rendition="#fr">Ulfo.</hi></speaker><lb/>
+<p>Wenn ich mich retten ließ, ihr wu&#x0364;rdet mich verachten.</p></sp><lb/>
+<sp who="#EST"><speaker><hi rendition="#fr">E&#x017F;trithe.</hi></speaker><lb/>
+<p>Verachtet man ein Herz, das &#x017F;ich als men&#x017F;chlich zeigt?</p></sp><lb/>
+<sp who="#ULF"><speaker><hi rendition="#fr">Ulfo.</hi></speaker><lb/>
+<p>Doch das bewundert man, das &#x017F;elb&#x017F;t der Tod nicht<lb/>
+<hi rendition="#et">beugt.</hi></p></sp><lb/>
+<sp who="#EST"><speaker><hi rendition="#fr">E&#x017F;trithe.</hi></speaker><lb/>
+<p>Wie fal&#x017F;ch i&#x017F;t doch der Ruhm?</p></sp><lb/>
+<sp who="#ULF"><speaker><hi rendition="#fr">Ulfo.</hi></speaker><lb/>
+<p><hi rendition="#et">Den will ich &#x017F;terbend &#x017F;uchen.</hi></p></sp><lb/>
+<sp who="#EST"><speaker><hi rendition="#fr">E&#x017F;trithe.</hi></speaker><lb/>
+<p>Den Ruhm verfluch ich nur, und muß auch dich ver-<lb/>
+<hi rendition="#et">fluchen.</hi></p></sp><lb/>
+<sp who="#ULF"><speaker><hi rendition="#fr">Ulfo.</hi></speaker><lb/>
+<p>Soll dieß der Ab&#x017F;chied &#x017F;eyn, den du mir zugedacht?</p></sp><lb/>
+<sp who="#EST"><speaker><hi rendition="#fr">E&#x017F;trithe.</hi></speaker><lb/>
+<p>Barbar, bedenke&#x017F;t du, wie weit du mich gebracht?<lb/>
+Stirb nur, Unmen&#x017F;chlicher, doch gieb, &#x017F;oll ich dich<lb/>
+<hi rendition="#et">mi&#x017F;&#x017F;en,</hi><lb/>
+Mir er&#x017F;t die Ruh zuru&#x0364;ck, aus der du mich geri&#x017F;&#x017F;en.<lb/>
+Jch kannte keine Noth, und wußte nichts von dir,<lb/>
+Grau&#x017F;amer, die&#x017F;es Glu&#x0364;ck beneidete&#x017F;t du mir,<lb/>
+Ohnfehlbar weil noch was zu deiner Freude fehlte,<lb/>
+Wenn &#x017F;ich kein treues Herz bey deinen Freveln qva&#x0364;lte.<lb/>
+<fw type="catch" place="bottom">Durch</fw><lb/>
+<pb n="71" facs="#f0085"/>
+<fw type="header" place="top"><hi rendition="#b">ein Trauer&#x017F;piel.</hi></fw><lb/>
+Durch Frevel gab&#x017F;t du mir dich &#x017F;elber zum Gemahl,<lb/>
+Und un&#x017F;er Bu&#x0364;ndniß war mein er&#x017F;ter Schritt zur<lb/>
+<hi rendition="#et">Qvaal.</hi><lb/>
+Fu&#x0364;hl einen Augenblick die Ang&#x017F;t, die ich empfunden,<lb/>
+So oft du einen Weg zu deinem Ruhm erfunden,<lb/>
+Die ich dir theils verbarg und theils dich &#x017F;ehen ließ,<lb/>
+Und gegen die dein Herz doch nie Erbarmen wies.<lb/>
+Wie einer, der voll Ang&#x017F;t, mit fe&#x017F;tgebundnen Ha&#x0364;nden,<lb/>
+Den Dolch am Herzen fu&#x0364;hlt, und nicht weiß abzu-<lb/>
+<hi rendition="#et">wenden:</hi><lb/>
+Sah ich &#x017F;tets deinen Arm zum Unglu&#x0364;ck ausge&#x017F;treckt,<lb/>
+Und ohne Hu&#x0364;lfe mich durch deinen Fall ge&#x017F;chreckt.<lb/>
+Dieß alles wollt ich noch ver&#x017F;chmerzend u&#x0364;ber&#x017F;tehen,<lb/>
+Mu&#x0364;ßt ich die Frucht davon nur nicht verloren &#x017F;ehen:<lb/>
+Nach Furcht, Gefahr und Pein von tau&#x017F;endfacher<lb/>
+<hi rendition="#et">Art</hi><lb/>
+Ha&#x017F;t du zur letzten Qvaal mir deinen Tod ver&#x017F;part.<lb/>
+Und ich &#x017F;oll deiner Wut mit Za&#x0364;rtlichkeit begegnen,<lb/>
+Und noch zum Ab&#x017F;chied den, der mich &#x017F;o foltert, &#x017F;egnen?</p></sp><lb/>
+<sp who="#ULF"><speaker><hi rendition="#fr">Ulfo.</hi></speaker><lb/>
+<p>Du tadel&#x017F;t meinen Muth. Lern von mir &#x017F;tandhaft &#x017F;eyn.<lb/>
+Die Thra&#x0364;nen &#x017F;ind zu viel. Nun &#x017F;chließt &#x017F;ich deine<lb/>
+<hi rendition="#et">Pein.</hi><lb/>
+Vor meiner Ruhmbegier ha&#x017F;t du um&#x017F;on&#x017F;t gebebet.<lb/>
+Das Glu&#x0364;ck &#x017F;chu&#x0364;tzt den Canut. Du &#x017F;ieh&#x017F;t, ich &#x017F;terb, er<lb/>
+<hi rendition="#et">lebet.</hi><lb/>
+Die Macht i&#x017F;t mir geraubt, was gro&#x017F;&#x017F;es mehr zu thun.<lb/>
+Jch kann nicht auf der Welt als ein Verzagter ruhn.<lb/>
+Drum will ich der Natur mein gnug gebrauchtes<lb/>
+<hi rendition="#et">Leben,</hi><lb/>
+Dem Ko&#x0364;nig Sicherheit, dir Frieden wiedergeben</p><lb/>
+<fw type="sig" place="bottom">E 4</fw><fw type="catch" place="bottom"><hi rendition="#fr">E&#x017F;tri-</hi></fw></sp><lb/>
+<pb n="72" facs="#f0086"/>
+<fw type="header" place="top"><hi rendition="#b">Canut,</hi></fw><lb/>
+<sp who="#EST"><speaker><hi rendition="#fr">E&#x017F;trithe.</hi></speaker><lb/>
+<p>Nun &#x017F;eh ich er&#x017F;t, warum du aus dem Leben flieh&#x017F;t,<lb/>
+Weil du kein La&#x017F;ter mehr hier zu begehen &#x017F;ieh&#x017F;t,<lb/>
+Weil du nicht hoffen darf&#x017F;t, daß Men&#x017F;chen, die dich<lb/>
+<hi rendition="#et">kennen,</hi><lb/>
+Zu deinen Freveln dir noch ku&#x0364;nftig Mittel go&#x0364;nnen.<lb/>
+Ver&#x017F;chieb den edlen Tod nur einen Augenblick.<lb/>
+Vielleicht i&#x017F;t noch ein Ruhm, den du nicht ha&#x017F;t, zu-<lb/>
+<hi rendition="#et">ru&#x0364;ck.</hi><lb/>
+Jch, die ich dir bisher kleinmu&#x0364;thig wider&#x017F;tritten,<lb/>
+Jch will dich itzt noch &#x017F;elb&#x017F;t um einen Frevel bitten.<lb/>
+Dein Bey&#x017F;piel ru&#x0364;hrt mich &#x017F;chon, ich lerne &#x017F;tandhaft<lb/>
+<hi rendition="#et">&#x017F;eyn.</hi><lb/>
+Wer deinen Ruhm nicht haßt, der wird dir Waffen<lb/>
+<hi rendition="#et">leihn.</hi><lb/>
+Hier &#x017F;ieh mich unverzagt dein &#x017F;tolzes Knie umfa&#x017F;&#x017F;en.<lb/>
+Eh du die That veru&#x0364;bt, &#x017F;oll&#x017F;t du mich nicht verla&#x017F;&#x017F;en.<lb/>
+Nur die&#x017F;e Frevelthat i&#x017F;t noch zuru&#x0364;ck fu&#x0364;r dich,<lb/>
+Die nimm noch mit ins Grab, Ver&#x017F;tockter, to&#x0364;dte<lb/>
+<hi rendition="#et">mich.</hi></p></sp><lb/>
+<sp who="#ULF"><speaker><hi rendition="#fr">Ulfo.</hi></speaker><lb/>
+<p>Geliebte&#x017F;te, &#x017F;teh auf, und &#x017F;cha&#x0364;me dich zu weinen!<lb/>
+Wenn &#x017F;eh ich den Canut?</p></sp><lb/>
+<sp who="#GOD"><speaker><hi rendition="#fr">Godewin.</hi></speaker><lb/>
+<p><hi rendition="#et">Jtzt wird er hier er&#x017F;cheinen.</hi><lb/>
+Auch &#x017F;ein Verzug bezeigt noch &#x017F;eine Gu&#x0364;tigkeit,<lb/>
+Er la&#x0364;ßt noch dir zur Reu und uns zum Bitten Zeit.<lb/>
+Hier ko&#x0364;mmt er. Hat die Huld, die &#x017F;eine Stirne zieret,<lb/>
+Fu&#x0364;r dich nur keinen Strahl, der dich mit Ehrfurcht<lb/>
+<hi rendition="#et">ru&#x0364;hret?</hi><lb/>
+<fw type="catch" place="bottom">J&#x017F;t</fw><lb/>
+<pb n="73" facs="#f0087"/>
+<fw type="header" place="top"><hi rendition="#b">ein Trauer&#x017F;piel.</hi></fw><lb/>
+J&#x017F;t denn die Maje&#x017F;ta&#x0364;t, das Bild der Go&#x0364;ttlichkeit,<lb/>
+Das doch der Erdkreiß ehrt, fu&#x0364;r dich nur nicht geweyht?</p></sp></div><lb/>
+<div n="2"><head><hi rendition="#b">Dritter Auftritt.</hi></head><lb/>
+<p><hi rendition="#c"><hi rendition="#b">Canut, E&#x017F;trithe, Godewin, Ulfo.</hi></hi></p><lb/>
+<sp who="#ULF"><speaker><hi rendition="#fr">Ulfo.</hi></speaker><lb/>
+<p><hi rendition="#in">W</hi>eil mich des Glu&#x0364;ckes Zorn in deine Hand gegeben,<lb/>
+Begehr&#x017F;t du meine Reu zum Prei&#x017F;e fu&#x0364;r mein Leben.<lb/>
+Kein niedertra&#x0364;chtig Wort hat meinen Mund befleckt,<lb/>
+So lang mein freyer Arm den Feind durchs Schwerdt<lb/>
+<hi rendition="#et">ge&#x017F;chreckt:</hi><lb/>
+Auch itzt hoff die&#x017F;en Sieg von mir nicht zu erlangen.<lb/>
+Mein Muth i&#x017F;t nicht zugleich mit meinem Arm ge-<lb/>
+<hi rendition="#et">fangen.</hi><lb/>
+Stell mich er&#x017F;t wiederum zu jenen Ufern hin,<lb/>
+Wo ich durch Li&#x017F;t und Muth dein Schrecken worden<lb/>
+<hi rendition="#et">bin,</hi><lb/>
+Wo, da du nach dem Streit, als zum Triumph, ge-<lb/>
+<hi rendition="#et">kommen,</hi><lb/>
+Die Leichen deines Volks an deine Schiffe &#x017F;chwom-<lb/>
+<hi rendition="#et">men,</hi><lb/>
+Wo mir zuer&#x017F;t der Sieg dann Sicherheit gelung,<lb/>
+Und fodre da von mir Reu und Erniedrigung.<lb/>
+Denk&#x017F;t du nicht an den Tag, der mich zum Sieger<lb/>
+<hi rendition="#et">machte,</hi><lb/>
+Der dir nur Schmerz und Scham, mir aber Ehre<lb/>
+<hi rendition="#et">brachte,</hi><lb/>
+Des Ulfo Ruhm er&#x017F;challt noch von des Helga Strand,<lb/>
+Der Erdkreiß ho&#x0364;rt er&#x017F;taunt, daß ich dich u&#x0364;berwand.<lb/>
+<fw type="sig" place="bottom">E 5</fw><fw type="catch" place="bottom">Geruhig</fw><lb/>
+<pb n="74" facs="#f0088"/>
+<fw type="header" place="top"><hi rendition="#b">Canut,</hi></fw><lb/>
+Geruhig &#x017F;ah ich da die Zahl von deinen Heeren,<lb/>
+Mit Bru&#x0364;cken unter&#x017F;tu&#x0364;tzt den breiten Strom be&#x017F;chweren;<lb/>
+Getro&#x017F;t erwartet ich, was mir ihr Zorn gedroht,<lb/>
+Sie eilten in den Sieg, und fanden nur den Tod;<lb/>
+Sie bebten, dra&#x0364;ngten &#x017F;ich, es brachen unter ihnen<lb/>
+Der Bru&#x0364;cken Bande los, &#x017F;o bald ich nur er&#x017F;chienen;<lb/>
+Jhr halber&#x017F;ticktes Schreyn rief dich noch in der Fluth.<lb/>
+Zur Rache rief es dich: doch wo war ich? Canut!<lb/>
+So &#x017F;chnell i&#x017F;t kaum der Blitz, indem er &#x017F;chla&#x0364;gt, ver-<lb/>
+<hi rendition="#et">&#x017F;chwunden:</hi><lb/>
+Jch hatte dich be&#x017F;iegt, und ward nicht mehr gefunden.<lb/>
+Den unbezwinglichen, den ma&#x0364;chtigen Canut<lb/>
+Zwang Ulfo ohne Macht, wodurch? durch Li&#x017F;t und<lb/>
+<hi rendition="#et">Muth.</hi><lb/>
+Die Welt muß, wenn &#x017F;ie nicht der Billigkeit verge&#x017F;&#x017F;en,<lb/>
+Zum mind&#x017F;ten meinen Ruhm ein&#x017F;t mit dem deinen<lb/>
+<hi rendition="#et">me&#x017F;&#x017F;en.</hi><lb/>
+Und wenn &#x017F;ie auch bey dir der Siege Menge za&#x0364;hlt,<lb/>
+Ge&#x017F;tehn, daß nur das Glu&#x0364;ck zur Gro&#x0364;&#x017F;&#x017F;e mir gefehlt.</p></sp><lb/>
+<sp who="#CAN"><speaker><hi rendition="#fr">Canut.</hi></speaker><lb/>
+<p>Du &#x017F;prich&#x017F;t von deinem Ruhm, und &#x017F;chweige&#x017F;t vom<lb/>
+<hi rendition="#et">Vergehen.</hi><lb/>
+Sprich! reut dich dein Ver&#x017F;ehn?</p></sp><lb/>
+<sp who="#ULF"><speaker><hi rendition="#fr">Ulfo.</hi></speaker><lb/>
+<p><hi rendition="#et">Jch kenne kein Ver&#x017F;ehen.</hi><lb/>
+Erkenn entwaffnet noch des Ueberwinders Hand,<lb/>
+Den nicht die Tapferkeit, nur Macht und Menge band.<lb/>
+Was meinen Ruhm erhebt, hab ich mich &#x017F;tets er-<lb/>
+<hi rendition="#et">ku&#x0364;hnet,</hi><lb/>
+Thu nun, was deinem Ruhm und deinem Throne<lb/>
+<hi rendition="#et">dienet.</hi></p><lb/>
+<fw type="catch" place="bottom"><hi rendition="#fr">Canut.</hi></fw></sp><lb/>
+<pb n="75" facs="#f0089"/>
+<fw type="header" place="top"><hi rendition="#b">ein Trauer&#x017F;piel.</hi></fw><lb/>
+<sp who="#CAN"><speaker><hi rendition="#fr">Canut.</hi></speaker><lb/>
+<p>Nehmt den Unwu&#x0364;rdigen vor meinen Augen fort.<lb/>
+Der Tod er&#x017F;ticke noch &#x017F;ein letztes &#x017F;tolzes Wort.<lb/>
+Er mu&#x0364;&#x017F;&#x017F;e durch &#x017F;ein Blut der Welt die Lehre geben,<lb/>
+Wer nicht will men&#x017F;chlich &#x017F;eyn, &#x017F;ey auch nicht werth zu<lb/>
+<hi rendition="#et">leben.</hi></p></sp><lb/>
+<sp who="#ULF"><speaker><hi rendition="#fr">Ulfo.</hi></speaker><lb/>
+<p>Nun bin ich er&#x017F;t vergnu&#x0364;gt: nun &#x017F;agt die &#x017F;pa&#x0364;the Zeit:<lb/>
+Canut hielt Ulfons Tod fu&#x0364;r &#x017F;eine Sicherheit.<lb/>
+Der Fur&#x017F;ten Richter&#x017F;chwerdt, der Uebelthaten Ra&#x0364;cher,<lb/>
+Macht Helden groß und &#x017F;chimpft nur niedrige Ver-<lb/>
+<hi rendition="#et">brecher.</hi></p></sp><lb/>
+<sp who="#EST"><speaker><hi rendition="#fr">E&#x017F;trithe.</hi></speaker><lb/>
+<p>Ach! bleib.</p></sp><lb/>
+<sp who="#ULF"><speaker><hi rendition="#fr">Ulfo.</hi></speaker><lb/>
+<p><hi rendition="#et">Leb wohl!</hi></p></sp><lb/>
+<sp who="#EST"><speaker><hi rendition="#fr">E&#x017F;trithe.</hi></speaker><lb/>
+<p><hi rendition="#et">Wohin?</hi></p></sp><lb/>
+<sp who="#ULF"><speaker><hi rendition="#fr">Ulfo.</hi></speaker><lb/>
+<p><hi rendition="#et">Zum Ruhme.</hi></p></sp><lb/>
+<sp who="#EST"><speaker><hi rendition="#fr">E&#x017F;trithe.</hi></speaker><lb/>
+<p><hi rendition="#et">Nein, verzieh,</hi><lb/>
+Und &#x017F;prich!</p></sp><lb/>
+<sp who="#ULF"><speaker><hi rendition="#fr">Ulfo.</hi></speaker><lb/>
+<p><hi rendition="#et">Was ich ge&#x017F;agt, das widerruff ich nie.</hi></p></sp></div><lb/>
+<fw type="catch" place="bottom"><hi rendition="#b">Vier-</hi></fw><lb/>
+<pb n="76" facs="#f0090"/>
+<fw type="header" place="top"><hi rendition="#b">Canut,</hi></fw><lb/>
+<div n="2"><head><hi rendition="#b">Vierter Auftritt.</hi></head><lb/>
+<p><hi rendition="#c"><hi rendition="#b">E&#x017F;trithe, Canut, Godewin.</hi></hi></p><lb/>
+<sp who="#EST"><speaker><hi rendition="#fr">E&#x017F;trithe.</hi></speaker><lb/>
+<p><hi rendition="#in">A</hi>ch! eilt man denn &#x017F;o &#x017F;chnell, dein Urtheil zu vollfu&#x0364;h-<lb/>
+<hi rendition="#et">ren?</hi></p></sp><lb/>
+<sp who="#CAN"><speaker><hi rendition="#fr">Canut.</hi></speaker><lb/>
+<p>Er &#x017F;elber fa&#x0364;llet es.</p></sp><lb/>
+<sp who="#GOD"><speaker><hi rendition="#fr">Godewin.</hi></speaker><lb/>
+<p><hi rendition="#et">Ach! Herr laß dich doch ru&#x0364;hren.</hi></p></sp><lb/>
+<sp who="#CAN"><speaker><hi rendition="#fr">Canut.</hi></speaker><lb/>
+<p>Betru&#x0364;bet mich nicht mehr durch dieß verlorne Flehn.<lb/>
+Muß ich nicht &#x017F;chon genug mir &#x017F;elber wider&#x017F;tehn?<lb/>
+J&#x017F;t denn der Kampf &#x017F;o leicht, dieß Urtheil auszu-<lb/>
+<hi rendition="#et">&#x017F;prechen,</hi><lb/>
+Daß ihr ihn noch verneut, da ich es nicht kann brechen?<lb/>
+Jhr wißt, was ihr ver&#x017F;ucht, ihr &#x017F;eht, was ich gethan.<lb/>
+Was ma&#x0364;n &#x017F;on&#x017F;t bitten muß, both ich ihm &#x017F;elber an.<lb/>
+Mein Eifer wohl zu thun und Gu&#x0364;te zu erzeigen<lb/>
+Erniedrigte mich fa&#x017F;t. Doch &#x017F;agt, konnt ich ihn beugen?<lb/>
+Jhr kennet meinen Schmerz, ihr &#x017F;eht in meinen Sinn.<lb/>
+Doch denket, was ich auch der Wu&#x0364;rde &#x017F;chuldig bin.<lb/>
+So wie die Strengigkeit, hat auch die Gu&#x0364;te Schran-<lb/>
+<hi rendition="#et">ken:</hi><lb/>
+Wer die nicht fe&#x017F;t erha&#x0364;lt, macht &#x017F;elb&#x017F;t &#x017F;ein An&#x017F;ehn wan-<lb/>
+<hi rendition="#et">ken.</hi><lb/>
+Ach! warum kann die Macht, die Men&#x017F;chen zu erfreun,<lb/>
+Doch nicht das einzige von un&#x017F;ern Rechten &#x017F;eyn?<lb/>
+Von allem, was das Glu&#x0364;ck den Fu&#x0364;r&#x017F;ten u&#x0364;bergeben,<lb/>
+J&#x017F;t das betru&#x0364;bte&#x017F;te das Recht auf Tod und Leben.<lb/>
+<fw type="catch" place="bottom">Es</fw><lb/>
+<pb n="77" facs="#f0091"/>
+<fw type="header" place="top"><hi rendition="#b">ein Trauer&#x017F;piel.</hi></fw><lb/>
+Es dringt uns Strafen ab, und wei&#x017F;t zu un&#x017F;rer Pein<lb/>
+Dem Mitleid, das uns ru&#x0364;hrt, auch Unrecht im Ver-<lb/>
+<hi rendition="#et">zeyhn.</hi></p></sp></div><lb/>
+<div n="2"><head><hi rendition="#b">Fu&#x0364;nfter Auftritt.</hi></head><lb/>
+<p><hi rendition="#c"><hi rendition="#b">Canut, God&#x017F;chalk, Godewin, E&#x017F;trithe.</hi></hi></p><lb/>
+<sp who="#GOT"><speaker><hi rendition="#fr">God&#x017F;chalk.</hi></speaker><lb/>
+<p><hi rendition="#in">H</hi>err, wenn ich &#x017F;trafbar bin, i&#x017F;t es des Glu&#x0364;cks Ver-<lb/>
+<hi rendition="#et">brechen.</hi><lb/>
+Dieß zwang mich mit Gewalt, am Ulfo dich zu ra&#x0364;chen.<lb/>
+Der Degen, den mein Arm dir willig u&#x0364;bergiebt,<lb/>
+J&#x017F;t von dem Blut gefa&#x0364;rbt, das dich &#x017F;o &#x017F;chlecht geliebt.</p></sp><lb/>
+<sp who="#EST"><speaker><hi rendition="#fr">E&#x017F;trithe.</hi></speaker><lb/>
+<p>Wie? Mo&#x0364;rder, und &#x017F;o &#x017F;chnell entreißt man ihm das<lb/>
+<hi rendition="#et">Leben?</hi></p></sp><lb/>
+<sp who="#GOD"><speaker><hi rendition="#fr">Godewin.</hi></speaker><lb/>
+<p>Ach!</p></sp><lb/>
+<sp who="#CAN"><speaker><hi rendition="#fr">Canut.</hi></speaker><lb/>
+<p><hi rendition="#et">Doch wer hatte dir das Rach&#x017F;chwerdt u&#x0364;bergeben?</hi></p></sp><lb/>
+<sp who="#GOT"><speaker><hi rendition="#fr">God&#x017F;chalk.</hi></speaker><lb/>
+<p>Jch riß nur durch &#x017F;ein Blut mich &#x017F;elb&#x017F;t aus der Gefahr,<lb/>
+Und gab ihm einen Tod, der mir gedrohet war.<lb/>
+Jch nahte mich hieher mit unbe&#x017F;orgtem Schritte,<lb/>
+Zu &#x017F;agen, daß mein Heer um Ulfons Strafe bitte,<lb/>
+Und wie voll Ab&#x017F;cheu es &#x017F;ich vor der Wut ent&#x017F;etzt,<lb/>
+Zu deren Werkzeug er es &#x017F;chlecht genug ge&#x017F;cha&#x0364;tzt.<lb/>
+Man fu&#x0364;hret ihn von dir umringt und ohne Waffen,<lb/>
+Doch &#x017F;eine Rachbegier wußt ihm ein Schwerdt zu<lb/>
+<hi rendition="#et">&#x017F;chaffen.</hi><lb/>
+<fw type="catch" place="bottom">Er</fw><lb/>
+<pb n="78" facs="#f0092"/>
+<fw type="header" place="top"><hi rendition="#b">Canut, ein Trauer&#x017F;piel.</hi></fw><lb/>
+Er reißt der na&#x0364;ch&#x017F;ten Wacht es ra&#x017F;end aus der Hand;<lb/>
+Er eilet auf mich zu, ich &#x017F;ah ihn, und ich &#x017F;tand.<lb/>
+Kaum hatt ich Zeit genug, den Degen zu entblo&#x0364;&#x017F;&#x017F;en,<lb/>
+So a&#x0364;ng&#x017F;tet mich &#x017F;ein Schwerdt mit wiederholten<lb/>
+<hi rendition="#et">Sto&#x0364;&#x017F;&#x017F;en.</hi><lb/>
+Die Wacht, die nach ihm eilt, ko&#x0364;mmt nicht &#x017F;o &#x017F;chnell<lb/>
+<hi rendition="#et">herbey:</hi><lb/>
+So &#x017F;tu&#x0364;rzt er &#x017F;chon &#x017F;ich &#x017F;elb&#x017F;t durch blinde Ra&#x017F;erey:<lb/>
+Die Bru&#x017F;t, die &#x017F;ich nicht &#x017F;chont, fa&#x0364;llt in des Degens<lb/>
+<hi rendition="#et">Spitze,</hi><lb/>
+Der nicht auf Schaden zielt, mit dem ich nur mich<lb/>
+<hi rendition="#et">&#x017F;chu&#x0364;tze.</hi><lb/>
+Er &#x017F;tirbt, indem er noch mich zu durchbohren &#x017F;ucht,<lb/>
+Zum Himmel zornig blickt, und dem Ge&#x017F;chicke flucht,<lb/>
+Das ihn noch endlich zwingt, be&#x017F;ieget zu erbla&#x017F;&#x017F;en,<lb/>
+Und mich nicht wenig&#x017F;tens mit ihm erliegen la&#x017F;&#x017F;en.</p></sp><lb/>
+<sp who="#EST"><speaker><hi rendition="#fr">E&#x017F;trithe.</hi></speaker><lb/>
+<p>Ach Schmerz!</p></sp><lb/>
+<sp who="#CAN"><speaker><hi rendition="#fr">Canut.</hi></speaker><lb/>
+<p><hi rendition="#et">Bezwing dich nur. Wie dauert mich &#x017F;ein Blut!</hi><lb/>
+Warmu ent&#x017F;tellte doch die Untreu &#x017F;einen Muth!<lb/>
+Doch ach! die Ruhmbegier, der edel&#x017F;te der Triebe,<lb/>
+J&#x017F;t nichts als Ra&#x017F;erey, za&#x0364;hmt ihn nicht Men&#x017F;chenliebe.</p><lb/>
+<figure rendition="#c"/><lb/>
+</sp></div></div>
+<pb n="[79]" facs="#f0093"/>
+<pb n="[80]" facs="#f0094"/>
+<pb n="[81]" facs="#f0095"/>
+<pb n="[82]" facs="#f0096"/>
+<pb n="[83]" facs="#f0097"/>
+</body></text> </TEI>

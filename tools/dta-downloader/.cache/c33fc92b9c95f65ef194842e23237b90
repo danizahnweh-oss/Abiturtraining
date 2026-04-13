@@ -1,0 +1,809 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.deutschestextarchiv.de/basisformat.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">     <teiHeader>
+<fileDesc>
+<titleStmt>
+<title type="main">Märkische Blätter</title>
+<title type="sub">Jahrgang 3, Nr. 100</title>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/115266127">
+<surname>Geyken</surname>
+<forename>Alexander</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1222198746">
+<surname>Haaf</surname>
+<forename>Susanne</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1019062681">
+<surname>Jurish</surname>
+<forename>Bryan</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Boenig</surname>
+<forename>Matthias</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Thomas</surname>
+<forename>Christian</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Wiegand</surname>
+<forename>Frank</forename>
+</persName>
+</editor>
+<respStmt>
+<persName>
+<surname>Fankhauser</surname>
+<forename>Peter</forename>
+</persName>
+<resp>
+<note type="remarkResponsibility">Automatische Transformation von TUSTEP nach TEI P5 (DTA-Basisformat).</note>
+</resp>
+</respStmt>
+<respStmt>
+<orgName>Deutsches Textarchiv</orgName>
+<resp>
+<note type="remarkResponsibility">Metadatenerfassung</note>
+</resp>
+</respStmt>
+<respStmt>
+<orgName>Institut für Deutsche Sprache, Mannheim</orgName>
+<resp>
+<note type="remarkResponsibility">Bereitstellung der Bilddigitalisate und Volltext-Transkription</note>
+<ref target="http://hdl.handle.net/10932/00-01B8-AE41-41A4-DC01-5"/>
+</resp>
+</respStmt>
+<respStmt>
+<persName>
+<surname>Haaf</surname>
+<forename>Susanne</forename>
+</persName>
+<persName>
+<surname>Hartz</surname>
+<forename>Rahel</forename>
+</persName>
+<persName>
+<surname>Postelt</surname>
+<forename>Nicole</forename>
+</persName>
+<resp>
+<note type="remarkResponsibility">Nachkorrektur und Vervollständigung der TEI/DTABf-Annotation</note>
+</resp>
+</respStmt>
+<respStmt>
+<persName>
+<surname>Hartz</surname>
+<forename>Rahel</forename>
+</persName>
+<persName>
+<surname>Fiechter</surname>
+<forename>Benjamin</forename>
+</persName>
+<resp>
+<note type="remarkResponsibility">Artikelstrukturierung</note>
+</resp>
+</respStmt>
+<respStmt>
+<orgName ref="https://www.bbaw.de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<resp>
+<note type="remarkResponsibility">Langfristige Bereitstellung der DTA-Ausgabe</note>
+<ref target="https://www.bbaw.de"/>
+</resp>
+</respStmt>
+</titleStmt>
+<editionStmt><edition>Vollständige digitalisierte Ausgabe.</edition></editionStmt>
+<extent>
+<measure type="images">4</measure>
+<measure type="tokens">3991</measure>
+<measure type="types">1920</measure>
+<measure type="characters">28917</measure>
+</extent>
+<publicationStmt>
+<publisher xml:id="DTACorpusPublisher">
+<email>dta@bbaw.de</email>
+<orgName role="project">Deutsches Textarchiv</orgName>
+<orgName role="hostingInstitution" xml:lang="en">Berlin-Brandenburg Academy of Sciences and Humanities (BBAW)</orgName>
+<orgName role="hostingInstitution" xml:lang="de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<address>
+<addrLine>Jägerstr. 22/23, 10117 Berlin</addrLine>
+<country>Germany</country>
+</address>
+</publisher>
+<pubPlace>Berlin</pubPlace>
+<date type="publication">2025-10-24T08:33:10Z</date>
+<availability>
+<licence target="https://creativecommons.org/licenses/by-sa/4.0/deed.de">
+<p>Dieses Werk steht unter der "Namensnennung - Weitergabe unter gleichen Bedingungen 4.0 International" Lizenz (CC BY-SA 4.0).</p>
+</licence>
+</availability>
+<idno>
+<idno type="URLWeb">https://www.deutschestextarchiv.de/nn_maerkische100_1851</idno>
+<idno type="URLXML">https://www.deutschestextarchiv.de/book/download_xml/nn_maerkische100_1851</idno>
+<idno type="URLHTML">https://www.deutschestextarchiv.de/book/download_html/nn_maerkische100_1851</idno>
+<idno type="URLText">https://www.deutschestextarchiv.de/book/download_text/nn_maerkische100_1851</idno>
+<idno type="DTADirName">nn_maerkische100_1851</idno>
+<idno type="DTAID">34426</idno>
+<idno type="URN">urn:nbn:de:kobv:b4-34426-2</idno>
+</idno>
+</publicationStmt>
+<sourceDesc>
+<bibl type="J">Märkische Blätter. Jahrgang 3, Nr. 100. Hattingen, 13. Dezember 1851.</bibl>
+<biblFull>
+<titleStmt>
+<title level="m" type="main">Märkische Blätter</title>
+<title level="m" type="sub">Jahrgang 3, Nr. 100</title>
+</titleStmt>
+<editionStmt>
+<edition n="1"/>
+</editionStmt>
+<publicationStmt>
+<publisher/>
+<pubPlace>Hattingen (Nordrhein-Westfalen)</pubPlace>
+<date type="publication">1851</date>
+</publicationStmt>
+</biblFull>
+<msDesc>
+<msIdentifier/>
+<physDesc>
+<typeDesc>
+<p>Fraktur</p>
+</typeDesc>
+</physDesc>
+</msDesc>
+</sourceDesc>
+</fileDesc>
+<encodingDesc>
+<editorialDecl>
+<p>
+<![CDATA[
+<p>Dieser Text wurde aus dem TUSTEP-Format nach TEI-P5 konvertiert und anschließend in das <a href="http://www.deutschestextarchiv.de/doku/basisformat">DTA-Basisformat</a> überführt.</p>
+]]>
+</p>
+</editorialDecl>
+<tagsDecl>
+<rendition scheme="css" xml:id="aq">font-family:sans-serif</rendition>
+<rendition scheme="css" xml:id="b">font-weight:bold</rendition>
+<rendition scheme="css" xml:id="blue">color:blue</rendition>
+<rendition scheme="css" xml:id="c">display:block; text-align:center</rendition>
+<rendition scheme="css" xml:id="et">display:block; margin-left:2em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et2">display:block; margin-left:4em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et3">display:block; margin-left:6em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="f">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="fr">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="g">letter-spacing:0.125em</rendition>
+<rendition scheme="css" xml:id="i">font-style:italic</rendition>
+<rendition scheme="css" xml:id="in">font-size:150%</rendition>
+<rendition scheme="css" xml:id="k">font-variant:small-caps</rendition>
+<rendition scheme="css" xml:id="larger">font-size:larger</rendition>
+<rendition scheme="css" xml:id="red">color:red</rendition>
+<rendition scheme="css" xml:id="right">display:block; text-align:right</rendition>
+<rendition scheme="css" xml:id="s">text-decoration:line-through</rendition>
+<rendition scheme="css" xml:id="smaller">font-size:smaller</rendition>
+<rendition scheme="css" xml:id="sub">vertical-align:sub; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="sup">vertical-align:super; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="u">text-decoration:underline</rendition>
+<rendition scheme="css" xml:id="uu">border-bottom:double 3px #000</rendition>
+</tagsDecl>
+</encodingDesc>
+<profileDesc>
+<langUsage>
+<language ident="deu">(Früh-)Neuhochdeutsch</language>
+<language ident="deu">German</language>
+</langUsage>
+<textClass>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1main">Zeitung</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">ready</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">mkhz1</classCode>
+</textClass>
+</profileDesc>
+</teiHeader>
+<text>     <front>
+<pb facs="#f0001"/>
+<titlePage type="heading" xml:id="tb01" next="#tb02">         <docTitle>           <titlePart type="main">             <hi rendition="#b #c #fr">Märkische Blätter.</hi></titlePart><lb/>
+</docTitle></titlePage><lb/>
+<cb type="start"/>
+<div type="jExpedition"><p>Erscheinen <hi rendition="#g">Mittwoch</hi> und <hi rendition="#g">Sonnabend.</hi><lb/>
+Preis vierteljährlich 9 Sgr.<lb/>
+<cb n="2"/>
+<hi rendition="#g #larger">Dritter Jahrgang</hi>.<lb/>
+<cb n="3"/>
+<hi rendition="#g">Anzeigen</hi> per Petitzeile 1 Sgr.<lb/>
+Briefe werden franco erbeten.</p></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<titlePage type="heading" xml:id="tb02" prev="#tb01"><docImprint><hi rendition="#b"><hi rendition="#sup">ro</hi> 100.</hi><pubPlace><hi rendition="#c"><hi rendition="#g">Hattingen,</hi></hi></pubPlace><docDate> Sonnabend, den 13. Dezember <hi rendition="#b #fr #right">1851.</hi></docDate>        </docImprint></titlePage><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+</front>         <body>       <cb type="start"/>
+<div n="1" type="jExpedition"><p>&#x261E; Bei dem herannahenden Jahreswechsel erlauben<lb/>
+wir uns die &#x201E;Märkischen Blätter&#x201C; zum gefälligen<lb/>
+Abonnement bestens zu empfehlen. Die großartigen Ereig-<lb/>
+nisse, welche sich jüngst in Frankreich zugetragen, und die<lb/>
+noch nicht zu berechnenden Folgen, dürften den öffentlichen<lb/>
+Organen ein großes Jnteresse verleihen. Durch die bereits<lb/>
+angemeldeten Abonnenten erhält unser Blatt eine Verbreitung<lb/>
+über den ganzen Kreis <hi rendition="#g">Bochum,</hi> weshalb wir schon seit<lb/>
+einiger Zeit die Mittheilung der <hi rendition="#g">Wittener Marktpreise</hi><lb/>
+auswärtigen Abonnenten zu genügen, gebracht haben.</p><lb/>
+<p>Preis und Tendenz des Blattes bleibt unverändert.</p><lb/>
+<p> <space dim="horizontal"/>  Die Redaction der Märkischen Blätter.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jPoliticalNews"><head><hi rendition="#g">Deutschland.</hi></head><lb/>
+<div n="2" type="jArticle"><p>Berlin, 9. Dec. Die Partei Bethmann=Hollweg hat den<lb/>
+Allerhöchsten Unwillen zu beschwichtigen gewußt, denn nachdem die-<lb/>
+selbe nachträglich erläuternde Erklärungen bei dem Könige abgegeben<lb/>
+hat, ist ihr der Bescheid zu Theil geworden, der König sehe, daß er<lb/>
+dieselbe unrichtig beurtheilt habe und sie möchten fortfahren, vor wie<lb/>
+nach gute Unterthanen zu sein.</p><lb/>
+<p>&#x2014; Harkort hat seinen schon während der vorigen Session bei<lb/>
+der zweiten Kammer eingebrachten Antrag in Betreff der Banken-<lb/>
+und Geld=Jnstitute des Landes erneuert. Er beantragt die Ernennung<lb/>
+einer Kommission von 21 Mitgliedern, um das Bank= und Kredit-<lb/>
+system des Landes zu untersuchen und über die im Jnteresse eines<lb/>
+rascheren Geldverkehrs nothwendig erscheinenden Reformen zu berichten.<lb/>
+Der vorigjährige Kommissionsbericht über diesen Antrag, zum Theil<lb/>
+aus der Feder des kenntnißreichen und mit den Geldverhältnissen ver-<lb/>
+trauten Obersten v. Prittwitz geflossen, wurde erst nach dem Schlusse<lb/>
+der Session vertheilt. Die Antragsmotive des Herrn Harkort stellen<lb/>
+noch eine Reihe anderer die Bankfrage berührender Anträge in Aussicht.</p></div><lb/>
+<div n="2" type="jArticle"><p>Hannover, 8. Dec. Als das Ergebniß der heutigen ver-<lb/>
+traulichen Sitzung der zweiten Kammer wird der &#x201E;Hannöv. Pr.&#x201C;<lb/>
+die erfreuliche Aussicht bezeichnet, <hi rendition="#g">daß die Annahme des Han-<lb/>
+delsvertrages in der zweiten Kammer als entschieden<lb/>
+betrachtet werden kann.</hi> </p></div><lb/>
+<div n="2" type="jArticle"><p>Braunschweig, 7. Dec. Die Getreidepreise sind in der<lb/>
+letzten Zeit etwas gefallen. Sachverständige sind der Ansicht, daß<lb/>
+sie noch mehr fallen würden, indem das bisherige Steigen nicht so-<lb/>
+wohl dem Ausfalle der Ernte, als der Verspätung derselben zuzu-<lb/>
+schreiben sei, in Folge dessen auch die Winterbestellung sich verspätet<lb/>
+habe und namentlich für die größeren Landwirthe zum Ausdreschen<lb/>
+noch keine Zeit gewesen sei. Jetzt habe dieser begonnen und dadurch<lb/>
+das Angebot sich sehr vermehrt.  <space dim="horizontal"/>   ( H. C. ) </p></div><lb/>
+<div n="2" type="jArticle"><p>Baden, 8. Dec. Ob wir in Folge der französischen Wirren<lb/>
+bald bewaffnete Gäste an den Rhein und hieher bekommen werden,<lb/>
+darüber soll Jhnen meine nächste Relation berichten; so viel ist ge-<lb/>
+wiß, daß Se. k. H. der Prinz von Preußen uns solche in Aussicht<lb/>
+gestellt hat.</p></div><lb/>
+<div n="2" type="jArticle"><p>Wien, 6. Dec. Wie verläßliche Privatnachrichten melden,<lb/>
+wurden die Schwestern Kossuth's, die Frauen von Meßlenyi und<lb/>
+Kutkay, unter Anschuldigung von hochverrätherischen Verbindungen<lb/>
+in Haft genommen. Eben so wurde eine Anzahl von Edelleuten in<lb/>
+<cb n="2"/>
+der Gegend von Pesth durch die Militärbehörde verhaftet, weil sie<lb/>
+unter dem Vorwande von Hetzjagden geheime Zusammenkünfte ver-<lb/>
+anstaltet hatten, die einen politisch gefährlichen Character trugen. An<lb/>
+einer der letzten ihrer Zusammenkünfte haben sich mehr als 150 Per-<lb/>
+sonen betheiligt.  <space dim="horizontal"/>   ( H. N. ) </p><lb/>
+<p>&#x2014; Der gewöhnlich gut unterrichtete hiesige Correspondent der<lb/>
+&#x201E;Fr. Sachsen=Ztg.&#x201C; schreibt: Das schon erwähnte Bundes=Observa-<lb/>
+tionscorps wird nun, wie man aus guter Quelle vernimmt, unver-<lb/>
+weilt am Rheine aufgestellt werden. Oesterreich und Preußen werden<lb/>
+zu gleichen Theilen ein Contingent von je 15,000 Mann stellen,<lb/>
+Baiern, Hessen und noch einige deutsche Staaten weitere 10,000<lb/>
+Mann, so daß die Truppenzahl 40,000 Mann betragen wird.</p></div></div><lb/>
+<div n="1" type="jPoliticalNews"><head><hi rendition="#g">Frankreich.</hi></head><lb/>
+<div n="2" type="jArticle"><p>Paris, 9. Dec. Der &#x201E;Moniteur parisien&#x201C; sagt: Man er-<lb/>
+zählt uns eine Thatsache, die wir gern bezweifelt hätten, weil sie von<lb/>
+einem nicht zu rechtfertigenden Zerstörungsgeist ausgeht, die aber län-<lb/>
+ger zu bestreiten nicht möglich ist. Die Pflasterer der Stadt Paris,<lb/>
+welche damit beschäftigt waren, das Pflaster wieder herzustellen, wel-<lb/>
+ches in der St. Martin= und der Templestraße zu Barrikaden be-<lb/>
+nutzt worden ist, sind von Personen, welche zur wohlhabenden Klasse<lb/>
+gehören, mit Flintenschüssen bedroht worden, wenn sie ihre Arbeit<lb/>
+fortsetzten. Der Polizeipräfekt hat Maßregeln ergriffen, um diese<lb/>
+Fanatiker zu entdecken und es ist zu beklagen, daß die Pflasterer jene<lb/>
+Unordnungstifter nicht sofort verhaftet haben.</p><lb/>
+<p>&#x2014; Aus Lyon wird unterm 6. Dezember geschrieben, daß Alles<lb/>
+ruhig ist, aber so viele militärische Vorsichtsmaßregeln getroffen sind,<lb/>
+als ob man sich gegen einen Ausstand nicht sicher glaube, weil aller-<lb/>
+dings eine große Aufregung dort herrsche. Auf dem Lande soll es<lb/>
+an manchen Orten sehr unruhig hergehen. Jn der Umgegend von<lb/>
+Bezieres sollen zahleiche Banden von Landlenten sich nach den Schlössern<lb/>
+begeben haben, wo die Grundherren wohnen, an die sie Pacht zu be-<lb/>
+zahlen haben, und daselbst sich schrecklichen Plünderungen überlassen<lb/>
+haben. &#x2014; Jn Gex im Ain=Departement sind französische Flüchtlinge<lb/>
+aus der Schweiz angekommen, haben Schießgewehre vertheilt und<lb/>
+die Anhänger der demokratisch=socialen Republik aufgefordert, sich zu<lb/>
+erheben. &#x2014; Jn Bordeaux hat keine Manifestation stattgefunden. &#x2014;<lb/>
+Jn Toulouse fand ein wenig Aufregung statt und man rief daselbst:<lb/>
+&#x201E;Es lebe die Constitution! Es lebe die Republik!&#x201C; &#x2014; Jn Rheims<lb/>
+fand ein Versuch zur Unordnung statt, der sogleich mit Energie unter-<lb/>
+drückt wurde. &#x2014; Jn Dijon wurden am 4. einige Rothen verhaftet,<lb/>
+welche einen Buchdrucker zwingen wollten, heftige Maueranschlage zu<lb/>
+drucken. Abends fanden sich zahlreiche Gruppen auf den öffentlichen<lb/>
+Plätzen, die durch herbeiströmende Landleute verstärkt, aber durch das<lb/>
+21. Regiment sogleich auseinander getrieben wurde. &#x2014; Jn Chagny<lb/>
+wollten sich die Rothen des Gemeindehauses bemächtigen, und dabei<lb/>
+wurden der Maire und sein Adjunkt verwundet. &#x2014; Aus Touluse<lb/>
+berichtet man unterm 5., daß ein Versuch, das Hotel du Capitole<lb/>
+wegzunehmen, vereitelt worden sei. Der Munizipalrath habe bis<lb/>
+Nachts 1 Uhr Sitzung gehalten. Die getroffenen Maßregeln haben<lb/>
+die Ruhe wieder hergestellt. Ein Dutzend Personen wurden verhaftet,<lb/>
+und unter denselben befinden sich die drei Redacteure Duportal, Lucer<lb/>
+und Janot der &#x201E;Emancipation&#x201C;. Der Appellhof hat sich auf der<lb/>
+Stelle versammelt und dem Präsidenten Pion und zwei Räthen die<lb/>
+Jnstruction übertragen.</p><lb/>
+<p>&#x2014; Die Straßen von Paris nehmen bereits ihre frühere Be-<lb/>
+lebtheit wieder an. Die Stadtpflasterer haben größten Theils die<lb/>
+<cb type="end"/>
+<pb facs="#f0002"/>
+<cb type="start"/>
+Barrikaden weggeräumt und das Pflaster geordnet. Die Consigne<lb/>
+der Truppen ist aufgehoben, die Museen nnd Bibliotheken sind wie-<lb/>
+der geöffnet. Die Wagen circuliren, nur die Hauptpunkte der Jn-<lb/>
+surrection sind noch besetzt. Die Soldaten promeniren einzeln ganz<lb/>
+ruhig in allen Theilen der Stadt und Paris nimmt seine gewöhn-<lb/>
+liche Physiognomie an, als ob gar nichts geschehen wäre.</p><lb/>
+<p>&#x2014; Die &#x201E;Patrie&#x201C; meldet, daß gestern General Magnan alle<lb/>
+Spitäler besucht und die blessirten Soldaten beschenkt und persönlich<lb/>
+getröstet hat.</p></div><lb/>
+<div n="2" type="jArticle"><p>Straßburg, 6. Dez. Mittags 2 Uhr. Beträchtliche Zu-<lb/>
+sammenrottungen bildeten sich heute gegen Mittag, und ein großer<lb/>
+Volkszug, der sich auf Tausende belief, bewegte sich nach den Kaser-<lb/>
+nen der Pontonniers und des 12. Artillerieregiments mit einer Fahne,<lb/>
+auf welcher der Name &#x201E;Constitution&#x201C; angebracht war. Man suchte<lb/>
+das Militär für die Kundgebung zu Gunsten der Verfassung zu ge-<lb/>
+winnen. Militärisches Einschreiten war nöthig, um den immer grö-<lb/>
+ßer werdenden Strom zu zerstreuen, was endlich gelang. Es sind<lb/>
+in allen Straßen auf allen Brücken starke Truppenabtheilungen auf-<lb/>
+gestellt, um die Ruhe zu sichern.</p><lb/>
+<p>&#x2014; Die Aufregung hat sich gelegt. Alles ist zur Ruhe zurück-<lb/>
+gekehrt und die musterhafteste Ordnung herrscht in allen Theilen der<lb/>
+Stadt. Der Belagerungszustand hält die unberufenen Schreier im<lb/>
+Zaume und bringt durchaus keine Störung in den gewöhnlichen<lb/>
+Gang der Verhältnisse.</p></div></div><lb/>
+<div n="1" type="jPoliticalNews"><head><hi rendition="#g">Rußland.</hi></head><lb/>
+<div n="2" type="jArticle"><p>Kalisch, 3. Dec. Aufsehen erregend sind gegenwärtig die<lb/>
+in Polen bei der russischen Armee sehr zahlreich vorkommenden Avance-<lb/>
+ments, Ordensverleihungen und Versetzungen. Alle Grade und<lb/>
+Stellen bei der Armee, welche unbesetzt gewesen, sind neuerlich mit<lb/>
+tauglichen Offizieren besetzt worden. Die kommandirenden Generale<lb/>
+haben zum großen Theile neue Adjutanten erhalten, wogegen die<lb/>
+bisherigen Adjutanten im Dienste der aktiven Armee befördert worden<lb/>
+sind. Der Regimentsstab wird bei allen Regimentern completirt und<lb/>
+mehrere Obersten sind zu Generalen befördert worden.</p></div></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head>Napoleon Louis Bonaparte. <note place="foot" n="*)">Aus dem Conversations=Lexikon der Gegenwart, von Brockhaus.</note></head><lb/>
+<p>Von allen Napoleoniden hat Prinz Napoleon Louis Bonaparte<lb/>
+zumeist die Aufmerksamkeit der Zeitgenossen auf sich gelenkt, da er zur<lb/>
+Verwirklichung weit aussehender Pläne mit großen Ansprüchen und<lb/>
+keckem Wagniß hervortrat. Der Erbe eines großen Namens, welcher<lb/>
+diesen politisch geltend zu machen sucht, wird stets nach dem Jnteresse<lb/>
+der Parteien, die sich ihm anschließen oder denen er feindselig entge-<lb/>
+gentritt, theils übermäßig erhoben, theils ungebürlich erniedrigt werden.<lb/>
+Auch Napoleon hatte Gelegenheit von Beidem Erfahrungen zu ma-<lb/>
+chen. Fassen wir nun in kurzer unpartheiischer Darstellung den hi-<lb/>
+storischen Boden ins Auge, worauf seine Stellung und seine Forder-<lb/>
+ungen fußen, sowie sein Leben und Thun, um darnach zu ermessen,<lb/>
+wie weit er sich dieser Stellung gewachsen gezeigt, welche Erwartun-<lb/>
+gen er rechtfertigen, welche Besorgnisse er wecken mag und wie weit<lb/>
+seine Hoffnungen auf Erfüllung Anspruch haben oder als eitele<lb/>
+Selbsttäuschungen erscheinen.</p><lb/>
+<p>Der Beschluß des französischen Volks vom J. <hi rendition="#aq">XII</hi>. ( 1804 )<lb/>
+hatte die Erblichkeit der kaiserlichen Würde in der geraden Linie der<lb/>
+leiblich ehelichen und der adoptirten männlichen Nachkommen des Kaisers,<lb/>
+sowie in den leiblichen und ehelich männlichen Descendenz seiner bei-<lb/>
+den Brüder Joseph und Louis, festgesetzt. Joseph blieb ohne männ-<lb/>
+liche Nachkommenschaft. Von den zwei ältern Brüdern des Prinzen<lb/>
+Napoleon starb der eine, fünf Jahre alt, im Jahre 1807 und der<lb/>
+andere, früher Großherzog von Berg, im Jahre 1831. Nach einem<lb/>
+Senatusconsult vom 28. Floreal <hi rendition="#aq">XII</hi>. ist nun der Prinz Ludwig Bo-<lb/>
+naparte der älteste Sohn in der kaiserlichen Familie, und da dieser<lb/>
+einem Beschlusse des Kaisers gemäß, den Namen Napoleon führen<lb/>
+soll, so nahm er ihn nach dem Tode seines ältern Bruders an, der<lb/>
+denselben Namen seit 1807 gleichfalls geführt hatte.</p><lb/>
+<p>Napoleon, der dritte Sohn des frühern Königs von Holland<lb/>
+und der Königin Hortensie, Neffe Napoleon's und des Prinzen Eugen<lb/>
+Enkel der Kaiserin Josephine, wurde am 20. April 1808 zu Paris<lb/>
+geboren. Er und der König von Rom waren die beiden einzigen<lb/>
+Prinzen, die unter der Herrschaft des Kaiserthums zur Welt kamen,<lb/>
+und die beiden einzigen, die bei ihrer Geburt militairische Ehrenbe-<lb/>
+zeigungen und die Huldigungen des Volkes empfingen. Sie wurde<lb/>
+<cb n="2"/>
+durch Geschützsalven auf der ganzen Linie der großen Armee, in den<lb/>
+weiten Räumen des Kaiserreichs und des Königreichs Holland, der<lb/>
+<gap reason="illegible" unit="chars" quantity="5"/>Naten verkündet. Noch war damals der Plan des Kaisers zur<lb/>
+Scheidung von seiner Gemahlin Josephine nicht zur Reife gediehen<lb/>
+und für den Fall, daß er ohne männliche Nachkommen blieb, glaube<lb/>
+er in den Söhnen seines Bruders Louis die Erben seiner Macht und<lb/>
+die Vollstrecker seiner weit reichenden Pläne zu sehen. Erst am 4.<lb/>
+Nov. 1810 wurde der Prinz Napoleon zu Fontainebleau vom Car-<lb/>
+dinal Fesch getauft. Seine Taufpathen waren der Kaiser und die<lb/>
+Kaiserin Marie Louise. An demselben Tage hoben Beide den Sohn<lb/>
+des Marschalls Lannes, denselben Herzog von Montebello aus der<lb/>
+Taufe, der eine Zeit lang eifriger Carbonaro war und im J. 1836,<lb/>
+als Gesandter Ludwig Philipp's in der Schweiz, zur Vertreibung<lb/>
+einiger politischen Verbannten und seines Taufbruders eine besondere<lb/>
+Thätigkeit entwickelte. Sowohl für Napoleon als für dessen ältern<lb/>
+Bruder hatte der Kaiser viel Zuneigung, die durch die Geburt des<lb/>
+Königs von Rom im Jahre 1811 nicht geschwächt wurde. Nach<lb/>
+der Rückkehr Napoleon's von Elba stand der junge Prinz diesem auf<lb/>
+dem Maifelde zur Seite und wurde den Deputationen des Volls und<lb/>
+des Heers vorgestellt. Wohl mochte diese feierliche Scene einen tie-<lb/>
+fen Eindruck im Herzen des siebenjährigen Knaben zurücklassen. Als<lb/>
+ihn Napoleon zum letzten Male umarmte, war er höchst erschüttert;<lb/>
+er wollte seinem Oheime folgen und seine Mutter konnte den Knaben<lb/>
+nur mit Mühe beruhigen.</p><lb/>
+<p>Von da begann des Prinzen Verbannung. Die erste Zeit<lb/>
+brachte er in Augsburg zu, wo er mit der deutschen Sprache ver-<lb/>
+traut wurde. Lebas, der Sohn eines frühern Conventmitgliedes, und<lb/>
+der Hellenist Hage sorgten für seinen Unterricht. Sodann zog er<lb/>
+mit seiner Mutter in den Thurgau, wo er später das Bürgerrecht<lb/>
+erhielt und seiner Neigung für militärische Studien folgte. Er wohnte<lb/>
+den Uebungen der badischen Garnison in Konstanz bei und studirte<lb/>
+in der Folge auf der Militairschule zu Thun unter dem General<lb/>
+Dufour, der früher Oberst in der großen Armee war und sich im<lb/>
+J. 1838, da es sich um des Prinzen Vertreibung aus der Schweiz<lb/>
+handelte, als dessen eifriger Anhänger zeigte. Nach einem Briefe an<lb/>
+seine Mutter vom 2. Sept. 1830 befand sich Napoleon gerade auf<lb/>
+einer militairischen Recognoscirung in den Gebirgen, die er, den Tor-<lb/>
+nister auf dem Rücken, durchwanderte, als er in Mitte dieser Ausflüge<lb/>
+die Kunde vom Ausbruche der Julirevolution erhielt. Sein älterer<lb/>
+Bruder hatte sich seither mit industriellen Speculationen befaßt. Die<lb/>
+Nachricht vom plötzlichen Umschwunge der Dinge erfüllte Beide mit<lb/>
+dem höchsten Enthusiasmus, der sich nicht verminderte, als sie die<lb/>
+Thronbesteigung Ludwig Philipp's erfuhren. Glaubten sie doch die<lb/>
+Zeit der Verbannung zu Ende! Nach den Mittheilungen der Königin<lb/>
+Hortensie foll L. Philipp schon 1819 wiederholt erklärt haben, seine<lb/>
+nächste Sorge, sollte er je zur Regierung gelangen, werde die Rück-<lb/>
+berufung der kaiserlichen Familie sein. Auch hielten beide Brüder, in<lb/>
+der Voraussetzung, daß man am Princip der Revolution festhalten<lb/>
+wolle, den Krieg für unvermeidlich und Frankreich aller seiner Söhne<lb/>
+bedürftig. Darum schrieb Napoleon an den neuen König der Fran-<lb/>
+zosen und bat um die Erlaubniß, als gemeiner Soldat im französi-<lb/>
+schen Heere zu dienen. Die französische Regierung antwortete auf<lb/>
+dieses Anerbieten mit der Erneuerung der Verbannungsacte. Jn sei-<lb/>
+nen Erwartungen getäuscht und zum zweiten Male aus seinem Vater-<lb/>
+lande verbannt, mochte Napoleon fortan die Hoffnung auf eine aber-<lb/>
+malige Umwälzung in Frankreich nähren. Doch waren damals sein<lb/>
+älterer Bruder und der Hrrzog von Reichstadt noch am Leben, und<lb/>
+der Plan, mit persönlich ehrgeiziger Absicht dem jüngern Zweige der<lb/>
+Bourbon'schen Dynastie als Prätendent entgegenzutreten, konnte schwer-<lb/>
+lich schon im Geiste des zweiundzwanzgjährigen Mannes zum Be-<lb/>
+wußtsein reifen.</p><lb/>
+<p>Beide Brüder verließen im Anfange des Jahres 1831 die<lb/>
+Schweiz und ließen sich in Toscana nieder. Der Aufstand in der<lb/>
+Romagna rief sie in die Reihen der italienischen Jnsurgenten. Der<lb/>
+ältere Bruder starb zu Forli am 17. März 1831. Den jüngern<lb/>
+führte eine gefahrvolle Flucht durch Jtalien und Frankreich nach<lb/>
+England und von da, nach kurzem Aufenthalte, auf das Schloß Are-<lb/>
+nenberg im Thurgau zurück. Auf seiner Durchreise durch Paris hatte<lb/>
+Napoleon dem Könige Ludwig Philipp einen zweiten Brief geschrieben<lb/>
+worin er sein französisches Bürgerrecht in Anspruch nahm, die Er-<lb/>
+laubniß begehrte im Heere zu dienen und die Versicherung gab, daß<lb/>
+er auch in Jtalien seine militairischen Dienste nur im Jnteresse der<lb/>
+<cb type="end"/>
+<pb facs="#f0003"/>
+<cb type="start"/>
+Nationalunabhängigkeit angeboten habe. Dieser Brief blieb unbeant-<lb/>
+wortet. Bald nach seiner Rückkehr in die Schweiz empfing Napoleon<lb/>
+eine Einladung von den beiden Abgeordneten aus Warschau, General<lb/>
+Knaziewicz und Graf Platen, in Polen zu erscheinen. &#x201E;Die Lan-<lb/>
+dung eines jungen Napoleon an unsern Küsten, die dreifarbige Fahne<lb/>
+in der Hand,&#x201C; so sagten sie in einer Adresse vom 28. Aug. 1831,<lb/>
+&#x201E;würde einen unberechnenbar tiefen Eindruck machen.&#x201C; Der Prinz<lb/>
+war im Begriff abzureisen als die Nachricht von dem Falle Warschaus<lb/>
+ankam.</p><lb/>
+<p>Einen Theil seiner Muße in den Jahren 1832&#x2014;35 widmete<lb/>
+er der Veröffentlichung einiger Schriften, worin sich der Gedanke, den<lb/>
+er zur Richtschnur seines spätern Handelns nahm, schon deutlich ent-<lb/>
+wickelte. Dabei hatte er wol hauptsächlich die Absicht, sich der fran-<lb/>
+zösischen Nation in Erinnerung zu bringen. Jn den 1832 erschie-<lb/>
+nenen &#x201E; <hi rendition="#aq">Rêveries politiques</hi> &#x201C; äußert er die Ansicht, daß Frankreich nur<lb/>
+durch Männer aus dem Blute Napoleon's wiedergeboren werden<lb/>
+könne; daß sie allein im Stande seien, die Jdee der Republikaner mit<lb/>
+den Anforderungen des kriegerischen Geistes der Nation zu verbinden.<lb/>
+Angehängt ist der Entwurf einer Verfassung Frankreichs. Er<lb/>
+ist seinem Wesen nach demokratisch und erinnert in einzelnen Be-<lb/>
+immungen an die Jdeen der St. Simonisten. Gleich im ersten<lb/>
+Artikel heißt es jedoch, &#x201E;die Republik solle einen Kaiser haben,&#x201C;<lb/>
+und im letzten Artikel ist die Rede von der &#x201E;Wiedererrichtung einer<lb/>
+kaiserlichen Garde.&#x201C; Seine später herausgegebenen &#x201E; <hi rendition="#aq">Considérations<lb/>
+politiques el militaires sur la Suisse</hi> &#x201C; fanden in der Tagsatzung<lb/>
+ehrenvolle Erwähnung. Diese Schrift enthält manche gesunde<lb/>
+Ansichten über die Reorganisation der eidgenössischen Bundesverfassung<lb/>
+und sucht besonders die frühere Stellung Napoleon's zur Schweiz in<lb/>
+günstiges Licht zu stellen. Die Frage, warum der Kaiser die eidge-<lb/>
+nössische Centralgewa't ohne Kraft und Nachdruck gelassen habe, wird<lb/>
+dahin beantwortet, daß er es nicht in die Macht der Schweizer habe<lb/>
+legen wollen, seine Pläne zu hemmen und zu durchkreuzen. Zugleich<lb/>
+wird jedoch die allgemeine Bemerkung beigefügt, daß Napoleon hier<lb/>
+wie anderswo, beabsichtigt habe, nur vorübergehende und vermittelnde<lb/>
+Regierungen zwischen den alten und neuen Jdeen zu gründen. Von<lb/>
+diesem Gesichtspunkte aus äußert Napoleon die kühne Erwartung,<lb/>
+daß der Kaiser, wäre er Sieger geblieben, nach dem Friedensschlusse<lb/>
+mit Rußland und dem Sturze des englischen Systems überall einen<lb/>
+Zustand des Bestandes, der Freiheit und Unabhängigkeit an die<lb/>
+Stelle des früheren transitorischen hätte treten lassen. Das Herzogthum<lb/>
+Warschau, so meint er, würde sich dann zu einer polnischen, das<lb/>
+Vicekönigthum Jtalien zu einer italienischen, das Königreich Westphalen<lb/>
+zu einer deutschen Nationalität erweitert haben, und in Frankreich<lb/>
+würde eine freisinnige Regierung an die Stelle des dictatorischen<lb/>
+Systems getreten sein. Endlich gab noch Napoleon, nach mehrjäh-<lb/>
+riger, eifriger und anhaltender Arbeit, ein größeres Werk heraus, &#x201E; <hi rendition="#aq">Ma-<lb/>
+nuel sur l'artillerie</hi> &#x201C; etwa 500 Seiten stark, mit 60 Lithographien,<lb/>
+<cb n="2"/>
+das in mehren militairischen Zeitschriften, unter Anderm vom General<lb/>
+Pelet im &#x201E; <hi rendition="#aq">Spectateur militaire</hi> &#x201C; günstig beurtheilt wurde.</p><lb/>
+<p rendition="#c">( Fortsetzung folgt, )</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jVarious"><head>Vermischtes.</head><lb/>
+<p>Ein semperfreier Graf, der an seinem Duodezhofe alle Einrich-<lb/>
+tungen der größeren Landesherrn nachahmte und dadurch sein Länd-<lb/>
+chen in eine ungeheure Schuldenlast gebracht hatte, gab zur Zeit des<lb/>
+dreißigjährigen Krieges ein großes Gastmahl zu welchem er alle<lb/>
+seine Beamte, deren jeder einen andern Rathstitel führte, eingeladen<lb/>
+hatte. Da trat der Hofnarr herein, beschaute sich die Gesellschaft<lb/>
+und sagte: &#x201E;Gott, welch Menge Räthe! Aber der rechte Rath fehlt<lb/>
+doch noch!&#x201C; &#x2014; &#x201E;Welcher Rath?&#x201C; fragte der Graf. &#x2014; &#x201E;Der Vor-<lb/>
+rath, Eure Erlaucht!&#x201C;</p><lb/>
+<p>&#x2014; Ein Armeninspector kommt vor Kurzem zu einer Wäscherin<lb/>
+die seit längerer Zeit das Stadtalmosen empfängt. Er findet sie sehr<lb/>
+hübsch eingerichtet und sieht, daß sie alle Hände voll Arbeit hat.<lb/>
+Jhr Geschäft scheint ja recht gut zu gehn? O ja! Gott sei Dank!<lb/>
+ich nähre mich redlich und habe mein gutes Auskommen. Und doch<lb/>
+empfangen Sie Almosen? Das ist schändlich, dem soll ein Ende<lb/>
+werden! Der Jnspector geht sofort zu dem <gap reason="illegible" unit="chars" quantity="25"/>District=Armenencommissar<lb/>
+und verlangt, daß die Wäscherin von der Liste der Almosenempfänger<lb/>
+gestrichen werde. Was? Die soll ich streichen? ruft der Commissar.<lb/>
+O nein! das ist ein höchst solides Frauchen! Monatlich erhält sie<lb/>
+10 Sgr., da kauft sie denn regelmäßig für 8 Sgr. ihren Kaffee bei<lb/>
+mir. Ein für allemal, der ihre 10 Sgr streiche ich nicht. Heißt<lb/>
+daß nicht die Armen rücksichtsvoll behandeln?</p><lb/>
+<p>&#x2014; Ein Engländer der unterhalb Charenton über den Fluß<lb/>
+fuhr, fragte den Fährmann: &#x201E;Habt Jhr auf dieser Ueberfahrt niemals<lb/>
+einen Menschen verloren?&#x201C; &#x2014; &#x201E;O niemals!&#x201C; war die Antwort,<lb/>
+&#x201E;selbst meinen Bruder der sich hier vor ungefähr einem Monat hier<lb/>
+ersäufte, fanden wir drei Tage darauf wieder.&#x201C;</p><lb/>
+<p>&#x2014; Kürzlich entsprang ein zu zweimonatlicher Haft verurtheilter<lb/>
+Wilddieb während seines Transportes nach dem Gefängnisse von<lb/>
+Adington seinen Wächtern, und trieb die Höflichkeit so weit, daß er<lb/>
+dem Direktor des Gefängnisses seine Handeisen in einem frankirten<lb/>
+Pakete mittelst Eisenbahn zusandte.</p><lb/>
+<p>&#x2014; Eine Dame beging während der Sonnenfinsterniß in dem<lb/>
+Momente, als die Blumen ihre Kelche schlossen, die Unvorsichtigkeit<lb/>
+an eine Rose zu riechen und ward erst nach 45 Minuten aus ihrer<lb/>
+schrecklichen Lage befreit.</p><lb/>
+<p>&#x2014; Ein Franzose kommt in einen deutschen Kaufladen und<lb/>
+fragt: &#x201E;Kriegt man hier Rum?&#x201C; Der Marqueur erwiderte ganz<lb/>
+trocken mit eisiger Kälte: &#x201E;Nein hier wird nicht rumgekrochen.&#x201C;</p></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<cb type="start"/>
+<div n="1" type="jAnnouncements"><head><hi rendition="#fr">Bekanntmachungen.</hi></head><lb/>
+<div n="2" type="jAn"><head>Nothwendiger Verkauf.<lb/>
+Königliche Kreiserichts-Kommission <hi rendition="#aq">I.</hi><lb/>
+zu Hattingen.</head><lb/>
+<p>Die zur Concursmasse der Kaufleute Ju-<lb/>
+lius und Gustav <hi rendition="#g">Brenner</hi> zu Altenhagen<lb/>
+gehörigen, im Berggegenbuche des Königl.<lb/>
+Märkischen Bergamts zu Bochum Band <hi rendition="#aq">IX.<lb/>
+pag. 356 sub</hi> Nro. 35 und 36 verzeichne-<lb/>
+ten 21 1 / 3 Kur der in der Gemeinde Dum-<lb/>
+berg belegenen Steinkohlenzeche &#x201E;Neuglück&#x201C;<lb/>
+sollen auf den Antrag des Curatos Massa<lb/>
+im Wege der nothwendigen Subhastition <lb/>
+<hi rendition="#g">am</hi> 16. <hi rendition="#g">Dezember, Morgens</hi> 11 Uhr<lb/>
+an der hiesigen Gerichtsstelle verkauft werden.</p><lb/>
+<p>Die Beschreibung der Zeche liegt in der<lb/>
+Registratur zur Einsicht bereit.</p><lb/>
+<p>Die ihrem Aufenthalte nach unbekannte<lb/>
+Wittwe des Geschwornen <hi rendition="#g">Johann Pau-<lb/>
+Brenner, Anna Christina Elisan<lb/>
+beth Drosten,</hi> resp. deren Erben werden<lb/>
+hierzu öffentlich vorgeladen.</p></div><lb/>
+<cb n="2"/>
+<div n="2" type="jAn"><head><hi rendition="#fr">Oeffentliches Aufgebot.</hi><lb/>
+Königl. Kreisgerichts=Kommission <hi rendition="#aq">II.</hi><lb/>
+zu Hattingen.</head><lb/>
+<p>Nachdem aus den Kaufgeldern des noth-<lb/>
+wendig subhastirten <hi rendition="#g">Aßieps</hi> Kottens des<lb/>
+Johann Caspar Hausherr zu <hi rendition="#g">Sprockhövel</hi><lb/>
+für die im Hypothekenbuche dieser Besitzung <lb/>
+<hi rendition="#aq">Vol. XVI. pag</hi>. 715 vermöge Decrets vom<lb/>
+11. April 1845 <hi rendition="#aq">rubr. III</hi>. Nro. 3 eingetra-<lb/>
+gene mit 4 Procent verzinsliche Darlehns-<lb/>
+forderung der Wittwe Diedrich Ernst Spenne-<lb/>
+mann, Johanna Sophia geb. Schmöle aus<lb/>
+der Obligation vom 12. Sept. 1823 im<lb/>
+Betrage von 230 Thaler gemein Handlungs-<lb/>
+Courant eine Special=Masse von 198 Thlr.<lb/>
+24 Sgr. 3 Pf. angelegt worden, weil die<lb/>
+Schuldurkunde verloren gegangen ist, so wer-<lb/>
+den alle diejenigen unbekannten Personen,<lb/>
+welche als Eigenthümer, Erben, Cessionarien<lb/>
+Pfand=Jnhaber oder sonst Berechtigte An-<lb/>
+sprüche an die Special=Masse zu haben ver-<lb/>
+meinen, zu deren Anmeldung zum Termine<lb/>
+<cb n="3"/>
+<hi rendition="#c"><hi rendition="#g">am</hi> 18. <hi rendition="#g">Dezember</hi> 1851,<lb/>
+Morgens 10 Uhr</hi><lb/>
+an der hiesigen Gerichtsstelle unter der Ver-<lb/>
+warnung vorgeladen, daß die Nichterschei-<lb/>
+nenden mit ihren Ansprüchen präcludirt werden.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jAn"><figure/><head><hi rendition="#fr">Am Dienstag, 16. d. M.</hi></head><lb/>
+<p>Nachmittags 4 Uhr, werde ich<lb/>
+im Auftrage des Privatboten Heinrich<lb/>
+<hi rendition="#g">Pollhaus</hi> das demselben zugehörige,<lb/>
+in der Stadt Hattingen am Obermarkte<lb/>
+gelegene und zu jedem Geschäftstriebe<lb/>
+eingerichtete Wohnhaus zum Verkaufe<lb/>
+an den Meistbietenden aussetzen.</p><lb/>
+<p>Kauflustige wollen sich in meiner<lb/>
+Schreibstube zu Hattingen einfinden.</p><lb/>
+<p>Bochum, den 4. Dezember 1851.</p><lb/>
+<p rendition="#c"><hi rendition="#b #fr">Weygand,</hi><lb/>
+Notar.</p><lb/>
+</div><cb type="end"/>
+<pb facs="#f0004"/>
+<cb type="start"/>
+<div n="2" type="jAn"><head><hi rendition="#fr">Sonnabend, den 13. Dezember, Abends 6 Uhr:<lb/>
+Conzert der hiesigen Liedertafel<lb/>
+unterstützt durch Jnstrumentalvorträge<lb/>
+im Saale des Herrn <hi rendition="#g">Rottmann</hi>.</hi></head><lb/>
+<p> <space dim="horizontal"/>  <hi rendition="#fr">Nachher</hi><hi rendition="#aq">BALL.</hi><lb/>
+<space dim="horizontal"/>   Entr<hi rendition="#aq">é</hi>e 10 Sgr. Damen frei. <lb/>
+<hi rendition="#g">Hattingen,</hi> den 9. Dezember 1851.  <space dim="horizontal"/>  Der Vorstand.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jAn"><head><hi rendition="#fr">Mobiliar= und Waaren=Auction.</hi></head><lb/>
+<p>Die zur Carl <hi rendition="#g">Schulz'</hi> schen Coneurs=Masse gehörigen Mobilien, nämlich: <lb/>
+<hi rendition="#fr">Porzelan, Gläser, zinnerne, kupferne, blecherne<lb/>
+und eiserne Geschirre, Tische, Stühle, Schränke,<lb/>
+Oefen, Betten, Bettstellen, Spiegel, Sekretair,<lb/>
+eine Haus=Uhr, eine Kommode und verschiedene<lb/>
+sonstige Haus= und Küchengeräthe, sowie die vor-<lb/>
+räthigen</hi> <lb/>
+<hi rendition="#b #c"><hi rendition="#fr">Manufactur- und Spezerei-Waaren</hi></hi><lb/>
+<space dim="horizontal"/>  werde ich am <hi rendition="#fr">Montag, den 15. d. M.</hi></p><lb/>
+<p>und die darauf folgenden Tage, jedesmal von <hi rendition="#fr">Morgens 9 Uhr bis<lb/>
+Nachmittags 4 Uhr</hi> ohne <hi rendition="#g">Unterbrechung</hi> im Carl <hi rendition="#g">Schulz'</hi> schen<lb/>
+Hause auf der Weilstraße hierselbst öffentlich gegen baare Zahlung verkaufen.</p><lb/>
+<p> <space dim="horizontal"/>  Kauflustige werden hierzu eingeladen.<lb/>
+<space dim="horizontal"/>  Hattingen, den 5. Dezember 1851.<lb/>
+<space dim="horizontal"/>  Der Auetions=Commissar: <hi rendition="#fr">A. Burmann.</hi></p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<cb type="start"/>
+<div n="2" type="jAn"><head><hi rendition="#fr">Subhastations-Patent.</hi><lb/>
+Nothwendiger Verkauf.<lb/>
+Königliche Kreisgerichts:<lb/>
+Kommission <hi rendition="#aq">III.</hi><lb/>
+zu Hattingen.</head><lb/>
+<p>Die Volumen <hi rendition="#aq">VI. Fol</hi>. 453 des Hypo-<lb/>
+thekenbuches verzeichneten und auf 2222 Thlr.<lb/>
+15 Sgr. gerichtlich abgeschätzten Grundstücke<lb/>
+des Hufschmidts Heinrich Peter Schröder<lb/>
+und der Minorennen Sophie Wilhelmine,<lb/>
+Caroline, Caroline Wilhelmine Friederike,<lb/>
+Heinrich, Lisette und Wilhelmine Sophie<lb/>
+Schröder in der Gemeinde Welper Flur <hi rendition="#aq">III.</hi><lb/>
+Nro. 103, 110, 111, 112 nebst Wohnhaus<lb/>
+und Nebengebäuden, 123, 126/1 zufolge der<lb/>
+nebst Hypothekenschein und Bedingungen im<lb/>
+Bureau einzusehenden Tare, sollen am<lb/>
+<hi rendition="#c #b">31. März 1852, Vormittags<lb/>
+11 Uhr</hi><lb/>
+an ordentlicher Gerichtsstelle subhastirt wer-<lb/>
+den.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jAn"><head><hi rendition="#fr">Männer=Gesang=Verein.<lb/>
+Generalversammlung</hi><lb/>
+am <hi rendition="#g">Mittwoch,</hi> den 17. Decbr.<lb/>
+Abends 8 Uhr.</head><lb/>
+<p>           <space dim="horizontal"/>           <hi rendition="#aq">Die Direction.</hi></p></div><lb/>
+<cb n="2"/>
+<div n="2" type="jAn"><head><hi rendition="#fr">Nothwendiger Verkauf.</hi><lb/>
+Königl. Kreisgerichts=Commission <hi rendition="#aq">II.</hi><lb/>
+zu Hattingen.</head><lb/>
+<p>Das Grundstück des Gewerken Wilhelm <lb/>
+<hi rendition="#g">Schulte,</hi> Flur <hi rendition="#aq">II</hi>, Nummer 284/104 der<lb/>
+Mutter=Rolle der Gemeinde Niederbonsfeld,<lb/>
+zur Größe von 41 Morgen 7 Ruthen und<lb/>
+nach Abzug der darauf haftenden Erbpachts-<lb/>
+Lasten abgeschätzt auf 459 Thaler 18 Sgr.<lb/>
+4 Pf. zufolge der im Bureau einzusehenden<lb/>
+Taxe, soll am<lb/>
+<hi rendition="#c #b">Donnerstag, den 18. Dezember<lb/>
+Vormittags 10 Uhr,</hi><lb/>
+an der Gerichtsstelle subhastirt werden.</p><lb/>
+<p>Alle unbekannte Real=Prätendenten werden<lb/>
+aufgefordert, sich bei Vermeidung der Prä-<lb/>
+klusion spätestens in dem Termine zumelden.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jAn"><head><hi rendition="#fr">Empfehlung.</hi></head><lb/>
+<p>Dem geehrten <hi rendition="#g">in-</hi> und <hi rendition="#g">auswärtigen</hi><lb/>
+Publikum die ergebene Anzeige, daß nachdem<lb/>
+ich meine Meisterprüfung bestanden habe,<lb/>
+mein Geschäft selbstständig hierselbst betreibe.<lb/>
+Jn den Stand gesetzt, allen möglichen An-<lb/>
+forderungen entsprechen zu können, erlaube<lb/>
+ich mir die ergebene Bitte an das geehrte<lb/>
+Publikum, mir ein gütiges Vertrauen zu<lb/>
+<cb type="end"/>
+<cb n="2"/>
+schenken und versichere, daß ich alle Auf-<lb/>
+träge pünktlich und reell ausführen werde.</p><lb/>
+<p>Hattingen, den 12. Dec. 1851.</p><lb/>
+<p> <space dim="horizontal"/>  Jakob Hegel, Schneidermeister,<lb/>
+<space dim="horizontal"/>  wohnhaft im Krämersdorf.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jAn"><head><hi rendition="#fr">Filzschuhe,</hi></head><lb/>
+<p>vorzugsweise stark gearbeitet sind fort-<lb/>
+während beim Unterzeichneten zu ha-<lb/>
+ben, und werden zur geneigten Ab-<lb/>
+nahme bestens empfohlen. Der Preis<lb/>
+für ein Paar Mannsschuhe 12 Sgr.<lb/>
+und Frauensschuhe 10 Sgr.</p><lb/>
+<p rendition="#c"><hi rendition="#g">Theodor Kemner.</hi></p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jAn"><p>Jn der C. <hi rendition="#g">Hundt'</hi> schen Buchhandlung<lb/>
+in Hattingen ist zu haben:</p><lb/>
+<p rendition="#c">Niederrheinischer <lb/>
+<hi rendition="#fr">Volks=Kalender</hi><lb/>
+auf das Schaltjahr<lb/>
+1852.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jAn"><head>Kirchliche Sonntag, 14. Dezember. Vorträge. <lb/>
+<hi rendition="#g">Große Evangel.=Gemeinde.</hi></head><lb/>
+<p> <space dim="horizontal"/>   Vormittags: Herr Pastor Schneider.<lb/>
+<space dim="horizontal"/>  Nachmittags: &#x201E;  <space dim="horizontal"/>  &#x201E; Nonne. </p><lb/>
+<p rendition="#c"><hi rendition="#g">Kleine Evangel.=Gemeinde:</hi><lb/>
+Vormittags: Herr Rector Zur Nieden für Herr<lb/>
+Pastor Sunten.</p></div></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jFinancialNews"><div n="2"><p>Frucht- Neuß, den 9. December. Preise.</p><lb/>
+<table>         <row>           <cell>Weizen   </cell>           <cell rendition="#right">  2   </cell>           <cell>  Thlr.   </cell>           <cell rendition="#right">  15   </cell>           <cell>  Sgr.   </cell>           <cell rendition="#right">  &#x2014;   </cell>           <cell>  Pf.   </cell>         </row><lb/>
+<row>           <cell>Roggen   </cell>           <cell rendition="#right">  2   </cell>           <cell>  -   </cell>           <cell rendition="#right">  6   </cell>           <cell>  -   </cell>           <cell rendition="#right">  &#x2014;   </cell>           <cell>  -   </cell>         </row><lb/>
+<row>           <cell>Wintergerste   </cell>           <cell rendition="#right">  1   </cell>           <cell>  -   </cell>           <cell rendition="#right">  19   </cell>           <cell>  -   </cell>           <cell rendition="#right">  &#x2014;   </cell>           <cell>  -   </cell>         </row><lb/>
+<row>           <cell>Sommergerste   </cell>           <cell rendition="#right">  1   </cell>           <cell>  -   </cell>           <cell rendition="#right">  19   </cell>           <cell>  -   </cell>           <cell rendition="#right">  &#x2014;   </cell>           <cell>  -   </cell>         </row><lb/>
+<row>           <cell>Buchweizen   </cell>           <cell rendition="#right">  1   </cell>           <cell>  -   </cell>           <cell rendition="#right">  20   </cell>           <cell>  -   </cell>           <cell rendition="#right">  &#x2014;   </cell>           <cell>  -   </cell>         </row><lb/>
+<row>           <cell>Hafer   </cell>           <cell rendition="#right">  &#x2014;   </cell>           <cell>  -   </cell>           <cell rendition="#right">  27   </cell>           <cell>  -   </cell>           <cell rendition="#right">  &#x2014;   </cell>           <cell>  -   </cell>         </row><lb/>
+<row>           <cell>Erbsen   </cell>           <cell rendition="#right">  2   </cell>           <cell>  -   </cell>           <cell rendition="#right">  15   </cell>           <cell>  -   </cell>           <cell rendition="#right">  &#x2014;   </cell>           <cell>  -   </cell>         </row><lb/>
+<row>           <cell>Rübsamen   </cell>           <cell rendition="#right">  3   </cell>           <cell>  -   </cell>           <cell rendition="#right">  4   </cell>           <cell>  -   </cell>           <cell rendition="#right">  &#x2014;   </cell>           <cell>  -   </cell>         </row><lb/>
+<row>           <cell>Kartoffeln   </cell>           <cell rendition="#right">  &#x2014;   </cell>           <cell>  -   </cell>           <cell rendition="#right">  23   </cell>           <cell>  -   </cell>           <cell rendition="#right">  &#x2014;   </cell>           <cell>  -   </cell>         </row><lb/>
+<row>           <cell>Heu ( per Ctr. )   </cell>           <cell rendition="#right">  &#x2014;   </cell>           <cell>  -   </cell>           <cell rendition="#right">  20   </cell>           <cell>  -   </cell>           <cell rendition="#right">  &#x2014;   </cell>           <cell>  -   </cell>         </row><lb/>
+<row>           <cell>Stroh ( 1200 Pfd. )   </cell>           <cell rendition="#right">  4   </cell>           <cell>  -   </cell>           <cell rendition="#right">  20   </cell>           <cell>  -   </cell>           <cell rendition="#right">  &#x2014;   </cell>           <cell>  -   </cell>         </row><lb/>
+<row>           <cell>Rüböl ( per Ohm   </cell>           <cell>  </cell>           <cell>  </cell>           <cell>  </cell>           <cell>  </cell>           <cell>  </cell>           <cell>  </cell>         </row><lb/>
+<row>           <cell>282 Pfd. ohne Faß )   </cell>           <cell rendition="#right">  29   </cell>           <cell>  -   </cell>           <cell rendition="#right">  22   </cell>           <cell>  -   </cell>           <cell rendition="#right">  6   </cell>           <cell>  -   </cell>         </row><lb/>
+<row>           <cell> <space dim="horizontal"/>  dito pr. Oktober   </cell>           <cell rendition="#right">  &#x2014;   </cell>           <cell>  -   </cell>           <cell rendition="#right">  &#x2014;   </cell>           <cell>  -   </cell>           <cell rendition="#right">  &#x2014;   </cell>           <cell>  -   </cell>         </row><lb/>
+<row>           <cell>Rübkuchen 1000   </cell>           <cell>  </cell>           <cell>  </cell>           <cell>  </cell>           <cell>  </cell>           <cell>  </cell>           <cell>  </cell>         </row><lb/>
+<row>           <cell> <space dim="horizontal"/>  Stück Stampf   </cell>           <cell rendition="#right">  30   </cell>           <cell>  -   </cell>           <cell rendition="#right">  &#x2014;   </cell>           <cell>  -   </cell>           <cell rendition="#right">  &#x2014;   </cell>           <cell>  -   </cell>         </row><lb/>
+<row>           <cell> <space dim="horizontal"/>  Preßk. ( 2000 Pfd. )   </cell>           <cell rendition="#right">  24   </cell>           <cell>  -   </cell>           <cell rendition="#right">  15   </cell>           <cell>  -   </cell>           <cell rendition="#right">  &#x2014;   </cell>           <cell>  -   </cell>         </row><lb/>
+<row>           <cell>Gereinigtes Oel   </cell>           <cell rendition="#right">30</cell>           <cell>-</cell>           <cell rendition="#right">22</cell>           <cell>-</cell>           <cell rendition="#right">6</cell>           <cell>-</cell>         </row>       </table></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2"><p>Frucht- Witten, den 4. December. Preise.</p><lb/>
+<table>         <row>           <cell>Weizen   </cell>           <cell>  2   </cell>           <cell>  Thlr.   </cell>           <cell>  19   </cell>           <cell>  Sgr   </cell>           <cell rendition="#right">  &#x2014;   </cell>           <cell>  Pf.   </cell>         </row><lb/>
+<row>           <cell>Roggen   </cell>           <cell>  2   </cell>           <cell>  -   </cell>           <cell>  11   </cell>           <cell>  -   </cell>           <cell rendition="#right">  &#x2014;   </cell>           <cell>  -   </cell>         </row><lb/>
+<row>           <cell>Gerste   </cell>           <cell>  1   </cell>           <cell>  -   </cell>           <cell>  23   </cell>           <cell>  -   </cell>           <cell rendition="#right">  &#x2014;   </cell>           <cell>  -   </cell>         </row><lb/>
+<row>           <cell>Hafer   </cell>           <cell>  &#x2014;   </cell>           <cell>  -   </cell>           <cell>  26   </cell>           <cell>  -   </cell>           <cell rendition="#right">  &#x2014;   </cell>           <cell>  -   </cell>         </row><lb/>
+<row>           <cell>Buchweizen   </cell>           <cell>  1   </cell>           <cell>  -   </cell>           <cell>  20   </cell>           <cell>  -   </cell>           <cell rendition="#right">  &#x2014;   </cell>           <cell>  -   </cell>         </row><lb/>
+<row>           <cell>Erbsen   </cell>           <cell>  2   </cell>           <cell>  -   </cell>           <cell>  15   </cell>           <cell>  -   </cell>           <cell rendition="#right">  &#x2014;   </cell>           <cell>  -   </cell>         </row><lb/>
+<row>           <cell>Bohnen   </cell>           <cell>  2   </cell>           <cell>  -   </cell>           <cell>  10   </cell>           <cell>  -   </cell>           <cell rendition="#right">  &#x2014;   </cell>           <cell>  -   </cell>         </row><lb/>
+<row>           <cell>Rapsamen   </cell>           <cell>  3   </cell>           <cell>  -   </cell>           <cell>  &#x2014;   </cell>           <cell>  -   </cell>           <cell rendition="#right">  &#x2014;   </cell>           <cell>  -   </cell>         </row><lb/>
+<row>           <cell>Rübsamen   </cell>           <cell>  2   </cell>           <cell>  -   </cell>           <cell>  22   </cell>           <cell>  -   </cell>           <cell rendition="#right">  6   </cell>           <cell>  -   </cell>         </row><lb/>
+<row>           <cell>Kartoffeln   </cell>           <cell>  1   </cell>           <cell>  -   </cell>           <cell>  5   </cell>           <cell>  -   </cell>           <cell rendition="#right">  &#x2014;   </cell>           <cell>  -   </cell>         </row><lb/>
+<row>           <cell>Butter per Pfund   </cell>           <cell>  &#x2014;   </cell>           <cell>  -   </cell>           <cell>  6   </cell>           <cell>  -   </cell>           <cell rendition="#right">  6   </cell>           <cell>  -   </cell>         </row><lb/>
+<row>           <cell>Heu pr. Centner   </cell>           <cell>  &#x2014;   </cell>           <cell>  -   </cell>           <cell>  20   </cell>           <cell>  -   </cell>           <cell rendition="#right">  &#x2014;   </cell>           <cell>  -   </cell>         </row><lb/>
+<row>           <cell>Stroh, pr. Schock   </cell>           <cell>4</cell>           <cell>-</cell>           <cell>20</cell>           <cell>-</cell>           <cell rendition="#right">&#x2014;</cell>           <cell>-</cell>         </row>       </table></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2"><p><hi rendition="#aq">Geld</hi>- <hi rendition="#aq">Elberfeld, 12. December</hi>. <hi rendition="#aq">Course.</hi></p><lb/>
+<table>         <row>           <cell>             <hi rendition="#aq">Neuethaler</hi>           </cell>           <cell>             <hi rendition="#aq">1</hi>           </cell>           <cell>             <hi rendition="#aq">Thlr.</hi>           </cell>           <cell>             <hi rendition="#aq">17</hi>           </cell>           <cell>             <hi rendition="#aq">Sgr.</hi>           </cell>           <cell rendition="#right">             <hi rendition="#aq">&#x2014;</hi>           </cell>           <cell>             <hi rendition="#aq">Pf.</hi>           </cell>         </row><lb/>
+<row>           <cell>             <hi rendition="#aq">Brabanterthaler</hi>           </cell>           <cell>             <hi rendition="#aq">1</hi>           </cell>           <cell>             <hi rendition="#aq">-</hi>           </cell>           <cell>             <hi rendition="#aq">16</hi>           </cell>           <cell>             <hi rendition="#aq">-</hi>           </cell>           <cell rendition="#right">             <hi rendition="#aq">&#x2014;</hi>           </cell>           <cell>             <hi rendition="#aq">-</hi>           </cell>         </row><lb/>
+<row>           <cell>             <hi rendition="#aq">Fünffrankenstücke</hi>           </cell>           <cell>             <hi rendition="#aq">1</hi>           </cell>           <cell>             <hi rendition="#aq">-</hi>           </cell>           <cell>             <hi rendition="#aq">10</hi>           </cell>           <cell>             <hi rendition="#aq">-</hi>           </cell>           <cell rendition="#right">             <hi rendition="#aq">6</hi>           </cell>           <cell>             <hi rendition="#aq">-</hi>           </cell>         </row><lb/>
+<row>           <cell>             <hi rendition="#aq">Preuss. Friedrichsd'or</hi>           </cell>           <cell>             <hi rendition="#aq">5</hi>           </cell>           <cell>             <hi rendition="#aq">-</hi>           </cell>           <cell>             <hi rendition="#aq">20</hi>           </cell>           <cell>             <hi rendition="#aq"/>           </cell>           <cell rendition="#right">             <hi rendition="#aq">&#x2014;</hi>           </cell>           <cell>             <hi rendition="#aq">-</hi>           </cell>         </row><lb/>
+<row>           <cell>             <hi rendition="#aq">Ausländ. Pistolen</hi>           </cell>           <cell>             <hi rendition="#aq">5</hi>           </cell>           <cell>             <hi rendition="#aq">-</hi>           </cell>           <cell>             <hi rendition="#aq">15</hi>           </cell>           <cell>             <hi rendition="#aq">-</hi>           </cell>           <cell rendition="#right">             <hi rendition="#aq">&#x2014;</hi>           </cell>           <cell>             <hi rendition="#aq">-</hi>           </cell>         </row><lb/>
+<row>           <cell>             <hi rendition="#aq">Napoleonsd'or</hi>           </cell>           <cell>             <hi rendition="#aq">5</hi>           </cell>           <cell>             <hi rendition="#aq">-</hi>           </cell>           <cell>             <hi rendition="#aq">12</hi>           </cell>           <cell>             <hi rendition="#aq">-</hi>           </cell>           <cell rendition="#right">             <hi rendition="#aq">6</hi>           </cell>           <cell>             <hi rendition="#aq">-</hi>           </cell>         </row><lb/>
+<row>           <cell>             <hi rendition="#aq">Holl. 10Guldenstücke</hi>           </cell>           <cell>5</cell>           <cell>-</cell>           <cell>17</cell>           <cell>-</cell>           <cell rendition="#right">&#x2014;</cell>           <cell>-</cell>         </row>       </table></div></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+</body>     <back><div n="1" type="imprint"><p><hi rendition="#c">Redaction, Druck und Verlag von C. <hi rendition="#g">Hundt</hi><lb/>
+in Hattingen.</hi></p></div>       <cb type="end"/>
+</back>   </text> </TEI>

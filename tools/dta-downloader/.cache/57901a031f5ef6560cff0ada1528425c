@@ -1,0 +1,2405 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.deutschestextarchiv.de/basisformat.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="http://www.deutschestextarchiv.de/basisformat.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">   <teiHeader>
+<fileDesc>
+<titleStmt>
+<title type="main">Gedichte im Geschmack des Grecourt</title>
+<author>
+<persName ref="http://d-nb.info/gnd/118834134">
+<surname>Scheffner</surname>
+<forename>Johann George</forename>
+</persName>
+</author>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/115266127">
+<surname>Geyken</surname>
+<forename>Alexander</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1222198746">
+<surname>Haaf</surname>
+<forename>Susanne</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1019062681">
+<surname>Jurish</surname>
+<forename>Bryan</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Boenig</surname>
+<forename>Matthias</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Thomas</surname>
+<forename>Christian</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Wiegand</surname>
+<forename>Frank</forename>
+</persName>
+</editor>
+<respStmt>
+<orgName ref="https://www.bbaw.de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<resp>
+<note type="remarkResponsibility">Langfristige Bereitstellung der DTA-Ausgabe</note>
+<ref target="https://www.bbaw.de"/>
+</resp>
+</respStmt>
+</titleStmt>
+<editionStmt><edition>Vollständige digitalisierte Ausgabe.</edition></editionStmt>
+<extent>
+<measure type="images">174</measure>
+<measure type="tokens">10657</measure>
+<measure type="types">3727</measure>
+<measure type="characters">71010</measure>
+</extent>
+<publicationStmt>
+<publisher xml:id="DTACorpusPublisher">
+<email>dta@bbaw.de</email>
+<orgName role="project">Deutsches Textarchiv</orgName>
+<orgName role="hostingInstitution" xml:lang="en">Berlin-Brandenburg Academy of Sciences and Humanities (BBAW)</orgName>
+<orgName role="hostingInstitution" xml:lang="de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<address>
+<addrLine>Jägerstr. 22/23, 10117 Berlin</addrLine>
+<country>Germany</country>
+</address>
+</publisher>
+<pubPlace>Berlin</pubPlace>
+<date type="publication">2025-02-28T15:16:10Z</date>
+<availability>
+<licence target="https://creativecommons.org/licenses/by-sa/4.0/deed.de">
+<p>Distributed under the Creative Commons Attribution-ShareAlike 4.0 License.</p>
+</licence>
+</availability>
+<idno>
+<idno type="URLWeb">https://www.deutschestextarchiv.de/scheffner_gedichte_1771</idno>
+<idno type="URLXML">https://www.deutschestextarchiv.de/book/download_xml/scheffner_gedichte_1771</idno>
+<idno type="URLHTML">https://www.deutschestextarchiv.de/book/download_html/scheffner_gedichte_1771</idno>
+<idno type="URLText">https://www.deutschestextarchiv.de/book/download_text/scheffner_gedichte_1771</idno>
+<idno type="DTADirName">scheffner_gedichte_1771</idno>
+<idno type="DTAID">25078</idno>
+<idno type="URN">urn:nbn:de:kobv:b4-25078-7</idno>
+</idno>
+</publicationStmt>
+<sourceDesc>
+<bibl type="M">Scheffner, Johann George: Gedichte im Geschmack des Grecourt. Frankfurt (Main) u. a., 1771.</bibl>
+<biblFull>
+<titleStmt>
+<title level="m" type="main">Gedichte im Geschmack des Grecourt</title>
+<author>
+<persName ref="http://d-nb.info/gnd/118834134">
+<surname>Scheffner</surname>
+<forename>Johann George</forename>
+</persName>
+</author>
+</titleStmt>
+<editionStmt>
+<edition n="1"/>
+</editionStmt>
+<extent>
+<measure type="pages">160 S.</measure>
+</extent>
+<publicationStmt>
+<publisher><name>Dodsley und Compagnie</name></publisher>
+<pubPlace>Frankfurt (Main)</pubPlace>
+<pubPlace>Leipzig</pubPlace>
+<date type="publication">1771</date>
+</publicationStmt>
+</biblFull>
+<msDesc>
+<msIdentifier>
+<repository>Staatsbibliothek München</repository>
+<idno>
+<idno type="shelfmark">BSB München, Rem.IV 2289</idno>
+</idno>
+</msIdentifier>
+<physDesc>
+<typeDesc>
+<p>Fraktur</p>
+</typeDesc>
+</physDesc>
+</msDesc>
+</sourceDesc>
+</fileDesc>
+<encodingDesc>
+<editorialDecl>
+<p>Dieses Werk wurde gemäß den <ref target="https://www.deutschestextarchiv.de/doku/richtlinien">DTA-Transkriptionsrichtlinien</ref>
+im Double-Keying-Verfahren von Nicht-Muttersprachlern erfasst und in XML/TEI P5 nach
+<ref target="https://www.deutschestextarchiv.de/doku/basisformat">DTA-Basisformat</ref> kodiert.</p>
+<p/>
+</editorialDecl>
+<tagsDecl>
+<rendition scheme="css" xml:id="aq">font-family:sans-serif</rendition>
+<rendition scheme="css" xml:id="b">font-weight:bold</rendition>
+<rendition scheme="css" xml:id="blue">color:blue</rendition>
+<rendition scheme="css" xml:id="c">display:block; text-align:center</rendition>
+<rendition scheme="css" xml:id="et">display:block; margin-left:2em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et2">display:block; margin-left:4em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et3">display:block; margin-left:6em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="f">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="fr">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="g">letter-spacing:0.125em</rendition>
+<rendition scheme="css" xml:id="i">font-style:italic</rendition>
+<rendition scheme="css" xml:id="in">font-size:150%</rendition>
+<rendition scheme="css" xml:id="k">font-variant:small-caps</rendition>
+<rendition scheme="css" xml:id="larger">font-size:larger</rendition>
+<rendition scheme="css" xml:id="red">color:red</rendition>
+<rendition scheme="css" xml:id="right">display:block; text-align:right</rendition>
+<rendition scheme="css" xml:id="s">text-decoration:line-through</rendition>
+<rendition scheme="css" xml:id="smaller">font-size:smaller</rendition>
+<rendition scheme="css" xml:id="sub">vertical-align:sub; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="sup">vertical-align:super; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="u">text-decoration:underline</rendition>
+<rendition scheme="css" xml:id="uu">border-bottom:double 3px #000</rendition>
+</tagsDecl>
+</encodingDesc>
+<profileDesc>
+<langUsage>
+<language ident="deu">(Früh-)Neuhochdeutsch</language>
+<language ident="deu">German</language>
+</langUsage>
+<textClass>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dtamain">Belletristik</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dtasub">Lyrik</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1main">Belletristik</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1sub">Lyrik</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">core</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">ready</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">china</classCode>
+</textClass>
+</profileDesc>
+</teiHeader>
+<text><front>
+<pb facs="#f0001"/>
+<pb facs="#f0002"/>
+<pb facs="#f0003"/>
+<pb facs="#f0004"/>
+<pb n="[1]" facs="#f0005"/>
+<titlePage type="main"><docTitle><titlePart type="main"><hi rendition="#b"><hi rendition="#g">Gedichte</hi></hi></titlePart></docTitle><lb/>
+<titlePart type="desc">im<lb/>
+<hi rendition="#g">Ge&#x017F;chmack des Grecourt.</hi></titlePart><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<epigraph><cit><quote>&#x039C;&#x03B1; &#x03C5;&#x03B5;&#x03C1;&#x03C5;&#x03B5; &#x03B5;&#x03C2; &#x03B9;&#x03BD;&#x03B4;&#x03B9;&#x03C3;&#x03BA;&#x03C1;&#x03B5;&#x03C4;&#x03C4;&#x03B5;<lb/>
+&#x0399;&#x03B5; &#x03BB;&#x03B1; &#x03BA;&#x03BF;&#x03BD;&#x03B4;&#x03B1;&#x03BC;&#x03BD;&#x03B5; &#x03B5;&#x03BD; &#x03B5;&#x03C6;&#x03C6;&#x03B5;&#x03C4;:<lb/>
+&#x0395;&#x03C2; &#x03B9;&#x03BB; &#x0223;&#x03BD; &#x03C3;&#x03B1;&#x03B3;&#x03B5; &#x03C0;&#x03C9;&#x03B5;&#x03C4;&#x03B5;<lb/>
+&#x0395;&#x03C2; &#x03B9;&#x03BB; &#x0223;&#x03BD; &#x03B1;&#x03BC;&#x03B1;&#x03BD;&#x03C4; &#x03B4;&#x03B9;&#x03C3;&#x03BA;&#x03C1;&#x03B5;&#x03C4;?</quote><lb/>
+<bibl>&#x03C7;&#x03B1;&#x03BF;&#x03C5;&#x03BB;&#x03B9;&#x03B5;&#x03C5;.</bibl></cit></epigraph><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<docImprint><pubPlace>Frankfurt und Leipzig,</pubPlace><lb/>
+<publisher><hi rendition="#g">bey Dodsley und Compagnie,</hi></publisher> <docDate>1771.</docDate></docImprint></titlePage></front><body><lb/>
+<pb n="[2]" facs="#f0006"/>
+<pb n="[3]" facs="#f0007"/>
+<div n="1"><head><hi rendition="#b"><hi rendition="#g">Jnhalt.</hi></hi></head><lb/>
+<list><item>1. Zu&#x017F;chrift.</item><lb/>
+<item>2. Ge&#x017F;pra&#x0364;ch mit einer Statue der Venus.</item><lb/>
+<item>3. Der Triumpf.</item><lb/>
+<item>4. Erinnerung der Scha&#x0364;fer&#x017F;tunde.</item><lb/>
+<item>5. Die Opferung.</item><lb/>
+<item>6. Ein lehrreicher Traum vom Amor.</item><lb/>
+<item>7. Denkzettelchen in Phyllis Schatzka&#x0364;&#x017F;tlein.</item><lb/>
+<item>8. Billet an Dorchen.</item><lb/>
+<item>9. An mein Ma&#x0364;dchen.</item><lb/>
+<item>10. Tro&#x017F;tgedicht.</item><lb/>
+<item>11. Das Jahrfe&#x017F;t des er&#x017F;ten Kußes.</item><lb/>
+<item>12. Sinngedicht aus dem Oven.</item><lb/>
+<item>13. Die glu&#x0364;cklich gehobne Be&#x017F;orgniß.</item><lb/>
+<item>14. Das Zeichen am Leibe.</item><lb/>
+<item>15. Der Himmelsweg.</item><lb/>
+<item>16. Der klu&#x0364;g&#x017F;te Rath,</item><lb/>
+<item>17. Die vor&#x017F;ichtige Agnes.</item><lb/>
+<item>18. Die gute Chri&#x017F;tin.</item><lb/>
+<item>19. Hans Carvels Ring.</item><lb/>
+<item>20. Das offenherzige Beka&#x0364;ntniß.</item></list><lb/>
+<fw type="sig" place="bottom">A 2</fw><fw type="catch" place="bottom">21.</fw><lb/>
+<pb n="[4]" facs="#f0008"/>
+<list><item>21. Die Sehn&#x017F;ucht.</item><lb/>
+<item>22. Maylied.</item><lb/>
+<item>23. Die Jungfer&#x017F;chaft.</item><lb/>
+<item>24. Der Maler und der Liebhaber.</item><lb/>
+<item>25. An Doris nach einem kleinen Scharmu&#x0364;tzel.</item><lb/>
+<item>26. Gedenk an jene Zeit.</item><lb/>
+<item>27. Der Haarproceß.</item><lb/>
+<item>28. Lied.</item><lb/>
+<item>29. Wie mir es war, wie Jhr es ließ.</item><lb/>
+<item>30. Trinklied.</item><lb/>
+<item>31. Gema&#x0364;lde.</item><lb/>
+<item>32. Einladung auf das Feld.</item><lb/>
+<item>33. Ermunterung zum Vergnu&#x0364;gen.</item><lb/>
+<item>34. Gelegenheitsgedicht.</item><lb/>
+<item>35. Zum Be&#x017F;chluß.</item></list></div><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<fw type="catch" place="bottom">Zu&#x017F;chrift.</fw><lb/>
+<pb n="[5]" facs="#f0009"/>
+<div n="1"><head><hi rendition="#b"><hi rendition="#g">Zu&#x017F;chrift.</hi></hi></head><lb/>
+<fw type="sig" place="bottom">A 3</fw><lb/>
+<pb n="[6]" facs="#f0010"/>
+<pb n="7" facs="#f0011"/>
+<lg type="poem"><lg n="1"><l><hi rendition="#g"><hi rendition="#in">R</hi>o&#x017F;ts</hi> abge&#x017F;chied&#x2019;ner Scha&#x0364;fer&#x017F;eele</l><lb/>
+<l>Und, <hi rendition="#g">Wieland,</hi> deiner, die noch lebt</l><lb/>
+<l>Und in den <hi rendition="#g">Agathon</hi> und <hi rendition="#g">Jdris</hi> Wollu&#x017F;t wedt,</l><lb/>
+<l>Weih&#x2019; ich mein Lied &#x2014; Was ich &#x017F;ing und erza&#x0364;hle</l><lb/>
+<l>Sang und erza&#x0364;hlte mir ein&#x017F;t eine Mu&#x017F;e vor,</l><lb/>
+<l>Die &#x017F;ich den allerfein&#x017F;ten Flor,</l><lb/>
+<l>Der nicht Ein blaues Aderchen verheelt,</l><lb/>
+<l>Zum Morgenneglig<hi rendition="#aq">é</hi> erwa&#x0364;hlt:</l><lb/>
+<fw type="sig" place="bottom">A 4</fw><fw type="catch" place="bottom">Froh</fw><lb/>
+<pb n="8" facs="#f0012"/>
+<l>Froh wird &#x017F;ie &#x017F;eyn, wenn deine Mu&#x017F;en,</l><lb/>
+<l>Mit bloßen Knie&#x2019;n und ofnen Bu&#x017F;en,</l><lb/>
+<l>Voll Laune, und &#x017F;elb&#x017F;t von der Glut be&#x017F;eelt,</l><lb/>
+<l>Die &#x017F;ie bey <hi rendition="#g">Koxkox</hi> <note place="foot" n="(*)">Beytr. z. Geh. Ge&#x017F;chichte des men&#x017F;chl. Ver&#x017F;tandes und Her-<lb/>
+zens, 1 Thl. p. 33-38.</note> Glu&#x0364;ck in Le&#x017F;erherzen hauchen</l><lb/>
+<l>Stief&#x017F;chwe&#x017F;terlich &#x017F;ie nur, als Kammerma&#x0364;dchen brauchen.</l></lg></lg></div><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<pb n="9" facs="#f0013"/>
+<div n="1" type="poem"><head><hi rendition="#b"><hi rendition="#g">Ge&#x017F;pra&#x0364;ch<lb/>
+mit einer Statue der Venus.</hi></hi></head><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<lg type="poem"><lg n="1"><l><hi rendition="#in">D</hi>u Tochter Zev&#x017F;ens von Dionen,</l><lb/>
+<l>Was ha&#x0364;lt&#x017F;t du da die &#x017F;chlaugebogne Hand,</l><lb/>
+<l>Und hier das neidi&#x017F;che Gewand</l><lb/>
+<l>Vor die allma&#x0364;chtge Scho&#x0364;nheitszonen?</l><lb/>
+<l>Was zieh&#x017F;t du deinen Marmorleib</l><lb/>
+<l>So furcht&#x017F;am ein, und blick&#x017F;t be&#x017F;cha&#x0364;mt zur Erde?</l><lb/>
+<l>Was fehlt dir? Sprich. Es &#x017F;chickt &#x017F;ich fu&#x0364;r kein Weib,</l><lb/>
+<l>So &#x017F;cho&#x0364;n wie du, die a&#x0364;ng&#x017F;tliche Gebehrde:</l><lb/>
+<l>Nun, Meergebohrne, wir&#x017F;t du wieder aufwa&#x0364;rts &#x017F;ehn,</l><lb/>
+<l>Und niemals mehr &#x017F;o furcht&#x017F;am &#x017F;tehn?</l></lg><lb/>
+<fw type="sig" place="bottom">A 5</fw><fw type="catch" place="bottom"><hi rendition="#fr">Die</hi></fw><lb/>
+<pb n="10" facs="#f0014"/>
+<lg n="2"><l><hi rendition="#c"><hi rendition="#fr">Die Statue.</hi></hi></l><lb/>
+<l>Was hilfts mein Aug hier aufzu&#x017F;chlagen,</l><lb/>
+<l>Und meine Reize Schau zu tragen?</l><lb/>
+<l>Hier bin ich doch nicht &#x017F;cho&#x0364;n, nicht Ko&#x0364;nigin der Welt;</l><lb/>
+<l>Zwar &#x017F;teht mein Bild hier aufge&#x017F;tellt,</l><lb/>
+<l>Allein du darf&#x017F;t dein Herz nur fragen,</l><lb/>
+<l>So wird dir &#x017F;ein Orakel &#x017F;agen:</l><lb/>
+<l>Die Statue bleibt hier &#x017F;o lang nur aufge&#x017F;tellt,</l><lb/>
+<l>Bis die, vor der &#x017F;ich tau&#x017F;end Herzen neigen</l><lb/>
+<l>Bis <hi rendition="#g">Ro&#x0364;schen</hi> es fu&#x0364;r dienlich ha&#x0364;lt</l><lb/>
+<l>Jn die&#x017F;em Heiligthum &#x017F;ich &#x017F;elb&#x017F;t zu zeigen.</l></lg></lg></div><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<fw type="catch" place="bottom">3. Der</fw><lb/>
+<pb n="11" facs="#f0015"/>
+<div n="1" type="poem"><head><hi rendition="#b"><hi rendition="#g">Der Triumpf.</hi></hi></head><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<cit><quote><l><hi rendition="#aq">Non ita Dardanio gavi&#x017F;us Atrida triumpho e<supplied>&#x017F;t</supplied></hi></l><lb/>
+<l><hi rendition="#aq">Cum caderent magnae Laomedontis opes &#x2014;</hi></l><lb/>
+<l><hi rendition="#aq">Quanta ego præterita collegi gaudia nocte:</hi></l><lb/>
+<l><hi rendition="#aq">Immortalis ero, &#x017F;i altera talis erit.</hi></l></quote><lb/>
+<bibl><hi rendition="#aq"><hi rendition="#et"><hi rendition="#i">Propertius.</hi></hi></hi></bibl></cit><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<lg type="poem"><lg n="1"><l>&#x201D;<hi rendition="#in">S</hi>o ru&#x0364;hrt Dich nicht dein Freund, der za&#x0364;rtlich vor</l><lb/>
+<l><hi rendition="#et">Dir kniet?</hi></l><lb/>
+<l>&#x201D;Soll er ver&#x017F;chmachten &#x2014; Er, der doch fu&#x0364;r Dich</l><lb/>
+<l><hi rendition="#et">nur glu&#x0364;ht?</hi></l><lb/>
+<l>&#x201D;Soll er, nur er allein der Liebe Marter fu&#x0364;hlen,</l><lb/>
+<l>Und nie das &#x017F;cho&#x0364;n&#x017F;te Feur an deinem Bu&#x017F;en ku&#x0364;hlen?</l><lb/>
+<fw type="catch" place="bottom">&#x201D;Erbarm</fw><lb/>
+<pb n="12" facs="#f0016"/>
+<l>&#x201D;Erbarm Dich, Ma&#x0364;dchen, doch, ho&#x0364;r&#x2019; auf zu wider&#x017F;tehn</l><lb/>
+<l>&#x201D;Der Za&#x0364;rtlichkeit Genuß macht Dich gedoppelt &#x017F;cho&#x0364;n.</l><lb/>
+<l>&#x201D;Ver&#x017F;uch einmal den Rau&#x017F;ch aus Amors Zauberbecher,</l><lb/>
+<l>&#x201D;Und findt dein Herz nachher nicht alle Weltlu&#x017F;t &#x017F;chwa&#x0364;cher</l><lb/>
+<l>&#x201D;Als ihn, und &#x017F;chwimmt es nicht in nie empfundner Lu&#x017F;t,</l><lb/>
+<l>&#x201D;So hu&#x0364;ll&#x2019; in dichten Flor &#x017F;tets deine Marmorbru&#x017F;t.</l><lb/>
+<l>&#x201D;O laß mich &#x2014; laß mich doch der Wu&#x0364;n&#x017F;che Ziel erreichen,</l><lb/>
+<l>&#x201D;Laß mich in deinem Arm beglu&#x0364;ckt den Go&#x0364;ttern gleichen.</l><lb/>
+<l>&#x201D;Wie lang, wie lang blieb nicht mein Bitten unerho&#x0364;rt!</l><lb/>
+<l>&#x201D;Wie lang hat nicht Dein Nein der Hofnung Glu&#x0364;ck ge&#x017F;to&#x0364;hrt?</l><lb/>
+<l>&#x201D;Was hilfts Dir, go&#x0364;ttlichs Kind, ein Kleinod zu be&#x017F;itzen,</l><lb/>
+<l>&#x201D;Ohn&#x2019; nach der Scho&#x0364;pfung Zweck es liebevoll zu nu&#x0364;tzen?</l><lb/>
+<fw type="catch" place="bottom">&#x201D;Umarme</fw><lb/>
+<pb n="13" facs="#f0017"/>
+<l>&#x201D;Umarme mich, komm und genieß den Unterricht,</l><lb/>
+<l>&#x201D;Der Men&#x017F;chen macht und Lu&#x017F;t mehr giebt, als er ver&#x017F;pricht.</l><lb/>
+<l>&#x201D;Es klopft Dein junges Herz, &#x017F;ein za&#x0364;rtliches Erbeben</l><lb/>
+<l>&#x201D;Mißbilligt Furcht und Zwang, es will der Freude leben;</l><lb/>
+<l>&#x201D;Der Liebe Morgenglanz fa&#x0364;rbt Deine Wangen roth,</l><lb/>
+<l>&#x201D;Gehor&#x017F;am hei&#x017F;cht Natur von Dir fu&#x0364;r ein Geboth,</l><lb/>
+<l>&#x201D;Das &#x017F;ie zum Glu&#x0364;ck uns gab &#x2014; Laß nicht die Zeit verfließen,</l><lb/>
+<l>&#x201D;Jn meines Armes Schutz komm alles Glu&#x0364;ck genießen.</l><lb/>
+<l>&#x201D;Blu&#x0364;h Ro&#x017F;enkno&#x0364;&#x017F;pchen auf&#x201D; &#x2014; Jn die&#x017F;em Augenblick</l><lb/>
+<l>Schmolz <hi rendition="#g">Chloens</hi> Herz, &#x017F;ie &#x017F;ank in meinem Arm zuru&#x0364;ck.</l><lb/>
+<l>Jn halber Ohnmacht, &#x017F;cho&#x0364;n von Liebe u&#x0364;berwunden,</l><lb/>
+<l>Berau&#x017F;cht von einer Lu&#x017F;t, die &#x017F;ie noch nie empfunden,</l><lb/>
+<fw type="catch" place="bottom">Las</fw><lb/>
+<pb n="14" facs="#f0018"/>
+<l>Las ich das &#x017F;cho&#x0364;n&#x017F;te Ja im Aug, das &#x017F;anft &#x017F;ich &#x017F;chloß,</l><lb/>
+<l>Jndem der Un&#x017F;chuld Re&#x017F;t in Thra&#x0364;nen &#x017F;till verfloß.</l></lg><lb/>
+<lg n="2"><l>O ko&#x0364;nnt ich doch, wie <hi rendition="#g">Gleim, Catull</hi> und <hi rendition="#g">Wie-</hi></l><lb/>
+<l><hi rendition="#et"><hi rendition="#g">land</hi> &#x017F;ingen,</hi></l><lb/>
+<l>Um <hi rendition="#g">Chloens</hi> Reitzungen ein reitzend Lied zu bringen!</l><lb/>
+<l>Was &#x017F;ah ich nicht, was hat nicht hier die Hand beru&#x0364;hrt</l><lb/>
+<l>Eh mich zu ihrem Werk die goldne Venus fu&#x0364;hrt!</l><lb/>
+<l>Ho&#x0364;rbar &#x017F;ah ich ihr Herz durchs &#x017F;eidne Halstuch pochen,</l><lb/>
+<l>Und fu&#x0364;hlte ra&#x017F;ch das Blut in allen Adern kochen.</l><lb/>
+<l>O Wollu&#x017F;t! Liebe! Glu&#x0364;ck! o dreymal &#x017F;elger Tag,</l><lb/>
+<l>Als <hi rendition="#g">Chloens</hi> ganzer Reiz in meinen Armen lag!</l><lb/>
+<l>Das blu&#x0364;hend&#x017F;te Ge&#x017F;icht mit braunem Haar umzieret,</l><lb/>
+<l>Gebrochne Augen und der Bu&#x017F;en aufge&#x017F;chnu&#x0364;ret,</l><lb/>
+<fw type="catch" place="bottom">Der</fw><lb/>
+<pb n="15" facs="#f0019"/>
+<l>Der &#x017F;cho&#x0364;n&#x017F;te Arm, und Fuß, ein Schenkel flei&#x017F;chig, zart</l><lb/>
+<l>Am lockgen Wollu&#x017F;tthron mit einem Leib gepaart</l><lb/>
+<l>Scho&#x0364;n wie der Venus Leib, den Scopas ihr gegeben &#x2014;</l><lb/>
+<l>Pygmalions Mei&#x017F;ter&#x017F;tu&#x0364;ck, warm, voll Gefu&#x0364;hl und Leben</l><lb/>
+<l>Lag hier und war ganz mein &#x2014; An <hi rendition="#g">Chloens</hi> Lippen</l><lb/>
+<l><hi rendition="#et">hieng</hi></l><lb/>
+<l>Die ganze Seele wenn ich ihren Kuß empfing,</l><lb/>
+<l>Der Pfeil war eingelegt, ich athmete ge&#x017F;chwinder,</l><lb/>
+<l>Jch hauchte Wollu&#x017F;t, und doch ward das Feur nicht minder.</l><lb/>
+<l>Jn &#x017F;u&#x0364;ßer Ohnmacht &#x017F;tarb jetzt <hi rendition="#g">Chloe</hi> neben mir,</l><lb/>
+<l>Der Liebe milder Thau ergoß &#x017F;ich &#x017F;anft aus ihr:</l><lb/>
+<l>Selb&#x017F;t ganz Empfindlichkeit nicht mehr der Sinnen Mei&#x017F;ter</l><lb/>
+<l>Ver&#x017F;ammelten in Eins &#x017F;ich alle Lebensgei&#x017F;ter,</l><lb/>
+<fw type="catch" place="bottom">Die</fw><lb/>
+<pb n="16" facs="#f0020"/>
+<l>Die Augen brachen &#x2014; Wir er&#x017F;eufzten &#x2014; und es floß</l><lb/>
+<l>Cytherens Bal&#x017F;am in den gu&#x0364;rtello&#x017F;en Schooß &#x2014; &#x2014;</l><lb/>
+<l>Es weiß der Knabe &#x017F;chon wie ru&#x0364;hrend es entzu&#x0364;cket,</l><lb/>
+<l>Wenn ihm die Hand vertraut &#x017F;ein kleines Ma&#x0364;dchen dru&#x0364;cket,</l><lb/>
+<l>Doch weiß er nicht wie viel die Wollu&#x017F;t &#x017F;ta&#x0364;rker i&#x017F;t</l><lb/>
+<l>Wenn &#x017F;anft die Mu&#x017F;chel zuckt und ihren Liebling ku&#x0364;ßt &#x2014;</l><lb/>
+<l>Auf <hi rendition="#g">Chloens</hi> heiße Bru&#x017F;t halb &#x017F;chlummernd hinge&#x017F;unken</l><lb/>
+<l>Fu&#x0364;hlt ich jedweden Kuß, und ward von neuem trunken,</l><lb/>
+<l>Und ka&#x0364;mpfte neu ge&#x017F;ta&#x0364;rkt durch <hi rendition="#g">Chloens</hi> Hand und Blick</l><lb/>
+<l>Noch manchen Liebeskampf mit wiederholtem Glu&#x0364;ck</l><lb/>
+<l>Bis daß, er&#x017F;cho&#x0364;pft von Lu&#x017F;t, Herz dicht an Herz ge&#x017F;chloßen,</l><lb/>
+<l>Der Schlaf uns u&#x0364;berfiel die Quellen nicht mehr floßen.</l></lg><lb/>
+<fw type="catch" place="bottom">Cythere</fw><lb/>
+<pb n="17" facs="#f0021"/>
+<lg n="3"><l>Cythere Ko&#x0364;nigin der Herzen</l><lb/>
+<l>Lu&#x017F;t&#x017F;cho&#x0364;pferin, Quell &#x017F;u&#x0364;ßer Schmerzen,</l><lb/>
+<l>Heil Die und Seegen dem Altar!</l><lb/>
+<l>Dir Go&#x0364;ttin, der die Himmel &#x017F;ingen,</l><lb/>
+<l>Und Elemente Opfer bringen</l><lb/>
+<l>Dir Go&#x0364;ttin bring ich ganz mich dar.</l></lg><lb/>
+<lg n="4"><l>Wohl Dir, wenn Du mein Glu&#x0364;ck genoßen</l><lb/>
+<l>Als Dich Adonis Arm um&#x017F;chloßen,</l><lb/>
+<l>Und Dein Arm ihn um&#x017F;chloßen hielt:</l><lb/>
+<l>Wohl ihm wenn er die Wollu&#x017F;t fu&#x0364;hlte</l><lb/>
+<l>Als er mit Deinen Reitzen &#x017F;pielte,</l><lb/>
+<l>Die ich in <hi rendition="#g">Chloens</hi> Schooß gefu&#x0364;hlt.</l></lg><lb/>
+<fw type="sig" place="bottom">B</fw><fw type="catch" place="bottom">Mein</fw><lb/>
+<pb n="18" facs="#f0022"/>
+<lg n="5"><l>Mein Herz &#x017F;chla&#x0364;gt ewig Dir erkentlich;</l><lb/>
+<l>So wie die Wollu&#x017F;t war, unendlich</l><lb/>
+<l>Dankt jede Nerve Deiner Kraft:</l><lb/>
+<l>Du half&#x017F;t mir <hi rendition="#g">Chloen</hi> u&#x0364;berwinden,</l><lb/>
+<l>Du half&#x017F;t der Wu&#x0364;n&#x017F;che Hafen finden,</l><lb/>
+<l>Dank &#x017F;ey Dir fu&#x0364;r die Jungfer&#x017F;chaft.</l></lg></lg></div><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<fw type="catch" place="bottom"><hi rendition="#b">Erinne-</hi></fw><lb/>
+<pb n="19" facs="#f0023"/>
+<div n="1"><head><hi rendition="#b">Erinnerung der Scha&#x0364;fer&#x017F;tunden.</hi></head><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<cit><quote><l><hi rendition="#aq"><hi rendition="#et">Mon Iris éperdue</hi></hi></l><lb/>
+<l><hi rendition="#aq"><hi rendition="#et">Lai&#x017F;loit mille beautés en proie à mon ardeur,</hi></hi></l><lb/>
+<l><hi rendition="#aq"><hi rendition="#et">Comme elle oublioit &#x017F;a rigueur</hi></hi></l><lb/>
+<l><hi rendition="#aq"><hi rendition="#et">I&#x2019; oubliois alors ma retenue.</hi></hi></l></quote><lb/>
+<bibl><hi rendition="#aq"><hi rendition="#et"><hi rendition="#et"><hi rendition="#i">Chaulien.</hi></hi></hi></hi></bibl></cit><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<lg type="poem"><lg n="1"><l><hi rendition="#in">D</hi>ie holde Glut, die &#x017F;elb&#x017F;t Cythere fu&#x0364;hlte,</l><lb/>
+<l>Wenn ihren Hals Adonis Arm um&#x017F;chlang,</l><lb/>
+<l>Wenn ihren Bu&#x017F;en &#x017F;eine Ku&#x0364;ße wa&#x0364;rmten,</l><lb/>
+<l>Und &#x017F;ein Reitz unter ihren Ha&#x0364;nden wuchs:</l></lg><lb/>
+<fw type="sig" place="bottom">B 2</fw><fw type="catch" place="bottom">Die</fw><lb/>
+<pb n="20" facs="#f0024"/>
+<lg n="2"><l>Die Glut von der die jungfra&#x0364;uliche Ka&#x0364;lte</l><lb/>
+<l>Der jagenden Latonenstochter &#x017F;chmolz,</l><lb/>
+<l>Die ihr beym einge&#x017F;chlafnen &#x017F;cho&#x0364;nen Ju&#x0364;ngling</l><lb/>
+<l>Sanft zurief: wachend i&#x017F;t er &#x017F;cho&#x0364;ner noch:</l></lg><lb/>
+<lg n="3"><l>Die Glut, die Amors &#x017F;ta&#x0364;rk&#x017F;te Pfeile &#x017F;ta&#x0364;hlet,</l><lb/>
+<l>Oft auch zu ku&#x0364;hn den Bogen &#x017F;pannt, und &#x017F;prengt,</l><lb/>
+<l>Die in den Myrtenkranz entzu&#x0364;ckter Liebe</l><lb/>
+<l>Den un&#x017F;cha&#x0364;tzbar&#x017F;ten Demant ku&#x0364;n&#x017F;tlich &#x017F;teckt:</l></lg><lb/>
+<lg n="4"><l>O mo&#x0364;chte doch die Glut dies Lied begei&#x017F;tern,</l><lb/>
+<l>O Liebe! ho&#x0364;r&#x2019; des Ju&#x0364;nglings heißes Flehn,</l><lb/>
+<l>Des Ju&#x0364;nglings, der Dich zehnfach mehr empfindet</l><lb/>
+<l>Als ein&#x017F;t Adonis und Endymion.</l></lg><lb/>
+<fw type="catch" place="bottom">Ho&#x0364;r&#x2019;</fw><lb/>
+<pb n="21" facs="#f0025"/>
+<lg n="5"><l>Ho&#x0364;r&#x2019; mich, ich &#x017F;ing die Freudenaugenblicke,</l><lb/>
+<l>Da ich an <hi rendition="#g">Chloris</hi> Bu&#x017F;en &#x017F;chmachtend &#x017F;tarb,</l><lb/>
+<l>Da ich in meiner Hebe Opfer&#x017F;chale</l><lb/>
+<l>Der Wollu&#x017F;t heilgen Nektar &#x017F;cha&#x0364;umend goß.</l></lg><lb/>
+<lg n="6"><l>Wie in dem Bu&#x017F;en aufgekno&#x017F;pter Ro&#x017F;en</l><lb/>
+<l>Der Morgenthau, der an den Bla&#x0364;ttern hieng,</l><lb/>
+<l>Zu&#x017F;ammenfließt, und dann im rothen Schooße</l><lb/>
+<l>Ge&#x017F;chmolznen Perlen gleich ihr Roth erho&#x0364;ht:</l></lg><lb/>
+<lg n="7"><l>So hiengen auch des fruchtbarn Thaues Tropfen</l><lb/>
+<l>Hier um der Purpurmu&#x017F;chel weichen Rand,</l><lb/>
+<l>Und an dem &#x017F;eidnen Moos, das &#x017F;ie um&#x017F;chattet,</l><lb/>
+<l>Und mehrten ihrer Farbe ko&#x017F;tbarn Reitz.</l></lg><lb/>
+<fw type="sig" place="bottom">B 3</fw><fw type="catch" place="bottom">Wohltha&#x0364;-</fw><lb/>
+<pb n="22" facs="#f0026"/>
+<lg n="8"><l>Wohltha&#x0364;tige, lu&#x017F;treiche Augenblicke,</l><lb/>
+<l>Die Liebe und die Freude &#x017F;eegne euch,</l><lb/>
+<l>Euch &#x017F;eegnete die Un&#x017F;chuld, als mein Ma&#x0364;dchen</l><lb/>
+<l>Aus ihrer Mu&#x017F;chel mir die Perle gab.</l></lg><lb/>
+<lg n="9"><l>O Wollu&#x017F;t! welch ein unaus&#x017F;prechlich Opfer!</l><lb/>
+<l>Hat den Altar je reiners Blut gefa&#x0364;rht?</l><lb/>
+<l>Stets denkt mein Herz der Un&#x017F;chuld &#x017F;anfte Ro&#x0364;the</l><lb/>
+<l>Jhr Zittern, und des Opfer&#x017F;tales Wut.</l></lg><lb/>
+<lg n="10"><l>O <hi rendition="#g">Chloris</hi> be&#x017F;tes Ma&#x0364;dchen, welch ein Opfer!</l><lb/>
+<l>Be&#x017F;tu&#x0364;rmt, erweicht durch meine Za&#x0364;rtlichkeit</l><lb/>
+<l>Gab&#x017F;t du dein Kleinod hin. Jch brach das Ro&#x0364;schen</l><lb/>
+<l>Das jungfra&#x0364;ulich im Schatten blu&#x0364;hend &#x017F;tand.</l></lg><lb/>
+<fw type="catch" place="bottom">O</fw><lb/>
+<pb n="23" facs="#f0027"/>
+<lg n="11"><l>O feyre mit mir, Ma&#x0364;dchen, die Minute,</l><lb/>
+<l>Die dir manch Perlenthra&#x0364;nchen ko&#x017F;tete;</l><lb/>
+<l>Jn ihr &#x017F;chlang Amors Hand den &#x017F;cho&#x0364;nen Kuoten</l><lb/>
+<l>Der un&#x017F;er We&#x017F;en heiligt und vereint.</l></lg><lb/>
+<lg n="12"><l>Dem Tage Heil, an dem der ku&#x0364;hne Amor</l><lb/>
+<l>Den er&#x017F;ten Pfeil in deinen Ko&#x0364;cher &#x017F;tach,</l><lb/>
+<l>An dem die Biene den ge&#x017F;cha&#x0364;ft&#x2019;gen Stachel</l><lb/>
+<l>Jn deinen duftgen Bluhmenkelch vergrub.</l></lg><lb/>
+<lg n="13"><l>So wie der Thau, der aus dem Thale rauchet</l><lb/>
+<l>Mit wa&#x0364;rmern Fru&#x0364;hlingsregen &#x017F;ich vermi&#x017F;cht;</l><lb/>
+<l>So mi&#x017F;chte &#x017F;ich der Wollu&#x017F;t kra&#x0364;ft&#x2019;ger Bal&#x017F;am</l><lb/>
+<l>Mit deiner keu&#x017F;chen Grotte mildem Thau.</l></lg><lb/>
+<fw type="sig" place="bottom">B 4</fw><fw type="catch" place="bottom">Heil</fw><lb/>
+<pb n="24" facs="#f0028"/>
+<lg n="14"><l>Heil dir, o Tag, da ich den ganzen Umfang</l><lb/>
+<l>Von deiner Tugend &#x017F;ah, da mich dein Aug</l><lb/>
+<l>Und &#x017F;einer feinen Bogen &#x017F;eltne Scho&#x0364;nheit</l><lb/>
+<l>Zu &#x017F;eufzen zwang: O wa&#x0364;re <hi rendition="#g">Chloris</hi> dein!</l></lg><lb/>
+<lg n="15"><l>Heil dir o Tag da ich zuer&#x017F;t Dich ku&#x0364;ßte,</l><lb/>
+<l>Und deines Bu&#x017F;ens Ro&#x017F;enkno&#x017F;pen &#x017F;ah&#x2019;,</l><lb/>
+<l>Da ich des Heiligthums Altar beru&#x0364;hrte</l><lb/>
+<l>Mit jungfra&#x0364;ulichen Locken ta&#x0364;ndelte.</l></lg><lb/>
+<lg n="16"><l>Heil dir o Tag, da ich der Wangen Purpur,</l><lb/>
+<l>Jm Aug dein Herz wollu&#x0364;&#x017F;tig &#x017F;chmachten &#x017F;ah,</l><lb/>
+<l>Da bey der Zungen ku&#x0364;tzelnden Beru&#x0364;hrung</l><lb/>
+<l>Der Lebens&#x017F;aft aus Ro&#x017F;enlippen floß.</l></lg><lb/>
+<fw type="catch" place="bottom">Heil</fw><lb/>
+<pb n="25" facs="#f0029"/>
+<lg n="17"><l>Heil dir o Tag, &#x017F;ey Grazien und Mu&#x017F;en</l><lb/>
+<l>Cytheren &#x017F;elb&#x017F;t, ein ewig Myrtenfe&#x017F;t,</l><lb/>
+<l>Denn Amor &#x017F;ang Triumpf, Triumpf und kra&#x0364;nzte</l><lb/>
+<l>Sich &#x017F;echsmal am Altar mit Siegeslaub.</l></lg><lb/>
+<lg n="18"><l>Feyr, Ma&#x0364;dchen, ihn den Tag, da Du aus Liebe</l><lb/>
+<l>Dich ganz dem Liebling zu genießen gab&#x017F;t.</l><lb/>
+<l>Er war des za&#x0364;rtlich&#x017F;ten Vertrauens Ur&#x017F;prung</l><lb/>
+<l>Und un&#x017F;re Trennung labt noch jetzt &#x017F;ein Tro&#x017F;t.</l></lg><lb/>
+<lg n="19"><l>O, Ma&#x0364;dchen, ha! wie kochten meine Adern</l><lb/>
+<l>Wenn Deine weiche kleine Zauberhand</l><lb/>
+<l>Cupidens Scepter &#x017F;anftver&#x017F;cha&#x0364;mt beru&#x0364;hrte,</l><lb/>
+<l>Und er von Wollu&#x017F;t wuchs und u&#x0364;ber&#x017F;toß &#x2014;</l></lg><lb/>
+<fw type="sig" place="bottom">B 5</fw><fw type="catch" place="bottom">O</fw><lb/>
+<pb n="26" facs="#f0030"/>
+<lg n="20"><l>O ko&#x0364;nnt ich doch den ko&#x017F;tbarn Rau&#x017F;ch be&#x017F;chreiben</l><lb/>
+<l>Den ich zu Deinen Fu&#x0364;ßen oft gefu&#x0364;hlt,</l><lb/>
+<l>Wenn jeder neid&#x017F;che Vorhang aufgezogen,</l><lb/>
+<l>Und jeder Sinn entzu&#x0364;ckt befriedigt ward.</l></lg><lb/>
+<lg n="21"><l>O Ma&#x0364;dchen welche Scha&#x0364;tze &#x017F;ah ich liegen!</l><lb/>
+<l>Der &#x017F;eidnen lock&#x2019;gen Haare Wohlgeruch,</l><lb/>
+<l>Der Milch&#x017F;aft in der Mu&#x017F;chel fein&#x017F;ten Falten</l><lb/>
+<l>Wie Ro&#x017F;en unter Lilien gemi&#x017F;cht.</l></lg><lb/>
+<lg n="22"><l>Wie za&#x0364;rtlich ku&#x0364;ßt ich nicht die &#x017F;cho&#x0364;ne Ro&#x017F;e,</l><lb/>
+<l>Mein Mund &#x017F;og Wollu&#x017F;t fu&#x0364;r das Herz aus ihr!</l><lb/>
+<l>Wie freut ich mich wenn alles nach der Ro&#x017F;e</l><lb/>
+<l>Nach ihrem Thau und ihren Bla&#x0364;ttern roch.</l></lg><lb/>
+<fw type="catch" place="bottom">Wie</fw><lb/>
+<pb n="27" facs="#f0031"/>
+<lg n="23"><l>Wie ku&#x0364;ßt ich nicht die nachbarlichen Hu&#x0364;gel</l><lb/>
+<l>Die Venus Hand mit Atlas u&#x0364;berkleidt,</l><lb/>
+<l>Die tau&#x017F;end buhleri&#x017F;cher Ma&#x0364;dchen Bu&#x017F;en</l><lb/>
+<l>An Form und feiner Farbe u&#x0364;bergehn.</l></lg><lb/>
+<lg n="24"><l>Ein&#x017F;t will ich Ro&#x017F;enkno&#x017F;pen auf &#x017F;ie pflanzen</l><lb/>
+<l>Sie &#x017F;ollen dann mein zweyter Bu&#x017F;en &#x017F;eyn,</l><lb/>
+<l>Bey ihrem Anblick werd&#x2019; ich Wollu&#x017F;t athmen,</l><lb/>
+<l>Auch ihre Grotte &#x017F;ey mein Heiligthum.</l></lg><lb/>
+<lg n="25"><l>Der Wollu&#x017F;t Nektar wird &#x017F;ie fruchtbar netzen,</l><lb/>
+<l>Wenn er &#x017F;anft u&#x0364;bern Rand der Mu&#x017F;chel &#x017F;tro&#x0364;hmt,</l><lb/>
+<l>Jhr heil&#x2019;ger Bu&#x017F;ch wird davon dichter wach&#x017F;en,</l><lb/>
+<l>Und &#x017F;ta&#x0364;rkre Du&#x0364;fte in die Gegend &#x017F;treun.</l></lg><lb/>
+<fw type="catch" place="bottom">Auf</fw><lb/>
+<pb n="28" facs="#f0032"/>
+<lg n="26"><l>Auf die&#x017F;e wollu&#x017F;treiche ko&#x017F;tbarn Hu&#x0364;gel</l><lb/>
+<l>Gelehnt erwart&#x2019; ich dich geliebter Schlaf,</l><lb/>
+<l>Be&#x017F;uche ein&#x017F;t mich da, und bring durch Tra&#x0364;ume</l><lb/>
+<l>Die wachend &#x017F;chon genoßne Lu&#x017F;t zuru&#x0364;ck.</l></lg><lb/>
+<lg n="27"><l>O wenn ich dann von ihm ge&#x017F;ta&#x0364;rkt erwache</l><lb/>
+<l>Dann ku&#x0364;ß&#x2019; ich dich wollu&#x0364;&#x017F;tiges Baßin,</l><lb/>
+<l>Und laufe fri&#x017F;ch nach jenem Lorbeerkrantze</l><lb/>
+<l>Der lockend in dem Schooß des Ma&#x0364;dchens ha&#x0364;ngt.</l></lg><lb/>
+<lg n="28"><l>Du hilfft dann deines Helden Lanze fu&#x0364;hren;</l><lb/>
+<l>Wie herrlich wie gewis wird dann &#x017F;ein Sieg,</l><lb/>
+<l>Und nach dem Sieg wird er das Ziel an&#x017F;taunen,</l><lb/>
+<l>Und froh entzu&#x0364;ckt die ofne Wunde &#x017F;ehn.</l></lg><lb/>
+<fw type="catch" place="bottom">Dann,</fw><lb/>
+<pb n="29" facs="#f0033"/>
+<lg n="29"><l>Dann einz&#x2019;ges Ma&#x0364;dchen, trocknen meine Ku&#x0364;ße</l><lb/>
+<l>Den Schaum von ro&#x017F;enfarbnen Lippen ab,</l><lb/>
+<l>Mir trocknen ihn die duftenden Ge&#x017F;tra&#x0364;uche</l><lb/>
+<l>Des Hu&#x0364;gels u&#x0364;berm Kampfplatz za&#x0364;rtlich ab.</l></lg><lb/>
+<lg n="30"><l>O Liebe! o wie wir&#x017F;t du uns begei&#x017F;tern!</l><lb/>
+<l>Wie himmli&#x017F;ch &#x017F;cho&#x0364;n wird un&#x017F;er Glu&#x0364;ck durch dich,</l><lb/>
+<l>Wenn un&#x017F;re Seelen in einander fließen</l><lb/>
+<l>Sey jeder Kuß ein Lob und eine Hymne.</l></lg></lg></div><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<fw type="catch" place="bottom">Die</fw><lb/>
+<pb n="30" facs="#f0034"/>
+<div n="1" type="poem"><head><hi rendition="#b"><hi rendition="#g">Die Opferung.</hi></hi></head><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<cit><quote><l><hi rendition="#aq">I&#x2019; benedico il loco, e&#x2019;l tempo, e l&#x2019;ora</hi></l><lb/>
+<l><hi rendition="#aq">Che &#x017F;i alto mirano gli occhi miei,</hi></l><lb/>
+<l><hi rendition="#aq">E dico: Anima a&#x017F;&#x017F;ai ringraziar&#x2019; dei</hi></l><lb/>
+<l><hi rendition="#aq">Che fo&#x017F;ti à tanto onos degnata allora</hi></l></quote><lb/>
+<bibl><hi rendition="#aq"><hi rendition="#et"><hi rendition="#i">Petrarca.</hi></hi></hi></bibl></cit><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<lg type="poem"><lg n="1"><l><hi rendition="#in">D</hi>u bi&#x017F;t wie Paphia aus weißem Schaum gebohren,</l><lb/>
+<l>Aus Mu&#x017F;chel&#x017F;chalen &#x017F;tieg dein Leib &#x017F;o zart und fein,</l><lb/>
+<l>Die Perle aber ward aus ihrem Schooß erkohren</l><lb/>
+<l>Der jungfra&#x0364;uliche Stoff des feinen Gei&#x017F;ts zu &#x017F;eyn:</l><lb/>
+<fw type="catch" place="bottom">Du</fw><lb/>
+<pb n="31" facs="#f0035"/>
+<l>Du gleich&#x017F;t Cytheren, wenn der Grazien Hand &#x017F;ie &#x017F;chmu&#x0364;ckte,</l><lb/>
+<l>Nur daß ihr Herz an Reiz lang nicht dem deinen gleicht;</l><lb/>
+<l>Als ohne Gu&#x0364;rtel &#x017F;ie dort Priams Sohn erblickte</l><lb/>
+<l>Ward ihr der Scho&#x0364;nheit Preiß im Apfel u&#x0364;berreicht:</l><lb/>
+<l>Doch Paris ha&#x0364;tt&#x2019; ihn Dir vor Venus hingegeben</l><lb/>
+<l>Ha&#x0364;tt er Dich gu&#x0364;rtellos, ver&#x017F;cha&#x0364;mt, wie ich erblickt.</l><lb/>
+<l>Ein Kuß nach za&#x0364;rtlichem un&#x017F;chuldgem Wieder&#x017F;treben</l><lb/>
+<l>Auf Ho&#x0364;hn, die &#x017F;chwarz umdornt ein Ro&#x017F;enknospchen &#x017F;chmu&#x0364;ckt,</l><lb/>
+<l>Ein Blick ins &#x017F;anfte Thal das die&#x017F;e Hu&#x0364;gel &#x017F;chaffen,</l><lb/>
+<l>Und das an ein Gewo&#x0364;lb von Atlasgla&#x0364;tte grenzt,</l><lb/>
+<l>Berau&#x017F;chten mich &#x2014; ich fiel &#x2014; da &#x017F;iegten Amors Waffen,</l><lb/>
+<l>Die er, des Siegs gewiß, mit Myrthen &#x017F;chon umkra&#x0364;nzt.</l><lb/>
+<fw type="catch" place="bottom">Da</fw><lb/>
+<pb n="32" facs="#f0036"/>
+<l>Da fieng er mich im Netz gewebt von jenen Bogen,</l><lb/>
+<l>Der Stirn und Augen Schmuck, von lockig&#x017F;chwarzem Haar,</l><lb/>
+<l>Das duftend, weich, bethaut den Wollu&#x017F;t Thron umzogen,</l><lb/>
+<l>Und fu&#x0364;hrte mich er&#x017F;taunt zum heilig&#x017F;ten Altar:</l><lb/>
+<l>Den hatten Grazien mit &#x017F;eltnen Fleiß erbauet,</l><lb/>
+<l>Und ihren Ro&#x017F;enmund beym Bau zum Riß geliehn.</l><lb/>
+<l>Nach zarter Lippen Roth, mit Nektar u&#x0364;berthauet,</l><lb/>
+<l>Er&#x017F;chufen &#x017F;ie den Rand, den Altar zu umziehn;</l><lb/>
+<l>Der Zunge, die der Witz bered&#x017F;am dort beweget,</l><lb/>
+<l>Glich hier ein Streif, der &#x017F;ich &#x017F;chmal und gefu&#x0364;hlvoll bog:</l><lb/>
+<l>Hier winkt ein Vorgebu&#x0364;rg von Venus angeleget</l><lb/>
+<l>Mit Mooß bedeckt, das &#x017F;ich kraus um den Altar zog.</l><lb/>
+<fw type="catch" place="bottom">Am</fw><lb/>
+<pb n="33" facs="#f0037"/>
+<l>Am Fuß lag unentweiht die wundertha&#x0364;tge Grotte,</l><lb/>
+<l>Die vor unheil&#x2019;gem Blick &#x017F;orgfa&#x0364;ltig &#x017F;ich ver&#x017F;chließt,</l><lb/>
+<l>Vom Prie&#x017F;ter nur be&#x017F;ucht der da dem Liebesgotte</l><lb/>
+<l>Vertraut fruchtbringend Oehl in Opfer&#x017F;chalen gießt.</l><lb/>
+<l>Es rau&#x017F;cht ein Strohm aus ihr der oft die Gegend netzet</l><lb/>
+<l>Und goldfarbklares Naß in &#x017F;einer Urne ha&#x0364;lt,</l><lb/>
+<l>Ein Purpurbach, dem Flut und Ebbe Luna &#x017F;etzet,</l><lb/>
+<l>Und dann der Thau, der nur an Opfertagen fa&#x0364;llt.</l><lb/>
+<l>&#x201D;Hier&#x201D; &#x017F;prach der Gott zu mir, bi&#x017F;t du be&#x017F;timmt zu dienen,</l><lb/>
+<l>Er &#x017F;prachs, und &#x017F;ta&#x0364;rkte mich zu &#x017F;einem Prie&#x017F;terthum:</l><lb/>
+<l>Jch pflickte von dem Mooß, ich &#x017F;og es gleich den Bienen</l><lb/>
+<l>Und roch den Bal&#x017F;amduft aus Amors Heiligthum,</l><lb/>
+<fw type="sig" place="bottom">C</fw><fw type="catch" place="bottom">Fieng</fw><lb/>
+<pb n="34" facs="#f0038"/>
+<l>Fieng an &#x017F;o Grottenwerk als Altar zu be&#x017F;ehen,</l><lb/>
+<l>Und kam ans feuchte Thor vor dem ein Vorhang hieng,</l><lb/>
+<l>Der Wun&#x017F;ch das Heilig&#x017F;te des Tempels durchzu&#x017F;pa&#x0364;hen,</l><lb/>
+<l>Half mir beym er&#x017F;ten Schritt, der bis zum Vorhang gieng &#x2014;</l><lb/>
+<l>&#x201D;Verzagter Prie&#x017F;ter wie kann&#x017F;t du dich nicht ent&#x017F;chließen,</l><lb/>
+<l>&#x201D;Schmerzt dich des Opfers Tod? &#x017F;chrie&#x2019; Amor voller Wut &#x2014;</l><lb/>
+<l>Da &#x017F;cheut ich dann nichts mehr &#x2014; der Vorhang ward</l><lb/>
+<l><hi rendition="#et">zerrißen,</hi></l><lb/>
+<l>Und aus dem Heiligthum, o <hi rendition="#g">Chloris,</hi> floß &#x2014; dein Blut.</l></lg></lg></div><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<fw type="catch" place="bottom"><hi rendition="#b">Ein</hi></fw><lb/>
+<pb n="35" facs="#f0039"/>
+<div n="1" type="poem"><head><hi rendition="#b">Ein lehrreicher Traum vom Amor.</hi></head><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<cit><quote><l><hi rendition="#aq">Non iuvat in c&#x0153;co Venerem corrumpere motu:</hi></l><lb/>
+<l><hi rendition="#aq">&#x2012; &#x2012; oculi &#x017F;unt in amore duces</hi></l></quote><lb/>
+<bibl><hi rendition="#aq"><hi rendition="#et"><hi rendition="#i">Propertius.</hi></hi></hi></bibl></cit><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<lg type="poem"><lg n="1"><l><hi rendition="#in">D</hi>er Liebesgott, ge&#x017F;chmu&#x0364;ckt mit allen Reitzen,</l><lb/>
+<l>Er&#x017F;chien mir heut im leichten Morgentraum,</l><lb/>
+<l>An &#x017F;einer Hand ein lo&#x017F;es braunes Ma&#x0364;dchen;</l><lb/>
+<l>&#x201D;Da, &#x017F;prach er, nimm die blu&#x0364;hende Brunette</l><lb/>
+<l>&#x201D;Ku&#x0364;ß &#x017F;ie, und dru&#x0364;ck &#x017F;ie fe&#x017F;t in deine Arme.</l><lb/>
+<l>Jch that es, und wir &#x017F;anken auf den Sopha:</l><lb/>
+<fw type="sig" place="bottom">C 2</fw><fw type="catch" place="bottom">Wie</fw><lb/>
+<pb n="36" facs="#f0040"/>
+<l>Wie &#x017F;chalkhaft la&#x0364;chelte der kleine Amor</l><lb/>
+<l>Als er, gleich Wolken, die die Sonne decken</l><lb/>
+<l>Den Vorhang von dem Sitz der Wollu&#x017F;t hob.</l><lb/>
+<l>&#x201D;Sieh her, dies i&#x017F;t der freudenreiche Becher</l><lb/>
+<l>&#x201D;Jn den ein&#x017F;t Bachus bey Ariadnen</l><lb/>
+<l>&#x201D;Den Nektar goß, und einen Rau&#x017F;ch &#x017F;ich trank;</l><lb/>
+<l>&#x201D;Betrachte die&#x017F;es lockigte Gewede,</l><lb/>
+<l>&#x201D;Der Venus Gu&#x0364;rtel i&#x017F;t von &#x017F;olchen Fa&#x0364;den,</l><lb/>
+<l>&#x201D;Betracht des Laubwerks Kun&#x017F;t um die&#x017F;en Becher,</l><lb/>
+<l>&#x201D;Und athme &#x017F;eine Bal&#x017F;amsdu&#x0364;fte ein.</l><lb/>
+<l>&#x201D;So groß i&#x017F;t nicht die Kun&#x017F;t der heilgen Schale</l><lb/>
+<l>&#x201D;Jn welcher Hebe dort und Ganymed</l><lb/>
+<fw type="catch" place="bottom">&#x201D;Uns</fw><lb/>
+<pb n="37" facs="#f0041"/>
+<l>&#x201D;Uns Go&#x0364;ttern des Olymps den Nektar reichen.</l><lb/>
+<l>&#x201D;Fu&#x0364;ll den Pokal, den Grazien ein&#x017F;t &#x017F;chufen</l><lb/>
+<l>&#x201D;Zu dem &#x017F;ie Ro&#x017F;en mit Granaten mi&#x017F;chten,</l><lb/>
+<l>&#x201D;Und den die Neuheit doppelt ko&#x017F;tbar macht.</l><lb/>
+<l>&#x201D;Fu&#x0364;ll ihn wie Zevs ihn Danaen ein&#x017F;t fu&#x0364;llte</l><lb/>
+<l>&#x201D;Als er im goldnen Regen auf &#x017F;ie &#x017F;iel,</l><lb/>
+<l>&#x201D;Und &#x017F;ey dabey entzu&#x0364;ckt wie Jupiter.</l><lb/>
+<l>&#x201D;Dies i&#x017F;t, hier wieß er &#x017F;einen kleinen Scepter,</l><lb/>
+<l>&#x201D;Der Heber der die wundertha&#x0364;tgen Sa&#x0364;fte</l><lb/>
+<l>&#x201D;Wollu&#x0364;&#x017F;tig ein <supplied>t</supplied>rinkt, und dann aus &#x017F;ich &#x017F;pritzt;</l><lb/>
+<l>&#x201D;Leg ihn nu<supplied>r</supplied> an den Rand der Nektar&#x017F;chale</l><lb/>
+<l>&#x201D;Er wird &#x017F;ich bald mit ihr vertraut vereinigen,</l><lb/>
+<fw type="sig" place="bottom">C 3</fw><fw type="catch" place="bottom">&#x201D;Und</fw><lb/>
+<pb n="38" facs="#f0042"/>
+<l>&#x201D;Und weißer Schaum wird ihn und &#x017F;ie umziehn.</l><lb/>
+<l>&#x201D;Fu&#x0364;ll lang, beglu&#x0364;ckter Ju&#x0364;ngling, <hi rendition="#g">Chloens</hi> Becher,</l><lb/>
+<l>&#x201D;Er o&#x0364;fne &#x017F;ich wenn du dich du&#x0364;r&#x017F;tig na&#x0364;her&#x017F;t,</l><lb/>
+<l>&#x201D;Wie Ro&#x017F;en wenn &#x017F;ich We&#x017F;t und Sonne nah&#x2019;n,</l><lb/>
+<l>&#x201D;Und wenn du gnung aus die&#x017F;em Kelch getrunken,</l><lb/>
+<l>&#x201D;Dann ku&#x0364;ß zur Sta&#x0364;rkung <hi rendition="#g">Chloens</hi> vollen Bu&#x017F;en,</l><lb/>
+<l>&#x201D;Und trinke Wein aus ihrer hohlen Hand.</l></lg></lg></div><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<fw type="catch" place="bottom"><hi rendition="#b">Denk-</hi></fw><lb/>
+<pb n="39" facs="#f0043"/>
+<div n="1" type="poem"><head><hi rendition="#b">Denkzettelchen<lb/>
+<hi rendition="#g">in Phyllis Schatzka&#x0364;&#x017F;tlein.</hi></hi></head><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<cit><quote><l><hi rendition="#aq">io &#x017F;o ben, ch&#x2019;un amoro&#x017F;o &#x017F;tato</hi></l><lb/>
+<l><hi rendition="#aq">In cor di donna picciol tempo dura.</hi></l></quote><lb/>
+<bibl><hi rendition="#aq"><hi rendition="#et">P<hi rendition="#i">etrarca.</hi></hi></hi></bibl></cit><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<lg type="poem"><lg n="1"><l><hi rendition="#in">O</hi>hn dir die weiche Hand, die weiße Bru&#x017F;t zu ku&#x0364;ßen,</l><lb/>
+<l>Hab ich dich, <hi rendition="#g">Phyllis,</hi> ju&#x0364;ng&#x017F;t verlaßen mu&#x0364;ßen!</l><lb/>
+<l>Fu&#x0364;r mich, o Ma&#x0364;dchen, welch ein tiefer Schmerz!</l><lb/>
+<l>Auf deinen Lippen wohnt allein mein Leben,</l><lb/>
+<l>Wenn unter Ku&#x0364;ßen &#x017F;ich die Marmorhu&#x0364;gel heben,</l><lb/>
+<l>Dann wall&#x2019;t auch Freude durch mein Herz &#x2014;</l><lb/>
+<fw type="sig" place="bottom">C 4</fw><fw type="catch" place="bottom">Und</fw><lb/>
+<pb n="40" facs="#f0044"/>
+<l>Und bald &#x2014; bald werd ich Dich lang gar nicht &#x017F;ehen,</l><lb/>
+<l>Ach dann wird wohl die Winterluft</l><lb/>
+<l>Die Dich zum Contretantz und Schlittenfahrten ruf,</l><lb/>
+<l>Die kleine Flamme ganz verwehen,</l><lb/>
+<l>Die Flamme die vielleicht zu meinem Glu&#x0364;ck</l><lb/>
+<l>Jn manchem &#x017F;cho&#x0364;nen Augenblick</l><lb/>
+<l>Dein Herz noch wa&#x0364;rmt &#x2014; dann wird der Sommer</l><lb/>
+<l><hi rendition="#et">meines Lebens</hi></l><lb/>
+<l>Nur Eine lange Klage &#x017F;eyn;</l><lb/>
+<l>Dann blu&#x0364;ht fu&#x0364;r mich die Welt vergebens,</l><lb/>
+<l>Dann wird um mich ein ew&#x2019;ger Winter &#x017F;eyn! &#x2014;</l><lb/>
+<l>Sieh, <hi rendition="#g">Phyllis,</hi> jene u&#x0364;ber&#x017F;chneyten Hu&#x0364;gel</l><lb/>
+<l>Sie luden uns, &#x017F;o lang als Zephyrs Fl&#x016F;gel</l><lb/>
+<fw type="catch" place="bottom">Jhr</fw><lb/>
+<pb n="41" facs="#f0045"/>
+<l>Jhr gru&#x0364;n Gebu&#x0364;&#x017F;ch durchwehte zum Spaziergang ein,</l><lb/>
+<l>Doch jetzt umbrau&#x017F;en &#x017F;ie des Nordwinds Flu&#x0364;gel,</l><lb/>
+<l>Die Bu&#x0364;&#x017F;che trauren bla&#x0364;tterleer,</l><lb/>
+<l>Kein Sterblicher be&#x017F;ucht &#x017F;ie mehr;</l><lb/>
+<l>Da &#x017F;tehn &#x017F;ie jetzt verwa&#x0364;yßt die maje&#x017F;ta&#x0364;t&#x017F;chen Hu&#x0364;gel &#x2014;</l><lb/>
+<l>So werd ich auch die Marmorhu&#x0364;gel,</l><lb/>
+<l>Wo jetzt Empfindung wohnt und Ro&#x017F;enkno&#x017F;pen blu&#x0364;hn</l><lb/>
+<l>Von weitem &#x017F;ehn, vor ihrer Ka&#x0364;lte fliehn. &#x2014;</l><lb/>
+<l>O welch ein Gram fu&#x0364;r mich wenn die&#x017F;e Bu&#x017F;enho&#x0364;hen</l><lb/>
+<l>Kein Lenz der Liebe mehr fu&#x0364;r mich umblu&#x0364;h&#x2019;t,</l><lb/>
+<l>Wenn &#x017F;ie ein andrer ku&#x0364;ßt, und ihren Reitz zu &#x017F;ehen</l><lb/>
+<l>Den &#x017F;eidnen Flor von weißen Schultern zieht!</l><lb/>
+<fw type="sig" place="bottom">C 5</fw><fw type="catch" place="bottom">O</fw><lb/>
+<pb n="42" facs="#f0046"/>
+<l>O Ma&#x0364;dchen laß doch nie entfernt von mir den Winter</l><lb/>
+<l>Dein Herz mit Eiß fu&#x0364;r mich umziehn,</l><lb/>
+<l>Wenn du mich wieder&#x017F;ieh&#x017F;t, dann wall&#x2019; dein Blut</l><lb/>
+<l><hi rendition="#et">ge&#x017F;chwinder,</hi></l><lb/>
+<l>Und laß auf deinen Wangen Liebe glu&#x0364;hn.</l></lg></lg></div><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<fw type="catch" place="bottom"><hi rendition="#b">Billet</hi></fw><lb/>
+<pb n="43" facs="#f0047"/>
+<div n="1" type="poem"><head><hi rendition="#b">Billet an Dorchen.</hi></head><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<cit><quote><l><hi rendition="#aq">Angelica a Medor la prima ro&#x017F;a</hi></l><lb/>
+<l><hi rendition="#aq">Coglier la&#x017F;cio, non ancor tocca inante,</hi></l><lb/>
+<l><hi rendition="#aq">Ne per&#x017F;ona fu mai &#x017F;i auventuro&#x017F;a</hi></l><lb/>
+<l><hi rendition="#aq">Ch&#x2019;in quel giardin pote&#x017F;&#x017F;e por le piante</hi></l></quote><lb/>
+<bibl><hi rendition="#aq"><hi rendition="#et"><hi rendition="#i">Ario&#x017F;te.</hi></hi></hi></bibl></cit><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<lg type="poem"><lg n="1"><l><hi rendition="#in">W</hi>ie leb&#x017F;t du <hi rendition="#g">Dorchen</hi> denn du kleine Klo&#x017F;ternonne,</l><lb/>
+<l>Hu&#x0364;b&#x017F;ch fromm, hu&#x0364;b&#x017F;ch keu&#x017F;ch, hu&#x0364;b&#x017F;ch &#x017F;till, und froh auf</l><lb/>
+<l><hi rendition="#et">eigne Hand?</hi></l><lb/>
+<l>Hat beym Spazierengehn Dir nicht die Fru&#x0364;hlings&#x017F;onne</l><lb/>
+<l>Die weiße Haut zu &#x017F;ehr auf Stirn und Hals verbrandt?</l><lb/>
+<fw type="catch" place="bottom">Blu&#x0364;hn</fw><lb/>
+<pb n="44" facs="#f0048"/>
+<l>Blu&#x0364;hn deine Wangen noch wie junge Fru&#x0364;hlingsro&#x017F;en</l><lb/>
+<l>Jn deren rothen Schooß kein Sonnen&#x017F;tral noch &#x017F;ah?</l></lg><lb/>
+<lg n="2"><l>Kommt auch kein Stuzerchen vertraut Dir liebzuko&#x017F;en</l><lb/>
+<l>Mit gar zu freyer Hand dem Bu&#x017F;en gar zu nah?</l></lg><lb/>
+<lg n="3"><l>Ha&#x017F;t du zur Ein&#x017F;amkeit Dich ruhig &#x017F;chon bequemet?</l><lb/>
+<l>Bekommt die Landluft dir, macht dich das Landbrod fett?</l></lg><lb/>
+<lg n="4"><l>Hat Strick- und Na&#x0364;hzeug noch kein Fingerchen gela&#x0364;hmet,</l><lb/>
+<l>Und kra&#x0364;u&#x017F;el&#x017F;t du noch jetzt dein &#x017F;eidnes Haar &#x017F;o nett?</l></lg><lb/>
+<lg n="5"><l>Vergießt auch <hi rendition="#g">Dorchen</hi> nicht in Hand&#x017F;chuhn hu&#x0364;b&#x017F;ch</l><lb/>
+<l><hi rendition="#et">zu gehen,</hi></l><lb/>
+<l>Wird auch der Sonnenhut nicht blos im Schrank bewahrt?</l></lg><lb/>
+<lg n="6"><l>Sind Bu&#x017F;en, Schenkel, Hals, und was ich &#x017F;on&#x017F;t ge&#x017F;ehen</l><lb/>
+<l>Noch flei&#x017F;chig wie vorher noch atlasglatt und zart?</l></lg><lb/>
+<fw type="catch" place="bottom">Was</fw><lb/>
+<pb n="45" facs="#f0049"/>
+<lg n="7"><l>Was macht der heilge Bu&#x017F;ch der jenes Thal be&#x017F;chattet,</l><lb/>
+<l>Das &#x017F;ich mit Bal&#x017F;am netzt, und zum Entzu&#x0364;cken riecht,</l><lb/>
+<l>Wo mit den Grazien der Liebesgott &#x017F;ich gattet,</l><lb/>
+<l>Und &#x017F;icher wie der Kern in zarten Pfir&#x017F;chen liegt?</l></lg><lb/>
+<lg n="8"><l>O <hi rendition="#g">Dorchen</hi> ko&#x0364;nnt ich doch die &#x017F;u&#x0364;ße Pfir&#x017F;ich ku&#x0364;ßen,</l><lb/>
+<l>Ko&#x0364;nnt ich doch, wenn ich &#x017F;ie er&#x017F;t tau&#x017F;endmal geku&#x0364;ßt</l><lb/>
+<l>Jn das ge&#x017F;paltne Herz den Thau des Lebens gießen,</l><lb/>
+<l>Der gleich dem wa&#x0364;rm&#x017F;ten Pun&#x017F;ch der &#x017F;cho&#x0364;n&#x017F;te Schlaf-</l><lb/>
+<l><hi rendition="#et">trunk i&#x017F;t!</hi></l></lg><lb/>
+<lg n="9"><l>O <hi rendition="#g">Dorchen</hi> ko&#x0364;nnt ich Dich doch an mein Herz jetzt dru&#x0364;cken,</l><lb/>
+<l>An deinem Bu&#x017F;en mich ganz meines Glu&#x0364;cks erfreun &#x2014;</l><lb/>
+<l>O laß doch keinen nur kein einzges Ro&#x0364;schen flicken,</l><lb/>
+<l>Mich mich laß ganz allein der Blu&#x0364;then&#x017F;ammler &#x017F;eyn.</l></lg></lg></div><lb/>
+<fw type="catch" place="bottom"><hi rendition="#b">An</hi></fw><lb/>
+<pb n="46" facs="#f0050"/>
+<div n="1" type="poem"><head><hi rendition="#b"><hi rendition="#g">An mein Ma&#x0364;dchen.</hi></hi></head><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<cit><quote><l><hi rendition="#aq">Te juvet in no&#x017F;tris po&#x017F;itam languere lacertis,</hi></l><lb/>
+<l><hi rendition="#aq">Me juvet in gremio, Vita, cubare tuo,</hi></l><lb/>
+<l><hi rendition="#aq">Et cum &#x017F;uaviolis animam deponere no&#x017F;tris</hi></l><lb/>
+<l><hi rendition="#aq">Eque tuis animam &#x017F;ugere &#x017F;uaviolis,</hi></l><lb/>
+<l><hi rendition="#aq">Sive meam, Lux, &#x017F;ive tuam, &#x017F;ed &#x017F;it tua malim</hi></l><lb/>
+<l><hi rendition="#aq">Ip&#x017F;e tuo vt &#x017F;pirem pectore, tuque meo.</hi></l></quote><lb/>
+<bibl><hi rendition="#aq"><hi rendition="#et"><hi rendition="#i">I. Secundus.</hi></hi></hi></bibl></cit><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<lg type="poem"><lg n="1"><l><hi rendition="#in">M</hi>ein Auge findt Dich &#x017F;cho&#x0364;n, mein Herz liebt Dich</l><lb/>
+<l><hi rendition="#et">unendlich,</hi></l><lb/>
+<l>Doch Ma&#x0364;dchen bi&#x017F;t du auch erkenntlich,</l><lb/>
+<l>Sieh&#x017F;t Du mich auch &#x017F;o gern, lieb&#x017F;t Du mich auch &#x017F;o &#x017F;ehr?</l><lb/>
+<l>Ha! wenn ich jetzt doch bey Dir wa&#x0364;r,</l><lb/>
+<fw type="catch" place="bottom">Dir</fw><lb/>
+<pb n="47" facs="#f0051"/>
+<l>Dir meiner Liebe Glut, die wie ein Meer</l><lb/>
+<l>Jn allen Adern wallt, wollu&#x0364;&#x017F;tig auszudru&#x0364;cken!</l><lb/>
+<l>Wie em&#x017F;ig wollt ich nicht, da heut &#x2012; &#x2012; &#x2012; i&#x017F;t</l><lb/>
+<l>Dein rundes Knie mit die&#x017F;em Ba&#x0364;ndchen &#x017F;chmu&#x0364;cken,</l><lb/>
+<l>Weil mir der Winter, der noch Tellus Schooß ver&#x017F;chließt,</l><lb/>
+<l>Jetzt nicht erlaubt Dir einen Kranz zu pflicken.</l><lb/>
+<l>Doch Ma&#x0364;dchen hielt ich Dich nur jetzt in meinem Arm</l><lb/>
+<l>So wollt ich Dir die Lielienho&#x0364;hen,</l><lb/>
+<l>Auf denen von Natur &#x017F;chon Ro&#x017F;enkno&#x017F;pen &#x017F;tehen,</l><lb/>
+<l>So lange ku&#x0364;ßen, bis von tau&#x017F;end Ku&#x0364;ßen warm</l><lb/>
+<l>Die ganze Bru&#x017F;t, &#x017F;o wie die Kno&#x017F;pen, ihre Zierde,</l><lb/>
+<l>Auch roth wie blu&#x0364;hende Ro&#x017F;en wu&#x0364;rde.</l><lb/>
+<fw type="catch" place="bottom">Wenn</fw><lb/>
+<pb n="48" facs="#f0052"/>
+<l>Wenn ich den Bu&#x017F;en nun er&#x017F;t heiß und roth geku&#x0364;ßt,</l><lb/>
+<l>Dann &#x017F;ollten meine Lippen weiter klettern,</l><lb/>
+<l>Und Zephyrn gleich, wenn er i<supplied>n</supplied> Myrthenbla&#x0364;ttern</l><lb/>
+<l>Vergraben und ge&#x017F;cha&#x0364;ftig i&#x017F;t,</l><lb/>
+<l>Jm Haar das deine Stirn umfließt,</l><lb/>
+<l>Und Bogen gleich dein Aug um&#x017F;chließt,</l><lb/>
+<l>Sich auch vergraben und be&#x017F;cha&#x0364;ftgen,</l><lb/>
+<l>Und eine Saat von Ku&#x0364;ßen &#x017F;ollte da</l><lb/>
+<l>Erza&#x0364;hlen, was in mir ge&#x017F;chah&#x2019;</l><lb/>
+<l>Als ich noch mehr von Dir als Aug und Bu&#x017F;en &#x017F;ah&#x2019;,</l><lb/>
+<l>Und was ich je ver&#x017F;prach Dir feyerlich&#x017F;t bekra&#x0364;ftgen.</l><lb/>
+<l>Wenn ich auf Bru&#x017F;t und Stirn Dich roth genung geku&#x0364;ßt,</l><lb/>
+<fw type="catch" place="bottom">Dann</fw><lb/>
+<pb n="49" facs="#f0053"/>
+<l>Dann flo&#x0364;g&#x2019; ich gleich den honigvollen Bienen</l><lb/>
+<l>Zum Ko&#x0364;rbchen hin, das wie ein <hi rendition="#g">Jungferchen im</hi></l><lb/>
+<l><hi rendition="#g"><hi rendition="#et">Gru&#x0364;nen</hi></hi></l><lb/>
+<l>Ein zart Geweb&#x2019; kun&#x017F;tlos um&#x017F;chließt, &#x2014;</l><lb/>
+<l>Hin zum <hi rendition="#g">Aurikelchen,</hi> das Wohlgeru&#x0364;che,</l><lb/>
+<l>Bal&#x017F;ami&#x017F;cher als Hybelns Honigbru&#x0364;che,</l><lb/>
+<l>Und was ein Stuzer je zum parfu&#x0364;miren braucht</l><lb/>
+<l>Jn die bild&#x017F;cho&#x0364;ne Gegend haucht;</l><lb/>
+<l>Da wu&#x0364;rd ich mich am la&#x0364;ng&#x017F;ten wohl verweilen,</l><lb/>
+<l>Um Dir getreu die ganze Erndte mitzutheilen.</l><lb/>
+<l>Ach Ma&#x0364;dchen wenn ich doch jetzt bey Dir wa&#x0364;r!</l><lb/>
+<l>Von Dir entfernt zu &#x017F;eyn war nie &#x017F;o &#x017F;chwer,</l><lb/>
+<l>Nie war mein Herz &#x017F;o freudeleer,</l><lb/>
+<fw type="sig" place="bottom">D</fw><fw type="catch" place="bottom">Nie</fw><lb/>
+<pb n="50" facs="#f0054"/>
+<l>Nie wu&#x0364;n&#x017F;cht ich heftiger die Scha&#x0364;ferzeit zuru&#x0364;cke,</l><lb/>
+<l>Als heute da &#x2012; &#x2012; &#x2012; &#x2012; i&#x017F;t.</l><lb/>
+<l>Wenn Dir in die&#x017F;em Augenblicke</l><lb/>
+<l>Ein kleiner Schaur durch alle Glieder &#x017F;chießt;</l><lb/>
+<l>So glaub, daß Dich mein Schutzgei&#x017F;t ku&#x0364;ßt,</l><lb/>
+<l>Der Gei&#x017F;t der un&#x017F;ichtbar bis in dein Zimmer &#x017F;treifet,</l><lb/>
+<l>Dich wie dein Engel u&#x0364;berall bewacht,</l><lb/>
+<l>Und Dir wenn Du in kalter Nacht</l><lb/>
+<l>Den Bu&#x017F;en Dir im Traum zu blos gemacht</l><lb/>
+<l>Das Schlafkam&#x017F;o&#x0364;lchen fe&#x017F;ter &#x017F;chleifet.</l><lb/>
+<l>Vorm Spiegel treibt er oft mit deinem Haar &#x017F;ein Spiel,</l><lb/>
+<l>Und wenn Dir die Fri&#x017F;ur nicht gleich recht glu&#x0364;cken will;</l><lb/>
+<fw type="catch" place="bottom">So</fw><lb/>
+<pb n="51" facs="#f0055"/>
+<l>So kommts von &#x017F;einen Neckereyen,</l><lb/>
+<l>Er ta&#x0364;ndelt gern wie ich &#x2014; Du mu&#x017F;ts ihm &#x017F;chon verzeihen;</l><lb/>
+<l>Dafu&#x0364;r hat er Dir auch von Hals und Stirn und Hand</l><lb/>
+<l>Schon manchen Kra&#x0364;u&#x017F;elei&#x017F;ens Brand,</l><lb/>
+<l>So wild er &#x017F;on&#x017F;t auch i&#x017F;t, behut&#x017F;am abgewandt;</l><lb/>
+<l>Dafu&#x0364;r &#x017F;ta&#x0364;rkt er Dir Fuß und Bru&#x017F;t in Contreta&#x0364;ntzen,</l><lb/>
+<l>Und hilft, wenn ja was reißt, es Dir erga&#x0364;ntzen:</l><lb/>
+<l>Wenn Dich nun die&#x017F;er Gei&#x017F;t in meine Seele ku&#x0364;ßt,</l><lb/>
+<l>Dann laß, wofern Dein Herz noch mein Herz i&#x017F;t,</l><lb/>
+<l>Und &#x017F;anft von Wollu&#x017F;t u&#x0364;berfließt,</l><lb/>
+<l>Jm &#x017F;cho&#x0364;nen Aug ein Sehn&#x017F;uchtstra&#x0364;nchen gla&#x0364;nzen,</l><lb/>
+<l>Und &#x017F;ey den ganzen Tag wie ich betru&#x0364;bt,</l><lb/>
+<fw type="sig" place="bottom">D 2</fw><fw type="catch" place="bottom">Weil</fw><lb/>
+<pb n="52" facs="#f0056"/>
+<l>Weil der, der Dich unendlich liebt,</l><lb/>
+<l>Und Dir den Preiß der Scho&#x0364;nheit giebt,</l><lb/>
+<l>An&#x017F;tatt Dein Nahmensfe&#x017F;t mit Dir froh zu verku&#x0364;ßen,</l><lb/>
+<l>Und ganz der Liebe Reichthum zu genießen</l><lb/>
+<l>Gar ohne Handdruck, Blick und Kuß</l><lb/>
+<l>Es feyren, und Dich blos im Gei&#x017F;t umarmen muß.</l></lg></lg></div><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<fw type="catch" place="bottom"><hi rendition="#b">Tro&#x017F;t-</hi></fw><lb/>
+<pb n="53" facs="#f0057"/>
+<div n="1" type="poem"><head><hi rendition="#b"><hi rendition="#g">Tro&#x017F;tgedicht.</hi></hi></head><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<cit><quote><l><hi rendition="#aq">Qvid &#x2012; metuis turbæ decreta &#x017F;everæ?</hi></l><lb/>
+<l><hi rendition="#aq">Caus&#x017F;a meo tantum competit i&#x017F;ta foro.</hi></l></quote><lb/>
+<bibl><hi rendition="#aq"><hi rendition="#et"><hi rendition="#i">I. Secundus.</hi></hi></hi></bibl></cit><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<lg type="poem"><lg n="1"><l><hi rendition="#in">B</hi>in ich Dir denn nicht mehr als eine ganze Welt,</l><lb/>
+<l>Als alles was &#x017F;ich mit Grimaßen</l><lb/>
+<l>Vertraut, und um Dein Glu&#x0364;ck beku&#x0364;mmert &#x017F;tellt?</l><lb/>
+<l>So lang die Liebe mir Dein Herz erha&#x0364;lt,</l><lb/>
+<l>Und Wollu&#x017F;t Dir in meinem Arm gefa&#x0364;llt;</l><lb/>
+<l>So laß zu eignem Schimpf Dich Thoren la&#x0364;&#x017F;tern, haßen:</l><lb/>
+<fw type="sig" place="bottom">D 3</fw><fw type="catch" place="bottom">Jn</fw><lb/>
+<pb n="54" facs="#f0058"/>
+<l>Jn ihren Adern fließt auch Men&#x017F;chenblut,</l><lb/>
+<l>Wie! ha&#x0364;tten wir denn nur allein ge&#x017F;u&#x0364;ndigt,</l><lb/>
+<l>Und &#x017F;ie der Pflicht bey reicherm Uebermut</l><lb/>
+<l>Nie den Gehor&#x017F;am aufgeku&#x0364;ndigt?</l><lb/>
+<l>Was wein&#x017F;t Du Ma&#x0364;dchen? Spar den Thra&#x0364;nenbach,</l><lb/>
+<l>Aus Sehn&#x017F;ucht bloß nach mir laß &#x017F;eine Perlen fließen,</l><lb/>
+<l>Der Kummer macht das Herz nur doppelt &#x017F;chwach,</l><lb/>
+<l>Und la&#x0364;ßt den Feind den Sieg zu leicht genu&#x0364;ßen.</l><lb/>
+<l>Bleib helter wenn Dich gleich ver&#x017F;tellte Lippen &#x017F;chma&#x0364;hn,</l><lb/>
+<l>Und Dir dein kleines Glu&#x0364;ck beneiden:</l><lb/>
+<l>Daß Wind und Wetter Dir die Haarfri&#x017F;ur verwehn,</l><lb/>
+<l>Mußt Du das nicht geduldig leiden?</l><lb/>
+<fw type="catch" place="bottom">Allein</fw><lb/>
+<pb n="55" facs="#f0059"/>
+<l>Allein Dein Herz, das frag, ob es Dich nicht verklagt,</l><lb/>
+<l>Ob da nicht Fal&#x017F;chheit wohnt, ob da nicht Triebe lodern</l><lb/>
+<l>Fu&#x0364;r dies&#x2019; der Tugend ganz ent&#x017F;agt,</l><lb/>
+<l>Und die nur Wollu&#x017F;t zur Befried&#x2019;gung fodern?</l><lb/>
+<l>Ob nicht der Wun&#x017F;ch fu&#x0364;r jeden &#x017F;cho&#x0364;n zu &#x017F;eyn</l><lb/>
+<l>Und jedem Ju&#x0364;nglinge erobernd zu gefallen,</l><lb/>
+<l>Sein Hauptwun&#x017F;ch i&#x017F;t? &#x2014; O mo&#x0364;cht ers doch nicht &#x017F;eyn?</l><lb/>
+<l>O mo&#x0364;cht doch nur fu&#x0364;r mich Dein voller Bu&#x017F;en wallen!</l><lb/>
+<l>Giebt Dir dein eignes Herz nur Recht,</l><lb/>
+<l>Und zwingt Dich nicht vor Dir &#x017F;elb&#x017F;t zu erro&#x0364;then;</l><lb/>
+<l>So wird der Neider &#x017F;chlangenartiges Ge&#x017F;chlecht</l><lb/>
+<l>Sich ein&#x017F;t mit eignem Gift zu Deiner Rache to&#x0364;dten.</l><lb/>
+<fw type="sig" place="bottom">D 4</fw><fw type="catch" place="bottom">Schwer-</fw><lb/>
+<pb n="56" facs="#f0060"/>
+<l>Schwermut macht nur die Ro&#x017F;enwangen blaß,</l><lb/>
+<l>Und welkt die glatten Marmorhu&#x0364;gel,</l><lb/>
+<l>Der Kummer, und der Thra&#x0364;nen &#x017F;alzges Naß</l><lb/>
+<l>Verdirbt der Augen Glanz, be&#x017F;chneidt des Gei&#x017F;tes Flu&#x0364;gel.</l><lb/>
+<l>Wein nicht, denn Liebe war nie eine Frewelthat</l><lb/>
+<l>Die Herzen ehrlos macht; nur dann entehrt &#x017F;ie Herzen</l><lb/>
+<l>Wenn Unbe&#x017F;tand und Leicht&#x017F;inn und Verrath</l><lb/>
+<l>Mit ihren Flammen treuloß &#x017F;cherzen;</l><lb/>
+<l>Wenn Lippen &#x017F;prechen, was das Herz nicht fu&#x0364;hlt,</l><lb/>
+<l>Wenn ihre Glut Entfernung tilget,</l><lb/>
+<l>Wenn buhleri&#x017F;ch zu frey das Auge &#x017F;pielt,</l><lb/>
+<l>Wenn jeder Kuß ihr Jrrlichtsfeuer ku&#x0364;hlt,</l><lb/>
+<fw type="catch" place="bottom">Sie</fw><lb/>
+<pb n="57" facs="#f0061"/>
+<l>Sie jedes Schmeicheley und jeden Handdruck bil&#x2019;get.</l><lb/>
+<l>Nur Eines Herzens Abgott &#x017F;eyn,</l><lb/>
+<l>Nur Einen voll Gefu&#x0364;hl ganz glu&#x0364;cklich machen,</l><lb/>
+<l>Nur Einem jeden Raub der Za&#x0364;rtlichkeit verzeihn,</l><lb/>
+<l>Und &#x017F;elb&#x017F;t der Wollu&#x017F;t Altar nicht entweihn,</l><lb/>
+<l>Jn Eines Armen nur die Welt verlachen;</l><lb/>
+<l>Das i&#x017F;t die Liebe, die die Welt um&#x017F;on&#x017F;t beneidt,</l><lb/>
+<l>Die &#x017F;ie um&#x017F;on&#x017F;t verleumdet und ver&#x017F;chreit.</l><lb/>
+<l>Zwar lebt &#x017F;ie auch nicht ohne Za&#x0364;hren:</l><lb/>
+<l>Doch mild wie Bal&#x017F;am i&#x017F;t &#x017F;tets ihre Traurigkeit.</l><lb/>
+<l>Wenn Deine Thra&#x0364;nen doch auch &#x017F;olcher Bal&#x017F;am wa&#x0364;ren!</l><lb/>
+<l>Schma&#x0364;h&#x017F;ucht und Haß der Zeit &#x017F;ind keine Thra&#x0364;nen werth,</l><lb/>
+<fw type="sig" place="bottom">D 5</fw><fw type="catch" place="bottom">Laß</fw><lb/>
+<pb n="58" facs="#f0062"/>
+<l>Laß keine mehr um &#x017F;ie den weißen Bu&#x017F;en netzen,</l><lb/>
+<l>Stets gla&#x0364;nz&#x2019; die freye Stirne aufgekla&#x0364;hrt,</l><lb/>
+<l>Sey &#x017F;tets vergnu&#x0364;gt mit deinen Scha&#x0364;tzen;</l><lb/>
+<l>Mit Scha&#x0364;tzen, die Dir die Natur, als &#x017F;ie Dich &#x017F;chu<supplied>f</supplied></l><lb/>
+<l>Freygebig zugewandt, &#x017F;ey froh mit dem Beruf</l><lb/>
+<l>Von mir geliebt zu &#x017F;eyn, und mich zu lieben.</l><lb/>
+<l>Blos die Jde ein&#x017F;t nicht mein Ma&#x0364;dchen mehr zu &#x017F;eyn,</l><lb/>
+<l>Nur die muß Deiner Freude Sonnen&#x017F;chein</l><lb/>
+<l>Mit einem Kummerwo&#x0364;lkchen tru&#x0364;ben:</l><lb/>
+<l>Denn der Gedank&#x2019; nicht mehr von Dir geliebt zu &#x017F;eyn,</l><lb/>
+<l>Und mich vergeßen, Dich in fremden Arm zu &#x017F;ehen,</l><lb/>
+<l>Der &#x017F;chreckliche Gedank&#x2019; allein</l><lb/>
+<fw type="catch" place="bottom">Reißt</fw><lb/>
+<pb n="59" facs="#f0063"/>
+<l>Reißt alle meine Freuden&#x017F;chlo&#x0364;ßer ein,</l><lb/>
+<l>Und kann jedweden Tro&#x017F;t &#x017F;o leicht zer&#x017F;treun,</l><lb/>
+<l>Wie Ro&#x017F;enbla&#x0364;tter, wenn die Stu&#x0364;rme wehen.</l></lg><lb/>
+<lg n="2"><l>Kleine Wittwe weine nicht,</l><lb/>
+<l>Und verhu&#x0364;lle Dein Ge&#x017F;icht</l><lb/>
+<l>Nicht &#x017F;o fru&#x0364;h in des Kummers Schleyer,</l><lb/>
+<l>Wenn des Lebens Morgen flieht,</l><lb/>
+<l>Und die Ro&#x017F;e abgeblu&#x0364;ht,</l><lb/>
+<l>Dann verlo&#x0364;&#x017F;cht &#x017F;o der Freude Feuer.</l></lg><lb/>
+<lg n="3"><l>Sterben &#x2014; &#x017F;reylich i&#x017F;ts wohl gut,</l><lb/>
+<l>Und wohl dem der ewig ruht,</l><lb/>
+<l>Leben i&#x017F;t aber doch noch beßer.</l><lb/>
+<fw type="catch" place="bottom">Muth</fw><lb/>
+<pb n="60" facs="#f0064"/>
+<l>Muth mein Kind! denn Kampf und Streit</l><lb/>
+<l>Da&#x0364;mpft der Thoren Drei&#x017F;tigkeit</l><lb/>
+<l>Und Gedult, macht &#x017F;ie oft nur gro&#x0364;ßer.</l></lg><lb/>
+<lg n="4"><l>Kleinmuth nur wu&#x0364;n&#x017F;cht &#x017F;ich den Tod.</l><lb/>
+<l>Wider Haß, der jetzt Dir droht,</l><lb/>
+<l>Ma&#x0364;dchen, &#x017F;oll meine Glut Dich &#x017F;chu&#x0364;tzen,</l><lb/>
+<l>Wenn Dein Bu&#x017F;en nicht mehr &#x017F;chla&#x0364;gt,</l><lb/>
+<l>Nichts mehr nach der Liebe fra&#x0364;gt,</l><lb/>
+<l>Was kann da Dir mein Bey&#x017F;tand nu&#x0364;tzen?</l></lg></lg></div><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<fw type="catch" place="bottom"><hi rendition="#b">Das</hi></fw><lb/>
+<pb n="61" facs="#f0065"/>
+<div n="1" type="poem"><head><hi rendition="#b"><hi rendition="#g">Das Jahrfe&#x017F;t<lb/>
+des er&#x017F;ten Kußes.</hi></hi></head><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<cit><quote><l><hi rendition="#aq">Hæc &#x017F;acris no&#x017F;træ &#x017F;emper &#x017F;olennia Mu&#x017F;æ</hi></l><lb/>
+<l><hi rendition="#aq">Tempora &#x2012; &#x2012; &#x2012; &#x2012; &#x2012; erunt.</hi></l><lb/>
+<l><hi rendition="#aq">Hic enim no&#x017F;tros primum pale&#x017F;cere vultus</hi></l><lb/>
+<l><hi rendition="#aq">Men&#x017F;is &#x2012; &#x2012; &#x2012; vidit &#x2012; &#x2012;</hi></l><lb/>
+<l><hi rendition="#aq">Vidit &amp; ille idem carpentem gaudia mille</hi></l><lb/>
+<l><hi rendition="#aq">Lenibus ex oculis molle tuentis heræ</hi></l></quote><lb/>
+<bibl><hi rendition="#aq"><hi rendition="#et"><hi rendition="#i">I. Secundus.</hi></hi></hi></bibl></cit><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<lg type="poem"><lg n="1"><l><hi rendition="#in">S</hi>cho&#x0364;n wie die blu&#x0364;hende Natur jetzt i&#x017F;t</l><lb/>
+<l>Da &#x017F;ie der Fru&#x0364;hling la&#x0364;chelnd gru&#x0364;ßt;</l><lb/>
+<l>So &#x017F;cho&#x0364;n war&#x017F;t Du mein Ma&#x0364;dchen an dem Tage</l><lb/>
+<l>Als mir Dein Kuß auf meines Kußes Frage</l><lb/>
+<fw type="catch" place="bottom">Die</fw><lb/>
+<pb n="62" facs="#f0066"/>
+<l>Die &#x017F;cho&#x0364;n&#x017F;te Antwort gab &#x2014; Dort &#x017F;chla&#x0364;gt die Nachtigal</l><lb/>
+<l>Jm Weidenbu&#x017F;ch im bachdurch&#x017F;chlungnen Thal:</l><lb/>
+<l>Jhr unnachahmlich Lied &#x017F;ingt Freude und Entzu&#x0364;cken</l><lb/>
+<l>Jns Herz, und doch dringt keiner Nachtigal Ge&#x017F;ang</l><lb/>
+<l>So tief ins Herz, wie der Kuß drang.</l><lb/>
+<l>Ver&#x017F;cha&#x0364;mt um einer Saat von Ku&#x0364;ßen auszuweichen</l><lb/>
+<l>Bog&#x017F;t, du fu&#x0364;r mich zum gro&#x0364;ßern Glu&#x0364;ck,</l><lb/>
+<l>Mit Ma&#x0364;dchenheucheley den Nacken &#x017F;chlau zuru&#x0364;ck &#x2014;</l><lb/>
+<l>Doch konnten gleich den Mund die Ku&#x0364;ße nicht erreichen</l><lb/>
+<l>So &#x017F;iel doch keiner auf ein undankbares Feld &#x2014;</l><lb/>
+<l>Sie trafen in das Thal, wo Venus Courtag ha&#x0364;lt,</l><lb/>
+<l>Und auf die Hu&#x0364;gel, die der Liebe Segen &#x017F;chwellt.</l><lb/>
+<fw type="catch" place="bottom">Ein</fw><lb/>
+<pb n="63" facs="#f0067"/>
+<l>Ein ma&#x0364;chtigers Entzu&#x0364;cken</l><lb/>
+<l>Durch&#x017F;chaurte mich als ich in deinen Blicken</l><lb/>
+<l>Ein <hi rendition="#g">auch ich lieb Dich</hi> &#x017F;chmeichelnd laß.</l><lb/>
+<l>Ha! Ma&#x0364;dchen Deine Wangen blu&#x0364;hten</l><lb/>
+<l>Roth, wie die Lippen die vom Kuße glu&#x0364;hten,</l><lb/>
+<l>Der Perlenreihen traf, die, wenn Dein Mund mir lacht</l><lb/>
+<l>Und Amor Dir, ins Kinn ein Gru&#x0364;bchen macht,</l><lb/>
+<l>Der Lippen Purpur &#x017F;anft erheben,</l><lb/>
+<l>Und deinem La&#x0364;cheln neue Reitze geben.</l></lg><lb/>
+<lg n="2"><l>Scho&#x0364;n i&#x017F;t der Ma&#x0364;y in &#x017F;einem Beilchenkrantze,</l><lb/>
+<l>Wenn er fu&#x0364;r Grazien zum Reihentanze</l><lb/>
+<l>Gefilde &#x017F;chmu&#x0364;ckt, warm die mondhelle Nacht,</l><lb/>
+<l>Und liederreich den Morgen macht!</l><lb/>
+<fw type="catch" place="bottom">Doch</fw><lb/>
+<pb n="64" facs="#f0068"/>
+<l>Doch himmli&#x017F;cher wenn er in Ma&#x0364;dgenbu&#x017F;en</l><lb/>
+<l>Den Keim der Liebe &#x017F;treut, zum Aufblu&#x0364;hn treibt,</l><lb/>
+<l>Und wenn des Ju&#x0364;nglings Aug an die&#x017F;en Bu&#x017F;en,</l><lb/>
+<l>So wie &#x017F;ein Herz gefe&#x017F;&#x017F;elt, bleibt,</l><lb/>
+<l>Wenn er die weiße Bru&#x017F;t dann wallen,</l><lb/>
+<l>Und &#x017F;impatheti&#x017F;ch fu&#x0364;hlen lehrt,</l><lb/>
+<l>Und bey dem Brautge&#x017F;ang der Nachtigallen</l><lb/>
+<l>Des Ju&#x0364;nglings Muth, des Ma&#x0364;dchens Sehn&#x017F;ucht mehrt.</l></lg><lb/>
+<lg n="3"><l>Ho&#x0364;r&#x2019; wie er tra&#x0364;ufelnd rau&#x017F;cht der Fru&#x0364;hlingsregen</l><lb/>
+<l>Sanft zittert unter ihm der Bu&#x0364;&#x017F;che neues Kleid;</l><lb/>
+<l>So Ma&#x0364;dchen zittern deine Locken, wenn der Segen</l><lb/>
+<l>Entzu&#x0364;ckender wollu&#x0364;&#x017F;tger Za&#x0364;rtlichkeit</l><lb/>
+<fw type="catch" place="bottom">Das</fw><lb/>
+<pb n="65" facs="#f0069"/>
+<l>Das Bal&#x017F;ammooß des Ro&#x017F;enthals erfri&#x017F;chet,</l><lb/>
+<l>Und mit dem eignen Thau des Ro&#x017F;enthals &#x017F;ich mi&#x017F;chet.</l><lb/>
+<l>Wenn mild der Wolken Schooß die Hu&#x0364;gel u&#x0364;bergießt,</l><lb/>
+<l>Dann wird der Rand der Tha&#x0364;ler bluhmenreicher,</l><lb/>
+<l>Und auf dem Klee, der dichter &#x017F;prießt,</l><lb/>
+<l>Ruht dann der Wanderer erquickender und weicher:</l><lb/>
+<l>Wenn auf den kleinen Ho&#x0364;h&#x2019;n in Deines Thales Schooß,</l><lb/>
+<l>Der Regen Amors fa&#x0364;llt, dann wa&#x0364;ch&#x017F;t das Mooß</l><lb/>
+<l>Duftreicher, krau&#x017F;er um die heilge Grotte</l><lb/>
+<l>Und wird zum netten &#x017F;chatt&#x2019;gen Myrthenha&#x0364;yn,</l><lb/>
+<l>Wo nakte Grazien dem Liebesgotte</l><lb/>
+<l>Um &#x017F;einen Altar Bluhmen &#x017F;treun,</l><lb/>
+<fw type="sig" place="bottom">E</fw><fw type="catch" place="bottom">Und</fw><lb/>
+<pb n="66" facs="#f0070"/>
+<l>Und wo die ganze Schaar, wenn &#x017F;ie &#x017F;ich &#x017F;att gegauckelt,</l><lb/>
+<l>Und wo Citherens lo&#x017F;er Sohn,</l><lb/>
+<l>Wenn ihn in &#x017F;einer Mutter Phaeton</l><lb/>
+<l>Die muntern Spatzen mu&#x0364;d ge&#x017F;chaukelt,</l><lb/>
+<l>Viel &#x017F;anfter &#x017F;chla&#x0364;ft und &#x017F;ich zum neuen Spiel</l><lb/>
+<l>Viel ehr erholt als auf dem weich&#x017F;ten Atlasphu&#x0364;l.</l></lg><lb/>
+<lg n="4"><l>Himmelvolle Augenblicke,</l><lb/>
+<l>Wenn die Sonne heitrer Blicke</l><lb/>
+<l>Ju&#x0364;ngling deine Adern &#x017F;chwellt!</l><lb/>
+<l>Himmelvollre wenn der Seegen</l><lb/>
+<l>Amors, wie ein Perlenregen</l><lb/>
+<l>Aufs ge&#x017F;paltne Erdreich fa&#x0364;llt.</l></lg><lb/>
+<fw type="catch" place="bottom">Wie</fw><lb/>
+<pb n="67" facs="#f0071"/>
+<lg n="5"><l>Wie aus dem tief&#x017F;ten Schlaf und &#x017F;u&#x0364;ßten Traumge&#x017F;icht</l><lb/>
+<l>Des Ju&#x0364;nglings Kuß &#x017F;ein Ma&#x0364;dchen wecket,</l><lb/>
+<l>Wie dann wenns &#x017F;cho&#x0364;n&#x017F;te Aug halb Schlaf halb Wollu&#x017F;t</l><lb/>
+<l><hi rendition="#et">bricht,</hi></l><lb/>
+<l>Er ihr den Arm &#x017F;anft um den Nacken flicht,</l><lb/>
+<l>Das Nachtgewand ver&#x017F;chiebt und Scho&#x0364;nheiten entdecket,</l><lb/>
+<l>Die ein&#x017F;t <hi rendition="#g">Romanos</hi> Kun&#x017F;t &#x017F;o lebhaft traf;</l><lb/>
+<l>So ku&#x0364;ßt der Fru&#x0364;hling aus dem Winter&#x017F;chlaf</l><lb/>
+<l>Jetzt die Natur. Den dichten weißen Schleyer</l><lb/>
+<l>Hat er ihr la&#x0364;ng&#x017F;t vom Bu&#x017F;en abge&#x017F;trei&#x017F;t,</l><lb/>
+<l>Er athmet jetzt im bluhmigten Gewande freyer.</l><lb/>
+<l>Der May der &#x017F;ie mit Ku&#x0364;ßen u&#x0364;berha&#x0364;uft</l><lb/>
+<fw type="sig" place="bottom">E 2</fw><fw type="catch" place="bottom">Spielt</fw><lb/>
+<pb n="68" facs="#f0072"/>
+<l>Spielt mit dem Reitz, der ihm entgegen blu&#x0364;het,</l><lb/>
+<l>Und Zephyr, den ein gleich Gefu&#x0364;hl</l><lb/>
+<l>Magneti&#x017F;ch&#x017F;tark zur Bluhmengo&#x0364;ttin ziehet,</l><lb/>
+<l>Mi&#x017F;cht ta&#x0364;ndelnd &#x017F;ich mit in ihr Spiel.</l></lg><lb/>
+<lg n="6"><l>Steht denn der Natur und dem May</l><lb/>
+<l>Nur allein das Ta&#x0364;ndeln frey?</l><lb/>
+<l>Darf nur dies Paar za&#x0364;rtlich ku&#x0364;ßen,</l><lb/>
+<l>Bu&#x017F;en &#x017F;anft an Bu&#x017F;en &#x017F;chließen,</l><lb/>
+<l>Und in Za&#x0364;rtlichkeit zerfließen?</l><lb/>
+<l>Ma&#x0364;dchen nein die Ta&#x0364;ndeley</l><lb/>
+<l>Holder Glut &#x017F;teht uns auch frey,</l><lb/>
+<l>Auch wir do&#x0364;rfen za&#x0364;rtlich ku&#x0364;ßen,</l><lb/>
+<fw type="catch" place="bottom">Bu&#x017F;en</fw><lb/>
+<pb n="69" facs="#f0073"/>
+<l>Bu&#x017F;en &#x017F;anft an Bu&#x017F;en &#x017F;chließen,</l><lb/>
+<l>Und in Za&#x0364;rtlichkeit zerfließen.</l></lg><lb/>
+<lg n="7"><l>Hurtig komm in meinen Arm,</l><lb/>
+<l>Schlu&#x0364;pf &#x017F;ie ab die Nachtgewa&#x0364;nder,</l><lb/>
+<l>Schleif &#x017F;ie auf die &#x017F;eidnen Ba&#x0364;nder,</l><lb/>
+<l>Komm und werd in meinem Arm</l><lb/>
+<l>Wie die Sommerlu&#x0364;fte warm,</l><lb/>
+<l>Und laß uns ganz in Za&#x0364;rtlichkeit zerfließen.</l></lg><lb/>
+<lg n="8"><l>Jch bin dein Lenz, ich bin dein May,</l><lb/>
+<l>Du mein Gefild, und meine Mayenbluhme,</l><lb/>
+<l>Jn deinem Grottenheiligthume</l><lb/>
+<l>Auf deinen Marmorho&#x0364;h&#x2019;n, &#x017F;teht jede Ta&#x0364;ndeley,</l><lb/>
+<fw type="sig" place="bottom">E 3</fw><fw type="catch" place="bottom">Und</fw><lb/>
+<pb n="70" facs="#f0074"/>
+<l>Und jede Art des za&#x0364;rtlich&#x017F;ten Genußes,</l><lb/>
+<l>Mir heut am <hi rendition="#g">Fe&#x017F;t des er&#x017F;ten Kußes</hi></l><lb/>
+<l>Unwider&#x017F;prechlich frey.</l></lg><lb/>
+<lg n="9"><l>Hurtig komm in meinen Arm</l><lb/>
+<l>Schlu&#x0364;pf &#x017F;ie ab die Nachtgewa&#x0364;nder,</l><lb/>
+<l>Schleif &#x017F;ie auf die &#x017F;eidnen Ba&#x0364;nder,</l><lb/>
+<l>Komm und werd in meinem Arm</l><lb/>
+<l>Wie die Sommerlu&#x0364;fte warm,</l><lb/>
+<l>Und laß uns ganz in Za&#x0364;rtlichkeit zerfließen.</l></lg></lg></div><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<fw type="catch" place="bottom"><hi rendition="#b">Sinn-</hi></fw><lb/>
+<pb n="71" facs="#f0075"/>
+<div n="1"><head><hi rendition="#b"><hi rendition="#g">Sinngedicht<lb/>
+aus dem Qven.</hi></hi></head><lb/>
+<lg type="poem"><head><hi rendition="#b">Der Liebhaber.</hi></head><lb/>
+<lg n="1"><l><hi rendition="#in">D</hi>urch meinen muntern Fleiß gebahr die Frau den</l><lb/>
+<l><hi rendition="#c">Sohn,</hi></l><lb/>
+<l>Allein der Herr Gemahl tra&#x0364;gt allen Ruhm davon;</l><lb/>
+<l>So wird der Honig nie der emsgen Bienen Lohn.</l></lg></lg><lb/>
+<lg type="poem"><head><hi rendition="#b"><hi rendition="#g">Der Ehmann.</hi></hi></head><lb/>
+<lg n="1"><l><hi rendition="#in">J</hi>ch ließ Clorindens Hand mir ehrbar anvertrauen,</l><lb/>
+<l>Allein Amint gewann die Liebe meiner Frauen,</l><lb/>
+<l>So pflegt der Vogel auch nicht &#x017F;ich das Ne&#x017F;t zu bauen.</l></lg></lg></div><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<fw type="sig" place="bottom">E 4</fw><fw type="catch" place="bottom"><hi rendition="#b">Die</hi></fw><lb/>
+<pb n="72" facs="#f0076"/>
+<div n="1" type="poem"><head><hi rendition="#b"><hi rendition="#g">Die<lb/>
+glu&#x0364;cklich gehobene<lb/>
+Be&#x017F;orgniß.</hi></hi></head><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<cit><quote><l><hi rendition="#aq">Heureux &#x017F;ont ceux, qu&#x2019;on trompe à leur profit</hi></l></quote><lb/>
+<bibl><hi rendition="#aq"><hi rendition="#et"><hi rendition="#i">la Fontaine.</hi></hi></hi></bibl></cit><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<lg type="poem"><lg n="1"><l><hi rendition="#in">E</hi>s war einmal, doch wo, das weiß ich nicht gewiß,</l><lb/>
+<l>Die Su&#x0364;ndfluth hat den Ort la&#x0364;ng&#x017F;t wegge&#x017F;pu&#x0364;hlet,</l><lb/>
+<l>Ein Ma&#x0364;dchen, das mit Recht das Wunderma&#x0364;dchen hieß,</l><lb/>
+<l>Weil noch ihr zwanzigja&#x0364;hrger Mund</l><lb/>
+<l>Die Su&#x0364;ßigkeit des Honigs nicht gefu&#x0364;hlet,</l><lb/>
+<l>Den Adam ein&#x017F;t in Ewens Ko&#x0364;rbchen trug.</l><lb/>
+<fw type="catch" place="bottom">Sie</fw><lb/>
+<pb n="73" facs="#f0077"/>
+<l>Sie war reich, &#x017F;cho&#x0364;n und hatte Freyer gnug;</l><lb/>
+<l>Allein, da &#x017F;ie beym Antrag jeden frug,</l><lb/>
+<l>Wie groß &#x017F;ein Finger &#x017F;ey?</l><lb/>
+<l>So wollte, weil die Herrn aus Freyersprahlerey</l><lb/>
+<l>Des Dinges Maaß und Ziel vergaßen,</l><lb/>
+<l>Kein einziger in ihren Fingerhut,</l><lb/>
+<l>Den &#x017F;ie durchaus nicht wollte weiten la&#x017F;&#x017F;en,</l><lb/>
+<l>So recht bequem nach ihrem Sinne paßen,</l><lb/>
+<l>Doch Amor der nicht eher ruht</l><lb/>
+<l>Bis Ma&#x0364;dchen ihm <hi rendition="#g">ihr Theil</hi> geopfert haben,</l><lb/>
+<l>Bracht&#x2019; den Amint auf eine Li&#x017F;t. Er meldte &#x017F;ich</l><lb/>
+<l>Und &#x017F;prach: &#x201D;O Scho&#x0364;ne wa&#x0364;hle mich</l><lb/>
+<fw type="sig" place="bottom">E 5</fw><fw type="catch" place="bottom">&#x201D;Jch</fw><lb/>
+<pb n="74" facs="#f0078"/>
+<l>&#x201D;Jch habe dreyfach das, was andre einfach haben,</l><lb/>
+<l>&#x201D;Und glaub gewiß die klein&#x017F;te die&#x017F;er Gaben</l><lb/>
+<l>&#x201D;Wird deinem Fingerhut recht angeme&#x017F;&#x017F;en &#x017F;eyn&#x201D;.</l><lb/>
+<l>Zugleich reicht er den Riß der dreyen Finger ein.</l><lb/>
+<l>Sie nimmt den Riß in hohen Augen&#x017F;chein,</l><lb/>
+<l>Und wa&#x0364;hlt, weil ihr vielleicht das <hi rendition="#g">dreyfach</hi> wohl</l><lb/>
+<l><hi rendition="#et">behagt,</hi></l><lb/>
+<l>Aminten, der zuvor ihr eidlich zuge&#x017F;agt</l><lb/>
+<l>Nur ganz allein den klein&#x017F;ten zu gebrauchen.</l><lb/>
+<l>Er nahm ihn auch, ließ &#x017F;anft ihn untertauchen,</l><lb/>
+<l>Man fand ihn gut &#x2014; der Fingerhut ward feucht,</l><lb/>
+<l>Und Phyllis zi&#x017F;chelte: <hi rendition="#g">den gro&#x0364;ßeren &#x2014; vielleicht</hi></l><lb/>
+<fw type="catch" place="bottom"><hi rendition="#g">Paßt</hi></fw><lb/>
+<pb n="75" facs="#f0079"/>
+<l><hi rendition="#g">Paßt der wohl auch</hi>&#x201D; Er nimmt den Mittel&#x017F;iuger,</l><lb/>
+<l>Und ku&#x0364;tzelt fri&#x017F;ch den Liebeszwinger;</l><lb/>
+<l>Da wurde aus Erkenntlichkeit</l><lb/>
+<l>Der ro&#x017F;enfarbne Rand des Ringchens ziemlich weit.</l><lb/>
+<l><hi rendition="#g">Ach Be&#x017F;ter,</hi> &#x017F;eufzt &#x017F;ie jetzt, <hi rendition="#g">dir kann ich nichts<lb/>
+<hi rendition="#et">ver&#x017F;agen,</hi></hi></l><lb/>
+<l rendition="#g">Wenns dir gefa&#x0364;llt, &#x017F;o mag&#x017F;t du auch den gro&#x0364;ß-<lb/>
+<hi rendition="#et">ten wagen.</hi></l><lb/>
+<l>Kaum &#x017F;prach &#x017F;ie es; &#x017F;o &#x017F;tach der rechte &#x017F;chon im Ziel</l><lb/>
+<l>Vermehrte da der Lu&#x0364;&#x017F;ternheit Gefu&#x0364;hl</l><lb/>
+<l>Drang weit empfindlicher zum Herzen,</l><lb/>
+<l>Und Wollu&#x017F;t half die kleine Pein ver&#x017F;chmerzen,</l><lb/>
+<fw type="catch" place="bottom">Jndem</fw><lb/>
+<pb n="76" facs="#f0080"/>
+<l>Jndem &#x017F;ie Bal&#x017F;am, der wie Milch und Honig floß</l><lb/>
+<l>Jn Phyllis Ro&#x017F;enwunde goß.</l><lb/>
+<l>Das weichliche &#x017F;itt&#x017F;ame Kind zerfloß,</l><lb/>
+<l>Und &#x017F;tarb vor Lu&#x017F;t, doch bald, erweckt von neuen Flam&#x0303;en,</l><lb/>
+<l>Schien jetzt der Fingerhut ein niedlicher Pokal,</l><lb/>
+<l>Und lei&#x017F;e &#x017F;prach &#x017F;ie? <hi rendition="#g">Ach Amint ach! noch einmal,</hi></l><lb/>
+<l><hi rendition="#g">&#x201D;Und wenn du kann&#x017F;t, &#x017F;o bind&#x2019; &#x017F;ie alle drey</hi></l><lb/>
+<l><hi rendition="#g"><hi rendition="#et">zu&#x017F;ammen.</hi></hi></l></lg></lg></div><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<fw type="catch" place="bottom"><hi rendition="#b">Das</hi></fw><lb/>
+<pb n="77" facs="#f0081"/>
+<div n="1" type="poem"><head><hi rendition="#b">Das Zeichen am Leibe.</hi></head><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<cit><quote><l><hi rendition="#aq">Nous &#x017F;erons au&#x017F;&#x017F;i &#x017F;ages qu&#x2019;elle</hi></l><lb/>
+<l><hi rendition="#aq">Quand nous en aurons fait autant</hi></l></quote><lb/>
+<bibl><hi rendition="#aq"><hi rendition="#et"><hi rendition="#i">la Fontaine.</hi></hi></hi></bibl></cit><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<lg type="poem"><lg n="1"><l><hi rendition="#in">F</hi>inette gieng aus ihrem zwo&#x0364;lften Jahr,</l><lb/>
+<l>Ohn daß &#x017F;ie ihren Leib, noch jene Regung kannte</l><lb/>
+<l>Von der die Frau Aebtißin brannte,</l><lb/>
+<l>Die &#x017F;on&#x017F;ten doch ihr Mentor war.</l><lb/>
+<l>Ein&#x017F;t wu&#x017F;ch das Ma&#x0364;dchen &#x017F;ich die Meeresenge</l><lb/>
+<l>Die zwi&#x017F;chen flei&#x017F;chern Sa&#x0364;ulen liegt,</l><lb/>
+<l>Durch die mit &#x017F;chmerzlichem Gedra&#x0364;nge</l><lb/>
+<l>Der Men&#x017F;ch ins Reich des Lebens kriecht.</l><lb/>
+<fw type="catch" place="bottom">&#x201D;Ach</fw><lb/>
+<pb n="78" facs="#f0082"/>
+<l>&#x201D;Ach &#x017F;chrie &#x017F;ie, <hi rendition="#g">ach!</hi> da &#x017F;ie die Sproßen</l><lb/>
+<l>Der ku&#x0364;nftgen &#x017F;chwarzen Locken &#x017F;ah&#x2019;</l><lb/>
+<l>&#x201D;<hi rendition="#g">Ach ich unglu&#x0364;ckliche!</hi> &#x2014; Und ihre Tra&#x0364;hnen floßen</l><lb/>
+<l>&#x201D;<hi rendition="#g">Was wird aus mir &#x2014; was wa&#x0364;ch&#x017F;t mir</hi> da!</l><lb/>
+<l>Mit jedem Tage wuchs die Zierde des Ge&#x017F;tades,</l><lb/>
+<l>Es kraußte &#x017F;ich das Schilf ums rothe Meer:</l><lb/>
+<l>So blu&#x0364;het um die Quelle eines warmen Bades,</l><lb/>
+<l>Ein zart Ge&#x017F;tra&#x0364;uch, und &#x017F;treuet Schatten um &#x017F;ich her.</l><lb/>
+<l>Aus Gram vergaß &#x017F;ie Spiel und E&#x017F;&#x017F;en,</l><lb/>
+<l>Oft blieb &#x017F;ie ganze Na&#x0364;chte wach,</l><lb/>
+<l>Und konnte nicht das Wunderding vergeßen</l><lb/>
+<l>Das &#x017F;ichtbarlich aus ihrem Leibe brach.</l><lb/>
+<fw type="catch" place="bottom">Die</fw><lb/>
+<pb n="79" facs="#f0083"/>
+<l>Die bleiche Wange wies wie &#x017F;ehr &#x017F;ie &#x017F;ich betru&#x0364;bte,</l><lb/>
+<l>Der Nonnen Tro&#x017F;t war ohne Frucht,</l><lb/>
+<l>Auch die Aebtißin die &#x017F;ie za&#x0364;rtlich liebte</l><lb/>
+<l>Fleht, predigt, &#x017F;chillt, ver&#x017F;ucht</l><lb/>
+<l>Durch Schmeicheln ihr den Grund des Kummers</l><lb/>
+<l><hi rendition="#et">abzufragen &#x2014;</hi></l><lb/>
+<l>&#x201D;Ach gna&#x0364;d&#x2019;ge Frau, &#x017F;o hub &#x017F;ie endlich an,</l><lb/>
+<l>Und &#x017F;eufzt und weint, &#x201D;was hilfts mein Leid zu klagen</l><lb/>
+<l>&#x201D;Da doch kein Men&#x017F;ch mir helfen kann,</l><lb/>
+<l>&#x201D;Mich hat des Himmels Zorn ge&#x017F;chlagen,</l><lb/>
+<l>&#x201D;Ein Zeichen hat &#x017F;ein Grimm an meinem Leib gethan,</l><lb/>
+<l>&#x201D;Das werd ich wohl bis in die Grube tragen,</l><lb/>
+<l>&#x201D;Da &#x017F;ehn &#x017F;ie &#x017F;elb&#x017F;t das Thier nur an &#x2014;</l><lb/>
+<fw type="catch" place="bottom">Hier</fw><lb/>
+<pb n="80" facs="#f0084"/>
+<l>Hier hob das &#x017F;cho&#x0364;ne Kind den Vorhang &#x017F;einer Kleider,</l><lb/>
+<l>Und wieß der gna&#x0364;d&#x2019;gen Frau das kleine Wunderthier,</l></lg><lb/>
+<lg n="2"><l>(Ein Mo&#x0364;nch der &#x017F;till im Oratorio &#x017F;aß</l><lb/>
+<l>Half die&#x017F;es Thierchen mit be&#x017F;ehen,</l><lb/>
+<l>Und glaubt&#x2019; indem er ju&#x017F;t vom heilgen Paulus laß</l><lb/>
+<l>Er &#x017F;a&#x0364;he auch den Himmel offen &#x017F;tehen)</l></lg><lb/>
+<lg n="3"><l>Madam &#x017F;ahs la&#x0364;chelnd an, und dacht wohltha&#x0364;tig: leider</l><lb/>
+<l>J&#x017F;t un&#x017F;er Prior jetzt nicht hier,</l><lb/>
+<l>Der wu&#x0364;rd&#x2019; ge&#x017F;chwind&#x2019; mit die&#x017F;em Ka&#x0364;zchen &#x017F;pielen,</l><lb/>
+<l>Der &#x017F;trich ihm gern das zarte Haar,</l><lb/>
+<l>Und wu&#x0364;rd&#x2019; ihm gleich ins kleine Ma&#x0364;ulchen fu&#x0364;hlen &#x2014;</l><lb/>
+<l>Jch weis wie ta&#x0364;ndelnd er bey mir ein&#x017F;t war.</l><lb/>
+<fw type="catch" place="bottom">Jetzt</fw><lb/>
+<pb n="81" facs="#f0085"/>
+<l>Jetzt &#x017F;prach &#x017F;ie: &#x201D;Liebes Kind laß dich das nicht</l><lb/>
+<l><hi rendition="#et">er&#x017F;chrecken,</hi></l><lb/>
+<l>&#x201D;Jedwede Nonn&#x2019;, auch ich, hat &#x017F;o ein Ka&#x0364;zchen da,</l><lb/>
+<l>&#x201D;Sieh&#x2019;, ich erlau<supplied>b</supplied> es dir das mein&#x2019;ge aufzudecken &#x2014;</l><lb/>
+<l>Finette deckt &#x017F;ie auf &#x2014; &#x017F;ie &#x017F;ah &#x2014;</l><lb/>
+<l>Und &#x017F;chrie: Ha! welche Katz! die hat ja Ma&#x0364;hnen &#x2014;</l><lb/>
+<l>Und als &#x017F;ie ihr den Balg mit zarten Ha&#x0364;nden &#x017F;trich&#x2019;</l><lb/>
+<l>Fieng &#x017F;ie wollu&#x0364;&#x017F;tig an zu ga&#x0364;hnen &#x2014;</l><lb/>
+<l>&#x201D;Ach welch ein Maul &#x2014; Ach Gott erbarme &#x017F;ich! &#x2014;</l><lb/>
+<l>Doch die Aebtißin &#x017F;prach: &#x201D;Mein Kind wie manche Ratze</l><lb/>
+<l>&#x201D;Hat auch das Thier nicht &#x017F;chon zunicht gebracht</l><lb/>
+<l>&#x201D;Erleg&#x2019; du er&#x017F;t &#x017F;o viel, wer weis ob deine Katze</l><lb/>
+<l>&#x201D;Nicht ein&#x017F;t das Maul noch gro&#x0364;ßer macht.</l></lg></lg></div><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<fw type="sig" place="bottom">F</fw><fw type="catch" place="bottom"><hi rendition="#b">Der</hi></fw><lb/>
+<pb n="82" facs="#f0086"/>
+<div n="1"><head><hi rendition="#b">Der Himmelsweg.</hi></head><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<lg type="poem"><lg n="1"><l><hi rendition="#in">E</hi>in Nonnchen, das mit &#x017F;einen Mienen</l><lb/>
+<l>Beruf wies Tag und Nacht im Chor und &#x017F;on&#x017F;t zu dienen,</l><lb/>
+<l>War fa&#x017F;t von Mutterleib zween Gei&#x017F;tlichen bekannt,</l><lb/>
+<l>Die ihr Gelu&#x0364;bd zwar keu&#x017F;ch zu &#x017F;eyn verband,</l><lb/>
+<l>Doch ohne Ausnahm nicht. Den Frevel zu vermindern,</l><lb/>
+<l>Behalfen &#x017F;ie &#x017F;ich bloß mit Klo&#x017F;terkindern,</l><lb/>
+<l>Und machten u&#x0364;berhaupt den Leib nur darum &#x017F;chwach</l><lb/>
+<l>Damit er nicht die Seele unterbrach,</l><lb/>
+<l>Wenn &#x017F;ie ein frommes Ave &#x017F;prach.</l></lg><lb/>
+<fw type="catch" place="bottom">Allein</fw><lb/>
+<pb n="83" facs="#f0087"/>
+<lg n="2"><l>Allein der Tod, dem Weiber, Ordensma&#x0364;nner,</l><lb/>
+<l>Antiken&#x017F;ammler, Ma&#x0364;dchenkenner</l><lb/>
+<l>Ein gleichgefa&#x0364;llges Opfer &#x017F;ind, er&#x017F;chien,</l><lb/>
+<l>Und nahm den ju&#x0364;ng&#x017F;ten mit. Die arme Clausnerin</l><lb/>
+<l>Wie kla&#x0364;glich that &#x017F;ie nicht um ihn,</l><lb/>
+<l>Wie bru&#x0364;n&#x017F;tig bat &#x017F;ie nicht in der verwa&#x0364;yßten Zelle</l><lb/>
+<l>Um andre zween in die vakante Stelle.</l><lb/>
+<l>Um zween? ja ja um zween, denn &#x017F;o ein Held wie der &#x2012; &#x2012;</l><lb/>
+<l>Doch gnug, es war al&#x017F;o ein Pla&#x0364;tzchen leer,</l><lb/>
+<l>Und wers ver&#x017F;teht, der weis wie &#x017F;ehrs die Weiber haßen,</l><lb/>
+<l>Dergleichen Pla&#x0364;tzchen leer zu laßen.</l><lb/>
+<l>Der andre Pater gab &#x017F;ich zwar</l><lb/>
+<l>Die gro&#x0364;ßte Mu&#x0364;h &#x017F;ie kra&#x0364;ftiglich zu tro&#x0364;&#x017F;ten,</l><lb/>
+<l>Allein es &#x017F;chien als ob dabey kein Seegen war.</l><lb/>
+<fw type="sig" place="bottom">F 2</fw><fw type="catch" place="bottom">Ein&#x017F;t</fw><lb/>
+<pb n="84" facs="#f0088"/>
+<l>Ein&#x017F;t als &#x017F;ie &#x017F;ich vertraut Gewi&#x017F;&#x017F;enszweifel lo&#x0364;ßten,</l><lb/>
+<l>Und Cla&#x0364;rchen ihn &#x017F;o in die Enge trieb,</l><lb/>
+<l>Daß &#x017F;ein Talent &#x017F;tumm auf dem trocknen blieb,</l><lb/>
+<l>Da ließ &#x017F;ie leiß&#x2019; und &#x017F;eufzend &#x017F;ich vernehmen:</l><lb/>
+<l>Warum mußt ihn doch GOtt &#x017F;o fru&#x0364;h gen Him-</l><lb/>
+<l><hi rendition="#et">mel nehmen &#x2014;</hi></l><lb/>
+<l>Gen Himmel? fiel ihr &#x017F;chnell der Pater ein</l><lb/>
+<l>&#x201D;Jm Himmel glaub&#x017F;t du wird er &#x017F;eyn?</l><lb/>
+<l>&#x201D;Nein, nein der Himmelsweg, &#x017F;o &#x017F;pricht die Schrift,</l><lb/>
+<l><hi rendition="#et">i&#x017F;t enge,</hi></l><lb/>
+<l>&#x201D;Und die er hier betrat, das &#x017F;ind &#x017F;ehr weite Ga&#x0364;nge.</l></lg><lb/>
+<lg n="3"><l>O Ju&#x0364;ngling folge meinem Rath,</l><lb/>
+<l>Und haß, wenn dir der enge Himmelspfad</l><lb/>
+<l>Stets treu &#x017F;oll im Geda&#x0364;chtniß haften</l><lb/>
+<l>Jedweden großen Mund &#x2014; und &#x017F;uch dir Jungfer&#x017F;chaften.</l></lg></lg></div><lb/>
+<fw type="catch" place="bottom"><hi rendition="#b">Der</hi></fw><lb/>
+<pb n="85" facs="#f0089"/>
+<div n="1" type="poem"><head><hi rendition="#b">Der klu&#x0364;g&#x017F;te Rath.</hi></head><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<cit><quote><l><hi rendition="#aq">Inter utrumque tene, medio tuti&#x017F;&#x017F;imus ibis.</hi></l></quote><lb/>
+<bibl><hi rendition="#aq"><hi rendition="#et"><hi rendition="#i">Ovidius.</hi></hi></hi></bibl></cit><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<lg type="poem"><lg n="1"><l><hi rendition="#in">P</hi>etron &#x017F;ah ju&#x0364;ng&#x017F;t voll Lu&#x0364;&#x017F;ternheit</l><lb/>
+<l>Gewandlos Sylvien im Bade;</l><lb/>
+<l>Was &#x017F;ich ein Ma&#x0364;dchen &#x017F;on&#x017F;t zu zeigen &#x017F;cheut,</l><lb/>
+<l>Lag da vor ihm wollu&#x0364;&#x017F;tig en Parade,</l><lb/>
+<l>Fuß, Schultern, Bu&#x017F;en, Wade</l><lb/>
+<l>Sah er, und wer das &#x017F;ieht bekommt auch mehr zu &#x017F;ehn.</l><lb/>
+<l>Und alles war zum malen &#x017F;cho&#x0364;n.</l><lb/>
+<fw type="sig" place="bottom">F 3</fw><fw type="catch" place="bottom">Nur</fw><lb/>
+<pb n="86" facs="#f0090"/>
+<l>Nur aus Petronens ra&#x0364;th&#x017F;elvollen Blicken</l><lb/>
+<l>Sprach Kummer und Verlegenheit,</l><lb/>
+<l>Er &#x017F;ah mit unent&#x017F;chloßnen Blicken,</l><lb/>
+<l>Selb&#x017F;t bey dem &#x017F;anft&#x017F;ten Ha&#x0364;ndedru&#x0364;cken,</l><lb/>
+<l>Bald rechts aufs Bein wie Schnee, bald links aufs</l><lb/>
+<l><hi rendition="#et">weiße Knie.</hi></l><lb/>
+<l>Fu&#x0364;r jedes fu&#x0364;hlt er Sympathie,</l><lb/>
+<l>Und doch nicht Kraft zur Wahl &#x2014; mit heimlichen</l><lb/>
+<l><hi rendition="#et">Entzu&#x0364;cken</hi></l><lb/>
+<l>Sah&#x2019; Sylvia Petronens innern Streit:</l><lb/>
+<l>&#x201D;Was fehlt dir Kind? Wozu denn die Verlegenheit?</l><lb/>
+<l>&#x201D;Will&#x017F;t du, &#x017F;prach &#x017F;ie, daß ich ent&#x017F;cheide?</l><lb/>
+<l>&#x201D;So thu&#x2019; das &#x017F;icher&#x017F;te, damit kein&#x2019;s unrecht leide&#x2019;,</l><lb/>
+<l>&#x201D;Und leg dich hurtig zwi&#x017F;chen beyde.</l></lg></lg></div><lb/>
+<fw type="catch" place="bottom"><hi rendition="#b">Die</hi></fw><lb/>
+<pb n="87" facs="#f0091"/>
+<div n="1" type="poem"><head><hi rendition="#b">Die vor&#x017F;ichtige Agnes.</hi></head><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<cit><quote><l><hi rendition="#aq"><hi rendition="#et">quid lumina tingis</hi></hi></l><lb/>
+<l><hi rendition="#aq"><hi rendition="#et">Virgo? Crede mihi, quem nunc horre&#x017F;cis amabis.</hi></hi></l><lb/>
+</quote><bibl><hi rendition="#aq"><hi rendition="#et"><hi rendition="#et"><hi rendition="#i">Claudianus.</hi></hi></hi></hi></bibl></cit><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<lg type="poem"><lg n="1"><l><hi rendition="#in">E</hi>in Ma&#x0364;dchen, das noch kaum an Amors langem Seile</l><lb/>
+<l>Jn &#x017F;einer Reitbahn ausgetrabt,</l><lb/>
+<l>Das niemals was von &#x017F;einem Pfeile</l><lb/>
+<l>Ge&#x017F;ehn, vielweniger je <hi rendition="#g">rem in re</hi> gehabt.</l><lb/>
+<l>Ein Ma&#x0364;dchen das al&#x017F;o ganz &#x017F;onnenklar</l><lb/>
+<l>Noch lauter liebe Un&#x017F;chuld war,</l><lb/>
+<fw type="sig" place="bottom">F 4</fw><fw type="catch" place="bottom">Trat</fw><lb/>
+<pb n="88" facs="#f0092"/>
+<l>Trat vor den Richter&#x017F;tuhl und klagte:</l><lb/>
+<l>&#x201D;Herr Richter, hub &#x017F;ie &#x017F;eufzend an,</l><lb/>
+<l>&#x201D;Hier die&#x017F;er ehrvergeßne Mann,</l><lb/>
+<l>&#x201D;Der mich bisher um&#x017F;on&#x017F;t mit Schmeicheleyen</l><lb/>
+<l><hi rendition="#et">plagte,</hi></l><lb/>
+<l>&#x201D;Hat endlich mir das mit Gewalt geraubt,</l><lb/>
+<l>&#x201D;Was ich ihm auf &#x017F;ein Flehn auch nicht um</l><lb/>
+<l><hi rendition="#et">Gold erlaubt&#x2019;</hi></l><lb/>
+<l>Beklagter frug wie &#x017F;ie ihm das bewei&#x017F;en wollte?</l><lb/>
+<l>Sie ha&#x0364;tte ja mit eigner Hand</l><lb/>
+<l>Den Dolch ju&#x017F;t nach dem <hi rendition="#g">Ort qva&#x0364;&#x017F;tionis</hi> hingewand</l><lb/>
+<l>Damit er nur nicht fehlen &#x017F;ollte.</l><lb/>
+<fw type="catch" place="bottom">&#x201D;Schon</fw><lb/>
+<pb n="89" facs="#f0093"/>
+<l>&#x201D;Schon recht, ward ihm von Agnes replicirt</l><lb/>
+<l>&#x201D;Schon recht, ich hab ihn auch dahin gefu&#x0364;hrt,</l><lb/>
+<l>&#x201D;Allein war wohl ein andrer Rath zu fa&#x017F;&#x017F;en?</l><lb/>
+<l>&#x201D;Du &#x017F;tieße&#x017F;t ja mit &#x017F;olcher Wut und Eil</l><lb/>
+<l>&#x201D;Mahl u&#x0364;ber mahl auf mich, daß ich zu meinem Heil</l><lb/>
+<l>&#x201D;Kein andres Rettungsmittel &#x017F;ah,</l><lb/>
+<l>&#x201D;Als ihn der alten Wunde einzupaßen,</l><lb/>
+<l>&#x201D;Denn, dacht ich, die i&#x017F;t einmal da,</l><lb/>
+<l>&#x201D;Und &#x017F;oll&#x017F;t du dir jetzt eine fri&#x017F;che machen la&#x017F;&#x017F;en?</l></lg></lg></div><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<fw type="sig" place="bottom">F 5</fw><fw type="catch" place="bottom"><hi rendition="#b">Die</hi></fw><lb/>
+<pb n="90" facs="#f0094"/>
+<div n="1" type="poem"><head><hi rendition="#b">Die gute Chri&#x017F;tin.</hi></head><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<cit><quote><l><hi rendition="#aq">Gloria Martyrii &#x017F;ie celebrata nitet</hi></l></quote><lb/>
+<bibl><hi rendition="#aq"><hi rendition="#et"><hi rendition="#i">Fertunatus.</hi></hi></hi></bibl></cit><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<lg type="poem"><lg n="1"><l><hi rendition="#in">E</hi>w. Gnaden ko&#x0364;nnens &#x017F;ich nicht denken,</l><lb/>
+<l>Wie witzig Mohren &#x017F;ind das Chri&#x017F;tenvolk zu kra&#x0364;nken,</l><lb/>
+<l>Oft &#x017F;ieht man Sclaven um ein klein Ver&#x017F;ehn</l><lb/>
+<l>An Haaken ha&#x0364;ngen, geißeln, kreuzigen,</l><lb/>
+<l>Ja &#x017F;elb&#x017F;t die Scho&#x0364;nheit der Sklavinnen</l><lb/>
+<l>Flo&#x0364;ßt ihnen kein Erbarmen ein:</l><lb/>
+<fw type="catch" place="bottom">Sie</fw><lb/>
+<pb n="91" facs="#f0095"/>
+<l>Sie mu&#x0364;ßen insge&#x017F;amt der frech&#x017F;ten Wollu&#x017F;t dienen,</l><lb/>
+<l>Und &#x2014; ganz unglaublich &#x017F;cheints zu &#x017F;eyn,</l><lb/>
+<l>Sie treibens gar &#x017F;o weit, daß mitten im Genuß</l><lb/>
+<l>Manch braves Ma&#x0364;dchen bleiben muß &#x2014;</l><lb/>
+<l>&#x201D;Das heiß ich Chri&#x017F;tin &#x017F;eyn und fu&#x0364;r den Glau-</l><lb/>
+<l><hi rendition="#et">ben &#x017F;terben,</hi></l><lb/>
+<l>&#x201D;O ko&#x0364;nnt ich doch auch &#x017F;o die Ma&#x0364;rtrerkron&#x2019;</l><lb/>
+<l><hi rendition="#et">erwerben.</hi></l></lg></lg></div><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<fw type="catch" place="bottom"><hi rendition="#b">Hans</hi></fw><lb/>
+<pb n="92" facs="#f0096"/>
+<div n="1"><head><hi rendition="#b">Hans Carvels Ring.</hi></head><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<lg type="poem"><lg n="1"><l><hi rendition="#in">D</hi>a wohl kein Men&#x017F;chenkind die Lunge</l><lb/>
+<l>Zu &#x017F;einer Nebenchri&#x017F;ten Ruhm</l><lb/>
+<l>Je u&#x0364;berhitzt, &#x017F;o &#x017F;pringt man drum</l><lb/>
+<l>Mit Engeln &#x017F;elb&#x017F;t nicht be&#x017F;&#x017F;er um,</l><lb/>
+<l>Und &#x017F;pricht: es geh&#x201D; von Satans Zunge</l><lb/>
+<l>Kein wahres Wort, doch ich will zu der Wahrheit</l><lb/>
+<l><hi rendition="#et">Ruhm</hi></l><lb/>
+<l>Durch folgende Ge&#x017F;chichte zeigen,</l><lb/>
+<l>Sie &#x017F;ey auch &#x017F;elb&#x017F;t den Teufeln eigen.</l></lg><lb/>
+<fw type="catch" place="bottom">Der</fw><lb/>
+<pb n="93" facs="#f0097"/>
+<lg n="2"><l>Der Himmel, der die Ehen &#x017F;chließt,</l><lb/>
+<l>Gab Carveln ein&#x017F;t Trotz &#x017F;einer grauen Haare,</l><lb/>
+<l>Und &#x017F;einer ho&#x0364;ch&#x017F;t verlegnen Waare</l><lb/>
+<l>Den Einfall ein, der oft beym Ju&#x0364;ngling mislich i&#x017F;t,</l><lb/>
+<l>Ein junges Weib, das &#x017F;eines Dur&#x017F;tes &#x017F;ich zu &#x017F;cha&#x0364;men,</l><lb/>
+<l>Gar nicht ge&#x017F;onnen war, zu nehmen.</l><lb/>
+<l>Zwar hoft er ganz getro&#x017F;t &#x017F;ein Ka&#x0364;tchen wu&#x0364;rde &#x017F;ich</l><lb/>
+<l>Aus treuer Za&#x0364;rtlichkeit zum Fa&#x017F;tenti&#x017F;ch bequemen,</l><lb/>
+<l>Doch &#x017F;tatt des Wo&#x0364;rtchens <hi rendition="#g">ku&#x0364;mmerlich</hi></l><lb/>
+<l>Das vor der Stirn ihm &#x017F;tand, &#x017F;tand zu Hans Cay-</l><lb/>
+<l><hi rendition="#et">vels Jammer</hi></l><lb/>
+<l>Ein andres Wort vor Ka&#x0364;tchens Herzenskammer;</l><lb/>
+<l>Und Carvel &#x017F;ann drum Tag und Nacht</l><lb/>
+<fw type="catch" place="bottom">Auf</fw><lb/>
+<pb n="94" facs="#f0098"/>
+<l>Auf Mittel um &#x017F;ein Haupt fu&#x0364;r Unglu&#x0364;ck zu behu&#x0364;ten:</l><lb/>
+<l>Allein &#x017F;tets zog er Rathhaus Nieten,</l><lb/>
+<l>Und &#x017F;elb&#x017F;t ein kleiner Rau&#x017F;ch, der Herzen freudig macht</l><lb/>
+<l>Half Carveln nicht. Um Ka&#x0364;tchens Flei&#x017F;ch zu qua&#x0364;len,</l><lb/>
+<l>Und zur Erbauung ihrer Seelen</l><lb/>
+<l>Ließ ers inde&#x017F;&#x017F;en nicht an guten Lehren fehlen,</l><lb/>
+<l>Doch da er bloß die ku&#x0364;nftgen Gaben prieß,</l><lb/>
+<l>Und gar kein zeitlich Pro&#x0364;bchen wieß;</l><lb/>
+<l>So ward durch die Gardienenpredigt</l><lb/>
+<l>Sie nicht erbaut, und er nicht &#x017F;einer Ang&#x017F;t entledigt.</l><lb/>
+<l>Sein Leben war nunmehr Ein bo&#x0364;&#x017F;er Traum,</l><lb/>
+<l>Selb&#x017F;t wenn er Ka&#x0364;tchen &#x017F;ah &#x017F;o glaubt er kaum &#x2014;</l><lb/>
+<fw type="catch" place="bottom">Und</fw><lb/>
+<pb n="95" facs="#f0099"/>
+<l>Und Thomas, der auch ehr nicht glaubte</l><lb/>
+<l>Bis &#x017F;eines Mei&#x017F;ters himmli&#x017F;che Geduld</l><lb/>
+<l>Jhm eine Wundenprob erlaubte,</l><lb/>
+<l>Das war &#x017F;ein Mann. Ganz ohne Ka&#x0364;tchens Schuld,</l><lb/>
+<l>Die nie ihn weckte, denn wozu wa&#x0364;rs nu&#x0364;tz gewe&#x017F;en,</l><lb/>
+<l>Wer kann von Dornen Trauben le&#x017F;en?</l><lb/>
+<l>Schlief er nie fe&#x017F;t &#x2014; Als er nun ein&#x017F;t &#x017F;o &#x017F;chlief,</l><lb/>
+<l>Du&#x0364;nkts ihm, daß Asmodi ihn rief,</l><lb/>
+<l>Und &#x017F;prach: &#x201D;nimm die&#x017F;en Ring, &#x017F;o lange</l><lb/>
+<l>&#x201D;Er dir am Finger &#x017F;ticht,</l><lb/>
+<l>&#x201D;Sey, Carvel, dir nicht bange,</l><lb/>
+<l>&#x201D;Daß man in deinen Garten bricht &#x2014;</l><lb/>
+<fw type="catch" place="bottom">O</fw><lb/>
+<pb n="96" facs="#f0100"/>
+<l>O Gott bezahl es dir! &#x017F;chrie hier der gute Alte;</l><lb/>
+<l>So werd ich denn wenn ich den Ring behalte,</l><lb/>
+<l>Doch wieder meines Lebens froh &#x2014;</l><lb/>
+<l>Und als er dies &#x017F;o eifrig dachte,</l><lb/>
+<l>Daß er entzu&#x0364;ckt davon erwachte,</l><lb/>
+<l>Da &#x017F;tach &#x017F;ein Finger &#x2014; Rathet wo?</l></lg></lg></div><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<fw type="catch" place="bottom"><hi rendition="#b">Das</hi></fw><lb/>
+<pb n="97" facs="#f0101"/>
+<div n="1" type="poem"><head><hi rendition="#b"><hi rendition="#g">Das offenherzige<lb/>
+Beka&#x0364;nntniß.</hi></hi></head><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<cit><quote><l><hi rendition="#aq">Juvenilis ardor impetu primo furit</hi></l><lb/>
+<l><hi rendition="#aq">Languescit idem facile nec durat diu.</hi></l></quote><lb/>
+<bibl><hi rendition="#aq"><hi rendition="#et"><hi rendition="#i">Seneca.</hi></hi></hi></bibl></cit><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<lg type="poem"><lg n="1"><l><hi rendition="#in">J</hi>u&#x0364;ng&#x017F;t &#x017F;aß ich am &#x017F;chattgen Hu&#x0364;gel,</l><lb/>
+<l>Als ein drei&#x017F;ter Sperling kam,</l><lb/>
+<l>Und &#x017F;anft unter &#x017F;eine Flu&#x0364;gel</l></lg><lb/>
+<lg n="2"><l>Das geliebte <hi rendition="#g">Siechen</hi> nahm,</l><lb/>
+<l>Wiederholte Freudenzeichen,</l></lg><lb/>
+<lg n="3"><l>Flo&#x0364;ßten da den Wun&#x017F;ch mir ein:</l><lb/>
+<l>Mo&#x0364;cht <hi rendition="#g">Damo&#x0364;t</hi> den <hi rendition="#g">Spatz</hi> doch gleichen,</l><lb/>
+<l>Und <hi rendition="#g">Jch</hi> denn das <hi rendition="#g">Siechen</hi> &#x017F;eyn.</l></lg><lb/>
+<fw type="sig" place="bottom">G</fw><fw type="catch" place="bottom">Als</fw><lb/>
+<pb n="98" facs="#f0102"/>
+<lg n="4"><l>Als ich noch vor mich &#x017F;o dachte:</l><lb/>
+<l>Sah ich ihn &#x017F;chon bey mir &#x017F;tehn:</l><lb/>
+<l>Nie hat, wer &#x017F;ein Glu&#x0364;ck je machte,</l><lb/>
+<l>Beßer &#x017F;eine Zeit er&#x017F;ehn.</l><lb/>
+<l>Aller Triebe Glut erwachte,</l><lb/>
+<l>Und im wa&#x0364;rm&#x017F;ten Augenblick,</l><lb/>
+<l>Da ich nichts als <hi rendition="#g">Jhn</hi> nur dachte,</l><lb/>
+<l>Machte er &#x017F;ein Scha&#x0364;ferglu&#x0364;ck.</l></lg><lb/>
+<lg n="5"><l>Aber Liebe deinen Freuden</l><lb/>
+<l>J&#x017F;t die Dauer unbewußt,</l><lb/>
+<l>Jahre durch wa&#x0364;hrt oft das Leiden,</l><lb/>
+<l>Und Minuten nur die Lu&#x017F;t.</l><lb/>
+<l>Jener Taumel von Vergnu&#x0364;gen</l><lb/>
+<l>Ward Damo&#x0364;ten bald zu &#x017F;chwer,</l><lb/>
+<l>Jch blieb zwar das muntre <hi rendition="#g">Siechen,</hi></l><lb/>
+<l>Aber er kein <hi rendition="#g">Spatzchen</hi> mehr.</l></lg></lg></div><lb/>
+<fw type="catch" place="bottom"><hi rendition="#b">Die</hi></fw><lb/>
+<pb n="99" facs="#f0103"/>
+<div n="1"><head><hi rendition="#b"><hi rendition="#g">Die Sehn&#x017F;ucht.</hi></hi></head><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<lg type="poem"><lg n="1"><l><hi rendition="#in">O</hi> <hi rendition="#g">Ro&#x0364;schen Ro&#x0364;schen</hi> welch ein Glu&#x0364;ck</l><lb/>
+<l>Von Dir geliebt zu &#x017F;eyn!</l><lb/>
+<l>Wem flo&#x0364;ßt ein himmli&#x017F;ch Mei&#x017F;ter&#x017F;tu&#x0364;ck</l><lb/>
+<l>Nicht tau&#x017F;end Wu&#x0364;n&#x017F;che ein?</l></lg><lb/>
+<lg n="2"><l>Wenn &#x017F;anft der &#x017F;chwarze Atlas wallt,</l><lb/>
+<l>Dein blaues Auge lacht,</l><lb/>
+<l>Wer bleibt bey &#x017F;olchem Anblick kalt,</l><lb/>
+<l>Und fu&#x0364;hlt nicht Amors Macht?</l></lg><lb/>
+<fw type="sig" place="bottom">G 2</fw><fw type="catch" place="bottom">Ein</fw><lb/>
+<pb n="100" facs="#f0104"/>
+<lg n="3"><l>Ein Kuß auf <hi rendition="#g">Ro&#x0364;schens</hi> Marmorarm,</l><lb/>
+<l>Jhr Handdruck, noch &#x017F;o &#x017F;chwach,</l><lb/>
+<l>Macht &#x017F;elb&#x017F;t den Winter &#x017F;ommerwarm,</l><lb/>
+<l>Und alle Gei&#x017F;ter wach.</l></lg><lb/>
+<lg n="4"><l>Wie Schnee zer&#x017F;chmilzt wenn ihn der Strahl</l><lb/>
+<l>Der Fru&#x0364;hlings&#x017F;onn&#x2019; erreicht,</l><lb/>
+<l>Wie froh das Herz beym Freund&#x017F;chaftsmaal</l><lb/>
+<l>Jns ofne Antlitz &#x017F;teigt:</l></lg><lb/>
+<lg n="5"><l>So &#x017F;anft freut &#x017F;ich, &#x017F;o &#x017F;chmilzt mein herz</l><lb/>
+<l>Wenn es den Himmel &#x017F;ieht,</l><lb/>
+<l>Der da i&#x017F;t, wo der fein&#x017F;te Scherz</l><lb/>
+<l>Auf Ro&#x017F;enwangen glu&#x0364;ht.</l></lg><lb/>
+<fw type="catch" place="bottom">Heil</fw><lb/>
+<pb n="101" facs="#f0105"/>
+<lg n="6"><l>Heil dem, den <hi rendition="#g">Ro&#x0364;schens</hi> Seele liebt,</l><lb/>
+<l>Dem &#x017F;ie, entzu&#x0364;ckt geku&#x0364;ßt,</l><lb/>
+<l>Den Kuß freywillig wiedergiebt</l><lb/>
+<l>Der, auch geraubt, &#x017F;cho&#x0364;n i&#x017F;t.</l></lg></lg></div><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<fw type="sig" place="bottom">G 3</fw><fw type="catch" place="bottom"><hi rendition="#b">Ma&#x0364;y-</hi></fw><lb/>
+<pb n="102" facs="#f0106"/>
+<div n="1"><head><hi rendition="#b"><hi rendition="#g">Ma&#x0364;ylied.</hi></hi></head><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<lg type="poem"><lg n="1"><l><hi rendition="#in">D</hi>a i&#x017F;t der May <hi rendition="#g">Ro&#x017F;ette,</hi></l><lb/>
+<l>Und &#x017F;eine Bluhmenkette</l><lb/>
+<l>Ha&#x0364;ngt duftend u&#x0364;ber Dir.</l><lb/>
+<l>Er &#x017F;eegnet die Gefilde;</l><lb/>
+<l>So &#x017F;anft wie er, &#x017F;o milde,</l><lb/>
+<l>So &#x017F;ey auch <hi rendition="#g">Ro&#x0364;schen</hi> mir.</l></lg><lb/>
+<fw type="catch" place="bottom">An</fw><lb/>
+<pb n="103" facs="#f0107"/>
+<lg n="2"><l>An Lieblichkeit am reich&#x017F;ten,</l><lb/>
+<l>An Scho&#x0364;nheit Dir am gleich&#x017F;ten,</l><lb/>
+<l>Nimmt er die Herzen ein.</l><lb/>
+<l>Sein &#x017F;cho&#x0364;n&#x017F;ter Tag von allen,</l><lb/>
+<l>Gefeyet von Nachtigallen,</l><lb/>
+<l>Soll <hi rendition="#g">Ro&#x0364;schens</hi> Jahrfe&#x017F;t &#x017F;eyn.</l></lg><lb/>
+<lg n="3"><l>Dem Fluren&#x017F;chooß ent&#x017F;teigen</l><lb/>
+<l>Des Lenzes fru&#x0364;he Zeugen,</l><lb/>
+<l>Die Lieblinge des Mays.</l><lb/>
+<l>Sieh ihre weiße Glocken</l><lb/>
+<l>Dort neben Veilchen locken,</l><lb/>
+<l>Sprich, wem gebu&#x0364;hrt der Preiß?</l></lg><lb/>
+<fw type="sig" place="bottom">G 4</fw><fw type="catch" place="bottom">Dein</fw><lb/>
+<pb n="104" facs="#f0108"/>
+<lg n="4"><l>Dein blaues Aug <hi rendition="#g">Ro&#x017F;ette,</hi></l><lb/>
+<l>Des Arms Alba&#x017F;tergla&#x0364;tte,</l><lb/>
+<l>Malt auch ein Bluhmenbeet;</l><lb/>
+<l>Doch wer kann ihn ent&#x017F;cheiden</l><lb/>
+<l>Den Preiß, wo tau&#x017F;end Freuden</l><lb/>
+<l>Der Bluhmen&#x017F;ammler ma&#x0364;ht?</l></lg><lb/>
+<lg n="5"><l>Heil jeder Bluhmenerndte,</l><lb/>
+<l>Und weh dem, der nicht lernte,</l><lb/>
+<l>Daß kurz der Fru&#x0364;hling i&#x017F;t,</l><lb/>
+<l>Und alle Bluhmen &#x017F;terben &#x2014;</l><lb/>
+<l>O <hi rendition="#g">Ro&#x0364;schen</hi> laß &#x017F;ie &#x017F;terben</l><lb/>
+<l>Wo Sterben Wollu&#x017F;t i&#x017F;t.</l></lg></lg></div><lb/>
+<fw type="catch" place="bottom"><hi rendition="#b">Die</hi></fw><lb/>
+<pb n="105" facs="#f0109"/>
+<div n="1" type="poem"><head><hi rendition="#b">Die Jungfer&#x017F;chaft.</hi></head><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<cit><quote><l><hi rendition="#aq">Vt flos in &#x017F;eptis &#x017F;ecretis na&#x017F;citur hortis,</hi></l><lb/>
+<l><hi rendition="#aq">Sic virgo, dum intacta manet.</hi></l></quote><lb/>
+<bibl><hi rendition="#aq"><hi rendition="#et"><hi rendition="#i">Catull<supplied>us</supplied>,</hi></hi></hi></bibl></cit><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<lg type="poem"><lg n="1"><l><hi rendition="#in">H</hi>o&#x0364;r Afterwelt mein Lied! es preißt</l><lb/>
+<l>Das &#x017F;cho&#x0364;n&#x017F;te Kleinod keu&#x017F;cher Mu&#x017F;en,</l><lb/>
+<l>Apoll doch nein &#x2014; &#x017F;ta&#x0364;rk&#x2019; dich mein Gei&#x017F;t</l><lb/>
+<l>Durch Blicke auf die &#x017F;cho&#x0364;n&#x017F;ten Bu&#x017F;en!</l><lb/>
+<fw type="sig" place="bottom">G 3</fw><fw type="catch" place="bottom">Der</fw><lb/>
+<pb n="106" facs="#f0110"/>
+<l>Der Vo&#x0364;lker&#x017F;cha&#x017F;ten Liebling dich,</l><lb/>
+<l>O ko&#x0364;nnt ich wu&#x0364;rdig dich be&#x017F;ingen!</l><lb/>
+<l>Dies Lied, voll deines Ruhms, wu&#x0364;rd&#x2019; mich</l><lb/>
+<l>Dann auf der Enkel Enkel bringen.</l></lg><lb/>
+<lg n="2"><l>Laßt bey ver&#x017F;chwendter Odenwut</l><lb/>
+<l>Um E&#x017F;els&#x017F;cheiteln Lorbeer gru&#x0364;nen,</l><lb/>
+<l>Singt Schlachten, &#x017F;ingt der Reben Blut</l><lb/>
+<l>Um Brod und Titel zu verdienen</l><lb/>
+<l>Und bleibt &#x017F;tets nu&#x0364;chtern &#x2014; Mein Ge&#x017F;ang</l><lb/>
+<l>Preißt &#x017F;tolz das Schooßkind junger Scho&#x0364;nen,</l><lb/>
+<l>Und wu&#x0364;n&#x017F;cht &#x017F;ich nur <hi rendition="#g">der</hi> Ma&#x0364;dchen Dank,</l><lb/>
+<l>Die noch der Un&#x017F;chuld Myrthen kro&#x0364;nen.</l></lg><lb/>
+<fw type="catch" place="bottom">O</fw><lb/>
+<pb n="107" facs="#f0111"/>
+<lg n="3"><l>O Guth, fu&#x0364;r das die Lu&#x0364;&#x017F;ternheit</l><lb/>
+<l>Jm Rau&#x017F;ch oft hundert Welten ga&#x0364;be,</l><lb/>
+<l>Dich &#x017F;ing ich, Preiß der Za&#x0364;rtlichkeit,</l><lb/>
+<l>Dich, er&#x017F;ter Keim der Eh&#x017F;tandsrebe;</l><lb/>
+<l>Dich Guth, das einmal nur ergo&#x0364;tzt,</l><lb/>
+<l>Das Amors Sieg kra&#x0364;nzt und vollendet,</l><lb/>
+<l>Fu&#x0364;r das, oft zehnmahl &#x017F;chon er&#x017F;etzt</l><lb/>
+<l>Der Britte &#x017F;elb&#x017F;t &#x017F;ein Gold ver&#x017F;chwendet.</l></lg><lb/>
+<lg n="4"><l>Dich Kleinod, oft &#x017F;chlecht angebracht,</l><lb/>
+<l>Und oft im <hi rendition="#g">Entrechat</hi> ver&#x017F;chwunden,</l><lb/>
+<l>Bey allen Ma&#x0364;dchen zwar gedacht,</l><lb/>
+<l>Bey vierzehnja&#x0364;hrgen kaum gefunden,</l><lb/>
+<fw type="catch" place="bottom">O</fw><lb/>
+<pb n="108" facs="#f0112"/>
+<l>O Gabe, die die Cleri&#x017F;ey</l><lb/>
+<l>Gern &#x017F;tatt des er&#x017F;ten Beichtgelds na&#x0364;hme,</l><lb/>
+<l>Die jeder Mann, wie Weibertreu,</l><lb/>
+<l>Sehr gern zum Braut&#x017F;chatz mit beka&#x0364;hme.</l></lg><lb/>
+<lg n="5"><l>Dich Blu&#x0364;hmchen, das der Ro&#x017F;e gleicht,</l><lb/>
+<l>Die roth und fri&#x017F;ch die Sonne gru&#x0364;ßet,</l><lb/>
+<l>Vom Mittags&#x017F;tral beru&#x0364;hrt, verbleicht,</l><lb/>
+<l>Und nie &#x017F;ich mehr als Kno&#x017F;pe &#x017F;chließet;</l><lb/>
+<l>Dich Guth, das Bu&#x0364;rgerma&#x0364;dchen ziert,</l><lb/>
+<l>Und &#x017F;tolz die Ko&#x0364;nigsto&#x0364;chter &#x017F;chmu&#x0364;cket,</l><lb/>
+<l>Das jenen oft ein Prinz entfu&#x0364;hrt,</l><lb/>
+<l>Und hier ein Kammerdiener pflu&#x0364;cket.</l></lg><lb/>
+<fw type="catch" place="bottom">Magnet</fw><lb/>
+<pb n="109" facs="#f0113"/>
+<lg n="6"><l>Magnet von &#x017F;eltner Anzugskraft,</l><lb/>
+<l>Der &#x017F;ich nach allen Polen bieget,</l><lb/>
+<l>Heil dir kranzwu&#x0364;rd&#x2019;ge Jungfer&#x017F;chaft,</l><lb/>
+<l>Heil dem, der blutig dich er&#x017F;ieget!</l><lb/>
+<l>O Ma&#x0364;dchen, lernt des Kleinods Werth,</l><lb/>
+<l>Lernt mit der Myrthenkrone geitzen,</l><lb/>
+<l>Doch nicht zu lang, &#x017F;on&#x017F;t fa&#x0364;llt ihr Werth,</l><lb/>
+<l>Und ihre Kraft zum Kauf zu reitzen.</l></lg><lb/>
+<lg n="7"><l>Nur laßt von wilder Lu&#x0364;&#x017F;ternheit</l><lb/>
+<l>Euch nie den Zaubergu&#x0364;rtel lo&#x0364;&#x017F;en,</l><lb/>
+<l>Dem nur, der eurer Za&#x0364;rtlichkeit</l><lb/>
+<l>Ganz wu&#x0364;rdig i&#x017F;t, dem laßt ihn lo&#x0364;&#x017F;en: &#x2014;</l><lb/>
+<fw type="catch" place="bottom">Und</fw><lb/>
+<pb n="110" facs="#f0114"/>
+<l>Und &#x017F;ollt ihr nach des Schick&#x017F;als Schluß</l><lb/>
+<l>Euch fromm als Prie&#x017F;terfraun ein&#x017F;t bru&#x0364;&#x017F;ten;</l><lb/>
+<l>So opfert vor dem Hochzeitskuß</l><lb/>
+<l>Den Schmuck Soldaten und Juri&#x017F;ten.</l></lg><lb/>
+<lg n="8"><l>O <hi rendition="#g">Chloe,</hi> der mein za&#x0364;rtlich Herz</l><lb/>
+<l>Der Liebe glu&#x0364;hn&#x2019;den Weyhrauch bringet,</l><lb/>
+<l>Verachte nicht der Mu&#x017F;e Scherz,</l><lb/>
+<l>Die deiner Reitze Brennpunkt &#x017F;inget:</l><lb/>
+<l>Der Reitz der wie ein Ro&#x0364;schen blu&#x0364;ht,</l><lb/>
+<l>Vom &#x017F;charfumdornten Stock vertheidigt,</l><lb/>
+<l>Den, wenn dein Herz gleich za&#x0364;rtlich glu&#x0364;ht,</l><lb/>
+<l>Doch Amors Pfeil noch nie beleidigt.</l></lg><lb/>
+<fw type="catch" place="bottom">Erhalt&#x2019;</fw><lb/>
+<pb n="111" facs="#f0115"/>
+<lg n="9"><l>Erhalt&#x2019; &#x017F;ie <hi rendition="#g">Chloe</hi> ein&#x017F;t fu&#x0364;r mich</l><lb/>
+<l>Die Er&#x017F;tlinge der Liebesfreuden,</l><lb/>
+<l>So wird in meinen Armen Dich</l><lb/>
+<l>Die ganze Ma&#x0364;dchenwelt beneiden.</l><lb/>
+<l>Denn nur fu&#x0364;r Dich brennt die&#x017F;e Glut</l><lb/>
+<l>Und &#x2014; ich will nur mich &#x017F;elb&#x017F;t nicht loben &#x2014;</l><lb/>
+<l>Doch glaub mirs nur dein ho&#x0364;ch&#x017F;tes Guth</l><lb/>
+<l>J&#x017F;t nirgend &#x017F;ichrer aufgehoben.</l></lg></lg></div><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<fw type="catch" place="bottom"><hi rendition="#b">Der</hi></fw><lb/>
+<pb n="112" facs="#f0116"/>
+<div n="1"><head><hi rendition="#b"><hi rendition="#g">Der Maler<lb/>
+und<lb/>
+der Liebhaber.</hi></hi></head><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<lg type="poem"><lg n="1"><l>&#x201D;<hi rendition="#in">S</hi>oll ich dir dein Ro&#x0364;schen malen,</l><lb/>
+<l>&#x201D;Nach den &#x017F;cho&#x0364;n&#x017F;ten Jdealen,</l><lb/>
+<l>&#x201D;Oder Zug vor Zug genau?</l><lb/>
+<l>&#x201D;Locken, die den Hals umfangen,</l><lb/>
+<l>&#x201D;Gru&#x0364;bchen in den Ro&#x017F;enwangen.</l><lb/>
+<l>&#x201D;Frey die Stirn, das Auge blau?</l></lg><lb/>
+<fw type="catch" place="bottom">&#x201D;Mal</fw><lb/>
+<pb n="113" facs="#f0117"/>
+<lg n="2"><l>&#x201D;Mal ich Lippen, die beym Lachen</l><lb/>
+<l>&#x201D;Jene Gru&#x0364;bchen tiefer machen,</l><lb/>
+<l>&#x201D;Za&#x0364;hne, &#x017F;o wie Perlen &#x017F;cho&#x0364;n?</l><lb/>
+<l>&#x201D;Unter Flor die Bu&#x017F;enhu&#x0364;gel,</l><lb/>
+<l>&#x201D;Arme weiß wie Schwanenflu&#x0364;gel,</l><lb/>
+<l>&#x201D;Ha&#x0364;nde wie die Grazien?</l></lg><lb/>
+<lg n="3"><l>&#x201D;Mal ich <hi rendition="#g">Ro&#x0364;schens</hi> Hals und Schultern</l><lb/>
+<l>&#x201D;Wie der Juno Hals und Schultern</l><lb/>
+<l>&#x201D;Glat und weiß wie Elfenbein?</l><lb/>
+<l>&#x201D;Cypria vom Meer gebohren,</l><lb/>
+<l>&#x201D;Nympfen warm in Lu&#x017F;t verlohren,</l><lb/>
+<l>&#x201D;Sollen die&#x017F;e mir &#x2014; ?&#x201D; Nein, nein!</l></lg><lb/>
+<fw type="sig" place="bottom">H</fw><fw type="catch" place="bottom">Braune</fw><lb/>
+<pb n="114" facs="#f0118"/>
+<lg n="4"><l>Braune Locken mag&#x017F;t du malen,</l><lb/>
+<l>Blauer Augen Himmels&#x017F;traalen</l><lb/>
+<l>Mei&#x017F;terzu&#x0364;ge ins Ge&#x017F;icht,</l><lb/>
+<l>Arme, Hand und Bu&#x017F;enho&#x0364;hen,</l><lb/>
+<l>Aber was ich mehr ge&#x017F;ehen,</l><lb/>
+<l>Nein das &#x017F;cho&#x0364;n&#x017F;te trif&#x017F;t du nicht.</l></lg><lb/>
+<lg n="5"><l>Der die ho&#x0364;ch&#x017F;te Kun&#x017F;t erfu&#x0364;llte,</l><lb/>
+<l>Als er Amors Mutter bildte,</l><lb/>
+<l>Ha&#x0364;tt er <hi rendition="#g">Ro&#x0364;schens</hi> Reitz ge&#x017F;ehn,</l><lb/>
+<l>Schnell ha&#x0364;tt&#x2019; er &#x017F;ein Werk zernichtet,</l><lb/>
+<l>Und <hi rendition="#g">nach Ro&#x0364;schen</hi> eins errichtet,</l><lb/>
+<l>Dann wa&#x0364;r &#x017F;eine Venus &#x017F;cho&#x0364;n.</l></lg><lb/>
+<fw type="catch" place="bottom">Der</fw><lb/>
+<pb n="115" facs="#f0119"/>
+<lg n="6"><l>Der zum Unglu&#x0364;ck mit Dryaden</l><lb/>
+<l>Ein&#x017F;t Dianen &#x017F;ah &#x017F;ich baden,</l><lb/>
+<l>Die&#x017F;em wa&#x0364;rs vielleicht geglu&#x0364;ckt,</l><lb/>
+<l><hi rendition="#g">Ro&#x0364;schens</hi> Schenkel &#x017F;o zu zeichnen,</l><lb/>
+<l>Daß &#x017F;ie nicht den Reitz verleugnen,</l><lb/>
+<l>Womit &#x017F;ie Natur ge&#x017F;chmu&#x0364;ckt.</l></lg><lb/>
+<lg n="7"><l>Und der <hi rendition="#g">Nektarkelch</hi> voll Leben,</l><lb/>
+<l>Den die Go&#x0364;tter ein&#x017F;t bey Heben,</l><lb/>
+<l>Als &#x017F;ie fiel, bezaubernd &#x017F;ahn,</l><lb/>
+<l>Unter allen <hi rendition="#g">Opfer&#x017F;chalen</hi></l><lb/>
+<l>Sie die &#x017F;cho&#x0364;n&#x017F;te &#x2014; die zu malen,</l><lb/>
+<l>Sprich, darf &#x017F;ich die Kun&#x017F;t ihr nah&#x2019;n?</l></lg><lb/>
+<fw type="sig" place="bottom">H 2</fw><fw type="catch" place="bottom">Als</fw><lb/>
+<pb n="116" facs="#f0120"/>
+<lg n="8"><l>Als durch Venus Gu&#x0364;rtelskra&#x0364;fte,</l><lb/>
+<l>Zevs das große Weltge&#x017F;cha&#x0364;fte,</l><lb/>
+<l>Hinter goldnen Wolken that,</l><lb/>
+<l>Wagts je wer da &#x017F;ie zu malen?</l><lb/>
+<l>Und hier blenden Wollu&#x017F;t&#x017F;trahlen</l><lb/>
+<l>Mehr, als dort der Goldglanz that.</l></lg></lg></div><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<fw type="catch" place="bottom"><hi rendition="#b">An</hi></fw><lb/>
+<pb n="117" facs="#f0121"/>
+<div n="1" type="poem"><head><hi rendition="#b"><hi rendition="#g">An Doris</hi><lb/>
+nach<lb/>
+<hi rendition="#g">einem kleinen Scharmu&#x0364;tzel.</hi></hi></head><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<cit><quote><l><hi rendition="#aq">Ne co&#x017F;i &#x017F;trettamente edera preme</hi></l><lb/>
+<l><hi rendition="#aq">Pianta, ove intorno abbracciata &#x017F;&#x2019;abbia</hi></l><lb/>
+<l><hi rendition="#aq">Come &#x017F;i &#x017F;tringon&#x2019; li du&#x2019; amanti in&#x017F;ieme.</hi></l><lb/>
+<l><hi rendition="#aq">Del gran piacer ch&#x2019;avean loc dicer tocca</hi></l><lb/>
+<l><hi rendition="#aq">Che &#x017F;pe&#x017F;&#x017F;o avean piu di una lingua in bocca.</hi></l></quote><lb/>
+<bibl><hi rendition="#aq"><hi rendition="#et"><hi rendition="#i">Ario&#x017F;to.</hi></hi></hi></bibl></cit><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<lg type="poem"><lg n="1"><l><hi rendition="#in">W</hi>a&#x0364;r ich von Sanct Peters Kirche,</l><lb/>
+<l>Glaube, daß ich denn gewiß,</l><lb/>
+<l>Dich zu meiner Lieblings Heil&#x2019;gen</l><lb/>
+<l>Als Magdlena malen ließ.</l></lg><lb/>
+<fw type="sig" place="bottom">H 3</fw><fw type="catch" place="bottom">Ma&#x0364;dchen</fw><lb/>
+<pb n="118" facs="#f0122"/>
+<lg n="2"><l>Ma&#x0364;dchen nie &#x017F;ah ich dich &#x017F;cho&#x0364;ner,</l><lb/>
+<l>Als da Deine weiche Hand</l><lb/>
+<l>Kun&#x017F;tlos &#x017F;tatt des Modekopf&#x017F;taats,</l><lb/>
+<l>Bloß ein Tuch der Stirn umwand.</l></lg><lb/>
+<lg n="3"><l>Schalkhaft kuckte nur Ein Lockchen</l><lb/>
+<l>Neben dem beringten Ohr,</l><lb/>
+<l>Um ein Probchen Haar zu zeigen</l><lb/>
+<l>Unterm &#x017F;eidnen Tuch hervor.</l></lg><lb/>
+<lg n="4"><l>Dreu&#x017F;ter funkelte Dein Auge,</l><lb/>
+<l>Weißer &#x017F;chien Dein weiß Ge&#x017F;icht,</l><lb/>
+<l>Purpur floß um Deine Wangen,</l><lb/>
+<l>Scho&#x0364;ner glu&#x0364;ht Aurora nicht.</l></lg><lb/>
+<fw type="catch" place="bottom">Wie</fw><lb/>
+<pb n="119" facs="#f0123"/>
+<lg n="5"><l>Wie der Magdalena Bu&#x017F;en</l><lb/>
+<l>Naß von Thra&#x0364;nen reuig &#x017F;tieg;</l><lb/>
+<l>Ma&#x0364;dchen &#x017F;o hob Deinen Bu&#x017F;en</l><lb/>
+<l>Hofnung auf den &#x017F;cho&#x0364;n&#x017F;ten Sieg.</l></lg><lb/>
+<lg n="6"><l>Wie die Ro&#x017F;e wenn des Morgens</l><lb/>
+<l>Thau auf ihren Bla&#x0364;ttern &#x017F;teht;</l><lb/>
+<l>So dein Ro&#x0364;ßchen, daß an Scho&#x0364;nheit</l><lb/>
+<l>Alle Ro&#x017F;en u&#x0364;bergeht.</l></lg><lb/>
+<lg n="7"><l>Holde Sehn&#x017F;ucht warmer Liebe,</l><lb/>
+<l>Sprach Dein zauberi&#x017F;cher Blick,</l><lb/>
+<l>Unter tau&#x017F;end kleinen Seufzern,</l><lb/>
+<l>Theile&#x017F;t Du mit mir mein Glu&#x0364;ck.</l></lg><lb/>
+<fw type="sig" place="bottom">H 4</fw><fw type="catch" place="bottom">Warum</fw><lb/>
+<pb n="120" facs="#f0124"/>
+<lg n="8"><l>Warum hielt&#x2019;&#x017F;t Du doch dem Auge,</l><lb/>
+<l>Wenn der Wollu&#x017F;t luftger Flor</l><lb/>
+<l>Es bezog, oft wenn es lachte,</l><lb/>
+<l>Deine Hand mißgu&#x0364;n&#x017F;tig vor?</l></lg><lb/>
+<lg n="9"><l>Scha&#x0364;m&#x2019; Dich nicht des &#x017F;anften Schauers,</l><lb/>
+<l>Der durch alle Nerven &#x017F;chießt,</l><lb/>
+<l>Wenn der milde Thau der Wollu&#x017F;t</l><lb/>
+<l>Aus der Ro&#x017F;enmu&#x017F;chel fließt.</l></lg><lb/>
+<lg n="10"><l>Laß das &#x017F;cho&#x0364;ngebrochne Auge,</l><lb/>
+<l>Laß der Zunge ta&#x0364;ndelnd Spiel</l><lb/>
+<l>Sagen, ob der kleine Zweykampf</l><lb/>
+<l>Dir &#x017F;o &#x017F;ehr als mir ge&#x017F;iel.</l></lg><lb/>
+<fw type="catch" place="bottom">Laß</fw><lb/>
+<pb n="121" facs="#f0125"/>
+<lg n="11"><l>Laß mich alles alles &#x017F;ehen,</l><lb/>
+<l>Wenn der heißte Kuß Dich fra&#x0364;gt:</l><lb/>
+<l>Ob Dein Herz auch treu wird bleiben,</l><lb/>
+<l>Obs auch jetzt fu&#x0364;r mich nur &#x017F;chla&#x0364;gt?</l></lg></lg></div><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<fw type="sig" place="bottom">H 5</fw><fw type="catch" place="bottom"><hi rendition="#b">Ge-</hi></fw><lb/>
+<pb n="122" facs="#f0126"/>
+<div n="1" type="poem"><head><hi rendition="#b">Gedenk an jene Zeit.<lb/>
+<hi rendition="#g">nach<lb/>
+einer bekandten Melodie.</hi></hi></head><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<cit><quote><l><hi rendition="#aq"><hi rendition="#in">J</hi>o amai &#x017F;empre, ed amo forte ancora</hi></l><lb/>
+<l><hi rendition="#aq"><hi rendition="#in"><hi rendition="#et">Quel doloe loco, ove piangendo torne</hi></hi></hi></l><lb/>
+<l><hi rendition="#aq"><hi rendition="#in"><hi rendition="#et">Spe&#x017F;&#x017F;e fiate, quando Amor m&#x2019;accora.</hi></hi></hi></l></quote><lb/>
+<bibl><hi rendition="#aq"><hi rendition="#in"><hi rendition="#et"><hi rendition="#i">Petrarca.</hi></hi></hi></hi></bibl></cit><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<lg type="poem"><lg n="1"><l><hi rendition="#in">H</hi>ier in ruhgeweihten Gru&#x0364;nden,</l><lb/>
+<l>Die der Sta&#x0364;dte Stolz nicht kennt,</l><lb/>
+<l>Wo im Schatten blu&#x0364;hnder Linden,</l><lb/>
+<l>Lu&#x017F;t &#x017F;ich nie von Un&#x017F;chuld trennt.</l><lb/>
+<fw type="catch" place="bottom">Hier</fw><lb/>
+<pb n="123" facs="#f0127"/>
+<l>Hier wu&#x0364;n&#x017F;cht ich der Liebe Brand,</l><lb/>
+<l>Dem ich lang gnung wider&#x017F;tand,</l><lb/>
+<l>Stumm nicht la&#x0364;nger zu empfinden,</l><lb/>
+<l>Und ich dru&#x0364;ckte <hi rendition="#g">Daphnens</hi> Hand.</l></lg><lb/>
+<lg n="2"><l>Scho&#x0364;n und ein&#x017F;am &#x017F;ah ich hier</l><lb/>
+<l>Sie den Berg er&#x017F;teigen,</l><lb/>
+<l>Amor &#x017F;chwebte u&#x0364;ber ihr</l><lb/>
+<l>Mir den Weg zu zeigen,</l><lb/>
+<l>Aber in dem Augenblick</l><lb/>
+<l>Blu&#x0364;hte noch kein Scha&#x0364;ferglu&#x0364;ck,</l><lb/>
+<l>Furcht hielt noch den Fuß zuru&#x0364;ck,</l><lb/>
+<l>Hieß die Lippen &#x017F;chweigen.</l></lg><lb/>
+<fw type="catch" place="bottom">Endlich</fw><lb/>
+<pb n="124" facs="#f0128"/>
+<lg n="3"><l>Endlich reiften Wun&#x017F;ch und Sorgen</l><lb/>
+<l>Froher Hofnungen Genuß,</l><lb/>
+<l>Und den &#x017F;cho&#x0364;n&#x017F;ten Fru&#x0364;hlingsmorgen</l><lb/>
+<l>Heiligte der er&#x017F;te Kuß,</l><lb/>
+<l>Purpurlippen gaben ihn,</l><lb/>
+<l>Und dem Bu&#x017F;en raubt&#x2019; ich ihn:</l><lb/>
+<l>Aber Nacht umzog den Morgen</l><lb/>
+<l>Schmerz qvillt jetzt noch aus dem Kuß.</l></lg><lb/>
+<lg n="4"><l>Durch ihn herr&#x017F;cht auch hier im Thal</l><lb/>
+<l>Mißvergnu&#x0364;gtes Schweigen,</l><lb/>
+<l>Er entzieht den Sonnen&#x017F;tral</l><lb/>
+<l>Freudigblu&#x0364;hnden Zweigen:</l><lb/>
+<fw type="catch" place="bottom">Nichts</fw><lb/>
+<pb n="125" facs="#f0129"/>
+<l>Nichts kann Aug und Herz erfreun;</l><lb/>
+<l>Denn an <hi rendition="#g">Daphnens</hi> Hand allein</l><lb/>
+<l>Waren Flur und Thal und Hayn</l><lb/>
+<l>Meiner Freude Zeugen.</l></lg><lb/>
+<lg n="5"><l>Thal und Hayn, du ho&#x0364;r&#x017F;t mein Klagen,</l><lb/>
+<l>Ho&#x0364;rt&#x2019; es doch auch <hi rendition="#g">Daphne</hi> an!</l><lb/>
+<l>Mo&#x0364;cht &#x017F;ie jetzt um mich auch klagen,</l><lb/>
+<l>O wie glu&#x0364;cklich wa&#x0364;r ich dann!</l><lb/>
+<l>Zwar nicht glu&#x0364;cklich, wie ich war,</l><lb/>
+<l>Wenn ich &#x017F;ie das braune Haar</l><lb/>
+<l>Sah&#x2019; in &#x017F;anfte Locken &#x017F;chlagen,</l><lb/>
+<l>Und der Bu&#x017F;en offen war.</l></lg><lb/>
+<fw type="catch" place="bottom">Zwar</fw><lb/>
+<pb n="126" facs="#f0130"/>
+<lg n="6"><l>Zwar &#x017F;o froh &#x017F;o glu&#x0364;cklich nicht</l><lb/>
+<l>Wie mich Amor machte,</l><lb/>
+<l>Wenn ihr Ro&#x017F;enange&#x017F;icht</l><lb/>
+<l>Liebevoll mir lachte,</l></lg><lb/>
+<lg n="7"><l>Zwar nicht glu&#x0364;cklich &#x017F;o wie da,</l><lb/>
+<l>Als ich alle Scho&#x0364;nheit &#x017F;ah,</l><lb/>
+<l>Und der ho&#x0364;ch&#x017F;ten Freude nah,</l><lb/>
+<l>Glu&#x0364;cklichers nichts dachte.</l></lg></lg></div><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<fw type="catch" place="bottom"><hi rendition="#b">Der</hi></fw><lb/>
+<pb n="127" facs="#f0131"/>
+<div n="1" type="poem"><head><hi rendition="#b">Der Haarproceß.</hi></head><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<cit><quote><l><hi rendition="#aq">Sibilum edidit coma.</hi></l></quote><lb/>
+<bibl><hi rendition="#aq"><hi rendition="#et"><hi rendition="#i">Carullus.</hi></hi></hi></bibl></cit><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<lg type="poem"><lg n="1"><l><hi rendition="#in">J</hi>m &#x017F;eidnen krau&#x017F;en braunen Haar,</l><lb/>
+<l>Saß ju&#x0364;ng&#x017F;t der Liebesgott,</l><lb/>
+<l>Und trieb da u&#x0364;bers Scheitelhaar,</l><lb/>
+<l>Den freventlich&#x017F;ten Spott.</l></lg><lb/>
+<lg n="2"><l>Er lachte u&#x0364;berlaut und &#x017F;chrie:</l><lb/>
+<l>&#x201D;Seht die&#x017F;e Lockchen an,</l><lb/>
+<l>&#x201D;Euch macht man krauß mit vieler Mu&#x0364;h,</l><lb/>
+<l>&#x201D;Hier hats Natur gethan.</l></lg><lb/>
+<fw type="catch" place="bottom">&#x201D;Euch</fw><lb/>
+<pb n="128" facs="#f0132"/>
+<lg n="3"><l>&#x201D;Euch &#x017F;albt man mit Pomaden ein</l><lb/>
+<l>&#x201D;Ka&#x0364;mmt, pudert euch er&#x017F;t &#x017F;cho&#x0364;n,</l><lb/>
+<l>&#x201D;Dies parfu&#x0364;mirt &#x017F;ich ganz allein,</l><lb/>
+<l>&#x201D;Und riecht zehnmal &#x017F;o &#x017F;cho&#x0364;n.</l></lg><lb/>
+<lg n="4"><l>Das weiche braune Scheitelhaar</l><lb/>
+<l>Lang gnung &#x017F;anftmu&#x0364;thig, &#x017F;prach:</l><lb/>
+<l>&#x201D;Prahl doch nicht &#x017F;o mit die&#x017F;em Haar,</l><lb/>
+<l>Und &#x017F;etz&#x2019; &#x017F;o &#x017F;ehr uns nach.</l></lg><lb/>
+<lg n="5"><l>&#x201D;Eh&#x2019; Damon jens ge&#x017F;ehn, beru&#x0364;hrt</l><lb/>
+<l>&#x201D;Hatt&#x2019; er uns la&#x0364;ng&#x017F;t geku&#x0364;ßt,</l><lb/>
+<l>&#x201D;Wer weis wenn wir ihn nicht gefu&#x0364;hrt,</l><lb/>
+<l>&#x201D;Ob er noch von dem wu&#x0364;ßt.</l></lg><lb/>
+<fw type="catch" place="bottom">&#x201D;Jhn</fw><lb/>
+<pb n="129" facs="#f0133"/>
+<lg n="6"><l>&#x201D;Jhn reitzte un&#x017F;rer Locken Pracht,</l><lb/>
+<l>&#x201D;Erbaut von <hi rendition="#g">Doris</hi> Hand</l><lb/>
+<l>&#x201D;Von uns er&#x017F;t dreu&#x017F;t und warm gemacht</l><lb/>
+<l>&#x201D;Traf &#x017F;ichs, daß er jens fand.</l></lg><lb/>
+<lg n="7"><l>Und kurz das Haar, das wie man glaubt</l><lb/>
+<l>&#x201D;Am Sternenhimmel &#x017F;teht,</l><lb/>
+<l>&#x201D;War von der Berenice Haupt</l><lb/>
+<l>&#x201D;Nicht &#x017F;on&#x017F;t wo abgema&#x0364;ht &#x2014; &#x2014;</l></lg><lb/>
+<lg n="8"><l>Jetzt ward das kurze Haar auch laut,</l><lb/>
+<l>Und rief: Jch muß ge&#x017F;tehn</l><lb/>
+<l>&#x201D;Wenn <hi rendition="#g">Doris</hi> eure Locken baut;</l><lb/>
+<l>&#x201D;So findt euch jeder &#x017F;cho&#x0364;n.</l></lg><lb/>
+<fw type="sig" place="bottom">J</fw><fw type="catch" place="bottom">Jhr</fw><lb/>
+<pb n="130" facs="#f0134"/>
+<lg n="9"><l>&#x201D;Jhr &#x017F;chmu&#x0364;ckt Jhr blu&#x0364;hendes Ge&#x017F;icht,</l><lb/>
+<l>&#x201D;Erhebt der Stirne Weiß,</l><lb/>
+<l>&#x201D;Doch wenns <hi rendition="#g">Chignon</hi> recht glat gleich liegt</l><lb/>
+<l>&#x201D;Machts doch das Blut nicht heiß.</l></lg><lb/>
+<lg n="10"><l>&#x201D;Nur dann, wenn Kun&#x017F;t euch gar nicht zwingt,</l><lb/>
+<l>&#x201D;Und wenn ihr &#x017F;cho&#x0364;n verwirrt</l><lb/>
+<l>&#x201D;Um Doris Hals und Stirn euch &#x017F;chlingt,</l><lb/>
+<l>&#x201D;Und um den Bu&#x017F;en irrt;</l></lg><lb/>
+<lg n="11"><l>&#x201D;Dann &#x017F;ieht der Ju&#x0364;ngling im Tapon</l><lb/>
+<l>&#x201D;Mein reitzend Ebenbild:</l><lb/>
+<l>&#x201D;Denkt an den weichen Wollu&#x017F;tthron</l><lb/>
+<l>&#x201D;Der bey ihm alles gilt.</l></lg><lb/>
+<fw type="catch" place="bottom">&#x201D;Ku&#x0364;ßt</fw><lb/>
+<pb n="131" facs="#f0135"/>
+<lg n="12"><l>&#x201D;Ku&#x0364;ßt euch denn za&#x0364;rtlich, nennt euch &#x017F;cho&#x0364;n;</l><lb/>
+<l>&#x201D;Denkt aber mich dabey,</l><lb/>
+<l>&#x201D;Und wird, &#x017F;o bald er mich ge&#x017F;ehn</l><lb/>
+<l>&#x201D;Gewis euch ungetreu &#x2014; &#x2014;</l></lg><lb/>
+<lg n="13"><l>Als Richter &#x017F;prach drauf Venus Sohn!</l><lb/>
+<l>&#x201D;Schweigt Za&#x0364;nker und ho&#x0364;rt mich:</l><lb/>
+<l>&#x201D;Du kleines Haar, &#x017F;chmu&#x0364;ck&#x017F;t Venus Thron,</l><lb/>
+<l>&#x201D;Vorzu&#x0364;glich liebt &#x017F;ie dich.</l></lg><lb/>
+<lg n="14"><l>Jhr Scheitelhaare &#x017F;eyd mein Netz</l><lb/>
+<l>Jn dem &#x017F;ich mancher fa&#x0364;ngt,</l><lb/>
+<l>Der tho&#x0364;richt u&#x0364;ber mein Ge&#x017F;etz</l><lb/>
+<l>Sich la&#x0364;ng&#x017F;t erhaben denkt.</l></lg><lb/>
+<fw type="sig" place="bottom">J 2</fw><fw type="catch" place="bottom">Jn</fw><lb/>
+<pb n="132" facs="#f0136"/>
+<lg n="15"><l>Jn euren Schlingen fu&#x0364;hr ich ihn</l><lb/>
+<l>Dann hin zur Venus Thron,</l><lb/>
+<l>Und laß das Grottchen ihn beziehn;</l><lb/>
+<l>Wo ich bey P&#x017F;ychen wohn.</l></lg></lg></div><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<fw type="catch" place="bottom"><hi rendition="#b">Wie</hi></fw><lb/>
+<pb n="133" facs="#f0137"/>
+<div n="1" type="poem"><head><hi rendition="#b">Wie mir es war, wie Jhr es ließ.</hi></head><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<cit><quote><l><hi rendition="#aq">Non &#x017F;ic appo&#x017F;itis vincitur vitibus vlmus</hi></l><lb/>
+<l><hi rendition="#aq">Vt tua &#x017F;unt collo brachia nexa meo.</hi></l></quote><lb/>
+<bibl><hi rendition="#aq"><hi rendition="#et"><hi rendition="#i">Ovidius.</hi></hi></hi></bibl></cit><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<lg type="poem"><lg n="1"><l><hi rendition="#in">M</hi>a&#x0364;dchen Ma&#x0364;dchen o wie &#x017F;cho&#x0364;n</l><lb/>
+<l>War mein Sieg und mein Vergnu&#x0364;gen</l><lb/>
+<l>Um des Bu&#x017F;ens Marmorho&#x0364;h&#x2019;n</l><lb/>
+<l>Sah&#x2019; ich deine Locken fliegen.</l></lg><lb/>
+<lg n="2"><l>Wenn des Zephyrs lo&#x017F;e Hand</l><lb/>
+<l>Um der Flora Bu&#x017F;en &#x017F;pielet,</l><lb/>
+<l>Und ihr blumichtes Gewand</l><lb/>
+<l>Mit den Fittigen durchwu&#x0364;hlet.</l></lg><lb/>
+<fw type="sig" place="bottom">J 3</fw><fw type="catch" place="bottom">Fliegen</fw><lb/>
+<pb n="134" facs="#f0138"/>
+<lg n="3"><l>Fliegen ihre Haare &#x017F;o</l><lb/>
+<l>Scho&#x0364;n verwirrt um Hals und Nacken,</l><lb/>
+<l>Und des nahen Sieges froh</l><lb/>
+<l>Ku&#x0364;ßt er dann die glu&#x0364;hnden Backen.</l></lg><lb/>
+<lg n="4"><l>Schmiegt &#x017F;ich um &#x017F;ie, ta&#x0364;ndelt&#x2019;, hu&#x0364;pft,</l><lb/>
+<l>Bald erzu&#x0364;rnt und bald ver&#x017F;o&#x0364;hnet</l><lb/>
+<l>Bis er in den Hafen &#x017F;chlu&#x0364;pft,</l><lb/>
+<l>Wo ihn Amor &#x017F;iegreich kro&#x0364;net.</l></lg><lb/>
+<lg n="5"><l>Aber glu&#x0364;cklicher wie ich</l><lb/>
+<l>War er nie in Florens hafen,</l><lb/>
+<l>Denn in <hi rendition="#g">Doris</hi> Arm la&#x0364;ßt &#x017F;ich</l><lb/>
+<l>Weicher als auf Ro&#x017F;en &#x017F;chlafen.</l></lg></lg></div><lb/>
+<fw type="catch" place="bottom"><hi rendition="#b">Trink-</hi></fw><lb/>
+<pb n="135" facs="#f0139"/>
+<div n="1" type="poem"><head><hi rendition="#b"><hi rendition="#g">Trinklied.</hi></hi></head><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<cit><quote><l rendition="#et"><hi rendition="#aq">quando propinat</hi></l><lb/>
+<l><hi rendition="#aq">Virgo tibi, &#x017F;umitque tuis contacta labellis</hi></l><lb/>
+<l><hi rendition="#aq">Pocula, quis ve&#x017F;trum temerarius usque adeo? quis</hi></l><lb/>
+<l><hi rendition="#aq">Perditus, vt dicat regi, bibe?</hi></l></quote><lb/>
+<bibl><hi rendition="#aq"><hi rendition="#et"><hi rendition="#et"><hi rendition="#i">Juvenalis.</hi></hi></hi></hi></bibl></cit><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<lg type="poem"><lg n="1"><l><hi rendition="#in">W</hi>ein und To&#x0364;chter gab ein&#x017F;t Gott</l><lb/>
+<l>Un&#x017F;erm guten Anherrn Lot,</l><lb/>
+<l>Jhm aus &#x017F;einer Stadt dem be&#x017F;ten,</l><lb/>
+<l>Um ihn auf die leicht&#x017F;te Art,</l><lb/>
+<l>Als Madam zur Sa&#x0364;ule ward</l><lb/>
+<l>Ueber den Verlu&#x017F;t zu tro&#x0364;&#x017F;ten.</l></lg><lb/>
+<fw type="sig" place="bottom">J 4</fw><fw type="catch" place="bottom">Davids</fw><lb/>
+<pb n="136" facs="#f0140"/>
+<lg n="2"><l>Davids Bund mit Jonathan</l><lb/>
+<l>Zettelte die Liebe an,</l><lb/>
+<l>Und be&#x017F;ta&#x0364;tigte der Becher:</l><lb/>
+<l>Salomo und Epikur,</l><lb/>
+<l>Mei&#x017F;ter&#x017F;tu&#x0364;cke der Natur,</l><lb/>
+<l>Waren liebenswu&#x0364;rd&#x2019;ge Zecher.</l></lg><lb/>
+<lg n="3"><l>Selig wer mit dreu&#x017F;tem Schritt</l><lb/>
+<l>Jn der Ma&#x0364;nner Stapfen tritt,</l><lb/>
+<l>Die der Weisheit Fu&#x0364;r&#x017F;ten waren?</l><lb/>
+<l>Therheit i&#x017F;ts die Jugendfrucht</l><lb/>
+<l>Ohne daß man &#x017F;ie ver&#x017F;ucht</l><lb/>
+<l>Zum vermodern aufzu&#x017F;paren.</l></lg><lb/>
+<fw type="catch" place="bottom">Ma&#x0364;dchen</fw><lb/>
+<pb n="137" facs="#f0141"/>
+<lg n="4"><l>Ma&#x0364;dchen Wein in den Pokal</l><lb/>
+<l>Hurtig, fu&#x0364;ll&#x2019; ihn &#x017F;o viel mal</l><lb/>
+<l>Als ich ju&#x0364;ng&#x017F;t Dich freudig ku&#x0364;ßte.</l><lb/>
+<l>Weingei&#x017F;t &#x017F;chwellt die Adern an,</l><lb/>
+<l>Wa&#x0364;r ich Ju&#x0364;ngling wohl &#x017F;chon Mann,</l><lb/>
+<l>Wenn ich nicht zu zechen wu&#x0364;ßte?</l></lg><lb/>
+<lg n="5"><l>Dreymal trink ich &#x017F;chon Dir zu,</l><lb/>
+<l>Ma&#x0364;dchen fri&#x017F;ch, jetzt trink auch Du</l><lb/>
+<l>Mach Dir um den Rau&#x017F;ch nicht Sorgen,</l><lb/>
+<l>Roth bin ich, werd Du auch roth,</l><lb/>
+<l>Denn auf &#x017F;cho&#x0364;nes Abendroth</l><lb/>
+<l>Folgen &#x017F;cho&#x0364;ne Na&#x0364;cht und Morgen.</l></lg></lg></div><lb/>
+<fw type="sig" place="bottom">J 5</fw><fw type="catch" place="bottom"><hi rendition="#b">Lied</hi></fw><lb/>
+<pb n="138" facs="#f0142"/>
+<div n="1" type="poem"><head><hi rendition="#b"><hi rendition="#g">Lied.</hi></hi></head><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<cit><quote><l><hi rendition="#aq">Se eg<supplied>l</supplied>i avien, che io mai ti tenga</hi></l><lb/>
+<l><hi rendition="#aq">Jo ti terro, e, che, puo, &#x017F;i n&#x2019;avenga,</hi></l><lb/>
+<l><hi rendition="#aq">E della dolce bocca</hi></l><lb/>
+<l><hi rendition="#aq">Convien, ch&#x2019;io &#x017F;odisfaccia al mio de&#x017F;ire.</hi></l><lb/>
+<l><hi rendition="#aq">&#x2012; &#x2012; vien to&#x017F;to, vien mi ad abbracciare,</hi></l><lb/>
+<l><hi rendition="#aq">Che &#x2019;l pur pen&#x017F;arlo di cantar m&#x2019;invita</hi></l></quote><lb/>
+<bibl><hi rendition="#aq"><hi rendition="#et"><hi rendition="#i">Boccaccio.</hi></hi></hi></bibl></cit><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<lg type="poem"><lg n="1"><l><hi rendition="#in">E</hi>ntflohn i&#x017F;t uns der Fru&#x0364;hlings&#x017F;chmuck,</l><lb/>
+<l>Der Sproßer, der am Bach &#x017F;on&#x017F;t &#x017F;chlug,</l><lb/>
+<l>Scheut &#x017F;ich vorm heißen Sonnen&#x017F;trale,</l><lb/>
+<l>Und &#x017F;ingt nicht Lieder mehr dem Thale,</l><lb/>
+<l>Die Flur gekleidt in dunkler Gru&#x0364;n</l><lb/>
+<l>Scheint muntrer Lu&#x017F;t &#x017F;ich zu entziehn.</l></lg><lb/>
+<fw type="catch" place="bottom">Der</fw><lb/>
+<pb n="139" facs="#f0143"/>
+<lg n="2"><l>Der We&#x017F;t der &#x017F;on&#x017F;t im lockgen Haar,</l><lb/>
+<l>So buhleri&#x017F;ch ge&#x017F;cha&#x0364;ftig war,</l><lb/>
+<l>Flieht nun der Sonne auszuweichen</l><lb/>
+<l>Zu dunkeln Grotten, &#x017F;chattgen Stra&#x0364;uchen,</l><lb/>
+<l>Und weht den Lindenblu&#x0364;then Duft</l><lb/>
+<l>Er&#x017F;t durch die &#x017F;pa&#x0364;te Abendluft.</l></lg><lb/>
+<lg n="3"><l>Gegru&#x0364;ßt &#x017F;ey &#x017F;ie die fru&#x0364;he Nacht,</l><lb/>
+<l>Die hier die blu&#x0364;hnde Linde macht,</l><lb/>
+<l>Wenn ihres Laubes dichte Schatten,</l><lb/>
+<l>Sich mit den Geißblatsranken gatten &#x2014;</l><lb/>
+<l>Der Laube Heil die Paphia</l><lb/>
+<l>Zum Mittags&#x017F;chlummer &#x017F;ich er&#x017F;ah.</l></lg><lb/>
+<fw type="catch" place="bottom">Sanft</fw><lb/>
+<pb n="140" facs="#f0144"/>
+<lg n="4"><l>Sanft &#x017F;chla&#x0364;ft &#x017F;ie da &#x2014; der Bu&#x017F;en wallt</l><lb/>
+<l>Vom Traum der ihr Adonen malt,</l><lb/>
+<l>Die halb ge&#x017F;chloßne Lippen la&#x0364;cheln</l><lb/>
+<l>Wie Ro&#x017F;en die dem Morgen la&#x0364;cheln,</l><lb/>
+<l>Der in den aufgeblu&#x0364;hten Schooß</l><lb/>
+<l>Den fruchtbarn Thau der Liebe goß.</l></lg><lb/>
+<lg n="5"><l>Eil Ma&#x0364;dchen eil zur Laube hin,</l><lb/>
+<l>Und lern&#x2019; von Paphos Ko&#x0364;nigin</l><lb/>
+<l>Dich auch in Go&#x0364;tter&#x017F;chlummer wiegen,</l><lb/>
+<l>Wie &#x017F;ie, tra&#x0364;um Wollu&#x017F;t und Vergnu&#x0364;gen,</l><lb/>
+<l>Und wachend ku&#x0364;ß den Bu&#x017F;enfreund,</l><lb/>
+<l>Der dir manch <hi rendition="#g">Wollu&#x017F;tthra&#x0364;nchen</hi> weint.</l></lg><lb/>
+<fw type="catch" place="bottom">Blu&#x0364;ht</fw><lb/>
+<pb n="141" facs="#f0145"/>
+<lg n="6"><l>Blu&#x0364;ht gleich kein Fru&#x0364;hling mehr im Thal,</l><lb/>
+<l>Singt gleich nicht mehr die Nachtigall</l><lb/>
+<l>Gluth und Entzu&#x0364;cken in die Seele,</l><lb/>
+<l>So &#x017F;ingt doch deine Philomele</l><lb/>
+<l>Von Amors Himmelskraft durchglu&#x0364;ht</l><lb/>
+<l>Jm Myrthenthale noch ihr Lied.</l></lg><lb/>
+<lg n="7"><l>Sieh&#x2019; nur wie &#x017F;ich der Sproßer regt,</l><lb/>
+<l>Wie ku&#x0364;hn er mit den Flu&#x0364;geln &#x017F;chla&#x0364;gt,</l><lb/>
+<l>Er hu&#x0364;pft &#x2014; und &#x017F;chmachtet vor Verlangen</l><lb/>
+<l>Jm Netz und Gru&#x0364;bchen &#x017F;ich zu fangen;</l><lb/>
+<l>Denn wo ein Kefigt winkt, wie der</l><lb/>
+<l>Da wird die Freyheit Centner&#x017F;chwer.</l></lg></lg></div><lb/>
+<fw type="catch" place="bottom"><hi rendition="#b">Ge-</hi></fw><lb/>
+<pb n="142" facs="#f0146"/>
+<div n="1" type="poem"><head><hi rendition="#b"><hi rendition="#g">Gema&#x0364;lde.</hi></hi></head><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<cit><quote><l>&#x2012; &#x2012; &#x2012; <hi rendition="#aq">teneant &#x017F;ua gaudia Divi</hi></l><lb/>
+<l><hi rendition="#aq">Te teneo, mea lux, lux mea te teneo</hi></l><lb/>
+<l><hi rendition="#aq">&#x2012; &#x2012; &#x2012; Superi teneatis Olympum.</hi></l></quote><lb/>
+<bibl><hi rendition="#aq"><hi rendition="#et"><hi rendition="#i">1. Sesundus.</hi></hi></hi></bibl></cit><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<lg type="poem"><lg n="1"><l><hi rendition="#in">D</hi>as Herz vom Wun&#x017F;ch nach dir erfu&#x0364;llt,</l><lb/>
+<l>Erflehte Dich zuru&#x0364;ck,</l><lb/>
+<l>Da kam der Schlaf, und wies im Traum</l><lb/>
+<l>Mir das erflehte Glu&#x0364;ck,</l></lg><lb/>
+<fw type="catch" place="bottom">Jch</fw><lb/>
+<pb n="143" facs="#f0147"/>
+<lg n="2"><l>Jch &#x017F;ah&#x2019; dich &#x017F;cho&#x0364;n wie Grazien,</l><lb/>
+<l>Wenn Cypripor &#x017F;ie ku&#x0364;ßt,</l><lb/>
+<l>Wie P&#x017F;yche &#x017F;cho&#x0364;n, wenn Amor &#x017F;ie</l><lb/>
+<l>Fe&#x017F;t in die Arme &#x017F;chließt.</l></lg><lb/>
+<lg n="3"><l>Doch &#x017F;cho&#x0364;ner wie ein Traum war&#x017F;t du</l><lb/>
+<l>Mir wachend, als ein Druck</l><lb/>
+<l>Der weichen Hand beym wa&#x0364;rm&#x017F;ten Kuß:</l><lb/>
+<l><hi rendition="#g">Ob ich dich liebe,</hi> frug.</l></lg><lb/>
+<lg n="4"><l>So bi&#x017F;t du &#x017F;cho&#x0364;n, wenn dir im Aug</l><lb/>
+<l>Ein Thra&#x0364;nchen zitternd &#x017F;teht,</l><lb/>
+<l>Doch &#x017F;cho&#x0364;ner, wenn den lo&#x017F;en Blick</l><lb/>
+<l>Des La&#x0364;chelns Reitz erho&#x0364;h&#x2019;t.</l></lg><lb/>
+<fw type="catch" place="bottom">Der</fw><lb/>
+<pb n="144" facs="#f0148"/>
+<lg n="5"><l>Der freygewo&#x0364;lbte Bu&#x017F;en &#x017F;tieg</l><lb/>
+<l>Von Wollu&#x017F;tahndungen,</l><lb/>
+<l>Die braunen Augen &#x017F;choßen Blitz,</l><lb/>
+<l>Streit zu verku&#x0364;ndigen.</l></lg><lb/>
+<lg n="6"><l>Laut &#x017F;chla&#x0364;gt mein Herz von Dir beru&#x0364;hrt</l><lb/>
+<l>Heiß, wenn die weiche Hand</l><lb/>
+<l>Den Pfeil auf Amors Bogen legt,</l><lb/>
+<l>Und ku&#x0364;hn die Sehne &#x017F;pannt.</l></lg><lb/>
+<lg n="7"><l>Ha! denn fließt mir die Seele ganz</l><lb/>
+<l>Mit Amors Pfeil ins Ziel!</l><lb/>
+<l>Ach Ma&#x0364;dchen auch Dein Aug bricht dann,</l><lb/>
+<l>Und &#x017F;pricht Gluth und Gefu&#x0364;hl.</l></lg><lb/>
+<fw type="catch" place="bottom">Ent-</fw><lb/>
+<pb n="145" facs="#f0149"/>
+<lg n="8"><l>Entzu&#x0364;ckend zi&#x017F;cht Champagner&#x017F;chaum</l><lb/>
+<l>Am Rande des Pokals,</l><lb/>
+<l>Doch &#x017F;cho&#x0364;nrer Schaum ha&#x0364;ngt dann am Bu&#x017F;ch</l><lb/>
+<l>Des duftgen Wollu&#x017F;tthals.</l></lg><lb/>
+<lg n="9"><l>Kein Tempe, kein Eli&#x017F;ium</l><lb/>
+<l>J&#x017F;t &#x017F;cho&#x0364;n wie <hi rendition="#g">Chloens</hi> Thal,</l><lb/>
+<l>Hier halten Aug, Gefu&#x0364;hl, Geruch</l><lb/>
+<l>Berau&#x017F;cht ihr Go&#x0364;ttermahl.</l></lg><lb/>
+<lg n="10"><l>Das Ro&#x017F;enkleid hat Cypria</l><lb/>
+<l>Jhm angelegt, &#x017F;ie i&#x017F;t</l><lb/>
+<l>Die Scho&#x0364;pferin des Quells, der aus</l><lb/>
+<l>Der Mu&#x017F;chelgrotte fließt.</l></lg><lb/>
+<fw type="sig" place="bottom">K</fw><fw type="catch" place="bottom">Zehn-</fw><lb/>
+<pb n="146" facs="#f0150"/>
+<lg n="11"><l>Zehntau&#x017F;endmal &#x017F;agt dir mein Kuß</l><lb/>
+<l>Du Thal der Reize Dank,</l><lb/>
+<l>Oft netze Amors Bal&#x017F;am dich,</l><lb/>
+<l>Er &#x017F;ing dir Lobge&#x017F;ang.</l></lg></lg></div><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<fw type="catch" place="bottom"><hi rendition="#b">Einla-</hi></fw><lb/>
+<pb n="147" facs="#f0151"/>
+<div n="1" type="poem"><head><hi rendition="#b">Einladung auf das Feld.</hi></head><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<cit><quote><l><hi rendition="#aq"><hi rendition="#et">Ii foco mio</hi></hi></l><lb/>
+<l><hi rendition="#aq"><hi rendition="#et">Non fu mai &#x017F;i cocente</hi></hi></l><lb/>
+<l><hi rendition="#aq"><hi rendition="#et">Come or nel refrigerio; ne vid&#x2019;io</hi></hi></l><lb/>
+<l><hi rendition="#aq"><hi rendition="#et">Cara mia luce adorna</hi></hi></l><lb/>
+<l><hi rendition="#aq"><hi rendition="#et">Voi di tanta bellezza, e &#x017F;i lucent<supplied>e</supplied></hi></hi></l><lb/>
+<l><hi rendition="#aq"><hi rendition="#et">Com&#x2019; ora.</hi></hi></l></quote><lb/>
+<bibl><hi rendition="#aq"><hi rendition="#et"><hi rendition="#et"><hi rendition="#i">Guariin.</hi></hi></hi></hi></bibl></cit><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<lg type="poem"><lg n="1"><l><hi rendition="#in">S</hi>ag kleiner Abgott ha&#x017F;t du auch</l><lb/>
+<l>Jn &#x017F;chwu&#x0364;ler Sommernacht</l><lb/>
+<l>Kein Picknick&#x017F;piel nach Venus Brauch</l><lb/>
+<l>Wo ohne mich gemacht?</l></lg><lb/>
+<fw type="sig" place="bottom">K 2</fw><fw type="catch" place="bottom">Sag&#x2019;</fw><lb/>
+<pb n="148" facs="#f0152"/>
+<lg n="2"><l>Sag&#x2019; hat dein weiblich Herzchen &#x017F;ich</l><lb/>
+<l>Von mir nicht &#x017F;chon entwo&#x0364;hnt?</l><lb/>
+<l>Ha&#x017F;t du in Ha&#x017F;el&#x017F;tra&#x0364;uchen Dich</l><lb/>
+<l>Warm bloß nach mir ge&#x017F;ehnt?</l></lg><lb/>
+<lg n="3"><l>Wenn Dich der Laube da&#x0364;mmernd Licht</l><lb/>
+<l>Das Mooß im &#x017F;chatt&#x2019;gen Ha&#x0364;yn</l><lb/>
+<l>Zum Schlaf einlud, wu&#x0364;n&#x017F;cht&#x017F;t Du dann nicht</l><lb/>
+<l>Von mir geweckt zu &#x017F;eyn?</l></lg><lb/>
+<lg n="4"><l>Sprich, &#x017F;prich &#x2014; und dann komm mit ins Feld</l><lb/>
+<l>Das reizender nie war,</l><lb/>
+<l>Wo Ceres Garben aufge&#x017F;tellt,</l><lb/>
+<l>Der Venus zum Altar.</l></lg><lb/>
+<fw type="catch" place="bottom">Kein</fw><lb/>
+<pb n="149" facs="#f0153"/>
+<lg n="5"><l>Kein Sopha den &#x017F;tahlfederreich</l><lb/>
+<l>Goldfarbger Atlas &#x017F;chmu&#x0364;ckt,</l><lb/>
+<l>J&#x017F;t &#x017F;o &#x017F;cho&#x0364;n, &#x017F;o ela&#x017F;ti&#x017F;ch weich</l><lb/>
+<l>Zum <hi rendition="#g">Men&#x017F;chen&#x017F;piel</hi> ge&#x017F;chickt.</l></lg><lb/>
+<lg n="6"><l>Der Tag da ich zuer&#x017F;t Dich &#x017F;ah</l><lb/>
+<l>J&#x017F;t Heut. Er &#x017F;ey ein Fe&#x017F;t,</l><lb/>
+<l>Und wohl Uns wenn &#x017F;ich Paphia</l><lb/>
+<l>Heut von uns opfern la&#x0364;&#x017F;t.</l></lg><lb/>
+<lg n="7"><l>Scheu nicht ums Aug den Lazur&#x017F;trich</l><lb/>
+<l>Scheu nicht ein blaß Ge&#x017F;icht,</l><lb/>
+<l>Der Mond hat &#x017F;einen Hof, &#x017F;cha&#x0364;mt &#x017F;ich</l><lb/>
+<l>Der Silberbla&#x0364;ße nicht.</l></lg><lb/>
+<fw type="sig" place="bottom">K 3</fw><fw type="catch" place="bottom">Schling</fw><lb/>
+<pb n="150" facs="#f0154"/>
+<lg n="8"><l>Schling um den Hals mir deinen Arm</l><lb/>
+<l>Schnell o&#x0364;fne das Portal</l><lb/>
+<l>Der Nymphengrotte, wollu&#x017F;twarm</l><lb/>
+<l>Ku&#x0364;ß Amors Opfer&#x017F;tal;</l></lg><lb/>
+<lg n="9"><l>Und &#x017F;tirb in &#x017F;u&#x0364;ßer Ohnmacht hin,</l><lb/>
+<l>Bis milder Bal&#x017F;amsduft</l><lb/>
+<l>Dich, kleine Amorsprie&#x017F;terin,</l><lb/>
+<l>Jns neue Leben ruft.</l></lg></lg></div><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<fw type="catch" place="bottom"><hi rendition="#b">Ermun-</hi></fw><lb/>
+<pb n="151" facs="#f0155"/>
+<div n="1" type="poem"><head><hi rendition="#b">Ermunterung zum Vergnu&#x0364;gen.</hi></head><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<cit><quote><l><hi rendition="#aq">Chi potrebbe e&#x017F;timar, ehe le mie braccia</hi></l><lb/>
+<l><hi rendition="#aq">Aggiugne&#x017F;&#x017F;er gia mai</hi></l><lb/>
+<l><hi rendition="#aq">Là d&#x2019;ove io l&#x2019;ho tenute,</hi></l><lb/>
+<l><hi rendition="#aq">E ch&#x2019; io doves&#x017F;i giugner là mia facci<supplied>a</supplied></hi></l><lb/>
+<l><hi rendition="#aq">Là d&#x2019;ov&#x2019;io l&#x2019;acco&#x017F;tai</hi></l><lb/>
+<l><hi rendition="#aq">Per grazia, e per &#x017F;alute </hi></l></quote><lb/>
+<bibl><hi rendition="#aq"><hi rendition="#et"><hi rendition="#i">Boccaccio.</hi></hi></hi></bibl></cit><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<lg type="poem"><lg n="1"><l><hi rendition="#in">M</hi>a&#x0364;dchen deiner Purpur&#x017F;chnecke,</l><lb/>
+<l>Wenn ich ihr Gefu&#x0364;hl erwecke,</l><lb/>
+<l>Stro&#x0364;hmen tau&#x017F;end Reitze zu,</l><lb/>
+<l>Und der Morgenglanz Aurorens,</l><lb/>
+<l>Und die Ro&#x017F;enlippen Florens</l><lb/>
+<l>Sind dann nicht &#x017F;o &#x017F;cho&#x0364;n wie Du.</l></lg><lb/>
+<fw type="sig" place="bottom">K 4</fw><fw type="catch" place="bottom">Als</fw><lb/>
+<pb n="152" facs="#f0156"/>
+<lg n="2"><l>Als ich in der Geisblatslaube</l><lb/>
+<l>Deines Wein&#x017F;tocks &#x017F;cho&#x0364;n&#x017F;te Traube,</l><lb/>
+<l>Naß von eignem Thau ju&#x0364;ng&#x017F;t &#x017F;ah&#x2019;,</l><lb/>
+<l>Da &#x017F;chien dem gebrochnen Blicke,</l><lb/>
+<l>Sanft berau&#x017F;cht vom Scha&#x0364;ferglu&#x0364;cke,</l><lb/>
+<l>Peters dritter Himmel nah.</l></lg><lb/>
+<lg n="3"><l>Lieblich la&#x0364;chelt <hi rendition="#g">Doris</hi> Miene</l><lb/>
+<l>Wenn den Stachel Amors Biene</l><lb/>
+<l>Jn das Myrthenko&#x0364;rbchen &#x017F;ticht:</l><lb/>
+<l>Venus, die Duft um &#x017F;ich hauchet,</l><lb/>
+<l>Wenn Adon den Altar brauchet,</l><lb/>
+<l>Macht kein himmli&#x017F;cher Ge&#x017F;icht.</l></lg><lb/>
+<fw type="catch" place="bottom">Um</fw><lb/>
+<pb n="153" facs="#f0157"/>
+<lg n="4"><l>Um die Lebensquelle wohnen</l><lb/>
+<l>Scherze, die auf Locken thronen,</l><lb/>
+<l>Ohne Men&#x017F;chenkun&#x017F;t fri&#x017F;irt.</l><lb/>
+<l>Freude lacht um ihr Ge&#x017F;tade,</l><lb/>
+<l>Wenn in ihr Baßin zum Bade</l><lb/>
+<l>Amor &#x017F;einen Liebling fu&#x0364;hrt.</l></lg><lb/>
+<lg n="5"><l>Ho&#x0364;r&#x2019; wie er im Bade &#x017F;pielet,</l><lb/>
+<l>Pla&#x0364;t&#x017F;chernd &#x017F;eine Flamme ku&#x0364;hlet,</l><lb/>
+<l>Auf&#x017F;pringt, wieder abwerts &#x017F;chießt:</l><lb/>
+<l>Laß ihn baden, laß ihn keltern</l><lb/>
+<l>Bis aus allen Lu&#x017F;tbeha&#x0364;ltern</l><lb/>
+<l>Dank in Deine Quelle fließt.</l></lg></lg></div><lb/>
+<fw type="catch" place="bottom"><hi rendition="#b">Gele-</hi></fw><lb/>
+<pb n="154" facs="#f0158"/>
+<div n="1" type="poem"><head><hi rendition="#b">Gelegenheitsgedicht.</hi></head><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<cit><quote><l><hi rendition="#aq">Tali vernentem &#x017F;atiemus amore juventam.</hi></l></quote><lb/>
+<bibl><hi rendition="#aq"><hi rendition="#et"><hi rendition="#i">J. Secundus.</hi></hi></hi></bibl></cit><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<lg type="poem"><lg n="1"><l><hi rendition="#in">S</hi>cho&#x0364;n war der Abend, Fru&#x0364;hlingsdu&#x017F;t</l><lb/>
+<l>Durchbal&#x017F;amte die heitre Luft,</l><lb/>
+<l>Und jeder Stern war aufgegangen,</l><lb/>
+<l>Cytherens himmli&#x017F;ch Feuermeer</l><lb/>
+<l>Schoß zehnfach Stralen um &#x017F;ich her,</l><lb/>
+<l>Und alle Nachtigallen &#x017F;angen.</l></lg><lb/>
+<fw type="catch" place="bottom">Doch</fw><lb/>
+<pb n="155" facs="#f0159"/>
+<lg n="2"><l>Doch Venus Stern und Fru&#x0364;hlingsduft</l><lb/>
+<l>Und Nachtigall und Abendluft</l><lb/>
+<l>Vergaß ich in der Scha&#x0364;fer&#x017F;tunde.</l><lb/>
+<l>Den Gipfel aller Lu&#x017F;t er&#x017F;tieg</l><lb/>
+<l>Der Gei&#x017F;t, und Bal&#x017F;am goß der Sieg</l><lb/>
+<l>Sanft um den Rand der Pfir&#x017F;chenwunde.</l></lg><lb/>
+<lg n="3"><l>Sprich Ma&#x0364;dchen &#x017F;chlug im Bu&#x017F;ch und Thal,</l><lb/>
+<l>Je eine &#x017F;cho&#x0364;nre Nachtigall?</l><lb/>
+<l>Ließ je ihr Lied dein Herz &#x017F;o wallen?</l><lb/>
+<l>Und als &#x017F;ie mu&#x0364;d vom Nachtge&#x017F;ang</l><lb/>
+<l>Zahm auf den weißen Bu&#x017F;en &#x017F;prang,</l><lb/>
+<l>Hat &#x017F;ie auch da Dir noch gefallen?</l></lg><lb/>
+<fw type="catch" place="bottom">Wie</fw><lb/>
+<pb n="156" facs="#f0160"/>
+<lg n="4"><l>Wie auf dem jungen Zweig vergnu&#x0364;gt</l><lb/>
+<l>Sich Philomele ein&#x017F;am wiegt;</l><lb/>
+<l>So wiegte &#x017F;ich auf Bu&#x017F;enhu&#x0364;geln,</l><lb/>
+<l>Und &#x017F;ah umher die Nachtigall,</l><lb/>
+<l>Um &#x017F;ich zum neuen Flug ins Thal</l><lb/>
+<l>Durch jeden Herz&#x017F;chlag zu beflu&#x0364;geln.</l></lg><lb/>
+<lg n="5"><l>Druck mit der weichen Hand doch nur</l><lb/>
+<l>Den Lieblings&#x017F;proßer deiner Flur</l><lb/>
+<l>An Dich, und &#x017F;piel mit &#x017F;einen Schwingen</l><lb/>
+<l>Er i&#x017F;t ein kleines dankbars Thier,</l><lb/>
+<l>Und wird fu&#x0364;r dies Ge&#x017F;chmeichel Dir</l><lb/>
+<l>Das &#x017F;cho&#x0364;n&#x017F;te Ritornello &#x017F;ingen.</l></lg></lg><lb/>
+<fw type="catch" place="bottom"><hi rendition="#b">Zum</hi></fw><lb/>
+<pb n="157" facs="#f0161"/>
+<lg type="poem"><head><hi rendition="#b">Zum Be&#x017F;chluß.<lb/>
+<hi rendition="#aq">I.</hi></hi></head><lb/>
+<lg n="1"><l><hi rendition="#in">V</hi>o&#x0364;gel &#x017F;angen, Turteltauben girrten,</l><lb/>
+<l>Jn den Schatten von Cytherens Myrthen,</l><lb/>
+<l>Amorn einen Lobge&#x017F;ang:</l><lb/>
+<l>Jn den Fru&#x0364;hlingstha&#x0364;lern rau&#x017F;chten</l><lb/>
+<l>Ba&#x0364;che, und die Nymphen lau&#x017F;chten,</l><lb/>
+<l>Ob nicht etwa &#x017F;ie zu ha&#x017F;chen</l><lb/>
+<l>Aus dem Bu&#x017F;ch ein Waldgott &#x017F;prang.</l></lg><lb/>
+<lg n="2"><l>Als mein <hi rendition="#g">Ro&#x0364;schen</hi> la&#x0364;chelnd mir zur Seite</l><lb/>
+<l>Auf <hi rendition="#g">den</hi> Ra&#x017F;en Veilchen&#x017F;aamen &#x017F;treute,</l><lb/>
+<l>Wo ich <hi rendition="#g">Jhr</hi> mein Herz entdeckt.</l><lb/>
+<l>Amor gab zum Saamen&#x017F;treuen</l><lb/>
+<l>Jhrer Ha&#x0364;nde &#x017F;ein Gedeyen,</l><lb/>
+<l>Und im na&#x0364;ch&#x017F;ten Lenz war alles</l><lb/>
+<l>Blau mit Veilchen u&#x0364;berdeckt.</l></lg><lb/>
+<lg n="3"><l>&#x201D;<hi rendition="#g">Ro&#x0364;schen</hi> kann Dich Amors Veilchen&#x017F;eegen</l><lb/>
+<l>&#x201D;Nicht zum wa&#x0364;rm&#x017F;ten Dank fu&#x0364;r ihn bewegen,</l><lb/>
+<l>&#x201D;Bi&#x017F;t Du denn nicht ganz Gefu&#x0364;hl?</l><lb/>
+<l>&#x201D;Laß uns un&#x017F;ern Dank verbinden,</l><lb/>
+<l>&#x201D;Hand in Hand das Glu&#x0364;ck empfinden,</l><lb/>
+<l>&#x201D;Daß &#x017F;ein Seegen auf die Veilchen</l><lb/>
+<l>&#x201D;Die Du &#x017F;a&#x0364;te&#x017F;t fruchtbar fiel.</l></lg><lb/>
+<fw type="catch" place="bottom">So</fw><lb/>
+<pb n="158" facs="#f0162"/>
+<lg n="4"><l>So &#x017F;prach ich am veilchenvollen Beete;</l><lb/>
+<l><hi rendition="#g">Ro&#x0364;schens</hi> Antlitz fa&#x0364;rbte Morgenro&#x0364;the</l><lb/>
+<l>Eines Opfertages werth.</l><lb/>
+<l>Augen die Gefu&#x0364;hlvoll brachen</l><lb/>
+<l>Bu&#x017F;en Wallungen &#x2014; die &#x017F;prachen</l><lb/>
+<l><hi rendition="#g">Ja,</hi> zum Opfer, und zum Altar</l><lb/>
+<l>Ward das Veilchenbeet erkla&#x0364;hrt.</l></lg><lb/>
+<lg n="5"><l>Amor &#x017F;chlug aus Freude mit den Flu&#x0364;geln,</l><lb/>
+<l>Und emfieng auf weißen Bu&#x017F;enhu&#x0364;geln</l><lb/>
+<l>Opfer un&#x017F;rer Za&#x0364;rtlichkeit.</l><lb/>
+<l>Durch ihn wuchs der Veilchen&#x017F;aamen &#x2014;</l><lb/>
+<l>Und zu Ehren feinem Nahmen</l><lb/>
+<l>Ward auch hier aus Amors Fu&#x0364;llhern</l><lb/>
+<l>Mehr als Veilchen&#x017F;aat ge&#x017F;treut.</l></lg><lb/>
+<lg n="6"><l>Vo&#x0364;gel &#x017F;angen, Turteltauben girrten</l><lb/>
+<l>Als in <hi rendition="#g">Ro&#x0364;schens</hi> blu&#x0364;hndes Thal der Myrthen</l><lb/>
+<l>Thau der Lu&#x017F;t bal&#x017F;ami&#x017F;ch drang;</l><lb/>
+<l>Ueberm Veilchenbeete rau&#x017F;chten</l><lb/>
+<l>Junge Zweige, rundum lau&#x017F;chten</l><lb/>
+<l>Nymphen, ob nicht auch zum Sa&#x0364;en,</l><lb/>
+<l>Wo hervor ein Waldgott &#x017F;prang.</l></lg><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<fw type="catch" place="bottom">Brauner</fw><lb/>
+<pb n="159" facs="#f0163"/>
+<lg n="7"><head><hi rendition="#b"><hi rendition="#aq">II.</hi></hi></head><lb/>
+<l>Brauner Augen &#x017F;chwarze Bogen</l><lb/>
+<l>Sind Tyrannen, die ich flieh:</l><lb/>
+<l>Blauer Augen braune Bogen</l><lb/>
+<l>Ro&#x0364;schen o wie lieb ich Die!</l></lg><lb/>
+<lg n="8"><l>Heil mir, <hi rendition="#g">Ro&#x0364;schens</hi> blaue Augen</l><lb/>
+<l>Sehn auf mich, und Freude bebt</l><lb/>
+<l>Durch mein Herz, das blos vom La&#x0364;cheln</l><lb/>
+<l>Die&#x017F;er braunen Bogen lebt.</l></lg><lb/>
+<lg n="9"><l>Wenn wie heut den Abendhimmel</l><lb/>
+<l>Blaue Wolken u&#x0364;berziehn;</l><lb/>
+<l>Wenn im Schooß&#x2019; halbreifer Aehren</l><lb/>
+<l>Blaue Sternchen reitzend blu&#x0364;hn;</l></lg><lb/>
+<lg n="10"><l>Wenn im blauen Fluthen&#x017F;piegel</l><lb/>
+<l>Sich ein Ro&#x017F;en&#x017F;trauch be&#x017F;ieht;</l><lb/>
+<l>Wenn <hi rendition="#g">Vergismeinnicht</hi> in Tha&#x0364;lern,</l><lb/>
+<l>Scho&#x0364;n dem Auge, ein&#x017F;am blu&#x0364;ht:</l></lg><lb/>
+<lg n="11"><l>Dann fu&#x0364;hlt meine ganze Seele</l><lb/>
+<l><hi rendition="#g">Ro&#x0364;schens</hi> blauer Augen Macht,</l><lb/>
+<l>Aber keine Lu&#x017F;t an Scho&#x0364;nheit</l><lb/>
+<l>Da, wo die&#x017F;es Aug&#x2019; nicht lacht.</l></lg><lb/>
+<lg n="12"><l>Milde Abendwolken tra&#x0364;ufeln</l><lb/>
+<l>Ku&#x0364;hlungsthau jetzt &#x017F;anft herab &#x2014;</l><lb/>
+<l>Ach wo i&#x017F;t der Thau des Lebens</l><lb/>
+<l>Den mir <hi rendition="#g">Ro&#x0364;schens</hi> Kuß &#x017F;on&#x017F;t gab!</l></lg><lb/>
+<fw type="catch" place="bottom">Jedes</fw><lb/>
+<pb n="160" facs="#f0164"/>
+<lg n="13"><l>Jedes Wo&#x0364;lkchen, jede Bluhme,</l><lb/>
+<l>Blau &#x017F;o wie ihr Aug, gebiehrt,</l><lb/>
+<l>Heiße Sehn&#x017F;ucht nach dem Tage</l><lb/>
+<l>Der in meinen Arm Sie fu&#x0364;hrt.</l></lg><lb/>
+<lg n="14"><l>Aber wie der Bach &#x017F;ich traurig</l><lb/>
+<l>Murmelnd durchs Ge&#x017F;tra&#x0364;uch hier &#x017F;chlingt,</l><lb/>
+<l>Wo die Nachtigall der Gegend</l><lb/>
+<l>Heut&#x2019; die letzten Lieder &#x017F;ingt:</l></lg><lb/>
+<lg n="15"><l>So &#x017F;chla&#x0364;gt auch mein Herz, o <hi rendition="#g">Ro&#x0364;schen</hi></l><lb/>
+<l>Zum voraus &#x017F;chon kummervoll</l><lb/>
+<l>Beym Gedanken der Minute,</l><lb/>
+<l>Die uns wieder trennen &#x017F;oll.</l></lg><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<lg n="16"><head><hi rendition="#b"><hi rendition="#aq">III.</hi></hi></head><lb/>
+<l>Von Venus To&#x0364;chtern &#x017F;cho&#x0364;n von Schenkeln,</l><lb/>
+<l>Und von des Gartengottes Enkeln</l><lb/>
+<l>Hoft meine Mu&#x017F;e nur ihr Glu&#x0364;ck;</l><lb/>
+<l>Wird &#x017F;ie von denen nicht erhoben,</l><lb/>
+<l>So &#x017F;chleicht &#x017F;ie unbeklat&#x017F;cht zuru&#x0364;ck,</l><lb/>
+<l>Denn &#x2014; &#x2014; wird &#x017F;ie doch nicht loben,</l><lb/>
+<l>Weil er zu allen Bibelproben,</l><lb/>
+<l>Durch die &#x017F;ein Prie&#x017F;terkinn das Kragenfett gewann</l><lb/>
+<l>Von ihr kein Zeilchen brauchen kann.</l></lg></lg></div><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<pb facs="#f0165"/>
+<pb facs="#f0166"/>
+<pb facs="#f0167"/>
+<pb facs="#f0168"/>
+<pb facs="#f0169"/>
+<pb facs="#f0170"/>
+<pb facs="#f0171"/>
+<pb facs="#f0172"/>
+<pb facs="#f0173"/>
+<pb facs="#f0174"/>
+</body></text> </TEI>

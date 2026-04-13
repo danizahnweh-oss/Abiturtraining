@@ -1,0 +1,580 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://www.deutschestextarchiv.de/basisformat.rng" type="application/xml" schematypens="https://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://www.deutschestextarchiv.de/basisformat.sch" type="application/xml" schematypens="https://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">       <teiHeader>
+<fileDesc>
+<titleStmt>
+<title type="main">Zum Wiesbadener Ärztetag</title>
+<author>
+<persName ref="http://d-nb.info/gnd/1110913125">
+<surname>Binder</surname>
+<forename>Sidonie</forename>
+</persName>
+</author>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/115266127">
+<surname>Geyken</surname>
+<forename>Alexander</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1222198746">
+<surname>Haaf</surname>
+<forename>Susanne</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1019062681">
+<surname>Jurish</surname>
+<forename>Bryan</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Boenig</surname>
+<forename>Matthias</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Thomas</surname>
+<forename>Christian</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Wiegand</surname>
+<forename>Frank</forename>
+</persName>
+</editor>
+<respStmt xml:id="textsource-1" corresp="#availability-textsource-1">
+<orgName>Frauenstudium, betreut von Andreas Neumann und Anna Pfundt, FSU Jena
+und JLU Gießen</orgName>
+<resp>
+<note type="remarkResponsibility">Bereitstellung der
+Texttranskription.</note>
+<note type="remarkRevisionDTA">Bitte beachten Sie, dass die aktuelle
+Transkription (und Textauszeichnung) mittlerweile nicht mehr dem Stand
+zum Zeitpunkt der Übernahme des Werkes in das DTA entsprechen
+muss.</note>
+<date type="importDTA">2021-12-09T11:34:18Z</date>
+</resp>
+</respStmt>
+<respStmt>
+<persName>
+<surname>Pfundt</surname>
+<forename>Anna</forename>
+</persName>
+<persName>
+<surname>Dietrich</surname>
+<forename>Dennis</forename>
+</persName>
+<resp>
+<note type="remarkResponsibility">Bearbeitung der digitalen Edition.</note>
+<date type="importDTA">2021-12-09T11:34:18Z</date>
+</resp>
+</respStmt>
+<respStmt>
+<orgName ref="https://www.bbaw.de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<resp>
+<note type="remarkResponsibility">Langfristige Bereitstellung der DTA-Ausgabe</note>
+<ref target="https://www.bbaw.de"/>
+</resp>
+</respStmt>
+</titleStmt>
+<editionStmt><edition>Vollständige digitalisierte Ausgabe.</edition></editionStmt>
+<extent>
+<measure type="images">8</measure>
+<measure type="tokens">3710</measure>
+<measure type="types">1534</measure>
+<measure type="characters">26433</measure>
+</extent>
+<publicationStmt>
+<publisher xml:id="DTACorpusPublisher">
+<email>dta@bbaw.de</email>
+<orgName role="project">Deutsches Textarchiv</orgName>
+<orgName role="hostingInstitution" xml:lang="en">Berlin-Brandenburg Academy of Sciences and Humanities (BBAW)</orgName>
+<orgName role="hostingInstitution" xml:lang="de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<address>
+<addrLine>Jägerstr. 22/23, 10117 Berlin</addrLine>
+<country>Germany</country>
+</address>
+</publisher>
+<pubPlace>Berlin</pubPlace>
+<date type="publication">2025-10-24T08:22:05Z</date>
+<availability>
+<licence target="http://creativecommons.org/licenses/by/4.0/deed.de">
+<p>Namensnennung 4.0 International (CC BY 4.0)</p>
+</licence>
+</availability>
+<idno>
+<idno type="URLWeb">https://www.deutschestextarchiv.de/binder_aerztetag_1898</idno>
+<idno type="URLXML">https://www.deutschestextarchiv.de/book/download_xml/binder_aerztetag_1898</idno>
+<idno type="URLHTML">https://www.deutschestextarchiv.de/book/download_html/binder_aerztetag_1898</idno>
+<idno type="URLText">https://www.deutschestextarchiv.de/book/download_text/binder_aerztetag_1898</idno>
+<idno type="DTADirName">binder_aerztetag_1898</idno>
+<idno type="DTAID">35019</idno>
+<idno type="URN">urn:nbn:de:kobv:b4-35019-6</idno>
+</idno>
+</publicationStmt>
+<sourceDesc>
+<bibl type="JA">Binder, Sidonie: Zum Wiesbadener Ärztetag. In: Die Frau 12 (1898). S. 705&#x2013;712.</bibl>
+<biblFull>
+<titleStmt>
+<title level="a" type="main">Zum Wiesbadener Ärztetag</title>
+<author>
+<persName ref="http://d-nb.info/gnd/1110913125">
+<surname>Binder</surname>
+<forename>Sidonie</forename>
+</persName>
+</author>
+</titleStmt>
+<editionStmt>
+<edition n="1"/>
+</editionStmt>
+<publicationStmt>
+<publisher><name>W. Moeser Buchhandlung</name></publisher>
+<pubPlace>Berlin</pubPlace>
+<date type="publication">1898</date>
+</publicationStmt>
+<seriesStmt>
+<title level="j" type="main">Die Frau</title>
+<biblScope unit="volume">5</biblScope>
+<biblScope unit="issue">12</biblScope>
+<biblScope unit="pages">S. 705&#x2013;712</biblScope>
+</seriesStmt>
+</biblFull>
+<msDesc>
+<msIdentifier>
+<repository>Universitätsbibliothek Erfurt</repository>
+<idno>
+<idno type="shelfmark">MFI 1166</idno>
+<idno type="URLCatalogue">http://opac.uni-erfurt.de/DB=1/XMLPRS=N/PPN?PPN=129527106</idno>
+</idno>
+</msIdentifier>
+<physDesc>
+<typeDesc>
+<p>Fraktur</p>
+</typeDesc>
+</physDesc>
+</msDesc>
+</sourceDesc>
+</fileDesc>
+<encodingDesc>
+<editorialDecl>
+<p>
+<![CDATA[
+<p> Bogensignaturen: gekennzeichnet; Druckfehler: keine Angabe; fremdsprachliches
+Material: keine Angabe; Geminations-/Abkürzungsstriche: keine Angabe;
+Hervorhebungen (Antiqua, Sperrschrift, Kursive etc.): wie Vorlage; I/J in
+Fraktur: wie Vorlage; i/j in Fraktur: keine Angabe; Kolumnentitel:
+gekennzeichnet; Kustoden: keine Angabe; langes s (&#x017F;): als s transkribiert;
+Normalisierungen: keine Angabe; rundes r (&#xA75B;): keine Angabe;
+Seitenumbrüche markiert: ja; Silbentrennung: wie Vorlage; u/v bzw. U/V: keine
+Angabe; Vokale mit übergest. e: keine Angabe; Vollständigkeit: vollständig
+erfasst; Zeichensetzung: wie Vorlage; Zeilenumbrüche markiert: ja; </p>
+]]>
+</p>
+</editorialDecl>
+<tagsDecl>
+<rendition scheme="css" xml:id="aq">font-family:sans-serif</rendition>
+<rendition scheme="css" xml:id="b">font-weight:bold</rendition>
+<rendition scheme="css" xml:id="blue">color:blue</rendition>
+<rendition scheme="css" xml:id="c">display:block; text-align:center</rendition>
+<rendition scheme="css" xml:id="et">display:block; margin-left:2em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et2">display:block; margin-left:4em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et3">display:block; margin-left:6em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="f">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="fr">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="g">letter-spacing:0.125em</rendition>
+<rendition scheme="css" xml:id="i">font-style:italic</rendition>
+<rendition scheme="css" xml:id="in">font-size:150%</rendition>
+<rendition scheme="css" xml:id="k">font-variant:small-caps</rendition>
+<rendition scheme="css" xml:id="larger">font-size:larger</rendition>
+<rendition scheme="css" xml:id="red">color:red</rendition>
+<rendition scheme="css" xml:id="right">display:block; text-align:right</rendition>
+<rendition scheme="css" xml:id="s">text-decoration:line-through</rendition>
+<rendition scheme="css" xml:id="smaller">font-size:smaller</rendition>
+<rendition scheme="css" xml:id="sub">vertical-align:sub; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="sup">vertical-align:super; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="u">text-decoration:underline</rendition>
+<rendition scheme="css" xml:id="uu">border-bottom:double 3px #000</rendition>
+</tagsDecl>
+</encodingDesc>
+<profileDesc>
+<particDesc>
+<person sex="f" role="author">
+<persName ref="http://d-nb.info/gnd/1110913125">
+<surname>Binder</surname>
+<forename>Sidonie</forename>
+</persName>
+</person>
+</particDesc>
+<langUsage>
+<language ident="deu">(Früh-)Neuhochdeutsch</language>
+<language ident="deu">German</language>
+</langUsage>
+<textClass>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1main">Gebrauchsliteratur</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1sub">Gesellschaft</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">ready</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">tdef</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">frauenstudium</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#collections">women</classCode>
+</textClass>
+</profileDesc>
+</teiHeader>
+<text>         <body>
+<pb facs="#f0001" n="[705]"/>
+<div n="1">                 <head>                     <hi rendition="#b">Zum Wiesbadener Ärztetag.</hi></head>                 <lb/>
+<byline>Von<lb/>
+<hi rendition="#b"><persName>Sidonie Binder</persName>.</hi></byline>                 <lb/>
+<div type="imprimatur">                     <p>Nachdruck verboten.</p>                     <lb/>
+</div>                 <div>
+<p><hi rendition="#in">V</hi>om übel berichteten an den besser zu                         unterrichtenden Papst appellieren zu müssen,<lb/>
+bildet eine der am                         häufigsten wiederkehrenden Aufgaben der deutschen Frauen-<lb/>
+bewegung.                         Aber vor einem quantitativ so wenig und qualitativ so ungenau                         informierten<lb/>
+Papst, wie der in dem 26. deutschen Ärztetag verkörperte,                         hat sie doch noch selten<lb/>
+gestanden. &#x201E;Man sollte fast annehmen,                         daß die Herren in Allongeperücken, Escarpins<lb/>
+und Kniehosen als                         Vertreter einer verflossenen Kulturperiode getagt haben&#x201C;, sagt                         ein<lb/>
+ärztlicher Kollege (<hi rendition="#aq">Dr. med.</hi> R. K.)                         darüber in der &#x201E;Krefelder Zeitung&#x201C; vom<lb/>
+7. Juli d. J.</p>                     <lb/>
+<p>Jn der That will einen dünken, als ob an den erwählten Abgesandten der<lb/>
+deutschen Heilkünstler, die in der letzten Juniwoche d. J. zu Wiesbaden                         versammelt<lb/>
+waren, um neben sonstigen Standesangelegenheiten auch über                         das <hi rendition="#g">Medizinstudium<lb/>
+der Frauen</hi> sich                         auszusprechen, maßgebende Teile der geistigen, vor allem aber der<lb/>
+sozialen Strömungen der letzten 25 Jahre spurlos vorübergegangen seien. Und                         doch<lb/>
+könnte billigerweise verlangt werden, daß eine Versammlung von                         Männern, die zu<lb/>
+einer so tief in unsrer historischen Gesamtentwicklung                         wurzelnden, so solidarisch mit<lb/>
+den Bedürfnissen der Zeit verbundenen,                         die Gemüter so energisch und nachhaltig<lb/>
+ergreifenden Sache, wie die                         Frauenbewegung unsrer Tage, auch nur in einem ihrer<lb/>
+Teile sich                         offiziell äußert, über das Wesen und Wollen dieser Bewegung                         einigermaßen<lb/>
+orientiert wäre. Aber davon zeigte sich zu Wiesbaden kaum                         eine Spur. Nicht einmal<lb/>
+die Elemente eines allenfallsigen                         Verständnisses hatten die Herren bei sich verarbeitet.<lb/>
+Die wenigen                         Ausnahmen seien natürlich auch hier freundlich begrüßt.</p>                     <lb/>
+<fw type="sig" place="bottom">45</fw>                     <lb/>
+<pb facs="#f0002" n="706"/>
+<fw type="header" place="top">Zum Wiesbadener Ärztetag.</fw>                     <lb/>
+<p>Man hat einen Haufen mangelhafter Jnformationen, veralteter, durch die                         That-<lb/>
+sachen bereits hundertfältig widerlegter Behauptungen, vager                         Vorschläge und ungerecht-<lb/>
+fertigter Jnsinuationen als                         &#x201E;Referat&#x201C; angehört; man hat ein ganzes Geschiebe<lb/>
+unbewiesener und nicht zu beweisender Sätze als &#x201E;Thesen&#x201C;                         aufgestellt, auf Grund<lb/>
+jenes Referates für &#x201E;motiviert&#x201C;                         erklärt und mit überwiegender Mehrheit angenommen.<lb/>
+Das war die                         Verhandlung. Jmponiert hat sie niemand. Für die Frauen war sie<lb/>
+doch                         wertvoll. Es ist immer nützlich, einem Gegner so recht in Herz und Hirn                         zu<lb/>
+schauen, ihn seine eigene Silhouette entwerfen zu sehen, und <hi rendition="#aq">ad notam</hi> zu nehmen,<lb/>
+wie weit er Taktiker ist,                         wie weit Stratege.</p>                     <lb/>
+<p>Bezüglich der Thesen verweise ich auf die Augustnummer dieser Zeitschrift.                         Sie<lb/>
+sind dort, unter der Rubrik &#x201E;Frauenleben und                         -Streben&#x201C; S. 695, vollständig abgedruckt.<lb/>
+Von meinem abfälligen                         Urteil nehme ich die drei gleichfalls angenommenen Thesen der<lb/>
+Herren                             <hi rendition="#g">Sachs</hi> und <hi rendition="#g">Reich</hi>                         (Breslau) nachdrücklich aus. Die &#x201E;Frau&#x201C; hat an der<lb/>
+genannten Stelle auch sie zum Abdruck gebracht. Sie fassen die Sache von                         der<lb/>
+praktischen Seite. Die darin ausgesprochenen Wünsche in Betreff der                         Vorbildung der<lb/>
+Frauen zum Universitätsstudium und ihrer Ausbildung für                         den ärztlichen Beruf stimmen<lb/>
+so völlig mit den Forderungen überein, die                         von den Sachverständigen innerhalb der<lb/>
+deutschen Frauenbewegung auf                         diesem Punkt längst formuliert worden sind, daß ihren<lb/>
+Urhebern nur mit                         Dank und Beifall dafür quittiert werden kann. Jene Sachverständigen<lb/>
+gehen sogar noch weiter. Sie sind durchaus der Meinung, daß überhaupt nur                         solche<lb/>
+weiblichen Hörer zur Universität zugelassen werden sollten, die                         die wünschenswerte<lb/>
+allgemeine Bildung und die notwendige                         wissenschaftliche Vorbildung durch die bestandene<lb/>
+Reifeprüfung                         nachgewiesen haben. Denn nur so, glauben sie, wäre dem Unfug der<lb/>
+ungenügend vorbereiteten und darum höchst unsichern Eindringlinge zu                         steuern, unter<lb/>
+dem z. B. in Berlin das Frauenstudium schon jetzt schwer                         leidet.</p>                     <lb/>
+<p>Bei eingehenderer Beschäftigung mit den einzelnen Punkten des                         &#x201E;Referates&#x201C;<lb/>
+drängen sich einem in erster Linie eine                         Anzahl von Fragen auf. Warum hat der<lb/>
+Herr Referent<note place="foot" n="1)">Professor Penzoldt, Erlangen.</note> von den mancherlei                         Gutachten, die er über das Medizinstudium der<lb/>
+Frauen bei                         Universitätslehrern, bei &#x201E;den Medizinalverwaltungen auswärtiger                         Staaten&#x201C;<lb/>
+eingeholt hat, keines im Wortlaut und mit Nennung                         seines Ursprungs wiedergegeben?<lb/>
+Warum die Schriften und Autoren, aus                         denen er, seiner Angabe nach, Belehrung<lb/>
+geschöpft, nicht namentlich                         aufgeführt? Warum vor allem die Schweizer Professoren<lb/>
+nicht genannt,                         die ihm, aus ihrer Erfahrung heraus, die Lernweise ihrer Schülerinnen<lb/>
+also charakterisierten: &#x201E;Die Frau memoriert, der Mann                         studiert!&#x201C;? Die Namen gerade<lb/>
+dieser Herren zu kennen, wäre doch                         sehr interessant. Anonyme Quellen und Gewährs-<lb/>
+männer haben auch nur                         wenig Anspruch auf Glaubwürdigkeit. Jedenfalls nicht mehr,<lb/>
+als etwa die                         &#x201E;verschleierte Dame&#x201C; im Zola-Prozeß.</p>                     <lb/>
+<p>Und was speziell das Memorieren und Studieren, d. h. den Unterschied von<lb/>
+wissenschaftlichem Durchdringen und mehr oder weniger mechanischem Aneignen                         des<lb/>
+Lernstoffes betrifft, so hat der Schöpfer jenes Aphorismus sich                         vielleicht doch nicht<lb/>
+genugsam daran erinnert, daß der wirklich                         wissenschaftliche Kopf, um mich einer etwas<lb/>
+kühnen Metapher zu                         bedienen, überhaupt eine seltene Blüte ist auf dieser Welt, auch<lb/>
+unter                         den Männern. Und ebenso nimmt er zu wenig Kenntnis davon, daß die                         Herren<lb/>
+bemoosten Häupter, die flotten Korpsburschen und Bundesbrüder                         auch nur in<lb/>
+<pb facs="#f0003" n="707"/>
+<fw type="header" place="top">Zum Wiesbadener Ärztetag.</fw><lb/>
+ganz                         erlauchten Ausnahmefällen den Pfad durch das Labyrinth ihrer                         Schlußexamina<lb/>
+finden, ohne einen dicken Ariadneknäuel oft keineswegs                         solid zusammengeraffter<lb/>
+Gedächtnisdinge. Die vollgekritzelten                         Manschetten, die von erstaunten Müttern und<lb/>
+Schwestern solcher                         &#x201E;studiert&#x201C; habenden Prüflinge zuweilen nachher in der                         Wäsche<lb/>
+gefunden werden, bekunden wenigstens, daß selbst der Verlaß auf                         diesen &#x201E;frauenhaften&#x201C;<lb/>
+Gedächtniskram nicht immer als                         unerschütterlich empfunden wird.</p>                     <lb/>
+<p>Da wir just von den Prüfungen reden, so frage ich weiter: Was bezweckte                         der<lb/>
+Herr Referent mit seiner Verwunderung darüber, daß nach dem Bericht                         des preußischen<lb/>
+Kultusministers von 1895-97 von 18 Damen 3-16 Prozent                         die Reifeprüfung<lb/>
+nicht bestanden haben? Und was glaubt er mit dieser                         Thatsache zu beweisen? Doch<lb/>
+nicht die durchschnittlich geringere                         Fähigkeit der Frau, Gymnasialkurse zu absolvieren?<lb/>
+Hat der Herr                         Referent sich an wirklich unterrichteter Stelle nach den nähern Gründen<lb/>
+dieses Nichtbestehens erkundigt? Sind ihm die großen Erschwerungen bekannt,                         unter<lb/>
+denen die jungen Damen in Preußen als Extranerinnen zur                         Abiturientenprüfung<lb/>
+zugelassen werden? Weiß er, daß von den männlichen                         Extranern fünfzig vom Hundert<lb/>
+durchzufallen pflegen? Warum verschweigt                         er, daß der preußische Kultusminister, auf<lb/>
+den er sich ja doch beruft,                         selbst, in öffentlicher Sitzung, ausgesprochen hat, die<lb/>
+Abiturientinnen                         hätten Examina abgelegt, vor denen man allen Respekt haben müsse?<lb/>
+Da                         ein doloses Verhalten mir für ausgeschlossen gilt, so kann ich nur annehmen,                         daß<lb/>
+der Herr Referent versäumt hat, sich über diese Punkte in                         angemessener Weise zu unterrichten.</p>                     <lb/>
+<p>Mit dem ersten Examen kam auch das Durchfallen in die Welt. Bis jetzt                         hatten<lb/>
+die Männer ein fast ausschließliches Monopol darauf; künftig                         müssen auch die Frauen<lb/>
+dran glauben. Jch habe während vieler Jahre                         meines Lebens einschlägigen Ver-<lb/>
+hältnissen sehr nahe gestanden und in                         Bezug auf das Durchfallen junger Männer,<lb/>
+das Herauslaufen aus der Mitte                         der allerverschiedensten Examina, das Nichterscheinen<lb/>
+bereits                         gemeldeter Prüflinge, das Menschenmögliche erlebt. Zur diesjährigen<lb/>
+1.                         juristischen Dienstprüfung in Tübingen hatten sich ursprünglich 56                         Kandidaten<lb/>
+gemeldet; 3 davon erschienen überhaupt nicht, 4 traten                         während der Prüfung zurück.<lb/>
+Von den noch übrigen 49 Kandidaten wurden                         42 für examiniert erklärt. Also: ganz<lb/>
+durchgefallen sind von 49                         Prüflingen 7 &#x2013; etwas über 14 Prozent. Rechnet man<lb/>
+die 4 während                         des Examens Zurückgetretenen hinzu, so haben wir 11 von 53 &#x2013;                         fast<lb/>
+21 Prozent. Zählt man dazu noch die 3 Nichterschienenen, die                         allerdings auch etwas<lb/>
+anderes als begründete Examensangst fern gehalten                         haben kann, so ergiebt sich, daß<lb/>
+von 56 bereits dazu Angemeldeten 20-25                         Prozent die Prüfung teils gar nicht<lb/>
+abgelegt, teils nicht bestanden                         haben.</p>                     <lb/>
+<p>Sollen wir nun nach der Methode von Prof. Penzoldt anzunehmen versuchen,<lb/>
+daß, weil vom Hundert der Tübinger juristischen Kandidaten 14-25 es zu                         keiner<lb/>
+Prüfungsnote brachten, das männliche Geschlecht im allgemeinen                         zum Studium der<lb/>
+Jurisprudenz nicht eben geeignet erscheine? Gewiß                         nicht. Aber ebenso müssen wir<lb/>
+auch die 84 vom Hundert der preußischen                         Abiturientinnen, die in den beiden letzten<lb/>
+Jahren das Reifezeugnis für                         die Universität erlangt haben, angesichts der für die männlichen<lb/>
+Abiturienten gar nicht bestehenden Schwierigkeiten, unter denen diese jungen                         Mädchen ihr<lb/>
+Examen ablegten, ohne weiteres als ein außerordentlich                         günstiges Resultat gelten lassen.</p>                     <lb/>
+<p>Gegen die Befähigung und Zulassung der Frauen speziell zum ärztlichen                         Beruf<lb/>
+hat der Referent des 26. deutschen Ärztetages nicht mehr und                         nicht weniger, auch keine<lb/>
+anderen Gründe vorzubringen gewußt, als die                         bereits sattsam vorgebrachten und bis<lb/>
+<fw type="sig" place="bottom">45*</fw><lb/>
+<pb facs="#f0004" n="708"/>
+<fw type="header" place="top">Zum Wiesbadener Ärztetag.</fw><lb/>
+zum                         Überdruß gehörten. Die Mär vom geringern Hirngewicht und der darauf<lb/>
+beruhenden angeblichen geistigen Minderwertigkeit des Weibes hat er                         allerdings nur<lb/>
+schüchtern gestreift, die noch zweifelhafteren Argumente                         vom weniger gefurchten weib-<lb/>
+lichen Scheitellappen und dem                         physiologischen Wertunterschied des männlichen und<lb/>
+weiblichen Blutes                         gar nicht erwähnt. Es scheint, daß in der That diese abgedroschenen<lb/>
+Beweismittel endgiltig abgethan sind.</p>                     <lb/>
+<p>Trotzdem läßt der Herr Referent sich von ungenannter für ihn jedoch                         &#x201E;kom-<lb/>
+petenter Seite&#x201C; attestieren, daß die                         &#x201E;Durchschnittsfrau&#x201C; zum medizinischen Studium<lb/>
+und Beruf                         nicht befähigt sei. Du lieber Gott, der Durchschnittsmann                         wahrscheinlich<lb/>
+auch nicht! Verschwänden doch nur mit einem Schlage alle                         die mechanischen Durch-<lb/>
+schnittsköpfe aus der Medizin!                         Durchschnittsfrauen werden sich vorderhand zu einem<lb/>
+komplizierten                         Fachstudium überhaupt nicht drängen, und für die dreihundert Ärztinnen,<lb/>
+die Prof. Penzoldt in den nächsten dreißig Jahren für Deutschland                         prophezeiht, werden<lb/>
+wir Ausnahme-Jngenien zur Verfügung stellen können.                         Und später, wenn die Auf-<lb/>
+merksamkeit auf weibliche Begabung noch mehr                         geweckt sein wird, deren regelrechte<lb/>
+Ausbildung einmal für                         selbstverständlich gilt, werden auch steigende Bedürfnisse sich<lb/>
+noch                         decken lassen.</p>                     <lb/>
+<p>Jm allgemeinen, meint der Referent, bestehe ein Mangel an ärztlicher Hilfe                         in<lb/>
+Deutschland gegenwärtig überhaupt nicht. Der ärztliche Stand sei                         vielmehr überfüllt,<lb/>
+und die Ärzte kämpften einen schweren                         Konkurrenzkampf unter sich und mit dem<lb/>
+Kurpfuschertum.</p>                     <lb/>
+<p>Dem gegenüber ist zu bemerken: die Zahl von 24000 Civilärzten mag für                         die<lb/>
+Civilbevölkerung Deutschlands allerdings ausreichend sein. Aber                         Militärärzte sind<lb/>
+nicht genügend vorhanden. Die zur Verfügung stehenden                         bleiben, wie jeder weiß,<lb/>
+der den Verhandlungen des letzten Reichstags                         darüber gefolgt ist, der Ziffer nach,<lb/>
+sogar hinter dem Etats-Soll der                         Friedens-Präsenzstärke um fast unglaublich klingende<lb/>
+Prozentsätze                         zurück. Sollte das Gespenst eines europäischen Krieges, mit dem uns<lb/>
+seit Jahrzehnten fast jede einzelne Zeitungsnummer schreckt, einmal doch zur                         Wahrheit<lb/>
+werden, so würde der empfindlichste Mangel an Ärzten auf allen                         Flanken die nächste<lb/>
+Folge sein, und weibliche Stellvertretung für die                         Ausmarschierenden vermutlich sehr<lb/>
+erwünscht. Auch unser wachsendes                         Seewesen, unsre sich vermehrenden und erweiternden<lb/>
+Kolonien werden                         immer zahlreichere ärztliche Kräfte an sich ziehen und verbrauchen,<lb/>
+so                         daß es im kommenden Jahrhundert, auch unter normalen Verhältnissen und                         inner-<lb/>
+halb der bisherigen Zahl der Ärzte, an Lücken für weibliche                         Kollegen in der deutschen<lb/>
+Heimat wohl kaum fehlen dürfte.</p>                     <lb/>
+<p>Jm übrigen handelt es sich um all das bei den Forderungen der                         &#x201E;sogenannten&#x201C;<lb/>
+Frauenbewegung, wie Prof. Penzoldt sie                         bezeichnet, nur sekundär. Zahl oder Überzahl<lb/>
+der deutschen Ärzte, ihre                         größeren oder geringeren Existenzschwierigkeiten berühren den<lb/>
+Kern der                         Sache nicht. Denn wir wollen weder weniger noch mehr, wir wollen auch<lb/>
+nicht hervorragend glänzend situierte, wir wollen <hi rendition="#g">weibliche</hi> Ärzte.</p>                     <lb/>
+<p>Die geringere körperliche Stärke der Frau macht dem Wiesbadener Referat<lb/>
+natürlich auch wieder Sorge. Sie werde ihr akut hinderlich sein, meint der                         Referent,<lb/>
+bei Durchführung schwerer chirurgischer oder gynäkologischer                         Eingriffe.</p>                     <lb/>
+<p>Aber zum Holzfällen, ganze Sommer hindurch, wie ein Holzknecht, zum Loh<lb/>
+kuchentreten, tagelang, zum Holzsägen und -spalten, zum Mörtel- und                         Backsteintragen<lb/>
+bei Häuser- und Kirchenbauten, da reicht die Kraft?                         Weiß der Referent nicht, was<lb/>
+<pb facs="#f0005" n="709"/>
+<fw type="header" place="top">Zum Wiesbadener Ärztetag.</fw><lb/>
+unsere                         Bauernweiber und Fabrikarbeiterinnen und auch unsre Sportsdamen                         leisten?<lb/>
+Was von einem Teil unsrer weiblichen Dienstboten gefordert                         wird? Kennt er die<lb/>
+Webesäle großer Baumwollindustrien?</p>                     <lb/>
+<p>Die Fähigkeit, Zähne auszuziehen, billigt Prof. Penzoldt der Frau gütigst                         zu:<lb/>
+weil da Übung und Geschick die Kraft ersetzen könnten. Jch habe die                         Jdee, daß das<lb/>
+bei den allermeisten operativen Eingriffen sich genau                         ebenso verhält und kann mir<lb/>
+schlechterdings nicht vorstellen, daß für                         irgend eine der Operationen, die vom Arzt bis<lb/>
+jetzt ohne Assistenz                         ausgeführt worden sind, die Kraft einer normal entwickelten, auch<lb/>
+körperlich gut geschulten Frau nicht ausreichen sollte. Wie viele von dem                         Gros der<lb/>
+praktischen Ärzte nehmen denn halbwegs bedeutendere operative                         Eingriffe überhaupt<lb/>
+noch vor? Wenn eines ihrer eigenen Kinder die                         Armspeiche bricht, wird gleich der<lb/>
+Spezialist herbeigeholt; der bringt                         dann seinen Assistenten mit, und da sind sie denn zu<lb/>
+dreien um den                         einen Radius herum. Und große Operationen werden ja niemals<lb/>
+ohne                         Beistand ausgeführt. Der Herr Referent weiß doch, daß schon bei                         schweren,<lb/>
+langdauernden Geburten die Hebamme sehr häufig dem                         erschöpften Arzt die Zange<lb/>
+abnehmen und weiter regieren muß, bis er                         sich wieder erholt hat.</p>                     <lb/>
+<p>Und sicher hat er schon barmherzige und Diakonissen-Schwesterlein gesehen,                         die<lb/>
+Kranke und Tote ganz allein auf ihren jungen Armen von einem Bett                         zum andern<lb/>
+trugen? Oder vielleicht hat er den Krieg von 1870/71                         mitgemacht und weiß noch, was<lb/>
+Frauen, zum Teil nicht einmal geübte, und                         nur mangelhaft geschulte Frauen, in<lb/>
+Lazaretten und aus Spitalzügen                         damals verrichteten? Jch erinnere den Herrn<lb/>
+Referenten geflissentlich                         nur an solche Dinge, die mir selbst aus eigener Anschauung<lb/>
+bekannt                         geworden sind.</p>                     <lb/>
+<p>Warum hat er sich nicht bei einigen der größeren von den 5000                         amerikanischen<lb/>
+Ärztinnen, oder bei ein paar der englischen, oder bei                         den 9 Züricher Ärztinnen, oder ihren<lb/>
+deutschen Kolleginnen in Leipzig,                         Berlin und Frankfurt darüber erkundigt, wie sie sich<lb/>
+mit den schwereren                         Aufgaben ihres Berufs abfinden? Das wären doch die einzig<lb/>
+richtigen                         Auskunftsstellen gewesen.</p>                     <lb/>
+<p>Wenn Professor Penzoldt glaubt, daß die schaffende Energie, deren der Arzt                         in<lb/>
+den verschiedenen Stadien eines Krankheitsfalles bedürfe, der Frau                         in geringerem<lb/>
+Maße eigen sei, als dem Manne, so zeigt er damit nur, daß                         er das wahre Wesen<lb/>
+der Frau sehr wenig erfaßt hat.</p>                     <lb/>
+<p>Die schaffende Energie des Arztes! Was ist sie anders als das Umsetzen                         seines<lb/>
+Wissens in ein Können, in eine Kunst? Aber ein Umsetzen, das bei                         jedem neuen<lb/>
+Kranken neu beginnt, das in jedem ein neues und neu zu                         fassendes Problem erblickt,<lb/>
+das keinen einförmigen Geschäftsgang kennt                         nach feststehenden Mustern oder die bloße<lb/>
+beschränkte Einwirkung auf                         ein anatomisch verändertes Organ, sondern das die<lb/>
+jeweilige                         Persönlichkeit des Kranken, dessen Um und Auf mit in sein Handeln und<lb/>
+Berechnen einbezieht, das, wenn es sein muß, Fühlung findet auch mit                         unwägbaren<lb/>
+Faktoren, mit einem Wort: das individualisiert.</p>                     <lb/>
+<p>Und darin sollte das Weib dem Manne nachstehen? Jch glaube nicht. Wo<lb/>
+findet man denn &#x201E;schaffende Energie&#x201C; in diesem Sinne häufiger,                         wo ist sie unentbehrlicher,<lb/>
+als bei dem Erziehungswerk am kommenden                         Geschlecht, wie es, als eine ihrer natur-<lb/>
+gemäßen Aufgaben, von treuen                         und klugen Frauen gethan wird in dieser Welt? Und<lb/>
+weil sie, so gefaßt,                         ein spezifisch weibliches Erbteil darstellt, so glauben wir in aller<lb/>
+Bescheidenheit, daß, auch aus den hiermit zusammenhängenden Gründen, der Wieder-<lb/>
+<pb facs="#f0006" n="710"/>
+<fw type="header" place="top">Zum Wiesbadener Ärztetag.</fw><lb/>
+eintritt                         der Frauen in die Medizin nicht &#x201E;eine Minderung des ärztlichen                         Ansehens&#x201C;<lb/>
+bedeuten wird, wie eine der Wiesbadener Thesen wissen                         will, wohl aber den Beginn<lb/>
+einer guten und fördernden Ära für den                         ärztlichen Beruf. Vielleicht allerdings, daß<lb/>
+dann in kommenden Zeiten                         das Wort &#x201E;Wissenschaft&#x201C; nicht etwa an Wertschätzung<lb/>
+verliert, aber einem innerhalb der ärztlichen Welt doch nicht mehr gar so                         stündlich um<lb/>
+den Kopf fliegt, wie heutzutage, und daß wieder mehr, und                         mit frisch gewonnener<lb/>
+Zuversicht, bei Ärzten und Patienten die Rede                         sein wird <hi rendition="#g">vom ärztlichen Können</hi>.</p>                     <lb/>
+<p>Es ist schade, daß der Wiesbadener Referent über das Medizinstudium der<lb/>
+Frauen sich vorher nicht auch mit einer oder einigen der Hauptvertreterinnen                         der<lb/>
+deutschen Frauenbewegung ins Vernehmen gesetzt hat. Er wäre dann                         gewiß besser über<lb/>
+die vorzüglichsten Gründe unterrichtet gewesen, warum                         die deutschen Frauen Ärzte<lb/>
+werden, warum sie <hi rendition="#g">weibliche</hi> Ärzte haben wollen. Der 26. deutsche Ärztetag würde<lb/>
+in diesem Fall zu seiner wichtigsten Verhandlung sicher ein etwas                         neuzeitlicheres<lb/>
+Rößlein aufgezäumt haben und auch etwas weniger                         herausfordernd in unsre Vorposten<lb/>
+geritten sein, als es zu Wiesbaden                         geschah. Eine minder einseitige Beleuchtung<lb/>
+seines Gegenstandes hätte                         den Herrn Referenten jedenfalls erkennen lassen, daß an-<lb/>
+maßlicher                         Dünkel, krankhafte Sucht nach Höherem, ein ungerechtfertigtes Streben                         über<lb/>
+die Grenzen ihrer Zuständigkeit hinaus, wie er sie jetzt                         vorauszusetzen scheint, bei den<lb/>
+Frauen in dieser Sache nicht die                         treibenden Mächte sind; vielleicht aber würde er<lb/>
+ihre unbeirrbare,                         opferbereite Entschlossenheit wahrgenommen haben, in einen                         geschichtlich<lb/>
+bedingten, neu und machtvoll sich herandrängenden                         Pflichtenkreis willig einzutreten.</p>                     <lb/>
+<p>Vermutlich hätte er dann zu gleicher Zeit entdeckt, daß die deutsche                         Frauen-<lb/>
+bewegung und der deutsche Ärztestand mehrfach die gleichen                         Dinge im Auge haben<lb/>
+und nach der gleichen Methode vorgehen. Wie das                         Wiesbadener Referat von den<lb/>
+deutschen Ärzten sagt, daß sie es als ihr                         Recht und sogar als ihre Pflicht betrachten,<lb/>
+in allen Fragen, die das                         Wohl der Kranken und den Schutz der Gesunden, sowie<lb/>
+das Ansehen des                         ärztlichen Standes angehen, ihre Meinung zu äußern, so betrachten<lb/>
+auch                         die in der Bewegung zusammengeschlossenen deutschen Frauen es als ihr                         Recht<lb/>
+und ihre Pflicht, in allen Fragen, die das Wohl, den Schutz und                         die Würde ihres<lb/>
+Geschlechtes betreffen, ihre Meinung kund zu geben.                         Noch mehr. Sie halten sich<lb/>
+nicht nur, wie die Ärzte, für verpflichtet                         zu reden, auch wo es nicht verlangt wird,<lb/>
+und wo sie nicht sicher                         erwarten können, daß man ihren Rat befolgt, sondern manch-<lb/>
+mal selbst                         da, wo sie zum voraus wissen, daß nichts anderes ihnen antwortet, als<lb/>
+Hohn, verbissene Verständnislosigkeit und Brutalität.</p>                     <lb/>
+<p>Einer der Punkte z.B., wo die Befürworter des Frauenstudiums mit                         Sicherheit<lb/>
+darauf rechnen, daß der Eintritt der Frauen in die Medizin                         dem ärztlichen Stand<lb/>
+zum Nutzen gereichen wird, ist der Kampf gegen das                         Kurpfuschertum. Vollständig<lb/>
+ausgefochten kann er ja niemals werden. Es                         sei denn, man schaffte vorher die<lb/>
+Borniertheit überhaupt aus der Welt.                         Auch die Verdrängung des männlichen<lb/>
+Kurpfuschers muß die Frau nach wie                         vor ihren männlichen Kollegen überlassen; aber<lb/>
+mit den weiblichen wird                         sie auf ihre Weise aufzuräumen versuchen. Der ihr<lb/>
+eigentümlichen Natur                         gemäß wird sie nach und nach ein anderes Jdeal der praktischen<lb/>
+Medizin                         für sich aufstellen, als zur Stunde der Mann. Jhr weiblicher Sinn,                         vielleicht<lb/>
+auch etwas aus ihrer hörigen Vergangenheit, wird es der Frau                         erleichtern, in dem<lb/>
+Kranken immer vor allem den zu sehen, dem sie mit                         ihrer Kunst nun dienen soll,<lb/>
+nicht einen, den seine Hilfsbedürftigkeit                         jetzt in ihr Machtbereich gestellt hat, oder einen<lb/>
+<pb facs="#f0007" n="711"/>
+<fw type="header" place="top">Zum Wiesbadener Ärztetag.</fw><lb/>
+mehr oder                         weniger interessanten Fall für ihre berufliche Bethätigung. Sie wird                         nicht<lb/>
+so sehr darauf erpicht sein, in der Schätzung der Menge doch ja                         gewiß als eine<lb/>
+Vertreterin der Wissenschaft zu gelten, sondern nach                         Möglichkeit darnach trachten, eine<lb/>
+immer umfassendere Könnerin zu                         werden. So wird sie manches, was ihre männlichen<lb/>
+Kollegen im Lauf der                         Zeit aus den Händen gegeben, wieder in die ihren nehmen,<lb/>
+und nichts,                         aber auch gar nichts, fesselt den Patienten fester an seinen Arzt, als                         die<lb/>
+persönliche Hilfeleistung, die er von ihm empfängt. Wenn so die                         Kranken einmal<lb/>
+durchempfunden haben, wie wohl die kunstgerechteren                         Manipulationen ihres weiblichen<lb/>
+Arztes thun, um die sie früher zu                         Masseusen, zu Hebammen und sonstigen Heil-<lb/>
+gehilfinnen geschickt                         wurden, ihres Geschlechtes wegen freilich auch gar oft geschickt<lb/>
+werden                         mußten, so wird es ihnen nicht mehr einfallen, die Hilfe jener                         untergeordneten<lb/>
+Kräfte aus eigener Machtvollkommenheit aufzusuchen.</p>                     <lb/>
+<p>Die schamhafte Scheu der Frau, bei gewissen Leiden den männlichen Arzt                         auf-<lb/>
+zusuchen, und die leidvolle Thatsache, daß dadurch eine Menge                         schwerer Fälle verschleppt<lb/>
+und erst dann gemeldet werden, wenn auch das                         Messer des Operateurs keine Hilfe<lb/>
+mehr bringen kann, will das                         Wiesbadener Referat als Grund für die Einführung<lb/>
+weiblicher Ärzte nicht                         gelten lassen. Es schlüge unsrer Würde ins Gesicht, darauf zu<lb/>
+erwidern.                         Unter Männern <hi rendition="#g">kann</hi> es hierfür keine Sachverständigen                         geben. Hat der<lb/>
+Herr Referent, während er seine Rede hielt, dies nicht                         gefühlt? Die Ungeheuerlichkeit<lb/>
+nicht empfunden, die darin liegt, daß                         trotzdem, eine ganze Versammlung von Männern<lb/>
+es wagte, sich über diesen                         Punkt öffentlich auszusprechen? Ungeheuerlich muß man es<lb/>
+in der That                         nennen, aber auch blind über alle Maßen. Denn daß gerade von diesem<lb/>
+Platz aus der Kampf gegen die Kurpfuscherei am siegreichsten geführt werden                         kann<lb/>
+und wird, liegt für jeden Urteilsfähigen auf der Hand.</p>                     <lb/>
+<p>Unter den pathetischen Schlußsätzen des Wiesbadener Referats ist einer, dem                         die<lb/>
+Frauen alle von Herzen zustimmen werden. Der Referent meint, wir                         brauchen keine<lb/>
+gelehrte und halbgelehrte, sondern eine geistig und vor                         allem auch körperlich tüchtige<lb/>
+Frau: &#x201E;Die Kraft eines                         Volkes&#x201C;, sagt der spartanische Gesetzgeber, &#x201E;ist im                         Schoße<lb/>
+blühender Weiber gelegen.&#x201C;</p>                     <lb/>
+<p>Wir sind hier sowohl mit Prof. Penzoldt als auch mit dem seligen Lykurg                         aufs<lb/>
+völligste einverstanden. Zwar die gelehrte Frau werden wir in                         Zukunft nicht so ganz<lb/>
+entbehren können; aber die halbgelehrte, präzis                         gesagt, die halbgebildete geben wir<lb/>
+mit Freuden preis. Bei der gesunden                         und blühenden Frau liegt auch nach unsrer<lb/>
+Auffassung das Heil unsres                         Volkes.</p>                     <lb/>
+<p>Aber während der Referent sich hieraus ein Argument gegen die Zulassung                         der<lb/>
+Frauen zum ärztlichen Beruf zurechtgeklügelt zu haben scheint,                         leiten die deutschen<lb/>
+Frauen eben davon die hauptsächlichsten Gründe ab                         für ihre Forderung weiblicher<lb/>
+Ärzte. Denn überall, wo das Wohl, die                         Tüchtigkeit, der Schutz ihres Geschlechtes,<lb/>
+in Betracht kommen, begehrt                         die deutsche Frau von nun an Sitz und Stimme<lb/>
+im Rat.</p>                     <lb/>
+<p>Sie hält es für eine namenlose, sagen wir: Naivetät, auf die paar                         hundert<lb/>
+oder meinetwegen tausend studierender Frauen der Zukunft                         hinzuweisen als auf eine<lb/>
+Gefahr für die Kraft und Blüte unsrer                         künftigen Mütter, während ihr eben jetzt von<lb/>
+allen Seiten jene                         entsetzlichen 80 Prozent <hi rendition="#g">aller</hi> Männer in die Ohren                         geschrien werden,<lb/>
+die, wenigstens in den großen Städten, durch eigene                         Schuld an Krankheitsformen leiden,<lb/>
+durch deren nur allzu häufige                         Übertragung die Gesundheit und einschlägige Leistungs-<lb/>
+<pb facs="#f0008" n="712"/>
+<fw type="header" place="top">Zum Wiesbadener Ärztetag.</fw><lb/>
+fähigkeit                         unsrer zur Mutterschaft berufenen Frauen aufs schwerste geschädigt, zum                         Teil<lb/>
+für immer zerstört wird.</p>                     <lb/>
+<p>Die Frau hat ferner Kenntnis genommen von dem Streit im ärztlichen Lager<lb/>
+über die Anlegung der Geburtszange. Es ist ihr bekannt geworden, welch                         schwere<lb/>
+und dauernde Gefährdung für Leib und Leben ihr aus sogenannten                         Luxusoperationen<lb/>
+in der Geburtshilfe erwachsen kann, und leider                         vielfach auch erwächst. Sie weiß<lb/>
+z.B., daß unter den Gründen für eine                         Erhöhung einzelner Taxgebühren in einer<lb/>
+medizinischen Gesellschaft zu                         Berlin folgender angeführt wurde: &#x201E;Die in der neuen<lb/>
+Taxe                         festgesetzte geringe Gebühr für die ärztliche Hilfeleistung bei der                         natürlichen Ent-<lb/>
+bindung muß der schon jetzt vielfach beklagten zu                         großen Häufigkeit der Zangenan-<lb/>
+legung weiteren Vorschub                         leisten.&#x201C; Jst es ein Wunder, wenn angesichts solcher Zustände<lb/>
+und Erörterungen die Frau an diesen Stellen nicht länger rechtlos sein, wenn                         sie<lb/>
+durch ihre eigenen Sachverständigen hier Sitz und Stimme haben will                         im Rat?</p>                     <lb/>
+<p>Und noch auf einem andern Gebiet, wo sie allmählich die Augen öffnet,                         begehrt<lb/>
+sie ihrer: auf dem Gebiet der öffentlichen Sittlichkeit. Sie                         beginnt die jammervolle<lb/>
+Rolle zu begreifen, die ihrem Geschlecht hier                         zugefallen ist; sie kennt nunmehr die<lb/>
+volksmörderischen Zustände im                         Bereich der staatlich reglementierten Prostitution. Sie<lb/>
+weiß, daß unter                         der ausschließlichen Herrschaft und Verantwortung der Männer die<lb/>
+Dinge                         sich so fürchterlich gestaltet haben und ist überzeugt, daß ohne ihr, der                         deutschen<lb/>
+Frau, ausgedehntes Mitwissen und Mithelfen auf eine wirkliche                         Besserung hier<lb/>
+nimmermehr zu hoffen ist. &#x2013; </p>                     <lb/>
+<p>Die Verhandlungen des 26. deutschen Ärztetages machen fast den Eindruck,                         als<lb/>
+ob man dort der Ansicht gewesen wäre, die Frauen seien selbst nicht                         ganz im klaren<lb/>
+über die Tragweite ihrer eigenen Forderungen. Glaubt man                         denn wirklich, wir setzten<lb/>
+soviel Energie an ein Phantom? Wir stellten                         uns so, hundertmal geschlagen, auch<lb/>
+zum hundertunderstenmal wieder in                         Gefechtsordnung für eine Sache, deren welt-<lb/>
+geschichtliches Recht nicht                         in seinem ganzen Umfang von uns erkannt worden wäre?<lb/>
+Glaubt man, wir                         wagten das Köstlichste, was wir besitzen, unsre Mädchenjugend,<lb/>
+unbedachtsam an einen Kampf, der als ein unerquicklicher und schwerer noch                         lange<lb/>
+nicht zur Ruhe kommen wird?</p>                     <lb/>
+<p>Sicher nicht. Wir wußten, was wir thaten, als wir ihn begannen und sind<lb/>
+fest entschlossen, ihn zu Ende zu führen. Der ganze denkfähige und                         wohldenkende Teil<lb/>
+der deutschen Frauenwelt, der heute für sein                         Geschlecht und Volk Heilbringendes von<lb/>
+ihnen erwartet, wird einmal                         hinter unsern jungen ärztlichen Pionieren stehen und sie<lb/>
+nach Kräften                         halten, fördern und beschützen.</p>                     <lb/>
+<figure/>                 </div>             </div>         </body>     </text> </TEI>

@@ -1,0 +1,890 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.deutschestextarchiv.de/basisformat.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">     <teiHeader>
+<fileDesc>
+<titleStmt>
+<title type="main">Das Pfennig-Magazin für Belehrung und Unterhaltung</title>
+<title type="sub">Dritte Folge, Dritter Jahrgang, Nr. 117</title>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/115266127">
+<surname>Geyken</surname>
+<forename>Alexander</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1222198746">
+<surname>Haaf</surname>
+<forename>Susanne</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1019062681">
+<surname>Jurish</surname>
+<forename>Bryan</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Boenig</surname>
+<forename>Matthias</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Thomas</surname>
+<forename>Christian</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Wiegand</surname>
+<forename>Frank</forename>
+</persName>
+</editor>
+<respStmt>
+<orgName>Institut für Deutsche Sprache, Mannheim</orgName>
+<resp>
+<note type="remarkResponsibility">Bereitstellung der Bilddigitalisate und TEI
+Transkription</note>
+<ref target="http://hdl.handle.net/10932/00-01B8-B0BE-4EC0-4B01-A"/>
+</resp>
+</respStmt>
+<respStmt>
+<persName>
+<forename>Peter</forename>
+<surname>Fankhauser</surname>
+</persName>
+<resp>
+<note type="remarkResponsibility">
+Transformation von TUSTEP nach TEI P5.
+Transformation von TEI P5 in das DTA TEI P5 Format.
+</note>
+</resp>
+</respStmt>
+<respStmt>
+<orgName ref="https://www.bbaw.de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<resp>
+<note type="remarkResponsibility">Langfristige Bereitstellung der DTA-Ausgabe</note>
+<ref target="https://www.bbaw.de"/>
+</resp>
+</respStmt>
+</titleStmt>
+<editionStmt><edition>Vollständige digitalisierte Ausgabe.</edition></editionStmt>
+<extent>
+<measure type="images">8</measure>
+<measure type="tokens">4946</measure>
+<measure type="types">2203</measure>
+<measure type="characters">33893</measure>
+</extent>
+<publicationStmt>
+<publisher xml:id="DTACorpusPublisher">
+<email>dta@bbaw.de</email>
+<orgName role="project">Deutsches Textarchiv</orgName>
+<orgName role="hostingInstitution" xml:lang="en">Berlin-Brandenburg Academy of Sciences and Humanities (BBAW)</orgName>
+<orgName role="hostingInstitution" xml:lang="de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<address>
+<addrLine>Jägerstr. 22/23, 10117 Berlin</addrLine>
+<country>Germany</country>
+</address>
+</publisher>
+<pubPlace>Berlin</pubPlace>
+<date type="publication">2025-10-24T08:35:16Z</date>
+<availability>
+<licence target="http://creativecommons.org/publicdomain/zero/1.0/">
+<p>Dieses Werk steht unter der "Creative Commons Namensnennung -
+Nicht kommerziell 3.0 Deutschland Lizenz" (CC BY-NC).</p>
+</licence>
+</availability>
+<idno>
+<idno type="URLWeb">https://www.deutschestextarchiv.de/nn_pfennig117_1855</idno>
+<idno type="URLXML">https://www.deutschestextarchiv.de/book/download_xml/nn_pfennig117_1855</idno>
+<idno type="URLHTML">https://www.deutschestextarchiv.de/book/download_html/nn_pfennig117_1855</idno>
+<idno type="URLText">https://www.deutschestextarchiv.de/book/download_text/nn_pfennig117_1855</idno>
+<idno type="DTADirName">nn_pfennig117_1855</idno>
+<idno type="DTAID">34749</idno>
+<idno type="URN">urn:nbn:de:kobv:b4-34749-7</idno>
+</idno>
+</publicationStmt>
+<sourceDesc>
+<bibl type="J">Das Pfennig=Magazin für Belehrung und Unterhaltung. Dritte Folge, Dritter Jahrgang, Nr. 117. Leipzig (Sachsen), 29. März 1855.</bibl>
+<biblFull>
+<titleStmt>
+<title level="m" type="main">Das Pfennig-Magazin für Belehrung und Unterhaltung</title>
+<title level="m" type="sub">Dritte Folge, Dritter Jahrgang, Nr. 117</title>
+</titleStmt>
+<editionStmt>
+<edition n="1"/>
+</editionStmt>
+<publicationStmt>
+<publisher/>
+<pubPlace>Leibzig (Sachsen)</pubPlace>
+<date type="publication">1855</date>
+</publicationStmt>
+</biblFull>
+<msDesc>
+<msIdentifier/>
+<physDesc>
+<typeDesc>
+<p>Fraktur</p>
+</typeDesc>
+</physDesc>
+</msDesc>
+</sourceDesc>
+</fileDesc>
+<encodingDesc>
+<editorialDecl>
+<p>
+<![CDATA[
+<p>Siehe Dokumentation</p>
+]]>
+</p>
+</editorialDecl>
+<tagsDecl>
+<rendition scheme="css" xml:id="aq">font-family:sans-serif</rendition>
+<rendition scheme="css" xml:id="b">font-weight:bold</rendition>
+<rendition scheme="css" xml:id="blue">color:blue</rendition>
+<rendition scheme="css" xml:id="c">display:block; text-align:center</rendition>
+<rendition scheme="css" xml:id="et">display:block; margin-left:2em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et2">display:block; margin-left:4em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et3">display:block; margin-left:6em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="f">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="fr">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="g">letter-spacing:0.125em</rendition>
+<rendition scheme="css" xml:id="i">font-style:italic</rendition>
+<rendition scheme="css" xml:id="in">font-size:150%</rendition>
+<rendition scheme="css" xml:id="k">font-variant:small-caps</rendition>
+<rendition scheme="css" xml:id="larger">font-size:larger</rendition>
+<rendition scheme="css" xml:id="red">color:red</rendition>
+<rendition scheme="css" xml:id="right">display:block; text-align:right</rendition>
+<rendition scheme="css" xml:id="s">text-decoration:line-through</rendition>
+<rendition scheme="css" xml:id="smaller">font-size:smaller</rendition>
+<rendition scheme="css" xml:id="sub">vertical-align:sub; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="sup">vertical-align:super; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="u">text-decoration:underline</rendition>
+<rendition scheme="css" xml:id="uu">border-bottom:double 3px #000</rendition>
+</tagsDecl>
+</encodingDesc>
+<profileDesc>
+<langUsage>
+<language ident="deu">(Früh-)Neuhochdeutsch</language>
+<language ident="deu">German</language>
+</langUsage>
+<textClass>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1main">Gebrauchsliteratur</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1sub">Zeitschrift</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">ready</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">mkhz1</classCode>
+</textClass>
+</profileDesc>
+</teiHeader>
+<text>     <front>
+<pb facs="#f0001" n="[97]"/>
+<titlePage type="heading"><docTitle><titlePart type="main"><hi rendition="#c #fr">Das Pfennig=Magazin<lb/>
+für<lb/>
+<hi rendition="#g">Belehrung und Unterhaltung</hi>.</hi></titlePart></docTitle><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<docImprint><hi rendition="#fr">Nr</hi>. 117. ]              <hi rendition="#c">Dritte Folge. Dritter Jahrgang.</hi>              <docDate><hi rendition="#right">[ 29. <hi rendition="#g">März</hi> 1855.</hi></docDate>            </docImprint></titlePage><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+</front>     <body>       <div n="1" type="jArticle"><head><hi rendition="#fr">Rudolf Töpffer.</hi></head><lb/>
+<figure/><lb/>
+<cb type="start"/>
+<p><hi rendition="#in">R</hi>udolf Töpffer, geboren zu Genf am 17. Februar<lb/>
+1799, wo sein Vater, Valentin Töpffer, als Maler,<lb/>
+besonders in Darstellung von Landschaften und Volks-<lb/>
+scenen, sehr geschätzt war. Unter Anleitung des Va-<lb/>
+ters widmete er sich der Kunst, zog aber später das<lb/>
+Studium der Wissenschaften vor, trat in das Schul-<lb/>
+fach ein und ward zuletzt Professor der Aesthetik an<lb/>
+der Akademie zu Genf, wo er bereits am 8. Juni 1846<lb/>
+<cb n="2"/>
+starb. Er war aber der Kunst nicht untreu geworden<lb/>
+und zierte eine Anzahl trefflicher Novellen, die er<lb/>
+schrieb, mit meisterhaften Zeichnungen, versah auch<lb/>
+viele andere Schriften mit vielen und guten Jllustra-<lb/>
+tionen. Mehre der in der letztern Zeit und auch frü-<lb/>
+her in diesen Blättern mitgetheilten Ansichten schwei-<lb/>
+zerischer und italienischer Gegenden rühren von ihm her.</p></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<pb facs="#f0002" n="98"/>
+<fw place="top" type="pageNum">98</fw>       <cb type="start"/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Paris und Kaiser Napeleon</hi> <hi rendition="#aq">III.</hi></head><lb/>
+<p><hi rendition="#in">P</hi>aris wollte am 15. August 1853 mit dem Wiegen-<lb/>
+feste seines ersten Kaisers zum ersten male den Na-<lb/>
+menstag seines zweiten Kaisers feiern, dieser Tags<lb/>
+vorher über die Armee und die Nationalgarde von<lb/>
+Paris Heerschau halten. Von den Tuilerien entlang<lb/>
+der Elyseischen Felder über den Triumphbogen de l'Etoile<lb/>
+hinaus ständen die Truppen; der Concordienplatz war<lb/>
+einem Theil der Nationalgarde angewiesen. Gegen<lb/>
+1 Uhr erschien die Kaiserin von Saint=Cloud kommend<lb/>
+in offenem, sechsspännigem Wagen mit zwei Damen<lb/>
+und kleinem Gefolge. &#x201E; <hi rendition="#aq">Vive l'Impératrice</hi>!&#x201C; lief es<lb/>
+die Reihen der Truppen hinab; doch erschallte der Ruf<lb/>
+weder herzlich noch hoch und verstummte, als der Wa-<lb/>
+gen die Nationalgarde erreichte. Die Kaiserin in wei-<lb/>
+ßem, einfachem Gewande, ein liebliches Lächeln auf<lb/>
+den holden Zügen, umfuhr den Concordienplatz. Die<lb/>
+Trommeln wirbelten, die Hörner klangen, die Mu-<lb/>
+sik <gap reason="illegible" unit="chars" quantity="2"/>en spielten, die Fahnen grüßten; keine Ehren-<lb/>
+bezeignng fehlte, nur der Zuruf; die Legionen blieben<lb/>
+stumm.</p><lb/>
+<p>Nicht lange so zeigte sich der Kaiser hoch zu Roß,<lb/>
+auf einem prächtigen Braunen, in Generallieutenants-<lb/>
+uniform, das breite Band der Ehrenlegion über der<lb/>
+Schulter, in Federhut und Reiterstulpen. &#x201E; <hi rendition="#aq">Vive l' Em-<lb/>
+pereur</hi>!&#x201C; rollte es laut und lauter von jenseit des<lb/>
+Triumphbogens durch die Elyseischen Felder zum Con-<lb/>
+cordienplatze heran, und während der Kaiser mit gezo-<lb/>
+genem Hute, im Schritt, er allein, seinem Gefolge<lb/>
+weit voraus, den Kreis zwei mal umritt, ließen die<lb/>
+männlichen Stimmen der Nationalgarde ein kräftig<lb/>
+wiederholtes &#x201E; <hi rendition="#aq">Vive</hi>!&#x201C; erschallen.</p><lb/>
+<p>Nachdem der Kaiser sich im Tuileriengarten am<lb/>
+Pavillon de l'Horloge aufgestellt und hinter ihm auf<lb/>
+dem Schloßaltan die Kaiserin Platz genommen, rück-<lb/>
+ten die Truppen vorüber, an ihrer Spitze die Natio-<lb/>
+nalgarde. Jetzt zwar rief diese der Kaiserin ein hör-<lb/>
+bares Hoch; aber voller und freudiger klang ihr &#x201E; <hi rendition="#aq">Vive<lb/>
+l'Empereur</hi>!&#x201C;</p><lb/>
+<p>Seit Monaten war für die Feier des 15. August<lb/>
+Alles vorbereitet worden, was menschlicher Scharfsinn<lb/>
+zu erdenken, französischer Geschmack auszuklügeln ver-<lb/>
+mochte. Das letzte Gelingen lag in der Wetterfügung<lb/>
+des Himmels. Fromme Wünsche, daß er dem Feste<lb/>
+günstig sein, und böse Wünsche, daß er Sturm und<lb/>
+Regen senden möge, die öffentliche Begehung zu ver-<lb/>
+eiteln, waren, wenn auch letztere in kleinerer Zahl, ge-<lb/>
+wiß gehegt worden. Das Fest galt ja dem Kaiser;<lb/>
+es war ihm zu Ehren das erste Volksfest seit seiner<lb/>
+Thronbesteigung, und ob der Himmel dazu lächle oder<lb/>
+nicht, das konnte dem Volke &#x2014; vielleicht nicht dem<lb/>
+Volke allein &#x2014; ein Zeichen sein, ob der Himmel dem<lb/>
+Kaiser lächle, denn so sehr hat die Aufklärung des<lb/>
+19. Jahrhunderts noch nirgends den Aberglauben ge-<lb/>
+lichtet, daß er aufgehört hätte, bei solcher Veranlassung<lb/>
+das Wetter zum Kündiger der &#x201E;Gesinnung dort oben&#x201C;<lb/>
+zu machen. Die frommen Wünsche fanden Erhörung.<lb/>
+Regen bis 8 Uhr Morgens, den wilden Staub zu bän-<lb/>
+d <gap reason="illegible" unit="chars" quantity="3"/>gen. Dann bei milder Luft leichtes Gewölk zum<lb/>
+Schutze gegen die heiße Sonne. Der Abend still und<lb/>
+wolkenlos. Auch blieb des Himmels Gunst nicht un-<lb/>
+bemerkt, nicht unbesprochen. Der Himmel will dem<lb/>
+Kaiser wohl, hieß es hier, hieß es dort. Und<lb/>
+gibt es keinen Zufall, so dürfen Diejenigen nicht<lb/>
+gescholten werden, die solches sagten, wahrscheinlich<lb/>
+glaubten.</p><lb/>
+<p>Das Fest war eins der reichsten, glänzendsten und<lb/>
+<cb n="2"/>
+glücklichsten, die Paris gesehen &#x2014; reich in seinem<lb/>
+Wechsel, alle Theater frei, Wettfahrten von Segel-<lb/>
+und Ruderbooten, auf dem Marsfelde Reiter= und<lb/>
+Tanzkünste im großartigsten Stil &#x2014; glänzend und<lb/>
+feenhaft, bei einbrechendem Abend mit 100,000 Lam-<lb/>
+pen behangene, decorirte Gerüste von den Tuilerien<lb/>
+aus um den Concordienplatz längs der Elyseischen Fel-<lb/>
+der bis zum Triumphbogen, 354 Arcaden und 26<lb/>
+Säulenhallen voll farbiger Gläser, zwischen ihnen auf<lb/>
+der einen, und bunt mit Arabesken gezierten mauri-<lb/>
+rischen Wänden auf der andern Seite Kronleuchter von<lb/>
+Silberdraht mit rothen und grünen, blauen und gel-<lb/>
+ben Laternen, aus stattlich geschmückten Orchestern<lb/>
+rauschende Musiken, über der Fontaine des Rond<lb/>
+Point ein mit Blitzen unter den ausgebreiteten Fittichen<lb/>
+auf sternbesäeter Weltkugel ruhender Adler, in der<lb/>
+Wölbung des Triumphbogens der brillantenfunkelnde<lb/>
+Stern der Ehrenlegion, zum Schluß drei prächtige<lb/>
+Feuerwerke, wo ein gekrönter Adler den Namenszug<lb/>
+des Kaisers in die Lüfte trug, Funken um Funken<lb/>
+fallen ließ, und zum Stern verwandelt über Paris<lb/>
+schwebte, bis des Himmels Sterne ihn aufnahmen &#x2014;<lb/>
+und eins der glücklichsten Feste, denn kein Unfall trübte<lb/>
+die allgemeine Heiterkeit und ein Einschreiten der be-<lb/>
+waffneten oder polizeilichen Gewalt machte sich nir-<lb/>
+gends nothwendig. Die von der Vorsicht getroffenen<lb/>
+Maßregeln hatten Vertrauen erweckt; das Volk hand-<lb/>
+habte die Ordnung. Da aller Raum den Fußgän-<lb/>
+gern gehörte, schwieg jede Besorgniß vor Wagen und<lb/>
+Reitern, und weil Alle sich frei fühlten und froh sein<lb/>
+wollten, half einer dem Andern und Alle waren<lb/>
+vergnügt.</p><lb/>
+<p>Gezwungen, dies anzuerkennen, suchte an den fol-<lb/>
+genden Tagen böser Wille in der sparsamen Beleuch-<lb/>
+tung der Privathäuser, zu welcher die Bewohner &#x201E; ein-<lb/>
+geladen &#x201C; worden waren, einen Maßstab der Theil-<lb/>
+nahme an der Bedeutung des Festes, gleich als ob<lb/>
+danach die Freunde und Gegner des Kaisers sich ab-<lb/>
+zählen ließen, oder vor den Farbenmeeren, welche die<lb/>
+Bevölkerung angestaunt, einzelne Lampen und Lichter<lb/>
+nicht hätten erbleichen müssen. Wer wirklich sehen<lb/>
+wollte, wie die Theilnahme an der Bedeutung des<lb/>
+Festes sich gestaltete, der mußte in der fünften Nach-<lb/>
+mittagsstunde auf dem Marsfelde sein, als inmitten<lb/>
+Dessen, was man &#x201E;das Volk&#x201C; zu nennen pflegt, in-<lb/>
+mitten von Zwanzigtausenden aus den niedern Schich-<lb/>
+ten der Kaiser und die Kaiserin in offenem Wagen<lb/>
+erschienen, wenige reitende Municipalgarde voran. Nie<lb/>
+konnte, was so häufig behauptet worden war, daß der<lb/>
+Kaiser sich nicht ins Volk wage, eine schlagendere Wi-<lb/>
+derlegung erfahren.</p><lb/>
+<p>Sobald der kaiserliche Wagen sich in der Ferne<lb/>
+zeigte, zog der rasch verbreitete Ruf: &#x201E;Der Kaiser!&#x201C; Aller<lb/>
+Blicke von der 75jährigen Frau ab, welche eben noch<lb/>
+Aller Augen angezogen, wie sie ein 115 Fuß hoch<lb/>
+gespanntes Seil hinanstieg, jetzt kniete und die Hände<lb/>
+faltete, jetzt sich erhob und den schwindelnden Pfad<lb/>
+verfolgte. <note place="foot" n="*)">Madame Saqui mit dem von Napoleon <hi rendition="#aq">I</hi>. ihr er-<lb/>
+theilten Titel: <hi rendition="#aq">Première acrobate de France.</hi></note></p><lb/>
+<p>Eine schwellende, wogende Menge umringte den<lb/>
+Wagen; Hüte und Mützen flogen empor; aus kräfti-<lb/>
+gen Kehlen erschallte der volltönende Ruf: Es lebe der<lb/>
+Kaiser! Daran war nichts Bestelltes, nichts Bezahl-<lb/>
+tes. Eine Freude, wie sie sich nicht bestellen, nicht<lb/>
+bezahlen läßt, leuchtete von den braunen Gesichtern<lb/>
+der Männer in blauen Blousen. Und so nahe war<lb/>
+<cb type="end"/>
+<pb facs="#f0003" n="99"/>
+<fw place="top" type="pageNum">99</fw><cb type="start"/>
+der Kaiser dem Volke, daß jede Hand ihn berühren<lb/>
+konnte.</p><lb/>
+<p>Die Feier des 15. August 1854, obschon ebenfalls<lb/>
+glänzend und glücklich, doch minder reich als die des<lb/>
+vorhergegangenen Jahres, entbehrte die Gegenwart des<lb/>
+Kaisers, welchen die damaligen Ereignisse in Spanien<lb/>
+zu einer Reise in die angrenzenden Provinzen bewogen<lb/>
+hatten. Er fehlte dem Feste, aber die Erinnerung an<lb/>
+ihn fehlte nicht, und je lauter das Bedauern seiner<lb/>
+Abwesenheit sich äußerte, desto weniger konnte ein<lb/>
+Zweifel bleiben, daß eine in den Herzen der Pariser<lb/>
+fester gewurzelte Liebe ihn mit gesteigerter Huldigung<lb/>
+begrüßt haben würde.</p><lb/>
+<p>Zwei Monate vorher hatte auf dem Marsfelde eine<lb/>
+Ausstellung landwirthschaftlicher Gegenstände stattge-<lb/>
+funden. Am letzten Tage unmittelbar nach Verthei-<lb/>
+lung der Preise fuhren der Kaiser und die Kaiserin<lb/>
+vor. Keine Empfangsvorbereitung hatte ihr Kommen<lb/>
+erwarten lassen und die Anwesenden gehörten meist<lb/>
+andern Ständen an als Diejenigen waren, welche hier<lb/>
+am 15. August 1853 den Herrscher mit Jubel be-<lb/>
+grüßt hatten. Doch übte das Erscheinen der Majestä-<lb/>
+ten gleiche Wirkung, nur daß häufiger als damals<lb/>
+dem &#x201E; <hi rendition="#aq">Vive l'Empereur</hi>!&#x201C; ein &#x201E; <hi rendition="#aq">Vive l'Impératrice</hi>!&#x201C;<lb/>
+sich anschloß.</p><lb/>
+<p>Begleitet vom Minister für Ackerbau, welcher die<lb/>
+Preise vertheilt hatte, und von den Geschworenen,<lb/>
+welche sie zuerkannt, gingen Kaiser und Kaiserin die<lb/>
+Verschläge hinab, in denen erst das Geflügel, dann<lb/>
+die Schafe, dann das Borsten=, dann das Klauen-<lb/>
+vieh eingepfercht waren, und kehrten längs der Reihen<lb/>
+zurück, welche Agriculturgeräthe und landwirthschaft-<lb/>
+liche Erzeugnisse bildeten. Alle Departements Frank-<lb/>
+reichs waren durch Landwirthe vertreten und Jeder<lb/>
+hatte sich eiligst an den seinen Producten angewiesenen<lb/>
+Platz begeben. Welcher Ausdruck innigster Befriedi-<lb/>
+gung auf diesen ehrlichen Gesichtern, daß Kaiser und<lb/>
+Kaiserin zu ihnen kamen! Wie hell und glücklich strahl-<lb/>
+ten die Augen, wenn Kaiser und Kaiserin ihren Gruß<lb/>
+erwiderten, und mit welch verdoppeltem Stolze blickte<lb/>
+der Eine auf sein blütenweißes Schäfchen, das die<lb/>
+Kaiserin gestreichelt, ein Anderer auf seinen Stier,<lb/>
+dem der Kaiser den sehnigen Hals geklopft hatte! Sie<lb/>
+Alle kannten wol schon den Kaiser, mochten ihn im<lb/>
+Bilde oder bereits von Person gesehen haben. Doch<lb/>
+jetzt stand er vor ihnen, neben ihnen, zu seiner Seite<lb/>
+die Kaiserin, und Jeder schien die Züge sich einprä-<lb/>
+gen, sie für Weib und Kind mit nach Hause nehmen<lb/>
+zu wollen. Ein Bretagner, dem der Kaiser zu dem<lb/>
+erhaltenen Preise Glück gewünscht und die Hand ge-<lb/>
+drückt hatte, hob seinen Knaben, der sich an ihn ge-<lb/>
+schmiegt, hoch empor, zeigte ihm den Kaiser und<lb/>
+sagte: &#x201E;Schau den Mann, der uns und Frankreich<lb/>
+gerettet!&#x201C;</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Ein Opfer falschen Verdachts.</hi></head><lb/>
+<p><hi rendition="#in">V</hi>or etwa zehn Jahren traf ein Viehhändler aus<lb/>
+Prag in einem bekannten Gasthause zu Chl&#x2014; gerade<lb/>
+zu einer Zeit ein, als daselbst die Hochzeit der Wirths-<lb/>
+tochter gefeiert wurde. Aufgefodert, ein Ehrentänz-<lb/>
+chen mitzumachen, übergab er seinen mit 4000 Fl.<lb/>
+C.=M. gefüllten Leibledergurt einem neben ihm ste-<lb/>
+<cb n="2"/>
+henden Fleischer des Orts zur Aufbewahrung. Nach<lb/>
+einigen Stunden übernahm er den Gurt, begab sich<lb/>
+in sein Schlafgemach, legte den Gurt, ohne den Jn-<lb/>
+halt weiter zu prüfen, neben sich auf einen Stuhl,<lb/>
+sperrte die Thür ab und schlief bald fest ein. Zeitig<lb/>
+Morgens schnallte er den Gurt um und reiste nach<lb/>
+P. auf den Markt. Nach gemachten Einkäufen wollte<lb/>
+er zahlen, doch wer malt seinen Schrecken, als er in<lb/>
+dem Gurte statt 4000 Fl. C.=M. &#x2014; ein Packet Ci-<lb/>
+garren sindet!</p><lb/>
+<p>Er fuhr sogleich nach Chl&#x2014; zurück, stellte den<lb/>
+Fleischer zur Rede, welcher trotz alles Leugnens, den<lb/>
+Gurt geöffnet und auch nur seinen Jnhalt gekannt zu<lb/>
+haben, dem Gericht übergeben wurde. Nach 18monat-<lb/>
+licher Haft mußte man ihn wegen Mangels an Be-<lb/>
+weisen wieder entlassen; er starb aber bald darauf,<lb/>
+eine arme Witwe mit unversorgten Kindern hinter-<lb/>
+lassend. Vor einigen Wochen wurde der Viehhändler<lb/>
+zum Gerichte in Chl&#x2014; vorgeladen und demselben er-<lb/>
+öffnet, daß der Dieb jener 4000 Fl. ermittelt sei und<lb/>
+ihm dieser Betrag ausgefolgt werden könne. Voll<lb/>
+Erstaunen vernahm er, daß der Hausknecht in dem<lb/>
+Gasthofe zu Chl&#x2014; damals den Diebstahl verübt habe,<lb/>
+indem von diesem das Gemach des fest Schlafenden<lb/>
+mit einem Nachschlüssel geöffnet, der Jnhalt des Gurts<lb/>
+herausgenommen und an dessen Stelle die Cigarren<lb/>
+hineingesteckt worden seien.</p><lb/>
+<p>Erst nach einem so langen Zeitraume wurde diese<lb/>
+That gelegentlich eines neuen Diebstahls in Mähren<lb/>
+entdeckt, wo der Thäter ein ansehnliches Wirthshaus<lb/>
+besaß. Der Viehhändler, der seinen Verlust längst<lb/>
+verschmerzt hatte, übergab den ganzen Betrag der<lb/>
+Witwe jenes unglücklichen Fleischers.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Naturanschauungen australischer Eingeborener.</hi></head><lb/>
+<p><hi rendition="#in">A</hi>uch der schwarze Mensch Australiens betrachtet die<lb/>
+Sterne vermenschlicht. Die Sonne ist ihm eine Frau,<lb/>
+die, wenn sie untergeht, die Wohnplätze der Todten<lb/>
+passirt; so ist die Nacht durch das dunkle Grab er-<lb/>
+klärt. Nähert sich aber die Sonne wieder, so versam-<lb/>
+meln sich die Männer bei den Todten und theilen sich<lb/>
+in zwei Massen &#x2014; Morgen und Abend &#x2014;, um durch<lb/>
+sie hindurchzugehen. Von den Männern eingeladen,<lb/>
+bei ihnen zu bleiben, nimmt es die Sonne nur auf<lb/>
+kurze Zeit an, da sie sich sofort zu ihrer Weiterreise<lb/>
+zu rüsten hat. Die Männer sind nicht undankbar; die<lb/>
+Sonne erhält von ihnen ein rothes Känguruhfell ( Mor-<lb/>
+gen- und Abendröthe ) . Auch der Mond ist eine<lb/>
+Frau. Von den Männern aufgehalten, wird sie im-<lb/>
+mer magerer, zuletzt wie ein Skelett. Sie verbirgt<lb/>
+sich für einige Zeit, um in der Einsamkeit durch den<lb/>
+Genuß von Wurzeln wieder zuzunehmen; so ist der<lb/>
+Mondwechsel erklärt. Die Sterne waren früher Men-<lb/>
+schen; sie verlassen ihre Hütten nur des Abends, neh-<lb/>
+men aber in ihren Wohnungen dieselben Verrichtun-<lb/>
+gen wieder vor, die sie auf Erden hatten. So lassen<lb/>
+sie die Milchstraße aus einer Reihe von Hütten beste-<lb/>
+hen, deren Rauch das Nebelhafte dieser Straße bildet.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<cb type="end"/>
+<pb facs="#f0004" n="100"/>
+<fw place="top" type="pageNum">100</fw><lb/>
+<div n="1"><figure><head><hi rendition="#fr">Verreze, im Thale von Aosta in Piemont.</hi></head></figure></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Die Femgerichte.</hi><lb/>
+Eine Geschichte aus dem Mittelalter.</head><lb/>
+<cb type="start"/>
+<p><hi rendition="#in">D</hi>em ersten Zwecke nach, den wir bereits früher ein-<lb/>
+mal ( vergleiche Pfennig=Magazin, Jahrgang 1846,<lb/>
+Nr. 194 ) ausführlicher erörterten, war es mit der<lb/>
+Einrichtung der Femgerichte gar gut gemeint. Der<lb/>
+mächtigste Bösewicht durfte nicht hoffen, ungestraft zu<lb/>
+sündigen; es half ihm zu nichts, den gewöhnlichen<lb/>
+Richter zu bestechen oder durch falsche Zeugen und auf<lb/>
+<cb n="2"/>
+andere Art zu hintergehen. Er entging, wenn sein<lb/>
+Verbrechen ruchbar wurde, nimmer dem weitreichenden<lb/>
+Arme der furchtbaren Feme! Somit war denn, be-<lb/>
+sonders in einem Zeitalter, wo so oft Gewalt für<lb/>
+Recht galt, das Femgericht von den wohlthätigsten<lb/>
+Wirkungen und die kühnsten Frevler mußten davor<lb/>
+zittern.</p><lb/>
+<cb type="end"/>
+<pb facs="#f0005" n="101"/>
+<fw place="top" type="pageNum">101</fw>       <cb type="start"/>
+<p>Allein nicht alle Schöffen waren redliche, gerechtig-<lb/>
+keitsliebende Menschen. Viele unter ihnen <gap reason="illegible" unit="chars" quantity="13"/>misbrauch-<lb/>
+ten ihre Gewalt zum Verderben freisinniger, edler<lb/>
+Männer, und anstatt die Unschuld vor Gewaltthätig-<lb/>
+keiten zu schützen, mordeten sie dieselbe nur allzu oft,<lb/>
+von Eigennutz oder Bosheit geleitet. Selbst die stärk-<lb/>
+sten Burgen und der unsträflichste Wandel konnten am<lb/>
+Ende die Edlen und Fürsten nicht vor dem Untergange<lb/>
+retten, wenn einige Bösewichter, welche mit den Wissen-<lb/>
+den in Verbindung standen, sich zu ihrem Verderben<lb/>
+verschworen hatten. Welche kühne und schändliche An-<lb/>
+schläge bisweilen von den Schöffen der heiligen Feme<lb/>
+angezettelt wurden, beweist folgende Geschichte.</p><lb/>
+<cb n="2"/>
+<p>Der Kurfürst von der Pfalz, Ludwig der Fromme,<lb/>
+auch der Bärtige genannt, von einem großen Barte,<lb/>
+den er von seinem Zuge in das Heilige Land mitge-<lb/>
+bracht hatte, war der Vater zweier hoffnungsvoller<lb/>
+Söhne, Ludwig und Friedrich. Beide Prinzen wur-<lb/>
+den in Allem, was junge Fürsten schmückt, von ihrem<lb/>
+treuen Lehrer, Mathias von Kement, auf das beste<lb/>
+unterrichtet; auf beiden Brüdern ruhte aber ein ganz<lb/>
+verschiedener Geist, denn Ludwig zeigte einen mil-<lb/>
+den, stillen Charakter und vielen religiösen Sinn;<lb/>
+in Friedrich hingegen brauste ein heftiges Feuer und<lb/>
+ein Kraftgefühl, das ihn zu großen Thaten ent-<lb/>
+flammte.</p>       <cb type="end"/>
+<figure>         <head>  Femgericht.  </head>       </figure><lb/>
+<cb type="start"/>
+<p>Sobald der Vater die Augen geschlossen hatte, be-<lb/>
+stieg Ludwig, als der Erstgeborene, den Thron seiner<lb/>
+Vorfahren, nahm aber, wohl fühlend, daß ihm die<lb/>
+Regenteneigenschaften fehlten, die Friedrich in einem so<lb/>
+vorzüglichen Grade besaß, seinen Bruder zum Mit-<lb/>
+regenten an. Er hatte es nicht zu bereuen, denn der<lb/>
+kraftvollere Friedrich führte mit fester Hand die Zügel<lb/>
+der Regierung, war ein mächtiger Beschirmer des<lb/>
+Rechts, bändigte die mächtigsten Vasallen, die auf<lb/>
+Kosten des Volks in Prunk und Ueppigkeit zu leben<lb/>
+suchten, und wurde bald ebenso sehr gefürchtet als ge-<lb/>
+liebt. Je mehr er sich nämlich die Achtung und das<lb/>
+Vertrauen des Bürgers und des gemeinen Mannes<lb/>
+erwarb, desto unversöhnlicher entbrannte gegen ihn der<lb/>
+Haß des Adels, der kein anderes Gesetz als das Recht<lb/>
+des Stärkern anerkennen wollte.</p><lb/>
+<p>Unter seine grimmigsten Feinde gehörten die Gra-<lb/>
+fen Wilhelm und Jakob von Lüzelstein. Jhre Schwe-<lb/>
+ster Leonore war Gesellschaftsdame am kurfürstlichen<lb/>
+Hofe, sie selbst aber waren Lehnsleute der Fürsten;<lb/>
+gleichwol erfrechten sie sich, ihre Herren zu befehden.<lb/>
+<cb n="2"/>
+Pfalzgraf Friedrich aber verließ seine Burg zu Heidel-<lb/>
+berg, zog gegen sie aus mit seinen Reisigen, schlug<lb/>
+ihre Söldner und demüthigte die Anführer. Dar-<lb/>
+auf schwuren diese ihm fürchterliche Rache, und da sie<lb/>
+Mitglieder der heiligen Feme waren, so klagten sie ihn<lb/>
+bei dem heimlichen Gerichte der Unzucht und mancher-<lb/>
+lei Unbilden gegen die Edlen des Landes an. Sie be-<lb/>
+schuldigten ihn sogar der Zauberei und gaben vor, er<lb/>
+stehe im Bunde mit bösen Geistern, die seine Waffen<lb/>
+vergifteten und ihm seine Siege erkämpften. Jhre Lü-<lb/>
+gen fanden Eingang, denn die Ritter standen als tapfere<lb/>
+Männer in großem Ansehen bei der heiligen Feme, die<lb/>
+sogleich den Beschluß faßte, den Pfalzgrafen nach ihren<lb/>
+Gebräuchen zu richten.</p><lb/>
+<p>So etwas zu beschließen, war zwar leicht, desto<lb/>
+schwieriger aber schien die Ausführung, denn Friedrich<lb/>
+war beständig von einer getreuen Ritterschaft umgeben.<lb/>
+Es wurde daher der teuflische Plan entworfen, den<lb/>
+einen Bruder durch den andern zu verderben. Man<lb/>
+wollte nämlich durch allerlei Drohungen und schreckende<lb/>
+Blendwerke Ludwig's sanften und schwachen Geist zu<lb/>
+<cb type="end"/>
+<pb facs="#f0006" n="102"/>
+<fw place="top" type="pageNum">102</fw><cb type="start"/>
+erschüttern und auf solche Art Friedrich's Auslieferung<lb/>
+zu bewirken suchen.</p><lb/>
+<p>Einst fanden sich an dem Hofe zu Heidelberg zwei<lb/>
+fremde Ritter in kostbarem Schmuck und seltenem<lb/>
+Glanze ein. Ludwig nahm sie gastlich auf, gebot, sie<lb/>
+auf alle Weise zu ehren und lud sie ein, länger bei<lb/>
+ihm zu verweilen. Die Auffoderung wurde angenom-<lb/>
+men; die Ritter blieben und wußten sich des Fürsten<lb/>
+Wohlwollen in einem solchen Grade zu erwerben, daß<lb/>
+ihnen zu Ehren Feste und allerlei Lustbarkeiten ange-<lb/>
+stellt wurden. Friedrich aber nahm wenig Antheil an<lb/>
+diesen festlichen Gelagen, denn er widmete seine Zeit<lb/>
+lieber der Erfüllung seiner Regentenpflichten oder den<lb/>
+Wissenschaften. Ueberhaupt kümmerte er sich wenig<lb/>
+um diese Fremden, begegnete ihnen zwar höflich, aber<lb/>
+liebte und fürchtete sie nicht. Viel genauer dagegen<lb/>
+wurden ihre Schritte von seinem treuen Freunde und<lb/>
+Rathgeber Mathias beobachtet, der ihnen von Anfang<lb/>
+an als Unbekannten wenig traute. Er bewachte mit<lb/>
+spähendem Auge ihr Benehmen und bemerkte bald eine<lb/>
+auffallende Vertraulichkeit zwischen ihnen und der Grä-<lb/>
+fin von Lüzelstein, mit welcher sie viel Geheimes zu<lb/>
+reden hatten. Noch mehr, er entdeckte, daß Ludwig's<lb/>
+Beichtvater, der böser Ränke wegen in dem Kloster am<lb/>
+Fuße des Burgbergs eingesperrt war, in der Nacht<lb/>
+sein Gefängniß verließ, sich mit den beiden Rittern un-<lb/>
+terredete und im Freien mit ihnen herumwandelte.<lb/>
+Dies Alles verhieß nichts Gutes; er warnte daher sei-<lb/>
+nen arglosen Gebieter und beredete ihn, zwei Männer<lb/>
+von erprobter Treue, die tapfern Ritter von Gemmin-<lb/>
+gen und von Geisigheim zu steten Begleitern zu wäh-<lb/>
+len, um durch sie vor Ueberraschung und Hinterlist ge-<lb/>
+sichert zu sein.</p><lb/>
+<p>Der Plan der Feme war inzwischen zur Reife ge-<lb/>
+diehen; man war über Alles einig, alle Anstalten wa-<lb/>
+ren getroffen. Eine finstere Nacht war zur Ausfüh-<lb/>
+rung festgesetzt. Man wartete, bis sämmtliche Bewoh-<lb/>
+ner des Schlosses in festem Schlafe lagen. Niemand<lb/>
+ahnte Böses; auch Ludwig lag, sanfter Ruhe hinge-<lb/>
+geben, einsam in seinem Schlafzimmer, das von dem<lb/>
+matten Scheine nur einer Kerze schwach erhellt wurde.<lb/>
+Als aber die zwölfte Stunde schlug, da ließ sich ein<lb/>
+Rauschen und Poltern im Vorsaale hören. Die Thür<lb/>
+des Schlafzimmers flog auf und Gräfin Eleonore, als<lb/>
+Jungfrau Maria verkleidet, mit einem Heiligenscheine<lb/>
+um das Haupt, näherte sich dem Lager des Schlafen-<lb/>
+den, ihn bei seinem Namen rufend. Ludwig, der die<lb/>
+Stimme seiner Gemahlin zu hören glaubte, fuhr auf,<lb/>
+sank aber in demselben Augenblick mit einem Schrei<lb/>
+des Entsetzens zurück.</p><lb/>
+<p>Fürchte dich nicht, sprach die Betrügerin. Jch bin<lb/>
+gekommen, dich zu warnen und zu retten; die Mutter<lb/>
+des Ewigen bringt Segen deinem Hause und Heil dei-<lb/>
+ner Seele! Hierauf fing sie an, ihm seinen Bruder<lb/>
+als Verräther, einen Abtrünnigen der Kirche, einen<lb/>
+Bösewicht, der ihm nach dem Leben trachte und im<lb/>
+geheimen Bunde mit Geistern stehe, darzustellen.</p><lb/>
+<p>Allein nichts von alle Dem, was die Gräfin vor-<lb/>
+brachte, konnte selbst aus solchem Munde Ludwig's<lb/>
+Glauben an Bruderliebe und Brudertreue erschüttern.<lb/>
+Es mußten neue Erscheinungen zu Hülfe genommen<lb/>
+werden, um seinen Geist vollends zu zerrütten.</p><lb/>
+<p>Mit scharfen Worten strafte sie seinen Unglauben<lb/>
+und gebot dem Fürsten der Hölle, den sie selbst bei<lb/>
+seinem Bruder angetroffen zu haben versicherte, zu<lb/>
+Ludwig's Ueberzeugung vor seinen Augen zu erschei-<lb/>
+nen. Jn demselben Augenblicke ließ sich ein fürchter-<lb/>
+liches Kettengerassel im Vorzimmer hören; die Thür-<lb/>
+<cb n="2"/>
+flügel flogen weit auseinander wie vom Sturmwind<lb/>
+aufgerissen, und mit entsetzlichem Gebrüll stürzte sich<lb/>
+der Beichtvater, als Satan verkleidet, herein und<lb/>
+wälzte sich heulend zu den Füßen der Betrügerin.<lb/>
+Diese foderte jetzt von dem an allen Gliedern zittern-<lb/>
+den Fürsten, daß er seinen sündenvollen Bruder der<lb/>
+Rache des Himmels überlassen solle; Ludwig gelobte<lb/>
+es und sank bewußtlos nieder.</p><lb/>
+<p>Diesen Augenblick benutzten die Gaukler, sich un-<lb/>
+bemerkt zu entfernen. Statt ihrer traten zwei Ritter<lb/>
+in schwarzer Rüstung, mit blinkenden Dolchen in der<lb/>
+Hand, herein, schreckten den ohnmächtigen Ludwig auf,<lb/>
+gaben sich als Abgeordnete der heiligen Feme zu er-<lb/>
+kennen und foderten von ihm die Auslieferung seines<lb/>
+Bruders.</p><lb/>
+<p>Mittlerweile hatte sich der Beichtvater in seiner<lb/>
+Teufelslarve lauschend an das Schlafgemach des Pfalz-<lb/>
+grafen Friedrich geschlichen und, da er die darin herr-<lb/>
+schende Stille bemerkte, die Thür geöffnet. Er fand<lb/>
+den Arglosen in süßem Schlafe auf seinem Lager und<lb/>
+überließ sich schon der Freude, ihn wehrlos, wie er<lb/>
+war, nach wenigen Augenblicken in der Gewalt der<lb/>
+schwarzen Ritter zu sehen. Da rauschte es plötzlich in<lb/>
+einer Ecke des Zimmers, wo Gemmingen schlief. Der<lb/>
+Tapfere ließ sich nicht schrecken durch die satanische<lb/>
+Gestalt, griff nach seinem Schwerte und stürmte auf<lb/>
+den Beichtvater los. Vergeblich suchte dieser durch die<lb/>
+offene Thür zu entwischen, er hatte vollauf zu thun,<lb/>
+sich, so gut er konnte, seines Lebens zu wehren.<lb/>
+Schnell zückte er einen verborgenen Dolch und suchte<lb/>
+damit seinem Gegner beizukommen. Allein solche Waffen<lb/>
+in solchen Händen war einem Krieger, wie von Gem-<lb/>
+mingen, nicht fürchterlich. Er schwang sein Schwert,<lb/>
+hieb die Teufelsgestalt nieder, riß ihr den Dolch aus<lb/>
+der Hand und trennte mit einem gewaltigen Hiebe<lb/>
+den Kopf vom Rumpfe. Da lag nun der Elende in<lb/>
+seinem Blute. Jetzt erst riß von Gemmingen ihm die<lb/>
+Larve ab &#x2014; und erkannte den schändlichen Verräther.</p><lb/>
+<p>Eben wankte Kurfürst Ludwig, noch ganz betäubt<lb/>
+von den Schreckbildern, die er gesehen hatte, in Be-<lb/>
+gleitung der beiden schwarzen Ritter Friedrich's Ge-<lb/>
+mache zu, trostlos sich in die harte Nothwendigkeit er-<lb/>
+gebend, ihnen den geliebten Bruder ausliefern zu<lb/>
+müssen. Als diese aber das Getöse in der Schlafkam-<lb/>
+mer des Mitregenten und das Schreien des Ritters<lb/>
+und des Mönchs hörten, hielten sie sich für verrathen<lb/>
+und rannten fliehend die Treppe hinab. Mechanisch,<lb/>
+mehr todt als lebendig bewegte sich Ludwig der Thür<lb/>
+zu. Sein Körper aber war zu schwach, die neue<lb/>
+Schreckensscene, die seiner hier wartete, zu ertragen;<lb/>
+seine Knie wankten und einem Todten gleich stürzte er<lb/>
+zu Boden. Friedrich, der längst schon aufgesprungen<lb/>
+war, und sein tapferer Freund trugen ihn zurück nach<lb/>
+seinem Zimmer.</p><lb/>
+<p>Am Morgen hatte er sich indeß wieder so weit er-<lb/>
+holt, daß er sich des nächtlichen Vorfalls genau erin-<lb/>
+nerte und ihn erzählen konnte. Das ganze Bubenstück<lb/>
+wurde jetzt klar und der Zusammenhang war um so<lb/>
+leichter zu errathen, da noch in derselben Stunde die<lb/>
+beiden fremden Ritter sowol als auch die Gräfin von<lb/>
+Lüzelstein verschwunden waren.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Das Ohr des Dionysius.</hi></head><lb/>
+<p><hi rendition="#in">J</hi>n den Steinbrüchen unweit Syrakus auf Sicilien<lb/>
+zeigt man den Reisenden noch jetzt unter den zahlrei-<lb/>
+<cb type="end"/>
+<pb facs="#f0007" n="103"/>
+<fw place="top" type="pageNum">103</fw><cb type="start"/>
+chen dort befindlichen Höhlen den Eingang des groß-<lb/>
+artigen Stollengangs, der im Munde der geschichtli-<lb/>
+chen Sage das Ohr des Dionysius heißt; das syraku-<lb/>
+sanische Volk nennt ihn wegen des darin bemerkbaren<lb/>
+interessanten Echos &#x201E; <hi rendition="#aq">La Grotta della favella</hi> &#x201C;. Jn<lb/>
+ellipsenförmiger Krümmung ist ein geräumiger, nach<lb/>
+oben mit spitziger Wölbung abgeschlossener Gang bis<lb/>
+auf ungefähr 50 Fuß Länge in die Tiefe des Felsens<lb/>
+gehauen; eine kanalartige Rinne läuft oben, wo sich<lb/>
+die beiden Seitenwände zusammenneigen, der ganzen<lb/>
+Ausdehnung nach bis in den Hintergrund und bewirkt,<lb/>
+indem sie die an den gerundeten Wänden hinaufglei-<lb/>
+tenden Schallwellen vereinigt und nach der glatten<lb/>
+Rückwand führt, an derselben jenes merkwürdige Echo,<lb/>
+welches Veranlassung gegeben hat zu der bekannten<lb/>
+Sage vom Tyrannen Dionysius, der dort in verborge-<lb/>
+ner Kammer die Klagen und Befreiungspläne seiner<lb/>
+unglücklichen Opfer belauscht habe. Die Schallverstär-<lb/>
+kung am Ende des Raums ist wirklich bemerkenswerth.<lb/>
+Worte, die vorn am Eingange geflüstert werden, kann<lb/>
+man ganz laut und deutlich vernehmen; das Zerreißen<lb/>
+eines Papierblatts nimmt sich aus wie Brausen des<lb/>
+wildbewegten Meers, und wenn ein kleiner Böller ab-<lb/>
+gefeuert wird, glaubt man den furchtbarsten Donner-<lb/>
+schlag oder das Zusammenstürzen eines Vulkans zu hö-<lb/>
+ren. Ein italienischer Musiklehrer, Antonio Falcone,<lb/>
+hatte einen Kanon gesetzt, worin nur zwei Stimmen<lb/>
+von Menschen, die übrigen aber so künstlich durch das<lb/>
+Echo dieser Grotte ausgeführt wurden, daß sich die<lb/>
+vollständigste Harmonie eines Ensemblestücks von selbst<lb/>
+ergab. Dieser Falcone war also in gewissem Sinne<lb/>
+ein Vorgänger von Daguerre; wie dieser die Natur<lb/>
+malen, so lehrte sie jener singen.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<cb n="2"/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Die Glättpresse.</hi></head><lb/>
+<p><hi rendition="#in">D</hi>ie in der zweiten Hälfte des vorigen Jahrhunderts<lb/>
+weltberühmten Erzeugnisse der Bodoni'schen Druckerei<lb/>
+in Parma verdankten einen Theil ihres Ruhms dem<lb/>
+angenehmen ins Auge fallenden, eleganten Aussehen,<lb/>
+das durch eine Glättpresse erreicht ward, deren theil-<lb/>
+weise Construction Bodoni als ein Geheimniß hütete.<lb/>
+Viele Fachgenossen suchten es zu erforschen; aber er<lb/>
+hielt damit zurück und pflegte dann oft zu sagen, der<lb/>
+Papst habe ihm schweres Geld für eine Zeichnung sei-<lb/>
+ner Presse geboten, er aber habe es ausgeschlagen.<lb/>
+Da kam auch der bekannte Buchdrucker Wilhelm Haas<lb/>
+aus Basel zu Bodoni nach Parma und ward, wie<lb/>
+Andere, in dem Pressenpunkte kurz mit der Aeuße-<lb/>
+rung: <hi rendition="#aq">È un misterio</hi> ( es ist ein Geheimniß ) abge-<lb/>
+fertigt. Aber Bodoni ehrte den ihm ebenbürtigen<lb/>
+Kunstgenossen dadurch, daß er ihn selbst in seinem<lb/>
+fürstlichen Typographenpalaste herumführte. Haas, der<lb/>
+auch als Artillerieoffizier berühmt war, sah durch eine<lb/>
+halb offenstehende Thür die mysteriöse Presse sammt<lb/>
+Zubehör. Er wußte den Zufall zu benutzen und ver-<lb/>
+fertigte in seinem Logis einen Riß von derselben aus<lb/>
+dem Gedächtnisse. Am folgenden Morgen bei Bodoni<lb/>
+zum Frühstück eingeladen, zog er seine saubere Zeich-<lb/>
+nung hervor als eigene Erfindung. <hi rendition="#aq">Eh, corpo di<lb/>
+Bacco</hi>! rief der Jtaliener im lebhaftesten Erstaunen, <lb/>
+<hi rendition="#aq">è il mio</hi>! ( das ist meine! ) und nun führte er seinen<lb/>
+Gast zu der Glättmaschine und zeigte ihm alle De-<lb/>
+tails. Jn der Folge erhielt Haas viele Werke von<lb/>
+Bodoni, die für den Norden bestimmt waren, um sie<lb/>
+in seiner Presse zu glätten, da die des Jtalieners nur<lb/>
+für halbe Bogen eingerichtet war, die Haas'sche hin-<lb/>
+gegen für ganze.</p></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1"><figure><head><hi rendition="#fr">Balltheater in London zur Zeit der Königin Elisabeth.</hi></head></figure></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<pb facs="#f0008" n="104"/>
+<fw place="top" type="pageNum">104</fw><lb/>
+<div n="1" type="jVarious"><head><hi rendition="#fr"><hi rendition="#g">Mannichfaltiges</hi>.</hi></head>       <cb type="start"/>
+<div n="2" type="jArticle"><p>Wie die Eskimos den Eisbär fangen, dessen Pelz<lb/>
+ihnen in gar zu verführerischem Lichte erscheint, hat man oft<lb/>
+schon gelesen und über die seltsame Procedur dabei ungläu-<lb/>
+big den Kopf geschüttelt; Manche weisen sie als eine<lb/>
+Art Münchhausischen Märchens geradezu ab. Doch stehe<lb/>
+hier noch einmal aus Seemanns &#x201E;Reise um die Welt&#x201C;<lb/>
+in den wiederholten Fahrten der britischen Fregatte He-<lb/>
+rald das vollständige Recept: &#x201E;Ein dickes starkes Stück<lb/>
+Fischbein, etwa vier Zoll breit und zwei Fuß lang, wird<lb/>
+mit den Enden aneinander gebogen und in diesem Zustande<lb/>
+mit einigen Stücken Seehundsfett umwickelt; die Masse wird<lb/>
+an die offene kalte Luft gebracht, in welcher sie hart und<lb/>
+fest wird; dann ist sie zum Gebrauche geeignet. Die Einge-<lb/>
+borenen bewaffnen sich mit Bogen und Pfeil, nehmen die<lb/>
+gefrorene Masse und begeben sich auf die Jagd ihrer Beute.<lb/>
+Sobald das Thier erblickt wird, schießt Jemand vorsätzlicher<lb/>
+Weise seinen Pfeil auf dasselbe ab. Den Bären verdrießt<lb/>
+die Beleidigung, er verfolgt die Leute, die sich eilig zurück-<lb/>
+ziehen, und wenn er an das gefrorene Seehundsfett kommt,<lb/>
+welches zu diesem Ende fallen gelassen ist, so verschlingt er<lb/>
+dasselbe. Die Jagd, das heftige Laufen und die natürliche<lb/>
+Hitze des Magens zersetzen das Fett sehr bald; das Fischbein<lb/>
+wird auf diese Weise von seiner Fessel befreit, schnellt in<lb/>
+seine gerade Lage zurück und richtet in den Eingeweiden des<lb/>
+Bären solche Verwüstung an, daß derselbe die Verfolgung<lb/>
+einstellen muß und bald darauf verendet.&#x201C; Klingt so ganz<lb/>
+annehmbar und doch noch immer etwas nach der Weise:<lb/>
+Wer's glaubt u. s. w.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Türkische Beamtentreue. Die Führer der Barken,<lb/>
+welche mit Korn beladen aus Oberägypten nach Kairo zu-<lb/>
+rückkehren, pflegen einige Stationen vor Kairo die Getreide-<lb/>
+vorräthe am Ufer zu wässern, um deren Gewicht zu vermeh-<lb/>
+ren und dem Schiffseigenthümer Gewinn zu schaffen. Der<lb/>
+türkische Beamte, welcher von Abbas Pascha zur Steuerung<lb/>
+dieses Unwesens angestellt ist und in einem kleinen Boote<lb/>
+den Nil auf und ab fährt &#x2014; so erzählt ein Reisender &#x2014;<lb/>
+kam an, kletterte auf das Schiff und bekam seinen Bak-<lb/>
+schisch. Er schied dann mit den Worten: &#x201E;Verrichtet eure<lb/>
+Arbeit gut!&#x201C;</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Geest bedeutet im ganzen nordwestlichen Deutschland<lb/>
+hoch gelegenes, meist sandiges, mehr oder weniger mageres<lb/>
+und trockenes Land. Ueberall tritt dieser Ausdruck im Gegen-<lb/>
+satze zu den Niederungen jener Gegenden, zu Marsch und<lb/>
+Moor auf. Haideflächen gehören sowol den Geest= als den<lb/>
+<cb n="2"/>
+Moorgegenden an; viele Striche bilden auch Zwischenstufen<lb/>
+von Geest zu Moor und von Moor zu Marsch. Marsch<lb/>
+aber, das sprachlich und sachlich an das lateinische <hi rendition="#aq">mare</hi><lb/>
+und das französische <hi rendition="#aq">marais</hi> erinnert, bezeichnet die fetten<lb/>
+Niederungen an Flußmündungen und Meeresküsten. Ein<lb/>
+eigenthümlicher, durch Anschwemmung gebildeter schwerer<lb/>
+Thonboden heißt Klei; er enthält neben Thon, Lehm und<lb/>
+Sand auch Torf und andere Pflanzentheile, Muscheln, Jn-<lb/>
+fusorien und sonst verschiedene thierische Ueberreste und ver-<lb/>
+leiht eben den Marschen die außerordentliche Fruchtbarkeit,<lb/>
+von welcher Weiden und Fruchtfelder ein so glänzendes Zeug-<lb/>
+niß ablegen.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Das Vorzeichen. Nach der siegreichen Schlacht bei<lb/>
+Denain in den Niederlanden, durch welche der Marschall<lb/>
+Villars Frankreich rettete, zeigten sich, bevor die Nachricht<lb/>
+davon in Paris angelangt sein konnte, mehre Störche auf<lb/>
+den Kuppeln des Jnvalidendoms; ihr Erscheinen ward von<lb/>
+den Jnvaliden als ein Zeichen des Siegs angesehen. Die<lb/>
+alten Kriegsknaben hatten mit gespannter Aufmerksamkeit<lb/>
+den Marsch der Truppen verfolgt, die an den Grenzen des<lb/>
+Vaterlandes ihren frühern Platz einnahmen. Jn Flandern,<lb/>
+durchlief es Paris, sei eine große Schlacht vorgefallen und<lb/>
+der Lärm habe die Störche von ihren Nestern vertrieben,<lb/>
+die sie sonst in dieser Jahreszeit nie verlassen. &#x201E;Seht nur<lb/>
+&#x2014; sagten die Jnvaliden &#x2014; wie betrübt sie aussehen! Es<lb/>
+sind Flamänder; sie haben die Niederlage ihrer Landsleute<lb/>
+gesehen, daher sind sie so traurig.&#x201C; Von dieser frohen Bot-<lb/>
+schaft ließen die alten Soldaten die Hallen des Jnvaliden-<lb/>
+hauses laut werden, des Siegs gewiß, bevor die Nachricht<lb/>
+davon dort angekommen war.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Woher das Kreuz auf dem Rücken des Esels?<lb/>
+Als der Heiland in Jerusalem reitend einziehen wollte, wen-<lb/>
+dete er sich an das Pferd und fragte es, ob es ihn auf sich<lb/>
+nehmen und nach der Stadt tragen wollte? Das Pferd aber,<lb/>
+eben mit Fressen beschäftigt, antwortete ihm, es wolle nur<lb/>
+erst fertig fressen. Zur Strafe dafür muß es seitdem immer<lb/>
+fressen, ohne jedoch jemals satt zu werden, und wird nur<lb/>
+müde. Darauf wandte sich der Heiland an den Esel und<lb/>
+fragte ihn, ob er ihn tragen wollte? Dieser war auch so-<lb/>
+gleich dazu bereit und trug ihn nach Jerusalem. Als Zei-<lb/>
+chen des bereitwilligen Gehorsams hat der Heiland dem Esel<lb/>
+das Kreuz auf den Rücken gegeben, welches immer dunkler<lb/>
+gefärbt ist als der übrige Rücken.</p></div></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jAnnouncements"><head><hi rendition="#fr"><hi rendition="#g">Ankündigungen</hi>.</hi></head><lb/>
+<div n="2" type="jAn"><head><hi rendition="#fr"><hi rendition="#g">Confirmationsgeschenk</hi>.</hi></head><lb/>
+<p>Hierzu empfiehlt sich und ist durch alle Buchhandlungen zu erhalten: <lb/>
+<hi rendition="#fr">Worte des Herzens</hi> von J. C. Lavater. Für Freunde der Liebe und des Glaubens. Herausge-<lb/>
+geben von C. W. Hufeland ( königl. Preuß. Staatsrath, Leibarzt <choice><abbr>ec.</abbr></choice> ) .<lb/>
+Achte und neunte Auflage. Miniaturausgabe. Geheftet 12 Sgr., gebunden mit Goldschnitt 20 Sgr. &#x2014; Octavausgabe<lb/>
+gebunden mit Goldschnitt, Lavater's Portrait in Stahlstich und radirtem Widmungsblatt; Prachtausgabe in reich vergol-<lb/>
+detem Einbande 1 Thlr. 10 Sgr.</p><lb/>
+<p>Diese Sammlung, lange Zeit theures Eigenthum einer edler Fürstin, enthält eine reiche Fülle von schönen Gedanken,<lb/>
+wie sie Lavater's edlem Herzen so leicht entströmten. Mit Versen wechseln Sentenzen, Auszüge aus Briefen und andere<lb/>
+Fragmente, an denen der Leser sich wahrhaft erquicken kann.   </p><lb/>
+<p><space dim="horizontal"/><hi rendition="#fr">Ferd. Dümmler's Verlagsbuchhandlung in Berlin.</hi></p></div></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+</body>     <back><div n="1" type="imprint"><p><hi rendition="#c">Verantwortlicher Redacteur: <hi rendition="#aq">M</hi>. J. E. Volbeding. &#x2014; Druck und Verlag von F. A. Brockhaus in Leipzig.</hi></p></div>     </back>   </text> </TEI>

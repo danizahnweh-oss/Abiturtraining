@@ -1,0 +1,1128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.deutschestextarchiv.de/basisformat.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">     <teiHeader>
+<fileDesc>
+<titleStmt>
+<title type="main">Das Pfennig-Magazin für Belehrung und Unterhaltung</title>
+<title type="sub">Neue Folge, Erster Jahrgang, Nr. 21</title>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/115266127">
+<surname>Geyken</surname>
+<forename>Alexander</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1222198746">
+<surname>Haaf</surname>
+<forename>Susanne</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1019062681">
+<surname>Jurish</surname>
+<forename>Bryan</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Boenig</surname>
+<forename>Matthias</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Thomas</surname>
+<forename>Christian</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Wiegand</surname>
+<forename>Frank</forename>
+</persName>
+</editor>
+<respStmt>
+<orgName>Institut für Deutsche Sprache, Mannheim</orgName>
+<resp>
+<note type="remarkResponsibility">Bereitstellung der Bilddigitalisate und TEI
+Transkription</note>
+<ref target="http://hdl.handle.net/10932/00-01B8-B07E-68DF-4101-7"/>
+</resp>
+</respStmt>
+<respStmt>
+<persName>
+<forename>Peter</forename>
+<surname>Fankhauser</surname>
+</persName>
+<resp>
+<note type="remarkResponsibility">
+Transformation von TUSTEP nach TEI P5.
+Transformation von TEI P5 in das DTA TEI P5 Format.
+</note>
+</resp>
+</respStmt>
+<respStmt>
+<orgName ref="https://www.bbaw.de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<resp>
+<note type="remarkResponsibility">Langfristige Bereitstellung der DTA-Ausgabe</note>
+<ref target="https://www.bbaw.de"/>
+</resp>
+</respStmt>
+</titleStmt>
+<editionStmt><edition>Vollständige digitalisierte Ausgabe.</edition></editionStmt>
+<extent>
+<measure type="images">8</measure>
+<measure type="tokens">6843</measure>
+<measure type="types">2837</measure>
+<measure type="characters">46955</measure>
+</extent>
+<publicationStmt>
+<publisher xml:id="DTACorpusPublisher">
+<email>dta@bbaw.de</email>
+<orgName role="project">Deutsches Textarchiv</orgName>
+<orgName role="hostingInstitution" xml:lang="en">Berlin-Brandenburg Academy of Sciences and Humanities (BBAW)</orgName>
+<orgName role="hostingInstitution" xml:lang="de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<address>
+<addrLine>Jägerstr. 22/23, 10117 Berlin</addrLine>
+<country>Germany</country>
+</address>
+</publisher>
+<pubPlace>Berlin</pubPlace>
+<date type="publication">2025-10-24T08:35:10Z</date>
+<availability>
+<licence target="http://creativecommons.org/publicdomain/zero/1.0/">
+<p>Dieses Werk steht unter der "Creative Commons Namensnennung -
+Nicht kommerziell 3.0 Deutschland Lizenz" (CC BY-NC).</p>
+</licence>
+</availability>
+<idno>
+<idno type="URLWeb">https://www.deutschestextarchiv.de/nn_pfennig021_1843</idno>
+<idno type="URLXML">https://www.deutschestextarchiv.de/book/download_xml/nn_pfennig021_1843</idno>
+<idno type="URLHTML">https://www.deutschestextarchiv.de/book/download_html/nn_pfennig021_1843</idno>
+<idno type="URLText">https://www.deutschestextarchiv.de/book/download_text/nn_pfennig021_1843</idno>
+<idno type="DTADirName">nn_pfennig021_1843</idno>
+<idno type="DTAID">34714</idno>
+<idno type="URN">urn:nbn:de:kobv:b4-34714-2</idno>
+</idno>
+</publicationStmt>
+<sourceDesc>
+<bibl type="J">Das Pfennig=Magazin für Belehrung und Unterhaltung. Neue Folge, Erster Jahrgang, Nr. 21. Leipzig (Sachsen), 27. Mai 1843.</bibl>
+<biblFull>
+<titleStmt>
+<title level="m" type="main">Das Pfennig-Magazin für Belehrung und Unterhaltung</title>
+<title level="m" type="sub">Neue Folge, Erster Jahrgang, Nr. 21</title>
+</titleStmt>
+<editionStmt>
+<edition n="1"/>
+</editionStmt>
+<publicationStmt>
+<publisher/>
+<pubPlace>Leibzig (Sachsen)</pubPlace>
+<date type="publication">1843</date>
+</publicationStmt>
+</biblFull>
+<msDesc>
+<msIdentifier/>
+<physDesc>
+<typeDesc>
+<p>Fraktur</p>
+</typeDesc>
+</physDesc>
+</msDesc>
+</sourceDesc>
+</fileDesc>
+<encodingDesc>
+<editorialDecl>
+<p>
+<![CDATA[
+<p>Siehe Dokumentation</p>
+]]>
+</p>
+</editorialDecl>
+<tagsDecl>
+<rendition scheme="css" xml:id="aq">font-family:sans-serif</rendition>
+<rendition scheme="css" xml:id="b">font-weight:bold</rendition>
+<rendition scheme="css" xml:id="blue">color:blue</rendition>
+<rendition scheme="css" xml:id="c">display:block; text-align:center</rendition>
+<rendition scheme="css" xml:id="et">display:block; margin-left:2em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et2">display:block; margin-left:4em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et3">display:block; margin-left:6em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="f">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="fr">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="g">letter-spacing:0.125em</rendition>
+<rendition scheme="css" xml:id="i">font-style:italic</rendition>
+<rendition scheme="css" xml:id="in">font-size:150%</rendition>
+<rendition scheme="css" xml:id="k">font-variant:small-caps</rendition>
+<rendition scheme="css" xml:id="larger">font-size:larger</rendition>
+<rendition scheme="css" xml:id="red">color:red</rendition>
+<rendition scheme="css" xml:id="right">display:block; text-align:right</rendition>
+<rendition scheme="css" xml:id="s">text-decoration:line-through</rendition>
+<rendition scheme="css" xml:id="smaller">font-size:smaller</rendition>
+<rendition scheme="css" xml:id="sub">vertical-align:sub; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="sup">vertical-align:super; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="u">text-decoration:underline</rendition>
+<rendition scheme="css" xml:id="uu">border-bottom:double 3px #000</rendition>
+</tagsDecl>
+</encodingDesc>
+<profileDesc>
+<langUsage>
+<language ident="deu">(Früh-)Neuhochdeutsch</language>
+<language ident="deu">German</language>
+</langUsage>
+<textClass>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1main">Gebrauchsliteratur</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1sub">Zeitschrift</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">ready</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">mkhz1</classCode>
+</textClass>
+</profileDesc>
+</teiHeader>
+<text>     <front>
+<pb facs="#f0001" n="[161]"/>
+<titlePage type="heading"><docTitle><titlePart type="main"><hi rendition="#c #fr">Das Pfennig=Magazin<lb/>
+für<lb/>
+<hi rendition="#g">Belehrung und Unterhaltung</hi>.</hi></titlePart></docTitle><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<docImprint><hi rendition="#fr">Nr</hi>. 21. ]                <hi rendition="#c">Neue Folge. Erster Jahrgang.</hi>                <docDate><hi rendition="#right">[ 27. <hi rendition="#g">Mai</hi> 1843.</hi></docDate>              </docImprint></titlePage><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+</front>     <body>       <div n="1" type="jArticle"><head><hi rendition="#fr"><hi rendition="#g">Sully</hi>.</hi></head><lb/>
+<figure/><lb/>
+<cb type="start"/>
+<p><hi rendition="#in">M</hi>aximilian von Bethune, Baron v. Rosny, Herzog<lb/>
+von Sully, der erste Minister des französischen Königs<lb/>
+Heinrich's <hi rendition="#aq">IV</hi>., einer der ausgezeichnetsten Staatsmänner<lb/>
+aller Zeiten, wurde 1559 zu Rosny in einer altadeligen<lb/>
+Familie geboren und in den Lehren der protestantischen<lb/>
+Kirche erzogen, denen er niemals untreu wurde. Er war<lb/>
+als Knabe der Unterrichtsgenosse des Prinzen Heinrich<lb/>
+von Navarra und begleitete denselben 1572 nach Paris.<lb/>
+Hier wäre er beinahe in der in der Nacht vom 24. auf<lb/>
+den 25. August 1572 ausgebrochenen Verschwörung ge-<lb/>
+gen die Hugenotten ein Opfer des Fanatismus gewor-<lb/>
+den, wenn ihn nicht der Vorsteher des Collegiums von<lb/>
+Bourgogne drei Tage lang verborgen gehalten hätte. Als<lb/>
+Krieger und Geschäftsmann sich gleich sehr auszeichnend,<lb/>
+machte er sich dem jungen Könige in der Folge unent-<lb/>
+behrlich und ward darum 1594 zum Staatssecretair,<lb/>
+1596 zum Mitgliede des Finanzconseils, in den folgen-<lb/>
+den Jahren zum Oberaufseher der Finanzen, 1601 zum<lb/>
+Großmeister der Artillerie, 1602 zum Gouverneur der<lb/>
+Bastille, endlich zum Gouverneur von Poitou und Groß-<lb/>
+<cb n="2"/>
+meister aller Häfen und Landungsplätze von Frankreich<lb/>
+ernannt. Er war während der Zeit seines mächtigen<lb/>
+Einflusses eifrig bemüht, die Ordnung im Lande, wel-<lb/>
+ches durch Räuberbanden beunruhigt wurde, wie in den<lb/>
+Finanzen wiederherzustellen.</p><lb/>
+<p>Jn dem greuelvollen Bürgerkriege von 1562&#x2014;73,<lb/>
+in welchem sich die Hugenotten unter Ludwig von Bour-<lb/>
+bon, Conde und dem Admiral Coligny, und die Katho-<lb/>
+lischen unter dem Herzoge Franz von Guise auf Leben<lb/>
+und Tod befehdeten, waren Misbräuche aller Art ein-<lb/>
+gerissen. Diesen suchte er nach Kräften abzuhelfen, so<lb/>
+groß auch die Schwierigkeiten waren, welche ihm die<lb/>
+Beamten allenthalben in den Weg legten. Jm J. 1595<lb/>
+kam er auf einer Reise zu Entdeckungen, die ihn in<lb/>
+den Stand setzten, dem Könige alsbald 500,000 Thlr.<lb/>
+als Gewinn seiner Nachforschungen zu überreichen; viele<lb/>
+Betrügereien fielen dadurch weg, daß die Unterpächter<lb/>
+das eingegangene Geld nicht mehr an die Generalpäch-<lb/>
+ter, sondern gleich an die Schatzkammer liefern mußten.</p><lb/>
+<p>Sully verstand es, ohne neue Auflagen, lediglich<lb/>
+<cb type="end"/>
+<pb facs="#f0002" n="162"/>
+<fw place="top" type="pageNum">162</fw><cb type="start"/>
+durch gute Verwaltung das Staatseinkommen zu ver-<lb/>
+größern. Während er den Armen rückständige Abgaben<lb/>
+erließ, spürte er mit scharfem Auge alle Diejenigen auf,<lb/>
+welche sich während der Unruhen fälschlich für Edelleute<lb/>
+ausgegeben und dadurch der Besteuerung entzogen hat-<lb/>
+ten. Er setzte den Zinsfuß von 10 und 8 Procenten<lb/>
+auf 6 herab, weil der leichtsinnige Adel durch hohe Zin-<lb/>
+sen in Schulden gerieth und Capitalisten, welche auf<lb/>
+diese Weise Gewinn machten, ihr Geld zu nützlichen Un-<lb/>
+ternehmungen anzuwenden versäumten.</p><lb/>
+<p>Nur aus dem Geiste der Zeit und dem in Frank-<lb/>
+reich schon früher bestehenden Ämterverkaufe ist es zu er-<lb/>
+klären, daß er auf den Vorschlag eines gewissen Paulet<lb/>
+einging und die sogenannte Paulette einführte, welche<lb/>
+gegen die jährliche Entrichtung des 60. Theils der Be-<lb/>
+soldung Justiz= und Finanzämter in den Familien erb-<lb/>
+lich machte. Desto heilsamer wirkte die Sparsamkeit,<lb/>
+auf die er im öffentlichen wie im Privatleben hinwirkte:<lb/>
+die Edelleute sollten wirthschaftlich auf ihren Gütern leben,<lb/>
+auch Prinzen sollten Kleider und Geräthschaften nicht<lb/>
+mit Gold und Silber verzieren. Der König selbst trug<lb/>
+ihm zu Gefallen ein Kleid von einfachem blauen Tuche<lb/>
+und ein Wamms von Atlas oder Taffet ohne Stickerei<lb/>
+und lachte über die adeligen Herren, daß sie &#x201E;ihre<lb/>
+Wälder und Mühlen auf den Schultern trügen&#x201C;.</p><lb/>
+<p>Am meisten aber nützte Sully seinem Vaterlande<lb/>
+dadurch, daß er den Ackerbau hob, die Fabrikanten un-<lb/>
+terstützte, die Gewerbe begünstigte, vornehmlich den Berg-<lb/>
+bau von lästigen Schranken befreite, übertriebene Zollan-<lb/>
+sätze und gewaltsame Sperrungen beseitigte, Brücken und<lb/>
+Chausséen baute, Gold= und Silberminen in den Pyre-<lb/>
+näen ausbeutete, die Loire mit der Seine, das Mittel-<lb/>
+meer mit dem Ocean durch Kanäle zu verbinden suchte<lb/>
+und die Seidenzucht förderte.</p><lb/>
+<p>Es konnte nicht fehlen, daß seine rücksichtslose Recht-<lb/>
+lichkeit Neider und Verleumder hervorrief. Einmal wurde<lb/>
+der König durch umständliche Anklagen irregeleitet, aber<lb/>
+Sully deckte, als es zur Erklärung kam, die Quellen<lb/>
+der Beschuldigung auf und Heinrich trat nach einem<lb/>
+vierstündigen Gespräche mit den Worten unter seine Hof-<lb/>
+leute: Jch sehe, daß sich Manche hier mehr gelangweilt<lb/>
+haben als ich; zu ihrem Troste sei es gesagt, daß ich<lb/>
+Sully herzlicher liebe als je und daß wir vereinigt sind<lb/>
+auf Leben und Tod.</p><lb/>
+<p>Der Erfolg rechtfertigte den ausgezeichneten Mini-<lb/>
+ster aufs glänzendste: im J. 1610 waren bei 9 Mil-<lb/>
+lionen jährlicher Einkünfte über 50 Millionen Thaler<lb/>
+Schulden bezahlt und über 9 Millionen baar im Schatze;<lb/>
+40,000 tüchtige Krieger standen gerüstet da, Vorräthe an<lb/>
+Waffen, Pulver und Kriegsgeräthen waren aufgehäuft<lb/>
+und die Franzosen wieder ein Achtung gebietendes Volk<lb/>
+geworden.</p><lb/>
+<p>Nur mit Grauen an das Vergangene denkend, sann<lb/>
+Heinrich <hi rendition="#aq">IV</hi>. auf Mittel, um Frankreich für alle Zeiten<lb/>
+vor der Rückkehr solcher Übel zu bewahren. Sein hell-<lb/>
+sehender Geist erkannte mit Sully, wie sehr damals schon<lb/>
+der Zustand jedes einzelnen europäischen Staats durch<lb/>
+den der übrigen bedingt wäre. Diese Einsicht führte beide<lb/>
+Männer auf einen Plan, welcher trotz seiner Abenteuer-<lb/>
+lichkeit doch ein Beweis ist, daß sie keine Politiker ge-<lb/>
+wöhnlicher Art waren. Europa sollte nach diesem Plane,<lb/>
+der durch Sully's Papiere bekannt geworden ist, in 15<lb/>
+genau nach den Grundsätzen des Gleichgewichts abgemes-<lb/>
+sene Staaten zerfallen und zwar in fünf Erbmonarchien<lb/>
+( Frankreich, Spanien, Großbritannien, Schweden und<lb/>
+die Lombardei ) , in sechs Wahlreiche ( Kirchenstaat, Däne-<lb/>
+mark, Polen, Ungarn, Böhmen und Deutschland ) und<lb/>
+in vier Freistaaten, zwei demokratische ( die Gesammtnie-<lb/>
+<cb n="2"/>
+derlande und die Schweiz mit Tirol, Trient, Elsaß und<lb/>
+Franche=Comté ) und zwei aristokratische ( Venedig und<lb/>
+das freie, aus Florenz, Genua, Lucca, Mantua, Parma,<lb/>
+Modena und Monaco bestehende Jtalien ) . Zwischen die-<lb/>
+sen 15 Staaten sollte Handelsfreiheit und der Grundsatz<lb/>
+gleicher Berechtigung abweichender Confessionen bestehen;<lb/>
+Streitigkeiten sollten durch einen Senat aus 60 Mit-<lb/>
+gliedern ( 4 von jedem Staate ) geschlichtet werden; auf<lb/>
+gemeinschaftliche Kosten besoldete Soldaten sollten Schwe-<lb/>
+den und Polen gegen die Moskowiter und Tataren ver-<lb/>
+theidigen; die gemeinsam eroberten Länder der Ungläubi-<lb/>
+gen sollten mehr an Freistaaten und Wahlreiche als an<lb/>
+Erbmonarchien vertheilt werden.</p><lb/>
+<p>Die Ausführung dieses Plans gedachte Heinrich durch<lb/>
+ein großes, zunächst gegen Östreich gerichtetes Unterneh-<lb/>
+men zu beginnen, wobei er auf die Mitwirkung der Re-<lb/>
+publik Venedig, des Herzogs von Savoyen, der Hollän-<lb/>
+der, der Protestanten in Deutschland, des Königs von<lb/>
+Schweden, der bedrückten Großen in Böhmen und Un-<lb/>
+garn und auch des Herzogs von Baiern rechnete. Aber<lb/>
+Ravaillac's Messer ließ es nicht dazu kommen.</p><lb/>
+<p>Nach dem Tode Heinrich's ( 14. Mai 1610 ) trat in<lb/>
+dem Staatshaushalte eine solche Veränderung ein, daß<lb/>
+Sully um seine Entlassung einkam, die man ihm auch<lb/>
+keinen Augenblick vorenthielt, da man sich nicht länger<lb/>
+durch seine Gewissenhaftigkeit und seine Talente beengen<lb/>
+lassen wollte. Jn der Freude, ihn loszuwerden, schickte<lb/>
+man ihm 100,000 Thlr. als Belohnung seiner Verdienste,<lb/>
+Sully schickte aber dieses Geld mit einem Briefe voll<lb/>
+edlen Stolzes an die Regentin zurück. Wenn mein frü-<lb/>
+heres Leben, sagt er darin, zur Größe Frankreichs bei-<lb/>
+getragen hat, so soll jetzt mein Benehmen zeigen, wie<lb/>
+diese Größe erhalten werden kann; als Gunst erbitte ich<lb/>
+mir, daß mein erbittertster Feind prüfe, was ich gethan<lb/>
+habe; meine Genugthuung sei es, Übel, die man mir<lb/>
+anthut, zu leiden, ohne daß ich den Lohn annehme, wel-<lb/>
+chen Sie mir anbieten.</p><lb/>
+<p>Später berief ihn Ludwig <hi rendition="#aq">XIII</hi>. wieder an den Hof,<lb/>
+um sich seines Raths zu bedienen, und 1634 wurde er<lb/>
+Marschall von Frankreich, aber er nahm an den Staats-<lb/>
+geschäften keinen regelmäßigen Antheil und starb 1641<lb/>
+auf seinem Gute Villebon.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Die deutschen Colonien an der Wolga.</hi></head><lb/>
+<p><hi rendition="#in">Z</hi>u Wolsk im russischen Gouvernement Saratow, gegen-<lb/>
+über auf dem andern Ufer der Wolga, fangen die deut-<lb/>
+schen Colonien an und ziehen sich vom linken Wolga-<lb/>
+ufer bis zur Colonie Krasnoi=Jar, ebenso nach dem gro-<lb/>
+ßen und kleinen Karaman aufwärts. Die erste ist Schaff-<lb/>
+hausen, dann folgen Baratajewka, Basel, Zürich, So-<lb/>
+lothurn, Pamieskoi, Luzern, Unterwalden, Susannen-<lb/>
+thal, Baskakowka, Rosanowka, Orlowskoi, Obermonjou,<lb/>
+Katharinenstadt, Kuno, Philippsfeld, Niedermonjou, Swo-<lb/>
+narewka, Podstepnoi, Krasnoi= Jar. Die Colonisten,<lb/>
+meist Ackerbauer, bauen Getreide, Kartoffeln, Erbsen,<lb/>
+Linsen, Hirse, Lein; in besonderer Güte Weizen und<lb/>
+Taback, welcher letztere bei den Kirgisen und Kalmücken<lb/>
+der benachbarten Steppen gute Abnahme findet. Die<lb/>
+jährlich erzeugte Menge beträgt gegen 250,000 Pud<lb/>
+( das Pud 40 Pfund ) . Häufige trockene Sommer brin-<lb/>
+gen aber oft Miswachs. Der Seidenbau ist in der<lb/>
+Kindheit, nur Katharinenstadt und Schaffhausen betrei-<lb/>
+ben ihn bis jetzt. Eine große Anzahl Professionisten, die<lb/>
+meist in Katharinenstadt ansässig sind, sorgt für alle Be-<lb/>
+dürfnisse der Colonisten, deren Mehrzahl evangelisch ist.<lb/>
+Jeder der Colonisten hat hinter seinem Hause, welche<lb/>
+<cb type="end"/>
+<pb facs="#f0003" n="163"/>
+<fw place="top" type="pageNum">163</fw><cb type="start"/>
+alle reinlich und ordentlich erhalten werden, einen Gar-<lb/>
+ten. Hierdurch sowie namentlich dadurch, daß sie freie<lb/>
+Unterthanen sind, freie Disposition über ihre Person und<lb/>
+ihr Eigenthum, eigene Gerichtsbarkeit haben und von den<lb/>
+Kriegsdiensten ausgenommen sind, unterscheiden sie sich<lb/>
+wesentlich von den russischen Kronbauern. Die ersten<lb/>
+Einwanderer waren in Folge eines unterm 22. Juli 1763<lb/>
+erlassenen Manifestes der Kaiserin Katharina <hi rendition="#aq">II</hi>. gekom-<lb/>
+men, bestanden meist aus Würtembergern, Hessen und<lb/>
+Sachsen, waren aber, des Ackerbaus unkundig, genö-<lb/>
+thigt, eine ihrer frühern Lebensart ganz entgegengesetzte<lb/>
+zu führen und gingen, trotz aller Vergünstigungen, in<lb/>
+Noth und Sorgen und Heimweh nach dem Vaterlande<lb/>
+unter. Jhre Nachfolger, im Lande geboren und erzogen<lb/>
+und bekannt geworden mit den Eigenthümlichkeiten und<lb/>
+Vortheilen desselben, ernteten die Früchte ihrer Väter.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Die verkleideten Korsaren.</hi></head><lb/>
+<p><hi rendition="#in">A</hi>nton Moëde, Capitain eines Korsarenschiffs, welcher<lb/>
+sich, in den letzten Kriegen zwischen England und Frank-<lb/>
+reich, in Westindien einen berühmten Namen erworben<lb/>
+hat, commandirte einst ein kleines Fahrzeug, das mit<lb/>
+100 entschlossenen Männern bemannt war. Mit diesem<lb/>
+kleinen Fahrzeuge durchschnitt er, beutelustig, das schöne<lb/>
+Antillenmeer. Da trieb ihm der Wind einen reichen<lb/>
+englischen Kauffahrer entgegen, der nach Jamaica be-<lb/>
+stimmt war. Jhn angreifen und nehmen war für See-<lb/>
+leute, die gewöhnt waren, in ein Kauffahrteischiff mit<lb/>
+einer Leichtigkeit zu steigen wie in ein Billardzimmer,<lb/>
+die Sache weniger Augenblicke. Die Bemannung, nebst<lb/>
+18 männlichen und 10 weiblichen Reisenden, wurde an<lb/>
+den Bord des Korsaren, die Prise aber mit 30 Mann<lb/>
+nach Guadeloupe gebracht. Am nächsten Tage bemerkte<lb/>
+Moëde mit Anbruch des Tags eine feindliche Kriegs-<lb/>
+brigg, welche grade auf ihn zusteuerte. Moëde, welcher<lb/>
+der Brigg nicht gewachsen zu sein glaubte, befahl seinen<lb/>
+Leuten augenblicklich die Kleider der gefangenen Damen<lb/>
+anzuziehen und für diesen Zweck ihre Koffer nicht zu<lb/>
+schonen. Man gehorchte ihm auf der Stelle und bald<lb/>
+zeigten sich auf dem Verdecke wenigstens 50 Schönen.<lb/>
+Sie hielten die Sonnenschirme, welche die Frische ihres<lb/>
+Teints vor den zudringlichen Strahlen schützten, mit<lb/>
+so viel Anmuth und Grazie, als Männern, die an die<lb/>
+Mühseligkeiten des Kriegs und der Arbeit gewöhnt wa-<lb/>
+ren, nur irgend jemals möglich gewesen ist; denn es<lb/>
+galt unter dem Scheine, nichts als ein Küstenfahrzeug<lb/>
+zu sein, das harmlose Passagiere von Jnsel zu Jnsel<lb/>
+bringe, die Brigg von jedem Gedanken an eine Visita-<lb/>
+tion abzubringen, und so einem Kampfe zu entgehen,<lb/>
+der bei den überlegenen Kräften der Brigg offenbar zum<lb/>
+Verderben der Korsaren ausschlagen mußte. Aber alle<lb/>
+graziösen Wendungen und anmuthvollen Bewegungen<lb/>
+waren umsonst. Der Engländer ließ sich nicht täuschen<lb/>
+und schien zu wissen, welch derber Kern in den zarten<lb/>
+Kleiderhüllen steckte. Kaum war er daher dem Fahr-<lb/>
+zeuge auf Kanonenschußweite nahe gekommen, als er es<lb/>
+mit einer vollen Ladung aus allen Feuerschlünden be-<lb/>
+grüßte, die sich auf seiner Brigg befanden. Moëde, von<lb/>
+der Fruchtlosigkeit jedes Versuchs zur Flucht überzeugt,<lb/>
+fragte nun seine Leute, ob sie mit ihm das Entern der<lb/>
+Brigg wagen wollten. Entern! Entern! riefen alle, wie<lb/>
+aus einem Munde, denn nur im Kampfe, Mann ge-<lb/>
+gen Mann, wäre Rettung möglich. Moëde wandte<lb/>
+also sein Fahrzeug und segelte auf die feindliche Brigg<lb/>
+los, von der er beim Anlegen die letzte zerstörende La-<lb/>
+dung bekam. Mit einem kühnen Fluche warfen jetzt<lb/>
+<cb n="2"/>
+die Amazonen ihre Sonnenschirme und Strohhüte von<lb/>
+sich und sprangen, mit gezückten Dolchen und geladenen<lb/>
+Pistolen, wuthschäumend an Bord der englischen Brigg,<lb/>
+entschlossen, zu siegen oder zu sterben und sterbend ihr<lb/>
+Leben theuer zu verkaufen. Binnen einer halben Stunde<lb/>
+war das Verdeck mit Blut und Todten bedeckt. Ein<lb/>
+Korsar warf sich auf die feindliche Flagge und eroberte<lb/>
+sie. Die Brigg ergab sich und Moëde segelte nun mit<lb/>
+seinem rühmlichen Fange nach Point=à=Pitre. Die<lb/>
+Amazonentracht, die man vor dem Kampfe aus Man-<lb/>
+gel an Zeit nicht abzulegen vermocht hatte, legte man<lb/>
+jetzt aus Freude nicht ab. Point=à=Pitre war nicht<lb/>
+wenig erstaunt über das sonderbare Costüm der jubeln-<lb/>
+den Bemannung des Korsarenschiffs, stimmte aber mit<lb/>
+voller Seele in ihren Jubel ein, als es die Veranlas-<lb/>
+sung dazu vernommen hatte.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Der missourische Sichelzahn, ein neues<lb/>
+Urthier.</hi></head><lb/>
+<p><hi rendition="#in">E</hi>ine der größten Naturseltenheiten befindet sich gegen-<lb/>
+wärtig in dem Ausstellungssalon von Tommy's Hôtel<lb/>
+in Dublin. Sie besteht in dem Fossilgerippe eines ur-<lb/>
+weltlichen Thieres, das ebenso sehr durch den ungeheuren<lb/>
+Umfang als den seltsamen Bau seines Skeletts in Ver-<lb/>
+wunderung setzt. Es wurde durch Herrn Albert Koch,<lb/>
+einen deutschen Naturforscher, in der angeschwemmten<lb/>
+Edschicht gefunden, welche auf dem alten Bette des<lb/>
+Pomme de Terre, einem Arme des Osage, im Staate<lb/>
+Missouri liegt, und ist vollständig erhalten, indem es<lb/>
+durch mehre, übereinanderliegende, Schichten vor der<lb/>
+Zerstörung durch die atmosphärische Luft bewahrt blieb.<lb/>
+Von der Localität, in welcher das Gerippe entdeckt<lb/>
+wurde, und von der Stellung und Gestalt der Fang-<lb/>
+zähne, welche zwei Sicheln gleichen, die sich horizontal<lb/>
+an jeder Seite des Kopfes ausdehnen, heißt es der missou-<lb/>
+rische Sichelzahn ( <hi rendition="#aq">Mussurium Theristocaulodon</hi> ) . Das<lb/>
+Skelett, welches durch ein eisernes Gestell getragen wird,<lb/>
+ist 15 Fuß hoch und 30 Fuß lang. Die Breite zwi-<lb/>
+schen den Vorderfüßen beträgt mehr als 8, die zwischen<lb/>
+den Hinterfüßen ungefähr 6 Fuß. Ein völlig ausge-<lb/>
+wachsener Elefant, neben dieses Riesenthier gestellt, würde,<lb/>
+wenn dessen ungeheuere Gestalt mit Fleisch bedeckt wäre,<lb/>
+sich ungefähr ausnehmen, wie ein Lamm neben dem<lb/>
+Mutterschafe.</p><lb/>
+<p>Schon aus der Ferne, noch ehe man den Raum<lb/>
+betritt, wo die Überreste dieses größten Landthiers der<lb/>
+Erde colossal emporsteigen, ist die Erscheinung desselben<lb/>
+überaus imposant. Der Besucher erblickt, wenn er sich<lb/>
+dem Eingange nähert, zwei dunkele, aus dem Gröbsten<lb/>
+gehauene Säulen von bedeutender Höhe, doch plumpen<lb/>
+Verhältnissen und in weiterer Ferne zwei andere, welche<lb/>
+die herabhängenden Querbalken irgend eines verfallenden<lb/>
+Gebäudes zu tragen scheinen. Dieses sind die vier Füße,<lb/>
+welche den Kopf und die Fangzähne, das Rückgrat und<lb/>
+die Rippen der ungeheuren Masse des thierischen Baues<lb/>
+tragen. Es ist gewiß, daß der missourische Sichelzahn,<lb/>
+gleich dem jetzigen Nilpferde, ein Bewohner des Was-<lb/>
+sers und vielleicht gar eine Amphibie war, indem dessen<lb/>
+Füße mit Schwimmhaut versehen und außerdem auch<lb/>
+noch besonders zum Schwimmen auf der Oberfläche<lb/>
+oder zum Gehen auf dem Boden der Flüsse und Seen<lb/>
+eingerichtet gewesen zu sein scheinen, und dasselbe seine<lb/>
+Nahrung wahrscheinlich im morastigen, wie auf dem<lb/>
+flachen Lande suchte.</p><lb/>
+<p>Daß es mit dem menschlichen Geschlechte existirte<lb/>
+und mit demselben die Herrschaft über die Gewässer und<lb/>
+<cb type="end"/>
+<pb facs="#f0004" n="164"/>
+<fw place="top" type="pageNum">164</fw><cb type="start"/>
+breiten Weideplätze der Gegenden, wo es sich aufhielt,<lb/>
+theilte, will man daraus entnehmen, das mehre Feuer-<lb/>
+steinpfeilspitzen, welche fast in jeder Gegend der Erde das<lb/>
+<cb n="2"/>
+Dasein von wilden, uncultivirten Menschen anzeigen, in<lb/>
+derselben angeschwemmten Lage und direct unter dem<lb/>
+Gerippe gefunden worden sind.</p></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr"><hi rendition="#g">Tirol</hi>.</hi></head><lb/>
+<figure>         <head>  Das Posthaus auf dem Brenner.  </head>       </figure><lb/>
+<cb type="start"/>
+<p><hi rendition="#in">T</hi>irol, das seinen Namen von dem am linken Ufer der<lb/>
+Etsch gelegenen Bergschlosse Tirol bekommen hat, bildet<lb/>
+einen der wichtigsten Bestandtheile des deutsch=östreichi-<lb/>
+schen Landes und umfaßt gegen 518 &#x25A1;M. mit etwa<lb/>
+820,000 Einwohnern, worunter sich 170,000 Jtaliener<lb/>
+befinden. Es ist ein wildromantisches Land, das hier<lb/>
+einem irdischen Paradiese, dort einem Orte der ewigen<lb/>
+Verdammniß gleicht, denn Felsenmassen mit furchtbaren<lb/>
+Abgründen wechseln mit blühenden Thälern, sodaß die<lb/>
+Schweiz nicht reizendere Contraste, gewaltigere Ansichten<lb/>
+bietet. Wie die Schweiz wird es von riesigen Alpen-<lb/>
+ketten durchzogen. Zwischen ewig mit Schnee bedeckten<lb/>
+Bergen, von denen wilde Gießbäche herabstürzen, lachen<lb/>
+die lieblichen Thäler um so lieblicher, je rauher die Ge-<lb/>
+birge sind.</p><lb/>
+<p>Auch an Seen fehlt es nicht im Jnnern Tirols,<lb/>
+doch sind sie viel kleiner als die schweizerischen. Über-<lb/>
+haupt erscheint die Natur mit ihren großartigen Gebilden<lb/>
+in Tirol zusammengedrängter als in der Schweiz. Die<lb/>
+tiroler Gebirge bedecken neun Zehntel der ganzen Boden-<lb/>
+fläche und gehören zu den rhätischen und norischen Al-<lb/>
+pen. Der mächtigste Gebirgszug beginnt über der 14,000<lb/>
+Fuß hohen Ortelsspitze an der schweizerischen und lom-<lb/>
+bardischen Grenze und durchzieht das Land in nordöstli-<lb/>
+cher Richtung, es in eine südliche und nördliche Hälfte<lb/>
+theilend. Jn dem südlichen Theile, besonders um Me-<lb/>
+ran und Botzen, eine Gegend, welche der Tiroler das<lb/>
+Paradies nennt, wächst der Weinstock bis zu der Höhe<lb/>
+der Mittelberge und gibt einen leichten, gesunden Wein.<lb/>
+<cb n="2"/>
+Der Feigen= und Pfirsichbaum gedeihen ohne Pflege,<lb/>
+selbst Granaten sind nicht selten und die Citronen und<lb/>
+Orangen geben reichliche Ausbeute. Kastanien und Nüsse<lb/>
+bilden Wälder aus ungeheuren Stämmen und alle edlern<lb/>
+Obstarten, namentlich die weitverschickten Rosmarinäpfel,<lb/>
+kommen in vorzüglicher Güte vor. Die Traube ist saft-<lb/>
+reich und von so zarter Hülle umgeben, daß sie den be-<lb/>
+nachbarten italienischen und selbst den wohlschmeckenden <lb/>
+<hi rendition="#aq">Raisins de Fontainebleau</hi> vorzuziehen ist.</p><lb/>
+<p>Für Brustkranke ist hier der herrlichste Aufenthalt.<lb/>
+Sie müssen genesen, wenn ihr Übel erst im Entstehen,<lb/>
+und wenigstens länger leben, wo an keine vollkommene<lb/>
+Heilung mehr zu denken ist; denn milde, warme Luft<lb/>
+weht hier vom ersten Beginne des Frühlings bis zum<lb/>
+spätesten Herbst, und wird sie im Sommer zu heiß, so<lb/>
+wandert man die Berge hinauf und wählt eine Woh-<lb/>
+nung, wie sie die Lunge bedarf. Wenn man zur Zeit<lb/>
+der Weinblüte durch die herrlichen Felder spazieren geht,<lb/>
+bleibt man oft unwillkürlich stehen, gefesselt von dem rei-<lb/>
+zenden Panorama, entzückt von dem herrlichen Wohl-<lb/>
+geruche, und fühlt ein unendliches Wohlbehagen den Kör-<lb/>
+per durchströmen.</p><lb/>
+<p>Einen romantischen Reiz mehr bekommt Tirol durch<lb/>
+die große Anzahl von Schlössern, die, obgleich im Mit-<lb/>
+telalter gegründet, meist noch wohlerhalten und im wohn-<lb/>
+lichen Zustande sind. Auf jedem neuen Berge steigen<lb/>
+neue Burgen empor, eine Kette bildend bis zur Grenze<lb/>
+der Lombardei, eine Kette, welche von den in der Tiefe<lb/>
+gelegenen Dörfern reizend durchflochten wird.</p><lb/>
+<cb type="end"/>
+<pb facs="#f0005" n="165"/>
+<fw place="top" type="pageNum">165</fw>       <cb type="start"/>
+<p>So verschieden die Bodenfläche ist, so verschieden ist<lb/>
+auch das Klima; in den nördlichen Thälern weht die<lb/>
+Luft fast immer rauh und kalt und der Winter hält,<lb/>
+namentlich im Pusterthale, sehr lange an, dagegen herrscht<lb/>
+in den südlich auslaufenden Thälern im Sommer oft<lb/>
+eine solche Hitze, daß die Bewohner ihre Häuser verlas-<lb/>
+sen und auf den Bergen einen kühlern Aufenthalt suchen.<lb/>
+Wenn der Sirocco, hier Föhn genannt, weht, so bringt<lb/>
+er bei Dem, welcher sich ihm ohne Schutz zu lange aus-<lb/>
+setzt, nicht selten ein gefährliches Erbrechen hervor. Der<lb/>
+Schnee auf den Fernern löst sich oft schon im Frühling<lb/>
+so schnell, daß Lavinen herabstürzen, die Bäche zu Strö-<lb/>
+men anschwellen und oft ganze Dörfer vernichtet werden.</p><lb/>
+<p>Unter dem Wilde Tirols spielt die Gemse die Haupt-<lb/>
+colle, sonst gab es auch Steinböcke; unter dem zahmen<lb/>
+Vieh sind die Rinder am zahlreichsten. Mineralien sind<lb/>
+in Menge da. Sonst gab es große Ausbeute an Sil-<lb/>
+der in den Bergen von Schwätz, sodaß Maximilian<lb/>
+das Land mit einem groben Bauernkittel verglich, der<lb/>
+viele Falten habe, aber hübsch warm halte. Die kleinen<lb/>
+Seen und zahlreichen Flüsse geben eine Menge vortreff-<lb/>
+licher Fische.</p><lb/>
+<p>So eigenthümlich das Land ist, so eigenthümlich<lb/>
+sind seine Bewohner. Sie müssen sich ihre Wohnplätze<lb/>
+gleichsam erst erobern und führen einen unablässigen<lb/>
+Kampf mit der Natur, daher sind sie ein kräftiger, mu-<lb/>
+thiger Menschenschlag, der sich durch Biederkeit und Treu-<lb/>
+herzigkeit, Ehrlichkeit und Redlichkeit, heitern Sinn und<lb/>
+lustiges Wesen auszeichnet, aber freilich auch nicht sel-<lb/>
+ten heftig, streitsüchtig, rauflustig und hartnäckig erscheint.</p><lb/>
+<p>Der heftige Charakter des Tirolers äußert sich selbst<lb/>
+in seinen Vergnügungen; nicht leicht erblickt man eine<lb/>
+Anzahl junger Männer, unter denen nicht einer oder der<lb/>
+andere mit einer Auerhahnfeder auf dem Hute stolz da-<lb/>
+herschreitet, ein Zeichen, daß er sich mit Diesem oder<lb/>
+Jenem tüchtig gerauft und den Sieg davongetragen hat.</p><lb/>
+<p>Die Tiroler sind leidenschaftliche Jäger, daher aus-<lb/>
+gezeichnete Schützen und große Freunde des Scheiben-<lb/>
+schießens. Sie hängen mit großer Vorliebe an ihren<lb/>
+heimischen Sitten, ihrem Vaterlande und ihrem Regen-<lb/>
+tenhause. Sie haben eine Nationaltracht, von der sie<lb/>
+nicht abgehen, die jedoch in den verschiedenen Thälern<lb/>
+verschieden ist.</p><lb/>
+<p>Die italienischen Tiroler unterscheiden sich von den<lb/>
+deutschen durch einen dürftigern Körperbau, braune Ge-<lb/>
+sichtsfarbe und mindere Treuherzigkeit. Sie sind weni-<lb/>
+ger lustig als leidenschaftlich und während bei den Deutsch-<lb/>
+tirolern ein Faustkampf die ziemlich häufigen Streitig-<lb/>
+keiten entscheidet, führt den Wälschtiroler seine Rachsucht<lb/>
+nicht selten zum Mord. Jndeß ist der Welsche mäßiger,<lb/>
+nüchterner und ernster als der Deutschtiroler und nicht<lb/>
+minder arbeitsam als dieser.</p><lb/>
+<p>Viehzucht, Jagd, Ackerbau und Bergbau, auch Woll-<lb/>
+und Baumwollenweberei, Bearbeitung der Metalle, Ger-<lb/>
+berei, Handschuhmacherei, Glasfabrikation, Holzschnitzerei<lb/>
+und Handel, in den südlichen Gegenden Seidenzucht und<lb/>
+Seidenweberei beschäftigen die Tiroler und verschaffen ih-<lb/>
+nen hinreichenden Unterhalt. Eine große Anzahl Tiro-<lb/>
+ler verläßt jährlich die Heimat, um als Hausirer, Hand-<lb/>
+werker, Tagelöhner im Auslande ihren Unterhalt zu su-<lb/>
+chen, doch kehren alle wieder zurück, sobald sie etwas<lb/>
+erworben haben.</p><lb/>
+<p>Die wichtigste Handelsstraße ist die zwischen Mün-<lb/>
+chen und Verona. Sie führt über Jnnsbruck, den Bren-<lb/>
+ner, Botzen, Trient, Roveredo.</p><lb/>
+<p>Der Brenner, welcher uns auf der nebenstehenden<lb/>
+Abbildung theilweise vor die Augen tritt, ist hier beson-<lb/>
+ders hervorzuheben. Er liegt zwischen Jnnsbruck und<lb/>
+<cb n="2"/>
+Sterzing, den Flüssen Jnn, Eisack und Etsch und er-<lb/>
+hebt sich bis zu einer Höhe von 6380 Fuß. Von<lb/>
+Jnnsbruck führt der Weg anfangs durch anmuthige Um-<lb/>
+gebungen, die sich aber bald rauher gestalten und endlich<lb/>
+in wilde Schluchten übergehen, durch die man auf den<lb/>
+Gipfel zu dem auf unserer Abbildung dargestellten Post-<lb/>
+hause Brenner und dem gleichnamigen, von etwa 100<lb/>
+Menschen bewohnten Örtchen gelangt, bei dem der süd-<lb/>
+liche Abhang des Passes beginnt. Eine schöne Aussicht<lb/>
+gewährt die Höhe des Passes nicht, da er eine tiefe<lb/>
+Schlucht bildet. Bei der Vertheidigung von Tirol war<lb/>
+der Brenner stets ein wichtiger Punkt und wurde 1809<lb/>
+gegen die Baiern und Franzosen bis in den November<lb/>
+von den Tirolern behauptet, welche dadurch jede Verbin-<lb/>
+dung mit Jtalien hinderten. Die Straße führt übrigens<lb/>
+in einer Höhe von 4376 Fuß darüber und war schon<lb/>
+bei den Römern gangbar.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle" xml:id="Saebel2"><head><hi rendition="#fr">Der heilbringende Säbel.</hi><lb/>
+( Fortsetzung aus Nr. 20. )<note type="editorial">Die Ausgabe, die den ersten Teil des Artikels enthält, fehlt.</note></head><lb/>
+<p><hi rendition="#in">E</hi>s gibt schwerlich etwas Wunderbareres auf der Welt<lb/>
+als die Wirkung der menschlichen Stimme; in ihr ist<lb/>
+der ganze Mensch concentrirt; sie ist bald der von Tau-<lb/>
+ben gezogene Wagen, in welchem die Liebe dahin schwebt,<lb/>
+liebliche Rosen um sich herstreuend, bald der Donnerwa-<lb/>
+gen, in welchem der Zorn dahinrollt, flammende Blitze<lb/>
+nach allen Richtungen hin schleudernd; sie trägt das<lb/>
+Flehen der Bitte in tausend Herzen und macht sie weich<lb/>
+und willfährig zu den größten Opfern, aber sie wagt<lb/>
+auch den Kampf mit dem brausenden Meere der Leiden-<lb/>
+schaft und es gelingt ihr, wenn sie die rechte Span-<lb/>
+nung hat, oft mit einem einzigen Tone das aufgeregteste<lb/>
+Meer zu beschwichtigen.</p><lb/>
+<p>Dies Letztere war bei unserm Offizier der Fall. Er<lb/>
+war sich seiner Herrschaft bewußt; deshalb wagte er so<lb/>
+zu sprechen, wie er sprach und fürchtete nicht die phy-<lb/>
+sische Übermacht. Die Bauern waren wie versteinert.<lb/>
+Sie hätten keinen Widerstand zu machen gewagt, wenn<lb/>
+er ihre Köpfe verlangt hätte. Es schien ihnen, als<lb/>
+wenn er unsichtbar von einer ganzen Armee umringt<lb/>
+wäre und nur winken dürfte, um durch sie Alles zu<lb/>
+vernichten, was den geringsten Gedanken an Ungehor-<lb/>
+sam in sich aufkommen ließe. Deshalb waren sie auf<lb/>
+das Schrecklichste gefaßt und leisteten im Herzen Verzicht<lb/>
+auf die Beute, die zu ihren Füßen ausgebreitet lag.<lb/>
+Sie war den Starken durch einen Stärkern abgejagt<lb/>
+worden und gehörte nun ihm, nach dem uralten, keiner<lb/>
+Verjährung unterliegenden Gesetze des Faustrechts.</p><lb/>
+<p>Aber unser Offizier dachte nicht an dieses Recht des<lb/>
+Stärkern und wollte noch weniger es behaupten. Er<lb/>
+rief vor allen Dingen den blondlockigen Handri herbei,<lb/>
+der durch Öffnung der Hofthür Veranlassung zu der<lb/>
+ganzen Scene gegeben hatte.</p><lb/>
+<p>Wo sind die Deinigen, mein lieber Junge, fragte er<lb/>
+mit einer herzgewinnenden Stimme.</p><lb/>
+<p>Dort, unter dem Hängedache, antwortete Handri,<lb/>
+und winkte Marthen mit den übrigen vier Kindern,<lb/>
+welche nichts Gutes erwarteten.</p><lb/>
+<p>Laß sie hervortreten, damit ich sie sehe.</p><lb/>
+<p>Demüthig erschien Martha und bat um Verzeihung<lb/>
+für den armen Jungen, denn sie meinte, er habe den<lb/>
+Offizier um einige ihrer Brote gebeten und dadurch<lb/>
+erzürnt.</p><lb/>
+<p>Seid ruhig, der Junge hat mein Herz gewonnen.<lb/>
+Wo ist der Vater aller dieser Kinder?</p><lb/>
+<cb type="end"/>
+<pb facs="#f0006" n="166"/>
+<fw place="top" type="pageNum">166</fw>       <cb type="start"/>
+<p>Die Kinder gehören nicht alle mir, nur Jan und<lb/>
+Hanka sind meine Kinder, antwortete Martha, indem<lb/>
+sie dieselben mit der Hand berührte. Die drei andern<lb/>
+sind mir aber nicht minder lieb, fügte sie schnell hinzu,<lb/>
+als sie dieselben traurig zur Erde blicken sah.</p><lb/>
+<p>Was habt ihr für Rechte auf sie? Wo sind ihre<lb/>
+Ältern.</p><lb/>
+<p>Sie sind Waisen und mir von meinem Manne,<lb/>
+der das Unglück hatte, ihnen die Mutter zu tödten, wie<lb/>
+eigene Kinder ans Herz gelegt worden.</p><lb/>
+<p>Hierauf erfuhr der Offizier Alles, was sich in der<lb/>
+Schnelligkeit mittheilen ließ, und schien eine große Zu-<lb/>
+neigung zu der Frau zu fassen, denn er klopfte sie<lb/>
+freundlich auf die Achseln, gab ihr seine Börse und er-<lb/>
+mahnte sie, in ihrer mütterlichen Liebe für die armen<lb/>
+Waisen nicht nachzulassen. Dann vertheilte er die vor-<lb/>
+handenen Vorräthe, als sein erobertes Eigenthum, unter<lb/>
+die Anwesenden, doch so, daß Diejenigen besonders berück-<lb/>
+sichtigt wurden, welche aus irgend einem Grunde eine<lb/>
+besondere Berücksichtigung zu verdienen schienen.</p><lb/>
+<p>Als er Alles zufrieden gestellt sah, ließ er sich von<lb/>
+Marthen ein Stück Brot und von einer ihr zugefalle-<lb/>
+nen Speckseite ein Stück Speck geben und nahm Ab-<lb/>
+schied, sich und seine Landsleute, welche nur den Zweck<lb/>
+hätten, der Welt den Frieden wieder zu geben, dem<lb/>
+Gebete der gerührten Menge empfehlend.</p><lb/>
+<p>Bald nach seinem Weggange hörte man den Don-<lb/>
+ner der Kanonen jenseits des Gebirges. Die ganze<lb/>
+Ebene östlich von Bautzen schien lebendig geworden zu<lb/>
+sein und dem von Großgörschen heranstürmenden Napo-<lb/>
+leon brüllend entgegenzurufen: &#x201E;Kehre um, das Glück<lb/>
+hat sich von dir gewandt.&#x201C; Aber Napoleon war nicht<lb/>
+gewöhnt, sich durch irgend etwas warnen zu lassen. Er<lb/>
+wollte die in Rußland empfangene Scharte wieder aus-<lb/>
+wetzen und drang unaufhaltsam vor.</p><lb/>
+<p>Die Bauern erzitterten bei jedem Kanonendonner,<lb/>
+aber so groß ihre Furcht war, ihre Neugierde war doch<lb/>
+noch größer. Es war den 20. Mai, Nachmittags um<lb/>
+4 Uhr, als die Feuerschlünde dergestalt wütheten, daß<lb/>
+das ganze Gebirge, an welchem das Dorf Dehlen lag,<lb/>
+vor Schreck aufzuhüpfen schien. Es war ein Erdbeben,<lb/>
+das die Völker der Erde verschlingen zu wollen schien.<lb/>
+Aber die Größe des Schauspiels machte, daß die klein-<lb/>
+lichen Leidenschaften der Furcht und Besorgniß verstumm-<lb/>
+ten. Es ist mit dem Herzen, wie mit dem Auge, in<lb/>
+welchem das kleinste Sandkörnchen, das seine Fläche be-<lb/>
+rührt, den durchdringendsten Schmerz erzeugt, während<lb/>
+es von der Hand des Operateurs gefaßt sich ruhig und<lb/>
+schmerzlos den Staar stechen läßt. Wie der Donner<lb/>
+der Kanonen seine Riesenstimme immer gewaltiger er-<lb/>
+hob, wurde das Herz der Bauern immer ruhiger, bis<lb/>
+sich eine gewisse Gleichgültigkeit gegen Alles, was Ge-<lb/>
+fühl heißt, ihrer bemächtigt hatte. Ohne zu fragen,<lb/>
+welchen Gefahren sie sich und die Jhrigen preisgäben,<lb/>
+folgten sie dem Triebe der Neugierde, die ihre Schritte<lb/>
+dem Schlachtfelde zutrieb.</p><lb/>
+<p>Plötzlich war der Hof, wo sich Martha befand, sei-<lb/>
+ner kräftigsten Jnsassen beraubt und man sah nur Greise,<lb/>
+Weiber und Kinder. Auch Handri fehlte. Er war den<lb/>
+Männern nachgeeilt, die auf das Gebirge gingen, von<lb/>
+dem man die ganze Ebene von Bautzen übersehen kann.<lb/>
+Als er hinauf kam, stand Mann an Mann, marmor-<lb/>
+still da. Kein Wort, keine Bewegung verrieth das Le-<lb/>
+ben der dichten Massen von Menschen. Alles war nur<lb/>
+Auge geworden und schaute starr auf die Ebene, wo<lb/>
+gegen 30 Dörfer in Brand standen und mit ihren<lb/>
+Flammen die Wolken küßten. Zwischen ihnen waren<lb/>
+Völker aller Nationen in unabsehbare Reihen ausge-<lb/>
+<cb n="2"/>
+dehnt, an denen die Adjutanten mit unbegreiflicher<lb/>
+Schnelligkeit auf= und abflogen.</p><lb/>
+<p>Es war ein Anblick, der an Großartigkeit Alles<lb/>
+übertraf, was im gewöhnlichen Leben großartig heißt,<lb/>
+ein Anblick, der den Philosophen erklärt hätte, wie der<lb/>
+Eroberer, der einmal die dämonische Seligkeit des An-<lb/>
+blicks einer Völkerschlacht geschmeckt hat, das Eroberte,<lb/>
+das er mit Strömen von Blut errungen, um einer<lb/>
+Kleinigkeit willen wieder in die Schanze schlagen kann.<lb/>
+Das Erobern ist es, das ihm Freude macht, nicht das<lb/>
+Eroberte. Wenn die grünen Saaten unter dem Hufe<lb/>
+zahlloser Reitergeschwader verschwinden; wenn sich die<lb/>
+niedertretenen Gefilde mit Menschenblut färben; wenn<lb/>
+der Boden von dem Brüllen unzähliger Feuerschlünde<lb/>
+zittert, und die Flammen brennender Städte und Dör-<lb/>
+fer um das blaue Firmament ihren majestätischen Pur-<lb/>
+purmantel schlagen: da ist ihm wohl, da schlürft er<lb/>
+übermenschliche Seligkeit in vollen Zügen und schwebt,<lb/>
+wie die olympischen Götter, ruhig über dem Stöhnen<lb/>
+der Sterbenden, über den Klagen der Verstümmelten,<lb/>
+über den Verwünschungen der Unglücklichen. Er fühlt<lb/>
+nicht, er sieht nur, er ist ein reiner Geist, ein reiner<lb/>
+Geist mitten auf dem Boden des Gefühls, aber hoch<lb/>
+hinaufragend über denselben, wie ein Montblanc, da-<lb/>
+her unzugänglich allen den Einflüssen, die von unten<lb/>
+stammen.</p><lb/>
+<p>Jn einer ähnlichen Stimmung waren die Bauern<lb/>
+auf dem Berge vor Dehlen, als sie das Schlachtfeld<lb/>
+von Bautzen übersahen. Sie waren durch den Anblick<lb/>
+über ihre Gefühlswelt erhoben worden und blickten, wie<lb/>
+verjüngte Chimborassos, weit über ihr Fußgestell hinweg.<lb/>
+Daher regte sich keine Klage in ihnen, als sie ihr Hab<lb/>
+und Gut in den ungeheuern Rauchwolken, die der Ost-<lb/>
+wind von den brennenden Dörfern über das Schlacht-<lb/>
+feld trieb, dahinziehen sahen. Sie waren im Anschauen<lb/>
+verloren, sie waren reine Geister und als solche der<lb/>
+Form der Zeit enthoben. Vier Stunden waren ihnen<lb/>
+so vergangen, wie vier Minuten. Die Sonne wollte<lb/>
+untergehen, gleichsam müde des schrecklichschönen Schau-<lb/>
+spiels, das nicht enden wollte, vielleicht weil sie nicht<lb/>
+blos vernahm, sondern auch fühlte, was unter ihr vor-<lb/>
+ging. Sie sah wenigstens nicht selig aus, ihr strahlen-<lb/>
+des Antlitz war mit dem Anschein tiefer Betrübniß um-<lb/>
+zogen, das Leiden der Tausende von Sterbenden, der<lb/>
+Schmerz der unzähligen Verwundeten schien sich in ihr<lb/>
+Herz gesenkt zu haben.</p><lb/>
+<p>Der düstere Schein der untergehenden Sonne erin-<lb/>
+nerte die Bauern, daß es auch noch andere betrübte<lb/>
+Gesichter geben dürfte, und sie dachten zum ersten Mal<lb/>
+wieder an Weib und Kind, die sie schutzlos im Dorfe<lb/>
+zurückgelassen hatten. Kaum war dieser Gedanke mit<lb/>
+seinen Schrecken durch ihre Seele geflogen, als der<lb/>
+Donner der Kanonen in ihrem Rücken noch dringender<lb/>
+an die Rückkehr zu den Jhrigen mahnte. Wer für die-<lb/>
+sen Donner keine Ohren hatte, wurde durch den bluti-<lb/>
+gen Schein, der plötzlich unweit Dehlen zum Himmel<lb/>
+emporstieg, zum Aufbruch gemahnt. Bald überzeugte<lb/>
+man sich, daß sich die Schlacht an das westliche Ende<lb/>
+des Berges, auf dem man stand, in das Thal hinein<lb/>
+gezogen hatte, in welchem Dehlen lag. Nun wurden<lb/>
+die Bauern wieder ganz Menschen, ihre bisherige gei-<lb/>
+sterhafte Beschaffenheit machte der schlichtmenschlichen<lb/>
+wieder Platz, aus den künstlichen Chimborassos wurden<lb/>
+natürliche Maulwurfshügel voll Bedürfnisse, Sorgen<lb/>
+und Leiden.</p><lb/>
+<p>Man führte die Rückkehr mit solcher Hastigkeit aus,<lb/>
+daß unser Handri, der doch sonst gut zu Fuße war,<lb/>
+weit zurückblieb. Als er endlich das Dorf erreichte, fand<lb/>
+<cb type="end"/>
+<pb facs="#f0007" n="167"/>
+<fw place="top" type="pageNum">167</fw><cb type="start"/>
+er die Seinigen nicht mehr. Alles hatte sich geflüchtet,<lb/>
+denn keine Viertelstunde von dem Dorfe brannte das<lb/>
+Dorf Pilitz und Dehlen konnte kein anderes Schicksal<lb/>
+erwarten. Handri verlor keine Zeit mit fruchtlosem Wei-<lb/>
+nen, sondern wandte sich an den ersten besten Bauer,<lb/>
+der sich mit der Flucht verspätigt hatte, und trug ihm<lb/>
+seine Dienste an, in der angenehmen Hoffnung, daß<lb/>
+dem Dienenden die nöthige Nahrung zu Theil werden<lb/>
+würde, denn er dachte an den Spruch Gottes: Dem<lb/>
+Ochsen, der dir dein Korn drischt, sollst du das Maul<lb/>
+nicht verbinden, welchen der Pastor in glücklichern Zei-<lb/>
+ten mit den Worten erklärte: Deinem Diener sollst du<lb/>
+die nöthige Nahrung nicht versagen. Der Bauer, der<lb/>
+von seinen Habseligkeiten soviel als möglich retten wollte,<lb/>
+nahm die Dienste des Kleinen an und bepackte ihn mit<lb/>
+allerlei Kleinigkeiten, die nicht zu sehr ins Gewicht fie-<lb/>
+len, dermaßen, daß er wie ein wandelnder Haufen alten<lb/>
+Gerümpels aussah.</p><lb/>
+<p>Jn diesem Aufzuge verließ er mit dem Bauer das<lb/>
+Dorf. Vor ihm ging eine Tochter des Bauers, ein<lb/>
+Kind von einigen Monaten in ihren Armen haltend. Als<lb/>
+sie vor das Dorf kamen, lenkte der Bauer mit seinem<lb/>
+Karren in den engen Hohlweg ein, der in den benach-<lb/>
+barten Wald führte, und Handri mußte mit der Toch-<lb/>
+ter den am Rande des Hohlwegs hinführenden Fußpfad<lb/>
+einschlagen. Der Hohlweg war mit Kärrnern angefüllt.<lb/>
+Jedes Hinderniß, daß einen traf, wurde ein Hinderniß<lb/>
+für alle, die ihm folgten, und so ging der Zug schne-<lb/>
+ckenlangsam vorwärts. Anfangs empfand Handri diese<lb/>
+Langsamkeit nicht unangenehm, denn sie ließ ihm Zeit,<lb/>
+die Vorgänge auf dem Schlachtfelde, über das es weg-<lb/>
+ging, gehörig in Augenschein zu nehmen. Ganze Ab-<lb/>
+theilungen russischer Cavalerie sprengten in wilder Flucht<lb/>
+über die Bauern im Hohlwege hinweg. Handri glaubte<lb/>
+in ihnen die Räuber zu erkennen, die ihnen so manches<lb/>
+Brot davongetragen hatten, und freute sich über die<lb/>
+Strafe, welche sie empfingen. Er vergaß über den wech-<lb/>
+selnden Scenen ganz das Misliche seiner Lage und be-<lb/>
+dauerte nur, daß die Sonne bereits untergegangen und<lb/>
+bei dem immer mehr überhandnehmenden Dunkel die<lb/>
+schönsten Partien des Schlachtfeldes nicht mehr deutlich<lb/>
+zu übersehen waren. Dafür aber hörte er jetzt um so<lb/>
+mehr. Die immer näher kommenden Franzosen unter-<lb/>
+hielten ein lebhaftes Gewehrfeuer und die Kugeln fingen<lb/>
+an, die Flucht unsicher zu machen. Ein eigenthümliches<lb/>
+Pfeifen erinnerte die Flüchtlinge, daß sie zwischen zwei<lb/>
+Feuern wären. Alles stürzte sich in den Hohlweg hinab<lb/>
+und nun ging es eine Zeit lang gar nicht weiter.</p><lb/>
+<p>Handri konnte vermöge seiner Beladung nicht hin-<lb/>
+unter und bat den Bauer, ihm zu helfen, dieser aber<lb/>
+ermahnte ihn mit einem derben Fluche, auf seinem Wege<lb/>
+zu bleiben, sonst wolle er ihm den Hals umdrehen.<lb/>
+Diese Drohung versetzte Handri in eine sehr schlechte<lb/>
+Laune. Er ging noch einige Minuten auf dem gefähr-<lb/>
+lichen Wege neben dem Bauer im Hohlwege her. Da<lb/>
+aber das Pfeifen immer melancholischer wurde, hin und<lb/>
+wieder auch Todte und Verwundete vor sein Auge tra-<lb/>
+ten, fing er an zu fürchten, daß die wüthenden Fran-<lb/>
+zosen seine Wenigkeit für einen Russen halten und mau-<lb/>
+setodt schießen möchten wie Diejenigen, welche er hier<lb/>
+und da schon todt oder dem Tode nahe sah. Der Wald<lb/>
+war nicht mehr gar zu weit, ein tüchtiger Lauf konnte<lb/>
+ihn in 15 Minuten hineinbringen. Die Sehnsucht nach<lb/>
+Sicherheit wurde dadurch nur um so stärker. Er sagte<lb/>
+daher zu dem Bauer: Nehmt mir meine Bürde ab, ich<lb/>
+mag Euch nicht länger dienen, ich muß sobald als mög-<lb/>
+lich den Wald erreichen.</p><lb/>
+<p>Unterstehe dich nicht, von mir zu weichen, sagte der<lb/>
+<cb n="2"/>
+Bauer, ich will dir sonst die Haut dergestalt gerben, daß<lb/>
+du Zeitlebens an mich denken sollst.</p><lb/>
+<p><ref target="nn_pfennig022_1843#Saebel3"><hi rendition="#c">( Fortsetzung folgt in Nr. 22. )</hi></ref></p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Peter der Grosse auf seiner ersten Reise<lb/>
+durch Europa.</hi></head><lb/>
+<p><hi rendition="#in">P</hi>eter der Große hatte sich von seinem geliebten Le Fort<lb/>
+so viel von den fremden Ländern erzählen lassen, daß er<lb/>
+endlich &#x2014; es geschah im J. 1697 &#x2014; eine große Ge-<lb/>
+sandtschaft ausrüstete, die unter Le Fort's Leitung Eu-<lb/>
+ropa durchreisen sollte. Diese Gesandtschaft bestand aus<lb/>
+300 Personen. Peter nahm unter dem Titel eines<lb/>
+Obercommandeurs Antheil daran; denn er hoffte auf<lb/>
+diese Weise ohne alle Umstände Alles sehen zu können,<lb/>
+was er zu sehen wünschte. Diese Reise gab zu einer<lb/>
+Menge von Anekdoten Veranlassung, von denen hier<lb/>
+nur die angeführt werden mögen, die den großen Mann<lb/>
+in seiner Eigenthümlichkeit darstellen. Jn Berlin wurde<lb/>
+er vom Kurfürsten Friedrich <hi rendition="#aq">III</hi>., der, nachdem er König<lb/>
+geworden, Friedrich <hi rendition="#aq">I</hi>. hieß, sehr zuvorkommend aufgenom-<lb/>
+men. Schmausereien folgten auf Schmausereien, bei denen<lb/>
+tüchtig getrunken wurde. Bei einer solchen Schmauserei<lb/>
+gerieth er eines Abends mit Le Fort in Streit, und<lb/>
+hätte ihn beinahe, wie einst Alexander der Große seinen<lb/>
+Freund Clitus, auf der Stelle umgebracht. Nur mit<lb/>
+großer Mühe wurde der Zar, der über die Weigerung<lb/>
+Le Forts, den Säbel zu ziehen und einen Zweikampf<lb/>
+mit ihm zu bestehen, aufs Äußerste gebracht worden war,<lb/>
+zurückgehalten, den Liebling niederzustoßen. Am folgen-<lb/>
+den Morgen bereute er seine Übereilung mit aufrichtigem<lb/>
+Schmerze. &#x201E;Jch will mein Volk gesitteter machen, rief<lb/>
+er, aufgebracht über sich selbst, und vermag es nicht, mich<lb/>
+selbst zu bändigen.&#x201C;</p><lb/>
+<p>Wenn er es nicht vermochte, einer Leidenschaft zu<lb/>
+widerstehen, gegen die er seine kräftige Vernunft zur<lb/>
+Bundesgenossin hatte, so widerstand er noch weniger<lb/>
+Aufwallungen, welchen nur die Convenienz entgegenstand,<lb/>
+die er entweder nicht kannte oder nicht kennen mochte.<lb/>
+Bei einer glänzenden Assemblée trug der Hofmarschall<lb/>
+eine große Alongeperücke, ein wahres Prachtstück, das<lb/>
+wenigstens 300 Thaler kostete, durch welche er in den<lb/>
+Augen des fremden hohen Gastes kein geringes Ansehen<lb/>
+erlangen zu müssen schien; aber dieser konnte sich mit<lb/>
+der Prachtperücke nicht befreunden, sondern nahm ein<lb/>
+solches Ärgerniß an ihr, daß er endlich auf den Mar-<lb/>
+schall zulief, ihm die Perücke vom Kopfe riß und sie in<lb/>
+einen Winkel warf.</p><lb/>
+<p>Am hanöverschen Hofe wohnte er einem Balle bei,<lb/>
+auf welchem alle Damen, nach damaliger Sitte, steif<lb/>
+geschnürt waren. Als er mit mehren getanzt hatte,<lb/>
+wandte er sich zu Le Fort und sagte mit Verwunde-<lb/>
+rung: Wie teufelsharte Knochen haben doch die deutschen<lb/>
+Frauen! Als er während seines Aufenthalts in Hanover<lb/>
+eines Tags einer Dame begegnete, welche eine Uhr um<lb/>
+den Hals hängen hatte, rief er ihr mit donnernder Stim-<lb/>
+me &#x201E;Halt!&#x201C; zu und griff, als die Dame erschrocken ste-<lb/>
+hen blieb, nach der Uhr. Nachdem er sie geöffnet und<lb/>
+das Werk besehen hatte, ließ er die bestürzte Dame wie-<lb/>
+der ruhig weiter gehen.</p><lb/>
+<p>Auf seiner Reise nach Amsterdam eilte er seinem<lb/>
+Gefolge um 14 Tage voraus und kam in der Kleidung<lb/>
+eines Schiffszimmermanns in die Stadt. Auf der<lb/>
+Überfahrt nach dem bekannten Saardam, wo er sieben<lb/>
+Wochen lang, unter dem Namen Peter Baas, als ein-<lb/>
+facher Arbeiter auf dem Schiffswerfte arbeitete, sah er<lb/>
+<cb type="end"/>
+<pb facs="#f0008" n="168"/>
+<fw place="top" type="pageNum">168</fw><cb type="start"/>
+in einem Fischerboote einen Fischer, den er einst in Ruß-<lb/>
+land gesehen hatte. Gleich ließ er auf ihn zurudern,<lb/>
+sprang in sein Boot, schüttelte ihm treuherzig die Hand,<lb/>
+verlangte bei ihm zu wohnen, obgleich der Mann nur<lb/>
+eine Hütte mit einer einzigen Stube und Kammer be-<lb/>
+saß, und ruhte nicht, bis ihm die Stube überlassen<lb/>
+wurde und der Fischer mit seiner Frau die Kammer be-<lb/>
+zog. Wenn er von hier aus zu seiner Arbeit gehen<lb/>
+wollte, stand Anfangs immer ein dicker Haufen vor sei-<lb/>
+ner Thür und gaffte ihn wie ein Wunderthier an. Pe-<lb/>
+ter Baas machte aber keine Umstände. Mit tüchtigen<lb/>
+Püffen rechts und links machte er sich bald Bahn. Wer<lb/>
+die Püffe empfunden hatte, setzte sich nicht wieder der<lb/>
+Gefahr aus, sie noch einmal zu empfinden. Nach eini-<lb/>
+ger Zeit konnte Peter ungehindert sein Haus verlassen.<lb/>
+So gut es Peter in Saardam gefiel, so schlecht gefiel<lb/>
+es seinen Kammerherren, denn diese mußten ihm bei sei-<lb/>
+nen harten Arbeiten oft zu Handlangern dienen, z. B.<lb/>
+Kohlen zulangen, wenn er schmiedete, Seile drehen<lb/>
+u. dgl. Wehe Dem, der vor etwas Abscheu zeigte, was<lb/>
+dem Zar interessant war. So mußte Einer, der sich<lb/>
+beim Seildrehen saumselig bewies, Seile drehen bis ihm<lb/>
+die Hände bluteten.</p><lb/>
+<p>Jn England ließ König Wilhelm eine Seeschlacht<lb/>
+vor ihm aufführen, die ihn so entzückte, daß er aus-<lb/>
+rief: Wäre ich nicht zum Zaren des russischen Reichs ge-<lb/>
+boren, so möchte ich ein englischer Admiral sein.</p><lb/>
+<p>Nach dreimonatlichem Aufenthalte in England ging<lb/>
+er wieder nach Holland und unternahm hier auf dem<lb/>
+Zuydersee verschiedene Wasserfahrten. Auf einer derselben<lb/>
+überfiel ihn ein solcher Sturm, daß die erfahrensten Schif-<lb/>
+fer an der Rettung verzweifelten. Er allein blieb uner-<lb/>
+schrocken und sprach ihnen Muth zu: &#x201E;Habt ihr denn<lb/>
+je gehört, sagte er unter Anderm, daß ein russischer Zar<lb/>
+in Holland auf der See ertrunken sei?&#x201C;</p><lb/>
+<p>Als er nach Wien gekommen war und sich vorbe-<lb/>
+reitete, nach Jtalien zu gehen, hörte er von einem<lb/>
+neuen Aufstande der Strelitzen. Das bewog ihn, seine<lb/>
+weitern Reisepläne aufzugeben und sogleich nach Ruß-<lb/>
+land zurückzueilen. Unterwegs besuchte er König August<lb/>
+den Starken, der ein Dutzend zinnerne Teller wie Pa-<lb/>
+pier zusammenrollen konnte. Er wollte dem Zaren<lb/>
+eine Probe von seiner Stärke ablegen und ließ sich ei-<lb/>
+nen polnischen Ochsen vorführen. Hierauf ergriff er ei-<lb/>
+nen schönen Säbel und schlug dem Ochsen mit einem<lb/>
+Schlage den Kopf ab. &#x201E;Schenkt mir den Säbel&#x201C;,<lb/>
+rief Peter, &#x201E;er ist mir nöthig, um dem Empörungsdra-<lb/>
+chen das Haupt vom Rumpfe zu trennen.&#x201C; Der König<lb/>
+reichte ihm den Säbel mit den Worten: &#x201E;Tod den Tür-<lb/>
+ken und Tataren! Leben und Gnade den Unterthanen.&#x201C;<lb/>
+Aber diese Worte bewirkten nicht, was sie bewirken soll-<lb/>
+ten, denn Peter hatte einst, als ein begnadigter Verbre-<lb/>
+cher bei seinem Austritte aus dem Kerker sich auf der<lb/>
+Schwelle todtfiel, vor einem Crucifix das Gelübde ge-<lb/>
+than, keinen Verbrecher mehr der verdienten Strafe zu<lb/>
+entziehen. Vor den Fenstern der Wohnung seiner<lb/>
+Schwester, Sophia, welche wieder ihre Hand im Spiele<lb/>
+gehabt hatte, wurden 130 Schuldige aufgehenkt und ei-<lb/>
+nen ganzen Monat hindurch dauerten die Hinrichtungen<lb/>
+der schuldig Gefundenen.</p><lb/>
+<p>Das Ausland hatte dem Zaren so sehr gefallen, daß<lb/>
+er nichts sehnlicher wünschte, als seine Russen darnach<lb/>
+zu bilden. Für diesen Zweck suchte er vor allen Dingen<lb/>
+die ausländische Tracht unter seinen Russen einzuführen.<lb/>
+Das war kein kleines Unternehmen, denn seinen Russen<lb/>
+ging nichts über ihre lange Nationalkleidung. Der Kai-<lb/>
+<cb n="2"/>
+ser ließ über jedes Stadtthor ein Muster der Tracht<lb/>
+hängen, die er allgemein machen wollte. Wer noch mit<lb/>
+einem langen Kleide durchs Thor ging, mußte entweder<lb/>
+einen Zoll zahlen, oder unter dem Thore niederknieen<lb/>
+und es sich gefallen lassen, daß man ihm den Rock so<lb/>
+weit abschnitt, als er beim Knieen auf der Erde schleppte.<lb/>
+Nur die Bauern und Geistlichen durften die lange Klei-<lb/>
+dung behalten.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jVarious"><head><hi rendition="#fr"><hi rendition="#g">Miscellen</hi>.</hi></head><lb/>
+<div n="2" type="jArticle"><p><hi rendition="#g">Giftige Thiere.</hi> Jn Mejico gibt es, außer Klapper-<lb/>
+schlangen, noch andere giftige Reptilien, gegen deren Biß kein<lb/>
+Mittel hilft. Es gibt eine Chicaclina, eine gestreifte Viper,<lb/>
+die Coralillo oder korallenfarbige Viper mit schwarzem Kopfe,<lb/>
+und den Vinagrillo, ein Thier wie eine große Grille, durch<lb/>
+einen starken Essiggeruch bemerklich; er ist orangegelb und läßt,<lb/>
+auf der Haut hinlaufend, einen langen Streif tödtlichen Gif-<lb/>
+tes zurück. Der Biß der eidechsenartigen Salamanquese ist<lb/>
+tödtlich, und der Eslaboucillo stirbt vor Wuth, wenn er sich<lb/>
+auf Jemanden wirft und am Beißen verhindert wird. Der<lb/>
+Cencoate hat fünf Füße und leuchtet im Dunkeln. Der Stich<lb/>
+der Spinne Chinclaquili macht durch alle Knochen Schmerz;<lb/>
+sie sieht schwarz und roth. Die Tarantel ist ein abscheulich<lb/>
+aussehendes, weiches, fettes, mit dunkeln Haaren bedecktes<lb/>
+Thier, ebenso wie die Cacampulgaspinnen.</p></div><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<div n="2" type="jArticle"><p>Der Handel Bremens gewährte im Jahre 1842 glän-<lb/>
+zende Resultate; denn es kamen 1212 Seeschiffe mit 41,019<lb/>
+Commerzlasten <hi rendition="#aq">à</hi> 6000 Pfund in Bremen an und 1219 See-<lb/>
+schiffe mit 41,396 Commerzlasten gingen ab, während 1841<lb/>
+nur 1065 Seeschiffe mit 35,176 Commerzlasten ankamen und<lb/>
+1059 Seeschiffe mit 35,314 Commerzlasten abgingen. Das<lb/>
+laufende Jahr verspricht noch glänzendere Resultate. </p></div></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jAn"><head><hi rendition="#fr">Literarische Anzeige.</hi></head><lb/>
+<p><hi rendition="#c"><hi rendition="#fr #larger">Laudwirthschaftliche Dorfzeitung.</hi><lb/>
+<hi rendition="#fr">Herausgegeben von<lb/>
+C. v. Pfaffenrath und William Löbe.</hi><lb/>
+Vierter Jahrgang. 4. 20 Ngr.</hi></p><lb/>
+<p><hi rendition="#aq #c">Leipzig, bei F. A. Brockhaus.</hi></p><lb/>
+<p>Hiervon erscheint wöchentlich 1 Bogen. Ankündigun-<lb/>
+gen darin werden mit 2 Ngr. für den Raum einer gespalte-<lb/>
+nen Zeile berechnet, besondere Anzeigen <choice><abbr>ec.</abbr></choice> gegen eine<lb/>
+Vergütung von 3 / 4 Thlr. für das Tausend beigelegt.   </p><lb/>
+<p><hi rendition="#c #g">Jnhalt des Monats April:</hi></p><lb/>
+<p><hi rendition="#fr">Dorfzeitung</hi>. Aus dem Nassauischen. &#x2014; Antwortschrei-<lb/>
+ben des Kammerherrn von Pfaffenrath an den Herrn Orts-<lb/>
+schulzen K. unweit Halberstadt. &#x2014; Das Staudenkorn. &#x2014; Na-<lb/>
+turgeschichtliche Betrachtung über Kartoffelbau und Kartoffel-<lb/>
+seuche. &#x2014; Über die Anwendung der Seifensiederasche in der<lb/>
+Provinz Fulda. &#x2014; Gruppen englischen Federviehs. <hi rendition="#g">Mit<lb/>
+einer Abbildung.</hi> &#x2014; Vorsicht gegen Futternoth. &#x2014; Ein<lb/>
+Versuch der Düngung mit Guano. &#x2014; Nekrolog. ( Christian<lb/>
+Johann Friedrich Korn, Pfarrer zu Obernitz bei Saalfeld. ) &#x2014;<lb/>
+Über das Rösten des Hafers. &#x2014; Der Rahmmesser. &#x2014; Land-<lb/>
+wirthschaftliche Neuigkeiten, Miscellen <choice><abbr>ec.</abbr></choice> &#x2014;<lb/>
+<hi rendition="#fr">Unterhaltungsblatt</hi>: Übervölkerung. &#x2014; Das Erdbeben<lb/>
+in Westindien. &#x2014; Die Drusen als Krieger. &#x2014; Vater Unser<lb/>
+gegen Thierquälerei. &#x2014; Die deutschen Ansiedler in der Krim.<lb/>
+&#x2014; Bericht über ein Riesenskelett eines vorweltlichen Thiers.<lb/>
+&#x2014; Eine Fahrt durchs butjadinger Land nach Bremerhaven. &#x2014;<lb/>
+Die Thurmuhren in London. </p></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/><lb/>
+</body>     <back><div n="1" type="imprint"><p><hi rendition="#c">Herausgegeben unter Verantwortlichkeit der Verlagshandlung F. A. <hi rendition="#g">Brockhaus</hi> in <hi rendition="#g">Leipzig</hi>.</hi></p></div>     </back>   </text> </TEI>

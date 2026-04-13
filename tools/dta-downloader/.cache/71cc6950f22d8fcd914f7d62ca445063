@@ -1,0 +1,915 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.deutschestextarchiv.de/basisformat.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">     <teiHeader>
+<fileDesc>
+<titleStmt>
+<title type="main">Das Pfennig-Magazin für Belehrung und Unterhaltung</title>
+<title type="sub">Dritte Folge, Zweiter Jahrgang, Nr. 72</title>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/115266127">
+<surname>Geyken</surname>
+<forename>Alexander</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1222198746">
+<surname>Haaf</surname>
+<forename>Susanne</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1019062681">
+<surname>Jurish</surname>
+<forename>Bryan</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Boenig</surname>
+<forename>Matthias</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Thomas</surname>
+<forename>Christian</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Wiegand</surname>
+<forename>Frank</forename>
+</persName>
+</editor>
+<respStmt>
+<orgName>Institut für Deutsche Sprache, Mannheim</orgName>
+<resp>
+<note type="remarkResponsibility">Bereitstellung der Bilddigitalisate und TEI
+Transkription</note>
+<ref target="http://hdl.handle.net/10932/00-01B8-B09C-2E0F-B901-1"/>
+</resp>
+</respStmt>
+<respStmt>
+<persName>
+<forename>Peter</forename>
+<surname>Fankhauser</surname>
+</persName>
+<resp>
+<note type="remarkResponsibility">
+Transformation von TUSTEP nach TEI P5.
+Transformation von TEI P5 in das DTA TEI P5 Format.
+</note>
+</resp>
+</respStmt>
+<respStmt>
+<orgName ref="https://www.bbaw.de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<resp>
+<note type="remarkResponsibility">Langfristige Bereitstellung der DTA-Ausgabe</note>
+<ref target="https://www.bbaw.de"/>
+</resp>
+</respStmt>
+</titleStmt>
+<editionStmt><edition>Vollständige digitalisierte Ausgabe.</edition></editionStmt>
+<extent>
+<measure type="images">8</measure>
+<measure type="tokens">5175</measure>
+<measure type="types">2186</measure>
+<measure type="characters">35118</measure>
+</extent>
+<publicationStmt>
+<publisher xml:id="DTACorpusPublisher">
+<email>dta@bbaw.de</email>
+<orgName role="project">Deutsches Textarchiv</orgName>
+<orgName role="hostingInstitution" xml:lang="en">Berlin-Brandenburg Academy of Sciences and Humanities (BBAW)</orgName>
+<orgName role="hostingInstitution" xml:lang="de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<address>
+<addrLine>Jägerstr. 22/23, 10117 Berlin</addrLine>
+<country>Germany</country>
+</address>
+</publisher>
+<pubPlace>Berlin</pubPlace>
+<date type="publication">2025-10-24T08:35:13Z</date>
+<availability>
+<licence target="http://creativecommons.org/publicdomain/zero/1.0/">
+<p>Dieses Werk steht unter der "Creative Commons Namensnennung -
+Nicht kommerziell 3.0 Deutschland Lizenz" (CC BY-NC).</p>
+</licence>
+</availability>
+<idno>
+<idno type="URLWeb">https://www.deutschestextarchiv.de/nn_pfennig072_1854</idno>
+<idno type="URLXML">https://www.deutschestextarchiv.de/book/download_xml/nn_pfennig072_1854</idno>
+<idno type="URLHTML">https://www.deutschestextarchiv.de/book/download_html/nn_pfennig072_1854</idno>
+<idno type="URLText">https://www.deutschestextarchiv.de/book/download_text/nn_pfennig072_1854</idno>
+<idno type="DTADirName">nn_pfennig072_1854</idno>
+<idno type="DTAID">34730</idno>
+<idno type="URN">urn:nbn:de:kobv:b4-34730-2</idno>
+</idno>
+</publicationStmt>
+<sourceDesc>
+<bibl type="J">Das Pfennig=Magazin für Belehrung und Unterhaltung. Dritte Folge, Zweiter Jahrgang, Nr. 72. Leipzig (Sachsen), 11. Mai 1854.</bibl>
+<biblFull>
+<titleStmt>
+<title level="m" type="main">Das Pfennig-Magazin für Belehrung und Unterhaltung</title>
+<title level="m" type="sub">Dritte Folge, Zweiter Jahrgang, Nr. 72</title>
+</titleStmt>
+<editionStmt>
+<edition n="1"/>
+</editionStmt>
+<publicationStmt>
+<publisher/>
+<pubPlace>Leibzig (Sachsen)</pubPlace>
+<date type="publication">1854</date>
+</publicationStmt>
+</biblFull>
+<msDesc>
+<msIdentifier/>
+<physDesc>
+<typeDesc>
+<p>Fraktur</p>
+</typeDesc>
+</physDesc>
+</msDesc>
+</sourceDesc>
+</fileDesc>
+<encodingDesc>
+<editorialDecl>
+<p>
+<![CDATA[
+<p>Siehe Dokumentation</p>
+]]>
+</p>
+</editorialDecl>
+<tagsDecl>
+<rendition scheme="css" xml:id="aq">font-family:sans-serif</rendition>
+<rendition scheme="css" xml:id="b">font-weight:bold</rendition>
+<rendition scheme="css" xml:id="blue">color:blue</rendition>
+<rendition scheme="css" xml:id="c">display:block; text-align:center</rendition>
+<rendition scheme="css" xml:id="et">display:block; margin-left:2em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et2">display:block; margin-left:4em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et3">display:block; margin-left:6em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="f">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="fr">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="g">letter-spacing:0.125em</rendition>
+<rendition scheme="css" xml:id="i">font-style:italic</rendition>
+<rendition scheme="css" xml:id="in">font-size:150%</rendition>
+<rendition scheme="css" xml:id="k">font-variant:small-caps</rendition>
+<rendition scheme="css" xml:id="larger">font-size:larger</rendition>
+<rendition scheme="css" xml:id="red">color:red</rendition>
+<rendition scheme="css" xml:id="right">display:block; text-align:right</rendition>
+<rendition scheme="css" xml:id="s">text-decoration:line-through</rendition>
+<rendition scheme="css" xml:id="smaller">font-size:smaller</rendition>
+<rendition scheme="css" xml:id="sub">vertical-align:sub; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="sup">vertical-align:super; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="u">text-decoration:underline</rendition>
+<rendition scheme="css" xml:id="uu">border-bottom:double 3px #000</rendition>
+</tagsDecl>
+</encodingDesc>
+<profileDesc>
+<langUsage>
+<language ident="deu">(Früh-)Neuhochdeutsch</language>
+<language ident="deu">German</language>
+</langUsage>
+<textClass>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1main">Gebrauchsliteratur</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1sub">Zeitschrift</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">ready</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">mkhz1</classCode>
+</textClass>
+</profileDesc>
+</teiHeader>
+<text>     <front>
+<pb facs="#f0001" n="[153]"/>
+<titlePage type="heading"><docTitle><titlePart type="main"><hi rendition="#c #fr">Das Pfennig=Magazin<lb/>
+für<lb/>
+<hi rendition="#g">Belehrung und Unterhaltung</hi>.</hi></titlePart></docTitle><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<docImprint><hi rendition="#fr">Nr</hi>. 72. ]                <hi rendition="#c">Dritte Folge. Zweiter Jahrgang.</hi>                <docDate><hi rendition="#right">[ 11. <hi rendition="#g">Mai</hi> 1854.</hi></docDate>              </docImprint></titlePage><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+</front>     <body>       <div n="1"><figure><head><hi rendition="#fr">Des jungen Tobias Abreise.</hi></head></figure></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Lebenswendungen.</hi><lb/>
+( Beschluß. )</head><lb/>
+<cb type="start"/>
+<p><hi rendition="#in">D</hi>ie Nachrichten über Kurt's Wohlbefinden in Ame-<lb/>
+rika lasen seine Angehörigen in der Heimat mit innig-<lb/>
+ster Freude. Hier hatte sich freilich im Laufe der<lb/>
+Jahre so mancherlei geändert. Albert war ein flotter<lb/>
+Kaufmann geworden; er diente Herrn Wenzel als Ge-<lb/>
+schäftsreisender und Jutta wohnte mit ihm im Wen-<lb/>
+<cb n="2"/>
+zel'schen Hause. Die Leute waren nämlich zu sehr an-<lb/>
+einandergekettet, als daß sie eine Trennung durch die<lb/>
+Straße der Stadt noch hätten bestehen lassen können.</p><lb/>
+<p>So mancher Sommer war vorübergegangen. Oft<lb/>
+schon hatte Kurt den Seinen Hoffnung auf seine bal-<lb/>
+dige Rückkehr gemacht, doch immer wieder waren Hin-<lb/>
+<cb type="end"/>
+<pb facs="#f0002" n="154"/>
+<fw place="top" type="pageNum">154</fw><cb type="start"/>
+dernisse entgegengetreten; aber gerade am Osterfeste kam<lb/>
+von ihm ganz unerwartet in einem Briefe die Nach-<lb/>
+richt, daß er in kürzester Zeit in seine Heimat zurück-<lb/>
+kehren werde. Mit unendlicher Sehnsucht sah man<lb/>
+seiner Ankunft entgegen und bereitete Alles darauf vor,<lb/>
+ihn mit recht lebendiger Freude zu empfangen.</p><lb/>
+<p>Die Pfingstfeiertage erschienen und Kurt war noch<lb/>
+nicht angekommen. Wenzel's veranstalteten, da das<lb/>
+Wetter so einladend war, in dem Schlößchen für sich,<lb/>
+Jutta und Albert eine kleine Frühlingsfeier, zu wel-<lb/>
+cher man sich schon in den Morgenstunden nach dem<lb/>
+geliebten kleinen Lustorte begab. Der Mittag kam her-<lb/>
+auf; die zu einer Familie Verschmolzenen saßen fröh-<lb/>
+lich bei Tische und sprachen von vergangenen Zeiten,<lb/>
+wobei Kurt's sehr häufig gedacht wurde. Eben hatte<lb/>
+Wenzel Jutta einen freundschaftlichen Trinkspruch ge-<lb/>
+bracht, in welchem er ihr Glück zu ihren Söhnen<lb/>
+wünschte, da klopfte es stark an die Thür.</p><lb/>
+<p>&#x201E;Wer kommt?&#x201C; rief Jutta, und setzte schnell &#x201E; Her-<lb/>
+ein!&#x201C; hinzu.</p><lb/>
+<p>Die Thür flog auf und herein trat ein kräftiger,<lb/>
+junger Mann, dessen halbes Gesicht mit einem schö-<lb/>
+nen schwarzen Barte überzogen war. Es war Kurt.</p><lb/>
+<p>Gott zum Gruß, ihr Theuern! rief Kurt, und<lb/>
+&#x201E;Kurt! Mein Kurt! Unser Kurt!&#x201C; erscholl es aus<lb/>
+Aller Munde. Die Freude hatte die Familie fast<lb/>
+stumm gemacht; Kurt flog aus einer Umarmung in<lb/>
+die andere. Als man endlich wieder etwas gefaßter<lb/>
+war, wurden die Plätze an der Tafel wieder einge-<lb/>
+nommen und nun ging es an ein Erzählen, wodurch<lb/>
+die Tafelzeit wenigstens um eine Stunde verlängert<lb/>
+wurde. Die Nachmittagsstunden brachten die Wieder-<lb/>
+vereinigten in den Parkanlagen am Schlößchen zu und<lb/>
+als nach der Stadt zurückgekehrt werden sollte, ergriff<lb/>
+Wenzel Kurt's Hand und sprach: &#x201E;Freund! Jch habe<lb/>
+dir dein Schlößchen, dein Vaterhaus nach Kräften her-<lb/>
+gerichtet; nimm es nun von mir zurück, sobald es dir<lb/>
+beliebt!&#x201C;</p><lb/>
+<p>O nein, entgegnete Kurt. Sie waren uns Freund<lb/>
+und Vater, und so lange Sie uns angehören, müssen<lb/>
+Sie Herr dieser Besitzung bleiben. Sie erlauben uns<lb/>
+gewiß, mit Jhnen vereint den lieben, freundlichen Ort<lb/>
+zu genießen.</p><lb/>
+<p>Ja, mit Freuden! rief Wenzel und fügte hinzu:<lb/>
+&#x201E;Jch betrachtete das Landhaus von jeher nur als an-<lb/>
+vertrautes Gut. Es ist mir lieb und werth geworden<lb/>
+und ich behalte darum gern einen Theil daran, so lange<lb/>
+Gott mir das Leben läßt.&#x201C;</p><lb/>
+<p>Schon oft waren Jutta und Albert mit Wenzel's<lb/>
+fröhlich nach der Stadt gewandert, aber so überaus<lb/>
+glücklich wie an diesem Pfingsttage hatten sie sich noch<lb/>
+nicht gefühlt. Sie kamen in der Stadt an. Die<lb/>
+Nachricht von Kurt's Rückkehr hatte sich schon unter<lb/>
+Freunden und Bekannten verbreitet, daher sich noch<lb/>
+an demselben Abende Viele einfanden, um den Ame-<lb/>
+rikaner zu sehen. Spät erst kam er mit den Seinen<lb/>
+zur Ruhe.</p><lb/>
+<p>Kurt war so sehr Kaufmann geworden, daß er am<lb/>
+zweiten Tage seines Verweilens in der Heimat vor<lb/>
+allem Andern zuerst mit Wenzel seine kaufmännischen<lb/>
+Angelegenheiten ordnete. Bei der Genauigkeit, mit<lb/>
+welcher dieselben von beiden Seiten geleitet worden wa-<lb/>
+ren, war das Geschäft bald zu Ende gebracht, worauf<lb/>
+sich die Kaufleute wieder ihrer Familie widmeten.</p><lb/>
+<p>Um 9 Uhr rief Frau Wenzel zum Frühstück. Das<lb/>
+Beste, was Speisegewölbe und Keller aufzuweisen hat-<lb/>
+ten, wurde aufgetragen. Kurt mußte den Ehrenplatz<lb/>
+an der Tafel einnehmen und vermochte kaum sich satt<lb/>
+<cb n="2"/>
+zu essen, da er fast jeden Augenblick mit Fragen be-<lb/>
+stürmt wurde. Ein frommer Aufblick nach oben ging<lb/>
+dem Essen voraus und ein Dankgebet schloß dasselbe.<lb/>
+Nachmittags begleitete die überglückliche Jutta ihren<lb/>
+Sohn nach der Kirche, in welcher er getauft und con-<lb/>
+firmirt worden war.</p><lb/>
+<p>Die folgenden Tage verliefen der Familie in nütz-<lb/>
+licher Thätigkeit. Kurt hatte verschiedene Reisen in an-<lb/>
+dere Städte zu machen, um Handelsgeschäfte abzu-<lb/>
+wickeln und seine erworbenen Reichthümer nützlich an-<lb/>
+zulegen; als aber dies nach Wünschen geschehen war,<lb/>
+kehrte er in sein freund=väterliches Haus zurück. Hier<lb/>
+blieb er etwa ein Vierteljahr, dann zog es ihn wieder<lb/>
+hinaus in die Fremde, um neue Handelsverbindungen<lb/>
+anzuknüpfen, was ihm sehr leicht wurde, da man ihm<lb/>
+mit einem unbegrenzten Vertrauen entgegenkam. Nach<lb/>
+seiner Rückkehr hielt er sich etwa noch zwei Monate<lb/>
+auf, dann unternahm er noch eine bedeutende Seereise<lb/>
+und zwar die letzte in seinem Leben. Sie lief glück-<lb/>
+lich für ihn ab. Er kam wieder gesund in seiner Va-<lb/>
+terstadt an, fest entschlossen, nun in seiner Vaterstadt<lb/>
+zu bleiben.</p><lb/>
+<p>Niemanden war dies erwünschter als den Seinen.<lb/>
+Während er wieder auf Reisen war, hatte Wenzel Al-<lb/>
+bert als Compagnon angenommen, um ihn sich für<lb/>
+immer zu erhalten und, da er keine Kinder hatte, den<lb/>
+Erwerb seines Fleißes und seiner Sparsamkeit nicht in<lb/>
+fremde Hände kommen zu lassen. Jn aller Stille legte<lb/>
+Wenzel bald auch sein Testament nieder, in welchem<lb/>
+er bestimmte, daß die eine Hälfte seines Vermögens<lb/>
+nach seinem und seiner Gattin Tode den Brüdern Kurt<lb/>
+und Albert zufallen, die andere Hälfte aber zur Unter-<lb/>
+haltung der Bildungsanstalten in der Stadt verwendet<lb/>
+werden sollte.</p><lb/>
+<p>Als Kurt wieder zurückgekehrt war, erbaute er ein<lb/>
+großes Gebäude, in welchem er später seine Hand-<lb/>
+lungsräume einrichtete. Sein Großhandel kam bei den<lb/>
+vielseitigen Verbindungen mit Freunden in Amerika zu<lb/>
+hoher Blüte und sein Reichthum nahm mit jedem<lb/>
+Jahre zu.</p><lb/>
+<p>Ein besonderes Glück fanden Kurt und Albert<lb/>
+darin, daß ihre theure Mutter und die guten Wenzel's<lb/>
+noch lange mit ihnen vereint bleiben konnten. Als die<lb/>
+ehrwürdige Jutta und bald nach ihr auch Wenzels<lb/>
+starben, da kam den Brüdern die Stunde der Tren-<lb/>
+nung vom Liebsten, was sie auf Erden hatten, noch<lb/>
+viel zu früh und gern hätten sie sich noch einmal so<lb/>
+lange ihres Besitzes erfreut. Aber alles Jrdische ist flüch-<lb/>
+tig und darum konnten die treuen Brüder die Heiß-<lb/>
+geliebten dem Strome der Vergänglichkeit nicht entrei-<lb/>
+ßen, dem sie mitten in der Mannskraft doch auch<lb/>
+Schritt für Schritt zueilten, um auf ihm hinüberzu-<lb/>
+schiffen in das Land der unvergänglichen Freuden, die<lb/>
+dort jedem edlen, frommen Menschen vom Vater der<lb/>
+Liebe bereitet werden.</p><lb/>
+<p>Kurt und Albert erreichten ebenfalls ein hohes Al-<lb/>
+ter und ihr Andenken blieb bei ihren Kindern in Se-<lb/>
+gen, bei allen Wohlgesinnten aber in hohen Ehren,<lb/>
+denn sie hatten viel gethan, um die von Gott ihnen<lb/>
+geschenkten Reichthümer zum Segen für die Mensch-<lb/>
+heit anzuwenden.</p><lb/>
+<p>Jn Kurt's Familie wurde ein goldenes Medaillon<lb/>
+von Geschlecht zu Geschlecht fortgeerbt, das Kurt stets<lb/>
+als ein Heiligthum betrachtet hatte. Es faßte die Blu-<lb/>
+men ein, welche einst dem scheidenden jungen Manne<lb/>
+am Grabe seines Vaters von seinen treuen Angehöri-<lb/>
+gen liebend überreicht worden waren.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<cb type="end"/>
+<pb facs="#f0003" n="155"/>
+<fw place="top" type="pageNum">155</fw><lb/>
+<cb type="start"/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Die Doppelkapelle zu Landsberg bei Halle.</hi></head><lb/>
+<p><hi rendition="#in">J</hi>n der weiten fruchtbaren Ebene, die sich von der<lb/>
+Saale nach Morgen, gegen die Elbe hin erstreckt, etwa<lb/>
+3 1 / 2 Stunden nordöstlich von Halle steigt ein kahler<lb/>
+Porphyrfelsen steil aus der umliegenden Fläche in einer<lb/>
+Höhe von 50&#x2014;70 Fuß empor und bietet dem Auge<lb/>
+eine prächtige Aussicht nach den Städten Leipzig und<lb/>
+Merseburg, Halle mit seinen ewig dampfenden Salz-<lb/>
+kothen, nach dem Petersberge mit seiner ehrwürdigen<lb/>
+Klosterruine, nach Zörbig, Köthen, Brehna und De-<lb/>
+litzsch dar. Seine Oberfläche bildet ein längliches Rund<lb/>
+und auf diesem stand vor Jahrhunderten das feste<lb/>
+Schloß der Markgrafen von Landsberg, welches der<lb/>
+erste derselben, Dietrich oder Theodorich von der Lau-<lb/>
+sitz, der zweite Sohn Konrad's des Großen von Wet-<lb/>
+tin, nach der schönen Sitte seines Zeitalters, die höch-<lb/>
+sten Gipfel des Landes mit Burgen zu schmücken, etwa<lb/>
+um das Jahr 1180 erbaute, das aber jetzt bis auf<lb/>
+seine Kapelle und wenige Mauertrümmer gänzlich ver-<lb/>
+schwunden ist. Diese letztern, meist zur alten Um-<lb/>
+fassung gehörig, bezeichnen ungefähr den Umfang des<lb/>
+ehemaligen Schloßraums; die Stellen der einzelnen<lb/>
+Gebäude des Schlosses aber, unter welchen sich sogar<lb/>
+eine Münzstätte befand, vermag man jetzt nicht mehr<lb/>
+mit Gewißheit anzugeben, zumal darüber auch nichts<lb/>
+Schriftliches vorhanden ist.</p><lb/>
+<p>So ist nichts bleibend! Was noch so stark und<lb/>
+schön die Sterblichen schaffen &#x2014; es dauert eine Zeit,<lb/>
+welche neidisch auf das Schöne hinblickt; dann kehrt<lb/>
+es in den Staub zurück, aus welchem es prächtig her-<lb/>
+vortrat.</p><lb/>
+<p>Diese Burg, auf welcher einst mächtige Häupter<lb/>
+so gern sich aufhielten, ist mit diesen verschwunden;<lb/>
+öde Stille herrscht jetzt da, wo einst bei dem schäu-<lb/>
+menden Pokale Lieder der Minne und Bellona ertön-<lb/>
+ten, wo einst die siegverkündende Trompete die kampf-<lb/>
+lustigen Ritter versammelte und gegen die auf Beute<lb/>
+lauernden Räuber und Wegelagerer zu den Waffen<lb/>
+rief. Nur der Ort, wo so oft der Priester den Se-<lb/>
+gen sprach und dem wallfahrenden Sünder die himm-<lb/>
+lische Gnade verkündigte, zugleich aber auch das leicht-<lb/>
+gläubige Volk mit den unerhörten Wundern des kal-<lb/>
+ten, blutschwitzenden Marmors bethörte &#x2014; die heilige<lb/>
+Stätte der Burg, &#x201E;die Kapelle zum heiligen Kreuz&#x201C;<lb/>
+hat sich durch so viele Stürme der Zeit bis auf den<lb/>
+heutigen Tag erhalten.</p><lb/>
+<p>Was zunächst den Namen der Kapelle betrifft, so<lb/>
+wurde ihr dieser durch folgende Veranlassung zutheil.<lb/>
+Als Markgraf Dietrich von Landsberg, ein treuer An-<lb/>
+hänger seines Kaisers Friedrich Barbarossa, diesen auf<lb/>
+seinem fünften Zuge nach Jtalien gegen die mit dem<lb/>
+Papste Alexander <hi rendition="#aq">III</hi>. verbundenen lombardischen Städte<lb/>
+begleitete und der Kaiser nach der unglücklichen Schlacht<lb/>
+bei Legnano ( am 29. Mai 1175 ) vor dem Papste<lb/>
+auf den Knien liegend sein feindseliges Unternehmen<lb/>
+gegen ihn schmerzlich bereuen mußte, der Papst aber<lb/>
+so kühn und vermessen gewesen sein soll, dem Kaiser<lb/>
+mit den Füßen die Krone vom Haupte zu stoßen und<lb/>
+darauf mit den Worten: &#x201E;Auf Schlangen und Ottern<lb/>
+sollst du treten&#x201C; ( Psalm 91, 13 ) auf den niederge-<lb/>
+beugten Nacken des besiegten Feindes zu treten, da soll<lb/>
+der muthige Dietrich, empört über das schändliche Be-<lb/>
+nehmen des Papstes, laut und in Gegenwart aller<lb/>
+Fürsten und Cardinäle seinen gerechten Unwillen so<lb/>
+derb und nachdrucksvoll ausgesprochen haben, daß der<lb/>
+Papst, durch diese Hastigkeit Dietrich's nicht wenig in<lb/>
+Furcht gesetzt ward und durch die deutschen Worte<lb/>
+<cb n="2"/>
+desselben, welche er nicht verstand, so sehr in Verle-<lb/>
+genheit gerieth, daß er nicht nur den Kaiser augenblick-<lb/>
+lich aufhob und küßte, sondern auch dem Markgrafen<lb/>
+Dietrich, um ihn wieder zu besänftigen, ein Stückchen<lb/>
+von dem Kreuze Jesu und eine wunderthätige Mar-<lb/>
+morsäule als Wallfahrtsreliquien schenkte.</p><lb/>
+<p>Der Baustil der Kapelle, welche ganz frei, unge-<lb/>
+fähr in der Mitte des Schloßhofs gestanden haben<lb/>
+mag, ist der byzantinische, dessen charakteristische Merk-<lb/>
+male bekanntlich die Rundbogen sind; was jedoch dem<lb/>
+Gebäude in archäologischer wie architektonischer Hinsicht<lb/>
+einen besonders hohen Werth verleiht, ist der Umstand,<lb/>
+daß dasselbe eine sogenannte Doppelkapelle bildet, de-<lb/>
+ren es außer dieser im nördlichen Theile von Deutsch-<lb/>
+land nur noch drei, nämlich eine zu Eger in Böhmen,<lb/>
+eine andere zu Freiburg an der Unstrut und eine dritte<lb/>
+endlich im Schlosse Lohra in der Grafschaft Hohnstein<lb/>
+bei Nordhausen gibt. Man darf aber diese Art Ka-<lb/>
+pellen ja nicht mit denjenigen kirchlichen Gebäuden ver-<lb/>
+wechseln, welche sogenannte Gruftkirchen ( Krypten ) un-<lb/>
+ter sich haben, da diese letztern stets von geringerer<lb/>
+Ausdehnung als die darüberliegenden Räume sind und<lb/>
+meist kellerartig unter der Erde, ohne hinlängliches Ta-<lb/>
+geslicht liegen.</p><lb/>
+<p>Die Doppelkapellen dagegen sind zwei Kapellen<lb/>
+übereinander, die in der Mitte der Decke der untern<lb/>
+Kapelle durch eine mit einem hölzernen Geländer um-<lb/>
+gebene viereckige Öffnung miteinander verbunden sind.<lb/>
+Der Grund dieser eigenthümlichen Einrichtung ist darin<lb/>
+zu suchen, daß nur auf diese Art die Gotteshäuser auf<lb/>
+den in ihren Räumlichkeiten so sehr beschränkten Bur-<lb/>
+gen zur Aufnahme einer größern Anzahl von Zuhörern<lb/>
+fähig gemacht werden konnten, indem die obere, rei-<lb/>
+cher ausgeschmückte Kapelle für den Fürsten und seine<lb/>
+nähere Umgebung, die untere, weit einfacher gehaltene<lb/>
+dagegen für die Burgmannen und die Dienerschaft be-<lb/>
+stimmt war.</p><lb/>
+<p>Der Eingang der landsberger Kapelle, die im We-<lb/>
+sentlichen ein Viereck von 43 Fuß Länge und 36 Fuß<lb/>
+Breite bildet, befindet sich in der südlichen Mauer und<lb/>
+führt zunächst in einen kleinen gewölbten Vorraum,<lb/>
+von dem aus man links durch die gerade aufsteigende<lb/>
+Treppe ins zweite Geschoß gelangt. Durch je ein Fen-<lb/>
+ster in den drei Altarnischen, drei in der Abendwand<lb/>
+und eins in der Mauer gegen Mitternacht, die aber<lb/>
+jetzt zum Theil vermauert sind, wurde ursprünglich das<lb/>
+untere Geschoß erhellt, während das obere das Tages-<lb/>
+licht von Abend und Morgen wie das untere erhielt,<lb/>
+von Mitternacht dagegen durch zwei Fenster und von<lb/>
+Mittag her mittels des gedachten gegen die Kapelle<lb/>
+weit geöffneten Treppenraums durch ein großes Fenster.</p><lb/>
+<p>Der im obern Geschoß befindlichen Kanzel gegen-<lb/>
+über steht jene berühmte oder berüchtigte Marmorsäule,<lb/>
+deren schon oben Erwähnung geschah und welche noch<lb/>
+heute die Aufmerksamkeit aller Besucher der Kapelle<lb/>
+auf sich zieht. Man erzählt, daß diese Säule ehedem<lb/>
+zu gewissen Zeiten des Tages Blut geschwitzt habe und<lb/>
+daß noch vor etwa hundert Jahren zwei katholische Priester<lb/>
+zu ihr gewallfahrtet wären und bis Mitternacht unter<lb/>
+lauten und stillen Gebeten den Augenblick des Schwitzens<lb/>
+der Säule erwartet hätten.</p><lb/>
+<p>Außerdem ist die Kapelle ganz besonders noch da-<lb/>
+durch merkwürdig geworden, daß <hi rendition="#aq">Dr</hi>. Luther, als er<lb/>
+auf einer Reise von Wittenberg nach Halle 1536 durch<lb/>
+das Städtchen Landsberg kam, nicht allein in derselben<lb/>
+gepredigt, sondern auch mit eigener Hand folgendes<lb/>
+Verschen, dessen Schriftzüge gegenwärtig freilich völlig<lb/>
+verwischt sind, an die Wand geschrieben hat:</p><lb/>
+<cb type="end"/>
+<pb facs="#f0004" n="156"/>
+<fw place="top" type="pageNum">156</fw>       <cb type="start"/>
+<cit><quote><lg type="poem">           <l>O lieber Gott von Ewigkeit</l><lb/>
+<l>Erbarm dich deiner Christenheit</l><lb/>
+<l>So seufzt mit Hand und Mund</l></lg></quote><lb/>
+<bibl>Martin Luther, <hi rendition="#aq">Dr.</hi></bibl></cit><lb/>
+<p>Schließlich dürfen wir nicht übersehen, daß über<lb/>
+dem zweiten Stockwerke gegen Osten sich noch zwei<lb/>
+Stuben mit kleinen unansehnlichen Fenstern befinden,<lb/>
+von welchen die südlichere einen Altar hatte, dessen<lb/>
+hölzernes Geländer jedoch längst verschwunden ist.<lb/>
+Beide Piecen dienten jedenfalls schon vor dem Drei-<lb/>
+<cb n="2"/>
+ßigjährigen Kriege dem Geistlichen zur Wohnung.<lb/>
+Seit dem Jahre 1680 etwa pflegt der evangelische<lb/>
+Prediger Landsbergs mit seiner Gemeinde an den drei<lb/>
+hohen Festen des Jahres jedesmal am Nachmittage des<lb/>
+zweiten Feiertags Gottesdienst in der Kapelle zu hal-<lb/>
+ten, und es ist recht sehr zu wünschen, daß diese<lb/>
+Sitte auch für die Zukunft erhalten werde, damit die-<lb/>
+ses alte merkwürdige Gebäude nicht so schnell seiner<lb/>
+Zerstörung entgegeneile.</p></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1"><figure><head><hi rendition="#fr"><hi rendition="#g">Der Engländerstein</hi><lb/>
+auf dem Wege nach dem Montblanc im Bereiche des sogenannten Eismeers.</hi></head></figure></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<pb facs="#f0005" n="157"/>
+<fw place="top" type="pageNum">157</fw><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Lama und Guanaco.</hi></head><lb/>
+<figure/><lb/>
+<cb type="start"/>
+<p><hi rendition="#in">D</hi>as Lama ist mit seinen verschiedenen Gattungsver-<lb/>
+wandten, dem Paco oder Alpaco, dem Guanaco und<lb/>
+der Vicuna, in Südamerika, namentlich in Peru zu<lb/>
+Hause.</p><lb/>
+<p>Das Lama erreicht von der Sohle bis zum Schei-<lb/>
+tel eine Höhe von 4 Fuß, 6&#x2014;8 Zoll, bis zum Wider-<lb/>
+rist aber nur 2 Fuß 11 Zoll bis 3 Fuß. Die Fär-<lb/>
+bung ist sehr verschieden, meistens braun mit Nuancen<lb/>
+ins Gelbliche oder Schwärzliche, häufig buntscheckig,<lb/>
+seltener ganz weiß oder schwarz.</p><lb/>
+<p>Die jungen Lamas werden in der Regel ein Jahr<lb/>
+lang bei den Müttern gelassen, dann von ihnen ge-<lb/>
+trennt und in eigenen Heerden zusammengetrieben. Jm<lb/>
+vierten Jahre werden die Männchen von den Weib-<lb/>
+chen geschieden und zum Lasttragen abgerichtet, wäh-<lb/>
+rend die letztern auf den Hochebenen auf der Weide<lb/>
+bleiben. Jn den südlichen Provinzen Perus werden<lb/>
+die meisten Heerden gehalten und von dort nach den<lb/>
+Silberbergwerken Nordperus getrieben.</p><lb/>
+<p>Der Preis eines kräftigen, ausgewachsenen Lama<lb/>
+beträgt 3&#x2014;4 Thaler, wenn sie aber heerdenweise in<lb/>
+jenen Provinzen angekauft werden, nur anderthalb bis<lb/>
+zwei. Die Last, die das Lama trägt, darf 125 Pfund<lb/>
+nicht übersteigen; nur selten wird ihm mehr als ein<lb/>
+Centner aufgeladen. Wenn das Gewicht zu groß ist,<lb/>
+so legt sich das Thier nieder und steht nicht wieder<lb/>
+auf, bis ihm die Bürde erleichtert wird. Jn den Sil-<lb/>
+berminen sind die Lamas von sehr großer Wichtigkeit,<lb/>
+<cb n="2"/>
+denn sie müssen oft das Metall von Gruben hinunter-<lb/>
+tragen, die an so steilen Felsenabhängen liegen, daß<lb/>
+dort der Huf von Eseln oder Maulthieren keinen Halt-<lb/>
+punkt finden würde. Jn diesem Vortheile liegt ein<lb/>
+großer Ersatz für die geringen Kräfte dieser Thiere.</p><lb/>
+<p>Die Jndianer ziehen oft mit großen Heerden von<lb/>
+Lamas nach der Küste, um Salz zu holen. Die Tage-<lb/>
+reisen, die sie machen, sind sehr klein, denn die Lamas<lb/>
+fressen nie des Nachts; sie müssen sich also während<lb/>
+des Gehens ihre Nahrung suchen oder eine mehrstün-<lb/>
+dige Rast haben. Beim Ab= oder Aufladen wird die<lb/>
+ganze Schar zusammengetrieben und ein einziger Strick<lb/>
+um die langen Hälse dieser Thiere geschlungen, ohne<lb/>
+irgend eins von ihnen festzubinden, und doch wagt es<lb/>
+keins, unter dem losen Seile durchzukriechen. Wenn<lb/>
+sie ausruhen, so geben sie einen eigenthümlichen, leisen<lb/>
+Ton von sich, der bei einer großen Schar von ferne<lb/>
+dem Zusammenklingen mehrer Äolsharfen gleicht.</p><lb/>
+<p>Es ist ein hübscher Anblick, eine beladene Heerde<lb/>
+von Lamas über die Hochebenen ziehen zu sehen.<lb/>
+Langsam und abgemessen schreiten sie vorwärts und<lb/>
+blicken neugierig nach allen Seiten umher. Wenn<lb/>
+sich ihnen plötzlich ein fremdartiger Gegenstand nä-<lb/>
+hert, der ihnen Furcht erregt, so zerstreuen sie sich<lb/>
+im Nu nach allen Seiten und die armen Arrieros<lb/>
+( Führer ) haben die größte Mühe, sie wieder zusam-<lb/>
+menzutreiben. Trotz ihrer Last bewegen sie sich mit<lb/>
+außerordentlicher Leichtigkeit und machen durchaus nicht<lb/>
+<cb type="end"/>
+<pb facs="#f0006" n="158"/>
+<fw place="top" type="pageNum">158</fw><cb type="start"/>
+den Eindruck, als würden sie zu einem so niedrigen<lb/>
+Dienste gebraucht.</p><lb/>
+<p>Die Jndianer haben eine große Liebe für diese<lb/>
+Thiere, sie schmücken ihnen die Ohren mit Bändern,<lb/>
+hängen ihnen an bunten Schnüren Glöckchen um den<lb/>
+Hals und liebkosen sie immer, ehe sie ihnen die Bürde<lb/>
+auflegen. Wenn eins von ihnen vor Müdigkeit zu-<lb/>
+sammenstürzt, so knien sie wehklagend neben ihm und<lb/>
+erschöpfen sich in Schmeichelworten. Aller Pflege und<lb/>
+Vorsicht ungeachtet geht auf jeder Reise nach der<lb/>
+Küste, besonders aber auf denen nach den Wäldern<lb/>
+eine Menge Lamas zu Grunde, da sie das heiße<lb/>
+Klima nicht ertragen.</p><lb/>
+<p>Die Angaben älterer Reisender, daß diese Thiere<lb/>
+zum Reiten oder gar als Zugthiere benutzt werden,<lb/>
+sind unrichtig. Zuweilen setzt sich ein Jndianerjunge,<lb/>
+wenn er einen Fluß passiren muß und er sich nicht<lb/>
+gern naß macht, auf ein Lama, verläßt es aber, am<lb/>
+andern Ufer angelangt, sogleich wieder.</p><lb/>
+<p>Das größte Thier dieser Familie ist das Guanaco,<lb/>
+denn es mißt von der Sohle bis zum Scheitel 5 Fuß<lb/>
+und bis zum Widerrist 3 Fuß 3 Zoll. Es gleicht in<lb/>
+seiner Gestalt so sehr dem Lama, daß bis auf die<lb/>
+neueste Zeit die Ansicht herrschte, dieses sei nur ein<lb/>
+veredeltes Guanaco oder jenes ein verwildertes Lama.<lb/>
+Das Guanaco ist am Halse, dem Rücken und den<lb/>
+Schenkeln einförmig rothbraun. Am Bauche, der Mit-<lb/>
+tellinie der Brust und an der innern Seite der Glied-<lb/>
+maßen schmuzigweiß. Das Gesicht ist schwärzlichgrau,<lb/>
+um die Lippen heller, fast weiß. Die Wolle ist kür-<lb/>
+zer als bei den Lamas und weniger fein; sie ist aber<lb/>
+fast am ganzen Körper ziemlich gleichmäßig lang, nur<lb/>
+am Halse etwas kürzer, an der Brust aber viel länger.</p><lb/>
+<p>Die Guanacos leben in Rudeln von fünf bis sie-<lb/>
+ben Stück, selten sind mehr beieinander. Sie sind in<lb/>
+den meisten Gegenden sehr scheu und man kann ihnen<lb/>
+nur schwer sich nähern. Jung eingefangen, werden sie<lb/>
+gezähmt; sie bleiben aber immer tückisch und verwil-<lb/>
+dern leicht wieder; auch können sie zum Lasttragen nur<lb/>
+sehr schwer abgerichtet werden. Man sieht häufig in<lb/>
+den Menagerien in Europa diese Thiere, die aus Chile<lb/>
+kommen und für Lamas ausgegeben werden.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Die Sumpfwälder bei Neuorleans.</hi><lb/>
+( Beschluß. )</head><lb/>
+<p><hi rendition="#in">D</hi>urch die Wälder führen von Neuorleans aus nur<lb/>
+drei Durchgänge zum See, dessen Nähe am Strome<lb/>
+wohl 1718 die Franzosen unter Bienville bewog, hier<lb/>
+eine Stadt zu gründen und dieselbe statt des jetzt zum<lb/>
+Staate Mississippi gerechneten Biloxi zum Hauptorte<lb/>
+ihrer Colonie Louisiana zu machen. Vom östlichen<lb/>
+Theile der Stadt aus läuft schnurgerade und genau<lb/>
+von Süd nach Nord eine aus aufgeschütteter Erde ge-<lb/>
+baute und daher zur Seite größtentheils von sumpfigen<lb/>
+Gräben begrenzte Eisenbahn. Dieselbe beginnt in einem<lb/>
+nahe am Flusse gelegenen Bahnhofe, bildet dann &#x2014;<lb/>
+in größern Städten Amerikas keine Seltenheit &#x2014; eine<lb/>
+breite Straße zwischen den Häusern der Stadt hin-<lb/>
+durch, läuft hierauf eine weit größere Strecke durch<lb/>
+Wald und Sumpf und endigt zuletzt am Pontchartrain-<lb/>
+see, wo sich aus einer großen Maschinenwerkstatt, den<lb/>
+Wohnungen der Arbeiter und der bei einem kleinen<lb/>
+hölzernen Leuchtthurm Angestellten und aus einer An-<lb/>
+zahl Wirthshäuser ein kleiner Hafenort gebildet hat.<lb/>
+<cb n="2"/>
+Bei der Flachheit der Ufer hat man die Bahn ein<lb/>
+Stück in das Wasser bauen und den Bahnhof ein<lb/>
+wenig über demselben anlegen müssen, damit man un-<lb/>
+mittelbar von ihm aus die Dampfschiffe besteigen kann,<lb/>
+die sich hier den zu jeder Tagesstunde von der Stadt<lb/>
+aus abgehenden und vor Verlauf derselben auch wie-<lb/>
+der dahin zurückkehrenden Dampfwagenzügen anschlie-<lb/>
+ßen, um die Reisenden hinüber nach Covington oder<lb/>
+dem Perlflusse hinauf oder hinaus nach Mobile zu<lb/>
+bringen. Ein zweiter Durchgang, und zwar der äl-<lb/>
+teste, ist der vom See aus ein wenig weiter westlich<lb/>
+angelegte alte Kanal, der in dem mittlern und ältesten<lb/>
+Stadttheile in dem sogenannten alten Bassin seinen<lb/>
+Ausgang hat, doch nur von sehr kleinen Schiffen, die<lb/>
+meist nur an den Ufern des Sees hinsegeln, befahren<lb/>
+wird. An ihm hin führt eine Fahrstraße bis zum<lb/>
+See, wie denn in seiner Nähe von der Stadt aus auch<lb/>
+Gartengrundstücke und Felder, die einzige größere Un-<lb/>
+terbrechung des Waldes, liegen. Ebenso zieht sich von<lb/>
+der Mitte der Straße aus ostwärts über die Eisenbahn<lb/>
+hinweg und noch weit über dieselbe hinaus eine Reihe<lb/>
+Pflanzungen, die einzige Häusergruppe zwischen Stadt<lb/>
+und See, die als eine eigene Ortschaft gelten kann.<lb/>
+Auch am Ufer des Sees selbst ist der Ausgang des<lb/>
+Kanals mit dem obenerwähnten Hafenorte durch eine<lb/>
+dicht am Walde hinführende Straße verbunden. End-<lb/>
+lich hat man, nachdem die früher unbedeutende west-<lb/>
+liche Vorstadt sich zu einem neuen großen Stadttheile<lb/>
+mit fast ganz englischer Bevölkerung gestaltet hat, auch<lb/>
+hier ein noch größeres Bassin gegraben und dasselbe<lb/>
+mit dem See ebenfalls durch einen Kanal verbunden,<lb/>
+der breiter, in Folge seiner Richtung auch etwas län-<lb/>
+ger als der alte ist und an seiner Mündung, damit<lb/>
+das seichte Seeufer die Schiffahrt nicht unterbreche,<lb/>
+durch zwei Dämme von demselben abgesondert ist und<lb/>
+durch eine Baggermaschine fleißig gereinigt wird. Auch<lb/>
+an ihm läuft eine schmale, doch sehr zierliche Straße<lb/>
+hin, die, da in dem angeschwemmten Lande weit und<lb/>
+breit nicht ein Kieselstein zu finden ist und die Pfla-<lb/>
+stersteine der Stadt selbst aus ziemlicher Entfernung<lb/>
+den Fluß herab gebracht sind, aus den Schalen klei-<lb/>
+ner im See zahlreich zu findender Muscheln gebaut ist<lb/>
+und dadurch nicht nur eine weiße Farbe, sondern auch<lb/>
+eine nicht geringe Festigkeit erlangt hat. Die Straße<lb/>
+steht mit keiner andern in Verbindung; die den neuen<lb/>
+Kanal hinausfahrenden Schiffe aber, obschon nur von<lb/>
+mäßiger Größe, sind zahlreicher als die, welche den<lb/>
+alten Kanal benutzen und wagen sich, wenn auch nicht<lb/>
+über den Ocean, doch oft über den mexikanischen Golf<lb/>
+nach Florida und Westindien.</p><lb/>
+<p>Eine vierte Verkehrslinie, die durch diesen Wald<lb/>
+führt, eine Eisenbahn, die in der breiten zwischen dem<lb/>
+mittlern und westlichen Stadttheile hinführenden Straße<lb/>
+beginnt und dann nordwestlich durch den Wald und<lb/>
+über den neuen Kanal hinweg bis Natchez laufen sollte,<lb/>
+hat man, da sie mit der Dampfschiffahrt auf dem<lb/>
+Mississippi doch nicht concurriren konnte, eingehen<lb/>
+lassen, und so konnten wir auf ihren Schienen und<lb/>
+Längsbalken hingehen und dabei unter uns den hier<lb/>
+auf eine geraume Strecke durch Unreinigkeiten aus der<lb/>
+Stadt sehr geschwärzten Sumpf, neben uns Gesträuch<lb/>
+und bald völligen Wald erblicken. Auch einer jener<lb/>
+Contraste zwischen Cultur und Wildniß, wie sie dort<lb/>
+so häufig sind!</p><lb/>
+<p>Wer es wagt, von einem dieser Wege ab in den<lb/>
+Wald zu gehen, sei es nun auf einem der schmalen<lb/>
+Knüppelwege, wie sie hier und da zum Herausschaffen<lb/>
+des Holzes zu finden sind, oder an einem der Gräben<lb/>
+<cb type="end"/>
+<pb facs="#f0007" n="159"/>
+<fw place="top" type="pageNum">159</fw><cb type="start"/>
+hin, die von jeder Pflanzung aus zu demselben Zwecke<lb/>
+&#x2014; daher man Kähne darauf findet &#x2014; angelegt sind<lb/>
+und allmälig in Sumpf übergehen, oder auf umge-<lb/>
+stürzten Bäumen hin balancirend oder geradezu wa-<lb/>
+tend, begegnet selten einem Menschen. Am meisten<lb/>
+sieht man noch Männer, welche Holz fortschaffen oder<lb/>
+auf kleinen Kähnen fortfahren oder Bäume fällen, so-<lb/>
+wie ärmere Frauen, besonders deutsche, irische und far-<lb/>
+bige, welche des Jahrs fünf bis sechs Monate lang<lb/>
+die großen, süßen Beeren der an manchen Stellen in<lb/>
+Menge wachsenden Brombeersträucher einsammeln oder<lb/>
+Krebse und Schildkröten suchen oder die als lange<lb/>
+graue, mit kleinen Seitenblättchen versehene Fäden um<lb/>
+die Zweige der Bäume geschlungenen und ellenlang<lb/>
+herabhängenden Luftflechten ( <hi rendition="#aq">tillandsia</hi> ) in Massen her-<lb/>
+abreißen, an der Sonne trocknen, wodurch sie schwarz-<lb/>
+braun und den Roßhaaren ähnlich werden, und dann<lb/>
+als spanisches Moos zum Ausstopfen der Matratzen<lb/>
+verkaufen.</p><lb/>
+<p>Gewähren aber auch diese Wälder auf solche Art<lb/>
+manchem Armen dann und wann einen kleinen Theil<lb/>
+seines Unterhalts, so kann man sich doch der <gap reason="illegible" unit="chars" quantity="12"/>Betrach-<lb/>
+tung nicht erwehren, daß ein Raum von mehren Qua-<lb/>
+dratmeilen in einem an Holz so reichen Lande dicht<lb/>
+bei einer bedeutenden Stadt als Acker= und Garten-<lb/>
+land besser benutzt wäre. Unheimlich aber wird ihr<lb/>
+Anblick, wenn man bedenkt, daß aus ihnen in der<lb/>
+warmen Jahreszeit, wo das Thermometer monatelang<lb/>
+über 30, mitunter wol auf 40° R. steht, jene verpe-<lb/>
+stenden Dünste emporsteigen, wodurch die nach ihrer<lb/>
+Beschreibung manchen Leser vielleicht ohnedies nicht sehr<lb/>
+<cb n="2"/>
+anlockenden Wälder zu einer Werkstätte des Todes<lb/>
+werden. Denn sie sind durch die Vereinigung von<lb/>
+Hitze und Sumpfluft die Hauptquelle des Gelben Fie-<lb/>
+bers, welches in Neuorleans im Sommer 1853 unge-<lb/>
+wöhnlich schrecklich gewüthet hat, alljährlich aber von<lb/>
+der Bevölkerung oder vielmehr von den des Klimas<lb/>
+ungewohnten und durch ihre Verhältnisse an der Flucht<lb/>
+gehinderten Einwanderern aus dem Norden, aus Frank-<lb/>
+reich, besonders aber aus Deutschland und Jrland<lb/>
+Hunderte und Tausende, die man oft als Namenlose<lb/>
+verscharrt, hinwegrafft und durch diesen furchtbaren<lb/>
+Tribut den hiesigen blühenden Handel und die regen<lb/>
+Geschäfte mehr als mancher Krieg in Schranken hält.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Wirkung von Bienenstichen.</hi></head><lb/>
+<p><hi rendition="#in">J</hi>n der Nähe von Orleans starben fünf kräftige<lb/>
+Pferde innerhalb vier Stunden, nachdem sie von einer<lb/>
+Menge von Bienen gestochen worden waren. Bei der<lb/>
+Section fanden sich in der Haut zahllose abgebrochene<lb/>
+Stacheln, namentlich in den Umgebungen der Augen<lb/>
+und Nasenlöcher. Mehre der Pferde hatten sich in<lb/>
+ihren Schmerzanfällen die Zähne zersprengt. Als Mit-<lb/>
+tel gegen den Bienenstich wird der Saft der frisch aus-<lb/>
+gedrückten Beeren von Jelängerjelieber ( <hi rendition="#aq">Lonicera capri-<lb/>
+folium</hi> ) empfohlen, den man in Gläsern aufbewahren<lb/>
+kann, um die gestochene Stelle mit dem Safte be-<lb/>
+streichen zu können.</p></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1"><figure><head><hi rendition="#fr">Die beiden Wächter.</hi><lb/>
+Nach Gellert's bekannter Fabel.</head></figure></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<pb facs="#f0008" n="160"/>
+<fw place="top" type="pageNum">160</fw><lb/>
+<div n="1" type="jVarious"><head><hi rendition="#fr"><hi rendition="#g">Mannichfaltiges</hi>.</hi></head>       <cb type="start"/>
+<div n="2" type="jArticle"><p>Die Geldaristokratie der Alten Welt. Schon zur<lb/>
+Zeit der punischen Kriege waren unermeßliche Schätze in<lb/>
+Rom zusammengeströmt. Während im Jahre 364 nach der<lb/>
+Erbauung Roms der Reichthum des Staatsschatzes in 2000<lb/>
+Pfund Gold bestand, befanden sich schon sieben Jahre vor<lb/>
+dem dritten punischen Kriege in der Schatzkammer des rö-<lb/>
+mischen Staats 16,810 Pfund Gold, 22,070 Pfund Silber<lb/>
+und 181 Millionen Thaler geprägtes Geld. Und als Cäsar<lb/>
+im Bürgerkriege seinen ersten Einzug in Rom hielt, nahm<lb/>
+er aus der Schatzkammer 25,000 Goldbarren ( <hi rendition="#aq">lateres aurei,</hi><lb/>
+goldene Backsteine ) , 35,000 Silberbarren und 400 Millio-<lb/>
+nen Gulden an gemünztem Gelde. Aus der macedonischen<lb/>
+Beute allein brachte Aemilius Paullus nach der Besiegung<lb/>
+des Perseus 230 Millionen Gulden in den öffentlichen Schatz.<lb/>
+Man begreift diese fabelhafte Ansammlung von Reichthum<lb/>
+im römischen Staatsschatze, wenn man von dem Überflusse<lb/>
+an edlen Metallen liest, die sich bei den Völkern fanden,<lb/>
+welche Rom sich unterwarf. So erzählt Varro, als Pom-<lb/>
+pejus in der Gegend von Judäa Krieg führte, habe Ptole-<lb/>
+mäus 1000 Gäste gespeist, sodaß jeder seinen eigenen golde-<lb/>
+nen Pokal hatte und bei jedem Gange das ganze Service<lb/>
+gewechselt wurde. Und was ist alles Das gegen die Schätze,<lb/>
+die in Kleinasien aufgehäuft waren, wo ein Lydier Namens<lb/>
+Pythius dem Heere des Xerxes einen Schmaus gab, d. h.<lb/>
+780,000 Mann bewirthete, und versprach, wenn man ihm<lb/>
+bei der Werbung zum Heer von seinen fünf Kindern nur<lb/>
+eins zur Stütze seines Alters lassen wollte, dem Heere einen<lb/>
+fünfmonatlichen Sold zu zahlen und es ebenso lange mit Ge-<lb/>
+treide zu versorgen.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Ein alter petersberger Küchenzettel, der bis ins<lb/>
+12. Jahrhundert zurückgeht, weist einige sonderliche Raritä-<lb/>
+ten auf, die jetzt weniger vorkommen, z. B. Mohnmilch oder<lb/>
+alte Weiber, wahrscheinlich ein unsern &#x201E;armen Rittern&#x201C; ähn-<lb/>
+liches Gebäck; rußige ( geräucherte ) Heringe, Hanfsuppe mit<lb/>
+Stricken ( zusammengedrehten Nudeln ) . Auch Feigen wurden<lb/>
+von den Herren Mönchen fleißig verzehrt; sie waren aber<lb/>
+damals ein wirklicher Luxusartikel, da sie als Product des<lb/>
+fernen Südens nur durch den Handel mit Jtalien hergebracht<lb/>
+sein konnten.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Die Corsen sind ausnehmend arbeitsscheu; nach ural-<lb/>
+ter Sitte ist der Corse gern Hirt, begnügt sich mit seinen<lb/>
+Ziegen, mit dem Mahle seiner Kastanien, mit dem frischen<lb/>
+Trunke seiner Quelle und mit Jagdbeute. Alle Feldarbeit ist<lb/>
+ihm gründlich verhaßt und wird als eines freien Mannes<lb/>
+unwürdig angesehen. Jährlich kommen von der <hi rendition="#aq">Terra firma</hi><lb/>
+Jtaliens, besonders aus der Gegend von Lucca, Tausende<lb/>
+von Arbeitern auf die Jnsel, um für den faulen Corsen die<lb/>
+Feldarbeit zu verrichten. Aber sie stehen bei den Corsen<lb/>
+nicht gut angeschrieben, eben weil sie zur schlimmen Dienst-<lb/>
+barkeit sich hergeben und ihre Heimat verlassen haben, um<lb/>
+im Schweiße ihres Angesichts zu arbeiten und den Jhrigen<lb/>
+ein kleines Lohnersparniß mit nach Hause bringen zu können.<lb/>
+Das Wort &#x201E;Lucchese&#x201C; ist auf Corsica eins der ärgsten<lb/>
+Schimpfworte.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Der Broadway ( == breite Weg ) in Neuyork ist die<lb/>
+glänzendste Straße dieser riesigen Stadt, eine große fast drei<lb/>
+englische Meilen lange Durchfahrt, die in ihrem untern<lb/>
+Laufe das rege Geschäftsleben der Altstadt und im obern<lb/>
+das frostigvornehme Wesen des Westendes der Metropole<lb/>
+darstellt. Jn architektonischer Beziehung ist der Broadway<lb/>
+hin und wieder prächtig und bei seiner Ausdehnung impo-<lb/>
+sant, wiewol man ihn seiner Krümmungen halber an keiner<lb/>
+Stelle ganz zu überschauen vermag. Aber der Blick begeg-<lb/>
+<cb n="2"/>
+net ebenso vielen Thor= und Schroffheiten als gefälligen Er-<lb/>
+scheinungen. Hier grenzt ein breitschulteriges, chocoladen-<lb/>
+farbig angestrichenes Haus an ein schwindsüchtig schmales,<lb/>
+fünfstöckiges, im neuesten pariser Stile errichtetes Gebäude<lb/>
+von weißem Marmor; dieses hat wieder eins von nackten<lb/>
+Ziegeln zum Nachbar; dann kommt eine Wechselbank oder<lb/>
+eine Kirche in Form eines dorischen oder ionischen Tempel-<lb/>
+chens. Einerlei ermüdet, Mannichfaltigkeit ergötzt; aber soll<lb/>
+sie behaglich sein, darf sie nicht in ein Chaos ausarten.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Das Wort Sporteln ( Nebeneinkünfte ) ist römischen<lb/>
+Ursprungs. Vornehme Römer hatten, wenn sie in Geschäften<lb/>
+oder zur Erholung ausgingen, immer eine Schar von soge-<lb/>
+nannten Clienten um sich, welche diensteifrig voranschritten,<lb/>
+im Gedränge Platz machten u. s. w. Der Lohn dieser Dienste<lb/>
+bestand in dem Glück, von dem Patron, der feinere Schüs-<lb/>
+seln mit seinen Gästen verzehrte, an einer Art Marschalls-<lb/>
+tafel mit gröbern Speisen bewirthet zu werden. Aber auch<lb/>
+diese Ehre schien allmälig den römischen Großen noch zu hoch<lb/>
+und die Gesellschaft der Clienten zu zahlreich; man zog es<lb/>
+daher vor, denen, welche Morgens als anwesend durch den<lb/>
+Namennenner ( <hi rendition="#aq">nomenclator</hi> ) aufgezeichnet waren, das Essen<lb/>
+Abends in Körbchen ( <hi rendition="#aq">sportulae</hi> ) , die in der Vorhalle in Ord-<lb/>
+nung aufgestellt waren, prahlerisch zu verabreichen und gleich<lb/>
+auch in der Vorhalle verzehren zu lassen. Später wurden im<lb/>
+Jnteresse aller Theile diese <hi rendition="#aq">sportulae</hi> nicht mehr in Natur,<lb/>
+sondern in Geld ausgetheilt, wobei man für diese kleinen<lb/>
+Geldsummen, die den mäßigen Betrag von 10 Groschen nicht<lb/>
+überstiegen, den alten Namen der &#x201E;Sportel&#x201C; beibehielt.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Eine sogenannte Mörderschlingpflanze ist eine über-<lb/>
+raschende Erscheinung in den brasilischen Urwäldern. Man<lb/>
+gewahrt zwei gleich kräftige, starke Baumstämme, mehre<lb/>
+Fuß dick, von denen der eine stattlich in gleichmäßiger Run-<lb/>
+dung auf weit ausgebreiteten Mauerwurzeln 60&#x2014;100 Fuß<lb/>
+senkrecht emporsteigt, während der andere einseitig erweitert<lb/>
+und muldenförmig nach dem Stamme geformt, an den er<lb/>
+sich innig angedrückt hat, auf dünnen, sperrigen Wurzeln müh-<lb/>
+sam sich unter dem Boden schwebend zu halten scheint, und<lb/>
+mit mehren Klammern in verschiedener Höhe den Nachbar<lb/>
+an sich zieht. Diese Klammern verwachsen an ihren Enden<lb/>
+ineinander und mit dem Baume. Lange erhalten sich beide<lb/>
+Stämme in üppiger Kraft nebeneinander, bis der umklam-<lb/>
+merte welkt, da durch die Schlingarme seine Säfte stocken<lb/>
+und der Schlingpflanze zugutekommen. Nach und nach stirbt<lb/>
+Zweig bei Zweig ab und die lebende Schlingpflanze stützt<lb/>
+sich auf den todten Nachbar, der sie noch umarmt hält.<lb/>
+Bricht dieser endlich morsch zusammen, so steht der Mörder<lb/>
+schief aufgerichtet und an andere Bäume angelehnt ein-<lb/>
+sam da</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Die Landschaftsbilder vom Tschadsee im Jnnern<lb/>
+von Afrika schließen eine ganz neue Welt voll Landschafts-<lb/>
+poesie auf. Die seltsamen, kühnen Gebilde der Baum= und<lb/>
+Pflanzenwelt mit schönen, grimmigen Thieren, über diese<lb/>
+hinausragend wunderbar einförmige Felsengestalten, die sich<lb/>
+mit geraden, horizontalen Linien gegen den tiefblauen Him-<lb/>
+mel abschneiden, an diesen in die Höhe kletternd Städte<lb/>
+und Dörfer, aus der Ferne einem Haufen Austernschalen<lb/>
+nicht unähnlich, dazwischen ganz neue Genrebilder von ganz<lb/>
+neuen Sitten und Gebräuchen mit ganz neuen schwarzen<lb/>
+Menschen, die von den gewöhnlichen Negern ganz verschie-<lb/>
+den sind &#x2014; solche Landschaften müssen für die europäischen<lb/>
+Maler von dem höchsten Jnteresse sein.</p></div></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="imprint"><p><hi rendition="#c">Verantwortlicher Redacteur: <hi rendition="#aq">M</hi>. J. S. Bolbeding. &#x2014; Druck und Verlag von F. A. Brockhaus in Leipzig.</hi></p></div>     </body>   </text> </TEI>

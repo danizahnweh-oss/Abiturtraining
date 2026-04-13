@@ -1,0 +1,925 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.deutschestextarchiv.de/basisformat.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">     <teiHeader>
+<fileDesc>
+<titleStmt>
+<title type="main">Das Pfennig-Magazin für Belehrung und Unterhaltung</title>
+<title type="sub">Dritte Folge, Zweiter Jahrgang, Nr. 99</title>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/115266127">
+<surname>Geyken</surname>
+<forename>Alexander</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1222198746">
+<surname>Haaf</surname>
+<forename>Susanne</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1019062681">
+<surname>Jurish</surname>
+<forename>Bryan</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Boenig</surname>
+<forename>Matthias</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Thomas</surname>
+<forename>Christian</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Wiegand</surname>
+<forename>Frank</forename>
+</persName>
+</editor>
+<respStmt>
+<orgName>Institut für Deutsche Sprache, Mannheim</orgName>
+<resp>
+<note type="remarkResponsibility">Bereitstellung der Bilddigitalisate und TEI
+Transkription</note>
+<ref target="http://hdl.handle.net/10932/00-01B8-B0B5-0E70-2401-E"/>
+</resp>
+</respStmt>
+<respStmt>
+<persName>
+<forename>Peter</forename>
+<surname>Fankhauser</surname>
+</persName>
+<resp>
+<note type="remarkResponsibility">
+Transformation von TUSTEP nach TEI P5.
+Transformation von TEI P5 in das DTA TEI P5 Format.
+</note>
+</resp>
+</respStmt>
+<respStmt>
+<orgName ref="https://www.bbaw.de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<resp>
+<note type="remarkResponsibility">Langfristige Bereitstellung der DTA-Ausgabe</note>
+<ref target="https://www.bbaw.de"/>
+</resp>
+</respStmt>
+</titleStmt>
+<editionStmt><edition>Vollständige digitalisierte Ausgabe.</edition></editionStmt>
+<extent>
+<measure type="images">8</measure>
+<measure type="tokens">5222</measure>
+<measure type="types">2315</measure>
+<measure type="characters">36228</measure>
+</extent>
+<publicationStmt>
+<publisher xml:id="DTACorpusPublisher">
+<email>dta@bbaw.de</email>
+<orgName role="project">Deutsches Textarchiv</orgName>
+<orgName role="hostingInstitution" xml:lang="en">Berlin-Brandenburg Academy of Sciences and Humanities (BBAW)</orgName>
+<orgName role="hostingInstitution" xml:lang="de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<address>
+<addrLine>Jägerstr. 22/23, 10117 Berlin</addrLine>
+<country>Germany</country>
+</address>
+</publisher>
+<pubPlace>Berlin</pubPlace>
+<date type="publication">2025-10-24T08:35:15Z</date>
+<availability>
+<licence target="http://creativecommons.org/publicdomain/zero/1.0/">
+<p>Dieses Werk steht unter der "Creative Commons Namensnennung -
+Nicht kommerziell 3.0 Deutschland Lizenz" (CC BY-NC).</p>
+</licence>
+</availability>
+<idno>
+<idno type="URLWeb">https://www.deutschestextarchiv.de/nn_pfennig099_1854</idno>
+<idno type="URLXML">https://www.deutschestextarchiv.de/book/download_xml/nn_pfennig099_1854</idno>
+<idno type="URLHTML">https://www.deutschestextarchiv.de/book/download_html/nn_pfennig099_1854</idno>
+<idno type="URLText">https://www.deutschestextarchiv.de/book/download_text/nn_pfennig099_1854</idno>
+<idno type="DTADirName">nn_pfennig099_1854</idno>
+<idno type="DTAID">34744</idno>
+<idno type="URN">urn:nbn:de:kobv:b4-34744-5</idno>
+</idno>
+</publicationStmt>
+<sourceDesc>
+<bibl type="J">Das Pfennig=Magazin für Belehrung und Unterhaltung. Dritte Folge, Zweiter Jahrgang, Nr. 99. Leipzig (Sachsen), 23. November 1854.</bibl>
+<biblFull>
+<titleStmt>
+<title level="m" type="main">Das Pfennig-Magazin für Belehrung und Unterhaltung</title>
+<title level="m" type="sub">Dritte Folge, Zweiter Jahrgang, Nr. 99</title>
+</titleStmt>
+<editionStmt>
+<edition n="1"/>
+</editionStmt>
+<publicationStmt>
+<publisher/>
+<pubPlace>Leibzig (Sachsen)</pubPlace>
+<date type="publication">1854</date>
+</publicationStmt>
+</biblFull>
+<msDesc>
+<msIdentifier/>
+<physDesc>
+<typeDesc>
+<p>Fraktur</p>
+</typeDesc>
+</physDesc>
+</msDesc>
+</sourceDesc>
+</fileDesc>
+<encodingDesc>
+<editorialDecl>
+<p>
+<![CDATA[
+<p>Siehe Dokumentation</p>
+]]>
+</p>
+</editorialDecl>
+<tagsDecl>
+<rendition scheme="css" xml:id="aq">font-family:sans-serif</rendition>
+<rendition scheme="css" xml:id="b">font-weight:bold</rendition>
+<rendition scheme="css" xml:id="blue">color:blue</rendition>
+<rendition scheme="css" xml:id="c">display:block; text-align:center</rendition>
+<rendition scheme="css" xml:id="et">display:block; margin-left:2em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et2">display:block; margin-left:4em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et3">display:block; margin-left:6em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="f">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="fr">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="g">letter-spacing:0.125em</rendition>
+<rendition scheme="css" xml:id="i">font-style:italic</rendition>
+<rendition scheme="css" xml:id="in">font-size:150%</rendition>
+<rendition scheme="css" xml:id="k">font-variant:small-caps</rendition>
+<rendition scheme="css" xml:id="larger">font-size:larger</rendition>
+<rendition scheme="css" xml:id="red">color:red</rendition>
+<rendition scheme="css" xml:id="right">display:block; text-align:right</rendition>
+<rendition scheme="css" xml:id="s">text-decoration:line-through</rendition>
+<rendition scheme="css" xml:id="smaller">font-size:smaller</rendition>
+<rendition scheme="css" xml:id="sub">vertical-align:sub; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="sup">vertical-align:super; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="u">text-decoration:underline</rendition>
+<rendition scheme="css" xml:id="uu">border-bottom:double 3px #000</rendition>
+</tagsDecl>
+</encodingDesc>
+<profileDesc>
+<langUsage>
+<language ident="deu">(Früh-)Neuhochdeutsch</language>
+<language ident="deu">German</language>
+</langUsage>
+<textClass>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1main">Gebrauchsliteratur</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1sub">Zeitschrift</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">ready</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">mkhz1</classCode>
+</textClass>
+</profileDesc>
+</teiHeader>
+<text>     <front>
+<pb facs="#f0001" n="[369]"/>
+<titlePage type="heading"><docTitle><titlePart type="main"><hi rendition="#c #fr">Das Pfennig=Magazin<lb/>
+für<lb/>
+<hi rendition="#g">Belehrung und Unterhaltung</hi>.</hi></titlePart></docTitle><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<docImprint><hi rendition="#fr">Nr</hi>. 99. ]              <hi rendition="#c">Dritte Folge. Zweiter Jahrgang.</hi>              <docDate><hi rendition="#right">[ 23. <hi rendition="#g">November</hi> 1854.</hi></docDate>            </docImprint></titlePage><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+</front>     <body>       <div n="1"><figure><head><hi rendition="#fr">Das Templerhaus oder die neue Bibliothek in London.</hi></head></figure></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle" xml:id="Waise4"><head><hi rendition="#fr"><hi rendition="#g">Die Waise</hi>.</hi><lb/>
+<ref target="nn_pfennig098_1854#Waise3">( Beschluß. )</ref></head><lb/>
+<cb type="start"/>
+<p><hi rendition="#in">D</hi>iese Nachricht war ein Donnerschlag für das junge<lb/>
+Volk, insbesondere auch für Joseph, der gleichfalls zu<lb/>
+den Militärpflichtigen gehörte und vor dem Augenblicke<lb/>
+zitterte, wo das Loos, Soldat zu werden, ihn treffen<lb/>
+und von der Seite der geliebten Braut reißen könnte.<lb/>
+Da kam unvermuthet Albert, von einem Besuche beim<lb/>
+Pfarrer heimkehrend an der Linde vorüber und sah die<lb/>
+Bestürzung, welche sich über das Angesicht der beiden<lb/>
+Liebenden verbreitet hatte. Er forschte theilnehmend<lb/>
+nach der Ursache und tief erröthend gestand ihm Käth-<lb/>
+chen, welche Befürchtung sie beunruhigte.</p><lb/>
+<p>Wenn es weiter nichts ist, erwiderte Albert hier-<lb/>
+auf gutmüthig, da kann ich helfen! Jch habe ja, wie<lb/>
+euch bekannt, neulich bei der Loosung ein Freiloos er-<lb/>
+wischt; da gehe ich mit Joseph zur Stadt und trete<lb/>
+<cb n="2"/>
+für ihn ein, wenn es noth thut, weil es bei diesen<lb/>
+unruhigen Zeiten mit dem Gewerbe doch nicht recht<lb/>
+fortwill und ich mein Heil als Schütze versuchen kann.</p><lb/>
+<p>Joseph fiel dem Braven gerührt um den Hals und<lb/>
+auch Käthchen küßte ihn stürmisch in der Aufwallung<lb/>
+ihrer Gefühle, ohne daß Joseph scheel dazu sah. Dies<lb/>
+begeisterte Albert nur umsomehr für sein Vorhaben.<lb/>
+Er konnte die Zeit der Loosung kaum erwarten und<lb/>
+als der Tag derselben endlich anbrach, eilte er mit<lb/>
+Joseph zur Stadt. Während Letzterer sich auf die<lb/>
+Stadtamtei begab und der entscheidende Act vor sich<lb/>
+gehen sollte, harrte Albert draußen ungeduldig auf den<lb/>
+Augenblick der Rückkehr des Freundes. Es dauerte<lb/>
+lange, ehe dieselbe erfolgte, kaum aber ward er Jo-<lb/>
+seph endlich gewahr, so las er schon auf dem kreide-<lb/>
+<cb type="end"/>
+<pb facs="#f0002" n="370"/>
+<fw place="top" type="pageNum">370</fw><cb type="start"/>
+bleichen Gesicht desselben den Ausgang der Loosung.<lb/>
+Eiligst suchte er nun den Vorsitzenden auf und hatte<lb/>
+die Freude, seine Bitte, an Stelle des soeben ausge-<lb/>
+loosten Freundes eintreten zu dürfen, von dem freund-<lb/>
+lichen Manne gewährt zu sehen. Joseph wurde geru-<lb/>
+fen, empfing seinen Freischein und Albert's Name<lb/>
+ward in die Rekrutenliste eingetragen. Jnnig bewegt<lb/>
+schieden die Beiden voneinander, nachdem Joseph sich<lb/>
+vergeblich bemüht hatte, den wackern Albert noch in<lb/>
+den letzten Augenblicken von seinem hochherzigen Ent-<lb/>
+schlusse abzubringen.</p><lb/>
+<p>Auf Käthchen's Herz machte die Botschaft des<lb/>
+heimkehrenden Joseph, daß Albert für ihn eingetreten<lb/>
+sei, einen unerwarteten Eindruck. Sie weinte viel und<lb/>
+mit täglich mehr und mehr wachsender Kälte behan-<lb/>
+delte sie fortan ihren Bräutigam. Dieser, ohnehin<lb/>
+leicht zur Eifersucht geneigt, mußte natürlich glauben,<lb/>
+daß Käthchen sich im Stillen noch immer Hoffnung<lb/>
+auf den Besitz Albert's gemacht habe und überschüt-<lb/>
+tete daher das Mädchen eines Tages mit den bitter-<lb/>
+sten Vorwürfen über ihr Benehmen. Dadurch aber<lb/>
+wurde die Sache nur noch schlimmer, denn nunmehr<lb/>
+hielt Käthchen nicht länger mit der Aeußerung ihres<lb/>
+Wunsches zurück, das bräutliche Verhältniß zwischen<lb/>
+ihnen Beiden gelöst zu sehen, und nach mehren frucht-<lb/>
+los gebliebenen Versuchen, die Hocherzürnte wieder zu<lb/>
+versöhnen, gab Joseph endlich die Hoffnung auf ihren<lb/>
+Besitz auf und meldete sich, schnell entschlossen, zum<lb/>
+freiwilligen Eintritt in die Armee.</p><lb/>
+<p>Albert hatte sich inzwischen sowol durch seine stau-<lb/>
+nenswerthe Fertigkeit im Schießen als auch durch seine<lb/>
+Gewandtheit in allen körperlichen Übungen, im Exer-<lb/>
+ciren, Klettern und Springen die Zufriedenheit seiner<lb/>
+Vorgesetzten in hohem Grade erworben und sollte bin-<lb/>
+nen kurzem, vollkommen dienstfähig, zu dem großen<lb/>
+Heere mit abgehen, welches Kaiser Franz in Böhmen<lb/>
+zusammenzog. Da erbat er sich zuvor noch einen Tag<lb/>
+Urlaub und trat als stattlicher Jäger vor Käthchen,<lb/>
+die ganz in Entzücken über ihn gerieth. Joseph war<lb/>
+nicht mehr anwesend in Lobenhain und er hätte um<lb/>
+so leichteres Spiel gehabt, da Käthchen mit Jenem<lb/>
+doch förmlich gebrochen hatte. Bei seiner edeln Den-<lb/>
+kungsart war er aber nur um so zurückhaltender ge-<lb/>
+gen das Mädchen, ja er ließ es sich aufs eifrigste an-<lb/>
+gelegen sein, sie mit dem entfernten Freunde wieder<lb/>
+zu versöhnen. Es währte lange, ehe Käthchen Ver-<lb/>
+zeihung zusagte; er aber versprach ihr dagegen, wenn<lb/>
+Gott nicht anders über ihn beschlossen haben sollte,<lb/>
+einst wiederzukehren und sie als Brautführer zum Al-<lb/>
+tare zu geleiten. Dann nahm er Abschied von den<lb/>
+Freundinnen und trat am nächsten Morgen seinen<lb/>
+Marsch zum Bataillon an, das nur wenige Stunden<lb/>
+entfernt stand.</p><lb/>
+<p>Als einer der tüchtigsten und zuverlässigsten Sol-<lb/>
+daten bekannt, ward Albert sogleich auf einen wichti-<lb/>
+gen Vorposten geschickt, und in dem lebhaften Tirail-<lb/>
+leurgefecht, welches noch an demselben Tage zwischen<lb/>
+den östreichischen und den feindlichen Vorpostenketten<lb/>
+entstand, zeichnete er sich unter den Augen des Feld-<lb/>
+marschalls Fürsten von Schwarzenberg so ehrenvoll<lb/>
+aus, daß dieser ihm gleich auf dem Schlachtfelde das<lb/>
+Theresienkreuz umhing und ihn in seinem Rapport<lb/>
+dringend zum Avancement empfahl. Diese seltene<lb/>
+Auszeichnung steigerte den Muth des Braven bis zur<lb/>
+Begeisterung und sein sehnlichster Wunsch war eine<lb/>
+Schlacht, zu der es denn auch nicht lange nachher<lb/>
+wirklich kommen sollte.</p><lb/>
+<p>Der Morgen des 30. August, des unvergeßlichen<lb/>
+<cb n="2"/>
+Tages der Schlacht bei Kulm, brach an und zum er-<lb/>
+sten male nach langer Regenzeit, die alle Operationen<lb/>
+bisher erschwert hatte, lächelte die Sonne freundlich<lb/>
+auf das verbündete Heer nieder, dessen Kriegsglück mit<lb/>
+ihr zugleich wieder erwachen zu wollen schien. Schon<lb/>
+kündete dumpfer Kanonendonner den siegreichen An-<lb/>
+griff des v. Kleist'schen Corps jenseits Nollendorf an,<lb/>
+als die gesammte Armee im Sturmschritt gegen die<lb/>
+französische Linie vorrückte. Graf Colloredo, zu dessen<lb/>
+Truppen auch die leichte Brigade &#x201E;Graf Erbach&#x201C; ge-<lb/>
+hörte, bei welcher Albert stand, erhielt den Befehl,<lb/>
+den linken Flügel des Feindes zu umgehen, und unter<lb/>
+dem heftigsten Tirailleurfeuer entledigte sich der be-<lb/>
+währte General auf das ruhmvollste dieses schwierigen<lb/>
+Auftrags. Nun aber galt es, eine feindliche Redoute<lb/>
+wegzunehmen, die von den steilen Höhen bei Neudorf<lb/>
+herab das weite Schlachtfeld beherrschte. Schon wa-<lb/>
+ren die Tapfern glücklich bis zum Fuße der Anhöhe<lb/>
+vorgedrungen, allein sie selbst zu erklimmen erschien bei<lb/>
+dem wirksamen Feuer des Feindes auf diesem Punkte<lb/>
+im ersten Augenblicke als ein Ding der Unmöglichkeit.<lb/>
+Da hieß es, wie immer bei solchen Gelegenheiten im<lb/>
+östreichischen Heere: &#x201E;Freiwillige vor!&#x201C; und &#x2014; un-<lb/>
+ser Albert war der Erste, welcher heraustrat. Bald<lb/>
+sammelte sich ein Häuflein kühner Wagehälse um<lb/>
+ihn, welche Alle dem gewissen Tode entgegenzugehen<lb/>
+schienen.</p><lb/>
+<p>Vorwärts! tönte der Ruf des Führers, und gleich<lb/>
+den Gemsen kletterten die Verwegenen empor. Albert<lb/>
+war immer voran und feuerte die Andern zur Nach-<lb/>
+eiferung an, von denen gar Mancher, den tödtlichen<lb/>
+Kugeln des Feindes erliegend, wieder hinabstürzte in<lb/>
+die grausige Tiefe. Von Felsenwand zu Felsenwand<lb/>
+emporklimmend, erreichten die Überlebenden, den ge-<lb/>
+zogenen Hirschfänger in der Hand und mit überge-<lb/>
+hängter Büchse endlich ihr Ziel und trieben den über-<lb/>
+raschten Feind, der solcher Kühnheit gegenüber nicht<lb/>
+Stand zu halten vermochte und eiligst seine Verschan-<lb/>
+zungen verließ, vor sich her. Da erhielten die Flie-<lb/>
+henden plötzlich von der andern Seite her unerwarte-<lb/>
+ten Succurs, indem eine Abtheilung französischer Rei-<lb/>
+ter ihnen entgegensprengte und die Feiglinge zum Ste-<lb/>
+hen brachte. Dann aber stürzten sie mit verhängtem<lb/>
+Zügel auf Albert und seine todesmuthigen Kameraden<lb/>
+zu und diese, im Eifer der Verfolgung die drohende<lb/>
+Gefahr zu spät erkennend, erlagen nur zu bald den<lb/>
+wüthenden Streichen der racheschnaubenden Dragoner.<lb/>
+Auch Albert befand sich, schwer verwundet, unter den<lb/>
+Gefallenen. Zwei Säbel blitzten über ihm, er em-<lb/>
+pfand eine dumpfe Erschütterung im Kopfe, sank mit<lb/>
+umdüsterten Blicken zu Boden und verlor das Be-<lb/>
+wußtsein.</p><lb/>
+<p>Ziemlich spät am Nachmittage erwachte er erst wie-<lb/>
+der aus seinem Todesschlummer und erblickte sich un-<lb/>
+ter den Händen eines Wundarztes, der durch den The-<lb/>
+resienorden an seiner Brust auf ihn aufmerksam ge-<lb/>
+worden war und sorgfältig seine Wunde untersuchte.<lb/>
+Mit schwacher Stimme bat er um einen Trunk Wasser<lb/>
+und hielt dann standhaft den Verband aus, der äu-<lb/>
+ßerst schmerzhaft war, da Haare und Blut sich in der<lb/>
+Wunde miteinander verklebt hatten und erst gelöst wer-<lb/>
+den mußten. Endlich war die Operation vollbracht,<lb/>
+der Kreuzverband angelegt und &#x2014; Albert abermals<lb/>
+seinem Schicksale überlassen.</p><lb/>
+<p>Da begannen Fieberschauer den Unglücklichen zu<lb/>
+durchschüttern und wunderbare Phantasien und Träume<lb/>
+stiegen vor seiner Seele auf. Jetzt erinnerte er sich<lb/>
+auch wie im Traume, was er Käthchen beim Schei-<lb/>
+<cb type="end"/>
+<pb facs="#f0003" n="371"/>
+<fw place="top" type="pageNum">371</fw><cb type="start"/>
+den versprochen und er empfand eine heiße Sehnsucht<lb/>
+nach ihr, dem einzigen Wesen, das auf Erden in Liebe<lb/>
+seiner gedachte. Jn immer steigender Fieberhitze raffte<lb/>
+er sich auf und wie geleitet von einem Engel gelangte<lb/>
+er von der steilen Höhe wohlbehalten hinab in die<lb/>
+Ebene. Dort in der Kühle eines Wäldchens milderte<lb/>
+sich seine Fieberhitze. Er bekam die volle Besinnung<lb/>
+wieder und stillte an einem Bache seinen brennenden<lb/>
+Durst. Die Sehnsucht nach Käthchen blieb aber in<lb/>
+seiner Seele gleich heiß und er beschloß, nach Loben-<lb/>
+hain zu gehen, das am Ausgange des Waldes lag,<lb/>
+in welchem er sich befand. Jn hohem Grade erschöpft<lb/>
+kam er dort an und sein Herz pochte ängstlich, als er<lb/>
+Käthchen's Wohnung erblickte. Diese hatte den Tag<lb/>
+über mit bebendem Herzen den Donner der nahen<lb/>
+Schlacht gehört, und zitternd für das Leben Albert's<lb/>
+allein, dachte sie wenig an Joseph. Um Mittag wa-<lb/>
+ren französische Marodeurs in das Dorf gekommen<lb/>
+und durch Plündern und Rauben ein Schrecken der<lb/>
+friedlichen Bewohner desselben geworden. Auch bei<lb/>
+Käthchen's Mutter hatten zwei dieser bösen Geister in<lb/>
+schonungslosester Weise aufgeräumt; keiner der dadurch<lb/>
+erlittenen Verluste vermochte jedoch den Schmerz zu<lb/>
+überwiegen, den Käthchen empfand, als eine geheime<lb/>
+Ahnung ihr sagte, daß Albert geblieben sei. Bitter-<lb/>
+lich weinend saß sie am kleinen Kammerfenster und der<lb/>
+Mond, der trübe durch die Scheiben sah, nährte den<lb/>
+Schmerz durch sein melancholisches Licht. Ein sanfter<lb/>
+Windeshauch regte die Blätter des dunkeln Flieder-<lb/>
+baums, der das Fenster beschattete und wie Engel-<lb/>
+flüstern um die Trauernde säuselte.</p><lb/>
+<p>Jn diesem Augenblicke trat Albert, welcher sich<lb/>
+leise durch den Garten geschlichen hatte, mit seinem<lb/>
+blutigen Verbande, bleich und hohläugig, lauschend vor<lb/>
+das Kammerfenster, wo Käthchen saß. Sie schlug die<lb/>
+Augen auf, weil sie ein Rascheln im Grase vernom-<lb/>
+men zu haben glaubte, starrte hin auf die geisterhafte<lb/>
+Erscheinung und sank mit dem Ausrufe: &#x201E;Jesus Ma-<lb/>
+ria!&#x201C; zu Boden. Albert erblickte das Mädchen, hörte<lb/>
+den Schrei und sah es hinsinken. Er fühlte Fieber-<lb/>
+schauer durch alle Adern und seine Wunde brannte<lb/>
+heiß. Wankend und den Tod im Herzen spürend<lb/>
+schlich er zu seiner Lieblingseiche und sank zitternd nie-<lb/>
+der ins feuchte Gras. Der Verband seiner Wunde<lb/>
+hatte sich durch die Bewegung des Gehens nach und<lb/>
+nach verschoben und dickes Blut entquoll ihr immer<lb/>
+von neuem wieder. Albert war der gänzlichen Er-<lb/>
+schöpfung nahe und in seiner furchtbaren Qual hob er<lb/>
+betend die Hände zum Allbarmherzigen empor, mit<lb/>
+schwacher Stimme um Auflösung flehend. Als ob<lb/>
+himmlischer Balsam in die Wunde träufle, so linderte<lb/>
+sich plötzlich der Schmerz. Sein Auge ward hell und<lb/>
+er sah den Engel, wie er einst in jenem Kirchlein über<lb/>
+dem Taufbecken schwebte, selig lächelnd vor sich stehen.<lb/>
+Noch einen leisen Athemzug und &#x2014; er hatte ausge-<lb/>
+rungen.</p><lb/>
+<p>Drinnen im Dorfe aber wälzte sich Käthchen in<lb/>
+den furchtbarsten Fieberphantasien auf ihrem Lager;<lb/>
+sie sprach viel im Schlafe und als das erste Morgen-<lb/>
+roth matt durch die trüben Scheiben schimmerte, schlug<lb/>
+sie verwundert die Augen auf und erzählte, sie habe<lb/>
+Alles im Traume gesehen. Dabei blieb sie nun auch<lb/>
+beständig und vergeblich bemühte sich ihre Mutter, ihr<lb/>
+das Traumgesicht auszureden. Nach wochenlangem<lb/>
+schweren Krankenlager hauchte das Mädchen endlich ih-<lb/>
+ren Geist aus, ihr letzter Seufzerruf war &#x201E;Albert!&#x201C;</p><lb/>
+<p>Sie ward mit ihm zusammen in <hi rendition="#g">eine</hi> Gruft ge-<lb/>
+bettet und zwei Rosenstöcke, das Sinnbild ihrer un-<lb/>
+<cb n="2"/>
+befleckten Tugend, bezeichnen die Stelle, wo die Lie-<lb/>
+benden vereint dem Tage der Auferstehung entgegen-<lb/>
+schauen.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Anna von Bretagne.</hi></head><lb/>
+<p><hi rendition="#in">A</hi>nna von Bretagne, geboren am 26. Februar 1476,<lb/>
+war die Tochter Franz <hi rendition="#aq">II</hi>., Herzogs von Bretagne.<lb/>
+Früh schon entwickelte die junge Fürstentochter die vor-<lb/>
+züglichsten Eigenschaften des Körpers und Geistes. Jm<lb/>
+Alter von 14 Jahren ward sie nach ihres Vaters Tode<lb/>
+Herzogin von Bretagne. Von dieser Zeit an zeigte sie<lb/>
+eine ihren Jahren weit vorschreitende Klugheit und<lb/>
+Umsicht. Viele große Herren strebten nach ihrer Hand.<lb/>
+Der Herzog von Orléans, nachmals Ludwig <hi rendition="#aq">XII.,</hi><lb/>
+kämpfte glorreich für die Fürstin und würde ohne<lb/>
+Zweifel den Sieg über seine Nebenbuhler davongetra-<lb/>
+gen haben, wenn er nicht von ihnen in der Schlacht<lb/>
+bei St.=Aubin zum Gefangenen gemacht worden wäre.<lb/>
+Um dem Verderben ihres Landes zu steuern, heirathete<lb/>
+Anna durch Procuration den Erzherzog von Östreich,<lb/>
+Maximilian, den nachmaligen Kaiser.</p><lb/>
+<p>Frankreich mochte nicht leiden, daß Maximilian,<lb/>
+der schon Burgund besaß, auch noch Beherrscher von<lb/>
+Bretagne werden sollte. Karl <hi rendition="#aq">VIII</hi>., König von Frank-<lb/>
+reich, Bräutigam der Tochter Maximilian's, beschloß,<lb/>
+diese ihm zurückzuschicken und dessen Gemahlin ihm zu<lb/>
+entreißen. Die Unternehmung war schwer; Dunois<lb/>
+unterzog sich derselben, der Herzog von Orléans zog<lb/>
+nach Bretagne und wirkte so geschickt durch Schlach-<lb/>
+ten und Unterhandlungen, daß am 6. December 1491<lb/>
+die Hochzeit der Herzogin mit Karl <hi rendition="#aq">VIII</hi>. zu Langeais<lb/>
+begangen ward.</p><lb/>
+<p>Bald nachher reiste der König nach Jtalien und<lb/>
+während seiner Abwesenheit regierte Anna das Reich<lb/>
+musterhaft, und als er starb, überließ sie sich dem<lb/>
+tiefsten Schmerze und zog sich in ihr Herzogthum Bre-<lb/>
+tagne zurück. Ludwig <hi rendition="#aq">XII</hi>., ihr früherer Anbeter, ließ<lb/>
+sich von Ludwig's <hi rendition="#aq">VIII</hi>. Tochter, Johanna, die man<lb/>
+ihm aufgezwungen hatte, scheiden und vermählte sich<lb/>
+am 8. Januar 1499 mit Anna von Bretagne. Er<lb/>
+überließ ihr alle Einkünfte ihres Herzogthums Bre-<lb/>
+tagne, welche sie zur Unterstützung der Armen, zur<lb/>
+Belohnung der Verdienste um den Staat und dazu<lb/>
+anwendete, daß sie ihre und ihres Gemahls Diener-<lb/>
+schaft mit Gutthaten überhäufte. Sie brachte zuerst<lb/>
+Frauen an den Hof und führte bei demselben eine<lb/>
+Menge Fräulein unter dem Titel &#x201E;Ehrenfräulein der<lb/>
+Königin&#x201C; ein.</p><lb/>
+<p>Ludwig <hi rendition="#aq">XII</hi>. ermangelte nie, der Königin von den<lb/>
+fremden Gesandten aufwarten zu lassen, und ihr ge-<lb/>
+währte es ungemeines Vergnügen, sich in der Unter-<lb/>
+haltung mit ihnen von den Sitten und Gebräuchen<lb/>
+fremder Nationen zu unterrichten. Sie wendete zuvor<lb/>
+Fleiß darauf, von ihrem Hofcavalier de Grignols einige<lb/>
+Wörter jener Sprache zu erlernen, die sie hernach im<lb/>
+Gespräch mit ihnen sehr anmuthig anbrachte.</p><lb/>
+<p>Ludwig zeigte bei dem Tode der Königin einen<lb/>
+Schmerz, der ihn, solange er lebte, nicht verließ.<lb/>
+Politische Ursachen veranlaßten ihn in der Folge, sich<lb/>
+wieder zu vermählen; aber nie vergaß er <hi rendition="#aq">sa chêre<lb/>
+Bretonne</hi> und wollte auch neben ihr begraben sein.</p><lb/>
+<p>Sie starb auf dem Schlosse von Blois, nur 37<lb/>
+Jahre alt, am 21. Januar 1513.</p><lb/>
+<p>Das umstehende Bild ist aus einem auf Perga-<lb/>
+<cb type="end"/>
+<pb facs="#f0004" n="372"/>
+<fw place="top" type="pageNum">372</fw><cb type="start"/>
+ment geschriebenen und mit Musterstücken aus Rafael's<lb/>
+Schule geschmückten, höchst merkwürdigen Gebetbuche<lb/>
+der Königin ( &#x201E; <hi rendition="#aq">Heures d'Anne de Bretagne</hi> &#x201C; ) , welches<lb/>
+sich auf der königlichen Bibliothek zu Paris befindet,<lb/>
+nach einer colorirten Zeichnung treu copirt. Wir sehen<lb/>
+<cb n="2"/>
+hier die tugendhafte, schöne Anna kniend beten; hin-<lb/>
+ter ihr stehen ihre beiden Töchter, deren eine, Clau-<lb/>
+dia, die Gemahlin Franz <hi rendition="#aq">I</hi>., Königs von Frankreich,<lb/>
+ward, und ihr zur Linken die heilige Anna, ihre<lb/>
+Schutzpatronin.</p><lb/>
+<cb type="end"/>
+<figure/></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<pb facs="#f0005" n="373"/>
+<fw place="top" type="pageNum">373</fw><lb/>
+<div n="1"><figure><head><hi rendition="#fr">Tableau von Jean von Brügge auf einem Altarblatt in der St.=Guddulakirche daselbst.</hi></head></figure></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">San=Francisco.</hi></head><lb/>
+<cb type="start"/>
+<p><hi rendition="#in">S</hi>an=Francisco, die Hauptstadt von Californien, brei-<lb/>
+tet sich amphitheatralisch innerhalb zweier mit hohem<lb/>
+Buschwerk bewachsenen Höhen, welche in den Hafen<lb/>
+als Erdzungen hinausschießen, auf einem sandigen, ab-<lb/>
+schüssigen Erdstreifen aus, welcher weiterhin sich wie-<lb/>
+derum in ansehnliche Flugsandfelder erweitert. Zwi-<lb/>
+schen diesen dehnt sich die Stadt beinahe in einem<lb/>
+Viereck die ziemlich nackten Höhen, auf welchen der<lb/>
+oberste Theil liegt, hinauf, während der andere auf<lb/>
+Pfählen oder Schiffswracken in der See, die noch in<lb/>
+alle leeren Räume zwischen die niedrigsten Straßen<lb/>
+hineinspült, selbst erbaut ist. Dieser ganz niedrige<lb/>
+Theil der Stadt ruht blos auf Schutt, den man in<lb/>
+größter Eile zwischen die Pfähle niedergestürzt und auf<lb/>
+welchem man häufig ansehnliche Steingebäude aufge-<lb/>
+richtet hat, die deshalb auch nicht selten unausfüllbare<lb/>
+Risse haben oder gar einstürzen. Hier sind keine Stra-<lb/>
+ßen, sondern blos Brücken, welche, weil sie von De-<lb/>
+nen gebaut sind, die zuerst die Grundstücke einnahmen<lb/>
+und jetzt besitzen, sich in dem verfallensten Zustande<lb/>
+befinden, voll von Löchern und Lücken, ebenso gefähr-<lb/>
+<cb n="2"/>
+lich für Menschen und Thiere, wie häßlich anzusehen.<lb/>
+Vier oder fünf von diesen Brücken laufen sehr weit in<lb/>
+den Hafen hinaus und werden &#x201E; <hi rendition="#aq">wharfs</hi> &#x201C; genannt. Um<lb/>
+diese liegt die aus mehren tausend Schiffen und aus<lb/>
+einer Menge Dampffahrzeuge bestehende Handelsflotte,<lb/>
+welche in allen möglichen Formen, von dem stattlichen<lb/>
+Clipperschiff bis zur kleinen Schaluppe, bald scharf<lb/>
+gebaut und schnellsegelnd, bald plump und schwerfällig,<lb/>
+bald neu angestrichen und aufgeputzt, bald deutliche<lb/>
+Spuren der Wuth des Meers und der Stürme tra-<lb/>
+gend, sich hier aus allen Weltmeeren sammelt und ihre<lb/>
+vielfarbigen Flaggen ausbreitet. Man findet ziemlich<lb/>
+häufig zwischen den Häusern auf diesen Brückenstraßen<lb/>
+hier und da ein altes mit Tauen befestigtes Schiffs-<lb/>
+wrack, das, jetzt müde von Jahren und Beschwerden<lb/>
+und nicht mehr tauglich, hergestellt zu werden, da<lb/>
+Alles so theuer ist, aufgehört hat, die falsche Woge<lb/>
+zu pflügen und nun der Ruhe pflegt als &#x201E; <hi rendition="#aq">store-ship</hi> &#x201C;<lb/>
+( Vorrathsschiff ) , und Magazin für Waaren aller Art.<lb/>
+Ein großer Theil dieser Schiffe dient zur Aufbewah-<lb/>
+rung allerlei Geräthschaften der angekommenen Frem-<lb/>
+<cb type="end"/>
+<pb facs="#f0006" n="374"/>
+<fw place="top" type="pageNum">374</fw><cb type="start"/>
+den, welche während ihrer Wanderungen sich nicht mit<lb/>
+allen ihren mitgebrachten Sachen belästigen können,<lb/>
+sondern gegen eine hohe Abgabe sie hier niederlegen,<lb/>
+um sie gegen Feuer gesichert zu wissen, das hier sehr<lb/>
+gewöhnlich ist. Wenn diese Sachen späterhin nicht zu-<lb/>
+rückgefodert werden &#x2014; ost weil der unbekannte Be-<lb/>
+sitzer oben in den Bergwerken gestorben ist &#x2014;, so ver-<lb/>
+kauft man sie in öffentlichen Versteigerungen ohne Be-<lb/>
+sichtigung des Jnhalts zum Vortheil der Aufbewahrer,<lb/>
+der oft sehr bedeutend ist. Die eigentlichen Straßen,<lb/>
+welche durch die Stadt gehen, sind sehr geräumig und<lb/>
+durchschneiden einander in rechten Winkeln; sie sind ent-<lb/>
+weder größtentheils mit Bretern quer belegt, wie<lb/>
+Brücken, oder auch sandig wie Landstraßen, aber nie<lb/>
+mit Steinen gepflastert. Die Häuser dieser Straßen<lb/>
+zeigen die größte und sonderbarste Mannichfaltigkeit,<lb/>
+die man sich denken kann. Bald ist es eine kleine<lb/>
+Breterhütte auf Rollen oder Walzen, roth oder weiß<lb/>
+angestrichen, bald sind es geräumige hölzerne Woh-<lb/>
+nungen von einem oder zwei Stockwerken, bald wie-<lb/>
+der elegante Steingebäude aus rothen Mauersteinen,<lb/>
+wie die englischen, die meisten mit flachen Dächern<lb/>
+oder mit einem viereckig geformten Frontespice, wodurch<lb/>
+sie ein eigenes Aussehen bekommen; bald hebt sich dort<lb/>
+ein großes Haus von Eisen wie ein gigantischer Bie-<lb/>
+nenkorb. Aber alle diese Gebäude von Holz, Stein,<lb/>
+Segeltuch oder Eisen, welche dort in unordentlicher<lb/>
+Mischung durcheinander stehen, stimmen in Einem<lb/>
+Punkte überein, sie sind sämmtlich Läden oder Vor-<lb/>
+rathshäuser.</p><lb/>
+<p>Wandert man durch eine dieser Straßen, besonders<lb/>
+eine der Hauptstraßen, so hat man einen Anblick vor<lb/>
+sich, welcher vermuthlich nirgends, nicht einmal in den<lb/>
+nordamerikanischen Städten, wo sonst das Schilder-<lb/>
+und Feilbietungswesen herrschend ist, sich in gleichem<lb/>
+Grade wiederfinden möchte. Überall auf den Häuser-<lb/>
+wänden, Schornsteinen, Vordergiebeln, Grundmauern,<lb/>
+mit Einem Wort, überall, wo es möglich gewesen ist,<lb/>
+sie anzubringen, sieht man kolossale Schilder hervorra-<lb/>
+gen wie große Coulissen, mit gigantischen Buchstaben<lb/>
+oder bizarren Malereien, mit Flaggen, Wimpeln, Pfei-<lb/>
+lern, Obelisken, Pfannen, Hämmern, Äxten oder an-<lb/>
+dern Werkzeugen, alle von ungeheurer Größe, dar-<lb/>
+über die Jnschriften, welche die Nahrungszweige und<lb/>
+Namen der Jnhaber in allen europäischen Sprachen<lb/>
+angeben. Man scheint gleichsam in einem ungeheuern<lb/>
+Walde zu wandern, wo die Schilder sich wie drohende<lb/>
+Äste hervorstrecken und wo man unwillkürlich den Kopf<lb/>
+niederbeugt, beinahe kriechend oder, so gut man kann,<lb/>
+lavirend, durch alle diese gefährlichen Auswüchse. Und<lb/>
+welche Waaren innerhalb! Hier blitzen Juwelen in<lb/>
+ihren kostbaren Einfassungen, dort ruht das Gold in<lb/>
+den ausgezeichnetsten und kostbarsten Arbeiten, oft in<lb/>
+gediegenen Klumpen. Und gleichwol wird der Reich-<lb/>
+thum und der Glanz in diesen Läden von den aufge-<lb/>
+stapelten Goldhaufen überstrahlt, welche aus den Ge-<lb/>
+schäftslocalen der Bankiers hervorleuchten.</p><lb/>
+<p>Hier duften die herrlichsten Wohlgerüche, dort<lb/>
+blinken Metallwaaren, aufs feinste gearbeitet und aufs<lb/>
+beste geglättet, in erstaunlichen Massen von aller mög-<lb/>
+lichen Art. Hier liegen ausgebreitet maßlose Vorräthe<lb/>
+der elegantesten Kleider von allen Fa<hi rendition="#aq">ç</hi>ons und Moden,<lb/>
+von der Wäsche bis zum Oberrock, von den Pantoffeln<lb/>
+bis zum Hut. Jn einem Lande, wo Wäsche so theuer<lb/>
+ist und wo man ganze Schiffsladungen mit schmuziger<lb/>
+Leinwand nach China oder den Sandwichsinseln schickt,<lb/>
+um sie rein zurückzuerhalten, lohnt es sich nicht, etwas<lb/>
+Altes zu flicken; reißt ein Schuh, zeigt sich ein Loch<lb/>
+<cb n="2"/>
+in einem Rocke oder in einem Paar Beinkleidern, ein<lb/>
+Fleck auf einem Hemde und will man nicht &#x2014; was<lb/>
+man doch ungestraft kann &#x2014; mit etwas von diesem<lb/>
+gehen, so wird das Kleidungsstück ohne Bedenken weg-<lb/>
+geworfen, so richtet man seine Schritte nach einem<lb/>
+Kleiderladen dieser Art und geht daraus verwandelt<lb/>
+und verschönt wieder hervor, ohne mehr ausgegeben zu<lb/>
+haben, als man sonst gethan haben würde, um das<lb/>
+Zerrissene herzustellen, das Schmuzige zu reinigen. Auf<lb/>
+einer andern Stelle sind die Straßen von einem über-<lb/>
+mäßigen Vorrathe theils von Eßwaaren, theils von<lb/>
+Früchten, Eisenarbeiten, chinesischen Waaren aller Art<lb/>
+oder europäischen Gegenständen in allen Formen, die<lb/>
+sich weit vor den Häusern ausdehnen, fast verrammelt.<lb/>
+Speisewirthschaften und Erfrischungsörter senden ihre<lb/>
+den Gaumen anlockenden Düfte auf jeden Schritt aus<lb/>
+und beinahe an jeder Straßenecke sind die Außenwände<lb/>
+der Häuser in Gestelle verwandelt, beladen mit leckern<lb/>
+Gerichten aller Art, lockenden Trinkgeschirren, dam-<lb/>
+pfenden Thee= und Kaffeekannen, wo man stehenden<lb/>
+Fußes unter einem ausgespannten Zelte des Magens<lb/>
+Ansprüche oder die Begierde der Augen befriedigt.<lb/>
+Man hört das Klappen der Billardbälle, das Rollen<lb/>
+der Kegelkugeln und von allen Seiten tönt der Ruf:<lb/>
+&#x201E; <hi rendition="#aq">This way, gentlemen</hi>!&#x201C; abwechselnd mit der heisern<lb/>
+Stimme der Versteigerer, welche von allen Orten<lb/>
+Waaren an die Höchstbietenden verkaufen. Rechnet<lb/>
+man hierzu die Spielhäuser, welche in unheimlicher<lb/>
+Menge auf allen Straßen blühen, aus denen unter<lb/>
+Tönen der Musik eines wohlbesetzten Orchesters das<lb/>
+Klappern der Würfel oder das Klingen der Gold= und<lb/>
+Silbermünzen mit der Einladung der Spielwirthe: <lb/>
+<hi rendition="#aq">Make your game, gentlemen</hi>! gehört wird und mit<lb/>
+welchen sich der Spielenden Gelächter oder wilder Aus-<lb/>
+ruf, die Bewegung und das Gedränge überall, die<lb/>
+Lichtmassen, das Geräusch und der Lärm mischen, so<lb/>
+hat man eine Vorstellung von dem gährenden Chaos,<lb/>
+dem Narrenwerk, dem unruhigen Speculationsgeiste,<lb/>
+der nimmer ruhenden Gewinnsucht, welche uns in tau-<lb/>
+send Gestalten auf jedem Schritte begegnet, aus jedem<lb/>
+Geschäft angrinst, aus jedem Zuruf hervorschallt. Es<lb/>
+ist ein Gewühl von Fahrenden, Reitenden, Sprin-<lb/>
+genden und Gehenden, von Kleidertrachten und Phy-<lb/>
+siognomien, welche man kaum sonst irgendwo fin-<lb/>
+den wird.</p><lb/>
+<p>Jn London und Paris hat doch im Ganzen Alles<lb/>
+mehr ein Gepräge von Gleichheit, einen gewissen sich<lb/>
+überall aussprechenden nationalen Zug angenommen.<lb/>
+Aber hier sind Leute von allen Zungen und von Völ-<lb/>
+kerschaften aller Art. Hier zeigt sich der Chinese in<lb/>
+seiner weiten Kleidertracht mit seinem Hute, der einem<lb/>
+Sonnenschirme gleicht, mit seinem Haarzopf und sei-<lb/>
+nen dicksohligen Schuhen; der &#x201E;Löwe&#x201C; aus Europa<lb/>
+in seinem modernen bunten Putz, mit seinem stutzeri-<lb/>
+schen Gang, mit seiner spöttischen Miene; der Gold-<lb/>
+wäscher vom Oberlande, ziemlich einem Straßenräuber<lb/>
+gleichend, mit fliegendem Haar, langem Bart, großen<lb/>
+Stiefeln und zerrissenen Kleidern; der feingebürstete<lb/>
+und glattpolirte Krämer, gewöhnlich ein Deutscher,<lb/>
+mit seinem einschmeichelnden Wesen; endlich der Ma-<lb/>
+trose, der ruhig seinen Taback im Munde umwendet,<lb/>
+mit dem Hut in dem Nacken und das Halstuch nach-<lb/>
+lässig auf die Brust geknüpft, das ganze Gesicht flam-<lb/>
+mend von eben zu sich genommenen kräftigen Stär-<lb/>
+kungsmitteln. Mit Einem Worte: dieses Gemälde von<lb/>
+San=Francisco ist die erstaunlichste Mosaik; und ohne<lb/>
+diesen Wirrwarr gesehen, und diesen Lärm, diese Un-<lb/>
+ordnung vernommen zu haben, welche sich überall offen-<lb/>
+<cb type="end"/>
+<pb facs="#f0007" n="375"/>
+<fw place="top" type="pageNum">375</fw><cb type="start"/>
+bart, kann man kaum durch irgend eine Beschreibung<lb/>
+einen vollständigen Begriff davon bekommen.</p><lb/>
+<p>Dieser außerordentlichen Mischung zufolge hat die<lb/>
+Stadt keinen eigentlichen Charakter und kann daher<lb/>
+kein dauerndes Jnteresse erwecken. Sie ist weder eu-<lb/>
+ropäisch, noch etwas Anderes, sie trägt das Gepräge,<lb/>
+Alles nachgeäfft zu haben, sie erinnert an Alles. Worte<lb/>
+aller Zungen schallen beständig um die Ohren, ohne<lb/>
+daß man vermag, irgend eine bestimmte Sprache auf-<lb/>
+zufassen, und das Auge sieht aller Welt Erzeugnisse<lb/>
+und Eigenthümlichkeiten bunt durcheinandergemengt.<lb/>
+Es ist deshalb schwierig, wenn nicht unmöglich, sich<lb/>
+hier heimisch zu fühlen; es ergötzt eine Weile, sich von<lb/>
+dem Wirbel fortreißen zu lassen; man geht umher und<lb/>
+staunt, man horcht mit Begier, aber bald findet sich<lb/>
+eine unbeschreibliche Ermattung ein, man hat nichts,<lb/>
+sich daran festzuhalten und man verläßt diese Heimat<lb/>
+des Getümmels mit einem Gefühl von Freude, eine<lb/>
+Heimat des Friedens und der Zufriedenheit, wenn auch<lb/>
+in der Ferne, zu besitzen.</p><lb/>
+<p>Von öffentlichen Gebäuden hat San=Francisco<lb/>
+keine große Anzahl. Der Kirchen sind weder viele<lb/>
+noch ausgezeichnete; kein Thurm zeigt gen Himmel in<lb/>
+einer Stadt, die voll ist von Allem, was irdisch ist.<lb/>
+Jn alten Schiffswracken im Hafen sind mehre Gottes-<lb/>
+häuser eingerichtet, aber die Gottesfurcht scheint hier<lb/>
+nicht sehr in Aufnahme zu sein. Die Schauspielhäu-<lb/>
+ser haben auch kein besonderes Äußeres. Das soge-<lb/>
+nannte &#x201E;Jenny=Lind=Theater&#x201C; war jedoch ein ganz<lb/>
+solides Gebäude von behauenem Kalkstein und zeichnete<lb/>
+sich durch reine Bauart und schöne Verhältnisse aus.<lb/>
+Daß inzwischen die Kunst hier nicht hochgeschätzt wird,<lb/>
+noch große, veredelnde Triumphe feiert, läßt sich von<lb/>
+einer Stadt denken, wo Preiscourante und Auctions-<lb/>
+kataloge in so großer Menge fabricirt und so gründ-<lb/>
+lich studirt werden. Taschenspieler, Betrüger aller Art,<lb/>
+<cb n="2"/>
+Charlatane in allen Gestalten gedeihen hier mehr als<lb/>
+irgendwo anders in Nordamerika, und die Zeitungen<lb/>
+sind täglich voll von den unverschämtesten Bekannt-<lb/>
+machungen und Großsprechereien, nebst Berichten der<lb/>
+abenteuerlichsten Vorlesungen &#x2014; Alles, um Geld zu<lb/>
+erlangen. Ueber das Unterrichtswesen weiß man nichts<lb/>
+Genaues anzugeben; aber daß man der Literatur nicht<lb/>
+leidenschastlich huldigt und daß ihre Erzeugnisse keinen<lb/>
+reißenden Absatz finden, kann man aus den sechsfachen<lb/>
+Preisen der Bücher schließen.</p><lb/>
+<p>Die Dächer aller Häuser sind voll von Wasser-<lb/>
+gefäßen, um sie beim Feuer zu gebrauchen, ein Un-<lb/>
+glück, das so oft ( und häufig durch Mordbrennerei )<lb/>
+über die S=adt ergangen ist, sodaß man genöthigt<lb/>
+ist, auf Mittel zu denken, um ihm zu steuern; des-<lb/>
+wegen hat man auch an den Straßenecken große Brun-<lb/>
+nen gegraben, in welche Spritzenschläuche in vorkom-<lb/>
+menden Fällen gleich hineingelassen werden. Der größte<lb/>
+Brand, der die Stadt heimgesucht hat, brach im Mai<lb/>
+vorigen Jahres aus und verzehrte beinahe den ganzen<lb/>
+untersten Theil. Aber binnen drei Wochen erstand er<lb/>
+aufs neue aus der noch rauchenden Asche, der Han-<lb/>
+del kam in Gang wie zuvor nnd Alles hatte das alte<lb/>
+Aussehen wieder angenommen.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Sonderbare Zumuthung.</hi></head><lb/>
+<p><hi rendition="#in">J</hi>n Ostindien schicken Sterbende durch die Post Geld<lb/>
+an die Priester, um ihre Asche und oft mehr als blos<lb/>
+Asche in den Ganges zu werfen. Oft kommen mit<lb/>
+der Post Arme, Schädel und andere Gliedmaßen an,<lb/>
+adressirt für den heiligen Strom, dessen Wasser jede<lb/>
+Sünde abzuwaschen vermöge.</p></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1"><figure><head><hi rendition="#fr">Bogen im Templerhause zu London.</hi></head></figure></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<pb facs="#f0008" n="376"/>
+<fw place="top" type="pageNum">376</fw><lb/>
+<div n="1" type="jVarious"><head><hi rendition="#fr"><hi rendition="#g">Mannichfaltiges</hi>.</hi></head><lb/>
+<cb type="start"/>
+<div n="2" type="jArticle"><p>Die Steingießerkunst, welche jetzt in Berlin durch<lb/>
+die Herren Fehse und Czarnikow betrieben wird, d. h. die<lb/>
+Kunst, Natursteinen ähnliche Körper von härtester Be-<lb/>
+schaffenheit auf dem Gußwege zu gewinnen, verspricht für<lb/>
+das praktische Leben sehr wichtig zu werden. Sand bildet<lb/>
+den Grundstoff; die Bindung erfolgt durch ein Jngredienz,<lb/>
+welches die Künstler noch geheimhalten. Die breiartige<lb/>
+Masse wird dann, ohne Hinzutritt des Feuers, in jede be-<lb/>
+liebige Form gegossen und in kurzer Zeit stehen unzerbrech-<lb/>
+lich versteinert Gegenstände da vom riesenhaften Felsen bis<lb/>
+zum zierlichen Bildchen des Nipptisches herab. Für das<lb/>
+Bauwesen, die Landwirthschaft, Ausschmückung der Zimmer,<lb/>
+Gärten und Plätze hat sich dieser Kunststein schon trefflich<lb/>
+bewährt. Namentlich werden Treppen, Bottiche, Badewan-<lb/>
+nen, Drainröhren, Grabsteine, Vasen, Gartenbänke, Krip-<lb/>
+pen u. s. w. bestellt und viele Artikel haben schon in meh-<lb/>
+ren Staatsgebäuden Anwendung gefunden. Vielleicht läßt<lb/>
+auch die Kriegswissenschaft die neue Erscheinung nicht un-<lb/>
+versucht an sich vorübergehen; man hat schon interessante<lb/>
+Versuche mit Voll= und Hohlkugeln gemacht.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Eine Erinnerung an den Dreißigjährigen Krieg.<lb/>
+Wenn zwei Harzer gemeinschaftlich aus einem Glase Schnaps<lb/>
+trinken, so beobachten sie dabei den Brauch, daß Derjenige,<lb/>
+welcher eben getrunken hat, indem er das Glas dem Andern<lb/>
+zuschiebt, neben dem Glase mit dem Finger auf den Tisch<lb/>
+klopft. Der Andere antwortet auf die nämliche Weise. Da-<lb/>
+von erzählt man sich Folgendes: Jm Dreißigjährigen Kriege<lb/>
+hat es auf dem Harze viele Bergleute gegeben, die haben<lb/>
+auf ihre eigene Faust mit dem Kaiser Krieg geführt,<lb/>
+weil die Herzöge von Braunschweig es auch mit den Papi-<lb/>
+sten gehalten, auch gegen die braunschweigischen Behörden.<lb/>
+Doch haben sie dem Bürger nichts zu Leide gethan. Aber<lb/>
+kaiserliche Soldaten haben sie erschossen auf dem Marsche<lb/>
+und auch in ganzen Scharen Gefechte geliefert und kaiserliche<lb/>
+Beamte aus den Ortschaften entführt, Kassen weggenommen<lb/>
+und Pferde und Munition geraubt. Diese Leute hat man<lb/>
+Schnapphähne genannt. Graf Tilly hat Preise auf ihren<lb/>
+Kopf gesetzt und sie wie Räuber behandelt. Sie haben sich<lb/>
+aber bei Tage, oder wenn sie nichts im Schilde geführt ha-<lb/>
+ben, bald hier bald da ganz einzeln aufgehalten, und weil<lb/>
+ihrer Viele gewesen sind, so haben sie ein Zeichen verabredet.<lb/>
+Wenn nämlich ein Schnapphahn in einem Wirthshause oder<lb/>
+sonstwo gewesen ist, wo er mit Andern Branntwein getrun-<lb/>
+ken, so hat er bei jedem Schluck mit dem Finger auf den<lb/>
+Tisch leise aufgeklopft. Jst nun noch ein Schnapphahn da-<lb/>
+gewesen, so hat der's gleich ebenso gemacht. Und daran ha-<lb/>
+ben sie sich erkannt. So haben sie sich überall schnell zu-<lb/>
+sammenfinden und ihre Anschläge sich mittheilen und verab-<lb/>
+reden können, ohne daß Andere sie erkannt haben.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Russisches Kommißbrot. Jn den Häusern von Giur-<lb/>
+gewo und in den benachbarten Dörfern, wo die Russen im<lb/>
+jetzigen Kriege lange gelegen hatten, fand man viele von ih-<lb/>
+nen zurückgelassene Kommißbrote. Sie sind ein vielbegehr-<lb/>
+ter Handelsartikel geworden, da Reisende sie als Merkwür-<lb/>
+digkeit mit in ihre Heimat nehmen. Sie sehen gerade so<lb/>
+aus, als wenn sie aus Lava und Asche gebacken wären.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Der Volksschulunterricht in Frankreich ist vieler-<lb/>
+wärts noch in seiner Kindheit, fast überall in den Händen<lb/>
+der Geistlichkeit. Die Kinder lernen lesen und schreiben,<lb/>
+einige Kirchenlieder singen, auch etwas vaterländische Ge-<lb/>
+schichte und Geographie, haben aber im Ganzen die confuse-<lb/>
+sten Begriffe vom Bau der Erde, von der Verschiedenheit<lb/>
+des Klimas u. s. w. Das in dieser Beziehung zum Schul-<lb/>
+gebrauche bestimmte Buch stammt aus früherer Zeit; es wird<lb/>
+in ihm z. B. erzählt, am Aquator brauche man das Wasser<lb/>
+<cb n="2"/>
+nur den Sonnenstrahlen auszusetzen, um es siedend zu ma-<lb/>
+chen; auch daß sich die Sonne um die Erde bewege. Dazu<lb/>
+gibt eine Anmerkung die naive Erklärung, dem Verfasser<lb/>
+sei allerdings das Gegentheil bekannt; aber dem Sinne der<lb/>
+Kinder würde diese sowie manche andere Wahrheit zu schwer<lb/>
+zugänglich sein.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Lebenslust und Todesfreudigkeit der Matrosen.<lb/>
+Mitten im entsetzlichsten Sturme unterhielten sich zwei nor-<lb/>
+weger Matrosen von den Freuden des Hamburger Berges;<lb/>
+daneben maßen sie mit dem Senkblei aus, wie tief sie zu<lb/>
+liegen kommen würden, wenn das Schiff scheiterte. &#x201E; Acht-<lb/>
+zehn Faden!&#x201C; sagte der Eine. Lachend erwiderte der An-<lb/>
+dere: &#x201E;Da kräht kein Hahn nach uns!&#x201C;</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Dreifache Todesart. Ein vornehmer Herr stellte sich<lb/>
+krank und bat den Zauberer Merlin, er möge ihm doch sein<lb/>
+Ende prophezeien. Merlin sagte, er werde den Hals brechen.<lb/>
+Dieser lachte ihn aus, machte sich aber den Spaß, ihn noch<lb/>
+einmal auf die gleiche Art auf die Probe zu stellen. Da<lb/>
+sagte Merlin, er werde gehenkt werden. Zum dritten male<lb/>
+versuchte der verstellte Kranke den Propheten in gleicher<lb/>
+Weise und erhielt diesmal zur Antwort, er werde ertrinken.<lb/>
+Nach geraumer Zeit ritt dieser vornehme Mann in Beglei-<lb/>
+tung vieler Andern auf einer hölzernen Brücke über einen<lb/>
+Fluß. Das Pferd, worauf er ritt, ward scheu, als er mit-<lb/>
+ten auf der Brücke war und sprang über das Geländer; der<lb/>
+Reiter stürzte, brach auf dem Geländer den Hals und fiel<lb/>
+hinüber, blieb aber mit seinem Kleide an einem der Pfähle<lb/>
+hängen, sodaß die Beine in die Höhe waren, der Kopf<lb/>
+sammt den Schultern aber unter dem Wasser steckte. Unter<lb/>
+den Begleitern waren zwei, die dabei waren, als Merlin<lb/>
+ihrem Herrn seine dreifache Todesart prophezeite; diese ge-<lb/>
+riethen in ein solches Schrecken, da sie diese so pünktlich er-<lb/>
+füllt sahen, daß sie ein entsetzliches Geschrei erhoben.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Ein Pampero. So heißen die Stürme in den Pam-<lb/>
+pas in Südamerika und der schwedische Reisende Andersson<lb/>
+schildert uns einen solchen in folgender Weise: &#x201E;Die Dauer<lb/>
+eines Pampero steht in umgekehrtem Verhältniß zu seiner<lb/>
+Kraftentwickelung, denn strenge Herren regieren nie lange;<lb/>
+der, welchen ich erlebte, dauerte kaum eine Stunde. Vor<lb/>
+seiner Ankunft sinkt der Fluß plötzlich, das Barometer fällt<lb/>
+und steigt wieder, sobald der Sturm losbricht. Der Him-<lb/>
+mel ist anfangs klar und sonnenbeleuchtet; der Wind, der<lb/>
+gewöhnlich von Osten kommt, wendet sich nach Nord, springt<lb/>
+plötzlich nach Nord=Nord=West und Nord=West, dann wird<lb/>
+es einen Augenblick vor dem Ausbruche windstill. Der Him-<lb/>
+mel bedeckt sich mit Wolken, welche vom Sturm gewaltsam<lb/>
+gejagt werden und verschwinden. Andere schwarze Wolken<lb/>
+steigen im Osten auf und verbreiten sich, und plötzlich steht<lb/>
+der ganze Horizont in Flammen. Gelbgrüne Lohen fahren<lb/>
+in langen Streifen über das Himmelsgewölbe, der Donner<lb/>
+erschallt Schlag auf Schlag, die Winde jagen rasend über<lb/>
+die Ebenen dahin, sodaß die Kronen der Bäume sich gegen<lb/>
+den Boden niederbeugen, der Regen fällt buchstäblich in<lb/>
+Strömen &#x2014; die ganze Natur ist in Aufruhr. Alle Pam-<lb/>
+peros sind indeß nicht gleich heftig; einige werden von einem<lb/>
+minder gewaltsamen Sturm und minder heftigen Regen-<lb/>
+güssen begleitet; bei andern donnert es fast gar nicht; aber<lb/>
+der, welchen ich geschildert habe, gehört zu den gewöhnlich-<lb/>
+sten, und es ist ein Schauspiel, das in seiner fürchterlichen<lb/>
+Majestät sich recht dazu eignet, eine Vorstellung von der<lb/>
+Wuth der Elemente zu geben.&#x201C;</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Die Wiege Heinrich's <hi rendition="#aq">IV</hi>. wird noch jetzt im Schlosse<lb/>
+zu Pau gezeigt; es ist eine große Schildkrötenschale, an<lb/>
+blauweißen Atlasschnüren aufgehängt. </p></div></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/><lb/>
+</body>     <back><div n="1" type="imprint"><p><hi rendition="#c">Verantwortlicher Redacteur: <hi rendition="#aq">M</hi>. J. E. Volbeding. &#x2014; Druck und Verlag von F. A. Brockhaus in Leipzig.</hi></p></div>     </back>   </text> </TEI>

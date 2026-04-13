@@ -1,0 +1,957 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.deutschestextarchiv.de/basisformat.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">     <teiHeader>
+<fileDesc>
+<titleStmt>
+<title type="main">Das Pfennig-Magazin für Belehrung und Unterhaltung</title>
+<title type="sub">Dritte Folge, Dritter Jahrgang, Nr. 119</title>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/115266127">
+<surname>Geyken</surname>
+<forename>Alexander</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1222198746">
+<surname>Haaf</surname>
+<forename>Susanne</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1019062681">
+<surname>Jurish</surname>
+<forename>Bryan</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Boenig</surname>
+<forename>Matthias</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Thomas</surname>
+<forename>Christian</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Wiegand</surname>
+<forename>Frank</forename>
+</persName>
+</editor>
+<respStmt>
+<orgName>Institut für Deutsche Sprache, Mannheim</orgName>
+<resp>
+<note type="remarkResponsibility">Bereitstellung der Bilddigitalisate und TEI
+Transkription</note>
+<ref target="http://hdl.handle.net/10932/00-01B8-B0C3-15F0-5B01-7"/>
+</resp>
+</respStmt>
+<respStmt>
+<persName>
+<forename>Peter</forename>
+<surname>Fankhauser</surname>
+</persName>
+<resp>
+<note type="remarkResponsibility">
+Transformation von TUSTEP nach TEI P5.
+Transformation von TEI P5 in das DTA TEI P5 Format.
+</note>
+</resp>
+</respStmt>
+<respStmt>
+<orgName ref="https://www.bbaw.de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<resp>
+<note type="remarkResponsibility">Langfristige Bereitstellung der DTA-Ausgabe</note>
+<ref target="https://www.bbaw.de"/>
+</resp>
+</respStmt>
+</titleStmt>
+<editionStmt><edition>Vollständige digitalisierte Ausgabe.</edition></editionStmt>
+<extent>
+<measure type="images">8</measure>
+<measure type="tokens">5529</measure>
+<measure type="types">2412</measure>
+<measure type="characters">38179</measure>
+</extent>
+<publicationStmt>
+<publisher xml:id="DTACorpusPublisher">
+<email>dta@bbaw.de</email>
+<orgName role="project">Deutsches Textarchiv</orgName>
+<orgName role="hostingInstitution" xml:lang="en">Berlin-Brandenburg Academy of Sciences and Humanities (BBAW)</orgName>
+<orgName role="hostingInstitution" xml:lang="de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<address>
+<addrLine>Jägerstr. 22/23, 10117 Berlin</addrLine>
+<country>Germany</country>
+</address>
+</publisher>
+<pubPlace>Berlin</pubPlace>
+<date type="publication">2025-10-24T08:35:16Z</date>
+<availability>
+<licence target="http://creativecommons.org/publicdomain/zero/1.0/">
+<p>Dieses Werk steht unter der "Creative Commons Namensnennung -
+Nicht kommerziell 3.0 Deutschland Lizenz" (CC BY-NC).</p>
+</licence>
+</availability>
+<idno>
+<idno type="URLWeb">https://www.deutschestextarchiv.de/nn_pfennig119_1855</idno>
+<idno type="URLXML">https://www.deutschestextarchiv.de/book/download_xml/nn_pfennig119_1855</idno>
+<idno type="URLHTML">https://www.deutschestextarchiv.de/book/download_html/nn_pfennig119_1855</idno>
+<idno type="URLText">https://www.deutschestextarchiv.de/book/download_text/nn_pfennig119_1855</idno>
+<idno type="DTADirName">nn_pfennig119_1855</idno>
+<idno type="DTAID">34751</idno>
+<idno type="URN">urn:nbn:de:kobv:b4-34751-6</idno>
+</idno>
+</publicationStmt>
+<sourceDesc>
+<bibl type="J">Das Pfennig=Magazin für Belehrung und Unterhaltung. Dritte Folge, Dritter Jahrgang, Nr. 119. Leipzig (Sachsen), 12. April 1855.</bibl>
+<biblFull>
+<titleStmt>
+<title level="m" type="main">Das Pfennig-Magazin für Belehrung und Unterhaltung</title>
+<title level="m" type="sub">Dritte Folge, Dritter Jahrgang, Nr. 119</title>
+</titleStmt>
+<editionStmt>
+<edition n="1"/>
+</editionStmt>
+<publicationStmt>
+<publisher/>
+<pubPlace>Leibzig (Sachsen)</pubPlace>
+<date type="publication">1855</date>
+</publicationStmt>
+</biblFull>
+<msDesc>
+<msIdentifier/>
+<physDesc>
+<typeDesc>
+<p>Fraktur</p>
+</typeDesc>
+</physDesc>
+</msDesc>
+</sourceDesc>
+</fileDesc>
+<encodingDesc>
+<editorialDecl>
+<p>
+<![CDATA[
+<p>Siehe Dokumentation</p>
+]]>
+</p>
+</editorialDecl>
+<tagsDecl>
+<rendition scheme="css" xml:id="aq">font-family:sans-serif</rendition>
+<rendition scheme="css" xml:id="b">font-weight:bold</rendition>
+<rendition scheme="css" xml:id="blue">color:blue</rendition>
+<rendition scheme="css" xml:id="c">display:block; text-align:center</rendition>
+<rendition scheme="css" xml:id="et">display:block; margin-left:2em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et2">display:block; margin-left:4em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et3">display:block; margin-left:6em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="f">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="fr">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="g">letter-spacing:0.125em</rendition>
+<rendition scheme="css" xml:id="i">font-style:italic</rendition>
+<rendition scheme="css" xml:id="in">font-size:150%</rendition>
+<rendition scheme="css" xml:id="k">font-variant:small-caps</rendition>
+<rendition scheme="css" xml:id="larger">font-size:larger</rendition>
+<rendition scheme="css" xml:id="red">color:red</rendition>
+<rendition scheme="css" xml:id="right">display:block; text-align:right</rendition>
+<rendition scheme="css" xml:id="s">text-decoration:line-through</rendition>
+<rendition scheme="css" xml:id="smaller">font-size:smaller</rendition>
+<rendition scheme="css" xml:id="sub">vertical-align:sub; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="sup">vertical-align:super; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="u">text-decoration:underline</rendition>
+<rendition scheme="css" xml:id="uu">border-bottom:double 3px #000</rendition>
+</tagsDecl>
+</encodingDesc>
+<profileDesc>
+<langUsage>
+<language ident="deu">(Früh-)Neuhochdeutsch</language>
+<language ident="deu">German</language>
+</langUsage>
+<textClass>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1main">Gebrauchsliteratur</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1sub">Zeitschrift</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">ready</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">mkhz1</classCode>
+</textClass>
+</profileDesc>
+</teiHeader>
+<text>     <front>
+<pb facs="#f0001" n="[113]"/>
+<titlePage type="heading"><docTitle><titlePart type="main"><hi rendition="#c #fr">Das Pfennig=Magazin<lb/>
+für<lb/>
+<hi rendition="#g">Belehrung und Unterhaltung</hi>.</hi></titlePart></docTitle><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<docImprint><hi rendition="#fr">Nr</hi>. 119. ]              <hi rendition="#c">Dritte Folge. Dritter Jahrgang.</hi>              <docDate><hi rendition="#right">[ 12. <hi rendition="#g">April</hi> 1855.</hi></docDate>            </docImprint></titlePage><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+</front>     <body>       <div n="1"><figure><head><hi rendition="#fr">Frühlingsanfang.</hi></head></figure></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Zum Erzherzog Karl in Wien.</hi><lb/>
+Eine wahre Begebenheit.</head><lb/>
+<cb type="start"/>
+<p><hi rendition="#in">J</hi>m Spätsommer des Jahres 1835 stieg im Erzher-<lb/>
+zog Karl, einem der ersten Gasthöfe Wiens, ein fran-<lb/>
+zösischer Oberst ab. Nachdem er die Reisekleider ge-<lb/>
+wechselt und, um im Laufe des Tages einige Besuche<lb/>
+zu machen, die Galauniform angezogen, warf er sich<lb/>
+in einen Fiaker und segelte in das wogende Leben<lb/>
+Wiens hinein.</p><lb/>
+<p>Der schöne, stattliche Mann, dessen Brust mehre<lb/>
+Orden schmückten, fand in dem bunten Treiben der<lb/>
+Hauptstraßen bald Bewunderer und neugierige Gaffer<lb/>
+genug, und zwar um so leichter, als er öfter aus dem<lb/>
+Wagen stieg, um luxusstrahlende Schaufenster von<lb/>
+Kaufläden und Gewerbsetablissements, Monumente,<lb/>
+Kunstbauten u. dgl. zu betrachten. So hatte er schon<lb/>
+einige Stunden zugebracht, als den lebenskräftigen und<lb/>
+unternehmenden Sechziger plötzlich die Laune anwan-<lb/>
+delte, allein noch das bunte Gewühl des Grabens und<lb/>
+des Kohlmarkts durchzukosten. Er entließ Fiaker und<lb/>
+Lohndiener mit dem Bedeuten, daß er sich allein schon<lb/>
+in den Gasthof zurückfragen werde.</p><lb/>
+<cb n="2"/>
+<p>Bald fand sich unser französischer Oberst in dem<lb/>
+eleganzschimmernden und mannichfaltig sich gestalten-<lb/>
+den Promenadenleben, das diesen Stadttheil während<lb/>
+der Mittagsstunden auszeichnet, völlig heimisch; er<lb/>
+konnte sich kaum sattsehen an den herrlichen und<lb/>
+graziösen Gestalten lustwandelnder Damen, die dem<lb/>
+stattlichen Krieger eben auch nicht Blicke des Hasses<lb/>
+zuschleuderten. Die Zeit verstrich dem Fremdling mit<lb/>
+Schnelligkeit, ohne daß er es gewahr wurde. Der<lb/>
+kühne Sohn des Kriegs fühlte, daß hier sein Herz noch<lb/>
+sterblich werden könnte, mehr aber, daß sein Magen<lb/>
+von einer außerordentlichen Leere befangen sei; er be-<lb/>
+schloß daher, zum Erzherzog Karl zurückzukehren und<lb/>
+durch ein <hi rendition="#aq">déjeûner à la fourchette</hi> die idealen Ge-<lb/>
+fühlsaufregungen etwas zu beruhigen. Auf die an den<lb/>
+ersten Vorübergehenden gestellte Frage, wie und wo<lb/>
+er auf dem nächsten Wege zum Erzherzog Karl komme,<lb/>
+wurde ihm die nächste Straße bedeutet, die er vorerst<lb/>
+zu durchgehen hatte, und nachdem dies geschehen, war<lb/>
+ein zweiter Angeredeter so freundlich, sich als Beglei-<lb/>
+<cb type="end"/>
+<pb facs="#f0002" n="114"/>
+<fw place="top" type="pageNum">114</fw><cb type="start"/>
+ter anzubieten. Nachdem sie nun einige Straßen und<lb/>
+Durchhäuser durchwandert, wies der Begleiter mit dem<lb/>
+Zeigefinger auf den nicht weit entfernten Nebenbau<lb/>
+eines größern imponirenden Hauptgebäudes: &#x201E; <hi rendition="#aq">C'est ici,<lb/>
+Monsieur</hi>!&#x201C; und entfernte sich unter den verbindlich-<lb/>
+sten Danksagungen des Fremden. Jm Hause ange-<lb/>
+langt, schritt der Oberst durch einen bedeckten Gang,<lb/>
+kam durch eine Glasthür in einen ziemlich geräumigen<lb/>
+Hof und klirrte bald über die breite Treppe zur Bel=Etage<lb/>
+hinan, wo einige sehr einfach gekleidete Diener im<lb/>
+Vorsaale den Fremden mit stummer Höflichkeitsbezei-<lb/>
+gung empfingen. Jn dem großen Saale selbst, der<lb/>
+vor ihm geöffnet war und in den er jetzt eintrat, war<lb/>
+schon die Tafel zum Diner hergerichtet, einfach, ge-<lb/>
+schmackvoll, mit ungefähr 20 Gedecken. Der Oberst<lb/>
+machte es sich in der Galauniform so bequem als mög-<lb/>
+lich, ließ sich auf einen der Stühle an der Tafel nie-<lb/>
+der und manoeuvrirte fürs erste mit glänzender Taktik<lb/>
+in ein Quarré von Milchbrötchen hinein, während seine<lb/>
+Rechte eine vor ihm aufgepflanzte Weinflasche herzhaft<lb/>
+attakirte. Jn demselben Augenblicke wurde es lebhaf-<lb/>
+ter im Saale; die hohen Saalthüren öffneten sich und<lb/>
+eine größere Gesellschaft trat ein. Voran schritt ein<lb/>
+hochbetagter, bürgerlich gekleideter Mann, in dessen ed-<lb/>
+lem Antlitz sich eine wunderbare Mischung von Würde<lb/>
+und liebevoller Heiterkeit kundgab, dessen feuriges, küh-<lb/>
+nes Auge der Last der Jahre zu spotten schien. An<lb/>
+seiner Rechten hing ein grazienartiges, niedliches Mäd-<lb/>
+chen mit elfenschlanker Taille und sinnig beredtem, dun-<lb/>
+kelbraunem Auge. Es war, das konnte nicht geleug-<lb/>
+net werden, die Tochter des würdigen Alten; aber auch<lb/>
+die nachfolgenden, sich einhertummelnden Knaben tru-<lb/>
+gen im Antlitz und in dem ganzen äußern Wesen die<lb/>
+Züge des Vaters, die Milde und doch wieder durch-<lb/>
+dringende Schärfe des Blicks, Einfachheit und Adel<lb/>
+der Repräsentation in jeder Bewegung. Dieser Fami-<lb/>
+lie folgten noch einige ältere und jüngere Männer, die<lb/>
+man für Lehrer, Erzieher und Secretäre in diesem<lb/>
+Familienkreise hätte ansehen mögen.</p><lb/>
+<p>So anspruchslos die hier flüchtig skizzirte Gesell-<lb/>
+schaft auch eintrat, der taktfeine Franzose fühlte sich<lb/>
+dennoch veranlaßt, sich vom Stuhl zu erheben und<lb/>
+mit der dem Franzosen eigenen Nonchalance zu grü-<lb/>
+ßen. Der Gruß wurde von sämmtlichen Gästen mit<lb/>
+schlichter Einfachheit erwidert, und nachdem die Fami-<lb/>
+lie noch einige Momente schweigsam, wahrscheinlich in<lb/>
+stiller Gebetbetrachtung, stehend zugebracht und der<lb/>
+Chef einem Diener einige Worte zugeflüstert hatte,<lb/>
+wurden die Plätze an der Tafel eingenommen. Bald<lb/>
+war die kräftige <hi rendition="#aq">soupe aux fines herbes</hi> servirt, welche<lb/>
+dem Gaumen des französischen Obersten sehr behagen<lb/>
+mußte, da er dem hinter ihm stehenden Diener den<lb/>
+Teller zur zweiten Auflage hinreichte. So ging es<lb/>
+auch mit den Zwischengerichten, mit den hingehauchten<lb/>
+Omelettes, den feinen Ragouts und endlich mit dem<lb/>
+köstlichen, in mancherlei Zubereitung präsentirten Rind-<lb/>
+fleisch. Der Oberst entwickelte einen ganz bewunderns-<lb/>
+würdigen Appetit und hielt sich nebenbei auch ganz<lb/>
+wacker an die Bouteille des lieblichen Bordeaux-<lb/>
+weins, die ihm ein geschäftiger Diener vorgestellt hatte.<lb/>
+Unterdessen ging es aber an dem Tafeltheile, den die<lb/>
+Familie und ihr würdiger Chef einnahm, keineswegs<lb/>
+in stiller Einsilbigkeit her. Obwol die jüngern Fami-<lb/>
+lienglieder nur pures Wasser und die ältern Herren<lb/>
+stark gewässerten Weißwein tranken, fehlte doch die<lb/>
+geistige Anregung zu belebter, feuriger Conversation<lb/>
+nicht. Es war der munterste und doch bemessenste<lb/>
+Austausch der Gedanken, den die Gesellschaft in bald<lb/>
+<cb n="2"/>
+scherzender, bald ernster Gesprächsweise darlegte. Zwi-<lb/>
+schen dem Oberhaupte dieser Familie und den einzel-<lb/>
+nen Gliedern derselben schienen zwar keine Schranken<lb/>
+der Ceremonie gezogen, doch wurde der sonoren Stimme<lb/>
+des würdigen alten Herrn, sobald sie in bestimmter<lb/>
+Redeweise anhob, eine lauschende Hingebung bewiesen<lb/>
+und Aller Augen hingen mit dem Ausdruck reinster<lb/>
+<gap reason="illegible"/> ietät an diesen kräftig beredten Lippen. Selbst der<lb/>
+Oberst, der kein Wort Deutsch verstand und eben noch<lb/>
+sehr mit den französirenden <hi rendition="#aq">cotelettes en papillotes</hi><lb/>
+beschäftigt war, mußte sich durch den lebhaften Schwung<lb/>
+der Conversation berührt fühlen, denn er äußerte sei-<lb/>
+nem Tischnachbar, einem der bejahrten Herren der<lb/>
+Gesellschaft, wie sehr er bedaure, kein Wort Deutsch<lb/>
+zu verstehen und nicht an der heitern und gewiß geist-<lb/>
+reichen Conversation Antheil nehmen zu können. Diese<lb/>
+Bemerkung war dem Tischpräses nicht entgangen, denn<lb/>
+sogleich brachte er in leicht hingleitendem Französisch<lb/>
+eine flüchtig hingeworfene Bemerkung, und wie auf<lb/>
+ein gegebenes Signal wurde nun die Conversation in<lb/>
+leicht geschürztem, elegantem Französisch fortgeführt.<lb/>
+Den Franzosen schien diese gesellschaftliche Delikatesse<lb/>
+recht innerlich zu erfreuen, denn nachdem er sich selbst<lb/>
+in die allgemein werdende Conversation gemengt, brachte<lb/>
+er in höflicher Wendung die Bemerkung, wie er sich<lb/>
+auch heute neuerdings vom feinen gesellschaftlichen<lb/>
+Takt der Wiener, von der gastlichen Liebenswürdigkeit<lb/>
+derselben gegen Fremde so recht kräftig überzeugt habe<lb/>
+und schloß diese feurige Anerkennung mit den Wor-<lb/>
+ten, er hätte wol schon davon in Paris gehört, aber<lb/>
+doch nicht geglaubt, daß der erste Tag seiner Ankunft<lb/>
+in Wien und einige Augenblicke an einer wiener <hi rendition="#aq">table<lb/>
+d'hôte</hi> ihm das stille, heitere Familienglück der Oest-<lb/>
+reicher in so edlem Familienkreise erschließen würden.</p><lb/>
+<p>Bei dem Worte <hi rendition="#aq">table d'hôte</hi> überflog ein leichtes,<lb/>
+wol von dem Franzosen kaum wahrgenommenes Lä-<lb/>
+cheln die Physiognomie der Gesellschaft, doch das war<lb/>
+in Gedankenschnelle vorüber und nun bemächtigte sich<lb/>
+das Oberhaupt der Familie und der Oberst beinahe<lb/>
+ausschließlich der Conversation. Man ging von den<lb/>
+allgemeinen zu den speciellen Tagesfragen in Deutsch-<lb/>
+land und Frankreich über; der Franzose verrieth einen<lb/>
+lebhaften, fein gebildeten Geist, der Familienchef eine<lb/>
+Fülle von Kenntnissen und ein tiefes Eindringen in<lb/>
+französische politische und sociale Lebenszustände. Es<lb/>
+wurde bereits das Dessert herumgereicht, der brausende<lb/>
+Jacquesson schäumte vor dem Obersten, &#x2014; man sprach<lb/>
+von Krieg und Frieden, der Franzose war vor Jahren<lb/>
+schon zwei mal in Wien gewesen, aber auch der alte<lb/>
+würdige Herr deutete an, daß er einmal mit zahlrei-<lb/>
+cher Begleitung durch Paris gekommen. Der Fran-<lb/>
+zose pries die Waffenthaten seines großen und so un-<lb/>
+glücklichen Kaisers, rühmte aber auch den Muth, die<lb/>
+Ausdauer und Vaterlandsliebe der östreichischen Krie-<lb/>
+ger, den Heroismus ihres großen Feldherrn, des Erz-<lb/>
+herzogs Karl von Oestreich, und endete seine Lobrede<lb/>
+mit der scherzhaften Bemerkung, daß damals der Erz-<lb/>
+herzog Karl den französischen Militärs keinen so fried-<lb/>
+lichen Willkomm geboten habe, wie jetzt durch den Erz-<lb/>
+herzog Karl in Wien den französischen Gästen immer<lb/>
+ein solcher bereitet werde. Nun erhob sich der jüngere<lb/>
+Theil der Familie von der Tafel, grüßte freundlich die<lb/>
+Zurückbleibenden, küßte dem Vater ehrerbietig die Hand<lb/>
+und zog sich durch die offene Saalthür zurück.</p><lb/>
+<p>Wie glücklich sind Sie, mein Herr! rief nun der<lb/>
+Oberst mit dem Ausdruck des tiefsten Ergriffenseins<lb/>
+aus, da Sie so anmuthige, kräftige und gewiß auch<lb/>
+herzensgute Kinder besitzen; wie doppelt glücklich, der<lb/>
+<cb type="end"/>
+<pb facs="#f0003" n="115"/>
+<fw place="top" type="pageNum">115</fw><cb type="start"/>
+Sie die Tage des Alters in Mitte eines so blühenden<lb/>
+Kinderkreises in stiller Freude genießen können, wäh-<lb/>
+rend alle meine Hoffnungen &#x2014; drei wackere Söhne &#x2014;<lb/>
+begraben liegen und ich, ein welker, verdorrter Stamm,<lb/>
+einsam stehe!</p><lb/>
+<p>Das überwallende Wehmuthsgefühl ließ ihn nicht<lb/>
+ausreden, eine große Thräne rollte über seine narben-<lb/>
+durchfurchte Wange, und als schämte sich der ergraute<lb/>
+Krieger, die Tischgenossen zu Zeugen seines weichen<lb/>
+Gefühls zu machen, war er rasch aufgestanden und<lb/>
+näherte sich einer Fensterwölbung, um hier wieder<lb/>
+Fassung und Ruhe zu gewinnen. Als er sich nach<lb/>
+einigen Minuten umwendete, war die Tischgesellschaft<lb/>
+verschwunden und auch darin fand der Oberst jenen<lb/>
+Takt des Zartgefühls wieder, den er schon früher im<lb/>
+ganzen Wesen der Gesellschaft bewundert hatte. Der<lb/>
+Oberst fühlte sich durch die Erinnerungen, die er her-<lb/>
+aufbeschworen, durch das Bild eines so reinen Fami-<lb/>
+lienglücks, das er hier geschaut, sowie durch die man-<lb/>
+nichfachen geistigen Aufregungen der hier verlebten paar<lb/>
+Stunden so tief bewegt, daß er sich in die freie Na-<lb/>
+tur hinaus sehnte. Rasch entfernte er sich, wie er ge-<lb/>
+kommen, auf demselben Wege. Bald saß der Oberst<lb/>
+in einem Fiaker, der ihn in den reizenden Umgebun-<lb/>
+gen Wiens umherführte und erst bei einbrechender<lb/>
+Nacht zum Erzherzog Karl zurückbrachte.</p><lb/>
+<p>Am andern Morgen ließ sich der Graf G....,<lb/>
+der erste Adjutant Sr. kaiserlichen Hoheit des Erzher-<lb/>
+zogs Karl von Oestreich, bei dem Obersten, Grafen<lb/>
+D...., melden. Nach den Bewillkommnungshöflich-<lb/>
+keiten eröffnete der Graf dem Obersten, daß er im<lb/>
+Auftrage Sr. kaiserlichen Hoheit komme, welcher wün-<lb/>
+sche, daß der Herr Oberst auch noch für die Dauer<lb/>
+seines Aufenthalts in Wien ein gerngesehener Gast an<lb/>
+der Tafel sein möge, an die ihn gestern sicher die gar-<lb/>
+stige Laune des Znfalls geführt &#x2014; wenn ihm anders<lb/>
+die hier getroffene Gesellschaft und die östreichische<lb/>
+Hausmannskost geuüge. Fast konnte der Oberst vor<lb/>
+Ueberraschung und Bestürzung kaum ein erklärendes<lb/>
+Wort finden, aber bald hatte sich den beiden Män-<lb/>
+nern das <hi rendition="#aq">Qui pro quo</hi> gelöst. Noch an demselben<lb/>
+Tage wurde der Oberst dem östreichischen Helden vor-<lb/>
+gestellt und fand unter der Generalissimusuniform heute<lb/>
+dasselbe edle, großmüthige Herz unverändert wieder,<lb/>
+das ihn gestern unter dem einfachen braunen Rocke so<lb/>
+wunderbar angezogen.</p><lb/>
+<p>Noch einige male war der Oberst so glücklich, im<lb/>
+Kreise dieser Edeln unvergeßliche Stunden zu verleben,<lb/>
+und nach der Seinestadt zurückgekehrt, schärfte er es<lb/>
+seinen Kriegsgefährten ein, auf einer Reise nach Wien<lb/>
+sich ja an kein anderes Hotel zu wenden als zum<lb/>
+Erzherzog Karl.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Der alte Napoleon auf der Bühne.</hi></head><lb/>
+<p><hi rendition="#in">J</hi>n der letzten Zeit ward ein Stück von Labrousse<lb/>
+und Albert: &#x201E; <hi rendition="#aq">Le Consulat et l'Empire</hi> &#x201C; in Paris im <lb/>
+<hi rendition="#aq">Théâtre impérial du Cirque</hi> 70 mal hintereinander<lb/>
+gegeben, bei stets gleich großem Gedränge der Schau-<lb/>
+lustigen, die sich ihre Plätze jedes mal erkämpften.<lb/>
+Das Stück ist weder Trauer=, noch Schau=, noch<lb/>
+Lustspiel, sondern eine Reihenfolge von 22 lebenden<lb/>
+Bildern aus den Jahren 1799&#x2014;1806, stets mit Na-<lb/>
+poleon, dem Consul und Kaiser, im Vordergrunde.<lb/>
+Hier eins dieser Bilder:</p><lb/>
+<cb n="2"/>
+<p>Der lebenslängliche Consul ist Kaiser geworden.<lb/>
+Als solcher betritt er eines Morgens in seinen Mantel<lb/>
+gehüllt, den Hut tief in die Stirn gedrückt, den <hi rendition="#aq">Mar-<lb/>
+ché des Innocents</hi>, den Sitz der <hi rendition="#aq">Dames de la<lb/>
+Halle</hi>, der weltbekannten Verkäuferinnen von Fischen<lb/>
+und Gemüsen, von Obst und Blumen. Der Kaiser<lb/>
+beobachtet einen Knaben, wie er an den Obsthändle-<lb/>
+rinnen entlang geht, ein Körbchen Erdbeeren kaufen<lb/>
+will und so oft er nach dem Preise gefragt, vor dem<lb/>
+gefoderten zurückschreckt. Der Kaiser redet ihn an; er<lb/>
+soll ihm sagen, was er mit den Erdbeeren wolle. &#x201E;Zur<lb/>
+Labung meiner kranken Mutter&#x201C;, antwortet der Knabe.<lb/>
+Der Kaiser fragt weiter. Ein Körbchen Erdbeeren soll<lb/>
+zehn Francs kosten und der Knabe hat nur vier; seine<lb/>
+Mutter ist arm, sein Vater bei Marengo gefallen.<lb/>
+Der Kaiser nimmt ein Körbchen Erdbeeren und gibt<lb/>
+es dem Knaben. Dieser springt rasch damit fort. Der<lb/>
+Kaiser blickt ihm nach. Plötzlich steht der Knabe still,<lb/>
+dreht sich um, läuft auf den Kaiser zu und bringt<lb/>
+ihm den vergessenen Dank. Da bückt sich der Kaiser,<lb/>
+hebt den Knaben empor und küßt ihn. Der Knabe<lb/>
+umhalst den Kaiser; dann will er fort zu seiner Mut-<lb/>
+ter, die ihn erwarte. Der Kaiser hält ihn. Er wolle<lb/>
+noch etwas in den Korb legen, sagt er, für die arme<lb/>
+Frau, welche Marengo zur Witwe gemacht. Er schiebt<lb/>
+seine Börse unter die Erdbeeren. Mit flüchtigem<lb/>
+Danke enteilt der Knabe. Jetzt verlangt die Obsthänd-<lb/>
+lerin Bezahlung. Der Kaiser greift nach seiner Börse.<lb/>
+Er vergaß, daß er sie dem Knaben gegeben. Er durch-<lb/>
+sucht seine Taschen, findet nirgends Geld und ver-<lb/>
+spricht, binnen einer Stunde die schuldigen zehn Francs<lb/>
+zu schicken. Aber die <hi rendition="#aq">Dame de la Halle</hi> will davon<lb/>
+nichts hören, schilt den Kaiser, faßt ihn am Kragen<lb/>
+und schickt nach der Wache. Eine Patrouille kommt;<lb/>
+ihr Führer erkennt den Kaiser, hemmt den Schritt,<lb/>
+will die Honneurs machen, liest aber im Auge des<lb/>
+Kaisers den Befehl, ihn nicht zu verrathen. Die Obst-<lb/>
+händlerin fodert Verhaftung. Der Sergeant sucht sie<lb/>
+zu begütigen, die Freilassung des Kaisers zu vermit-<lb/>
+teln. Das erzürnt jene noch mehr. Sie droht dem<lb/>
+Sergeanten und dieser ist im Begriff, seine Pflicht zu<lb/>
+thun, als ein Mann, der aus der Entfernung zuge-<lb/>
+schaut, auf einen Wink des Kaisers sich naht und der<lb/>
+Obsthändlerin ein Zehnfrankenstück behändigt. Der<lb/>
+Mann ist Duroc. Die <hi rendition="#aq">Dame de la Halle</hi> sieht Beide<lb/>
+verwundert an. Den Mantel zurückschlagend, sagt der<lb/>
+Kaiser: &#x201E; <hi rendition="#aq">C'est l'habit de l'Empereur</hi> &#x201C; und entfernt<lb/>
+sich. Jubelnd stürzt die Menge, außer sich die Obst-<lb/>
+händlerin ihm nach und in das schallende: &#x201E; <hi rendition="#aq">Vive l' Em-<lb/>
+pereur</hi>!&#x201C; stimmt das gesammte Theaterpublicum ein.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Wie Ehrn Petrus Lambecius k. k. Bibliothekar<lb/>
+in Wien ward.</hi></head><lb/>
+<p><hi rendition="#in">D</hi>er grundgelehrte Lambecius in Hamburg hatte seine<lb/>
+&#x201E; <hi rendition="#aq">Origines Hamburgenses</hi> &#x201C; geschrieben und war im<lb/>
+Begriff, ein Prachtexemplar dem Rathe hinzutragen,<lb/>
+als seine Frau, mit der er stets in Unfrieden lebte,<lb/>
+dahinter kam. Da sie gehört hatte, daß in dem Buche<lb/>
+Geschichten beschrieben ständen, sie aber die lateinische<lb/>
+Sprache nicht verstand und meinte, ihr Mann hätte<lb/>
+seine leidige Ehestandsgeschichte darin erzählt und wolle<lb/>
+sie beim Rathe verkleinern, resolvirte sie sich schnell und<lb/>
+schrieb, als Professorenfrau des Schreibens nicht un-<lb/>
+kundig, auf die Kehrseite des Titelblatts: &#x201E;Van all de<lb/>
+<cb type="end"/>
+<pb facs="#f0004" n="116"/>
+<fw place="top" type="pageNum">116</fw><cb type="start"/>
+Historien, de mi Mann in düssem Booke geschreven<lb/>
+hatt, daran ist keen Dübelswort wahr.&#x201C; Herr Petrus<lb/>
+hatte von diesem kritischen Zusatze nichts gemerkt, über-<lb/>
+reichte das Buch und war des besten Danks gewärtig.<lb/>
+Aber der Ehrbare Rath that ihm im Vertrauen den<lb/>
+ehrenrührigen Zusatz kund und der gute Herr ärgerte<lb/>
+sich so, daß er krank ward. Die Königin Christine<lb/>
+von Schweden, die damals in Hamburg wohnte und<lb/>
+<cb n="2"/>
+sich von dem gelehrten Lambecius unterrichten ließ,<lb/>
+gab ihm den Rath, er möge auf Reisen gehen, um<lb/>
+sich von seiner Alteration zu erholen. Das that der<lb/>
+Mann und meinte, er wolle lieber in Wien katholisch<lb/>
+als in Hamburg vollends des Teufels werden. Er<lb/>
+ging nach Wien, wo er wirklich katholisch und kaiser-<lb/>
+licher Bibliothekar geworden ist.</p></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1"><figure><head><hi rendition="#fr">Eingang in die Via Mala von der Seite von Tusis her.</hi></head></figure></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<pb facs="#f0005" n="117"/>
+<fw place="top" type="pageNum">117</fw><lb/>
+<div n="1"><head><hi rendition="#fr">Die Sophienkirche in Konstantinopel.</hi></head></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr"><hi rendition="#g">Die Hindus</hi>.</hi><lb/>
+( Beschluß. )</head>       <cb type="start"/>
+<p><hi rendition="#in">B</hi>esonders Elefantina, Salsette und Ellora sind reich<lb/>
+an solchen Weltwundern. Dort liegen die Tempel im<lb/>
+Grau des Alterthums und die tausendjährigen Grot-<lb/>
+ten, welche die Jetztlebenden mit heiligem Schauder<lb/>
+betreten; dort erheben sich in den Granitbergen die rie-<lb/>
+sigen Wölbungen mit ihren kolossalen Säulen und<lb/>
+Statuen von 20 &#x2014; 50 Fuß Höhe, vom Meisel aus<lb/>
+den Felsen herausgetrieben und Götter, Menschen,<lb/>
+Thiere und Pflanzen darstellend; dort führen Treppen<lb/>
+durch die dunkeln Felsen abwärts in großen geheimniß-<lb/>
+vollen Gängen hin, in welchen die heiligen Thiere, als<lb/>
+der Elefant, die Schildkröte, der Affe, der Eber, die<lb/>
+Brillenschlange u. s. w. den erstaunten Wanderer als<lb/>
+Steinbilder anstarren; dort öffnen sich am Ausgange<lb/>
+der Felsengänge die unterirdischen Tempel, aus ver-<lb/>
+schiedenen Abtheilungen bestehend, und führen weiter<lb/>
+in die benachbarten Zimmer, Grotten und andere Ge-<lb/>
+mächer; dort liegen Säle unter= und übereinander und<lb/>
+alle diese ungeheuren Werke wurden mittels des Mei-<lb/>
+sels aus dem harten Gestein herausgearbeitet.</p><lb/>
+<p>Was sind die Werke der alten Aegypter gegen<lb/>
+solche kolossale Schöpfungen! Und so sehr man sich<lb/>
+auch abmüht, die Zeit anzugeben, in welcher diese Wun-<lb/>
+der entstanden, so sehr man auch nach dem Volke<lb/>
+forscht, welches einst an solchen Werken, zu deren<lb/>
+Herstellung Jahrhunderte gehörten, baute, so ist doch<lb/>
+Niemand im Stande, etwas Näheres darüber anzu-<lb/>
+geben; selbst bei den Braminen herrscht darüber gänz-<lb/>
+liches Dunkel, denn sie haben höchstens einige Sagen,<lb/>
+durch welche sie sich zu einzelnen unsichern Schlüssen<lb/>
+berechtigt glauben. Soviel ist gewiß, daß die meisten<lb/>
+staunenerregenden Bauwunder schon Jahrtausenden ge-<lb/>
+<cb n="2"/>
+trotzt haben und auf eine Zeit des Alterthums zurück-<lb/>
+weisen, welche unserer geschichtlichen Rechnung nur zu<lb/>
+fern liegt. Wie viele Jahrhunderte mochten vergan-<lb/>
+gen sein, ehe die Vorältern der Hindus ihren Sinn<lb/>
+für Kunst und Größe so ausgebildet hatten, daß sie<lb/>
+solche Zeugen ihres frühen Daseins hinterlassen konn-<lb/>
+ten. Der hohe Geist, der hohe Sinn des Volks ist<lb/>
+längst dahin. Jetzt sehen wir leider die Hindus ent-<lb/>
+nervt und geistig geschwächt nach den Schöpfungen<lb/>
+ihrer starken, sinnigen Vorfahren hinschleichen, um an<lb/>
+den Processionen nach den Tempeln theilzunehmen;<lb/>
+jetzt sehen wir tolle Schwärmer unter ihnen sich frei-<lb/>
+willig unter die Räder des Götterwagens stürzen, um<lb/>
+desto sicherer zu Brahma in den Himmel zu kommen;<lb/>
+jetzt gefallen sie sich als Spielwerk in Priesterhänden<lb/>
+in allerlei Selbstpeinigungen und wohnen in Höhlen,<lb/>
+um vom Volke ernährt zu werden, jetzt zerfleischen<lb/>
+und verunstalten sie sich den Körper, lassen sich Ha-<lb/>
+ken in das Fleisch des Rückens bohren und an Seilen<lb/>
+emporziehen, jetzt stehen sie jahrelang auf einem und<lb/>
+demselben Platze in der unbequemsten Haltung, ohne<lb/>
+sich nur um einen Schritt weiter zu bewegen, jetzt<lb/>
+sind sie ein trauriges Bild traurigster Versunkenheit.<lb/>
+Die alte Kraft, die Geistesfrische ist also größtentheils<lb/>
+dahin und an den Ruinen einer alten Zeit trauert ein<lb/>
+herabgekommenes, unterdrücktes Geschlecht; es gleicht<lb/>
+dem Riesenbaume, der einst grünte und blühte, von<lb/>
+dem aber nur der Stumpf noch steht; es hat das<lb/>
+Edle und Große seiner Vorzeit verloren und meist nur<lb/>
+das Entartete behalten.</p><lb/>
+<p>Obgleich die Religion der Hindus mit keinem<lb/>
+Worte das Kindesopfer vorschreibt, so bildete sich doch<lb/>
+<cb type="end"/>
+<pb facs="#f0006" n="118"/>
+<fw place="top" type="pageNum">118</fw><cb type="start"/>
+bei dem durch Stolz, Geiz und Bequemlichkeitsliebe<lb/>
+verderbten Volke die schreckliche Gewohnheit aus, dem<lb/>
+Genesa, dem Gotte der Weisheit, die neugeborenen<lb/>
+Töchter zu opfern und nur die kräftigsten Maßregeln<lb/>
+verschiedener Regierungen vermochten es, der fürchter-<lb/>
+lichen Sitte einen Damm entgegenzusetzen. Die Furcht<lb/>
+vor den großen Kosten, welche häufig mit der Verhei-<lb/>
+rathung der Töchter verbunden waren, der Glaube,<lb/>
+daß von den Göttern die geopferten Mädchen den Ael-<lb/>
+tern als Sühne zurückgegeben würden, vermehrten die<lb/>
+Veranlassung zu dem empörenden Gebrauche und die<lb/>
+Oberpriester waren bemüht, ihn aufrechtzuerhalten,<lb/>
+da derselbe ihnen reichliche Geschenke einbrachte. Auch<lb/>
+in Privathäusern wurden nicht selten die neugeborenen<lb/>
+Mädchen getödtet, was durch das sogenannte Milch-<lb/>
+trinken geschah. Wenn nämlich eine Tochter zur Welt<lb/>
+gekommen war, so brachte man ein größeres Gefäß<lb/>
+mit warmer Milch in das Zimmer der Mutter, ergriff<lb/>
+dann das arme schuldlose Kind und tauchte es so<lb/>
+lange unter die Milch, bis das Leben erlosch, worauf<lb/>
+man die Leiche den Fluten des Ganges übergab. Soll-<lb/>
+ten die Braminen das Opfer übernehmen, so mußten<lb/>
+die Töchter in den Tempel gebracht werden, wo sie<lb/>
+unter seltsamen Ceremonien auf den Rücken gelegt und<lb/>
+endlich bei Hymnengesang und Paukenschlag mit Keu-<lb/>
+len erschlagen wurden. Noch viel unmenschlichere Be-<lb/>
+handlungen der Kinder kamen bei solchen Hindus vor,<lb/>
+welche sich von der treulosen Priesterschaft durch aber-<lb/>
+gläubische Furcht erschrecken und jeden Funken älterli-<lb/>
+cher Liebe ersticken ließen. Diese Fälle mögen nun<lb/>
+wol seltener vorgekommen sein; aber schon schlimm ge-<lb/>
+nug, wenn es nur einmal geschah, daß wahnwitzige<lb/>
+Aeltern ihre kleinen Kinder bis an den Hals in die<lb/>
+Erde gruben, um den Kopf dem Angriffe wilder<lb/>
+Thiere zu überlassen, während Einige ihre Kleinen mit<lb/>
+den Füßen an Baumästen aufhingen, Andere sie in<lb/>
+einen den Göttern geweihten Fluß warfen und sie so<lb/>
+zum Opfer brachten. Milder noch als diese herzzerrei-<lb/>
+ßenden Greuel erscheint der Gebrauch, daß die Hindus<lb/>
+ihre Kinder in einen Korb legen und sie auf einen<lb/>
+heiligen Fluß setzen, um sie dem Spiel der Wellen zu<lb/>
+überlassen. Bei diesem Verfahren scheint doch noch<lb/>
+ein Fünkchen menschlichen Gefühls durchzuschimmern.</p><lb/>
+<p>Das furchtbare Verbrechen des Kindermords fand<lb/>
+vorzüglich in Benares Eingang, wo dem Genesa groß-<lb/>
+artige Tempel gebaut worden sind, welche im Ueber-<lb/>
+maße mit Gemälden und Bilderwerken geziert sind und<lb/>
+dem Götzen zu Ehren an den hohen Pfeilern große<lb/>
+Elefantenköpfe tragen. Genesa selbst wurde mit ge-<lb/>
+kreuzten Beinen sitzend dargestellt; man gab ihm vier<lb/>
+Arme und Hände und sein Haupt bestand aus einem<lb/>
+Elefantenkopfe mit mächtigem Rüssel.</p><lb/>
+<p>Um Abschaffung des Kindermords haben sich selbst<lb/>
+die Muselmanen mit verdient gemacht. Die Hauptthä-<lb/>
+tigkeit hierin zeigten aber die Engländer, welche dem<lb/>
+Greuel durch besondere Verträge mit den Hinduhäupt-<lb/>
+lingen, freilich nur zum Theil, ein Ende zu machen<lb/>
+verstanden.</p><lb/>
+<p>Obgleich die Hindus mit ungemeiner Zähigkeit an<lb/>
+ihrem Gottesdienste hingen, so drang doch das Chri-<lb/>
+stenthum nach und nach mit seiner versöhnenden Lehre<lb/>
+auch bis nach Hindostan. Ein Hindustamm auf Ma-<lb/>
+labar betrachtet schon den Apostel Thomas, welcher bei<lb/>
+Madras den Märtyrertod gefunden haben soll, als ih-<lb/>
+ren Bekehrer, weshalb sie sich Thomaschristen nennen.<lb/>
+Bei verschiedenen andern Stämmen machten zuerst die<lb/>
+Portugiesen Bekehrungsversuche, welche durch Jnqui-<lb/>
+sition und Härte freilich nur selten zu erwünschten Er-<lb/>
+<cb n="2"/>
+folgen führten. Um 1620 sandten die Dänen prote-<lb/>
+stantische Missionare nach der Küste Koromandel; Fried-<lb/>
+rich <hi rendition="#aq">IV</hi>. von Dänemark hatte Francke in Halle um die-<lb/>
+selben gebeten, worauf dieser auch sofort zwei von ihm<lb/>
+gebildete Heidenbekehrer abgehen ließ. Später sandte<lb/>
+man noch mehre Missionare von Kopenhagen aus ab<lb/>
+und bald vereinigten sich auch verschiedene Engländer<lb/>
+zu gleichen Zwecken, errichteten Missionsgesellschaften,<lb/>
+gründeten Unterrichtsanstalten und setzten in ihren indi-<lb/>
+schen Besitzungen einen Bischof ein. Soviel man sich<lb/>
+aber auch mit verkehrten und richtigen Maßregeln ab-<lb/>
+gemüht hat, die Hindus zu Christen zu machen, so ist<lb/>
+der Erfolg bisher doch immer nur ein verhältnißmäßig<lb/>
+geringer gewesen, da die Hindostaner sich mit Stolz<lb/>
+einer alten, hohen Bildung rühmen und starr an den<lb/>
+von den Vorältern ererbten Sitten und Gebräuchen<lb/>
+hängen, übrigens aber auch die Christen sich durch ihre<lb/>
+Härte und Sittenlosigkeit den Hindus nicht gerade sehr<lb/>
+empfohlen, sondern in ihnen mehr Abneigung und<lb/>
+Haß erweckt haben.</p><lb/>
+<p>Ein Beweis von der geringen Erfolglosigkeit so<lb/>
+verschiedener Bemühungen, dem Kindermorde unter den<lb/>
+Hindustämmen ein Ende zu machen, liefert ein im<lb/>
+Jahre 1853 von dem Residenten in Peschawar, Ma-<lb/>
+jor Edwards, nach Europa gesendeter Bericht, welcher<lb/>
+mittheilt: Wenn bisher eine Mutter in der Kaste der<lb/>
+Bedas entbunden wurde, so berichtete die Amme der<lb/>
+außerhalb des Burdah harrenden Familie, ob das Kind<lb/>
+ein Knabe oder Mädchen. War es ein Sohn, so wur-<lb/>
+den den Aeltern lebhafte Glückwünsche gebracht, war<lb/>
+es aber ein Töchterchen, so kehrte die arme Mutter<lb/>
+ihr Gesicht gegen die Wand, denn sie wußte, was ih-<lb/>
+rem Kinde bevorstand. Manchmal tödtet die Amme<lb/>
+und zwar auf Befehl der Matronen des Hauses das<lb/>
+Kind sogleich, indem sie ihm mit der Hand den Mund<lb/>
+zuhält; gewöhnlicher aber setzt man es der Kälte oder<lb/>
+Hitze aus und läßt es verschmachten oder erfrieren.<lb/>
+Auch Das kommt vor, daß man dem Kinde den Mund<lb/>
+mit einem dicken Teige verklebt und es in einem Topfe<lb/>
+vergräbt, oder daß man ihm die Nabelschnur in den<lb/>
+Mund steckt, oder auch, daß die Amme sich die Brust-<lb/>
+warze mit Opium bestreicht, wodurch der Säugling<lb/>
+sich vergiftet und dergleichen. Manche Bedis wenden<lb/>
+noch die raffinirte Brutalität an, daß sie der Leiche<lb/>
+des Kindes ein Stück &#x201E;Gur&#x201C; zwischen die Lippen und<lb/>
+einen Strang Baumwolle in die Händchen stecken und<lb/>
+dazu singen: &#x201E;Jß dein Gur und spinne deinen Fa-<lb/>
+den, aber geh' fort und schicke statt deiner einen<lb/>
+Knaben.&#x201C;</p><lb/>
+<p>Fast zu gleicher Zeit, Anfang 1854, wurde wei-<lb/>
+ter berichtet: Jn Amritsir, der heiligen Stadt der<lb/>
+Sikh in der Nähe von Lahore, fand Anfang Novem-<lb/>
+ber 1553 eine dreitägige Versammlung von Notabeln<lb/>
+des Landes unter Vorsitz des britischen Obercommissars<lb/>
+statt, um zu berathen, wie dem Kindermorde Einhalt<lb/>
+geschehen könne. Jm Fünfstromlande herrscht der häß-<lb/>
+liche Gebrauch, neugeborene Mädchen durch Erstickung<lb/>
+mit der Hand oder durch im Geruch der Heiligkeit<lb/>
+stehenden Kuhmist sowie durch Aussetzen und Leben-<lb/>
+digbegraben zu tödten. Die Sikh=Häuptlinge waren<lb/>
+bereit, zur Abstellung des schrecklichen Gebrauchs hülf-<lb/>
+reiche Hand zu leisten.</p><lb/>
+<p>Wie weit die Bemühungen erfolgreich gewesen sind,<lb/>
+darüber fehlen noch genaue Nachrichten.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<cb type="end"/>
+<pb facs="#f0007" n="119"/>
+<fw place="top" type="pageNum">119</fw>       <cb type="start"/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Der Schatzgräber.</hi></head><lb/>
+<p><hi rendition="#in">E</hi>s gibt eine Naturerscheinung, welche das Geldbren-<lb/>
+nen heißt. Das ist aber ein Name, den der Aber-<lb/>
+glaube erfunden hat und der uns Zeugniß ablegt von<lb/>
+einer Zeit, welcher wir Gottlob! entwachsen sind. Wie<lb/>
+die feurigen Drachen, der Blutregen, das Nordlicht,<lb/>
+die Kometen u. s. w. nicht Unglückspropheten, Herolde<lb/>
+von Krieg, Brand und Mord, sondern ganz natürliche<lb/>
+Erscheinungen sind, so ist auch das Geldbrennen nicht<lb/>
+ein Zeichen verborgener Schätze, sondern eine entzün-<lb/>
+dete Luftart. Unwissende lassen sich indessen auch jetzt<lb/>
+noch mitunter durch ein blaues Flämmchen bethören<lb/>
+und um ihr Geld bringen oder machen sich zum we-<lb/>
+nigsten lächerlich. Folgende Geschichte, die sich vor<lb/>
+nicht gar langer Zeit zugetragen hat, mag als Beleg<lb/>
+zu dieser Behauptung dienen.</p><lb/>
+<p>Jn einem Dorfe des bergischen Landes lebte ein<lb/>
+Mann, der sich durch mancherlei Eigenthümlichkeiten<lb/>
+auszeichnete, welche ihn zur Zielscheibe des Witzes der<lb/>
+muthwilligen Jugend machten. Bei den Erwachsenen<lb/>
+war er als Spinnstubenphilosoph bekannt. Er wußte<lb/>
+viel zu erzählen vom Wärwolfe, von bezauberten Katzen<lb/>
+und vergrabenen Schätzen.</p><lb/>
+<p>Wie die meisten Menschen, so hatte auch unser<lb/>
+Philosoph große Lust, reich zu werden. Daher wa-<lb/>
+ren ihm die Orte besonders heilig, wo der Sage nach<lb/>
+ehemals Ritterburgen gestanden hatten und wo deshalb<lb/>
+seiner Meinung nach Schätze in Menge vergraben sein<lb/>
+mußten. Ein solcher Ort befand sich in der Nähe des<lb/>
+Dorfs auf einem Hügel, welcher der &#x201E;Figen&#x201C; hieß.</p><lb/>
+<p>Eines Abends wurde der Philosoph von zwei jun-<lb/>
+gen Leuten besucht, denen man ihrer muthwilligen<lb/>
+Streiche wegen im Dorfe allgemein den Namen &#x201E;Strang&#x201C;<lb/>
+oder &#x201E;Strick&#x201C; beilegte. Mit geheimnißvoller Miene er-<lb/>
+zählten sie, daß sie in vergangener Nacht auf dem &#x201E; Fi-<lb/>
+gen &#x201C; ein blaues Flämmchen erblickt hätten. &#x201E;Da liegt<lb/>
+Geld&#x201C;, sagte hastig der Philosoph. Es wurde verab-<lb/>
+redet, daß man um 12 Uhr mit Hacke und Spaten<lb/>
+hinziehen wolle und wenn sich das Flämmchen wieder<lb/>
+zeige, den Schatz heben wolle. Der eine der &#x201E;Stricke&#x201C;<lb/>
+hatte glücklicherweise, wie er sagte, vor einiger Zeit ein<lb/>
+altes Buch von seinem Urgroßvater, der ein grundge-<lb/>
+lehrter Mann gewesen sei, aufgefunden und aus die-<lb/>
+sem Werke die Zaubersprüche gelernt, mit welchen man<lb/>
+bei Hebung eines Schatzes den Bösen fern halte, der<lb/>
+gar häufig die Geldgierigen in allerlei Elend stürzt.</p><lb/>
+<p>Es schlug 12 Uhr. Jn tiefem, geheimnißvollen<lb/>
+Schweigen trat das Kleeblatt seine Reise an. Schon<lb/>
+von weitem erblickten sie das Flämmchen, welches einer<lb/>
+der Muthwilligen kurz vorher aus Holz und Schwefel<lb/>
+angezündet hatte. Angelangt, bekam der Gefoppte die<lb/>
+Hacke und begab sich unter Furcht und Hoffnung an<lb/>
+die Arbeit. Unterdeß schaufelte der Zweite die Erde<lb/>
+auf die Seite und der Dritte murmelte seine Zauber-<lb/>
+sprüche, unter welchen das berühmte Abracadabra, Sa-<lb/>
+lomo 's Siegel, lös dich vom Riegel, <hi rendition="#aq">Hocus pocus im-<lb/>
+peratus</hi> u. s. w. gar oft vorkam. Den beiden Arbei-<lb/>
+tenden war das tiefste Stillschweigen auferlegt. Jn-<lb/>
+dem der Zauberlehrling fortwährend murmelte, dabei<lb/>
+aber die Hände frei hatte, schlug er plötzlich den<lb/>
+Hackenden an ein Ohr. Leise sagte hierauf der Schau-<lb/>
+felnde: &#x201E;Hannes, ech krieg en Schlag.&#x201C; &#x201E;Ech uoch&#x201C;,<lb/>
+entgegnete Hannes, &#x201E;öwer schwigg.&#x201C; So ging es<lb/>
+noch einige mal. Unterdeß hatte der Zauberer den rich-<lb/>
+tigen Augenblick erspäht. Plötzlich fuhr dem Hannes<lb/>
+ein Unthier zwischen die Beine, hob ihn auf und trug<lb/>
+ihn im Galopp davon bis zu einer nahen Pfütze, wo<lb/>
+<cb n="2"/>
+es ihn mit einem Ruck absetzte und im Nu verschwun-<lb/>
+den war. Der Geängstigte raffte sich aus dem<lb/>
+Schmuze rasch auf und eilte, als wäre er von Hun-<lb/>
+den gehetzt, nach Hause, wo er sich rasch ins Bette<lb/>
+und unter die Decke machte. Diesmal kam er mit<lb/>
+dem Schrecken und einem Schnupfen davon.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Rest des Zaunkönigs.</hi></head><lb/>
+<figure/><lb/>
+<p><hi rendition="#in">G</hi>ar hübsch nimmt sich das Nest des Zaunkönigs aus,<lb/>
+das er zwar zuweilen in Buschwerk, oft aber auch in<lb/>
+Reisighaufen, Strohdächern u. s. w., doch immer an<lb/>
+düstern Orten baut. Die niedlichen Vögelchen sind<lb/>
+damit bei nicht ganz günstiger Witterung über zwei<lb/>
+Wochen lang beschäftigt. Grünes Moos enthalten alle,<lb/>
+die übrigen Materialien sind aber sehr verschieden. Ge-<lb/>
+wöhnlich besteht die äußere Lage aus dürrem Laube,<lb/>
+Pflanzenstengeln und feinen Halmen, dann folgt eine<lb/>
+sehr dicht gefilzte Lage von grünem Moos, dann als<lb/>
+innere Ausfütterung eine Menge von Federn, die aller-<lb/>
+seits glatt anliegen. Wenn das Nest in keiner Höh-<lb/>
+lung steht, sondern in einem Gebüsch, so ist es auch<lb/>
+wol ganz aus grünem Moose <gap reason="illegible" unit="chars" quantity="6"/>gebaut, das so dicht<lb/>
+verfilzt ist, daß es zusammengeleimt scheint und selbst<lb/>
+von außen ganz glatt aussieht, was in der Regel bei<lb/>
+den andern nicht der Fall ist. Die Form des Nestes<lb/>
+ist völlig kugelig und rund, nur an der Seite, wo sich<lb/>
+das Eingangsloch befindet, etwas glatt. Die Dachung<lb/>
+oder Wölbung über dem etwas hoch angebrachten Ein-<lb/>
+gange ist besonders dicht und schön gefilzt und die Aus-<lb/>
+höhlung im Jnnern ansehnlich weit, niedlich gerundet<lb/>
+und so tief, daß man, ohne Schaden anzurichten, ge-<lb/>
+rade mit dem Zeigefinger auf den Grund reicht. Das<lb/>
+Nest des Zaunkönigs ist übrigens gewöhnlich sehr schwer<lb/>
+zu finden; denn in alten Zäunen, Hütten, Stämmen<lb/>
+u. dgl. ist es immer mit einer Menge von altem Laube<lb/>
+und Geniste umgeben und nur das runde, nette Ein-<lb/>
+gangsloch kann das Nest vielleicht verrathen.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<cb type="end"/>
+<pb facs="#f0008" n="120"/>
+<fw place="top" type="pageNum">120</fw><lb/>
+<div n="1" type="jVarious"><head><hi rendition="#fr"><hi rendition="#g">Mannichfaltiges</hi>.</hi></head>       <cb type="start"/>
+<div n="2" type="jArticle"><p>Der Kinderbischof. Jm Mittelalter ward in den grö-<lb/>
+ßern Städten, die Bischofssitze waren, am Tage vor St. -<lb/>
+Nikolaus ein sogenannter Kinderbischof gewählt. Am St. =Ni-<lb/>
+kolaustage selbst ward er mit großem Pomp, bischöflich ange-<lb/>
+than, von priesterlich gekleideten Knaben und der ganzen<lb/>
+bunten Schar der Mitschülerschaft begleitet in den Dom ge-<lb/>
+führt, wo er auf dem Altar einen Ehrenplatz einnahm und<lb/>
+daselbst dem ordentlichen Gottesdienste beiwohnte. Dann<lb/>
+mußte er &#x2014; deutsch oder lateinisch &#x2014; einen bischöflichen<lb/>
+Sermon halten, gewöhnlich in Reimen abgefaßt. Der als-<lb/>
+dann folgende Umzug der Schüler durch alle Straßen der<lb/>
+Stadt war der Glanzpunkt des Tages. Vor dem Kinder-<lb/>
+bischof trugen phantastisch geschmückte Schüler verschiedene<lb/>
+Fahnen und große mit Kringeln und Kuchen aller Art be-<lb/>
+hängte Stangen und der jugendliche Bischof saß im vollen,<lb/>
+der Wirklichkeit nachgebildeten Ornate zu Pferde, von klei-<lb/>
+nen Diakonen begleitet. Es folgten, Gesänge absingend, die<lb/>
+ältern Scholaren in ihrer gewöhnlichen Schultracht, in grauen<lb/>
+Röcken und schwarzen Mäntelchen. Dann aber schwärmte und<lb/>
+wirbelte lustig hinterdrein die ganze Schar der jüngern Schü-<lb/>
+ler, in vielfachster Verkleidung, als Apostel und Heilige mit<lb/>
+den betreffenden Attributen, als Engel, Priester, Mönche,<lb/>
+Könige, Ritter, Rathsherren, Bürger, Schneider und Schu-<lb/>
+ster, Bauern, Kriegsleute, Narren, Mohren, Heiden und<lb/>
+Teufelchen. Sie trieben dabei, während sie von den Häu-<lb/>
+sern aus mit Geld und Lebensmitteln beschenkt wurden, alle<lb/>
+ersinnliche Kurzweil zum eigenen und aller Zuschauer Er-<lb/>
+götzen. Eine große fröhliche Schmauserei beschloß den Freu-<lb/>
+dentag.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Der Goldwurm ist eine besonders in Guinea, aber<lb/>
+auch in andern tropischen Gegenden vorkommende Krankheit,<lb/>
+die von einem im menschlichen Körper sich einnistenden und<lb/>
+flechtenartig um sich greifenden Jnsekte herrührt, dessen Ei<lb/>
+sich vielleicht im Schlafe oder sonst zufällig in der menschli-<lb/>
+chen Hautoberfläche ablagert, erst ganz unmerklich sich ent-<lb/>
+wickelt, dann polypenartig um sich greift, die edelsten Theile<lb/>
+umschlingt, das innerste Leben des Menschen aufsaugt, ihn<lb/>
+mit brennenden Schmerzen peinigt und erst mit dem Tode<lb/>
+seines Wohnsitzes stirbt.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Pe=tsaie heißt in China eine Kohlart, die für die Be-<lb/>
+völkerung ein wahrer Segen ist; sie stammt aus den nörd-<lb/>
+lichen Provinzen des Reichs der Mitte und ist sehr schmack-<lb/>
+haft. Da sie fast in allen Zeiten ihres Wachsthums gegessen<lb/>
+wird, pflanzt man sie schachbretartig in Abständen, lichtet<lb/>
+<cb n="2"/>
+die Reihen durch den Verbrauch und läßt nur die besonders<lb/>
+gut gediehenen Pflanzen stehen. Pe=tsaie ist in China ein<lb/>
+sehr geschätztes Gemüse; er ist bei den Reichen beliebt und<lb/>
+für die Armen eine große Wohlthat; er ist leicht zu bauen<lb/>
+und wächst schnell. Jn Paris ist im <hi rendition="#aq">Jardin des plantes</hi><lb/>
+der Anbau dieses Kohls ( <hi rendition="#aq">Brassica Chinensis</hi> ) versucht wor-<lb/>
+den; man ist der Meinung, daß die Landwirthschaft großen<lb/>
+Vortheil davon ziehen könne. Man könnte möglicherweise<lb/>
+zwei Ernten erzielen; er kommt in jedem Boden fort und<lb/>
+liefert wahre Riesenköpfe. Jn dem Departement der Sar-<lb/>
+the ist der Anbau versucht worden und ward wirklich vor-<lb/>
+theilhaft befunden. </p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Der Thierdienst der Aegypter, der so vieles Auf-<lb/>
+fallende hat, läßt sich vielleicht am besten so erklären, daß<lb/>
+das gleichbleibende instinctive Leben der Thiere der Auffassung<lb/>
+der Aegypter imponirte, denen ein festes, unverändertes<lb/>
+Thun das Höchste war. Jn den Thieren kam ihnen das<lb/>
+Geheimniß des Lebens, das sie in ihren Göttern verehrten,<lb/>
+zu bestimmter Anschauung. Jhr Sinn war von jeher auf<lb/>
+eine feste, sich gleichbleibende Ordnung gerichtet; die Söhne<lb/>
+leben das Leben des Vaters weiter und das Volk scheidet<lb/>
+sich in verschiedene Stände, in eine Menge von erblichen<lb/>
+Körperschaften, welche dieselben Beschäftigungen von Ge-<lb/>
+schlecht zu Geschlecht fortpflanzen. Die wohlthätigen Mächte<lb/>
+der Natur, der regelmäßige Kreislauf des Jahres, das aus<lb/>
+dem Absterben wiederkehrende Leben der Erde &#x2014; diese Kräfte<lb/>
+und Gesetze sind es, welche die Aegypter als ihre Götter<lb/>
+verehrten, deren unveränderliches Wesen ihnen in dem stets<lb/>
+gleichen Leben der Thiere zur Anschauung kam.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Turenne's Lieblings= und Bataillepferd war eine<lb/>
+Schecke, die bei der ganzen Armee wohlgelitten war. Als<lb/>
+gleich nach des Helden Tode das Treffen begann, riefen die<lb/>
+Soldaten: &#x201E;Laßt nur die Schecke los! Die wird uns schon<lb/>
+zum Siege führen!&#x201C; ( &#x201E; <hi rendition="#aq">Qu'on lâche seulement la pie!<lb/>
+Elle nous conduira à la victoire</hi>!&#x201C; ) </p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p><hi rendition="#aq">Ça ira</hi>! Dies bekannte Wort, das die Französische<lb/>
+Revolution aufgriff und zu ihrem Stichwort machte, ist aus<lb/>
+der Neuen Welt nach Frankreich gekommen; Franklin hatte<lb/>
+es mit herübergebracht. Da man sich täglich bei ihm nach<lb/>
+den Neuigkeiten der amerikanischen Revolution erkundigte,<lb/>
+antwortete der ökonomische gute Mann immer nur lächelnd:<lb/>
+&#x201E; <hi rendition="#aq">Ça ira! Ça ira</hi>!&#x201C;</p></div></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jAnnouncements"><head><hi rendition="#fr"><hi rendition="#g">Ankündigungen</hi>.</hi></head><lb/>
+<div n="2" type="jAn"><head><hi rendition="#fr">Wichtiges Werk für Botaniker, Gärtner und Gartenfreunde.</hi></head><lb/>
+</div><div><head><hi rendition="#aq">Bei Palm &amp; Enke in <hi rendition="#g">Erlangen</hi> ist erschienen und durch alle Buchhandlungen zu erhalten:</hi></head><lb/>
+<p>         <hi rendition="#aq">Berger, E., die Bestimmung der Gartenpflanzen auf systematischem Wege, eine Anleitung,<lb/>
+leicht und sicher die unterscheidenden Merkmale der vorzüglichsten in den Gärten, Gewächs-<lb/>
+häusern und Anlagen vorkommenden Gewächse zu finden, nebst Angabe von Autor, Dauer, Cul-<lb/>
+tur und Vaterland im alphabetischen Register, für Botaniker, Gärtner und Gartenfreunde. Mit<lb/>
+einem Vorworte des Herrn Präsidenten <hi rendition="#g">Nees von Esenbeck,</hi> und Bearbeitung der Farnpflan-<lb/>
+zen von <hi rendition="#g">Prof. Dr. Schnizlein.</hi> 4 Thlr., oder 6 Fl. 40 Kr. Rhein.</hi>       </p><lb/>
+<p>         <hi rendition="#aq">Das Werk wurde in den angesehensten botanischen, garten- und landwirthschaftlichen wie auch pharma-<lb/>
+ceutischen Journalen auf das anerkennendste beurtheilt und empfohlen.</hi>       </p></div></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+</body>     <back><div n="1" type="imprint"><p><hi rendition="#c">Verantwortlicher Redacteur: <hi rendition="#aq">M</hi>. J. E. Volbeding. &#x2014; Druck und Verlag von F. A. Brockhaus in Leipzig.</hi></p></div>     </back>   </text> </TEI>

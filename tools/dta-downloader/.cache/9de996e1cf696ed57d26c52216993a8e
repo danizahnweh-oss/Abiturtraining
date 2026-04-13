@@ -1,0 +1,948 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.deutschestextarchiv.de/basisformat.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">     <teiHeader>
+<fileDesc>
+<titleStmt>
+<title type="main">Das Pfennig-Magazin für Belehrung und Unterhaltung</title>
+<title type="sub">Dritte Folge, Zweiter Jahrgang, Nr. 96</title>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/115266127">
+<surname>Geyken</surname>
+<forename>Alexander</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1222198746">
+<surname>Haaf</surname>
+<forename>Susanne</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1019062681">
+<surname>Jurish</surname>
+<forename>Bryan</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Boenig</surname>
+<forename>Matthias</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Thomas</surname>
+<forename>Christian</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Wiegand</surname>
+<forename>Frank</forename>
+</persName>
+</editor>
+<respStmt>
+<orgName>Institut für Deutsche Sprache, Mannheim</orgName>
+<resp>
+<note type="remarkResponsibility">Bereitstellung der Bilddigitalisate und TEI
+Transkription</note>
+<ref target="http://hdl.handle.net/10932/00-01B8-B0AF-9BB0-0E01-E"/>
+</resp>
+</respStmt>
+<respStmt>
+<persName>
+<forename>Peter</forename>
+<surname>Fankhauser</surname>
+</persName>
+<resp>
+<note type="remarkResponsibility">
+Transformation von TUSTEP nach TEI P5.
+Transformation von TEI P5 in das DTA TEI P5 Format.
+</note>
+</resp>
+</respStmt>
+<respStmt>
+<orgName ref="https://www.bbaw.de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<resp>
+<note type="remarkResponsibility">Langfristige Bereitstellung der DTA-Ausgabe</note>
+<ref target="https://www.bbaw.de"/>
+</resp>
+</respStmt>
+</titleStmt>
+<editionStmt><edition>Vollständige digitalisierte Ausgabe.</edition></editionStmt>
+<extent>
+<measure type="images">8</measure>
+<measure type="tokens">5543</measure>
+<measure type="types">2335</measure>
+<measure type="characters">36793</measure>
+</extent>
+<publicationStmt>
+<publisher xml:id="DTACorpusPublisher">
+<email>dta@bbaw.de</email>
+<orgName role="project">Deutsches Textarchiv</orgName>
+<orgName role="hostingInstitution" xml:lang="en">Berlin-Brandenburg Academy of Sciences and Humanities (BBAW)</orgName>
+<orgName role="hostingInstitution" xml:lang="de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<address>
+<addrLine>Jägerstr. 22/23, 10117 Berlin</addrLine>
+<country>Germany</country>
+</address>
+</publisher>
+<pubPlace>Berlin</pubPlace>
+<date type="publication">2025-10-24T08:35:15Z</date>
+<availability>
+<licence target="http://creativecommons.org/publicdomain/zero/1.0/">
+<p>Dieses Werk steht unter der "Creative Commons Namensnennung -
+Nicht kommerziell 3.0 Deutschland Lizenz" (CC BY-NC).</p>
+</licence>
+</availability>
+<idno>
+<idno type="URLWeb">https://www.deutschestextarchiv.de/nn_pfennig096_1854</idno>
+<idno type="URLXML">https://www.deutschestextarchiv.de/book/download_xml/nn_pfennig096_1854</idno>
+<idno type="URLHTML">https://www.deutschestextarchiv.de/book/download_html/nn_pfennig096_1854</idno>
+<idno type="URLText">https://www.deutschestextarchiv.de/book/download_text/nn_pfennig096_1854</idno>
+<idno type="DTADirName">nn_pfennig096_1854</idno>
+<idno type="DTAID">34741</idno>
+<idno type="URN">urn:nbn:de:kobv:b4-34741-1</idno>
+</idno>
+</publicationStmt>
+<sourceDesc>
+<bibl type="J">Das Pfennig=Magazin für Belehrung und Unterhaltung. Dritte Folge, Zweiter Jahrgang, Nr. 96. Leipzig (Sachsen), 2. November 1854.</bibl>
+<biblFull>
+<titleStmt>
+<title level="m" type="main">Das Pfennig-Magazin für Belehrung und Unterhaltung</title>
+<title level="m" type="sub">Dritte Folge, Zweiter Jahrgang, Nr. 96</title>
+</titleStmt>
+<editionStmt>
+<edition n="1"/>
+</editionStmt>
+<publicationStmt>
+<publisher/>
+<pubPlace>Leibzig (Sachsen)</pubPlace>
+<date type="publication">1854</date>
+</publicationStmt>
+</biblFull>
+<msDesc>
+<msIdentifier/>
+<physDesc>
+<typeDesc>
+<p>Fraktur</p>
+</typeDesc>
+</physDesc>
+</msDesc>
+</sourceDesc>
+</fileDesc>
+<encodingDesc>
+<editorialDecl>
+<p>
+<![CDATA[
+<p>Siehe Dokumentation</p>
+]]>
+</p>
+</editorialDecl>
+<tagsDecl>
+<rendition scheme="css" xml:id="aq">font-family:sans-serif</rendition>
+<rendition scheme="css" xml:id="b">font-weight:bold</rendition>
+<rendition scheme="css" xml:id="blue">color:blue</rendition>
+<rendition scheme="css" xml:id="c">display:block; text-align:center</rendition>
+<rendition scheme="css" xml:id="et">display:block; margin-left:2em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et2">display:block; margin-left:4em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et3">display:block; margin-left:6em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="f">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="fr">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="g">letter-spacing:0.125em</rendition>
+<rendition scheme="css" xml:id="i">font-style:italic</rendition>
+<rendition scheme="css" xml:id="in">font-size:150%</rendition>
+<rendition scheme="css" xml:id="k">font-variant:small-caps</rendition>
+<rendition scheme="css" xml:id="larger">font-size:larger</rendition>
+<rendition scheme="css" xml:id="red">color:red</rendition>
+<rendition scheme="css" xml:id="right">display:block; text-align:right</rendition>
+<rendition scheme="css" xml:id="s">text-decoration:line-through</rendition>
+<rendition scheme="css" xml:id="smaller">font-size:smaller</rendition>
+<rendition scheme="css" xml:id="sub">vertical-align:sub; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="sup">vertical-align:super; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="u">text-decoration:underline</rendition>
+<rendition scheme="css" xml:id="uu">border-bottom:double 3px #000</rendition>
+</tagsDecl>
+</encodingDesc>
+<profileDesc>
+<langUsage>
+<language ident="deu">(Früh-)Neuhochdeutsch</language>
+<language ident="deu">German</language>
+</langUsage>
+<textClass>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1main">Gebrauchsliteratur</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1sub">Zeitschrift</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">ready</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">mkhz1</classCode>
+</textClass>
+</profileDesc>
+</teiHeader>
+<text>     <front>
+<pb facs="#f0001" n="[345]"/>
+<titlePage type="heading"><docTitle><titlePart type="main"><hi rendition="#c #fr">Das Pfennig=Magazin<lb/>
+für<lb/>
+<hi rendition="#g">Belehrung und Unterhaltung</hi>.</hi></titlePart></docTitle><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<docImprint><hi rendition="#fr">Nr</hi>. 96. ]                <hi rendition="#c">Dritte Folge. Zweiter Jahrgang.</hi>                <docDate><hi rendition="#right">[ 2. <hi rendition="#g">November</hi> 1854.</hi></docDate>              </docImprint></titlePage><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+</front>     <body>       <div n="1" type="jArticle"><head><hi rendition="#fr">Papst Leo</hi> <hi rendition="#aq">X.</hi></head><lb/>
+<figure/><lb/>
+<cb type="start"/>
+<p><hi rendition="#in">L</hi>eo <hi rendition="#aq">X</hi>. ward geboren zu Florenz 1475 und war ein<lb/>
+Sproß des berühmten Geschlechts derer von Medici<lb/>
+daselbst. Dadurch, daß er den päpstlichen Stuhl in<lb/>
+den Jahren 1513&#x2014;21 innehatte, innerhalb welchen<lb/>
+bekanntlich Luther sich gegen das damals herrschende<lb/>
+Verderben und Unwesen in der christlichen Kirche er-<lb/>
+hob, ist er bekannter geworden als viele seiner Vor-<lb/>
+<cb n="2"/>
+fahren und Nachfolger auf Petri Stuhl, und dadurch,<lb/>
+daß er die von Luther angebrachte Bewegung anfangs<lb/>
+für ganz unbedeutend, für nichts als eine Mönchs-<lb/>
+streitigkeit ( <hi rendition="#aq">invidie fratesche</hi> &#x2014; wie er sagte ) angese-<lb/>
+hen, hat er die spätere Selbständigkeit der evangeli-<lb/>
+schen Kirche, ohne daß er es wollte, gefördert.</p></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<pb facs="#f0002" n="346"/>
+<fw place="top" type="pageNum">346</fw>       <cb type="start"/>
+<div n="1" type="jArticle" xml:id="Waise2"><head><hi rendition="#fr">Die Waise.</hi></head><lb/>
+<div n="2"><head><hi rendition="#aq">I.</hi></head><lb/>
+<p><hi rendition="#in">E</hi>s war im Spätherbste des Jahres 1803 an einem<lb/>
+Sonnabend, als Jakob Müller, ein böhmischer Fracht-<lb/>
+fuhrmann aus Dittersbach im leitmeritzer Kreise, mit<lb/>
+Retourfracht aus Sachsen auf Prag heimkehrte und<lb/>
+sich, gegen Abend noch zwei Stunden von seiner Hei-<lb/>
+mat entfernt, auf der großen Straße in einem Walde<lb/>
+befand. Die Räder schnitten tief in den Sand ein;<lb/>
+die Gäule schäumten und Jakob hielt oft still, um sie<lb/>
+verschnaufen zu lassen, und betrachtete sinnend die dam-<lb/>
+pfenden Thiere.</p><lb/>
+<p>Auf sein munteres &#x201E;Jo Hoh!&#x201C; und das Schwin-<lb/>
+gen seiner Peitsche zogen sie eben wieder recht wacker<lb/>
+an und schnappten mit angelegten Ohren nach dem<lb/>
+flinken Spitz, der eifrig vor ihnen herbellte, als plötz-<lb/>
+lich die Vordergäule wild aus dem Gleise fuhren und<lb/>
+der träge Wagen zu knarren und zu krachen begann.</p><lb/>
+<p>Alle Wetter über die Gäule! fluchte Jakob auf und<lb/>
+sprang vor, sie beim Zügel zu fassen und sich zugleich<lb/>
+nach der Ursache ihres Scheuens umzusehen. Wer be-<lb/>
+schreibt aber sein Erstaunen, als er mitten im Fahr-<lb/>
+wege ein in Lumpen gehülltes, sterbendes Mütterchen<lb/>
+gewahrte! Mechanisch ließ er die gehobene Peitsche, mit<lb/>
+welcher er die störrigen Rosse derb um die Ohren hatte<lb/>
+knallen wollen, wieder sinken und blickte eine Weile<lb/>
+voll Mitleid auf die Unglückliche nieder, die soeben,<lb/>
+wie es schien, unter furchtbaren Schmerzen ihren Geist<lb/>
+aushauchte. Dann aber hob er die Leiche vorsichtig auf<lb/>
+seinen Wagen, um für ihre Beerdigung im nächsten<lb/>
+Dorfe Sorge zu tragen, und trieb dazu schon sein<lb/>
+Gespann aufs neue an, als er sich zufällig noch ein-<lb/>
+mal auf dem Platze umschaute und einen etwa zehn-<lb/>
+jährigen Knaben gewahr wurde, der am Rande eines<lb/>
+Grabens aus einem Steine saß und eifrigst damit be-<lb/>
+schäftigt war, eine Wasserrübe zu verzehren. Was<lb/>
+war natürlicher, als daß sich dem braven Jakob die<lb/>
+Vermuthung aufdrängte, der Knabe möchte vielleicht<lb/>
+der eben Verblichenen angehören. Er hielt also noch<lb/>
+mit seinem Fuhrwerk stille und ging näher zu dem<lb/>
+Knaben hin. &#x201E;Was hockst du da, Biäble?&#x201C; begann<lb/>
+er freundlich und forschte dann weiter nach der Un-<lb/>
+glücklichen.</p><lb/>
+<p>Es ist meine Mutter, antwortete der Knabe in<lb/>
+fremder Mundart und aß zugleich mit der größten<lb/>
+Gleichgültigkeit von der Welt und ohne auch nur eine<lb/>
+Miene zu verziehen, ruhig weiter.</p><lb/>
+<p>Ei du Heidenbub'! fuhr der biedere Jakob in ge-<lb/>
+rechtem Zorne auf und hob drohend seine Peitsche, das<lb/>
+kannst du mir so frech und gottlos ins Angesicht sa-<lb/>
+gen und hockst und käu'st da, derweil deine Mutter<lb/>
+verscheidet ohne Absolution?</p><lb/>
+<p>Hab' keine gute Zeit bei ihr gehabt, sprach der<lb/>
+Knabe mit Offenheit, sprang rasch auf, schaute sich<lb/>
+schlau um und schlüpfte schnell wie der Blitz in den<lb/>
+Wald, Reißaus vor der Peitsche zu nehmen.</p><lb/>
+<p>A Wetterbub! brummte Jakob vor sich hin, sah<lb/>
+ihm noch eine Weile nach und ließ dann die Pferde<lb/>
+anziehen, während er nachsinnend über den Vorfall<lb/>
+neben dem Wagen herging. So mochte er wol eine<lb/>
+halbe Stunde lang gefahren sein, als ihn das Gebell<lb/>
+seines Hundes aus seinen Betrachtungen weckte. Er<lb/>
+sah sich um und erblickte den entsprungenen Knaben<lb/>
+unbefangen hinter dem Wagen schlendernd. Jakob<lb/>
+lockte seinen Hund an sich, stellte sich aber gegen den<lb/>
+Burschen ganz gleichgültig. &#x201E;Hab' ich dich nur erst<lb/>
+<cb n="2"/>
+auf den Räumen&#x201C;, dachte er in seinem Sinne, &#x201E;so<lb/>
+sollst du mir sicher nicht so leicht wieder entwischen&#x201C;<lb/>
+und so trieb er anhaltend sein Gespann an, das Ende<lb/>
+des Waldes zu erreichen. Als er sich einige Zeit auf<lb/>
+offener Landstraße befand, drehte er sich mit freundli-<lb/>
+chem Gesicht um und rief den Knaben zu sich. Die-<lb/>
+ser nahte mit schlauem Blick und stand in einiger<lb/>
+Entfernung mistrauisch still, als wenn er sich noch<lb/>
+fürchte. &#x201E;'s war nicht so arg g'meint, Knabe&#x201C;, ver-<lb/>
+setzte Jakob gutmüthig; &#x201E;will dich halt mitnehmen, du<lb/>
+Wildfang, wenn du brav bist und Sitte lernst.&#x201C;</p><lb/>
+<p>Der Knabe schien den Sinn der Rede nicht ganz<lb/>
+zu fassen, doch schwand in etwas sein scheues Wesen,<lb/>
+da er sich freundlich behandelt sah. Bald hielt der<lb/>
+Wagen vor einer Dorfschenke und Jakob ging hinein,<lb/>
+indeß der Knabe draußen blieb.</p><lb/>
+<p>Da han i halt ä schönen Fund g'than! rief er<lb/>
+beim Eintritt in die Schenkstube dem ihn mit einem<lb/>
+&#x201E;Grüß Gott!&#x201C; bewillkommnenden Wirthe zu, ä nets<lb/>
+Waib, das verscheidend in der Straße lag, und einen<lb/>
+Blitzbuben!&#x201C; Er erzählte nun die kurze Geschichte und<lb/>
+sprach als guter Christ den Wirth darum an, auf<lb/>
+seine Kosten für die Beerdigung der Leiche zu sorgen.<lb/>
+&#x201E;Die halbe Fracht wird freilich wol darauf gehen&#x201C;,<lb/>
+brummte er nicht eben ganz freundlich und schob dabei<lb/>
+das schwarze Fuhrmannskäppel aufs linke Ohr, &#x201E;aber<lb/>
+wer weiß 's halt, wer mir's Kissen in der letzten Stunde<lb/>
+auflockert, und 's ist doch ach ä christlich Werk, das<lb/>
+der Herr segnet!&#x201C; Er zog hierauf aus seinem Leib-<lb/>
+gurt eine Tasche mit Kassenscheinen, und zählte bedäch-<lb/>
+tig 40 Gulden Wiener Währung auf.</p><lb/>
+<p>Woll'n doch die Alte was näher b'schaun, meinte<lb/>
+hierauf der Wirth; kann ja noch Bettelkreuzer bei sich<lb/>
+haben und selbst zahlen können.</p><lb/>
+<p>Wird sich nicht der Mühe lohnen, versetzte Jakob,<lb/>
+und was sie halt dennoch an sich hätte, schenk i glaich<lb/>
+dem Buben. S'ischt ä schmuck's Bürschel, und ihm<lb/>
+wird's mangeln, wenn sich halt keiner über ihn er-<lb/>
+barmt. Möcht' ihn mitnehmen, den Wetterbuben,<lb/>
+ischt er gleich so unwirsch als ä Buschkläpper!</p><lb/>
+<p>Da ischt Rath vor, meinte Thomas, der Wirth,<lb/>
+mußt ihm halt's Fell gerben!</p><lb/>
+<p>Du schwätzest was, Thoms! Da müßt i halt flinke<lb/>
+Bain haaben, wollt ich ihn straichen; er ging schon<lb/>
+feldeinwärts, als ich ihm harte Worte gab. Schau'n<lb/>
+wir halt ohne Wail nach der Alten; 's wird sonst<lb/>
+Nacht und i hab noch zwei Blitzberge auf Dittersbach.</p><lb/>
+<p>Sie gingen hinaus, hoben die Leiche ab, die noch<lb/>
+warm war und legten sie auf der Hausflur nieder,<lb/>
+um sie zu besichtigen. Der Knabe sah diesen Vorgän-<lb/>
+gen gleichgültig zu, spielte mit dem Spitz und kam<lb/>
+endlich auf Jakob's Zureden in das Haus. Alle Fra-<lb/>
+gen über seine Mutter beantwortete er unvollkommen.<lb/>
+Sie wären beständig umhergestrichen, hätten stets im<lb/>
+Freien übernachtet und von Bettelbrot und Waldwur-<lb/>
+zeln gelebt. Das waren seine trockenen Antworten.</p><lb/>
+<p>Bischt du denn g'tauft, Bube? fragte Thomas et-<lb/>
+was barsch.</p><lb/>
+<p>Der Knabe sah ihn auf diese Worte einen Augen-<lb/>
+blick verlegen an, dann wurde sein Blick wild und er<lb/>
+machte Miene, zu entlaufen.</p><lb/>
+<p>Wie haischt du? fragte Jakob sanft und winkte<lb/>
+ihm freundlich mit den Augen, zu bleiben.</p><lb/>
+<p>Albert, antwortete der Knabe rasch und blickte da-<lb/>
+bei fragend auf ihn, ob er dem Frieden trauen solle.</p><lb/>
+<p>Das ischt noch a Wort, brummte er vor sich hin.<lb/>
+s' soll dir nichts Arges g'schehen, du Wildfang; der<lb/>
+Thoms ist nur ein etwas rauher G'sell.</p><lb/>
+<cb type="end"/>
+<pb facs="#f0003" n="347"/>
+<fw place="top" type="pageNum">347</fw>       <cb type="start"/>
+<p>Nun durchsuchten die beiden Männer die Leiche<lb/>
+hin und her und fanden zunächst in einem Bettelsacke<lb/>
+etwas Brot und einige Waldwurzeln, dann aber in<lb/>
+einer Tasche, welche die Todte am Leibe trug, auch<lb/>
+einen beschmuzten und verwischten Brief. Sonst hatte<lb/>
+die Alte nichts um und an sich als elende Lumpen.<lb/>
+Der Meßner des Dorfs, der mit einigen Neugierigen<lb/>
+soeben in das Gasthaus trat, erbot sich, den Brief zu<lb/>
+entziffern und las Folgendes heraus:</p></div><lb/>
+<div><head>Liebes Heideliesel!</head><lb/>
+<p>&#x201E;Es wird wol aus sein mit uns, denn ich sitze zu<lb/>
+Kamnitz als Maleficant und werde wol das Beil be-<lb/>
+kommen. Sie haben uns gefaßt beim Einbruch zu<lb/>
+Wodschau und ich muß den Hals lassen. Der Hölzer-<lb/>
+lips blieb auf der That; Kochnassel ist entwischt und<lb/>
+mich hielten sie beim Schlips. Dich und den Buben<lb/>
+säh ich gern vor meinem End'; aber sie sind hier<lb/>
+schlimme Gesellen und treiben G'späß, drum wag's<lb/>
+nicht mit ihnen und bleib fein im G'birg. Halt dich<lb/>
+im Teufelsgrund am Lindteich oder im Rollbusch und<lb/>
+in der Wolfsschlucht, da werden sie dich nicht wittern<lb/>
+und schau bei der Katzenkirche und am Schusterhorn<lb/>
+nach unserm Moog. <note place="foot" n="*)">Spitzbubenausdruck für Geld.</note> Der Kochnassel hat am Hüh-<lb/>
+nerkropf oder am Triffpartel noch mehr eingescharrt;<lb/>
+er soll mit dir theilen, das sag ihm. Jch will mich<lb/>
+zum Herrn bekehren!&#x201C;</p><lb/>
+<p>Da hätten wir die B'scherung! platzte Jakob her-<lb/>
+aus. Ein Teufelskind, eine Wetterhexe und ein Male-<lb/>
+ficant, der auf den Hals sitzt!</p><lb/>
+<p>Dem der Kopf nicht mehr wehe thut, bemerkte der<lb/>
+Meßner spöttisch bei Seite und deutete auf den ver-<lb/>
+witterten Brief.</p><lb/>
+<p>Sei der Herr ihm gnädig in seinem letzten Stünd-<lb/>
+lein! fuhr Jakob andächtig fort, ohne des Meßners<lb/>
+Wort zu beachten. Muß den Buben da nun schon be-<lb/>
+halten, hätt' ihn sonst auf dem Gewissen.</p><lb/>
+<p>Der Knabe saß während dieser Scene unter dem<lb/>
+Schenktisch, spielte wieder mit dem Spitz und schien<lb/>
+wenig von Dem zu verstehen, was um ihn her vor-<lb/>
+ging. Dann und wann sah er jedoch die Sprecher<lb/>
+forschend an und faßte die Thür ins Auge. Der treu-<lb/>
+herzige Jakob faßte nun besondere Neigung zu dem<lb/>
+Knaben, sprach ihm Muth ein und reichte ihm Käse<lb/>
+und Brot aus seinem Fuhrmannskober, was dieser<lb/>
+aber gleichgültig dem Hunde gab.</p><lb/>
+<p>Seh' mir einer den Wetterbuben, schmollte Tho-<lb/>
+mas. Jakob aber winkte ihm, zu schweigen, bezahlte<lb/>
+seine Zeche und knallte zur Abfahrt; der Knabe folgte<lb/>
+mit dem Hunde, welcher ihm sehr zugethan zu sein<lb/>
+schien.</p><lb/>
+<p>Darfst di auf 'n Wagen hocken, Alb'rt, rief er<lb/>
+dem Knaben zu, als sie eine Weile gefahren waren,<lb/>
+wirscht halt müde sein!</p><lb/>
+<p>Jakob, dem es nunmehr ernstlich darum zu thun<lb/>
+war, den Knaben zu behalten, fürchtete sein Entsprin-<lb/>
+gen in der bald zu erwartenden Dunkelheit und sann<lb/>
+auf ein Mittel, wodurch er ihn auf den Wagen<lb/>
+brächte. Albert schien indeß wenig Lust zu haben, das<lb/>
+Gefähr zu besteigen.</p><lb/>
+<p>Wie wär's, hob nun Jakob nach einer Weile wie-<lb/>
+der an, sich zu seinem Findling wendend, wenn ich<lb/>
+dir den Spitz mit auf 'n Wagen gäbe, da hättest du<lb/>
+Kurzweil?</p><lb/>
+<p>Albert nickte; Jakob hielt an, hob ihn mit dem<lb/>
+Hunde hinauf und bald schliefen beide traulich im<lb/>
+Stroh.</p><lb/>
+<cb n="2"/>
+<p>Etwas spät erreichte der biedere Fuhrmann sein<lb/>
+heimatliches Dorf und mußte lange vor seiner schon<lb/>
+verschlossenen Behausung klopfen, die von seinem Schwie-<lb/>
+gersohne mit bewohnt wurde, der in Jakob's Abwe-<lb/>
+senheit die Ackerwirthschaft betrieb. Der Hund wit-<lb/>
+terte kaum die bekannte Hofstelle, als er auch schon<lb/>
+aus dem Stroh hervorkroch und vom Wagen sprang.<lb/>
+Darüber erwachte auch Albert, er blieb aber lauschend<lb/>
+auf seinem Lager.</p><lb/>
+<p>Da han i Eu a Buben heimg'bracht, begann Ja-<lb/>
+kob, als er endlich bis zum Abspannen der Pferde ge-<lb/>
+kommen war, zu seinem Schwiegersohne, der, ziemlich<lb/>
+schlaftrunken zwar, ihm dabei hülfreiche Hand leistete.<lb/>
+Er ischt zwar von böser Abkunft, aber i denk's gut<lb/>
+zu machen. Fand halt eine sterbende Wetterhexe und<lb/>
+den Blitzbuben dazu. Die Alte mußte ich aufladen<lb/>
+bis Schammel und an dem Teufelskind denk ich ä<lb/>
+Gott'slohn zu verdienen!</p><lb/>
+<p>Wenn's nur kein unehrlicher Bursch ischt, brummte<lb/>
+hämisch und nicht ohne damit auf Jakob sticheln zu<lb/>
+wollen, der Mürrische, der uns Unheil ins Haus<lb/>
+bringt. Jch für mein Theil hätte mich mit fremden<lb/>
+G'sindel nit b'faßt und weiß es Euch keinen Dank für<lb/>
+den unnützen Fresser.</p><lb/>
+<p>Du bischt ä grober G'sell, ä mistrau'scher Bursch<lb/>
+und sollt'st di in deine Seele hineinschämen.</p><lb/>
+<p>Na i sag' so viel, kommt mir der Bub' in die<lb/>
+Quer, gibt's noch Gerten am Haselzaun oder Seile an<lb/>
+den Kummeten, ihn zu gerben; ich werd kain G'späß<lb/>
+mit dem Buben treiben, den Jhr Euch zur Kurzweil<lb/>
+heimg'bracht.</p><lb/>
+<p>Dem lauschenden Albert entging kein Wort dieses<lb/>
+Zwistes. Er fürchtete eine harte Behandlung erdulden<lb/>
+zu müssen, sprang vom Wagen und entlief in dem<lb/>
+Augenblicke, als die Beiden die Pferde in den Stall<lb/>
+brachten. Bald fand er einen trockenen Graben, wie<lb/>
+er ihm in der Regel zu Schlafstellen diente, legte sich<lb/>
+nieder und entschlief sanft, ohne weiter an sein Schick-<lb/>
+sal zu denken.</p></div><lb/>
+<div n="2"><head><hi rendition="#aq">II.</hi></head><lb/>
+<p>Vom Lerchengesang im sanften Lichte der Morgen-<lb/>
+röthe geweckt, verließ Albert am andern Morgen sein<lb/>
+dürftiges Lager, stillte auf dem nächstgelegenen Rüben-<lb/>
+felde seinen Hunger mit der gewohnten Speise und<lb/>
+durchstrich dann, frei wie der Vogel in der Luft, die<lb/>
+wildromantische Umgegend von Dittersbach, die ihm<lb/>
+keineswegs unbekannt war. Zu gesicherterm Aufent-<lb/>
+halte wählte er sich den Wolfshälter, eine düstere Fel-<lb/>
+senschlucht, und richtete sich, indem er Moos und<lb/>
+Waldgras dorthin zusammentrug, eine Lagerstatt in<lb/>
+diesem wenig besuchten, durch allerlei Sagen arg ver-<lb/>
+rufenen Thale ein. Ein klarer Bach, der lieblich durch<lb/>
+das Thal hinfloß, tränkte ihn, und wilde Beeren, die<lb/>
+ziemlich häufig an seinen Ufern wuchsen, dienten ihm<lb/>
+zur Nahrung. So verlebte der Knabe einige Tage in<lb/>
+ungestörter Einsamkeit, spürte wol hier und da Vogel-<lb/>
+nestern nach, spielte aber auch stundenlang mit den<lb/>
+bunten Steinen, die am Rande des Bachs lagen und<lb/>
+ihm eine kindische Freude zu gewähren schienen. Sehr<lb/>
+bald indeß genügten ihm diese Unterhaltungen nicht<lb/>
+mehr, denn in seinem Herzen regte sich plötzlich die<lb/>
+heftigste Sehnsucht nach dem schönen flinken Spitz, mit<lb/>
+dem er so bald Bekanntschaft gemacht hatte und der<lb/>
+ihm als Gesellschafter in seiner Waldeinsamkeit über-<lb/>
+aus willkommen gewesen wäre.</p><lb/>
+<p>Am dritten Abend seines Einsiedlerlebens, als der<lb/>
+Mond hoch über dem Gebirge stand und das wilde<lb/>
+<cb type="end"/>
+<pb facs="#f0004" n="348"/>
+<fw place="top" type="pageNum">348</fw><cb type="start"/>
+Geschrei des Walduhu Mitternacht verkündete, verließ<lb/>
+er sein Asyl und schlenderte furchtlos in der Geister-<lb/>
+stunde dem Dorfe zu, um die Hofstelle Jakob Müller's<lb/>
+aufzusuchen, woselbst er den Gegenstand seines heißen<lb/>
+Verlangens, das Hündchen, vermuthete. Er fand sich<lb/>
+<cb n="2"/>
+bald zurecht, und der kluge Fix, welcher treu den Hof<lb/>
+hütete, erkannte auch sogleich den alten Freund wieder,<lb/>
+der leise über den Gartenzaun angekrochen kam, und<lb/>
+sprang wedelnd seinem Wohlthäter entgegen.</p><lb/>
+<p><ref target="nn_pfennig097_1854#Waise2"><hi rendition="#c">( Fortsetzung folgt. )</hi></ref></p></div></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Von der Jagd im Alterthume.</hi></head><lb/>
+<figure>         <head>  Hasenjagd bei den Alten nach einer etrurischen Vase.  </head>       </figure><lb/>
+<cb type="start"/>
+<p><hi rendition="#in">E</hi>s können hier nicht alle Mittel aufgezählt werden,<lb/>
+welche die Jäger im Alterthume zur Erlegung ihrer<lb/>
+Beute erfunden haben; wir heben blos die interessan-<lb/>
+testen und daher denkwürdigsten hervor.</p><lb/>
+<p>Die Vogelfänger bedienten sich, wie noch heut-<lb/>
+zutage, der Netze oder des Vogelleims und die Jäger<lb/>
+erlegten die Vögel im Fluge mit Pfeilen. Jn letzterer<lb/>
+Hinsicht zeichneten sich besonders die Einwohner der<lb/>
+Jnsel Kreta aus. Auch Hercules ist auf mehren alten<lb/>
+<figure><head>Der jagende Hercules.</head></figure><lb/>
+Monumenten abgebildet, wie er die Stymphalischen<lb/>
+Vögel, eine der zehn ihm auferlegten bekannten Ar-<lb/>
+beiten, mit Pfeilen tödtet. Man richtete auch, wie<lb/>
+später im Mittelalter, Raubvögel zum Fang ab.</p><lb/>
+<cb n="2"/>
+<p>Nach den Hasen wurden Speere oder eine Art<lb/>
+oben gekrümmter Keulen, welche man Lagobolon nannte,<lb/>
+geworfen.</p><lb/>
+<p>Die Faune, Waldgötter der Alten, und die Hir-<lb/>
+ten werden oft mit einem Lagobolon in der einen und<lb/>
+mit einem Hasen in der andern Hand abgebildet.</p><lb/>
+<p>Die Jagd auf Rothwild war schwieriger und ge-<lb/>
+fährlicher. Zuweilen griff man dasselbe geradezu zu<lb/>
+Fuß an und erlegte es mit Speeren und Pfeilen; ge-<lb/>
+wöhnlicher aber bediente man sich dazu der Netze oder<lb/>
+Garne. Diese wurden von leinenen Fäden so fein und<lb/>
+zugleich so fest gestrickt, daß die wildesten Thiere sie<lb/>
+nicht durchbrechen konnten. Der römische Schriftstel-<lb/>
+ler Plinius erzählt, daß ein einziger Mann alle Netze<lb/>
+habe fortbringen können, welche gebraucht wurden, um<lb/>
+einen Wald zu umstellen. Unbegreiflich scheint es,<lb/>
+wenn uns berichtet wird, daß jeder einzelne Faden<lb/>
+aus 150 natürlich ganz feinen Fäden zusammengespon-<lb/>
+nen war. Hinter diesen um einen Forst herumgestell-<lb/>
+ten Netzen standen drei Männer, einer an der Mitte<lb/>
+und an jedem Ende einer. Jn gewissen Zwischenräu-<lb/>
+men waren in denselben lange ebenfalls gestrickte Säcke<lb/>
+angebracht; wenn nun das von den Jägern und Hun-<lb/>
+den aufgetriebene Wild an die Netze kam und sich ge-<lb/>
+hemmt sah, so lief es daran auf und ab und suchte<lb/>
+einen Durchgang. Jndem es nun die Öffnungen je-<lb/>
+ner Säcke für Durchgänge hielt, stürzte es sich hinein<lb/>
+und dann zogen die aufgestellten Wächter vermittelst<lb/>
+eines Seils die Öffnungen der Säcke rasch zu.</p></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<pb facs="#f0005" n="349"/>
+<fw place="top" type="pageNum">349</fw><lb/>
+<div n="1"><figure><head><hi rendition="#fr">Vintner's Hall in London.</hi></head></figure></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Der Verschüttete.</hi></head><lb/>
+<cb type="start"/>
+<p><hi rendition="#in">A</hi>n der Annaberg=Chemnitzer Straße im Sächsischen<lb/>
+Erzgebirge liegt die kleine, aber sehr alte Bergstadt<lb/>
+Ehrenfriedersdorf, umlagert von ungeheuern Geröll-<lb/>
+massen, welche das Fäustel des fleißigen Bergmanns<lb/>
+im Laufe von Jahrhunderten zu Tage gefördert hat und<lb/>
+welche Halten genannt werden. Die Gegend sieht höchst<lb/>
+traurig aus, denn auf den kahlen Bergrücken will das<lb/>
+im sächsischen Hochlande sonst so üppige Wiesengras<lb/>
+nicht gedeihen und verschiedene Bäume deuten durch<lb/>
+ihr krüppelhaftes Aussehen auf die Dürftigkeit des<lb/>
+Bodens hin. Kein Wunder, daß man die arme Pflege<lb/>
+mit dem Namen &#x201E;Das Elend&#x201C; bezeichnet hat. Ob<lb/>
+die hier befindlichen Arsenikhütten die Vegetation, wie<lb/>
+man behauptet, noch mehr aufhalten, das möge hier<lb/>
+unerörtert bleiben.</p><lb/>
+<p>Bergbau wird in Ehrenfriedersdorfs Umgebungen<lb/>
+zwar heute noch getrieben, aber die Ausbeute der Gru-<lb/>
+ben ist nicht mehr dem reichen Ertrage zu vergleichen,<lb/>
+welcher einst das Städtchen so bedeutsam machte. Küm-<lb/>
+merlich nährt sich jetzt der arme Bergmann von seiner<lb/>
+lebensgefährlichen Arbeit, während viele seiner frühern<lb/>
+Genossen Schätze sammelten und den Tagen ihres Al-<lb/>
+ters sorgenlos entgegengehen konnten.</p><lb/>
+<p>Jn den glücklichern Zeiten des sächsischen Bergbaus<lb/>
+&#x2014; es war im 16. Jahrhundert &#x2014; lebte auch in Eh-<lb/>
+renfriedersdorf ein wackerer, junger Bergmann Namens<lb/>
+Oswald Barthel. Er war der Liebling der ganzen<lb/>
+Knappschaft und empfahl sich durch Fleiß, Geschicklich-<lb/>
+<cb n="2"/>
+keit und Treue seinen Obern dergestalt, daß diese ihm<lb/>
+ihre besondere Gunst schenkten. Sein Obersteiger, der<lb/>
+reiche Baumwald, hielt ihn wie seinen Sohn und sagte<lb/>
+mit Freuden ja dazu, als einst Barthel bei ihm ein-<lb/>
+trat und ihn schüchtern um die Hand seiner einzigen<lb/>
+Tochter Anna bat. Mit dieser war Barthel längst<lb/>
+schon <hi rendition="#g">ein</hi> Herz und <hi rendition="#g">eine</hi> Seele, daher sofort die Ver-<lb/>
+lobung gefeiert wurde.</p><lb/>
+<p>Wie glücklich waren die Zwei und doch sollte die<lb/>
+Seligkeit für das liebende Paar nur kurze Zeit dauern!</p><lb/>
+<p>Barthel fuhr bald nach seiner Verlobung im Jahre<lb/>
+1508 in dem tiefen Stolln &#x201E;Gutes Glück&#x201C; im Sau-<lb/>
+berge mit an. Seine Kameraden hatten sich, wie er,<lb/>
+durch Gesang und Gebet zu ihrer Fahrt gestärkt,<lb/>
+denn es galt, eine gefährliche Arbeit zu vollbringen.<lb/>
+Man wollte einen sogenannten Durchschlag machen,<lb/>
+bei welchem schon so mancher Bergmann sein Leben<lb/>
+verlor.</p><lb/>
+<p>Mit einem &#x201E;Glück auf!&#x201C; stiegen, ihren Steiger<lb/>
+voran, die Knappen in die finstere Tiefe. An dem<lb/>
+Orte, wo sie die Arbeit beginnen sollten, war der<lb/>
+Grubengang mit einer Firste befestigt, d. h. man hatte<lb/>
+den Gang mit Bretern und Balken ausgeschalt, weil<lb/>
+er nicht aus festem Felsen, sondern aus bröcklicher,<lb/>
+rolliger Erdart bestand und darum leicht zusammen-<lb/>
+stürzen konnte.</p><lb/>
+<p>Die Knappen begannen unter der Anleitung ihres<lb/>
+Steigers den Durchschlag; doch kaum hatten sie damit<lb/>
+<cb type="end"/>
+<pb facs="#f0006" n="350"/>
+<fw place="top" type="pageNum">350</fw><cb type="start"/>
+angefangen, so ließ sich über ihren Häuptern an der<lb/>
+Firste ein schreckliches Krachen vernehmen.</p><lb/>
+<p>Der Steiger bemerkte sofort, daß die Zimmerung<lb/>
+an ihrem Arbeitsorte nachgab und brach, darum schrie<lb/>
+er seinen Untergebenen zu: &#x201E;Es macht einen Bruch!<lb/>
+Rettet euch, Brüder!&#x201C;</p><lb/>
+<p>Zu gleicher Zeit wiederholte sich das Krachen und<lb/>
+die Knappen stürzten mit dem Steiger davon, um ihr<lb/>
+Leben in Sicherheit zu bringen. Als sie einen fe-<lb/>
+sten Punkt erreicht hatten, vermißten sie Oswald<lb/>
+Barthel.</p><lb/>
+<p>Wo ist unser Oswald! rief der Steiger im höch-<lb/>
+sten Schrecken und ließ sofort den Namen des Lieb-<lb/>
+lings der Knappschaft durch die Grube tönen; aber<lb/>
+keine Antwort wollte zurückkommen. Sogleich sendete<lb/>
+der Steiger einen Boten an den Bergmeister ab, um<lb/>
+ihm von der wahrscheinlichen Verunglückung des treuen<lb/>
+Oswald Kunde zugehen zu lassen, dann legte er mit<lb/>
+seinen Gefährten Hand an den zusammengestürzten<lb/>
+Bau, in der Hoffnung, den lieben Gefährten durch<lb/>
+schnelle Hülfe vielleicht noch retten zu können. Wäh-<lb/>
+rend die Männer schweißtriefend das Geröll und die<lb/>
+Erde wegwarfen, erschien in höchster Eile der Berg-<lb/>
+meister mit den Geschworenen und vielen Knappen,<lb/>
+welche sogleich mit zugriffen und die ermatteten Kame-<lb/>
+raden kräftigst unterstützten. So sehr sie sich aber auch<lb/>
+abmühten, so war doch an diesem furchtbaren Bruche<lb/>
+alle Arbeit bei fast übermenschlicher Anstrengung ver-<lb/>
+geblich; denn je mehr man von dem Bruche weg-<lb/>
+nahm, desto mehr stürzte nach. Mit inniger Weh-<lb/>
+muth verließen endlich die trauernden Knappen den<lb/>
+schrecklichen Ort und der gute Barthel mußte unter<lb/>
+der fürchterlichen Last des Bergs, welcher ihn begrub,<lb/>
+verloren gegeben werden.</p><lb/>
+<p>Die Kunde von der Verschüttung Barthel's ergriff<lb/>
+Aller Herzen, am meisten aber seine Braut, die arme<lb/>
+Anna Baumwald. Sie brach, als sie das Unglück<lb/>
+hörte, zusammen und der Schreck schien ihr die Fä-<lb/>
+den des Lebens zerrissen zu haben. Man brachte sie<lb/>
+zu Bett und es gelang, sie nach und nach in das Le-<lb/>
+ben zurückzurufen. Doch ihr Erwachen war, nach den<lb/>
+Berichten dea<gap reason="illegible"/> Sage, ein recht trauriges. Da sie ih-<lb/>
+ren Oswald nicht mehr hatte, so verzichtete sie auf<lb/>
+alle Freuden des Lebens und wünschte sich selbst den<lb/>
+Tod. Fast schien auch ihr Wunsch in Erfüllung ge-<lb/>
+hen zu wollen. Sie wurde todtkrank und sehnte sich<lb/>
+selbst nach Erlösung; aber ihr Körper besiegte die<lb/>
+Krankheit und sie genas wieder.</p><lb/>
+<p>Nach der Sitte ihrer Zeit wanderte die Genesene<lb/>
+mit ihrer Mutter zur Kirche. Kein Lächeln kam über<lb/>
+ihr blasses Gesicht; sie dachte nur an ihren Oswald<lb/>
+und ließ ihre Augen auf dem Brautkranze ruhen, den<lb/>
+sie in der Hand trug. Als sie im Gotteshause ange-<lb/>
+kommen war, gelobte sie feierlich ihrem Oswald ewige<lb/>
+Treue und versicherte dabei, daß keine Macht der Erde<lb/>
+sie bewegen könne, ihre Hand einem Andern zu rei-<lb/>
+chen. Darauf nahm sie ihren Brautkranz und hing<lb/>
+ihn unter den Todtenkränzen auf, welche die trauernde<lb/>
+Liebe den Seligentschlafenen zum treuen Angedenken<lb/>
+in der Kirche aufgehangen hatte.</p><lb/>
+<p>Anna's Gesundheit kehrte wieder vollständiger zu-<lb/>
+rück als irgend Jemand gehofft hatte, doch ihre Seele<lb/>
+blieb bedrückt; die arme Braut lebte in stiller Zurück-<lb/>
+gezogenheit und dachte ledenslang ihres Bräutigams.<lb/>
+Was sie that, war Liebe und Sanftmuth, was sie<lb/>
+sprach, war Wehmuth und Gottergebenheit.</p><lb/>
+<p>Aber auch die Schmerzensjahre vergehen wie die<lb/>
+Zeiten der Freude. So mancher Freund Barthel's<lb/>
+<cb n="2"/>
+war schon das letzte mal an= und aufgefahren und<lb/>
+endlich lebten von seinen alten Bekannten nur noch<lb/>
+die treue Anna und die Knappen Kendler und Reiter<lb/>
+in Ehrenfriedersdorf sowie Simon Löser aus Dreh-<lb/>
+bach. Die Haare dieser Männer waren gebleicht; sie<lb/>
+führten längst das Fäustel nicht mehr.</p><lb/>
+<p>Nun traf es sich, daß man einen Stolln am Sau-<lb/>
+berge treiben wollte, mit welchem man schon weit vor-<lb/>
+geschritten war; da entdeckten die Bergleute am 20.<lb/>
+September 1568 in der &#x201E;gebrechen&#x201C;, d. i. erdigen<lb/>
+Bergart den Körper eines Menschen. Derselbe wurde<lb/>
+sofort von der ihn umgebenden Erdmasse befreit. Seine<lb/>
+Kleider waren nicht vermodert und der Leib war hart<lb/>
+geworden. Als man ihn zu Tage ausführen wollte,<lb/>
+brach er entzwei, sodaß nur noch Kopf, Rumpf und<lb/>
+Arme aneinander blieben.</p><lb/>
+<p>Der Fund ward dem damaligen Bergmeister an-<lb/>
+gezeigt, welcher sogleich mit einem Geschworenen zur<lb/>
+Stelle kam und nähere Untersuchungen anstellte. Bald<lb/>
+ergab sich, daß der Leichnam jedenfalls der Körper des<lb/>
+verschütteten Oswald Barthel sein müsse. Man holte<lb/>
+seine noch lebenden drei Kameraden herbei und diese<lb/>
+erkannten den verunglückten Gefährten, dessen Auße-<lb/>
+res nach alten Bergnachrichten also beschrieben worden<lb/>
+ist: &#x201E;Er hatte eine Bergkappe, wie die Alten gepflo-<lb/>
+gen auf seinem Haupt gehabt und schwarz Haar einer<lb/>
+halben Ellen lang, einen weißen Zippelpelz ( Schaf-<lb/>
+pelz ) am Leibe, ein Paar Grubenhosen, Schuhe an<lb/>
+Füßen, eine Unschlitttasche, einen Grubenscherper mit<lb/>
+Blei begossen, umgürtet; es sind auch Schuh, Hosen<lb/>
+und Pelz ganz gewesen.&#x201C;</p><lb/>
+<p>Ueber 66 Jahre lag Barthel in seinem tiefen<lb/>
+Grabe. Sechs Tage nach seinem Wiederauffinden<lb/>
+wurde er aufs neue feierlich zur Erde bestattet, beglei-<lb/>
+tet von einem langen Zuge der Bergleute, welche aus<lb/>
+allen Gegenden zu dem merkwürdigen Begräbnisse her-<lb/>
+beigekommen waren. Selbst die höhern Bergbeamten<lb/>
+schlossen sich den Tausenden an, die den Zug bildeten.<lb/>
+Der Pfarrer Reute hielt dem Todten eine würdige<lb/>
+Grabrede und sprach dabei: &#x201E;Es ist eine wunder-<lb/>
+seltsame Mähr, daß ich, der ich im 31. Jahre<lb/>
+stehe, heute einer Leiche die Gedächtnißpredigt halte,<lb/>
+welche schon 30 Jahre vor meiner Geburt gestorben<lb/>
+ist.&#x201C; Merkwürdig war es auch, daß Barthel von<lb/>
+einem protestantischen Geistlichen das letzte Segenswort<lb/>
+erhielt, während er selbst als Katholik bei seinem<lb/>
+Leben doch nie an eine Möglichkeit der Art denken<lb/>
+konnte.</p><lb/>
+<p>Das Rührendste bei dem ganzen Vorfalle bleibt<lb/>
+aber der Umstand, daß nach der Sage beim Grabe<lb/>
+der 66jährigen Leiche Jungfrau Anna Baumwald,<lb/>
+vom Alter gebeugt, an dem seltenen Grabe erschien,<lb/>
+um ihrem theuern Bräutigam das letzte Lebewohl auf<lb/>
+Erden zu sagen und ihm nachzurufen: &#x201E;Bald werde<lb/>
+ich mit dir vereinigt sein!&#x201C;</p><lb/>
+<p>Anna's Wunsch ward ihr gewährt; sie starb kurz<lb/>
+nach Oswald's Begräbnisse.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Der unglückliche Fastnachtstanz zu Kalbe im<lb/>
+Jahre</hi> 1382.</head><lb/>
+<p><hi rendition="#in">W</hi>ie gar leicht oftmals Jubel und Freude in Trauer<lb/>
+und Wehklagen sich verwandeln können, dafür liefert<lb/>
+<cb type="end"/>
+<pb facs="#f0007" n="351"/>
+<fw place="top" type="pageNum">351</fw><cb type="start"/>
+unter Anderm auch jener denkwürdige Fastnachtsball<lb/>
+einen schlagenden Beweis, welchen Erzbischof Ludwig<lb/>
+von Magdeburg, ein geborener Markgraf von Meißen,<lb/>
+im Jahre 1382 zu Kalbe an der Saale veranstaltete,<lb/>
+nicht ahnend, daß mitten unter den tollsten Carnevals-<lb/>
+lustbarkeiten sein letztes Stündlein schlagen sollte!</p><lb/>
+<p>Außer seinen Brüdern, den Markgrafen von Mei-<lb/>
+ßen, hatte derselbe auch den Bischof genannter Graf-<lb/>
+schaft, Nikolaus Ziegenbock, desgleichen viele andere<lb/>
+Fürsten, Ritter und Herren mit ihren Frauen und<lb/>
+Töchtern, und ebenso endlich auch den Rath von Mag-<lb/>
+deburg, &#x201E;so aber nicht erschienen&#x201C;, als Gäste eingela-<lb/>
+den. Es herrschte bei dem Feste der größte Überfluß<lb/>
+an Speisen und Wein; Turniere und andere öffent-<lb/>
+liche Spiele, eins unterhaltender als das andere, wur-<lb/>
+den in Menge angestellt und Alles gab sich der aus-<lb/>
+gelassensten Lustigkeit hin.</p><lb/>
+<p>Da man nun aber, erzählt die Sachsenchronik,<lb/>
+Montags vor der Fasten, den 17. Februarii im Rath-<lb/>
+hause, so noch jetzt der Tanzboden heißet, mit Tanzen<lb/>
+und Springen am lustigsten war &#x2014; es mochte ohn-<lb/>
+gefähr des Abends nach 9 Uhr sein, eben als der Herr<lb/>
+Erzbischof mit einer adeligen Dame vortantzete &#x2014; da<lb/>
+entstand unvermuthet ein Geschrei, es sei Feuer vor-<lb/>
+handen. Und so war es in der That. Die Bedien-<lb/>
+ten, welche unten im Rathhause mit brennenden La-<lb/>
+ternen und mit Fackeln auf ihre Herren warteten, sich<lb/>
+betrunken hatten und wild durcheinander wirthschafte-<lb/>
+ten, waren unvorsichtigerweise einer in des Stadtschrei-<lb/>
+bers Kammer unter dem Rathhaussaale stehenden, mit<lb/>
+Stroh angefüllten Bettspinde zu nahe gekommen und<lb/>
+hatten eine brennende Schnuppe ins Stroh fallen<lb/>
+lassen. Letzteres gerieth dadurch in Brand und verur-<lb/>
+sachte zunächst einen undurchdringlichen Qualm; das<lb/>
+Feuer aber griff inzwischen immer weiter um sich und<lb/>
+brannte sehr bald auch durch den Boden des Saals.</p><lb/>
+<p>Dies war der Augenblick, in welchem die Tanzen-<lb/>
+den das Feuer zuerst bemerkten, und Aller bemächtigte<lb/>
+sich ein panischer Schrecken, indem sie glaubten, das<lb/>
+ganze Rathhaus stände bereits in Flammen. Alles<lb/>
+eilte, sich zu retten und stürzte mit lautem Geschrei<lb/>
+der Treppe zu. Der Erzbischof, seine Dame am Arme,<lb/>
+wollte den Uebrigen zuvorkommen und dadurch nicht<lb/>
+nur sich und seine Tänzerin retten, sondern zugleich<lb/>
+auch dem unvernünftigen Gedränge Einhalt thun.<lb/>
+Allein vergebens! Jn ihrer Todesangst drängte die<lb/>
+Menge ihn unaufhaltsam fort und der Treppe zu und<lb/>
+schon im nächsten Augenblick konnte Niemand weder<lb/>
+vor= noch rückwärts von der Stelle. Ein dichter<lb/>
+Knäuel hielten die Flüchtigen minutenlang die obern<lb/>
+Stufen der hölzernen Treppe besetzt, bis endlich der<lb/>
+Träger derselben brach und die ganze Treppe mit Allen,<lb/>
+die darauf waren &#x2014; nach Einigen sollen es nahezu<lb/>
+300 Personen gewesen sein &#x2014; zusammenstürzte.</p><lb/>
+<p>Wunderbarerweise büßten dabei nur Drei ihr Leben<lb/>
+ein, unter denen sich jedoch auch der Erzbischof selbst<lb/>
+befand, der von Denen, so ihm auf den Hals ge-<lb/>
+fallen, erdrückt und erstickt worden. <note place="foot" n="*)" xml:id="FN01" next="#FN02">Eine handschriftliche thüringische Chronik beschreibt<lb/>
+den Hergang folgendermaßen: &#x201E;Als auf dem Rathhause zu<lb/>
+Kalbe man des Abends tantzete, und die Knechte mit bren-<lb/>
+nenden Wischen auf den Saal leuchteten, die Wische aber<lb/>
+von der Treppen unter sich warffen, da lagen leere Fasse,<lb/>
+darein kamen die brennenden Wische, und die Fässer ent-<lb/>
+brandten. Damit ward das Feuer also groß, daß die Leute<lb/>
+eilends von dem Tantz=Boden herunter mußten. Da ergriff<lb/>
+der Ertz=Bischoff eine ehrbare Frau in seine Arme, und lieff</note> Die Übrigen<lb/>
+kamen mit verschiedenen, mehr oder minder erheblichern<lb/>
+<cb n="2"/>
+Verletzungen davon; Einzelne blieben auch gänzlich un-<lb/>
+beschädigt. Gleichzeitig indeß waren auch Mehre aus<lb/>
+den Fenstern hinab auf die Straße gesprungen und<lb/>
+hatten dabei Arme und Beine gebrochen oder sonst<lb/>
+Schaden am Körper genommen, sodaß überall nichts<lb/>
+als Jammern und Wehklagen ertönte. Der Mark-<lb/>
+graf Wilhelm von Meißen rettete sich mit Hülfe einer<lb/>
+Leiter durch das Fenster, verließ aber nebst den übri-<lb/>
+gen Gästen voller Schrecken und Bestürzung eiligst<lb/>
+den Ort des Unglücks.</p><lb/>
+<p>Des Feuers war man inzwischen sehr bald Herr<lb/>
+geworden; hatte dasselbe doch auch nur ein Loch von<lb/>
+der Größe eines Scheffels in den Boden des Rath-<lb/>
+haussaals gebrannt, sodaß die Festgenossen, wären sie<lb/>
+rechtzeitig von der wahren Beschaffenheit des Brandes<lb/>
+unterrichtet worden, ohne alle Gefahr auf dem Saale<lb/>
+hätten versammelt bleiben können.</p><lb/>
+<p>Die Leiche des Erzbischofs wurde von seinen Brü-<lb/>
+dern nach Magdeburg gebracht und daselbst ohne einige<lb/>
+Solennität und Gepränge in der Domkirche ( nach An-<lb/>
+dern in der Gangolphikapelle ) beigesetzt.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1"><figure><head><hi rendition="#fr">Zweig des Kaffeebaums.</hi></head><lb/>
+<p>Ueber den Kaffee vergleiche Pfennig=Magazin, Jahrgang<lb/>
+1833, Nr. 10; Jahrgang 1852, Nr. 484.</p></figure></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<note place="foot" n="*)" xml:id="FN02" prev="#FN01">mit ihr im Gedrenge die Treppe hinab; und als er meinte,<lb/>
+er trette ihr auf den Rock, da bequemte er zu schlippern,<lb/>
+und schoß mit ihr die Treppen hinab, kam auf seinen Kopf<lb/>
+zu stürtzen, und fiel sich zu tode, die Frau aber bliebe le-<lb/>
+bendig.&#x201C;</note><lb/>
+<cb type="end"/>
+<pb facs="#f0008" n="352"/>
+<fw place="top" type="pageNum">352</fw><lb/>
+<div n="1" type="jVarious"><head><hi rendition="#fr"><hi rendition="#g">Mannichfaltiges</hi>.</hi></head><lb/>
+<cb type="start"/>
+<div n="2" type="jArticle"><p>Die javanefischen Tänzerinnen ( Bajaderen ) sind<lb/>
+wahre Wunder von Beweglichkeit und Geschmeidigkeit aller<lb/>
+Glieder des Körpers. Sie schweben nicht, wie die Tänze-<lb/>
+rinnen von Profession in Europa, sylphenartig über den<lb/>
+Erdboden dahin. Sie produciren ebenso wenig Kunststücke,<lb/>
+welche in einer außergewöhnlichen Balancirung des Körpers<lb/>
+auf <hi rendition="#g">einem</hi> Beine oder in schnellem Emporwerfen der Beine<lb/>
+und mächtigen Sprüngen oder einförmigem wirbelnden Um-<lb/>
+hertreiben auf <hi rendition="#g">einem</hi> Fuße bestehen. Jhre Tänze bestehen<lb/>
+mehr aus graziösen Bewegungen des Körpers, die nach der<lb/>
+ihnen zugrunde liegenden Bedeutung oder dem Jnhalte der<lb/>
+dazu gesungenen Arien bald einen mehr gemessenen, bald<lb/>
+einen tobenden Charakter annehmen, stets aber auf den Zu-<lb/>
+schauer einen lieblichen Eindruck machen. Während nämlich in<lb/>
+Europa alle Tanzkünstler und Tanzkünstlerinnen allen Fleiß<lb/>
+und alles Studium fast ausschließlich der Ausbildung der un-<lb/>
+tern Körpertheile widmen und bei einer ersichtlichen Ver-<lb/>
+nachlässigung des obern Körpertheils ihren Höhepunkt in<lb/>
+einer bewundernswürdigen Gewandtheit der Beine und Füße<lb/>
+zu finden suchen, bemüht sich jene Bajadere allen Gliedern<lb/>
+und Gelenken des Körpers, vom obersten Halswirbel an bis<lb/>
+zum vordersten Zehengelenk, eine wahrhaft beispiellose Be-<lb/>
+weglichkeit zu verleihen. Die Bajadere vermag z. B. das<lb/>
+vorderste Glied eines jeden Fingers, ohne die andern Glie-<lb/>
+der desselben oder eines andern Fingers zu beugen, nach Be-<lb/>
+lieben vor= und rückwärts zu strecken, kann ihre Hand nach au-<lb/>
+ßen oder rückwärts ebenso flach und hohl machen wie wir<lb/>
+nach innen, dem Handteller zu; ja sie kann selbst die ganze<lb/>
+Hand derartig rückwärts beugen, daß der sogenannte Hand-<lb/>
+rücken vollkommen auf den Vorderarm zu liegen kommt.<lb/>
+Jhre Zehen besitzen dieselbe Fertigkeit im Anfassen wie die<lb/>
+Finger; ihre Wirbelsäule ist nach allen Seiten hin biegsam<lb/>
+und gelenkig. Kein Wunder also, wenn jede Bewegung ih-<lb/>
+res ungeschnürten, nicht in steife, enge Mieder gewaltsam<lb/>
+eingepreßten Leibes graziös und für das Auge wohlgefällig<lb/>
+ist. Arme, Hände, Finger, Beine, Füße, Zehen, die obere<lb/>
+und untere Hälfte des Rumpfes sowie der Kopf bewegt sich<lb/>
+<cb n="2"/>
+bei dem Tanze der Bajadere auf eine liebliche, anmuthige<lb/>
+Weise. Ja selbst die Augen und der Mund nehmen lebhaf-<lb/>
+ten Antheil an den Bewegungen des gesammten Körpers,<lb/>
+jedoch nicht um ein erzwungenes widerliches Lächeln oder<lb/>
+nichtssagende Augenverdreherei hervorzurufen, sondern nur<lb/>
+um Geist und Leben, Ausdruck, Anmuth und Zwanglosigkeit<lb/>
+in ihr bezauberndes Geberdenspiel zu bringen.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Der Maikäfer erscheint Vielen als ein plumper, un-<lb/>
+beholfener, träger Bursche, steif und ungelenk; dabei sieht<lb/>
+er so einerlei und brummig aus, daß man ihm fast aus dem<lb/>
+Wege gehen möchte, besonders wenn er durch einen muth-<lb/>
+willigen Buben mitten im besten Fraße vom Pflaumenbaume<lb/>
+herabgeschüttelt worden ist und sich nach langem unwilligen<lb/>
+Zappeln wieder so weit auf die Beine gebracht hat, daß er<lb/>
+seinen Rückweg auf den Baum antreten kann. Aber genau<lb/>
+angesehen ist er doch ein interessantes Geschöpf, ein Thier,<lb/>
+an dem sich ein gutes Stück Naturgeschichte studiren läßt.<lb/>
+Wer dies zu thun Lust hat, wird in den meisten Naturge-<lb/>
+schichten den nöthigen Stoff finden. Wunderbar ist das<lb/>
+Walten der Natur in den verschiedenen Phasen, die der<lb/>
+Maikäfer 3&#x2014;4 Jahre im Jnnern der Erde als Engerling<lb/>
+durchzumachen hat. Klafterntief wühlen sie sich in die Erde<lb/>
+hinein und je näher sie ihrer Verkäferung, so zu sagen, kom-<lb/>
+men, desto mehr nähern sie sich wieder der Erdoberfläche;<lb/>
+aber sie kommen nicht eher zum Vorschein, als bis Ende<lb/>
+April oder Anfangs Mai der Tisch für sie gedeckt ist.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Das Baden und Waschen der Türken kann ge-<lb/>
+wissermaßen als ein Jnstitut des Korans, nach unserer Rede-<lb/>
+weise als ein Sacrament betrachtet werden. Daher kommt<lb/>
+es, daß noch immer reiche Türken aus Religion Bäder er-<lb/>
+richten lassen und Unzählige ihr Geld testamentarisch zu die-<lb/>
+sem Zwecke bestimmen. Etwas Ahnliches spricht das engli-<lb/>
+sche Sprüchwort: <hi rendition="#aq">Cleantliness is next to godliness</hi> ( Rein-<lb/>
+lichkeit kommt gleich nach Religion ) aus.</p></div></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jAnnouncements"><head><hi rendition="#fr"><hi rendition="#g">Ankündigungen</hi>.</hi></head><lb/>
+<div n="2" type="jAn"><head><hi rendition="#smaller">Soeben erschien und ist in allen Kunst= und Buchhandlungen zu haben: </hi><lb/>
+<hi rendition="#b #fr #larger">Die Kunstschätze Wiens.</hi> </head><lb/>
+<p><hi rendition="#g">Jn Stahlstich,</hi> nebst erläuterndem <hi rendition="#g">Texte,</hi> von A. R. v. Perger. Herausgegeben vom Oesterreich.<lb/>
+Lloyd. <hi rendition="#g">Erstes bis drittes Heft.</hi> Jedes Heft, mit <hi rendition="#g">drei großen Stahlstichen</hi> und ein bis zwei<lb/>
+Bogen Text, kostet: in klein Quart 10 Sgr.; feine Ausgabe in groß Quart 16 Sgr.; Prachtausgabe in<lb/>
+Folio 24 Sgr.</p><lb/>
+<p>Die weltberühmte <hi rendition="#g">kaiserliche Gemäldegalerie im Belvedere,</hi> die Galerien <hi rendition="#g">Liechtenstein, Esterhazy,<lb/>
+Schönborn, Czernin, Harrach, Arthaber, Beroldingen, Fellner, Heckeren, Renieri</hi> u. A. enthalten be-<lb/>
+kanntermaßen an Kunstwerken ersten Ranges ( <hi rendition="#g">Rafael's, Tizian's, Correggio's, Rubens'</hi> <choice><abbr>ec.</abbr></choice> sowie neuerer Mei-<lb/>
+ster ) insgesammt einen Reichthum, der den Sammlungen Münchens und Dresdens sich an die Seite stellen darf. Die<lb/>
+Aufgabe unsers Unternehmens ist nun, <hi rendition="#g">die Hauptbilder aus allen Wiener Galerien,</hi> um sie zum Gemeingut der<lb/>
+Nation zu machen, durch den Grabstichel treu wiederzugeben, begleitet von einem Texte, welcher die künstlerische und die<lb/>
+geschichtliche Seite der Gemälde behandelt. <hi rendition="#g">Auch außer Oesterreich</hi> dürften unsere &#x201E;Kunstschätze Wiens&#x201C; um so<lb/>
+allgemeinern Anklang finden, als gerade hier die Originale räumlich so fern sind. Der Preis wurde so niedrig gestellt,<lb/>
+um die Anschaffung zu erleichtern, und die innere Einrichtung so getroffen, daß jeder Stahlstich mit dem ihn begleitenden<lb/>
+Texte ein für sich bestehendes Ganze bildet; der Besitzer des Werks kann sich somit die einzelnen Blätter seiner Zeit nach<lb/>
+Schulen, Meistern, Galerien oder in sonst beliebige Gruppen ordnen. Jn 30&#x2014;36 Heften hoffen wir die &#x201E;Kunstschätze<lb/>
+Wiens&#x201C; würdig repräsentiren zu können. Das vierte Heft wird im October ausgegeben, sodann alle zwei bis drei Wo-<lb/>
+chen ein Heft.</p><lb/>
+<p> <space dim="horizontal"/>  Die Direction der lit.= artist. Abtheilung des Oesterreich. Lloyd in Triest.</p></div></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+</body>     <back><div n="1" type="imprint"><p><hi rendition="#c">Verantwortlicher Redacteur: <hi rendition="#aq">M</hi>. J. E. Volbeding. &#x2014; Druck und Verlag von F. A. Brockhaus in Leipzig.</hi></p></div>     </back>   </text> </TEI>

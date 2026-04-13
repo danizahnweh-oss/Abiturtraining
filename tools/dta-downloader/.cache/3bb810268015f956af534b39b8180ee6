@@ -1,0 +1,965 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.deutschestextarchiv.de/basisformat.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">     <teiHeader>
+<fileDesc>
+<titleStmt>
+<title type="main">Das Pfennig-Magazin für Belehrung und Unterhaltung</title>
+<title type="sub">Dritte Folge, Dritter Jahrgang, Nr. 110</title>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/115266127">
+<surname>Geyken</surname>
+<forename>Alexander</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1222198746">
+<surname>Haaf</surname>
+<forename>Susanne</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1019062681">
+<surname>Jurish</surname>
+<forename>Bryan</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Boenig</surname>
+<forename>Matthias</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Thomas</surname>
+<forename>Christian</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Wiegand</surname>
+<forename>Frank</forename>
+</persName>
+</editor>
+<respStmt>
+<orgName>Institut für Deutsche Sprache, Mannheim</orgName>
+<resp>
+<note type="remarkResponsibility">Bereitstellung der Bilddigitalisate und TEI
+Transkription</note>
+<ref target="http://hdl.handle.net/10932/00-01B8-B0B7-6860-3301-9"/>
+</resp>
+</respStmt>
+<respStmt>
+<persName>
+<forename>Peter</forename>
+<surname>Fankhauser</surname>
+</persName>
+<resp>
+<note type="remarkResponsibility">
+Transformation von TUSTEP nach TEI P5.
+Transformation von TEI P5 in das DTA TEI P5 Format.
+</note>
+</resp>
+</respStmt>
+<respStmt>
+<orgName ref="https://www.bbaw.de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<resp>
+<note type="remarkResponsibility">Langfristige Bereitstellung der DTA-Ausgabe</note>
+<ref target="https://www.bbaw.de"/>
+</resp>
+</respStmt>
+</titleStmt>
+<editionStmt><edition>Vollständige digitalisierte Ausgabe.</edition></editionStmt>
+<extent>
+<measure type="images">8</measure>
+<measure type="tokens">5599</measure>
+<measure type="types">2317</measure>
+<measure type="characters">37369</measure>
+</extent>
+<publicationStmt>
+<publisher xml:id="DTACorpusPublisher">
+<email>dta@bbaw.de</email>
+<orgName role="project">Deutsches Textarchiv</orgName>
+<orgName role="hostingInstitution" xml:lang="en">Berlin-Brandenburg Academy of Sciences and Humanities (BBAW)</orgName>
+<orgName role="hostingInstitution" xml:lang="de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<address>
+<addrLine>Jägerstr. 22/23, 10117 Berlin</addrLine>
+<country>Germany</country>
+</address>
+</publisher>
+<pubPlace>Berlin</pubPlace>
+<date type="publication">2025-10-24T08:35:15Z</date>
+<availability>
+<licence target="http://creativecommons.org/publicdomain/zero/1.0/">
+<p>Dieses Werk steht unter der "Creative Commons Namensnennung -
+Nicht kommerziell 3.0 Deutschland Lizenz" (CC BY-NC).</p>
+</licence>
+</availability>
+<idno>
+<idno type="URLWeb">https://www.deutschestextarchiv.de/nn_pfennig110_1855</idno>
+<idno type="URLXML">https://www.deutschestextarchiv.de/book/download_xml/nn_pfennig110_1855</idno>
+<idno type="URLHTML">https://www.deutschestextarchiv.de/book/download_html/nn_pfennig110_1855</idno>
+<idno type="URLText">https://www.deutschestextarchiv.de/book/download_text/nn_pfennig110_1855</idno>
+<idno type="DTADirName">nn_pfennig110_1855</idno>
+<idno type="DTAID">34746</idno>
+<idno type="URN">urn:nbn:de:kobv:b4-34746-5</idno>
+</idno>
+</publicationStmt>
+<sourceDesc>
+<bibl type="J">Das Pfennig=Magazin für Belehrung und Unterhaltung. Dritte Folge, Dritter Jahrgang, Nr. 110. Leipzig (Sachsen), 8. Frebruar 1855.</bibl>
+<biblFull>
+<titleStmt>
+<title level="m" type="main">Das Pfennig-Magazin für Belehrung und Unterhaltung</title>
+<title level="m" type="sub">Dritte Folge, Dritter Jahrgang, Nr. 110</title>
+</titleStmt>
+<editionStmt>
+<edition n="1"/>
+</editionStmt>
+<publicationStmt>
+<publisher/>
+<pubPlace>Leibzig (Sachsen)</pubPlace>
+<date type="publication">1855</date>
+</publicationStmt>
+</biblFull>
+<msDesc>
+<msIdentifier/>
+<physDesc>
+<typeDesc>
+<p>Fraktur</p>
+</typeDesc>
+</physDesc>
+</msDesc>
+</sourceDesc>
+</fileDesc>
+<encodingDesc>
+<editorialDecl>
+<p>
+<![CDATA[
+<p>Siehe Dokumentation</p>
+]]>
+</p>
+</editorialDecl>
+<tagsDecl>
+<rendition scheme="css" xml:id="aq">font-family:sans-serif</rendition>
+<rendition scheme="css" xml:id="b">font-weight:bold</rendition>
+<rendition scheme="css" xml:id="blue">color:blue</rendition>
+<rendition scheme="css" xml:id="c">display:block; text-align:center</rendition>
+<rendition scheme="css" xml:id="et">display:block; margin-left:2em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et2">display:block; margin-left:4em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et3">display:block; margin-left:6em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="f">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="fr">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="g">letter-spacing:0.125em</rendition>
+<rendition scheme="css" xml:id="i">font-style:italic</rendition>
+<rendition scheme="css" xml:id="in">font-size:150%</rendition>
+<rendition scheme="css" xml:id="k">font-variant:small-caps</rendition>
+<rendition scheme="css" xml:id="larger">font-size:larger</rendition>
+<rendition scheme="css" xml:id="red">color:red</rendition>
+<rendition scheme="css" xml:id="right">display:block; text-align:right</rendition>
+<rendition scheme="css" xml:id="s">text-decoration:line-through</rendition>
+<rendition scheme="css" xml:id="smaller">font-size:smaller</rendition>
+<rendition scheme="css" xml:id="sub">vertical-align:sub; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="sup">vertical-align:super; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="u">text-decoration:underline</rendition>
+<rendition scheme="css" xml:id="uu">border-bottom:double 3px #000</rendition>
+</tagsDecl>
+</encodingDesc>
+<profileDesc>
+<langUsage>
+<language ident="deu">(Früh-)Neuhochdeutsch</language>
+<language ident="deu">German</language>
+</langUsage>
+<textClass>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1main">Gebrauchsliteratur</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1sub">Zeitschrift</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">ready</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">mkhz1</classCode>
+</textClass>
+</profileDesc>
+</teiHeader>
+<text>     <front>
+<pb facs="#f0001" n="[41]"/>
+<titlePage type="heading"><docTitle><titlePart type="main"><hi rendition="#c #fr">Das Pfennig=Magazin<lb/>
+für<lb/>
+<hi rendition="#g">Belehrung und Unterhaltung</hi>.</hi></titlePart></docTitle><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<docImprint><hi rendition="#fr">Nr</hi>. 110. ]              <hi rendition="#c">Dritte Folge. Dritter Jahrgang.</hi>              <docDate><hi rendition="#right">[ 8. <hi rendition="#g">Februar</hi> 1855.</hi></docDate>            </docImprint></titlePage><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+</front>     <body>       <div n="1" type="jArticle"><head><hi rendition="#fr">Das Zwingli=Denkmal bei Cappel.</hi></head><lb/>
+<figure/><lb/>
+<cb type="start"/>
+<p><hi rendition="#in">U</hi>nweit Cappel ist eine stille, einsame Stelle, welche<lb/>
+durch die Erinnerungen, die an ihr haften, classisch<lb/>
+geworden ist, ein heiliger Boden, dem die schweigende<lb/>
+Umgebung den Charakter des Ernstes aufdrückt. Hier<lb/>
+fiel Ulrich Zwingli, unter den Reformatoren einer der<lb/>
+mildesten in der traurigen Religionsfehde, die auch in<lb/>
+der Schweiz sich an den Kampf der Geister knüpfte.<lb/>
+Jm Jahre 1529 schon standen sich hier die Kriegs-<lb/>
+scharen beider Religionsparteien gegenüber; noch ein-<lb/>
+mal kam es zu einem Vergleiche. Aber der Unfrieden<lb/>
+glimmte fort. Die fünf katholischen Cantone waren<lb/>
+wohl vorbereitet; Zürich und Bern hatten alle Gegen-<lb/>
+anstalten vernachlässigt. Am 11. October 1531 kam<lb/>
+es zur Schlacht. Ein Theil der Züricher war erst am<lb/>
+Tage der Schlacht aus der Stadt herbeigeeilt, unter<lb/>
+ihnen Zwingli, der auf Befehl des Raths mitziehen<lb/>
+mußte und während der Schlacht in den vordersten<lb/>
+Reihen stand. Die Berner waren zurückgeblieben; 1500<lb/>
+zum Theil ermüdete Züricher hatten den Angriff der<lb/>
+fünffach überlegenen Gegner zu ertragen. Von einem<lb/>
+Speere getroffen und nicht im Stande, fortzukommen,<lb/>
+rief Zwingli: &#x201E;Welch ein Unglück ist denn das? Den<lb/>
+Leib können sie wol tödten, aber die Seele nicht!&#x201C; Er<lb/>
+blieb betend unter den Erschlagenen liegen; plündernde<lb/>
+<cb n="2"/>
+Feinde erstachen ihn auf seine stumme Weigerung, die<lb/>
+Mutter Gottes und die Heiligen um Gnade bei Gott<lb/>
+zu bitten. Erst am folgenden Tage ward Zwingli's<lb/>
+Leichnam erkannt; der siegende Haufe verlangte noch<lb/>
+an dem Todten Rache und der Scharfrichter von Lu-<lb/>
+zern mußte seinen Leib viertheilen und verbrennen; selbst<lb/>
+die Asche wurde noch verunreinigt. Bis zum Jahre<lb/>
+1838 bezeichnete ein Baum, aber nicht mehr der ur-<lb/>
+sprüngliche Zwinglibaum die Stelle, wo der große Re-<lb/>
+formator den Tod gefunden; in genanntem Jahre aber<lb/>
+wurde auf ihr ein Denkmal errichtet, aus zwei schwe-<lb/>
+ren Granitstücken auf einem halbmondförmigen etwas<lb/>
+erhöhten Platze. Von zwei in den Stein eingelassenen<lb/>
+eisernen Tafeln trägt die eine folgende Jnschrift: &#x201E; <hi rendition="#aq">Hic<lb/>
+Udalricus Zwinglius, post sedecim a Christo nato<lb/>
+saecula liberae ecclesiae Christianae una cum Mar-<lb/>
+tino Luthero conditor, pro vero et pro patria etiam<lb/>
+cum fratribus fortiter pugnans, immortalitatis certus,<lb/>
+occidit die XI. M. Octobris MDXXXI</hi>.&#x201C; Die Jn-<lb/>
+schrift der andern Seite lautet: &#x201E;Den Leib können sie<lb/>
+tödten, nicht aber die Seele.&#x201C; So sprach an dieser<lb/>
+Stätte Ulrich Zwingli, für Wahrheit und der christli-<lb/>
+chen Kirche Freiheit den Heldentod sterbend, den<lb/>
+11. October 1531.</p></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<pb facs="#f0002" n="42"/>
+<fw place="top" type="pageNum">42</fw>       <cb type="start"/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Der Schwedenrock.</hi><lb/>
+( Beschluß. )</head><lb/>
+<p><hi rendition="#in">J</hi>m Zimmer der Frau Christina waren noch Alle ver-<lb/>
+sammelt, die bei meinem Weggange dort anwesend ge-<lb/>
+wesen waren. Wir wurden sehr freundlich aufgenom-<lb/>
+men und der Herr Pfarrer führte meine Mutter an<lb/>
+das Bett der Frau Christina, vor welchem ein großer,<lb/>
+weichgepolsterter Lehnstuhl für sie bereit stand. Die<lb/>
+Begrüßung der beiden Frauen beschränkte sich lediglich<lb/>
+auf einen stummen Händedruck, denn schon begann der<lb/>
+Notar, nach dreimaligem kurzen Räuspern und mit<lb/>
+den gehörigen Verbeugungen, so oft eine der anwesen-<lb/>
+den Personen genannt wurde, eine rechtsgültige Schen-<lb/>
+kung und letztwillige Verfügung der Frau Christina<lb/>
+vorzulesen, wonach der Kirche das Haus, in welchem<lb/>
+wir uns befanden, mir, Gustav Adolf Leutfried aber<lb/>
+das gesammte Baarvermögen der Kranken, auf 5000<lb/>
+Goldgülden abgeschätzt, zu vollem freien Eigenthum<lb/>
+vermacht wurde, unter der einzigen Bedingung, jenes<lb/>
+alte Mütterchen, meine Führerin am Morgen jenes<lb/>
+Glückstags, zeitlebens anständig zu nähren und zu<lb/>
+pflegen.</p><lb/>
+<p>Jch gestehe, daß ich damals noch wenig begriff,<lb/>
+was es bedeute, viel Geld zu haben, und war daher<lb/>
+eben nicht außerordentlich von jener Mittheilung über-<lb/>
+rascht. Meine Mutter aber war einer Ohnmacht nahe,<lb/>
+drückte in stummer Freude die Hände der Schenkgebe-<lb/>
+rin an ihre Lippen und stürzte dann lautweinend an<lb/>
+meine Brust. Jetzt unterschrieben und untersiegelten<lb/>
+die Anwesenden jenes Testament als Zeugen, wünsch-<lb/>
+ten mir hierauf insgesammt, obwol mit tiefen Bück-<lb/>
+lingen, so doch mit zum Theil ziemlich schlecht verhehl-<lb/>
+tem Aerger Glück zu dem reichen Erbe und gingen als-<lb/>
+dann zur Mittagsmahlzeit hinab, welche im Garten<lb/>
+bereitet war. Der Herr Pfarrer aber, meine Mutter<lb/>
+und ich mußten bleiben und uns im Halbkreise um<lb/>
+das Bett setzen, ich zunächst, sodaß Frau Christina<lb/>
+meine Hand ergreifen konnte.</p><lb/>
+<p>Hierauf nahm dieselbe folgendermaßen das Wort:<lb/>
+&#x201E;Jch weiß aus eigener Erfahrung, was es heißt, bei<lb/>
+Sonnenaufgang noch arm sein und am Mittage ein<lb/>
+bedeutendes Vermögen besitzen, als wäre es aus den<lb/>
+Wolken herabgefallen. Es kommt aber auch jeder so<lb/>
+urplötzliche Wechsel vom Himmel, und an uns ist es<lb/>
+nur, den Geber zu begreifen und die Gabe zu ver-<lb/>
+wenden, wie es weise und fromm ist.</p><lb/>
+<p>Jch war ein armes Mädchen von 16 Jahren, hatte<lb/>
+weder Vater noch Mutter, wußte auch nicht, wer<lb/>
+Beide gewesen waren und lebte bei einem alten, wür-<lb/>
+digen Bauersmann im Thüringerlande, dessen Vieh<lb/>
+ich täglich zur Weide trieb. Unter den vielen Kriegs-<lb/>
+völkern, welche damals durch unser Dörfchen zogen,<lb/>
+befand sich ein junger Mann von 30 Jahren, der,<lb/>
+zum Dienste durch eine Verwundung unfähig gemacht,<lb/>
+sein Regiment als Marketender begleitete und als sol-<lb/>
+cher, wie die Rede ging, sich schon ein schönes Stück<lb/>
+Geld verdient haben sollte. Ein offener, heiterer Bie-<lb/>
+dermann, der allen Dirnen wohlgefiel, war er auch<lb/>
+gern, wo jene sich befanden, und bald hatte sich zwi-<lb/>
+schen uns &#x2014; in allen Ehren &#x2014; ein inniges Verhält-<lb/>
+niß angesponnen. Eines Mittags redete er mit mei-<lb/>
+nem Herrn und Abends war ich zu meiner großen<lb/>
+Freude Frau Stabs=Marketenderin, eine reiche, viel-<lb/>
+beneidete Frau.</p><lb/>
+<p>Der Himmel versagte uns das Glück, ein Kind<lb/>
+das unserige zu nennen, was um so schmerzlicher war,<lb/>
+<cb n="2"/>
+da mein Mann sehr bald dem vacirenden Kriegsleben<lb/>
+sich entzogen, dieses Haus gekauft und einen einträgli-<lb/>
+chen Handel mit Wein eröffnet hatte. Was einer ehr-<lb/>
+samen Bürgersfrau zu wissen nöthig ist, lernte ich<lb/>
+bald und so verlebte ich mit meinem Friedrich lange,<lb/>
+glückliche Jahre. Da raubte mir plötzlich ein Nerven-<lb/>
+fieber den geliebten Mann, und noch jetzt preßt mir<lb/>
+das Andenken an jene furchtbare Stunde bittere Thrä-<lb/>
+nen aus. Nur der Gedanke vermag mich zu trösten,<lb/>
+daß jeder neue Morgen, der über meiner Hütte auf-<lb/>
+geht, mich der seligen Stunde näher bringt, in der ich<lb/>
+den Seligen wiedersehen werde.</p><lb/>
+<p>Jch blieb Witwe und lebte in stiller Eingezogen-<lb/>
+heit von den Einkünften meines Vermögens. Die Freu-<lb/>
+denthränen so manches Armen, dem eine kleine Gabe<lb/>
+aus der Noth geholfen, waren meine einzige Erquickung.<lb/>
+Dabei wurde ich älter und älter und oft peinigte mich<lb/>
+der Gedanke: du hast Niemand auf der weiten Erde,<lb/>
+welchen du den Deinigen nennen kannst und der einst<lb/>
+dein irdisches Besitzthum als Erbe antrete. Wie fängst<lb/>
+du es an, daß du über dein Vermögen nach deinem<lb/>
+Tode auf eine würdige und segensvolle Weise be-<lb/>
+stimmst?</p><lb/>
+<p>Da half mir der hochwürdige Herr Pfarrer aus<lb/>
+diesen Sorgen, indem er mir rieth, dies mein Wohn-<lb/>
+haus zum Schulhause zu schenken, weil das alte ab-<lb/>
+gebrannt ist und kein neues erbaut werden kann, mit<lb/>
+dem größern Theile aber, dem beweglichen Vermögen,<lb/>
+einen Glücklichen zu machen, den mir die Vorsehung<lb/>
+schon zuführen werde. Nun bin ich seit einiger Zeit<lb/>
+recht leidend und fühle, die Stunde meiner Auflösung<lb/>
+rückt immer näher. Daher berief ich auf heute &#x2014; es<lb/>
+ist mein 65. Geburtstag &#x2014; den Notar Herrn Neu-<lb/>
+mann, den Herrn Pfarrer und sieben ehrsame Bürger<lb/>
+hiesiger Stadt in aller Frühe zu mir, um in aller<lb/>
+Form Rechtens nach dem Rathe dieser wackern Leute<lb/>
+meinen letzten Willen aufzusetzen. Gestern Abend war<lb/>
+ich unter einem frommen Gebete und mit dem Gedan-<lb/>
+ken, daß es ja Gott ein Leichtes sei, mir irgend einen<lb/>
+Wink zu geben, wie ich über meinen Nachlaß verfü-<lb/>
+gen sollte, eingeschlafen, allein selbst im Traume be-<lb/>
+schäftigte mich dieser Gedanke. So war es mir, als<lb/>
+säße ich hier, wie ihr mich jetzt wirklich seht, und be-<lb/>
+rathschlagte mit meinen Freunden, was in der Ange-<lb/>
+legenheit zu thun sei. Wir konnten indeß nimmer dar-<lb/>
+über einig werden. Da öffnete sich plötzlich, jedoch<lb/>
+ohne alles Geräusch, dort die Thür und eine Gestalt<lb/>
+trat herein, die war von einer Glorie umstrahlt und<lb/>
+trug ein Kreuz in der Rechten, in der Linken aber<lb/>
+eine silberne Lilie. Sie winkte mit der Lilie &#x2014; da<lb/>
+verschwand die Mauer meines Zimmers. Jch sah hin-<lb/>
+aus bis unter die Linden auf dem Stadtwalle und er-<lb/>
+blickte einen Jüngling, dessen Antlitz und Gestalt ich<lb/>
+zwar nicht deutlich erkennen konnte, dessen Tracht ich<lb/>
+aber sofort als von gelber Farbe unterschied. Die ge-<lb/>
+heimnißvolle Erscheinung deutete freundlichen Blicks auf<lb/>
+den jungen Mann hin und sprach vernehmlich: Chri-<lb/>
+stina, diesen suche auf am Morgen deines Geburts-<lb/>
+tags und gib ihm das Erbe!</p><lb/>
+<p>Jch erwachte und das Gesicht verschwand. Kaum<lb/>
+indeß war ich wieder eingeschlafen, so hatte ich dieselbe<lb/>
+Erscheinung zum zweiten male, als schon der Morgen<lb/>
+graute. Da fühlte ich mich von allen Zweifeln erlöst<lb/>
+und erzählte, was ich erlebt, dem Herrn Pfarrer.<lb/>
+Dieser äußerte zwar, daß man auf Träume nicht viel<lb/>
+geben, am wenigsten aber in dem einen oder dem an-<lb/>
+dern derselben eine Offenbarung Gottes finden dürfe.<lb/>
+Gott habe uns die Vernunft gegeben, Alles zu prü-<lb/>
+<cb type="end"/>
+<pb facs="#f0003" n="43"/>
+<fw place="top" type="pageNum">43</fw><cb type="start"/>
+fen. Wenn ich indeß einen solchen Jüngling wirklich<lb/>
+fände, so möchte ich wenigstens nicht unterlassen, mich<lb/>
+nach seinem Thun und Treiben zuvor näher zu er-<lb/>
+kundigen.</p><lb/>
+<p>Da sendete ich nun meine alte Magd hinaus un-<lb/>
+ter die Linden mit dem Befehl, den Ersten, der ihr<lb/>
+in ein gelbes Gewand gekleidet begegnen würde, un-<lb/>
+verzüglich hierher zu bescheiden. Und siehe da, kaum<lb/>
+war sie fort, so fand sie dich, nunmehr meinen lieben<lb/>
+Sohn Gustav Adolf! Dein ganzes Benehmen schon<lb/>
+gewann mein Herz und die sieben Bürger stimmten<lb/>
+sämmtlich im Lobe deines frommen und tugendhaften<lb/>
+Wandels miteinander überein. So sollst du denn mein<lb/>
+Erbe sein und mir bald die Augen zudrücken wie ein<lb/>
+guter Sohn seiner Mutter, und deine Mutter sei fortan<lb/>
+meine liebe Schwester.&#x201C;</p><lb/>
+<p>Mit diesen Worten endete Frau Christina ihre<lb/>
+Rede; dann drückte sie wechselsweise meine Mutter und<lb/>
+mich inbrünstig an ihr Herz, als wären wir nahe<lb/>
+Blutsverwandte und langjährige vertraute Freunde.<lb/>
+Der Pfarrer aber lud uns ein, mit ihm hinabzukom-<lb/>
+men zum Mittagsmahl und der Kranken Ruhe zu<lb/>
+gönnen nach so heftiger Aufregung.</p><lb/>
+<p>Nach drei Monaten des freundschaftlichsten und in-<lb/>
+nigsten Beisammenseins weinten wir auf Frau Chri-<lb/>
+stinen 's Grabe Thränen heißester Dankbarkeit und nim-<lb/>
+mer wird das Andenken an die edle Wohlthäterin in<lb/>
+meinem Herzen verlöschen. Jch heirathete später hier<lb/>
+mein trautes Weibchen, die Tochter des Wirths zum<lb/>
+goldenen Adler in Renzfeld und übernahm nach dem<lb/>
+Tode meines Schwiegervaters dessen Gastwirthschaft.<lb/>
+Seit einigen Wochen sind wir, wie meinen werthen<lb/>
+Gästen bekannt, in die Mauern Wiedenhofens einge-<lb/>
+zogen, und so Gott will, gedenken wir auch hier un-<lb/>
+sere Tage zu beschließen. Meine alte Mutter lebt noch<lb/>
+hier im Hause und kann Jhnen, meine werthen Gäste,<lb/>
+jedes meiner Worte bestätigen.</p><lb/>
+<p>Wunderbar genug ging Alles zu, so wunderbar,<lb/>
+daß es einem ehrlichen Menschenkinde kaum zu ver-<lb/>
+übeln ist, wenn es nicht daran glauben will. Allein<lb/>
+wir gewahren ja täglich noch ganz andere Wunder und<lb/>
+Zeichen um uns her, wenn wir nur Augen, Ohren<lb/>
+und Herzen haben, um zu sehen, zu hören und zu<lb/>
+erkennen.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Das ehemalige naumburger Bier.</hi></head><lb/>
+<p><hi rendition="#in">D</hi>en ausgezeichneten Ruf, den jetzt das bairische Bier<lb/>
+hat, behauptete im 14. und 15. Jahrhundert das<lb/>
+naumburger, von dem das Sprüchwort galt: &#x201E; Naum-<lb/>
+burger Bier ist der Thüringer Malvasier.&#x201C; Es ward<lb/>
+weit und breit, wenn der Sage zu trauen ist, sogar<lb/>
+bis Rom verfahren. Ehrengeschenke an regierende Her-<lb/>
+ren, an Bischöfe und Äbte wurden mit naumburger<lb/>
+Bier abgemacht. Jn der Mitte des 15. Jahrhunderts<lb/>
+war der Vertrieb am stärksten. Täglich gingen zu<lb/>
+allen Thoren ganze Fuder hinaus und es ist leicht zu<lb/>
+begreifen, welch bedeutende Summen dafür in die<lb/>
+Stadt flossen und wie wohl die Bürger sich dabei be-<lb/>
+fanden. Kein anderes in Thüringen gebrautes Bier<lb/>
+konnte neben dem Naumburger aufkommen und die<lb/>
+Preise der thüringer Weine wurden dadurch sehr nie-<lb/>
+dergedrückt, sodaß viele Regenten ernste Maßregeln ge-<lb/>
+gen das naumburger Bier ergriffen. Noch im folgen-<lb/>
+den Jahrhundert durfte bei leipziger Doctor= und<lb/>
+Magisterschmäusen und andern Gastereien das naum-<lb/>
+<cb n="2"/>
+burger Bier nicht fehlen. Am ausführlichsten verbrei-<lb/>
+tet sich Knauf, der ein vornehmer Braumeister in<lb/>
+Naumburg war, über das Bier seiner Vaterstadt; er<lb/>
+schrieb ein Büchlein: &#x201E;Kunst Bier zu brauen&#x201C;, wo er<lb/>
+sich als «Beider Rechte Doctor» unterzeichnet. Er be-<lb/>
+schreibt es in dieser Schrift also:</p><lb/>
+<p>&#x201E;Jn Thüringen ist das naumburger Bier das be-<lb/>
+rühmteste und vornehmste, auch das nicht unbillig;<lb/>
+denn es hat viel Substanz, ist wohl gekocht, gibt viel<lb/>
+Nutriment, vermehrt die natürliche Wärme, und man-<lb/>
+gelt diesem Bier in keinem Stücke. Es steigt aber<lb/>
+leichtlich zu Kopfe, daher schreiben etliche Säufer, daß<lb/>
+dies Bier die Leute blind mache, und das ist ja doch<lb/>
+kein Wunder! Denn wenn man dieses Bier überflüs-<lb/>
+sig säuft und wie die unvernünftigen Thiere in sich<lb/>
+hinein geußt, so muß man nicht allein blind, sondern<lb/>
+auch ganz thöricht und unsinnig werden. Dies Bier<lb/>
+wird in die Städte weit und breit verkauft und in<lb/>
+Hauffen verführt, da es angenehm und lieb ist. Jch<lb/>
+habe das schönste und lieblichste Bier in der Stadt<lb/>
+daselbst getrunken, das einem im Herzen danach gelü-<lb/>
+sten möchte. Aber es will mäßig, mit musen und<lb/>
+maasen, nicht aber in Quartierchen getrunken sein u. s. w.&#x201C;</p><lb/>
+<p>Die Kunst, in den Naumburger Braupfannen<lb/>
+thüringer Malvasier zu brauen, gehört nun in Naum-<lb/>
+burg selbst zu den verlorenen, daher auch das alte<lb/>
+Sprüchwort seitdem außer Gebrauch und gänzlich in<lb/>
+Vergessenheit gekommen ist.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Bernadotte und der Grammatiker.</hi></head><lb/>
+<p><hi rendition="#in">E</hi>in französischer Emigrant, Herr von Bonald, hatte<lb/>
+sich in Hamburg niedergelassen und unter dem Na-<lb/>
+men S. Debonale eine französische Grammatik ge-<lb/>
+schrieben, die zahlreiche Auflagen erlebt hat. Jn<lb/>
+einer der frühern Auflagen hatte er als Beispiel<lb/>
+zu einer Regel den Satz angeführt: &#x201E;Man sagt,<lb/>
+Bonaparte sei ein großer Feldherr, er ist aber nur ein<lb/>
+großer Spitzbube&#x201C;, bei dessen Niederschreibung er sich<lb/>
+natürlich nicht im entferntesten gedacht hatte, daß Ham-<lb/>
+burg mit seinem Gebiete einige Jahre später dem fran-<lb/>
+zösischen Reiche einverleibt werden würde. Als dies<lb/>
+geschah, gerieth der arme Grammatiker in die größte<lb/>
+Angst und wußte sich nicht anders zu helfen als da-<lb/>
+durch, daß er die Seite, auf welcher jener Satz stand,<lb/>
+als Carton umdrucken zu lassen beschloß. Die Aus-<lb/>
+lassung des ganzen Satzes würde indeß zu große Ängst-<lb/>
+lichkeit verrathen haben und daher wurde nur der<lb/>
+Name verändert.</p><lb/>
+<p>Allein hierdurch war die Lage des armen Sprach-<lb/>
+lehrers um nichts gebessert, er kam vielmehr, wie man<lb/>
+zu sagen pflegt, aus dem Regen in die Traufe, indem<lb/>
+er statt Bonaparte den Namen Bernadotte's gewählt<lb/>
+hatte, der kurze Zeit nachher das Gouvernement der<lb/>
+Hansestädte erhielt.</p><lb/>
+<p>Es währte nicht lange, so hörte der Marschall von<lb/>
+jenem Satze in Bonald's Grammatik. Anfangs lachte<lb/>
+er herzlich darüber, dann aber nahm er sich doch vor,<lb/>
+den Verfasser ein wenig zu ängstigen. Er ersuchte<lb/>
+demnach den Polizeidirector von Hamburg, ihm den<lb/>
+Herrn von Bonald vorzustellen. Es geschah, und der<lb/>
+unglückliche Schriftsteller fiel in seiner Herzensangst dem<lb/>
+Marschall zu Füßen, welcher ihm derb die Moral las<lb/>
+und dann aufgab, alle noch vorräthigen Exemplare sei-<lb/>
+ner Grammatik unverzüglich abzuliefern. Herr von<lb/>
+<cb type="end"/>
+<pb facs="#f0004" n="44"/>
+<fw place="top" type="pageNum">44</fw><cb type="start"/>
+Bonald, hocherfreut, so wohlfeilen Kaufs wegzukom-<lb/>
+men, beeilte sich zu gehorchen und war nicht wenig<lb/>
+erstaunt, als man ihm die abgelieferten Exemplare<lb/>
+baar bezahlte. Noch höher aber stieg sein Erstaunen,<lb/>
+als der Marschall ihm nach einigen Tagen auch diese<lb/>
+<cb n="2"/>
+Exemplare zurückgeben und ihm sagen ließ, er könne<lb/>
+dieselben verkaufen, wenn er zuvor einen neuen Car-<lb/>
+ton drucken lasse.</p><lb/>
+<p>Kaum bedarf es wol schließlich der Erwähnung,<lb/>
+daß jener verhängnißvolle Satz diesmal völlig verschwand.</p></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1"><head><hi rendition="#fr">Kronstadt aus der Vogelschau.</hi></head><lb/>
+<figure/><lb/>
+<p><hi rendition="#aq">A</hi>. Fort Mentschikoff. <hi rendition="#aq">B</hi>. Fort Kronslot. <hi rendition="#aq">C</hi>. Fort Peter <hi rendition="#aq">I. D</hi>. Batterie der Citadelle. <hi rendition="#aq">E</hi>. Fort Alexander. <hi rendition="#aq">F</hi>. Fort Kon-<lb/>
+stantin. <hi rendition="#aq">G</hi>. Fort Risbank. <hi rendition="#aq">HHH</hi>. Einziges Fahrwasser, um nach Petersburg zu gelangen. <hi rendition="#aq">I</hi>. Batterie Risbank. <hi rendition="#aq">J</hi>. Fort<lb/>
+Peter. <hi rendition="#aq">K</hi>. Batterie Kesel. <hi rendition="#aq">LLL</hi>. Fort, Redoute und Befestigungswerk Michael. <hi rendition="#aq">M</hi>. Sommerwohnung des Gouverneurs. <lb/>
+<hi rendition="#aq">NNN</hi>. Fünf auf Felsenriffe gebaute Batterien. <hi rendition="#aq">O</hi>. Fort Katharina. <hi rendition="#aq">P</hi>. Nördliche Kanalsperre, alte mit Granitblöcken ge-<lb/>
+füllte und versenkte Schiffe. <hi rendition="#aq">Q</hi>. Dorf Systerbach. <hi rendition="#aq">R</hi>. Cap und Fort Lisi=Noß. <hi rendition="#aq">S</hi>. Petersburg. <hi rendition="#aq">T</hi>. Dorf Strielna. <lb/>
+<hi rendition="#aq">U</hi>. Peterhof. <hi rendition="#aq">V</hi>. Kriegshafen. <hi rendition="#aq">W</hi>. Nikolauskirche. <hi rendition="#aq">X</hi>. Mittelhafen und in Ausbesserung befindliche Schiffe. <hi rendition="#aq">Y</hi>. Kauf-<lb/>
+fahrteihafen. <hi rendition="#aq">Z</hi>. Andreaskirche. &#x2020;&#x2020;&#x2020; Sandbank.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Heimweh.</hi></head><lb/>
+<cb type="start"/>
+<p><hi rendition="#in">J</hi>n den Schluchten und Thälern des Atlasgebirges<lb/>
+lagerte schon tiefe Dämmerung, während die hohen<lb/>
+Berggipfel noch die untergehende Sonne beleuchtete.<lb/>
+Aber nicht die Heerden der wandernden Araber ruh-<lb/>
+ten unter den Palmen, kein Pferd wieherte, kein Hund<lb/>
+bellte, die gastliche Nähe von Menschen verkündend;<lb/>
+nur die Schakals heulten in den Bergen &#x2014; sie wit-<lb/>
+terten Menschenfleisch. Denn in den Schluchten und<lb/>
+Thälern des Gebirgs war heute ein harter Kampf ge-<lb/>
+kämpft worden zwischen den Franzosen und den einge-<lb/>
+borenen Arabern und ringsum lagen die Todten, Freund<lb/>
+und Feind, friedlich nebeneinander, von den Kugeln<lb/>
+zerfetzt, von den Säbeln der Araber gezeichnet, eine<lb/>
+blutige Ernte des Todes. Jn weiter Ferne nur er-<lb/>
+<cb n="2"/>
+tönten noch hier und da Flintenschüsse der die Bedui-<lb/>
+nen rasch verfolgenden Franzosen; auf dem Schlacht-<lb/>
+felde aber war Alles still. Da rauschte es in den<lb/>
+Bäumen und bald trat eine hohe weiße Gestalt heran,<lb/>
+welche schüchtern sich umschaute und dann, als sie Alles<lb/>
+sicher glaubte, mit wankenden Schritten das Schlacht-<lb/>
+feld durchwanderte, als suche sie einen geliebten Gegen-<lb/>
+stand. Endlich stand sie still vor einem mit todten<lb/>
+Arabern bedeckten Hügel. &#x201E;Mein Vater, mein Va-<lb/>
+ter!&#x201C; seufzte sie leise, &#x201E;wo werde ich dich finden?&#x201C;<lb/>
+Da schrie sie plötzlich laut auf; sie hatte in einem der<lb/>
+Todten des Vaters treuen Diener Mohamet erkannt<lb/>
+und daneben lag die Leiche eines Scheikhs. Es war<lb/>
+der geliebte Vater; die Kleider verriethen ihn, obschon,<lb/>
+<cb type="end"/>
+<pb facs="#f0005" n="45"/>
+<fw place="top" type="pageNum">45</fw><cb type="start"/>
+ach, der Kopf der theuern Leiche fehlte! Lautweinend<lb/>
+warf sie sich nieder &#x2014; sie hatte den Gesuchten gefun-<lb/>
+den, aber todt! Nur die letzte Pflicht konnte sie ihm<lb/>
+erweisen, sie konnte ihn begraben. Entschlossen stand<lb/>
+sie auf; ein zerbrochener Säbel sollte ihr als Grab-<lb/>
+scheit, die Hände ihr als Schaufel dienen; aber die<lb/>
+Arbeit ging über ihre Kräfte; todtmüde vor Anstren-<lb/>
+gung und Weinen sank sie bald kraftlos nieder neben<lb/>
+dem geliebten Leichnam. Da war es ihr, als ob ein<lb/>
+vernehmliches Seufzen ihr Ohr träfe. Sie horcht ge-<lb/>
+nauer hin, sie geht dem Tone nach; da liegt mitten<lb/>
+<cb n="2"/>
+unter den Arabern ein junger Franzose, der, obschon<lb/>
+schwer verwundet, noch lebt. Das Mädchen schau-<lb/>
+dert: &#x201E;Er hat vielleicht meinen Vater getödtet!&#x201C; Aber<lb/>
+bald gewinnt die Menschlichkeit die Oberhand; sie zieht<lb/>
+ein Fläschchen aus ihrem Gewande, wäscht dem Be-<lb/>
+wußtlosen die Schläfe mit Balsam und der Verwun-<lb/>
+dete erwacht endlich aus todtenähnlicher Ohnmacht.<lb/>
+Das arabische Mädchen zündet schnell ein Feuer an<lb/>
+und bald erholt sich der Franzose. Er fragt, er sieht<lb/>
+um sich, er erblickt das unvollendete Grab und den<lb/>
+Leichnam des Arabers, neben dem das fremde Mäd-<lb/>
+<cb type="end"/>
+<figure/><lb/>
+<cb type="start"/>
+chen weinend sitzt; er ahnt den ganzen Zusammenhang.<lb/>
+&#x201E;Du hast mir das Leben gerettet&#x201C;, spricht er, &#x201E;ich<lb/>
+helfe dir deinen Vater begraben.&#x201C; Es gelingt den<lb/>
+vereinten Anstrengungen, und ehe noch der Morgen<lb/>
+graut, legen Beide den Leichnam in das frische Grab.</p><lb/>
+<p>Und als die Sonne heraufkam über die Gebirge,<lb/>
+da blitzten auf den nächsten Höhen Bayonnete, die<lb/>
+dreifarbige Fahne flatterte im Morgenwinde, die Fran-<lb/>
+zosen kamen siegreich zurück! Ein ganzer Stamm war<lb/>
+vernichtet &#x2014; Männer, Frauen und Kinder; die ge-<lb/>
+raubten Heerden begleiteten die siegreichen Krieger. Die<lb/>
+junge Araberin, die zitternd neben dem verwundeten<lb/>
+Franzosen stand, als die Feinde sich nahten, erfuhr,<lb/>
+daß sie nicht blos den Vater, sondern Alles, Heimat,<lb/>
+Geschwister und Verwandte verloren hatte!</p><lb/>
+<p>Demüthig folgte sie dem jungen Franzosen nach<lb/>
+Algier. &#x201E;Du hast meinen Vater begraben; ich bin<lb/>
+deine Sklavin.&#x201C;</p><lb/>
+<cb n="2"/>
+<p>Sidiah hieß die junge Araberin, die durch ihre<lb/>
+Schönheit, ihre Trauer und ihre Ergebenheit in die<lb/>
+Schickungen Gottes allgemeines Aufsehen in Algier<lb/>
+machte, wo sie der Jüngling in einer befreundeten Fa-<lb/>
+milie untergebracht hatte. Der junge Franzose, Na-<lb/>
+mens Eugen, war Offizier und von angesehener Fa-<lb/>
+milie; aber die empfangenen Wunden machten ihn zu<lb/>
+längerm Militärdienst untüchtig und er bekam den<lb/>
+Abschied.</p><lb/>
+<p>Nach Frankreich, nach dem schönen Frankreich!<lb/>
+Wer sehnte sich nicht dahin aus dem heißen Brande<lb/>
+der Wüste, aus dem wilden, barbarischen Kriegsleben?<lb/>
+Aber was sollte aus der armen Sidiah werden, die<lb/>
+ihm das Leben gerettet?</p><lb/>
+<p>Sidiah, sagte eines Tages Eugen, ich reise in<lb/>
+meine Heimat.</p><lb/>
+<p>Sidiah erbleichte; sie hatte Niemand, Niemand in<lb/>
+der Welt.</p><lb/>
+<cb type="end"/>
+<pb facs="#f0006" n="46"/>
+<fw place="top" type="pageNum">46</fw>       <cb type="start"/>
+<p>Willst du mich nach Frankreich begleiten? Jch<lb/>
+habe eine Mutter, sie wird deine Mutter sein.</p><lb/>
+<p>Sidiah ist deine Sklavin, sagte sie demüthig. Hast<lb/>
+du nicht meinen Vater begraben? Wo du hingehst,<lb/>
+will ich auch hingehen, deine Heimat soll meine Hei-<lb/>
+met sein.</p><lb/>
+<p>Das Dampfschiff stieß ab vom Kai. Da lagen<lb/>
+die weißen dächerlosen Häuser Algiers an den Bergen<lb/>
+und spiegelten sich in dem blauen Meere, und drüber<lb/>
+herüber schauten die hohen Minarets und die schlan-<lb/>
+ken Palmen und in der Ferne die Gipfel des Atlas.<lb/>
+Lange stand Sidiah auf dem Verdeck und blickte star-<lb/>
+ren Auges hinüber nach den Bergen, wo sie unter<lb/>
+dem Zelte ihres Vaters, in der Nähe wasserreicher<lb/>
+Quellen, im Schatten der Palmen eine glückliche Ju-<lb/>
+gend verlebte. Jmmer weiter entschwand das Land ih-<lb/>
+ren Blicken, bald ragten nur noch die Gipfel der<lb/>
+Berge aus dem blauen Meere heraus und als auch<lb/>
+sie schwanden, da sank das bleiche arabische Mädchen<lb/>
+ohnmächtig um und man mußte die Bewußtlose in die<lb/>
+Kajüte tragen. Hier blieb sie. Längst sah man Frank-<lb/>
+reichs Küste und den Hafen von Toulon; Sidiah lag<lb/>
+theilnahmlos in ihrer Hängematte. Wie verstört stieg<lb/>
+sie ins Boot, das sie ans Land führen sollte; das<lb/>
+fremde Leben ringsherum stürmte zu gewaltig auf sie<lb/>
+ein und sie schmiegte sich ängstlich an ihren Beschützer,<lb/>
+der sie ohne Aufenthalt nach dem Landsitze seiner Mut-<lb/>
+ter führte.</p><lb/>
+<p>Es war ein wonniges Wiedersehen; Vater und<lb/>
+Mutter, Bruder und Schwester erdrückten fast den<lb/>
+heimkehrenden Eugen vor Liebe; nur Sidiah stand,<lb/>
+ein paar große Thränen im Auge, demüthig von fern<lb/>
+in der Thür, von Niemand gesehen, von Niemand<lb/>
+geherzt! Eugen mußte erzählen; er berichtete von sei-<lb/>
+nen letzten Schicksalen und wie er dem Tode nahe auf<lb/>
+dem Schlachtfelde am Atlas gelegen. &#x201E;Jch war un-<lb/>
+fehlbar eine Beute des Todes&#x201C;, rief Eugen, &#x201E;da ret-<lb/>
+tete mich dieses Mädchen. Die Araberin rettete den<lb/>
+Feind ihres Volks! Jhr dankt es, daß ihr mich lebend<lb/>
+in euren Armen haltet.&#x201C; Und hiermit zog er das<lb/>
+schüchterne Mädchen herbei und führte es zur Mutter,<lb/>
+die die Fremde herzlich in ihre Arme schloß, und zu<lb/>
+den Schwestern, die sie herzten und küßten.</p><lb/>
+<p>Sidiah war wieder unter liebenden Menschen; aber<lb/>
+diese Menschen sprachen eine andere Sprache, hatten<lb/>
+andere Sitten, eine andere Religion. Das Mädchen<lb/>
+der Wüste zog sich still in sich selbst zurück, sie sprach<lb/>
+nicht, sie lachte nicht, und nur wenn Eugen zu ihr<lb/>
+trat und sie in der süßen Sprache der Heimat anre-<lb/>
+dete, flog ein Strahl heller Freude über ihr Gesicht.</p><lb/>
+<p>Es war Eugen's Geburtstag. Eine große Anzahl<lb/>
+Gäste war versammelt; Sidiah sollte heute zum ersten<lb/>
+male in fränkischen Kleidern erscheinen. Man hatte<lb/>
+ihr die schönsten Gewänder ausgesucht, ihre Haare ge-<lb/>
+flochten, und die Kammerfrau ihrer Herrin war ganz<lb/>
+bezaubert von der in eine Französin umgewandelten<lb/>
+schönen Araberin. Die Gäste kamen; aber Sidiah war<lb/>
+verschwunden. Vergebens suchte man sie überall; end-<lb/>
+lich fand sie Eugen in einem entlegenen Stübchen des<lb/>
+Hauses in den Kleidern ihres Stammes. Sie warf<lb/>
+sich weinend Eugen zu Füßen, sie bat und beschwor<lb/>
+ihn, ihr die Kleider zu lassen, die sie daheim getra-<lb/>
+gen. &#x201E;Mir ist in euerm Schmucke wie einer verpflanz-<lb/>
+ten Blume; ich würde welken und sterben wie sie.&#x201C;</p><lb/>
+<p>Kopfschüttelnd ließ sie Eugen. Aber Sidiah konnte<lb/>
+in Frankreich keine Araberin bleiben; sie verstand we-<lb/>
+der zu lesen noch zu schreiben, sie war unwissend in<lb/>
+Allem wie ein Kind, sie war eine Mohammedanerin<lb/>
+<cb n="2"/>
+mitten unter Christen. Sidiah ward in ein Kloster<lb/>
+gethan, wo sie ihre Erziehung vollenden sollte. Nun<lb/>
+mußten die heimatlichen Kleider weichen; das Kind des<lb/>
+Scheikhs mußte eine civilisirte Europäerin werden.</p><lb/>
+<p>Mit tiefem Schmerze mußte sie eine der alten hei-<lb/>
+matlichen Sitten nach der andern ablegen, selbst ihre<lb/>
+alten lieben Gebete und den heiligen Koran und die<lb/>
+geweihten Amulete, die sie um den Hals trug. Es<lb/>
+war ihr, als nähme man ein Stück von ihrem Leben<lb/>
+nach dem andern; sie schwieg und fügte sich in ihr<lb/>
+Schicksal. Aber doch saß sie manchmal Abends weh-<lb/>
+müthig im Garten, das Gesicht gen Mittag gewendet,<lb/>
+wo ihre Heimat war, und die Augen voll Thränen.</p><lb/>
+<p>Jetzt war die Erziehung vollendet und der Tag<lb/>
+herbeigekommen, wo sie das Letzte, ihren Glauben und<lb/>
+ihren Namen, ablegen sollte. Es war ein feierlicher<lb/>
+Augenblick, als die blasse arabische Jungfrau, umge-<lb/>
+ben von Eugen's Familie, am Taufstein ihr christli-<lb/>
+ches Glaubensbekenntniß sprach und in der heiligen<lb/>
+Taufe den Namen Marie erhielt!</p><lb/>
+<p>Sidiah, die wir jetzt Marie nennen müssen, kehrte<lb/>
+zurück in Eugen's älterliches Haus; sie war äußerlich<lb/>
+eine Europäerin geworden, aber ihre Lebenskraft war<lb/>
+geknickt. Wie die in fremde Erde verpflanzte Blume<lb/>
+nach heimatlicher Sonne und Luft sich sehnend ihr<lb/>
+Haupt senkt und, abnehmend an Farbe und Duft,<lb/>
+nach und nach eingeht, so schien auch Sidiah=Marie,<lb/>
+von einem unheilbaren Heimweh ergriffen, zu verwel-<lb/>
+ken. Die Sehnsucht nach den Palmen ihrer Heimat,<lb/>
+nach den Heerden und den väterlichen Zelten, nach<lb/>
+den engen, beschränkten Frauengemächern ihres Landes<lb/>
+erfaßte sie mitten in den glänzendsten Gesellschaften,<lb/>
+auf den belebten Promenaden, in dem Kreise der sie<lb/>
+liebenden Familie. Die Röthe der Wangen, der Glanz<lb/>
+der Augen, die Elasticität der jugendlichen Glieder<lb/>
+wichen vor einer Krankheit, die kein Arzt kannte, keine<lb/>
+Arznei heilen konnte, vor dem Heimweh, das das sonst<lb/>
+so blühende Mädchen der Wüste verzehrte. Die um<lb/>
+sie besorgte Familie war in der größten Angst, Eugen<lb/>
+in Verzweiflung; er hätte seine Lebensretterin so gern<lb/>
+glücklich gesehen, so gern glücklich gemacht. Aber Nie-<lb/>
+mand erfuhr, was ihr fehle. &#x201E;Mir fehlt nichts, nichts,<lb/>
+sagte sie dem fragenden Eugen. Hast du nicht mei-<lb/>
+nen Vater begraben? O ich könnte für dich sterben!&#x201C;</p><lb/>
+<p>Dabei schwand ihre Lebenskraft sichtlich und die<lb/>
+Aerzte, die sich nicht mehr zu helfen wußten, riethen<lb/>
+eine Luftveränderung, eine Reise nach Afrika; vielleicht<lb/>
+daß unter dem heimatlichen Himmel die Kranke genese.</p><lb/>
+<p>Eugen und seine Schwester begleiteten unsere Si-<lb/>
+diah=Marie, die todesmatt in Marseille ankam. Ein<lb/>
+Gasthof am Meere nahm sie auf. Man führte die<lb/>
+Kranke ans offene Fenster. Da lag das blaue reizende<lb/>
+Meer, das Afrikas, der Heimat Küsten, bespülte, und<lb/>
+laue Lüfte führten Hunderte von weißbeflügelten Schiffen<lb/>
+herein in den schützenden Hafen.</p><lb/>
+<p>Oh, oh! seufzte die Kranke und ein freudiges Lä-<lb/>
+cheln umspielte ihren blassen Mund, das sind heimat-<lb/>
+liche Lüfte, da könnte ich gesund werden!</p><lb/>
+<p>Bei dem geöffneten Fenster schlief sie sanft wie seit<lb/>
+lange nicht, als ein lautes Gemurmel fremdartiger<lb/>
+Stimmen in der Nebenstube unsern Eugen, der an<lb/>
+ihrem Bette saß, aufmerksam machte. Deutlich unter-<lb/>
+schied man die Worte des arabischen Gebets: &#x201E;Gott<lb/>
+ist Gott und Mohammed sein Prophet.&#x201C; Eugen horchte<lb/>
+hoch auf; das waren Männer von Sidiah's Volke,<lb/>
+die ihren Gott nach Mohammed's Weise verehrten.<lb/>
+Waren es Stammesgenossen oder Fremde?</p><lb/>
+<p>Eugen ging, sich zu erkundigen und ließ die<lb/>
+<cb type="end"/>
+<pb facs="#f0007" n="47"/>
+<fw place="top" type="pageNum">47</fw><cb type="start"/>
+Schwester bei der Kranken. Eben war das Gebet<lb/>
+geendigt, man hörte in der Krankenstube, wie Eugen<lb/>
+in die Nebenstube eintrat; es ward still, nur einzelne<lb/>
+unverständliche Worte drangen durch die Thür; aber<lb/>
+jetzt ward die Stimme des einen Arabers lauter und<lb/>
+eifriger, ein furchtbarer Schrei erschallte &#x2014; &#x201E;Allah<lb/>
+sei gelobt!&#x201C; Thüren wurden aufgerissen und zuge-<lb/>
+schlagen, Fußtritte nahten sich und herein zur Thür<lb/>
+stürzte ein alter Beduine. Aber wie vom Blitz ge-<lb/>
+troffen blieb er stehen, als er die bleiche Jungfrau auf<lb/>
+dem Ruhebette erblickte. Leise auf den Zehen trat er<lb/>
+an sie heran &#x2014; es war wirklich, als wenn Thränen<lb/>
+über seine gebräunte Wange rollten. &#x201E;Sidiah!&#x201C; rief<lb/>
+er, &#x201E;Sidiah!&#x201C; Da öffnet die Kranke die Augen, sie<lb/>
+sieht den arabischen Greis, wie der Blitz richtet sie<lb/>
+sich auf, sie starrt ihn an, da sagt er noch einmal:<lb/>
+&#x201E;Sidiah!&#x201C; und mit dem Ausruf: &#x201E;Mein Vater!&#x201C;<lb/>
+sinkt Sidiah=Marie ohnmächtig auf ihr Bett zurück.</p><lb/>
+<p>Und es war wirklich Sidiah's Vater. Der Todte,<lb/>
+den die Beiden in jener Nacht begraben, war der<lb/>
+Scheikh eines benachbarten Stammes; Sidiah's Vater<lb/>
+lebte, hatte allein sich aus dem Blutbade gerettet und<lb/>
+war in die Wüste geflohen. Als er heimkehrte, waren<lb/>
+seine Frauen und Kinder, seine Heerden und Stam-<lb/>
+mesgenossen todt oder geraubt. Durch Zufall erfuhr<lb/>
+er später, daß ein Stammesgenosse in Algier einen<lb/>
+französischen Offizier mit einem arabischen Mädchen<lb/>
+gesehen haben wollte, die seiner Tochter glich. Er hatte<lb/>
+nähere Erkundigungen eingezogen, hatte erfahren, daß<lb/>
+jene arabische Jungfrau nach Frankreich gebracht wor-<lb/>
+den sei und war jetzt in Begleitung einer Anzahl<lb/>
+Scheikhs, die dem Könige der Franzosen ihre Ehrfurcht<lb/>
+bezeigen wollten, nach Frankreich gereist, um die ver-<lb/>
+lorengegangene Tochter um jeden Preis wiederzuerhal-<lb/>
+ten. Der Zufall wollte, daß der betrübte Vater seine<lb/>
+Sidiah eher finden sollte, als er gedacht. Da stand<lb/>
+der alte Scheikh grimmig vor dem Bette der Leblosen<lb/>
+und verwünschte die Christen, die ihm sein Liebstes ge-<lb/>
+raubt. Erst als Sidiah wieder zum Bewußtsein kam<lb/>
+<cb n="2"/>
+nnd ihrem wiedergefundenen Vater erzählt hatte, wie<lb/>
+Eugen mit ihr den vermeintlichen Leichnam des Va-<lb/>
+ters begraben, wie er sie, die Heimatlose, wie eine<lb/>
+Schwester aufgenommen und wie vieles Gute ihr seine<lb/>
+Familie erzeigt, erst dann ward der alte wilde Sohn<lb/>
+der Wüste ruhiger. Man sprach von der Heimat, sie<lb/>
+war ja so nahe und der wiedergefundene Vater solle<lb/>
+Sidiah dahin begleiten; die Bilder der Heimat gaukel-<lb/>
+ten vor den Augen ihres Geistes, und erst spät Abends<lb/>
+mußte man mit Gewalt den alten Scheikh von der fie-<lb/>
+berhaft aufgeregten Kranken trennen.</p><lb/>
+<p>Als der Vater am andern Morgen wiederkam,<lb/>
+fand er eine Leiche. Die unverhoffte Freude hatte die<lb/>
+heimwehkranke Sidiah getödtet.</p><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<p>Am andern Morgen stieß eine kleine Brigg von<lb/>
+Frankreichs Ufer ab; sie trug den Scheikh und den<lb/>
+Leichnam seiner Tochter hinüber an die glühende Küste<lb/>
+Afrikas. Unter den Palmen der Heimat ruht Sidiah-<lb/>
+Marie, die Blume der Wüste.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Musik und &#x2014; Musik.</hi></head><lb/>
+<p><hi rendition="#in">B</hi>ei der Krönung Napoleon's wollten die Pariser auch<lb/>
+durch etwas Unerhörtes in Kirchenmusik sich hervorthun<lb/>
+und das Orchester ward mit 80 Harfen vermehrt,<lb/>
+um so den König David recht zu multipliciren. Die<lb/>
+Aufführung setzte in ein galantes Erstaunen. Gleich<lb/>
+nachher betrat der Papst die Kirche und ein Chor von<lb/>
+30 aus Rom mitgebrachten Sängern empfing ihn mit<lb/>
+dem mächtigen: &#x201E; <hi rendition="#aq">Tu es Petrus</hi>!&#x201C; von Scarlatti &#x2014;<lb/>
+damit war auf der Stelle der ganze frühere Spektakel<lb/>
+todtgeschlagen und die Pariser hielten es später für<lb/>
+Jronie, wenn man von der Majestät der 80 Harfen<lb/>
+redete.</p></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1"><figure><head><hi rendition="#fr">Der gemeine Wolf.</hi></head></figure></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<pb facs="#f0008" n="48"/>
+<fw place="top" type="pageNum">48</fw><lb/>
+<div n="1" type="jVarious"><head><hi rendition="#fr"><hi rendition="#g">Mannichfaltiges</hi>.</hi></head>       <cb type="start"/>
+<div n="2" type="jArticle"><p>Die Shawls von Kaschmir werden vorzugsweise in<lb/>
+der Stadt gleiches Namens verfertigt, in der sich, wie Ba-<lb/>
+ron Hügel erzählt, gegen 16,000 Webstühle dazu befinden.<lb/>
+Der gedachte Reisende fand die Arbeiter sehr gedrängt bei-<lb/>
+sammen sitzen; an sieben Stühlen arbeiteten 16 Menschen,<lb/>
+die dabei den Kopf im Takte wiegten und die Hände mit<lb/>
+staunenswerther Schnelligkeit bewegten. An einem großen<lb/>
+Shawl kann eine Werkstätte wol über ein Jahr zubringen,<lb/>
+während eine andere an geringerer Waare vielleicht sechs bis<lb/>
+acht Stück in derselben Zeit zu liefern im Stande ist. Von<lb/>
+den buntesten und besten Shawls machen drei Leute in <hi rendition="#g">einem</hi><lb/>
+Tage kaum einen Viertelzoll fertig. Shawls, die viele Fi-<lb/>
+guren haben, werden in besondern Abtheilungen in verschie-<lb/>
+denen Werkstätten gemacht. An <hi rendition="#g">einem</hi> Stuhle arbeiten<lb/>
+zwei bis vier Personen. Das Webeschiff ist lang, schmal<lb/>
+und schwer; bunte Muster aber werden mit hölzernen Na-<lb/>
+deln gearbeitet, deren jede die Fäden einer besondern Farbe<lb/>
+enthält. Für jeden Shawl ist ein Aufseher vorhanden, der<lb/>
+den Arbeitern Anleitung gibt; er hat das Muster auf Pa-<lb/>
+pier gezeichnet vor sich und gibt Farben, Fäden und Figu-<lb/>
+ren an. Bei der Arbeit ist die rauhe oder linke Seite des<lb/>
+Gewebes nach oben gerichtet.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Die Wasserkünste in den Gärten von Peterhof bei<lb/>
+Petersburg sollen großartiger sein als die zu Versailles; auch<lb/>
+eine Menge sinnreicher Wasserkunststückchen sind vorhanden,<lb/>
+welche den Zweck haben, das Publicum zu ergötzen und zu<lb/>
+überraschen. So sind an dem Stamme und den Aesten eines<lb/>
+Baums dünne Röhren angebracht und so angestrichen, daß<lb/>
+man sie nicht bemerkt. Aus diesen unzähligen Röhren fließt<lb/>
+dann und wann plötzlich das Wasser, daß der Baum zu wei-<lb/>
+nen und jedes seiner Blätter Thränen zu vergießen scheint.<lb/>
+Jn Folge einer andern Vorrichtung bildet sich plötzlich über<lb/>
+einem Sitze, den zufällig ein Spaziergänger einnimmt, eine<lb/>
+hohle Wasserkugel, sodaß es aussieht, als säße er unter einer<lb/>
+Glasglocke. Wieder eine ist so angelegt, daß, wenn Je-<lb/>
+mand sich auf eine an einem besonders lockenden Orte ste-<lb/>
+hende Bank setzt, das Gewicht seines Körpers auf eine Fe-<lb/>
+der drückt und in Folge dieses Drucks von allen Seiten her<lb/>
+das Wasser auf ihn herabströmt, daß er <hi rendition="#aq">nolens volens</hi> ein<lb/>
+Douchebad erhält. </p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Der Dienstag ist nächst dem Sonntage, dem Volks-<lb/>
+glauben zufolge, der glücklichste Tag der ganzen Woche; es<lb/>
+ist der Tag der Freuden und Hochzeiten. Sonst fanden in<lb/>
+einem großen Theile von Deutschland in der Regel alle<lb/>
+Trauungen am Dienstage statt, wol daher, weil vielerwärts<lb/>
+der Dienstag ein Kirchentag ist, an dem mindestens eine<lb/>
+Betstunde stattfand. Jede große Hochzeit der Landleute<lb/>
+dauerte fast eine Woche. Sonntag war das Hirselesen zum<lb/>
+<cb n="2"/>
+Hochzeitbrei; Montag war Fegetag, da wurde Alles vorbe-<lb/>
+reitet; Dienstag, Mittwoch und Donnerstag dauerten die<lb/>
+Hochzeitgelage; Freitag hieß der Trolltag, die Gäste beka-<lb/>
+men die Trollsuppe und trollten sich sammt ihren Kuchen-<lb/>
+säcken nach Hause. Das Volkssprüchwort: &#x201E;Wer am Dien-<lb/>
+stag <hi rendition="#g">lacht,</hi> muß am Freitag <hi rendition="#g">weinen</hi> &#x201C;, läßt sich vielleicht<lb/>
+aus dem Bisherigen erklären: am Dienstag die Freude glück-<lb/>
+licher Verheirathung lieber Kinder und am Freitage der<lb/>
+Schmerz der Trennung. </p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Türkische Unbefangenheit. Jn Widdin hatte der Pa-<lb/>
+scha den Wirth einer Locanda, Alexy, plötzlich durch einen<lb/>
+Kawassen abholen lassen, weil er als russischer Spion ver-<lb/>
+dächtig geworden war. Es würde kurzer Proceß mit ihm<lb/>
+gemacht worden sein, wenn sich der östreichische Consul sei-<lb/>
+ner nicht angenommen hätte. Die genauere Untersuchung<lb/>
+ließ den Arrestanten unschuldig erscheinen und er ward frei-<lb/>
+gegeben. Das andern Morgens erschien der Kawaß, der den<lb/>
+Wirth arretirt hatte, in seiner Locanda, um sich von Letz-<lb/>
+term für den ihm geleisteten Liebesdienst der Arretur ganz<lb/>
+naiv ein Backschisch ( Trinkgeld ) auszubitten.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Wie sich ein Franzose das Wort Messer erklärte.<lb/>
+Jener sagt zu einem Deutschen: <hi rendition="#aq">Comment dit on en Alle-<lb/>
+mand couteau</hi>? &#x2014; Messer! &#x2014; <hi rendition="#aq">Messert! Messert! Ah bon.<lb/>
+Je comprends: Me-sert. Le couteau me sert à manger.</hi> </p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>St.=Theonest ist der wunderliche Name eines Heiligen,<lb/>
+den die Legendenbücher nicht kennen und nennen, den aber<lb/>
+das Volk am Rheine kennt und nennt; das Rheinstädtlein<lb/>
+Kaub führt ihn im Schilde und Siegel. Er sitzt in der<lb/>
+Weinkufe, in der er aus Mainz flüchtend rheinabwärts<lb/>
+schwamm, worauf er bei Kaub landete, predigte und süße<lb/>
+Reben pflanzte.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Quäkerisches. Ein Mann will einer Quäkerin einen<lb/>
+Kuß geben. Sie aber weigert sich dessen, bis der Mann<lb/>
+schwört, er müsse einen bekommen. Da spricht die Quäke-<lb/>
+rin: Damit du nicht falsch geschworen hast, will ich dir<lb/>
+einen Kuß geben; aber misbrauche den Schwur ferner nicht.<lb/>
+&#x2014; Ein Quäker redet einem fluchenden Manne zu, jetzt, da<lb/>
+er einmal im Zuge sei, fortzufluchen, damit das garstige<lb/>
+Zeug nicht in ihm bliebe, sondern Alles herauskomme. Der<lb/>
+Angeredete ging in sich und fluchte ferner nicht mehr.</p></div></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jAnnouncements"><head><hi rendition="#fr"><hi rendition="#g">Ankündigungen</hi>.</hi></head><lb/>
+<div n="2" type="jAn"><head><hi rendition="#fr"><hi rendition="#g">Samen=Offerte</hi>.</hi></head><lb/>
+<p>Das diesem Blatte beiliegende Preisverzeichniß meiner Sämereien empfehle ich zur gefälligen Beachtung<lb/>
+und bitte ergebenst, mir werthe Aufträge auf meine Producte gefälligst per Post zugehen zu lassen.</p><lb/>
+<p>Echten veredelten Zucker=Rüben=Samen notire ich bei großen Quantitäten billiger als im Preisverzeich-<lb/>
+nisse bemerkt.</p><lb/>
+<p> <space dim="horizontal"/>  <hi rendition="#fr">Heinrich Mette,</hi><lb/>
+<space dim="horizontal"/>   Kunst= und Handelsgärtner in Quedlinburg bei Magdeburg. </p></div><lb/>
+<milestone rendition="#hr" unit="section"/></div><lb/>
+</body>     <back><div n="1" type="imprint"><p><hi rendition="#c">Verantwortlicher Redacteur: <hi rendition="#aq">M</hi>. J. E. Volbeding. &#x2014; Druck und Verlag von F. A. Brockhaus in Leipzig.</hi></p></div>     </back>   </text> </TEI>

@@ -1,0 +1,953 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.deutschestextarchiv.de/basisformat.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">     <teiHeader>
+<fileDesc>
+<titleStmt>
+<title type="main">Das Pfennig-Magazin für Belehrung und Unterhaltung</title>
+<title type="sub">Dritte Folge, Zweiter Jahrgang, Nr. 71</title>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/115266127">
+<surname>Geyken</surname>
+<forename>Alexander</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1222198746">
+<surname>Haaf</surname>
+<forename>Susanne</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1019062681">
+<surname>Jurish</surname>
+<forename>Bryan</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Boenig</surname>
+<forename>Matthias</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Thomas</surname>
+<forename>Christian</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Wiegand</surname>
+<forename>Frank</forename>
+</persName>
+</editor>
+<respStmt>
+<orgName>Institut für Deutsche Sprache, Mannheim</orgName>
+<resp>
+<note type="remarkResponsibility">Bereitstellung der Bilddigitalisate und TEI
+Transkription</note>
+<ref target="http://hdl.handle.net/10932/00-01B8-B099-EF1F-B001-2"/>
+</resp>
+</respStmt>
+<respStmt>
+<persName>
+<forename>Peter</forename>
+<surname>Fankhauser</surname>
+</persName>
+<resp>
+<note type="remarkResponsibility">
+Transformation von TUSTEP nach TEI P5.
+Transformation von TEI P5 in das DTA TEI P5 Format.
+</note>
+</resp>
+</respStmt>
+<respStmt>
+<orgName ref="https://www.bbaw.de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<resp>
+<note type="remarkResponsibility">Langfristige Bereitstellung der DTA-Ausgabe</note>
+<ref target="https://www.bbaw.de"/>
+</resp>
+</respStmt>
+</titleStmt>
+<editionStmt><edition>Vollständige digitalisierte Ausgabe.</edition></editionStmt>
+<extent>
+<measure type="images">8</measure>
+<measure type="tokens">5485</measure>
+<measure type="types">2265</measure>
+<measure type="characters">36888</measure>
+</extent>
+<publicationStmt>
+<publisher xml:id="DTACorpusPublisher">
+<email>dta@bbaw.de</email>
+<orgName role="project">Deutsches Textarchiv</orgName>
+<orgName role="hostingInstitution" xml:lang="en">Berlin-Brandenburg Academy of Sciences and Humanities (BBAW)</orgName>
+<orgName role="hostingInstitution" xml:lang="de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<address>
+<addrLine>Jägerstr. 22/23, 10117 Berlin</addrLine>
+<country>Germany</country>
+</address>
+</publisher>
+<pubPlace>Berlin</pubPlace>
+<date type="publication">2025-10-24T08:35:12Z</date>
+<availability>
+<licence target="http://creativecommons.org/publicdomain/zero/1.0/">
+<p>Dieses Werk steht unter der "Creative Commons Namensnennung -
+Nicht kommerziell 3.0 Deutschland Lizenz" (CC BY-NC).</p>
+</licence>
+</availability>
+<idno>
+<idno type="URLWeb">https://www.deutschestextarchiv.de/nn_pfennig071_1854</idno>
+<idno type="URLXML">https://www.deutschestextarchiv.de/book/download_xml/nn_pfennig071_1854</idno>
+<idno type="URLHTML">https://www.deutschestextarchiv.de/book/download_html/nn_pfennig071_1854</idno>
+<idno type="URLText">https://www.deutschestextarchiv.de/book/download_text/nn_pfennig071_1854</idno>
+<idno type="DTADirName">nn_pfennig071_1854</idno>
+<idno type="DTAID">34729</idno>
+<idno type="URN">urn:nbn:de:kobv:b4-34729-8</idno>
+</idno>
+</publicationStmt>
+<sourceDesc>
+<bibl type="J">Das Pfennig=Magazin für Belehrung und Unterhaltung. Dritte Folge, Zweiter Jahrgang, Nr. 71. Leipzig (Sachsen), 4. Mai 1854.</bibl>
+<biblFull>
+<titleStmt>
+<title level="m" type="main">Das Pfennig-Magazin für Belehrung und Unterhaltung</title>
+<title level="m" type="sub">Dritte Folge, Zweiter Jahrgang, Nr. 71</title>
+</titleStmt>
+<editionStmt>
+<edition n="1"/>
+</editionStmt>
+<publicationStmt>
+<publisher/>
+<pubPlace>Leibzig (Sachsen)</pubPlace>
+<date type="publication">1854</date>
+</publicationStmt>
+</biblFull>
+<msDesc>
+<msIdentifier/>
+<physDesc>
+<typeDesc>
+<p>Fraktur</p>
+</typeDesc>
+</physDesc>
+</msDesc>
+</sourceDesc>
+</fileDesc>
+<encodingDesc>
+<editorialDecl>
+<p>
+<![CDATA[
+<p>Siehe Dokumentation</p>
+]]>
+</p>
+</editorialDecl>
+<tagsDecl>
+<rendition scheme="css" xml:id="aq">font-family:sans-serif</rendition>
+<rendition scheme="css" xml:id="b">font-weight:bold</rendition>
+<rendition scheme="css" xml:id="blue">color:blue</rendition>
+<rendition scheme="css" xml:id="c">display:block; text-align:center</rendition>
+<rendition scheme="css" xml:id="et">display:block; margin-left:2em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et2">display:block; margin-left:4em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et3">display:block; margin-left:6em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="f">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="fr">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="g">letter-spacing:0.125em</rendition>
+<rendition scheme="css" xml:id="i">font-style:italic</rendition>
+<rendition scheme="css" xml:id="in">font-size:150%</rendition>
+<rendition scheme="css" xml:id="k">font-variant:small-caps</rendition>
+<rendition scheme="css" xml:id="larger">font-size:larger</rendition>
+<rendition scheme="css" xml:id="red">color:red</rendition>
+<rendition scheme="css" xml:id="right">display:block; text-align:right</rendition>
+<rendition scheme="css" xml:id="s">text-decoration:line-through</rendition>
+<rendition scheme="css" xml:id="smaller">font-size:smaller</rendition>
+<rendition scheme="css" xml:id="sub">vertical-align:sub; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="sup">vertical-align:super; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="u">text-decoration:underline</rendition>
+<rendition scheme="css" xml:id="uu">border-bottom:double 3px #000</rendition>
+</tagsDecl>
+</encodingDesc>
+<profileDesc>
+<langUsage>
+<language ident="deu">(Früh-)Neuhochdeutsch</language>
+<language ident="deu">German</language>
+</langUsage>
+<textClass>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1main">Gebrauchsliteratur</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1sub">Zeitschrift</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">ready</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">mkhz1</classCode>
+</textClass>
+</profileDesc>
+</teiHeader>
+<text>     <front>
+<pb facs="#f0001" n="[145]"/>
+<titlePage type="heading"><docTitle><titlePart type="main"><hi rendition="#c #fr">Das Pfennig=Magazin<lb/>
+für<lb/>
+<hi rendition="#g">Belehrung und Unterhaltung</hi>.</hi></titlePart></docTitle><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<docImprint><hi rendition="#fr">Nr</hi>. 71. ]                <hi rendition="#c">Dritte Folge. Zweiter Jahrgang.</hi>                <docDate><hi rendition="#right">[ 4<supplied>.</supplied> <hi rendition="#g">Mai</hi> 1854.</hi></docDate>              </docImprint></titlePage><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+</front>     <body>       <div n="1"><figure><head><hi rendition="#aq">Ecce homo!</hi></head></figure></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Lebenswendungen.</hi><lb/>
+( Fortsetzung. )</head><lb/>
+<cb type="start"/>
+<p><hi rendition="#in">A</hi>ls Jutta's beide Söhne von ihr fern waren, wurde<lb/>
+es ihr doch in dem Schlößchen etwas einsam. Jn ih-<lb/>
+rem Herzen prägte sich endlich der stille Wunsch aus,<lb/>
+auch in der Stadt wohnen zu können, um nicht der<lb/>
+Einsamkeit zu sehr überwiesen, vielmehr öfter bei ihren<lb/>
+Söhnen zu sein. Sie wollte aber, da ihre Pension<lb/>
+ihr keinen größern Aufwand gestattete, nicht auch noch<lb/>
+Geld für eine Wohnung in der Stadt ausgeben und<lb/>
+<cb n="2"/>
+ihr Landhaus leer stehen lassen, daher unterdrückte sie<lb/>
+ihren stillen Wunsch, so oft er auch in ihr aufstieg.<lb/>
+Herr Wenzel hatte dies lange gemerkt. Einst trat er<lb/>
+bei dem heftigsten Regenwetter in ihr stilles Haus<lb/>
+ein, grüßte Jutta sehr eilig und sprach: &#x201E;Heute, liebste<lb/>
+Freundin, führt mich eine Geschäftssache zu Jhnen,<lb/>
+die Eile hat, deshalb komme ich bei Regen und<lb/>
+Sturm. Jch will auch kurz sein und gleich mit der<lb/>
+<cb type="end"/>
+<pb facs="#f0002" n="146"/>
+<fw place="top" type="pageNum">146</fw><cb type="start"/>
+Sache herausrücken. Zuerst aber eine Frage: Jst Jh-<lb/>
+ren denn Jhr Schlößchen, das Sie jetzt mit Jhrer<lb/>
+Magd allein bewohnen, nicht zu einsam?&#x201C;</p><lb/>
+<p>Jutta erwiderte: &#x201E;Soll ich es offen bekennen, geehr-<lb/>
+ter Herr Wenzel, so muß ich Jhnen gestehen, daß ich<lb/>
+mich in dem mir sonst so lieben Hause doch recht ab-<lb/>
+geschlossen fühle, seit meine Söhne dasselbe verlassen<lb/>
+aben.&#x201C;</p><lb/>
+<p>Nun, meinte Herr Wenzel, ich hoffe für Sie einen<lb/>
+Ausweg gefunden zu haben. Schon seit langer Zeit<lb/>
+ist mir gerade Jhr Schlößchen so angenehm erschienen,<lb/>
+daß ich mich oft danach gesehnt habe, auch ein solches<lb/>
+einfaches Landhaus zu besitzen. Da erfahre ich, daß<lb/>
+ein Kaufmann in unserer Stadt beabsichtigt, Jhnen<lb/>
+Jhre Wohnung feil zu machen und darum griff ich<lb/>
+gleich nach Stock und Hut, um zu Jhrem Besitzthume<lb/>
+den ersten Liebhaber abzugeben. Sind Sie also wil-<lb/>
+lens, Jhr Schlößchen zu verkaufen, dann bitte ich<lb/>
+Sie, mir den Vorzug als Käufer zu lassen. Der Un-<lb/>
+terhändler des kauflustigen Handelsgenossen in der Stadt<lb/>
+spricht jedenfalls in kürzester Zeit bei Jhnen ein; er hat<lb/>
+mir versichert, daß er Auftrag habe, bis auf 2000<lb/>
+Thaler hinaufzugehen, ich aber zahle Jhnen gern 500<lb/>
+Thaler mehr, und Sie verpflichten mich zu Danke,<lb/>
+wenn Sie mir Jhre Besitzung abtreten.</p><lb/>
+<p>Dies Alles kam der Jutta so schnell über den<lb/>
+Hals, daß sie nicht wußte, was sie sagen sollte. Man<lb/>
+bot ihr für das Schlößchen viel mehr, als der Haupt-<lb/>
+mann früher gegeben hatte; man kam ihren Wünschen,<lb/>
+in der Stadt sein zu können, zuvor; sie selbst wußte<lb/>
+recht gut, daß ihr Landhaus einer bedeutenden Repa-<lb/>
+ratur bedurfte, die sie aus ihren Mitteln nicht bestrei-<lb/>
+ten konnte. Sinnend saß Jutta ein Weilchen an der<lb/>
+Seite Herrn Wenzel's, dann sprach Sie: &#x201E;Verehrter<lb/>
+Freund! Die Räume, in welchen man Lust und Weh<lb/>
+des Lebens getragen hat, werden uns lieb und theuer,<lb/>
+daher ist es recht schwer, sich von denselben loszureißen;<lb/>
+ich sehe aber auch, daß Jhr Antrag für mich nur vor-<lb/>
+theilhaft sein kann, und Sie selbst scheinen an dem<lb/>
+Landhause Wohlgefallen zu haben, darum will ich mich<lb/>
+nicht lange bedenken. Nehmen Sie mein Schlößchen<lb/>
+für 2000 Thaler und erlauben Sie mir und meinen<lb/>
+Söhnen nur, zuweilen in dasselbe mit eintreten zu<lb/>
+dürfen!&#x201C;</p><lb/>
+<p>Herr Wenzel antwortete: &#x201E;Jch würde für das<lb/>
+Landhaus jedem Fremden 2500 Thaler gegeben haben<lb/>
+und diese Summe müssen auch Sie von mir annehmen,<lb/>
+sonst kann aus dem Handel nichts werden! Bin ich<lb/>
+Jhnen ja doch schon zu herzlichstem Danke verpflichtet,<lb/>
+daß Sie mir meinen Lieblingswunsch erfüllen. Uebri-<lb/>
+gens sehe ich recht gut ein, daß jede kleine Scholle,<lb/>
+jedes Plätzchen, jeder schattige Baum uns lieb wird,<lb/>
+wenn Erinnerungen damit in Verbindung stehen; darum<lb/>
+gestatte ich Jhnen und Jhren Söhnen am Schlößchen<lb/>
+gern und zu jeder Zeit das Wiederkaufsrecht.&#x201C;</p><lb/>
+<p>Jutta mochte noch Bedenklichkeiten aufstellen, so<lb/>
+viel sie wollte, sie mußte sich endlich zu Abschließung<lb/>
+des Handels, wie Wenzel es wünschte, bequemen,<lb/>
+hatte aber keine Ahnung davon, daß er dies Alles um<lb/>
+ihretwillen that. Nach wenigen Monaten war der<lb/>
+Kaufcontract vor Gericht bestätigt und Jutta wohnte<lb/>
+in der Stadt in einem freundlichen Logis, das nur<lb/>
+eine kleine Strecke von der Wenzel'schen Handlung ent-<lb/>
+fernt lag.</p><lb/>
+<p>Da Wenzel's Geschäft in so hohen Schwung kam,<lb/>
+so konnte der Chef desselben auch noch ein leidliches<lb/>
+Sümmchen an das Schloß wenden. Dasselbe wurde<lb/>
+reparirt und mit jedem Jahre verschönert. Die Bu-<lb/>
+<cb n="2"/>
+chenwaldung, welche das Haus umzog, ließ Wenzel<lb/>
+mit Sandgängen durchziehen und die freien Plätze<lb/>
+verzierte er mit Blumenanlagen. Nach wenig Jahren<lb/>
+war das Schlößchen in einen lieblichen Lustsitz umge-<lb/>
+wandelt und in demselben Grade, wie dieses Landhaus<lb/>
+sich verschönerte, nahm auch der Wohlstand Wenzel's<lb/>
+zu. Jutta und ihre Söhne waren dabei ebenso glück-<lb/>
+lich als das ihnen so innig befreundete Wenzel'sche<lb/>
+Ehepaar; die Jahre flohen schneller hin, als sie selbst<lb/>
+es wünschten.</p><lb/>
+<p>Kurt hatte nach vier Jahren seine Lehrzeit vollen-<lb/>
+det; er war ein recht wackerer junger Kaufmann ge-<lb/>
+worden. Seinen Plan, zur See zu gehen, hatte er<lb/>
+nicht aufgegeben, derselbe war vielmehr in ihm ganz<lb/>
+zur Reife gekommen. So sehr Jutta davor erbebte,<lb/>
+ihren Sohn auf den stürmischen Wellen des Meers sich<lb/>
+zu denken, so wenig vermochte sie ihn auf andere Ge-<lb/>
+danken zu bringen. Herr Wenzel versuchte es gar<lb/>
+nicht, Kurt auf etwas Anderes zu leiten; denn er<lb/>
+meinte, daß man jedem Menschen Gelegenheit lassen<lb/>
+müsse, in der Welt etwas zu versuchen und daß schon<lb/>
+Millionen auf der See ihr Glück gefunden hätten.</p><lb/>
+<p>Ein Jahr lang konnte Jutta ihren Kurt noch zu-<lb/>
+rückhalten, dann aber führte er seinen Plan aus. Da<lb/>
+in Bezug auf denselben Herr Wenzel mehr auf der<lb/>
+Seite Kurt's stand, so suchte sich Jutta zu fassen und<lb/>
+gab endlich zur Abreise Kurt's ihre Einwilligung.<lb/>
+Während die sorgende Mutter Alles darauf vorberei-<lb/>
+tete, that Herr Wenzel auch das Seine. Kurt wollte<lb/>
+nach Amerika hinübersegeln. Er sprach geläufig Eng-<lb/>
+lisch und ihm war nicht bange, in der Neuen Welt<lb/>
+jenseit des Oceans durchzukommen, da ihm sein Lehr-<lb/>
+herr versprochen hatte, ihn mit allen nur möglichen<lb/>
+Empfehlungen an verschiedene Handelshäuser Neuyorks<lb/>
+zu versehen.</p><lb/>
+<p>Der Tag der Abreise war festgesetzt; es war im<lb/>
+Sommer. Kurt ging noch einmal hinaus nach dem<lb/>
+Schlößchen, um von jedem einzelnen lieben Punkte Ab-<lb/>
+schied zu nehmen; er sagte Freunden und Bekannten<lb/>
+Lebewohl, dann kehrte er zurück, ordnete sein Reise-<lb/>
+gepäck sowie die Briefschaften und empfing von Herrn<lb/>
+Wenzel noch verschiedene Anweisungen an amerikanische<lb/>
+Häuser, um im Fall möglichen Geldmangels gleich<lb/>
+einen Ausweg zu haben. Jndem ihm sein Lehrherr<lb/>
+die wichtigen Papiere übergab, sprach er väterlich:<lb/>
+&#x201E;Jch weiß, lieber Kurt, daß du nur in größter Noth<lb/>
+von diesen Anweisungen Gebrauch machen und dir bei<lb/>
+redlicher, kluger Thätigkeit das Nöthige schon selbst er-<lb/>
+werben wirst. Du bist zwar noch jung, aber ich glaube<lb/>
+in dir schon die Festigkeit und die Vorsicht zu erblicken,<lb/>
+welche in einer neuen Welt unter allerlei Nationen<lb/>
+nothwendig ist.&#x201C;</p><lb/>
+<p>Alles war geordnet. Am Abend vor der Abreise<lb/>
+saßen Jutta und ihre Söhne noch einmal miteinander<lb/>
+an Wenzel's Tische, um das Abendbrot einzunehmen.<lb/>
+Die sonstige Heiterkeit der Gemüther wollte diesmal in<lb/>
+dem stillen Kreise nicht aufkommen; es perlte wol auch<lb/>
+eine Thräne aus den Augen.</p><lb/>
+<p>Als man vom Abendtische aufgestanden war, ging<lb/>
+Wenzel zu seiner Frau und zu Jutta, nahm dieselben<lb/>
+an der Hand und führte sie zu Kurt hin, worauf er<lb/>
+die Hände der Frauen wie seine eigene Hand auf den<lb/>
+Kopf des Scheidenden legte und im feierlichen Tone<lb/>
+sprach: &#x201E;Laß, lieber Sohn, dich segnen! Du gehst<lb/>
+hinaus, weit hinaus in die fremde, leid= und freuden-<lb/>
+volle Welt! Der Herr gehe mit dir! Habe deinen<lb/>
+Gott vor Augen und im Herzen! Hüte dich vor<lb/>
+Sünden! Unsere Wünsche begleiten dich! Werde ein<lb/>
+<cb type="end"/>
+<pb facs="#f0003" n="147"/>
+<fw place="top" type="pageNum">147</fw><cb type="start"/>
+feommer, biederer, braver Mann und kehre gesund<lb/>
+zurück! Gott mit dir, mein Jüngling; sein Engel ge-<lb/>
+leite dich!&#x201C;</p><lb/>
+<p>Herr Wenzel war so bewegt, daß er zwischen jedem<lb/>
+Satze eine lange Pause machen mußte; seine Segens-<lb/>
+worte wurden vom Weinen und Schluchzen der Uebri-<lb/>
+gen begleitet.</p><lb/>
+<p>Als Jutta sich gefaßt hatte, trocknete sie ihre Au-<lb/>
+gen und sprach mit einem unbeschreiblichen Tone sanf-<lb/>
+ter Mutterliebe: &#x201E;Mich verlangt noch, mein Kurt, mit<lb/>
+dir einen wichtigen Weg zu gehen, den darfst du nicht<lb/>
+unterlassen, und du, mein Albert, auch Jhr, befreun-<lb/>
+dete theure Wenzel's, mögt uns begleiten!&#x201C;</p><lb/>
+<p>Jutta erhob sich und Alle folgten ihr hinaus ins<lb/>
+Freie. Der Mond schien hell vom Himmel herab und<lb/>
+beleuchtete den Pfad der stillen Wanderer. Nur we-<lb/>
+nig Worte wurden zwischen ihnen gewechselt. Die Mut-<lb/>
+ter schritt mit Kurt einem Kirchlein zu, welches auf<lb/>
+dem Friedhofe stand, und Wenzel merkte bald, daß<lb/>
+für Kurt die letzten Minuten in der Heimat dem An-<lb/>
+denken seines Vaters geweiht sein sollten. Er hatte<lb/>
+richtig geschlossen.</p><lb/>
+<p>Jutta leitete Kurt bis an das Grab seines Vaters<lb/>
+und die Übrigen umstanden dasselbe mit. Die bewegte<lb/>
+Mutter blickte himmelwärts mit einer bewundernswür-<lb/>
+digen Fassuug, erhob betend die Hände und sprach:<lb/>
+&#x201E;Vater der Liebe! Du hast meine Bitten bisher erhört<lb/>
+und meine Söhne wohl gerathen lassen; ich danke dir<lb/>
+dafür! Einer will nun hinaus aufs Meer, in unbe-<lb/>
+kannte Länder, wohin mein schwaches Mutterauge nicht<lb/>
+reicht! Sei du nun um ihn, mein Gott, mit deinem<lb/>
+Schutze, wenn ihn Gefahr umlagert; stärke du ihm<lb/>
+seinen frommen Willen, wenn er straucheln will; er-<lb/>
+hebe du ihn, wenn er sich entmuthigt fühlt; leite du<lb/>
+ihn, wie du bisher gethan und führe ihn gut und<lb/>
+rein ins Vaterland zurück, zurück ans Mutterherz,<lb/>
+daß ich ihn einmal, einmal noch im Leben, wiedersehe!<lb/>
+Amen! Amen!&#x201C;</p><lb/>
+<p>Jutta konnte nicht weiter sprechen; die wehmü-<lb/>
+thigste Bewegung ihres Herzens überwältigte sie. Da<lb/>
+ergriff Herr Wenzel die Hand Kurt's, der an der an-<lb/>
+dern Seite des Grabes neben seiner Mutter stand und<lb/>
+sprach: &#x201E;Du reichst mir deine Hand über diesem klei-<lb/>
+nen Hügel. Viel, sehr viel liegt jetzt zwischen uns<lb/>
+Beiden! Da unten ruht eine Hülle, welche einen<lb/>
+Geist umschloß, der jetzt bittend, mahnend, warnend<lb/>
+aus unbekannten Höhen auf dich niederblickt und sein<lb/>
+Gebet mit dem unsern vereinigt. Mein Kurt, mein<lb/>
+Sohn, am Grabe deines Vaters versprich mir, daß du<lb/>
+nichts thun willst, was dich schändet, daß du leben<lb/>
+willst, wie wir es dich gelehrt haben, daß du nur nach<lb/>
+deiner eigenen Veredlung, nach dem Wahren und Gu-<lb/>
+ten streben willst, um einst fromm und glücklich zu<lb/>
+uns zurückzukehren!&#x201C;</p><lb/>
+<p>Kurt drückte seinem väterlichen Freunde mit inni-<lb/>
+ger Rührung die Hand und rief: &#x201E;Ja, ja, ich will es<lb/>
+und hoffe, daß der Vater des Lebens stets bei mir sein<lb/>
+und mich führen und leiten werde!&#x201C; Dann erhob er<lb/>
+den Blick zum mondhellen Himmel und betete: &#x201E;Herr<lb/>
+Gott, schütze gnädig alle die Theuren, die mit mir<lb/>
+hier an diesem Grabe stehen und führe mich einst<lb/>
+glücklich zu ihnen zurück! Amen, Amen!&#x201C; Als er<lb/>
+dies gesagt hatte, fiel er seinen Lieben um den Hals<lb/>
+und weinte sich aus.</p><lb/>
+<p>Als Jutta endlich eine Bewegung zur Rückkehr<lb/>
+machte, da bückte sich Herr Wenzel auf das Grab<lb/>
+nieder, pflückte einen Rautenzweig ab, überreichte ihn<lb/>
+Kurt und sprach: &#x201E;Bewahre ihn zum Andenken an<lb/>
+<cb n="2"/>
+diese Stunde; er sagt dir: Zeit und Raum trennen<lb/>
+die Herzen nicht!&#x201C;</p><lb/>
+<p>Frau Wenzel wollte dem lieben Pfleglinge auch ein<lb/>
+Andenken mitgeben und brach von der kleinen, am<lb/>
+Grabe aufwachsenden Esche einen frischen, jungen<lb/>
+Trieb ab, den sie Kurt mit den Worten überreichte:<lb/>
+&#x201E;Sei standhaft, wenn des Lebens Stürme wüthen!&#x201C;</p><lb/>
+<p>Jndessen hatte sich auch schon Jutta nach dem<lb/>
+Grabe niedergebückt. Sie überreichte Kurt zuerst eine<lb/>
+Federnelke und sprach: &#x201E;Bewahre deine Unschuld!&#x201C;<lb/>
+Dann gab sie ihm eine Lebensblume mit den Worten:<lb/>
+&#x201E;Bedenke das Ende!&#x201C; und endlich fügte sie eine Jm-<lb/>
+mortelle hinzu, sprechend: &#x201E;Sei treu bis zum Tode!&#x201C;</p><lb/>
+<p>Albert war bei seinem weichen Herzen in den stum-<lb/>
+men Schmerz der Trennung versunken; da aber Alle<lb/>
+dem theuern Bruder ein sinniges Andenken überreich-<lb/>
+ten, so wollte er auch nicht zurückbleiben, daher griff<lb/>
+er nach einer kleinen Monatsrose und nach einem Ver-<lb/>
+gißmeinnicht, drückte sie Kurt in die Hand und rief<lb/>
+schluchzend: &#x201E;Denke an uns! Erhalte dir die Rein-<lb/>
+heit des Herzens und du bewahrst dir ewige Jugend!&#x201C;</p><lb/>
+<p>Ernst und bewegt verließen Alle den stillen Fried-<lb/>
+hof und waren bald wieder in Herrn Wenzel's Hause<lb/>
+angekommen. Ehe noch der Tag anbrach, nämlich<lb/>
+früh 2 Uhr, ging die Post ab, mit welcher Kurt rei-<lb/>
+sen sollte. Allen war, als hätten sie in den letzten<lb/>
+drei Stunden noch einander unendlich viel zu sagen,<lb/>
+aber die Wehmuth ließ es nicht dazu kommen.</p><lb/>
+<p>Schlag 2 Uhr blies der Postillon. Noch einmal<lb/>
+drückte Kurt alle die Seinen stürmisch an das Herz, noch<lb/>
+einmal hing er lange an den Lippen seiner theuern<lb/>
+Mutter, dann stieg er in den Postwagen und dieser<lb/>
+rollte in wenigen Minuten zur Stadt hinaus.</p><lb/>
+<p>Jutta empfing von Kurt aus Hamburg noch einen<lb/>
+Brief, dann aber mußte sie sehr lange warten, ehe<lb/>
+ihr wieder eine Nachricht zuging; die Wochen schienen<lb/>
+ihr zu Jahren geworden zu sein. Endlich kam ein<lb/>
+Brief aus Neuyork an. Welche Freude empfanden<lb/>
+Kurt's Angehörige, als sie erfuhren, daß es dem jun-<lb/>
+gen Kaufmanne in der Neuen Welt sogleich gelungen<lb/>
+war, ein ganz erwünschtes Unterkommen zu finden,<lb/>
+wozu vorzüglich Wenzel's Empfehlung beigetragen hatte.</p><lb/>
+<p>Jm Verlaufe der Jahre kamen von Kurt nur gün-<lb/>
+stige Mittheilungen, welche durch Briefe von dem Chef<lb/>
+seines Handelshauses glänzend bestätigt wurden. Dem<lb/>
+Kurt vertraute sein Herr in Amerika bald sehr viel an,<lb/>
+wodurch er sich in immer größere Selbständigkeit ver-<lb/>
+setzt sah. Nachdem er sich in das Handelswesen Ame-<lb/>
+rikas eingelebt und tüchtige Erfahrungen gesammelt<lb/>
+hatte, versuchte er Geschäfte auf eigene Hand, bei wel-<lb/>
+chen er ausgezeichnetes Glück hatte. Zuletzt trat er<lb/>
+mit Herrn Wenzel in Handelsverbindung und sendete<lb/>
+diesem überseeische Artikel zu billigsten Preisen, wofür<lb/>
+er durch Herrn Wenzel deutsche Producte und Fabri-<lb/>
+kate nach Amerika kommen ließ. Fortuna war beiden<lb/>
+Handelsmännern auf eine seltene Weise günstig. Mit<lb/>
+jedem Jahre mehrte sich ihr Reichthum und Kurt's<lb/>
+Geschäft kam in einen so hohen Aufschwung, daß er<lb/>
+im Stande war, nach fünf Jahren auf eigene Kosten<lb/>
+ein Handelsschiff, zwei Jahre darauf aber noch ein<lb/>
+zweites auszurüsten. Sein höchstes Ziel war dadurch<lb/>
+erreicht und zugleich sein Lieblingswunsch erfüllt. So<lb/>
+manche Fahrt unternahm er mit seinen Schiffen und<lb/>
+Tausende flossen als Gewinn in seine Kasse.</p><lb/>
+<p><hi rendition="#c">( Beschluß folgt. )</hi></p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<cb type="end"/>
+<pb facs="#f0004" n="148"/>
+<fw place="top" type="pageNum">148</fw><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Staffa mit der Fingalshöhle.</hi></head><lb/>
+<figure/><lb/>
+<cb type="start"/>
+<p><hi rendition="#in">L</hi>ängs der Westküste Schottlands ziehen sich mehre<lb/>
+Jnselgruppen hin, welche den gemeinschaftlichen Namen<lb/>
+Hebriden führen. Die merkwürdigste von allen ist das<lb/>
+kleine, felsige Staffa, nicht länger als eine englische<lb/>
+Meile und nur eine Viertelmeile breit. Die Jnsel ist<lb/>
+kahl und unbewohnt, denn sie besteht ganz aus Ba-<lb/>
+salt, der besonders an der Südseite prächtige Säulen-<lb/>
+reihen und die berühmteste aller Höhlen, die Fingals-<lb/>
+höhle, bildet. Entdeckt und zuerst beschrieben hat letz-<lb/>
+tere der Ritter Banks, ein berühmter englischer Na-<lb/>
+turforscher, der im Jahre 1772 auf einer Reise nach<lb/>
+Schottland auch Staffa besuchte. Seitdem strömen<lb/>
+jährlich Tausende nach jenem Eilande und staunen dies<lb/>
+Wunderwerk der Natur an, das an Größe und Er-<lb/>
+habenheit Alles, was Menschenhände je schufen, weit<lb/>
+hinter sich zurückläßt. Man denke sich eine Felsen-<lb/>
+halle, von den schöpferischen Händen der Natur aus<lb/>
+einer unzählbaren Menge regelmäßiger, sechseckiger Ba-<lb/>
+saltsäulen in einer Höhe von 70&#x2014;120 Fuß, einer<lb/>
+Breite von 53 und einer Tiefe von nahezu 300 Fuß<lb/>
+erbaut, so hat man einen, wenn auch nur schwachen<lb/>
+und oberflächlichen Begriff von der gigantischen Grotte.<lb/>
+Jhr Jnneres wird durch das von außen einfallende<lb/>
+Tageslicht vollkommen erhellt, was nicht wenig zur<lb/>
+Enthüllung aller ihrer Schönheiten beiträgt. Zudem<lb/>
+weiß man bei der Fingalshöhle auch nichts von bösen<lb/>
+Dünsten, die bei so vielen andern Höhlen den Besu-<lb/>
+chenden belästigen, vielmehr steht die Luft innerhalb<lb/>
+der Grotte in beständiger Verbindung mit der äußern<lb/>
+<cb n="2"/>
+Atmosphäre und wird auch durch die Ebbe und Flut<lb/>
+fortwährend in Bewegung erhalten. Denn man muß<lb/>
+wissen, daß die Meereswellen den Boden der Höhle<lb/>
+vollständig bedecken und schäumend und tosend an den<lb/>
+Wänden derselben sich brechen. Dadurch entsteht ein<lb/>
+wunderbares, bald liebliches, bald brausendes Getön,<lb/>
+und diesem Umstande verdankt die Höhle ihren ur-<lb/>
+sprünglichen Namen: <hi rendition="#aq">An ua vine</hi>, d. h. die melodische<lb/>
+Höhle. Nur in äußerst seltenen Fällen ist das Meer<lb/>
+so ruhig, daß man mit einem Boote die Höhle befah-<lb/>
+ren kann. Zur rechten Seite befindet sich ein Fuß-<lb/>
+pfad, ungefähr 15 Fuß hoch über dem Wasser, gebil-<lb/>
+det durch abgebrochene Basaltpfeiler, über die man mit<lb/>
+vieler Vorsicht und Geschicklichkeit hinwegklettern muß.<lb/>
+Oft ist gerade nur soviel Raum vorhanden, um<lb/>
+einen Fuß darauf zu setzen, und da dieser Fußsteig ge-<lb/>
+rade im dunkelsten Theile der Höhle am gefährlichsten<lb/>
+wird und man häufig mit dem halben Leibe über dem<lb/>
+Wasser hängt, so gibt es auch nur Wenige, die Lust<lb/>
+haben, ihr Leben demselben anzuvertrauen. Die hin-<lb/>
+terste Wand bildet eine Reihe Säulen von ungleicher<lb/>
+Größe, die dem Prospecte einer Orgel nicht unähnlich<lb/>
+sein soll. Was endlich den Namen Fingalshöhle an-<lb/>
+langt, so trägt die Grotte, der gewöhnlichen Sage<lb/>
+nach, denselben zu Ehren des edeln und tapfern Für-<lb/>
+sten von Morven, Fingal, der im 3. Jahrhundert<lb/>
+nach Christi Geburt lebte und dessen ruhmvolle Kriegs-<lb/>
+thaten durch seinen Sohn Ossian in herrlichen Gesän-<lb/>
+gen der Nachwelt überliefert sind.</p></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<pb facs="#f0005" n="149"/>
+<fw place="top" type="pageNum">149</fw><lb/>
+<div n="1"><figure><head><hi rendition="#fr">Das königliche Schauspielhaus in Berlin.</hi></head></figure></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Die Sumpfwälder bei Neuorleans.</hi></head><lb/>
+<cb type="start"/>
+<p><hi rendition="#in">M</hi>anche zum Theil größere und bekanntere Städte<lb/>
+haben in ihrer Lage das Eigenthümliche, daß sie, auf<lb/>
+der einen Seite dem Meere oder einem andern großen<lb/>
+Gewässer zugewandt und auf der andern von Wäl-<lb/>
+dern oder Wüsteneien umgeben, so zu sagen, keine Um-<lb/>
+gegend haben. Der von der Wasserseite her Einge-<lb/>
+wanderte hat oft jahrelang darin sein Geschäft getrie-<lb/>
+ben, hat zahlreiche Bekanntschaften gemacht oder ist<lb/>
+seinen Vergnügungen nachgegangen, ohne zu wissen,<lb/>
+wie es jenseit der letzten Häuser aussieht. So hat die<lb/>
+Bevölkerung von Alexandria in Ägypten ihren Blick<lb/>
+lediglich nach dem Meere und nach dem Kanale, der<lb/>
+die Stadt mit dem Nil verbindet, und höchstens ein<lb/>
+Ausflug nach den Nadeln der Kleopatra oder nach den<lb/>
+Salpeterseen lockt den Reisenden ein Stück in die be-<lb/>
+nachbarte Sandwüste hinaus. Auch von den zahlrei-<lb/>
+chen Fremden, die der Handel in Rußlands großer<lb/>
+Seestadt am Schwarzen Meere, Odessa, zusammen-<lb/>
+führt, dürften die meisten die Landseite, eine unabseh-<lb/>
+bare, einförmige Grassteppe, nur flüchtig betrachtet<lb/>
+haben. Daß bei der alten Lagunenstadt Venedig von<lb/>
+einer Umgegend keine Rede sein kann, leuchtet Jedem<lb/>
+ein, welcher weiß, daß dieselbe eine tüchtige deutsche<lb/>
+Meile vom Festlande auf seichtem Meeresgrunde oder<lb/>
+ganz niedrigen Jnseln erbaut und durch eine gewaltige<lb/>
+Brücke erst seit wenig Jahren in engere und schnellere<lb/>
+<cb n="2"/>
+Verbindung als sonst mit dem Festlande gesetzt ist.<lb/>
+Häufiger noch kommen in Amerika dergleichen Fälle<lb/>
+vor, da hier die volle von Europa mitgebrachte Cul-<lb/>
+tur fortwährend der Wildniß Land abringt und daher<lb/>
+an größern Flüssen oft rasch Städte von Bedeutung<lb/>
+entstehen, die ihre Bedürfnisse zum Theil aus der<lb/>
+Ferne beziehen, in der Nähe aber von einem nur<lb/>
+durch wenige schmale Straßen durchschnittenen und<lb/>
+durch vereinzelte Ansiedelungen unterbrochenen Walde<lb/>
+umgeben sind.</p><lb/>
+<p>Jn Neuorleans, der großen Hafenstadt am Mis-<lb/>
+sissippi und dem Ausgangspunkte für den großartigen<lb/>
+Verkehr des gewaltigen Stromgebiets rechne man bei<lb/>
+einer Bevölkerung von 100,000 Einwohnern nicht dar-<lb/>
+auf, eine fröhliche Gesellschaft einen Ausflug aufs<lb/>
+Land machen oder Ältern ihre Kinder vor die Stadt<lb/>
+spazieren führen zu sehen. Wäre auch nicht die Haupt-<lb/>
+masse der Bevölkerung bei ihrem fortwährenden Trei-<lb/>
+ben und Sinnen auf Erwerb und bei einem für Viele<lb/>
+nur vorübergehenden Aufenthalte ziemlich todt dafür,<lb/>
+so entstände doch die Frage: Wohin sollen wir gehen?<lb/>
+Auf der einen Seite breitet sich der Strom mit seiner<lb/>
+wenigstens eine Meile lang daliegenden, zum Theil<lb/>
+doppelten und dreifachen Reihe von Schiffen aus; das<lb/>
+jenseitige Ufer zeigt zwei Ortschaften, die aber nur aus<lb/>
+einer einfachen Häuserreihe bestehen, und dahinter<lb/>
+<cb type="end"/>
+<pb facs="#f0006" n="150"/>
+<fw place="top" type="pageNum">150</fw><cb type="start"/>
+Wälder; von der Stadt an auf= und abwärts trifft<lb/>
+der Blick neben dem fortlaufenden Damme, der den<lb/>
+Überschwemmungen des Stroms Einhalt thun soll,<lb/>
+Gärten und weiterhin Mais= und Zuckerfelder. Wie<lb/>
+aber sieht es aus, wenn man vom Strome hinweg<lb/>
+landeinwärts geht oder wenn man diejenigen Straßen<lb/>
+der Stadt, die mit ihrem einen Ende dem Flusse zu-<lb/>
+laufen, dahinwandelt, um zum andern Ende hinaus-<lb/>
+zukommen? Da ist von einer hinauslaufenden Land-<lb/>
+straße und, mit Ausnahme einer einzigen Strecke, von<lb/>
+Feldern oder Gärten keine Spur zu finden; vielmehr<lb/>
+beginnt meist schon hinter den letztern Häusern ein sum-<lb/>
+pfiger Wald, in dem man an manchen Stellen knie-<lb/>
+tief waten kann, während man an andern einen zum<lb/>
+Theil durch Gräben entwässerten Verhau erblickt.<lb/>
+Warum aber gibt man einer Stadt, welche die dritte,<lb/>
+mindestens die vierte der Vereinigten Staaten, die<lb/>
+Hauptstadt des Südens und, namentlich durch die un-<lb/>
+geheure Baumwollenausfuhr, eine der wichtigsten Han-<lb/>
+delsstädte der Erde ist, nicht eine bessere Umgegend?<lb/>
+Warum fällt man nicht die Wälder, sammelt das<lb/>
+Wasser in zahlreichen Gräben und verwandelt das da-<lb/>
+zwischenliegende und durch die ausgeworfene Erde er-<lb/>
+höhte Land in fruchtbare Gärten und Felder? Das<lb/>
+würde in Europa geschehen, wo die Bevölkerung nicht<lb/>
+allein in einzelnen großen Städten, sondern im Gan-<lb/>
+zen stärker ist; so haben es namentlich die Holländer<lb/>
+und Friesen mit ausdauerndem Fleiße gemacht. Anders<lb/>
+der Amerikaner, dem so viel Land offen steht und der<lb/>
+bei seinem fortwährenden Weiterziehen sich auf einem<lb/>
+besondern Stück Grund und Boden so wenig einhei-<lb/>
+misch fühlt, daß ein unfruchtbarer oder, wie hier, ein<lb/>
+sehr schwer zu bearbeitender Landstrich in seinen Augen<lb/>
+unmöglich einer Mühe werth sein kann, die wenige<lb/>
+Tagereisen davon zehnfach lohnen würde. Dazu kommt,<lb/>
+daß ein beträchtlicher Theil der Bevölkerung, abgesehen<lb/>
+von den Sklaven und den zwar freien, aber zu Grund-<lb/>
+besitz nicht berechtigten Farbigen, erst aus dem Nor-<lb/>
+den oder Osten oder aus Europa eingewandert ist und<lb/>
+sich oft nur vorübergehend aufhält, dabei sich eine Exi-<lb/>
+stenz mühsam zu gründen oder eine gegründete rasch<lb/>
+auszubeuten sucht, Stadt und Gegend aber nicht als<lb/>
+seine Heimat betrachtet und für bessere Benutzung des<lb/>
+Landes keinen Sinn hat.</p><lb/>
+<p>Eine Trockenlegung der Sümpfe wäre aber hier<lb/>
+auch deshalb außerordentlich schwer, weil der Andrang<lb/>
+von Wasser, durch den sie entstanden sind, von zwei<lb/>
+verschiedenen Seiten her geschieht. Eine deutsche Meile<lb/>
+von dem linken Ufer des Stroms entfernt, der hier<lb/>
+von West nach Ost fließt, somit nördlich davon, dehnt<lb/>
+sich der Pontchartrainsee aus, ein eirundes, von West<lb/>
+nach Ost etwa 20 deutsche Meilen langes und etwa<lb/>
+halb so breites Wasserbecken, welches von Süden her<lb/>
+durch die erwähnten aus dem Wasser des Mississippi<lb/>
+entstandenen Sümpfe, von Westen her seit einigen<lb/>
+Jahren durch einen Arm, den der Strom bei einer<lb/>
+gewaltigen Überschwemmung durch das weiche Land ge-<lb/>
+brochen, von Norden her durch einige Bäche und kleine<lb/>
+Flüsse gespeist wird, im Osten aber, zugleich mit der<lb/>
+Mündung des Pearl= ( Perl= ) Flusses in den Borgne-<lb/>
+see, einen Winkel des mexicanischen Golfs, seinen Ab-<lb/>
+fluß hat. Der Fluß und der See zusammen nun<lb/>
+üben auf das dazwischenliegende flache und aus wei-<lb/>
+chem, angeschwemmtem Boden bestehende Land einen<lb/>
+solchen Druck aus, daß dasselbe dadurch nothwendig<lb/>
+zum Sumpfe wird, der, wenn er einmal nicht wohl<lb/>
+<gap reason="illegible" unit="chars" quantity="13"/>auszutrocknen ist, durch die Wurzeln der darin stehen-<lb/>
+den Bäume wenigstens Festigkeit erhält und vor Hin-<lb/>
+<cb n="2"/>
+wegreißung seines Bodens geschützt ist. Welche Wild-<lb/>
+heit aber auch der Wald durch den ihn erfüllenden<lb/>
+Sumpf und das hier und da dazwischen wachsende<lb/>
+Schilf erhält und wie leicht er Dem, der ihn durch-<lb/>
+wandert oder vielmehr durchwatet, als ein ferner, ein-<lb/>
+samer Urwald gelten könnte, wenn nicht das Geräusch<lb/>
+der nahen Stadt ihm oft vernehmbar wäre oder an-<lb/>
+dere Spuren der Cultur ihm begegneten, so ist doch<lb/>
+der Baumwuchs darin eben nicht mannichfaltig. Die<lb/>
+Sumpfcypresse ( <hi rendition="#aq">Cupressus disticha</hi> ) mit ihrem hohen<lb/>
+Stamme und ihren hellgrünen, platten Nadeln, die<lb/>
+paarweise einander gegenüberstehen, kann als die Kö-<lb/>
+nigin darin gelten. Freilich ist sie hier auch nicht das<lb/>
+zarte Bäumchen, welches seit einigen Jahren unsere<lb/>
+Parkanlagen ziert, sondern ein über 100 Fuß hoher<lb/>
+Waldriese, dessen röthliches Holz wegen seiner Festig-<lb/>
+keit und Zähigkeit besonders zu Bretern gesucht wird<lb/>
+und dessen im Verhältniß zur Höhe nicht sehr dicker<lb/>
+Stamm doch nach unten zu sich plötzlich erweitert und<lb/>
+durch seine gleich Strebepfeilern vorspringenden hohen,<lb/>
+aber nicht sehr dicken Wurzeln im Querdurchschnitt ein<lb/>
+sternförmiges Aussehen bekommt. Besonders auffällig<lb/>
+aber für Den, der den Baum noch nicht kennt, sind<lb/>
+die etwa zwei Ellen hohen, unten einen Fuß dicken<lb/>
+und oben abgerundeten pyramidenförmigen Auswüchse,<lb/>
+die aus jeder Wurzel 7&#x2014;8 Ellen vom Stamme her-<lb/>
+vorspringen und so den Baum in einem weiten Kreise,<lb/>
+der an Druidensteine erinnert, umgeben. Da in einer<lb/>
+solchen holzigen Pyramide, welche nur ein großer<lb/>
+Wurzelknollen ist, der Wuchs auf der einen Seite<lb/>
+aufwärts, auf der andern abwärts geht, so erhält das<lb/>
+oberste Ende, in welchem alle Fasern sich zusammen-<lb/>
+drängen und krümmen, eine solche Härte, daß es noch<lb/>
+wohl erhalten ist, wenn das Übrige in Folge der Fäl-<lb/>
+lung des Baums schon morsch geworden ist. Über-<lb/>
+haupt aber hat der Baum, wie man schon aus dem<lb/>
+jährlichen Wechsel seiner Nadeln sieht, eine Lebenskraft,<lb/>
+wie sie bei uns keinem Nadelbaume und selbst unter<lb/>
+den Laubhölzern höchstens den weichholzigen Pappeln<lb/>
+und Weiden innewohnt. Wir selbst haben Scheite da-<lb/>
+von, die am Damme des Mississippi eingerammelt wa-<lb/>
+ren, zu unserm Erstaunen Zweiglein treiben sehen, die<lb/>
+durch ihre zarten Nadeln den Ursprung des Holzes<lb/>
+verriethen.</p><lb/>
+<p>Ein anderer in jenen Wäldern vorkommender<lb/>
+Baum ist die an ihren dunkelgrünen, lederartigen, sehr<lb/>
+verschieden gestalteten Blättern kenntliche immergrüne<lb/>
+Eiche, die man, da sie selbst im Winter einen schön<lb/>
+dunkelgrünen Wipfel darbietet, selbst vor Pflanzungen<lb/>
+in Baumgängen anbaut. Neben ihr gibt es hier noch<lb/>
+eine schon mehre Breitengrade weiter nördlich vorkom-<lb/>
+mende Eichenart mit kleinen weidenartigen Blättern,<lb/>
+die aber im Winter, hier freilich nur auf kurze Zeit,<lb/>
+abfallen. Von den auf dem nordamerikanischen Con-<lb/>
+tinente so mannichfaltigen Ahornarten, unter denen im<lb/>
+Norden besonders der Zuckerahorn so bekannt und ge-<lb/>
+schätzt ist, trifft man hier nur eine mit kleinen, ecki-<lb/>
+gen, dem Epheu ähnlichen Blättern. Als ein immer-<lb/>
+grüner Baum steht noch hier und da der schlanke Lor-<lb/>
+berbaum, dessen Blätter wie die des südeuropäischen<lb/>
+als Würze an Speisen gebraucht werden. Sonst wach-<lb/>
+sen, wo der Sumpf am tiefsten ist, nur dichtbuschige<lb/>
+Weiden. Neben Bäumen bietet der Morast Schilf,<lb/>
+gelbe Schwertlilien und verschiedene hochstenglige Kräuter.</p><lb/>
+<p>Auch die Thierwelt ist hier nicht sehr mannichfaltig<lb/>
+und gehört meist der Classe der Amphibien an. Unter<lb/>
+den meist giftigen Schlangen trifft man eine etwa zwei<lb/>
+Ellen lange graue, hellbraun gefleckte, die sich oft auf<lb/>
+<cb type="end"/>
+<pb facs="#f0007" n="151"/>
+<fw place="top" type="pageNum">151</fw><cb type="start"/>
+schwimmenden Holzstücken sonnt, am häufigsten; fer-<lb/>
+ner die schwarze Mocassinschlange; sodann eine langsam<lb/>
+schleichende, auf schwarzem Grunde gelb und grün ge-<lb/>
+tüpfelte, eine der Länge nach gelb und schwarz ge-<lb/>
+streifte und eine kleine kupferfarbige Art. Den grünen<lb/>
+Laubfrosch erkennt der Europäer als alten Bekannten,<lb/>
+findet aber auch eine an Größe und Gestalt ganz<lb/>
+gleiche, doch an Farbe graubraune Art dazu. Statt<lb/>
+der gewöhnlichen hellbraunen Frösche der Heimat hüpft<lb/>
+hier an den Gräben eine ziemlich große Art mit fast<lb/>
+fußlangen Hinterbeinen in zwei bis drei Ellen weiten<lb/>
+Sprüngen an ihm vorüber; doch überzeugt er sich<lb/>
+schwer, daß ein Gebrüll, welches von einer entfernten<lb/>
+Kuh herzukommen scheint, die Stimme dieses Thiers<lb/>
+sei, das daher den Namen Brüllfrosch führt. Weniger<lb/>
+im eigentlichen Sumpfwalde als an Zäunen und an-<lb/>
+dern trockenen Stellen sieht man sehr langgeschwänzte<lb/>
+Eidechsen, wo möglich noch flinker als die unserigen,<lb/>
+dahinschlüpfen; am meisten aber wird man durch ihren<lb/>
+größern und furchtbarern Verwandten, den hechtsköpfi-<lb/>
+gen und katzenäugigen Alligator, der sich durch seine<lb/>
+länglichen Zacken auf dem Rücken von dem ägyptischen<lb/>
+Krokodil mit seinen glatten Rückenschildchen unterschei-<lb/>
+det, an die Nähe der heißen Zone erinnert. Doch ist<lb/>
+das Thier in der Nähe von Neuorleans, wo es doch<lb/>
+zu sehr gestört wird, nicht häufig. Wer dagegen die<lb/>
+Orte im Walde gut weiß, kann hier und da, wenn<lb/>
+ihm seine Beute nicht rasch in ein nahes Wasser ent-<lb/>
+schlüpft und sich tief in den weichen Schlamm wühlt,<lb/>
+kleine graue, unten dunkelgelbe oder braune Landschild-<lb/>
+kröten, auch wol eine fußlange und mit einem langen,<lb/>
+oben mit Hornzacken besetzten Schwanze versehene<lb/>
+schnappende Schildkröte ( <hi rendition="#aq">Snapping turtle</hi> ) finden. Vor<lb/>
+einem allerdings grauenhaft klingenden Gebrüll, das<lb/>
+mit einbrechender Abenddämmerung durch den sonst so<lb/>
+stillen Wald tönt, ist wol mancher eben erst von Eu-<lb/>
+ropa angekommene Fremde erschrocken; der Einheimi-<lb/>
+<cb n="2"/>
+sche weiß, daß der Ton aus der Kehle einer kleinen,<lb/>
+dem Menschen höchst ungefährlichen Eulenart kommt.<lb/>
+Einen fröhlichen Gesang kleiner Vögel darf man hier<lb/>
+freilich, wie in Nordamerikas Wäldern überhaupt, wo<lb/>
+man höchstens zwitschernde Töne vernimmt, nicht er-<lb/>
+warten. Der hochrothe, dickschnäblige Kanarienvogel<lb/>
+entzückt nur das Auge; Papagaien wagen sich nicht<lb/>
+in die Nähe der Stadt. Jn den Sümpfen wie am<lb/>
+See finden wilde Enten ihre Beute und an den hohen<lb/>
+Bäumen sieht man mitunter einen Specht hinauflau-<lb/>
+fen; im Ganzen aber ist die Zahl der Vögel nicht<lb/>
+bedeutend.</p><lb/>
+<p><hi rendition="#c">( Beschluß folgt. )</hi></p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head>&#x201E; <hi rendition="#fr">Ein Bild</hi>.&#x201C;</head><lb/>
+<p><hi rendition="#in">U</hi>nter dieser Aufschrift steht in den jüngst erschienenen<lb/>
+&#x201E;Soldatenliedern&#x201C; ( von Neumann und Reder ) ein Ge-<lb/>
+dicht, das einen Mann zum Gegenstande hat, dessen<lb/>
+unlängst erst ausführlicher in diesen Blättern gedacht<lb/>
+ward.</p><lb/>
+<p>Bei Meister Albrecht Dürer in Nürnberg erscheint<lb/>
+ein Ritter, um sich malen zu lassen, und als der<lb/>
+Künstler rasch ans Werk schreitet, sagt der Ritter:</p><lb/>
+<cit><quote><lg type="poem">         <l>&#x201E; Gemach, mein lieber Dürer, und haltet etwas ein!</l><lb/>
+<l>Will nicht in Sammt und Seide hier abgebildet sein.</l><lb/>
+<l>Mein Leben ist ein wildes, ein ew'ger Kampf und Streit,</l><lb/>
+<l>Drum wär ich in der Rüstung auch gerne conterfeit.</l><lb/>
+<l>Ein nimmer müder Kämpfer für Freiheit und für Recht &#x2014;</l><lb/>
+<l>So zeigt mich auf dem Bilde dem künftigen Geschlecht.&#x201C;</l></lg></quote></cit><lb/>
+<p>Und als der Maler fertig ist, wen zeigt das den<lb/>
+Gemalten überlebende Bild?</p><lb/>
+<cit><quote><lg type="poem">         <l>&#x201E; Das Bildniß jenes Mannes lebt noch in mancher Brust.</l><lb/>
+<l>Jhn nennt mit edlem Stolze das deutsche Vaterland.</l><lb/>
+<l>Der Ritter Ulrich Hutten ist ihm gar wohl bekannt.&#x201C;</l></lg></quote></cit></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1"><figure><head><hi rendition="#fr">Fischerboot.</hi></head></figure></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<pb facs="#f0008" n="152"/>
+<fw place="top" type="pageNum">152</fw><lb/>
+<div n="1" type="jVarious"><head><hi rendition="#fr"><hi rendition="#g">Mannichfaltiges</hi>.</hi></head>       <cb type="start"/>
+<div n="2" type="jArticle"><p><hi rendition="#aq">Tien Tich</hi>  wird meistens als Anführer der jetzt in China<lb/>
+rebellirenden Partei genannt. Ein Landsmann von uns, der<lb/>
+sich lange als Missionsprediger im indischen Archipel aufge-<lb/>
+halten und in gleicher Eigenschaft mehre Jahre in China<lb/>
+zugebracht hat, belehrt uns, dies sei nicht der Fall, sondern<lb/>
+Thien Ti Hoih sei der Name der aufständischen Gesellschaft<lb/>
+selbst. Der Name heiße übersetzt: Himmel, Erde, Meer;<lb/>
+der geheime Sinn desselben sei, die Erde solle durch den Ver-<lb/>
+ein zum Himmel werden; alles Schlechte solle auf Erden<lb/>
+ausgerottet, vor Allem jede Ungleichheit des Vermögens auf-<lb/>
+gehoben und Alles, was dem widerstrebe, wie Unkraut aus-<lb/>
+gejätet und vertilgt werden, damit die communistische Ver-<lb/>
+brüderung allein übrig bleibe, um bei voller Gleichheit und<lb/>
+Einheit als <hi rendition="#g">eine</hi> Familie der Erde Güter zu genießen. Das<lb/>
+Kennzeichen der Partei ist ein großes fünfeckiges Siegel mit<lb/>
+ineinandergeworfenen Charakteren, die man ohne einen be-<lb/>
+sondern Schlüssel nicht verstehen kann. Jn den darauf ge-<lb/>
+stochenen Charakteren sind zwei Oden, die Grundsätze der<lb/>
+Gesellschaft, die höchsten Chargen derselben u. s. w. verzeich-<lb/>
+net, aber so verschränkt, daß der Profane nichts heraus-<lb/>
+lesen kann. Merkwürdig bleibt es immer, daß die neue<lb/>
+chinesische Gesellschaft vor etwa einem Decennium entstand,<lb/>
+um dieselbe Zeit, wo auch in Europa die communistischen,<lb/>
+deutschkatholischen und freikirchlichen Bewegungen begannen.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Der Petersberg bei Halle heißt in den ältesten schrift-<lb/>
+lichen Aufzeichnungen der Lauter= oder Luterberg, im Latei-<lb/>
+nischen <hi rendition="#aq">Mons serenus</hi>, weil sein Gipfel gewöhnlich wolken-<lb/>
+frei erscheint und dann heiteres Wetter verkündet. Aber<lb/>
+nicht blos als Wetterprophet, auch als Wolkenscheide bezeich-<lb/>
+net ihn der Volksglaube; wirklich ziehen nur äußerst selten<lb/>
+Gewitterwolken über den Berg hin, sondern gewöhnlich thei-<lb/>
+len sie sich rechts oder links vor demselben. Nur im Spät-<lb/>
+herbst hüllt er sich zuweilen tage= und wochenlang in dichten<lb/>
+Nebel. Die Frühlingsnebel sind weder so dicht noch so an-<lb/>
+haltend. Jn einzelne, kleinere Wolken getheilt. jagen sich<lb/>
+dieselben vielmehr um die Kuppe des Berges herum und<lb/>
+verursachen durch ihr Gehen und Wiederkommen bald Hellung<lb/>
+bald Finsterniß auf der Höhe. Von der Ferne aus gesehen,<lb/>
+scheint es alsdann, als ob der Berg rauche und dann heißt<lb/>
+es gewöhnlich: der Herr Pastor auf dem Petersberge ( der<lb/>
+Hohepriester ) rauche Taback, es wird anderes Wetter.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Ursprung des Namens: Capelle, Capellan. Zu<lb/>
+den heiligsten Reliquien, welche die Könige der Franken be-<lb/>
+saßen, gehörte die Cappa ( der rauhe Obermantel ) des bei<lb/>
+ihnen so hochverehrten heiligen Martinus von Tours. Da<lb/>
+er nur klein war, ward er im Diminutiv auch Capelle ge-<lb/>
+nannt und die eigens zur Aufbewahrung dieser Reliquien<lb/>
+bestellten Geistlichen hießen Capellane. Der König und sein<lb/>
+Hof waren von der gewöhnlichen bischöflichen und Pfarr-<lb/>
+gewalt eximirt. So ward es auch die königliche Capella, die<lb/>
+<cb n="2"/>
+den König stets im Krieg wie im Frieden begleitete und die<lb/>
+Geistlichkeit derselben erlangte einen bedeutenden Einfluß im<lb/>
+Reiche.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Kuhfänger. Eisenbahnen &#x2014; so erzählt der Graf von<lb/>
+Görtz in seiner Reise um die Welt &#x2014; seien in Nordamerika<lb/>
+oft der einzige Weg durch eine Wildniß und daher werden<lb/>
+sie, trotz aller Gefahren, häufig als Fußpfad benutzt. &#x201E; Die-<lb/>
+selbe Vorliebe&#x201C; &#x2014; sagt er &#x2014; &#x201E;scheint auch dem Viehe eigen<lb/>
+zu sein und die Locomotiven pflegen mit einer Vorrichtung, <lb/>
+<hi rendition="#aq">Cow-catcher</hi> ( Kuhfänger ) genannt, versehen zu sein, be-<lb/>
+stehend aus einer vor den Vorderrädern befestigten Abdachung<lb/>
+aus starken Bohlen, die bis fast zu den Schienen hinab-<lb/>
+reichen und das Thier säuberlich ( ? ) aufschaufeln und bei<lb/>
+Seite werfen.&#x201C; Ob das Thier dann auch wieder aufsteht?</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Eine Corsofahrt bei Helgoland. Barken und Boote<lb/>
+&#x2014; so beschreibt uns ein Helgolander Badegast die durch das<lb/>
+Badecomité daselbst arrangirte Nachtfahrt &#x2014; waren mit<lb/>
+glänzenden Papierlaternen umsteckt; mit Eintritt der Nacht<lb/>
+ging die Fahrt vom Strande weg zu der vom Winde freien<lb/>
+Ostseite der Jnsel; Musik voran; mit Blumensträußen und<lb/>
+Confect in Düten zu gegenseitiger Begrüßung und Bewer-<lb/>
+fung bewaffnet, in Booten groß und klein zieht die heitere<lb/>
+Gesellschaft dahin auf dem glatten Spiegel; in langen Feuer-<lb/>
+streifen spiegeln sich die hellen Lichter von den Booten im<lb/>
+dunkeln Wasser, schweben hin und her, wie von Geisterhand<lb/>
+gezogen und erfüllen das ruhig rauschende Meer in langge-<lb/>
+streckter Linie mit Schein und Widerschein, mit fröhlichem<lb/>
+Sang und Klang. Das Meer selbst spendet sein nächtlich<lb/>
+Schönstes zum Feste; den Booten und Rudern entströmen<lb/>
+bei jeder Berührung mit dem Wasser leuchtende Feuerstreife<lb/>
+aus seiner lebendigen Tiefe. Die Sterne des dunkelblauen<lb/>
+Firmaments, die Lichter der fröhlichen Menschen, das Leuch-<lb/>
+ten des Meers und am Ziele der Fahrt die bengalischen<lb/>
+<hi rendition="#g">weiß=grün=rothen</hi> Flammenscheine des auf der Rhede<lb/>
+liegenden Dampfschiffs stimmen in den Spruch zusammen,<lb/>
+der die Farben der Helgoländer Flagge also zusammenfaßt:</p><lb/>
+<lg type="poem">           <l>Grön is dat Land</l><lb/>
+<l>Rohd is de Kand</l><lb/>
+<l>Witt is de Sand &#x2014;</l><lb/>
+<l>Dat is dat Wapen von Helgoland.</l></lg></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jArticle"><p>Vorstellungen von Wilden. Die Kaffern begreifen<lb/>
+nicht, wie man herausbrausendes, schäumendes Bier habe<lb/>
+in die Flaschen bringen können. Sie halten ausgezogene<lb/>
+Handschuhe für doppelte Hände. Ein Tahitier meinte von<lb/>
+einer Taschenuhr, sie spreche und nannte sie, als er ihren<lb/>
+Gebrauch kennenlernte, kleine Sonne. Ein Eskimo hielt<lb/>
+eine Spieldose für das Junge einer Drehorgel.</p></div></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jAnnouncements"><head><hi rendition="#fr"><hi rendition="#g">Ankündigungen</hi>.</hi></head><lb/>
+<cb type="start"/>
+<div n="2" type="jAn"><figure/><lb/>
+<cb n="2"/>
+<p>Diese rühmlichst bekannten <hi rendition="#aq">Pates Pectorales,</hi><lb/>
+ein bewährtes Linderungsmittel bei Brustleiden aller<lb/>
+Art, Husten, Schnupfen, Katarrh <choice><abbr>ec.</abbr></choice>, werden verkauft<lb/>
+in Leipzig bei</p><lb/>
+<p> <space dim="horizontal"/>  <hi rendition="#fr">L. Tilebein,</hi><lb/>
+<space dim="horizontal"/>   Conditor in der Centralhalle. </p></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/></div><lb/>
+</body>       <back><div n="1" type="imprint"><p><hi rendition="#c">Verantwortlicher Redacteur: <hi rendition="#aq">M</hi>. J. E. Bolbeding. &#x2014; Druck und Verlag von F. A. Brockhaus in Leipzig.</hi></p></div>     </back>   </text> </TEI>

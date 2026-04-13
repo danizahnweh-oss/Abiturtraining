@@ -1,0 +1,656 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.deutschestextarchiv.de/basisformat.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="http://www.deutschestextarchiv.de/basisformat.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">   <teiHeader>
+<fileDesc>
+<titleStmt>
+<title type="main">Über den Einfluß der Abweichung der Sonne auf den Anfang des Aequatorialregens</title>
+<author>
+<persName ref="http://d-nb.info/gnd/118554700">
+<surname>Humboldt</surname>
+<forename>Alexander von</forename>
+</persName>
+</author>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/115266127">
+<surname>Geyken</surname>
+<forename>Alexander</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1222198746">
+<surname>Haaf</surname>
+<forename>Susanne</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1019062681">
+<surname>Jurish</surname>
+<forename>Bryan</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Boenig</surname>
+<forename>Matthias</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Thomas</surname>
+<forename>Christian</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Wiegand</surname>
+<forename>Frank</forename>
+</persName>
+</editor>
+<respStmt>
+<orgName ref="https://www.bbaw.de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<resp>
+<note type="remarkResponsibility">Langfristige Bereitstellung der DTA-Ausgabe</note>
+<ref target="https://www.bbaw.de"/>
+</resp>
+</respStmt>
+</titleStmt>
+<editionStmt><edition>Vollständige digitalisierte Ausgabe.</edition></editionStmt>
+<extent>
+<measure type="images">15</measure>
+<measure type="tokens">3023</measure>
+<measure type="types">1060</measure>
+<measure type="characters">20948</measure>
+</extent>
+<publicationStmt>
+<publisher xml:id="DTACorpusPublisher">
+<email>dta@bbaw.de</email>
+<orgName role="project">Deutsches Textarchiv</orgName>
+<orgName role="hostingInstitution" xml:lang="en">Berlin-Brandenburg Academy of Sciences and Humanities (BBAW)</orgName>
+<orgName role="hostingInstitution" xml:lang="de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<address>
+<addrLine>Jägerstr. 22/23, 10117 Berlin</addrLine>
+<country>Germany</country>
+</address>
+</publisher>
+<pubPlace>Berlin</pubPlace>
+<date type="publication">2025-10-24T10:14:22Z</date>
+<availability>
+<licence target="https://creativecommons.org/licenses/by-sa/4.0/deed.de">
+<p>Distributed under the Creative Commons Attribution-ShareAlike 4.0 License.</p>
+</licence>
+</availability>
+<idno>
+<idno type="URLWeb">https://www.deutschestextarchiv.de/humboldt_sonne_1818</idno>
+<idno type="URLXML">https://www.deutschestextarchiv.de/book/download_xml/humboldt_sonne_1818</idno>
+<idno type="URLHTML">https://www.deutschestextarchiv.de/book/download_html/humboldt_sonne_1818</idno>
+<idno type="URLText">https://www.deutschestextarchiv.de/book/download_text/humboldt_sonne_1818</idno>
+<idno type="DTADirName">humboldt_sonne_1818</idno>
+<idno type="DTAID">400169</idno>
+<idno type="URN">urn:nbn:de:kobv:b4-400169-3</idno>
+</idno>
+</publicationStmt>
+<sourceDesc>
+<bibl type="JA">Humboldt, Alexander von: Über den Einfluß der Abweichung der Sonne auf den Anfang des Aequatorialregens. In: Journal für Chemie und Physik, Bd. 24 (1818), S. 71-84.</bibl>
+<biblFull>
+<titleStmt>
+<title level="a" type="main">Über den Einfluß der Abweichung der Sonne auf den Anfang des Aequatorialregens</title>
+<author>
+<persName ref="http://d-nb.info/gnd/118554700">
+<surname>Humboldt</surname>
+<forename>Alexander von</forename>
+</persName>
+</author>
+</titleStmt>
+<editionStmt>
+<edition n="1"/>
+</editionStmt>
+<extent>
+<measure type="pages">I+14 S.</measure>
+</extent>
+<publicationStmt>
+<publisher/>
+<date type="creation">1818</date>
+</publicationStmt>
+<seriesStmt>
+<title level="j" type="main">Journal für Chemie und Physik</title>
+<biblScope unit="issue">24</biblScope>
+<biblScope unit="pages">71-84</biblScope>
+</seriesStmt>
+</biblFull>
+<msDesc>
+<msIdentifier>
+</msIdentifier>
+<physDesc>
+<typeDesc>
+<p>Antiqua</p>
+</typeDesc>
+</physDesc>
+</msDesc>
+</sourceDesc>
+</fileDesc>
+<encodingDesc>
+<editorialDecl>
+<p>
+<![CDATA[
+<p>
+Eine weitere Fassung dieses Textes finden Sie in der
+Ausgabe <i><a href="https://humboldt.unibe.ch/text/1818-De_l_influence-3">Sämtliche Schriften digital</a></i>
+(2021 ff.) der Universität Bern.
+</p>
+]]>
+</p>
+</editorialDecl>
+<tagsDecl>
+<rendition scheme="css" xml:id="aq">font-family:sans-serif</rendition>
+<rendition scheme="css" xml:id="b">font-weight:bold</rendition>
+<rendition scheme="css" xml:id="blue">color:blue</rendition>
+<rendition scheme="css" xml:id="c">display:block; text-align:center</rendition>
+<rendition scheme="css" xml:id="et">display:block; margin-left:2em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et2">display:block; margin-left:4em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et3">display:block; margin-left:6em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="f">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="fr">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="g">letter-spacing:0.125em</rendition>
+<rendition scheme="css" xml:id="i">font-style:italic</rendition>
+<rendition scheme="css" xml:id="in">font-size:150%</rendition>
+<rendition scheme="css" xml:id="k">font-variant:small-caps</rendition>
+<rendition scheme="css" xml:id="larger">font-size:larger</rendition>
+<rendition scheme="css" xml:id="red">color:red</rendition>
+<rendition scheme="css" xml:id="right">display:block; text-align:right</rendition>
+<rendition scheme="css" xml:id="s">text-decoration:line-through</rendition>
+<rendition scheme="css" xml:id="smaller">font-size:smaller</rendition>
+<rendition scheme="css" xml:id="sub">vertical-align:sub; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="sup">vertical-align:super; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="u">text-decoration:underline</rendition>
+<rendition scheme="css" xml:id="uu">border-bottom:double 3px #000</rendition>
+</tagsDecl>
+</encodingDesc>
+<profileDesc>
+<langUsage>
+<language ident="deu">(Früh-)Neuhochdeutsch</language>
+<language ident="deu">German</language>
+</langUsage>
+<textClass>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dtamain">Pariser Akademiereden/-schriften</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1main">Wissenschaft</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1sub">Naturwissenschaft</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">ready</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">avh</classCode>
+</textClass>
+</profileDesc>
+</teiHeader>
+<text><front><titlePage type="main">
+<pb facs="#f0001"/>
+<lb/>
+<docTitle><titlePart type="main"><hi rendition="#g">Journal<lb/>
+für<lb/>
+Chemie und Physik</hi></titlePart></docTitle><lb/>
+<byline>in Verbindung<lb/>
+mit<lb/>
+<hi rendition="#i">J. J. Bernhardi, J. Berzelius, G. Bischof, J. W. Döbereiner,<lb/>
+J. N. Fuchs, C. J. Th. v. Grotthu&#x017F;s, J. P. Heinrich, C. W. F.<lb/>
+Kastner, W. A. Lampadius, H. F. Link, J. L. G. Meinecke,<lb/>
+H. C. Oerstedt, C. H. Pfaff, R. L. Ruhland, T. J. Seebeck,<lb/>
+H. Steffens, F. Stromeyer, A. Vogel, F. Wurzer.</hi><lb/>
+herausgegeben<lb/>
+<hi rendition="#g">vom</hi><lb/>
+<hi rendition="#i">Dr. <hi rendition="#g">J. S. C. Schweigger.</hi></hi></byline><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<titlePart type="volume"><hi rendition="#i">XXIV. Band.</hi></titlePart><lb/>
+<titlePart type="desc">Mit 5 Kupfertafeln.</titlePart><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<docImprint><pubPlace><hi rendition="#g">Nürnberg</hi></pubPlace><lb/>
+<publisher>in der Schrag'schen Buchhandlung.</publisher><lb/>
+<docDate><hi rendition="#g">1818</hi></docDate></docImprint></titlePage></front><body><lb/>
+<pb n="71" facs="#f0002"/>
+<milestone unit="section" rendition="#hr"/><lb/>
+<div n="1"><head><hi rendition="#g">Ueber</hi><lb/>
+den Einflu&#x017F;s der Abweichung der Sonne<lb/>
+<hi rendition="#g">auf<lb/>
+den Anfang der Aequatorial-Regen.</hi></head><lb/>
+<p><hi rendition="#c"><hi rendition="#g">Von<lb/>
+A. von Humboldt</hi><note place="foot" n="*)">Auszug aus einer in dem Institut am 29. Jun. 1818 vor-<lb/>
+gelesenen Abhandlung.</note>.</hi></p><lb/>
+<p><hi rendition="#c">Aus dem Annal. de Chim. et de Phys. Tom. VIII. Jun.<lb/>
+1818 p. 179. übers. vom Dr. <hi rendition="#i">Kapp.</hi></hi><lb/>
+</p><p><hi rendition="#in">V</hi>on allen Wissenschaften, welche die Naturphi-<lb/>
+losophie (philosophie naturelle) und die Naturge-<lb/>
+schichte der Erde umfassen, ist die Meteorologie<lb/>
+am langsamsten fortgeschritten. Die&#x017F;s rührt indes-<lb/>
+sen nicht sowohl von der Unvollkommenheit der<lb/>
+Instrumente und der geringen Anzahl genauer Be-<lb/>
+obachter her, als von der Unzulänglichkeit der bis-<lb/>
+herigen Beobachtungs-Methoden, und der gro&#x017F;sen<lb/>
+Schwierigkeit, die veränderlichen und wechselnden<lb/>
+Erscheinungen vom Einflusse störender Ursachen<lb/>
+zu befreien. Man darf sich nicht schmeicheln, auf<lb/>
+einmal eine Menge so verwickelter Probleme lösen<lb/>
+zu können. Alle Veränderungen, welche das von &#x2013;<lb/>
+unter sich innigst verbundenen Umständen abhän-<lb/>
+gige <choice><sic/><corr>&#x2013;</corr></choice> Luftmeer darbietet, können wir höchstens bis<lb/>
+<pb n="72" facs="#f0003"/>
+<fw type="header" place="top"><hi rendition="#g">Humboldt</hi></fw><lb/>
+auf die sogenannten <hi rendition="#i">mittleren Bewegungen</hi> der Atmo-<lb/>
+sphäre bestimmen, um durch die Vergleichung ei-<lb/>
+ner gro&#x017F;sen Anzahl einzelner Beobachtungen einen<lb/>
+gewissen Typus in der Aufeinanderfolge der Er-<lb/>
+scheinungen zu erkennen, und besonders die Wir-<lb/>
+kungen der Sonnenthätigkeit als die Ursache ken-<lb/>
+nen zu lernen, welche am stärksten auf alle Ver-<lb/>
+änderungen der Dichtigkeit, Temperatur, Feuch-<lb/>
+tigkeit und electrischen Spannung einwirkt. Ich<lb/>
+habe mich demnach sogleich damit beschäftigt, die<lb/>
+Vertheilung der Wärme auf der Erdkugel zu stu-<lb/>
+diren und den Einflu&#x017F;s störender localer Ursachen<lb/>
+empirischen Gesetzen zu unterwerfen. Das Studium<lb/>
+dieser Gesetze, welche ich in meiner Abhandlung<lb/>
+über die <hi rendition="#i">isothermischen Linien</hi><note place="foot" n="*)">Vergl. dieses Journal XX. S. 318.</note> der Akademie der<lb/>
+Wissenschaften vorgelegt habe, lä&#x017F;st die Beziehun-<lb/>
+gen erkennen, durch welche eine gro&#x017F;se Anzahl<lb/>
+von Erscheinungen vereinigt werden. Unter den<lb/>
+Erscheinungen, welche von dem Eintritt der Jahrs-<lb/>
+zeit der Aequatorial-Regen an,die ich heute aus-<lb/>
+einandersetzen werde, beständig verbunden vorkom-<lb/>
+men, giebt es nun eine ähnliche Verwandtschaft.</p><lb/>
+<p>Die <hi rendition="#i">Meteorologie der hei&#x017F;sen Zone</hi> kann um so<lb/>
+viel mehr Licht über die <hi rendition="#i">Meteorologie der gemä&#x017F;sig-<lb/>
+ten Zone</hi> verbreiten, als die Abwesenheit einer gro-<lb/>
+&#x017F;sen Anzahl störender Ursachen zwischen den Wen-<lb/>
+dekreisen die wahren Gesetze, welchen die Natur<lb/>
+unterworfen ist, leichter erkennen lä&#x017F;st. In der<lb/>
+That hat man die, von welchen die kleinen stünd-<lb/>
+lichen Barometer-Veränderungen abhängen, so-<lb/>
+gleich unter der hei&#x017F;sen Zone gefunden. Sie wür-<lb/>
+<fw type="sig" place="bottom"><hi rendition="#i">Kp.</hi></fw><lb/>
+<pb n="73" facs="#f0004"/>
+<fw type="header" place="top">über Aequatorial-Regen.</fw><lb/>
+den noch lange Zeit der Aufmerksamkeit der Phy-<lb/>
+siker entgangen seyn, wenn die periodischen Schwin-<lb/>
+gungen der Atmosphäre nur in der Zone der ver-<lb/>
+änderlichen Climate studiert worden wären. Man<lb/>
+bemerkt in diesen Climaten nur im Durchschnitt<lb/>
+von einer gro&#x017F;sen Anzahl Beobachtungen, was sich<lb/>
+unter dem Aequator, Stunde für Stunde, frei vom<lb/>
+Einflusse störender Ursachen darstellt. Wenn man,<lb/>
+wie ich glaube, nicht dahin kommt, die Wirkung<lb/>
+des Mondes auf unsren Luftocean mit Genauigkeit<lb/>
+auszumitteln, so wird man diese wichtige Entde-<lb/>
+ckung nur den in den Tropenländern gemachten<lb/>
+mittleren Beobachtungen verdanken.</p><lb/>
+<p>Eben so, wie es über dem Polarkreise zwei<lb/>
+Jahrszeiten des Tages und der Nacht giebt, theilt<lb/>
+sich auch das Jahr in der Aequinoctial-Gegend in<lb/>
+zwei gro&#x017F;se Jahrszeiten, die der Trockenheit und<lb/>
+die der Feuchtigkeit, oder, wie die Indianer am<lb/>
+Orenocco in ihrer Sprache sehr bedeutend sagen,<lb/>
+die <hi rendition="#i">der Sonnen</hi> und die <hi rendition="#i">der Wolken</hi>. Dem Physiker<lb/>
+ist es äu&#x017F;serst interessant, den Gang der meteoro-<lb/>
+logischen Erscheinungen während des Uebergangs<lb/>
+von einer Jahrszeit zur andern zu verfolgen. Da<lb/>
+in dem Theile der gemä&#x017F;sigten Zone, wo beinahe<lb/>
+kein Schnee fällt, und die mittlere Temperatur bis<lb/>
+auf 19° oder 20° steigt, die Winter eine wahre<lb/>
+Regenzeit sind, so könnte man glauben, da&#x017F;s die<lb/>
+Regen der Tropenländer mit dem Winter der<lb/>
+gleichnamig gemä&#x017F;sigten Zone zusammenfallen mü&#x017F;s-<lb/>
+ten. Man wei&#x017F;s indessen seit langer Zeit, da&#x017F;s es<lb/>
+nicht so ist, sondern da&#x017F;s die in der hei&#x017F;sen Zone<lb/>
+so regelmä&#x017F;sigen Regen-Epochen an den Lauf der<lb/>
+Sonne gebunden sind, und da&#x017F;s sie viel häufiger<lb/>
+<pb n="74" facs="#f0005"/>
+<lb/>
+<fw type="header" place="top"><hi rendition="#g">Humboldt</hi></fw><lb/>
+nördlich vom Aequator eintreten, wenn dieses Ge-<lb/>
+stirn zum Wendekreise des Krebses kommt.</p><lb/>
+<p>Der Anfang der Regen fällt mit mehrern an-<lb/>
+dern Erscheinungen zusammen, z. B. mit der Un-<lb/>
+terbrechung der periodischen Winde und mit einer<lb/>
+ungleichen Vertheilung der electrischen Spannung<lb/>
+in der Luft. In dem Maa&#x017F;se als die Sonne in der<lb/>
+nördlichen Aequatorial-Zone sich dem Zenith nä-<lb/>
+hert, treten Windstillen oder Süd-Ost-Winde an<lb/>
+die Stelle der Nord-Ost-Winde. Die Durchsichtig-<lb/>
+keit der Luft verringert sich schon, ohne da&#x017F;s ihre<lb/>
+Temperatur merklich abnimmt; die Sterne fangen<lb/>
+bei 20° Höhe über dem Horizont an zu funkeln,<lb/>
+weil nach der, auf das Gesetz der Einschiebungen ge-<lb/>
+gründeten, scharfsinnigen Erklärung von <hi rendition="#i">Arago</hi> die<lb/>
+verschiedenen unter sich parallelen Schichten der<lb/>
+Atmosphäre nicht mehr dieselbe Dichtigkeit und<lb/>
+gleiche Brechung haben. Dann sammeln sich die<lb/>
+Dünste in Wolken, und man findet nicht mehr zu<lb/>
+jeder Stunde des Tags in den niedern Regionen der<lb/>
+Atmosphäre Zeichen von positiver Electricität. Der<lb/>
+Donner lä&#x017F;st sich hören; Güsse von Regen fallen<lb/>
+bei Tage, und die Windstillen sind nur durch hef-<lb/>
+tige Winde unterbrochen, welche vom entgegenge-<lb/>
+setzten Pole wehen, d. h. durch Süd-Ost-Winde<lb/>
+in der nördlichen und Nord-Ost-Winde in der<lb/>
+südlichen Aequatorial-Zone.</p><lb/>
+<p>Diese Veränderungen sind nicht blo&#x017F;s dem in-<lb/>
+nern America eigenthümlich; man bemerkt sie auch<lb/>
+im Innern von Africa, wo sie dem Scharfblicke<lb/>
+<hi rendition="#i">Mungo-Park's</hi> nicht entgangen sind. Dieser verstän-<lb/>
+dige Reisende berichtet, da&#x017F;s es nördlich vom Ae-<lb/>
+quator zu regnen aufhört, wenn der Süd-West-<lb/>
+<pb n="75" facs="#f0006"/>
+<fw type="header" place="top">über Aequatorial-Regen.</fw><lb/>
+Wind in den Nord-West-Wind übergeht. Da nun<lb/>
+die Passatwinde durch die Sonnenwärme in Ver-<lb/>
+bindung mit der Bewegung der Rotation der Erde<lb/>
+entstehen, so habe ich in der ungleichen Verthei-<lb/>
+lung der Wärme, welche nach der Veränderung<lb/>
+der Abweichung der Sonne wechselt, die Lösung<lb/>
+der Aufgabe gesucht, welche der Anfang der Re-<lb/>
+genzeit in jeder Hemisphäre darbietet. Bevor ich<lb/>
+indessen diese Untersuchung beginne, will ich so-<lb/>
+gleich den Gang der atmosphärischen Erscheinun-<lb/>
+gen, welche beständig mit ihnen verbunden sind,<lb/>
+angeben.</p><lb/>
+<p>Nichts kommt nördlich vom Aequator der Rein-<lb/>
+heit der Atmosphäre gleich vom Monat December<lb/>
+bis zum Monat Februar. Der Himmel ist dann<lb/>
+ohne Wolken, und zeigt sich eine, so ist das eine<lb/>
+Erscheinung, welche die ganze Aufmerksamkeit der<lb/>
+Einwohner in Anspruch nimmt. Der Ost- und<lb/>
+Ost-Nord-Ost-Wind wehet sehr stark. Da er<lb/>
+immer Luft einer und derselben Temperatur her-<lb/>
+beiführt, so ist nicht anzunehmen, da&#x017F;s die Dünste<lb/>
+durch Erkältung sichtbar würden. Gegen das Ende<lb/>
+des Februars und den Anfang des März ist das<lb/>
+Blau des Himmels weniger stark, das Hygrometer<lb/>
+zeigt nach und nach eine grö&#x017F;sere Feuchtigkeit, die<lb/>
+Sterne sind zuweilen durch eine leichte Schicht von<lb/>
+Dünsten verhüllt, ihr Licht ist nicht mehr ruhig<lb/>
+und planetarisch: man sieht sie von Zeit zu Zeit<lb/>
+20° über dem Horizonte funkeln.</p><lb/>
+<p>In dieser Epoche wird der Wind weniger stark,<lb/>
+weniger regelmä&#x017F;sig und er ist öfters <hi rendition="#i">durch Wind-<lb/>
+stillen</hi> in den niedern Regionen der Atmosphäre<lb/>
+(calmes plats) unterbrochen. Wolken häufen sich<lb/>
+<pb n="76" facs="#f0007"/>
+<fw type="header" place="top"><hi rendition="#g">Humboldt</hi></fw><lb/>
+gegen Süd-Süd-Ost. Sie erscheinen wie ferne<lb/>
+Gebirge in scharfen Umrissen. Von Zeit zu Zeit<lb/>
+sieht man sie sich vom Horizont entfernen, und<lb/>
+das Himmelsgewölbe mit einer Schnelligkeit durch-<lb/>
+laufen, welche der Schwäche des Windes, der in<lb/>
+den untern Schichten der Luft herrscht, keines-<lb/>
+wegs entspricht. Gegen das Ende des März wird<lb/>
+die südliche Gegend der Atmosphäre durch kleine<lb/>
+electrische Explosionen erhellt. Wie phosphores-<lb/>
+cirende Scheine sind sie blo&#x017F;s mit einer Gruppe<lb/>
+von Dünsten umgeben. Von nun an streicht von<lb/>
+Zeit zu Zeit der Passatwind, und in manchen Stun-<lb/>
+den nach West und Südwest. Das ist dort ein si-<lb/>
+cheres Zeichen von der Annäherung der Regenzeit,<lb/>
+welche am Orenocco gegen das Ende Aprils be-<lb/>
+ginnt. Der Himmel fängt an sich zu verhüllen, das<lb/>
+Blau verschwindet, und eine graue Farbe verbrei-<lb/>
+tet sich einförmig. Zu gleicher Zeit nimmt die<lb/>
+Wärme der Atmosphäre gradweise zu, und bald<lb/>
+sind es nicht mehr Wolken, sondern verdichtete<lb/>
+Dünste, welche das Himmelsgewölbe bedecken. Die<lb/>
+heulenden Affen fangen an, ihr Klaggeschrei lange<lb/>
+vor Sonnenaufgang hören zu lassen. Die atmo-<lb/>
+sphärische Electricität, welche während der Zeit<lb/>
+der gro&#x017F;sen Trockenheit (vom December bis zum<lb/>
+März) bei Tage ohne Ausnahme eine Abweichung<lb/>
+von 1,7 bis 2 Linien in dem <hi rendition="#i">Voltaischen</hi> Electro-<lb/>
+meter hervorbrachte, wurde vom Monat März an<lb/>
+au&#x017F;serordentlich veränderlich. Während der ganzen<lb/>
+Tageszeiten habe ich keine bemerkt; während in<lb/>
+manchen Stunden die Hollunderkugeln des Electro-<lb/>
+meters auf 3&#x2013;4 Linien divergirten. Die Atmo-<lb/>
+sphäre, welche im Allgemeinen, in der hei&#x017F;sen<lb/>
+Zone wie in der gemä&#x017F;sigten, in dem positiv elec-<lb/>
+<pb n="77" facs="#f0008"/>
+<fw type="header" place="top">über Aequatorial-Regen</fw><lb/>
+trischen Zustande sich befindet, geht abwechselnd<lb/>
+während acht bis zehn Minuten in dem negativ<lb/>
+electrischen über. Die Regenzeit ist die Zeit der<lb/>
+Gewitter; und doch haben mir eine gro&#x017F;se Anzahl<lb/>
+3 Jahre hindurch angestellter Versuche gezeigt, da&#x017F;s<lb/>
+man gerade in dieser Gewitterzeit eine geringere<lb/>
+electrische Spannung in den niedern Gegenden der<lb/>
+Atmosphäre findet. Sind die Gewitter die Wir-<lb/>
+kung dieser ungleichen Last von verschiedenen<lb/>
+übereinander liegenden Luftschichten? Was ver-<lb/>
+hindert die Electricität, in eine seit dem Monat<lb/>
+März feuchter gewordene Luft gegen die Erde zu<lb/>
+herabzusteigen? In diesem Zeitpuncte scheint die<lb/>
+Electricität, statt in der ganzen Atmosphäre ver-<lb/>
+breitet zu seyn, über der äu&#x017F;sern Hülle (enveloppe)<lb/>
+auf der Oberfläche der Wolken angehäuft zu seyn.<lb/>
+Nach <hi rendition="#i">Gay-Lussac</hi> führt die Bildung des Gewölks<lb/>
+selber die Flüssigkeit gegen die Oberfläche. Das<lb/>
+Gewitter bildet sich in den Ebenen nach dem<lb/>
+Durchgang der Sonne durch den Meridian, also<lb/>
+kurz nach dem Augenblick des <hi rendition="#i">Maximums</hi> der täg-<lb/>
+lichen Wärme unter den Wendekreisen. Äu&#x017F;serst<lb/>
+selten hört man im Innern des Landes während der<lb/>
+Nacht den Donner rollen, oder am Morgen vor<lb/>
+Mittag. Die nächtlichen Gewitter sind nur gewis-<lb/>
+sen Flu&#x017F;sthälern eigen, welche ein besonderes Cli-<lb/>
+ma haben.</p><lb/>
+<p>Oder, welches sind die Ursachen von dieser<lb/>
+Aufhebung des Gleichgewichts in der electrischen<lb/>
+Spannung der Luft, von dieser ununterbrochenen<lb/>
+Verdichtung der Dünste in Wasser, von dieser<lb/>
+Unterbrechung der Winde, diesem Anfang und<lb/>
+dieser Dauer der Regenzeit? Ich zweifle, da&#x017F;s die<lb/>
+<pb n="78" facs="#f0009"/>
+<fw type="header" place="top"><hi rendition="#g">Humboldt</hi></fw><lb/>
+Electricität auf die Bildung der bläschenartigen Dün-<lb/>
+ste Einflu&#x017F;s habe. Es ist vielmehr die Bildung die-<lb/>
+ser Dünste, welche die electrische Spannung ver-<lb/>
+mehrt und modificirt. Nördlich und südlich vom<lb/>
+Aequator treten die Gewitter oder die gro&#x017F;sen Ent-<lb/>
+ladungen zu gleicher Zeit in der gemä&#x017F;sigten und<lb/>
+gleichnamigen äquinoctialen Zone ein. Giebt es<lb/>
+eine Wirkung, die sich queer durch's Luftmeer<lb/>
+von der ersten dieser Zonen gegen die Tropen fort-<lb/>
+pflanzt? Wie ist es einzusehen, da&#x017F;s unter dieser<lb/>
+Zone, wo sich die Sonne beständig zu einer so gro-<lb/>
+&#x017F;sen Höhe über den Horizont erhebt, der Durch-<lb/>
+gang dieses Himmelskörpers durch den Zenith ei-<lb/>
+nen bedeutenden Einflu&#x017F;s auf die meteorologischen<lb/>
+Veränderungen haben kann?</p><lb/>
+<p>Ich glaube, da&#x017F;s die Ursache, welche den An-<lb/>
+fang des Regens unter den Tropen bedingt, keine<lb/>
+locale ist, und da&#x017F;s eine genauere Kenntni&#x017F;s der<lb/>
+höhern Luftströme die so verwickelt scheinenden<lb/>
+Probleme aufhellen würde. Nur, was in den un-<lb/>
+tern Schichten der Atmosphäre vorgeht, können<lb/>
+wir beobachten. Die <hi rendition="#i">Anden</hi> sind beinahe in einer<lb/>
+Höhe von 2000 Toisen noch bewohnt, und in die-<lb/>
+ser Höhe wirken die Nähe der Sonne und die<lb/>
+Massen der Gebirge, welche die <hi rendition="#i">Untiefen</hi> des Luft-<lb/>
+Oceans sind, merklich auf die umgebende Luft ein.<lb/>
+Was man auf der Hochebene des Antisana beob-<lb/>
+achtet, würde man auch bei gleicher Höhe in ei-<lb/>
+nem Luftballon finden, wenn man über Llanos<lb/>
+oder der Oberfläche des Meeres schwebte.</p><lb/>
+<p>Wir haben bereits gesehen, da&#x017F;s die Regen-<lb/>
+und Gewitterzeit in der nördlichen Aequinoctial-<lb/>
+Zone mit den Durchgängen der Sonne durch den<lb/>
+<pb n="79" facs="#f0010"/>
+<fw type="header" place="top">über Aequatorial-Regen.</fw><lb/>
+Zenith<note place="foot" n="*)">Diese Durchgänge finden Statt durch den 5° und 10°<lb/>
+nördlicher Breite, zwischen dem 3ten und 16ten April<lb/>
+und zwischen dem 27ten August und 8ten September.</note> des Ortes, mit dem Aufhören der Nord-<lb/>
+Ost-Winde (brises) und mit den häufigen Wind-<lb/>
+stillen und stürmischen, von einem trüben Him-<lb/>
+mel begleiteten, Süd- Ost- und Süd- West-<lb/>
+Winden (Bendavales) zugleich eintritt<note place="foot" n="**)">Vergl. meinen politischen Versuch über Neu-Spanien<lb/>
+Th. 2. S. 382, 712 und 767.</note>. Re-<lb/>
+flectirt man nun auf die allgemeinen Gesetze des<lb/>
+Gleichgewichts der gasförmigen Massen, welche<lb/>
+unsere Atmosphäre ausmachen, so findet man in<lb/>
+der Unterbrechung des Stromes, welcher von ei-<lb/>
+nem gleichnamigen Pol herweht, in der Erneue-<lb/>
+rung der Luft unter der Aequatorial-Zone und in<lb/>
+der stätigen Wirkung eines feuchten aufsteigenden<lb/>
+Stromes eine sehr einfache Ursache des Zusammen-<lb/>
+treffens dieser Erscheinungen.</p><lb/>
+<p>Während im Norden des Aequators der Nord-<lb/>
+Ost mit aller Stärke bläst, verhindert er die Atmo-<lb/>
+sphäre, welche die äquinoctialen Länder und Mee-<lb/>
+re bedeckt, sich mit Dünsten zu sättigen. Die<lb/>
+warme und feuchte Luft der hei&#x017F;sen Zone erhebt<lb/>
+und kehrt sich gegen die Pole, während un-<lb/>
+tere Polar-Strömungen, die trocknere und kältere<lb/>
+Schichten mit sich führen, in jedem Augenblick<lb/>
+die in die Höhe steigenden Luftsäulen ersetzen.<lb/>
+Durch die&#x017F;s beständige Spiel zweier entgegengesetz-<lb/>
+ter Strömungen wird die Feuchtigkeit, weit ent-<lb/>
+fernt, sich zwischen den Tropen anzuhäufen, ge-<lb/>
+gen die kalten und gemä&#x017F;sigten Gegenden wegge-<lb/>
+<pb n="80" facs="#f0011"/>
+<fw type="header" place="top"><hi rendition="#g">Humboldt</hi></fw><lb/>
+führt. Während der Zeit der Nord-Ost-Winde,<lb/>
+wo die Sonne in den mittäglichen Zeichen steht,<lb/>
+bleibt der Himmel in der nördlichen äquinoctialen<lb/>
+Zone beständig heiter. Die bläschenartigen Dünste<lb/>
+verdichten sich nicht, weil die Luft, unaufhörlich<lb/>
+erneuert, sich nicht sättigen kann. In dem Maa&#x017F;se<lb/>
+sich die Sonne beim Eintritt in die nördlichen Zei-<lb/>
+chen gegen den Zenith erhebt, <hi rendition="#i">mä&#x017F;sigt</hi> sich der<lb/>
+Nord-Ost und hört nach und nach ganz auf. Der<lb/>
+Unterschied der Temperatur zwischen den Tropen<lb/>
+und der gemä&#x017F;sigten nördlichen Zone ist dann mög-<lb/>
+lichst unbedeutend: es ist die&#x017F;s der Sommer des<lb/>
+nördlichen Pols: und wenn die mittlere Tempera-<lb/>
+tur des Winters unter 42° und 52° nördlicher Brei-<lb/>
+te 20° bis 26° des hunderttheiligen Thermometers<lb/>
+geringer ist, als die Wärme unterm Aequator, so<lb/>
+beträgt dieser Unterschied im Sommer kaum 4° bis<lb/>
+6°. Befindet sich die Sonne im Zenith und hat<lb/>
+der Nord-Ost aufgehört, &#x2014; Ursachen, welche die<lb/>
+Feuchtigkeit erzeugen und sie in der nördlichen<lb/>
+äquinoctionalen Zone anhäufen, so werden sie auf<lb/>
+einmal thätiger. Die Luftsäule, die sich über diese<lb/>
+Zone stellt, sättigt sich mit Dünsten, weil sie nicht<lb/>
+mehr durch den <choice><sic>Polarstom</sic><corr>Polarstrom</corr></choice> erneuert wird. Die<lb/>
+Wolken bilden sich in dieser gesättigten und er-<lb/>
+kalteten Luft durch die vereinten Wirkungen des<lb/>
+Strahlens und der Ausbreitung der aufsteigenden<lb/>
+Luft. Diese Luft vermehrt die Wärmecapacität in<lb/>
+dem Maa&#x017F;se, als sie sich verdünnt. Mit der Bil-<lb/>
+dung und Anhäufung der bläschenartigen Dünste<lb/>
+sammelt sich auch die Electricität in den hohen<lb/>
+Gegenden der Atmosphäre. Das Niederschlagen<lb/>
+der Dünste dauert bei Tage fort, hört aber ge-<lb/>
+wöhnlich bei Nacht auf; und oft schon sogar beim<lb/>
+<pb n="81" facs="#f0012"/>
+<fw type="header" place="top">über Aequatorial-Regen.</fw><lb/>
+Untergang der Sonne. Die Regengüsse sind dann<lb/>
+sehr stark und von electrischen Entladungen beglei-<lb/>
+tet, kurz nach dem <hi rendition="#i">Maximum</hi> der täglichen Wär-<lb/>
+me. Dieser Stand der Dinge bleibt derselbe bis die<lb/>
+Sonne in die mittäglichen Zeichen tritt, und somit<lb/>
+in der nördlichen gemä&#x017F;sigten Zone die Kälte be-<lb/>
+ginnt. Von nun an stellt sich die Strömung des<lb/>
+Nordpols wieder ein, weil der Unterschied zwi-<lb/>
+schen der Wärme der äquinoctialen und gemä&#x017F;sig-<lb/>
+ten Gegenden von Tag zu Tag grö&#x017F;ser wird. Der<lb/>
+Nord-Ost bläst stark, die Luft der Tropen er-<lb/>
+neuert sich und kann den Grad der Sättigung nicht<lb/>
+mehr erwarten. Der Regen hört folglich auf, der<lb/>
+bläschenartige Dunst zerflie&#x017F;st, und der Himmel<lb/>
+nimmt seine ganze Reinheit und Azurfarbe wieder<lb/>
+an. Die electrischen Entladungen lassen sich nicht<lb/>
+mehr hören, weil die Electricität in den hohen<lb/>
+Luftregionen ohne Zweifel keine solche Gruppen<lb/>
+von bläschenartigen Dünsten, ich möchte beinahe<lb/>
+sagen, keine solche Einhüllungen der Wolken mehr<lb/>
+findet, über welchen sich die Flüssigkeit anhäufen<lb/>
+könnte.</p><lb/>
+<p>Das Verschwinden der Nord-Ost-Winde ha-<lb/>
+ben wir eben als die Hauptursache<note place="foot" n="*)">Ich habe in dieser Untersuchung die gewagten Hypo-<lb/>
+thesen über die Verbindungen des Sauerstoffs mit dem<lb/>
+Wasserstoff und über die der Electricität beigelegte<lb/>
+Eigenschaft, bläschenartige Dünste zu bilden und nie-<lb/>
+derzuschlagen, absichtlich übergangen.</note> der Aequa-<lb/>
+torial-Regen betrachtet. Diese Regen dauern im<lb/>
+Norden und Süden der Linie ebenfalls nur so lan-<lb/>
+ge, als die Sonne mit der Halbkugel eine gleich-<lb/>
+<fw type="sig" place="bottom"><hi rendition="#i">Journ. f. Chem. u. Phys. 24 Bd. 1.Heft. 6</hi></fw><lb/>
+<pb n="82" facs="#f0013"/>
+<fw type="header" place="top"><hi rendition="#g">Humboldt</hi></fw><lb/>
+namige Abweichung hat. Dabei mu&#x017F;s ich bemer-<lb/>
+ken, da&#x017F;s, wenn der Nord-Ost nicht weht, nicht<lb/>
+immer eine niedrige (plat) Windstille erfolgt, da&#x017F;s<lb/>
+aber die Windstille, besonders nach der Länge auf<lb/>
+der Westseite von Amerika durch die Bendavales<lb/>
+oder Süd-West- und Süd-Ost-Winde, oft unter-<lb/>
+brochen wird. Diese Erscheinung scheint anzu-<lb/>
+deuten, da&#x017F;s die feuchten Luft-Säulen, die sich in<lb/>
+der Aequatorial-Zone erheben, zuweilen gegen den<lb/>
+Südpol abweichen. In der That zeigen die nörd-<lb/>
+lich und südlich vom Aequator in der hei&#x017F;sen Zone<lb/>
+gelegenen Länder, während ihres Sommers, so lan-<lb/>
+ge die Sonne durch ihren Zenith geht, das Maxi-<lb/>
+mum des Temperatur-Unterschieds mit der Luft<lb/>
+des entgegengesetzten Pols. Die gemä&#x017F;sigte südliche<lb/>
+Zone hat ihren Winter, während es im Norden<lb/>
+des Aequators regnet, und dort eine mittlere Wär-<lb/>
+me Statt findet, die um 5°&#x2013;6° grö&#x017F;ser ist, als in<lb/>
+der Zeit der Trockenheit, wo die Sonne am nie-<lb/>
+drigsten steht<note place="foot" n="*)">Vom Aequator bis zu 10° nördlicher Breite weichen<lb/>
+die mittleren Temperaturen der Sommer- und Win-<lb/>
+termonate kaum um 2°&#x2013;3° ab; aber auf der Gränze<lb/>
+der hei&#x017F;sen Zone gegen den Wendekreis des Krebses<lb/>
+steigen die Unterschiede bis auf 8°&#x2013;9°.</note>. Die Fortdauer des Regens, wäh-<lb/>
+rend die Süd-West- und Süd-Ost-Winde wehen,<lb/>
+beweist, da&#x017F;s die Strömungen des entferntesten Pols<lb/>
+in der nördlichen Aequinoctial-Zone, wegen der<lb/>
+so gro&#x017F;sen Feuchtigkeit des südpolaren Stromes,<lb/>
+nicht so wirken, wie die Strömungen des nächsten<lb/>
+Pols. Die Luft, welche diese Strömung mit sich<lb/>
+führt, kommt von einer beinahe ganz wasservollen<lb/>
+Hemisphäre. Sie durchströmt, um mit dem 8° der<lb/>
+<pb n="83" facs="#f0014"/>
+<fw type="header" place="top">über Aequatorial-Regen.</fw><lb/>
+nördlichen Breite parallel zu werden, die ganze<lb/>
+südliche Aequatorial Zone; sie ist folglich weniger<lb/>
+trocken, weniger kalt und weniger geeignet, wie<lb/>
+ein <hi rendition="#i">Gegenstrom</hi> zu wirken, die Aequinoctial-Luft<lb/>
+zu erneuern und ihre Sättigung zu verhindern, als<lb/>
+der südliche Polar-Strom oder der Nord-Ost-<lb/>
+Wind<note place="foot" n="*)">In den zwei gemä&#x017F;sigten Zonen verliert die Luft ihre<lb/>
+Durchsichtigkeit jedesmal, wenn der Wind von dem<lb/>
+entgegengesetzten Pole weht, d. h. von dem Pole, der<lb/>
+nicht dieselbe Benennung hat, wie die Halbkugel, in<lb/>
+der er sich wahrnehmen lä&#x017F;st.</note>. Man kann annehmen, da&#x017F;s die <hi rendition="#i">Benda-<lb/>
+vales</hi> stürmische Winde auf einigen Küsten sind,<lb/>
+z. B. auf denen von Guatimala, weil sie nicht die<lb/>
+Wirkung eines regelmä&#x017F;sigen und fortschreitenden<lb/>
+Abweichens der Tropenluft gegen den Südpol sind,<lb/>
+sondern weil sie mit Windstillen abwechseln, von<lb/>
+electrischen Explosionen begleitet sind, und in ei-<lb/>
+gentlichen Windstö&#x017F;sen ein wiederholtes Sto&#x017F;sen, ei-<lb/>
+ne ungestümme und augenblickliche Aufhebung des<lb/>
+Gleichgewichts im Luftocean anzeigen.</p><lb/>
+<p>Ich habe somit eine der wichtigsten Erschei-<lb/>
+nungen der Meteorologie der Tropenländer unter-<lb/>
+sucht, indem ich sie in ihrer grö&#x017F;sten Allgemein-<lb/>
+heit auffa&#x017F;ste. So wie die Gränzen der Passatwin-<lb/>
+de mit dem Aequator keine Parallelkreise bilden<note place="foot" n="**)">S. die histor. Beschreibung meiner Reise Th. I. S. 199<lb/>
+und 237 und meine Abhandlung über die isothermi-<lb/>
+schen Linien S. 114.</note>,<lb/>
+so lä&#x017F;st sich auch die Wirkung der polaren Strö-<lb/>
+mungen unter verschiedenen Meridianen verschie-<lb/>
+den wahrnehmen. In derselben Halbkugel sind oft<lb/>
+<pb n="84" facs="#f0015"/>
+<fw type="header" place="top"><hi rendition="#g">Humboldt</hi> über Aequatorial-Regen.</fw><lb/>
+in den Gebirgsketten und am Ufer entgegengesetzte<lb/>
+Jahrszeiten. Ich könnte mehrere Beispiele dieser<lb/>
+Anomalien anführen; allein, um die Gesetze der<lb/>
+Natur zu entdecken, mu&#x017F;s man, bevor man die<lb/>
+Ursachen localer Strömungen prüft, den <hi rendition="#i">mittlern<lb/>
+Stand</hi> der Atmosphäre und den beständigen Typus<lb/>
+ihrer Veränderungen kennen.</p></div><lb/>
+<milestone unit="section" rendition="#hr"/><lb/>
+</body></text> </TEI>

@@ -1,0 +1,773 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.deutschestextarchiv.de/basisformat.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">     <teiHeader>
+<fileDesc>
+<titleStmt>
+<title type="main">Märkische Blätter</title>
+<title type="sub">Jahrgang 5, Nr. 4</title>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/115266127">
+<surname>Geyken</surname>
+<forename>Alexander</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1222198746">
+<surname>Haaf</surname>
+<forename>Susanne</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1019062681">
+<surname>Jurish</surname>
+<forename>Bryan</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Boenig</surname>
+<forename>Matthias</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Thomas</surname>
+<forename>Christian</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Wiegand</surname>
+<forename>Frank</forename>
+</persName>
+</editor>
+<respStmt>
+<persName>
+<surname>Fankhauser</surname>
+<forename>Peter</forename>
+</persName>
+<resp>
+<note type="remarkResponsibility">Automatische Transformation von TUSTEP nach TEI P5 (DTA-Basisformat).</note>
+</resp>
+</respStmt>
+<respStmt>
+<orgName>Deutsches Textarchiv</orgName>
+<resp>
+<note type="remarkResponsibility">Metadatenerfassung</note>
+</resp>
+</respStmt>
+<respStmt>
+<orgName>Institut für Deutsche Sprache, Mannheim</orgName>
+<resp>
+<note type="remarkResponsibility">Bereitstellung der Bilddigitalisate und Volltext-Transkription</note>
+<ref target="http://hdl.handle.net/10932/00-01B8-AE41-41A4-DC01-5"/>
+</resp>
+</respStmt>
+<respStmt>
+<persName>
+<surname>Haaf</surname>
+<forename>Susanne</forename>
+</persName>
+<persName>
+<surname>Hartz</surname>
+<forename>Rahel</forename>
+</persName>
+<persName>
+<surname>Postelt</surname>
+<forename>Nicole</forename>
+</persName>
+<resp>
+<note type="remarkResponsibility">Nachkorrektur und Vervollständigung der TEI/DTABf-Annotation</note>
+</resp>
+</respStmt>
+<respStmt>
+<persName>
+<surname>Hartz</surname>
+<forename>Rahel</forename>
+</persName>
+<persName>
+<surname>Fiechter</surname>
+<forename>Benjamin</forename>
+</persName>
+<resp>
+<note type="remarkResponsibility">Artikelstrukturierung</note>
+</resp>
+</respStmt>
+<respStmt>
+<orgName ref="https://www.bbaw.de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<resp>
+<note type="remarkResponsibility">Langfristige Bereitstellung der DTA-Ausgabe</note>
+<ref target="https://www.bbaw.de"/>
+</resp>
+</respStmt>
+</titleStmt>
+<editionStmt><edition>Vollständige digitalisierte Ausgabe.</edition></editionStmt>
+<extent>
+<measure type="images">4</measure>
+<measure type="tokens">4113</measure>
+<measure type="types">1826</measure>
+<measure type="characters">27577</measure>
+</extent>
+<publicationStmt>
+<publisher xml:id="DTACorpusPublisher">
+<email>dta@bbaw.de</email>
+<orgName role="project">Deutsches Textarchiv</orgName>
+<orgName role="hostingInstitution" xml:lang="en">Berlin-Brandenburg Academy of Sciences and Humanities (BBAW)</orgName>
+<orgName role="hostingInstitution" xml:lang="de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<address>
+<addrLine>Jägerstr. 22/23, 10117 Berlin</addrLine>
+<country>Germany</country>
+</address>
+</publisher>
+<pubPlace>Berlin</pubPlace>
+<date type="publication">2025-10-24T08:33:03Z</date>
+<availability>
+<licence target="https://creativecommons.org/licenses/by-sa/4.0/deed.de">
+<p>Dieses Werk steht unter der "Namensnennung - Weitergabe unter gleichen Bedingungen 4.0 International" Lizenz (CC BY-SA 4.0).</p>
+</licence>
+</availability>
+<idno>
+<idno type="URLWeb">https://www.deutschestextarchiv.de/nn_maerkische004_1853</idno>
+<idno type="URLXML">https://www.deutschestextarchiv.de/book/download_xml/nn_maerkische004_1853</idno>
+<idno type="URLHTML">https://www.deutschestextarchiv.de/book/download_html/nn_maerkische004_1853</idno>
+<idno type="URLText">https://www.deutschestextarchiv.de/book/download_text/nn_maerkische004_1853</idno>
+<idno type="DTADirName">nn_maerkische004_1853</idno>
+<idno type="DTAID">34381</idno>
+<idno type="URN">urn:nbn:de:kobv:b4-34381-2</idno>
+</idno>
+</publicationStmt>
+<sourceDesc>
+<bibl type="J">Märkische Blätter. 5. Jg., Nr. 4. Hattingen, 12. Januar 1853.</bibl>
+<biblFull>
+<titleStmt>
+<title level="m" type="main">Märkische Blätter</title>
+<title level="m" type="sub">Jahrgang 5, Nr. 4</title>
+</titleStmt>
+<editionStmt>
+<edition n="1"/>
+</editionStmt>
+<publicationStmt>
+<publisher/>
+<pubPlace>Hattingen (Nordrhein-Westfalen)</pubPlace>
+<date type="publication">1853</date>
+</publicationStmt>
+</biblFull>
+<msDesc>
+<msIdentifier/>
+<physDesc>
+<typeDesc>
+<p>Fraktur</p>
+</typeDesc>
+</physDesc>
+</msDesc>
+</sourceDesc>
+</fileDesc>
+<encodingDesc>
+<editorialDecl>
+<p>
+<![CDATA[
+<p>Dieser Text wurde aus dem TUSTEP-Format nach TEI-P5 konvertiert und anschließend in das <a href="http://www.deutschestextarchiv.de/doku/basisformat">DTA-Basisformat</a> überführt.</p>
+]]>
+</p>
+</editorialDecl>
+<tagsDecl>
+<rendition scheme="css" xml:id="aq">font-family:sans-serif</rendition>
+<rendition scheme="css" xml:id="b">font-weight:bold</rendition>
+<rendition scheme="css" xml:id="blue">color:blue</rendition>
+<rendition scheme="css" xml:id="c">display:block; text-align:center</rendition>
+<rendition scheme="css" xml:id="et">display:block; margin-left:2em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et2">display:block; margin-left:4em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et3">display:block; margin-left:6em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="f">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="fr">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="g">letter-spacing:0.125em</rendition>
+<rendition scheme="css" xml:id="i">font-style:italic</rendition>
+<rendition scheme="css" xml:id="in">font-size:150%</rendition>
+<rendition scheme="css" xml:id="k">font-variant:small-caps</rendition>
+<rendition scheme="css" xml:id="larger">font-size:larger</rendition>
+<rendition scheme="css" xml:id="red">color:red</rendition>
+<rendition scheme="css" xml:id="right">display:block; text-align:right</rendition>
+<rendition scheme="css" xml:id="s">text-decoration:line-through</rendition>
+<rendition scheme="css" xml:id="smaller">font-size:smaller</rendition>
+<rendition scheme="css" xml:id="sub">vertical-align:sub; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="sup">vertical-align:super; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="u">text-decoration:underline</rendition>
+<rendition scheme="css" xml:id="uu">border-bottom:double 3px #000</rendition>
+</tagsDecl>
+</encodingDesc>
+<profileDesc>
+<langUsage>
+<language ident="deu">(Früh-)Neuhochdeutsch</language>
+<language ident="deu">German</language>
+</langUsage>
+<textClass>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1main">Zeitung</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">ready</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">mkhz1</classCode>
+</textClass>
+</profileDesc>
+</teiHeader>
+<text>     <front>
+<pb facs="#f0001"/>
+<titlePage type="heading">         <docTitle>           <titlePart type="main">             <hi rendition="#b #c #fr">Märkische Blätter.</hi></titlePart>             </docTitle></titlePage><lb/>
+<cb type="start" n="1"/>
+<div type="jExpedition"><p>Erscheinen <hi rendition="#c #g">Mittwoch</hi> und <hi rendition="#g">Sonnabend.</hi><lb/>
+<hi rendition="#c">Preis vierteljährlich 10 Sgr.</hi>        </p></div><lb/>
+<cb n="2"/>
+<titlePage type="heading"><docTitle>         <titlePart type="sub"><hi rendition="#fr"><hi rendition="#g">Fünfter Jahrgang</hi>.</hi></titlePart>       </docTitle></titlePage><lb/>
+<cb n="3"/>
+<div type="jExpedition"><p rendition="#c"><hi rendition="#g">Anzeigen</hi> per Petitzeile 1 Sgr.<lb/>
+Briefe werden franco erbeten.   </p></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<titlePage type="heading">           <docImprint><hi rendition="#right"><hi rendition="#sup">ro</hi> 4.</hi><pubPlace><hi rendition="#c"><hi rendition="#g">Hattingen,</hi></hi></pubPlace><docDate> Mittwoch, den 12. Januar.  <hi rendition="#right">1853.</hi></docDate>   </docImprint></titlePage><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+</front>     <body>         <div n="1" type="jFeuilleton"><head><hi rendition="#fr">Neujahrsgruß</hi></head><lb/>
+<p><hi rendition="#fr">des Pfarrers Nonne an seine geliebte ehemalige Gemeine in Schwelm</hi>, 1853. <note place="end" n="*)" xml:id="FN01" next="#FN02"/> </p><lb/>
+<cb type="start" n="1"/>
+<lg type="poem">             <lg n="1">               <l>Wie könnt' ich's doch, ja dürft' ich's Euch verschweigen,</l><lb/>
+<l>Was meine Seele heute so bewegt?</l><lb/>
+<l>Die edelsten von meinen Kräften neigen</l><lb/>
+<l>Sich hin zu Euch, so lang mein Herz noch schlägt,</l><lb/>
+<l>So lang mein Lebensbaum an seinen Zweigen</l><lb/>
+<l>Auch nur ein einz'ges halbes Blatt noch trägt:</l><lb/>
+<l>Drum ruf' ich laut, als ständ ich am Altare,</l> <lb/>
+<l><hi rendition="#g">Heil, Heil</hi> sei Euch! <hi rendition="#g">Heil, Heil</hi> im neuen Jahre!</l></lg><lb/>
+<lg n="2">             <l>Jch <hi rendition="#g">muß,</hi> o glaubt es mir, ich <hi rendition="#g">darf's</hi> auch sagen,</l><lb/>
+<l>Jm Jnnern bin ich's freudig mir bewußt,</l><lb/>
+<l>&#x201E;Es hat mein Herz stets treu für Euch geschlagen,</l><lb/>
+<l>Und wallte warm in meiner tiefsten Brust.&#x201C; </l><lb/>
+<l><hi rendition="#g">Wie</hi> warm? das hab' ich <hi rendition="#g">nach</hi> den Scheidetagen</l><lb/>
+<l>Jn voller Wahrheit selbst erst recht gewußt:</l><lb/>
+<l>Denn zuckten in den bittern Abschiedsstunden</l><lb/>
+<l>Durch's ganze Leben mir nicht blutge Wunden? </l></lg><lb/>
+<cb n="2"/>
+<lg n="3">            <l>Ach! ich vermocht' es nicht, an heil'ger Stätte</l><lb/>
+<l>Mit armem Abschiedsworte Euch zu nah'n:</l><lb/>
+<l>Jch fuhlt's, wenn auch der Mund versucht es hätte,</l><lb/>
+<l>Die Thräne hemme bald des Wortes Bahn:</l><lb/>
+<l>Doch ward ichs inne, wann auf stillem Bette</l><lb/>
+<l>Die Sterne Gottes zu mir niedersahn,</l><lb/>
+<l>&#x201E;Das heil'ge Band, das immer wahr gewesen,</l><lb/>
+<l>Das könne <hi rendition="#g">innerlich</hi> sich nimmer lösen.&#x201C;</l></lg><lb/>
+<lg n="4">           <l>Drum reich ich Euch an diesem ernsten Tage</l><lb/>
+<l>Jn ewig junger Liebe meine Hand,</l><lb/>
+<l>Und weiß der Herzen viel mit treuem Schlage</l><lb/>
+<l>Sind mir noch jetzt gar freundlich zugewandt;</l><lb/>
+<l>So blick ich denn, ob auch in stummer Klage,</l><lb/>
+<l>Jm Frieden hin auf das gelöste Band;</l><lb/>
+<l>&#x201E; <hi rendition="#g">Habt Dank, habt Dank</hi> für alle Eure Liebe,</l><lb/>
+<l>Sie bleibe mir und wenn auch nichts mir bliebe.&#x201C;</l></lg><lb/>
+<cb n="3"/>
+<lg n="5">         <l>Gott mache Dich, Du theuerste Gemeine!</l><lb/>
+<l>Reich in dem Mann, den Deine Wahl Dir gab,</l><lb/>
+<l>Daß in dem Herrn er das Zerriß'ne eine</l><lb/>
+<l>Und weide unter Christi Hirtenstab;</l><lb/>
+<l>&#x201E;O daß die Friedenssonne <hi rendition="#g">leuchtend</hi> scheine,&#x201C;</l><lb/>
+<l>Das fleh' ich, werd' ich flehen bis an's Grab,</l><lb/>
+<l>Denn wann sie fehlen ihre goldnen Strahlen,</l><lb/>
+<l>Wer kann das Wehe, wer den Jammer malen?</l></lg><lb/>
+<lg n="6">               <l>Er selbst, an dessen Krippe jüngst wir standen,</l><lb/>
+<l>Der Göttliche, wie war er liebereich!</l><lb/>
+<l>Und Alle, die ihm <hi rendition="#g">wahrhaft</hi> glaubten, wanden</l><lb/>
+<l>Gern Friedenskränze, Himmelsblumen gleich;</l><lb/>
+<l>Er mach Euch glaubenstreu, und mit den Banden</l><lb/>
+<l>Stillfrommen Liebessinns umwind' er Euch!</l><lb/>
+<l>&#x201E;Das ist mein Gruß.&#x201C; Jn Jesu heil'gem Namen</l><lb/>
+<l>Schweb' er Euch zu mit meinem treu'sten <hi rendition="#g">Amen</hi>!</l></lg></lg><lb/>
+<cb type="end"/>
+<note place="end" n="*)" xml:id="FN02" prev="#FN01">           Obgleich das vorstehende Gedicht eine specielle Bestimmung hat, so glaubten wir doch, dasselbe, das uns durch <choice><sic>freundjchaftliche</sic><corr>freundschaftliche</corr></choice> Vermittelung geworden, den<lb/>
+Freunden und Bekannten des geehrten Verfassers nicht vorenthalten zu dürfen.</note></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<cb type="start"/>
+<div n="1" type="jLocal"><head><hi rendition="#fr">Amtliche Bekanntmachungen.</hi></head><lb/>
+<p>Die Verhandlungen über die Abschätzung des am 3. d. Mts.<lb/>
+stattgehabten Brandschadens am Hause des Wirths Bertram <hi rendition="#g">Hop-<lb/>
+mann</hi> liegen vom 12. d. M. ab auf dem Rathhause 8 Tage lang<lb/>
+zur Einsicht offen.</p><lb/>
+<p>Hattingen, den 10. <choice><sic>Jannar</sic><corr>Januar</corr></choice> 1853.</p><lb/>
+<p><hi rendition="#right">Der Magistrat.</hi></p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jVarious"><head><hi rendition="#fr">Rundschau.</hi></head><lb/>
+<div n="2" type="jArticle"><p>Berlin, 8 Jan. Graf <hi rendition="#g">Schwerin</hi> ist zur Freude des Lan-<lb/>
+des wieder auf den Präsidentenstuhl der <hi rendition="#aq">II</hi>. Kammer, allein nicht der<lb/>
+Pünktlichkeit seiner Freunde, sondern dem Zufall des Looses verdanken<lb/>
+wir das Glück.</p></div><lb/>
+<div n="2" type="jArticle"><p>&#x2013; Auf dem Lande in Pommern und Ostpreußen werden Flug-<lb/>
+schriften verbreitet, welche die Aufhebung der Verfassung als den Se-<lb/>
+gen schildern, welchen für Preußen das neue Jahr bringen dürfte.<lb/>
+Wie uns mitgetheilt wird, schließt sich an diese Flugblätter die Auf-<lb/>
+forderung an, Petitionen an die Kammern wegen völliger Beseitigung<lb/>
+der Verfassung zu richten. Bis jetzt ist eine Petition dieser Art den<lb/>
+gegenwärtigen Kammern noch nicht zugegangen. Es unterliegt aber<lb/>
+keinem Zweifel, daß dergleichen noch einlaufen werden.</p></div><lb/>
+<div n="2" type="jArticle"><p>&#x2013; Der Herr Handelsminister ist seit einigen Tagen von einem<lb/>
+leichten Unwohlsein befallen, das ihn bereits seit drei Tagen zwingt,<lb/>
+das Bette zu hüten.</p></div><lb/>
+<div n="2" type="jArticle"><p>&#x2013; Geldsendungen nach Frankreich, welche baar erfolgen, müssen<lb/>
+in Folge einer Verordnung der französischen Zollbehörden, speciell de-<lb/>
+klarirt werden. Von der Post werden solche jetzt deshalb nur dann<lb/>
+angenommen, wenn sie von einer die einzelnen Münzsorten, aus wel-<lb/>
+chen die Sendung besteht, speziell bezeichnenden Deklarationen beglei-<lb/>
+tet sind.</p></div><lb/>
+<div n="2" type="jArticle"><p>Aus Posen, den 4. Jan., erhalten wir folgende Nachrich-<lb/>
+<cb n="2"/>
+ten: Briefe aus Warschau besagen neuerdings, daß das Gerücht, es<lb/>
+werde daselbst eine Zusammenkunft zwischen den Monarchen der drei<lb/>
+großen nordischen Reiche stattfinden, nicht nur fortbestehe, sondern an<lb/>
+Consistenz gewinne; als Termin dieses Monarchenkongresses wird die<lb/>
+Zeit unmittelbar nach dem grichischen Neujahr bezeichnet. Ferner<lb/>
+berichtet man von dort, daß in allen mit so großen Anlauf vorge-<lb/>
+nommenen Kriegsrüstungen urplötzlich ein völliger Stillstand einge-<lb/>
+treten sei; der Himmel, der sich schon mit Kriegswolken zu umziehen<lb/>
+schien, habe sich neuerdings wieder aufgeheitert und das gefürchtete<lb/>
+Gewitter dürfte schwerlich zum Ausbruch kommen. Alle Kriegs-<lb/>
+rüstungen stehen auf einmal still und sämmtliche Heeresbewegungen,<lb/>
+die noch vor Kurzem alle Landstraßen mit dem Westen zueilenden<lb/>
+Truppenmassen bedeckt hielten, seien ganz eingestellt.</p></div><lb/>
+<div n="2" type="jArticle"><p>Oldenburg, 3 Januar. Eine heute bekannt gewordene<lb/>
+großherzogliche Ordre entbindet das Militär des auf die Verfassung<lb/>
+geleisteteu Eides, und zwar in Gemäßheit des neuen Staatsgrund-<lb/>
+gesetzes und Bundesbeschlusses vom 23. August 1851.</p></div><lb/>
+<div n="2" type="jArticle"><p>Paris, 7. Jan. Ob der Papst nach Paris kommen wird<lb/>
+ist noch immer nicht entschieden. Aus dem Privatbriefe eines ange-<lb/>
+sehenen Priesters in Rom entnehme ich, daß Pius <hi rendition="#aq">IX</hi>. entschlossen<lb/>
+sei, dem Wunsche des Kaisers zu willfahren, Hr. v. Rayneval da-<lb/>
+gegen, soll in seiner letzten Depesche gemeldet haben, daß noch Nichts<lb/>
+entschieden sei.</p></div><lb/>
+<div n="2" type="jArticle"><p>&#x2013; Man erklärt sich jetzt die lange Zögerung des Papstes die<lb/>
+neue Dynastie anzuerkennen aus dem Umstande, daß die Ehe des<lb/>
+eventuellen Thronfolgers, Marschall Jerome mit Mlle. Paterson in<lb/>
+den Augen der Kirche noch immer gültig, die zweite Ehe des Mar-<lb/>
+schalls also eine unregelmäßige ist.</p></div></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jFeuilleton"><head><hi rendition="#fr">Die Elfenkönigin.</hi><lb/>
+Novelle von <hi rendition="#g">Lorenz Diefenbach</hi>.<lb/>
+( Fortsetzung. )</head><lb/>
+<div n="2"><p>Als er am folgenden Morgen frühe das Dampfschiff <choice><sic>besteigem</sic><corr>besteigen</corr></choice> <lb/>
+<cb type="end"/>
+<pb facs="#f0002"/>
+<cb type="start"/>
+wollte, brachte ihm Hugsheims Diener eine gewichtige Geldrolle nach<lb/>
+nebst einem artigen Billette des Gebers, der seine hastige Sendung<lb/>
+damit entschuldigte, das der Zufall denn doch seine Abreise vor Otto's<lb/>
+Rückkehr herbeiführen könne. Der Jnhalt der Rolle übertraf des<lb/>
+Letzteren Erwartung.</p><lb/>
+<p>Nach drei Tagen, die er an den Ufern des Rheines zugebracht<lb/>
+hatte, trat Otto senen Rückweg wieder an. Er gedachte den Wiater<lb/>
+in Frankfurt a. M. zuzubringen, zuvor aber in jener Rheinstadt Nach-<lb/>
+richt von Ravenberg, wo möglich ihn selbst zu erwarten. Er war<lb/>
+auf's Angenehmste überrascht, als er den Freund auf dem Dampf-<lb/>
+schiffe fand, daß nun Beide rheinaufwärts trug.</p><lb/>
+<p>Navenberg war in der glücklichsten Stimmung; seine Schwester<lb/>
+hatte nach einigen Bedenklichkeiten Rosaliens Aufnahme zugesagt und<lb/>
+wollte den Reisenden selbst eine Strecke Weges entgegenkommen, so-<lb/>
+bald sie bestimmte Nachricht erhielte, damit die Nachbarn keinen An-<lb/>
+stoß daran nähmen, wenn das erwachsene Mädchen mit ihrem Bru-<lb/>
+der allein ankäme. <choice><sic>B s</sic><corr>Bis</corr></choice> zu diesem Begegnungspunkte hoffte Raven-<lb/>
+berg auf die Begleitung des Pflegevaters. Er besorgte um so we-<lb/>
+niger einen Abschlag seiner Bitte von Rosaliens Pflegeeltern, weil er<lb/>
+diesen eine ansehnliche &#x201E;Vergütung&#x201C; ihrer bisherigen Leistungen für<lb/>
+Rosalie zudachte. Zu seiner Beglaubigung diente ein verbindlich ab-<lb/>
+gefaßter Brief seiner Schwester an die Hauswirthin des Helikons.</p><lb/>
+<p>Aber wie betroffen waren die Freunde, als <choice><sic>fie</sic><corr>sie</corr></choice> bei ihrem Ein-<lb/>
+tritte in das Haus die Nachricht erhielten, daß Hugsheim nicht bloß<lb/>
+mit dem Bilde, fondern auch mit dem Originale abgereist sei! Die<lb/>
+Familie berichtete mit verlegener Freundlichkeit, daß Rosalte &#x201E;das Glück<lb/>
+habe, von dem Herrn Baron als Mitglied seines Hauses aufgenom-<lb/>
+men zu werden und daß er feierlich versprochen habe, für die Erzie-<lb/>
+hung und ihre ganze Zukunft väterlich zu sorgen.&#x201C;</p><lb/>
+<p>&#x201E;Fassung und Verstellung!&#x201C; flüsterte Otto dem erbleichenden<lb/>
+Freunde zu, der nun gewaltsam an sich hielt, um seinen Schmerz<lb/>
+über die unerwartete Vereitelung seiner Hoffnungen zu verhehlen.<lb/>
+Sie sprachen erst, als sie allein waren, ihren Zorn über den zwiefa-<lb/>
+chen Dieb Rosaliens und der Feenkönigin aus; denn auch Otto klagte<lb/>
+ihn des Raubes an, so wenig er auch diese Anklage rechtfertigen<lb/>
+konnte. Zu dem tieferen Schmerze kam der Aerger hinzu, von dem<lb/>
+klugen Beobachter dupirt worden zu sein. Sie zweifelten nicht, daß<lb/>
+Hugsheim Ravenbergs Plan errathen, vielleicht auch die Freunde da-<lb/>
+rüber belauscht, und deshalb ganz im Stillen das Präveniere gespielt<lb/>
+habe, Otto's Ausflug benutzend.</p><lb/>
+<p>Es gelang ihnen bald, den Hausvater auszufragen, der in<lb/>
+gedrückter wehmüthiger Stimmung umherging und gerne den Freunden<lb/>
+sein Herz ausschüttete.</p><lb/>
+<p>&#x201E;Jch darf es Frau und Töchtern gar nicht merken lassen,&#x201C;<lb/>
+sagte er, &#x201E;wie leid mir die Abwesenheit des lieben Kindes thut; sie<lb/>
+warfen mir immer vor, ich sei ihm mehr zugethan, als meinen eige-<lb/>
+nen Töchtern.&#x201C;</p><lb/>
+<p>Aus dem Berichte des Alten ergab sich Folgendes:</p><lb/>
+<p>Der Baron hatte schon früher mit der Hausfrau Abrede ge-<lb/>
+nommen und mochte von dieser in der Vermuthung bestärkt worden<lb/>
+sein, daß Navenberg Rosaliens Entfernung beabsichtige. Erst wäh-<lb/>
+rend Otto's Abwesenheit war auch ihrem Pflegevater Hugsheims<lb/>
+Vorhaben als eine bereits abgemachte Sache <choice><sic>vvrgetragen</sic><corr>vorgetragen</corr></choice> worden.<lb/>
+Seine Einreden verstummten vor den Gründen der gebietenden Her-<lb/>
+rin des Hauses und Hugheim's, die ihm die <choice><sic>Eiuwilligung</sic><corr>Einwilligung</corr></choice> als<lb/>
+eine Pflichterfüllung gegen Rosalie darstellten.</p><lb/>
+<p>Auf weiteres Befragen ergab es sich, daß auch der Glanz des<lb/>
+Goldes seine Macht ausgeübt hatte. Hugsheim hatte Rosaliens<lb/>
+Pflegern eine sehr beträchtliche Summe übergeben, angeblich als Er-<lb/>
+satz für ein mit Diamanten besetztes Goldkreuz, welches von Rosalie<lb/>
+getragen wurde, aber auch in der That ihr angehörte, als einziges<lb/>
+Erbtheil von den verlorenen Eltern.</p><lb/>
+<p>Jhre ersten Pfleger, ein verarmtes Ehepaar, hatten einst auf<lb/>
+der Auswanderung nach Amerika das verwaiste und erkrankte kleine<lb/>
+Wesen den mitleidigen Händen seiner bisherigen Erzieher &#x2013; die da-<lb/>
+mals nur eine kleine Herberge besaßen &#x2013; übergeben. Nach ihrer<lb/>
+Aussage hatten Rosaliens Eltern das Unglück <choice><sic>e nes</sic><corr>eines</corr></choice> Bankerotts nur<lb/>
+kurze Zeit überlebt und waren fast gleichzeitig an der Cholera gestor-<lb/>
+ben. Ohne <choice><sic>Frennde</sic><corr>Freunde</corr></choice> und Verwandte an dem kleinen Orte, der ihre<lb/>
+<choice><sic>etzte</sic><corr>letzte</corr></choice> Zuflucht gewesen war, <choice><sic>haite</sic><corr>hatte</corr></choice> sie ihr Kind in <choice><sic>rolliger</sic><corr>völliger</corr></choice> Hülflosig-<lb/>
+<cb n="2"/>
+keit hinterlassen und als sein Erbtheil nur eine unbedeutende Geld-<lb/>
+summe und jenes Kreuz. Die Ortsbehörde hatte sogleich in ihre <choice><sic>au-<lb/>
+gebliche</sic><corr>an-gebliche</corr></choice> Heimath geschrieben, aber Niemand kannte dort ihren Namen.<lb/>
+Darauf hatte dieselbe den <choice><sic>Withsleuten</sic><corr>Wirthsleuten</corr></choice>, bei welchen das unglückliche<lb/>
+Paar sich eingemiethet hatte, auf ihren Antrag gestattet, das <choice><sic>Kir</sic><corr>Kind</corr></choice><lb/>
+als das ihre zu erziehen, wogegen der kleine Nachlaß ihr <choice><sic>Eigenthun</sic><corr>Eigenthum</corr></choice> wurde, mit Ausnahme des Kreuzes, welches Rosalien als Andenken<lb/>
+an die Eltern verbleiben sollte. Diese Wirthsleute waren eben jene<lb/>
+Auswanderer, welche kurz nachher ein besseres Geschick über dem<lb/>
+Weltmeere suchten und willig ihren Pflegling, der sie nur hemmte<lb/>
+und ihre Sorgen vermehrte, neuen und <choice><sic>zuverrlässugeren</sic><corr>zuverlässigeren</corr></choice> Versorgern<lb/>
+überließen, die keinen Anspruch auf den Rest jenes Geldes machten.</p><lb/>
+<p>Der Alte erzählte, wie entzückt damals er mit seiner ganzen<lb/>
+Familie über die Schönheit und Freundlichkeit des kleinen Waisen-<lb/>
+kindes gewesen sei, und besonders hatten seine, nur um einige Jahre<lb/>
+ältere Töchter die kleine Gespielelin nicht von sich lassen wollen. Jetzt<lb/>
+freilich sei sie ihnen zu schön geworden und, so gute Kinder sie auch<lb/>
+sonst wären, so stecke doch auch in ihnen der Teufel des Neides und<lb/>
+der Eifersucht. Er sah sich bei diesen offenherzig und unparteiischen<lb/>
+Worten ängstlich um, ob er nicht etwa von diesen guten Kindern<lb/>
+behorcht werde.</p><lb/>
+<p>Rosalie hatte zuletzt unter Allen erfahren, daß sie in eine an-<lb/>
+dere Welt versetzt werden sollte. Jhre Pflegemutter hatte ihr gesagt<lb/>
+daß sie ein armes Mädchen sei, dessen Zukunft sie mit dem besten<lb/>
+Willen nicht sichern könne nnd die Gott und dem Herrn Baron nicht<lb/>
+genug danken könne, daß sie sich ihrer ennehmen wollten. Hugsheim<lb/>
+hatte ihr von dem schönen Schlosse erzählt, in welchem er ohne Weib<lb/>
+und Kind wohne, weßhalb er hoffe, daß sie ihm seine Sorge für<lb/>
+ihre Erziehung und ihr ganzes Lebensglück durch treue Anhänglich-<lb/>
+keit und durch Lust und Liebe an dem Unterrichte lohnen werde, den<lb/>
+er ihr theils ertheilen, theils durch gebildete und wohlmeinende Men-<lb/>
+schen spenden lassen werde. Wenn sie ihm nur den guten Willen<lb/>
+zeige, sich zu bilden und seinen Wünschen zu folgen, so werde er alles<lb/>
+Mögliche thun, um sie mit ihrem neuen Loose zufrieden zu machen<lb/>
+und ihr kein unschuldiges Vergnügen versagen. Rosalie war &#x2013; so<lb/>
+erzählte der Wirth &#x2013; wirklich von der Freundlichkeit und dem vä-<lb/>
+terlichen Wesen des Barons ganz gerührt gewesen und hatte ihn<lb/>
+zu seiner sichtbaren Freude besonders für das <choice><sic>Versprecheu</sic><corr>Versprechen</corr></choice> gedankt<lb/>
+daß er mit ihrer Unwissenheit Nachsicht haben und für ihre Beleh-<lb/>
+rung Sorge tragen wolle. Doch habe sie gebeten, sie nur einige<lb/>
+Zeit, vielleicht bis zum nächsten Frühjahre hier zu lassen, damit<lb/>
+sie sich noch besser auf ihr neues Leben vorbereiten könne, und habe<lb/>
+diese Bitte hauptsächtlich an ihn selbst als ihren lieben Pflegevater<lb/>
+gerichtet. der sie gewiß nicht so schnell von sich lassen wolle. Er<lb/>
+habe sich bei dieser Bitte der Thränen nicht erwehren können und<lb/>
+das Wort für sie ergreifen wollen, aber die ernsten Winke seiner Frau<lb/>
+und des <choice><sic>Barous</sic><corr>Barons</corr></choice> hätten ihn davon abgehalten. Letzterer habe Ro-<lb/>
+salie mit dem Versprechen beruhigt, daß er über's Jahr um diese<lb/>
+Zeit sie zum Besuche in ihre bisherige Heimath bringen wolle. Sie<lb/>
+habe sich darauf über Erwartung verständig und gefaßt in das über<lb/>
+sie Beschlossene gefügt; aber sie müsse doch innerlich sehr bekümmert<lb/>
+gewesen sein, denn er habe sie einigemal im Garten belauscht, wo sie<lb/>
+mit weinenden Augen auf den Rhein hinaus blickte. Es sei ihm<lb/>
+auch vorgekommen, als wenn sie bei dem Läuten der <choice><sic>Dampffchiffe</sic><corr>Dampfschiffe</corr></choice> in<lb/>
+eine zitternde Unruhe gerathen sei, vermuthlich weil es sie an ihre<lb/>
+bevorstehende Abreise erinnerte.</p><lb/>
+<p>&#x201E;Wir können jetzt gar Nichts thun,&#x201C; sagte Otto zu dem be-<lb/>
+wegten Freunde, der nicht übel Lust hatte, den Entführer zu verfolgen<lb/>
+als schweigen und deu nächsten Frühling abwarten, um unsere Ent-<lb/>
+führte wiederzusehen und vielleicht die Probe zu machen, ob die El-<lb/>
+fenkönigin zu fest von den Wurzelgeistern verstrickt ist, um ihre Fit-<lb/>
+tichen gebrauchen zu können.&#x201C;</p><lb/>
+<p>Ravenberg sah ein, daß Otto Recht hatte und daß eine bal-<lb/>
+dige und deßhalb auffallende Annäherung nur ihre völlige Zurü<supplied>ck-</supplied><lb/>
+weisung durch den umsichtigen Gegner zur Folge haben würde. A<supplied>m</supplied><lb/>
+meisten quälte ihn der Argwohn, Hugsheim möge bei Rosaliens Auf-<lb/>
+nahme und Erziehung unlautere Zwecke haben; doch mußte er ihm<lb/>
+zugestehen, daß seine Haltung im Allgemeinen und insbesondere gegen<lb/>
+Rosalie keinen Grund zu dieser schweren Beschuldigung darbot und<lb/>
+<cb type="end"/>
+<pb facs="#f0003"/>
+<cb type="start"/>
+daß sie der alte Mann mit noch stärkerem Scheingrunde ihm selbst<lb/>
+zurückgeben konnte, wenn er sie ihm ausspräche.</p><lb/>
+<p>Nach den Aeußerungen des gleichfalls bejahrten Dieners, wel-<lb/>
+cher den Baron begleitete nnd mit großer Verehrung und Ergebenheit<lb/>
+ihm anzuhangen schien, würde Rosalie auch der mütterlichen Obhut<lb/>
+nicht entbehren, da seine eigene Gattin die Oberaufsicht über den<lb/>
+ganzeu Haushalt führe und des Barons ganzes Zutrauen besitze und<lb/>
+verdiene.</p><lb/>
+</div>       <div n="2"><head>2.</head>       <lb/>
+<p>Der Frühling war gekommen. An einem seiner ersten milden<lb/>
+Tage trat ein rüstiger Fußgänger in den Park, der Schloß Hugs-<lb/>
+heim umgibt. Es war Otto, der auf der nächsten Poststation sein<lb/>
+Reisegepäcke zurückgelassen hatte, weil er noch nicht wußte, wie seine<lb/>
+Aufnahme bei dem Baron ausfallen würde.</p><lb/>
+<p>Jm Posthause hatte er einige Erkundigungen über die Bewoh-<lb/>
+ner des Schlosses eingezogen. Man hatte ihm gesagt, daß er als<lb/>
+Maler dort ohne Zweifel willkommen sein werde, wenn er der stren-<lb/>
+gen Kunstprüfung genüge, die der alte Herr dem Vernehmen nach<lb/>
+mit seinen Gästen anstelle. Dieser gelte in der ganzen Gegend als<lb/>
+ein Sonderling, über dessen Charaker nur unzuverlässige Gerüchte<lb/>
+im Umlaufe gingen, da er fast mit Niemanden Umgang pflege und<lb/>
+in dem nahen Städtchen, worin das Posthaus lag, gewöhnlich nur<lb/>
+in den Winterkonzerten erscheine, und zwar in letztem Winter in <choice><sic>Be-<lb/>
+gliitung</sic><corr>Be-<lb/>
+gleitung</corr></choice> eines sehr jungen wunderschönen Mädchens, das er in vo-<lb/>
+rigem Herbste von einer Reise mit heimgebracht habe und mit einer<lb/>
+Sorgfalt und Zärtlichkeit behandele, die verschiedenartige Deutungen<lb/>
+hervorriefe. Er sei übrigens nicht in dem Lande zu Hause, sondern<lb/>
+vor mehreren Jahren nach dem Tode des letzten Besitzers von Hugs-<lb/>
+heim als Käufer des Schlosses erfchienen, von einem Haushofmeister<lb/>
+und dessen Gattin begleitet, welche, wie er selbst, allen Forschungen<lb/>
+über sein früheres Leben unzugänglich seien. Auch seinen früheren<lb/>
+Namen wisse das Publikum nicht, wenn auch wahrscheinlich die Be-<lb/>
+hörden, die aber auch darüber schwiegen: er habe sogleich den Namen<lb/>
+des Schlosses angenommen. Er müsse sehr reich sein. Das zum<lb/>
+Schlosse gehörige Landgut habe er um billigen Pacht in größeren<lb/>
+Parzellen an Bauern der nächsten Dörfer gegeben, die ihm als die<lb/>
+fleißigsten und ordentlichsten empfohlen worden seien und sich eine<lb/>
+gewisse Oberaufsicht dabei vorbehalten. Seine Pächter schilderten<lb/>
+ihn als strenge und gebieterisch, zugleich aber rühmten sie seinen ver-<lb/>
+ständigen Rath und seine Bereitwilligkeit, unverschuldeter Noth frei-<lb/>
+gebig beizustehen.</p><lb/>
+<p><choice><sic>Nachdenlich</sic><corr>Nachdenklich</corr></choice> und mit gemischten Erwartungen schritt Otto<lb/>
+durch die Allee, welche den Park in der Richtung des Schlosses<lb/>
+durchschneidet. Jm Schlosse wurde er von dem alten Diener, den er<lb/>
+vom Rheine her kannte, empfangen und freundlich begrüßt. Der<lb/>
+Baron, sagte dieser, werde sich seines Besuches sehr freuen; er habe<lb/>
+schon öfters geäußer, daß er ihn erwarte, und sogar nach seiner ver-<lb/>
+sorglichen Weise bereits ein Zimmer bestimmt, in welchem er wohnen<lb/>
+solle. Jm Augenblicke sei er zu einem seiner Pächter hinausgegangen<lb/>
+werde aber bald wiederkommen.</p><lb/>
+<p>Da der Hofmeister zu Otto's Befremden von Rosalien schwieg<lb/>
+so fragte er nach ihr. Jener sagte darauf: &#x201E;Das Fräulein wird sich<lb/>
+gewiß ebenfalls freuen, Sie wiederzusehen.&#x201C; Als aber nun Otto sie<lb/>
+zu sehen verlangte, zögerte er in offenbarer Verlegenheit und sagte<lb/>
+endlich: &#x201E;der Herr Baron sieht es nichs gerne, wenn sie in ihrer<lb/>
+Arbeit unterbrochen wird, und ich weiß, daß er ihr noch vor seinem<lb/>
+Weggange eine Aufgabe gab.</p><lb/>
+<p>&#x201E;Ohne Zweifel macht ein altrr Bekannter eine Ausnahme<lb/>
+erwiederte Otto mit sehr bestimmtem Tone, woraus Jener ihn bat<lb/>
+ihm zu folgen.&#x201C;</p><lb/>
+<p> <space dim="horizontal"/>  Forts. folgt.</p></div></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jPoliticalNews"><head>Lage Napoleons für den Falle eines Krieges.</head><lb/>
+<p>Napoleon hat dadurch, daß er seinem Namen das Prädicat<lb/>
+&#x201E;der dritte&#x201C; hinzugefügt, Ansprüche erhoben, welche die östlichen Groß-<lb/>
+mächte in seiner <choice><sic>Anerkernung</sic><corr>Anerkennung</corr></choice> nothwendig bedenklich machen müssen.<lb/>
+Zwar sind die Verhältnisse für den <choice><sic>Augenqlick</sic><corr>Augenblick</corr></choice> nicht der Art, daß die<lb/>
+Ansprüche, die sich hinter jenem Prädicate verbergen, verwirklicht<lb/>
+werden könnten, aber dadurch hören dieselben nicht auf, für die Ruhe<lb/>
+Europa's gefährlich zu sein. Dies wird Jeder zugeben, der an die<lb/>
+<cb n="2"/>
+Beweglichkeit unserer Zeit und das eigenthümliche Verhältniß denkt,<lb/>
+in welchem die größeren Regierungen zu Napoleon stehen. Sie sehen<lb/>
+in ihm den Mann, der eine Feuersbrunst gelöscht hat, welche unab-<lb/>
+sehbare Verwüstungen in Europa anrichten und die Kultur der Mensch-<lb/>
+heit um ein Jahrtausend zurückbringen könnte. Sie können ihm da-<lb/>
+her ihre Anerkennung trotz dem, daß er sich wider die Verträge von<lb/>
+1815 die Kaiserkrone aufgesetzt hat versagen, denn sie müssen die<lb/>
+Schritte, die ihn zur Kaiserkrone geführt haben auch wider ihren<lb/>
+Willen billigen. Er hat den Socialismus gebändigt, der Demokra-<lb/>
+tie einen tödtlichen Schlag versetzt, dem Parlamentarismus seine Lö-<lb/>
+wenhaut abgestreift und dadurch auf vielen Seiten eine Bewunderung<lb/>
+erzeugt, durch die er vielfach eine getstige Herrschaft ausübt.</p><lb/>
+<p>Darin hat Napoleon für den Fall eines Krieges einen gewal-<lb/>
+tigen Vortheil über seine Gegner. Wer die Geister beherrscht, beherrscht<lb/>
+die Welt; denn wo der Geist nicht widersteht, widersteht der Leib noch<lb/>
+weniger. Ein anderer Vortheil, den Napoleon vor seinen Gegnern<lb/>
+voraus hat, ist die Machtfülle, die ihm dadurch erwächst, daß er das<lb/>
+monarchische Regierungsprinzip mit größerer Entschiedenheit vertritt<lb/>
+und dennoch sich anf die Massen stützt, daß er die Autorität und die<lb/>
+Majorität nicht in ein feindliches sondern in ein freundliches Verhältniß<lb/>
+zu einander bringt, wodurch seine Macht nicht nur einen kräftigen<lb/>
+Geist, sondern auch einen starken Leib bekommt. Er hat bei seinen<lb/>
+Einrichtungen weniger Rücksichten zu nehmen, wenn er sie nicht von<lb/>
+sich selbst, sondern von dem Willen des Volkes ausgehen läßt.</p><lb/>
+<p>Neben diesen Vortheilen, welche Napoleon aus seiner eigenthüm-<lb/>
+lichen Lage als glücklicher Bewältiger der <choice><sic>Revolutian</sic><corr>Revolution</corr></choice> und als klugen<lb/>
+Benutzer derselben im Auslande und Jnlande erwachsen, arbeiten ihn<lb/>
+auch noch die zerrütteten Verhältnisse vieler Länder und die verblen-<lb/>
+deten Gelüste der Pa<gap reason="illegible" unit="chars" quantity="1"/>te<gap reason="illegible" unit="chars" quantity="1"/>en in die Hände. Man blicke in dieser Hin-<lb/>
+sicht nur auf Jtalien, die Schweiz, Belgien. Jn allen diesen Ländern<lb/>
+dürfte Napoleon zahlreiche Anhänger finden. Dänemark beirachtet<lb/>
+sich bereits als seinen Bundesgenossen und dürfte das Schwert, das<lb/>
+ihm mit Hülfe Deutschlands in die Hand gegeben worden ist, schwer-<lb/>
+lich für Deutschland ziehen. Selbst in Deutschland dürften Sym<supplied>p</supplied>a-<lb/>
+thieen für dem neuen Kaiser nicht fehlen, zumal wenn seine ersten<lb/>
+kühnen Griffe in der äußern Politik vom Glück unterstützt werden<lb/>
+sollten. Das Alles dürfen wir uns nicht verheimlichen, wenn wir<lb/>
+von den Ereignissen nicht überrascht werden wollen. Mögen das be-<lb/>
+sonders unsere Abgeordneten erwägen, damit sie erkennen, was sie zu<lb/>
+thun haben, um jeder Erschütterung vorzubeugen, die eintreten müßte,<lb/>
+wenn ein Krieg mit Frankreich ausbräche und unsere Reg<supplied>i</supplied>erung nicht<lb/>
+die vollste Selstständigkeit in der Ergreisung ihrer Maßregeln besäße.<lb/>
+Mögen sie dafür sorgen, daß die Majorität bei uns mit der <choice><sic>Autoii-<lb/>
+tät</sic><corr>Autori-<lb/>
+tät</corr></choice> nicht minder gehe, als in Frankreich, Dann, aber auch nur dann<lb/>
+werden wir uns mit Frenkrech messen können. Denn in solchem Falle<lb/>
+stehen wir da, wie ein Mann, der die Kraft von Millionen in sich<lb/>
+vereinigt, und mit Gott für König und Vaterland sein Schwert zieht.<lb/>
+Wer sollte einen solchen Helden überwinden können?</p><lb/>
+</div>         <milestone rendition="#hr" unit="section"/>       <div n="1" type="jVarious"><head><hi rendition="#fr"><hi rendition="#g">Vermischtes</hi>.</hi></head><lb/>
+<p>&#x2013; Zu Paris fand dieser Tage ein Duell Statt, das unblu-<lb/>
+tig ablief, aber so manchem Raufbolde zur Lehre dienen mag. Jn ei-<lb/>
+nem Kaffeehause des Boulevard entspann sich ein Wortwechsel zwischen<lb/>
+einem übermüthigen jungen Modehelden und einem bejahrten Manne.<lb/>
+Der junge Mann beleidigte seinen Gegner <choice><sic>uud</sic><corr>und</corr></choice> ein Duell wurde an-<lb/>
+beraumt. Auf dem bestimmten Platze angekommen, schien der junge<lb/>
+Mann Anfangs sehr muthig, trillerte ein Liedchen und wollte nichts<lb/>
+von Genugthuung wissen, die sein Gegner von ihm verlangte. Als<lb/>
+der Alte seine Hartnäckigkeit wahrnahm, rief er: Geben Sie Acht!<lb/>
+und er schoß einen Vogel herunter der gerade überfl<supplied>o</supplied>g. Der junge<lb/>
+Mann erblaßte, denn er merkte, mit welchem Schützen er es zu thun<lb/>
+hatte. Sehen Sie &#x2013; nahm der Alte wieder das Wort &#x2013;, ich bin<lb/>
+der Beleidigte, und Sie wissen jetzt, daß ich treffen kann. Sie leisten<lb/>
+eine Ehrenerklärug und zahlen heute 1000 Franken in die Armen-<lb/>
+kasse des zweiten Arrondissements, oder ich schieße Sie nieder! Der<lb/>
+junge Fant mußte in den sauren Apfel beißen, und die Sache war<lb/>
+damit abgethan.</p><lb/>
+<milestone unit="section" rendition="#hr"/></div><lb/>
+<cb type="end"/>
+<pb facs="#f0004"/>
+<div n="1" type="jAnnouncements"><head><hi rendition="#fr"><hi rendition="#g">Oeffentliche Anzeigen</hi>.</hi></head><lb/>
+<div n="2" type="jAn"><head><hi rendition="#fr">Prinz=Wilhelm Eisenbahn</hi>.<lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<hi rendition="#aq">Winter-Fahrplan         <lb/>
+vom 15. November 1852 an bis auf Weiteres.</hi></head><lb/>
+<cb type="start"/>
+<div n="3"><table>         <row>           <cell>Jn der Richtung von Steele nach Vohwinkel.</cell>           <cell/>           <cell/>           <cell/>           <cell/>           <cell/>           <cell/>         </row><lb/>
+<row>           <cell/>           <cell>             <hi rendition="#aq">I.</hi>           </cell>           <cell>             <hi rendition="#aq"/>           </cell>           <cell>             <hi rendition="#aq">III.</hi>           </cell>           <cell>             <hi rendition="#aq"/>           </cell>           <cell><hi rendition="#aq">V</hi>.</cell>           <cell/>         </row><lb/>
+<row>           <cell>Abfahrt von</cell>           <cell>  Morg.   </cell>           <cell>  </cell>           <cell>  Morg.   </cell>           <cell>  </cell>           <cell>  Abds.   </cell>           <cell>  </cell>         </row><lb/>
+<row>           <cell>             <lb/>
+</cell>           <cell>U.  </cell>           <cell>  M.   </cell>           <cell>  U.   </cell>           <cell>  M.   </cell>           <cell>  U.   </cell>           <cell>  M.   </cell>         </row><lb/>
+<row>           <cell>             <hi rendition="#g">Steele</hi>           </cell>           <cell>6</cell>           <cell rendition="#right">45</cell>           <cell>11</cell>           <cell rendition="#right">&#x2013;</cell>           <cell>6</cell>           <cell rendition="#right">&#x2013;</cell>         </row><lb/>
+<row>           <cell>             <hi rendition="#g">Kupferdreh</hi>           </cell>           <cell>7</cell>           <cell rendition="#right">5</cell>           <cell>11</cell>           <cell rendition="#right">20</cell>           <cell>6</cell>           <cell rendition="#right">20</cell>         </row><lb/>
+<row>           <cell>             <hi rendition="#g">Nierenhof</hi>           </cell>           <cell>7</cell>           <cell rendition="#right">20</cell>           <cell>11</cell>           <cell rendition="#right">35</cell>           <cell>6</cell>           <cell rendition="#right">35</cell>         </row><lb/>
+<row>           <cell>             <hi rendition="#g">Langenberg</hi>           </cell>           <cell>7</cell>           <cell rendition="#right">30</cell>           <cell>11</cell>           <cell rendition="#right">45</cell>           <cell>6</cell>           <cell rendition="#right">45</cell>         </row><lb/>
+<row>           <cell>             <hi rendition="#g">Neviges</hi>           </cell>           <cell>7</cell>           <cell rendition="#right">50</cell>           <cell>12</cell>           <cell rendition="#right">5</cell>           <cell>7</cell>           <cell rendition="#right">5</cell>         </row><lb/>
+<row>           <cell>             <hi rendition="#g">Kopfstation</hi>           </cell>           <cell>8</cell>           <cell rendition="#right">5</cell>           <cell>12</cell>           <cell rendition="#right">20</cell>           <cell>7</cell>           <cell rendition="#right">20</cell>         </row><lb/>
+<row>           <cell>             <hi rendition="#g">Asbruch</hi>           </cell>           <cell>8</cell>           <cell rendition="#right">15</cell>           <cell>12</cell>           <cell rendition="#right">30</cell>           <cell>7</cell>           <cell rendition="#right">30</cell>         </row><lb/>
+<row>           <cell>             <hi rendition="#g">Aprath</hi>           </cell>           <cell>8</cell>           <cell rendition="#right">22</cell>           <cell>12</cell>           <cell rendition="#right">37</cell>           <cell>7</cell>           <cell rendition="#right">37</cell>         </row><lb/>
+<row>           <cell>             <hi rendition="#g">Dornap</hi>           </cell>           <cell>8</cell>           <cell rendition="#right">29</cell>           <cell>12</cell>           <cell rendition="#right">44</cell>           <cell>7</cell>           <cell rendition="#right">44</cell>         </row><lb/>
+<row>           <cell>Ankunft in <hi rendition="#g">Vohwinkel</hi> </cell>           <cell>8</cell>           <cell rendition="#right">35</cell>           <cell>12</cell>           <cell rendition="#right">50</cell>           <cell>7</cell>           <cell rendition="#right">50</cell>         </row>       </table><lb/>
+</div><cb n="2"/>
+<div n="3"><head>Anschlüsse.</head><lb/>
+<p><hi rendition="#aq">I</hi>. 8 Uhr 52 Min. n. Elberfeld. </p><lb/>
+<p>10 U. 20 M. n. Düsseldorf. </p><lb/>
+<p><hi rendition="#aq">III</hi>. 1 Uhr 12 Min. n. Elberfeld. </p><lb/>
+<p>2 U. 5 M. n. Düsseldorf. </p><lb/>
+<p><hi rendition="#aq">V</hi>. 8 Uhr 10 M. n. Düsseldorf. </p>       <milestone unit="section" rendition="#hr"/>       <lb/>
+<p><hi rendition="#aq">II</hi>. 7 Uhr 5 Min. v. Elberfeld. </p><lb/>
+<p>8 Uhr 52 M v. Düsseldorf. </p><lb/>
+<p><hi rendition="#aq">IV</hi>. 1 Uhr 12 M. v. Düsseldorf. </p><lb/>
+<p><hi rendition="#aq">VI</hi>. 6 Uhr 37 M. v. Düsseldorf. </p></div><lb/>
+<cb n="3"/>
+<div n="3"><table>         <row>           <cell>Jn der Richtung von Vohwinkel nach Steele.</cell>           <cell/>           <cell/>           <cell/>           <cell/>           <cell/>           <cell/>         </row><lb/>
+<row>           <cell/>           <cell><lb/>
+<hi rendition="#aq">II.</hi>           </cell>           <cell>             <hi rendition="#aq"/>           </cell>           <cell>             <hi rendition="#aq">IV.</hi>           </cell>           <cell>             <hi rendition="#aq"/>           </cell>           <cell><hi rendition="#aq">VI</hi>.</cell>           <cell/>         </row><lb/>
+<row>           <cell>Abfahrt von</cell>           <cell>  Morg.   </cell>           <cell>  </cell>           <cell>  Nchm.   </cell>           <cell>  </cell>           <cell>  Abds.   </cell>           <cell>  </cell>         </row><lb/>
+<row>           <cell>             </cell>           <cell><lb/>
+U.   </cell>           <cell>  M.   </cell>           <cell>  U.   </cell>           <cell>  M.   </cell>           <cell>  U.   </cell>           <cell>  M.   </cell>         </row><lb/>
+<row>           <cell>             <hi rendition="#g">Vohwinkel</hi>           </cell>           <cell rendition="#right">9</cell>           <cell rendition="#right">&#x2013;</cell>           <cell>1</cell>           <cell rendition="#right">3<gap reason="illegible" unit="chars" quantity="1"/> </cell>           <cell>6</cell>           <cell rendition="#right">47</cell>         </row><lb/>
+<row>           <cell>             <hi rendition="#g">Dornap</hi>           </cell>           <cell rendition="#right">9</cell>           <cell rendition="#right">7</cell>           <cell>1</cell>           <cell rendition="#right">37</cell>           <cell>6</cell>           <cell rendition="#right">54</cell>         </row><lb/>
+<row>           <cell>             <hi rendition="#g">Aprath</hi>           </cell>           <cell rendition="#right">9</cell>           <cell rendition="#right">13</cell>           <cell>1</cell>           <cell rendition="#right">43</cell>           <cell>7</cell>           <cell rendition="#right">&#x2013;</cell>         </row><lb/>
+<row>           <cell>             <hi rendition="#g">Asbruch</hi>           </cell>           <cell rendition="#right">9</cell>           <cell rendition="#right">23</cell>           <cell>1</cell>           <cell rendition="#right">53</cell>           <cell>7</cell>           <cell rendition="#right">10</cell>         </row><lb/>
+<row>           <cell>             <hi rendition="#g">Kopfstation</hi>           </cell>           <cell rendition="#right">9</cell>           <cell rendition="#right">38</cell>           <cell>2</cell>           <cell rendition="#right">8</cell>           <cell>7</cell>           <cell rendition="#right">25</cell>         </row><lb/>
+<row>           <cell>             <hi rendition="#g">Neviges</hi>           </cell>           <cell rendition="#right">9</cell>           <cell rendition="#right">45</cell>           <cell>2</cell>           <cell rendition="#right">15</cell>           <cell>7</cell>           <cell rendition="#right">32</cell>         </row><lb/>
+<row>           <cell>             <hi rendition="#g">Langenberg</hi>           </cell>           <cell rendition="#right">10</cell>           <cell rendition="#right">&#x2013;</cell>           <cell>2</cell>           <cell rendition="#right">30</cell>           <cell>7</cell>           <cell rendition="#right">47</cell>         </row><lb/>
+<row>           <cell>             <hi rendition="#g">Nierenhof</hi>           </cell>           <cell rendition="#right">10</cell>           <cell rendition="#right">5</cell>           <cell>2</cell>           <cell rendition="#right">35</cell>           <cell>7</cell>           <cell rendition="#right">52</cell>         </row><lb/>
+<row>           <cell>             <hi rendition="#g">Kupferdreh</hi>           </cell>           <cell rendition="#right">10</cell>           <cell rendition="#right">15</cell>           <cell>2</cell>           <cell rendition="#right">45</cell>           <cell>8</cell>           <cell rendition="#right">2</cell>         </row><lb/>
+<row>           <cell>Ankunft in <hi rendition="#g">Steele</hi> </cell>           <cell rendition="#right">10</cell>           <cell rendition="#right">35</cell>           <cell>3</cell>           <cell rendition="#right">5</cell>           <cell>8</cell>           <cell rendition="#right">22</cell>         </row>       </table><lb/>
+<cb type="end"/>
+<p>Mit dem um 2 Uhr 25 Minuten Donnerstags von Steele abgehenden Extrazuge findet eine Personen=Beförderung<lb/>
+nach allen Stationen statt.</p><lb/>
+<p>Langenberg, den 12. November 1852.  <space dim="horizontal"/>   <hi rendition="#fr">Die Direction.</hi> </p></div></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<cb type="start"/>
+<div n="2" type="jAn"><head><hi rendition="#fr">Landwehr-Unterstützungs-Verein</hi><lb/>
+der <lb/>
+<hi rendition="#fr">alten und jungen Krieger,</hi><lb/>
+sowie der gesammten <lb/>
+<hi rendition="#fr">Landwehr &amp; Reserve.</hi></head><lb/>
+<p>Am 29. September 1852 sind dem Wohllöblichen Magistrate hierselbst,<lb/>
+die Statuten des hiesigem Landwehr=Unterstützungs=Vereins zur Genehmigung<lb/>
+höheren Orts eingereicht. Da die fraglichen Statuten mit der Genehmigung<lb/>
+bis jetzt nicht eingegangen sind, so wird zu diesem Behufe eine General=Ver-<lb/>
+sammlung auf <hi rendition="#g">Sonntag den</hi> 16. <hi rendition="#g">Januar</hi> d. J. in dem Locale des<lb/>
+Herrn <hi rendition="#g">Bergmann</hi> hierselbst, anberaumt, wozu die sämmtlichen Vereins=Mit-<lb/>
+glieder hiermit freundlichst eingeladen werden.</p><lb/>
+<p> <space dim="horizontal"/>  <hi rendition="#g">Hattingen,</hi> den 12. Januar 1853.<lb/>
+<space dim="horizontal"/>   <hi rendition="#fr">Der Vorstand.</hi> </p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jAn"><head><hi rendition="#fr">Verpachtung.</hi></head><lb/>
+<p>Am Donnerstag, den 20. d. M. Nachmittags 2 Uhr werde ich auf mei-<lb/>
+ner Amtsstube hierselbst den, den Erben Steinhauer G. W. <hi rendition="#g">Rüßmann</hi><lb/>
+hierselbst zugehörigen Steinbruch im Clyfken anderweit auf drei Jahre zur Ver-<lb/>
+pachtung aussetzen.</p><lb/>
+<p>Pachtlustige werden hierzu eingeladen.</p><lb/>
+<p> <space dim="horizontal"/>  Hattingen, den 5. Januar 1853.<lb/>
+<space dim="horizontal"/>  <hi rendition="#g">Der Auct.=Commissar:</hi> A. Burmann.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<cb type="start"/>
+<div n="2" type="jAn"><head><hi rendition="#fr">Rheinwein</hi></head>       <lb/>
+<p>die ganze Flasche zu 6 Sgr., die halbe<lb/>
+Flasche zu 3 Sgr. ist zu haben bei</p><lb/>
+<p> <space dim="horizontal"/>  <hi rendition="#g">Joh. Blumroth.</hi><lb/>
+<space dim="horizontal"/>  in Hattingen.</p></div><lb/>
+<cb n="2"/>
+<div n="2" type="jAn"><head><hi rendition="#fr">Oberländisches Kraut</hi><lb/>
+<hi rendition="#aq">per</hi> Pfund2 1 / 2 Sgr.</head><lb/>
+<p>bei  <space dim="horizontal"/>   <hi rendition="#g">Friedrich Keudel.</hi> </p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jAn"><p>Die zum Nachlaß der verstorbenen Wittwe<lb/>
+Dr. Hr. <hi rendition="#g">Waskönig</hi> gehörigen Kleidungs-<lb/>
+stücke und Schmuckfachen werde ich am<lb/>
+<cb type="end"/>
+<cb n="2"/>
+<hi rendition="#c"><hi rendition="#b">Mittwoch den 19. Januar d. J.</hi><lb/>
+Vormittags 11 Uhr</hi>       <lb/>
+im Hause des Landwirths Dr. Hr. <hi rendition="#g">Was-<lb/>
+könig zu Niederstüter,</hi> öffentlich<lb/>
+meistbietend verkaufen.</p><lb/>
+<p> <space dim="horizontal"/>  <hi rendition="#g">Hattingen</hi> den 3. Jannar 1853.<lb/>
+<space dim="horizontal"/>  A. <hi rendition="#g">Burmann.</hi> </p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="2" type="jAn"><head>Kirchliche Vorträge.</head><lb/>
+<p>Mittwoch, den 12. Januar 1 / 2 8 Uhr Abends <lb/>
+<hi rendition="#g">Ev.=Reformirte Gemeinde.</hi><lb/>
+Herr Pastor <hi rendition="#g">Chrceszynski.</hi></p></div></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jFinancialNews"><head><hi rendition="#g">Frucht=Preise.</hi></head><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<table>         <row>           <cell><choice><sic>Frnchtarten</sic><corr>Fruchtarten</corr></choice>   </cell>           <cell>  Hat-   </cell>           <cell>  </cell>           <cell>  </cell>           <cell>  </cell>           <cell>  Wit-   </cell>           <cell>  </cell>           <cell>  Dort-   </cell>           <cell>  </cell>           <cell>  Neuß   </cell>           <cell>  </cell>           <cell>  Mhl-   </cell>           <cell>  </cell>         </row>         <row>           <cell>  </cell>           <cell><lb/>
+tingen   </cell>           <cell>  </cell>           <cell>  Steele   </cell>           <cell>  </cell>           <cell>  ten   </cell>           <cell>  </cell>           <cell>  mund   </cell>           <cell>  </cell>           <cell>  7.   </cell>           <cell>  </cell>           <cell>  h. <hi rendition="#g">Rh</hi>   </cell>           <cell/>         </row><lb/>
+<row>           <cell>             <hi rendition="#aq">per</hi>           </cell>           <cell>11.</cell>           <cell/>           <cell/>           <cell/>           <cell>4.</cell>           <cell/>           <cell>5.</cell>           <cell/>           <cell>  Jan.   </cell>           <cell>  </cell>           <cell>  4.   </cell>           <cell>  </cell>         </row><lb/>
+<row>           <cell>Brl. Schfl.   </cell>           <cell>  Jan.   </cell>           <cell>  </cell>           <cell>  </cell>           <cell>  </cell>           <cell>  Jan.   </cell>           <cell>  </cell>           <cell>  Jan.   </cell>           <cell>  </cell>           <cell>  </cell>           <cell>  </cell>           <cell>  Jan.   </cell>           <cell>  </cell>         </row>         <row>           <cell>  </cell>           <cell><lb/>
+sgr.   </cell>           <cell>  pf.   </cell>           <cell>  sgr   </cell>           <cell>  pf.   </cell>           <cell>  sgr.   </cell>           <cell>  pf.   </cell>           <cell>  sgr.   </cell>           <cell>  pf.   </cell>           <cell>  sgr.   </cell>           <cell>  pf.   </cell>           <cell>  sgr.   </cell>           <cell>  pf.   </cell>         </row><lb/>
+<row>           <cell>Weizen   </cell>           <cell>  78   </cell>           <cell>  </cell>           <cell>  75   </cell>           <cell>  &#x2013;   </cell>           <cell>  77   </cell>           <cell>  </cell>           <cell>  72   </cell>           <cell>  </cell>           <cell>  76   </cell>           <cell>  </cell>           <cell>  75   </cell>           <cell>  9   </cell>         </row><lb/>
+<row>           <cell> <space dim="horizontal"/>  2. Sorte   </cell>           <cell>  75   </cell>           <cell>  </cell>           <cell>  &#x2013;   </cell>           <cell>  &#x2013;   </cell>           <cell>  &#x2013;   </cell>           <cell>  </cell>           <cell>  </cell>           <cell>  </cell>           <cell>  74   </cell>           <cell>  </cell>           <cell>  </cell>           <cell>  </cell>         </row><lb/>
+<row>           <cell> <space dim="horizontal"/>  3. &#x201E;   </cell>           <cell>  72   </cell>           <cell>  </cell>           <cell>  &#x2013;   </cell>           <cell>  &#x2013;   </cell>           <cell>  &#x2013;   </cell>           <cell>  </cell>           <cell>  </cell>           <cell>  </cell>           <cell>  72   </cell>           <cell>  </cell>           <cell>  </cell>           <cell>  </cell>         </row><lb/>
+<row>           <cell>Roggen   </cell>           <cell>  70   </cell>           <cell>  </cell>           <cell>  66   </cell>           <cell>  &#x2013;   </cell>           <cell>  66   </cell>           <cell>  </cell>           <cell>  66   </cell>           <cell>  </cell>           <cell>  64   </cell>           <cell>  </cell>           <cell>  65   </cell>           <cell>  10   </cell>         </row><lb/>
+<row>           <cell> <space dim="horizontal"/>  2. Sorte   </cell>           <cell>  68   </cell>           <cell>  </cell>           <cell>  &#x2013;   </cell>           <cell>  &#x2013;   </cell>           <cell>  &#x2013;   </cell>           <cell>  </cell>           <cell>  </cell>           <cell>  </cell>           <cell>  61   </cell>           <cell>  </cell>           <cell>  </cell>           <cell>  </cell>         </row><lb/>
+<row>           <cell> <space dim="horizontal"/>  3. &#x201E;   </cell>           <cell>  66   </cell>           <cell>  </cell>           <cell>  &#x2013;   </cell>           <cell>  &#x2013;   </cell>           <cell>  &#x2013;   </cell>           <cell>  </cell>           <cell>  </cell>           <cell>  </cell>           <cell>  58   </cell>           <cell>  </cell>           <cell>  </cell>           <cell>  </cell>         </row><lb/>
+<row>           <cell>Gerste 1. S.   </cell>           <cell>  48   </cell>           <cell>  </cell>           <cell>  51   </cell>           <cell>  </cell>           <cell>  46   </cell>           <cell>  </cell>           <cell>  44   </cell>           <cell>  </cell>           <cell>  42   </cell>           <cell>  </cell>           <cell>  40   </cell>           <cell>  1   </cell>         </row><lb/>
+<row>           <cell> <space dim="horizontal"/>  2. &#x201E;   </cell>           <cell>  </cell>           <cell>  </cell>           <cell>  &#x2013;   </cell>           <cell>  </cell>           <cell>  &#x2013;   </cell>           <cell>  </cell>           <cell>  </cell>           <cell>  </cell>           <cell>  42   </cell>           <cell>  </cell>           <cell>  </cell>           <cell>  </cell>         </row><lb/>
+<row>           <cell>Hafer   </cell>           <cell>  </cell>           <cell>  </cell>           <cell>  &#x2013;   </cell>           <cell>  </cell>           <cell>  27   </cell>           <cell>  </cell>           <cell>  26   </cell>           <cell>  </cell>           <cell>  26   </cell>           <cell>  </cell>           <cell>  23   </cell>           <cell>  </cell>         </row><lb/>
+<row>           <cell>Bohnen   </cell>           <cell>  </cell>           <cell>  </cell>           <cell>  &#x2013;   </cell>           <cell>  </cell>           <cell>  58   </cell>           <cell>  </cell>           <cell>  </cell>           <cell>  </cell>           <cell>  </cell>           <cell>  </cell>           <cell>  </cell>           <cell>  </cell>         </row><lb/>
+<row>           <cell>Buchweizen   </cell>           <cell>  60   </cell>           <cell>  </cell>           <cell>  60   </cell>           <cell>  </cell>           <cell>  54   </cell>           <cell>  </cell>           <cell>  </cell>           <cell>  </cell>           <cell>  52   </cell>           <cell>  </cell>           <cell>  </cell>           <cell>  </cell>         </row><lb/>
+<row>           <cell>Erbsen   </cell>           <cell>  80   </cell>           <cell>  </cell>           <cell>  78   </cell>           <cell>  </cell>           <cell>  74   </cell>           <cell>  </cell>           <cell>  </cell>           <cell>  </cell>           <cell>  80   </cell>           <cell>  </cell>           <cell>  </cell>           <cell>  </cell>         </row><lb/>
+<row>           <cell>Kartoffeln   </cell>           <cell>  </cell>           <cell>  </cell>           <cell>  30   </cell>           <cell>  </cell>           <cell>  28   </cell>           <cell>  </cell>           <cell>  25   </cell>           <cell>  </cell>           <cell>  23   </cell>           <cell>  </cell>           <cell>  </cell>           <cell>  </cell>         </row><lb/>
+<row>           <cell>Heu Ctr.   </cell>           <cell>  </cell>           <cell>  </cell>           <cell>  &#x2013;   </cell>           <cell>  </cell>           <cell>  20   </cell>           <cell>  </cell>           <cell>  22   </cell>           <cell>  </cell>           <cell>  22   </cell>           <cell>  </cell>           <cell>  </cell>           <cell>  </cell>         </row><lb/>
+<row>           <cell>Stroh Sch.   </cell>           <cell>  &#x2013;   </cell>           <cell>  </cell>           <cell>  &#x2013;   </cell>           <cell>  </cell>           <cell>  &#x2013;   </cell>           <cell>  </cell>           <cell>  </cell>           <cell>  </cell>           <cell>  </cell>           <cell>  </cell>           <cell>  </cell>           <cell>  </cell>         </row><lb/>
+<row>           <cell>Butter   </cell>           <cell/>           <cell/>           <cell>7</cell>           <cell>10</cell>           <cell>7</cell>           <cell/>           <cell>6</cell>           <cell>4</cell>           <cell/>           <cell/>           <cell/>           <cell/>         </row>       </table><lb/>
+<div n="2"><head><hi rendition="#g">Brod=Taxe.</hi></head><lb/>
+<table>         <row>           <cell>12 Pfund Schwarzbrod</cell>           <cell>8</cell>           <cell>Sgr.</cell>           <cell>6</cell>           <cell>Pf.</cell>         </row><lb/>
+<row>           <cell>23 Loth Weißbrod</cell>           <cell>1</cell>           <cell>&#x201E;</cell>           <cell>&#x2013;</cell>           <cell>&#x201E;</cell>         </row>       </table></div></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+</body><back><div n="1" type="imprint"><head>Redaction Druck und Verlag von C. <hi rendition="#g">Hundt</hi><lb/>
+zu Hattingen.</head></div><lb/>
+</back>       <cb type="end"/>
+</text> </TEI>

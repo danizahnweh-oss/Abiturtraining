@@ -1,0 +1,876 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.deutschestextarchiv.de/basisformat.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">     <teiHeader>
+<fileDesc>
+<titleStmt>
+<title type="main">Das Pfennig-Magazin der Gesellschaft zur Verbreitung gemeinnütziger Kenntnisse</title>
+<title type="sub">Nr. 163</title>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/115266127">
+<surname>Geyken</surname>
+<forename>Alexander</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1222198746">
+<surname>Haaf</surname>
+<forename>Susanne</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName ref="http://d-nb.info/gnd/1019062681">
+<surname>Jurish</surname>
+<forename>Bryan</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Boenig</surname>
+<forename>Matthias</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Thomas</surname>
+<forename>Christian</forename>
+</persName>
+</editor>
+<editor corresp="#DTACorpusPublisher">
+<persName>
+<surname>Wiegand</surname>
+<forename>Frank</forename>
+</persName>
+</editor>
+<respStmt>
+<orgName>Institut für Deutsche Sprache, Mannheim</orgName>
+<resp>
+<note type="remarkResponsibility">Bereitstellung der Bilddigitalisate und TEI
+Transkription</note>
+<ref target="http://hdl.handle.net/10932/00-01B8-B05C-28DE-B101-4"/>
+</resp>
+</respStmt>
+<respStmt>
+<persName>
+<forename>Peter</forename>
+<surname>Fankhauser</surname>
+</persName>
+<resp>
+<note type="remarkResponsibility">
+Transformation von TUSTEP nach TEI P5.
+Transformation von TEI P5 in das DTA TEI P5 Format.
+</note>
+</resp>
+</respStmt>
+<respStmt>
+<orgName ref="https://www.bbaw.de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<resp>
+<note type="remarkResponsibility">Langfristige Bereitstellung der DTA-Ausgabe</note>
+<ref target="https://www.bbaw.de"/>
+</resp>
+</respStmt>
+</titleStmt>
+<editionStmt><edition>Vollständige digitalisierte Ausgabe.</edition></editionStmt>
+<extent>
+<measure type="images">8</measure>
+<measure type="tokens">5134</measure>
+<measure type="types">1990</measure>
+<measure type="characters">34229</measure>
+</extent>
+<publicationStmt>
+<publisher xml:id="DTACorpusPublisher">
+<email>dta@bbaw.de</email>
+<orgName role="project">Deutsches Textarchiv</orgName>
+<orgName role="hostingInstitution" xml:lang="en">Berlin-Brandenburg Academy of Sciences and Humanities (BBAW)</orgName>
+<orgName role="hostingInstitution" xml:lang="de">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+<address>
+<addrLine>Jägerstr. 22/23, 10117 Berlin</addrLine>
+<country>Germany</country>
+</address>
+</publisher>
+<pubPlace>Berlin</pubPlace>
+<date type="publication">2025-10-24T08:35:18Z</date>
+<availability>
+<licence target="http://creativecommons.org/publicdomain/zero/1.0/">
+<p>Dieses Werk steht unter der "Creative Commons Namensnennung -
+Nicht kommerziell 3.0 Deutschland Lizenz" (CC BY-NC).
+</p>
+</licence>
+</availability>
+<idno>
+<idno type="URLWeb">https://www.deutschestextarchiv.de/nn_pfennig163_1836</idno>
+<idno type="URLXML">https://www.deutschestextarchiv.de/book/download_xml/nn_pfennig163_1836</idno>
+<idno type="URLHTML">https://www.deutschestextarchiv.de/book/download_html/nn_pfennig163_1836</idno>
+<idno type="URLText">https://www.deutschestextarchiv.de/book/download_text/nn_pfennig163_1836</idno>
+<idno type="DTADirName">nn_pfennig163_1836</idno>
+<idno type="DTAID">34764</idno>
+<idno type="URN">urn:nbn:de:kobv:b4-34764-4</idno>
+</idno>
+</publicationStmt>
+<sourceDesc>
+<bibl type="J">Das Pfennig=Magazin der Gesellschaft zur Verbreitung gemeinnütziger Kenntnisse. Nr. 163. Leipzig (Sachsen), 14. Mai 1836.</bibl>
+<biblFull>
+<titleStmt>
+<title level="m" type="main">Das Pfennig-Magazin der Gesellschaft zur Verbreitung gemeinnütziger Kenntnisse</title>
+<title level="m" type="sub">Nr. 163</title>
+</titleStmt>
+<editionStmt>
+<edition n="1"/>
+</editionStmt>
+<publicationStmt>
+<publisher/>
+<pubPlace>Leibzig (Sachsen)</pubPlace>
+<date type="publication">1836</date>
+</publicationStmt>
+</biblFull>
+<msDesc>
+<msIdentifier/>
+<physDesc>
+<typeDesc>
+<p>Fraktur</p>
+</typeDesc>
+</physDesc>
+</msDesc>
+</sourceDesc>
+</fileDesc>
+<encodingDesc>
+<editorialDecl>
+<p>
+<![CDATA[
+<p>Siehe Dokumentation</p>
+]]>
+</p>
+</editorialDecl>
+<tagsDecl>
+<rendition scheme="css" xml:id="aq">font-family:sans-serif</rendition>
+<rendition scheme="css" xml:id="b">font-weight:bold</rendition>
+<rendition scheme="css" xml:id="blue">color:blue</rendition>
+<rendition scheme="css" xml:id="c">display:block; text-align:center</rendition>
+<rendition scheme="css" xml:id="et">display:block; margin-left:2em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et2">display:block; margin-left:4em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="et3">display:block; margin-left:6em; text-indent:0</rendition>
+<rendition scheme="css" xml:id="f">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="fr">border:1px dotted silver</rendition>
+<rendition scheme="css" xml:id="g">letter-spacing:0.125em</rendition>
+<rendition scheme="css" xml:id="i">font-style:italic</rendition>
+<rendition scheme="css" xml:id="in">font-size:150%</rendition>
+<rendition scheme="css" xml:id="k">font-variant:small-caps</rendition>
+<rendition scheme="css" xml:id="larger">font-size:larger</rendition>
+<rendition scheme="css" xml:id="red">color:red</rendition>
+<rendition scheme="css" xml:id="right">display:block; text-align:right</rendition>
+<rendition scheme="css" xml:id="s">text-decoration:line-through</rendition>
+<rendition scheme="css" xml:id="smaller">font-size:smaller</rendition>
+<rendition scheme="css" xml:id="sub">vertical-align:sub; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="sup">vertical-align:super; font-size:.7em</rendition>
+<rendition scheme="css" xml:id="u">text-decoration:underline</rendition>
+<rendition scheme="css" xml:id="uu">border-bottom:double 3px #000</rendition>
+</tagsDecl>
+</encodingDesc>
+<profileDesc>
+<langUsage>
+<language ident="deu">(Früh-)Neuhochdeutsch</language>
+<language ident="deu">German</language>
+</langUsage>
+<textClass>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1main">Gebrauchsliteratur</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#dwds1sub">Zeitschrift</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">ready</classCode>
+<classCode scheme="https://www.deutschestextarchiv.de/doku/klassifikation#DTACorpus">mkhz1</classCode>
+</textClass>
+</profileDesc>
+</teiHeader>
+<text>     <front>
+<pb facs="#f0001" n="[153]"/>
+<titlePage type="heading"><docTitle><titlePart type="main"><hi rendition="#c #fr">Das Pfennig=Magazin<lb/>
+<hi rendition="#g">der</hi><lb/>
+Gesellschaft zur Verbreitung gemeinnütziger Kenntnisse.</hi></titlePart></docTitle><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<docImprint><hi rendition="#fr">Nr</hi>. 163. ]              <hi rendition="#c">Erscheint jeden Sonnabend.</hi>              <docDate><hi rendition="#right">[<hi rendition="#g">Mai</hi> 14, 1836.</hi></docDate>            </docImprint></titlePage><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+</front>     <body>       <div n="1" type="jArticle"><figure><head><hi rendition="#fr"><hi rendition="#g">Die Jnsel Rhodus</hi>.</hi></head><lb/>
+<p>  Der Nikolausthurm auf Rhodus.  </p>       </figure><lb/>
+<pb facs="#f0002" n="154"/>
+<fw place="top" type="header"> <hi rendition="#g">Das Pfennig=Magazin.</hi> </fw>       <cb type="start"/>
+<head><hi rendition="#fr"><hi rendition="#g">Die Jnsel Rhodus</hi>.</hi></head><lb/>
+<p><hi rendition="#in">U</hi>nter den reizenden Jnseln des Meeres, das die Kü-<lb/>
+sten von Kleinasien bespült, ist Rhodus oder Rhodis<lb/>
+eine der schönsten. Sie ist acht Meilen lang und drei<lb/>
+Meilen breit, und war schon im Alterthume wegen ih-<lb/>
+rer heitern Luft und ihrer trefflichen Früchte berühmt.<lb/>
+Der Boden ist sehr fruchtbar, aber wenig angebaut. Lange<lb/>
+war die Jnsel der Sitz einer mächtigen Republik, die<lb/>
+in den Kriegen der Römer, oft als ihre Verbündete, eine<lb/>
+bedeutende Rolle spielte, und Colonien in Jtalien, Sici-<lb/>
+lien, selbst in Spanien gründete. Jhre Seegesetze gal-<lb/>
+ten als Muster im Alterthume, und die Schönheit<lb/>
+der Kunstwerke, die sich auf der reichen Jnsel fanden,<lb/>
+zog viele wohlhabende Griechen und Römer dahin. Erst<lb/>
+unter Vespasian wurde Rhodus eine römische Provinz.<lb/>
+Jm 7. Jahrhunderte fiel sie in die Gewalt der Araber,<lb/>
+welchen sie alsbald von den Christen wieder entrissen<lb/>
+ward, und im Jahre 1309 wurde sie der Sitz der<lb/>
+Johanniterritter, die früher, nach dem Verluste von<lb/>
+Palästina, in Cypern Zuflucht gefunden hatten. Seit-<lb/>
+dem erhielten sie den Namen Rhodiserritter. Sie be-<lb/>
+haupteten sich hier mit glänzender Tapferkeit gegen die<lb/>
+oft wiederholten Angriffe der Türken und widerstanden<lb/>
+1480 einer heftigen Belagerung, mußten aber doch endlich<lb/>
+1522 die Jnsel den Türken übergeben, die sie seitdem<lb/>
+besessen haben. Sie steht unter dem Kapudan Pascha,<lb/>
+dem Befehlshaber der Jnseln des Archipelagus, hat ge-<lb/>
+genwärtig gegen 40,000 Einwohner, und ist der wich-<lb/>
+tigste Schiffbauplatz der Türken.</p><lb/>
+<p>Die Hauptstadt gleiches Namens ward während des<lb/>
+peloponnesischen Kriegs, mehr als 400 Jahre vor Christus,<lb/>
+gegründet und von demselben Baumeister erbaut, der die<lb/>
+Mauern des Piräus zu Athen errichtete. Der griechische<lb/>
+Geograph Strabo, der im ersten christlichen Jahrhunderte<lb/>
+die meisten Städte der römischen Welt sah, zog sie al-<lb/>
+len andern vor, und ein anderer griechischer Schrift-<lb/>
+steller, der sie 200 Jahre später sah, schildert mit<lb/>
+glänzenden Farben ihre Pracht und nennt sie die ein-<lb/>
+zige Stadt, von welcher man sagen könne, sie sei wie<lb/>
+eine Burg befestigt und wie ein Palast geschmückt. Jn<lb/>
+den Tagen ihres höchsten Glanzes, vor der Eroberung<lb/>
+durch die Römer, soll sie mit 3000 Bildsäulen und<lb/>
+100 kolossalen Bildwerken geziert gewesen sein. Unter<lb/>
+diesen gehörte der Koloß von Rhodus zu den sogenannten<lb/>
+sieben Wunderwerken der alten Welt. Er ward errichtet,<lb/>
+als Demetrius der Städtebezwinger, König von Mace-<lb/>
+donien, 300 Jahre vor Christus, die lange Belagerung<lb/>
+der Stadt aufzuheben war gezwungen worden. Dieses<lb/>
+Standbild, das Chares von Lindus verfertigte, war<lb/>
+ungefähr 105 Fuß hoch, und ward in einer Zeit von<lb/>
+zwölf Jahren mit einem Kostenaufwande von ungefähr<lb/>
+500,000 Thalern vollendet. Sechsundfunfzig Jahre<lb/>
+nach der Errichtung wurde der Koloß durch ein Erdbeben<lb/>
+von seinem Fußgestelle herabgestürzt. Vergebens wur-<lb/>
+den die Rhodier aufgefodert, das Bild wieder aufzu-<lb/>
+richten, und ganz Griechenland, selbst der König von<lb/>
+Ägypten, erboten sich, Beiträge zu den Kosten zu ge-<lb/>
+ben; die Rhodier lehnten es ab und gaben vor, ein<lb/>
+Orakel habe die Wiederaufrichtung des Kolosses verbo-<lb/>
+ten. Zur Zeit des römischen Schriftstellers Plinius,<lb/>
+im ersten christlichen Jahrhunderte, lag der Koloß noch<lb/>
+auf der Erde, ein wunderbarer Anblick. Wenige Menschen,<lb/>
+sagt er, konnten den Daumen des Riesenbildes umspan-<lb/>
+nen, und die Finger waren so lang als der Körper der<lb/>
+meisten Bildsäulen. Durch die bei dem Sturze entstande-<lb/>
+nen Risse des Standbildes sah man große Öffnungen im<lb/>
+Jnnern, in welche man Steine gelegt hatte, um den Koloß,<lb/>
+<cb n="2"/>
+als er stand, im Gleichgewichte zu halten. Einer der Feld-<lb/>
+herren des Khalifen Osman verkaufte nach der Eroberung<lb/>
+der Jnsel 655 das Erz des zertrümmerten Bildes an einen<lb/>
+Juden, der mehr als 900 Kameele damit beladen haben<lb/>
+soll. Spätere Angaben haben viele Fabeln und Übertrei-<lb/>
+bungen von diesem Riesenbilde in Umlauf gebracht, z. B.<lb/>
+daß es mit seinen Beinen auf zwei gegenüberstehenden<lb/>
+Felsen am Eingange des Hafens, einen Raum von 50<lb/>
+Fuß überschreitend, gestanden habe, daß Schiffe mit<lb/>
+vollen Segeln unter ihm hingefahren seien, daß es in<lb/>
+der rechten Hand eine hell leuchtende Lampe gehalten<lb/>
+und am Halse ein Spiegel gehangen habe, in welchem<lb/>
+man Schiffe bis an der Küste Ägyptens habe entdecken<lb/>
+können.</p><lb/>
+<p>Die Hauptstadt erscheint jetzt, wie die ganze Jnsel,<lb/>
+in einem traurigen Gegensatz zu ihrem frühern Glanze.<lb/>
+Sie hat kaum noch den vierten Theil ihres ehemali-<lb/>
+gen Umfanges. Die alten Ringmauern sind fast noch<lb/>
+unversehrt, aber meist nicht über zwei Fuß stark, und<lb/>
+werden von einem 70 Fuß breiten, jetzt trockenen<lb/>
+Graben umgeben. Längs demselben liegen die Vorstädte,<lb/>
+die schön am Abhange der Berge gebaut sind, und be-<lb/>
+stehen aus guten steinernen Häusern, deren jedes gewöhn-<lb/>
+lich einen Garten hat, worin Pomeranzen, Citronen,<lb/>
+Ölbäume, Feigen und Reben üppig gedeihen.</p><lb/>
+<p>Unsere Abbildung zeigt den Nikolausthurm, der<lb/>
+am Ende eines Dammes im großen Hafen steht. Er<lb/>
+wurde 1461 von den Johanniterrittern erbaut, als sie<lb/>
+den Angriff des kriegerischen Sultans, Mohammed <hi rendition="#aq">II.,</hi><lb/>
+voraussahen. Bei der ersten Belagerung 1480 richtete<lb/>
+der türkische Befehlshaber die kräftigsten Anstrengungen<lb/>
+gegen dieses Werk, da ein deutscher Renegat, dessen<lb/>
+Rath ihn hauptsächlich leitete, ihm versichert hatte, daß<lb/>
+nach der Einnahme dieses Thurmes der Hafen und die<lb/>
+Stadt sich ergeben würden. Drei ungeheure Geschütze,<lb/>
+die 18 Fuß lang waren und steinerne Kugeln von zwei<lb/>
+bis drei Fuß im Durchmesser schossen, wurden gegen<lb/>
+den Thurm gerichtet, aber mehr als 300 Schüsse von<lb/>
+der Seeseite gegen seine Mauern machten zwar keinen<lb/>
+Eindruck, aber auf der Landseite wurde das mächtige<lb/>
+Bollwerk zerrissen. Der Großmeister, Peter von Au-<lb/>
+buison, überzeugt, daß die Sicherheit der Stadt von<lb/>
+der Erhaltung des Thurmes abhing, schickte mehre<lb/>
+seiner tapfersten Ritter dahin, um die Mauerrisse wie-<lb/>
+derherstellen zu lassen, und die Feinde währenddem<lb/>
+abzuhalten. Sie schlugen die stürmenden Feinde mit<lb/>
+großer Tapferkeit auch glücklich zurück, und nun griff<lb/>
+der türkische Befehlshaber die Stadt selbst an, aber<lb/>
+als er auch hier nicht glücklicher war, wendete er sich<lb/>
+wieder gegen den Nikolausthurm. Ein Haupthinder-<lb/>
+niß des Erfolges war ein schmaler Kanal zwischen<lb/>
+dem Damme und der türkischen Stellung. Es ward<lb/>
+deshalb eine Art von Schiffbrücke gebaut, und um<lb/>
+das eine Ende derselben auf den Damm zu bringen,<lb/>
+schaffte ein Türke unter dem Schutze der Nacht einen<lb/>
+Anker über den Kanal, den er an einem Felsen unter<lb/>
+der Oberfläche des Wassers befestigte. Dann zog er<lb/>
+ein starkes Tau, dessen eines Ende an die Brücke<lb/>
+gebunden war, durch den Ring des Ankers und brachte<lb/>
+es wieder mit hinüber, um es an eine Winde zu befe-<lb/>
+stigen, mittels welcher man die Brücke auf den Punkt<lb/>
+zu bringen hoffte, wo der Anker lag. Ein Soldat war<lb/>
+zufällig in der Nähe, als der Türke den Anker legte,<lb/>
+und sobald sich derselbe entfernt hatte, stürzte er sich in<lb/>
+das Meer, machte das Tau los und brachte den Anker<lb/>
+dem Großmeister. Als die Türken nun ihre Brücke<lb/>
+bereit hatten, fingen sie an mit ihrer Winde zu arbeiten<lb/>
+und brachten zu ihrem großen Erstaunen die Brücke<lb/>
+<cb type="end"/>
+<pb facs="#f0003" n="155"/>
+<fw place="top" type="header"><hi rendition="#g">Das Pfennig=Magazin.</hi> </fw><cb type="start"/>
+nicht von der Stelle, dagegen aber nur ihr Ankertau zu-<lb/>
+rück. Bei der zweiten Belagerung der Jnsel 1522 ver-<lb/>
+theidigte den Thurm, als den Schlüssel der Jnsel, der<lb/>
+tapfere Ritter Guyot de Castellane mit 20 andern Rit-<lb/>
+tern und 300 Kriegern. Die Türken richteten aber<lb/>
+diesmal ihre Angriffe hauptsächlich gegen die Stadt<lb/>
+selbst und der Thurm wurde nur in den Stunden der<lb/>
+Nacht beschossen. Fünfhundert dieser nächtlichen Angriffe<lb/>
+zertrümmerten endlich den Thurm auf der Abendseite.<lb/>
+Die Türken wagten einen Sturm, fanden aber einen<lb/>
+zweiten befestigten Wall hinter den Trümmern des er-<lb/>
+sten und mußten sich deshalb zurückziehen. Dagegen<lb/>
+setzten sie ihre Angriffe gegen andere Theile der Stadt<lb/>
+fort, bis es ihren Anstrengungen endlich gelang, sie zu<lb/>
+erobern.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr"><hi rendition="#g">Der Sklavenmarkt in Jamaica</hi>.</hi></head><lb/>
+<p><hi rendition="#in">B</hi>ei unserer Ankunft in Jamaica, erzählt ein Reisender,<lb/>
+war unser erster Weg nach dem Platze, wo der Sklaven-<lb/>
+handel getrieben wurde, um mit eignen Augen diesen für<lb/>
+die Menschheit so schimpflichen Handel zu beobachten. Wir<lb/>
+fanden viele Hunderte dieser unglücklichen Geschöpfe in<lb/>
+ihren Buden; sie waren fast nackend, das Haupthaar<lb/>
+war größtentheils abgeschoren, und da sie meist in einer<lb/>
+Reihe auf schmalen Bänken oder auf der Erde saßen,<lb/>
+erregte ihr Anblick Schauder. Diejenigen, welche so<lb/>
+so bloß standen, waren meist Kinder; fast alle waren<lb/>
+mit einem spitzigen Eisen gezeichnet. Ja auch Mädchen<lb/>
+waren da, bei welchen das Zeichen mit einem glühenden<lb/>
+Eisen auf die Brust gebrannt war. Jn Folge des Schmu-<lb/>
+zes, in welchem sie am Bord der Sklavenschiffe leben müs-<lb/>
+sen, besonders aber der schlechten Nahrung wegen, die nur<lb/>
+in gesalzenem Fleische, Speck u. s. w. besteht, erhalten die<lb/>
+armen Geschöpfe ein erbärmliches Aussehen. Jhre Haut<lb/>
+trägt Spuren von skorbutischen Krankheiten. Durch<lb/>
+Hunger und Elend hat die schwarze Farbe ihrer Haut<lb/>
+ihre Feinheit und ihren Glanz verloren, und der Haut-<lb/>
+ausschlag, die Geschwüre, der geschorene Kopf mit den<lb/>
+großen Augen machen diese Geschöpfe in der That zu<lb/>
+Wesen, denen wir nach dem ersten Eindruck nicht gern<lb/>
+einräumen, mit uns zu demselben Geschlecht zu gehören.<lb/>
+Beim Kaufe werden die Sklaven genau besichtigt wie<lb/>
+Thiere, und um zu verhüten, daß sie betrübt aussehen,<lb/>
+geben ihnen die Händler zuweilen Jngwer oder auch<lb/>
+Taback zu essen, oder sie werden durch Ohrfeigen, Schläge<lb/>
+und Rippenstöße gezwungen, heiter zu scheinen. Der<lb/>
+Eigenthümer einer solchen Sklavenbude beeilt sich, dem<lb/>
+eintretenden Fremden mit außerordentlicher Freundlichkeit<lb/>
+entgegen zu kommen und betheuert die Güte seiner<lb/>
+Waare. Er stößt einige der Unglücklichen von ihren<lb/>
+Sitzen auf, um Proben ihrer Behendigkeit von ihnen able-<lb/>
+gen zu lassen. Sehen aber diese nichtswürdigen Men-<lb/>
+schenhändler, daß man ihre Käfige nur aus Neugierde<lb/>
+besucht, so werden sie grob und unverschämt; sie fangen<lb/>
+dann an, die Ausländer zu schmähen, besonders die Eng-<lb/>
+länder, welche, wie sie sagen, sich in ihre Angelegenhei-<lb/>
+ten mischen und ihnen ihren Verdienst schmälern, nur<lb/>
+um sich zu bereichern.</p><lb/>
+<p>Lange vor Tagesanbruch und während des ganzen<lb/>
+Tages sieht man hier viele tausend Sklaven Arbeit su-<lb/>
+chen; der Marktplatz sowol als der Hafen ist von ihnen<lb/>
+überfüllt, und man kann kaum einen Schritt gehen, ohne<lb/>
+von ihnen angesprochen zu werden. Diese Sklaven müssen<lb/>
+nicht nur für ihren eignen Lebensunterhalt sorgen, son-<lb/>
+dern außerdem ihrem Herrn noch täglich eine gewisse<lb/>
+Summe Geldes bringen; thun sie es nicht, so werden<lb/>
+<cb n="2"/>
+sie gepeitscht; wenn sie aber mehr gewinnen, als sie brau-<lb/>
+chen, so können sie das Übrige für sich behalten, um es<lb/>
+an einem andern Tage zuzulegen, wo sie nicht genug<lb/>
+erworben haben. Während unsers Aufenthalts sahen<lb/>
+wir selbst, wie manche Sklaven ihren Herren täglich den<lb/>
+Werth eines Thalers brachten. Viele Herren senden ihre<lb/>
+Sklaven auf tägliche Arbeit in die benachbarten Stein-<lb/>
+brüche; andere und beiweitem nicht der geringste Theil<lb/>
+läßt seine Sklaven Jnsekten fangen, weshalb auch hier,<lb/>
+wie in Rio Janeiro, die schönsten Jnsekten so billig sind.<lb/>
+Die Gewinnsucht ergreift überhaupt alle Mittel, um<lb/>
+zum Ziele zu gelangen. Kinder werden von der Mut-<lb/>
+terbrust gerissen und für 30 &#x2014; 40 Piaster verkauft.<lb/>
+Der Sklaveneigenthümer handelt überhaupt ganz nach<lb/>
+seinem Willen, er schließt und löst Ehen unter seinen<lb/>
+Sklaven; er trennt Kinder von ihren Ältern, verkauft<lb/>
+Weib und Gatten an verschiedene Käufer, sodaß sie sich<lb/>
+nie wieder sehen.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Die Wespen</hi>.<note place="foot" n="*)">Vergl. über das Nest der Wespe Pfennig=Magazin<lb/>
+Nr. 16, wo auch eine Abbildung desselben gegeben ist.</note></head><lb/>
+<p><hi rendition="#in">D</hi>ie schon früher von Naturhistorikern gemachte Beob-<lb/>
+achtung, daß die Wespen, wenn sie sich am Abend in<lb/>
+ihrem Neste zur Ruhe begeben, an den Eingang dessel-<lb/>
+ben eine Wache stellen, ist neuerlich von mehren Sei-<lb/>
+ten in Zweifel gezogen worden. Die neuesten Beob-<lb/>
+achter versichern jedoch, daß jene Angabe völlig<lb/>
+gegründet sei, und einer derselben berichtet hier-<lb/>
+über Folgendes. Jch kann bestimmt versichern, daß ich<lb/>
+in den Sommermonaten nach 9 Uhr Abends niemals<lb/>
+das Nest irgend einer Wespengattung ohne eine solche<lb/>
+Wache gesehen habe, und es ist merkwürdig, mit<lb/>
+welcher Schnelligkeit die nahende Gefahr den im Jn-<lb/>
+nern befindlichen Wespen mitgetheilt wird, sobald sich<lb/>
+ein Feind blicken läßt. Jch habe zuweilen noch<lb/>
+eine zweite Wache in einiger Entfernung hinter der<lb/>
+äußern zu sehen geglaubt, und nach der gewöhnlichen<lb/>
+Entfernung des Eingangs von dem Jnnern des Nestes,<lb/>
+oft zwei bis drei Fuß, und der Schnelligkeit der Ver-<lb/>
+bindung mit demselben zu urtheilen, mögen wol noch<lb/>
+mehre aufgestellt sein. Nähert man der wachehaltenden<lb/>
+Wespe eine Laterne, so scheint sie dadurch nicht beun-<lb/>
+ruhigt zu werden; stößt man indessen neben ihr auf den<lb/>
+Boden, so verschwindet sie augenblicklich auf einige Au-<lb/>
+genblicke, und die Bewohner des Nests machen sogleich<lb/>
+einen Ausfall. Jch bemächtigte mich immer erst der stets<lb/>
+geschlechtslosen Wespe, ehe ich das Nest zu nehmen ver-<lb/>
+suchte. Eine beträchtliche Anzahl Wespen bleibt bei war-<lb/>
+mem Wetter in der Nacht auf der Außenseite des Baum-<lb/>
+nestes, allein die Wache steht dennoch immer am Ein-<lb/>
+gange desselben. Die in der Erde befindlichen Nester<lb/>
+haben zwei Öffnungen, einen Ausgang und einen Ein-<lb/>
+gang. Das Baumnest hat gewöhnlich nur eine Öff-<lb/>
+nung, und zwar nahe am Boden. Bei großen Colo-<lb/>
+nien wird indeß oft eine zweite hinzugefügt, in welchem<lb/>
+Falle dann an jede eine Wache gestellt wird. Ein merk-<lb/>
+würdiger Umstand ist, daß, wenn am Tage der Ein-<lb/>
+gang verstopft wird, die Hunderte von Wespen, welche<lb/>
+beständig heimkehren, nicht den Angreifenden zu stechen<lb/>
+suchen, sobald jedoch eine aus dem Neste hervorkommt,<lb/>
+fällt sie sogleich über ihn her, jedoch nicht mit der<lb/>
+Wuth der Biene. Jch habe oft am Tage die Wespen<lb/>
+<cb type="end"/>
+<pb facs="#f0004" n="156"/>
+<fw place="top" type="header"> <hi rendition="#g">Das Pfennig=Magazin.</hi> </fw><cb type="start"/>
+mit einer Mischung von Schwefel und Pulver erstickt<lb/>
+und sie sogleich ausgegraben, während Hunderte mich<lb/>
+umschwärmten, ohne daß ich von ihnen gestochen wor-<lb/>
+den wäre. Wenn man eine Flasche, die halb mit Was-<lb/>
+ser angefüllt ist, dann an die Stelle des zerstörten Ne-<lb/>
+stes in die Erde stellt, und den Boden wieder grade<lb/>
+<cb n="2"/>
+macht, sodaß die Mündung der Flasche so genau als<lb/>
+möglich die Stelle des frühern Eingangs einnimmt, so<lb/>
+werden alle Wespen, welche zu der Zeit, wo das Nest<lb/>
+herausgenommen wurde, abwesend waren, in die Flasche<lb/>
+hineinkriechen. Auf diese Weise habe ich oft an 1500<lb/>
+Wespen gefangen.</p></div><lb/>
+<lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr">Baudenkmale in Frankreich aus den Zeiten Franz</hi> <hi rendition="#aq">I.</hi></head><lb/>
+<figure>         <head>  Der Palast FranzI.  </head>       </figure><lb/>
+<cb type="start"/>
+<p><hi rendition="#in">D</hi>ie Geschichte der Kunst in Frankreich beginnt ei-<lb/>
+gentlich mit Franz <hi rendition="#aq">I</hi>. Dieser König liebte den Krieg,<lb/>
+aber auch Künste und Wissenschaften und hat zu<lb/>
+ihrem Aufblühen in Frankreich mehr als alle seine<lb/>
+Vorfahren beigetragen, sodaß die Geschichte der Kunst in<lb/>
+Frankreich eigentlich mit diesem Monarchen beginnt. Be-<lb/>
+sonders gediehen unter ihm Malerei, Baukunst und<lb/>
+Bildhauerei, und während vorher die Kunst unter dem<lb/>
+Drucke der Unwissenheit schmachten mußte, nahm Franz <hi rendition="#aq">I.</hi><lb/>
+sie in seinen Schutz, gründete Schulen und Manufactu-<lb/>
+ren, zog talentvolle Männer nach Frankreich und ließ<lb/>
+aus Jtalien, wo damals die Künste in ihrer höchsten<lb/>
+Blüte standen, unter Andern auch den berühmten Maler<lb/>
+Leonardo da Vinci an seinen Hof kommen, um daselbst<lb/>
+zu arbeiten. Er kaufte in Jtalien werthvolle Gemälde<lb/>
+und Antiken, die in den Kunstschulen Frankreichs aufge-<lb/>
+<cb n="2"/>
+stellt wurden, damit die Franzosen ihren Geschmack nach<lb/>
+ihnen bilden und läutern möchten. Seine Bemühungen<lb/>
+blieben auch nicht fruchtlos. Bald wurden in Frankreich<lb/>
+Kunstwerke geschaffen, wovon man kurze Zeit vorher noch<lb/>
+keine Ahnung gehabt hatte. Die Kirchen der Haupt-<lb/>
+städte und die königlichen Lustschlösser wurden mit den<lb/>
+trefflichsten Gemälden geziert, eine Menge Prachtgebäude<lb/>
+aufgeführt, kurz, ganz Frankreich erhielt eine neue Ge-<lb/>
+stalt, denn mit dem Aufblühen der Künste und Wissen-<lb/>
+schaften hoben sich auch Handel und Gewerbe. Der<lb/>
+König wurde deshalb auch von seinen Unterthanen als<lb/>
+der Wiederhersteller der Künste und Wissenschaften ge-<lb/>
+priesen. Zwei Monumente verewigen das Andenken die-<lb/>
+ses Fürsten, und von beiden haben wir eine Abbildung<lb/>
+beigegeben. Das eine ist der Palast des Königs und<lb/>
+das andere sein Grabmal. Beide Denkmäler zeigen,<lb/>
+<cb type="end"/>
+<pb facs="#f0005" n="157"/>
+<fw place="top" type="header"><hi rendition="#g">Das Pfennig=Magazin.</hi> </fw>       <figure>         <head>  Das Grabmahl Franz I.  </head>       </figure><lb/>
+<cb type="start"/>
+was Bildhauerei und Baukunst in Frankreich zu leisten<lb/>
+vermochten, denn an beiden haben zu dieser Zeit die<lb/>
+größten Meister gearbeitet. Das erstere ließ Franz <hi rendition="#aq">I.</hi><lb/>
+selbst erbauen. Es stand ursprünglich im Walde von<lb/>
+Fontainebleau und war ein Jagdschloß. Als eins der<lb/>
+vorzüglichsten Muster für das Studium der Bau= und<lb/>
+Bildhauerkunst wurde es aber 1826 abgetragen, Stein<lb/>
+um Stein genau bezeichnet, so nach Paris gebracht und<lb/>
+hier wieder genau, wie es gewesen, in den elysäischen Fel-<lb/>
+dern aufgerichtet.</p><lb/>
+<cb n="2"/>
+<p>Das Grabmal wurde drei Jahre nach des Königs<lb/>
+Tode 1550 von dessen Sohn und Nachfolger Heinrich <hi rendition="#aq">II.</hi><lb/>
+errichtet. Es besteht ganz aus weißem Marmor. Zwei<lb/>
+prächtige Statuen, den König und seine Gemahlin im<lb/>
+Augenblick des Hinscheidens vorstellend, und ein kunstrei-<lb/>
+ches Basrelief, eine Scene aus der Schlacht von Ma-<lb/>
+rignano, bilden nebst den vier über ihm knieenden Evan-<lb/>
+gelisten den Hauptschmuck dieses großartigen Monuments<lb/>
+in der Kirche zu St.= Denis.</p></div><lb/>
+<cb type="end"/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle" xml:id="Pferde2"><head><hi rendition="#fr"><hi rendition="#g">Pferderacen</hi>.</hi><lb/>
+<ref target="nn_pfennig162_1836#Pferde1">( Fortsetzung aus Nr. 162. )</ref></head><lb/>
+<cb type="start"/>
+<p><hi rendition="#in">D</hi>er <hi rendition="#g">Araber</hi> steht unter allen Pferdestämmen sehr<lb/>
+hoch. Die wenigen wilden Pferde, die noch in einigen<lb/>
+Wüsten Arabiens sich finden, werden von den Bedui-<lb/>
+nen gejagt, die das Fleisch der Füllen als einen Lecker-<lb/>
+bissen lieben. Auch benutzen sie dieselben wol, um den<lb/>
+Stamm der geringern Pferde zu vermehren, die sie dem<lb/>
+unkundigen Fremden als Abkömmlinge ihrer heiligen<lb/>
+Race verkaufen. Sie sollen schneller als die gezähm-<lb/>
+ten sein. Man fängt sie in verdeckten Gruben im<lb/>
+Sande. Die Araber hatten im 7. Jahrhunderte noch<lb/>
+keine vorzüglichen Pferde; aber die Pferde aus Kappa-<lb/>
+docien und andern Gegenden Asiens, die sie von ihren<lb/>
+Nachbarn erhielten, wurden so sorgfältig gepflegt und<lb/>
+so gleichförmig und mit so strenger Auswahl durch die<lb/>
+schönsten Thiere derselben Race fortgepflanzt, daß schon<lb/>
+im 13. Jahrhundert das arabische Pferd in hohem<lb/>
+Rufe stand. Es soll drei Abarten arabischer Pferde<lb/>
+geben: die <hi rendition="#g">Attechi,</hi> eine geringere Race, die zu den<lb/>
+oben erwähnten wilden gehören; die <hi rendition="#g">Kadidschi,</hi> wört-<lb/>
+lich Pferde von unbekanntem Stamme, eine gemischte<lb/>
+Zucht, und die <hi rendition="#g">Kochlani,</hi> Pferde, deren Abstammung,<lb/>
+<cb n="2"/>
+wie die Araber sagen, 2000 Jahre rückwärts bekannt<lb/>
+ist. Mehre derselben haben geschriebene und beglaubigte<lb/>
+Stammbäume, die über 400 Jahre hinaufsteigen, und<lb/>
+mit echt orientalischer Übertreibung bis zu Salomo's<lb/>
+Stuterei hinangeführt werden. Auf diese Stammbäume<lb/>
+wird die größte Sorgfalt gewendet, und man ist äußerst<lb/>
+bedacht, die Möglichkeit eines Betrugs zu verhüten, so<lb/>
+weit der geschriebene Stammbaum reicht. Die Koch-<lb/>
+lani werden hauptsächlich von den Beduinen in den ent-<lb/>
+legenern Wüsten gezogen. Hengste kann man leicht er-<lb/>
+halten, jedoch nur zu hohen Preisen, selten aber Stu-<lb/>
+ten, ausgenommen durch Trug oder Bestechung. Die<lb/>
+Araber wollen gefunden haben, daß die Stute auf die<lb/>
+Vorzüge der Abkömmlinge mehr Einfluß hat als der<lb/>
+Beschäler, und die Genealogien ihrer Pferde werden<lb/>
+stets von den Müttern gerechnet. Nicht jeder Beur-<lb/>
+theiler würde die Gestalt des arabischen Pferdes voll-<lb/>
+kommen finden; aber sein Kopf ist unübertrefflich. Die<lb/>
+Breite der Stirne, die Schönheit des Mauls, der Glanz<lb/>
+des hervorstehenden Auges, die Kleinheit der Ohren und<lb/>
+das schöne Geäder zeichnen den Kopf des arabischen Pfer-<lb/>
+<cb type="end"/>
+<pb facs="#f0006" n="158"/>
+<fw place="top" type="header"> <hi rendition="#g">Das Pfennig=Magazin.</hi> </fw><cb type="start"/>
+des vor allen andern aus. Der Leib ist etwas zu leicht<lb/>
+gebaut, die Brust zu schmal, doch weiter nach den Schul-<lb/>
+tern wird der Brustkasten breiter und läßt der Lunge<lb/>
+freies Spiel. Nächst dem Kopfe zeichnet sich der Ara-<lb/>
+ber durch die Bildung der Schultern vor allen andern<lb/>
+Pferden aus. Er ist selten über 14 Hand 2 Zoll<lb/>
+hoch. Die Feinheit der Beine und die schiefe Stellung<lb/>
+der Fessel könnten dem Anscheine nach der Stärke des<lb/>
+Thieres nachtheilig sein, aber dies ist keineswegs der Fall.<lb/>
+Die stark hervortretenden Muskeln des Vorderbugs und<lb/>
+der Schenkel zeigen, daß der Araber fähig ist, die<lb/>
+Kraftbewegungen zu machen, die man ihm zuschreibt.<lb/>
+Nur der Berber allein übertrifft ihn in edler und kräf-<lb/>
+tiger Bewegung. Er vereinigt Schnelligkeit und Kraft<lb/>
+und unbezwinglichen Muth. Man kann wol nicht Al-<lb/>
+les glauben, was von dem Araber erzählt wird; der<lb/>
+Beduine ist zu Übertreibungen geneigt, zumal wenn von<lb/>
+der Rüstigkeit seines Pferdes die Rede ist, das er so<lb/>
+sehr als seine Kinder liebt; aber es ist nicht zu leug-<lb/>
+nen, daß dem Araber, als er in die europäischen Stu-<lb/>
+tereien eingeführt wurde, keine andere Race zu verglei-<lb/>
+chen war. Er ist so berühmt wegen seiner Folgsamkeit<lb/>
+als wegen seiner Schnelligkeit und seines Muthes. Er<lb/>
+gewinnt eine ungemeine Zuneigung zu seinem Herrn,<lb/>
+und ungeachtet seiner feurigen Natur schmiegt er sich<lb/>
+ihm zutraulich an. Die freundliche Behandlung, die er<lb/>
+von seiner frühesten Jugend an erhält, weckt und nährt<lb/>
+diese Zuneigung und gibt ihm Folgsamkeit gegen den<lb/>
+Willen seines Herrn, und daher eine Klugheit, die man<lb/>
+selten bei andern Racen findet. Die Stute und ihr<lb/>
+Füllen wohnen in demselben Zelte mit dem Beduinen<lb/>
+und seinen Kindern. Der Hals der Stute ist oft das<lb/>
+Kopfkissen des Reiters und noch häufiger der Kinder,<lb/>
+die sich auf ihr und den Füllen wälzen; nie entstehen<lb/>
+dadurch Unfälle, und das Thier gewinnt jene Freund-<lb/>
+schaft gegen den Menschen, die es wegen einer gelegent-<lb/>
+lichen rauhen Behandlung nicht vergißt. Fällt der Ara-<lb/>
+der von seinem Pferde und ist nicht im Stande, wieder<lb/>
+aufzustehen, so bleibt es augenblicklich stehen und wie-<lb/>
+hert, bis Beistand kommt. Legt er sich zum Schlafen<lb/>
+nieder, wenn Müdigkeit ihn überwältigt, so steht das<lb/>
+Pferd wachsam über ihm und erweckt ihn durch Wie-<lb/>
+hern, sobald ein Mensch oder ein Thier sich nähert.<lb/>
+Ein alter Araber hatte eine treffliche Stute, die ihn<lb/>
+15 Jahre lang in manchem Kampfe und auf manchem<lb/>
+beschwerlichen Wege getragen hatte, und als er 80 Jahre<lb/>
+alt und nicht mehr im Stande war, sie zu besteigen,<lb/>
+gab er sie mit seinem Säbel, ein Vermächtniß von sei-<lb/>
+nem Vater, seinem ältesten Sohne, ihm einschärfend,<lb/>
+Beide werth zu halten und sich nicht zur Ruhe zu le-<lb/>
+gen, ohne sie zu reiben wie einen Spiegel. Der junge<lb/>
+Mann fand in dem ersten Gefechte, woran er Theil<lb/>
+nahm, seinen Tod und das Pferd fiel in die Hände<lb/>
+der Feinde. Als der alte Mann diese Botschaft erhielt,<lb/>
+rief er aus, das Leben habe keinen Werth mehr für<lb/>
+ihn, da er seinen Sohn und sein Pferd verloren habe,<lb/>
+und um Beide trauernd, starb er bald nachher. So<lb/>
+sehr aber der Araber sein Pferd liebt, er behandelt es<lb/>
+doch zuweilen mit unglaublicher Grausamkeit. Das<lb/>
+vielleicht noch nie gerittene Füllen wird nicht selten über<lb/>
+Sandflächen und Felsen getrieben, 10&#x2014;15 Meilen weit,<lb/>
+ohne ihm einen Augenblick Ruhe zu gönnen. Dann<lb/>
+wird es, dampfend und keuchend, in ein Wasser ge-<lb/>
+führt, das tief genug ist, um darin zu schwimmen.<lb/>
+Wenn es darauf frißt, als ob nichts geschehen wäre,<lb/>
+so ist sein Ruf gegründet, und es gilt als ein echter<lb/>
+Abkömmling der Kochlanirace. Der Araber fühlt nicht<lb/>
+die Grausamkeit, die er sich erlaubt; es ist eine unab-<lb/>
+<cb n="2"/>
+weichliche Gewohnheit, und Gewohnheit verleitet ihn,<lb/>
+selbst Denjenigen Schmerz zuzufügen, die ihm so theuer<lb/>
+sind. Ein Araber in der Wüste hatte eine einzige<lb/>
+schöne Stute. Ein Europäer wollte sie kaufen; der Ara-<lb/>
+ber würde den Antrag sogleich mit Unwillen abgewiesen<lb/>
+haben, aber er war sehr arm und besaß nicht die Mittel,<lb/>
+seine dringendsten Bedürfnisse zu befriedigen. Noch immer<lb/>
+zögerte er, das Anerbieten anzunehmen. Er hatte kaum<lb/>
+Lumpen, sich zu bedecken, sein Weib und seine Kinder hun-<lb/>
+gerten, und das Gebot des Europäers war so ansehnlich,<lb/>
+daß es ihm Unterhalt für sein ganzes Leben verschaffen<lb/>
+konnte. Endlich gab er nach. Er brachte das Pferd<lb/>
+vor die Wohnung des Käufers, stieg ab, lehnte sich auf<lb/>
+das Thier und blickte bald auf die Goldstücke, bald auf<lb/>
+das geliebte Pferd. &#x201E;Wem will ich dich überlassen?&#x201C;<lb/>
+sprach er seufzend. &#x201E;Europäern, die dich fest binden,<lb/>
+dich schlagen, dich unglücklich machen werden? Komm<lb/>
+zurück mit mir, mein Schatz und mein Kleinod, erfreue<lb/>
+die Herzen meiner Kinder.&#x201C; Mit diesen Worten sprang<lb/>
+er auf das Pferd und war in einem Augenblicke aus<lb/>
+dem Gesichte. Eine andere Anekdote ist nicht minder<lb/>
+rührend. Jbrahim, ein armer wackerer Araber, war<lb/>
+nicht im Stande, eine Schuld zu bezahlen, und mußte<lb/>
+zu einem Kaufmanne in Rama gehen, um ihm sein<lb/>
+Pferd zu verpfänden. Als die Zeit der Wiedererstat-<lb/>
+tung herankam, konnte er das Pfand nicht einlösen,<lb/>
+und die Stute wurde verkauft. Jhr Stammbaum war<lb/>
+von väterlicher und mütterlicher Seite volle 500 Jahre<lb/>
+alt. Der Preis war über 2000 Thaler, eine unge-<lb/>
+heuere Summe für jenes Land. Oft ging Jbrahim<lb/>
+nach Rama, sich nach seinem Pferde zu erkundigen;<lb/>
+er umarmte es, wischte ihm die Augen mit seinem<lb/>
+Tuche, rieb es mit dem Ärmel seines Gewandes und<lb/>
+gab ihm tausend Segenswünsche, während er mit ihm<lb/>
+sprach. &#x201E;Meine Seele, mein Schatz&#x201C;, sprach er, &#x201E;muß<lb/>
+ich so unglücklich sein, daß ich dich an Andere verkau-<lb/>
+fen mußte und dich nicht selber behalten konnte! Jch<lb/>
+bin arm, meine Antelope. Jch habe dich auferzogen in<lb/>
+meinem Zelte wie mein Kind, ich habe dich nie geschol-<lb/>
+ten, immer geliebkost. Gott behüte dich! Du bist schön,<lb/>
+du bist süß und lieblich. Gott behüte dich vor dem<lb/>
+bösen Auge!&#x201C;</p><lb/>
+<p>Die arabischen Pferde erhalten nur eine spärliche<lb/>
+Nahrung. Die Stute hat nur eine, höchstens zwei<lb/>
+Mahlzeiten binnen 24 Stunden. Während des Tages<lb/>
+ist sie vor dem Eingange des Zeltes angebunden, damit<lb/>
+ihr Besitzer sie sogleich besteigen könne. Abends erhält<lb/>
+sie ein wenig Wasser, fünf bis sechs Pfund Gerste oder<lb/>
+Bohnen und legt sich zufrieden auf ihr Strohlager nieder.</p><lb/>
+<p>Die ostindische Race zerfällt in verschiedene Ab-<lb/>
+arten. Der <hi rendition="#g">Turki</hi> stammt ursprünglich von turkmani-<lb/>
+schen und persischen Pferden, ist schön gebaut, gefällig<lb/>
+in seinen Bewegungen und ungemein folgsam. Er hat,<lb/>
+gut gepflegt, eine treffliche und stolze Haltung und unge-<lb/>
+mein viel Feuer. Der <hi rendition="#g">Jrani</hi> ist von minder schönem<lb/>
+Wuchse, hat starke Hufe, aber nicht viel Feuer und<lb/>
+große hangende Ohren. Der geduldige und folgsame <lb/>
+<hi rendition="#g">Cozaki</hi> hat einen großen Kopf, überhaupt keinen regel-<lb/>
+mäßigen Bau, ist aber sehr brauchbar zu schwerer Ar-<lb/>
+beit. Der <hi rendition="#g">Modschinnis</hi> ist schön, feurig, behende<lb/>
+und dauerhaft. Der <hi rendition="#g">Tazi</hi> ist leicht, hat einen einge-<lb/>
+bogenen Rücken, und vielleicht eben darum nicht viel<lb/>
+Stärke, aber einen sichern Gang. Die meisten indi-<lb/>
+schen Pferde sind über 14 Hand hoch. Jhre Beine<lb/>
+sind unter dem Knie meist sehr dünn und die Knie<lb/>
+dick, als ob sie den Spaht hätten.</p><lb/>
+<p>Die <hi rendition="#g">chinesische</hi> Race ist klein, schwach, schlecht<lb/>
+gebaut und ohne Feuer.</p><lb/>
+<cb type="end"/>
+<pb facs="#f0007" n="159"/>
+<fw place="top" type="header"><hi rendition="#g">Das Pfennig=Magazin.</hi> </fw>       <cb type="start"/>
+<p>Das <hi rendition="#g">persische</hi> Pferd ist nächst dem Araber das<lb/>
+schönste in Asien. Sein Kopf ist fast so schön als bei<lb/>
+jenem, das Kreuz besser; es ist ebenso behende, aber<lb/>
+nicht so dauerhaft. Die persischen Pferde waren hun-<lb/>
+dert Jahre früher berühmt, ehe man die arabischen<lb/>
+kannte. Die Perser hatten im Alterthume die beste<lb/>
+Reiterei im Morgenlande. Die echten persischen Pferde<lb/>
+wurden so sehr geschätzt, daß Alexander der Große ein<lb/>
+solches Roß für das edelste Geschenk hielt, das er ge-<lb/>
+ben könnte, und wenn die parthischen Könige die Göt-<lb/>
+ter durch ein kostbares Opfer versöhnen wollten, ward<lb/>
+ein Pferd auf dem Altare geschlachtet. Sie sind auch<lb/>
+jetzt noch nicht ausgeartet. Nie sind sie über 14 &#x2014;<lb/>
+14 1 / 2 Hand hoch und im Ganzen größer als der Ara-<lb/>
+ber. Man gibt ihnen nur bei Sonnenaufgang und<lb/>
+Sonnenuntergang Futter und Wasser und reinigt sie<lb/>
+dann. Jhr gewöhnliches Futter ist Gerste und Häcker-<lb/>
+ling; nie bekommen sie Heu. Das Lager des Pferdes<lb/>
+ist sein Mist, der während des Tages an die Sonne<lb/>
+gelegt, und wenn er sich gepulvert hat, dem Thiere<lb/>
+Abends untergestreut wird. Dieser Mist berührt nicht<lb/>
+den Leib des Thieres, der bei kaltem Wetter in eine<lb/>
+warme, von den Ohren bis zum Schwanze reichende,<lb/>
+mit einem Gurt befestigte Bedeckung eingewickelt ist.<lb/>
+Bei warmem Wetter ist die Bedeckung von leichterm<lb/>
+Zeuche. Bei Tage stehen die Pferde ganz im Schatten.<lb/>
+Jn der Nacht werden sie im Hofe angebunden und die<lb/>
+Hinterbeine durch härene Stricke befestigt, damit sie sich<lb/>
+nicht einander anfallen und beschädigen. Die Wärter<lb/>
+schlafen immer unter ihnen, um Unfälle zu verhüten.<lb/>
+Aber dieser Vorsicht ungeachtet, reißen sie sich zuweilen<lb/>
+los, und unter furchtbarem Wiehern, Schreien, Beißen<lb/>
+und Ausschlagen beginnt der Kampf. Auch im Gefechte<lb/>
+nehmen die persischen Pferde Theil an dem Kampfe der<lb/>
+Reiter und zerreißen sich mit den Zähnen. Wettren-<lb/>
+nen sind in Persien gewöhnlich bei festlichen Gelegen-<lb/>
+heiten. Die zum Wettkampfe bestimmten Pferde wer-<lb/>
+den in drei Haufen getheilt, um die Unterhaltung zu<lb/>
+verlängern. Sie werden mehre Wochen vorher vorbe-<lb/>
+reitet, und während dieser Zeit oft über die Rennbahn<lb/>
+geführt. Man gibt sich viele Mühe, durch Schweiß<lb/>
+und Anstrengung ihr Gewicht zu vermindern. Jn<lb/>
+Tscherkessien hat fast jede angesehene Familie eine An-<lb/>
+zahl von Pferden, welchen in ihrer Jugend Zeichen ein-<lb/>
+gebrannt werden. Man ist dabei sehr strenge, sodaß<lb/>
+Jemand, der einem Füllen von gemeiner Abkunft ein<lb/>
+Zeichen geben wollte, das edle Herkunft anzeigt, für<lb/>
+diesen Betrug mit dem Leben büßen müßte. Die beste<lb/>
+tscherkessische Pferderace heißt <hi rendition="#g">Schalock,</hi> und zeichnet<lb/>
+sich mehr durch Stärke und Behendigkeit als durch<lb/>
+Schönheit aus.</p><lb/>
+<p>Die <hi rendition="#g">turkmanische</hi> Race, in Turkestan, nord-<lb/>
+östlich vom kaspischen Meere, ist seit den ältesten Zei-<lb/>
+ten wegen der Reinheit ihrer Abstammung berühmt.<lb/>
+Sie ist groß, 15&#x2014;16 Hand hoch, behende und uner-<lb/>
+müdlich in Beschwerden, doch ist ihr Bau nicht regel-<lb/>
+mäßig, der Kopf ist unverhältnißmäßig groß, die Brust<lb/>
+schmal und sie sind auch zu hochbeinig.</p><lb/>
+<p>Die <hi rendition="#g">tatarischen</hi> Pferde auf den unermeßlichen<lb/>
+Ebenen des innern Asiens und in einem großen Theile<lb/>
+des europäischen Rußlands, die noch wenig von dem<lb/>
+Zustande der Wildheit sich entfernt haben, sind klein<lb/>
+und schlecht gebaut, aber fähig, bei der spärlichsten<lb/>
+Nahrung Beschwerden zu ertragen. Pferde, welche häu-<lb/>
+fige Wanderungen nicht ertragen können, werden geschlach-<lb/>
+tet und nur die kräftigen erhalten. Die frei weidenden<lb/>
+Pferde werden in Heerden getheilt, an deren Spitze<lb/>
+zwei Hengste gestellt werden, die sie zusammenhalten.<lb/>
+<cb n="2"/>
+Selten geht ein Füllen verloren. Nähert sich eine<lb/>
+fremde Heerde, so treiben die Hengste ihre Haufen dicht<lb/>
+zusammen und stellen sich an die Spitze, greifen im<lb/>
+Nothfalle an und vertreiben die andern. Wenn die<lb/>
+Hengstfüllen heranwachsen, werden sie von der Heerde<lb/>
+gesondert, und weiden in einiger Entfernung allein, bis<lb/>
+sie groß genug sind, eigne Heerden bilden zu können.</p><lb/>
+<p>Die <hi rendition="#g">türkischen</hi> Pferde stammen meist von Ara-<lb/>
+bern und persischen oder andern asiatischen Racen. Sie<lb/>
+sind länger als die arabischen und haben ein höheres<lb/>
+Kreuz. Man hat sie häufig benutzt, durch Kreuzung<lb/>
+die englische Race zu verbessern. Auch die Türken be-<lb/>
+handeln ihre Pferde mit großer Schonung und Milde,<lb/>
+und die Thiere zeigen dagegen große Anhänglichkeit und<lb/>
+Folgsamkeit gegen ihre Herren.</p><lb/>
+<p><ref target="nn_pfennig164_1836#Pferde3"><hi rendition="#c">( Fortsetzung folgt in Nr. 164. )</hi></ref></p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr"><hi rendition="#g">Eisernes Dampfschiff</hi>.</hi></head><lb/>
+<p><hi rendition="#in">D</hi>ie Dampfschiffahrtsgesellschaft in Rotterdam hat<lb/>
+1835 für Rechnung der niederländischen Regierung<lb/>
+zwei eiserne Dampfschiffe bauen lassen, die in den ost-<lb/>
+indischen Gewässern gebraucht werden sollen. Das grö-<lb/>
+ßere, bereits verladen, das 115 Fuß lang und 20 F.<lb/>
+breit ist, hat, theils nach dem cubischen Jnhalte ge-<lb/>
+messen, theils gewogen, nicht mehr als 25 Last betragen.<lb/>
+Es geht, ganz beladen und mit einer Batterie von eiser-<lb/>
+nen Zwölfpfündern ausgerüstet, nicht drei Fuß tief, und<lb/>
+wird durch eine Dampfmaschine, die 30 Pferdekraft<lb/>
+hat, in Bewegung gesetzt. Das kleinere, noch auf dem<lb/>
+Stapel liegende Dampfschiff ist 58 Fuß lang und 16<lb/>
+Fuß breit. Die Hitze am Bord dieser eisernen Dampf-<lb/>
+schiffe ist bedeutend geringer als am Bord der hölzer-<lb/>
+nen, was in dem heißen Klima der ostindischen Gewäs-<lb/>
+ser für die europäische Mannschaft sehr wichtig ist. Die<lb/>
+Eisenplatten, welche die Schale der Fahrzeuge bilden,<lb/>
+sind von oben nach unten nicht über 1 / 4 &#x2014; 1 Zoll<lb/>
+dick, und die in der hohen Kante liegenden eisernen<lb/>
+Rippen sind gleichfalls nur 1 Zoll dick, daher der Raum<lb/>
+in solchen Schiffen nicht nur weit größer als in dem<lb/>
+hölzernen von gleichem Umfange, sondern auch das Ge-<lb/>
+wicht der Fahrzeuge so gering ist, daß die Maschine an<lb/>
+dem Boote selbst kaum eine Last zu schieben hat. Beide<lb/>
+Schiffe sind bestimmt, gegen die Seeräuber zu kreuzen,<lb/>
+und deshalb zum Schnellsegeln gebaut.</p></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+<div n="1" type="jArticle"><head><hi rendition="#fr"><hi rendition="#g">Bibelübersetzungen</hi>.</hi></head><lb/>
+<p><hi rendition="#in">D</hi>ie Baumgärtner'sche Buchhandlung in Leipzig hat seit<lb/>
+1835 zwei Ausgaben der Bibel begonnen, die beide in<lb/>
+typographischer Hinsicht sich auszeichnen und mit zahl-<lb/>
+reichen Abbildungen versehen sind:</p><lb/>
+<p>1 ) Die &#x201E; <hi rendition="#g">Allgemeine wohlfeile Volksbibel<lb/>
+nach Luther's Übersetzung</hi> &#x201C;, und</p><lb/>
+<p>2 ) die &#x201E; <hi rendition="#g">Allgemeine wohlfeile Bilderbibel<lb/>
+für Katholiken</hi> &#x201C; ( mit der <hi rendition="#g">Druckerlaubniß des<lb/>
+katholisch=geistlichen Consistorii</hi> im Königreiche<lb/>
+Sachsen ) ; jene nach dem correctesten Texte sorgfältig<lb/>
+abgedruckt, diese nach einer von den geistlichen Behörden<lb/>
+genehmigten Übersetzung. Die dem Texte eingedruckten,<lb/>
+mit Randvignetten gezierten Abbildungen, deren jede, in<lb/>
+Lieferungen erscheinende Ausgabe mindestens 500 enthal-<lb/>
+ten wird, hat die Verlagshandlung sich mit bedeutenden<lb/>
+Kosten in Frankreich angekauft, und es sind dieselben,<lb/>
+welche die in Paris in französischer Sprache erschienene<lb/>
+&#x201E; <hi rendition="#g">Geschichte des Alten und Neuen Testaments</hi> &#x201C;<lb/>
+<cb type="end"/>
+<pb facs="#f0008" n="160"/>
+<fw place="top" type="header"> <hi rendition="#g">Das Pfennig=Magazin.</hi> </fw><cb type="start"/>
+<hi rendition="#g">von Le Maitre de Sacy</hi> zieren. Jede Ausgabe wird<lb/>
+in 20&#x2014;24 Lieferungen ( jede zu 4 Gr. ) vollendet werden.</p><lb/>
+<cb n="2"/>
+<p>Wir geben hier als Probe der Vorzüglichkeit der<lb/>
+Holzschnitte:</p>       <cb type="end"/>
+<figure>         <p>  Aus dem Alten Testamente Buch Ruth, Cap.I. Ruth reiset mit Raemi nach Bethlehem.</p></figure><lb/>
+<figure><p>Aus dem Neuen Testamente über Evangelium Matthäi, Cap.XXVI. Christus am Ölberge.  </p>  </figure></div><lb/>
+<milestone rendition="#hr" unit="section"/><lb/>
+</body>     <back><div n="1" type="imprint"><p><hi rendition="#c">Verantwortliche Herausgeber: <hi rendition="#g">Friedrich Brockhaus</hi> in <hi rendition="#g">Leipzig</hi> und <hi rendition="#aq">Dr</hi>. C. <hi rendition="#g">Dräxler=Manfred</hi> in <hi rendition="#g">Wien.</hi><lb/>
+Verlag von F. A. <hi rendition="#g">Brockhaus</hi> in Leipzig.</hi></p></div>     </back>   </text> </TEI>
