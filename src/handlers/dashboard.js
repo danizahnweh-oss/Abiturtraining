@@ -330,3 +330,64 @@ export async function handleToggleFeedbackValuable(request, env) {
 
   return jsonResponse({ success: true, valuableCount }, 200, env);
 }
+
+/* ================= DASHBOARD: ACTIVITY FEED ================= */
+export async function handleActivityFeed(request, env) {
+  const token = request.headers.get("X-Teacher-Token");
+  if (!env.TEACHER_PASSWORD) {
+    return jsonResponse({ error: "Server nicht konfiguriert." }, 500, env);
+  }
+  if (!token || !(await verifyToken(token, env, env.TEACHER_PASSWORD))) {
+    return jsonResponse({ error: "Nicht autorisiert." }, 401, env);
+  }
+
+  const { results: events } = await env.DB.prepare(`
+    SELECT * FROM (
+      SELECT 'task_created' AS type, tt.title AS label, t.name AS actor, tt.subject AS detail, tt.created_at AS ts
+      FROM teacher_tasks tt
+      JOIN teachers t ON t.id = tt.teacher_id
+      WHERE tt.created_at IS NOT NULL
+      ORDER BY tt.created_at DESC LIMIT 15
+    )
+    UNION ALL
+    SELECT * FROM (
+      SELECT 'code_created' AS type, tc.label AS label, t.name AS actor, tc.code AS detail, tc.created_at AS ts
+      FROM teacher_codes tc
+      JOIN teachers t ON t.id = tc.teacher_id
+      WHERE tc.created_at IS NOT NULL
+      ORDER BY tc.created_at DESC LIMIT 10
+    )
+    UNION ALL
+    SELECT * FROM (
+      SELECT 'submission' AS type, r.topic AS label, r.student_name AS actor, r.course AS detail, r.created_at AS ts
+      FROM results r
+      WHERE r.total IS NULL AND r.created_at IS NOT NULL
+      ORDER BY r.created_at DESC LIMIT 15
+    )
+    UNION ALL
+    SELECT * FROM (
+      SELECT 'graded' AS type, r.topic AS label, r.student_name AS actor, CAST(r.total AS TEXT) AS detail, r.created_at AS ts
+      FROM results r
+      WHERE r.total IS NOT NULL AND r.created_at IS NOT NULL
+      ORDER BY r.created_at DESC LIMIT 15
+    )
+    UNION ALL
+    SELECT * FROM (
+      SELECT 'student_registered' AS type, s.name AS label, s.name AS actor, '' AS detail, s.created_at AS ts
+      FROM students s
+      WHERE s.created_at IS NOT NULL
+      ORDER BY s.created_at DESC LIMIT 10
+    )
+    UNION ALL
+    SELECT * FROM (
+      SELECT 'teacher_registered' AS type, t.name AS label, t.name AS actor, t.status AS detail, t.created_at AS ts
+      FROM teachers t
+      WHERE t.created_at IS NOT NULL
+      ORDER BY t.created_at DESC LIMIT 5
+    )
+    ORDER BY ts DESC
+    LIMIT 50
+  `).all();
+
+  return jsonResponse({ success: true, events: events || [] }, 200, env);
+}
