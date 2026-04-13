@@ -287,6 +287,8 @@ const PHASE_LABELS: Record<string, string> = {
   'fragen-weitere': 'Fragen zu weiteren Halbjahren (ca. 15 Min)',
 };
 
+const IS_FIREFOX = navigator.userAgent.includes('Firefox');
+
 export default function App() {
   /* Auth gate — redirect to main app if not logged in */
   useEffect(() => {
@@ -339,6 +341,9 @@ export default function App() {
   /* Refs für Audio-Muting (Referat-Phase) */
   const examElapsedRef = useRef(0);
   const modelTxCountRef = useRef(0);
+
+  /* Firefox-Hinweis-Banner */
+  const [firefoxBannerDismissed, setFirefoxBannerDismissed] = useState(false);
 
   /* Prüfer-Geschlecht (zufällig gewählt) */
   const [examinerGender, setExaminerGender] = useState<'male' | 'female'>('male');
@@ -799,6 +804,22 @@ export default function App() {
   return (
     <MotionConfig reducedMotion="user">
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-emerald-50/30 to-slate-100 text-slate-800 font-sans selection:bg-emerald-200/50">
+      {/* Firefox-Hinweis */}
+      {IS_FIREFOX && !firefoxBannerDismissed && (
+        <div className="bg-amber-50 border-b border-amber-200 px-4 py-2 flex items-center justify-between gap-3 text-sm text-amber-800">
+          <span>
+            <strong>Hinweis:</strong> Der Kolloquiumstrainer funktioniert am besten in <strong>Safari</strong> oder <strong>Chrome</strong>. In Firefox kann die Sprache des KI-Prüfers haken.
+          </span>
+          <button
+            type="button"
+            onClick={() => setFirefoxBannerDismissed(true)}
+            className="shrink-0 text-amber-600 hover:text-amber-900 transition-colors p-1 rounded"
+            aria-label="Hinweis schließen"
+          >
+            <X size={16} />
+          </button>
+        </div>
+      )}
       {/* Header */}
       <header className="sticky top-0 z-10 backdrop-blur-md bg-white/70 border-b border-white/50 transition-all w-full">
         <div className="max-w-4xl mx-auto py-4 px-6 flex items-center justify-between">
