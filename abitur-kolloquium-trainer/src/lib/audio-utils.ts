@@ -157,6 +157,11 @@ export class AudioPlayer {
   async playChunk(base64Data: string) {
     if (!this.audioContext) return;
 
+    // Mac Safari: AudioContext kann im suspended-Zustand sein → explizit aufwecken
+    if (this.audioContext.state === 'suspended') {
+      await this.audioContext.resume();
+    }
+
     const binaryString = atob(base64Data);
     const bytes = new Uint8Array(binaryString.length);
     for (let i = 0; i < binaryString.length; i++) {
