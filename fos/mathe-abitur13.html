@@ -811,6 +811,7 @@ Aufgabe 1: ..." oninput="updateWordCounts()"></textarea>
       return html.replace(/KATEXPH(\d+)ENDPH/g, function (_, i) { return blocks[parseInt(i)]; });
     }
     function safeMathParse(text) {
+      text = (text||"").replace(/\\n(?![a-zA-Z])/g, "\n");
       var p = protectMath(text); return restoreMath(marked.parse(p.text), p.blocks);
     }
     function safeMathParseInline(text) {

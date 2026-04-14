@@ -754,6 +754,8 @@
     }
     function safeMathParse(text) {
       if (!text || typeof text !== "string") return "";
+      // Literal \\n → echte Newlines (KI gibt Tabellen oft mit \\\\n aus)
+      text = text.replace(/\\n(?![a-zA-Z])/g, "\n");
       var p = protectMath(text); return restoreMath(marked.parse(p.text), p.blocks);
     }
     function safeMathParseInline(text) {

@@ -57,10 +57,14 @@ export function truncate(str, max) {
 
 /* ---- JSON-Parsing mit Reparatur ---- */
 
-// Repariert Steuerzeichen die durch fehlendes JSON-Escaping von LaTeX entstehen
+// Repariert Steuerzeichen und literal \n in Strings (KI gibt Tabellen oft mit \\n statt echten Newlines aus)
 export function fixLatexControlChars(obj) {
   if (typeof obj === "string") {
-    return obj.replace(/\x08/g, "\\b").replace(/\x0C/g, "\\f");
+    return obj
+      .replace(/\x08/g, "\\b")
+      .replace(/\x0C/g, "\\f")
+      .replace(/\\n(?![a-zA-Z])/g, "\n")  // Literal \n → echte Newlines (aber nicht \nu, \nabla etc.)
+      .replace(/\\t(?![a-zA-Z])/g, "\t"); // Literal \t → echte Tabs (aber nicht \text, \theta etc.)
   }
   if (Array.isArray(obj)) return obj.map(fixLatexControlChars);
   if (obj && typeof obj === "object") {

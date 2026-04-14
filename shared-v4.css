@@ -1695,6 +1695,43 @@ textarea:focus:not(:focus-visible) {
   height: 100% !important;
 }
 
+/* Markdown-Tabellen (KI-generierte Materialien) */
+.card table,
+details table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--text-sm);
+  margin: var(--space-3) 0;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  border: 1px solid var(--border-light);
+}
+.card table th,
+details table th {
+  text-align: left;
+  padding: var(--space-2) var(--space-3);
+  font-weight: 600;
+  color: var(--ink);
+  background: var(--bg-card);
+  border-bottom: 2px solid var(--border);
+  white-space: nowrap;
+}
+.card table td,
+details table td {
+  padding: var(--space-2) var(--space-3);
+  border-bottom: 1px solid var(--border-light);
+  color: var(--ink-light);
+  white-space: nowrap;
+}
+.card table tr:nth-child(even) td,
+details table tr:nth-child(even) td {
+  background: rgba(0,0,0,.02);
+}
+.card table tr:hover td,
+details table tr:hover td {
+  background: var(--accent-glow);
+}
+
 .history-table {
   width: 100%;
   border-collapse: collapse;
