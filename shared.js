@@ -2677,9 +2677,13 @@ function showProfileModal() {
           '<label for="profEmail" style="font-size:.82rem;color:var(--ink-muted);min-width:80px;">E-Mail</label>' +
           '<input type="email" id="profEmail" placeholder="Optional – für Erinnerungen" style="flex:1;padding:.5rem .7rem;font-size:16px;border:1px solid var(--border);border-radius:10px;background:var(--surface);color:var(--ink);box-sizing:border-box;min-height:44px;font-family:inherit;">' +
         '</div>' +
-        '<div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.4rem;">' +
+        '<div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.8rem;">' +
           '<span style="font-size:.82rem;color:var(--ink-muted);min-width:80px;">Dabei seit</span>' +
           '<span id="profSince" style="font-size:.85rem;color:var(--ink-muted);">–</span>' +
+        '</div>' +
+        '<div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.4rem;">' +
+          '<span style="font-size:.82rem;color:var(--ink-muted);min-width:80px;">Abo</span>' +
+          '<span id="profAbo" style="font-size:.85rem;">–</span>' +
         '</div>' +
       '</div>' +
 
@@ -2731,6 +2735,34 @@ async function _loadProfileData() {
     }
   } catch (e) {
     _showProfileMsg("profMsg", "Profil konnte nicht geladen werden.", true);
+  }
+
+  // Abo-Status laden
+  try {
+    var sub = await checkSubscription();
+    var aboEl = document.getElementById("profAbo");
+    if (!aboEl) return;
+    var planNames = { monthly: "Monatsabo", "6months": "6-Monats-Abo", "12months": "12-Monats-Abo", "24months": "24-Monats-Abo", abitur: "Abiturendspurt", school: "Schullizenz", trial: "Testphase" };
+    if (sub.status === "active") {
+      var planLabel = planNames[sub.plan] || sub.plan || "Aktiv";
+      var endStr = "";
+      if (sub.current_period_end) {
+        var endDate = new Date(sub.current_period_end);
+        endStr = " (bis " + endDate.toLocaleDateString("de-DE", { day: "2-digit", month: "2-digit", year: "numeric" }) + ")";
+      }
+      aboEl.innerHTML = '<span style="background:#ecfdf5;color:#059669;padding:.2rem .6rem;border-radius:6px;font-weight:700;font-size:.82rem;">' + planLabel + '</span>' +
+        (endStr ? '<span style="color:var(--ink-muted);font-size:.8rem;margin-left:.4rem;">' + endStr + '</span>' : '');
+    } else if (sub.status === "trialing") {
+      var daysLeft = sub.trial_days_left || 0;
+      aboEl.innerHTML = '<span style="background:#fef3c7;color:#d97706;padding:.2rem .6rem;border-radius:6px;font-weight:700;font-size:.82rem;">Testphase</span>' +
+        '<span style="color:var(--ink-muted);font-size:.8rem;margin-left:.4rem;">(' + daysLeft + ' Tage übrig)</span>';
+    } else if (sub.teacher_credits_available) {
+      aboEl.innerHTML = '<span style="background:#eff6ff;color:#2563eb;padding:.2rem .6rem;border-radius:6px;font-weight:700;font-size:.82rem;">Lehrer-Credits</span>';
+    } else {
+      aboEl.innerHTML = '<span style="color:var(--ink-muted);font-size:.82rem;">Kein aktives Abo</span> <a href="/abo.html" style="color:var(--accent);font-size:.82rem;font-weight:600;margin-left:.3rem;">Jetzt abonnieren</a>';
+    }
+  } catch (e) {
+    // Abo-Status nicht kritisch
   }
 }
 

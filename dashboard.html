@@ -761,6 +761,7 @@ details[open] > .collapsible-header .collapsible-chevron {
               <tr>
                 <th>Name</th>
                 <th>E-Mail</th>
+                <th>Abo</th>
                 <th>Klasse</th>
                 <th>Registriert am</th>
                 <th>Ausgeblendete Fächer</th>
@@ -1553,9 +1554,25 @@ function renderStudents() {
     const emailStr = s.email
       ? `<a href="mailto:${escapeHtml(s.email)}" style="color:var(--accent);text-decoration:none;font-size:.85rem;">${escapeHtml(s.email)}</a>`
       : '<span style="color:var(--ink-muted);">–</span>';
+    // Abo-Badge
+    const planNames = { monthly: "Monat", "6months": "6 Mo.", "12months": "12 Mo.", "24months": "24 Mo.", abitur: "Abitur", school: "Schule", trial: "Trial" };
+    let aboBadge;
+    if (s.subscription_status === "active") {
+      const planLabel = planNames[s.subscription_plan] || s.subscription_plan || "Aktiv";
+      aboBadge = `<span style="font-size:.78rem;background:#ecfdf5;color:#059669;padding:.2rem .55rem;border-radius:6px;font-weight:700;white-space:nowrap;">${escapeHtml(planLabel)}</span>`;
+    } else if (s.subscription_status === "trialing") {
+      aboBadge = '<span style="font-size:.78rem;background:#fef3c7;color:#d97706;padding:.2rem .55rem;border-radius:6px;font-weight:700;">Testphase</span>';
+    } else if (s.subscription_status === "past_due") {
+      aboBadge = '<span style="font-size:.78rem;background:#fef2f2;color:#dc2626;padding:.2rem .55rem;border-radius:6px;font-weight:700;">Überfällig</span>';
+    } else if (s.subscription_status === "canceled") {
+      aboBadge = '<span style="font-size:.78rem;background:#f3f4f6;color:#6b7280;padding:.2rem .55rem;border-radius:6px;font-weight:700;">Gekündigt</span>';
+    } else {
+      aboBadge = '<span style="font-size:.78rem;color:var(--ink-muted);">Kein Abo</span>';
+    }
     return `<tr>
       <td><strong>${escapeHtml(s.name)}</strong></td>
       <td>${emailStr}</td>
+      <td>${aboBadge}</td>
       <td>${classTag}</td>
       <td>${dateStr}${timeStr ? `<br><span style="font-size:.75rem;color:var(--ink-muted)">${timeStr}</span>` : ""}</td>
       <td style="font-size:.82rem;">${hidden}</td>
