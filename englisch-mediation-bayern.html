@@ -249,6 +249,30 @@
     .landing-footer a { color: var(--accent); text-decoration: none; }
     .landing-footer a:hover { text-decoration: underline; }
 
+    .sticky-cta {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(37, 99, 235, .97);
+      backdrop-filter: blur(8px);
+      padding: .75rem 1.5rem;
+      text-align: center;
+      z-index: 100;
+      transform: translateY(100%);
+      transition: transform .3s;
+    }
+    .sticky-cta.visible { transform: translateY(0); }
+    .sticky-cta a {
+      color: #fff;
+      font-weight: 700;
+      text-decoration: none;
+      font-size: .95rem;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+    }
+
     @media (max-width: 768px) {
       .hero-section { padding: 2rem 1rem; }
       .content-section { padding: 2rem 1rem; }
@@ -267,91 +291,30 @@
 
   <main id="main">
     <section class="hero-section">
-      <h1>Englisch Mediation im Abitur bestehen – mit echtem Feedback statt Rätselraten</h1>
-      <p>Trainiere originalnahe Aufgaben und finde heraus, wie viele Punkte du aktuell erreichen würdest.</p>
-      <a href="/englisch-mediation.html" class="hero-cta">Kostenlose Mediation starten &amp; Feedback erhalten</a>
+      <h1>Finde in 5 Minuten heraus, wie viele Punkte du in der Mediation bekommst</h1>
+      <p>Bearbeite eine echte Abitur-Aufgabe und erhalte sofort Feedback zu Inhalt, Sprache und Struktur.</p>
+      <a href="/englisch-mediation.html" class="hero-cta">Kostenlose Mediation starten</a>
+    </section>
+
+    <section class="content-section">
+      <h2>So funktioniert's</h2>
+      <ol style="font-size:1.05rem;line-height:2;padding-left:1.5rem;">
+        <li>Bearbeite eine echte Abitur-Aufgabe</li>
+        <li>Erhalte sofort Feedback</li>
+        <li>Sieh, wo du Punkte verlierst</li>
+      </ol>
+      <p style="color:var(--ink-muted);font-size:.9rem;">Dauert nur 5–10 Minuten.</p>
     </section>
 
     <section class="content-section">
       <h2>Warum viele in der Mediation Punkte verlieren</h2>
-      <p>Viele Schüler denken: „Ich kann doch Englisch – passt schon." Das Problem:</p>
+      <p>Viele denken: „Ich kann doch Englisch – passt schon." Und verlieren genau deshalb Punkte:</p>
       <ul>
         <li>Du übersetzt zu nah am Original</li>
         <li>Du lässt wichtige Inhalte weg</li>
         <li>Du triffst nicht den richtigen Stil</li>
       </ul>
       <p>Und genau das kostet im Abitur Punkte – oft ohne dass du es merkst.</p>
-    </section>
-
-    <section class="content-section">
-      <h2>Mediation ist keine Übersetzung</h2>
-      <p>Im Englisch-Abitur bedeutet Mediation:</p>
-
-      <div class="highlight-box">
-        <p>Informationen sinnvoll und adressatengerecht auf Englisch wiedergeben – nicht Wort für Wort übersetzen.</p>
-      </div>
-
-      <p>Das heißt konkret:</p>
-      <ul>
-        <li><strong>Inhalte auswählen</strong> – nicht alles übernehmen</li>
-        <li><strong>Verständlich formulieren</strong> – in eigenen Worten</li>
-        <li><strong>Den passenden Stil treffen</strong> – je nach Textsorte und Adressat</li>
-      </ul>
-      <p>Genau das ist ohne Feedback schwer zu trainieren.</p>
-    </section>
-
-    <section class="content-section">
-      <h2>So hilft dir myAbiFlow bei der Mediation</h2>
-      <p>Mit myAbiFlow trainierst du Mediation gezielt und realistisch:</p>
-
-      <div class="info-grid">
-        <div class="info-card">
-          <h3>Originalnahe Aufgaben</h3>
-          <p>Im Stil des bayerischen Abiturs – mit deutschen Ausgangstexten und konkreten Aufgabenstellungen.</p>
-        </div>
-        <div class="info-card">
-          <h3>Feedback zu Inhalt, Sprache &amp; Struktur</h3>
-          <p>Deine Lösung wird auf alle drei Bewertungsdimensionen geprüft – nicht nur auf Sprachrichtigkeit.</p>
-        </div>
-        <div class="info-card">
-          <h3>Bewertung auf B2-Niveau</h3>
-          <p>Orientiert am Anforderungsniveau des bayerischen Abiturs (GER B2).</p>
-        </div>
-        <div class="info-card">
-          <h3>Konkrete Verbesserungsvorschläge</h3>
-          <p>Nicht nur „gut" oder „schlecht" – sondern was du konkret besser machen kannst.</p>
-        </div>
-      </div>
-
-      <p>So erkennst du schnell, wo du stehst – und wie du besser wirst.</p>
-    </section>
-
-    <section class="content-section">
-      <h2>Beispiel für eine Mediation-Aufgabe</h2>
-
-      <div class="beispiel-box">
-        <h3>Aufgabe – Mediation (Englisch-Abitur Bayern)</h3>
-        <p>Ein deutscher Artikel beschreibt die Auswirkungen von Social Media auf Jugendliche. Fasse die wichtigsten Inhalte für einen englischen Blogbeitrag zusammen.</p>
-      </div>
-
-      <p>Typische Anforderungen bei dieser Aufgabe:</p>
-      <ul>
-        <li>Relevante Inhalte auswählen</li>
-        <li>In eigenen Worten wiedergeben</li>
-        <li>Auf Englisch verständlich erklären</li>
-      </ul>
-      <p><strong>Genau solche Aufgaben trainierst du bei myAbiFlow</strong> – inklusive detailliertem Feedback zu deiner Lösung.</p>
-    </section>
-
-    <section class="content-section">
-      <h2>Teste dein aktuelles Niveau</h2>
-      <p>Wie gut bist du wirklich in Mediation?</p>
-      <ul>
-        <li>Bearbeite eine echte Abitur-Aufgabe</li>
-        <li>Erhalte sofort Feedback zu Inhalt, Sprache und Struktur</li>
-        <li>Sieh, wo du Punkte verlierst</li>
-      </ul>
-      <p style="margin-top:1rem;"><a href="/englisch-mediation.html" style="color:#2563eb;font-weight:700;font-size:1.05rem;text-decoration:none;">Starte jetzt kostenlos und teste dich selbst &rarr;</a></p>
     </section>
 
     <section class="content-section">
@@ -372,7 +335,97 @@
 
     <section class="content-section" style="padding-top:0;">
       <div class="highlight-box" style="border-left-color:#f59e0b;background:linear-gradient(135deg, rgba(245,158,11,.06), rgba(245,158,11,.02));">
-        <p style="font-size:.95rem;font-style:italic;font-weight:400;color:var(--ink-light);">&#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50; „Sonst bekommt man nur allgemeine Übungsaufsätze… hier weiß ich endlich, worauf es wirklich ankommt."</p>
+        <p style="font-size:.95rem;font-style:italic;font-weight:400;color:var(--ink-light);">&#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50; „Ich habe zum ersten Mal verstanden, was ich falsch mache."</p>
+        <p style="font-size:.85rem;font-weight:600;color:var(--ink-muted);margin-top:.5rem;">– Schülerin, Bayern</p>
+      </div>
+    </section>
+
+    <section class="cta-section" style="padding:2rem 1.5rem;">
+      <h2 style="font-size:1.3rem;">Finde heraus, ob du diesen Fehler machst</h2>
+      <p>Starte jetzt eine echte Mediation-Aufgabe und erhalte sofort Feedback.</p>
+      <a href="/englisch-mediation.html" class="hero-cta">Kostenlose Mediation starten</a>
+    </section>
+
+    <section class="content-section">
+      <h2>Beispiel für eine Mediation-Aufgabe</h2>
+
+      <div class="beispiel-box">
+        <h3>Aufgabe – Mediation (Englisch-Abitur Bayern)</h3>
+        <p>Ein deutscher Artikel beschreibt die Auswirkungen von Social Media auf Jugendliche. Fasse die wichtigsten Inhalte für einen englischen Blogbeitrag zusammen.</p>
+      </div>
+
+      <p>Typische Anforderungen bei dieser Aufgabe:</p>
+      <ul>
+        <li>Relevante Inhalte auswählen</li>
+        <li>In eigenen Worten wiedergeben</li>
+        <li>Auf Englisch verständlich erklären</li>
+      </ul>
+      <p><strong>Genau solche Aufgaben bekommst du bei myAbiFlow</strong> – mit sofortigem Feedback zu deiner Lösung.</p>
+      <p style="margin-top:1rem;"><a href="/englisch-mediation.html" style="color:#2563eb;font-weight:600;text-decoration:none;">&rarr; Jetzt kostenlos testen</a></p>
+    </section>
+
+    <section class="content-section">
+      <h2>Mediation ist keine Übersetzung</h2>
+      <p>Im Englisch-Abitur bedeutet Mediation:</p>
+
+      <div class="highlight-box">
+        <p>Informationen sinnvoll und adressatengerecht auf Englisch wiedergeben – nicht Wort für Wort übersetzen.</p>
+      </div>
+
+      <p>Das heißt konkret:</p>
+      <ul>
+        <li><strong>Inhalte auswählen</strong> – nicht alles übernehmen</li>
+        <li><strong>Verständlich formulieren</strong> – in eigenen Worten</li>
+        <li><strong>Den passenden Stil treffen</strong> – je nach Textsorte und Adressat</li>
+      </ul>
+      <p>Genau das ist ohne Feedback schwer zu trainieren.</p>
+      <p style="margin-top:1rem;"><a href="/englisch-mediation.html" style="color:#2563eb;font-weight:600;text-decoration:none;">&rarr; Feedback zu deiner Lösung erhalten</a></p>
+    </section>
+
+    <section class="content-section">
+      <h2>So hilft dir myAbiFlow bei der Mediation</h2>
+      <p>Mit myAbiFlow trainierst du Mediation gezielt – in nur 5–10 Minuten:</p>
+
+      <div class="info-grid">
+        <div class="info-card">
+          <h3>Originalnahe Aufgaben</h3>
+          <p>Im Stil des bayerischen Abiturs – mit deutschen Ausgangstexten und konkreten Aufgabenstellungen.</p>
+        </div>
+        <div class="info-card">
+          <h3>Feedback zu Inhalt, Sprache &amp; Struktur</h3>
+          <p>Deine Lösung wird auf alle drei Bewertungsdimensionen geprüft – nicht nur auf Sprachrichtigkeit.</p>
+        </div>
+        <div class="info-card">
+          <h3>Bewertung auf B2-Niveau</h3>
+          <p>Orientiert am Anforderungsniveau des bayerischen Abiturs (GER B2).</p>
+        </div>
+        <div class="info-card">
+          <h3>Konkrete Verbesserungsvorschläge</h3>
+          <p>Nicht nur „gut" oder „schlecht" – sondern was du konkret besser machen kannst.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section" style="padding-top:0;">
+      <div class="highlight-box" style="border-left-color:#f59e0b;background:linear-gradient(135deg, rgba(245,158,11,.06), rgba(245,158,11,.02));">
+        <p style="font-size:.95rem;font-style:italic;font-weight:400;color:var(--ink-light);">&#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50; „Genau das Feedback bekomme ich sonst nie."</p>
+        <p style="font-size:.85rem;font-weight:600;color:var(--ink-muted);margin-top:.5rem;">– Q12</p>
+      </div>
+    </section>
+
+    <section class="content-section">
+      <h2>Teste dein aktuelles Niveau</h2>
+      <ul>
+        <li>Bearbeite eine echte Abitur-Aufgabe</li>
+        <li>Erhalte sofort Feedback</li>
+        <li>Sieh genau, wo du Punkte verlierst</li>
+      </ul>
+      <p style="margin-top:1rem;"><a href="/englisch-mediation.html" style="color:#2563eb;font-weight:700;font-size:1.05rem;text-decoration:none;">Jetzt kostenlos testen &rarr;</a></p>
+    </section>
+
+    <section class="content-section" style="padding-top:0;">
+      <div class="highlight-box" style="border-left-color:#f59e0b;background:linear-gradient(135deg, rgba(245,158,11,.06), rgba(245,158,11,.02));">
+        <p style="font-size:.95rem;font-style:italic;font-weight:400;color:var(--ink-light);">&#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50; „Ich dachte, ich bin gut – war ich nicht. Jetzt weiß ich, woran ich arbeiten muss."</p>
         <p style="font-size:.85rem;font-weight:600;color:var(--ink-muted);margin-top:.5rem;">– Schülerin, Bayern</p>
       </div>
     </section>
@@ -408,8 +461,24 @@
     </section>
   </main>
 
-  <footer class="landing-footer">
+  <div class="sticky-cta" id="stickyCta">
+    <a href="/englisch-mediation.html">Jetzt kostenlos testen &amp; Punkte sehen &rarr;</a>
+  </div>
+
+  <footer class="landing-footer" style="padding-bottom:4rem;">
     <p>&copy; 2026 myAbiFlow &middot; <a href="/impressum.html">Impressum</a> &middot; <a href="/agb.html">AGB</a> &middot; <a href="/barrierefreiheit.html">Barrierefreiheit</a></p>
   </footer>
+
+  <script>
+    (function() {
+      var sticky = document.getElementById('stickyCta');
+      var hero = document.querySelector('.hero-section');
+      if (!sticky || !hero) return;
+      var observer = new IntersectionObserver(function(entries) {
+        sticky.classList.toggle('visible', !entries[0].isIntersecting);
+      }, { threshold: 0 });
+      observer.observe(hero);
+    })();
+  </script>
 </body>
 </html>
