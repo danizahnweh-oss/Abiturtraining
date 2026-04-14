@@ -274,6 +274,30 @@
     .landing-footer a { color: var(--accent); text-decoration: none; }
     .landing-footer a:hover { text-decoration: underline; }
 
+    .sticky-cta {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(37, 99, 235, .97);
+      backdrop-filter: blur(8px);
+      padding: .75rem 1.5rem;
+      text-align: center;
+      z-index: 100;
+      transform: translateY(100%);
+      transition: transform .3s;
+    }
+    .sticky-cta.visible { transform: translateY(0); }
+    .sticky-cta a {
+      color: #fff;
+      font-weight: 700;
+      text-decoration: none;
+      font-size: .95rem;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+    }
+
     @media (max-width: 768px) {
       .hero-section { padding: 2rem 1rem; }
       .content-section { padding: 2rem 1rem; }
@@ -294,53 +318,66 @@
     <section class="hero-section">
       <h1>Deutsch-Abitur Analyse endlich verstehen – und gezielt Punkte holen</h1>
       <p>Finde heraus, wo du aktuell Punkte verlierst und verbessere deine Analyse mit sofortigem Feedback.</p>
-      <a href="/analyse.html" class="hero-cta">Kostenlose Analyse starten &amp; Feedback erhalten</a>
+      <a href="/analyse.html" class="hero-cta">Kostenlose Analyse starten</a>
+    </section>
+
+    <section class="content-section" style="padding-top:1.5rem;padding-bottom:0;">
+      <div class="highlight-box" style="border-left-color:#f59e0b;background:linear-gradient(135deg, rgba(245,158,11,.06), rgba(245,158,11,.02));">
+        <p style="font-size:.95rem;font-style:italic;font-weight:400;color:var(--ink-light);">&#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50; „Ich habe zum ersten Mal verstanden, warum ich Punkte verliere."</p>
+        <p style="font-size:.85rem;font-weight:600;color:var(--ink-muted);margin-top:.5rem;">– Q12, Bayern</p>
+      </div>
     </section>
 
     <section class="content-section">
       <h2>Das Problem bei der Analyse im Deutsch-Abitur</h2>
-      <p>Viele Schülerinnen und Schüler bereiten sich auf das Deutsch-Abitur vor, indem sie Texte lesen und Analysen schreiben. Trotzdem passiert oft Folgendes:</p>
+      <p>Viele schreiben viel – und verlieren trotzdem Punkte.</p>
       <ul>
-        <li>Es wird eher zusammengefasst als analysiert</li>
-        <li>Aussagen bleiben oberflächlich</li>
-        <li>Textbelege fehlen oder sind ungenau</li>
-        <li>Die Funktionsdeutung ist unklar</li>
+        <li>Du fasst zusammen statt zu analysieren</li>
+        <li>Du nennst Stilmittel ohne Wirkung</li>
+        <li>Deine Belege sind zu ungenau</li>
       </ul>
-      <p>Das Problem: Ohne Feedback merkt man diese Fehler oft nicht.</p>
+      <p>Genau das kostet dich Punkte – oft ohne dass du es merkst. Die meisten wissen nach dem Üben nicht, ob ihre Analyse wirklich gut ist.</p>
     </section>
 
     <section class="content-section">
       <h2>Analyse ist nicht Zusammenfassung</h2>
-      <p>Ein zentraler Punkt im Deutsch-Abitur:</p>
 
       <div class="highlight-box">
         <p>Du sollst nicht wiedergeben, was im Text steht – sondern erklären, wie und warum es so dargestellt wird.</p>
       </div>
 
-      <p>Das bedeutet:</p>
       <ul>
         <li><strong>Sprachliche Mittel erkennen</strong> – Metaphern, rhetorische Fragen, Ironie etc.</li>
         <li><strong>Deren Wirkung erklären</strong> – was bewirken sie beim Leser?</li>
         <li><strong>Die Funktion im Gesamtzusammenhang deuten</strong> – warum setzt der Autor sie ein?</li>
       </ul>
-      <p>Genau das fällt vielen schwer.</p>
+      <p style="margin-top:1rem;"><a href="/analyse.html" style="color:#2563eb;font-weight:600;text-decoration:none;">&rarr; Kostenlose Analyse starten</a></p>
+    </section>
+
+    <section class="content-section">
+      <h2>Teste dein aktuelles Niveau in 5 Minuten</h2>
+      <ul>
+        <li>Bearbeite eine echte Abitur-Aufgabe</li>
+        <li>Erhalte sofort Feedback auf Abiturniveau</li>
+        <li>Sieh genau, wo du Punkte verlierst</li>
+      </ul>
+      <p style="margin-top:1rem;"><a href="/analyse.html" style="color:#2563eb;font-weight:700;font-size:1.05rem;text-decoration:none;">Jetzt kostenlos Analyse starten &rarr;</a></p>
     </section>
 
     <section class="content-section">
       <h2>So hilft dir myAbiFlow bei der Analyse</h2>
-      <p>Mit myAbiFlow trainierst du gezielt für das Deutsch-Abitur:</p>
 
       <div class="info-grid">
         <div class="info-card">
-          <h3>Originalnahe Analyse-Aufgaben</h3>
+          <h3>Übe mit echten Abitur-Aufgaben</h3>
           <p>Sachtexte und literarische Texte – im Stil des bayerischen Abiturs mit konkreten Arbeitsaufträgen.</p>
         </div>
         <div class="info-card">
-          <h3>Feedback zu Aufbau &amp; Argumentation</h3>
+          <h3>Sieh, wo deine Argumentation Punkte verliert</h3>
           <p>Ist deine Analyse logisch strukturiert? Stimmt die Argumentationskette?</p>
         </div>
         <div class="info-card">
-          <h3>Hinweise zu Textbelegen</h3>
+          <h3>Erkenne, ob deine Textbelege Punkte bringen</h3>
           <p>Fehlen Belege? Sind sie ungenau oder nicht sinnvoll eingebunden?</p>
         </div>
         <div class="info-card">
@@ -348,8 +385,13 @@
           <p>Nicht nur „gut" oder „schlecht" – sondern was du konkret besser machen kannst.</p>
         </div>
       </div>
+    </section>
 
-      <p>So erkennst du, wo du stehst – und wie du besser wirst.</p>
+    <section class="content-section" style="padding-top:0;">
+      <div class="highlight-box" style="border-left-color:#f59e0b;background:linear-gradient(135deg, rgba(245,158,11,.06), rgba(245,158,11,.02));">
+        <p style="font-size:.95rem;font-style:italic;font-weight:400;color:var(--ink-light);">&#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50; „Ich dachte immer, meine Analyse ist gut – aber hier habe ich erst gesehen, was wirklich fehlt."</p>
+        <p style="font-size:.85rem;font-weight:600;color:var(--ink-muted);margin-top:.5rem;">– Schülerin, Q12 Bayern</p>
+      </div>
     </section>
 
     <section class="content-section">
@@ -360,50 +402,19 @@
         <p>Analysieren Sie den vorliegenden Sachtext im Hinblick auf Argumentationsstruktur und sprachliche Gestaltung.</p>
       </div>
 
-      <p>Typische Anforderungen bei dieser Aufgabe:</p>
+      <p>Typische Anforderungen:</p>
       <ul>
         <li>Zentrale Aussagen herausarbeiten</li>
-        <li>Argumentationsweise erklären</li>
         <li>Sprachliche Mittel analysieren</li>
-        <li>Wirkung auf den Leser deuten</li>
+        <li>Wirkung erklären</li>
       </ul>
-      <p><strong>Genau solche Aufgaben trainierst du bei myAbiFlow</strong> – inklusive detailliertem Feedback zu deiner Analyse.</p>
+      <p style="margin-top:1rem;"><strong><a href="/analyse.html" style="color:#2563eb;text-decoration:none;">Jetzt selbst ausprobieren – kostenlose Analyse starten &rarr;</a></strong></p>
     </section>
 
     <section class="content-section">
-      <h2>Warum viele in der Analyse Punkte verlieren</h2>
-      <p>Viele Schüler schreiben lange Texte – <strong>aber verlieren trotzdem Punkte.</strong> Warum?</p>
-
-      <div class="fehler-list">
-        <ul>
-          <li>Sie fassen zusammen statt zu analysieren</li>
-          <li>Sie nennen Stilmittel ohne deren Wirkung zu erklären</li>
-          <li>Sie arbeiten zu ungenau am Text</li>
-          <li>Sie argumentieren zu allgemein statt mit präzisen Belegen</li>
-        </ul>
-      </div>
-
       <div class="punkt-box">
         <p>Im Abitur zählt nicht die Länge – sondern wie gut du analysierst.</p>
         <p class="sub">Und genau das lässt sich nur mit gezieltem Feedback wirklich verbessern.</p>
-      </div>
-    </section>
-
-    <section class="content-section">
-      <h2>Teste dein aktuelles Niveau</h2>
-      <p>Wie gut ist deine Analyse wirklich?</p>
-      <ul>
-        <li>Bearbeite eine echte Abitur-Aufgabe</li>
-        <li>Erhalte Feedback zu Aufbau, Argumentation und Textbelegen</li>
-        <li>Sieh sofort, wo du Punkte verlierst</li>
-      </ul>
-      <p style="margin-top:1rem;"><a href="/analyse.html" style="color:#2563eb;font-weight:700;font-size:1.05rem;text-decoration:none;">Starte jetzt kostenlos und teste dich selbst &rarr;</a></p>
-    </section>
-
-    <section class="content-section" style="padding-top:0;">
-      <div class="highlight-box" style="border-left-color:#f59e0b;background:linear-gradient(135deg, rgba(245,158,11,.06), rgba(245,158,11,.02));">
-        <p style="font-size:.95rem;font-style:italic;font-weight:400;color:var(--ink-light);">&#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50; „Ich dachte immer, meine Analyse ist gut – aber hier habe ich erst gesehen, was wirklich fehlt."</p>
-        <p style="font-size:.85rem;font-weight:600;color:var(--ink-muted);margin-top:.5rem;">– Schülerin, Q12 Bayern</p>
       </div>
     </section>
 
@@ -438,8 +449,24 @@
     </section>
   </main>
 
-  <footer class="landing-footer">
+  <div class="sticky-cta" id="stickyCta">
+    <a href="/analyse.html">Kostenlose Analyse starten &rarr;</a>
+  </div>
+
+  <footer class="landing-footer" style="padding-bottom:4rem;">
     <p>&copy; 2026 myAbiFlow &middot; <a href="/impressum.html">Impressum</a> &middot; <a href="/agb.html">AGB</a> &middot; <a href="/barrierefreiheit.html">Barrierefreiheit</a></p>
   </footer>
+
+  <script>
+    (function() {
+      var sticky = document.getElementById('stickyCta');
+      var hero = document.querySelector('.hero-section');
+      if (!sticky || !hero) return;
+      var observer = new IntersectionObserver(function(entries) {
+        sticky.classList.toggle('visible', !entries[0].isIntersecting);
+      }, { threshold: 0 });
+      observer.observe(hero);
+    })();
+  </script>
 </body>
 </html>
