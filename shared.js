@@ -192,13 +192,19 @@ async function checkSubscription() {
     }
   }
 
+  // Fallback: sessionStorage kann aktueller sein als DB (z.B. direkt nach Stripe-Checkout,
+  // bevor der Webhook die DB aktualisiert hat)
+  var ssFallback = (ssStatus === "active" || ssStatus === "trialing")
+    ? { status: ssStatus, plan: sessionStorage.getItem("subscription_plan") || "unknown", teacher_credits_available: sessionStorage.getItem("teacher_credits_available") === "1" }
+    : { status: "none", plan: "free" };
+
   try {
     var res = await fetch(API_BASE + "/api/stripe/subscription-status", {
       method: "POST",
       headers: { "Content-Type": "application/json", "X-Access-Token": token },
       body: JSON.stringify({ student_id: studentId })
     });
-    if (!res.ok) return { status: "none", plan: "free" };
+    if (!res.ok) return ssFallback;
     var data = await res.json();
     // Lehrer-Credits in sessionStorage speichern
     if (data.teacher_credits_available) {
@@ -208,11 +214,16 @@ async function checkSubscription() {
       sessionStorage.removeItem("teacher_credits_available");
       sessionStorage.removeItem("teacher_credits_name");
     }
+    // Wenn Backend "none" sagt aber sessionStorage "active" (Webhook-Delay nach Checkout),
+    // sessionStorage vertrauen
+    if (data.status !== "active" && data.status !== "trialing" && (ssStatus === "active" || ssStatus === "trialing")) {
+      data.status = ssStatus;
+    }
     _subscriptionCache = data;
     _subscriptionCacheTime = Date.now();
     return data;
   } catch (e) {
-    return { status: "none", plan: "free" };
+    return ssFallback;
   }
 }
 
@@ -2343,15 +2354,17 @@ var loadUnsplashImage = loadDallEImage;
 var _loginModalCallback = null;
 var _loginModalMode = "login";
 
-function requireLogin(callback) {
+async function requireLogin(callback) {
   if (sessionStorage.getItem("access") === "1" && sessionStorage.getItem("student_name")) {
-    // Paywall-Check: Kein free_access, kein aktives Abo und keine Lehrer-Credits → zur Abo-Seite
+    // Paywall-Check: Frischen Abo-Status vom Server holen statt nur sessionStorage zu vertrauen
     var freeAccess = sessionStorage.getItem("free_access") === "1";
-    var subStatus = sessionStorage.getItem("subscription_status") || "none";
-    var teacherCredits = sessionStorage.getItem("teacher_credits_available") === "1";
-    if (!freeAccess && !teacherCredits && subStatus !== "active" && subStatus !== "trialing") {
-      window.location.href = "/abo.html";
-      return;
+    if (!freeAccess) {
+      var sub = await checkSubscription();
+      var hasAccess = sub.status === "active" || sub.status === "trialing" || sub.teacher_credits_available;
+      if (!hasAccess) {
+        window.location.href = "/abo.html";
+        return;
+      }
     }
     callback();
     return;
@@ -2500,15 +2513,15 @@ async function _doLoginModal() {
 
       _closeLoginModal();
 
-      // Lehrer-Credits asynchron prüfen und in sessionStorage speichern
-      checkSubscription();
+      // Lehrer-Credits synchron prüfen bevor Paywall-Check
+      var subData = await checkSubscription();
 
       // E-Mail nachtragen falls fehlend
       if (data.email_missing) {
         _showEmailCollectModal(function() {
           // Paywall-Check nach E-Mail-Dialog
-          var hasTeacherCredits = sessionStorage.getItem("teacher_credits_available") === "1";
-          if (!data.free_access && !hasTeacherCredits && data.subscription_status !== "active" && data.subscription_status !== "trialing") {
+          var hasTeacherCredits = subData.teacher_credits_available || sessionStorage.getItem("teacher_credits_available") === "1";
+          if (!data.free_access && !hasTeacherCredits && data.subscription_status !== "active" && data.subscription_status !== "trialing" && subData.status !== "active" && subData.status !== "trialing") {
             window.location.href = "/abo.html";
             return;
           }
@@ -2522,8 +2535,8 @@ async function _doLoginModal() {
       }
 
       // Paywall-Check: Kein free_access, kein aktives Abo und keine Lehrer-Credits → zur Abo-Seite
-      var hasTeacherCredits = sessionStorage.getItem("teacher_credits_available") === "1";
-      if (!data.free_access && !hasTeacherCredits && data.subscription_status !== "active" && data.subscription_status !== "trialing") {
+      var hasTeacherCredits = subData.teacher_credits_available || sessionStorage.getItem("teacher_credits_available") === "1";
+      if (!data.free_access && !hasTeacherCredits && data.subscription_status !== "active" && data.subscription_status !== "trialing" && subData.status !== "active" && subData.status !== "trialing") {
         window.location.href = "/abo.html";
         return;
       }
