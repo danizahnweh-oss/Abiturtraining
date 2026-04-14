@@ -122,29 +122,157 @@
     }
     .hero-cta:hover { transform: translateY(-2px); }
 
-    .proof-strip {
-      background: var(--card);
+    .urgency-strip {
+      background: linear-gradient(135deg, rgba(245,158,11,.1), rgba(245,158,11,.04));
       border-bottom: 1px solid var(--border);
-      padding: 1.2rem 1.5rem;
+      padding: 1rem 1.5rem;
       text-align: center;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--ink);
     }
-    .proof-strip p {
-      font-size: .95rem;
-      font-style: italic;
-      color: var(--ink-light);
-      margin: 0 0 .5rem;
-      line-height: 1.5;
-    }
-    .proof-strip p:last-child { margin-bottom: 0; }
 
-    .urgency-line {
-      font-size: 1rem;
-      font-weight: 600;
+    .outcome-box {
+      max-width: 600px;
+      margin: 0 auto;
+      background: var(--card);
+      border: 2px solid var(--border);
+      border-radius: 16px;
+      padding: 1.5rem 2rem;
+      overflow: hidden;
+    }
+    .outcome-box h3 {
+      font-size: 1.15rem;
+      margin: 0 0 1.2rem;
       color: var(--ink);
       text-align: center;
+    }
+    .outcome-compare {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+    .outcome-before, .outcome-after {
+      padding: 1rem;
+      border-radius: 12px;
+    }
+    .outcome-before {
+      background: rgba(239, 68, 68, .06);
+      border: 1px solid rgba(239, 68, 68, .15);
+    }
+    .outcome-after {
+      background: rgba(34, 197, 94, .06);
+      border: 1px solid rgba(34, 197, 94, .15);
+    }
+    .outcome-label {
+      font-size: .8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      margin: 0 0 .3rem;
+    }
+    .outcome-before .outcome-label { color: #dc2626; }
+    .outcome-after .outcome-label { color: #16a34a; }
+    .outcome-points {
+      font-size: 1.6rem;
+      font-weight: 800;
+      margin: 0 0 .5rem;
+      color: var(--ink);
+    }
+    .outcome-detail {
+      font-size: .85rem;
+      color: var(--ink-muted);
       margin: 0;
-      padding: .8rem 1.5rem;
-      background: linear-gradient(135deg, rgba(245,158,11,.08), rgba(245,158,11,.03));
+      line-height: 1.5;
+    }
+    .outcome-bottom {
+      margin-top: 1.2rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+      font-size: .95rem;
+      color: var(--ink-light);
+      text-align: center;
+    }
+    .outcome-bottom strong { color: var(--ink); }
+    @media (max-width: 500px) {
+      .outcome-compare { grid-template-columns: 1fr; gap: 1rem; }
+    }
+
+    .mindset-box {
+      max-width: 600px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+    .mindset-card {
+      padding: 1.2rem;
+      border-radius: 12px;
+      text-align: center;
+    }
+    .mindset-card.before {
+      background: rgba(239, 68, 68, .05);
+      border: 1px solid rgba(239, 68, 68, .12);
+    }
+    .mindset-card.after {
+      background: rgba(34, 197, 94, .05);
+      border: 1px solid rgba(34, 197, 94, .12);
+    }
+    .mindset-label {
+      font-size: .75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      margin: 0 0 .5rem;
+    }
+    .mindset-card.before .mindset-label { color: #dc2626; }
+    .mindset-card.after .mindset-label { color: #16a34a; }
+    .mindset-card p {
+      font-size: 1rem;
+      font-style: italic;
+      color: var(--ink);
+      margin: 0;
+      line-height: 1.5;
+    }
+    @media (max-width: 500px) {
+      .mindset-box { grid-template-columns: 1fr; gap: 1rem; }
+    }
+
+    .what-you-get {
+      max-width: 600px;
+      margin: 0 auto;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.5rem 2rem;
+    }
+    .what-you-get h3 {
+      font-size: 1.1rem;
+      margin: 0 0 1rem;
+      color: var(--ink);
+    }
+    .what-you-get ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .what-you-get li {
+      padding: .4rem 0;
+      font-size: .95rem;
+      color: var(--ink-light);
+      line-height: 1.5;
+    }
+    .what-you-get li::before {
+      content: '\2714\FE0F';
+      margin-right: .5rem;
+    }
+    .what-you-get .duration {
+      margin-top: .8rem;
+      padding-top: .8rem;
+      border-top: 1px solid var(--border);
+      font-size: .9rem;
+      color: var(--ink-muted);
+      font-weight: 600;
     }
 
     .content-section {
@@ -311,14 +439,8 @@
       <a href="/englisch-mediation.html" class="hero-cta">Jetzt Punkte verbessern (kostenlos)</a>
     </section>
 
-    <!-- 2. Proof direkt unter Hero -->
-    <div class="proof-strip">
-      <p>&#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50; „Ich habe endlich verstanden, was ich falsch mache."</p>
-      <p>&#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50; „Ich habe direkt gesehen, warum ich nur 8 Punkte hatte."</p>
-    </div>
-
-    <!-- 12. Urgency-Satz -->
-    <p class="urgency-line">Die meisten verlieren 2–4 Punkte, ohne zu wissen warum.</p>
+    <!-- Urgency direkt unter Hero -->
+    <div class="urgency-strip">Die meisten verlieren 2–4 Punkte – ohne es zu merken.</div>
 
     <!-- 6. So funktioniert's: Outcome zuerst -->
     <section class="content-section">
@@ -342,33 +464,62 @@
       </ul>
     </section>
 
-    <!-- CTA nach Schmerzpunkt -->
+    <!-- Outcome-Box: Vorher/Nachher Punkte (Option 1) -->
+    <section class="content-section">
+      <div class="outcome-box">
+        <h3>So verbessert sich deine Punktzahl</h3>
+        <div class="outcome-compare">
+          <div class="outcome-before">
+            <p class="outcome-label">Vorher</p>
+            <p class="outcome-points">8 Punkte</p>
+            <p class="outcome-detail">Unklare Struktur, fehlende Gewichtung der Inhalte</p>
+          </div>
+          <div class="outcome-after">
+            <p class="outcome-label">Nachher</p>
+            <p class="outcome-points">11 Punkte</p>
+            <p class="outcome-detail">Klare Auswahl relevanter Inhalte + präzise Formulierungen</p>
+          </div>
+        </div>
+        <p class="outcome-bottom"><strong>Das bekommst du bei myAbiFlow:</strong> konkretes Feedback, das dir zeigt, was dir Punkte kostet – und wie du es besser machst.</p>
+      </div>
+    </section>
+
+    <!-- Vorher/Nachher Denken (Option 3) -->
+    <section class="content-section" style="padding-top:0;">
+      <div class="mindset-box">
+        <div class="mindset-card before">
+          <p class="mindset-label">Vorher</p>
+          <p>„Ich kann doch Englisch – passt schon."</p>
+        </div>
+        <div class="mindset-card after">
+          <p class="mindset-label">Nachher</p>
+          <p>„Jetzt weiß ich genau, warum ich Punkte verliere – und wie ich es besser mache."</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA nach Proof -->
     <section class="cta-section" style="padding:2rem 1.5rem;">
       <h2 style="font-size:1.3rem;">Teste jetzt und vermeide diese Punktverluste</h2>
       <p>Starte eine echte Mediation-Aufgabe und erhalte sofort Feedback.</p>
-      <a href="/englisch-mediation.html" class="hero-cta">Jetzt Feedback bekommen</a>
+      <a href="/englisch-mediation.html" class="hero-cta">Jetzt Punkte verbessern</a>
     </section>
 
-    <!-- Beispiel -->
+    <!-- Was du konkret bekommst (Option 6) -->
     <section class="content-section">
-      <h2>Beispiel für eine Mediation-Aufgabe</h2>
-
-      <div class="beispiel-box">
-        <h3>Aufgabe – Mediation (Englisch-Abitur Bayern)</h3>
-        <p>Ein deutscher Artikel beschreibt die Auswirkungen von Social Media auf Jugendliche. Fasse die wichtigsten Inhalte für einen englischen Blogbeitrag zusammen.</p>
+      <div class="what-you-get">
+        <h3>Das bekommst du nach einer Aufgabe</h3>
+        <ul>
+          <li>Bewertung auf Abiturniveau (B2)</li>
+          <li>Konkrete Hinweise zu Inhalt, Sprache &amp; Struktur</li>
+          <li>Klare Verbesserungsvorschläge – kein „gut/schlecht"</li>
+          <li>Originalnahe Aufgaben im Stil des bayerischen Abiturs</li>
+        </ul>
+        <p class="duration">Dauer: ca. 5 Minuten</p>
       </div>
-
-      <p>Typische Anforderungen:</p>
-      <ul>
-        <li>Relevante Inhalte auswählen</li>
-        <li>In eigenen Worten wiedergeben</li>
-        <li>Auf Englisch verständlich erklären</li>
-      </ul>
-      <p><strong>Genau solche Aufgaben bekommst du bei myAbiFlow</strong> – mit sofortigem Feedback zu deiner Lösung.</p>
-      <p style="margin-top:1rem;"><a href="/englisch-mediation.html" style="color:#2563eb;font-weight:600;text-decoration:none;">&rarr; Jetzt echte Abitur-Aufgabe lösen</a></p>
     </section>
 
-    <!-- 9. Mediation ≠ Übersetzung: gekürzt -->
+    <!-- Mediation ≠ Übersetzung: minimal -->
     <section class="content-section">
       <h2>Mediation ist keine Übersetzung</h2>
 
@@ -381,38 +532,6 @@
         <li><strong>Verständlich formulieren</strong> – in eigenen Worten</li>
         <li><strong>Den passenden Stil treffen</strong> – je nach Textsorte und Adressat</li>
       </ul>
-    </section>
-
-    <!-- So hilft myAbiFlow -->
-    <section class="content-section">
-      <h2>So hilft dir myAbiFlow bei der Mediation</h2>
-
-      <div class="info-grid">
-        <div class="info-card">
-          <h3>Originalnahe Aufgaben</h3>
-          <p>Im Stil des bayerischen Abiturs – mit deutschen Ausgangstexten und konkreten Aufgabenstellungen.</p>
-        </div>
-        <div class="info-card">
-          <h3>Feedback zu Inhalt, Sprache &amp; Struktur</h3>
-          <p>Deine Lösung wird auf alle drei Bewertungsdimensionen geprüft.</p>
-        </div>
-        <div class="info-card">
-          <h3>Bewertung auf B2-Niveau</h3>
-          <p>Orientiert am Anforderungsniveau des bayerischen Abiturs (GER B2).</p>
-        </div>
-        <div class="info-card">
-          <h3>Konkrete Verbesserungsvorschläge</h3>
-          <p>Nicht nur „gut" oder „schlecht" – sondern was du konkret besser machen kannst.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Testimonial -->
-    <section class="content-section" style="padding-top:0;">
-      <div class="highlight-box" style="border-left-color:#f59e0b;background:linear-gradient(135deg, rgba(245,158,11,.06), rgba(245,158,11,.02));">
-        <p style="font-size:.95rem;font-style:italic;font-weight:400;color:var(--ink-light);">&#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50; „Das Feedback ist viel genauer als von Lehrern."</p>
-        <p style="font-size:.85rem;font-weight:600;color:var(--ink-muted);margin-top:.5rem;">– Q12, Bayern</p>
-      </div>
     </section>
 
     <!-- 3. FAQ gekürzt -->
