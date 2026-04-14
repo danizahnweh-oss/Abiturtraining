@@ -2743,6 +2743,10 @@ async function _loadProfileData() {
     var aboEl = document.getElementById("profAbo");
     if (!aboEl) return;
     var planNames = { monthly: "Monatsabo", "6months": "6-Monats-Abo", "12months": "12-Monats-Abo", "24months": "24-Monats-Abo", abitur: "Abiturendspurt", school: "Schullizenz", trial: "Testphase" };
+    var manageBtn = '';
+    if (sub.has_stripe_customer && (sub.status === "active" || sub.status === "trialing")) {
+      manageBtn = '<button type="button" onclick="_openCustomerPortal()" id="profManageAbo" style="margin-top:.6rem;width:100%;padding:.6rem;background:none;border:1px solid var(--accent);color:var(--accent);border-radius:10px;font-size:.85rem;font-weight:600;cursor:pointer;min-height:44px;font-family:inherit;">Abo verwalten</button>';
+    }
     if (sub.status === "active") {
       var planLabel = planNames[sub.plan] || sub.plan || "Aktiv";
       var endStr = "";
@@ -2751,11 +2755,11 @@ async function _loadProfileData() {
         endStr = " (bis " + endDate.toLocaleDateString("de-DE", { day: "2-digit", month: "2-digit", year: "numeric" }) + ")";
       }
       aboEl.innerHTML = '<span style="background:#ecfdf5;color:#059669;padding:.2rem .6rem;border-radius:6px;font-weight:700;font-size:.82rem;">' + planLabel + '</span>' +
-        (endStr ? '<span style="color:var(--ink-muted);font-size:.8rem;margin-left:.4rem;">' + endStr + '</span>' : '');
+        (endStr ? '<span style="color:var(--ink-muted);font-size:.8rem;margin-left:.4rem;">' + endStr + '</span>' : '') + manageBtn;
     } else if (sub.status === "trialing") {
       var daysLeft = sub.trial_days_left || 0;
       aboEl.innerHTML = '<span style="background:#fef3c7;color:#d97706;padding:.2rem .6rem;border-radius:6px;font-weight:700;font-size:.82rem;">Testphase</span>' +
-        '<span style="color:var(--ink-muted);font-size:.8rem;margin-left:.4rem;">(' + daysLeft + ' Tage übrig)</span>';
+        '<span style="color:var(--ink-muted);font-size:.8rem;margin-left:.4rem;">(' + daysLeft + ' Tage übrig)</span>' + manageBtn;
     } else if (sub.teacher_credits_available) {
       aboEl.innerHTML = '<span style="background:#eff6ff;color:#2563eb;padding:.2rem .6rem;border-radius:6px;font-weight:700;font-size:.82rem;">Lehrer-Credits</span>';
     } else {
@@ -2764,6 +2768,28 @@ async function _loadProfileData() {
   } catch (e) {
     // Abo-Status nicht kritisch
   }
+}
+
+async function _openCustomerPortal() {
+  var btn = document.getElementById("profManageAbo");
+  if (btn) { btn.disabled = true; btn.textContent = "Wird geladen …"; }
+  try {
+    var studentId = sessionStorage.getItem("student_id");
+    var res = await fetch(API_BASE + "/api/stripe/customer-portal", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "X-Access-Token": getAccessToken() },
+      body: JSON.stringify({ student_id: studentId })
+    });
+    var data = await res.json();
+    if (data.url) {
+      window.location.href = data.url;
+    } else {
+      _showProfileMsg("profMsg", data.error || "Kundenportal konnte nicht geöffnet werden.", true);
+    }
+  } catch (e) {
+    _showProfileMsg("profMsg", "Fehler beim Öffnen des Kundenportals.", true);
+  }
+  if (btn) { btn.disabled = false; btn.textContent = "Abo verwalten"; }
 }
 
 async function _saveProfileChanges() {
