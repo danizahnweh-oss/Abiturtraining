@@ -813,8 +813,9 @@
         if (a.teilaufgaben && a.teilaufgaben.length) {
           html += '<div class="aufgaben-liste">';
           a.teilaufgaben.forEach(function (t) {
+            var cleanText = (t.text || "").replace(/\s*\(\d+\s*BE\)\s*\.?\s*$/i, "").trim();
             html += '<div class="aufgabe-item"><span class="aufgabe-nr">' + escapeHtml(t.id || t.nr || "") + '</span> ' +
-              DOMPurify.sanitize(marked.parseInline(t.text || "")) +
+              DOMPurify.sanitize(marked.parseInline(cleanText)) +
               ' <span class="aufgabe-be">(' + (t.be || "") + ' BE)</span></div>';
           });
           html += '</div>';
@@ -937,8 +938,9 @@
         if (a.teilaufgaben && a.teilaufgaben.length) {
           refHtml += '<div class="aufgaben-liste">';
           a.teilaufgaben.forEach(function (t) {
+            var cleanText = (t.text || "").replace(/\s*\(\d+\s*BE\)\s*\.?\s*$/i, "").trim();
             refHtml += '<div class="aufgabe-item"><span class="aufgabe-nr">' + escapeHtml(t.id || t.nr || "") + '</span> ' +
-              DOMPurify.sanitize(marked.parseInline(t.text || "")) +
+              DOMPurify.sanitize(marked.parseInline(cleanText)) +
               ' <span class="aufgabe-be">(' + (t.be || "") + ' BE)</span></div>';
           });
           refHtml += '</div>';

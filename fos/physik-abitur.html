@@ -571,10 +571,12 @@
       return html.replace(/KATEXPH(\d+)ENDPH/g, function (_, i) { return blocks[parseInt(i)]; });
     }
     function safeMathParse(text) {
-      var p = protectMath(text); return restoreMath(marked.parse(p.text), p.blocks);
+      var p = protectMath(text);
+      p.text = p.text.replace(/\{,\}/g, ",").replace(/\\,/g, " "); return restoreMath(marked.parse(p.text), p.blocks);
     }
     function safeMathParseInline(text) {
-      var p = protectMath(text); return restoreMath(marked.parseInline(p.text), p.blocks);
+      var p = protectMath(text);
+      p.text = p.text.replace(/\{,\}/g, ",").replace(/\\,/g, " "); return restoreMath(marked.parseInline(p.text), p.blocks);
     }
 
     function renderMath(el) {
@@ -725,8 +727,9 @@
                 content += '<div class="aufgabe-item aufgabe-context-item"><span class="aufgabe-nr">' + escapeHtml(t.nr || "") + '</span> ';
                 content += DOMPurify.sanitize(safeMathParseInline(t.text || "")) + '</div>';
               } else {
+                var cleanText = (t.text || "").replace(/\s*\(\d+\s*BE\)\s*\.?\s*$/i, "").trim();
                 content += '<div class="aufgabe-item"><span class="aufgabe-nr">' + escapeHtml(t.nr || "") + '</span> ';
-                content += DOMPurify.sanitize(safeMathParseInline(t.text || ""));
+                content += DOMPurify.sanitize(safeMathParseInline(cleanText));
                 content += ' <span class="aufgabe-be">(' + t.be + ' BE, AFB ' + (t.afb || "") + ')</span></div>';
               }
             });

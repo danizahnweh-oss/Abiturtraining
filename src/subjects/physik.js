@@ -100,6 +100,13 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
   "material": [{"id": "M1", "titel": "...", "type": "diagramm", "chart_type": "line", "text": "| t in s | U in V |\\n|---|---|\\n| 0 | 0 |\\n| 1 | 3.2 |"}]
 }
 
+TABELLEN-FORMATIERUNG IN MATERIALIEN:
+- In Tabellenzellen KEINE LaTeX-Notation für einfache Zahlenwerte!
+  RICHTIG: | 0,10 | 0,50 | +0,34 | 25 °C | 3,6 kJ/mol |
+  FALSCH:  | $0{,}10$ | $0{,}50$ | $+0{,}34$ | $25\\,°\\text{C}$ |
+- LaTeX ($...$) in Tabellen NUR für Fachformeln: $E^0$, $\\Delta H$, $\\ce{Fe^{3+}}$
+- Einfache Einheiten als Text: mol/L, kJ/mol, °C, V, g (NICHT als $\\text{mol/L}$)
+
 MATERIAL-TYPEN (jedes Material MUSS ein "type"-Feld haben):
 - "statistik" + "chart_type":"bar": "text" enthält eine VOLLSTÄNDIGE Markdown-Tabelle mit ECHTEN Messwerten (mind. 4-6 Datenzeilen)
 - "diagramm" + "chart_type":"line": "text" enthält eine VOLLSTÄNDIGE Markdown-Tabelle mit ECHTEN x/y-Datenpunkten (mind. 5-8 Messwerte, z.B. t/U, t/I, λ/Intensität)
@@ -468,6 +475,13 @@ PHYSIK-SPEZIFISCHE LATEX-REGELN:
 
 KEINE GeoGebra-Visualisierung.
 KEINE Strukturformeln oder \\ce{}-Notation (das ist Physik, nicht Chemie).
+
+TABELLEN-FORMATIERUNG IN MATERIALIEN:
+- In Tabellenzellen KEINE LaTeX-Notation für einfache Zahlenwerte!
+  RICHTIG: | 0,10 | 0,50 | +0,34 | 25 °C | 3,6 kJ/mol |
+  FALSCH:  | $0{,}10$ | $0{,}50$ | $+0{,}34$ | $25\\,°\\text{C}$ |
+- LaTeX ($...$) in Tabellen NUR für Fachformeln: $E^0$, $\\Delta H$, $\\ce{Fe^{3+}}$
+- Einfache Einheiten als Text: mol/L, kJ/mol, °C, V, g (NICHT als $\\text{mol/L}$)
 
 MATERIAL-TYPEN (jedes Material MUSS ein "type"-Feld haben):
 - "statistik" + "chart_type":"bar": "text" enthält eine VOLLSTÄNDIGE Markdown-Tabelle mit EIGENEN, NEUEN Messwerten (mind. 4-6 Datenzeilen). KEINE Werte aus den Beispielen kopieren!

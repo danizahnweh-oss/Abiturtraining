@@ -775,10 +775,14 @@ B3 Geometrie: ..." oninput="updateWordCounts()"></textarea>
     }
     function safeMathParse(text) {
       text = (text||"").replace(/\\n(?![a-zA-Z])/g, "\n");
-      var p = protectMath(text); return restoreMath(marked.parse(p.text), p.blocks);
+      var p = protectMath(text);
+      // Bare LaTeX-Reste: {,} → Komma
+      p.text = p.text.replace(/\{,\}/g, ",").replace(/\\,/g, " "); return restoreMath(marked.parse(p.text), p.blocks);
     }
     function safeMathParseInline(text) {
-      var p = protectMath(text); return restoreMath(marked.parseInline(p.text), p.blocks);
+      var p = protectMath(text);
+      // Bare LaTeX-Reste: {,} → Komma
+      p.text = p.text.replace(/\{,\}/g, ",").replace(/\\,/g, " "); return restoreMath(marked.parseInline(p.text), p.blocks);
     }
 
     function renderMath(el) {
@@ -868,7 +872,7 @@ B3 Geometrie: ..." oninput="updateWordCounts()"></textarea>
           content += '<div class="aufgaben-liste">';
           if (a.teilaufgaben && a.teilaufgaben.length) {
             a.teilaufgaben.forEach(function (t) {
-              content += '<div class="aufgabe-item"><span class="aufgabe-nr">' + escapeHtml(t.id || "") + '</span> ' + DOMPurify.sanitize(safeMathParseInline(t.text || "")) + ' <span class="aufgabe-be">(' + (t.be || "") + ' BE)</span></div>';
+              content += '<div class="aufgabe-item"><span class="aufgabe-nr">' + escapeHtml(t.id || "") + '</span> ' + DOMPurify.sanitize(safeMathParseInline((t.text||"").replace(/\s*\(\d+\s*BE\)\s*\.?\s*$/i,"").trim())) + ' <span class="aufgabe-be">(' + (t.be || "") + ' BE)</span></div>';
             });
           } else {
             content += '<div class="aufgabe-item">' + DOMPurify.sanitize(safeMathParseInline(a.text || a.aufgabe || "")) + '</div>';
@@ -896,7 +900,7 @@ B3 Geometrie: ..." oninput="updateWordCounts()"></textarea>
           content += '<div class="aufgaben-liste">';
           if (a.teilaufgaben && a.teilaufgaben.length) {
             a.teilaufgaben.forEach(function (t) {
-              content += '<div class="aufgabe-item"><span class="aufgabe-nr">' + escapeHtml(t.id || "") + '</span> ' + DOMPurify.sanitize(safeMathParseInline(t.text || "")) + ' <span class="aufgabe-be">(' + (t.be || "") + ' BE)</span></div>';
+              content += '<div class="aufgabe-item"><span class="aufgabe-nr">' + escapeHtml(t.id || "") + '</span> ' + DOMPurify.sanitize(safeMathParseInline((t.text||"").replace(/\s*\(\d+\s*BE\)\s*\.?\s*$/i,"").trim())) + ' <span class="aufgabe-be">(' + (t.be || "") + ' BE)</span></div>';
             });
           } else {
             content += '<div class="aufgabe-item">' + DOMPurify.sanitize(safeMathParseInline(a.text || a.aufgabe || "")) + '</div>';
@@ -921,7 +925,7 @@ B3 Geometrie: ..." oninput="updateWordCounts()"></textarea>
           content += '<div class="aufgaben-liste">';
           if (b.teilaufgaben && b.teilaufgaben.length) {
             b.teilaufgaben.forEach(function (t) {
-              content += '<div class="aufgabe-item"><span class="aufgabe-nr">' + escapeHtml(t.id || "") + '</span> ' + DOMPurify.sanitize(safeMathParseInline(t.text || "")) + ' <span class="aufgabe-be">(' + (t.be || "") + ' BE)</span></div>';
+              content += '<div class="aufgabe-item"><span class="aufgabe-nr">' + escapeHtml(t.id || "") + '</span> ' + DOMPurify.sanitize(safeMathParseInline((t.text||"").replace(/\s*\(\d+\s*BE\)\s*\.?\s*$/i,"").trim())) + ' <span class="aufgabe-be">(' + (t.be || "") + ' BE)</span></div>';
             });
           } else {
             content += '<div class="aufgabe-item">' + DOMPurify.sanitize(safeMathParseInline(b.text || b.aufgabe || "")) + '</div>';

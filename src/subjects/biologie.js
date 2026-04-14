@@ -87,6 +87,13 @@ FORMATIERUNG:
 - VERBOTEN in Aufgabentexten: $\\mathrm{}$, $\\mu$, $\\circ$, $^{\\circ}$ für Einheiten — stattdessen Unicode: °, µ, ², ⁻¹
 - In Markdown-Tabellen IMMER Unicode: °C, µmol/m²/s, kPa, mg/l — NIEMALS LaTeX in Tabellenspalten!
 
+TABELLEN-FORMATIERUNG IN MATERIALIEN:
+- In Tabellenzellen KEINE LaTeX-Notation für einfache Zahlenwerte!
+  RICHTIG: | 0,10 | 0,50 | +0,34 | 25 °C | 3,6 kJ/mol |
+  FALSCH:  | $0{,}10$ | $0{,}50$ | $+0{,}34$ | $25\\,°\\text{C}$ |
+- LaTeX ($...$) in Tabellen NUR für Fachformeln: $E^0$, $\\Delta H$, $\\ce{Fe^{3+}}$
+- Einfache Einheiten als Text: mol/L, kJ/mol, °C, V, g (NICHT als $\\text{mol/L}$)
+
 MATERIAL-TYPEN (jedes Material braucht ein "type"-Feld):
 - "statistik" + "chart_type":"bar" → "text" = vollständige Markdown-Tabelle mit echten Zahlenwerten (mind. 4 Datenzeilen)
 - "diagramm" + "chart_type":"line" → "text" = vollständige Markdown-Tabelle mit echten x/y-Messwerten (mind. 5 Datenpunkte)

@@ -154,6 +154,13 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
   "strukturformeln": [{"name": "ethanol", "caption": "Ethanol"}, {"name": "acetic acid", "caption": "Essigsäure"}]
 }
 
+TABELLEN-FORMATIERUNG IN MATERIALIEN:
+- In Tabellenzellen KEINE LaTeX-Notation für einfache Zahlenwerte!
+  RICHTIG: | 0,10 | 0,50 | +0,34 | 25 °C | 3,6 kJ/mol |
+  FALSCH:  | $0{,}10$ | $0{,}50$ | $+0{,}34$ | $25\\,°\\text{C}$ |
+- LaTeX ($...$) in Tabellen NUR für chemische Formeln: $\\ce{Fe^{3+}}$, $E^0$, $\\Delta H$
+- Einfache Einheiten als Text: mol/L, kJ/mol, °C, V, g (NICHT als $\\text{mol/L}$)
+
 MATERIAL-TYPEN (jedes Material MUSS ein "type"-Feld haben):
 - "statistik" + "chart_type":"bar": "text" enthält eine VOLLSTÄNDIGE Markdown-Tabelle mit ECHTEN Zahlenwerten (mind. 4-6 Datenzeilen)
 - "diagramm" + "chart_type":"line": "text" enthält eine VOLLSTÄNDIGE Markdown-Tabelle mit ECHTEN x/y-Datenpunkten (mind. 5-8 Messwerte)
@@ -501,6 +508,13 @@ Format: [{"name": "ethanol", "caption": "Ethanol (Edukt)"}, {"name": "acetic aci
 - "caption": deutsche Beschriftung für die Anzeige
 - KEIN SMILES, KEIN InChI — nur englische Namen!
 
+TABELLEN-FORMATIERUNG IN MATERIALIEN:
+- In Tabellenzellen KEINE LaTeX-Notation für einfache Zahlenwerte!
+  RICHTIG: | 0,10 | 0,50 | +0,34 | 25 °C | 3,6 kJ/mol |
+  FALSCH:  | $0{,}10$ | $0{,}50$ | $+0{,}34$ | $25\\,°\\text{C}$ |
+- LaTeX ($...$) in Tabellen NUR für chemische Formeln: $\\ce{Fe^{3+}}$, $E^0$, $\\Delta H$
+- Einfache Einheiten als Text: mol/L, kJ/mol, °C, V, g (NICHT als $\\text{mol/L}$)
+
 MATERIAL-TYPEN (jedes Material MUSS ein "type"-Feld haben):
 - "statistik" + "chart_type":"bar": "text" enthält eine VOLLSTÄNDIGE Markdown-Tabelle mit EIGENEN, NEUEN Zahlenwerten (mind. 4-6 Datenzeilen). KEINE Werte aus den Beispielen kopieren!
 - "diagramm" + "chart_type":"line": "text" enthält eine VOLLSTÄNDIGE Markdown-Tabelle mit EIGENEN, NEUEN x/y-Datenpunkten (mind. 5-8 Messwerte). KEINE Werte aus den Beispielen kopieren!
@@ -524,7 +538,7 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
       "sachgebiet": "elektrochemie",
       "material": [
         {"id": "M1", "titel": "Taschenofen als galvanische Zelle", "type": "text", "text": "Ein handelsüblicher Taschenofen nutzt die exotherme Oxidation von Eisenpulver zur Wärmeerzeugung. In einer Salzlösung werden Eisenpulver ($\\\\ce{Fe}$), Aktivkohle und Natriumchlorid ($\\\\ce{NaCl}$) gemischt. An der Oberfläche des Eisenpulvers bilden sich Lokalelement: Eisen wird oxidiert ($\\\\ce{Fe -> Fe^{2+} + 2e-}$, $E^0 = -0{,}44\\\\,\\\\text{V}$), während an der Aktivkohle Sauerstoff reduziert wird ($\\\\ce{O2 + 2H2O + 4e- -> 4OH-}$, $E^0 = +0{,}40\\\\,\\\\text{V}$). Durch die große Oberfläche des Eisenpulvers läuft die Reaktion schnell ab und erzeugt Temperaturen bis zu $70\\\\,°\\\\text{C}$."},
-        {"id": "M2", "titel": "Standardpotentiale", "type": "statistik", "chart_type": "bar", "text": "| Halbzelle | $E^0$ / V |\\n|---|---|\\n| $\\\\ce{Li/Li+}$ | $-3{,}04$ |\\n| $\\\\ce{Zn/Zn^{2+}}$ | $-0{,}76$ |\\n| $\\\\ce{Fe/Fe^{2+}}$ | $-0{,}44$ |\\n| $\\\\ce{Cu/Cu^{2+}}$ | $+0{,}34$ |\\n| $\\\\ce{Ag/Ag+}$ | $+0{,}80$ |\\n| $\\\\ce{Au/Au^{3+}}$ | $+1{,}50$ |"},
+        {"id": "M2", "titel": "Standardpotentiale", "type": "statistik", "chart_type": "bar", "text": "| Halbzelle | $E^0$ / V |\\n|---|---|\\n| $\\\\ce{Li/Li+}$ | -3,04 |\\n| $\\\\ce{Zn/Zn^{2+}}$ | -0,76 |\\n| $\\\\ce{Fe/Fe^{2+}}$ | -0,44 |\\n| $\\\\ce{Cu/Cu^{2+}}$ | +0,34 |\\n| $\\\\ce{Ag/Ag+}$ | +0,80 |\\n| $\\\\ce{Au/Au^{3+}}$ | +1,50 |"},
         {"id": "M3", "titel": "Temperaturverlauf Taschenofen", "type": "diagramm", "chart_type": "line", "text": "| Zeit / min | Temperatur / °C |\\n|---|---|\\n| 0 | 22 |\\n| 5 | 48 |\\n| 10 | 62 |\\n| 20 | 68 |\\n| 30 | 70 |\\n| 45 | 65 |\\n| 60 | 55 |\\n| 90 | 38 |"}
       ],
       "teilaufgaben": [

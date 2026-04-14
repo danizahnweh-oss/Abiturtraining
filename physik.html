@@ -747,11 +747,15 @@
       if (!text || typeof text !== "string") return "";
       // Literal \\n → echte Newlines (KI gibt Tabellen oft mit \\\\n aus)
       text = text.replace(/\\n(?![a-zA-Z])/g, "\n");
-      var p = protectMath(text); return restoreMath(marked.parse(p.text), p.blocks);
+      var p = protectMath(text);
+      // Bare LaTeX-Reste: {,} → Komma
+      p.text = p.text.replace(/\{,\}/g, ",").replace(/\\,/g, " "); return restoreMath(marked.parse(p.text), p.blocks);
     }
     function safeMathParseInline(text) {
       if (!text || typeof text !== "string") return "";
-      var p = protectMath(text); return restoreMath(marked.parseInline(p.text), p.blocks);
+      var p = protectMath(text);
+      // Bare LaTeX-Reste: {,} → Komma
+      p.text = p.text.replace(/\{,\}/g, ",").replace(/\\,/g, " "); return restoreMath(marked.parseInline(p.text), p.blocks);
     }
 
     function renderMath(el) {
@@ -860,11 +864,12 @@
 
       const container = document.getElementById("teilaufgabenContainer");
       if (d.teilaufgaben && d.teilaufgaben.length) {
-        container.innerHTML = d.teilaufgaben.map(t =>
-          '<div class="teilaufgabe-item"><span class="teilaufgabe-nr">' + escapeHtml(t.id || t.nr || "") + '</span> ' +
-          DOMPurify.sanitize(safeMathParseInline(t.text || "")) +
-          ' <span class="teilaufgabe-be">(' + (t.be || "?") + ' BE)</span></div>'
-        ).join("");
+        container.innerHTML = d.teilaufgaben.map(function(t) {
+          var cleanText = (t.text || "").replace(/\s*\(\d+\s*BE\)\s*\.?\s*$/i, "").replace(/\s*\(\d+\s*BE\)\s*/gi, " ").trim();
+          return '<div class="teilaufgabe-item"><span class="teilaufgabe-nr">' + escapeHtml(t.id || t.nr || "") + '</span> ' +
+          DOMPurify.sanitize(safeMathParseInline(cleanText)) +
+          ' <span class="teilaufgabe-be">(' + (t.be || "?") + ' BE)</span></div>';
+        }).join("");
         renderMath(container);
       } else {
         container.innerHTML = "";

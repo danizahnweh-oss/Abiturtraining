@@ -647,9 +647,12 @@
     }
     function safeMathParse(text) {
       if (!text || typeof text !== "string") return "";
-      // Literal \\n → echte Newlines (KI gibt Tabellen oft mit \\\\n aus)
+      // Literal \n → echte Newlines (KI gibt Tabellen oft mit \\n aus)
       text = text.replace(/\\n(?![a-zA-Z])/g, "\n");
-      var p = protectMath(text); return restoreMath(marked.parse(p.text), p.blocks);
+      var p = protectMath(text);
+      // Bare LaTeX-Reste außerhalb von $...$: {,} → Komma, \, → Leerzeichen
+      p.text = p.text.replace(/\{,\}/g, ",").replace(/\\,/g, " ");
+      return restoreMath(marked.parse(p.text), p.blocks);
     }
     function safeMathParseInline(text) {
       if (!text || typeof text !== "string") return "";
@@ -807,8 +810,9 @@
         if (a.teilaufgaben && a.teilaufgaben.length) {
           html += '<div class="aufgaben-liste">';
           a.teilaufgaben.forEach(function (t) {
+            var cleanText = (t.text || "").replace(/\s*\(\d+\s*BE\)\s*\.?\s*$/i, "").replace(/\s*\(\d+\s*BE\)\s*/gi, " ").trim();
             html += '<div class="aufgabe-item"><span class="aufgabe-nr">' + escapeHtml(t.id || t.nr || "") + '</span> ' +
-              DOMPurify.sanitize(safeMathParseInline(t.text || "")) +
+              DOMPurify.sanitize(safeMathParseInline(cleanText)) +
               ' <span class="aufgabe-be">(' + (t.be || "") + ' BE)</span></div>';
           });
           html += '</div>';
