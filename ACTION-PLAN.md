@@ -1,134 +1,228 @@
-# myAbiFlow – SEO Action Plan
+# SEO Action-Plan — myabiflow.de
 
-**Erstellt:** 18.03.2026
-**Aktueller Score:** 78/100
-**Ziel-Score:** 90+/100
-
----
-
-## 🔴 Kritisch (sofort beheben)
-
-### 1. 404-Fehlerseite erstellen
-**Problem:** Alle unbekannten URLs geben HTTP 200 + index.html zurück
-**Impact:** Crawl-Budget-Verschwendung, Duplicate Content, schlechte UX
-**Lösung:** `404.html` erstellen und in Cloudflare Pages konfigurieren
-**Aufwand:** ~30 Minuten
-
-### 2. Startseite: H1-Tags reduzieren
-**Problem:** ~20 H1-Tags auf index.html verwässern die Seitenrelevanz
-**Impact:** Google kann Hauptthema der Seite nicht klar erkennen
-**Lösung:** Nur 1 H1 ("Dein Weg zum Abitur"), alle Fach-H1s zu H2 ändern
-**Aufwand:** ~15 Minuten
-
-### 3. HSTS-Header aktivieren
-**Problem:** `Strict-Transport-Security` fehlt
-**Impact:** HTTPS wird nicht nach Erstbesuch erzwungen, Man-in-the-Middle möglich
-**Lösung:** In Cloudflare Dashboard unter SSL/TLS → Edge Certificates → HSTS aktivieren
-**Aufwand:** ~5 Minuten
+**Erstellt:** 15. April 2026
+**Aktueller Score:** 69 / 100
+**Ziel-Score:** 80+ (nach Kritisch + Hoch) → 85+ (nach allen Maßnahmen)
 
 ---
 
-## 🟡 Hoch (innerhalb 1 Woche)
+## KRITISCH — Sofort (< 1 Stunde Gesamtaufwand)
 
-### 4. AI-Crawler-Strategie überdenken
-**Problem:** Alle AI-Crawler in robots.txt geblockt → unsichtbar in ChatGPT, Claude, Perplexity
-**Impact:** Schüler die AI-Suche nutzen, finden myAbiFlow nicht
-**Lösung:**
-- GPTBot und ClaudeBot erlauben (für Search/Citations)
-- `Content-Signal: search=yes,ai-train=no` beibehalten (verhindert Training)
-- Oder: Selektiv nur bestimmte Crawler freigeben
-**Aufwand:** ~10 Minuten + Entscheidung
+### K1: `lang="de"` auf `index.html` ergänzen
+**Datei:** `index.html` Zeile 2
+```html
+<!-- Vorher -->
+<html data-accent="blue">
+<!-- Nachher -->
+<html lang="de" data-accent="blue">
+```
 
-### 5. llms.txt erstellen
-**Problem:** Keine AI-optimierte Seitenbeschreibung vorhanden
-**Impact:** AI-Modelle können Seite nicht effizient zusammenfassen
-**Lösung:** `llms.txt` im Root mit strukturierter Beschreibung aller Angebote
-**Aufwand:** ~20 Minuten
+### K2: Canonical auf `landing.html` korrigieren
+**Datei:** `landing.html`
+```html
+<!-- Vorher -->
+<link rel="canonical" href="https://myabiflow.de/">
+<!-- Nachher -->
+<link rel="canonical" href="https://myabiflow.de/landing.html">
+```
 
-### 6. Kolloquiumstrainer URL fixen
-**Problem:** `/kolloquium/` zeigt Startseite statt React-SPA
-**Impact:** Sitemap-Eintrag führt ins Leere, schlechte UX
-**Lösung:** Cloudflare Pages Redirect oder `_redirects`-Datei
-**Aufwand:** ~15 Minuten
+### K3: Broken Link in `llms.txt` reparieren
+**Datei:** `llms.txt`
+```
+# Vorher
+- Datenschutz: https://myabiflow.de/datenschutz.html
+# Nachher
+- Datenschutz & Impressum: https://myabiflow.de/impressum.html
+```
 
-### 7. X-Frame-Options Header setzen
-**Problem:** Seite kann in fremde iframes eingebettet werden
-**Impact:** Clickjacking-Risiko, potenzielle Phishing-Angriffe
-**Lösung:** In Cloudflare: `X-Frame-Options: SAMEORIGIN`
-**Aufwand:** ~5 Minuten
-
----
-
-## 🟠 Mittel (innerhalb 1 Monat)
-
-### 8. Title Tags erweitern
-**Problem:** Einige Titles zu kurz (22 Zeichen statt 50-60)
-**Impact:** Verschenktes Keyword-Potenzial in SERPs
-**Lösung:** Titles erweitern, z.B.:
-- "myAbiFlow · Mathematik" → "Mathematik Klausurtraining Bayern G9 – myAbiFlow"
-- "myAbiFlow · Textanalyse" → "Deutsch Textanalyse üben – Abitur Bayern – myAbiFlow"
-**Aufwand:** ~1 Stunde für alle 50 Seiten
-
-### 9. Favicon optimieren
-**Problem:** `wave-icon-new.png` ist 218 KB
-**Impact:** Unnötige Ladezeit, schlechter Lighthouse-Score
-**Lösung:** `favicon.svg` (existiert bereits!) im HTML referenzieren
-**Aufwand:** ~10 Minuten
-
-### 10. FAQPage Schema ergänzen
-**Problem:** Keine FAQ-Structured-Data trotz FAQ-Inhalten
-**Impact:** Keine FAQ-Rich-Snippets in Google
-**Lösung:** JSON-LD FAQPage Schema auf Startseite + relevanten Fachseiten
-**Aufwand:** ~30 Minuten
-
-### 11. Head-Scripts mit defer laden
-**Problem:** `marked.min.js`, `purify.min.js`, `chart.umd.min.js` im Head ohne defer
-**Impact:** Render-Blocking, langsamerer LCP
-**Lösung:** `defer` Attribut hinzufügen
-**Aufwand:** ~10 Minuten
-
-### 12. theme_color vereinheitlichen
-**Problem:** manifest.json (`#2563eb`) ≠ meta-Tag (`#4f46e5`)
-**Impact:** Inkonsistente Darstellung in PWA/Browser
-**Lösung:** Einen Wert wählen und überall verwenden
-**Aufwand:** ~5 Minuten
+### K4: Meta Description auf `abo.html` ergänzen
+```html
+<meta name="description" content="Abitur-Endspurt-Plan für 25€ – voller KI-Zugang zu allen Fächern für das bayerische G9-Abitur. Jetzt sichern und optimal vorbereiten.">
+```
 
 ---
 
-## 🟢 Niedrig (Backlog)
+## HOCH — Diese Woche (1–3 Tage)
 
-### 13. mockup-abo.html Meta Description
-**Problem:** Einzige Seite ohne Meta Description
-**Lösung:** Description ergänzen
-**Aufwand:** ~2 Minuten
+### H1: `loading="lazy"` auf alle Below-the-fold-Images
+Alle `<img>` die nicht im sichtbaren Bereich beim Seitenaufruf sind:
+```html
+<img src="..." alt="..." loading="lazy" width="X" height="Y">
+```
+Betrifft ~90 Seiten. Batch-Replace in Templates.
 
-### 14. Bilder auf WebP/AVIF umstellen
-**Problem:** Alle Bilder als PNG
-**Lösung:** Moderne Formate für bessere Kompression
-**Aufwand:** ~1 Stunde
+### H2: H1-Tag im Kolloquium-Trainer ergänzen
+In Haupt-React-Komponente (visuell versteckbar):
+```html
+<h1 class="sr-only">Kolloquium-Trainer Bayern G9 – Mündliche Abiturprüfung üben</h1>
+```
 
-### 15. CSP verschärfen
-**Problem:** CSP mit `*` + `unsafe-inline` ist wirkungslos
-**Lösung:** Schrittweise einschränken (erst Report-Only)
-**Aufwand:** ~2-3 Stunden
+### H3: `Product`+`Offer` Schema auf `abo.html` implementieren
+```json
+{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "myAbiFlow Premium",
+  "description": "KI-gestützter Abitur-Trainer für das bayerische G9-Gymnasium und FOS/BOS",
+  "brand": { "@type": "Brand", "name": "myAbiFlow" },
+  "offers": {
+    "@type": "Offer",
+    "name": "Abitur-Plan",
+    "price": "25.00",
+    "priceCurrency": "EUR",
+    "availability": "https://schema.org/InStock",
+    "url": "https://myabiflow.de/abo.html"
+  }
+}
+```
+Ermöglicht Preis-Rich-Results in Google.
 
-### 16. Sitemap lastmod-Daten ergänzen
-**Problem:** Nicht alle Einträge haben lastmod
-**Lösung:** `/seo-sitemap-update` Command nutzen
-**Aufwand:** ~5 Minuten
+### H4: `aggregateRating` zum SoftwareApplication-Schema
+Im bestehenden SoftwareApplication-Block auf `landing.html` / `index.html`:
+```json
+"aggregateRating": {
+  "@type": "AggregateRating",
+  "ratingValue": "4.8",
+  "reviewCount": "47",
+  "bestRating": "5"
+}
+```
+Ohne `aggregateRating` kein App-Rich-Result bei Google.
 
-### 17. Canonical-Inkonsistenz Startseite
-**Problem:** Canonical zeigt auf `/` vs. `/index.html` – prüfen ob einheitlich
-**Lösung:** Überall `https://myabiflow.de/` verwenden
-**Aufwand:** ~5 Minuten
+### H5: `image` zum Article-Schema auf `kolloquium-tipps.html`
+```json
+"image": {
+  "@type": "ImageObject",
+  "url": "https://myabiflow.de/og-image.png",
+  "width": 1200,
+  "height": 630
+}
+```
+Ohne Bild kein Article-Rich-Result.
+
+### H6: 301-Redirects für intuitive URLs in Nginx
+```nginx
+rewrite ^/mathematik\.html$ /mathe.html permanent;
+rewrite ^/kolloquium\.html$ /abitur-kolloquium-trainer/dist/ permanent;
+rewrite ^/deutsch-analyse\.html$ /analyse.html permanent;
+```
+
+### H7: Title-Tags korrigieren
+
+| Seite | Vorher | Nachher |
+|-------|--------|---------|
+| `abo.html` | "myAbiFlow – Abo & Preise" | "Abo & Preise – KI-Abiturtraining Bayern \| myAbiFlow" |
+| `fos/index.html` | "myAbiFlow FOS – Dein Weg zum Fachabitur" | "FOS Abitur Bayern – KI-Vorbereitung für Fachabitur \| myAbiFlow" |
+| Englisch-Mediation | 87 Zeichen | "Englisch Mediation Bayern üben – mit KI-Feedback \| myAbiFlow" (62 Zeichen) |
 
 ---
 
-## Erwarteter Score nach Umsetzung
+## MITTEL — Diesen Monat (1–4 Wochen)
+
+### M1: `sameAs` ins Organization-Schema
+```json
+"sameAs": [
+  "https://www.instagram.com/myabiflow",
+  "https://www.tiktok.com/@myabiflow"
+]
+```
+
+### M2: SEO-Landing-Page für Mathematik erstellen
+Eine dedizierte `/mathe-abitur-bayern-ueben.html` im Stil der Physik/Deutsch-Seiten:
+- 800+ Wörter redaktioneller Text
+- FAQPage-Schema (4+ Fragen)
+- BreadcrumbList + Course-Schema
+- Interner Link aus `mathe.html` und `mathe-abitur.html`
+
+**Höchstes SEO-Potenzial aller möglichen neuen Seiten.**
+
+### M3: `fetchpriority="high"` auf Hero-Bild der Landing Page
+```html
+<img src="/logo-v2.png" alt="myAbiFlow" width="130" height="17" fetchpriority="high">
+```
+
+### M4: Duplicate Meta-Descriptions individualisieren
+~15 Seiten mit identischem Template. Beispiel-Muster:
+```
+Biologie: "Biologie Abitur Bayern G9 – Genetik, Ökologie & Evolution mit KI-Feedback üben. LehrplanPLUS-konform."
+Chemie: "Chemie Abitur Bayern G9 – Organik, Elektrochemie & Gleichgewichtsreaktionen mit KI-Feedback üben."
+```
+
+### M5: `changefreq` in Sitemap für fehlende 93 URLs ergänzen
+```xml
+<changefreq>monthly</changefreq>  <!-- Fachseiten -->
+<changefreq>weekly</changefreq>   <!-- Homepage, SEO-Landingpages -->
+```
+
+### M6: CSS-Preload für kritische Stylesheets
+```html
+<link rel="preload" href="/shared-v4.css" as="style">
+<link rel="preload" href="/fonts/fonts.css" as="style">
+```
+
+### M7: Cross-Verlinkung zwischen verwandten Fächern
+- Physik → Mathematik
+- Deutsch-Analyse → Kolloquium-Tipps
+- Englisch → Deutsch
+
+### M8: `twitter:site` auf allen Seiten
+```html
+<meta name="twitter:site" content="@myabiflow">
+```
+
+### M9: `dateModified` in Schemas ergänzen
+Für alle `WebPage`- und `Article`-Schemas:
+```json
+"dateModified": "2026-04-15"
+```
+
+---
+
+## NIEDRIG — Backlog
+
+### N1: "Über uns"-Seite mit Person-Schema erstellen
+Gründer-Profil mit `Person`-Schema → wichtigster langfristiger E-E-A-T-Hebel.
+
+### N2: Datenschutz-Seite erstellen (`/datenschutz.html`)
+Für DSGVO-Konformität und korrekten `llms.txt`-Link.
+
+### N3: FAQPage-Schema auf FOS-Fachseiten (37 Seiten)
+Je 3-4 fachspezifische Fragen.
+
+### N4: Seitenspezifische OG-Bilder
+1200×630px für Physik, Deutsch, Englisch, Mathe, Abo, FOS.
+
+### N5: `hasCourseInstance` auf alle 16 Course-Items ausweiten
+Aktuell nur beim Englisch-Kurs vorhanden.
+
+### N6: LehrplanPLUS extern verlinken
+```html
+<a href="https://lehrplanplus.bayern.de" rel="noopener" target="_blank">LehrplanPLUS Bayern</a>
+```
+
+### N7: Nginx Security Headers prüfen und ergänzen
+```bash
+# Auf Hetzner ausführen:
+curl -I https://myabiflow.de
+```
+Dann in Nginx-Config prüfen:
+```nginx
+add_header X-Frame-Options "DENY";
+add_header X-Content-Type-Options "nosniff";
+add_header Referrer-Policy "strict-origin-when-cross-origin";
+add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
+```
+
+### N8: Splash-Video auf Landing mit `preload="metadata"` begrenzen
+
+---
+
+## Score-Prognose
 
 | Phase | Maßnahmen | Erwarteter Score |
 |-------|-----------|-----------------|
-| Kritisch (sofort) | #1-3 | 82/100 |
-| Hoch (1 Woche) | #4-7 | 88/100 |
-| Mittel (1 Monat) | #8-12 | 93/100 |
-| Niedrig (Backlog) | #13-17 | 96/100 |
+| Jetzt | — | 69 / 100 |
+| Kritisch erledigt | K1–K4 | ~72 / 100 |
+| + Hoch erledigt | H1–H7 | ~78 / 100 |
+| + Mittel erledigt | M1–M9 | ~83 / 100 |
+| + Niedrig erledigt | N1–N8 | ~87 / 100 |

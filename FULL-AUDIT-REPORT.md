@@ -1,246 +1,262 @@
-# myAbiFlow – Vollständiger SEO-Audit
+# SEO Full Audit — myabiflow.de
 
-**Datum:** 18.03.2026
-**Domain:** https://myabiflow.de
-**Geschäftstyp:** EdTech / Bildungsplattform (Bayerisches Abitur G9 + FOS)
-**Seiten analysiert:** 50 HTML-Dateien (Root) + 35 FOS-Unterseiten + React SPA
+**Datum:** 15. April 2026
+**Analysierte Seiten:** 101 (Sitemap) + Stichproben
+**Business-Typ:** EdTech B2C/B2B, Bayern Abitur Niche SEO, Freemium SaaS
+
+---
+
+## SEO Health Score: 69 / 100
+
+| Kategorie | Gewichtung | Score | Gewichtet |
+|-----------|-----------|-------|-----------|
+| Technical SEO | 22% | 78 | 17,2 |
+| Content-Qualität | 23% | 62 | 14,3 |
+| On-Page SEO | 20% | 68 | 13,6 |
+| Schema / Structured Data | 10% | 75 | 7,5 |
+| Performance (CWV) | 10% | 60 | 6,0 |
+| AI Search Readiness | 10% | 80 | 8,0 |
+| Bilder | 5% | 55 | 2,75 |
+| **Gesamt** | **100%** | | **69 / 100** |
 
 ---
 
 ## Executive Summary
 
-### SEO Health Score: 78/100
+### Top 5 Kritische Issues
 
-| Kategorie | Gewicht | Score | Gewichtet |
-|-----------|---------|-------|-----------|
-| Technical SEO | 22% | 68/100 | 15.0 |
-| Content Quality | 23% | 88/100 | 20.2 |
-| On-Page SEO | 20% | 85/100 | 17.0 |
-| Schema / Structured Data | 10% | 95/100 | 9.5 |
-| Performance (CWV) | 10% | 70/100 | 7.0 |
-| AI Search Readiness | 10% | 35/100 | 3.5 |
-| Bilder | 5% | 75/100 | 3.8 |
-| **Gesamt** | **100%** | | **76/100** |
-
-### Top 5 Kritische Probleme
-1. **Keine 404-Seite** – Alle unbekannten URLs geben HTTP 200 + index.html zurück → Soft 404s, Crawl-Budget-Verschwendung
-2. **~20 H1-Tags auf der Startseite** – Verwässert die Seitenrelevanz für Google
-3. **KI-Crawler komplett geblockt** – ClaudeBot, GPTBot, Perplexity etc. in robots.txt gesperrt → keine AI-Search-Sichtbarkeit
-4. **HSTS-Header fehlt** – HTTPS wird nicht erzwungen nach Erstbesuch
-5. **Kolloquiumstrainer-URL falsch** – `/kolloquium/` liefert Startseite statt React-SPA
+1. `lang="de"` fehlt auf `index.html` (Homepage ohne Sprachdeklaration)
+2. Canonical auf `landing.html` zeigt auf `https://myabiflow.de/` → Duplicate-Content-Risiko
+3. Kein H1-Tag im Kolloquium-Trainer (`/abitur-kolloquium-trainer/dist/`)
+4. `datenschutz.html` in `llms.txt` verlinkt, aber Seite existiert nicht (404)
+5. Thin Content auf ~15 Standard-Trainer-Seiten (kaum indexierbarer redaktioneller Text)
 
 ### Top 5 Quick Wins
-1. `404.html` erstellen → sofort besseres Crawling
-2. H1-Tags auf Startseite zu H2 ändern (nur 1x H1 behalten)
-3. `llms.txt` erstellen für AI-Search-Sichtbarkeit
-4. Favicon von 218 KB PNG auf SVG umstellen
-5. `mockup-abo.html` Meta Description ergänzen
+
+1. `lang="de"` in `index.html` ergänzen (5 Minuten)
+2. Canonical auf `landing.html` korrigieren (5 Minuten)
+3. `datenschutz.html`-Link in `llms.txt` reparieren (5 Minuten)
+4. `loading="lazy"` auf alle Below-the-fold-Images ergänzen (30 Minuten)
+5. Meta Description auf `abo.html` ergänzen (5 Minuten)
 
 ---
 
-## 1. Technical SEO (68/100)
+## 1. Technical SEO
 
-### Crawlability
-| Prüfpunkt | Status | Details |
-|-----------|--------|---------|
-| robots.txt | ✅ | Vorhanden, Sitemap referenziert, Standard-Crawler erlaubt |
-| Sitemap.xml | ✅ | 85 URLs, korrekte Priorities, XML valide |
-| HTTPS | ✅ | HTTP → HTTPS Redirect (301) funktioniert |
-| Canonical URLs | ✅ | 100% aller Seiten haben korrekte Canonicals |
-| 404-Handling | ❌ | **Keine 404.html** – Soft 404s überall |
-| Redirect-Chains | ✅ | Max 1 Hop (HTTP → HTTPS) |
+### 1.1 robots.txt — Note: A
 
-### Indexability
-| Prüfpunkt | Status | Details |
-|-----------|--------|---------|
-| Meta Robots | ✅ | `noindex` nur bei dsfa.html + tom.html (korrekt) |
-| Duplicate Content | ⚠️ | Soft 404s liefern index.html → potenzielle Duplikate |
-| hreflang | ℹ️ | Nicht nötig (nur deutschsprachig) |
+- Korrekte Sitemap-Referenz
+- `/api/` korrekt blockiert
+- Vorbildliche KI-Crawler-Strategie: GPTBot, ClaudeBot, PerplexityBot **erlaubt** — CCBot, Bytespider, Amazonbot **blockiert**
+- Einziges Minusproblem: Redundante `User-agent: Googlebot`-Regel (durch `*` bereits abgedeckt)
 
-### Security Headers
-| Header | Status | Bewertung |
-|--------|--------|-----------|
-| HTTPS/SSL | ✅ | Aktiv via Cloudflare |
-| X-Content-Type-Options | ✅ | `nosniff` |
-| Referrer-Policy | ✅ | `strict-origin-when-cross-origin` |
-| Strict-Transport-Security | ❌ | **Fehlt komplett** |
-| X-Frame-Options | ❌ | **Fehlt** – Clickjacking möglich |
-| Content-Security-Policy | ⚠️ | Vorhanden, aber `*` + `unsafe-inline` + `unsafe-eval` = wirkungslos |
-| Permissions-Policy | ❌ | Fehlt |
-| Access-Control-Allow-Origin | ⚠️ | `*` – sehr permissiv |
+### 1.2 Sitemap — Note: B+
 
-### Sitemap-Analyse
-- **85 URLs** gelistet, logisch nach Fachbereichen gruppiert
-- **Fehlend in Sitemap:** `lehrer.html`, `dashboard.html`, `mockup-abo.html`
-- **In Sitemap aber vermutlich irrelevant:** Keine Probleme gefunden
-- **lastmod-Daten:** Nicht bei allen Einträgen vorhanden
-- **Canonical-URL der Startseite:** `index.html` vs. `/` → Inkonsistenz prüfen
-
----
-
-## 2. Content Quality (88/100)
-
-### E-E-A-T Assessment
-| Signal | Status | Details |
-|--------|--------|---------|
-| Expertise | ✅ | Lehrplankonforme Inhalte, G9-Bayern-Bezug |
-| Experience | ✅ | Interaktive Übungsaufgaben mit KI-Feedback |
-| Authority | ✅ | JSON-LD Organization mit echtem Impressum, UG-Rechtsform |
-| Trust | ✅ | Impressum, AGB, Datenschutz, Barrierefreiheitserklärung, DSFA, TOM vorhanden |
-
-### Content-Abdeckung
-- **50 HTML-Seiten** im Root (Gymnasium)
-- **35+ FOS-Unterseiten**
-- **16 Fächer** mit jeweils Klausur- + Abiturtraining
-- **React SPA** für Kolloquiumstrainer
-- **Kein Thin Content** erkannt – alle Seiten haben funktionale Inhalte
-
-### Readability
-- Klare, schülerfreundliche Sprache
-- Gut strukturierte Aufgaben mit Handlungsanweisungen
-- Fachbegriffe werden im Kontext verwendet
-
----
-
-## 3. On-Page SEO (85/100)
-
-### Title Tags
 | Metrik | Wert |
 |--------|------|
-| Abdeckung | 100% (50/50) |
-| Format | `myAbiFlow · [Fach]` – konsistent |
-| Länge | 22–65 Zeichen (optimal: 50–60) |
-| Problem | Einige Titles zu kurz (z.B. "myAbiFlow · Mathematik" = 22 Zeichen) |
+| Gesamt-URLs | 101 |
+| Mit `lastmod` | 101 (100%) |
+| Mit `changefreq` | 8 (8%) |
+| Mit `priority` | 101 (100%) |
+| Nachgewiesene 404-Fehler | 0 (alle Sitemap-URLs erreichbar) |
 
-**Empfehlung:** Kurze Titles erweitern, z.B. "Mathematik Klausurtraining Bayern – myAbiFlow"
+**Issues:**
+- `/abitur-kolloquium-trainer/dist/` in Sitemap — unschöner Build-Pfad als öffentliche URL
+- `changefreq` fehlt bei 93 von 101 URLs
+- `lastmod` des Kolloquiumstrainers nicht bei jedem Deploy aktualisiert
 
-### Meta Descriptions
-| Metrik | Wert |
-|--------|------|
-| Abdeckung | 98% (49/50) |
-| Fehlend | `mockup-abo.html` |
-| Länge | 99–160 Zeichen (optimal: 140–160) |
-| Qualität | ✅ Keyword-reich, actionsorientiert |
+### 1.3 Canonical-Tags — Note: A (mit Ausnahme)
 
-### Heading-Struktur
-| Seite | H1-Anzahl | Status |
-|-------|-----------|--------|
-| index.html | ~20 | ❌ **Viel zu viele** – nur 1 H1 empfohlen |
-| Alle anderen | 1 | ✅ Korrekt |
+- Alle 108 HTML-Dateien haben Canonical-Tags — vorbildlich
+- **Kritische Ausnahme:** `landing.html` canonical zeigt auf `https://myabiflow.de/` statt auf sich selbst → Google behandelt Landing-Page als Duplikat der Homepage
 
-### Interne Verlinkung
-- **Startseite:** 69 interne Links (Hub-Seite) ✅
-- **Unterseiten:** Ø 10 Links (Navigation + Footer) ✅
-- **Verwaiste Seiten:** `mockup-abo.html` möglicherweise nicht verlinkt
-- **Struktur:** Flache Hierarchie (max. 2 Klicks zur Startseite) ✅
+### 1.4 Indexierbarkeit — Note: B
 
----
+- Kein ungewolltes `noindex` gefunden
+- JS-Redirect auf `index.html` → Googlebot rendert JS, sieht `landing.html` als Inhalt der Homepage (akzeptabel solange Landing-Page SEO-stark ist)
+- `lang="de"` **fehlt auf `index.html`** — alle anderen 100+ Seiten haben es
 
-## 4. Schema / Structured Data (95/100)
+### 1.5 Security Headers — Note: C
 
-### Implementierung
-| Schema-Typ | Seiten | Status |
-|------------|--------|--------|
-| Organization/EducationalOrganization | index.html | ✅ Vollständig mit Adresse, Gründer |
-| WebSite + SearchAction | index.html | ✅ |
-| WebPage | index.html | ✅ |
-| ItemList (16 Courses) | index.html | ✅ |
-| Course | Alle Fachseiten | ✅ Mit educationalLevel, audience, offers |
-| BreadcrumbList | Alle Unterseiten | ✅ |
+- CSP vorhanden via `<meta>`-Tag (schwächer als HTTP-Header — kein `frame-ancestors`-Support)
+- `unsafe-inline` + `unsafe-eval` schwächen CSP
+- `X-Frame-Options`, `HSTS`, `X-Content-Type-Options`, `Referrer-Policy` via Nginx nicht verifiziert
+- **Empfehlung:** `curl -I https://myabiflow.de` auf Hetzner ausführen
 
-### Validation
-- **Format:** JSON-LD (Best Practice) ✅
-- **@context:** schema.org korrekt referenziert ✅
-- **Offers:** Preis 0 EUR korrekt für Freemium ✅
+### 1.6 Fehlende 301-Redirects für intuitive URLs
 
-### Fehlende Opportunities
-- **FAQPage** Schema für häufige Fragen → Featured Snippets
-- **VideoObject** für Splash-Video auf Startseite
-- **Review/Rating** Schema wenn Nutzerbewertungen vorhanden
+| Eingetippte URL | Status | Sollte zu |
+|----------------|--------|-----------|
+| `/mathematik.html` | 404 | `/mathe.html` |
+| `/kolloquium.html` | 404 | `/abitur-kolloquium-trainer/dist/` |
+| `/deutsch-analyse.html` | 404 | `/analyse.html` |
 
 ---
 
-## 5. Performance (70/100)
+## 2. Content-Qualität
 
-### Geschätzte Core Web Vitals
-| Metrik | Einschätzung | Details |
-|--------|-------------|---------|
-| LCP | ⚠️ Mittel | Splash-Video + 6641 Zeilen HTML auf Startseite |
-| INP | ✅ Gut | Vanilla JS, kein schweres Framework auf Hauptseiten |
-| CLS | ✅ Gut | Bilder haben `width`/`height` Attribute |
+### 2.1 E-E-A-T — Note: D+ (kritischste Schwäche)
 
-### Resource-Optimierung
-| Ressource | Status | Details |
-|-----------|--------|---------|
-| Script Loading | ✅ | `defer` bei KaTeX, keine render-blocking Scripts |
-| Service Worker | ✅ | Cache v83, Network-first für HTML |
-| Cache-Control | ✅ | `must-revalidate` für HTML |
-| Favicon | ❌ | **218 KB PNG** – sollte < 10 KB sein |
-| CSS | ✅ | 1 CSS-Datei (shared-v4.css, 3589 Zeilen) |
+| Signal | Status |
+|--------|--------|
+| Gründer namentlich im Schema | ✅ |
+| Autor-Bio-Seite | ❌ Fehlt |
+| "Über uns"-Seite | ❌ Fehlt |
+| Person-Schema für Gründer | ❌ Fehlt |
+| Testimonials öffentlich sichtbar | ❌ Fehlt |
+| Pilotschul-Referenzen auf der Site | ❌ Fehlt |
+| LehrplanPLUS verlinkt | ❌ Nur erwähnt, nicht verlinkt |
 
-### Drittanbieter-Scripts
-- KaTeX (Math-Rendering) – defer ✅
-- Chart.js – im Head, kein defer ⚠️
-- Marked.js + DOMPurify – im Head, kein defer ⚠️
+### 2.2 Content-Tiefe nach Seitentyp
 
----
+| Seitentyp | Anzahl | Content-Qualität |
+|-----------|--------|-----------------|
+| SEO-Landingpages (Physik, Deutsch, Englisch) | 3 | ✅ Gut — langer Text, FAQs |
+| Kolloquium-Tipps / Abitur-Vorbereitung | 2 | ✅ Gut |
+| Standard-Trainer-Seiten (Biologie, Chemie etc.) | ~15 | ❌ Thin Content |
+| FOS-Fachseiten | 37 | ⚠️ Mittel — funktional, kein FAQ-Schema |
 
-## 6. Bilder (75/100)
+### 2.3 Größte Content-Gap
 
-| Prüfpunkt | Status | Details |
-|-----------|--------|---------|
-| Alt-Texte | ✅ | 100% Abdeckung (116/116 Bilder) |
-| Formate | ⚠️ | PNG für Logo/Icons – WebP/AVIF wäre besser |
-| Favicon | ❌ | 218 KB `wave-icon-new.png` – `favicon.svg` existiert aber wird nicht genutzt |
-| og-image.png | ✅ | Vorhanden, korrekt referenziert |
-| width/height | ✅ | Auf den meisten Bildern gesetzt |
+**Keine SEO-Landing-Page für Mathematik** — Mathe ist das meistgesuchte Abiturfach in Bayern. `mathe-abitur.html` existiert, ist aber keine dedizierte SEO-Landingpage. Höchstes SEO-Potenzial aller möglichen neuen Seiten.
+
+### 2.4 Duplicate Content
+
+- `mathe.html` + `mathe-abitur.html` — durch unterschiedliche Canonicals korrekt behandelt
+- Duplicate Meta-Descriptions auf ~15 Standard-Trainer-Seiten: identisches Template ohne fachspezifische Keywords
 
 ---
 
-## 7. AI Search Readiness (35/100)
+## 3. On-Page SEO
 
-| Prüfpunkt | Status | Details |
-|-----------|--------|---------|
-| llms.txt | ❌ | **Nicht vorhanden** |
-| AI-Crawler Zugang | ❌ | **Komplett geblockt** (ClaudeBot, GPTBot, CCBot, Bytespider, Google-Extended, Applebot-Extended, meta-externalagent) |
-| Citability | ⚠️ | Gute Struktur, aber Crawler können nicht zugreifen |
-| Brand Mentions | ✅ | Konsistentes Branding "myAbiFlow" |
-| Structured Data | ✅ | Gut für AI-Parsing geeignet |
+### 3.1 Title Tags
 
-**Großes Problem:** Die robots.txt blockt ALLE KI-Crawler. Das bedeutet:
-- myAbiFlow erscheint **nicht** in ChatGPT, Claude, Perplexity etc.
-- Schüler die "Abitur Trainer Bayern" in AI-Suche eingeben, finden myAbiFlow **nicht**
-- `Content-Signal: search=yes,ai-train=no` ist ein Cloudflare-Feature – aber die `Disallow`-Regeln überschreiben das
+| Seite | Titel | Länge | Status |
+|-------|-------|-------|--------|
+| Homepage | "myAbiFlow – Abitur Vorbereitung Bayern 2026 \| KI-Trainer für G9" | 68 | ✅ Gut |
+| Kolloquium-Tipps | "Kolloquium Bayern G9 – So bereitest du dich optimal vor" | 56 | ✅ Sehr gut |
+| Mathe-Abitur | "Mathematik Abiturtraining Bayern G9 – KI-Feedback · myAbiFlow" | 63 | ✅ Gut |
+| Englisch-Mediation | "Englisch Mediation Bayern üben – Aufgaben, Beispiele & Feedback \| myAbiFlow" | 87 | ❌ Zu lang |
+| Abo | "myAbiFlow – Abo & Preise" | 25 | ❌ Viel zu kurz |
+| FOS | "myAbiFlow FOS – Dein Weg zum Fachabitur" | 41 | ❌ Kein Keyword |
+
+### 3.2 Meta Descriptions
+
+| Seite | Status |
+|-------|--------|
+| Abo | ❌ Fehlt komplett |
+| Mathe-Abitur | ❌ Fehlt (im Live-Fetch) |
+| ~15 Trainer-Seiten | ⚠️ Duplicate — identisches Template |
+| SEO-Landingpages | ✅ Individuell, keyword-reich |
+
+### 3.3 Heading-Struktur
+
+- Saubere H1→H2→H3-Hierarchie auf SEO-Landingpages
+- **Fehler:** Kein H1 im Kolloquium-Trainer
+- **Risiko:** FOS-Startseite H1 durch JS-Login-Overlay verdeckt
+
+### 3.4 Interne Verlinkung
+
+- Gute Funnel-Verlinkung: SEO-Landingpages → Trainer
+- **Gap:** Keine Cross-Verlinkung zwischen verwandten Fächern
 
 ---
 
-## 8. Weitere Befunde
+## 4. Schema / Structured Data
 
-### PWA / Manifest
-- manifest.json vorhanden ✅
-- **theme_color Inkonsistenz:** manifest.json = `#2563eb`, meta-Tag = `#4f46e5`
+### 4.1 Implementierungsübersicht
 
-### Kolloquiumstrainer (React SPA)
-- URL `/kolloquium/` liefert Startseite statt SPA ❌
-- Korrekte URL: `/abitur-kolloquium-trainer/dist/`
-- SPA hat minimales HTML ohne Meta-Tags → SEO-blind ⚠️
+| Schema-Typ | Status |
+|-----------|--------|
+| Organization + EducationalOrganization | ✅ Sehr vollständig |
+| WebSite + SearchAction (Sitelinks) | ✅ |
+| FAQPage | ✅ Sehr gut (Homepage 11 Fragen, SEO-Landingpages 4 je) |
+| BreadcrumbList | ✅ Konsistent auf allen Unterseiten |
+| Course + CourseInstance | ✅ Gut (16 Kurse) |
+| SoftwareApplication | ⚠️ Unvollständig |
+| HowTo + Article | ✅ (kolloquium-tipps.html) |
+| Product + Offer (Abo-Seite) | ❌ Fehlt komplett |
+| aggregateRating | ❌ Fehlt komplett |
+| Person (Gründer) | ❌ Fehlt |
 
-### Barrierefreiheit (SEO-relevant)
-- ARIA-Labels vorhanden ✅
-- `role="status"`, `aria-live="polite"` implementiert ✅
-- Focus Traps für Modals ✅
-- `.sr-only` CSS-Klasse für Screen Reader ✅
+### 4.2 Kritische Schema-Fehler
+
+1. **SoftwareApplication zeigt nur `"price": "0"`** — bezahlte Abos fehlen (irreführend)
+2. **Kein `aggregateRating`** → App erscheint nicht als Rich Result in Google
+3. **Kein `image` im Article-Schema** → kein Article-Rich-Result möglich
+4. **Kein `sameAs` im Organization-Schema** → Entität nicht extern verifizierbar
+5. **`hasCourseInstance` nur bei 1 von 16 Kursen**
 
 ---
 
-## Scoring-Begründung
+## 5. Performance (Core Web Vitals — geschätzt aus HTML)
 
-| Kategorie | Stärken | Schwächen | Score |
-|-----------|---------|-----------|-------|
-| Technical (22%) | robots.txt, sitemap, HTTPS, canonicals | Kein 404, fehlende Security Headers | 68 |
-| Content (23%) | E-E-A-T stark, kein Thin Content, 50+ Seiten | - | 88 |
-| On-Page (20%) | Titles 100%, Metas 98%, JSON-LD, gute Links | H1-Problem Startseite, kurze Titles | 85 |
-| Schema (10%) | Course, Organization, Breadcrumbs, WebSite | FAQPage fehlt | 95 |
-| Performance (10%) | defer Scripts, SW-Caching, kein CLS | Großes Favicon, Head-Scripts ohne defer | 70 |
-| AI Readiness (10%) | Gute Struktur, Branding | Alle AI-Crawler geblockt, kein llms.txt | 35 |
-| Bilder (5%) | 100% Alt-Texte | PNG statt WebP, großes Favicon | 75 |
+| Metrik | Einschätzung | Hauptursache |
+|--------|-------------|-------------|
+| LCP | ⚠️ Mittel | Kein `fetchpriority="high"` auf Hero-Bild; Splash-Video above the fold |
+| CLS | ⚠️ Mittel-schlecht | Bilder ohne `width`/`height`; JS-Login-Overlay |
+| INP | ✅ Gut | Keine schweren Third-Party-Scripts |
+| FCP | ⚠️ Mittel | `shared-v4.css` + `fonts.css` render-blocking ohne `preload` |
+
+**Positives:**
+- `font-display: swap` durchgängig → kein FOIT
+- Fonts lokal gehostet (kein DNS-Lookup auf Google Fonts)
+- Service Worker v117 → aggressives Caching für Wiederbesucher
+
+---
+
+## 6. Bilder
+
+| Prüfpunkt | Status |
+|-----------|--------|
+| `loading="lazy"` | ❌ Nur auf 4 von 101 Seiten |
+| `fetchpriority="high"` | ❌ Nicht vorhanden |
+| WebP vorhanden | ✅ og-image.webp vorhanden |
+| og:image als WebP genutzt | ❌ PNG referenziert (WebP vorhanden aber ignoriert) |
+| Seitenspezifische OG-Bilder | ❌ Alle Seiten nutzen dieselbe og-image.png |
+
+---
+
+## 7. AI Search Readiness
+
+| Signal | Status |
+|--------|--------|
+| `llms.txt` vorhanden | ✅ Excellent — vorbildliche Struktur |
+| llms.txt broken Link (datenschutz.html) | ❌ Seite existiert nicht |
+| robots.txt KI-Differenzierung | ✅ Vorbildlich |
+| FAQPage-Schema (AI-extrahierbar) | ✅ Sehr gut |
+| `sameAs` (Entitäts-Verifikation) | ❌ Fehlt |
+| Person-Schema (E-E-A-T) | ❌ Fehlt |
+| `dateModified` in Schemas | ❌ Fast überall fehlend |
+| Externe Quellenlinks (LehrplanPLUS) | ❌ Erwähnt aber nicht verlinkt |
+| **Citability Score** | **6 / 10** |
+
+---
+
+## 8. Open Graph & Social
+
+| Tag | Status |
+|-----|--------|
+| og:title, og:description | ✅ Alle Seiten |
+| og:image | ⚠️ Einheitliches Bild auf allen Seiten |
+| og:locale (de_DE) | ✅ |
+| twitter:card (summary_large_image) | ✅ |
+| twitter:site | ❌ Fehlt auf allen Seiten |
+| Seitenspezifische OG-Bilder | ❌ Fehlen |
+
+---
+
+## Gesamtbewertung nach Bereichen
+
+| Bereich | Note |
+|---------|------|
+| robots.txt | A |
+| Sitemap | B+ |
+| Canonicals | A (Ausnahme: landing.html) |
+| Indexierbarkeit | B |
+| Structured Data | B |
+| Open Graph | B |
+| Security Headers | C |
+| Content-Tiefe / E-E-A-T | D+ |
+| Performance | C+ |
+| AI Search Readiness | B+ |
