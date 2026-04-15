@@ -184,16 +184,15 @@ export interface LiveSessionConfig {
 
 const WORKER_URL = process.env.WORKER_URL;
 
+if (!WORKER_URL) {
+  throw new Error('[live-api] WORKER_URL nicht gesetzt – Gemini Key darf nie direkt im Frontend landen!');
+}
+
 const createAI = () => {
-  // If Worker URL is set, route through the Cloudflare proxy (key stays server-side)
-  if (WORKER_URL) {
-    return new GoogleGenAI({
-      apiKey: 'PROXY',
-      httpOptions: { baseUrl: WORKER_URL },
-    });
-  }
-  // Fallback for local development with direct API key
-  return new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY! });
+  return new GoogleGenAI({
+    apiKey: 'PROXY',
+    httpOptions: { baseUrl: WORKER_URL },
+  });
 };
 
 /**
@@ -206,14 +205,8 @@ async function geminiJSON(prompt: string): Promise<string> {
   let url: string;
   const headers: Record<string, string> = { 'Content-Type': 'application/json' };
 
-  if (WORKER_URL) {
-    // Über Worker-Proxy – Worker setzt x-goog-api-key automatisch
-    url = `${WORKER_URL}/v1beta/models/${model}:generateContent`;
-  } else {
-    // Lokale Entwicklung – direkter API-Aufruf mit Key
-    url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`;
-    headers['x-goog-api-key'] = process.env.GEMINI_API_KEY || '';
-  }
+  // Über Worker-Proxy – Worker setzt x-goog-api-key automatisch
+  url = `${WORKER_URL}/v1beta/models/${model}:generateContent`;
 
   const resp = await fetch(url, {
     method: 'POST',

@@ -15,7 +15,7 @@ interface Env {
 const GEMINI_HOST = 'generativelanguage.googleapis.com';
 
 function corsHeaders(env: Env): Record<string, string> {
-  const allowed = env.ALLOWED_ORIGIN || '*';
+  const allowed = env.ALLOWED_ORIGIN || 'https://myabiflow.de';
   return {
     'Access-Control-Allow-Origin': allowed,
     'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
