@@ -655,24 +655,24 @@ export const CURRICULUM: Record<string, SubjectCurriculum> = {
     // PuG12: LB1+LB2 = 12/1, LB3+LB4 = 12/2; PuG13: LB1–3 = 13/1, LB4 = 13/2
     halbjahre: {
       '12/1': [
-        'Frieden und Sicherheit als Motive deutscher Außenpolitik',
-        'Das europäische Projekt verstehen und mitgestalten',
-        'Deutschland in internationalen Organisationen (NATO, UNO)',
+        'Krieg, Frieden und Sicherheit als Herausforderung im 21. Jahrhundert',
+        'Deutsche und europäische Außenpolitik als Beitrag zur Friedenssicherung',
+        'Gegenwart und Zukunftsperspektiven der Europäischen Union',
       ],
       '12/2': [
-        'Politische Systeme vergleichen (Demokratie, Autoritarismus, Totalitarismus)',
-        'Demokratie wertschätzen und Demokratieförderung',
-        'Menschenrechte und Grundrechte im politischen System',
+        'Demokratien und Diktaturen als politische Systeme',
+        'Gefahren antidemokratischer Entwicklungen und Handlungsmöglichkeiten',
+        'Möglichkeiten der Demokratieförderung',
       ],
       '13/1': [
-        'Modernisierungsprozesse und Zusammenleben in Deutschland',
-        'Soziale Ungleichheit und soziale Mobilität',
-        'Bedeutung des Sozialstaats und aktuelle Herausforderungen',
+        'Modernisierung der Lebenswelt – Pluralisierung und Wertewandel',
+        'Dimensionen und Modelle sozialer Ungleichheit',
+        'Soziale Mobilität und gesellschaftliche Durchlässigkeit',
       ],
       '13/2': [
-        'Internationale Konfliktbearbeitung und Friedenssicherung',
-        'Menschenrechte und humanitäres Engagement',
-        'Globalisierung und internationale Kooperation',
+        'Der Sozialstaat – Prinzipien und aktuelle Herausforderungen',
+        'Akteure und Konfliktbearbeitung in der internationalen Politik',
+        'Das Völkerrecht als Rahmen der internationalen Ordnung',
       ],
     },
   },
