@@ -358,24 +358,24 @@ export const CURRICULUM: Record<string, SubjectCurriculum> = {
     // LehrplanPLUS Geschichte gA. eA-Schwerpunkte separat in halbjahreEA.
     halbjahre: {
       '12/1': [
-        'Die deutsche Revolution von 1848/49 und bürgerliche Gesellschaft (Vormärz, Hambacher Fest, Paulskirchenparlament)',
-        'Politische und gesellschaftliche Modernisierung im Kaiserreich (Verfassung, Soziale Frage, Arbeiterbewegung, Sozialgesetzgebung)',
-        'Demokratisierung und Gesellschaft in der Weimarer Republik (Novemberrevolution, Weimarer Reichsverfassung, Frauenbewegung)',
+        'Die Revolution von 1848/49 – Aufbruch zur bürgerlichen Gesellschaft',
+        'Spannungsfelder der Moderne – Gesellschaft und Macht im Deutschen Kaiserreich',
+        'Die Weimarer Republik – Demokratie zwischen Aufbruch und Belastung',
       ],
       '12/2': [
-        'Scheitern der Weimarer Republik und NS-Diktatur (Präsidialkabinette, NS-Ideologie, Volksgemeinschaft, Holocaust/Shoa, Vernichtungskrieg)',
-        'Die Bundesrepublik Deutschland und die DDR (Verfassung, Wirtschaft, Systemvergleich, Wiedervereinigung)',
-        'Deutsche Einheit und die Bundesrepublik 1990–2009 (Aufarbeitung SED-Diktatur, Agenda 2010, Extremismus)',
+        'Das Ende der Weimarer Republik und der Ausbau der NS-Diktatur',
+        'Die NS-Diktatur in der Praxis – Radikalisierung, Völkermord und Zweiter Weltkrieg',
+        'Die geteilte Nation – Bundesrepublik Deutschland und DDR',
       ],
       '13/1': [
-        'Die historische Entwicklung des israelisch-palästinensischen Konflikts (Diaspora, Zionismus, Gründung Israels, Friedensbemühungen)',
-        'USA im 20. und 21. Jahrhundert (Führungsmacht, Kalter Krieg, Weltordnung)',
-        'Russland und China im 20. und 21. Jahrhundert (Zerfall der Sowjetunion, Transformation Chinas, UNO-Agieren)',
+        'Historische Wurzeln und die Entstehung des Nahostkonflikts bis 1949',
+        'Dynamiken und Friedensbemühungen im israelisch-palästinensischen Konflikt',
+        'USA, Russland und China – Weltmächte im globalen Wettbewerb',
       ],
       '13/2': [
-        'Historische Grundlagen demokratischer Ordnungen: attische Demokratie, Heiliges Römisches Reich (Goldene Bulle, Föderalismus)',
-        'Aufklärung und moderne Staatlichkeit: Menschenrechte, Volkssouveränität, Gewaltenteilung, Verfassungsentwicklung',
-        'Von nationalistischer Konfrontation zu europäischer Integration (Nationsvorstellungen um 1800, deutsch-französisches Verhältnis, europäische Einigung nach 1945)',
+        'Fundamente moderner Staatlichkeit – Von der Antike bis zur Aufklärung',
+        'Die Ambivalenz der Nation Frankreich und Deutschland – Von der Entstehung bis zur Konfrontation',
+        'Die Überwindung der Konfrontation – Der Weg zur europäischen Integration',
       ],
     },
     // eA-Schwerpunkte: Erweiterte Inhalte laut LehrplanPLUS Geschichte 12/13 eA
