@@ -9,7 +9,8 @@ export default defineConfig(({mode}) => {
     base: '/abitur-kolloquium-trainer/dist/',
     plugins: [react(), tailwindcss()],
     define: {
-      'process.env.WORKER_URL': JSON.stringify(env.WORKER_URL || 'https://myabiflow.de'),
+      'process.env.WORKER_URL': JSON.stringify(env.WORKER_URL || 'https://gemini-proxy.sanktannagymnasium.workers.dev'),
+      'process.env.GEMINI_API_KEY': JSON.stringify(env.GEMINI_API_KEY || ''),
     },
     resolve: {
       alias: {
