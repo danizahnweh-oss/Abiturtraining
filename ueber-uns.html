@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="de" data-accent="blue">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="myAbiFlow wurde von einem verbeamteten Lehrer entwickelt. Daniel Zahnweh unterrichtet Wirtschaft/Recht und Englisch an einem städtischen Gymnasium in München – 5 Jahre Unterrichtserfahrung an Gymnasium und FOS/BOS.">
+  <meta name="theme-color" content="#4f46e5">
+  <meta name="color-scheme" content="light dark">
+  <title>Über uns – Von einem Lehrer entwickelt | myAbiFlow</title>
+  <meta property="og:title" content="Über uns – Von einem Lehrer entwickelt | myAbiFlow">
+  <meta property="og:description" content="myAbiFlow wurde von einem verbeamteten Lehrer entwickelt – nicht im Silicon Valley, sondern im Klassenzimmer.">
+  <meta property="og:image" content="https://myabiflow.de/og-image.png">
+  <meta property="og:url" content="https://myabiflow.de/ueber-uns.html">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="de_DE">
+  <meta property="og:site_name" content="myAbiFlow">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Über uns – Von einem Lehrer entwickelt | myAbiFlow">
+  <meta name="twitter:description" content="myAbiFlow wurde von einem verbeamteten Lehrer entwickelt – nicht im Silicon Valley, sondern im Klassenzimmer.">
+  <meta name="twitter:image" content="https://myabiflow.de/og-image.png">
+  <link rel="canonical" href="https://myabiflow.de/ueber-uns.html">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/wave-icon-new.png" type="image/png" sizes="48x48">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="stylesheet" href="/fonts/fonts.css">
+  <link rel="stylesheet" href="shared-v4.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Daniel Zahnweh",
+    "jobTitle": "Lehrer (verbeamtet) & Gründer",
+    "description": "Verbeamteter Lehrer für Wirtschaft und Recht sowie Englisch an einem städtischen Gymnasium in München. Entwickelt myAbiFlow aus fünf Jahren Unterrichtserfahrung an Gymnasium und FOS/BOS.",
+    "worksFor": {
+      "@type": "Organization",
+      "name": "Landeshauptstadt München"
+    },
+    "url": "https://myabiflow.de/ueber-uns.html",
+    "sameAs": ["https://myabiflow.de/impressum.html"]
+  }
+  </script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://myabiflow.de/"},{"@type":"ListItem","position":2,"name":"Über uns","item":"https://myabiflow.de/ueber-uns.html"}]}
+  </script>
+  <style>
+    html { scroll-behavior: smooth; }
+    body { display: block; background: var(--bg); color: var(--ink); }
+    section { display: block; animation: none; }
+
+    .landing-header {
+      background: var(--accent);
+      color: #fff;
+      padding: 1rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .landing-header img { height: 36px; width: auto; }
+    .landing-header a { color: #fff; text-decoration: none; font-weight: 600; font-size: .9rem; }
+    .landing-header a:hover { text-decoration: underline; }
+
+    .hero-section {
+      background: linear-gradient(135deg, var(--accent), #6366f1);
+      color: #fff;
+      padding: 3rem 1.5rem;
+      text-align: center;
+    }
+    .hero-section h1 {
+      font-size: clamp(1.5rem, 4vw, 2.2rem);
+      margin: 0 0 1rem;
+      line-height: 1.3;
+    }
+    .hero-section p {
+      font-size: 1.1rem;
+      opacity: .9;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .content-section {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem;
+    }
+    .content-section h2 {
+      font-size: 1.4rem;
+      margin: 2rem 0 1rem;
+      color: var(--ink);
+    }
+    .content-section h2:first-child { margin-top: 0; }
+    .content-section p, .content-section li {
+      font-size: 1rem;
+      line-height: 1.7;
+      color: var(--ink-light);
+    }
+
+    .founder-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+      display: flex;
+      gap: 1.5rem;
+      align-items: flex-start;
+    }
+    .founder-avatar {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), #6366f1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      color: #fff;
+      flex-shrink: 0;
+    }
+    .founder-info h3 {
+      margin: 0 0 .25rem;
+      font-size: 1.1rem;
+      color: var(--ink);
+    }
+    .founder-info .founder-title {
+      font-size: .9rem;
+      color: var(--accent);
+      font-weight: 600;
+      margin: 0 0 .5rem;
+    }
+    .founder-info p {
+      margin: 0;
+      font-size: .95rem;
+      color: var(--ink-light);
+    }
+
+    .fact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+    .fact-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.2rem;
+      text-align: center;
+    }
+    .fact-card .fact-number {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--accent);
+      line-height: 1;
+    }
+    .fact-card .fact-label {
+      font-size: .85rem;
+      color: var(--ink-muted);
+      margin-top: .25rem;
+    }
+
+    .quote-block {
+      border-left: 4px solid var(--accent);
+      padding: 1rem 1.5rem;
+      margin: 1.5rem 0;
+      background: var(--card);
+      border-radius: 0 12px 12px 0;
+    }
+    .quote-block p {
+      margin: 0;
+      font-style: italic;
+      font-size: 1.05rem;
+    }
+    .quote-block cite {
+      display: block;
+      margin-top: .5rem;
+      font-size: .85rem;
+      color: var(--ink-muted);
+      font-style: normal;
+    }
+
+    .source-note {
+      font-size: .85rem;
+      color: var(--ink-muted);
+      border-top: 1px solid var(--border);
+      padding-top: 1rem;
+      margin-top: 2rem;
+    }
+    .source-note a { color: var(--accent); }
+
+    .cta-section {
+      background: linear-gradient(135deg, var(--accent), #6366f1);
+      color: #fff;
+      text-align: center;
+      padding: 3rem 1.5rem;
+    }
+    .cta-section h2 { color: #fff; margin: 0 0 .5rem; }
+    .cta-section p { opacity: .9; margin: 0 0 1.5rem; }
+    .hero-cta {
+      display: inline-block;
+      background: #fff;
+      color: var(--accent);
+      padding: .75rem 2rem;
+      border-radius: 12px;
+      font-weight: 700;
+      text-decoration: none;
+      font-size: 1rem;
+      transition: transform .2s;
+    }
+    .hero-cta:hover { transform: translateY(-2px); }
+
+    .landing-footer {
+      text-align: center;
+      padding: 1.5rem;
+      font-size: .85rem;
+      color: var(--ink-muted);
+    }
+    .landing-footer a { color: var(--accent); text-decoration: none; }
+    .landing-footer a:hover { text-decoration: underline; }
+
+    @media (max-width: 600px) {
+      .founder-card { flex-direction: column; }
+      .founder-avatar { margin: 0 auto; }
+      .hero-section { padding: 2rem 1rem; }
+      .content-section { padding: 2rem 1rem; }
+    }
+  </style>
+</head>
+<body>
+  <a href="#main" class="skip-link">Zum Hauptinhalt springen</a>
+
+  <header class="landing-header">
+    <a href="/"><img src="logo.webp" alt="myAbiFlow Logo – Abitur Vorbereitung Bayern" width="2095" height="431" loading="eager" decoding="async" style="height:36px;width:auto;"></a>
+    <nav>
+      <a href="/abitur-vorbereitung.html">Abitur-Vorbereitung</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="hero-section">
+      <h1>Entwickelt von einem Lehrer, der weiß was Abiturienten wirklich brauchen.</h1>
+      <p>Nicht im Silicon Valley – sondern im Klassenzimmer. 5 Jahre Unterrichtserfahrung in das Produkt eingeflossen.</p>
+    </section>
+
+    <div class="content-section">
+
+      <h2>Wer steckt hinter myAbiFlow?</h2>
+
+      <div class="founder-card">
+        <div class="founder-avatar" aria-hidden="true">D</div>
+        <div class="founder-info">
+          <h3>Daniel Zahnweh</h3>
+          <p class="founder-title">Verbeamteter Lehrer &amp; Gründer</p>
+          <p>Lehrer für Wirtschaft und Recht sowie Englisch bei der Landeshauptstadt München. Davor 3 Jahre Erfahrung an einer Fachoberschule (FOS/BOS), inzwischen 2 Jahre an einem städtischen Gymnasium.</p>
+        </div>
+      </div>
+
+      <div class="quote-block">
+        <p>Im Unterricht habe ich gesehen, womit Schülerinnen und Schüler wirklich kämpfen: nicht an fehlenden Informationen, sondern an fehlendem Feedback. Man schreibt einen Aufsatz – und weiß danach immer noch nicht genau, warum es nicht 15 Punkte waren. Das wollte ich ändern.</p>
+        <cite>— Daniel Zahnweh, Gründer myAbiFlow</cite>
+      </div>
+
+      <h2>myAbiFlow in Zahlen</h2>
+
+      <div class="fact-grid">
+        <div class="fact-card">
+          <div class="fact-number">5</div>
+          <div class="fact-label">Jahre Unterrichtserfahrung des Gründers</div>
+        </div>
+        <div class="fact-card">
+          <div class="fact-number">16+</div>
+          <div class="fact-label">Abiturfächer mit KI-Feedback</div>
+        </div>
+        <div class="fact-card">
+          <div class="fact-number">150+</div>
+          <div class="fact-label">Schülerinnen und Schüler</div>
+        </div>
+        <div class="fact-card">
+          <div class="fact-number">6</div>
+          <div class="fact-label">Bayerische Gymnasien und FOS-Schulen</div>
+        </div>
+      </div>
+
+      <h2>Pädagogischer Ansatz</h2>
+
+      <p>myAbiFlow orientiert sich konsequent am <a href="https://lehrplanplus.bayern.de" rel="noopener" target="_blank">LehrplanPLUS Bayern (G9)</a> und den Bewertungshinweisen des ISB Bayern. Aufgaben und Feedback wurden nicht von Algorithmen generiert, sondern auf Basis echter Korrekturen und Prüfungsanforderungen entwickelt.</p>
+
+      <p>Das Ziel ist kein „Lernspiel" – sondern eine ernsthafte Prüfungsvorbereitung, die den Anforderungen des bayerischen Abiturs entspricht. Deshalb gibt es kein allgemeines Feedback, sondern konkrete, kriterienbasierte Rückmeldungen – genau so, wie es ein guter Lehrer tun würde.</p>
+
+      <h2>Transparenz zur KI</h2>
+
+      <p>myAbiFlow nutzt KI-Modelle für die automatische Bewertung von Aufgaben. Diese KI-Rückmeldungen sind eine Lernhilfe – sie ersetzen keine Lehrerkorrektur und keine Abiturprüfung. Welche KI-Dienste verwendet werden, ist im <a href="/impressum.html">Impressum & Datenschutz</a> transparent aufgeführt.</p>
+
+      <p class="source-note">Quellen & Grundlagen: <a href="https://lehrplanplus.bayern.de" rel="noopener" target="_blank">LehrplanPLUS Bayern</a> · ISB Bayern (Bewertungshinweise Abitur) · KM Bayern (Abiturprüfungsordnung G9)</p>
+    </div>
+
+    <section class="cta-section">
+      <h2>Selbst ausprobieren</h2>
+      <p>Kostenlos starten – alle Fächer, sofortiges Feedback, ohne Kreditkarte.</p>
+      <a href="/index.html" class="hero-cta">Kostenlos testen</a>
+    </section>
+  </main>
+
+  <footer class="landing-footer">
+    <p>&copy; 2026 myAbiFlow · <a href="/impressum.html">Impressum</a> · <a href="/agb.html">AGB</a> · <a href="/barrierefreiheit.html">Barrierefreiheit</a></p>
+  </footer>
+</body>
+</html>
