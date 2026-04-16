@@ -4182,3 +4182,55 @@ button:focus-visible,
     padding: var(--space-7) var(--space-5) var(--space-5);
   }
 }
+
+/* ====== ZEILENNUMMERN FÜR MATERIALIEN ====== */
+.lined-text {
+  counter-reset: line-number;
+  padding: 0;
+  margin: 0;
+}
+
+.lined-text .text-line {
+  display: flex;
+  counter-increment: line-number;
+  line-height: 1.6;
+  min-height: 1.6em;
+}
+
+.lined-text .text-line::before {
+  content: counter(line-number);
+  display: inline-block;
+  min-width: 2em;
+  padding-right: .6em;
+  text-align: right;
+  color: var(--ink-muted);
+  opacity: .5;
+  font-size: .78em;
+  line-height: 1.85;
+  user-select: none;
+  flex-shrink: 0;
+}
+
+/* Nur jede 5. Zeile nummerieren (dezenter) */
+.lined-text .text-line:not(:nth-child(5n))::before {
+  visibility: hidden;
+}
+
+/* Erste Zeile immer zeigen */
+.lined-text .text-line:first-child::before {
+  visibility: visible;
+}
+
+.lined-text .text-line-content {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Leerzeilen etwas kleiner */
+.lined-text .text-line--empty {
+  min-height: .8em;
+}
+
+.lined-text .text-line--empty .text-line-content::after {
+  content: "\00a0";
+}

@@ -921,7 +921,7 @@ gesamt_np = round(verstehen_np * 0.7 + darstellung_np * 0.3)`;
           } else if (m.type === "foto") {
             body = `<div class="material-img-loading" id="img-m-${i}"><div class="loader-spinner"></div><span>Foto wird geladen...</span></div>`;
           } else {
-            body = escapeHtml(m.content || "").replace(/\n/g, "<br>");
+            body = formatTextWithLineNumbers(m.content);
           }
           return `<div class="material-card">
         <h4>M ${i + 1}: ${escapeHtml(m.title || "")} ${typeBadge}</h4>
@@ -938,7 +938,7 @@ gesamt_np = round(verstehen_np * 0.7 + darstellung_np * 0.3)`;
         });
       }
       else if (d.primary_text) {
-        const html = escapeHtml(d.primary_text).replace(/\n/g, "<br>");
+        const html = formatTextWithLineNumbers(d.primary_text);
         container.innerHTML = `<div class="material-card">
       <h4>Material</h4>
       <div class="source-text material-body">${html}</div>

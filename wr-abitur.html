@@ -916,7 +916,7 @@ Tipp: Beachte den Fachbereich:
         } else if (m.typ === "foto") {
           inhalt = `<div class="material-img-loading" id="img-${pfx}-${idx}"><div class="loader-spinner"></div><span>Foto wird geladen...</span></div>`;
         } else {
-          inhalt = escapeHtml(m.inhalt || "").replace(/\n/g, "<br>");
+          inhalt = formatTextWithLineNumbers(m.inhalt);
         }
         return `<details class="material-card" open>
       <summary><span class="material-badge">${escapeHtml(m.nr || "")}</span> ${escapeHtml(m.titel || "")} <span style="margin-left:auto;font-size:.8rem;color:var(--ink-muted)">${escapeHtml(m.typ || "")}</span></summary>

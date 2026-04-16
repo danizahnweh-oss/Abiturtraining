@@ -92,6 +92,15 @@ function escapeHtml(str) {
   }[m]));
 }
 
+function formatTextWithLineNumbers(text) {
+  const lines = String(text || "").split("\n");
+  return '<div class="lined-text">' + lines.map(line => {
+    const isEmpty = line.trim() === "";
+    const cls = "text-line" + (isEmpty ? " text-line--empty" : "");
+    return `<div class="${cls}"><span class="text-line-content">${escapeHtml(line) || ""}</span></div>`;
+  }).join("") + "</div>";
+}
+
 function countWords(text) {
   return (text || "").trim().split(/\s+/).filter(w => w.length > 0).length;
 }
