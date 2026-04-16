@@ -6570,8 +6570,8 @@
           sessionStorage.setItem("access_token", data.token);
           sessionStorage.setItem("student_name", name);
           if (data.student_id) sessionStorage.setItem("student_id", data.student_id);
-          if (data.free_access) sessionStorage.setItem("free_access", "1");
-          if (data.subscription_status) sessionStorage.setItem("subscription_status", data.subscription_status);
+          if (data.free_access) { sessionStorage.setItem("free_access", "1"); } else { sessionStorage.removeItem("free_access"); }
+          sessionStorage.setItem("subscription_status", data.subscription_status || "none");
           if (!sessionStorage.getItem("student_level")) sessionStorage.setItem("student_level", "eA");
           // Ger\u00e4te-Flag: Trial auf diesem Ger\u00e4t wurde genutzt
           if (loginMode === "register" && data.subscription_status === "trialing") {
