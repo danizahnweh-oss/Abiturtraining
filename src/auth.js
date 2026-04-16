@@ -157,7 +157,7 @@ export async function checkSubscriptionAccess(studentName, env, allowTeacherCred
   if (student.subscription_status === 'active') {
     const sub = await env.DB.prepare(
       "SELECT current_period_end, school_license_code FROM subscriptions WHERE student_id = $1 AND status = 'active' LIMIT 1"
-    ).bind(student.id).first();
+    ).bind(String(student.id)).first();
     if (sub) {
       if (sub.school_license_code) {
         // Schullizenz: prüfen ob noch aktiv in class_passwords
@@ -185,7 +185,7 @@ export async function checkSubscriptionAccess(studentName, env, allowTeacherCred
       JOIN subject_licenses sl ON sl.id = ssl.subject_license_id
       WHERE ssl.student_id = $1 AND sl.subject = $2 AND sl.active = 1
         AND (sl.expires_at IS NULL OR sl.expires_at > $3)
-    `).bind(student.id, subject, new Date().toISOString()).first();
+    `).bind(String(student.id), subject, new Date().toISOString()).first();
     if (subjectLicense) return null; // Fach-Lizenz aktiv
   }
 
