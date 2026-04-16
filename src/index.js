@@ -493,14 +493,15 @@ ${photo ? `<div style="margin:12px 0"><p style="font-weight:600;margin-bottom:6p
         // Abo-Check für generate/grade Endpoints (nicht für Lehrer)
         if (!isTeacherRequest && /^\/(api)\/(fos-)?(generate|grade)/.test(pathname) && request.method === "POST") {
           const cloned = request.clone();
-          try {
-            const body = await cloned.json();
+          let body;
+          try { body = await cloned.json(); } catch (e) { /* Body-Parse fehlgeschlagen → Handler kümmert sich */ }
+          if (body) {
             const studentName = body.student_name || "";
             const isGrade = /grade/.test(pathname);
             const subject = getSubjectFromPathname(pathname);
             const subError = await checkSubscriptionAccess(studentName, env, isGrade, subject);
             if (subError) return subError;
-          } catch (e) { /* Body-Parse fehlgeschlagen → durchlassen, Handler kümmert sich */ }
+          }
         }
       }
 
