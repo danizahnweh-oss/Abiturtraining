@@ -325,12 +325,13 @@ export async function handleSubscriptionStatus(request, env) {
   // Prüfen ob Einmalkauf noch gültig ist
   let isActive = false;
   if (sub) {
-    if (sub.status === 'active' && sub.current_period_end) {
+    if (sub.school_license_code) {
+      // Schullizenz: Prüfen ob noch aktiv in class_passwords
+      isActive = await isSchoolLicenseActive(sub.school_license_code, env);
+    } else if (sub.status === 'active' && sub.current_period_end) {
       isActive = new Date(sub.current_period_end) > new Date();
     } else if (sub.status === 'trialing' && student.trial_end) {
       isActive = new Date(student.trial_end) > new Date();
-    } else if (sub.school_license_code) {
-      isActive = await isSchoolLicenseActive(sub.school_license_code, env);
     }
   }
 
