@@ -119,8 +119,7 @@ CHEMIE-SPEZIFISCHE LATEX-REGELN (mhchem-Erweiterung \\ce{}):
 - Chemische Formeln: $\\ce{H2O}$, $\\ce{NaOH}$, $\\ce{H3O+}$
 - WICHTIG: Schreibe IMMER $\\ce{H3O+}$ (Oxonium-Ion), NIEMALS $\\ce{H+}$! Protonen liegen in wässriger Lösung als Oxonium-Ionen vor.
 - Reaktionsgleichungen: $\\ce{2H2 + O2 -> 2H2O}$, $\\ce{CH3COOH + H2O <=> CH3COO- + H3O+}$
-- Phasenindikatoren NUR in Reaktionsgleichungen verwenden: $\\ce{(aq)}$, $\\ce{(g)}$, $\\ce{(l)}$, $\\ce{(s)}$
-- Im Fließtext KEINE Phasenindikatoren! Schreibe "wässrige Zinksulfat-Lösung" statt "$\\ce{ZnSO4}$(aq)" oder "$\\ce{ZnSO4(aq)}$"
+- KEINE Phasenindikatoren wie (aq), (g), (l), (s) verwenden — weder in Reaktionsgleichungen noch im Fließtext! Schreibe einfach $\\ce{NaCl}$, nicht $\\ce{NaCl(aq)}$.
 - Oxidationsstufen: $\\ce{Fe^{III}}$, $\\overset{+II}{\\ce{Cu}}$
 - Thermochemie: $\\Delta H$, $\\Delta G$, $\\Delta S$, $\\text{kJ/mol}$
 - Gleichgewichtskonstante: $K_c$, $K_p$, $K_s$, $K_w$, $K_a$, $K_b$
@@ -490,8 +489,7 @@ CHEMIE-SPEZIFISCHE LATEX-REGELN (mhchem-Erweiterung \\ce{}):
 - WICHTIG: Schreibe IMMER $\\ce{H3O+}$ (Oxonium-Ion), NIEMALS $\\ce{H+}$! Protonen liegen in wässriger Lösung als Oxonium-Ionen vor.
 - Reaktionsgleichungen: $\\ce{2H2 + O2 -> 2H2O}$
 - Gleichgewichtsreaktionen: $\\ce{CH3COOH + H2O <=> CH3COO- + H3O+}$
-- Phasenindikatoren NUR in Reaktionsgleichungen verwenden: $\\ce{(aq)}$, $\\ce{(g)}$, $\\ce{(l)}$, $\\ce{(s)}$
-- Im Fließtext KEINE Phasenindikatoren! Schreibe "wässrige Zinksulfat-Lösung" statt "$\\ce{ZnSO4}$(aq)" oder "$\\ce{ZnSO4(aq)}$"
+- KEINE Phasenindikatoren wie (aq), (g), (l), (s) verwenden — weder in Reaktionsgleichungen noch im Fließtext! Schreibe einfach $\\ce{NaCl}$, nicht $\\ce{NaCl(aq)}$.
 - Oxidationsstufen: $\\ce{Fe^{III}}$, $\\overset{+II}{\\ce{Cu}}$
 - Thermochemie: $\\Delta H$, $\\Delta G$, $\\Delta S$, $\\text{kJ/mol}$
 
