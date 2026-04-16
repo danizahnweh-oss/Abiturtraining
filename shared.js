@@ -184,7 +184,7 @@ async function apiCall(endpoint, body, _isRetry) {
 // Abo-Status im Cache halten (pro Session)
 var _subscriptionCache = null;
 var _subscriptionCacheTime = 0;
-var SUBSCRIPTION_CACHE_TTL = 5 * 60 * 1000; // 5 Minuten
+var SUBSCRIPTION_CACHE_TTL = 30 * 1000; // 30 Sekunden
 
 async function checkSubscription() {
   var studentId = sessionStorage.getItem("student_id") || "";
