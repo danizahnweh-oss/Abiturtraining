@@ -27,7 +27,7 @@ export function corsHeaders(env, requestOrigin) {
   return {
     "Content-Type": "application/json; charset=utf-8",
     "Access-Control-Allow-Origin": origin,
-    "Access-Control-Allow-Headers": "Content-Type, X-Access-Token, X-Teacher-Token, X-Teacher-Auth-Token",
+    "Access-Control-Allow-Headers": "Content-Type, X-Access-Token, X-Teacher-Token, X-Teacher-Auth-Token, X-Student-Name",
     "Access-Control-Allow-Methods": "POST, OPTIONS",
     "X-Content-Type-Options": "nosniff",
     "X-Frame-Options": "DENY",

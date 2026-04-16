@@ -121,6 +121,8 @@ function _apiHeaders(contentType) {
   var h = { "X-Access-Token": getAccessToken() };
   if (contentType) h["Content-Type"] = contentType;
   if (isTeacherMode && _teacherToken) h["X-Teacher-Auth-Token"] = _teacherToken;
+  var sn = sessionStorage.getItem("student_name");
+  if (sn) h["X-Student-Name"] = encodeURIComponent(sn);
   return h;
 }
 

@@ -496,7 +496,8 @@ ${photo ? `<div style="margin:12px 0"><p style="font-weight:600;margin-bottom:6p
           let body;
           try { body = await cloned.json(); } catch (e) { /* Body-Parse fehlgeschlagen → Handler kümmert sich */ }
           if (body) {
-            const studentName = body.student_name || "";
+            const headerName = request.headers.get("X-Student-Name");
+            const studentName = body.student_name || (headerName ? decodeURIComponent(headerName) : "");
             const isGrade = /grade/.test(pathname);
             const subject = getSubjectFromPathname(pathname);
             const subError = await checkSubscriptionAccess(studentName, env, isGrade, subject);
