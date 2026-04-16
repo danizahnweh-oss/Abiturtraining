@@ -1,5 +1,6 @@
 // Handler: Stripe-Integration (Checkout, Webhooks, Abo-Status, Portal)
 import { jsonResponse } from '../utils.js';
+import { isSchoolLicenseActive } from '../auth.js';
 
 /* ---- Stripe API Basis ---- */
 const STRIPE_API = 'https://api.stripe.com/v1';
@@ -329,7 +330,7 @@ export async function handleSubscriptionStatus(request, env) {
     } else if (sub.status === 'trialing' && student.trial_end) {
       isActive = new Date(student.trial_end) > new Date();
     } else if (sub.school_license_code) {
-      isActive = true; // Schullizenzen sind immer aktiv
+      isActive = await isSchoolLicenseActive(sub.school_license_code, env);
     }
   }
 
@@ -344,6 +345,9 @@ export async function handleSubscriptionStatus(request, env) {
   let statusLabel = student.subscription_status || 'none';
   if (isActive) {
     statusLabel = (sub?.plan === 'trial' && trialDaysLeft > 0) ? 'trialing' : 'active';
+  } else if (sub?.school_license_code) {
+    // Schullizenz deaktiviert → als "none" behandeln
+    statusLabel = 'none';
   }
 
   // Lehrer-Credits prüfen (nur wenn kein eigenes Abo aktiv)
@@ -391,7 +395,7 @@ export async function handleSubscriptionStatus(request, env) {
     current_period_end: sub?.current_period_end || null,
     cancel_at_period_end: sub?.cancel_at_period_end === 1,
     trial_days_left: trialDaysLeft,
-    is_school_license: !!sub?.school_license_code,
+    is_school_license: !!sub?.school_license_code && isActive,
     has_stripe_customer: !!student.stripe_customer_id,
     teacher_credits_available: teacherCreditsAvailable,
     teacher_credits_name: teacherCreditsName,

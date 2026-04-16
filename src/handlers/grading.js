@@ -2,6 +2,7 @@
 import { jsonResponse, truncate, batchExtractFromImages } from '../utils.js';
 import { callOpenAI } from '../openai.js';
 import { findAvailableTeacherCredits, deductTeacherCredit } from './teacher-credits.js';
+import { isSchoolLicenseActive } from '../auth.js';
 
 /* ================= ASYNC GRADING: HANDLER ================= */
 
@@ -213,8 +214,12 @@ export async function tryDeductTeacherCredit(jobId, endpoint, env) {
         ).bind(student.id).first();
 
         if (sub) {
-          if (sub.school_license_code) return; // Schullizenz
-          if (sub.current_period_end && new Date(sub.current_period_end) > new Date()) return; // Gültiges Abo
+          if (sub.school_license_code) {
+            if (await isSchoolLicenseActive(sub.school_license_code, env)) return; // Schullizenz aktiv
+            // Schullizenz deaktiviert → weiter zu Lehrer-Credits
+          } else if (sub.current_period_end && new Date(sub.current_period_end) > new Date()) {
+            return; // Gültiges Abo
+          }
         }
       }
     }

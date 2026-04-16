@@ -128,6 +128,16 @@ export function getSubjectFromPathname(pathname) {
   return ENDPOINT_SUBJECT_MAP[segment] || null;
 }
 
+/* ---- Schullizenz-Aktivitätsprüfung ---- */
+// Prüft ob eine Schullizenz (school_license_code) noch aktiv ist
+export async function isSchoolLicenseActive(schoolLicenseCode, env) {
+  if (!schoolLicenseCode) return false;
+  const cp = await env.DB.prepare(
+    "SELECT 1 FROM class_passwords WHERE UPPER(password) = UPPER(?) AND active = 1 AND free_access = 1"
+  ).bind(schoolLicenseCode).first();
+  return !!cp;
+}
+
 /* ---- Subscription-Check für kostenpflichtige Endpoints ---- */
 // allowTeacherCredits: true bei Grade-Endpoints, false bei Generate-Endpoints
 // subject: optionaler Fachname für fächerspezifischen Fach-Lizenz-Check
@@ -148,8 +158,16 @@ export async function checkSubscriptionAccess(studentName, env, allowTeacherCred
     const sub = await env.DB.prepare(
       "SELECT current_period_end, school_license_code FROM subscriptions WHERE student_id = $1 AND status = 'active' LIMIT 1"
     ).bind(student.id).first();
-    if (sub && (sub.school_license_code || (sub.current_period_end && new Date(sub.current_period_end) > new Date()))) {
-      return null; // Zugang erlaubt
+    if (sub) {
+      if (sub.school_license_code) {
+        // Schullizenz: prüfen ob noch aktiv in class_passwords
+        if (await isSchoolLicenseActive(sub.school_license_code, env)) {
+          return null; // Schullizenz aktiv → Zugang erlaubt
+        }
+        // Schullizenz deaktiviert → weiter zu Trial/Credits-Prüfung
+      } else if (sub.current_period_end && new Date(sub.current_period_end) > new Date()) {
+        return null; // Normales Abo gültig
+      }
     }
   }
 
