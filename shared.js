@@ -228,9 +228,15 @@ async function checkSubscription() {
       sessionStorage.setItem("subject_licenses", JSON.stringify(data.subject_licenses.map(function(s) { return s.subject; })));
     }
     // Wenn Backend "none" sagt aber sessionStorage "active" (Webhook-Delay nach Checkout),
-    // sessionStorage vertrauen
+    // sessionStorage vertrauen — AUSSER bei deaktivierten Schullizenzen
     if (data.status !== "active" && data.status !== "trialing" && (ssStatus === "active" || ssStatus === "trialing")) {
-      data.status = ssStatus;
+      if (!data.is_school_license && data.plan !== "school") {
+        data.status = ssStatus;
+      } else {
+        // Schullizenz deaktiviert → sessionStorage aktualisieren
+        sessionStorage.setItem("subscription_status", "none");
+        sessionStorage.removeItem("free_access");
+      }
     }
     _subscriptionCache = data;
     _subscriptionCacheTime = Date.now();
