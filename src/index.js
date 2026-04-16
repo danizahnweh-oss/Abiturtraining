@@ -219,6 +219,22 @@ export default {
       const sizeError = checkBodySize(request, env, MAX_BODY_SIZE);
       if (sizeError) return sizeError;
 
+      // ===== TEMPORÄRER DEBUG ENDPOINT =====
+      if (pathname === "/api/debug-license" && request.method === "POST") {
+        try {
+          const { name } = await request.json();
+          const nameLower = (name || "").trim().toLowerCase();
+          const student = await env.DB.prepare("SELECT id, subscription_status, subscription_plan, class_group FROM students WHERE name_lower = ?").bind(nameLower).first();
+          if (!student) return jsonResponse({ error: "nicht gefunden" }, 404, env);
+          let freeAccess = false;
+          let effectiveStatus = student.subscription_status || "none";
+          const cp = await env.DB.prepare("SELECT free_access FROM class_passwords WHERE label = ? AND active = 1").bind(student.class_group).first();
+          freeAccess = cp?.free_access === 1;
+          if (!freeAccess && student.subscription_plan === 'school') effectiveStatus = "none";
+          return jsonResponse({ student, cp, freeAccess, effectiveStatus }, 200, env);
+        } catch(e) { return jsonResponse({ error: e.message, stack: e.stack }, 500, env); }
+      }
+
       // ===== LOGIN ENDPOINTS (Rate-Limited) =====
       if (pathname === "/api/login" && request.method === "POST") {
         const loginLimit = checkRateLimit(request, loginRateLimitMap, MAX_LOGIN_ATTEMPTS, env);
