@@ -201,10 +201,10 @@ async function checkSubscription() {
     }
   }
 
-  // Fallback: sessionStorage kann aktueller sein als DB (z.B. direkt nach Stripe-Checkout,
-  // bevor der Webhook die DB aktualisiert hat)
-  var ssFallback = (ssStatus === "active" || ssStatus === "trialing")
-    ? { status: ssStatus, plan: sessionStorage.getItem("subscription_plan") || "unknown", teacher_credits_available: sessionStorage.getItem("teacher_credits_available") === "1" }
+  // Fallback bei Netzwerkfehler: sessionStorage nutzen, aber nur für Stripe-Abos (nicht Schullizenzen)
+  var ssPlan = sessionStorage.getItem("subscription_plan") || "";
+  var ssFallback = ((ssStatus === "active" || ssStatus === "trialing") && ssPlan !== "school")
+    ? { status: ssStatus, plan: ssPlan || "unknown", teacher_credits_available: sessionStorage.getItem("teacher_credits_available") === "1" }
     : { status: "none", plan: "free" };
 
   try {

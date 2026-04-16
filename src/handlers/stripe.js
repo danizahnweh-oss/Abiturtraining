@@ -390,6 +390,11 @@ export async function handleSubscriptionStatus(request, env) {
   `).bind(student_id, new Date().toISOString()).all();
   const subjectLicenses = (slResult?.rows || []).map(s => ({ subject: s.subject, school: s.label }));
 
+  // Debug-Log für Schullizenz-Deaktivierung
+  if (sub?.school_license_code) {
+    console.log(`[LICENSE-DEBUG] student_id=${student_id} school_code=${sub.school_license_code} isActive=${isActive} statusLabel=${statusLabel}`);
+  }
+
   return jsonResponse({
     status: statusLabel,
     plan: sub?.plan || student.subscription_plan || 'free',
