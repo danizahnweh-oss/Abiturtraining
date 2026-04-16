@@ -830,6 +830,72 @@ details[open] > .collapsible-header .collapsible-chevron {
       </div>
     </details>
 
+    <!-- Fachschafts-Lizenzen verwalten -->
+    <details class="collapsible-card" id="subjectLicensesCard">
+      <summary class="collapsible-header">
+        <div class="collapsible-title">
+          <div class="collapsible-icon" style="background:rgba(16,185,129,.12);">📚</div>
+          <h2>Fachschafts-Lizenzen</h2>
+          <span class="collapsible-badge" id="subjectLicenseCount">0</span>
+        </div>
+        <span class="collapsible-chevron">▾</span>
+      </summary>
+      <div class="collapsible-body">
+        <p style="font-size:.85rem;color:var(--ink-muted);margin-bottom:1rem;">Fachcodes geben Schülern kostenlosen Zugang zu einem einzelnen Fach. Schüler können mehrere Fachcodes einlösen.</p>
+        <div style="margin-bottom:1rem;">
+          <button class="btn btn-small" onclick="toggleNewSubjectLicense()" style="min-height:44px;">+ Neuer Fachcode</button>
+        </div>
+        <div id="newSubjectLicenseForm" style="display:none;margin-bottom:1rem;padding:1rem;background:var(--accent-glow);border:1px solid var(--border);border-radius:var(--radius-sm);">
+          <div style="display:flex;gap:.5rem;flex-wrap:wrap;align-items:end;">
+            <div style="flex:1;min-width:150px;">
+              <label for="slLabel" style="font-size:.78rem;font-weight:600;color:var(--ink-muted);display:block;margin-bottom:.3rem;">Bezeichnung</label>
+              <input type="text" id="slLabel" placeholder="z.B. Geschichte-FS Gymnasium X" style="width:100%;padding:.5rem .8rem;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:16px;background:var(--surface);color:var(--ink);">
+            </div>
+            <div style="flex:1;min-width:120px;">
+              <label for="slCode" style="font-size:.78rem;font-weight:600;color:var(--ink-muted);display:block;margin-bottom:.3rem;">Fachcode</label>
+              <input type="text" id="slCode" placeholder="z.B. GFS-HIST-2026" style="width:100%;padding:.5rem .8rem;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:16px;background:var(--surface);color:var(--ink);">
+            </div>
+            <div style="flex:1;min-width:140px;">
+              <label for="slSubject" style="font-size:.78rem;font-weight:600;color:var(--ink-muted);display:block;margin-bottom:.3rem;">Fach</label>
+              <select id="slSubject" style="width:100%;padding:.5rem .8rem;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:16px;background:var(--surface);color:var(--ink);">
+                <option value="">— Fach wählen —</option>
+                <option>Biologie</option><option>Chemie</option><option>Deutsch</option>
+                <option>Englisch</option><option>Ethik</option><option>Evangelische Religionslehre</option>
+                <option>Französisch</option><option>Geographie</option><option>Geschichte</option>
+                <option>Informatik</option><option>Italienisch</option><option>Katholische Religionslehre</option>
+                <option>Kunst</option><option>Latein</option><option>Mathematik</option>
+                <option>Physik</option><option>Politik und Gesellschaft</option><option>Spanisch</option>
+                <option>Sport</option><option>Wirtschaft und Recht</option>
+              </select>
+            </div>
+            <button class="btn btn-small" onclick="createSubjectLicense()" style="min-height:44px;">Erstellen</button>
+            <button class="btn btn-small btn-secondary" onclick="toggleNewSubjectLicense()" style="min-height:44px;">Abbrechen</button>
+          </div>
+          <div id="slError" style="color:#dc2626;font-size:.82rem;margin-top:.5rem;display:none;"></div>
+        </div>
+        <div style="overflow-x:auto;">
+          <table class="results-table" id="subjectLicensesTable">
+            <thead>
+              <tr>
+                <th>Bezeichnung</th>
+                <th>Fachcode</th>
+                <th>Fach</th>
+                <th>Einlösungen</th>
+                <th>Status</th>
+                <th>Erstellt</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="subjectLicensesBody"></tbody>
+          </table>
+        </div>
+        <div id="noSubjectLicenses" class="empty-state" style="display:none;">
+          <div class="icon">📚</div>
+          <p>Noch keine Fachschafts-Lizenzen angelegt.</p>
+        </div>
+      </div>
+    </details>
+
     <!-- Registrierte Lehrer -->
     <details class="collapsible-card" id="teachersCard">
       <summary class="collapsible-header">
@@ -1117,6 +1183,7 @@ async function loadResults() {
     renderAll();
     loadStudents();
     loadClassPasswords();
+    loadSubjectLicenses();
     loadTeachers();
   } catch (e) {
     err.textContent = "Verbindungsfehler: " + e.message;
@@ -1755,6 +1822,111 @@ async function deleteClassPassword(id, label) {
     body: JSON.stringify({ action: "delete", id })
   });
   loadClassPasswords();
+}
+
+/* ====== FACHSCHAFTS-LIZENZEN ====== */
+let allSubjectLicenses = [];
+
+async function loadSubjectLicenses() {
+  try {
+    const res = await fetch(API_BASE + "/api/subject-licenses", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "X-Teacher-Token": teacherToken },
+      body: JSON.stringify({ action: "list" })
+    });
+    if (res.status === 401) return;
+    const data = await res.json();
+    allSubjectLicenses = data.subject_licenses || [];
+    renderSubjectLicenses();
+  } catch (e) {
+    console.error("Fehler beim Laden der Fachschafts-Lizenzen:", e);
+  }
+}
+
+function renderSubjectLicenses() {
+  var tbody = document.getElementById("subjectLicensesBody");
+  var noEl = document.getElementById("noSubjectLicenses");
+  var badge = document.getElementById("subjectLicenseCount");
+  if (badge) badge.textContent = allSubjectLicenses.length;
+  if (!allSubjectLicenses.length) {
+    tbody.innerHTML = "";
+    noEl.style.display = "block";
+    document.getElementById("subjectLicensesTable").style.display = "none";
+    return;
+  }
+  noEl.style.display = "none";
+  document.getElementById("subjectLicensesTable").style.display = "";
+  tbody.innerHTML = allSubjectLicenses.map(function(sl) {
+    var d = sl.created_at ? new Date(sl.created_at) : null;
+    var dateStr = d ? d.getDate() + "." + (d.getMonth()+1) + "." + d.getFullYear() : "–";
+    var statusBadge = sl.active
+      ? '<span style="color:#059669;font-weight:700;font-size:.82rem;">Aktiv</span>'
+      : '<span style="color:#dc2626;font-weight:700;font-size:.82rem;">Deaktiviert</span>';
+    return '<tr>' +
+      '<td><strong>' + escapeHtml(sl.label) + '</strong></td>' +
+      '<td><code style="font-family:monospace;font-size:.82rem;background:var(--accent-soft);padding:.15rem .4rem;border-radius:3px;">' + escapeHtml(sl.code) + '</code></td>' +
+      '<td>' + escapeHtml(sl.subject) + '</td>' +
+      '<td style="font-family:monospace;font-weight:700;">' + (sl.redemption_count || 0) + '</td>' +
+      '<td>' + statusBadge + '</td>' +
+      '<td style="font-size:.82rem;">' + dateStr + '</td>' +
+      '<td style="white-space:nowrap;">' +
+        '<button class="btn btn-small btn-secondary" onclick="toggleSubjectLicense(\'' + escapeHtml(sl.id) + '\')" style="margin-right:.3rem;min-height:44px;">' + (sl.active ? 'Deaktivieren' : 'Aktivieren') + '</button>' +
+        '<button class="delete-btn" onclick="deleteSubjectLicense(\'' + escapeHtml(sl.id) + '\', \'' + escapeHtml(sl.label).replace(/'/g, "\\'") + '\')" title="Löschen" style="min-width:44px;min-height:44px;">\u2715</button>' +
+      '</td>' +
+    '</tr>';
+  }).join("");
+}
+
+function toggleNewSubjectLicense() {
+  var form = document.getElementById("newSubjectLicenseForm");
+  form.style.display = form.style.display === "none" ? "block" : "none";
+  if (form.style.display === "block") document.getElementById("slLabel").focus();
+}
+
+async function createSubjectLicense() {
+  var label = document.getElementById("slLabel").value.trim();
+  var code = document.getElementById("slCode").value.trim();
+  var subject = document.getElementById("slSubject").value;
+  var err = document.getElementById("slError");
+  if (!label) { err.textContent = "Bezeichnung eingeben."; err.style.display = "block"; return; }
+  if (!code) { err.textContent = "Fachcode eingeben."; err.style.display = "block"; return; }
+  if (!subject) { err.textContent = "Fach auswählen."; err.style.display = "block"; return; }
+  err.style.display = "none";
+  try {
+    var res = await fetch(API_BASE + "/api/subject-licenses", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "X-Teacher-Token": teacherToken },
+      body: JSON.stringify({ action: "create", label: label, code: code, subject: subject })
+    });
+    var data = await res.json();
+    if (!res.ok) { err.textContent = data.error || "Fehler."; err.style.display = "block"; return; }
+    document.getElementById("slLabel").value = "";
+    document.getElementById("slCode").value = "";
+    document.getElementById("slSubject").value = "";
+    toggleNewSubjectLicense();
+    loadSubjectLicenses();
+  } catch (e) {
+    err.textContent = "Verbindungsfehler."; err.style.display = "block";
+  }
+}
+
+async function toggleSubjectLicense(id) {
+  await fetch(API_BASE + "/api/subject-licenses", {
+    method: "POST",
+    headers: { "Content-Type": "application/json", "X-Teacher-Token": teacherToken },
+    body: JSON.stringify({ action: "toggle", id: id })
+  });
+  loadSubjectLicenses();
+}
+
+async function deleteSubjectLicense(id, label) {
+  if (!confirm('Fachcode "' + label + '" wirklich löschen?')) return;
+  await fetch(API_BASE + "/api/subject-licenses", {
+    method: "POST",
+    headers: { "Content-Type": "application/json", "X-Teacher-Token": teacherToken },
+    body: JSON.stringify({ action: "delete", id: id })
+  });
+  loadSubjectLicenses();
 }
 
 /* ====== LEHRER-LISTE ====== */

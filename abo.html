@@ -844,12 +844,16 @@
           <div class="divider">oder &uuml;ber deine Schule</div>
 
           <div class="license-section">
-            <p style="font-size: .95rem; margin-bottom: .4rem;"><strong style="color: var(--ink);">Du hast einen Schulcode?</strong></p>
-            <p>Gib den Code deiner Schule ein &ndash; damit bekommst du ggf. kostenlosen Zugang.</p>
+            <p style="font-size: .95rem; margin-bottom: .4rem;"><strong style="color: var(--ink);">Du hast einen Schul- oder Fachcode?</strong></p>
+            <p>Gib den Code deiner Schule oder Fachschaft ein &ndash; damit bekommst du ggf. kostenlosen Zugang.</p>
             <div class="license-input-row">
               <label for="licenseInput" class="sr-only">Lizenzcode</label>
-              <input type="text" class="license-input" id="licenseInput" placeholder="z.B. SAG-2026-ABCD" maxlength="19" autocomplete="off">
+              <input type="text" class="license-input" id="licenseInput" placeholder="z.B. SAG-2026-ABCD" maxlength="30" autocomplete="off">
               <button class="license-btn" id="redeemBtn" type="button">Einl&ouml;sen</button>
+            </div>
+            <div id="activeSubjectLicenses" style="display:none;margin-top:.8rem;text-align:left;">
+              <p style="font-size:.85rem;font-weight:600;color:var(--ink);margin-bottom:.3rem;">Deine Fach-Lizenzen:</p>
+              <div id="subjectLicenseList" style="display:flex;flex-wrap:wrap;gap:.4rem;"></div>
             </div>
           </div>
 
@@ -1001,7 +1005,14 @@
           license_code: code
         });
 
-        if (data.free_access) {
+        if (data.status === 'subject_license_active') {
+          // Fachcode eingelöst
+          var licenses = JSON.parse(sessionStorage.getItem("subject_licenses") || "[]");
+          if (licenses.indexOf(data.subject) === -1) licenses.push(data.subject);
+          sessionStorage.setItem("subject_licenses", JSON.stringify(licenses));
+          showToast("Fachcode aktiviert! Zugang zu " + data.subject + " freigeschaltet.", "success");
+          setTimeout(function() { window.location.reload(); }, 1500);
+        } else if (data.free_access) {
           sessionStorage.setItem("subscription_status", "active");
           sessionStorage.setItem("free_access", "1");
           showToast("Schulcode aktiviert! Viel Erfolg beim Lernen.", "success");
@@ -1103,6 +1114,18 @@
           // Trial aktiv
           document.getElementById("trialBanner").classList.add("visible");
           document.getElementById("trialDays").textContent = data.trial_days_left;
+        }
+        // Fach-Lizenzen anzeigen
+        if (data.subject_licenses && data.subject_licenses.length) {
+          sessionStorage.setItem("subject_licenses", JSON.stringify(data.subject_licenses.map(function(s) { return s.subject; })));
+          var container = document.getElementById("activeSubjectLicenses");
+          var list = document.getElementById("subjectLicenseList");
+          if (container && list) {
+            container.style.display = "block";
+            list.innerHTML = data.subject_licenses.map(function(s) {
+              return '<span style="display:inline-block;padding:.25rem .6rem;background:rgba(16,185,129,.12);color:#059669;border-radius:6px;font-size:.82rem;font-weight:600;">' + s.subject + '</span>';
+            }).join("");
+          }
         }
       } catch (err) {
         // Kein aktives Abo — Pricing zeigen (Standard)

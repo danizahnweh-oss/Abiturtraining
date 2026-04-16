@@ -5,7 +5,7 @@
 import { jsonResponse, corsHeaders, getAllowedOrigins, isOriginAllowed, checkBodySize, truncate } from './utils.js';
 import { MAX_BODY_SIZE, MAX_REQUESTS_PER_WINDOW, MAX_LOGIN_ATTEMPTS } from './config.js';
 import {
-  checkAuth, checkSubscriptionAccess, checkRateLimit, cleanupRateLimitMaps,
+  checkAuth, checkSubscriptionAccess, getSubjectFromPathname, checkRateLimit, cleanupRateLimitMaps,
   rateLimitMap, loginRateLimitMap, ensureMigrations
 } from './auth.js';
 
@@ -16,7 +16,7 @@ const feedbackRateLimitMap = new Map();
 import { handleLogin, handleCheckStudent, handleGetPreferences, handleSavePreferences, handleCheckReminders, handleChangePassword, handleUpdateProfile } from './handlers/student.js';
 import { handleTeacherRegister, handleTeacherAuthLogin, handleTeacherCodes, handleLinkStudentCode, handleTeacherResults, handleStudentCodes, handleTeacherApprove } from './handlers/teacher.js';
 import { handleTeacherProfile, handleTeacherTasks, handleTeacherTaskResults, handleGetSharedTask, handleSubmitSharedTask, handleGenerateFromMaterials } from './handlers/teacher-tasks.js';
-import { handleTeacherLogin, handleGetResults, handleDeleteResult, handleGetStudents, handleDeleteStudent, handleClassPasswords, handleGetFeedback, handleToggleFeedbackValuable, handleGetTeachers, handleApproveTeacher, handleDeleteTeacher, handleActivityFeed } from './handlers/dashboard.js';
+import { handleTeacherLogin, handleGetResults, handleDeleteResult, handleGetStudents, handleDeleteStudent, handleClassPasswords, handleSubjectLicenses, handleGetFeedback, handleToggleFeedbackValuable, handleGetTeachers, handleApproveTeacher, handleDeleteTeacher, handleActivityFeed } from './handlers/dashboard.js';
 import { handleSendMessage, handleListMessages, handleDeleteMessage, handleStudentMessages, handleMarkMessageRead, handleReplyMessage } from './handlers/messages.js';
 import { handleStudentResults, handleCompetencyProfile, handleLearningPlan } from './handlers/analytics.js';
 import { setGradeHandlerMap, setFOSRouteHandler, handleGradeSubmit, handleGradeStatus, executeGradeHandler, cleanupOldGradingJobs, tryDeductTeacherCredit } from './handlers/grading.js';
@@ -270,6 +270,12 @@ export default {
         cleanupRateLimitMaps();
         return await handleClassPasswords(request, env);
       }
+      if (pathname === "/api/subject-licenses" && request.method === "POST") {
+        const rl = checkRateLimit(request, rateLimitMap, MAX_REQUESTS_PER_WINDOW, env);
+        if (rl) return rl;
+        cleanupRateLimitMaps();
+        return await handleSubjectLicenses(request, env);
+      }
 
       // ===== LEHRER-LISTE (Dashboard) =====
       if (pathname === "/api/dashboard-teachers" && request.method === "POST") {
@@ -491,7 +497,8 @@ ${photo ? `<div style="margin:12px 0"><p style="font-weight:600;margin-bottom:6p
             const body = await cloned.json();
             const studentName = body.student_name || "";
             const isGrade = /grade/.test(pathname);
-            const subError = await checkSubscriptionAccess(studentName, env, isGrade);
+            const subject = getSubjectFromPathname(pathname);
+            const subError = await checkSubscriptionAccess(studentName, env, isGrade, subject);
             if (subError) return subError;
           } catch (e) { /* Body-Parse fehlgeschlagen → durchlassen, Handler kümmert sich */ }
         }

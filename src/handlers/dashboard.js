@@ -195,6 +195,80 @@ export async function handleClassPasswords(request, env) {
   return jsonResponse({ error: "Unbekannte Aktion." }, 400, env);
 }
 
+/* ================= DASHBOARD: FACHSCHAFTS-LIZENZEN ================= */
+export async function handleSubjectLicenses(request, env) {
+  const token = request.headers.get("X-Teacher-Token");
+  if (!env.TEACHER_PASSWORD) {
+    return jsonResponse({ error: "Server nicht konfiguriert." }, 500, env);
+  }
+  if (!token || !(await verifyToken(token, env, env.TEACHER_PASSWORD))) {
+    return jsonResponse({ error: "Nicht autorisiert. Bitte erneut einloggen." }, 401, env);
+  }
+
+  const { action, id, label, code, subject } = await request.json();
+
+  if (action === "list") {
+    const { rows } = await env.DB.prepare(
+      "SELECT id, label, code, subject, active, created_at, expires_at FROM subject_licenses ORDER BY created_at DESC"
+    ).all();
+    const withCount = [];
+    for (const sl of (rows || [])) {
+      const count = await env.DB.prepare(
+        "SELECT COUNT(*) as cnt FROM student_subject_licenses WHERE subject_license_id = $1"
+      ).bind(sl.id).first();
+      withCount.push({ ...sl, redemption_count: count?.cnt || 0 });
+    }
+    return jsonResponse({ success: true, subject_licenses: withCount }, 200, env);
+  }
+
+  if (action === "create") {
+    if (!label || !label.trim()) {
+      return jsonResponse({ error: "Bezeichnung erforderlich." }, 400, env);
+    }
+    if (!code || !code.trim()) {
+      return jsonResponse({ error: "Fachcode erforderlich." }, 400, env);
+    }
+    if (!subject || !subject.trim()) {
+      return jsonResponse({ error: "Fach erforderlich." }, 400, env);
+    }
+    // Prüfen ob Code schon existiert (in class_passwords ODER subject_licenses)
+    const existingCP = await env.DB.prepare(
+      "SELECT 1 FROM class_passwords WHERE UPPER(password) = UPPER($1)"
+    ).bind(code.trim()).first();
+    if (existingCP) {
+      return jsonResponse({ error: "Dieser Code wird bereits als Schulcode verwendet." }, 409, env);
+    }
+    const existingSL = await env.DB.prepare(
+      "SELECT 1 FROM subject_licenses WHERE UPPER(code) = UPPER($1)"
+    ).bind(code.trim()).first();
+    if (existingSL) {
+      return jsonResponse({ error: "Dieser Fachcode existiert bereits." }, 409, env);
+    }
+    const newId = Date.now().toString(36) + crypto.randomUUID().slice(0, 8);
+    await env.DB.prepare(
+      "INSERT INTO subject_licenses (id, label, code, subject, active, created_at) VALUES ($1, $2, $3, $4, 1, $5)"
+    ).bind(newId, label.trim(), code.trim(), subject.trim(), new Date().toISOString()).run();
+    return jsonResponse({ success: true, id: newId }, 200, env);
+  }
+
+  if (action === "toggle") {
+    if (!id) return jsonResponse({ error: "id erforderlich." }, 400, env);
+    await env.DB.prepare(
+      "UPDATE subject_licenses SET active = CASE WHEN active = 1 THEN 0 ELSE 1 END WHERE id = $1"
+    ).bind(id).run();
+    return jsonResponse({ success: true }, 200, env);
+  }
+
+  if (action === "delete") {
+    if (!id) return jsonResponse({ error: "id erforderlich." }, 400, env);
+    await env.DB.prepare("DELETE FROM student_subject_licenses WHERE subject_license_id = $1").bind(id).run();
+    await env.DB.prepare("DELETE FROM subject_licenses WHERE id = $1").bind(id).run();
+    return jsonResponse({ success: true }, 200, env);
+  }
+
+  return jsonResponse({ error: "Unbekannte Aktion." }, 400, env);
+}
+
 /* ================= DASHBOARD: FEEDBACK LESEN ================= */
 export async function handleGetFeedback(request, env) {
   const token = request.headers.get("X-Teacher-Token");

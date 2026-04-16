@@ -84,11 +84,56 @@ export async function safeCompare(a, b) {
   return result === 0;
 }
 
+/* ---- URL→Fach Mapping für fächerspezifischen Abo-Check ---- */
+const ENDPOINT_SUBJECT_MAP = {
+  'generate': 'Englisch', 'grade': 'Englisch',
+  'generate-from-text-writing': 'Englisch', 'generate-from-text-mediation': 'Englisch',
+  'generate-listening': 'Englisch', 'grade-listening': 'Englisch',
+  'generate-geschichte': 'Geschichte', 'grade-geschichte': 'Geschichte',
+  'generate-abitur-geschichte': 'Geschichte', 'grade-abitur-geschichte': 'Geschichte',
+  'generate-deutsch': 'Deutsch', 'grade-deutsch': 'Deutsch', 'grade-deutsch-stream': 'Deutsch',
+  'generate-mathe': 'Mathematik', 'grade-mathe': 'Mathematik',
+  'generate-abitur-mathe': 'Mathematik', 'grade-abitur-mathe': 'Mathematik',
+  'generate-pug': 'Politik und Gesellschaft', 'grade-pug': 'Politik und Gesellschaft',
+  'generate-abitur-pug': 'Politik und Gesellschaft', 'grade-abitur-pug': 'Politik und Gesellschaft',
+  'generate-wr': 'Wirtschaft und Recht', 'grade-wr': 'Wirtschaft und Recht',
+  'generate-abitur-wr': 'Wirtschaft und Recht', 'grade-abitur-wr': 'Wirtschaft und Recht',
+  'generate-ethik': 'Ethik', 'grade-ethik': 'Ethik',
+  'generate-abitur-ethik': 'Ethik', 'grade-abitur-ethik': 'Ethik',
+  'generate-religion': 'Evangelische Religionslehre', 'grade-religion': 'Evangelische Religionslehre',
+  'generate-abitur-religion': 'Evangelische Religionslehre', 'grade-abitur-religion': 'Evangelische Religionslehre',
+  'generate-katholisch': 'Katholische Religionslehre', 'grade-katholisch': 'Katholische Religionslehre',
+  'generate-abitur-katholisch': 'Katholische Religionslehre', 'grade-abitur-katholisch': 'Katholische Religionslehre',
+  'generate-geographie': 'Geographie', 'grade-geographie': 'Geographie',
+  'generate-abitur-geographie': 'Geographie', 'grade-abitur-geographie': 'Geographie',
+  'generate-latein': 'Latein', 'grade-latein': 'Latein',
+  'generate-abitur-latein': 'Latein', 'grade-abitur-latein': 'Latein',
+  'generate-chemie': 'Chemie', 'grade-chemie': 'Chemie',
+  'generate-abitur-chemie': 'Chemie', 'grade-abitur-chemie': 'Chemie',
+  'generate-physik': 'Physik', 'grade-physik': 'Physik',
+  'generate-abitur-physik': 'Physik', 'grade-abitur-physik': 'Physik',
+  'generate-bio': 'Biologie', 'grade-bio': 'Biologie',
+  'generate-abitur-biologie': 'Biologie', 'grade-abitur-biologie': 'Biologie',
+  'generate-sport': 'Sport', 'grade-sport': 'Sport',
+  'generate-abitur-sport': 'Sport', 'grade-abitur-sport': 'Sport',
+  'generate-informatik': 'Informatik', 'grade-informatik': 'Informatik',
+  'generate-abitur-informatik': 'Informatik', 'grade-abitur-informatik': 'Informatik',
+  'generate-abitur-kunst': 'Kunst', 'grade-abitur-kunst': 'Kunst',
+  'grade-french': 'Französisch',
+  'grade-italian': 'Italienisch',
+};
+
+export function getSubjectFromPathname(pathname) {
+  const segment = pathname.replace('/api/', '').replace('fos-', '');
+  return ENDPOINT_SUBJECT_MAP[segment] || null;
+}
+
 /* ---- Subscription-Check für kostenpflichtige Endpoints ---- */
 // allowTeacherCredits: true bei Grade-Endpoints, false bei Generate-Endpoints
+// subject: optionaler Fachname für fächerspezifischen Fach-Lizenz-Check
 import { findAvailableTeacherCredits } from './handlers/teacher-credits.js';
 
-export async function checkSubscriptionAccess(studentName, env, allowTeacherCredits = false) {
+export async function checkSubscriptionAccess(studentName, env, allowTeacherCredits = false, subject = null) {
   const studentNameLower = (studentName || "").trim().toLowerCase();
   if (!studentNameLower) return null; // Kein Student-Name → kein Check möglich
 
@@ -98,7 +143,7 @@ export async function checkSubscriptionAccess(studentName, env, allowTeacherCred
 
   if (!student) return null; // Unbekannter Schüler → durchlassen (Gast)
 
-  // Aktives Abo prüfen
+  // Aktives Abo prüfen (Vollzugang)
   if (student.subscription_status === 'active') {
     const sub = await env.DB.prepare(
       "SELECT current_period_end, school_license_code FROM subscriptions WHERE student_id = $1 AND status = 'active' LIMIT 1"
@@ -108,11 +153,22 @@ export async function checkSubscriptionAccess(studentName, env, allowTeacherCred
     }
   }
 
-  // Trial prüfen
+  // Trial prüfen (Vollzugang)
   if (student.subscription_status === 'trialing' && student.trial_end) {
     if (new Date(student.trial_end) > new Date()) {
       return null; // Trial aktiv
     }
+  }
+
+  // Fachschafts-Lizenz prüfen (nur für das angefragte Fach)
+  if (subject) {
+    const subjectLicense = await env.DB.prepare(`
+      SELECT 1 FROM student_subject_licenses ssl
+      JOIN subject_licenses sl ON sl.id = ssl.subject_license_id
+      WHERE ssl.student_id = $1 AND sl.subject = $2 AND sl.active = 1
+        AND (sl.expires_at IS NULL OR sl.expires_at > $3)
+    `).bind(student.id, subject, new Date().toISOString()).first();
+    if (subjectLicense) return null; // Fach-Lizenz aktiv
   }
 
   // Lehrer-Credits nur bei Grade-Endpoints erlauben
@@ -353,6 +409,31 @@ export async function ensureMigrations(env) {
     // Migration: reply-Spalten hinzufügen falls Tabelle schon existiert
     try { await env.DB.prepare("ALTER TABLE messages ADD COLUMN reply TEXT DEFAULT NULL").run(); } catch (_) {}
     try { await env.DB.prepare("ALTER TABLE messages ADD COLUMN reply_at TEXT DEFAULT NULL").run(); } catch (_) {}
+
+    // Fachschafts-Lizenzen (Fachcodes für einzelne Fächer)
+    await env.DB.prepare(`
+      CREATE TABLE IF NOT EXISTS subject_licenses (
+        id TEXT PRIMARY KEY,
+        label TEXT NOT NULL,
+        code TEXT NOT NULL UNIQUE,
+        subject TEXT NOT NULL,
+        active INTEGER NOT NULL DEFAULT 1,
+        created_at TEXT NOT NULL,
+        expires_at TEXT
+      )
+    `).run();
+
+    await env.DB.prepare(`
+      CREATE TABLE IF NOT EXISTS student_subject_licenses (
+        id TEXT PRIMARY KEY,
+        student_id TEXT NOT NULL,
+        subject_license_id TEXT NOT NULL,
+        redeemed_at TEXT NOT NULL,
+        UNIQUE(student_id, subject_license_id),
+        FOREIGN KEY (student_id) REFERENCES students(id),
+        FOREIGN KEY (subject_license_id) REFERENCES subject_licenses(id)
+      )
+    `).run();
 
     // E-Mail-Pflicht: NULL-Einträge auf Platzhalter setzen, dann NOT NULL Constraint
     try {

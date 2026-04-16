@@ -153,6 +153,18 @@ export async function handleCheckStudent(request, env) {
   // E-Mail fehlt? Flag setzen damit das Frontend nachfragt
   const emailMissing = !student?.email || !student.email.trim();
 
+  // Aktive Fachschafts-Lizenzen laden
+  let subjectLicenses = [];
+  if (student) {
+    const slResult = await env.DB.prepare(`
+      SELECT sl.subject FROM student_subject_licenses ssl
+      JOIN subject_licenses sl ON sl.id = ssl.subject_license_id
+      WHERE ssl.student_id = $1 AND sl.active = 1
+        AND (sl.expires_at IS NULL OR sl.expires_at > $2)
+    `).bind(student.id, new Date().toISOString()).all();
+    subjectLicenses = (slResult?.rows || []).map(s => s.subject);
+  }
+
   const token = await generateToken(env);
   return jsonResponse({
     success: true,
@@ -160,7 +172,8 @@ export async function handleCheckStudent(request, env) {
     student_id: student?.id || null,
     subscription_status: student?.subscription_status || "none",
     free_access: freeAccess,
-    email_missing: emailMissing
+    email_missing: emailMissing,
+    subject_licenses: subjectLicenses,
   }, 200, env);
 }
 

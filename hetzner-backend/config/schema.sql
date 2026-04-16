@@ -93,6 +93,26 @@ CREATE TABLE IF NOT EXISTS class_passwords (
     created_at TEXT NOT NULL
 );
 
+-- Fachschafts-Lizenzen (Fachcodes für einzelne Fächer)
+CREATE TABLE IF NOT EXISTS subject_licenses (
+    id TEXT PRIMARY KEY,
+    label TEXT NOT NULL,
+    code TEXT NOT NULL UNIQUE,
+    subject TEXT NOT NULL,
+    active INTEGER NOT NULL DEFAULT 1,
+    created_at TEXT NOT NULL,
+    expires_at TEXT
+);
+
+-- Schüler ↔ Fachcodes (N:M)
+CREATE TABLE IF NOT EXISTS student_subject_licenses (
+    id TEXT PRIMARY KEY,
+    student_id INTEGER NOT NULL REFERENCES students(id) ON DELETE CASCADE,
+    subject_license_id TEXT NOT NULL REFERENCES subject_licenses(id) ON DELETE CASCADE,
+    redeemed_at TEXT NOT NULL,
+    UNIQUE(student_id, subject_license_id)
+);
+
 -- Lernpläne (KI-generiert, gecacht)
 CREATE TABLE IF NOT EXISTS learning_plans (
     id SERIAL PRIMARY KEY,

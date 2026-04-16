@@ -223,6 +223,10 @@ async function checkSubscription() {
       sessionStorage.removeItem("teacher_credits_available");
       sessionStorage.removeItem("teacher_credits_name");
     }
+    // Fach-Lizenzen in sessionStorage speichern
+    if (data.subject_licenses && data.subject_licenses.length) {
+      sessionStorage.setItem("subject_licenses", JSON.stringify(data.subject_licenses.map(function(s) { return s.subject; })));
+    }
     // Wenn Backend "none" sagt aber sessionStorage "active" (Webhook-Delay nach Checkout),
     // sessionStorage vertrauen
     if (data.status !== "active" && data.status !== "trialing" && (ssStatus === "active" || ssStatus === "trialing")) {
@@ -2506,6 +2510,9 @@ async function _doLoginModal() {
       if (data.student_id) sessionStorage.setItem("student_id", data.student_id);
       if (data.free_access) sessionStorage.setItem("free_access", "1");
       if (data.subscription_status) sessionStorage.setItem("subscription_status", data.subscription_status);
+      if (data.subject_licenses && data.subject_licenses.length) {
+        sessionStorage.setItem("subject_licenses", JSON.stringify(data.subject_licenses));
+      }
       if (!sessionStorage.getItem("student_level")) sessionStorage.setItem("student_level", "eA");
       // Ger\u00e4te-Flag: Trial auf diesem Ger\u00e4t wurde genutzt
       if (_loginModalMode === "register" && data.subscription_status === "trialing") {

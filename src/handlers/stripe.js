@@ -376,6 +376,15 @@ export async function handleSubscriptionStatus(request, env) {
     }
   }
 
+  // Aktive Fachschafts-Lizenzen laden
+  const slResult = await env.DB.prepare(`
+    SELECT sl.subject, sl.label FROM student_subject_licenses ssl
+    JOIN subject_licenses sl ON sl.id = ssl.subject_license_id
+    WHERE ssl.student_id = $1 AND sl.active = 1
+      AND (sl.expires_at IS NULL OR sl.expires_at > $2)
+  `).bind(student_id, new Date().toISOString()).all();
+  const subjectLicenses = (slResult?.rows || []).map(s => ({ subject: s.subject, school: s.label }));
+
   return jsonResponse({
     status: statusLabel,
     plan: sub?.plan || student.subscription_plan || 'free',
@@ -386,6 +395,7 @@ export async function handleSubscriptionStatus(request, env) {
     has_stripe_customer: !!student.stripe_customer_id,
     teacher_credits_available: teacherCreditsAvailable,
     teacher_credits_name: teacherCreditsName,
+    subject_licenses: subjectLicenses,
   }, 200, env);
 }
 
@@ -473,7 +483,35 @@ export async function handleRedeemLicense(request, env) {
   ).bind(license_code.trim()).first();
 
   if (!license) {
-    return jsonResponse({ error: 'Ung\u00fcltiger oder abgelaufener Schulcode.' }, 404, env);
+    // Fallback: In Fachschafts-Lizenzen suchen
+    const now = new Date().toISOString();
+    const subjectLicense = await env.DB.prepare(
+      'SELECT id, label, subject FROM subject_licenses WHERE UPPER(code) = UPPER($1) AND active = 1 AND (expires_at IS NULL OR expires_at > $2)'
+    ).bind(license_code.trim(), now).first();
+
+    if (!subjectLicense) {
+      return jsonResponse({ error: 'Ungültiger oder abgelaufener Code.' }, 404, env);
+    }
+
+    // Doppelt-Einlösen verhindern
+    const existing = await env.DB.prepare(
+      'SELECT 1 FROM student_subject_licenses WHERE student_id = $1 AND subject_license_id = $2'
+    ).bind(student_id, subjectLicense.id).first();
+    if (existing) {
+      return jsonResponse({ error: 'Dieser Fachcode wurde bereits eingelöst.', subject: subjectLicense.subject }, 409, env);
+    }
+
+    // Fachcode einlösen
+    await env.DB.prepare(
+      'INSERT INTO student_subject_licenses (id, student_id, subject_license_id, redeemed_at) VALUES ($1, $2, $3, $4)'
+    ).bind(crypto.randomUUID(), student_id, subjectLicense.id, now).run();
+
+    return jsonResponse({
+      status: 'subject_license_active',
+      subject: subjectLicense.subject,
+      school: subjectLicense.label,
+      message: `Fachcode aktiviert! Du hast jetzt kostenlosen Zugang zu ${subjectLicense.subject}.`
+    }, 200, env);
   }
 
   const now = new Date().toISOString();
