@@ -47,7 +47,15 @@ const app = express();
 const server = createServer(app);
 const PORT = process.env.PORT || 3000;
 
-app.use(express.json({ limit: '10mb' }));
+// Raw Body für Stripe Webhook Signaturverifizierung speichern
+app.use(express.json({
+  limit: '10mb',
+  verify: (req, res, buf) => {
+    if (req.originalUrl === '/api/stripe/webhook') {
+      req.rawBody = buf.toString('utf8');
+    }
+  }
+}));
 app.use(express.text({ limit: '10mb' }));
 app.set('trust proxy', 1);
 
@@ -63,7 +71,8 @@ async function bridgeToWorker(req, res) {
     headers.set('CF-Connecting-IP', clientIP);
     const requestInit = { method: req.method, headers };
     if (['POST', 'PUT', 'PATCH'].includes(req.method) && req.body) {
-      requestInit.body = JSON.stringify(req.body);
+      // Stripe Webhook braucht den exakten Raw Body für Signaturverifizierung
+      requestInit.body = req.rawBody || JSON.stringify(req.body);
     }
     const request = new Request(url, requestInit);
     const workerEnv = { ...env, _origin: req.headers.origin || '' };
