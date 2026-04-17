@@ -100,18 +100,30 @@ app.post('/api/check-student', async (req, res, next) => {
   res.send = async function(body) {
     try {
       const data = JSON.parse(body);
-      if (data.success && data.subscription_status === 'active') {
-        // Prüfe ob Schullizenz deaktiviert
+      if (data.success) {
         const nameLower = (req.body.student_name || '').trim().toLowerCase();
         const student = await db.prepare(
           "SELECT subscription_plan, class_group FROM students WHERE name_lower = ?"
         ).bind(nameLower).first();
         if (student) {
-          const override = await checkSchoolLicense(student.subscription_plan, student.class_group);
-          if (override) {
-            data.subscription_status = override;
-            data.free_access = false;
-            return origSend(JSON.stringify(data));
+          if (data.subscription_status === 'active') {
+            // Schullizenz deaktiviert? → Status auf "none"
+            const override = await checkSchoolLicense(student.subscription_plan, student.class_group);
+            if (override) {
+              data.subscription_status = override;
+              data.free_access = false;
+              return origSend(JSON.stringify(data));
+            }
+          } else if (student.class_group) {
+            // class_group mit free_access → Status auf "active"
+            const cp = await db.prepare(
+              "SELECT 1 FROM class_passwords WHERE label = ? AND active = 1 AND free_access = 1"
+            ).bind(student.class_group).first();
+            if (cp) {
+              data.subscription_status = 'active';
+              data.free_access = true;
+              return origSend(JSON.stringify(data));
+            }
           }
         }
       }
@@ -128,6 +140,7 @@ app.post('/api/stripe/subscription-status', async (req, res, next) => {
     try {
       const data = JSON.parse(body);
       if (data.status === 'active' && data.is_school_license) {
+        // Schullizenz deaktiviert?
         const sub = await db.prepare(
           "SELECT school_license_code FROM subscriptions WHERE student_id = ? AND school_license_code IS NOT NULL LIMIT 1"
         ).bind(String(req.body.student_id)).first();
@@ -141,6 +154,49 @@ app.post('/api/stripe/subscription-status', async (req, res, next) => {
             return origSend(JSON.stringify(data));
           }
         }
+      } else if (data.status !== 'active') {
+        // class_group mit free_access → Status auf "active"
+        const student = await db.prepare(
+          "SELECT class_group FROM students WHERE id = ?"
+        ).bind(String(req.body.student_id)).first();
+        if (student?.class_group) {
+          const cp = await db.prepare(
+            "SELECT 1 FROM class_passwords WHERE label = ? AND active = 1 AND free_access = 1"
+          ).bind(student.class_group).first();
+          if (cp) {
+            data.status = 'active';
+            data.is_school_license = true;
+            return origSend(JSON.stringify(data));
+          }
+        }
+      }
+    } catch(e) { /* durchlassen */ }
+    return origSend(body);
+  };
+  next();
+});
+
+// students (Dashboard): class_group-basierte Schüler als "active"/"school" anzeigen
+app.post('/api/students', async (req, res, next) => {
+  const origSend = res.send.bind(res);
+  res.send = async function(body) {
+    try {
+      const data = JSON.parse(body);
+      if (data.success && data.students) {
+        const { results: freeLabels } = await db.prepare(
+          "SELECT label FROM class_passwords WHERE active = 1 AND free_access = 1"
+        ).all();
+        const freeSet = new Set((freeLabels || []).map(r => r.label));
+        if (freeSet.size > 0) {
+          data.students = data.students.map(s => {
+            if (s.class_group && freeSet.has(s.class_group) && s.subscription_status !== 'active') {
+              s.subscription_status = 'active';
+              s.subscription_plan = 'school';
+            }
+            return s;
+          });
+        }
+        return origSend(JSON.stringify(data));
       }
     } catch(e) { /* durchlassen */ }
     return origSend(body);
