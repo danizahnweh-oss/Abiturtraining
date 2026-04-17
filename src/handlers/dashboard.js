@@ -79,16 +79,31 @@ export async function handleGetStudents(request, env) {
     "SELECT name, level, hidden_subjects, class_group, email, created_at AS date, subscription_status, subscription_plan FROM students ORDER BY name ASC"
   ).all();
 
-  const safe = (students || []).map(s => ({
-    name: s.name,
-    level: s.level || "",
-    date: s.date || "",
-    hidden_subjects: JSON.parse(s.hidden_subjects || "[]"),
-    class_group: s.class_group || null,
-    email: s.email || "",
-    subscription_status: s.subscription_status || "none",
-    subscription_plan: s.subscription_plan || null,
-  }));
+  // Aktive Schullizenzen laden (free_access Labels)
+  const { results: freeAccessLabels } = await env.DB.prepare(
+    "SELECT label FROM class_passwords WHERE active = 1 AND free_access = 1"
+  ).all();
+  const freeAccessSet = new Set((freeAccessLabels || []).map(r => r.label));
+
+  const safe = (students || []).map(s => {
+    let status = s.subscription_status || "none";
+    let plan = s.subscription_plan || null;
+    // Schüler mit class_group einer aktiven Schullizenz → als "active"/"school" anzeigen
+    if (s.class_group && freeAccessSet.has(s.class_group) && status !== 'active') {
+      status = 'active';
+      plan = plan || 'school';
+    }
+    return {
+      name: s.name,
+      level: s.level || "",
+      date: s.date || "",
+      hidden_subjects: JSON.parse(s.hidden_subjects || "[]"),
+      class_group: s.class_group || null,
+      email: s.email || "",
+      subscription_status: status,
+      subscription_plan: plan,
+    };
+  });
 
   return jsonResponse({ success: true, students: safe }, 200, env);
 }
