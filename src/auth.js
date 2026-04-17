@@ -148,7 +148,7 @@ export async function checkSubscriptionAccess(studentName, env, allowTeacherCred
   if (!studentNameLower) return null; // Kein Student-Name → kein Check möglich
 
   const student = await env.DB.prepare(
-    "SELECT id, subscription_status, trial_end FROM students WHERE name_lower = ?"
+    "SELECT id, subscription_status, trial_end, class_group FROM students WHERE name_lower = ?"
   ).bind(studentNameLower).first();
 
   if (!student) return null; // Unbekannter Schüler → durchlassen (Gast)
@@ -169,6 +169,14 @@ export async function checkSubscriptionAccess(studentName, env, allowTeacherCred
         return null; // Normales Abo gültig
       }
     }
+  }
+
+  // Schullizenz via class_group (für Schüler ohne subscriptions-Eintrag)
+  if (student.class_group) {
+    const cp = await env.DB.prepare(
+      "SELECT 1 FROM class_passwords WHERE label = ? AND active = 1 AND free_access = 1"
+    ).bind(student.class_group).first();
+    if (cp) return null; // Schullizenz über class_group aktiv
   }
 
   // Trial prüfen (Vollzugang)

@@ -310,7 +310,7 @@ export async function handleSubscriptionStatus(request, env) {
   }
 
   const student = await env.DB.prepare(
-    'SELECT id, subscription_status, subscription_plan, trial_end, stripe_customer_id FROM students WHERE id = ?'
+    'SELECT id, subscription_status, subscription_plan, trial_end, stripe_customer_id, class_group FROM students WHERE id = ?'
   ).bind(student_id).first();
 
   if (!student) {
@@ -332,6 +332,18 @@ export async function handleSubscriptionStatus(request, env) {
       isActive = new Date(sub.current_period_end) > new Date();
     } else if (sub.status === 'trialing' && student.trial_end) {
       isActive = new Date(student.trial_end) > new Date();
+    }
+  }
+
+  // Fallback: class_group mit free_access prüfen (für frühe Schüler ohne subscriptions-Eintrag)
+  let classGroupFreeAccess = false;
+  if (!isActive && student.class_group) {
+    const cp = await env.DB.prepare(
+      "SELECT 1 FROM class_passwords WHERE label = ? AND active = 1 AND free_access = 1"
+    ).bind(student.class_group).first();
+    if (cp) {
+      isActive = true;
+      classGroupFreeAccess = true;
     }
   }
 
@@ -396,7 +408,7 @@ export async function handleSubscriptionStatus(request, env) {
     current_period_end: sub?.current_period_end || null,
     cancel_at_period_end: sub?.cancel_at_period_end === 1,
     trial_days_left: trialDaysLeft,
-    is_school_license: !!sub?.school_license_code && isActive,
+    is_school_license: (!!sub?.school_license_code && isActive) || classGroupFreeAccess,
     has_stripe_customer: !!student.stripe_customer_id,
     teacher_credits_available: teacherCreditsAvailable,
     teacher_credits_name: teacherCreditsName,
