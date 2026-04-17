@@ -1,17 +1,8 @@
 /**
  * myAbiFlow Backend Server – Hetzner Edition
- *
- * Bridge-Layer: Macht den bestehenden Cloudflare Worker Code
- * auf einem normalen Node.js/Express Server lauffähig.
- *
- * Strategie: Statt 15.000 Zeilen neu zu schreiben, wird ein
- * Kompatibilitäts-Layer erstellt, der die Cloudflare-APIs
- * (D1, Queues, crypto.subtle) durch Node.js-Äquivalente ersetzt.
  */
 
-// Crypto-Polyfill MUSS als erstes geladen werden
 import './src/crypto-polyfill.js';
-
 import express from 'express';
 import { createServer } from 'node:http';
 import dotenv from 'dotenv';
@@ -22,25 +13,14 @@ import { createKVAdapter } from './src/kv-adapter.js';
 
 dotenv.config();
 
-// ============================================================
-// 1. ENV-OBJEKT ERSTELLEN (Kompatibel mit Cloudflare Worker)
-// ============================================================
-
 const db = initDB(process.env.DATABASE_URL);
 const GRADING_QUEUE = initQueues(process.env.REDIS_URL || 'redis://127.0.0.1:6379');
 
 const env = {
-  // Datenbank (D1-kompatibel)
   DB: db,
-
-  // KV-Store (Cloudflare KV-kompatibel, nutzt PostgreSQL)
   RESULTS_KV: createKVAdapter(),
-
-  // Queue (Cloudflare Queue-kompatibel)
   GRADING_QUEUE: GRADING_QUEUE,
-  GRADING_DLQ: { send: async () => {} },  // DLQ wird von BullMQ automatisch verwaltet
-
-  // Secrets (aus .env)
+  GRADING_DLQ: { send: async () => {} },
   ACCESS_PASSWORD: process.env.ACCESS_PASSWORD,
   TEACHER_PASSWORD: process.env.TEACHER_PASSWORD,
   TEACHER_AUTH_SECRET: process.env.TEACHER_AUTH_SECRET,
@@ -49,8 +29,6 @@ const env = {
   GOOGLE_AI_API_KEY: process.env.GOOGLE_AI_API_KEY,
   RESEND_API_KEY: process.env.RESEND_API_KEY,
   IDEOGRAM_API_KEY: process.env.IDEOGRAM_API_KEY,
-
-  // Stripe
   STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY,
   STRIPE_WEBHOOK_SECRET: process.env.STRIPE_WEBHOOK_SECRET,
   STRIPE_PRICE_MONTHLY: process.env.STRIPE_PRICE_MONTHLY,
@@ -58,122 +36,194 @@ const env = {
   STRIPE_PRICE_12MONTHS: process.env.STRIPE_PRICE_12MONTHS,
   STRIPE_PRICE_24MONTHS: process.env.STRIPE_PRICE_24MONTHS,
   STRIPE_PRICE_ABITUR: process.env.STRIPE_PRICE_ABITUR,
-
-  // WolframAlpha
   WOLFRAM_APP_ID: process.env.WOLFRAM_APP_ID,
-
-  // Konfiguration
   ALLOWED_ORIGIN: process.env.ALLOWED_ORIGIN || 'https://myabiflow.de',
   ALLOWED_ORIGIN_FOS: process.env.ALLOWED_ORIGIN_FOS || '',
 };
 
-// ============================================================
-// 2. WORKER-CODE IMPORTIEREN
-// ============================================================
-
-// Der originale Worker-Code wird als ES-Modul importiert.
-// Dafür muss src/index.js leicht angepasst werden (siehe worker-bridge.js).
 import workerModule from './src/worker-bridge.js';
-
-// ============================================================
-// 3. EXPRESS SERVER
-// ============================================================
 
 const app = express();
 const server = createServer(app);
 const PORT = process.env.PORT || 3000;
 
-// Body-Parser mit 10MB Limit (wie im Worker)
 app.use(express.json({ limit: '10mb' }));
 app.use(express.text({ limit: '10mb' }));
-
-// Trust Proxy (für Rate Limiting hinter Nginx)
 app.set('trust proxy', 1);
 
-// ============================================================
-// 4. BRIDGE: Express Request → Worker fetch()
-// ============================================================
-
-/**
- * Konvertiert einen Express Request in ein Web API Request-Objekt
- * und ruft den Worker fetch()-Handler auf.
- */
+// ===== BRIDGE: Express Request → Worker fetch() =====
 async function bridgeToWorker(req, res) {
   try {
-    // Express Request → Web API Request konvertieren
     const url = `${req.protocol}://${req.get('host')}${req.originalUrl}`;
-
     const headers = new Headers();
     for (const [key, value] of Object.entries(req.headers)) {
       if (value) headers.set(key, Array.isArray(value) ? value[0] : value);
     }
-
-    // IP-Adresse für Rate Limiting (Nginx setzt X-Real-IP)
     const clientIP = req.ip || req.headers['x-real-ip'] || req.headers['x-forwarded-for'] || 'unknown';
     headers.set('CF-Connecting-IP', clientIP);
-
-    const requestInit = {
-      method: req.method,
-      headers,
-    };
-
-    // Body nur bei POST/PUT/PATCH
+    const requestInit = { method: req.method, headers };
     if (['POST', 'PUT', 'PATCH'].includes(req.method) && req.body) {
       requestInit.body = JSON.stringify(req.body);
     }
-
     const request = new Request(url, requestInit);
-
-    // Worker-eigenes env-Objekt mit Origin setzen
     const workerEnv = { ...env, _origin: req.headers.origin || '' };
-
-    // Worker fetch() aufrufen
     const response = await workerModule.fetch(request, workerEnv, {
-      // ctx-Objekt (waitUntil wird zu fire-and-forget)
-      waitUntil: (promise) => {
-        promise.catch(err => console.error('waitUntil Fehler:', err.message));
-      }
+      waitUntil: (promise) => { promise.catch(err => console.error('waitUntil Fehler:', err.message)); }
     });
-
-    // Worker Response → Express Response konvertieren
     res.status(response.status);
     for (const [key, value] of response.headers.entries()) {
       res.set(key, value);
     }
-
     const body = await response.text();
     res.send(body);
-
   } catch (err) {
     console.error('Bridge-Fehler:', err);
     res.status(500).json({ error: 'Interner Serverfehler' });
   }
 }
 
-// Alle /api/* Routen an den Worker-Bridge weiterleiten
+// Schullizenz-Check: Korrigiert subscription_status bei deaktivierten Schullizenzen
+async function checkSchoolLicense(studentPlan, classGroup) {
+  if (studentPlan !== 'school' || !classGroup) return null;
+  const cp = await db.prepare(
+    "SELECT free_access FROM class_passwords WHERE label = ? AND active = 1"
+  ).bind(classGroup).first();
+  const freeAccess = cp?.free_access === 1;
+  if (!freeAccess) return 'none'; // Schullizenz deaktiviert
+  return null; // Schullizenz aktiv
+}
+
+// check-student: Subscription-Status korrigieren
+app.post('/api/check-student', async (req, res, next) => {
+  // Zuerst Worker aufrufen
+  const origSend = res.send.bind(res);
+  res.send = async function(body) {
+    try {
+      const data = JSON.parse(body);
+      if (data.success && data.subscription_status === 'active') {
+        // Prüfe ob Schullizenz deaktiviert
+        const nameLower = (req.body.student_name || '').trim().toLowerCase();
+        const student = await db.prepare(
+          "SELECT subscription_plan, class_group FROM students WHERE name_lower = ?"
+        ).bind(nameLower).first();
+        if (student) {
+          const override = await checkSchoolLicense(student.subscription_plan, student.class_group);
+          if (override) {
+            data.subscription_status = override;
+            data.free_access = false;
+            return origSend(JSON.stringify(data));
+          }
+        }
+      }
+    } catch(e) { /* JSON parse fehler → durchlassen */ }
+    return origSend(body);
+  };
+  next();
+});
+
+// subscription-status: Korrigieren bei deaktivierten Schullizenzen
+app.post('/api/stripe/subscription-status', async (req, res, next) => {
+  const origSend = res.send.bind(res);
+  res.send = async function(body) {
+    try {
+      const data = JSON.parse(body);
+      if (data.status === 'active' && data.is_school_license) {
+        const sub = await db.prepare(
+          "SELECT school_license_code FROM subscriptions WHERE student_id = ? AND school_license_code IS NOT NULL LIMIT 1"
+        ).bind(String(req.body.student_id)).first();
+        if (sub?.school_license_code) {
+          const cp = await db.prepare(
+            "SELECT 1 FROM class_passwords WHERE UPPER(password) = UPPER(?) AND active = 1 AND free_access = 1"
+          ).bind(sub.school_license_code).first();
+          if (!cp) {
+            data.status = 'none';
+            data.is_school_license = false;
+            return origSend(JSON.stringify(data));
+          }
+        }
+      }
+    } catch(e) { /* durchlassen */ }
+    return origSend(body);
+  };
+  next();
+});
+
+// generate/grade: Subscription-Check erzwingen
+app.post(/^\/api\/(fos-)?(generate|grade)/, async (req, res, next) => {
+  // Lehrer-Requests durchlassen
+  if (req.headers['x-teacher-auth-token']) return next();
+
+  const studentName = req.body.student_name || '';
+  const headerName = req.headers['x-student-name'];
+  const name = studentName || (headerName ? decodeURIComponent(headerName) : '');
+
+  if (!name) return next(); // Kein Name → Worker entscheidet
+
+  const nameLower = name.trim().toLowerCase();
+  const student = await db.prepare(
+    "SELECT id, subscription_status, subscription_plan, class_group, trial_end FROM students WHERE name_lower = ?"
+  ).bind(nameLower).first();
+
+  if (!student) return next(); // Unbekannt → durchlassen
+
+  // Aktives Abo prüfen
+  if (student.subscription_status === 'active') {
+    const sub = await db.prepare(
+      "SELECT current_period_end, school_license_code FROM subscriptions WHERE student_id = $1 AND status = 'active' LIMIT 1"
+    ).bind(String(student.id)).first();
+    if (sub) {
+      if (sub.school_license_code) {
+        const cp = await db.prepare(
+          "SELECT 1 FROM class_passwords WHERE UPPER(password) = UPPER(?) AND active = 1 AND free_access = 1"
+        ).bind(sub.school_license_code).first();
+        if (cp) return next(); // Schullizenz aktiv → durchlassen
+        // Schullizenz deaktiviert → blockieren
+        return res.status(403).json({ error: 'Kein aktives Abo. Bitte schließe ein Abo ab.', requires_subscription: true });
+      } else if (sub.current_period_end && new Date(sub.current_period_end) > new Date()) {
+        return next(); // Normales Abo gültig
+      }
+    }
+  }
+
+  // Schullizenz via class_group (für Schüler ohne subscriptions-Eintrag)
+  if (student.class_group) {
+    const cpFallback = await db.prepare(
+      "SELECT 1 FROM class_passwords WHERE label = ? AND active = 1 AND free_access = 1"
+    ).bind(student.class_group).first();
+    if (cpFallback) return next(); // Schullizenz über class_group aktiv
+  }
+
+  // Trial prüfen
+  if (student.subscription_status === 'trialing' && student.trial_end) {
+    if (new Date(student.trial_end) > new Date()) return next();
+  }
+
+  // Fachschafts-Lizenzen prüfen
+  const slResult = await db.prepare(`
+    SELECT 1 FROM student_subject_licenses ssl
+    JOIN subject_licenses sl ON sl.id = ssl.subject_license_id
+    WHERE ssl.student_id = $1 AND sl.active = 1
+      AND (sl.expires_at IS NULL OR sl.expires_at > $2)
+    LIMIT 1
+  `).bind(String(student.id), new Date().toISOString()).first();
+  if (slResult) return next();
+
+  // Kein Zugang
+  return res.status(403).json({ error: 'Kein aktives Abo. Bitte schließe ein Abo ab.', requires_subscription: true });
+});
+
 app.all('/api/{*path}', bridgeToWorker);
 
-// Health-Check Endpoint
 app.get('/health', (req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 
-// ============================================================
-// 5. QUEUE WORKER STARTEN
-// ============================================================
-
-// executeGradeHandler aus dem Worker-Code importieren
 if (workerModule.executeGradeHandler) {
   startQueueWorker(workerModule.executeGradeHandler, env);
 } else {
   console.warn('executeGradeHandler nicht gefunden – Queue Worker nicht gestartet');
 }
 
-// ============================================================
-// 6. CRON-JOBS (ersetzt Cloudflare Cron Trigger)
-// ============================================================
-
-// Täglich 7:00 UTC (= 8:00/9:00 MEZ/MESZ)
 cron.schedule('0 7 * * *', async () => {
   console.log('Cron: Starte tägliche Jobs...');
   try {
@@ -181,11 +231,7 @@ cron.schedule('0 7 * * *', async () => {
       await workerModule.scheduled(
         { cron: '0 7 * * *', scheduledTime: Date.now() },
         env,
-        {
-          waitUntil: (promise) => {
-            promise.catch(err => console.error('Cron waitUntil Fehler:', err.message));
-          }
-        }
+        { waitUntil: (promise) => { promise.catch(err => console.error('Cron waitUntil Fehler:', err.message)); } }
       );
     }
     console.log('Cron: Tägliche Jobs abgeschlossen');
@@ -193,10 +239,6 @@ cron.schedule('0 7 * * *', async () => {
     console.error('Cron-Fehler:', err.message);
   }
 });
-
-// ============================================================
-// 7. SERVER STARTEN
-// ============================================================
 
 server.listen(PORT, () => {
   console.log(`
@@ -210,21 +252,14 @@ server.listen(PORT, () => {
   `);
 });
 
-// ============================================================
-// 8. GRACEFUL SHUTDOWN
-// ============================================================
-
 async function shutdown(signal) {
   console.log(`\n${signal} empfangen – fahre Server herunter...`);
-
   server.close(async () => {
     await closeQueues();
     await closeDB();
     console.log('Server sauber beendet.');
     process.exit(0);
   });
-
-  // Timeout falls Shutdown hängt
   setTimeout(() => {
     console.error('Shutdown-Timeout – erzwinge Beendigung');
     process.exit(1);

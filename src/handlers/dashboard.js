@@ -91,7 +91,7 @@ export async function handleGetStudents(request, env) {
     // Schüler mit class_group einer aktiven Schullizenz → als "active"/"school" anzeigen
     if (s.class_group && freeAccessSet.has(s.class_group) && status !== 'active') {
       status = 'active';
-      plan = plan || 'school';
+      plan = 'school';
     }
     return {
       name: s.name,
