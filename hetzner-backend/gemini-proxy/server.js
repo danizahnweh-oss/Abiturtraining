@@ -58,8 +58,8 @@ app.options('/{*path}', (req, res) => {
 // SESSION MANAGEMENT (ersetzt Durable Objects)
 // ============================================================
 
-// Subscription-Check direkt per DB
-async function checkStudentAccess(studentId) {
+// Subscription-Check direkt per DB (subject = gewähltes Fach im Kolloquiumstrainer)
+async function checkStudentAccess(studentId, subject) {
   if (!studentId) return false;
   try {
     // 1. Schüler laden
@@ -102,16 +102,18 @@ async function checkStudentAccess(studentId) {
       if (new Date(student.trial_end) > new Date()) return true;
     }
 
-    // 5. Fachschafts-Lizenzen prüfen
-    const { rows: [sl] } = await pool.query(
-      `SELECT 1 FROM student_subject_licenses ssl
-       JOIN subject_licenses sl ON sl.id = ssl.subject_license_id
-       WHERE ssl.student_id = $1 AND sl.active = 1
-         AND (sl.expires_at IS NULL OR sl.expires_at > $2)
-       LIMIT 1`,
-      [String(student.id), new Date().toISOString()]
-    );
-    if (sl) return true;
+    // 5. Fachschafts-Lizenzen prüfen (nur für das gewählte Fach)
+    if (subject) {
+      const { rows: [sl] } = await pool.query(
+        `SELECT 1 FROM student_subject_licenses ssl
+         JOIN subject_licenses sl ON sl.id = ssl.subject_license_id
+         WHERE ssl.student_id = $1 AND sl.subject = $2 AND sl.active = 1
+           AND (sl.expires_at IS NULL OR sl.expires_at > $3)
+         LIMIT 1`,
+        [String(student.id), subject, new Date().toISOString()]
+      );
+      if (sl) return true;
+    }
 
     return false;
   } catch (err) {
@@ -134,7 +136,7 @@ app.post('/session/create', async (req, res) => {
       });
     }
 
-    const hasAccess = await checkStudentAccess(studentId);
+    const hasAccess = await checkStudentAccess(studentId, config.subject);
     if (!hasAccess) {
       return res.set(corsHeaders()).status(403).json({
         error: 'Kein aktives Abo. Bitte schließe ein Abo ab.',
