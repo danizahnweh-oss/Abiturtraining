@@ -1128,11 +1128,13 @@ export class StatefulLiveSession {
       ? buildFeedbackInstruction(this.config)
       : buildExamInstruction(this.config);
 
-    // Session auf dem Server erstellen
+    // Session auf dem Server erstellen (mit student_id für Subscription-Check)
+    const studentId = sessionStorage.getItem('student_id') || '';
     const response = await fetch(`${WORKER_URL}/session/create`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
+        student_id: studentId,
         subject: this.config.subject,
         examLevel: this.config.examLevel,
         schwerpunkt: this.config.schwerpunkt,
@@ -1150,6 +1152,10 @@ export class StatefulLiveSession {
     });
 
     if (!response.ok) {
+      if (response.status === 403) {
+        window.location.href = '/abo.html';
+        throw new Error('Kein aktives Abo');
+      }
       throw new Error('Session-Erstellung fehlgeschlagen');
     }
 

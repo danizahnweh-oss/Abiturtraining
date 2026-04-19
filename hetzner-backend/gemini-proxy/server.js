@@ -11,6 +11,7 @@ import { createServer } from 'node:http';
 import express from 'express';
 import Redis from 'ioredis';
 import crypto from 'node:crypto';
+import pg from 'pg';
 import dotenv from 'dotenv';
 
 dotenv.config({ path: '../.env' });
@@ -19,6 +20,11 @@ const app = express();
 const server = createServer(app);
 const wss = new WebSocketServer({ noServer: true });
 const redis = new Redis(process.env.REDIS_URL || 'redis://127.0.0.1:6379');
+const pool = new pg.Pool({
+  connectionString: process.env.DATABASE_URL,
+  max: 5,
+  idleTimeoutMillis: 30000,
+});
 
 const PORT = process.env.GEMINI_PROXY_PORT || 3001;
 const GEMINI_HOST = 'generativelanguage.googleapis.com';
@@ -44,7 +50,7 @@ function corsHeaders() {
   };
 }
 
-app.options('*', (req, res) => {
+app.options('/{*path}', (req, res) => {
   res.set(corsHeaders()).status(204).end();
 });
 
@@ -52,12 +58,91 @@ app.options('*', (req, res) => {
 // SESSION MANAGEMENT (ersetzt Durable Objects)
 // ============================================================
 
+// Subscription-Check direkt per DB
+async function checkStudentAccess(studentId) {
+  if (!studentId) return false;
+  try {
+    // 1. Schüler laden
+    const { rows: [student] } = await pool.query(
+      'SELECT id, subscription_status, subscription_plan, class_group, trial_end FROM students WHERE id = $1',
+      [studentId]
+    );
+    if (!student) return false;
+
+    // 2. Aktives Abo prüfen
+    if (student.subscription_status === 'active') {
+      const { rows: [sub] } = await pool.query(
+        "SELECT current_period_end, school_license_code FROM subscriptions WHERE student_id = $1 AND status = 'active' LIMIT 1",
+        [String(student.id)]
+      );
+      if (sub) {
+        if (sub.school_license_code) {
+          const { rows: [cp] } = await pool.query(
+            'SELECT 1 FROM class_passwords WHERE UPPER(password) = UPPER($1) AND active = 1 AND free_access = 1',
+            [sub.school_license_code]
+          );
+          if (cp) return true;
+        } else if (sub.current_period_end && new Date(sub.current_period_end) > new Date()) {
+          return true;
+        }
+      }
+    }
+
+    // 3. class_group mit free_access
+    if (student.class_group) {
+      const { rows: [cp] } = await pool.query(
+        'SELECT 1 FROM class_passwords WHERE label = $1 AND active = 1 AND free_access = 1',
+        [student.class_group]
+      );
+      if (cp) return true;
+    }
+
+    // 4. Trial prüfen
+    if (student.subscription_status === 'trialing' && student.trial_end) {
+      if (new Date(student.trial_end) > new Date()) return true;
+    }
+
+    // 5. Fachschafts-Lizenzen prüfen
+    const { rows: [sl] } = await pool.query(
+      `SELECT 1 FROM student_subject_licenses ssl
+       JOIN subject_licenses sl ON sl.id = ssl.subject_license_id
+       WHERE ssl.student_id = $1 AND sl.active = 1
+         AND (sl.expires_at IS NULL OR sl.expires_at > $2)
+       LIMIT 1`,
+      [String(student.id), new Date().toISOString()]
+    );
+    if (sl) return true;
+
+    return false;
+  } catch (err) {
+    console.error('Subscription-Check Fehler:', err.message);
+    return false;
+  }
+}
+
 // Neue Session erstellen
 app.post('/session/create', async (req, res) => {
   try {
-    const sessionId = crypto.randomUUID();
     const config = req.body || {};
 
+    // Subscription-Check: student_id muss mitgeschickt werden
+    const studentId = config.student_id;
+    if (!studentId) {
+      return res.set(corsHeaders()).status(403).json({
+        error: 'Kein Zugang. Bitte melde dich an.',
+        requires_subscription: true,
+      });
+    }
+
+    const hasAccess = await checkStudentAccess(studentId);
+    if (!hasAccess) {
+      return res.set(corsHeaders()).status(403).json({
+        error: 'Kein aktives Abo. Bitte schließe ein Abo ab.',
+        requires_subscription: true,
+      });
+    }
+
+    const sessionId = crypto.randomUUID();
     const session = {
       config,
       transcript: [],
@@ -322,7 +407,7 @@ async function handleDirectWebSocket(clientWs, url) {
 // HTTP PROXY (REST-Requests an Gemini)
 // ============================================================
 
-app.all('/v1beta/*', async (req, res) => {
+app.all('/v1beta/{*path}', async (req, res) => {
   try {
     const targetUrl = `https://${GEMINI_HOST}${req.originalUrl}`;
     const headers = { 'Content-Type': 'application/json', 'x-goog-api-key': GEMINI_API_KEY };
@@ -388,6 +473,7 @@ server.listen(PORT, () => {
 process.on('SIGTERM', async () => {
   console.log('Gemini Proxy wird beendet...');
   await redis.quit();
+  await pool.end();
   server.close();
   process.exit(0);
 });
