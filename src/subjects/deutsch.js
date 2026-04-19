@@ -313,7 +313,7 @@ export async function handleGradeGeschichte(request, env) {
   const bilderHinweis = (images && images.length) ? BILDER_HINWEIS_TEXT : "";
   const messages = [
     { role: "system", content: truncate(rubric_prompt, 5000) + bilderHinweis + korrekturAnweisung },
-    { role: "user", content: buildUserContent(`${contextInfo}\nSchülertext:\n${truncate(student_text, 30000)}`, images) }
+    { role: "user", content: buildUserContent(`${contextInfo}\nSchülertext:\n${truncate(student_text, 50000)}`, images) }
   ];
 
   const openaiRes = await callOpenAI(env, messages, 8000, { temperature: 0.3 });
@@ -607,7 +607,7 @@ Antworte NUR mit validem JSON:
 
 WICHTIG: Keine Bewertung, keine Punkte, kein Feedback — nur objektive Bestandsaufnahme.`;
 
-  const userContent = buildUserContent(`${contextInfo}\nSchülertext:\n${truncate(studentText, 30000)}`, images);
+  const userContent = buildUserContent(`${contextInfo}\nSchülertext:\n${truncate(studentText, 50000)}`, images);
   const bilderHinweis = (images && images.length) ? BILDER_HINWEIS_TEXT : "";
 
   const res = await callOpenAI(env, [
@@ -654,7 +654,7 @@ export async function handleGradeDeutsch(request, env) {
   const bilderHinweis = (images && images.length) ? BILDER_HINWEIS_TEXT : "";
   const messages = [
     { role: "system", content: truncate(rubric_prompt, 5000) + bilderHinweis + korrekturAnweisung },
-    { role: "user", content: buildUserContent(`${analyseText}${contextInfo}\nSchülertext:\n${truncate(student_text, 30000)}`, images) }
+    { role: "user", content: buildUserContent(`${analyseText}${contextInfo}\nSchülertext:\n${truncate(student_text, 50000)}`, images) }
   ];
 
   const openaiRes = await callOpenAI(env, messages, 8000, { temperature: 0.3 });
@@ -744,7 +744,7 @@ export async function handleGradeDeutschStream(request, env) {
       const bilderHinweis = (images && images.length) ? BILDER_HINWEIS_TEXT : "";
       const messages = [
         { role: "system", content: truncate(rubric_prompt, 5000) + bilderHinweis + korrekturAnweisung },
-        { role: "user", content: buildUserContent(`${analyseText}${contextInfo}\nSchülertext:\n${truncate(student_text, 30000)}`, images) }
+        { role: "user", content: buildUserContent(`${analyseText}${contextInfo}\nSchülertext:\n${truncate(student_text, 50000)}`, images) }
       ];
 
       let charCount = 0;
