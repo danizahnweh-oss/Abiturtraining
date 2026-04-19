@@ -479,6 +479,17 @@ WICHTIG - TEXTLÄNGE WIE IM ECHTEN ABITUR:
 - Der Text vertritt eine deutliche Position zu einem kontroversen Thema
 - Typische Quellen: Zeitungskommentare, Kolumnen, Essays, Reden (FAZ, Die Zeit, SZ, Spiegel)
 
+ÜBERSCHRIFT PFLICHT:
+- Der Text MUSS eine realistische, journalistische Überschrift haben (wie in einer echten Zeitung)
+- Die Überschrift steht als erste Zeile des primary_text, gefolgt von einer Leerzeile und dem Fließtext
+- Beispiele: "Die Illusion der digitalen Freiheit", "Warum wir das Scheitern neu lernen müssen"
+
+ARGUMENTATIONSQUALITÄT — ABITURNIVEAU:
+- KEINE simplen Aufzählungen wie "erstens, zweitens, drittens" oder "zum einen, zum anderen, außerdem"
+- Stattdessen: verschachtelte, anspruchsvolle Argumentation mit rhetorischen Fragen, Konzessionen, Analogien, Beispielen und pointierten Wendungen
+- Der Text soll wie ein echter Meinungsartikel eines erfahrenen Journalisten klingen — mit sprachlicher Eleganz, differenzierter Argumentation und stilistischen Mitteln
+- Kernthesen sollen organisch in den Text eingeflochten sein, nicht schematisch aufgelistet
+
 Die Aufgabenstellung hat ZWEI Teile:
 - Teil a) (~40%): Analyse der zentralen Aussage und Argumentationsstruktur des Textes
 - Teil b) (~60%): Erörterung der im Text vertretenen Position (eigene Stellungnahme mit Argumenten und Beispielen)
