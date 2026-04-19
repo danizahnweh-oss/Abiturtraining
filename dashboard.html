@@ -1085,11 +1085,27 @@ details[open] > .collapsible-header .collapsible-chevron {
         <!-- Compose -->
         <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:1.25rem;margin-bottom:1.5rem;">
           <h3 style="font-size:1rem;margin-bottom:.75rem;">Neue Nachricht</h3>
+
+          <!-- Toggle: Einzel / Gruppe -->
+          <div style="display:flex;gap:0;margin-bottom:1rem;border:1px solid var(--border);border-radius:8px;overflow:hidden;max-width:360px;">
+            <button id="msgModeEinzel" onclick="setMsgMode('einzel')" style="flex:1;padding:10px 16px;border:none;cursor:pointer;font-weight:600;font-size:.85rem;min-height:44px;background:var(--accent);color:#fff;">👤 Einzeln</button>
+            <button id="msgModeGruppe" onclick="setMsgMode('gruppe')" style="flex:1;padding:10px 16px;border:none;cursor:pointer;font-weight:600;font-size:.85rem;min-height:44px;background:var(--bg);color:var(--ink);">👥 An Schulcode</button>
+          </div>
+
           <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:.75rem;">
-            <div style="flex:1;min-width:200px;">
+            <!-- Einzelempfänger -->
+            <div id="msgRecipientWrap" style="flex:1;min-width:200px;">
               <label style="font-size:.8rem;font-weight:600;display:block;margin-bottom:4px;">Empfänger (Schülername)</label>
               <input type="text" id="msgRecipient" list="studentNameList" placeholder="Name eingeben…" style="width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:8px;background:var(--bg);color:var(--ink);font-size:16px;">
               <datalist id="studentNameList"></datalist>
+            </div>
+            <!-- Gruppenempfänger -->
+            <div id="msgGroupWrap" style="flex:1;min-width:200px;display:none;">
+              <label style="font-size:.8rem;font-weight:600;display:block;margin-bottom:4px;">Schulcode</label>
+              <select id="msgClassGroup" style="width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:8px;background:var(--bg);color:var(--ink);font-size:16px;">
+                <option value="">Schulcode wählen…</option>
+              </select>
+              <span id="msgGroupCount" style="font-size:.8rem;color:var(--ink-muted);margin-top:4px;display:block;"></span>
             </div>
             <div style="flex:1;min-width:200px;">
               <label style="font-size:.8rem;font-weight:600;display:block;margin-bottom:4px;">Betreff</label>
@@ -2267,6 +2283,40 @@ function replyToFeedback(studentName) {
 /* ====== NACHRICHTEN ====== */
 let messagesData = [];
 let messagesLoaded = false;
+let currentMsgMode = "einzel";
+
+function setMsgMode(mode) {
+  currentMsgMode = mode;
+  document.getElementById("msgModeEinzel").style.background = mode === "einzel" ? "var(--accent)" : "var(--bg)";
+  document.getElementById("msgModeEinzel").style.color = mode === "einzel" ? "#fff" : "var(--ink)";
+  document.getElementById("msgModeGruppe").style.background = mode === "gruppe" ? "var(--accent)" : "var(--bg)";
+  document.getElementById("msgModeGruppe").style.color = mode === "gruppe" ? "#fff" : "var(--ink)";
+  document.getElementById("msgRecipientWrap").style.display = mode === "einzel" ? "" : "none";
+  document.getElementById("msgGroupWrap").style.display = mode === "gruppe" ? "" : "none";
+  if (mode === "gruppe") populateClassGroupDropdown();
+}
+
+function populateClassGroupDropdown() {
+  const sel = document.getElementById("msgClassGroup");
+  // Schulcodes aus den Schülerdaten extrahieren
+  const groups = {};
+  allStudents.forEach(s => {
+    if (s.class_group) {
+      groups[s.class_group] = (groups[s.class_group] || 0) + 1;
+    }
+  });
+  sel.innerHTML = '<option value="">Schulcode wählen…</option>';
+  Object.keys(groups).sort().forEach(g => {
+    const opt = document.createElement("option");
+    opt.value = g;
+    opt.textContent = g + " (" + groups[g] + " Schüler)";
+    sel.appendChild(opt);
+  });
+  sel.onchange = function() {
+    const count = groups[sel.value] || 0;
+    document.getElementById("msgGroupCount").textContent = count ? "Nachricht wird an " + count + " Schüler gesendet" : "";
+  };
+}
 
 async function loadMessages() {
   // Schülernamen-Autocomplete befüllen
@@ -2327,30 +2377,53 @@ function renderMessages(msgs) {
 }
 
 async function sendMessage() {
-  const recipient = document.getElementById("msgRecipient").value.trim();
   const subject = document.getElementById("msgSubject").value.trim();
   const body = document.getElementById("msgBody").value.trim();
-  const status = document.getElementById("msgStatus");
 
-  if (!recipient) { showMsgStatus("Bitte Schülername eingeben.", true); return; }
   if (!body) { showMsgStatus("Bitte Nachricht eingeben.", true); return; }
 
-  try {
-    const res = await fetch(API_BASE + "/api/messages/send", {
-      method: "POST",
-      headers: { "Content-Type": "application/json", "X-Teacher-Token": teacherToken },
-      body: JSON.stringify({ student_name: recipient, subject: subject || "Nachricht", body })
-    });
-    const data = await res.json();
-    if (!res.ok) { showMsgStatus(data.error || "Fehler", true); return; }
-    showMsgStatus("Nachricht an " + recipient + " gesendet!", false);
-    document.getElementById("msgRecipient").value = "";
-    document.getElementById("msgSubject").value = "";
-    document.getElementById("msgBody").value = "";
-    messagesLoaded = false;
-    loadMessages();
-  } catch (e) {
-    showMsgStatus("Verbindungsfehler: " + e.message, true);
+  if (currentMsgMode === "gruppe") {
+    const classGroup = document.getElementById("msgClassGroup").value;
+    if (!classGroup) { showMsgStatus("Bitte Schulcode wählen.", true); return; }
+    if (!confirm("Nachricht an alle Schüler von \"" + classGroup + "\" senden?")) return;
+    try {
+      const res = await fetch(API_BASE + "/api/messages/send-group", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "X-Teacher-Token": teacherToken },
+        body: JSON.stringify({ class_group: classGroup, subject: subject || "Nachricht", body })
+      });
+      const data = await res.json();
+      if (!res.ok) { showMsgStatus(data.error || "Fehler", true); return; }
+      showMsgStatus("Nachricht an " + data.sent + " Schüler gesendet!", false);
+      document.getElementById("msgClassGroup").value = "";
+      document.getElementById("msgGroupCount").textContent = "";
+      document.getElementById("msgSubject").value = "";
+      document.getElementById("msgBody").value = "";
+      messagesLoaded = false;
+      loadMessages();
+    } catch (e) {
+      showMsgStatus("Verbindungsfehler: " + e.message, true);
+    }
+  } else {
+    const recipient = document.getElementById("msgRecipient").value.trim();
+    if (!recipient) { showMsgStatus("Bitte Schülername eingeben.", true); return; }
+    try {
+      const res = await fetch(API_BASE + "/api/messages/send", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "X-Teacher-Token": teacherToken },
+        body: JSON.stringify({ student_name: recipient, subject: subject || "Nachricht", body })
+      });
+      const data = await res.json();
+      if (!res.ok) { showMsgStatus(data.error || "Fehler", true); return; }
+      showMsgStatus("Nachricht an " + recipient + " gesendet!", false);
+      document.getElementById("msgRecipient").value = "";
+      document.getElementById("msgSubject").value = "";
+      document.getElementById("msgBody").value = "";
+      messagesLoaded = false;
+      loadMessages();
+    } catch (e) {
+      showMsgStatus("Verbindungsfehler: " + e.message, true);
+    }
   }
 }
 

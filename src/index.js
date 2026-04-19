@@ -17,7 +17,7 @@ import { handleLogin, handleCheckStudent, handleGetPreferences, handleSavePrefer
 import { handleTeacherRegister, handleTeacherAuthLogin, handleTeacherCodes, handleLinkStudentCode, handleTeacherResults, handleStudentCodes, handleTeacherApprove } from './handlers/teacher.js';
 import { handleTeacherProfile, handleTeacherTasks, handleTeacherTaskResults, handleGetSharedTask, handleSubmitSharedTask, handleGenerateFromMaterials } from './handlers/teacher-tasks.js';
 import { handleTeacherLogin, handleGetResults, handleDeleteResult, handleGetStudents, handleDeleteStudent, handleClassPasswords, handleSubjectLicenses, handleGetFeedback, handleToggleFeedbackValuable, handleGetTeachers, handleApproveTeacher, handleDeleteTeacher, handleActivityFeed } from './handlers/dashboard.js';
-import { handleSendMessage, handleListMessages, handleDeleteMessage, handleStudentMessages, handleMarkMessageRead, handleReplyMessage } from './handlers/messages.js';
+import { handleSendMessage, handleSendGroupMessage, handleListMessages, handleDeleteMessage, handleStudentMessages, handleMarkMessageRead, handleReplyMessage } from './handlers/messages.js';
 import { handleStudentResults, handleCompetencyProfile, handleLearningPlan } from './handlers/analytics.js';
 import { setGradeHandlerMap, setFOSRouteHandler, handleGradeSubmit, handleGradeStatus, executeGradeHandler, cleanupOldGradingJobs, tryDeductTeacherCredit } from './handlers/grading.js';
 import { handleTeacherCreditBalance, handleTeacherCreditHistory } from './handlers/teacher-credits.js';
@@ -345,6 +345,12 @@ export default {
         if (rl) return rl;
         cleanupRateLimitMaps();
         return await handleSendMessage(request, env);
+      }
+      if (pathname === "/api/messages/send-group" && request.method === "POST") {
+        const rl = checkRateLimit(request, rateLimitMap, MAX_REQUESTS_PER_WINDOW, env);
+        if (rl) return rl;
+        cleanupRateLimitMaps();
+        return await handleSendGroupMessage(request, env);
       }
       if (pathname === "/api/messages/list" && request.method === "POST") {
         const rl = checkRateLimit(request, rateLimitMap, MAX_REQUESTS_PER_WINDOW, env);

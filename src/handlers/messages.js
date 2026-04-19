@@ -74,6 +74,49 @@ export async function handleSendMessage(request, env) {
   return jsonResponse({ success: true, id }, 200, env);
 }
 
+/* ================= DASHBOARD: GRUPPENNACHRICHT SENDEN ================= */
+export async function handleSendGroupMessage(request, env) {
+  const token = request.headers.get("X-Teacher-Token");
+  if (!env.TEACHER_PASSWORD) return jsonResponse({ error: "Server nicht konfiguriert." }, 500, env);
+  if (!token || !(await verifyToken(token, env, env.TEACHER_PASSWORD))) {
+    return jsonResponse({ error: "Nicht autorisiert." }, 401, env);
+  }
+
+  const { class_group, subject, body } = await request.json();
+  if (!class_group || typeof class_group !== "string") {
+    return jsonResponse({ error: "Schulcode (class_group) erforderlich." }, 400, env);
+  }
+  if (!body || typeof body !== "string" || body.trim().length === 0) {
+    return jsonResponse({ error: "Nachricht darf nicht leer sein." }, 400, env);
+  }
+
+  const msgSubject = (subject && typeof subject === "string") ? subject.trim().slice(0, 200) : "Nachricht";
+  const msgBody = body.trim().slice(0, 5000);
+  const now = new Date().toISOString();
+
+  // Alle Schüler mit diesem Schulcode finden
+  const { results: students } = await env.DB.prepare(
+    "SELECT name_lower FROM students WHERE class_group = ?"
+  ).bind(class_group.trim()).all();
+
+  if (!students || students.length === 0) {
+    return jsonResponse({ error: "Keine Schüler mit diesem Schulcode gefunden." }, 404, env);
+  }
+
+  let sent = 0;
+  for (const s of students) {
+    const id = crypto.randomUUID();
+    await env.DB.prepare(
+      "INSERT INTO messages (id, recipient_name_lower, subject, body, is_read, created_at) VALUES (?, ?, ?, ?, 0, ?)"
+    ).bind(id, s.name_lower, msgSubject, msgBody, now).run();
+    // Email-Benachrichtigung (async)
+    notifyByEmail(s.name_lower, msgSubject, env);
+    sent++;
+  }
+
+  return jsonResponse({ success: true, sent }, 200, env);
+}
+
 /* ================= DASHBOARD: ALLE NACHRICHTEN LADEN ================= */
 export async function handleListMessages(request, env) {
   const token = request.headers.get("X-Teacher-Token");
