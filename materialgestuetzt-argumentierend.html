@@ -58,6 +58,36 @@
       overflow-y: auto
     }
 
+    .lined-text {
+      counter-reset: line;
+      padding-left: 2.5rem;
+      position: relative;
+    }
+
+    .lined-text .text-line {
+      position: relative;
+      min-height: 1.4em;
+    }
+
+    .lined-text .text-line::before {
+      counter-increment: line;
+      content: counter(line);
+      position: absolute;
+      left: -2.5rem;
+      width: 2rem;
+      text-align: right;
+      color: var(--ink-light, #999);
+      font-size: .75rem;
+      line-height: 1.4;
+      user-select: none;
+      opacity: .7;
+    }
+
+    .lined-text .text-line:nth-child(5n)::before {
+      opacity: 1;
+      font-weight: 600;
+    }
+
     .stat-table {
       width: 100%;
       border-collapse: collapse;
@@ -596,7 +626,10 @@ gesamt_np = round(verstehen_np * 0.6 + darstellung_np * 0.4)`;
       if (type === "foto") {
         return `<div class="material-img-loading" id="img-mg-${idx}"><div class="loader-spinner"></div><span>Foto wird geladen...</span></div>`;
       }
-      return escapeHtml(content || "").replace(/\n/g, "<br>");
+      // Textmaterialien mit Zeilennummern anzeigen
+      const textLines = (content || "").split("\n");
+      const lineHtml = textLines.map(l => `<div class="text-line">${escapeHtml(l) || "&nbsp;"}</div>`).join("");
+      return `<div class="lined-text">${lineHtml}</div>`;
     }
 
     function setSetupMode(m) {
