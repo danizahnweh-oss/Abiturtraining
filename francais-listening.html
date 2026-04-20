@@ -1267,7 +1267,7 @@ OUTPUT FORMAT – Antworte NUR mit reinem JSON:
       document.getElementById("feedbackContent").style.display = "none";
 
       try {
-        var data = await apiCall("/api/grade-listening", {
+        var data = await apiCall("/api/grade-listening-french", {
           questions: listeningData.questions,
           student_answers: studentAnswers,
           transcript: listeningData.transcript

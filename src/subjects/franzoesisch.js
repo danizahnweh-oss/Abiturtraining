@@ -161,4 +161,135 @@ SPERRKLAUSEL: Wenn inhalt_np ODER sprache_np = 0, dann gesamt_np maximal 3.`;
   }
 }
 
-/* ================= ITALIENISCH: PARSE TASK (OCR) ================= */
+/* ================= FRANZÖSISCH: LISTENING GRADE ================= */
+export async function handleGradeListeningFrench(request, env) {
+  const body = await request.json();
+  const { questions, student_answers, transcript } = body;
+
+  if (!questions || !student_answers) {
+    return jsonResponse({ error: "questions and student_answers required" }, 400, env);
+  }
+
+  const shortQuestions = [];
+  let autoPoints = 0;
+  let autoMax = 0;
+  const autoResults = [];
+
+  for (const q of questions) {
+    const answer = student_answers[q.id];
+    if (q.type === "mc" || q.type === "tf") {
+      const isCorrect = answer && answer.toLowerCase() === String(q.correct).toLowerCase();
+      const pts = isCorrect ? q.points : 0;
+      autoPoints += pts;
+      autoMax += q.points;
+      autoResults.push({
+        id: q.id,
+        type: q.type,
+        question: q.question,
+        student_answer: answer || "(keine Antwort)",
+        correct_answer: q.correct,
+        points_awarded: pts,
+        max_points: q.points,
+        is_correct: isCorrect
+      });
+    } else if (q.type === "short") {
+      shortQuestions.push({ ...q, student_answer: answer || "" });
+    }
+  }
+
+  let shortResults = [];
+  let shortPoints = 0;
+  let shortMax = 0;
+
+  if (shortQuestions.length > 0) {
+    const shortPrompt = shortQuestions.map(function(q) {
+      return `Frage ${q.id}: ${q.question}\nMusterantwort: ${q.sample_answer}\nSchülerantwort: ${q.student_answer || "(keine Antwort)"}\nMax. Punkte: ${q.points}`;
+    }).join("\n\n");
+
+    const gradeRes = await callOpenAI(env, [
+      {
+        role: "system",
+        content: `Du bist ein erfahrener Französischlehrer und bewertest Kurzantworten einer Compréhension orale.
+Vergleiche die Schülerantwort semantisch mit der Musterantwort. Der Schüler muss nicht exakt die gleichen Worte verwenden – es geht um den Inhalt. Die Antworten sind auf Französisch.
+
+Bewertungsregeln:
+- Volle Punktzahl: Inhaltlich korrekt und vollständig
+- Halbe Punktzahl: Teilweise korrekt oder unvollständig
+- 0 Punkte: Falsch oder keine Antwort
+
+Antworte NUR mit validem JSON:
+{"results": [{"id": <number>, "points_awarded": <number>, "max_points": <number>, "feedback": "<kurze Begründung auf Deutsch>"}]}`
+      },
+      { role: "user", content: shortPrompt }
+    ], 3000, { temperature: 0.3 });
+
+    try {
+      const parsed = extractJSON(gradeRes);
+      shortResults = (parsed.results || []).map(function(r) {
+        var q = shortQuestions.find(function(sq) { return sq.id === r.id; });
+        shortPoints += r.points_awarded || 0;
+        shortMax += (q ? q.points : r.max_points || 2);
+        return {
+          id: r.id,
+          type: "short",
+          question: q ? q.question : "",
+          student_answer: q ? q.student_answer : "",
+          correct_answer: q ? q.sample_answer : "",
+          points_awarded: r.points_awarded || 0,
+          max_points: q ? q.points : r.max_points || 2,
+          feedback: r.feedback || ""
+        };
+      });
+    } catch (e) {
+      for (const q of shortQuestions) {
+        shortMax += q.points;
+        shortResults.push({
+          id: q.id,
+          type: "short",
+          question: q.question,
+          student_answer: q.student_answer,
+          correct_answer: q.sample_answer,
+          points_awarded: 0,
+          max_points: q.points,
+          feedback: "Konnte nicht automatisch bewertet werden."
+        });
+      }
+    }
+  }
+
+  const totalPoints = autoPoints + shortPoints;
+  const maxPoints = autoMax + shortMax;
+  const percentage = maxPoints > 0 ? Math.round(totalPoints / maxPoints * 100) : 0;
+
+  let notenpunkte;
+  if (percentage >= 95) notenpunkte = 15;
+  else if (percentage >= 90) notenpunkte = 14;
+  else if (percentage >= 85) notenpunkte = 13;
+  else if (percentage >= 80) notenpunkte = 12;
+  else if (percentage >= 75) notenpunkte = 11;
+  else if (percentage >= 70) notenpunkte = 10;
+  else if (percentage >= 65) notenpunkte = 9;
+  else if (percentage >= 60) notenpunkte = 8;
+  else if (percentage >= 55) notenpunkte = 7;
+  else if (percentage >= 50) notenpunkte = 6;
+  else if (percentage >= 45) notenpunkte = 5;
+  else if (percentage >= 40) notenpunkte = 4;
+  else if (percentage >= 33) notenpunkte = 3;
+  else if (percentage >= 27) notenpunkte = 2;
+  else if (percentage >= 20) notenpunkte = 1;
+  else notenpunkte = 0;
+
+  const gradeMap = {15:"1+",14:"1",13:"1-",12:"2+",11:"2",10:"2-",9:"3+",8:"3",7:"3-",6:"4+",5:"4",4:"4-",3:"5+",2:"5",1:"5-",0:"6"};
+  const grade = gradeMap[notenpunkte] || "6";
+
+  const allResults = autoResults.concat(shortResults).sort(function(a, b) { return a.id - b.id; });
+
+  return jsonResponse({
+    results: allResults,
+    total_points: totalPoints,
+    max_points: maxPoints,
+    percentage: percentage,
+    notenpunkte: notenpunkte,
+    grade: grade
+  }, 200, env);
+}

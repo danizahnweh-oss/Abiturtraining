@@ -61,7 +61,7 @@ import {
 
 // Fach-Handler: Französisch
 import {
-  handleParseTaskFrench, handleModelAnswerFrench, handleModelAnswerFrenchWriting, handleGradeFrench
+  handleParseTaskFrench, handleModelAnswerFrench, handleModelAnswerFrenchWriting, handleGradeFrench, handleGradeListeningFrench
 } from './subjects/franzoesisch.js';
 
 // Fach-Handler: Italienisch
@@ -601,6 +601,7 @@ ${photo ? `<div style="margin:12px 0"><p style="font-weight:600;margin-bottom:6p
       if (pathname === "/api/model-answer-french-writing" && request.method === "POST") return await handleModelAnswerFrenchWriting(request, env);
       if (pathname === "/api/parse-task-french" && request.method === "POST") return await handleParseTaskFrench(request, env);
       if (pathname === "/api/grade-french" && request.method === "POST") return await handleGradeFrench(request, env);
+      if (pathname === "/api/grade-listening-french" && request.method === "POST") return await handleGradeListeningFrench(request, env);
 
       // ===== ITALIENISCH =====
       if (pathname === "/api/model-answer-italian" && request.method === "POST") return await handleModelAnswerItalian(request, env);
