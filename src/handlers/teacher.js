@@ -82,6 +82,9 @@ export async function handleTeacherApprove(request, env) {
 
   await env.DB.prepare("UPDATE teachers SET status = 'approved' WHERE id = ?").bind(teacherId).run();
 
+  // Bestätigungs-E-Mail an Lehrkraft
+  sendTeacherApprovedEmail(env, teacher.name, teacher.email);
+
   return new Response(
     `<!DOCTYPE html><html><head><meta charset="utf-8"><title>Freischaltung</title></head><body style="font-family:system-ui;padding:2rem;text-align:center;">` +
     `<h2>✅ Freigeschaltet!</h2><p><strong>${teacher.name}</strong> (${teacher.email}) kann sich jetzt anmelden.</p></body></html>`,
@@ -268,4 +271,36 @@ export async function handleStudentCodes(request, env) {
      WHERE stl.student_name_lower = ?`
   ).bind(nameLower).all();
   return jsonResponse({ success: true, codes: codes || [] }, 200, env);
+}
+
+// E-Mail an Lehrkraft nach Freischaltung
+export async function sendTeacherApprovedEmail(env, name, email) {
+  try {
+    if (!env.RESEND_API_KEY || !email) return;
+
+    await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${env.RESEND_API_KEY}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        from: "myAbiFlow <noreply@myabiflow.de>",
+        to: [email],
+        subject: "Dein myAbiFlow-Konto ist freigeschaltet!",
+        html: `<div style="font-family:system-ui,sans-serif;max-width:500px;margin:0 auto;padding:20px">
+<h2 style="color:#2563eb;margin-top:0">Willkommen bei myAbiFlow!</h2>
+<p>Hallo ${name},</p>
+<p>dein Lehrkraft-Konto wurde soeben freigeschaltet. Du kannst dich ab jetzt mit deinem gewählten Benutzernamen und Passwort anmelden.</p>
+<p style="text-align:center;margin:24px 0">
+  <a href="https://myabiflow.de/lehrer-login.html" style="background:#2563eb;color:#fff;padding:12px 28px;border-radius:8px;text-decoration:none;font-weight:600;display:inline-block">Jetzt anmelden</a>
+</p>
+<p>Bei Fragen erreichst du uns jederzeit unter <a href="mailto:info@myabiflow.de">info@myabiflow.de</a>.</p>
+<p style="color:#888;font-size:13px;margin-top:24px">— Das myAbiFlow-Team</p>
+</div>`,
+      }),
+    });
+  } catch (e) {
+    console.error("Lehrer-Freischaltungs-E-Mail fehlgeschlagen:", e.message);
+  }
 }

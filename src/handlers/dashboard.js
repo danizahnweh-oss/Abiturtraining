@@ -1,6 +1,7 @@
 // Handler: Dashboard (Teacher Login, Results, Students, Class Passwords)
 import { jsonResponse } from '../utils.js';
 import { generateToken, verifyToken, safeCompare } from '../auth.js';
+import { sendTeacherApprovedEmail } from './teacher.js';
 
 /* ================= DASHBOARD: TEACHER LOGIN ================= */
 export async function handleTeacherLogin(request, env) {
@@ -341,7 +342,7 @@ export async function handleApproveTeacher(request, env) {
     return jsonResponse({ error: "teacher_id erforderlich." }, 400, env);
   }
 
-  const teacher = await env.DB.prepare("SELECT name, status FROM teachers WHERE id = ?").bind(teacher_id).first();
+  const teacher = await env.DB.prepare("SELECT name, email, status FROM teachers WHERE id = ?").bind(teacher_id).first();
   if (!teacher) {
     return jsonResponse({ error: "Lehrkraft nicht gefunden." }, 404, env);
   }
@@ -350,6 +351,10 @@ export async function handleApproveTeacher(request, env) {
   }
 
   await env.DB.prepare("UPDATE teachers SET status = 'approved' WHERE id = ?").bind(teacher_id).run();
+
+  // Bestätigungs-E-Mail an Lehrkraft
+  sendTeacherApprovedEmail(env, teacher.name, teacher.email);
+
   return jsonResponse({ success: true, name: teacher.name }, 200, env);
 }
 
