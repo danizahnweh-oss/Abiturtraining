@@ -281,24 +281,19 @@ export const CURRICULUM: Record<string, SubjectCurriculum> = {
     // Themengebiete nach gängiger Schulpraxis gruppiert.
     halbjahre: {
       '12/1': [
-        'La société française en mutation (multiculturalité, démographie, jeunes)',
-        'Paris et la province: urbanisation, centralisme et décentralisation',
-        'Régions à forte identité (Corse, Bretagne, Alsace, Pays basque) et patrimoine culturel',
+        'Valeurs et vie en démocratie (l\'engagement social/politique/écologique, vivre les valeurs démocratiques au quotidien, faire face aux tentations et aux menaces)',
+        'Les médias – multiples formes de communication au XXI siècle (rôle des médias dans le monde francophone, enjeux et perspectives du numérique, responsabilité des médias)',
       ],
       '12/2': [
-        'Les relations franco-allemandes (histoire, Traité de l\'Élysée, Traité d\'Aix-la-Chapelle)',
-        'La France et l\'Europe (V° République, institutions, laïcité)',
-        'Politique et histoire: de l\'Absolutisme à la République',
+        'La France et l\'Allemagne au cœur de l\'Europe (identités nationales et culturelles, relations franco-allemandes depuis 1945, coopération dans la construction de l\'Europe)',
+        'La France et la francophonie (héritage colonial, coopération dans l\'espace francophone, relation entre la France et un autre pays francophone)',
       ],
       '13/1': [
-        'La francophonie: histoire et diversité (Afrique, Québec, Antilles)',
-        'La mondialisation et ses conséquences (migration, intégration)',
-        'Économie, travail et développement durable',
+        'L\'individu dans la société (conceptions de vie du XXème et du XXIème siècle, société multiculturelle – migration/immigration/intégration, valeurs de la société – démocratie/liberté/laïcité)',
+        'Le monde du travail (choisir ses études et son métier, faire face aux défis professionnels)',
       ],
       '13/2': [
-        'Littérature française (du 17° au 21° siècle)',
-        'Le cinéma français et les médias francophones',
-        'Arts, chansons et culture en France',
+        'Les enjeux de la mondialisation (pays francophones et protection de l\'environnement, développement durable et économie responsable en France, marchés culturels français face aux effets de la mondialisation)',
       ],
     },
   },
