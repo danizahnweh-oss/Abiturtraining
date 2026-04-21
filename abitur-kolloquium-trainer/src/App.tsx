@@ -477,12 +477,12 @@ export default function App() {
   /* ── Prüfungs-Wiederherstellung nach Seiten-Reload ── */
   useEffect(() => {
     try {
-      const raw = sessionStorage.getItem('kolloquium_active_exam');
+      const raw = localStorage.getItem('kolloquium_active_exam');
       if (!raw) return;
       const data = JSON.parse(raw);
-      // Nur anbieten wenn die Prüfung nicht älter als 30 Minuten ist
-      if (Date.now() - data.timestamp > 30 * 60 * 1000) {
-        sessionStorage.removeItem('kolloquium_active_exam');
+      // Nur anbieten wenn die Prüfung nicht älter als 24 Stunden ist
+      if (Date.now() - data.timestamp > 24 * 60 * 60 * 1000) {
+        localStorage.removeItem('kolloquium_active_exam');
         return;
       }
       setRecoveryData(data);
@@ -540,7 +540,7 @@ export default function App() {
 
   const dismissRecovery = () => {
     setRecoveryData(null);
-    sessionStorage.removeItem('kolloquium_active_exam');
+    localStorage.removeItem('kolloquium_active_exam');
   };
 
   /* ── Reset helpers ── */
@@ -690,17 +690,17 @@ export default function App() {
   const stopExam = () => {
     // Transkripte sichern bevor Session gestoppt wird (für Feedback)
     try {
-      sessionStorage.setItem('kolloquium_transcript_backup', JSON.stringify({
+      localStorage.setItem('kolloquium_transcript_backup', JSON.stringify({
         modelTx, userTx, timestamp: Date.now(),
       }));
-    } catch { /* sessionStorage voll */ }
+    } catch { /* localStorage voll */ }
 
     sessionRef.current?.stop();
     sessionRef.current = null;
     exam.stop();
     setStatus('disconnected');
     setStep('feedback-choice');
-    sessionStorage.removeItem('kolloquium_active_exam');
+    localStorage.removeItem('kolloquium_active_exam');
   };
 
   /** Transkript-Fallback: Lokal → sessionStorage-Backup → Server (StatefulLiveSession) */
@@ -709,7 +709,7 @@ export default function App() {
     if (modelTx.length > 0 || userTx.length > 0) return { mTx: [...modelTx], uTx: [...userTx] };
     // 2) sessionStorage-Backup
     try {
-      const backup = JSON.parse(sessionStorage.getItem('kolloquium_transcript_backup') || '{}');
+      const backup = JSON.parse(localStorage.getItem('kolloquium_transcript_backup') || '{}');
       if (backup.modelTx?.length > 0) return { mTx: backup.modelTx, uTx: backup.userTx || [] };
     } catch { /* ignorieren */ }
     // 3) Server-Transkript (StatefulLiveSession)
@@ -820,22 +820,22 @@ export default function App() {
     setSpHalbjahr('');
     setSchwerpunkt('');
     prep.reset(30 * 60);
-    sessionStorage.removeItem('kolloquium_active_exam');
-    sessionStorage.removeItem('kolloquium_transcript_backup');
+    localStorage.removeItem('kolloquium_active_exam');
+    localStorage.removeItem('kolloquium_transcript_backup');
   };
 
-  /* ── Prüfungsstatus in sessionStorage sichern (für Wiederherstellung nach Reload) ── */
+  /* ── Prüfungsstatus in localStorage sichern (für Wiederherstellung nach Tab-Schließen) ── */
   useEffect(() => {
     if (step !== 'exam') return;
     const save = () => {
       try {
-        sessionStorage.setItem('kolloquium_active_exam', JSON.stringify({
+        localStorage.setItem('kolloquium_active_exam', JSON.stringify({
           subject, examLevel: level, examMode, schwerpunkt, spHalbjahr,
           weitereHJ, gestrichen, material, matImpulse,
           modelTx, userTx, elapsed: exam.elapsed,
           examinerGender, prueferTyp, timestamp: Date.now(),
         }));
-      } catch { /* sessionStorage voll */ }
+      } catch { /* localStorage voll */ }
     };
     save();
     const interval = setInterval(save, 15_000);
@@ -846,16 +846,16 @@ export default function App() {
   useEffect(() => {
     if (step !== 'exam' || (status !== 'error' && status !== 'reconnecting')) return;
     try {
-      sessionStorage.setItem('kolloquium_active_exam', JSON.stringify({
+      localStorage.setItem('kolloquium_active_exam', JSON.stringify({
         subject, examLevel: level, examMode, schwerpunkt, spHalbjahr,
         weitereHJ, gestrichen, material, matImpulse,
         modelTx, userTx, elapsed: exam.elapsed,
         examinerGender, prueferTyp, timestamp: Date.now(),
       }));
-      sessionStorage.setItem('kolloquium_transcript_backup', JSON.stringify({
+      localStorage.setItem('kolloquium_transcript_backup', JSON.stringify({
         modelTx, userTx, timestamp: Date.now(),
       }));
-    } catch { /* sessionStorage voll */ }
+    } catch { /* localStorage voll */ }
   }, [status]);
 
   /* ───────── RENDER ───────── */
