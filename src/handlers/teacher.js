@@ -286,6 +286,7 @@ export async function sendTeacherApprovedEmail(env, name, email) {
       },
       body: JSON.stringify({
         from: "myAbiFlow <noreply@myabiflow.de>",
+        reply_to: "info@myabiflow.de",
         to: [email],
         subject: "Dein myAbiFlow-Konto ist freigeschaltet!",
         html: `<div style="font-family:system-ui,sans-serif;max-width:500px;margin:0 auto;padding:20px">
