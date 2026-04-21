@@ -283,17 +283,22 @@ export const CURRICULUM: Record<string, SubjectCurriculum> = {
       '12/1': [
         'Valeurs et vie en démocratie (l\'engagement social/politique/écologique, vivre les valeurs démocratiques au quotidien, faire face aux tentations et aux menaces)',
         'Les médias – multiples formes de communication au XXI siècle (rôle des médias dans le monde francophone, enjeux et perspectives du numérique, responsabilité des médias)',
+        'L\'individu dans la société (conceptions de vie du XXème et du XXIème siècle, société multiculturelle – migration/immigration/intégration, valeurs de la société – démocratie/liberté/laïcité)',
       ],
       '12/2': [
         'La France et l\'Allemagne au cœur de l\'Europe (identités nationales et culturelles, relations franco-allemandes depuis 1945, coopération dans la construction de l\'Europe)',
         'La France et la francophonie (héritage colonial, coopération dans l\'espace francophone, relation entre la France et un autre pays francophone)',
-      ],
-      '13/1': [
-        'L\'individu dans la société (conceptions de vie du XXème et du XXIème siècle, société multiculturelle – migration/immigration/intégration, valeurs de la société – démocratie/liberté/laïcité)',
         'Le monde du travail (choisir ses études et son métier, faire face aux défis professionnels)',
       ],
-      '13/2': [
+      '13/1': [
         'Les enjeux de la mondialisation (pays francophones et protection de l\'environnement, développement durable et économie responsable en France, marchés culturels français face aux effets de la mondialisation)',
+        'Valeurs et vie en démocratie – Vertiefung (faire face aux tentations et aux menaces au quotidien, engagement écologique et politique dans la société contemporaine)',
+        'L\'individu dans la société – Vertiefung (la société multiculturelle en France, migration/immigration/intégration, valeurs de la République – démocratie/liberté/laïcité)',
+      ],
+      '13/2': [
+        'La France et la francophonie – Vertiefung (coopération dans l\'espace francophone dans une perspective globale, relation entre la France et un autre pays francophone)',
+        'Le monde du travail – Vertiefung (faire face aux défis professionnels du XXIème siècle, mobilité et digitalisation)',
+        'Les médias – Vertiefung (les enjeux et les perspectives du numérique, responsabilité des médias et fake news, liberté d\'expression)',
       ],
     },
   },
