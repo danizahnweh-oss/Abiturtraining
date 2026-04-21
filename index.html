@@ -3576,6 +3576,7 @@
       <br>
       <button class="btn" id="loginBtn" style="width:100%" onclick="doLogin()">Anmelden</button>
       <div id="loginError" class="login-error" role="alert" aria-live="polite"></div>
+      <a href="reset-password.html" id="forgotPasswordLink" style="display:block;text-align:center;margin-top:.8rem;font-size:.85rem;color:var(--ink-muted);text-decoration:none;">Passwort vergessen?</a>
     </div>
   </div>
 
@@ -6535,6 +6536,7 @@
       document.getElementById("personalPassword").placeholder = mode === "register" ? "Eigenes Passwort w\u00e4hlen \u2026" : "Dein Passwort \u2026";
       document.getElementById("personalPassword").autocomplete = mode === "register" ? "new-password" : "current-password";
       document.getElementById("loginError").style.display = "none";
+      document.getElementById("forgotPasswordLink").style.display = mode === "register" ? "none" : "block";
     }
 
     async function doLogin() {

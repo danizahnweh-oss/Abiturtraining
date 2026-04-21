@@ -886,6 +886,7 @@
       <br>
       <button class="btn" id="loginBtn" style="width:100%" onclick="doLogin()">Anmelden</button>
       <div id="loginError" class="login-error" role="alert" aria-live="polite"></div>
+      <a href="https://myabiflow.de/reset-password.html" id="forgotPasswordLink" style="display:block;text-align:center;margin-top:.8rem;font-size:.85rem;color:var(--ink-muted);text-decoration:none;">Passwort vergessen?</a>
       <a href="https://myabiflow.de" class="cross-link-banner" style="margin-top:1.2rem;">
         Du bist am Gymnasium? → myabiflow.de
       </a>
@@ -1373,6 +1374,7 @@
       document.getElementById("registerFields").style.display = mode === "register" ? "block" : "none";
       document.getElementById("personalPassword").placeholder = mode === "register" ? "Eigenes Passwort wählen …" : "Dein Passwort …";
       document.getElementById("loginError").style.display = "none";
+      document.getElementById("forgotPasswordLink").style.display = mode === "register" ? "none" : "block";
     }
 
     async function doLogin() {

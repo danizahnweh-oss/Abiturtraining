@@ -24,6 +24,7 @@ import { handleTeacherCreditBalance, handleTeacherCreditHistory } from './handle
 import { handleGenerateImage, handleFetchUnsplash, handleSubmitResult } from './handlers/media.js';
 import { handleDetailFeedback, handleRewrite } from './handlers/features.js';
 import { handleUnsubscribe, sendReminderEmails } from './handlers/email.js';
+import { handleForgotPassword, handleResetPassword, handleVerifyResetToken } from './handlers/password-reset.js';
 import { handleCreateCheckout, handleStripeWebhook, handleSubscriptionStatus, handleCustomerPortal, handleStartTrial, handleRedeemLicense } from './handlers/stripe.js';
 
 // Fach-Handler: Englisch
@@ -247,6 +248,23 @@ export default {
         if (loginLimit) return loginLimit;
         cleanupRateLimitMaps();
         return await handleCheckStudent(request, env);
+      }
+
+      // ===== PASSWORT-RESET ENDPOINTS (Rate-Limited) =====
+      if (pathname === "/api/forgot-password" && request.method === "POST") {
+        const loginLimit = checkRateLimit(request, loginRateLimitMap, MAX_LOGIN_ATTEMPTS, env);
+        if (loginLimit) return loginLimit;
+        cleanupRateLimitMaps();
+        return await handleForgotPassword(request, env);
+      }
+      if (pathname === "/api/reset-password" && request.method === "POST") {
+        const loginLimit = checkRateLimit(request, loginRateLimitMap, MAX_LOGIN_ATTEMPTS, env);
+        if (loginLimit) return loginLimit;
+        cleanupRateLimitMaps();
+        return await handleResetPassword(request, env);
+      }
+      if (pathname === "/api/verify-reset-token" && request.method === "POST") {
+        return await handleVerifyResetToken(request, env);
       }
 
       // ===== DASHBOARD ENDPOINTS (Token-basiert) =====
