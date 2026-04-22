@@ -468,6 +468,10 @@ export async function ensureMigrations(env) {
       await env.DB.prepare("ALTER TABLE students ALTER COLUMN email SET DEFAULT ''").run();
     } catch (_) { /* Constraint existiert bereits oder D1 unterstützt es nicht */ }
 
+    // Retention-Emails: Onboarding-Stage + Opt-out
+    await addCol("onboarding_stage", "INTEGER DEFAULT 0");
+    await addCol("retention_optout", "INTEGER DEFAULT 0");
+
     _migrated = true;
   } catch (e) {
     console.error("Migration error:", e);

@@ -1,6 +1,11 @@
-// Handler: Email (Unsubscribe, Reminder Emails)
+// Handler: Email (Unsubscribe, Reminder Emails, Retention)
 import { jsonResponse } from '../utils.js';
 import { SUBJECT_TYPES_MAP, SUBJECT_NAMES, SUBJECT_ICONS } from './student.js';
+
+// TEST-MODUS: Alle Retention-Emails gehen nur an diese Adresse
+// Auf false setzen wenn alles passt, dann bekommen alle Schüler die Emails
+const RETENTION_TEST_MODE = true;
+const RETENTION_TEST_EMAIL = "info@myabiflow.de";
 
 /* ================= UNSUBSCRIBE ================= */
 export async function handleUnsubscribe(request, env) {
@@ -31,9 +36,9 @@ export async function handleUnsubscribe(request, env) {
     const valid = await crypto.subtle.verify("HMAC", key, sigBytes, new TextEncoder().encode(payload));
     if (!valid) throw new Error("Ungültig");
 
-    await env.DB.prepare("UPDATE students SET reminder_interval = 0 WHERE name_lower = ?").bind(nameLower).run();
+    await env.DB.prepare("UPDATE students SET reminder_interval = 0, retention_optout = 1 WHERE name_lower = ?").bind(nameLower).run();
 
-    return new Response(unsubscribePage("Du erhältst ab sofort keine Erinnerungs-Emails mehr. Du kannst die Erinnerungen jederzeit in der App wieder aktivieren."), {
+    return new Response(unsubscribePage("Du erhältst ab sofort keine Emails mehr von myAbiFlow. Du kannst die Erinnerungen jederzeit in der App wieder aktivieren."), {
       status: 200, headers: { "Content-Type": "text/html; charset=utf-8" }
     });
   } catch {
@@ -120,6 +125,299 @@ Du kannst die Erinnerungsfrequenz jederzeit in der App ändern.<br>
 </div></body></html>`;
 }
 
+/* ================= RETENTION-EMAILS (CRON) ================= */
+
+// Hilfsfunktion: Email über Resend senden (im Test-Modus nur an Test-Adresse)
+async function sendEmail(env, to, subject, html) {
+  const recipient = RETENTION_TEST_MODE ? RETENTION_TEST_EMAIL : to;
+  const testPrefix = RETENTION_TEST_MODE ? `[TEST an ${to}] ` : "";
+  const res = await fetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: {
+      "Authorization": `Bearer ${env.RESEND_API_KEY}`,
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      from: "myAbiFlow <erinnerung@myabiflow.de>",
+      reply_to: "info@myabiflow.de",
+      to: [recipient],
+      subject: testPrefix + subject,
+      html
+    })
+  });
+  if (!res.ok) {
+    const errBody = await res.text();
+    throw new Error(`Resend ${res.status}: ${errBody}`);
+  }
+  return true;
+}
+
+// Gemeinsamer Email-Wrapper (Header + Footer mit Unsubscribe)
+function emailWrapper(content, unsubscribeUrl) {
+  return `<!DOCTYPE html><html lang="de"><head><meta charset="utf-8"></head>
+<body style="font-family:system-ui,sans-serif;background:#f0f0f5;padding:20px;margin:0">
+<div style="max-width:500px;margin:0 auto;background:#fff;border-radius:12px;padding:24px;box-shadow:0 2px 12px rgba(0,0,0,.1)">
+${content}
+<p style="font-size:12px;color:#999;margin-top:24px;border-top:1px solid #eee;padding-top:12px">
+Du kannst die Emails jederzeit in der App unter Einstellungen deaktivieren.<br>
+<a href="${unsubscribeUrl}" style="color:#999">Emails abbestellen</a>
+</p>
+</div></body></html>`;
+}
+
+// ── Onboarding-Mail 1: Willkommen (1 Tag nach Registrierung) ──
+function buildWelcomeEmail(studentName, unsubscribeUrl) {
+  return emailWrapper(`
+<h2 style="color:#2563eb;margin-top:0">Willkommen bei myAbiFlow!</h2>
+<p>Hallo ${studentName},</p>
+<p>schön, dass du dabei bist! myAbiFlow hilft dir, dich gezielt aufs Abitur vorzubereiten – mit KI-gestütztem Feedback zu deinen Übungen.</p>
+<h3 style="color:#333;font-size:16px">So startest du am besten:</h3>
+<ol style="color:#555;line-height:1.8">
+<li><strong>Abifächer einstellen</strong> – Geh in die Einstellungen und wähle deine Prüfungsfächer aus</li>
+<li><strong>Erste Übung machen</strong> – Probier eine Klausurübung in deinem stärksten Fach aus</li>
+<li><strong>Feedback lesen</strong> – Die KI zeigt dir genau, wo du stehst und was du verbessern kannst</li>
+</ol>
+<p style="text-align:center;margin:24px 0">
+<a href="https://myabiflow.de" style="background:#2563eb;color:#fff;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:600;display:inline-block">Jetzt loslegen →</a>
+</p>
+<p style="color:#666;font-size:14px">Tipp: Regelmäßiges Üben bringt mehr als lange Lern-Sessions vor der Prüfung. Schon 20 Minuten pro Tag machen einen großen Unterschied!</p>
+`, unsubscribeUrl);
+}
+
+// ── Onboarding-Mail 2: Noch nicht geübt (3 Tage nach Registrierung) ──
+function buildNudgeEmail(studentName, unsubscribeUrl) {
+  return emailWrapper(`
+<h2 style="color:#2563eb;margin-top:0">Noch keine Übung gemacht?</h2>
+<p>Hallo ${studentName},</p>
+<p>du hast dich vor ein paar Tagen bei myAbiFlow angemeldet, aber noch keine Übung ausprobiert.</p>
+<p>Kein Problem – der Einstieg ist ganz einfach:</p>
+<ul style="color:#555;line-height:1.8">
+<li>Wähle ein Fach aus (z.B. Mathe, Deutsch oder Englisch)</li>
+<li>Bearbeite eine Aufgabe – das dauert nur 10-15 Minuten</li>
+<li>Du bekommst sofort detailliertes Feedback</li>
+</ul>
+<p style="text-align:center;margin:24px 0">
+<a href="https://myabiflow.de" style="background:#2563eb;color:#fff;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:600;display:inline-block">Erste Übung starten →</a>
+</p>
+`, unsubscribeUrl);
+}
+
+// ── Inaktivitäts-Mail (7+ Tage keine Übung) ──
+function buildInactivityEmail(studentName, daysSince, unsubscribeUrl) {
+  return emailWrapper(`
+<h2 style="color:#2563eb;margin-top:0">Wir vermissen dich!</h2>
+<p>Hallo ${studentName},</p>
+<p>deine letzte Übung ist <strong>${daysSince} Tage</strong> her. Regelmäßiges Üben ist der Schlüssel zum Erfolg im Abitur.</p>
+<p>Schon eine kurze Übung pro Woche hilft, das Gelernte nicht zu vergessen und sicherer zu werden.</p>
+<p style="text-align:center;margin:24px 0">
+<a href="https://myabiflow.de" style="background:#2563eb;color:#fff;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:600;display:inline-block">Weitermachen →</a>
+</p>
+`, unsubscribeUrl);
+}
+
+// ── Wöchentlicher Lernimpuls ──
+const WEEKLY_TIPS = [
+  { subject: "Deutsch", tip: "Übe heute eine Gedichtanalyse – achte besonders auf die sprachlichen Mittel und ihre Wirkung.", fach: "german" },
+  { subject: "Mathe", tip: "Wiederhole Ableitungsregeln: Ketten-, Produkt- und Quotientenregel. Rechne 3 Aufgaben durch.", fach: "mathe" },
+  { subject: "Englisch", tip: "Schreibe eine Mediation – übersetze einen deutschen Artikel sinngemäß ins Englische. Das wird oft unterschätzt!", fach: "english" },
+  { subject: "Geschichte", tip: "Erstelle eine Zeitleiste zu einem Schwerpunktthema. Zusammenhänge erkennen ist wichtiger als Jahreszahlen auswendig lernen.", fach: "history" },
+  { subject: "Deutsch", tip: "Übe eine Erörterung: These aufstellen, Pro-/Contra-Argumente sammeln, Schluss formulieren. 45 Minuten reichen.", fach: "german" },
+  { subject: "Mathe", tip: "Stochastik: Übe Binomialverteilung und Hypothesentests. Diese Aufgaben kommen fast immer dran.", fach: "mathe" },
+  { subject: "Englisch", tip: "Lies einen englischen Zeitungsartikel und fasse ihn in 5 Sätzen zusammen. Das trainiert dein Textverständnis.", fach: "english" },
+];
+
+function buildWeeklyEmail(studentName, tip, unsubscribeUrl) {
+  return emailWrapper(`
+<h2 style="color:#2563eb;margin-top:0">Dein Lernimpuls der Woche</h2>
+<p>Hallo ${studentName},</p>
+<div style="background:#f8fafc;border-left:4px solid #2563eb;padding:16px;border-radius:0 8px 8px 0;margin:16px 0">
+<p style="margin:0;font-size:15px"><strong>${tip.subject}:</strong> ${tip.tip}</p>
+</div>
+<p style="text-align:center;margin:24px 0">
+<a href="https://myabiflow.de" style="background:#2563eb;color:#fff;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:600;display:inline-block">Jetzt üben →</a>
+</p>
+`, unsubscribeUrl);
+}
+
+// ── Abitur-Start: Viel-Erfolg-Mail ──
+function buildExamGoodLuckEmail(studentName, examSubject, examDate, unsubscribeUrl) {
+  const subjectName = SUBJECT_NAMES[examSubject] || examSubject;
+  const icon = SUBJECT_ICONS[examSubject] || "📚";
+  return emailWrapper(`
+<h2 style="color:#2563eb;margin-top:0">${icon} Viel Erfolg bei der Prüfung!</h2>
+<p>Hallo ${studentName},</p>
+<p>morgen ist es soweit – deine <strong>${subjectName}-Abiturprüfung</strong> steht an!</p>
+<div style="background:#f0fdf4;border-left:4px solid #22c55e;padding:16px;border-radius:0 8px 8px 0;margin:16px 0">
+<p style="margin:0;font-size:15px;color:#166534">Du hast dich vorbereitet und kannst das schaffen. Vertrau auf das, was du gelernt hast!</p>
+</div>
+<h3 style="color:#333;font-size:15px">Tipps für morgen:</h3>
+<ul style="color:#555;line-height:1.8;font-size:14px">
+<li>Lies die Aufgaben <strong>ganz durch</strong>, bevor du anfängst</li>
+<li>Teile dir die Zeit gut ein – markiere dir Zwischenzeiten</li>
+<li>Starte mit der Aufgabe, die dir am leichtesten fällt</li>
+<li>Schreibe bei Textaufgaben immer etwas – leere Seiten geben null Punkte</li>
+</ul>
+<p style="text-align:center;font-size:24px;margin:20px 0">💪 Du packst das! 💪</p>
+<p style="color:#666;font-size:13px;text-align:center">Das gesamte myAbiFlow-Team drückt dir die Daumen!</p>
+`, unsubscribeUrl);
+}
+
+// ── Haupt-Funktion: Alle Retention-Emails senden ──
+export async function sendRetentionEmails(env) {
+  console.log("Cron: sendRetentionEmails gestartet");
+
+  if (!env.RESEND_API_KEY) {
+    console.error("Cron: RESEND_API_KEY nicht gesetzt — Abbruch!");
+    return;
+  }
+
+  const now = Date.now();
+  const BASE_URL = "https://myabiflow.de/api";
+
+  // Alle Schüler laden die Retention-Mails bekommen können
+  const { results: students } = await env.DB.prepare(
+    `SELECT name, name_lower, email, created_at, onboarding_stage, retention_optout
+     FROM students
+     WHERE email IS NOT NULL AND email != '' AND email != 'fehlt@unbekannt.de'
+       AND retention_optout = 0`
+  ).all();
+
+  if (!students || students.length === 0) {
+    console.log("Cron: Keine Schüler für Retention-Emails");
+    return;
+  }
+
+  let sentCount = 0;
+
+  for (const student of students) {
+    try {
+      const unsubToken = await generateUnsubscribeToken(student.name_lower, env);
+      const unsubUrl = `${BASE_URL}/unsubscribe?token=${encodeURIComponent(unsubToken)}`;
+      const createdAt = new Date(student.created_at).getTime();
+      const daysSinceRegister = Math.floor((now - createdAt) / 86400000);
+      const stage = student.onboarding_stage || 0;
+
+      // ── Onboarding-Mail 1: Willkommen (nach 1 Tag) ──
+      if (stage === 0 && daysSinceRegister >= 1) {
+        console.log(`Sende Willkommens-Mail an ${student.name_lower}`);
+        await sendEmail(env, student.email, "Willkommen bei myAbiFlow – so startest du am besten", buildWelcomeEmail(student.name, unsubUrl));
+        await env.DB.prepare("UPDATE students SET onboarding_stage = 1 WHERE name_lower = ?").bind(student.name_lower).run();
+        sentCount++;
+        continue; // Max 1 Mail pro Schüler pro Cron-Run
+      }
+
+      // ── Onboarding-Mail 2: Nudge (nach 3 Tagen, nur wenn keine Übung) ──
+      if (stage === 1 && daysSinceRegister >= 3) {
+        const { results: activityRows } = await env.DB.prepare(
+          "SELECT COUNT(*) as cnt FROM results WHERE LOWER(TRIM(student_name)) = ?"
+        ).bind(student.name_lower).all();
+        const hasResults = activityRows?.[0]?.cnt > 0;
+
+        if (!hasResults) {
+          console.log(`Sende Nudge-Mail an ${student.name_lower}`);
+          await sendEmail(env, student.email, "myAbiFlow – Starte deine erste Übung", buildNudgeEmail(student.name, unsubUrl));
+        }
+        await env.DB.prepare("UPDATE students SET onboarding_stage = 2 WHERE name_lower = ?").bind(student.name_lower).run();
+        sentCount++;
+        continue;
+      }
+
+      // Ab hier: Nur für Schüler die Onboarding abgeschlossen haben (stage >= 2)
+      if (stage < 2) continue;
+
+      // ── Inaktivitäts-Mail (7+ Tage keine Übung, max 1x pro 14 Tage) ──
+      const { results: lastActivity } = await env.DB.prepare(
+        "SELECT MAX(created_at) as last_date FROM results WHERE LOWER(TRIM(student_name)) = ?"
+      ).bind(student.name_lower).all();
+
+      const lastDate = lastActivity?.[0]?.last_date;
+      if (lastDate) {
+        const daysSinceActivity = Math.floor((now - new Date(lastDate).getTime()) / 86400000);
+
+        if (daysSinceActivity >= 7) {
+          // Prüfen ob letzte Erinnerung min. 14 Tage her
+          const { results: lastReminder } = await env.DB.prepare(
+            "SELECT last_reminder_sent FROM students WHERE name_lower = ?"
+          ).bind(student.name_lower).all();
+          const lastSent = lastReminder?.[0]?.last_reminder_sent;
+          const daysSinceLastMail = lastSent ? Math.floor((now - new Date(lastSent).getTime()) / 86400000) : 999;
+
+          if (daysSinceLastMail >= 14) {
+            console.log(`Sende Inaktivitäts-Mail an ${student.name_lower} (${daysSinceActivity} Tage inaktiv)`);
+            await sendEmail(env, student.email, "myAbiFlow – Wir vermissen dich!", buildInactivityEmail(student.name, daysSinceActivity, unsubUrl));
+            await env.DB.prepare("UPDATE students SET last_reminder_sent = ? WHERE name_lower = ?").bind(new Date().toISOString(), student.name_lower).run();
+            sentCount++;
+            continue;
+          }
+        }
+      }
+
+      // ── Wöchentlicher Lernimpuls (nur Montags) ──
+      const today = new Date();
+      if (today.getUTCDay() === 1) { // Montag
+        const lastSentRow = await env.DB.prepare(
+          "SELECT last_reminder_sent FROM students WHERE name_lower = ?"
+        ).bind(student.name_lower).first();
+        const lastSent = lastSentRow?.last_reminder_sent;
+        const daysSinceLastMail = lastSent ? Math.floor((now - new Date(lastSent).getTime()) / 86400000) : 999;
+
+        if (daysSinceLastMail >= 6) { // Max 1 pro Woche
+          const weekNum = Math.floor(now / (7 * 86400000));
+          const tip = WEEKLY_TIPS[weekNum % WEEKLY_TIPS.length];
+          console.log(`Sende Lernimpuls an ${student.name_lower}: ${tip.subject}`);
+          await sendEmail(env, student.email, `myAbiFlow – Lernimpuls: ${tip.subject}`, buildWeeklyEmail(student.name, tip, unsubUrl));
+          await env.DB.prepare("UPDATE students SET last_reminder_sent = ? WHERE name_lower = ?").bind(new Date().toISOString(), student.name_lower).run();
+          sentCount++;
+        }
+      }
+
+    } catch (err) {
+      console.error(`Retention-Email-Fehler für ${student.name_lower}:`, err.message);
+    }
+  }
+
+  // ── Abitur-Viel-Erfolg-Mails (Tag vor der Prüfung) ──
+  // Separat, weil hier exam_subjects gebraucht werden
+  const { results: examStudents } = await env.DB.prepare(
+    `SELECT name, name_lower, email, exam_subjects
+     FROM students
+     WHERE email IS NOT NULL AND email != '' AND email != 'fehlt@unbekannt.de'
+       AND retention_optout = 0 AND exam_subjects IS NOT NULL AND exam_subjects != '{}'`
+  ).all();
+
+  if (examStudents && examStudents.length > 0) {
+    const tomorrow = new Date(now + 86400000);
+    const tomorrowStr = tomorrow.toISOString().slice(0, 10); // YYYY-MM-DD
+
+    for (const student of examStudents) {
+      try {
+        const examSubjects = JSON.parse(student.exam_subjects || "{}");
+        const eaSubject = examSubjects.ea || null;
+        const allExam = [...(examSubjects.written || []), ...(examSubjects.oral || [])];
+
+        for (const subj of allExam) {
+          const isEa = subj === eaSubject;
+          const examDateStr = getExamDateStr(subj, isEa);
+          if (examDateStr === tomorrowStr) {
+            const unsubToken = await generateUnsubscribeToken(student.name_lower, env);
+            const unsubUrl = `${BASE_URL}/unsubscribe?token=${encodeURIComponent(unsubToken)}`;
+            const subjectName = SUBJECT_NAMES[subj] || subj;
+            console.log(`Sende Viel-Erfolg-Mail an ${student.name_lower} für ${subjectName} (Prüfung: ${examDateStr})`);
+            await sendEmail(env, student.email, `Morgen ist ${subjectName}-Abitur – Viel Erfolg! 💪`, buildExamGoodLuckEmail(student.name, subj, examDateStr, unsubUrl));
+            sentCount++;
+            break; // Max 1 Viel-Erfolg-Mail pro Schüler pro Tag
+          }
+        }
+      } catch (err) {
+        console.error(`Viel-Erfolg-Mail-Fehler für ${student.name_lower}:`, err.message);
+      }
+    }
+  }
+
+  console.log(`Cron: sendRetentionEmails fertig — ${sentCount} Emails gesendet`);
+}
+
+/* ================= BESTEHENDE ERINNERUNGS-EMAILS (CRON) ================= */
 export async function sendReminderEmails(env) {
   console.log("Cron: sendReminderEmails gestartet");
 

@@ -23,7 +23,7 @@ import { setGradeHandlerMap, setFOSRouteHandler, handleGradeSubmit, handleGradeS
 import { handleTeacherCreditBalance, handleTeacherCreditHistory } from './handlers/teacher-credits.js';
 import { handleGenerateImage, handleFetchUnsplash, handleSubmitResult } from './handlers/media.js';
 import { handleDetailFeedback, handleRewrite } from './handlers/features.js';
-import { handleUnsubscribe, sendReminderEmails } from './handlers/email.js';
+import { handleUnsubscribe, sendReminderEmails, sendRetentionEmails } from './handlers/email.js';
 import { handleForgotPassword, handleResetPassword, handleVerifyResetToken } from './handlers/password-reset.js';
 import { handleCreateCheckout, handleStripeWebhook, handleSubscriptionStatus, handleCustomerPortal, handleStartTrial, handleRedeemLicense } from './handlers/stripe.js';
 
@@ -809,6 +809,7 @@ ${photo ? `<div style="margin:12px 0"><p style="font-weight:600;margin-bottom:6p
   // Täglicher Cron-Job
   async scheduled(event, env, ctx) {
     ctx.waitUntil(sendReminderEmails(env));
+    ctx.waitUntil(sendRetentionEmails(env));
     ctx.waitUntil(cleanupOldGradingJobs(env));
   },
 
