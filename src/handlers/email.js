@@ -111,6 +111,7 @@ export function buildReminderEmail(studentName, overdueSubjects, unsubscribeUrl,
 
   return `<!DOCTYPE html><html lang="de"><head><meta charset="utf-8"></head><body style="font-family:system-ui,sans-serif;background:#f0f0f5;padding:20px;margin:0">
 <div style="max-width:500px;margin:0 auto;background:#fff;border-radius:12px;padding:24px;box-shadow:0 2px 12px rgba(0,0,0,.1)">
+<a href="https://myabiflow.de" style="display:block;text-align:center;margin-bottom:20px;text-decoration:none"><img src="https://myabiflow.de/logo-v2.png" alt="myAbiFlow" width="140" style="width:140px;height:auto" /></a>
 <h2 style="color:#2563eb;margin-top:0">myAbiFlow – Erinnerung</h2>
 <p>Hallo ${studentName},</p>
 <p>du hast folgende Abifächer seit einiger Zeit nicht mehr geübt:</p>
@@ -152,11 +153,14 @@ async function sendEmail(env, to, subject, html) {
   return true;
 }
 
-// Gemeinsamer Email-Wrapper (Header + Footer mit Unsubscribe)
+// Gemeinsamer Email-Wrapper (Logo + Header + Footer mit Unsubscribe)
 function emailWrapper(content, unsubscribeUrl) {
   return `<!DOCTYPE html><html lang="de"><head><meta charset="utf-8"></head>
 <body style="font-family:system-ui,sans-serif;background:#f0f0f5;padding:20px;margin:0">
 <div style="max-width:500px;margin:0 auto;background:#fff;border-radius:12px;padding:24px;box-shadow:0 2px 12px rgba(0,0,0,.1)">
+<a href="https://myabiflow.de" style="display:block;text-align:center;margin-bottom:20px;text-decoration:none">
+<img src="https://myabiflow.de/logo-v2.png" alt="myAbiFlow" width="140" style="width:140px;height:auto" />
+</a>
 ${content}
 <p style="font-size:12px;color:#999;margin-top:24px;border-top:1px solid #eee;padding-top:12px">
 Du kannst die Emails jederzeit in der App unter Einstellungen deaktivieren.<br>
