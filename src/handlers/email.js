@@ -4,7 +4,7 @@ import { SUBJECT_TYPES_MAP, SUBJECT_NAMES, SUBJECT_ICONS } from './student.js';
 
 // TEST-MODUS: Alle Retention-Emails gehen nur an diese Adresse
 // Auf false setzen wenn alles passt, dann bekommen alle Schüler die Emails
-const RETENTION_TEST_MODE = true;
+const RETENTION_TEST_MODE = false;
 const RETENTION_TEST_EMAIL = "info@myabiflow.de";
 
 /* ================= UNSUBSCRIBE ================= */
