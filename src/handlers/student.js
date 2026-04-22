@@ -81,16 +81,17 @@ export async function handleCheckStudent(request, env) {
       return jsonResponse({ success: false, error: "Dieser Name ist bereits vergeben. Bitte f\u00fcge eine Zahl an (z.B. Max M. 2)." }, 409, env);
     }
 
-    // Pruefen ob mit dieser E-Mail schon ein Trial gestartet wurde
+    // Pruefen ob mit dieser E-Mail schon ein Account existiert
     const emailLower = email.trim().toLowerCase();
     const existingEmail = await env.DB.prepare(
       "SELECT id, trial_end FROM students WHERE LOWER(email) = ?"
     ).bind(emailLower).first();
 
-    let trialAllowed = true;
-    if (existingEmail && existingEmail.trial_end) {
-      trialAllowed = false; // Diese E-Mail hatte schon einen Trial
+    if (existingEmail) {
+      return jsonResponse({ success: false, error: "Mit dieser E-Mail existiert bereits ein Account. Bitte logge dich ein oder nutze eine andere E-Mail." }, 409, env);
     }
+
+    let trialAllowed = true;
     if (trial_used) {
       trialAllowed = false; // Geraete-Flag: Trial wurde auf diesem Geraet schon genutzt
     }
