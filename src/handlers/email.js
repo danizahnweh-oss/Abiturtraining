@@ -174,7 +174,7 @@ function buildWelcomeEmail(studentName, unsubscribeUrl) {
   return emailWrapper(`
 <h2 style="color:#2563eb;margin-top:0">Willkommen bei myAbiFlow!</h2>
 <p>Hallo ${studentName},</p>
-<p>schön, dass du dabei bist! myAbiFlow hilft dir, dich gezielt aufs Abitur vorzubereiten – mit KI-gestütztem Feedback zu deinen Übungen.</p>
+<p>schön, dass du dabei bist! myAbiFlow hilft dir, dich gezielt aufs Abitur <strong>und auf anstehende Klausuren</strong> vorzubereiten – mit KI-gestütztem Feedback zu deinen Übungen.</p>
 <h3 style="color:#333;font-size:16px">So startest du am besten:</h3>
 <ol style="color:#555;line-height:1.8">
 <li><strong>Abifächer einstellen</strong> – Geh in die Einstellungen und wähle deine Prüfungsfächer aus</li>
@@ -194,7 +194,7 @@ function buildNudgeEmail(studentName, unsubscribeUrl) {
 <h2 style="color:#2563eb;margin-top:0">Noch keine Übung gemacht?</h2>
 <p>Hallo ${studentName},</p>
 <p>du hast dich vor ein paar Tagen bei myAbiFlow angemeldet, aber noch keine Übung ausprobiert.</p>
-<p>Kein Problem – der Einstieg ist ganz einfach:</p>
+<p>Egal ob du dich aufs Abitur oder auf eine <strong>anstehende Klausur</strong> vorbereitest – der Einstieg ist ganz einfach:</p>
 <ul style="color:#555;line-height:1.8">
 <li>Wähle ein Fach aus (z.B. Mathe, Deutsch oder Englisch)</li>
 <li>Bearbeite eine Aufgabe – das dauert nur 10-15 Minuten</li>
@@ -211,8 +211,8 @@ function buildInactivityEmail(studentName, daysSince, unsubscribeUrl) {
   return emailWrapper(`
 <h2 style="color:#2563eb;margin-top:0">Wir vermissen dich!</h2>
 <p>Hallo ${studentName},</p>
-<p>deine letzte Übung ist <strong>${daysSince} Tage</strong> her. Regelmäßiges Üben ist der Schlüssel zum Erfolg im Abitur.</p>
-<p>Schon eine kurze Übung pro Woche hilft, das Gelernte nicht zu vergessen und sicherer zu werden.</p>
+<p>deine letzte Übung ist <strong>${daysSince} Tage</strong> her. Regelmäßiges Üben ist der Schlüssel zum Erfolg – im Abitur <strong>und in jeder Klausur</strong>.</p>
+<p>Schon eine kurze Übung pro Woche hilft, das Gelernte nicht zu vergessen und sicherer zu werden. Perfekt auch, um dich gezielt auf die nächste Schulaufgabe vorzubereiten.</p>
 <p style="text-align:center;margin:24px 0">
 <a href="https://myabiflow.de" style="background:#2563eb;color:#fff;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:600;display:inline-block">Weitermachen →</a>
 </p>
@@ -234,6 +234,7 @@ function buildWeeklyEmail(studentName, tip, unsubscribeUrl) {
   return emailWrapper(`
 <h2 style="color:#2563eb;margin-top:0">Dein Lernimpuls der Woche</h2>
 <p>Hallo ${studentName},</p>
+<p style="color:#666;font-size:14px;margin:0 0 12px">Ideal fürs Abitur – aber auch, um dich auf die nächste Klausur vorzubereiten.</p>
 <div style="background:#f8fafc;border-left:4px solid #2563eb;padding:16px;border-radius:0 8px 8px 0;margin:16px 0">
 <p style="margin:0;font-size:15px"><strong>${tip.subject}:</strong> ${tip.tip}</p>
 </div>
