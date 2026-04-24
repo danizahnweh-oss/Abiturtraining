@@ -991,6 +991,7 @@
 
     /* ====== SUBMIT FOR GRADING ====== */
     async function submitForGrading() {
+      if (window.checkOcrPending && window.checkOcrPending()) return;
       var textareas = document.querySelectorAll("#studentTextareas textarea");
       var allText = "";
       var studentTexts = {};

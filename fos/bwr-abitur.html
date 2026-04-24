@@ -808,6 +808,7 @@
     function useOCRTextB() { useOCRText("II"); }
 
     async function submitForGrading() {
+      if (window.checkOcrPending && window.checkOcrPending()) return;
       var tI = document.getElementById("studentTextI").value;
       var tII = document.getElementById("studentTextII").value;
       var tIII = document.getElementById("studentTextIII").value;

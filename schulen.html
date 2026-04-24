@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="myAbiFlow für bayerische Schulen: Fachschafts- und Schullizenzen mit Lehrer-Dashboard, Codes für Kurse und Jahrgänge, datenschutzkonform – passend zu Bayern G9 und FOS/BOS.">
+  <meta name="theme-color" content="#4f46e5">
+  <meta name="color-scheme" content="light dark">
+  <title>myAbiFlow für Schulen &amp; Fachschaften – Bayern G9 | FOS/BOS</title>
+  <meta property="og:title" content="myAbiFlow für Schulen &amp; Fachschaften">
+  <meta property="og:description" content="Fachschafts- und Schullizenzen mit Lehrer-Dashboard und Codes für Kurse und Jahrgänge. Datenschutzkonform.">
+  <meta property="og:image" content="https://myabiflow.de/og-image.png">
+  <meta property="og:url" content="https://myabiflow.de/schulen.html">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="de_DE">
+  <meta property="og:site_name" content="myAbiFlow">
+  <link rel="canonical" href="https://myabiflow.de/schulen.html">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/wave-icon-new.png" type="image/png" sizes="48x48">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="/fonts/fonts.css">
+  <link rel="stylesheet" href="shared-v4.css">
+
+  <script>
+    (function () {
+      var t = localStorage.getItem('theme');
+      if (t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+
+  <style>
+    section { display: block; }
+    *, *::before, *::after { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    .sc-nav {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      height: 60px;
+      display: flex; align-items: center;
+      position: sticky; top: 0; z-index: 50;
+    }
+    .sc-nav-inner {
+      max-width: 1100px; width: 100%;
+      margin: 0 auto;
+      padding: 0 32px;
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    }
+    .sc-logo img { height: 17px; width: auto; }
+    .sc-nav-actions { display: flex; align-items: center; gap: 12px; }
+    .sc-nav-login {
+      font-size: .875rem; font-weight: 600;
+      color: var(--ink-light);
+      text-decoration: none;
+      padding: 8px 12px; border-radius: 8px;
+      min-height: 44px;
+      display: inline-flex; align-items: center;
+    }
+
+    /* HERO */
+    .sc-hero {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 56px 32px 32px;
+      text-align: center;
+    }
+    .sc-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: .8rem;
+      font-weight: 700;
+      padding: 6px 14px;
+      border-radius: 999px;
+      margin-bottom: 20px;
+    }
+    .sc-h1 {
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      font-weight: 800;
+      letter-spacing: -.03em;
+      line-height: 1.12;
+      margin: 0 0 16px;
+    }
+    .sc-h1 span { color: var(--accent); }
+    .sc-sub {
+      font-size: 1.08rem;
+      color: var(--ink-light);
+      max-width: 720px;
+      margin: 0 auto 28px;
+    }
+    .sc-cta-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+    /* SECTION */
+    .sc-section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 64px 32px;
+    }
+    .sc-section-alt { background: var(--surface-alt, #f8fafc); }
+    [data-theme="dark"] .sc-section-alt { background: rgba(255, 255, 255, 0.02); }
+    .sc-section-head { text-align: center; max-width: 680px; margin: 0 auto 36px; }
+    .sc-section-title {
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      font-weight: 800;
+      letter-spacing: -.02em;
+      line-height: 1.15;
+      margin: 0 0 12px;
+    }
+    .sc-section-sub {
+      font-size: 1rem;
+      color: var(--ink-light);
+      margin: 0;
+    }
+
+    /* LIZENZ-OPTIONEN */
+    .sc-licenses {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+    .sc-license {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 22px 20px;
+      text-align: left;
+      box-shadow: var(--shadow-sm);
+    }
+    .sc-license-icon {
+      width: 40px; height: 40px;
+      border-radius: 10px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px;
+      margin-bottom: 12px;
+    }
+    .sc-license-title {
+      font-size: 1rem; font-weight: 800; margin: 0 0 6px;
+    }
+    .sc-license-text {
+      font-size: .88rem; color: var(--ink-light); line-height: 1.5; margin: 0;
+    }
+
+    /* NUTZEN-GRID */
+    .sc-benefits {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+    .sc-benefit {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      display: flex; gap: 14px;
+      align-items: flex-start;
+    }
+    .sc-benefit-icon {
+      width: 42px; height: 42px;
+      border-radius: 12px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px;
+      flex-shrink: 0;
+    }
+    .sc-benefit-title {
+      font-size: 1.02rem; font-weight: 800; margin: 0 0 4px;
+    }
+    .sc-benefit-text {
+      font-size: .92rem; color: var(--ink-light); line-height: 1.55; margin: 0;
+    }
+
+    /* STEP-FLOW */
+    .sc-steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      counter-reset: step;
+    }
+    .sc-step {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px 20px;
+      position: relative;
+    }
+    .sc-step::before {
+      counter-increment: step;
+      content: counter(step);
+      display: inline-flex;
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: white;
+      font-weight: 800;
+      font-size: .9rem;
+      align-items: center; justify-content: center;
+      margin-bottom: 12px;
+    }
+    .sc-step-title { font-size: 1rem; font-weight: 800; margin: 0 0 6px; }
+    .sc-step-text { font-size: .88rem; color: var(--ink-light); line-height: 1.5; margin: 0; }
+
+    /* PERSPEKTIVEN: was Schüler / Lehrer sehen */
+    .sc-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    .sc-split-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 28px;
+      box-shadow: var(--shadow-sm);
+    }
+    .sc-split-head {
+      display: flex; gap: 12px; align-items: center;
+      margin-bottom: 18px;
+    }
+    .sc-split-icon {
+      width: 42px; height: 42px;
+      border-radius: 12px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px;
+    }
+    .sc-split-title { font-size: 1.2rem; font-weight: 800; margin: 0; }
+    .sc-split-list {
+      list-style: none; padding: 0; margin: 0;
+      display: flex; flex-direction: column; gap: 10px;
+    }
+    .sc-split-list li {
+      font-size: .94rem; color: var(--ink-light); line-height: 1.5;
+      display: flex; gap: 8px; align-items: flex-start;
+    }
+    .sc-split-list li::before {
+      content: "✓";
+      color: var(--success, #059669);
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+
+    /* DATENSCHUTZ-BOX */
+    .sc-privacy {
+      max-width: 880px;
+      margin: 0 auto;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px;
+      display: flex; gap: 18px;
+      align-items: flex-start;
+    }
+    .sc-privacy-icon {
+      width: 44px; height: 44px;
+      border-radius: 12px;
+      background: var(--success-bg, #ecfdf5);
+      color: var(--success, #059669);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px;
+      flex-shrink: 0;
+    }
+    .sc-privacy-title { font-size: 1.1rem; font-weight: 800; margin: 0 0 6px; }
+    .sc-privacy-text {
+      font-size: .93rem; color: var(--ink-light); line-height: 1.6; margin: 0;
+    }
+    .sc-privacy-text a {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    /* CTA-BIG */
+    .sc-cta-big {
+      max-width: 880px;
+      margin: 0 auto;
+      background: linear-gradient(135deg, var(--accent), #6366f1);
+      color: white;
+      border-radius: 24px;
+      padding: 40px 32px;
+      text-align: center;
+      box-shadow: var(--shadow-lg);
+    }
+    .sc-cta-big h2 {
+      font-size: clamp(1.5rem, 2.5vw, 2rem);
+      font-weight: 800;
+      letter-spacing: -.02em;
+      margin: 0 0 12px;
+      color: white;
+    }
+    .sc-cta-big p {
+      color: rgba(255, 255, 255, .88);
+      font-size: 1rem;
+      margin: 0 0 24px;
+      max-width: 540px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .sc-cta-big .btn {
+      background: white;
+      color: var(--accent);
+      height: 52px;
+      padding: 0 32px;
+      font-weight: 700;
+    }
+    .sc-cta-big .btn:hover { background: #f3f4f6; }
+
+    /* FOOTER */
+    .sc-footer {
+      border-top: 1px solid var(--border);
+      padding: 20px 32px;
+      display: flex; justify-content: center; gap: 24px; flex-wrap: wrap;
+      background: var(--surface);
+    }
+    .sc-footer a {
+      font-size: .78rem;
+      color: var(--ink-muted);
+      text-decoration: none;
+      min-height: 44px;
+      display: inline-flex; align-items: center;
+    }
+    .sc-footer a:hover { color: var(--accent); }
+
+    /* TABLET */
+    @media (max-width: 900px) {
+      .sc-licenses { grid-template-columns: repeat(2, 1fr); }
+      .sc-steps { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    /* MOBILE */
+    @media (max-width: 600px) {
+      .sc-hero { padding: 36px 20px 20px; }
+      .sc-section { padding: 44px 20px; }
+      .sc-cta-row { flex-direction: column; }
+      .sc-cta-row .btn { width: 100%; }
+      .sc-licenses, .sc-steps, .sc-benefits, .sc-split { grid-template-columns: 1fr; }
+      .sc-privacy { flex-direction: column; padding: 20px; }
+      .sc-cta-big { padding: 32px 20px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav class="sc-nav" role="navigation" aria-label="Hauptnavigation">
+    <div class="sc-nav-inner">
+      <a href="landing.html" class="sc-logo" aria-label="myAbiFlow – zur Startseite">
+        <img src="logo-v2.png" alt="myAbiFlow" width="130" height="17">
+      </a>
+      <div class="sc-nav-actions">
+        <a href="lehrer.html" class="sc-nav-login">Lehrer-Login</a>
+        <a href="#anfragen" class="btn" style="height:40px; padding:0 20px; font-size:.875rem;">Pilot anfragen</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="sc-hero">
+    <div class="sc-badge">Für bayerische Gymnasien &amp; FOS/BOS</div>
+    <h1 class="sc-h1">myAbiFlow <span>für Schulen</span> &amp; Fachschaften</h1>
+    <p class="sc-sub">
+      Fachschafts- oder Schullizenz mit Lehrer-Dashboard und Codes für Kurse und Jahrgänge. Ihre Schülerinnen und Schüler erhalten sofortiges KI-Feedback, Sie behalten den Lernstand im Blick – datenschutzkonform, ohne Registrierungshürden.
+    </p>
+    <div class="sc-cta-row">
+      <a href="#anfragen" class="btn">Pilot für meine Fachschaft anfragen</a>
+      <a href="lehrer.html" class="btn btn-secondary">Lehrer-Login</a>
+    </div>
+  </header>
+
+  <!-- LIZENZ-OPTIONEN -->
+  <section class="sc-section" aria-labelledby="licenses-title">
+    <div class="sc-section-head">
+      <h2 class="sc-section-title" id="licenses-title">Vier Einsatz-Szenarien</h2>
+      <p class="sc-section-sub">Passend zu Ihrer Schule – vom einzelnen Kurs bis zur Schullizenz.</p>
+    </div>
+
+    <div class="sc-licenses">
+      <article class="sc-license">
+        <div class="sc-license-icon" aria-hidden="true">📚</div>
+        <h3 class="sc-license-title">Für Fachschaften</h3>
+        <p class="sc-license-text">Eine Fachschaft (z.B. Deutsch oder Mathe) erhält Zugang für alle Kurse des Fachs – einheitliches Feedback, gemeinsame Klausurvorbereitung.</p>
+      </article>
+
+      <article class="sc-license">
+        <div class="sc-license-icon" aria-hidden="true">👥</div>
+        <h3 class="sc-license-title">Für einzelne Kurse</h3>
+        <p class="sc-license-text">Eine Lehrkraft, ein Kurs, ein Code. Ideal zum Testen oder für Q11/Q12-Klausurvorbereitung.</p>
+      </article>
+
+      <article class="sc-license">
+        <div class="sc-license-icon" aria-hidden="true">🎓</div>
+        <h3 class="sc-license-title">Für ganze Jahrgänge</h3>
+        <p class="sc-license-text">Q11 oder Q12 komplett – alle Fächer, alle Schülerinnen und Schüler. Besonders vor dem Abitur hilfreich.</p>
+      </article>
+
+      <article class="sc-license">
+        <div class="sc-license-icon" aria-hidden="true">🏫</div>
+        <h3 class="sc-license-title">Schullizenz</h3>
+        <p class="sc-license-text">Alle Kurse, alle Fachschaften, zentrale Abrechnung – inklusive Schulung für das Kollegium.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- NUTZEN FÜR LEHRKRÄFTE -->
+  <section class="sc-section sc-section-alt" aria-labelledby="benefits-title">
+    <div class="sc-section-head">
+      <h2 class="sc-section-title" id="benefits-title">Was myAbiFlow für Lehrkräfte leistet</h2>
+      <p class="sc-section-sub">Weniger Korrektur-Aufwand, bessere Lernstandsdiagnose, höhere Vorbereitungsqualität.</p>
+    </div>
+
+    <div class="sc-benefits">
+      <div class="sc-benefit">
+        <div class="sc-benefit-icon" aria-hidden="true">⚡</div>
+        <div>
+          <h3 class="sc-benefit-title">Weniger Korrekturzeit</h3>
+          <p class="sc-benefit-text">Schüler üben selbstständig mit KI-Feedback. Sie müssen nicht mehr jede Klausur-Vorbereitung einzeln gegenlesen.</p>
+        </div>
+      </div>
+
+      <div class="sc-benefit">
+        <div class="sc-benefit-icon" aria-hidden="true">📊</div>
+        <div>
+          <h3 class="sc-benefit-title">Lernstand sichtbar</h3>
+          <p class="sc-benefit-text">Das Dashboard zeigt Fortschritt, typische Fehler und Themen, bei denen mehrere Schülerinnen und Schüler stocken.</p>
+        </div>
+      </div>
+
+      <div class="sc-benefit">
+        <div class="sc-benefit-icon" aria-hidden="true">🎯</div>
+        <div>
+          <h3 class="sc-benefit-title">Passend zum Lehrplan</h3>
+          <p class="sc-benefit-text">Aufgaben und Bewertung orientieren sich an LehrplanPLUS Bayern (G9) und den ISB-Kriterien.</p>
+        </div>
+      </div>
+
+      <div class="sc-benefit">
+        <div class="sc-benefit-icon" aria-hidden="true">🎤</div>
+        <div>
+          <h3 class="sc-benefit-title">Kolloquium realistisch üben</h3>
+          <p class="sc-benefit-text">Schüler trainieren Kurzreferat und Prüfungsgespräch mit einer KI-Prüferin – in der eigenen Zeit, beliebig oft.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABLAUF -->
+  <section class="sc-section" aria-labelledby="steps-title">
+    <div class="sc-section-head">
+      <h2 class="sc-section-title" id="steps-title">So läuft die Einführung</h2>
+      <p class="sc-section-sub">Vom ersten Gespräch bis zum Einsatz im Kurs – meist in unter zwei Wochen.</p>
+    </div>
+
+    <ol class="sc-steps" style="padding: 0; list-style: none;">
+      <li class="sc-step">
+        <h3 class="sc-step-title">Kontakt &amp; Bedarfsklärung</h3>
+        <p class="sc-step-text">15-Minuten-Gespräch: Welche Fächer, wie viele Kurse, ab wann? Sie erhalten ein unverbindliches Angebot.</p>
+      </li>
+      <li class="sc-step">
+        <h3 class="sc-step-title">Datenschutz &amp; Freigabe</h3>
+        <p class="sc-step-text">DSGVO-Unterlagen (AVV, DSFA-Baustein) werden vorgelegt. Schulleitung und Datenschutzbeauftragte entscheiden.</p>
+      </li>
+      <li class="sc-step">
+        <h3 class="sc-step-title">Codes verteilen</h3>
+        <p class="sc-step-text">Sie erhalten Kurs- oder Schulcodes. Die Lehrkraft gibt sie im Unterricht aus – Schüler loggen sich ohne E-Mail ein.</p>
+      </li>
+      <li class="sc-step">
+        <h3 class="sc-step-title">Loslegen</h3>
+        <p class="sc-step-text">Im Dashboard sehen Sie Aufgaben, Einreichungen und Lernfortschritt. 30-Minuten-Kollegiums-Intro auf Wunsch.</p>
+      </li>
+    </ol>
+
+    <p style="text-align:center; font-size:.92rem; color:var(--ink-muted); margin-top:24px;">
+      Aufwand für Lehrkräfte: ca. 30 Minuten Einarbeitung, keine laufende Betreuung nötig.
+    </p>
+  </section>
+
+  <!-- WAS SCHÜLER VS. LEHRER SEHEN -->
+  <section class="sc-section sc-section-alt" aria-labelledby="split-title">
+    <div class="sc-section-head">
+      <h2 class="sc-section-title" id="split-title">Zwei Perspektiven, ein System</h2>
+      <p class="sc-section-sub">Klare Trennung zwischen Schüler-Sicht und Lehrer-Dashboard.</p>
+    </div>
+
+    <div class="sc-split">
+
+      <div class="sc-split-card">
+        <div class="sc-split-head">
+          <div class="sc-split-icon" aria-hidden="true">🎓</div>
+          <h3 class="sc-split-title">Was Schüler sehen</h3>
+        </div>
+        <ul class="sc-split-list">
+          <li>Code eingeben – sofort freigeschaltet, keine E-Mail nötig</li>
+          <li>Fach und Aufgabentyp wählen, Lösung hochladen oder schreiben</li>
+          <li>Punkte, Fehleranalyse, konkrete Tipps und Musterlösung</li>
+          <li>Eigene Lernhistorie &amp; Fortschritt</li>
+          <li>Kolloquium-Trainer mit KI-Prüfer</li>
+        </ul>
+      </div>
+
+      <div class="sc-split-card">
+        <div class="sc-split-head">
+          <div class="sc-split-icon" aria-hidden="true">📋</div>
+          <h3 class="sc-split-title">Was Lehrkräfte im Dashboard sehen</h3>
+        </div>
+        <ul class="sc-split-list">
+          <li>Übersicht aller Kurse &amp; Schülerinnen und Schüler</li>
+          <li>Eingereichte Aufgaben &amp; erzielte Punkte</li>
+          <li>Häufige Fehler und Themen mit hohem Förderbedarf</li>
+          <li>Eigene Aufgaben erstellen und zuweisen</li>
+          <li>Leistungsentwicklung nach Fach &amp; Zeitraum</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- DATENSCHUTZ -->
+  <section class="sc-section" aria-labelledby="privacy-title">
+    <div class="sc-privacy">
+      <div class="sc-privacy-icon" aria-hidden="true">🔒</div>
+      <div>
+        <h2 class="sc-privacy-title" id="privacy-title">Datenschutz konform zu bayerischen Schulen</h2>
+        <p class="sc-privacy-text">
+          Schüler melden sich über Codes an – keine E-Mail-Adresse nötig. Daten werden ausschließlich in der EU verarbeitet, Sprach- und Textdaten nicht für Werbung oder Training externer Modelle verwendet. AVV und DSFA-Baustein stellen wir für Schulleitung und Datenschutzbeauftragte bereit.
+          <br><br>
+          Details: <a href="datenschutz.html">Datenschutzerklärung</a> · <a href="dsfa.html">DSFA-Baustein</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="sc-section" aria-labelledby="cta-title" id="anfragen">
+    <div class="sc-cta-big">
+      <h2 id="cta-title">Pilot für Ihre Fachschaft anfragen</h2>
+      <p>Unverbindliches 15-Minuten-Gespräch. Wir klären gemeinsam, welche Lizenz zu Ihrer Schule passt – und Sie erhalten einen Testzugang für einen Kurs.</p>
+      <a href="mailto:kontakt@myabiflow.de?subject=Pilot-Anfrage%20f%C3%BCr%20meine%20Fachschaft&amp;body=Hallo%2C%0A%0Aich%20interessiere%20mich%20f%C3%BCr%20einen%20Pilot%20mit%20myAbiFlow%20an%20unserer%20Schule.%0A%0ASchule%3A%0AFach%2FFachschaft%3A%0AAnzahl%20Kurse%2FSch%C3%BClerinnen%20und%20Sch%C3%BCler%3A%0AGeplanter%20Start%3A%0A%0AViele%20Gr%C3%BC%C3%9Fe" class="btn">Pilot anfragen →</a>
+    </div>
+  </section>
+
+  <footer class="sc-footer" role="contentinfo">
+    <a href="landing.html">Startseite</a>
+    <a href="abo.html">Preise</a>
+    <a href="lehrer.html">Lehrer-Login</a>
+    <a href="demo.html">Demo</a>
+    <a href="ueber-uns.html">Über uns</a>
+    <a href="impressum.html">Impressum</a>
+    <a href="datenschutz.html">Datenschutz</a>
+    <a href="dsfa.html">DSFA</a>
+  </footer>
+
+</body>
+</html>

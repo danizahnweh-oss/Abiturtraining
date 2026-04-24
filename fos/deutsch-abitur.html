@@ -936,6 +936,7 @@ Struktur:
 
     /* ====== SUBMIT FOR GRADING ====== */
     async function submitForGrading() {
+      if (window.checkOcrPending && window.checkOcrPending()) return;
       var t = document.getElementById("studentText").value;
       if (countWords(t) < MODULE_CONFIG.minWords) { showToast("Bitte mindestens " + MODULE_CONFIG.minWords + " W\u00f6rter schreiben."); return; }
       if (!CONFIG.storedData) { showToast("Erst Aufgabe erstellen"); return; }

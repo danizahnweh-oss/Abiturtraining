@@ -948,6 +948,7 @@ Struktur:
 
     /* ====== SUBMIT FOR GRADING ====== */
     async function submitForGrading() {
+      if (window.checkOcrPending && window.checkOcrPending()) return;
       const t = document.getElementById("studentText").value;
       if (countWords(t) < 50) { showToast("Bitte mindestens 50 Wörter schreiben."); return; }
       if (!CONFIG.storedData) { showToast("Bitte zuerst eine Aufgabe generieren."); return; }

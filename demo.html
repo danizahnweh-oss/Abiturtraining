@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="Beispiel-Feedback von myAbiFlow: echte Schülerantworten mit Punkten, Stärken, Verbesserungen und Musterlösung. Ohne Registrierung ansehen.">
+  <meta name="theme-color" content="#4f46e5">
+  <meta name="color-scheme" content="light dark">
+  <title>Beispiel-Feedback ansehen – myAbiFlow</title>
+  <meta property="og:title" content="So sieht dein Feedback aus – myAbiFlow">
+  <meta property="og:description" content="Echte Beispiele: Punkte, Fehleranalyse, Musterlösung. Ohne Registrierung.">
+  <meta property="og:image" content="https://myabiflow.de/og-image.png">
+  <meta property="og:url" content="https://myabiflow.de/demo.html">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="de_DE">
+  <meta property="og:site_name" content="myAbiFlow">
+  <link rel="canonical" href="https://myabiflow.de/demo.html">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/wave-icon-new.png" type="image/png" sizes="48x48">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="/fonts/fonts.css">
+  <link rel="stylesheet" href="shared-v4.css">
+
+  <script>
+    (function () {
+      var t = localStorage.getItem('theme');
+      if (t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+
+  <style>
+    section { display: block; }
+    *, *::before, *::after { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    .dm-nav {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      height: 60px;
+      display: flex;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    .dm-nav-inner {
+      max-width: 1100px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 0 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .dm-logo img { height: 17px; width: auto; }
+    .dm-nav-actions { display: flex; align-items: center; gap: 12px; }
+    .dm-nav-login {
+      font-size: .875rem; font-weight: 600;
+      color: var(--ink-light);
+      text-decoration: none;
+      padding: 8px 12px; border-radius: 8px;
+      min-height: 44px;
+      display: inline-flex; align-items: center;
+    }
+
+    /* HERO */
+    .dm-hero {
+      max-width: 880px;
+      margin: 0 auto;
+      padding: 64px 32px 32px;
+      text-align: center;
+    }
+    .dm-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: .8rem;
+      font-weight: 700;
+      padding: 6px 14px;
+      border-radius: 999px;
+      margin-bottom: 20px;
+    }
+    .dm-h1 {
+      font-size: clamp(2rem, 3.5vw, 2.6rem);
+      font-weight: 800;
+      letter-spacing: -.03em;
+      line-height: 1.12;
+      margin: 0 0 16px;
+    }
+    .dm-sub {
+      font-size: 1.05rem;
+      color: var(--ink-light);
+      max-width: 620px;
+      margin: 0 auto 28px;
+    }
+    .dm-cta-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+    /* FACH-TABS */
+    .dm-tabs {
+      max-width: 880px;
+      margin: 32px auto 0;
+      padding: 0 32px;
+      display: flex; gap: 8px; flex-wrap: wrap; justify-content: center;
+    }
+    .dm-tab {
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--ink-light);
+      padding: 10px 18px;
+      border-radius: 999px;
+      font-size: .9rem;
+      font-weight: 600;
+      cursor: pointer;
+      min-height: 44px;
+      transition: all .15s;
+    }
+    .dm-tab[aria-selected="true"] {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: white;
+    }
+    .dm-tab:hover:not([aria-selected="true"]) {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* DEMO-CARD */
+    .dm-card-wrap {
+      max-width: 880px;
+      margin: 24px auto 0;
+      padding: 0 32px;
+    }
+    .dm-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
+    }
+    .dm-card-head {
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--border);
+      background: var(--accent-soft);
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+      flex-wrap: wrap;
+    }
+    .dm-subject {
+      font-size: .75rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em;
+      color: var(--accent);
+    }
+    .dm-task-title {
+      font-size: .92rem; color: var(--ink-light); margin-top: 4px;
+    }
+    .dm-score {
+      font-size: 1.25rem; font-weight: 800; color: var(--accent);
+    }
+    .dm-body { padding: 24px; display: grid; gap: 16px; }
+    .dm-block {
+      padding: 16px 18px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: var(--bg);
+    }
+    .dm-label {
+      font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em;
+      color: var(--ink-muted);
+      margin: 0 0 8px;
+    }
+    .dm-text {
+      font-size: .95rem; color: var(--ink); line-height: 1.55; margin: 0;
+    }
+    .dm-block--strong { background: #ecfdf5; border-color: #a7f3d0; }
+    .dm-block--weak { background: #fff7ed; border-color: #fed7aa; }
+    .dm-block--solution { background: var(--accent-soft); border-color: var(--accent); }
+    [data-theme="dark"] .dm-block--strong { background: rgba(16, 185, 129, .08); border-color: rgba(16, 185, 129, .3); }
+    [data-theme="dark"] .dm-block--weak { background: rgba(249, 115, 22, .08); border-color: rgba(249, 115, 22, .3); }
+    [data-theme="dark"] .dm-block--solution { background: rgba(79, 70, 229, .12); border-color: rgba(79, 70, 229, .4); }
+    .dm-list { margin: 0; padding-left: 20px; font-size: .92rem; color: var(--ink); line-height: 1.55; }
+    .dm-list li { margin-bottom: 4px; }
+
+    .dm-demo-panel { display: none; }
+    .dm-demo-panel.is-active { display: block; }
+
+    /* CTA-FOOTER */
+    .dm-cta-footer {
+      max-width: 880px;
+      margin: 48px auto 64px;
+      padding: 0 32px;
+    }
+    .dm-cta-box {
+      background: var(--accent-soft);
+      border: 1px solid var(--accent);
+      border-radius: 20px;
+      padding: 32px 28px;
+      text-align: center;
+    }
+    .dm-cta-title {
+      font-size: 1.4rem;
+      font-weight: 800;
+      margin: 0 0 8px;
+    }
+    .dm-cta-text {
+      font-size: 1rem;
+      color: var(--ink-light);
+      margin: 0 0 20px;
+    }
+
+    /* FOOTER */
+    .dm-footer {
+      border-top: 1px solid var(--border);
+      padding: 20px 32px;
+      display: flex; justify-content: center; gap: 24px; flex-wrap: wrap;
+      background: var(--surface);
+    }
+    .dm-footer a {
+      font-size: .78rem;
+      color: var(--ink-muted);
+      text-decoration: none;
+      min-height: 44px;
+      display: inline-flex; align-items: center;
+    }
+    .dm-footer a:hover { color: var(--accent); }
+
+    @media (max-width: 600px) {
+      .dm-hero { padding: 36px 20px 20px; }
+      .dm-tabs { padding: 0 20px; gap: 6px; }
+      .dm-tab { padding: 8px 14px; font-size: .85rem; }
+      .dm-card-wrap { padding: 0 20px; }
+      .dm-cta-footer { padding: 0 20px; }
+      .dm-cta-row { flex-direction: column; }
+      .dm-cta-row .btn { width: 100%; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav class="dm-nav" role="navigation" aria-label="Hauptnavigation">
+    <div class="dm-nav-inner">
+      <a href="landing.html" class="dm-logo" aria-label="myAbiFlow – zur Startseite">
+        <img src="logo-v2.png" alt="myAbiFlow" width="130" height="17">
+      </a>
+      <div class="dm-nav-actions">
+        <a href="landing.html" class="dm-nav-login">← Zurück</a>
+        <a href="index.html?app=1" class="btn" style="height:40px; padding:0 20px; font-size:.875rem;">Kostenlos testen</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="dm-hero">
+    <div class="dm-badge">Ohne Registrierung ansehen</div>
+    <h1 class="dm-h1">So sieht dein Feedback aus</h1>
+    <p class="dm-sub">
+      Echte Beispiele aus unterschiedlichen Fächern. Jede Antwort kommt mit Punkten, Stärken, konkreten Verbesserungen und einer Musterlösung – genau so, wie du es in myAbiFlow bekommst.
+    </p>
+    <div class="dm-cta-row">
+      <a href="index.html?app=1" class="btn">Jetzt selbst ausprobieren →</a>
+      <a href="landing.html" class="btn btn-secondary">Zurück zur Startseite</a>
+    </div>
+  </header>
+
+  <!-- TABS -->
+  <div class="dm-tabs" role="tablist" aria-label="Fach wählen">
+    <button class="dm-tab" role="tab" aria-selected="true" aria-controls="panel-deutsch" id="tab-deutsch" data-target="deutsch">Deutsch</button>
+    <button class="dm-tab" role="tab" aria-selected="false" aria-controls="panel-mathe" id="tab-mathe" data-target="mathe">Mathe</button>
+    <button class="dm-tab" role="tab" aria-selected="false" aria-controls="panel-geschichte" id="tab-geschichte" data-target="geschichte">Geschichte</button>
+    <button class="dm-tab" role="tab" aria-selected="false" aria-controls="panel-englisch" id="tab-englisch" data-target="englisch">Englisch</button>
+  </div>
+
+  <!-- DEUTSCH -->
+  <div class="dm-card-wrap dm-demo-panel is-active" id="panel-deutsch" role="tabpanel" aria-labelledby="tab-deutsch">
+    <div class="dm-card">
+      <div class="dm-card-head">
+        <div>
+          <div class="dm-subject">Deutsch · Textanalyse</div>
+          <div class="dm-task-title">Kurzgeschichten-Interpretation (Bayern G9, 12/2)</div>
+        </div>
+        <div class="dm-score">11 / 15 Punkte</div>
+      </div>
+      <div class="dm-body">
+        <div class="dm-block">
+          <p class="dm-label">Aufgabe</p>
+          <p class="dm-text">Analysieren Sie die Kurzgeschichte im Hinblick auf die Darstellung der inneren Konflikte der Hauptfigur. Beziehen Sie sprachliche Mittel und Erzählperspektive in Ihre Analyse ein.</p>
+        </div>
+        <div class="dm-block">
+          <p class="dm-label">Auszug aus der Schülerantwort</p>
+          <p class="dm-text" style="font-style:italic;">„Die Hauptfigur wirkt zunächst entschlossen, was durch die parataktischen Hauptsätze verstärkt wird. Im weiteren Verlauf zeigt sich jedoch ein innerer Konflikt, der durch die erlebte Rede deutlich wird. Der Erzähler distanziert sich zunehmend und die Leserin erkennt …"</p>
+        </div>
+        <div class="dm-block dm-block--strong">
+          <p class="dm-label" style="color:#047857;">Stärken</p>
+          <ul class="dm-list">
+            <li>Fachbegriffe (Parataxe, erlebte Rede) korrekt und gezielt eingesetzt</li>
+            <li>Klare Argumentationsstruktur mit nachvollziehbarer Beweisführung</li>
+            <li>Zitate werden sinnvoll eingebunden und gedeutet</li>
+          </ul>
+        </div>
+        <div class="dm-block dm-block--weak">
+          <p class="dm-label" style="color:#c2410c;">Verbesserungen</p>
+          <ul class="dm-list">
+            <li>Erzählperspektive wird nur kurz benannt – Wirkung auf die Leserführung fehlt</li>
+            <li>Deutungshypothese im Einleitungsabschnitt zu allgemein formuliert</li>
+            <li>Schlussteil verliert Bezug zur Ausgangsfrage</li>
+            <li>Ein sprachlicher Aspekt (Symbolik) wird ignoriert, obwohl zentral</li>
+          </ul>
+        </div>
+        <div class="dm-block dm-block--solution">
+          <p class="dm-label" style="color:var(--accent);">Musterlösung (Auszug)</p>
+          <p class="dm-text">Die personale Erzählsituation fokussiert die Wahrnehmung der Hauptfigur und schafft Nähe zu ihrem inneren Konflikt. Dieser wird durch den Wechsel von parataktischem zu hypotaktischem Satzbau formal gespiegelt: Die Brüche in der Syntax entsprechen den emotionalen Brüchen der Figur. Das wiederkehrende Motiv des geöffneten Fensters …</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MATHE -->
+  <div class="dm-card-wrap dm-demo-panel" id="panel-mathe" role="tabpanel" aria-labelledby="tab-mathe" hidden>
+    <div class="dm-card">
+      <div class="dm-card-head">
+        <div>
+          <div class="dm-subject">Mathematik · Analysis</div>
+          <div class="dm-task-title">Kurvendiskussion (Bayern G9, Teil B)</div>
+        </div>
+        <div class="dm-score">9 / 12 Punkte</div>
+      </div>
+      <div class="dm-body">
+        <div class="dm-block">
+          <p class="dm-label">Aufgabe</p>
+          <p class="dm-text">Gegeben ist f(x) = x³ − 3x² + 2. Bestimmen Sie Extrempunkte, Wendepunkt und Monotonieverhalten. Skizzieren Sie den Graphen.</p>
+        </div>
+        <div class="dm-block">
+          <p class="dm-label">Schülerlösung (Auszug)</p>
+          <p class="dm-text" style="font-style:italic;">f′(x) = 3x² − 6x = 3x(x−2). Nullstellen: x = 0 und x = 2. f″(x) = 6x − 6. f″(0) = −6 &lt; 0 → Hochpunkt. f″(2) = 6 &gt; 0 → Tiefpunkt. Wendepunkt: f″(x) = 0 ⇒ x = 1, f(1) = 0. Monotonie wird in der Skizze gezeigt …</p>
+        </div>
+        <div class="dm-block dm-block--strong">
+          <p class="dm-label" style="color:#047857;">Stärken</p>
+          <ul class="dm-list">
+            <li>Ableitungen korrekt berechnet</li>
+            <li>Extrempunkte sauber klassifiziert (2. Ableitungstest)</li>
+            <li>Wendepunkt rechnerisch korrekt gefunden</li>
+          </ul>
+        </div>
+        <div class="dm-block dm-block--weak">
+          <p class="dm-label" style="color:#c2410c;">Verbesserungen</p>
+          <ul class="dm-list">
+            <li>Funktionswerte der Extrempunkte fehlen (nur x-Koordinaten angegeben)</li>
+            <li>Monotonieverhalten nicht explizit beschrieben – nur in Skizze angedeutet</li>
+            <li>Krümmungsverhalten rund um den Wendepunkt nicht begründet</li>
+          </ul>
+        </div>
+        <div class="dm-block dm-block--solution">
+          <p class="dm-label" style="color:var(--accent);">Musterlösung (Auszug)</p>
+          <p class="dm-text">Hochpunkt H(0 | 2), Tiefpunkt T(2 | −2), Wendepunkt W(1 | 0). Monotonie: streng monoton steigend auf (−∞; 0], streng monoton fallend auf [0; 2], streng monoton steigend auf [2; ∞). Krümmung: rechtsgekrümmt auf (−∞; 1), linksgekrümmt auf (1; ∞) – Wechsel bei W(1 | 0).</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GESCHICHTE -->
+  <div class="dm-card-wrap dm-demo-panel" id="panel-geschichte" role="tabpanel" aria-labelledby="tab-geschichte" hidden>
+    <div class="dm-card">
+      <div class="dm-card-head">
+        <div>
+          <div class="dm-subject">Geschichte · Quellenanalyse</div>
+          <div class="dm-task-title">Weimarer Republik – Textquelle (Bayern G9, 12/1)</div>
+        </div>
+        <div class="dm-score">10 / 15 Punkte</div>
+      </div>
+      <div class="dm-body">
+        <div class="dm-block">
+          <p class="dm-label">Aufgabe</p>
+          <p class="dm-text">Analysieren Sie die Textquelle im Hinblick auf die politischen Forderungen des Verfassers und ordnen Sie sie in den historischen Kontext der Weimarer Republik ein.</p>
+        </div>
+        <div class="dm-block">
+          <p class="dm-label">Auszug aus der Schülerantwort</p>
+          <p class="dm-text" style="font-style:italic;">„Der Verfasser kritisiert das Versailler Vertragssystem und fordert eine Stärkung der Reichswehr. Seine Argumentation stützt sich auf nationalistische Topoi, die in der Krise der Jahre 1929–1933 breite Zustimmung fanden …"</p>
+        </div>
+        <div class="dm-block dm-block--strong">
+          <p class="dm-label" style="color:#047857;">Stärken</p>
+          <ul class="dm-list">
+            <li>Quellenkritische Einordnung (Autor, Entstehungszeit, Adressat) korrekt</li>
+            <li>Klare Zuordnung zu Verfassungskrise der WR</li>
+            <li>Fachbegriffe (Topoi, Versailler Vertragssystem) treffsicher</li>
+          </ul>
+        </div>
+        <div class="dm-block dm-block--weak">
+          <p class="dm-label" style="color:#c2410c;">Verbesserungen</p>
+          <ul class="dm-list">
+            <li>Keine eigene Stellungnahme zur Aussagekraft der Quelle</li>
+            <li>Historischer Kontext bleibt zu knapp – Brüning-Kabinett unerwähnt</li>
+            <li>Keine Auseinandersetzung mit Gegenpositionen (z.B. Sozialdemokratie)</li>
+          </ul>
+        </div>
+        <div class="dm-block dm-block--solution">
+          <p class="dm-label" style="color:var(--accent);">Musterlösung (Auszug)</p>
+          <p class="dm-text">Die Quelle ist repräsentativ für den antidemokratischen Diskurs der späten WR. Der Bezug auf „Dolchstoßlegende" und „Novemberverbrecher" (Z. 7–9) verweist auf den geschichtspolitischen Deutungskampf um die Niederlage 1918. Im Kontext des Brüning-Kabinetts und der Präsidialdemokratie seit 1930 …</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ENGLISCH -->
+  <div class="dm-card-wrap dm-demo-panel" id="panel-englisch" role="tabpanel" aria-labelledby="tab-englisch" hidden>
+    <div class="dm-card">
+      <div class="dm-card-head">
+        <div>
+          <div class="dm-subject">Englisch · Mediation</div>
+          <div class="dm-task-title">Zeitungsartikel ins Englische vermitteln (Bayern G9)</div>
+        </div>
+        <div class="dm-score">12 / 15 Punkte</div>
+      </div>
+      <div class="dm-body">
+        <div class="dm-block">
+          <p class="dm-label">Aufgabe</p>
+          <p class="dm-text">Your British friend wants to know the main arguments of the attached German article on renewable energy. Mediate the content in English (150–180 words), using your own words.</p>
+        </div>
+        <div class="dm-block">
+          <p class="dm-label">Auszug aus der Schülerantwort</p>
+          <p class="dm-text" style="font-style:italic;">„The article discusses the current state of renewable energy in Germany. It argues that the expansion of wind and solar power is crucial but faces local opposition. The author emphasises that political support is necessary to meet the climate goals by 2030 …"</p>
+        </div>
+        <div class="dm-block dm-block--strong">
+          <p class="dm-label" style="color:#047857;">Stärken</p>
+          <ul class="dm-list">
+            <li>Adressatengerecht und kommunikativ (friend-Kontext gewahrt)</li>
+            <li>Eigene Worte – keine Übersetzung</li>
+            <li>Kernargumente korrekt wiedergegeben</li>
+          </ul>
+        </div>
+        <div class="dm-block dm-block--weak">
+          <p class="dm-label" style="color:#c2410c;">Verbesserungen</p>
+          <ul class="dm-list">
+            <li>Conditional forms im letzten Absatz inkonsistent (If ... would statt If ... will)</li>
+            <li>Eine konkrete Zahl aus dem Original fehlt als Beleg</li>
+            <li>Wortanzahl am unteren Limit (152) – weniger Risiko mit 170+</li>
+          </ul>
+        </div>
+        <div class="dm-block dm-block--solution">
+          <p class="dm-label" style="color:var(--accent);">Musterlösung (Auszug)</p>
+          <p class="dm-text">„Dear Sam, you asked about the renewable energy debate over here. The German article highlights three main points: first, wind and solar currently cover around 52 % of gross electricity consumption – a new record. Second, the pace of new wind-farm approvals remains too slow due to local resistance. Third, the author argues that if Germany wants to meet its 2030 climate goals, federal-state coordination will have to improve …"</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA FOOTER -->
+  <section class="dm-cta-footer">
+    <div class="dm-cta-box">
+      <h2 class="dm-cta-title">Bereit, dein eigenes Feedback zu bekommen?</h2>
+      <p class="dm-cta-text">Lade deine Klausur oder deinen Aufsatz hoch – in 90 Sekunden hast du Punkte, Fehleranalyse und Musterlösung.</p>
+      <div class="dm-cta-row">
+        <a href="index.html?app=1" class="btn">Kostenlos testen →</a>
+        <a href="abo.html" class="btn btn-secondary">Preise ansehen</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="dm-footer" role="contentinfo">
+    <a href="landing.html">Startseite</a>
+    <a href="abo.html">Preise</a>
+    <a href="lehrer.html">Für Lehrkräfte</a>
+    <a href="schulen.html">Für Schulen</a>
+    <a href="impressum.html">Impressum</a>
+    <a href="datenschutz.html">Datenschutz</a>
+  </footer>
+
+  <script>
+    // Tab-Switch
+    (function () {
+      var tabs = document.querySelectorAll('.dm-tab');
+      var panels = document.querySelectorAll('.dm-demo-panel');
+
+      function activate(target) {
+        tabs.forEach(function (t) {
+          var selected = t.dataset.target === target;
+          t.setAttribute('aria-selected', selected ? 'true' : 'false');
+        });
+        panels.forEach(function (p) {
+          var active = p.id === 'panel-' + target;
+          p.classList.toggle('is-active', active);
+          if (active) { p.removeAttribute('hidden'); } else { p.setAttribute('hidden', ''); }
+        });
+      }
+
+      tabs.forEach(function (t) {
+        t.addEventListener('click', function () { activate(t.dataset.target); });
+      });
+    })();
+  </script>
+
+</body>
+</html>

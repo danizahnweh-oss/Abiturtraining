@@ -342,7 +342,10 @@ html {
   font-size: var(--text-sm);
   font-weight: 600;
   color: var(--ink-muted);
-  transition: background-color .15s, color .15s
+  transition: background-color .15s, color .15s;
+  min-height: 44px;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .formel-tab:hover,
@@ -375,10 +378,20 @@ html {
   text-align: center;
   transition: border-color, background-color, color .12s;
   line-height: 1.2;
-  min-height: 32px;
+  min-height: 44px;
+  min-width: 44px;
   display: flex;
   align-items: center;
-  justify-content: center
+  justify-content: center;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.formel-btn:active {
+  background: var(--accent-soft);
+  border-color: var(--accent);
 }
 
 .formel-btn:hover,
@@ -1828,12 +1841,27 @@ details table tr:hover td {
 }
 
 .hl-btn {
-  width: 28px;
-  height: 28px;
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
+  min-height: 36px;
   border-radius: 50%;
   border: 3px solid transparent;
   cursor: pointer;
   transition: transform .1s;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  padding: 0;
+}
+
+/* Auf Touch-Geräten: größer für besseres Touch-Target (44px Empfehlung) */
+@media (hover: none) and (pointer: coarse) {
+  .hl-btn {
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    min-height: 44px;
+  }
 }
 
 .hl-btn:hover,

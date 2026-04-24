@@ -404,6 +404,30 @@ export default function App() {
   /* Firefox-Hinweis-Banner */
   const [firefoxBannerDismissed, setFirefoxBannerDismissed] = useState(false);
 
+  /* Mikrofon-Einwilligung vor dem ersten Zugriff */
+  const [showMicConsent, setShowMicConsent] = useState(false);
+  const micConsentResolverRef = useRef<(() => void) | null>(null);
+  const ensureMicConsent = useCallback((): Promise<void> => {
+    if (typeof window !== 'undefined' && localStorage.getItem('mic_consent_v1') === '1') {
+      return Promise.resolve();
+    }
+    return new Promise<void>(resolve => {
+      micConsentResolverRef.current = resolve;
+      setShowMicConsent(true);
+    });
+  }, []);
+  const acceptMicConsent = () => {
+    try { localStorage.setItem('mic_consent_v1', '1'); } catch {}
+    setShowMicConsent(false);
+    const r = micConsentResolverRef.current;
+    micConsentResolverRef.current = null;
+    r?.();
+  };
+  const cancelMicConsent = () => {
+    setShowMicConsent(false);
+    micConsentResolverRef.current = null;
+  };
+
   /* Prüfer-Geschlecht (zufällig gewählt) */
   const [examinerGender, setExaminerGender] = useState<'male' | 'female'>('male');
   const prüferLabel = examinerGender === 'female' ? 'Prüferin' : 'Prüfer';
@@ -491,6 +515,10 @@ export default function App() {
 
   const resumeExam = async () => {
     if (!recoveryData) return;
+
+    // Einwilligung zum Mikrofonzugriff einholen (einmalig pro Gerät)
+    await ensureMicConsent();
+
     const d = recoveryData;
     setRecoveryData(null);
 
@@ -567,6 +595,9 @@ export default function App() {
   /* ── Actions ── */
   const handleGenerate = async () => {
     if (!canGenerate) return;
+
+    // Einwilligung zum Mikrofonzugriff einholen (einmalig pro Gerät)
+    await ensureMicConsent();
 
     // Geschlecht zufällig wählen
     const gender = Math.random() < 0.5 ? 'male' : 'female' as const;
@@ -926,6 +957,64 @@ export default function App() {
       </header>
 
       {showProfile && <ProfileModal onClose={() => setShowProfile(false)} />}
+
+      {showMicConsent && (
+        <div
+          className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="mic-consent-title"
+        >
+          <div className="bg-white rounded-3xl shadow-2xl max-w-md w-full p-6 sm:p-8 border border-black/5">
+            <div className="flex items-start gap-3 mb-4">
+              <div className="shrink-0 w-11 h-11 rounded-2xl bg-emerald-50 flex items-center justify-center text-emerald-600">
+                <Mic size={22} aria-hidden="true" />
+              </div>
+              <div>
+                <h2 id="mic-consent-title" className="text-xl font-bold text-slate-900 leading-tight">
+                  Was passiert mit deiner Stimme?
+                </h2>
+                <p className="text-xs text-slate-500 mt-1">Einmalige Info vor dem ersten Mikrofonzugriff</p>
+              </div>
+            </div>
+            <div className="space-y-3 text-sm text-slate-700 leading-relaxed mb-6">
+              <p>
+                Deine Sprache wird nur zur Prüfungssimulation verarbeitet. Du siehst live ein
+                Transkript mit und kannst es jederzeit kontrollieren.
+              </p>
+              <p>
+                Die Audio-Daten werden <span className="font-semibold">nicht gespeichert</span> und
+                <span className="font-semibold"> nicht für Werbung</span> verwendet. Deine Lehrkraft
+                sieht Ergebnisse nur, wenn du sie über einen Kurs- oder Schulcode aktiv teilst.
+              </p>
+            </div>
+            <div className="flex flex-col sm:flex-row gap-3">
+              <button
+                type="button"
+                onClick={acceptMicConsent}
+                className="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded-xl py-3 px-4 min-h-[48px] transition-colors shadow-lg shadow-emerald-500/20"
+              >
+                Verstanden – Kolloquium starten
+              </button>
+              <a
+                href="https://myabiflow.de/datenschutz.html"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex-1 text-center border border-slate-200 hover:bg-slate-50 text-slate-700 font-semibold rounded-xl py-3 px-4 min-h-[48px] flex items-center justify-center transition-colors"
+              >
+                Mehr zum Datenschutz
+              </a>
+            </div>
+            <button
+              type="button"
+              onClick={cancelMicConsent}
+              className="mt-3 w-full text-xs text-slate-400 hover:text-slate-600 py-1"
+            >
+              Abbrechen
+            </button>
+          </div>
+        </div>
+      )}
 
       <main className="max-w-4xl mx-auto px-6 py-10 relative z-0">
         <AnimatePresence mode="wait">

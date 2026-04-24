@@ -577,6 +577,7 @@ gesamt_np = round(verstehen_np * 0.7 + darstellung_np * 0.3)`;
     }
 
     async function submitForGrading() {
+      if (window.checkOcrPending && window.checkOcrPending()) return;
       const text = document.getElementById("studentText").value;
       if (countWords(text) < 100) { showToast("Bitte mindestens 100 Wörter schreiben."); return; }
       if (!CONFIG.storedData?.primary_text) { showToast("Bitte zuerst eine Aufgabe generieren."); return; }

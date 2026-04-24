@@ -1494,6 +1494,7 @@
 
     /* ====== SUBMIT ====== */
     async function submitForGrading() {
+      if (window.checkOcrPending && window.checkOcrPending()) return;
       var writingText = document.getElementById("studentWriting").value;
       if (selectedWritingTask == null) {
         showToast("Bitte w\u00e4hle eine Writing-Aufgabe aus.");

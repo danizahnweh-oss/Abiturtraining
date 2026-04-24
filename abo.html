@@ -290,6 +290,86 @@
     .pricing-section { display: none; }
     .pricing-section.visible { display: block; }
 
+    /* ===== ENTSCHEIDUNGSHILFE ===== */
+    .decision-wrap {
+      margin: 28px 0 40px;
+    }
+    .decision-title {
+      font-size: 1.35rem;
+      font-weight: 800;
+      text-align: center;
+      margin: 0 0 6px;
+      color: var(--ink);
+    }
+    .decision-sub {
+      text-align: center;
+      font-size: .95rem;
+      color: var(--ink-light);
+      margin: 0 0 24px;
+    }
+    .decision-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .decision-card {
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px 20px;
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+      color: inherit;
+      box-shadow: var(--shadow-sm);
+      transition: transform .15s, box-shadow .15s, border-color .15s;
+      min-height: 180px;
+      text-align: left;
+    }
+    .decision-card:hover,
+    .decision-card:focus-visible {
+      transform: translateY(-2px);
+      border-color: var(--accent);
+      box-shadow: var(--shadow-lg);
+      outline: none;
+    }
+    .decision-card-icon {
+      width: 44px; height: 44px;
+      border-radius: 12px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      margin-bottom: 14px;
+    }
+    .decision-card-label {
+      font-size: 1.05rem;
+      font-weight: 800;
+      margin: 0 0 6px;
+      color: var(--ink);
+    }
+    .decision-card-text {
+      font-size: .88rem;
+      color: var(--ink-light);
+      line-height: 1.5;
+      margin: 0 0 14px;
+      flex: 1;
+    }
+    .decision-card-arrow {
+      font-size: .88rem;
+      font-weight: 700;
+      color: var(--accent);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    @media (max-width: 700px) {
+      .decision-cards { grid-template-columns: 1fr; }
+      .decision-card { min-height: auto; }
+    }
+
     .pricing-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -741,8 +821,34 @@
 
         <div class="abo-header">
           <img src="wave-icon-new.png" alt="myAbiFlow App Icon" class="abo-logo" width="48" height="48" loading="eager" decoding="async">
-          <h1 class="abo-title" id="pageTitle">Wähle deinen Plan</h1>
-          <p class="abo-subtitle" id="pageSubtitle">Lerne mit KI-gestütztem Feedback für dein bayerisches Abitur</p>
+          <h1 class="abo-title" id="pageTitle">Wie möchtest du myAbiFlow nutzen?</h1>
+          <p class="abo-subtitle" id="pageSubtitle">Wähle den Weg, der zu dir passt – danach siehst du die passenden Optionen.</p>
+        </div>
+
+        <!-- Entscheidungshilfe: Privat / Schulcode / Lehrkraft -->
+        <div class="decision-wrap" id="decisionWrap">
+          <div class="decision-cards">
+            <a href="#pricingSection" class="decision-card" id="decisionPrivat">
+              <div class="decision-card-icon" aria-hidden="true">🎓</div>
+              <div class="decision-card-label">Ich lerne privat</div>
+              <p class="decision-card-text">Einzel-Abo buchen und sofort mit KI-Feedback lernen – monatlich oder bis zum Abitur.</p>
+              <span class="decision-card-arrow">Abo wählen →</span>
+            </a>
+
+            <a href="aufgabe.html" class="decision-card" id="decisionCode">
+              <div class="decision-card-icon" aria-hidden="true">🏫</div>
+              <div class="decision-card-label">Meine Schule hat einen Code</div>
+              <p class="decision-card-text">Kurs- oder Schulcode direkt einlösen – dein Zugang ist dann kostenlos.</p>
+              <span class="decision-card-arrow">Code eingeben →</span>
+            </a>
+
+            <a href="schulen.html" class="decision-card" id="decisionLehrer">
+              <div class="decision-card-icon" aria-hidden="true">👩‍🏫</div>
+              <div class="decision-card-label">Ich bin Lehrkraft</div>
+              <p class="decision-card-text">Fachschafts- oder Schullizenz anfragen – inklusive Lehrer-Dashboard und Codes für deine Kurse.</p>
+              <span class="decision-card-arrow">Für Schulen &amp; Fachschaften →</span>
+            </a>
+          </div>
         </div>
 
         <!-- Erfolg/Abbruch Banner -->
@@ -1079,6 +1185,8 @@
           // Aktives Abo anzeigen
           document.getElementById("activeSubCard").classList.add("visible");
           document.getElementById("pricingSection").classList.remove("visible");
+          var decisionWrap = document.getElementById("decisionWrap");
+          if (decisionWrap) { decisionWrap.style.display = "none"; }
           document.getElementById("pageTitle").textContent = "Dein Abo";
           document.getElementById("pageSubtitle").textContent = "Dein Zugang zu myAbiFlow ist aktiv.";
 

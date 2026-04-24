@@ -1116,6 +1116,7 @@ gesamt_np = round(sach_a_np * 0.4 + sach_b_np * 0.3 + darstellung_np * 0.3)`;
     }
 
     async function submitForGrading() {
+      if (window.checkOcrPending && window.checkOcrPending()) return;
       const tA = document.getElementById("studentTextA").value;
       const tB = document.getElementById("studentTextB").value;
       const totalWords = countWords(tA) + countWords(tB);

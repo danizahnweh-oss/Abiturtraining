@@ -1086,6 +1086,7 @@
     }
 
     async function submitForGrading() {
+      if (window.checkOcrPending && window.checkOcrPending()) return;
       // Collect per-textarea texts
       const textareas = document.querySelectorAll('#studentTextareas textarea');
       const teilaufgaben = CONFIG.storedData?.teilaufgaben || [];

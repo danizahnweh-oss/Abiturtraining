@@ -629,6 +629,7 @@
 
     /* Bewertung & Musterloesung */
     async function submitForGrading() {
+      if (window.checkOcrPending && window.checkOcrPending()) return;
       var textareas = document.querySelectorAll('#studentTextareas textarea'), teilaufgaben = CONFIG.storedData?.teilaufgaben || [], student_texts = {}, allText = "";
       textareas.forEach(function(ta, i) { var taData = teilaufgaben[i]; var key = taData ? (taData.id || taData.nr || String.fromCharCode(97+i)+")") : "L\u00f6sung"; student_texts[key] = ta.value; if (ta.value.trim()) allText += (allText ? "\n\n" : "") + key + "\n" + ta.value; });
       if (countWords(allText) < MODULE_CONFIG.minWords) { showToast("Bitte eine L\u00f6sung eingeben"); return; }

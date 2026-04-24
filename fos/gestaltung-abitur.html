@@ -850,6 +850,7 @@
 
     /* ====== SUBMIT FOR GRADING ====== */
     async function submitForGrading() {
+      if (window.checkOcrPending && window.checkOcrPending()) return;
       var t1 = document.getElementById("studentText1").value;
       var t2 = document.getElementById("studentText2").value;
       var t3 = document.getElementById("studentText3").value;

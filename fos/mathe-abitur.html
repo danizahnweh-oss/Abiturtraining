@@ -1093,6 +1093,7 @@ B3 Geometrie: ..." oninput="updateWordCounts()"></textarea>
     }
 
     async function submitForGrading() {
+      if (window.checkOcrPending && window.checkOcrPending()) return;
       var tA = document.getElementById("studentTextA").value;
       var tB = document.getElementById("studentTextB").value;
       var totalWords = countWords(tA) + countWords(tB);

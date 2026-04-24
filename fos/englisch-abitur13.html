@@ -1604,6 +1604,7 @@
 
     /* ====== SUBMIT ====== */
     async function submitForGrading() {
+      if (window.checkOcrPending && window.checkOcrPending()) return;
       var writingText = document.getElementById("studentWriting").value;
       var mediationText = document.getElementById("studentMediation").value;
 

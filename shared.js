@@ -1792,6 +1792,29 @@ function useOCRText() {
   document.getElementById("studentText").scrollIntoView({ behavior: "smooth" });
 }
 
+// Warnt, wenn Submit gedrückt wird, aber erkannter OCR-Text nicht übernommen wurde.
+// Rückgabewert: true → aufrufende Funktion soll abbrechen; false → weiter.
+window.checkOcrPending = function (opts) {
+  opts = opts || {};
+  var studentId = opts.studentId || "studentText";
+  var ocrId = opts.ocrId || "ocrText";
+  var student = document.getElementById(studentId);
+  var ocr = document.getElementById(ocrId);
+  if (!student || !ocr) return false;
+  var sVal = (student.value || "").trim();
+  var oVal = (ocr.value || "").trim();
+  if (!sVal && oVal) {
+    var msg = "Erkannter Text wurde nicht übernommen. Klicke zuerst '✓ Text übernehmen' im Upload-Bereich.";
+    if (typeof showToast === "function") { showToast(msg, "warn"); } else { alert(msg); }
+    try {
+      var ocrBlock = document.getElementById("ocrResult") || ocr;
+      if (ocrBlock && ocrBlock.scrollIntoView) ocrBlock.scrollIntoView({ behavior: "smooth", block: "center" });
+    } catch (e) { /* ignorieren */ }
+    return true;
+  }
+  return false;
+};
+
 function clearOCR() {
   ocrPages.forEach(p => URL.revokeObjectURL(p.url));
   ocrPages.length = 0;

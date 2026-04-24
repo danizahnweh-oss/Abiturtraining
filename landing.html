@@ -5,12 +5,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description"
-    content="Bereite dich mit KI auf das Abitur Bayern vor. Übe Kolloquium, Deutsch, Mathe & 14 weitere Fächer mit sofortigem KI-Feedback. Speziell für Bayern G9 & FOS/BOS.">
+    content="Übe echte Abiturformate, lade deine Lösung hoch und erhalte sofort Punkte, Fehleranalyse, Musterlösung und konkrete Tipps – passend zum bayerischen Lehrplan. Für Bayern G9 & FOS/BOS.">
   <meta name="theme-color" content="#4f46e5">
   <meta name="color-scheme" content="light dark">
   <title>myAbiFlow – KI-Abiturvorbereitung für Bayern | G9 & FOS/BOS</title>
   <meta property="og:title" content="myAbiFlow – KI-Abiturvorbereitung für Bayern">
-  <meta property="og:description" content="Übe fürs schriftliche Abitur und Kolloquium mit sofortigem KI-Feedback. Speziell für Bayern G9 & FOS/BOS.">
+  <meta property="og:description" content="Übe echte Abiturformate, lade deine Lösung hoch und erhalte sofort Punkte, Fehleranalyse, Musterlösung und konkrete Tipps – passend zum bayerischen Lehrplan.">
   <meta property="og:image" content="https://myabiflow.de/og-image.png">
   <meta property="og:url" content="https://myabiflow.de/">
   <meta property="og:type" content="website">
@@ -36,9 +36,7 @@
   </script>
 
   <style>
-    /* shared-v4.css versteckt alle <section>-Tags für App-Screen-Switch */
     section { display: block; }
-
     *, *::before, *::after { box-sizing: border-box; }
 
     body {
@@ -58,6 +56,9 @@
       height: 60px;
       display: flex;
       align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 50;
     }
 
     .lp-nav-inner {
@@ -71,20 +72,10 @@
       gap: 16px;
     }
 
-    .lp-logo {
-      display: flex;
-      align-items: center;
-      text-decoration: none;
-      flex-shrink: 0;
-    }
-
+    .lp-logo { display: flex; align-items: center; text-decoration: none; flex-shrink: 0; }
     .lp-logo img { height: 17px; width: auto; }
 
-    .lp-nav-actions {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
+    .lp-nav-actions { display: flex; align-items: center; gap: 12px; }
 
     .lp-nav-login {
       font-size: 0.875rem;
@@ -115,22 +106,18 @@
     }
     .theme-toggle:hover { background: var(--accent-soft); }
 
-    /* ===== MAIN LAYOUT ===== */
+    /* ===== HERO ===== */
     .lp-main {
-      min-height: calc(100vh - 60px);
-      display: flex;
-      align-items: center;
       max-width: 1200px;
       margin: 0 auto;
-      padding: 0 32px;
+      padding: 48px 32px 32px;
+      display: grid;
+      grid-template-columns: 1fr 380px;
       gap: 64px;
+      align-items: center;
     }
 
-    /* ===== LINKE SPALTE ===== */
-    .lp-left {
-      flex: 1;
-      min-width: 0;
-    }
+    .lp-left { min-width: 0; }
 
     .lp-badge {
       display: inline-flex;
@@ -157,17 +144,17 @@
     .lp-h1 span { color: var(--accent); }
 
     .lp-sub {
-      font-size: 1rem;
+      font-size: 1.05rem;
       color: var(--ink-light);
-      margin: 0 0 28px;
+      margin: 0 0 24px;
       line-height: 1.6;
-      max-width: 480px;
+      max-width: 560px;
     }
 
     .lp-ctas {
       display: flex;
       gap: 12px;
-      margin-bottom: 28px;
+      margin-bottom: 14px;
       flex-wrap: wrap;
     }
 
@@ -178,10 +165,17 @@
       min-width: 160px;
     }
 
+    .lp-cta-sub {
+      font-size: 0.78rem;
+      color: var(--ink-muted);
+      margin: 0 0 24px;
+    }
+
     .lp-features-row {
       display: flex;
       gap: 20px;
       flex-wrap: wrap;
+      margin-bottom: 20px;
     }
 
     .lp-feat {
@@ -202,18 +196,10 @@
       justify-content: center;
       flex-shrink: 0;
     }
-
     .lp-feat-icon svg { color: var(--success); }
 
-    /* ===== RECHTE SPALTE ===== */
-    .lp-right {
-      flex: 0 0 380px;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
+    .lp-right { display: flex; flex-direction: column; gap: 16px; }
 
-    /* Testimonial */
     .lp-testimonial {
       background: var(--surface);
       border: 1px solid var(--border);
@@ -222,18 +208,13 @@
       box-shadow: var(--shadow-lg);
       position: relative;
     }
-
     .lp-quote-mark {
-      font-size: 3.5rem;
-      line-height: 1;
+      font-size: 3.5rem; line-height: 1;
       color: var(--accent-soft);
       font-family: Georgia, serif;
-      position: absolute;
-      top: 12px;
-      left: 22px;
+      position: absolute; top: 12px; left: 22px;
       pointer-events: none;
     }
-
     .lp-quote-text {
       font-size: 0.95rem;
       color: var(--ink);
@@ -242,110 +223,243 @@
       padding-top: 12px;
       font-style: italic;
     }
-
-    .lp-quote-author {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
+    .lp-quote-author { display: flex; align-items: center; gap: 10px; }
     .lp-avatar {
       width: 36px; height: 36px;
       border-radius: 50%;
       background: linear-gradient(135deg, var(--accent), #818cf8);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 14px;
-      font-weight: 700;
-      color: white;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; font-weight: 700; color: white;
       flex-shrink: 0;
     }
-
     .lp-author-name { font-weight: 700; font-size: 0.85rem; color: var(--ink); }
     .lp-author-role { font-size: 0.75rem; color: var(--ink-muted); }
-
     .lp-stars { color: #f59e0b; font-size: 0.8rem; letter-spacing: 1px; margin-bottom: 4px; }
 
-    /* Mini-Feature-Karten */
-    .lp-mini-cards {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
+    .lp-proof {
+      margin-top: 8px;
+      font-size: 0.82rem;
+      color: var(--ink-muted);
+      line-height: 1.55;
     }
 
-    .lp-mini-card {
+    /* ===== CONTENT-SEKTIONEN ===== */
+    .lp-section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 72px 32px;
+    }
+    .lp-section-alt { background: var(--surface-alt, #f8fafc); }
+    [data-theme="dark"] .lp-section-alt { background: rgba(255, 255, 255, 0.02); }
+
+    .lp-section-head {
+      text-align: center;
+      max-width: 680px;
+      margin: 0 auto 40px;
+    }
+    .lp-section-title {
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      margin: 0 0 12px;
+      color: var(--ink);
+    }
+    .lp-section-sub {
+      font-size: 1rem;
+      color: var(--ink-light);
+      margin: 0;
+    }
+
+    /* ===== MINI-DEMO ===== */
+    .lp-demo-card {
+      max-width: 880px;
+      margin: 0 auto;
       background: var(--surface);
       border: 1px solid var(--border);
+      border-radius: 20px;
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
+    }
+    .lp-demo-head {
+      padding: 18px 24px;
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+      flex-wrap: wrap;
+      background: var(--accent-soft);
+    }
+    .lp-demo-subject {
+      font-size: .75rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em;
+      color: var(--accent);
+    }
+    .lp-demo-score {
+      font-size: 1.15rem; font-weight: 800; color: var(--accent);
+    }
+    .lp-demo-body { padding: 24px; display: grid; gap: 20px; }
+    .lp-demo-block {
+      padding: 16px 18px;
       border-radius: 14px;
-      padding: 14px 12px;
-      text-align: center;
+      border: 1px solid var(--border);
+      background: var(--bg);
+    }
+    .lp-demo-label {
+      font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em;
+      color: var(--ink-muted);
+      margin: 0 0 8px;
+    }
+    .lp-demo-text {
+      font-size: .95rem; color: var(--ink); line-height: 1.55; margin: 0;
+    }
+    .lp-demo-block--strong { background: #ecfdf5; border-color: #a7f3d0; }
+    .lp-demo-block--weak { background: #fff7ed; border-color: #fed7aa; }
+    .lp-demo-block--solution { background: var(--accent-soft); border-color: var(--accent); }
+    [data-theme="dark"] .lp-demo-block--strong { background: rgba(16, 185, 129, .08); border-color: rgba(16, 185, 129, .3); }
+    [data-theme="dark"] .lp-demo-block--weak { background: rgba(249, 115, 22, .08); border-color: rgba(249, 115, 22, .3); }
+    [data-theme="dark"] .lp-demo-block--solution { background: rgba(79, 70, 229, .12); border-color: rgba(79, 70, 229, .4); }
+    .lp-demo-list { margin: 0; padding-left: 20px; font-size: .92rem; color: var(--ink); line-height: 1.55; }
+    .lp-demo-list li { margin-bottom: 4px; }
+    .lp-demo-cta {
+      padding: 20px 24px;
+      border-top: 1px solid var(--border);
+      display: flex; justify-content: center;
+    }
+
+    /* ===== DREI PRODUKT-SÄULEN ===== */
+    .lp-pillars {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .lp-pillar {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 28px 24px;
+      display: flex; flex-direction: column;
+      box-shadow: var(--shadow-sm);
+      transition: transform .2s, box-shadow .2s;
+    }
+    .lp-pillar:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+    .lp-pillar-icon {
+      width: 48px; height: 48px;
+      border-radius: 14px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 28px;
+      margin-bottom: 18px;
+    }
+    .lp-pillar-title {
+      font-size: 1.15rem; font-weight: 800; letter-spacing: -.01em;
+      margin: 0 0 8px; color: var(--ink);
+    }
+    .lp-pillar-list {
+      list-style: none; padding: 0; margin: 0 0 20px;
+      display: flex; flex-direction: column; gap: 8px;
+      font-size: .9rem; color: var(--ink-light); line-height: 1.5;
+    }
+    .lp-pillar-list li { display: flex; gap: 8px; align-items: flex-start; }
+    .lp-pillar-list li::before {
+      content: "✓";
+      color: var(--success, #059669);
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+    .lp-pillar-cta { margin-top: auto; }
+    .lp-pillar-cta .btn {
+      width: 100%; height: 44px; font-size: .9rem;
+    }
+
+    /* ===== CHATGPT-VERGLEICH ===== */
+    .lp-compare {
+      max-width: 880px;
+      margin: 0 auto;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      overflow: hidden;
+      background: var(--surface);
       box-shadow: var(--shadow-sm);
     }
-
-    .lp-mini-card-icon { font-size: 32px; margin-bottom: 8px; }
-    .lp-mini-card-label {
-      font-size: 0.8rem;
-      font-weight: 700;
-      color: var(--ink-light);
-      line-height: 1.3;
+    .lp-compare-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
     }
-
-    /* Social Proof unten links */
-    .lp-proof {
-      margin-top: 20px;
-      font-size: 0.78rem;
+    .lp-compare-row + .lp-compare-row { border-top: 1px solid var(--border); }
+    .lp-compare-cell {
+      padding: 16px 20px;
+      font-size: .93rem;
+      color: var(--ink);
+      line-height: 1.5;
+    }
+    .lp-compare-cell--head {
+      font-weight: 800;
+      font-size: 1rem;
+      background: var(--bg);
+    }
+    .lp-compare-cell--left {
       color: var(--ink-muted);
-      display: flex;
-      align-items: center;
-      gap: 6px;
+      border-right: 1px solid var(--border);
+      background: var(--bg);
     }
+    .lp-compare-cell--right {
+      color: var(--ink);
+      background: var(--accent-soft);
+      font-weight: 600;
+    }
+    [data-theme="dark"] .lp-compare-cell--right { background: rgba(79, 70, 229, .15); }
 
-    /* Footer-Zeile */
+    /* ===== FOOTER ===== */
     .lp-footer {
       background: var(--surface);
       border-top: 1px solid var(--border);
-      height: 40px;
+      padding: 20px 32px;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 24px;
+      flex-wrap: wrap;
     }
-
     .lp-footer a {
-      font-size: 0.72rem;
+      font-size: 0.78rem;
       color: var(--ink-muted);
       text-decoration: none;
       transition: color .15s;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
     }
     .lp-footer a:hover { color: var(--accent); }
 
     /* ===== TABLET ===== */
     @media (max-width: 900px) {
-      body { overflow: auto; height: auto; }
-
       .lp-main {
-        height: auto;
-        flex-direction: column;
-        padding: 40px 24px 80px;
-        gap: 40px;
-        align-items: stretch;
+        grid-template-columns: 1fr;
+        padding: 36px 24px 28px;
+        gap: 32px;
       }
-
-      .lp-right { flex: none; width: 100%; }
-
-      .lp-mini-cards { grid-template-columns: repeat(3, 1fr); }
-
-      .lp-footer { margin-top: 0; }
+      .lp-right { order: 3; }
+      .lp-pillars { grid-template-columns: 1fr; }
+      .lp-section { padding: 56px 24px; }
     }
 
+    /* ===== MOBILE: Hero priorisieren ===== */
     @media (max-width: 600px) {
       .lp-nav-inner { padding: 0 20px; }
-      .lp-main { padding: 32px 20px 60px; }
+      .lp-main { padding: 24px 20px 24px; gap: 24px; }
       .lp-h1 { font-size: 1.9rem; }
+      .lp-sub { font-size: 1rem; }
       .lp-ctas { flex-direction: column; }
       .lp-ctas .btn { min-width: 0; width: 100%; }
-      .lp-right { flex: none; }
+
+      /* Hero-Flow auf Mobile: Badge → Headline → Sub → CTA → Proof, dann erst Testimonials */
+      .lp-right { order: 3; }
+      .lp-features-row { order: 2; }
+      .lp-proof { order: 2; }
+
+      .lp-section { padding: 44px 20px; }
+      .lp-section-title { font-size: 1.5rem; }
+      .lp-compare-row { grid-template-columns: 1fr; }
+      .lp-compare-cell--left { border-right: none; border-bottom: 1px solid var(--border); }
     }
 
     /* ===== DARK MODE ===== */
@@ -366,16 +480,16 @@
         <button class="theme-toggle" id="themeToggle" aria-label="Erscheinungsbild wechseln">
           <span id="themeIcon">☀️</span>
         </button>
-        <a href="index.html?app=1" class="lp-nav-login">Einloggen</a>
-        <a href="index.html?app=1" class="btn" style="height:40px; padding:0 20px; font-size:0.875rem;">Kostenlos starten</a>
+        <a href="index.html?login=1" class="lp-nav-login" id="navLoginLink">Einloggen</a>
+        <a href="index.html?app=1" class="btn" id="navPrimaryCta" style="height:40px; padding:0 20px; font-size:0.875rem;">Kostenlos testen</a>
       </div>
     </div>
   </nav>
 
-  <!-- MAIN: zweispaltig, kein Scroll -->
+  <!-- HERO -->
   <main class="lp-main">
 
-    <!-- LINKE SPALTE -->
+    <!-- LINKE SPALTE: Headline + CTAs + Proof -->
     <div class="lp-left">
       <div class="lp-badge">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
@@ -387,49 +501,50 @@
       </h1>
 
       <p class="lp-sub">
-        Sofortiges KI-Feedback auf Aufsätze, Klausuren und Mathe-Aufgaben. Kolloquium mit KI üben. Speziell auf den bayerischen Lehrplan zugeschnitten.
+        Übe echte Abiturformate, lade deine Lösung hoch und erhalte sofort Punkte, Fehleranalyse, Musterlösung und konkrete Tipps – passend zum bayerischen Lehrplan.
       </p>
 
       <div class="lp-ctas">
-        <a href="index.html?app=1" class="btn">Kostenlos testen →</a>
+        <a href="index.html?app=1" class="btn" id="heroPrimaryCta">Kostenlos testen →</a>
         <a href="lehrer.html" class="btn btn-secondary">Für Lehrkräfte &amp; Schulen</a>
       </div>
+
+      <p class="lp-cta-sub">Für Fachschaften, Kurse und Schullizenzen.</p>
 
       <div class="lp-features-row">
         <div class="lp-feat">
           <div class="lp-feat-icon">
             <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
           </div>
-          14+ Fächer
+          Aufgaben passend zum Lehrplan
         </div>
         <div class="lp-feat">
           <div class="lp-feat-icon">
             <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
           </div>
-          Sofortiges KI-Feedback
+          Punkte &amp; Fehleranalyse
         </div>
         <div class="lp-feat">
           <div class="lp-feat-icon">
             <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
           </div>
-          Kolloquium üben
+          Kolloquium mit KI-Prüfer
         </div>
       </div>
 
       <div class="lp-proof">
-        🎓 6 bayerische Gymnasien &amp; FOS-Schulen &nbsp;·&nbsp; 150+ Schülerinnen und Schüler &nbsp;·&nbsp; von einem verbeamteten Lehrer entwickelt
+        🎓 Bereits im Einsatz an 6 bayerischen Schulen · über 150 registrierte Schülerinnen und Schüler · entwickelt von einem verbeamteten Gymnasiallehrer.
       </div>
     </div>
 
-    <!-- RECHTE SPALTE -->
+    <!-- RECHTE SPALTE: Testimonials (auf Mobile nach unten) -->
     <div class="lp-right">
 
-      <!-- Anja-Zitat -->
       <div class="lp-testimonial">
         <div class="lp-quote-mark" aria-hidden="true">"</div>
         <div class="lp-stars" aria-label="5 von 5 Sternen">★★★★★</div>
         <p class="lp-quote-text">
-          Sonst bekommt man oft nur einen allgemeinen Übungsaufsatz. Mit myAbiFlow habe ich das Gefühl, mich wirklich gezielt aufs Abitur und auf die nächste Klausur vorbereiten zu können.
+          Endlich bekomme ich nicht nur eine Aufgabe, sondern direkt Feedback, Punkte und konkrete Tipps für die nächste Klausur.
         </p>
         <div class="lp-quote-author">
           <div class="lp-avatar" aria-hidden="true">A</div>
@@ -440,71 +555,211 @@
         </div>
       </div>
 
-      <!-- Gründer-Perspektive -->
-      <div class="lp-testimonial" style="margin-top:.75rem;">
+      <div class="lp-testimonial">
         <div class="lp-quote-mark" aria-hidden="true">"</div>
-        <p class="lp-quote-text" style="font-size:.95rem;">
-          Im Unterricht habe ich gesehen, womit Schüler wirklich kämpfen: fehlendes Feedback. Man schreibt einen Aufsatz – und weiß danach immer noch nicht, warum es nicht 15 Punkte waren.
+        <p class="lp-quote-text" style="font-size:.93rem;">
+          Im Unterricht habe ich gesehen: Schüler schreiben einen Aufsatz – und wissen danach oft trotzdem nicht, warum es keine 15 Punkte waren. Genau dieses Feedback liefert myAbiFlow sofort.
         </p>
         <div class="lp-quote-author">
           <div class="lp-avatar" aria-hidden="true">D</div>
           <div>
             <div class="lp-author-name">Daniel Zahnweh</div>
-            <div class="lp-author-role">Gründer · Verbeamteter Lehrer, Landeshauptstadt München</div>
+            <div class="lp-author-role">Gründer · Verbeamteter Lehrer, München</div>
           </div>
-        </div>
-      </div>
-
-      <!-- 3 Mini-Feature-Karten -->
-      <div class="lp-mini-cards">
-        <div class="lp-mini-card">
-          <div class="lp-mini-card-icon" aria-hidden="true">✍️</div>
-          <div class="lp-mini-card-label">Schriftliches Abitur</div>
-        </div>
-        <div class="lp-mini-card">
-          <div class="lp-mini-card-icon" aria-hidden="true">🎤</div>
-          <div class="lp-mini-card-label">Kolloquium-Trainer</div>
-        </div>
-        <div class="lp-mini-card">
-          <div class="lp-mini-card-icon" aria-hidden="true">📊</div>
-          <div class="lp-mini-card-label">Lehrer-Dashboard</div>
         </div>
       </div>
 
     </div>
   </main>
 
-  <!-- FOOTER-ZEILE -->
+  <!-- ===== MINI-DEMO ===== -->
+  <section class="lp-section lp-section-alt" aria-labelledby="demo-title">
+    <div class="lp-section-head">
+      <h2 class="lp-section-title" id="demo-title">So sieht dein Feedback aus</h2>
+      <p class="lp-section-sub">Ein echtes Beispiel aus dem Deutsch-Abitur: eingereichte Schülerantwort, KI-Bewertung und Musterlösung – ohne Registrierung.</p>
+    </div>
+
+    <div class="lp-demo-card">
+      <div class="lp-demo-head">
+        <div>
+          <div class="lp-demo-subject">Deutsch · Textanalyse</div>
+          <div style="font-size:.88rem; color:var(--ink-light); margin-top:4px;">Kurzgeschichten-Interpretation</div>
+        </div>
+        <div class="lp-demo-score">11 / 15 Punkte</div>
+      </div>
+
+      <div class="lp-demo-body">
+
+        <div class="lp-demo-block">
+          <p class="lp-demo-label">Aufgabe</p>
+          <p class="lp-demo-text">Analysieren Sie die Kurzgeschichte im Hinblick auf die Darstellung der inneren Konflikte der Hauptfigur. Beziehen Sie sprachliche Mittel und Erzählperspektive in Ihre Analyse ein.</p>
+        </div>
+
+        <div class="lp-demo-block">
+          <p class="lp-demo-label">Auszug aus der Schülerantwort</p>
+          <p class="lp-demo-text" style="font-style: italic;">„Die Hauptfigur wirkt zunächst entschlossen, was durch die parataktischen Hauptsätze verstärkt wird. Im weiteren Verlauf zeigt sich jedoch ein innerer Konflikt, der durch die erlebte Rede deutlich wird. Der Erzähler distanziert sich zunehmend …"</p>
+        </div>
+
+        <div class="lp-demo-block lp-demo-block--strong">
+          <p class="lp-demo-label" style="color:#047857;">Stärken</p>
+          <ul class="lp-demo-list">
+            <li>Fachbegriffe (Parataxe, erlebte Rede) korrekt und gezielt eingesetzt</li>
+            <li>Klare Argumentationsstruktur mit nachvollziehbarer Beweisführung</li>
+            <li>Zitate werden sinnvoll eingebunden</li>
+          </ul>
+        </div>
+
+        <div class="lp-demo-block lp-demo-block--weak">
+          <p class="lp-demo-label" style="color:#c2410c;">Verbesserungen</p>
+          <ul class="lp-demo-list">
+            <li>Erzählperspektive wird nur kurz benannt – Wirkung auf die Leserführung fehlt</li>
+            <li>Deutungshypothese im Einleitungsabschnitt zu allgemein</li>
+            <li>Schlussteil verliert Bezug zur Ausgangsfrage</li>
+          </ul>
+        </div>
+
+        <div class="lp-demo-block lp-demo-block--solution">
+          <p class="lp-demo-label" style="color:var(--accent);">Musterlösung (Auszug)</p>
+          <p class="lp-demo-text">Die personale Erzählsituation fokussiert die Wahrnehmung der Hauptfigur und schafft Nähe zu ihrem inneren Konflikt. Dieser wird durch den Wechsel von parataktischem zu hypotaktischem Satzbau formal gespiegelt: Die Brüche in der Syntax entsprechen den emotionalen Brüchen der Figur …</p>
+        </div>
+
+      </div>
+
+      <div class="lp-demo-cta">
+        <a href="demo.html" class="btn" style="height:46px;">Beispiel-Feedback ansehen →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== DREI PRODUKT-SÄULEN ===== -->
+  <section class="lp-section" aria-labelledby="pillars-title">
+    <div class="lp-section-head">
+      <h2 class="lp-section-title" id="pillars-title">Drei Wege, mit myAbiFlow besser vorbereitet zu sein</h2>
+      <p class="lp-section-sub">Schriftliches Abitur, mündliche Prüfung und Lehrer-Dashboard – alles passend zu Bayern G9 und FOS/BOS.</p>
+    </div>
+
+    <div class="lp-pillars">
+
+      <article class="lp-pillar">
+        <div class="lp-pillar-icon" aria-hidden="true">✍️</div>
+        <h3 class="lp-pillar-title">Schriftliches Abitur</h3>
+        <ul class="lp-pillar-list">
+          <li>Aufsätze, Klausurantworten, MINT-Aufgaben hochladen</li>
+          <li>Punkte, Fehleranalyse und Musterlösung sofort</li>
+          <li>14+ Fächer, passend zum bayerischen Lehrplan</li>
+        </ul>
+        <div class="lp-pillar-cta">
+          <a href="abitur-vorbereitung.html" class="btn btn-secondary">Fächer ansehen</a>
+        </div>
+      </article>
+
+      <article class="lp-pillar">
+        <div class="lp-pillar-icon" aria-hidden="true">🎤</div>
+        <h3 class="lp-pillar-title">Kolloquium-Trainer</h3>
+        <ul class="lp-pillar-list">
+          <li>Kurzreferat halten, KI stellt echte Nachfragen</li>
+          <li>Verschiedene Prüfer-Typen &amp; Zeitdruck wie in der Prüfung</li>
+          <li>Feedback mit Punkten und konkreten Tipps</li>
+        </ul>
+        <div class="lp-pillar-cta">
+          <a href="kolloquium.html" class="btn btn-secondary">Kolloquium ausprobieren</a>
+        </div>
+      </article>
+
+      <article class="lp-pillar">
+        <div class="lp-pillar-icon" aria-hidden="true">📊</div>
+        <h3 class="lp-pillar-title">Lehrer-Dashboard</h3>
+        <ul class="lp-pillar-list">
+          <li>Kurs- &amp; Schulcodes für Fachschaften und Jahrgänge</li>
+          <li>Lernfortschritt pro Schülerin / Schüler im Blick</li>
+          <li>Klausuren vorbereiten ohne händisches Korrigieren</li>
+        </ul>
+        <div class="lp-pillar-cta">
+          <a href="schulen.html" class="btn btn-secondary">Für Schulen &amp; Fachschaften</a>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ===== CHATGPT-VERGLEICH ===== -->
+  <section class="lp-section lp-section-alt" aria-labelledby="compare-title">
+    <div class="lp-section-head">
+      <h2 class="lp-section-title" id="compare-title">Warum nicht einfach ChatGPT?</h2>
+      <p class="lp-section-sub">ChatGPT kann vieles – aber nicht das, was für dein bayerisches Abitur wirklich zählt.</p>
+    </div>
+
+    <div class="lp-compare">
+      <div class="lp-compare-row">
+        <div class="lp-compare-cell lp-compare-cell--head lp-compare-cell--left">ChatGPT</div>
+        <div class="lp-compare-cell lp-compare-cell--head lp-compare-cell--right">myAbiFlow</div>
+      </div>
+      <div class="lp-compare-row">
+        <div class="lp-compare-cell lp-compare-cell--left">Allgemeine Antworten, nicht lehrplangebunden</div>
+        <div class="lp-compare-cell lp-compare-cell--right">Aufgaben passend zum Bayern-Abitur (G9 &amp; FOS/BOS)</div>
+      </div>
+      <div class="lp-compare-row">
+        <div class="lp-compare-cell lp-compare-cell--left">Nutzer muss Prompts selbst schreiben</div>
+        <div class="lp-compare-cell lp-compare-cell--right">Schüler wählen Fach und starten direkt</div>
+      </div>
+      <div class="lp-compare-row">
+        <div class="lp-compare-cell lp-compare-cell--left">Keine feste Prüfungsbewertung</div>
+        <div class="lp-compare-cell lp-compare-cell--right">Punkte, Fehleranalyse und Musterlösung</div>
+      </div>
+      <div class="lp-compare-row">
+        <div class="lp-compare-cell lp-compare-cell--left">Kein echter Prüfungsmodus</div>
+        <div class="lp-compare-cell lp-compare-cell--right">Klausur- und Kolloquiumssimulation mit Zeitdruck</div>
+      </div>
+      <div class="lp-compare-row">
+        <div class="lp-compare-cell lp-compare-cell--left">Keine Lehrerübersicht</div>
+        <div class="lp-compare-cell lp-compare-cell--right">Codes, Dashboard und Lernfortschritt für Fachschaften</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
   <footer class="lp-footer" role="contentinfo">
     <a href="abo.html">Preise</a>
     <a href="lehrer.html">Für Lehrkräfte</a>
+    <a href="schulen.html">Für Schulen</a>
+    <a href="demo.html">Demo</a>
     <a href="ueber-uns.html">Über uns</a>
     <a href="impressum.html">Impressum</a>
-    <a href="index.html?app=1">Einloggen</a>
+    <a href="datenschutz.html">Datenschutz</a>
+    <a href="index.html?login=1">Einloggen</a>
   </footer>
 
-  <!-- Dark Mode Toggle -->
+  <!-- Scripts -->
   <script>
+    // Dark Mode Toggle
     (function () {
       var btn = document.getElementById('themeToggle');
       var icon = document.getElementById('themeIcon');
       var html = document.documentElement;
-
       function isDark() { return html.getAttribute('data-theme') === 'dark'; }
       function updateIcon() { icon.textContent = isDark() ? '🌙' : '☀️'; }
-
       updateIcon();
-
       btn.addEventListener('click', function () {
-        if (isDark()) {
-          html.removeAttribute('data-theme');
-          localStorage.setItem('theme', 'light');
-        } else {
-          html.setAttribute('data-theme', 'dark');
-          localStorage.setItem('theme', 'dark');
-        }
+        if (isDark()) { html.removeAttribute('data-theme'); localStorage.setItem('theme', 'light'); }
+        else { html.setAttribute('data-theme', 'dark'); localStorage.setItem('theme', 'dark'); }
         updateIcon();
       });
+    })();
+
+    // CTA-Anpassung für eingeloggte Nutzer: "Kostenlos testen" → "Zum Dashboard"
+    (function () {
+      try {
+        var isLoggedIn = sessionStorage.getItem('access') === '1' && sessionStorage.getItem('student_name');
+        var isTeacher = sessionStorage.getItem('teacher_auth') === '1';
+        if (isLoggedIn || isTeacher) {
+          var nav = document.getElementById('navPrimaryCta');
+          var login = document.getElementById('navLoginLink');
+          var hero = document.getElementById('heroPrimaryCta');
+          if (nav) { nav.textContent = 'Zum Dashboard'; nav.setAttribute('href', 'index.html?app=1'); }
+          if (hero) { hero.innerHTML = 'Weiterlernen →'; hero.setAttribute('href', 'index.html?app=1'); }
+          if (login) { login.style.display = 'none'; }
+        }
+      } catch (e) { /* ignorieren */ }
     })();
   </script>
 
