@@ -86,13 +86,23 @@ function parseMarkdownTable(tableText: string): React.ReactNode | null {
   const headers = parseRow(lines[0]);
   const rows = lines.slice(2).map(parseRow);
 
+  // Erkennen, ob es eine reine Zahlen-Tabelle ist (für rechtsbündige Werte)
+  const isNumericCell = (cell: string) => /^[\s\-+]?[\d.,]+\s*(%|€|kg|g|mg|°C|°|Mio\.?|Mrd\.?|Tsd\.?|min|s|h|m|cm|mm|km)?\s*$/.test(cell);
+
   return (
-    <div className="overflow-x-auto my-3 rounded-xl border border-slate-200 shadow-sm">
-      <table className="min-w-full text-sm border-collapse">
+    <div
+      className="overflow-x-auto my-4 rounded-xl border border-slate-200 shadow-sm bg-white"
+      style={{ whiteSpace: 'normal' }}
+    >
+      <table className="min-w-full text-sm border-collapse" style={{ whiteSpace: 'normal' }}>
         <thead>
-          <tr className="bg-slate-100">
+          <tr className="bg-gradient-to-r from-slate-100 to-slate-50">
             {headers.map((h, i) => (
-              <th key={i} className="px-4 py-2.5 text-left font-semibold text-slate-700 border-b border-slate-200 whitespace-nowrap">
+              <th
+                key={i}
+                className="px-4 py-3 text-left font-semibold text-slate-700 border-b-2 border-slate-300 align-top"
+                style={{ whiteSpace: 'normal', wordBreak: 'normal', overflowWrap: 'break-word' }}
+              >
                 {renderInlineMarkdown(h)}
               </th>
             ))}
@@ -101,11 +111,21 @@ function parseMarkdownTable(tableText: string): React.ReactNode | null {
         <tbody>
           {rows.map((row, ri) => (
             <tr key={ri} className={ri % 2 === 0 ? 'bg-white' : 'bg-slate-50/60'}>
-              {row.map((cell, ci) => (
-                <td key={ci} className="px-4 py-2 text-slate-700 border-b border-slate-100 whitespace-nowrap">
-                  {renderInlineMarkdown(cell)}
-                </td>
-              ))}
+              {row.map((cell, ci) => {
+                const numeric = isNumericCell(cell);
+                return (
+                  <td
+                    key={ci}
+                    className={cn(
+                      "px-4 py-2.5 border-b border-slate-100 align-top",
+                      numeric ? "text-right tabular-nums font-medium text-slate-800" : "text-slate-700"
+                    )}
+                    style={{ whiteSpace: 'normal', wordBreak: 'normal', overflowWrap: 'break-word' }}
+                  >
+                    {renderInlineMarkdown(cell)}
+                  </td>
+                );
+              })}
             </tr>
           ))}
         </tbody>
@@ -1382,6 +1402,43 @@ export default function App() {
                   </div>
                 )}
               </div>
+
+              {/* Diagramme zu Statistik-Material */}
+              {material.charts && material.charts.length > 0 && (
+                <div className="space-y-4">
+                  {material.charts.map((c, i) => (
+                    <div
+                      key={i}
+                      className="bg-white/95 backdrop-blur-md rounded-3xl p-6 sm:p-7 shadow-sm border border-emerald-100/50"
+                    >
+                      <div className="flex items-center gap-2 mb-4 text-emerald-700">
+                        <BarChart3 size={16} />
+                        <h4 className="font-semibold text-sm uppercase tracking-wider">{c.titel}</h4>
+                      </div>
+                      <div className="overflow-x-auto" style={{ WebkitOverflowScrolling: 'touch' }}>
+                        {c.chartDaten.typ === 'balken' ? (
+                          <BarChartSVG
+                            labels={c.chartDaten.labels}
+                            werte={c.chartDaten.werte}
+                            einheit={c.chartDaten.einheit}
+                          />
+                        ) : (
+                          <PieChartSVG
+                            labels={c.chartDaten.labels}
+                            werte={c.chartDaten.werte}
+                            einheit={c.chartDaten.einheit}
+                          />
+                        )}
+                      </div>
+                      {c.quellenangabe && (
+                        <p className="text-xs text-slate-500 mt-3 italic">
+                          Quelle: {c.quellenangabe}
+                        </p>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              )}
 
               {/* Hinweise */}
               <div className="bg-gradient-to-r from-amber-50 to-orange-50 rounded-2xl p-5 border border-amber-100/50 shadow-sm relative overflow-hidden">

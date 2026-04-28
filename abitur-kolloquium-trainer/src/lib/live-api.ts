@@ -42,12 +42,20 @@ export interface GeoGebraGrafik {
   commands: string[];
 }
 
+/** Diagramm-Block für die Vorbereitungs-/Referat-Phase (zusätzlich zu Text-Material). */
+export interface ChartBlock {
+  titel: string;
+  chartDaten: ChartDaten;
+  quellenangabe?: string;
+}
+
 export interface ExamMaterial {
   aufgabenstellung: string;
   material: string;
   hinweise: string;
   grafiken?: GeoGebraGrafik[];
   materialImpulse?: MaterialImpuls[];
+  charts?: ChartBlock[];
 }
 
 export interface ExamConfig {
@@ -247,6 +255,20 @@ function isValidMaterial(m: ExamMaterial): boolean {
   return true;
 }
 
+/** Validiert ein einzelnes Chart-Block-Objekt aus der Gemini-Antwort */
+function isValidChartBlock(c: unknown): c is ChartBlock {
+  if (!c || typeof c !== 'object') return false;
+  const cb = c as Partial<ChartBlock>;
+  if (typeof cb.titel !== 'string' || !cb.titel.trim()) return false;
+  if (!cb.chartDaten || typeof cb.chartDaten !== 'object') return false;
+  const cd = cb.chartDaten;
+  if (cd.typ !== 'balken' && cd.typ !== 'kreis') return false;
+  if (!Array.isArray(cd.labels) || !Array.isArray(cd.werte)) return false;
+  if (cd.labels.length === 0 || cd.labels.length !== cd.werte.length) return false;
+  if (!cd.werte.every(v => typeof v === 'number' && Number.isFinite(v))) return false;
+  return true;
+}
+
 /** Versucht JSON aus der Gemini-Antwort zu parsen */
 function parseExamMaterialResponse(text: string): ExamMaterial | null {
   try {
@@ -259,6 +281,13 @@ function parseExamMaterialResponse(text: string): ExamMaterial | null {
     }
     if (Array.isArray(parsed.aufgabenstellung)) {
       parsed.aufgabenstellung = (parsed.aufgabenstellung as string[]).join('\n\n');
+    }
+    // Charts validieren – ungültige Einträge filtern, statt zu ganzem Material-Reject
+    if (Array.isArray(parsed.charts)) {
+      parsed.charts = parsed.charts.filter(isValidChartBlock);
+      if (parsed.charts.length === 0) delete parsed.charts;
+    } else {
+      delete parsed.charts;
     }
     return parsed;
   } catch {
@@ -287,6 +316,13 @@ Anforderungen:
    - ODER ein Schaubild/Diagramm als Textbeschreibung (z.B. beschriftete Zeichnung, Prozessdiagramm, Stammbaum)
    Jedes Material MUSS eine Quellenangabe haben (Autor, Titel, Jahr).
 3. Gib kurze Hinweise zur Bearbeitung.
+4. Statistiken IMMER zusätzlich strukturieren:
+   a) Im "material"-Text: Werte als Markdown-Tabelle mit | Label | Wert | (NICHT als Fließtext mit "X: 12% | Y: 34% | ..."), Header-Zeile + Separator-Zeile (|---|---|).
+   b) Wenn das Material eine Statistik mit ≥3 numerischen Werten enthält, füge zusätzlich ein "charts"-Array hinzu mit einem oder mehreren Diagrammen. Die Werte im Chart MÜSSEN identisch zu den Werten in der Tabelle sein.
+   Format pro Chart:
+   { "titel": "Kurzer Titel des Diagramms", "chartDaten": { "typ": "balken" oder "kreis", "labels": [...], "werte": [...], "einheit": "%" oder "Mio." oder weglassen }, "quellenangabe": "..." }
+   Wahl des Typs: "kreis" nur wenn die Werte sich zu 100 % aufsummieren (Anteile, Prozent eines Ganzen). Sonst IMMER "balken" – auch für Zeitreihen, Ländervergleiche, absolute Zahlen.
+   Wenn das Material KEINE Zahlen enthält (z.B. nur Zitat / Quellentext): "charts" weglassen.
 ${config.subject === 'Biologie' ? `
 WICHTIG für Biologie: Bevorzuge visuelle Materialien, wie sie typisch für Biologie-Prüfungen sind:
 - Beschriftete Schaubilder (z.B. "Abbildung: Bau einer tierischen Zelle" mit Beschriftung der Organellen)
@@ -302,13 +338,24 @@ WICHTIG für Chemie – Formatierung:
 - Energiediagramme als Textbeschreibung mit Zahlenwerten
 - Strukturformeln als IUPAC-Name + Summenformel in \\ce{}-Notation
 ` : ''}
-BEISPIEL für gutes Material (Fach Geschichte):
-"Material 1 – Quelle:\\nRede von Bundeskanzler Willy Brandt vor dem Deutschen Bundestag am 28. Oktober 1969: \\"Wir wollen mehr Demokratie wagen. Wir wollen eine Gesellschaft, die mehr Freiheit bietet und mehr Mitverantwortung fordert.\\"\\n(Quelle: Regierungserklärung Willy Brandt, 28.10.1969)\\n\\nMaterial 2 – Statistik:\\nWahlbeteiligung bei Bundestagswahlen: 1972: 91,1% | 1980: 88,6% | 1990: 77,8% | 2002: 79,1% | 2021: 76,6%\\n(Quelle: Bundeswahlleiter, 2021)"${config.subject === 'Biologie' ? `
+BEISPIEL für gutes Material (Fach Geschichte) – inkl. Chart-Block:
+{
+  "aufgabenstellung": "...",
+  "material": "Material 1 – Quelle:\\nRede von Bundeskanzler Willy Brandt vor dem Deutschen Bundestag am 28. Oktober 1969: \\"Wir wollen mehr Demokratie wagen.\\"\\n(Quelle: Regierungserklärung Willy Brandt, 28.10.1969)\\n\\nMaterial 2 – Statistik (Wahlbeteiligung Bundestagswahlen):\\n\\n| Jahr | Wahlbeteiligung |\\n|------|----------------:|\\n| 1972 | 91,1 % |\\n| 1980 | 88,6 % |\\n| 1990 | 77,8 % |\\n| 2002 | 79,1 % |\\n| 2021 | 76,6 % |\\n\\n(Quelle: Bundeswahlleiter, 2021)",
+  "hinweise": "...",
+  "charts": [
+    {
+      "titel": "Wahlbeteiligung bei Bundestagswahlen 1972–2021",
+      "chartDaten": { "typ": "balken", "labels": ["1972","1980","1990","2002","2021"], "werte": [91.1, 88.6, 77.8, 79.1, 76.6], "einheit": "%" },
+      "quellenangabe": "Bundeswahlleiter, 2021"
+    }
+  ]
+}${config.subject === 'Biologie' ? `
 
 BEISPIEL für gutes Biologie-Material:
 "Material 1 – Schaubild:\\nAbbildung: Vereinfachtes Schema der Lichtreaktion der Photosynthese\\n\\n  H₂O → [Photosystem II] → Elektronentransportkette → [Photosystem I] → NADPH\\n         |                    |\\n         O₂                  ATP (via Chemiosmose)\\n\\nBeschriftung: Thylakoidmembran, Lumen, Stroma\\n(Quelle: nach Campbell Biologie, 11. Auflage, 2019)\\n\\nMaterial 2 – Experimentergebnis:\\nEnzymaktivität der Amylase bei verschiedenen pH-Werten:\\npH 4: 12% | pH 5: 38% | pH 6: 71% | pH 7: 100% | pH 8: 65% | pH 9: 22%\\n(Quelle: Versuchsergebnisse nach Purves Biologie, 2011)"` : ''}
 
-Antworte als JSON-Objekt mit den Feldern: aufgabenstellung, material, hinweise.`;
+Antworte als JSON-Objekt mit den Feldern: aufgabenstellung, material, hinweise, sowie optional charts (Array, nur bei numerischen Daten).`;
 
   // Bis zu 3 Versuche für brauchbares Material
   for (let attempt = 0; attempt < 3; attempt++) {
