@@ -1644,7 +1644,18 @@ function renderStudents() {
       const planLabel = planNames[s.subscription_plan] || s.subscription_plan || "Aktiv";
       aboBadge = `<span style="font-size:.78rem;background:#ecfdf5;color:#059669;padding:.2rem .55rem;border-radius:6px;font-weight:700;white-space:nowrap;">${escapeHtml(planLabel)}</span>`;
     } else if (s.subscription_status === "trialing") {
-      aboBadge = '<span style="font-size:.78rem;background:#fef3c7;color:#d97706;padding:.2rem .55rem;border-radius:6px;font-weight:700;">Testphase</span>';
+      // Restdauer berechnen (in Tagen, aufgerundet)
+      let restLabel = "";
+      if (s.trial_end) {
+        const diffMs = new Date(s.trial_end).getTime() - Date.now();
+        if (diffMs > 0) {
+          const days = Math.ceil(diffMs / 86400000);
+          restLabel = ` (${days} ${days === 1 ? "Tag" : "Tage"})`;
+        }
+      }
+      aboBadge = `<span style="font-size:.78rem;background:#fef3c7;color:#d97706;padding:.2rem .55rem;border-radius:6px;font-weight:700;">Testphase${restLabel}</span>`;
+    } else if (s.subscription_status === "trial_expired") {
+      aboBadge = '<span style="font-size:.78rem;background:#f3f4f6;color:#6b7280;padding:.2rem .55rem;border-radius:6px;font-weight:700;" title="Testphase abgelaufen – Schüler kann keine Aufgaben mehr erstellen">Testphase abgelaufen</span>';
     } else if (s.subscription_status === "past_due") {
       aboBadge = '<span style="font-size:.78rem;background:#fef2f2;color:#dc2626;padding:.2rem .55rem;border-radius:6px;font-weight:700;">Überfällig</span>';
     } else if (s.subscription_status === "canceled") {

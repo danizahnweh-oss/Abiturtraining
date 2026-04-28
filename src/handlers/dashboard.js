@@ -77,7 +77,7 @@ export async function handleGetStudents(request, env) {
   }
 
   const { results: students } = await env.DB.prepare(
-    "SELECT name, level, hidden_subjects, class_group, email, created_at AS date, subscription_status, subscription_plan FROM students ORDER BY name ASC"
+    "SELECT name, level, hidden_subjects, class_group, email, created_at AS date, subscription_status, subscription_plan, trial_end FROM students ORDER BY name ASC"
   ).all();
 
   // Aktive Schullizenzen laden (free_access Labels)
@@ -86,6 +86,7 @@ export async function handleGetStudents(request, env) {
   ).all();
   const freeAccessSet = new Set((freeAccessLabels || []).map(r => r.label));
 
+  const now = new Date();
   const safe = (students || []).map(s => {
     let status = s.subscription_status || "none";
     let plan = s.subscription_plan || null;
@@ -93,6 +94,10 @@ export async function handleGetStudents(request, env) {
     if (s.class_group && freeAccessSet.has(s.class_group) && status !== 'active') {
       status = 'active';
       plan = 'school';
+    }
+    // Abgelaufene Testphase → eigener Status, damit Dashboard das anders färbt
+    if (status === 'trialing' && s.trial_end && new Date(s.trial_end) <= now) {
+      status = 'trial_expired';
     }
     return {
       name: s.name,
@@ -103,6 +108,7 @@ export async function handleGetStudents(request, env) {
       email: s.email || "",
       subscription_status: status,
       subscription_plan: plan,
+      trial_end: s.trial_end || null,
     };
   });
 
