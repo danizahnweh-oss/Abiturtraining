@@ -980,6 +980,14 @@ function nav(step, _pushHistory) {
   }
 }
 
+// Bestätigung vor dem Verwerfen einer aktuell geladenen Aufgabe (Schutz gegen versehentliches Klicken)
+function confirmNewTask() {
+  if (CONFIG && CONFIG.storedData) {
+    if (!confirm("Wirklich eine neue Aufgabe starten? Die aktuelle Aufgabe geht dabei verloren.")) return;
+  }
+  nav("setup");
+}
+
 /* ================= THEME ================= */
 
 function toggleDarkMode() {

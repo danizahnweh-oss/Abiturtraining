@@ -1,0 +1,20 @@
+{
+  "name": "schulscraper",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Einmaliger Scraper für bayerische Gymnasien (km.bayern.de) → Excel mit Sekretariats-Mails",
+  "scripts": {
+    "fetch": "node 01-fetch-schulen.mjs",
+    "emails": "node 02-extract-emails.mjs",
+    "excel": "node 03-export-excel.mjs",
+    "all": "npm run fetch && npm run emails && npm run excel"
+  },
+  "dependencies": {
+    "cheerio": "^1.0.0",
+    "p-limit": "^6.1.0",
+    "playwright": "^1.49.0",
+    "undici": "^7.2.0",
+    "xlsx": "^0.18.5"
+  }
+}
