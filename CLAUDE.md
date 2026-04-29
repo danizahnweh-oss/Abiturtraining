@@ -20,11 +20,18 @@
 ## Hetzner Server
 - **IP**: `162.55.62.231`
 - **SSH**: `ssh -i ~/.ssh/id_ed25519 root@162.55.62.231`
-- **Backend-Pfad**: `/app/myabiflow-backend/`
+- **Backend-Wrapper**: `/app/myabiflow-backend/` (Express-Server, Queue-Worker, .env)
+- **Worker-Code (eigentliche Handler):** `/app/src/` — `worker-bridge.js` lädt von hier!
+  → Bei Backend-Änderungen in `src/handlers/*` oder `src/index.js` IMMER nach `/app/src/...` deployen, NICHT nach `/app/myabiflow-backend/src/...`
 - **PM2-Prozesse**: `myabiflow-api`, `myabiflow-gemini`, `myabiflow-tutor`
-- **Backend deployen**: Dateien per `scp` hochladen, dann `pm2 restart myabiflow-api`
+- **Backend deployen**: `scp src/.../FILE.js root@162.55.62.231:/app/src/.../FILE.js && pm2 restart myabiflow-api`
 - **Logs**: `pm2 logs myabiflow-api --lines 20`
 - **.env**: `/app/myabiflow-backend/.env` (Secrets auf dem Server)
+
+## Statische Seiten (Frontend)
+- **Pfad auf Server**: `/var/www/myabiflow/`
+- **HTML-Caching**: Nginx liefert `Cache-Control: no-cache, must-revalidate` → Browser revalidiert immer (kein 1h-Stale-Cache mehr)
+- **Service Worker**: bei Änderungen an HTML/shared.js → CACHE_NAME in `sw.js` bumpen
 
 ## Automatischer Workflow
 - Nach **jeder** Code-Änderung automatisch: committen → pushen → deployen
