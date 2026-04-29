@@ -1661,7 +1661,7 @@ function renderStudents() {
     } else if (s.subscription_status === "canceled") {
       aboBadge = '<span style="font-size:.78rem;background:#f3f4f6;color:#6b7280;padding:.2rem .55rem;border-radius:6px;font-weight:700;">Gekündigt</span>';
     } else {
-      aboBadge = '<span style="font-size:.78rem;color:var(--ink-muted);">Kein Abo</span>';
+      aboBadge = '<span style="font-size:.78rem;background:#f3f4f6;color:#6b7280;padding:.2rem .55rem;border-radius:6px;font-weight:700;" title="Schüler hat das Gratis-Trial schon mal genutzt (gleiche E-Mail oder gleiches Gerät) und kann keine Aufgaben erstellen">Trial verbraucht</span>';
     }
     return `<tr>
       <td><strong>${escapeHtml(s.name)}</strong></td>
