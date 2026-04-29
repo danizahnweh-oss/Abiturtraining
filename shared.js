@@ -2563,7 +2563,9 @@ async function _doLoginModal() {
           // Paywall-Check nach E-Mail-Dialog
           var hasTeacherCredits = subData.teacher_credits_available || sessionStorage.getItem("teacher_credits_available") === "1";
           if (!data.free_access && !hasTeacherCredits && data.subscription_status !== "active" && data.subscription_status !== "trialing" && subData.status !== "active" && subData.status !== "trialing") {
-            window.location.href = "/abo.html";
+            var aboUrl = "/abo.html";
+            if (_loginModalMode === "register") aboUrl += "?trial_used=1";
+            window.location.href = aboUrl;
             return;
           }
           if (_loginModalCallback) {
@@ -2578,7 +2580,10 @@ async function _doLoginModal() {
       // Paywall-Check: Kein free_access, kein aktives Abo und keine Lehrer-Credits → zur Abo-Seite
       var hasTeacherCredits = subData.teacher_credits_available || sessionStorage.getItem("teacher_credits_available") === "1";
       if (!data.free_access && !hasTeacherCredits && data.subscription_status !== "active" && data.subscription_status !== "trialing" && subData.status !== "active" && subData.status !== "trialing") {
-        window.location.href = "/abo.html";
+        // Re-Registration ohne Trial → freundlichen Hinweis auf Abo-Seite zeigen
+        var aboUrl = "/abo.html";
+        if (_loginModalMode === "register") aboUrl += "?trial_used=1";
+        window.location.href = aboUrl;
         return;
       }
 

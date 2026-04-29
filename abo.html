@@ -819,6 +819,23 @@
       <div class="abo-container">
         <a href="/" class="back-link">&larr; Zurück zu myAbiFlow</a>
 
+        <!-- Hinweis: Trial bereits verbraucht (Re-Registration) -->
+        <div id="trialUsedBanner" style="display:none;background:#fef3c7;border:1px solid #fcd34d;border-radius:12px;padding:1rem 1.25rem;margin-bottom:1.5rem;color:#78350f;">
+          <p style="margin:0;font-weight:700;font-size:1rem;">Willkommen zurück! 👋</p>
+          <p style="margin:.4rem 0 0;font-size:.92rem;line-height:1.45;">Du hast die kostenlose 3-Tage-Testphase bereits getestet. Um weiterzulernen, wähle unten ein Abo, das zu dir passt.</p>
+        </div>
+        <script>
+          (function() {
+            try {
+              var params = new URLSearchParams(window.location.search);
+              if (params.get("trial_used") === "1") {
+                var banner = document.getElementById("trialUsedBanner");
+                if (banner) banner.style.display = "block";
+              }
+            } catch(e) {}
+          })();
+        </script>
+
         <div class="abo-header">
           <img src="wave-icon-new.png" alt="myAbiFlow App Icon" class="abo-logo" width="48" height="48" loading="eager" decoding="async">
           <h1 class="abo-title" id="pageTitle">Wie möchtest du myAbiFlow nutzen?</h1>
