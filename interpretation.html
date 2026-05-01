@@ -702,13 +702,16 @@ gesamt_np = round(verstehen_np * 0.7 + darstellung_np * 0.3)`;
       document.getElementById("taskInstruction").innerHTML = escapeHtml(d.task_instruction || "").replace(/\n/g, "<br>");
       document.getElementById("textTitle").textContent = d.gattung === "lyrik" ? "Gedicht" : d.gattung === "drama" ? "Dramenausschnitt" : "Prosatext";
 
-      const html = (d.primary_text || "").split("\n").map(l => `<div class="verse">${escapeHtml(l) || "&nbsp;"}</div>`).join("");
+      // Bei Lyrik: jede Zeile = ein Vers. Bei Prosa/Drama: Wortumbruch ~80 Zeichen,
+      // damit Verweise auf "V. 5" bzw. "Z. 12" praezise moeglich sind.
+      const lineOpts = d.gattung === "lyrik" ? { force: true, maxLineLength: 9999 } : undefined;
+      const html = formatTextWithLineNumbers(d.primary_text || "", lineOpts);
       document.getElementById("sourceText").innerHTML = html;
       document.getElementById("sourceMeta").textContent = d.primary_meta || "";
 
       if (d.compare_text) {
         document.getElementById("compareTextCard").style.display = "block";
-        document.getElementById("compareText").innerHTML = (d.compare_text || "").split("\n").map(l => `<div class="verse">${escapeHtml(l) || "&nbsp;"}</div>`).join("");
+        document.getElementById("compareText").innerHTML = formatTextWithLineNumbers(d.compare_text || "", lineOpts);
         document.getElementById("compareMeta").textContent = d.compare_meta || "";
       } else {
         document.getElementById("compareTextCard").style.display = "none";

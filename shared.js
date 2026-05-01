@@ -160,6 +160,28 @@ function formatTextWithLineNumbers(text, options) {
     }).join("") + "</div>";
 }
 
+/**
+ * Rendert Quellenmaterial sinnvoll: Markdown mit Tabellen/Bildern/Headings via
+ * marked+DOMPurify (falls geladen), reine Fließtexte mit Zeilennummern.
+ * So bekommen Geschichte/PuG/Latein etc. zitierfaehige Zeilen, ohne dass
+ * statistische Tabellen oder Bilder zerstoert werden.
+ */
+function formatSourceText(text, options) {
+  var raw = String(text || "");
+  if (!raw.trim()) return "";
+  // Markdown-Indikatoren: Tabellen (|---|---|), Bilder ![..](..), Codeblock ```,
+  // Headings (# ), nummerierte Listen (1. ), Listen (- / *), Blockzitate (> )
+  var hasMarkdown = (
+    /^\s*\|.*\|.*$/m.test(raw) && /^\s*\|\s*[-:]+\s*\|/m.test(raw)  // echte Tabelle (Header + Trenner)
+  ) || /!\[[^\]]*\]\([^)]+\)/.test(raw) || /^```/m.test(raw);
+  if (hasMarkdown && typeof window !== "undefined" && window.marked && window.DOMPurify) {
+    try {
+      return window.DOMPurify.sanitize(window.marked.parse(raw));
+    } catch (e) { /* Fallback */ }
+  }
+  return formatTextWithLineNumbers(raw, options);
+}
+
 function countWords(text) {
   return (text || "").trim().split(/\s+/).filter(w => w.length > 0).length;
 }

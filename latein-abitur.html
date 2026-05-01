@@ -1003,9 +1003,10 @@ gesamt_np = round(teil_a_np * 0.5 + teil_b_np * 0.2 + darstellung_np * 0.3)`;
       document.getElementById("textTitleA").textContent = "Lateinischer Text \u2013 " + autorLabel;
 
       const containerA = document.getElementById("materialsContainerA");
+      // Lateinischer Text mit Zeilennummern, damit man im Kommentar/Loesung praezise auf Z. X verweisen kann
       let htmlA = `<div class="material-card">
     <h4>Lateinischer Text</h4>
-    <div class="source-text material-body latin-text">${escapeHtml(d.teil_a_latin_text || "").replace(/\n/g, "<br>")}</div>
+    <div class="source-text material-body latin-text">${formatTextWithLineNumbers(d.teil_a_latin_text || "")}</div>
   </div>`;
       if (d.teil_a_vokabelhilfen && d.teil_a_vokabelhilfen.length) {
         htmlA += `<div class="material-card">
@@ -1021,15 +1022,16 @@ gesamt_np = round(teil_a_np * 0.5 + teil_b_np * 0.2 + darstellung_np * 0.3)`;
       const containerB = document.getElementById("materialsContainerB");
       let htmlB = "";
       if (d.teil_b_latin_text) {
+        // Auch Teil-B-Text mit Zeilennummern fuer praezise Verweise
         htmlB += `<div class="material-card">
       <h4>Lateinischer Text</h4>
-      <div class="source-text material-body latin-text">${escapeHtml(d.teil_b_latin_text).replace(/\n/g, "<br>")}</div>
+      <div class="source-text material-body latin-text">${formatTextWithLineNumbers(d.teil_b_latin_text)}</div>
     </div>`;
       }
       if (d.teil_b_deutsche_uebersetzung) {
         htmlB += `<div class="material-card">
       <h4>Deutsche \u00dcbersetzung</h4>
-      <div class="source-text material-body">${escapeHtml(d.teil_b_deutsche_uebersetzung).replace(/\n/g, "<br>")}</div>
+      <div class="source-text material-body">${formatTextWithLineNumbers(d.teil_b_deutsche_uebersetzung)}</div>
     </div>`;
       }
       if (d.teil_b_instruction) {

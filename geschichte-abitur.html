@@ -1030,20 +1030,21 @@ gesamt_np = round(sach_a_np * 0.4 + sach_b_np * 0.3 + darstellung_np * 0.3)`;
         ? renderMd(taskB)
         : '<span style="color:var(--ink-muted)">Kein Teil B vorhanden.</span>';
 
-      // Quellenmaterial
+      // Quellenmaterial — formatSourceText nutzt Zeilennummern bei Fliesstext,
+      // bleibt bei Markdown-Tabellen/Bildern auf Markdown-Rendering
       const sourceText = d.primary_text_a || d.primary_text || "";
-      const sourceHtml = renderMd(sourceText);
+      const sourceHtml = formatSourceText(sourceText);
       document.getElementById("sourceText").innerHTML = sourceHtml;
       document.getElementById("sourceMeta").textContent = d.primary_meta_a || d.primary_meta || "";
 
       const hjLabel = HJ_LABELS[d.schwerpunkt || CONFIG.halbjahr] || "";
       document.getElementById("textTitle").textContent = "Material M 1 – " + hjLabel;
 
-      // Material impuls for Teil B
+      // Material impuls for Teil B — auch mit Zeilennummern bei Fliesstext
       const impulsB = d.primary_text_b || "";
       const impulsContainer = document.getElementById("materialImpulsB");
       if (impulsB) {
-        document.getElementById("materialImpulsText").innerHTML = renderMd(impulsB);
+        document.getElementById("materialImpulsText").innerHTML = formatSourceText(impulsB);
         impulsContainer.style.display = "block";
       } else {
         impulsContainer.style.display = "none";

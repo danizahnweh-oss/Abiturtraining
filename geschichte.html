@@ -812,9 +812,10 @@ gesamt_np = round(verstehen_np * 0.7 + darstellung_np * 0.3)`;
         document.getElementById("writeSourceRef").innerHTML = `<em>${escapeHtml(d.primary_meta || "Historisches Bildmaterial")}</em>`;
         loadEducationalImage(d.primary_text, "img-primary", d.primary_bild_labels || null);
       } else {
-        // Standard: Textquelle
+        // Standard: Textquelle — formatSourceText nutzt Zeilennummern bei Fliesstext,
+        // bleibt bei Markdown-Tabellen/Bildern auf Markdown-Rendering
         titleEl.textContent = "Material M 1";
-        const sourceHtml = renderMd(d.primary_text || "");
+        const sourceHtml = formatSourceText(d.primary_text || "");
         sourceEl.innerHTML = sourceHtml;
         metaEl.textContent = d.primary_meta ? `Quelle: ${d.primary_meta}` : "";
         document.getElementById("writeSourceRef").innerHTML = sourceHtml;
@@ -856,7 +857,8 @@ gesamt_np = round(verstehen_np * 0.7 + darstellung_np * 0.3)`;
             ${meta}`;
           pendingImages.push({ prompt: t.primary_text, id: imgId, labels: t.primary_bild_labels || null });
         } else {
-          const sourceText = renderMd(t.primary_text || "");
+          // Textquelle mit Zeilennummern (formatSourceText faellt bei Markdown auf Markdown zurueck)
+          const sourceText = formatSourceText(t.primary_text || "");
           materialHtml = `<h4 class="card-header">M ${mNr}: Textquelle</h4>
             <div class="source-text">${sourceText}</div>
             ${meta}`;
