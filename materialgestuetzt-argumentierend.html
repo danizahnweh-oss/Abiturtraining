@@ -626,10 +626,9 @@ gesamt_np = round(verstehen_np * 0.6 + darstellung_np * 0.4)`;
       if (type === "foto") {
         return `<div class="material-img-loading" id="img-mg-${idx}"><div class="loader-spinner"></div><span>Foto wird geladen...</span></div>`;
       }
-      // Textmaterialien mit Zeilennummern anzeigen
-      const textLines = (content || "").split("\n");
-      const lineHtml = textLines.map(l => `<div class="text-line">${escapeHtml(l) || "&nbsp;"}</div>`).join("");
-      return `<div class="lined-text">${lineHtml}</div>`;
+      // Textmaterialien mit Zeilennummern anzeigen (zentrale Funktion mit Wortumbruch ~80 Zeichen,
+      // damit lange Absaetze in zitierfaehige Zeilen aufgeteilt werden)
+      return formatTextWithLineNumbers(content || "");
     }
 
     function setSetupMode(m) {

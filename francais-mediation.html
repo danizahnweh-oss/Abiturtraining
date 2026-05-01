@@ -1121,14 +1121,14 @@ Schreibe das gesamte Feedback auf DEUTSCH, aber zitiere den Schülertext natürl
       document.getElementById("taskInstruction").innerText = d.task_instruction || "—";
       document.getElementById("articleTitle").innerText = d.headline || "Quelltext";
       document.getElementById("articleBody").innerHTML =
-        (d.article_text || "").split("\n").filter(p => p.trim()).map(p => `<p>${escapeHtml(p)}</p>`).join("");
+        formatTextWithLineNumbers(d.article_text || "");
       document.getElementById("wordCountLabel").innerText = countWords(d.article_text || "");
 
       // Also populate write-tab reference panel
       document.getElementById("writeTaskInstruction").innerText = d.task_instruction || "";
       document.getElementById("writeArticlePreview").innerHTML =
         `<strong>${escapeHtml(d.headline || "")}</strong><br><br>` +
-        (d.article_text || "").split("\n").filter(p => p.trim()).map(p => `<p>${escapeHtml(p)}</p>`).join("");
+        formatTextWithLineNumbers(d.article_text || "");
     }
 
     /* ================= SUBMIT FOR GRADING ================= */

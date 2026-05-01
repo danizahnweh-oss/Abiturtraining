@@ -4237,6 +4237,11 @@ button:focus-visible,
   line-height: 1.85;
   user-select: none;
   flex-shrink: 0;
+  /* Zeilennummern sind rein visuelle Orientierungshilfe – Screenreader sollen
+     sie nicht als Inhalt vorlesen. speak ist von WAI-ARIA empfohlen, wird aber
+     erst von neueren Screenreadern unterstützt; CSS-counter-Pseudoinhalte
+     werden zudem von vielen Screenreadern bereits ignoriert. */
+  speak: never;
 }
 
 /* Nur jede 5. Zeile nummerieren (dezenter) */

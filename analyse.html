@@ -563,17 +563,18 @@ gesamt_np = round(verstehen_np * 0.7 + darstellung_np * 0.3)`;
 
       document.getElementById("taskInstruction").innerHTML = escapeHtml(data.task_instruction || "").replace(/\n/g, "<br>");
       document.getElementById("textTitle").textContent = data.textsorte || "Pragmatischer Text";
-      document.getElementById("sourceText").innerHTML = (data.primary_text || "").split("\n").map(p => `<p>${escapeHtml(p)}</p>`).join("");
+      // Quellentext mit Zeilennummern darstellen, damit Schueler praezise zitieren koennen ("Z. 7-12")
+      document.getElementById("sourceText").innerHTML = formatTextWithLineNumbers(data.primary_text || "");
       document.getElementById("sourceMeta").textContent = data.primary_meta || "";
 
       if (data.compare_text) {
         document.getElementById("compareTextCard").style.display = "block";
-        document.getElementById("compareText").innerHTML = (data.compare_text || "").split("\n").map(p => `<p>${escapeHtml(p)}</p>`).join("");
+        document.getElementById("compareText").innerHTML = formatTextWithLineNumbers(data.compare_text || "");
         document.getElementById("compareMeta").textContent = data.compare_meta || "";
       } else { document.getElementById("compareTextCard").style.display = "none"; }
 
       document.getElementById("writeTaskRef").innerHTML = escapeHtml(data.task_instruction || "").replace(/\n/g, "<br>");
-      document.getElementById("writeSourceRef").innerHTML = (data.primary_text || "").split("\n").map(p => `<p>${escapeHtml(p)}</p>`).join("");
+      document.getElementById("writeSourceRef").innerHTML = formatTextWithLineNumbers(data.primary_text || "");
     }
 
     async function submitForGrading() {

@@ -1143,7 +1143,7 @@ Schreibe das Feedback auf DEUTSCH, zitiere den Schülertext auf FRANZÖSISCH.`;
 
       document.getElementById("articleTitle").innerText = d.headline || "Ausgangstext";
       document.getElementById("articleBody").innerHTML =
-        (d.article_text || "").split("\n").filter(p => p.trim()).map(p => `<p>${escapeHtml(p)}</p>`).join("");
+        formatTextWithLineNumbers(d.article_text || "");
       document.getElementById("wordCountLabel").innerText = countWords(d.article_text || "");
       if (d.source_info) {
         document.getElementById("sourceInfo").innerText = d.source_info;
@@ -1163,7 +1163,7 @@ Schreibe das Feedback auf DEUTSCH, zitiere den Schülertext auf FRANZÖSISCH.`;
       document.getElementById("writeTaskInstruction").innerText = selectedTasks;
       document.getElementById("writeArticlePreview").innerHTML =
         `<strong>${escapeHtml(d.headline || "")}</strong><br><br>` +
-        (d.article_text || "").split("\n").filter(p => p.trim()).map(p => `<p>${escapeHtml(p)}</p>`).join("");
+        formatTextWithLineNumbers(d.article_text || "");
     }
 
     function getSelectedTasks() {

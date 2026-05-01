@@ -481,10 +481,11 @@ gesamt_np = round(verstehen_np * 0.7 + darstellung_np * 0.3)`;
 
     function renderTask(d) {
       document.getElementById("taskInstruction").innerHTML = escapeHtml(d.task_instruction || "").replace(/\n/g, "<br>");
-      document.getElementById("sourceText").innerHTML = (d.primary_text || "").split("\n").map(p => `<p>${escapeHtml(p)}</p>`).join("");
+      // Materialtext mit Zeilennummerierung darstellen, damit Schueler praezise zitieren koennen ("Z. 7-12")
+      document.getElementById("sourceText").innerHTML = formatTextWithLineNumbers(d.primary_text || "");
       document.getElementById("sourceMeta").textContent = d.primary_meta || "";
       document.getElementById("writeTaskRef").innerHTML = escapeHtml(d.task_instruction || "").replace(/\n/g, "<br>");
-      document.getElementById("writeSourceRef").innerHTML = (d.primary_text || "").split("\n").map(p => `<p>${escapeHtml(p)}</p>`).join("");
+      document.getElementById("writeSourceRef").innerHTML = formatTextWithLineNumbers(d.primary_text || "");
     }
 
     async function submitForGrading() {

@@ -13,6 +13,7 @@ import {
   ChevronDown, Clock, FileText, MessageCircle, Loader2,
   RotateCcw, PenLine, Volume2, ArrowLeft, Download,
   Quote, BarChart3, Image, ChevronUp, X, User, ShieldCheck,
+  BookOpen,
 } from 'lucide-react';
 import {
   LiveSession, StatefulLiveSession, SUBJECTS, generateExamMaterial, generateMatheAufgaben, generateMaterialImpulse, generateWrittenFeedback,
@@ -402,6 +403,9 @@ export default function App() {
   const [activeImpuls, setActiveImpuls] = useState<number | null>(null);
   const [shownImpulse, setShownImpulse] = useState<Set<number>>(new Set());
   const [mitMaterial, setMitMaterial] = useState(true);
+
+  /* Material-Drawer während der Prüfung (Aufgabe + Material aus der Vorbereitungszeit) */
+  const [showMaterialDrawer, setShowMaterialDrawer] = useState(false);
 
   /* Session state */
   const [status, setStatus] = useState<'connecting' | 'connected' | 'reconnecting' | 'disconnected' | 'error'>('disconnected');
@@ -862,6 +866,7 @@ export default function App() {
     setMatImpulse([]);
     setActiveImpuls(null);
     setShownImpulse(new Set());
+    setShowMaterialDrawer(false);
     setMitMaterial(true);
     setFbType(null);
     setFbText('');
@@ -1622,7 +1627,7 @@ export default function App() {
                 </div>
 
                 {/* Bottom bar */}
-                <div className="bg-slate-50/80 p-5 flex items-center justify-between border-t border-black/5">
+                <div className="bg-slate-50/80 p-5 flex items-center justify-between gap-3 border-t border-black/5 flex-wrap">
                   {status === 'connected' ? (
                     <div className="flex items-center gap-2">
                       <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
@@ -1631,10 +1636,22 @@ export default function App() {
                   ) : (
                     <div />
                   )}
-                  <button onClick={stopExam} className="bg-gradient-to-r from-red-50 to-white text-red-600 hover:text-red-700 border border-red-100 hover:border-red-200 px-6 py-2.5 rounded-xl font-medium flex items-center gap-2 hover:shadow-md transition-all active:scale-[0.98]">
-                    <Square size={16} fill="currentColor" />
-                    Prüfung beenden
-                  </button>
+                  <div className="flex items-center gap-2 ml-auto flex-wrap">
+                    {material && (material.aufgabenstellung || material.material) && (
+                      <button
+                        onClick={() => setShowMaterialDrawer(true)}
+                        className="bg-white text-emerald-700 border border-emerald-200 hover:bg-emerald-50 px-5 py-2.5 rounded-xl font-medium flex items-center gap-2 hover:shadow-sm transition-all active:scale-[0.98] min-h-[44px]"
+                        aria-label="Material aus der Vorbereitungszeit anzeigen"
+                      >
+                        <BookOpen size={16} aria-hidden="true" />
+                        Material
+                      </button>
+                    )}
+                    <button onClick={stopExam} className="bg-gradient-to-r from-red-50 to-white text-red-600 hover:text-red-700 border border-red-100 hover:border-red-200 px-6 py-2.5 rounded-xl font-medium flex items-center gap-2 hover:shadow-md transition-all active:scale-[0.98] min-h-[44px]">
+                      <Square size={16} fill="currentColor" />
+                      Prüfung beenden
+                    </button>
+                  </div>
                 </div>
               </div>
 
@@ -1651,6 +1668,11 @@ export default function App() {
                         ? `${examinerGender === 'female' ? 'Die' : 'Der'} ${prüferLabel} stellt Fragen zu deinem Schwerpunktthema.`
                         : `${examinerGender === 'female' ? 'Die' : 'Der'} ${prüferLabel} fragt jetzt zu den weiteren Halbjahren.`}
               </p>
+              {(examMode === 'referat' || (examMode === 'gesamt' && exam.phase === 'referat')) && (
+                <p className="mt-2 text-xs opacity-35 text-center max-w-md">
+                  Tipp: Sprich möglichst nah am Mikrofon und in kurzen Sinnabschnitten. Kurze Pausen sind kein Problem.
+                </p>
+              )}
             </motion.div>
           )}
 
@@ -1772,6 +1794,121 @@ export default function App() {
 
         </AnimatePresence>
       </main>
+
+      {/* Material-Drawer: erlaubt Einsicht ins Vorbereitungs-Material während der Prüfung */}
+      <AnimatePresence>
+        {showMaterialDrawer && material && (
+          <motion.div
+            key="mat-drawer-overlay"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[70] flex items-stretch justify-end bg-black/40 backdrop-blur-sm"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="material-drawer-title"
+            onClick={() => setShowMaterialDrawer(false)}
+          >
+            <motion.div
+              key="mat-drawer-panel"
+              initial={{ x: '100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '100%' }}
+              transition={{ type: 'tween', duration: 0.25 }}
+              className="bg-white w-full sm:max-w-xl h-full overflow-y-auto shadow-2xl flex flex-col"
+              style={{ WebkitOverflowScrolling: 'touch' }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="sticky top-0 z-10 bg-white/95 backdrop-blur-md border-b border-black/5 px-5 py-4 flex items-center justify-between gap-3">
+                <div className="flex items-center gap-2 text-emerald-700 min-w-0">
+                  <BookOpen size={18} aria-hidden="true" />
+                  <h2 id="material-drawer-title" className="font-semibold text-base truncate">
+                    Material aus der Vorbereitung
+                  </h2>
+                </div>
+                <button
+                  onClick={() => setShowMaterialDrawer(false)}
+                  className="w-11 h-11 flex items-center justify-center rounded-xl hover:bg-slate-100 transition-colors text-slate-500"
+                  aria-label="Material schließen"
+                >
+                  <X size={20} aria-hidden="true" />
+                </button>
+              </div>
+              <div className="p-5 sm:p-6 space-y-5">
+                <p className="text-xs text-slate-500">
+                  Du kannst jederzeit auf Aufgabe und Material zurückgreifen — Zahlen, Quellen und Impulse bleiben sichtbar. Das Mikrofon und der Timer laufen im Hintergrund weiter.
+                </p>
+
+                {material.aufgabenstellung && (
+                  <section className="bg-emerald-50/50 border border-emerald-100 rounded-2xl p-4 sm:p-5">
+                    <h3 className="text-xs font-semibold uppercase tracking-wider text-emerald-700 mb-2 flex items-center gap-2">
+                      <FileText size={14} aria-hidden="true" /> Aufgabenstellung
+                    </h3>
+                    <div className="text-sm leading-relaxed text-slate-800 whitespace-pre-wrap">
+                      {renderMarkdown(material.aufgabenstellung)}
+                    </div>
+                  </section>
+                )}
+
+                {material.material && (
+                  <section className="bg-white border border-black/5 rounded-2xl p-4 sm:p-5 shadow-sm">
+                    <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-2">Material</h3>
+                    <div className="text-sm leading-relaxed text-slate-700 whitespace-pre-wrap">
+                      {renderMarkdown(material.material)}
+                    </div>
+                    {material.grafiken && material.grafiken.length > 0 && (
+                      <div className="mt-4 space-y-3">
+                        {material.grafiken.map((g, i) => (
+                          <GeoGebraGraph key={i} grafik={g} />
+                        ))}
+                      </div>
+                    )}
+                  </section>
+                )}
+
+                {material.charts && material.charts.length > 0 && (
+                  <section className="space-y-3">
+                    {material.charts.map((c, i) => (
+                      <div key={i} className="bg-white border border-emerald-100/50 rounded-2xl p-4 sm:p-5 shadow-sm">
+                        <h4 className="text-xs font-semibold uppercase tracking-wider text-emerald-700 mb-3 flex items-center gap-2">
+                          <BarChart3 size={14} aria-hidden="true" /> {c.titel}
+                        </h4>
+                        <div className="overflow-x-auto" style={{ WebkitOverflowScrolling: 'touch' }}>
+                          {c.chartDaten.typ === 'balken' ? (
+                            <BarChartSVG labels={c.chartDaten.labels} werte={c.chartDaten.werte} einheit={c.chartDaten.einheit} />
+                          ) : (
+                            <PieChartSVG labels={c.chartDaten.labels} werte={c.chartDaten.werte} einheit={c.chartDaten.einheit} />
+                          )}
+                        </div>
+                        {c.quellenangabe && (
+                          <p className="text-xs text-slate-500 mt-3 italic">Quelle: {c.quellenangabe}</p>
+                        )}
+                      </div>
+                    ))}
+                  </section>
+                )}
+
+                {material.hinweise && (
+                  <section className="bg-amber-50 border border-amber-100 rounded-2xl p-4 sm:p-5">
+                    <h3 className="text-xs font-semibold uppercase tracking-wider text-amber-700 mb-2">Hinweise</h3>
+                    <div className="text-sm leading-relaxed text-amber-900 whitespace-pre-wrap">
+                      {renderMarkdown(material.hinweise)}
+                    </div>
+                  </section>
+                )}
+              </div>
+              <div className="sticky bottom-0 bg-white/95 backdrop-blur-md border-t border-black/5 p-4 flex justify-end">
+                <button
+                  onClick={() => setShowMaterialDrawer(false)}
+                  className="bg-emerald-600 hover:bg-emerald-700 text-white font-medium rounded-xl px-5 py-2.5 min-h-[44px] transition-colors"
+                >
+                  Zurück zur Prüfung
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <footer className="fixed bottom-0 left-0 right-0 text-center pointer-events-none pb-3 px-4">
         <p className="text-[11px] text-gray-400 leading-relaxed max-w-2xl mx-auto">

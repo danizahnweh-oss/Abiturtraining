@@ -1377,8 +1377,8 @@ Schreibe auf DEUTSCH, zitiere Schülertext auf Englisch.`;
       }
 
       document.getElementById("articleTitle").innerText = d.headline || "Ausgangstext";
-      document.getElementById("articleBody").innerHTML =
-        (d.article_text || "").split("\n").filter(p => p.trim()).map(p => `<p>${escapeHtml(p)}</p>`).join("");
+      // Quelltext mit Zeilennummern darstellen, damit Schueler in der eigenen Loesung praezise auf Zeilen verweisen koennen
+      document.getElementById("articleBody").innerHTML = formatTextWithLineNumbers(d.article_text || "");
       document.getElementById("wordCount").innerText = countWords(d.article_text || "");
       if (d.source_info) {
         document.getElementById("sourceInfo").innerText = d.source_info;

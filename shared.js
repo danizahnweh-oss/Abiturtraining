@@ -92,13 +92,72 @@ function escapeHtml(str) {
   }[m]));
 }
 
-function formatTextWithLineNumbers(text) {
-  const lines = String(text || "").split("\n");
-  return '<div class="lined-text">' + lines.map(line => {
-    const isEmpty = line.trim() === "";
-    const cls = "text-line" + (isEmpty ? " text-line--empty" : "");
-    return `<div class="${cls}"><span class="text-line-content">${escapeHtml(line) || ""}</span></div>`;
-  }).join("") + "</div>";
+/**
+ * Bricht eine Zeile sanft an Wortgrenzen um, damit Quellenmaterial zitierfähige
+ * "Druckzeilen" mit ~maxLen Zeichen bekommt. Ohne diesen Umbruch hätte ein
+ * langer Absatz nur eine einzige Zeilennummer und Verweise wie "Z. 7-12"
+ * wären unmöglich.
+ */
+function _wrapLineForLineNumbers(line, maxLen) {
+  if (!line || line.length <= maxLen) return [line];
+  var words = line.split(/(\s+)/); // Whitespace beibehalten
+  var out = [];
+  var cur = "";
+  for (var i = 0; i < words.length; i++) {
+    var w = words[i];
+    if (cur.length + w.length > maxLen && cur.trim().length > 0) {
+      out.push(cur.replace(/\s+$/, ""));
+      cur = w.replace(/^\s+/, "");
+    } else {
+      cur += w;
+    }
+  }
+  if (cur.trim().length > 0) out.push(cur);
+  return out.length ? out : [line];
+}
+
+/**
+ * Rendert einen Text mit Zeilennummerierung – jede 5. Zeile bekommt sichtbar
+ * eine Nummer (CSS), interne Logik nummeriert jede Zeile. Lange Zeilen werden
+ * an Wortgrenzen auf ca. maxLineLength Zeichen umbrochen, damit man sich später
+ * auf konkrete Zeilen beziehen kann ("Z. 7–12").
+ *
+ * Sehr kurze Texte (< 200 Zeichen) bekommen KEINE Zeilennummern, da
+ * Zeilenangaben bei Kurzaufgaben überflüssig sind.
+ *
+ * Optionen:
+ *   maxLineLength: maximale Zeichen pro umgebrochener Zeile (default 80)
+ *   force:         erzwingt Zeilennummern auch bei kurzem Text
+ */
+function formatTextWithLineNumbers(text, options) {
+  var raw = String(text || "");
+  var opts = options || {};
+  var maxLineLength = opts.maxLineLength || 80;
+
+  // Bei sehr kurzen Aufgabenstellungen lohnt sich keine Nummerierung
+  if (!opts.force && raw.replace(/\s+/g, " ").trim().length < 200) {
+    return raw.split("\n").map(function (l) {
+      return "<p>" + (escapeHtml(l) || "&nbsp;") + "</p>";
+    }).join("");
+  }
+
+  var rawLines = raw.split("\n");
+  var rendered = [];
+  rawLines.forEach(function (line) {
+    if (line.trim() === "") {
+      rendered.push("");
+    } else {
+      var wrapped = _wrapLineForLineNumbers(line, maxLineLength);
+      wrapped.forEach(function (l) { rendered.push(l); });
+    }
+  });
+
+  return '<div class="lined-text" role="region" aria-label="Materialtext mit Zeilennummerierung">' +
+    rendered.map(function (line) {
+      var isEmpty = line.trim() === "";
+      var cls = "text-line" + (isEmpty ? " text-line--empty" : "");
+      return '<div class="' + cls + '"><span class="text-line-content">' + (escapeHtml(line) || "") + "</span></div>";
+    }).join("") + "</div>";
 }
 
 function countWords(text) {
@@ -1073,6 +1132,10 @@ function restoreSession() {
         renderTask(s.storedData);
       }
       updateWordCount();
+      // Dezenter Hinweis: gespeicherte Aufgabe wurde wiederhergestellt
+      if ((s.studentText && s.studentText.length > 50) || s.storedData) {
+        try { showToast("Gespeicherte Aufgabe wiederhergestellt — du kannst direkt weiterarbeiten."); } catch (e) {}
+      }
     }
   } catch (e) { console.warn("restoreSession failed:", e); }
 }

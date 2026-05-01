@@ -12,6 +12,37 @@ function isThinkingText(text: string): boolean {
   return false;
 }
 
+/**
+ * Erkennt Silence-/Platzhalter-Texte aus der Spracherkennung.
+ * Diese entstehen typischerweise wenn das Mikrofon kein Sprachsignal liefert
+ * (z. B. während längerer Sprechpausen im Referat) und der STT-Service einen
+ * Platzhalter ausgibt — fachlich wertloser Inhalt, der aber im Transkript
+ * irritierend wirkt, das Modell zu unnötigen Reaktionen verleitet und in der
+ * Feedback-Generierung Token verbraucht.
+ */
+function isSilencePlaceholder(text: string): boolean {
+  const t = (text || '').trim();
+  if (!t) return true;
+  // Sehr kurze Punkt-/Pause-Fragmente
+  if (/^[.\s…·•\-–—]+$/.test(t)) return true;
+  // Klammer-Tags wie [silence], (no speech), <pause>
+  if (/^[\[(<][^\]\)>]+[\])>]$/.test(t)) {
+    const inner = t.slice(1, -1).toLowerCase().trim();
+    if (/(silence|silent|stille|schweig|pause|no speech|kein\s+sprech|background|ger(äu|au)sch|noise|inaudible|unintelligible)/.test(inner)) return true;
+  }
+  // Wortgleiche Platzhalter (Deutsch + Englisch) — auch in Anführungszeichen
+  const stripped = t.replace(/^["'„»«]+|["'„»«.!?…]+$/g, '').toLowerCase().trim();
+  const placeholders = new Set([
+    'schweigen', 'stille', 'pause', 'kein sprechen', 'keine sprache',
+    'silence', 'silent', 'no speech', 'no audio', 'inaudible', 'unintelligible',
+    '...', '…', '...?', '…?', 'mhm', 'mh', 'mm', 'hm',
+  ]);
+  if (placeholders.has(stripped)) return true;
+  // "(Schweigen)", "Schweigen.", "Stille."
+  if (/^(schweigen|stille|silence|pause)[.!?…]*$/i.test(stripped)) return true;
+  return false;
+}
+
 export const SUBJECTS = [
   'Biologie', 'Chemie', 'Deutsch', 'Englisch', 'Ethik',
   'Evangelische Religionslehre', 'Französisch', 'Geographie', 'Geschichte', 'Informatik',
@@ -741,6 +772,7 @@ KRITISCHE REGEL FÜR DEN AUFGABEN-VORTRAG:
 - Du darfst während des Vortrags ABSOLUT NICHT SPRECHEN. KEIN EINZIGES WORT.
 - KEINE Reaktion, KEIN "Mhm", KEIN "Ja", KEIN "Richtig", KEINE Rückfrage. TOTALE STILLE.
 - Auch wenn der Prüfling eine Pause macht oder unsicher wirkt: SCHWEIGE.
+- Wenn das Audio zwischendurch leise wird, undeutlich klingt oder du nichts hörst: NICHT kommentieren, NICHT "Schweigen", "Stille", "..." oder Ähnliches sagen, NICHT nachfragen — einfach weiter zuhören.
 - Du darfst ERST WIEDER sprechen, wenn der Prüfling EXPLIZIT sagt, dass sein Vortrag beendet ist.
 - Nach 10–12 Minuten ohne Abschluss darfst du freundlich bitten, zum Ende zu kommen.`;
 
@@ -795,6 +827,8 @@ KRITISCHE REGEL FÜR DAS KURZREFERAT:
 - KEINE Reaktion, KEIN "Mhm", KEIN "Ja", KEIN "Interessant", KEIN Nicken, KEINE Rückfrage. TOTALE STILLE.
 - Auch wenn der Prüfling eine Pause macht: SCHWEIGE. Pausen im Referat sind völlig normal.
 - Auch wenn der Prüfling dich direkt anspricht oder eine Frage stellt: SCHWEIGE – er soll frei vortragen.
+- Wenn das Audio zwischendurch leise wird, undeutlich klingt oder du nichts hörst: NICHT kommentieren, NICHT "Schweigen", "Stille", "..." oder Ähnliches sagen, NICHT nachfragen — einfach weiter zuhören.
+- Falls in der Spracherkennung Platzhalter wie "Schweigen", "Stille", "[silence]" oder ein einzelnes "..." auftauchen, behandle sie als reines Mikrofon-Signal und NICHT als gesprochenen Inhalt — antworte darauf nicht.
 - Du darfst ERST WIEDER sprechen, wenn der Prüfling EXPLIZIT sagt, dass sein Referat beendet ist (z.B. "Damit bin ich am Ende", "Vielen Dank", "Das war mein Referat").
 - Wenn der Prüfling nach 10–12 Minuten nicht selbst aufhört, darfst du ihn freundlich bitten, zum Ende zu kommen.
 Danach beende die Prüfung mit einer kurzen Verabschiedung.`;
@@ -813,7 +847,7 @@ INTERAKTIONSREGELN FÜR DIE FRAGEPHASE:
       instruction += `
 ABLAUF:
 1. Begrüße den Prüfling KURZ (1 Satz), dann lass ihn sein Kurzreferat halten (~10 Min).
-   KRITISCHE REGEL: Während des Kurzreferats ABSOLUTE STILLE. KEIN EINZIGES WORT. KEINE Reaktion. Auch bei Pausen SCHWEIGEN. Erst wieder sprechen, wenn der Prüfling EXPLIZIT sagt, dass er fertig ist (z.B. "Damit bin ich am Ende", "Vielen Dank"). Nach 10–12 Min ohne Abschluss darfst du freundlich bitten, zum Ende zu kommen.
+   KRITISCHE REGEL: Während des Kurzreferats ABSOLUTE STILLE. KEIN EINZIGES WORT. KEINE Reaktion. Auch bei Pausen SCHWEIGEN. Wenn das Audio kurz leise wird, undeutlich klingt oder du nichts hörst, NICHT kommentieren – einfach weiter zuhören. Platzhalter wie "Schweigen", "Stille" oder "..." sind reine Mikrofon-Signale und KEIN gesprochener Inhalt – darauf NICHT antworten. Erst wieder sprechen, wenn der Prüfling EXPLIZIT sagt, dass er fertig ist (z.B. "Damit bin ich am Ende", "Vielen Dank"). Nach 10–12 Min ohne Abschluss darfst du freundlich bitten, zum Ende zu kommen.
 2. Stelle 2–3 vertiefende Fragen zum Schwerpunkt (${hj}, AB II/III, ~5 Min).
 3. Wechsle zu ${weitere} mit 3–4 Fragen pro HJ (~15 Min, AB I→II→III).
 4. Beende die Prüfung.
@@ -1024,14 +1058,15 @@ ${transcript}`;
 
             if (message.serverContent?.modelTurn?.parts) {
               for (const part of message.serverContent.modelTurn.parts) {
-                if (part.text && !isThinkingText(part.text)) {
+                if (part.text && !isThinkingText(part.text) && !isSilencePlaceholder(part.text)) {
                   this.config.onModelTranscription?.(part.text);
                 }
               }
             }
 
-            if ((message as any).serverContent?.inputTranscription?.text) {
-              this.config.onUserTranscription?.((message as any).serverContent.inputTranscription.text);
+            const userText = (message as any).serverContent?.inputTranscription?.text;
+            if (userText && !isSilencePlaceholder(userText)) {
+              this.config.onUserTranscription?.(userText);
             }
           },
           onclose: () => {
@@ -1275,16 +1310,17 @@ export class StatefulLiveSession {
 
         if (data?.serverContent?.interrupted) this.audioPlayer.stop();
 
-        // Transkriptionen weiterleiten
+        // Transkriptionen weiterleiten — Silence-/Schweigen-Platzhalter rausfiltern
         if (data?.serverContent?.modelTurn?.parts) {
           for (const part of data.serverContent.modelTurn.parts) {
-            if (part.text && !isThinkingText(part.text)) {
+            if (part.text && !isThinkingText(part.text) && !isSilencePlaceholder(part.text)) {
               this.config.onModelTranscription?.(part.text);
             }
           }
         }
-        if (data?.serverContent?.inputTranscription?.text) {
-          this.config.onUserTranscription?.(data.serverContent.inputTranscription.text);
+        const userText = data?.serverContent?.inputTranscription?.text;
+        if (userText && !isSilencePlaceholder(userText)) {
+          this.config.onUserTranscription?.(userText);
         }
       } catch { /* Nicht-JSON ignorieren */ }
     };
