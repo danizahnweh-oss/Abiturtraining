@@ -294,7 +294,7 @@ export async function sendTeacherApprovedEmail(env, name, email) {
 <p>Hallo ${name},</p>
 <p>dein Lehrkraft-Konto wurde soeben freigeschaltet. Du kannst dich ab jetzt mit deinem gewählten Benutzernamen und Passwort anmelden.</p>
 <p style="text-align:center;margin:24px 0">
-  <a href="https://myabiflow.de/lehrer-login.html" style="background:#2563eb;color:#fff;padding:12px 28px;border-radius:8px;text-decoration:none;font-weight:600;display:inline-block">Jetzt anmelden</a>
+  <a href="https://myabiflow.de/lehrer.html" style="background:#2563eb;color:#fff;padding:12px 28px;border-radius:8px;text-decoration:none;font-weight:600;display:inline-block">Jetzt anmelden</a>
 </p>
 <p>Bei Fragen erreichst du uns jederzeit unter <a href="mailto:info@myabiflow.de">info@myabiflow.de</a>.</p>
 <p style="color:#888;font-size:13px;margin-top:24px">— Das myAbiFlow-Team</p>
