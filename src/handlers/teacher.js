@@ -99,15 +99,16 @@ export async function handleTeacherAuthLogin(request, env) {
     return jsonResponse({ error: "Server nicht konfiguriert." }, 500, env);
   }
   if (!name || typeof name !== "string" || !name.trim()) {
-    return jsonResponse({ error: "Name erforderlich." }, 400, env);
+    return jsonResponse({ error: "Name oder E-Mail erforderlich." }, 400, env);
   }
   if (!password || typeof password !== "string") {
     return jsonResponse({ error: "Passwort erforderlich." }, 400, env);
   }
-  const nameLower = name.trim().toLowerCase();
+  const identifier = name.trim().toLowerCase();
+  // Login per Name ODER E-Mail erlauben
   const teacher = await env.DB.prepare(
-    "SELECT id, name, salt, hash, subjects, status FROM teachers WHERE name_lower = ?"
-  ).bind(nameLower).first();
+    "SELECT id, name, salt, hash, subjects, status FROM teachers WHERE name_lower = ? OR LOWER(email) = ?"
+  ).bind(identifier, identifier).first();
   if (!teacher) {
     return jsonResponse({ error: "Konto nicht gefunden. Bitte zuerst registrieren." }, 404, env);
   }

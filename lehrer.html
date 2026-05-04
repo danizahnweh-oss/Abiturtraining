@@ -651,8 +651,8 @@ main { max-width: 1100px; margin: 1.5rem auto; }
       </p>
     </div>
 
-    <label for="teacherName" class="sr-only">Ihr Name</label>
-    <input type="text" id="teacherName" class="login-input" placeholder="Ihr Name ..." autocomplete="name"
+    <label for="teacherName" class="sr-only">Ihr Name oder Ihre E-Mail-Adresse</label>
+    <input type="text" id="teacherName" class="login-input" placeholder="Name oder E-Mail ..." autocomplete="username"
            onkeyup="if(event.key==='Enter')doAuth()">
     <label for="teacherPw" class="sr-only">Passwort</label>
     <input type="password" id="teacherPw" class="login-input" placeholder="Passwort ..." autocomplete="current-password"
@@ -936,6 +936,7 @@ function setAuthMode(mode) {
   document.getElementById("registerFields").style.display = mode === "register" ? "block" : "none";
   document.getElementById("registerHint").style.display = mode === "register" ? "block" : "none";
   document.getElementById("authBtn").textContent = mode === "register" ? "Registrieren" : "Anmelden";
+  document.getElementById("teacherName").placeholder = mode === "register" ? "Ihr Name ..." : "Name oder E-Mail ...";
   document.getElementById("loginError").textContent = "";
   if (mode === "register") renderSubjectChips("registerSubjects", selectedRegisterSubjects);
 }
