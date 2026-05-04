@@ -1731,6 +1731,17 @@ function compressImage(file, maxDim) {
 /** Komprimierte Base64-Bilder aller erfolgreich erkannten OCR-Seiten */
 function getOCRImages() {
   var done = ocrPages.filter(function (p) { return p.base64 && p.status === "done"; });
+  // Wenn der Editor-Text vom erkannten OCR-Text abweicht, hat der Schüler editiert
+  // → Bilder weglassen, sonst überschreibt die KI die Edits mit dem Foto-Inhalt.
+  var student = document.getElementById("studentText");
+  var ocrTextEl = document.getElementById("ocrText");
+  if (student && ocrTextEl && done.length) {
+    var studentVal = (student.value || "").trim();
+    var ocrCombined = (ocrTextEl.value || "").replace(/---\s*Seite\s*\d+\s*---\n?/g, "").trim();
+    if (studentVal && ocrCombined && studentVal !== ocrCombined) {
+      return [];
+    }
+  }
   // Bei vielen Seiten (>6) sind die Bilder bereits mit 2000px gespeichert.
   // Wir geben sie trotzdem zurück – das Backend wechselt auf detail:"auto".
   return done.map(function (p) { return p.base64; });

@@ -112,9 +112,17 @@ export async function handleGradeItalian(request, env) {
   const systemPrompt = rubric_prompt || `Du bist ein erfahrener Italienischlehrer am bayerischen Gymnasium.
 Bewerte die Schülerarbeit nach dem ISB-Bewertungsraster mit Notenpunkten (0-15 NP).
 Antworte NUR mit validem JSON:
-{"inhalt_np": <0-15>, "sprache_np": <0-15>, "gesamt_np": <0-15>, "feedback": "<Markdown-Feedback auf Deutsch>", "korrektur_text": "<Vollständiger Schülertext mit Fehlermarkierungen>", "fehlende_aspekte": [...]}
+{
+  "inhalt_np": <0-15>,
+  "sprache_np": <0-15>,
+  "gesamt_np": <0-15>,
+  "feedback": "<Markdown-Feedback auf Deutsch>",
+  "korrektur_text": "<Der VOLLSTÄNDIGE Schülertext, 1:1 übernommen. Markiere Rechtschreib-/Orthographie-Fehler mit <mark class='fehler-rs' title='Korrektur: RICHTIG'>FALSCH</mark> und Grammatik-/Konjugations-/Syntaxfehler mit <mark class='fehler-gr' title='Korrektur: RICHTIG'>FALSCH</mark>. Nicht-fehlerhafte Stellen bleiben unverändert.>",
+  "fehlende_aspekte": [{"aufgabe": "Teilaufgabe X", "aspekte": ["fehlender Punkt 1"]}]
+}
 BERECHNUNG: gesamt_np = round(inhalt_np * 0.4 + sprache_np * 0.6)
-SPERRKLAUSEL: Wenn inhalt_np ODER sprache_np = 0, dann gesamt_np maximal 3.`;
+SPERRKLAUSEL: Wenn inhalt_np ODER sprache_np = 0, dann gesamt_np maximal 3.
+WICHTIG: korrektur_text MUSS den vollständigen Schülertext enthalten — auch wenn keine Fehler gefunden werden.`;
 
   const bilderHinweis = (images && images.length) ? BILDER_HINWEIS_TEXT : "";
   const messages = [
