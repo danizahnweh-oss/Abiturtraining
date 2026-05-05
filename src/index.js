@@ -16,7 +16,7 @@ const feedbackRateLimitMap = new Map();
 import { handleLogin, handleCheckStudent, handleGetPreferences, handleSavePreferences, handleCheckReminders, handleChangePassword, handleUpdateProfile } from './handlers/student.js';
 import { handleTeacherRegister, handleTeacherAuthLogin, handleTeacherCodes, handleLinkStudentCode, handleTeacherResults, handleStudentCodes, handleTeacherApprove } from './handlers/teacher.js';
 import { handleTeacherProfile, handleTeacherTasks, handleTeacherTaskResults, handleGetSharedTask, handleSubmitSharedTask, handleGenerateFromMaterials } from './handlers/teacher-tasks.js';
-import { handleTeacherLogin, handleGetResults, handleDeleteResult, handleGetStudents, handleDeleteStudent, handleClassPasswords, handleSubjectLicenses, handleGetFeedback, handleToggleFeedbackValuable, handleGetTeachers, handleApproveTeacher, handleDeleteTeacher, handleActivityFeed } from './handlers/dashboard.js';
+import { handleTeacherLogin, handleGetResults, handleDeleteResult, handleGetStudents, handleDeleteStudent, handleGrantFreeAccess, handleClassPasswords, handleSubjectLicenses, handleGetFeedback, handleToggleFeedbackValuable, handleGetTeachers, handleApproveTeacher, handleDeleteTeacher, handleActivityFeed } from './handlers/dashboard.js';
 import { handleSendMessage, handleSendGroupMessage, handleListMessages, handleDeleteMessage, handleStudentMessages, handleMarkMessageRead, handleReplyMessage } from './handlers/messages.js';
 import { handleStudentResults, handleCompetencyProfile, handleLearningPlan } from './handlers/analytics.js';
 import { setGradeHandlerMap, setFOSRouteHandler, handleGradeSubmit, handleGradeStatus, executeGradeHandler, cleanupOldGradingJobs, tryDeductTeacherCredit } from './handlers/grading.js';
@@ -297,6 +297,12 @@ export default {
         if (rl) return rl;
         cleanupRateLimitMaps();
         return await handleDeleteStudent(request, env);
+      }
+      if (pathname === "/api/grant-free-access" && request.method === "POST") {
+        const rl = checkRateLimit(request, rateLimitMap, MAX_REQUESTS_PER_WINDOW, env);
+        if (rl) return rl;
+        cleanupRateLimitMaps();
+        return await handleGrantFreeAccess(request, env);
       }
       if (pathname === "/api/class-passwords" && request.method === "POST") {
         const rl = checkRateLimit(request, rateLimitMap, MAX_REQUESTS_PER_WINDOW, env);

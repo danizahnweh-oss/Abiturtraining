@@ -140,6 +140,64 @@ export async function handleDeleteStudent(request, env) {
   return jsonResponse({ success: true, remaining: countResult.cnt }, 200, env);
 }
 
+/* ================= DASHBOARD: FREIER ZUGANG (manuell) ================= */
+// Gewährt einem einzelnen Schüler kostenlosen Vollzugang bis zu einem Datum.
+// Setzt subscription_status='trialing' + trial_end → reuse der bestehenden Trial-Logik in auth.js.
+// Mit until=null wird der Zugang entfernt (status='canceled', trial_end=null).
+export async function handleGrantFreeAccess(request, env) {
+  const token = request.headers.get("X-Teacher-Token");
+  if (!env.TEACHER_PASSWORD) {
+    return jsonResponse({ error: "Server nicht konfiguriert." }, 500, env);
+  }
+  if (!token || !(await verifyToken(token, env, env.TEACHER_PASSWORD))) {
+    return jsonResponse({ error: "Nicht autorisiert. Bitte erneut einloggen." }, 401, env);
+  }
+
+  const { student_name, until, force } = await request.json();
+  if (!student_name || typeof student_name !== "string") {
+    return jsonResponse({ error: "student_name erforderlich." }, 400, env);
+  }
+
+  const student = await env.DB.prepare(
+    "SELECT id, subscription_status, subscription_plan, trial_end FROM students WHERE name = ?"
+  ).bind(student_name).first();
+  if (!student) {
+    return jsonResponse({ error: "Schüler nicht gefunden." }, 404, env);
+  }
+
+  // Zugang entfernen
+  if (!until) {
+    await env.DB.prepare(
+      "UPDATE students SET subscription_status = 'canceled', subscription_plan = NULL, trial_end = NULL WHERE id = ?"
+    ).bind(student.id).run();
+    return jsonResponse({ success: true, action: "revoked" }, 200, env);
+  }
+
+  // Datum validieren (ISO-String, in der Zukunft)
+  const untilDate = new Date(until);
+  if (isNaN(untilDate.getTime())) {
+    return jsonResponse({ error: "Ungültiges Datum." }, 400, env);
+  }
+  if (untilDate.getTime() <= Date.now()) {
+    return jsonResponse({ error: "Datum muss in der Zukunft liegen." }, 400, env);
+  }
+
+  // Sicherheitsprüfung: bezahltes Abo nicht versehentlich überschreiben
+  if (student.subscription_status === 'active' && student.subscription_plan && student.subscription_plan !== 'school' && !force) {
+    return jsonResponse({
+      error: "Schüler hat ein aktives bezahltes Abo (" + student.subscription_plan + "). Mit force=true erzwingen.",
+      requires_force: true,
+      current_plan: student.subscription_plan,
+    }, 409, env);
+  }
+
+  await env.DB.prepare(
+    "UPDATE students SET subscription_status = 'trialing', subscription_plan = 'free_access', trial_end = ? WHERE id = ?"
+  ).bind(untilDate.toISOString(), student.id).run();
+
+  return jsonResponse({ success: true, action: "granted", trial_end: untilDate.toISOString() }, 200, env);
+}
+
 /* ================= DASHBOARD: KLASSENPASSWÖRTER ================= */
 export async function handleClassPasswords(request, env) {
   const token = request.headers.get("X-Teacher-Token");
