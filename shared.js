@@ -661,6 +661,13 @@ function renderKorrekturFeedback(d) {
   if (korrekturCard) korrekturCard.style.display = "none";
   if (aspekteCard) aspekteCard.style.display = "none";
 
+  // Alte Inhalte aus vorherigen Submits aktiv loeschen, damit kein veralteter
+  // Korrektur-Text stehenbleibt, falls die KI nichts oder Unvollstaendiges liefert.
+  ["korrekturBody", "korrekturBodyA", "korrekturBodyB", "aspekteBody"].forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) el.innerHTML = "";
+  });
+
   // Rohe uebungsaufgaben-Sektion aus Feedback entfernen (KI dupliziert sie manchmal als Text)
   var fb = document.getElementById("feedbackBody");
   if (fb) {

@@ -2,6 +2,44 @@ import { jsonResponse, truncate, extractJSON, buildUserContent } from '../utils.
 import { callOpenAI } from '../openai.js';
 import { BILDER_HINWEIS_TEXT, UEBUNGSAUFGABEN_ANWEISUNG } from '../config.js';
 
+/**
+ * Stellt sicher, dass der von der KI gelieferte korrektur_text wirklich zum
+ * eingereichten Schuelertext gehoert. Wenn die KI halluziniert (z.B. einen Text
+ * aus einer frueheren Aufgabe zurueckgibt), fallen wir auf den echten
+ * Schuelertext zurueck — escapt, damit kein HTML interpretiert wird.
+ */
+function sanitizeKorrekturText(korrTxt, studentText) {
+  if (!studentText) return korrTxt || "";
+  if (!korrTxt) return escapeForKorrektur(studentText);
+
+  // Mark-Tags und Whitespace normalisieren
+  const stripTags = (s) => String(s).replace(/<\/?mark[^>]*>/gi, "");
+  const norm = (s) => stripTags(s).replace(/\s+/g, " ").trim().toLowerCase();
+  const k = norm(korrTxt);
+  const s = norm(studentText);
+  if (!k) return escapeForKorrektur(studentText);
+
+  // Laenge muss in derselben Groessenordnung sein (50%–200%)
+  if (k.length < s.length * 0.5 || k.length > s.length * 2) {
+    return escapeForKorrektur(studentText);
+  }
+
+  // Erste 40 Zeichen muessen uebereinstimmen (case-/whitespace-tolerant)
+  const head = Math.min(40, s.length);
+  if (k.substring(0, head) !== s.substring(0, head)) {
+    return escapeForKorrektur(studentText);
+  }
+
+  return korrTxt;
+}
+
+function escapeForKorrektur(t) {
+  return String(t || "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+}
+
 export async function handleGenerate(request, env) {
   const body = await request.json();
   const { topic, source_len_words, prompt_template } = body;
@@ -190,12 +228,13 @@ Return your evaluation in JSON format ONLY:
   "sprache_np": <number 0-15>,
   "gesamt_np": <number 0-15>,
   "feedback": "<detailed feedback in German with Markdown formatting>",
-  "korrektur_text": "<Der VOLLSTÄNDIGE Schülertext. Markiere Rechtschreibfehler mit <mark class='fehler-rs' title='Korrektur: RICHTIG'>FALSCH</mark> und Grammatikfehler mit <mark class='fehler-gr' title='Korrektur: RICHTIG'>FALSCH</mark>. Nicht-fehlerhafte Stellen bleiben unverändert.>",
+  "korrektur_text": "<WORTWÖRTLICHE Kopie des Schülertexts aus dem Eingabe-Block 'Schülertext (Englisch):' — kein Umformulieren, kein Kürzen, kein Hinzufügen, kein Text aus früheren Sitzungen oder Trainingsdaten. Markiere Rechtschreibfehler mit <mark class='fehler-rs' title='Korrektur: RICHTIG'>FALSCH</mark> und Grammatikfehler mit <mark class='fehler-gr' title='Korrektur: RICHTIG'>FALSCH</mark>. Nicht-fehlerhafte Stellen bleiben Zeichen für Zeichen unverändert.>",
   "fehlende_aspekte": [{"aufgabe": "Teilaufgabe X", "aspekte": ["fehlender Punkt 1", "fehlender Punkt 2"]}]
 }
 CALCULATION: gesamt_np = round(inhalt_np * 0.4 + sprache_np * 0.6)
 SPERRKLAUSEL: If inhalt_np OR sprache_np is 0, gesamt_np must be at most 3.
-IMPORTANT: Return ONLY valid JSON. No markdown fences.` + ((images && images.length) ? BILDER_HINWEIS_TEXT : "") + UEBUNGSAUFGABEN_ANWEISUNG
+IMPORTANT: Return ONLY valid JSON. No markdown fences.
+IMPORTANT: korrektur_text MUSS den oben übergebenen Schülertext exakt 1:1 enthalten — die einzige erlaubte Veränderung sind die <mark>-Tags um Fehler.` + ((images && images.length) ? BILDER_HINWEIS_TEXT : "") + UEBUNGSAUFGABEN_ANWEISUNG
     },
     {
       role: "user",
@@ -220,12 +259,18 @@ IMPORTANT: Return ONLY valid JSON. No markdown fences.` + ((images && images.len
       if (inhalt === 0 || sprache === 0) gesamt = Math.min(gesamt, 3);
     }
 
+    // Schutz gegen KI-Halluzination: korrektur_text muss zum eingereichten Text passen.
+    // Wenn die KI einen ganz anderen (z.B. alten) Text liefert, fallen wir auf den
+    // echten Schuelertext zurueck — sonst sieht der Schueler in der Korrektur einen
+    // Text, den er nie eingereicht hat.
+    const safeKorr = sanitizeKorrekturText(parsed.korrektur_text, student_text_en);
+
     return jsonResponse({
       scores: { content_textstructure: inhalt, language: sprache, total: gesamt },
       feedback: parsed.feedback || "",
       feedback_kurz: parsed.feedback_kurz || [],
       corrections: parsed.corrections || "",
-      korrektur_text: parsed.korrektur_text || "",
+      korrektur_text: safeKorr,
       fehlende_aspekte: parsed.fehlende_aspekte || [],
       uebungsaufgaben: parsed.uebungsaufgaben || []
     }, 200, env);
