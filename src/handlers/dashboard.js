@@ -77,7 +77,7 @@ export async function handleGetStudents(request, env) {
   }
 
   const { results: students } = await env.DB.prepare(
-    "SELECT name, level, hidden_subjects, class_group, email, created_at AS date, subscription_status, subscription_plan, trial_end FROM students ORDER BY name ASC"
+    "SELECT name, level, hidden_subjects, class_group, email, created_at AS date, subscription_status, subscription_plan, trial_end, free_access_until FROM students ORDER BY name ASC"
   ).all();
 
   // Aktive Schullizenzen laden (free_access Labels)
@@ -99,6 +99,7 @@ export async function handleGetStudents(request, env) {
     if (status === 'trialing' && s.trial_end && new Date(s.trial_end) <= now) {
       status = 'trial_expired';
     }
+    const freeAccessActive = !!(s.free_access_until && new Date(s.free_access_until) > now);
     return {
       name: s.name,
       level: s.level || "",
@@ -109,6 +110,8 @@ export async function handleGetStudents(request, env) {
       subscription_status: status,
       subscription_plan: plan,
       trial_end: s.trial_end || null,
+      free_access_until: s.free_access_until || null,
+      free_access_active: freeAccessActive,
     };
   });
 
@@ -142,8 +145,8 @@ export async function handleDeleteStudent(request, env) {
 
 /* ================= DASHBOARD: FREIER ZUGANG (manuell) ================= */
 // Gewährt einem einzelnen Schüler kostenlosen Vollzugang bis zu einem Datum.
-// Setzt subscription_status='trialing' + trial_end → reuse der bestehenden Trial-Logik in auth.js.
-// Mit until=null wird der Zugang entfernt (status='canceled', trial_end=null).
+// Schreibt ausschließlich in die separate Spalte students.free_access_until und ist damit
+// orthogonal zu Stripe-Abos und zur normalen Trial-Logik. Mit until=null wird der Zugang entfernt.
 export async function handleGrantFreeAccess(request, env) {
   const token = request.headers.get("X-Teacher-Token");
   if (!env.TEACHER_PASSWORD) {
@@ -153,22 +156,30 @@ export async function handleGrantFreeAccess(request, env) {
     return jsonResponse({ error: "Nicht autorisiert. Bitte erneut einloggen." }, 401, env);
   }
 
-  const { student_name, until, force } = await request.json();
+  let body;
+  try { body = await request.json(); } catch (_) {
+    return jsonResponse({ error: "Ungültiger JSON-Body." }, 400, env);
+  }
+  const { student_name, until } = body || {};
   if (!student_name || typeof student_name !== "string") {
     return jsonResponse({ error: "student_name erforderlich." }, 400, env);
   }
+  // Strikte Validierung: until muss explizit null ODER ein nicht-leerer String sein
+  if (until !== null && (typeof until !== "string" || !until.trim())) {
+    return jsonResponse({ error: "until muss ein ISO-Datum oder null sein." }, 400, env);
+  }
 
   const student = await env.DB.prepare(
-    "SELECT id, subscription_status, subscription_plan, trial_end FROM students WHERE name = ?"
+    "SELECT id FROM students WHERE name = ?"
   ).bind(student_name).first();
   if (!student) {
     return jsonResponse({ error: "Schüler nicht gefunden." }, 404, env);
   }
 
   // Zugang entfernen
-  if (!until) {
+  if (until === null) {
     await env.DB.prepare(
-      "UPDATE students SET subscription_status = 'canceled', subscription_plan = NULL, trial_end = NULL WHERE id = ?"
+      "UPDATE students SET free_access_until = NULL WHERE id = ?"
     ).bind(student.id).run();
     return jsonResponse({ success: true, action: "revoked" }, 200, env);
   }
@@ -182,20 +193,11 @@ export async function handleGrantFreeAccess(request, env) {
     return jsonResponse({ error: "Datum muss in der Zukunft liegen." }, 400, env);
   }
 
-  // Sicherheitsprüfung: bezahltes Abo nicht versehentlich überschreiben
-  if (student.subscription_status === 'active' && student.subscription_plan && student.subscription_plan !== 'school' && !force) {
-    return jsonResponse({
-      error: "Schüler hat ein aktives bezahltes Abo (" + student.subscription_plan + "). Mit force=true erzwingen.",
-      requires_force: true,
-      current_plan: student.subscription_plan,
-    }, 409, env);
-  }
-
   await env.DB.prepare(
-    "UPDATE students SET subscription_status = 'trialing', subscription_plan = 'free_access', trial_end = ? WHERE id = ?"
+    "UPDATE students SET free_access_until = ? WHERE id = ?"
   ).bind(untilDate.toISOString(), student.id).run();
 
-  return jsonResponse({ success: true, action: "granted", trial_end: untilDate.toISOString() }, 200, env);
+  return jsonResponse({ success: true, action: "granted", free_access_until: untilDate.toISOString() }, 200, env);
 }
 
 /* ================= DASHBOARD: KLASSENPASSWÖRTER ================= */

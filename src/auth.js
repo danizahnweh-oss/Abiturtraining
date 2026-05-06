@@ -148,10 +148,15 @@ export async function checkSubscriptionAccess(studentName, env, allowTeacherCred
   if (!studentNameLower) return null; // Kein Student-Name → kein Check möglich
 
   const student = await env.DB.prepare(
-    "SELECT id, subscription_status, trial_end, class_group FROM students WHERE name_lower = ?"
+    "SELECT id, subscription_status, trial_end, class_group, free_access_until FROM students WHERE name_lower = ?"
   ).bind(studentNameLower).first();
 
   if (!student) return null; // Unbekannter Schüler → durchlassen (Gast)
+
+  // Manuell vom Lehrer gewährter Free Access (überschreibt nichts, läuft parallel zu Stripe)
+  if (student.free_access_until && new Date(student.free_access_until) > new Date()) {
+    return null;
+  }
 
   // Aktives Abo prüfen (Vollzugang)
   if (student.subscription_status === 'active') {
@@ -348,6 +353,22 @@ export async function ensureMigrations(env) {
     await addCol("subscription_status", "TEXT DEFAULT 'none'");
     await addCol("subscription_plan", "TEXT DEFAULT 'free'");
     await addCol("trial_end", "TEXT DEFAULT NULL");
+
+    // Manuell vom Lehrer/Admin gewährter freier Zugang (orthogonal zu Stripe & Trial)
+    await addCol("free_access_until", "TEXT DEFAULT NULL");
+
+    // Cleanup einer früheren, fehlerhaften Implementierung, die den Trial-Mechanismus
+    // missbraucht hat: alte 'free_access'-Marker in die neue Spalte umziehen.
+    try {
+      await env.DB.prepare(`
+        UPDATE students
+        SET free_access_until = trial_end,
+            subscription_plan = 'free',
+            subscription_status = 'none',
+            trial_end = NULL
+        WHERE subscription_plan = 'free_access'
+      `).run();
+    } catch (_) {}
 
     // free_access Spalte für Schulcodes (kostenloser Vollzugang)
     try { await env.DB.prepare("ALTER TABLE class_passwords ADD COLUMN free_access INTEGER NOT NULL DEFAULT 0").run(); } catch (_) {}

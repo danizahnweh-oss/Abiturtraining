@@ -1129,30 +1129,30 @@ details[open] > .collapsible-header .collapsible-chevron {
     </div><!-- /tab-nachrichten -->
 
     <!-- Free-Access-Modal -->
-    <div id="freeAccessModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:1000;align-items:center;justify-content:center;padding:1rem;" onclick="if(event.target===this)closeFreeAccessModal()">
+    <div id="freeAccessModal" role="dialog" aria-modal="true" aria-labelledby="freeAccessTitle" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:1000;align-items:center;justify-content:center;padding:1rem;">
       <div style="background:var(--surface);border-radius:12px;max-width:440px;width:100%;padding:1.5rem;box-shadow:0 10px 40px rgba(0,0,0,.2);">
-        <h3 style="margin:0 0 .5rem;font-family:var(--font-display);">🎁 Kostenlosen Zugang gewähren</h3>
+        <h3 id="freeAccessTitle" style="margin:0 0 .5rem;font-family:var(--font-display);">🎁 Kostenlosen Zugang gewähren</h3>
         <p style="font-size:.9rem;color:var(--ink-muted);margin:0 0 1rem;">Schüler: <strong id="freeAccessStudentName" style="color:var(--ink);"></strong></p>
         <p id="freeAccessCurrent" style="font-size:.85rem;background:var(--accent-soft);color:var(--ink);padding:.5rem .75rem;border-radius:8px;margin:0 0 1rem;display:none;"></p>
 
         <label style="font-size:.85rem;font-weight:600;display:block;margin-bottom:.4rem;">Zeitraum</label>
-        <div style="display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:.75rem;">
-          <button type="button" class="btn btn-small" onclick="setFreeAccessDays(7)" style="min-height:40px;">7 Tage</button>
-          <button type="button" class="btn btn-small" onclick="setFreeAccessDays(14)" style="min-height:40px;">14 Tage</button>
-          <button type="button" class="btn btn-small" onclick="setFreeAccessDays(30)" style="min-height:40px;">30 Tage</button>
-          <button type="button" class="btn btn-small" onclick="setFreeAccessDays(90)" style="min-height:40px;">90 Tage</button>
-          <button type="button" class="btn btn-small" onclick="setFreeAccessDays(365)" style="min-height:40px;">1 Jahr</button>
+        <div style="display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:.75rem;" id="freeAccessPresets">
+          <button type="button" class="btn btn-small" data-days="7" style="min-height:40px;">7 Tage</button>
+          <button type="button" class="btn btn-small" data-days="14" style="min-height:40px;">14 Tage</button>
+          <button type="button" class="btn btn-small" data-days="30" style="min-height:40px;">30 Tage</button>
+          <button type="button" class="btn btn-small" data-days="90" style="min-height:40px;">90 Tage</button>
+          <button type="button" class="btn btn-small" data-days="365" style="min-height:40px;">1 Jahr</button>
         </div>
 
         <label for="freeAccessDate" style="font-size:.85rem;font-weight:600;display:block;margin-bottom:.4rem;">… oder Datum auswählen</label>
         <input type="date" id="freeAccessDate" style="width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:8px;background:var(--bg);color:var(--ink);font-size:16px;margin-bottom:1rem;">
 
-        <p id="freeAccessStatus" style="font-size:.85rem;margin:.5rem 0;display:none;"></p>
+        <p id="freeAccessStatus" style="font-size:.85rem;margin:.5rem 0;display:none;" role="status" aria-live="polite"></p>
 
         <div style="display:flex;gap:.5rem;justify-content:flex-end;flex-wrap:wrap;">
-          <button type="button" class="btn btn-small" onclick="closeFreeAccessModal()" style="min-height:44px;">Abbrechen</button>
-          <button type="button" id="freeAccessRevokeBtn" class="btn btn-small" onclick="grantFreeAccess(null)" style="min-height:44px;background:#fef2f2;color:#dc2626;border-color:#fecaca;display:none;">Zugang entfernen</button>
-          <button type="button" class="btn btn-small btn-primary" onclick="grantFreeAccess()" style="min-height:44px;">Zugang gewähren</button>
+          <button type="button" class="btn btn-small" id="freeAccessCancelBtn" style="min-height:44px;">Abbrechen</button>
+          <button type="button" id="freeAccessRevokeBtn" class="btn btn-small" style="min-height:44px;background:#fef2f2;color:#dc2626;border-color:#fecaca;display:none;">Zugang entfernen</button>
+          <button type="button" id="freeAccessGrantBtn" class="btn btn-small btn-primary" style="min-height:44px;">Zugang gewähren</button>
         </div>
       </div>
     </div>
@@ -1667,13 +1667,12 @@ function renderStudents() {
       ? `<a href="mailto:${escapeHtml(s.email)}" style="color:var(--accent);text-decoration:none;font-size:.85rem;">${escapeHtml(s.email)}</a>`
       : '<span style="color:var(--ink-muted);">–</span>';
     // Abo-Badge
-    const planNames = { monthly: "Monat", "6months": "6 Mo.", "12months": "12 Mo.", "24months": "24 Mo.", abitur: "Abitur", school: "Schule", trial: "Trial", free_access: "Frei (Lehrer)" };
+    const planNames = { monthly: "Monat", "6months": "6 Mo.", "12months": "12 Mo.", "24months": "24 Mo.", abitur: "Abitur", school: "Schule", trial: "Trial" };
     let aboBadge;
     if (s.subscription_status === "active") {
       const planLabel = planNames[s.subscription_plan] || s.subscription_plan || "Aktiv";
       aboBadge = `<span style="font-size:.78rem;background:#ecfdf5;color:#059669;padding:.2rem .55rem;border-radius:6px;font-weight:700;white-space:nowrap;">${escapeHtml(planLabel)}</span>`;
     } else if (s.subscription_status === "trialing") {
-      // Restdauer berechnen (in Tagen, aufgerundet)
       let restLabel = "";
       if (s.trial_end) {
         const diffMs = new Date(s.trial_end).getTime() - Date.now();
@@ -1682,11 +1681,7 @@ function renderStudents() {
           restLabel = ` (${days} ${days === 1 ? "Tag" : "Tage"})`;
         }
       }
-      if (s.subscription_plan === "free_access") {
-        aboBadge = `<span style="font-size:.78rem;background:#dbeafe;color:#1d4ed8;padding:.2rem .55rem;border-radius:6px;font-weight:700;" title="Manuell vom Lehrer gewährter Gratis-Zugang">🎁 Frei${restLabel}</span>`;
-      } else {
-        aboBadge = `<span style="font-size:.78rem;background:#fef3c7;color:#d97706;padding:.2rem .55rem;border-radius:6px;font-weight:700;">Testphase${restLabel}</span>`;
-      }
+      aboBadge = `<span style="font-size:.78rem;background:#fef3c7;color:#d97706;padding:.2rem .55rem;border-radius:6px;font-weight:700;">Testphase${restLabel}</span>`;
     } else if (s.subscription_status === "trial_expired") {
       aboBadge = '<span style="font-size:.78rem;background:#f3f4f6;color:#6b7280;padding:.2rem .55rem;border-radius:6px;font-weight:700;" title="Testphase abgelaufen – Schüler kann keine Aufgaben mehr erstellen">Testphase abgelaufen</span>';
     } else if (s.subscription_status === "past_due") {
@@ -1696,19 +1691,36 @@ function renderStudents() {
     } else {
       aboBadge = '<span style="font-size:.78rem;background:#f3f4f6;color:#6b7280;padding:.2rem .55rem;border-radius:6px;font-weight:700;" title="Schüler hat das Gratis-Trial schon mal genutzt (gleiche E-Mail oder gleiches Gerät) und kann keine Aufgaben erstellen">Trial verbraucht</span>';
     }
+    // Zusätzlich: manuell gewährter Free Access wird als eigenes Badge davor angezeigt
+    let freeAccessBadge = "";
+    if (s.free_access_active && s.free_access_until) {
+      const diffMs = new Date(s.free_access_until).getTime() - Date.now();
+      const days = Math.max(1, Math.ceil(diffMs / 86400000));
+      freeAccessBadge = `<span style="font-size:.78rem;background:#dbeafe;color:#1d4ed8;padding:.2rem .55rem;border-radius:6px;font-weight:700;margin-right:.3rem;" title="Manuell vom Lehrer gewährter Gratis-Zugang bis ${escapeHtml(new Date(s.free_access_until).toLocaleDateString("de-DE"))}">🎁 Frei (${days} ${days === 1 ? "Tag" : "Tage"})</span>`;
+    }
     return `<tr>
       <td><strong>${escapeHtml(s.name)}</strong></td>
       <td>${emailStr}</td>
-      <td>${aboBadge}</td>
+      <td>${freeAccessBadge}${aboBadge}</td>
       <td>${classTag}</td>
       <td>${dateStr}${timeStr ? `<br><span style="font-size:.75rem;color:var(--ink-muted)">${timeStr}</span>` : ""}</td>
       <td style="font-size:.82rem;">${hidden}</td>
       <td style="white-space:nowrap;">
-        <button onclick="openFreeAccessModal('${escapeHtml(s.name).replace(/'/g, "\\'")}')" title="Kostenlosen Zugang gewähren" style="min-width:44px;min-height:44px;background:transparent;border:1px solid var(--border);border-radius:6px;cursor:pointer;font-size:1rem;margin-right:.25rem;">🎁</button>
-        <button class="delete-btn" onclick="deleteStudent('${escapeHtml(s.name).replace(/'/g, "\\'")}')" title="Schüler entfernen" style="min-width:44px;min-height:44px;">✕</button>
+        <button data-action="free-access" title="Kostenlosen Zugang gewähren" style="min-width:44px;min-height:44px;background:transparent;border:1px solid var(--border);border-radius:6px;cursor:pointer;font-size:1rem;margin-right:.25rem;">🎁</button>
+        <button class="delete-btn" data-action="delete" title="Schüler entfernen" style="min-width:44px;min-height:44px;">✕</button>
       </td>
     </tr>`;
   }).join("");
+
+  // Sichere Event-Bindung statt inline onclick (verhindert XSS über Schülernamen)
+  tbody.querySelectorAll("tr").forEach((tr, idx) => {
+    const student = filtered[idx];
+    if (!student) return;
+    const fa = tr.querySelector('button[data-action="free-access"]');
+    const del = tr.querySelector('button[data-action="delete"]');
+    if (fa) fa.addEventListener("click", () => openFreeAccessModal(student.name));
+    if (del) del.addEventListener("click", () => deleteStudent(student.name));
+  });
 
   // Dashboard Schüler-Übersicht aktualisieren
   renderDashStudents();
@@ -1735,16 +1747,31 @@ function renderDashStudents() {
 
 /* ===== Kostenlosen Zugang gewähren ===== */
 let freeAccessTargetStudent = null;
+let freeAccessOpenerEl = null;
+
+// Lokale Datums-Helfer (kein UTC-Drift um Mitternacht/DST)
+function localDateInputValue(date) {
+  const y = date.getFullYear();
+  const m = String(date.getMonth() + 1).padStart(2, "0");
+  const d = String(date.getDate()).padStart(2, "0");
+  return `${y}-${m}-${d}`;
+}
+function todayPlusDays(days) {
+  const d = new Date();
+  d.setDate(d.getDate() + days);
+  return d;
+}
 
 function openFreeAccessModal(name) {
   freeAccessTargetStudent = name;
+  freeAccessOpenerEl = document.activeElement;
   document.getElementById("freeAccessStudentName").textContent = name;
 
   const student = allStudents.find(s => s.name === name);
   const currentEl = document.getElementById("freeAccessCurrent");
   const revokeBtn = document.getElementById("freeAccessRevokeBtn");
-  if (student && student.subscription_status === "trialing" && student.subscription_plan === "free_access" && student.trial_end) {
-    const end = new Date(student.trial_end);
+  if (student && student.free_access_active && student.free_access_until) {
+    const end = new Date(student.free_access_until);
     currentEl.textContent = "Aktuell aktiv bis " + end.toLocaleDateString("de-DE");
     currentEl.style.display = "block";
     revokeBtn.style.display = "inline-block";
@@ -1753,29 +1780,35 @@ function openFreeAccessModal(name) {
     revokeBtn.style.display = "none";
   }
 
-  // Default: 30 Tage in der Zukunft
-  const def = new Date();
-  def.setDate(def.getDate() + 30);
-  document.getElementById("freeAccessDate").value = def.toISOString().slice(0, 10);
-  document.getElementById("freeAccessDate").min = new Date(Date.now() + 86400000).toISOString().slice(0, 10);
+  const dateInput = document.getElementById("freeAccessDate");
+  dateInput.value = localDateInputValue(todayPlusDays(30));
+  dateInput.min = localDateInputValue(todayPlusDays(1));
   document.getElementById("freeAccessStatus").style.display = "none";
-  document.getElementById("freeAccessModal").style.display = "flex";
+  const modal = document.getElementById("freeAccessModal");
+  modal.style.display = "flex";
+  // Fokus initial auf den ersten Preset-Button setzen
+  const firstPreset = modal.querySelector('#freeAccessPresets button');
+  if (firstPreset) firstPreset.focus();
 }
 
 function closeFreeAccessModal() {
   document.getElementById("freeAccessModal").style.display = "none";
   freeAccessTargetStudent = null;
+  if (freeAccessOpenerEl && typeof freeAccessOpenerEl.focus === "function") {
+    freeAccessOpenerEl.focus();
+  }
+  freeAccessOpenerEl = null;
 }
 
 function setFreeAccessDays(days) {
-  const d = new Date();
-  d.setDate(d.getDate() + days);
-  document.getElementById("freeAccessDate").value = d.toISOString().slice(0, 10);
+  document.getElementById("freeAccessDate").value = localDateInputValue(todayPlusDays(days));
 }
 
-async function grantFreeAccess(explicitUntil = undefined) {
+async function submitFreeAccess(explicitUntil) {
   if (!freeAccessTargetStudent) return;
   const statusEl = document.getElementById("freeAccessStatus");
+  const grantBtn = document.getElementById("freeAccessGrantBtn");
+  const revokeBtn = document.getElementById("freeAccessRevokeBtn");
   let until;
   if (explicitUntil === null) {
     if (!confirm("Kostenlosen Zugang für \"" + freeAccessTargetStudent + "\" wirklich entfernen?")) return;
@@ -1788,14 +1821,23 @@ async function grantFreeAccess(explicitUntil = undefined) {
       statusEl.style.display = "block";
       return;
     }
-    // ISO mit Endzeit 23:59:59 lokal → ISO-String
-    const d = new Date(dateStr + "T23:59:59");
-    until = d.toISOString();
+    // Lokale Zeit 23:59:59 → korrekter ISO-String mit TZ-Offset
+    const [y, m, d] = dateStr.split("-").map(Number);
+    const localEnd = new Date(y, m - 1, d, 23, 59, 59);
+    if (localEnd.getTime() <= Date.now()) {
+      statusEl.textContent = "Datum muss in der Zukunft liegen.";
+      statusEl.style.color = "#dc2626";
+      statusEl.style.display = "block";
+      return;
+    }
+    until = localEnd.toISOString();
   }
 
   statusEl.textContent = "Wird gespeichert…";
   statusEl.style.color = "var(--ink-muted)";
   statusEl.style.display = "block";
+  grantBtn.disabled = true;
+  revokeBtn.disabled = true;
 
   try {
     const res = await fetch(API_BASE + "/api/grant-free-access", {
@@ -1811,35 +1853,44 @@ async function grantFreeAccess(explicitUntil = undefined) {
       document.getElementById("loginError").style.display = "block";
       return;
     }
-    const data = await res.json();
-    if (res.status === 409 && data.requires_force) {
-      if (!confirm("Schüler hat ein aktives bezahltes Abo (" + data.current_plan + "). Trotzdem überschreiben?")) {
-        statusEl.style.display = "none";
-        return;
-      }
-      const res2 = await fetch(API_BASE + "/api/grant-free-access", {
-        method: "POST",
-        headers: { "Content-Type": "application/json", "X-Teacher-Token": teacherToken },
-        body: JSON.stringify({ student_name: freeAccessTargetStudent, until, force: true })
-      });
-      if (!res2.ok) {
-        const d2 = await res2.json();
-        statusEl.textContent = d2.error || "Fehler.";
-        statusEl.style.color = "#dc2626";
-        return;
-      }
-    } else if (!res.ok) {
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) {
       statusEl.textContent = data.error || "Fehler.";
       statusEl.style.color = "#dc2626";
       return;
     }
     closeFreeAccessModal();
-    await loadStudents();
+    try {
+      await loadStudents();
+    } catch (reloadErr) {
+      // Mutation war erfolgreich, aber Tabelle konnte nicht neu geladen werden
+      alert("Gespeichert, aber das Aktualisieren der Tabelle ist fehlgeschlagen. Bitte Seite neu laden.\n" + reloadErr.message);
+    }
   } catch (e) {
     statusEl.textContent = "Netzwerkfehler: " + e.message;
     statusEl.style.color = "#dc2626";
+  } finally {
+    grantBtn.disabled = false;
+    revokeBtn.disabled = false;
   }
 }
+
+// Modal-Bindings (Buttons, Backdrop-Klick, Escape)
+document.addEventListener("DOMContentLoaded", () => {
+  const modal = document.getElementById("freeAccessModal");
+  if (!modal) return;
+  document.getElementById("freeAccessCancelBtn").addEventListener("click", closeFreeAccessModal);
+  document.getElementById("freeAccessGrantBtn").addEventListener("click", () => submitFreeAccess(undefined));
+  document.getElementById("freeAccessRevokeBtn").addEventListener("click", () => submitFreeAccess(null));
+  modal.addEventListener("click", (e) => { if (e.target === modal) closeFreeAccessModal(); });
+  document.getElementById("freeAccessPresets").addEventListener("click", (e) => {
+    const btn = e.target.closest("button[data-days]");
+    if (btn) setFreeAccessDays(Number(btn.dataset.days));
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && modal.style.display === "flex") closeFreeAccessModal();
+  });
+});
 
 async function deleteStudent(name) {
   if (!confirm(`Schüler "${name}" wirklich entfernen? Diese Aktion kann nicht rückgängig gemacht werden.`)) return;

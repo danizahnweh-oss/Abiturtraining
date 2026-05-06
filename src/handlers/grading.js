@@ -203,10 +203,14 @@ export async function tryDeductTeacherCredit(jobId, endpoint, env) {
 
     // Prüfen ob Schüler ein eigenes aktives Abo hat
     const student = await env.DB.prepare(
-      "SELECT id, subscription_status FROM students WHERE name_lower = ?"
+      "SELECT id, subscription_status, free_access_until FROM students WHERE name_lower = ?"
     ).bind(studentNameLower).first();
 
     if (student) {
+      // Manuell gewährter Free Access → keine Credits abbuchen
+      if (student.free_access_until && new Date(student.free_access_until) > new Date()) {
+        return;
+      }
       // Aktives Abo → keine Credits abbuchen
       if (student.subscription_status === 'active' || student.subscription_status === 'trialing') {
         const sub = await env.DB.prepare(
