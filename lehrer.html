@@ -1889,9 +1889,19 @@ function openTaskIframe() {
   document.getElementById("iframeSubjectLabel").textContent = SUBJECT_NAMES[subj] + " — " + typeOpt.textContent;
 
   const iframe = document.getElementById("taskIframe");
-  iframe.src = url + "?mode=teacher&teacher_token=" + encodeURIComponent(teacherAuthToken);
+  // Token NICHT mehr in die URL - das leakt in Browser-History/Logs/Referrer.
+  // Stattdessen via postMessage same-origin an das geladene iFrame pushen.
+  iframe.src = url + "?mode=teacher";
   document.getElementById("iframeLoading").style.display = "flex";
-  iframe.onload = () => { document.getElementById("iframeLoading").style.display = "none"; };
+  iframe.onload = () => {
+    document.getElementById("iframeLoading").style.display = "none";
+    try {
+      iframe.contentWindow.postMessage(
+        { type: "teacher-token", token: teacherAuthToken },
+        window.location.origin
+      );
+    } catch (e) { /* ignore */ }
+  };
 }
 
 function closeTaskIframe() {
@@ -1903,9 +1913,15 @@ function closeTaskIframe() {
 
 // postMessage von iFrame empfangen
 window.addEventListener("message", function(e) {
+  // Nur Same-Origin-Nachrichten verarbeiten.
+  if (e.origin !== window.location.origin) return;
   if (e.data && e.data.type === "task-generated" && e.data.data) {
     pendingTaskData = e.data.data;
     showTaskPreview();
+  }
+  // iFrame fragt aktiv nach dem Lehrer-Token (race-safe gegenüber iframe.onload).
+  if (e.data && e.data.type === "teacher-token-request" && teacherAuthToken) {
+    try { e.source.postMessage({ type: "teacher-token", token: teacherAuthToken }, window.location.origin); } catch (err) {}
   }
 });
 

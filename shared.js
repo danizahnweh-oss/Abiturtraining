@@ -23,7 +23,23 @@ const CONFIG = { storedData: null };
 /* ================= TEACHER MODE & SHARED TASK ================= */
 const _urlParams = new URLSearchParams(window.location.search);
 const isTeacherMode = _urlParams.get("mode") === "teacher";
-const _teacherToken = _urlParams.get("teacher_token") || "";
+// Teacher-Token kommt NICHT mehr aus der URL (URL leakt in History/Logs/Referrer),
+// sondern wird vom Parent-Frame per postMessage gesetzt — siehe _teacherTokenReady unten.
+let _teacherToken = "";
+let _teacherTokenResolve = null;
+const _teacherTokenReady = new Promise(function(resolve) { _teacherTokenResolve = resolve; });
+if (isTeacherMode) {
+  window.addEventListener("message", function(e) {
+    // Nur Nachrichten von der eigenen Origin akzeptieren (kein Cross-Origin-Token-Leak).
+    if (e.origin !== window.location.origin) return;
+    if (e.data && e.data.type === "teacher-token" && typeof e.data.token === "string") {
+      _teacherToken = e.data.token;
+      if (_teacherTokenResolve) { _teacherTokenResolve(_teacherToken); _teacherTokenResolve = null; }
+    }
+  });
+  // Parent-Frame signalisieren, dass wir bereit sind, das Token entgegenzunehmen.
+  try { window.parent && window.parent !== window && window.parent.postMessage({ type: "teacher-token-request" }, window.location.origin); } catch (e) {}
+}
 const sharedTaskId = _urlParams.get("task_id") || null;
 
 // Teacher-Mode: Banner zum Uebernehmen der Aufgabe
@@ -38,9 +54,20 @@ function _showTeacherAdoptBanner() {
 }
 
 function _teacherAdoptTask() {
-  window.parent.postMessage({ type: "task-generated", data: CONFIG.storedData }, "*");
+  // Same-Origin statt "*", damit Aufgabendaten nicht versehentlich an Drittseiten gehen.
+  window.parent.postMessage({ type: "task-generated", data: CONFIG.storedData }, window.location.origin);
   var banner = document.getElementById("teacherAdoptBanner");
   if (banner) { banner.innerHTML = '<span style="font-weight:600;">Aufgabe uebernommen — du kannst den iFrame jetzt schliessen.</span>'; }
+}
+
+// Wartet im Teacher-Mode bis zu 5s auf das per postMessage gesetzte Lehrer-Token,
+// damit der erste API-Call nach iframe-Load nicht ohne Header abgeht.
+async function _ensureTeacherToken() {
+  if (!isTeacherMode || _teacherToken) return;
+  await Promise.race([
+    _teacherTokenReady,
+    new Promise(function(resolve) { setTimeout(resolve, 5000); })
+  ]);
 }
 
 /* ================= FOCUS-TRAP ================= */
@@ -208,6 +235,7 @@ function _apiHeaders(contentType) {
 }
 
 async function apiCall(endpoint, body, _isRetry) {
+  await _ensureTeacherToken();
   // Abo-Check vor kostenpflichtigen Endpoints (generate/grade)
   if (/\/api\/(fos-)?(generate|grade)/.test(endpoint) && !isTeacherMode) {
     var sub = await checkSubscription();
@@ -386,6 +414,7 @@ var STREAM_ENDPOINTS = {
 
 // SSE-basierter API-Aufruf für Echtzeit-Fortschritt bei langen Korrekturen
 async function apiCallStream(streamEndpoint, body) {
+  await _ensureTeacherToken();
   // OCR-Bilder automatisch mitsenden
   if (/grade/.test(streamEndpoint) && typeof getOCRImages === "function") {
     var imgs = getOCRImages();
@@ -497,6 +526,8 @@ async function apiCallAsync(gradeEndpoint, body, options) {
   var pollInterval = options.pollInterval || 3000;
   var maxWait = options.maxWait || 300000; // 5 Minuten
   var onProgress = options.onProgress || null;
+
+  await _ensureTeacherToken();
 
   // Abo-Check vor Korrektur
   if (!isTeacherMode) {
@@ -2221,7 +2252,9 @@ if (typeof MODULE_CONFIG !== 'undefined') window.onload = function () {
     // Lehrer-Name per API holen, Fallback "Lehrer-Vorschau"
     sessionStorage.setItem("access", "1");
     sessionStorage.setItem("student_name", "Lehrer-Vorschau");
-    if (_teacherToken) {
+    // Token kommt asynchron per postMessage vom Parent. Warten, dann Profil holen.
+    _ensureTeacherToken().then(function() {
+      if (!_teacherToken) return;
       fetch("https://myabiflow.de/api/teacher-profile", {
         method: "POST",
         headers: { "Content-Type": "application/json", "X-Teacher-Auth-Token": _teacherToken },
@@ -2229,7 +2262,7 @@ if (typeof MODULE_CONFIG !== 'undefined') window.onload = function () {
       }).then(function(r) { return r.json(); }).then(function(d) {
         if (d.name) sessionStorage.setItem("student_name", "Lehrer: " + d.name);
       }).catch(function() {});
-    }
+    });
     nav(MODULE_CONFIG.steps[0]);
     initHL();
     return;
