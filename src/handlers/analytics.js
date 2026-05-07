@@ -1,16 +1,15 @@
 // Handler: Analytics (Student Results, Competency Profile, Learning Plan)
 import { jsonResponse, extractJSON } from '../utils.js';
 import { callOpenAI } from '../openai.js';
+import { resolveStudentIdentity } from '../auth.js';
 import { SUBJECT_TYPES_MAP, SUBJECT_NAMES } from './student.js';
 
 /* ================= STUDENT RESULTS ================= */
 export async function handleStudentResults(request, env) {
-  const { student_name } = await request.json();
-  if (!student_name || typeof student_name !== "string") {
-    return jsonResponse({ error: "student_name required" }, 400, env);
-  }
-
-  const nameLower = student_name.trim().toLowerCase();
+  const body = await request.json().catch(() => ({}));
+  const ident = await resolveStudentIdentity(request, env, body.student_name?.trim()?.toLowerCase());
+  if (!ident) return jsonResponse({ error: "Bitte erneut anmelden." }, 401, env);
+  const nameLower = ident.nameLower;
   const { results } = await env.DB.prepare(
     "SELECT id, student_name, course, type, topic, content, language, total, created_at AS date FROM results WHERE LOWER(TRIM(student_name)) = ? ORDER BY created_at ASC"
   ).bind(nameLower).all();
@@ -20,12 +19,10 @@ export async function handleStudentResults(request, env) {
 
 /* ================= KOMPETENZPROFIL ================= */
 export async function handleCompetencyProfile(request, env) {
-  const { student_name } = await request.json();
-  if (!student_name || typeof student_name !== "string") {
-    return jsonResponse({ error: "student_name required" }, 400, env);
-  }
-
-  const nameLower = student_name.trim().toLowerCase();
+  const body = await request.json().catch(() => ({}));
+  const ident = await resolveStudentIdentity(request, env, body.student_name?.trim()?.toLowerCase());
+  if (!ident) return jsonResponse({ error: "Bitte erneut anmelden." }, 401, env);
+  const nameLower = ident.nameLower;
 
   // Alle Ergebnisse laden (mit optionalen Details)
   const { results } = await env.DB.prepare(`
@@ -238,12 +235,11 @@ export function aggregateMissingTopics(details) {
 
 /* ================= KI-LERNPLAN ================= */
 export async function handleLearningPlan(request, env) {
-  const { student_name, force_refresh } = await request.json();
-  if (!student_name || typeof student_name !== "string") {
-    return jsonResponse({ error: "student_name required" }, 400, env);
-  }
-
-  const nameLower = student_name.trim().toLowerCase();
+  const body = await request.json().catch(() => ({}));
+  const { force_refresh } = body;
+  const ident = await resolveStudentIdentity(request, env, body.student_name?.trim()?.toLowerCase());
+  if (!ident) return jsonResponse({ error: "Bitte erneut anmelden." }, 401, env);
+  const nameLower = ident.nameLower;
 
   // 1. Cache pruefen (wenn nicht force_refresh)
   if (!force_refresh) {

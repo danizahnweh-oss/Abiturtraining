@@ -1,6 +1,6 @@
 // Handler: Student (Login, Check, Preferences, Reminders)
 import { jsonResponse } from '../utils.js';
-import { generateToken, safeCompare, hashPassword, verifyPassword } from '../auth.js';
+import { generateToken, safeCompare, hashPassword, verifyPassword, resolveStudentIdentity } from '../auth.js';
 
 /* ================= LOGIN HANDLER ================= */
 export async function handleLogin(request, env) {
@@ -171,7 +171,11 @@ export async function handleCheckStudent(request, env) {
     subjectLicenses = (slResult?.rows || []).map(s => s.subject);
   }
 
-  const token = await generateToken(env);
+  // Token an Schüler-Identität binden (verhindert IDOR – Body-Name wird auf dem Server nie wieder vertraut)
+  const token = await generateToken(env, undefined, {
+    sub: nameLower,
+    sid: student?.id ? String(student.id) : undefined,
+  });
   return jsonResponse({
     success: true,
     token,
@@ -185,10 +189,11 @@ export async function handleCheckStudent(request, env) {
 
 /* ================= STUDENT PREFERENCES ================= */
 export async function handleGetPreferences(request, env) {
-  const { student_name } = await request.json();
-  if (!student_name) return jsonResponse({ error: "Name erforderlich." }, 400, env);
+  const body = await request.json().catch(() => ({}));
+  const ident = await resolveStudentIdentity(request, env, body.student_name?.trim()?.toLowerCase());
+  if (!ident) return jsonResponse({ error: "Bitte erneut anmelden." }, 401, env);
+  const nameLower = ident.nameLower;
 
-  const nameLower = student_name.trim().toLowerCase();
   const student = await env.DB.prepare(
     "SELECT name, level, class_group, school, created_at, hidden_subjects, exam_subjects, reminder_interval, email FROM students WHERE name_lower = ?"
   ).bind(nameLower).first();
@@ -213,10 +218,12 @@ export async function handleGetPreferences(request, env) {
 }
 
 export async function handleSavePreferences(request, env) {
-  const { student_name, hidden_subjects, exam_subjects, reminder_interval, email } = await request.json();
-  if (!student_name) return jsonResponse({ error: "Name erforderlich." }, 400, env);
-
-  const nameLower = student_name.trim().toLowerCase();
+  const body = await request.json().catch(() => ({}));
+  const { hidden_subjects, exam_subjects, reminder_interval, email } = body;
+  // Schreiboperation: nur Schüler selbst, kein Lehrer-Bypass
+  const ident = await resolveStudentIdentity(request, env);
+  if (!ident || ident.isTeacher) return jsonResponse({ error: "Bitte erneut anmelden." }, 401, env);
+  const nameLower = ident.nameLower;
 
   // Dynamisch nur die übergebenen Felder updaten
   const updates = [];
@@ -268,11 +275,9 @@ export async function handleSavePreferences(request, env) {
 
 /* ================= PASSWORT ÄNDERN ================= */
 export async function handleChangePassword(request, env) {
-  const { student_name, old_password, new_password } = await request.json();
+  const body = await request.json().catch(() => ({}));
+  const { old_password, new_password } = body;
 
-  if (!student_name || typeof student_name !== "string") {
-    return jsonResponse({ error: "Name erforderlich." }, 400, env);
-  }
   if (!old_password || typeof old_password !== "string") {
     return jsonResponse({ error: "Aktuelles Passwort erforderlich." }, 400, env);
   }
@@ -280,7 +285,11 @@ export async function handleChangePassword(request, env) {
     return jsonResponse({ error: "Neues Passwort muss mindestens 6 Zeichen haben." }, 400, env);
   }
 
-  const nameLower = student_name.trim().toLowerCase();
+  // Passwortwechsel: zwingend Schüler selbst, kein Lehrer-Bypass
+  const ident = await resolveStudentIdentity(request, env);
+  if (!ident || ident.isTeacher) return jsonResponse({ error: "Bitte erneut anmelden." }, 401, env);
+  const nameLower = ident.nameLower;
+
   const student = await env.DB.prepare(
     "SELECT id, salt, hash FROM students WHERE name_lower = ?"
   ).bind(nameLower).first();
@@ -297,19 +306,20 @@ export async function handleChangePassword(request, env) {
     "UPDATE students SET salt = ?, hash = ? WHERE id = ?"
   ).bind(newSalt, newHash, student.id).run();
 
-  const token = await generateToken(env);
+  // Neuer Token bleibt an dieselbe Schüler-Identität gebunden
+  const token = await generateToken(env, undefined, { sub: nameLower, sid: String(student.id) });
   return jsonResponse({ success: true, token }, 200, env);
 }
 
 /* ================= PROFIL AKTUALISIEREN ================= */
 export async function handleUpdateProfile(request, env) {
-  const { student_name, email, level, school } = await request.json();
+  const body = await request.json().catch(() => ({}));
+  const { email, level, school } = body;
 
-  if (!student_name || typeof student_name !== "string") {
-    return jsonResponse({ error: "Name erforderlich." }, 400, env);
-  }
-
-  const nameLower = student_name.trim().toLowerCase();
+  // Profil ändern: zwingend Schüler selbst, kein Lehrer-Bypass
+  const ident = await resolveStudentIdentity(request, env);
+  if (!ident || ident.isTeacher) return jsonResponse({ error: "Bitte erneut anmelden." }, 401, env);
+  const nameLower = ident.nameLower;
   const updates = [];
   const binds = [];
 
@@ -387,10 +397,10 @@ export const SUBJECT_ICONS = {
 
 /* ================= CHECK REMINDERS ================= */
 export async function handleCheckReminders(request, env) {
-  const { student_name } = await request.json();
-  if (!student_name) return jsonResponse({ error: "Name erforderlich." }, 400, env);
-
-  const nameLower = student_name.trim().toLowerCase();
+  const body = await request.json().catch(() => ({}));
+  const ident = await resolveStudentIdentity(request, env, body.student_name?.trim()?.toLowerCase());
+  if (!ident) return jsonResponse({ error: "Bitte erneut anmelden." }, 401, env);
+  const nameLower = ident.nameLower;
   const student = await env.DB.prepare(
     "SELECT exam_subjects, reminder_interval FROM students WHERE name_lower = ?"
   ).bind(nameLower).first();

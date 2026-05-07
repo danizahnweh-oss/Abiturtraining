@@ -1,6 +1,6 @@
 // Handler: Nachrichten (Admin → Schüler)
 import { jsonResponse } from '../utils.js';
-import { verifyToken } from '../auth.js';
+import { verifyToken, resolveStudentIdentity } from '../auth.js';
 
 /* ================= EMAIL-BENACHRICHTIGUNG ================= */
 async function notifyByEmail(nameLower, msgSubject, env) {
@@ -149,12 +149,11 @@ export async function handleDeleteMessage(request, env) {
 
 /* ================= SCHÜLER: EIGENE NACHRICHTEN LADEN ================= */
 export async function handleStudentMessages(request, env) {
-  const { student_name } = await request.json();
-  if (!student_name || typeof student_name !== "string") {
-    return jsonResponse({ error: "Schülername erforderlich." }, 400, env);
-  }
+  const body = await request.json().catch(() => ({}));
+  const ident = await resolveStudentIdentity(request, env, body.student_name?.trim()?.toLowerCase());
+  if (!ident) return jsonResponse({ error: "Bitte erneut anmelden." }, 401, env);
+  const nameLower = ident.nameLower;
 
-  const nameLower = student_name.trim().toLowerCase();
   const rows = (await env.DB.prepare(
     "SELECT id, subject, body, is_read, created_at, read_at, reply, reply_at FROM messages WHERE recipient_name_lower = ? ORDER BY created_at DESC LIMIT 50"
   ).bind(nameLower).all()).results || [];
@@ -164,10 +163,15 @@ export async function handleStudentMessages(request, env) {
 
 /* ================= SCHÜLER: NACHRICHT ALS GELESEN MARKIEREN ================= */
 export async function handleMarkMessageRead(request, env) {
-  const { id, student_name } = await request.json();
-  if (!id || !student_name) return jsonResponse({ error: "id und student_name erforderlich." }, 400, env);
+  const body = await request.json().catch(() => ({}));
+  const { id } = body;
+  if (!id) return jsonResponse({ error: "id erforderlich." }, 400, env);
 
-  const nameLower = student_name.trim().toLowerCase();
+  // Schreiboperation: nur Schüler selbst, kein Lehrer-Bypass
+  const ident = await resolveStudentIdentity(request, env);
+  if (!ident || ident.isTeacher) return jsonResponse({ error: "Bitte erneut anmelden." }, 401, env);
+  const nameLower = ident.nameLower;
+
   const now = new Date().toISOString();
   await env.DB.prepare(
     "UPDATE messages SET is_read = 1, read_at = ? WHERE id = ? AND recipient_name_lower = ?"
@@ -178,13 +182,18 @@ export async function handleMarkMessageRead(request, env) {
 
 /* ================= SCHÜLER: AUF NACHRICHT ANTWORTEN ================= */
 export async function handleReplyMessage(request, env) {
-  const { id, student_name, reply } = await request.json();
-  if (!id || !student_name) return jsonResponse({ error: "id und student_name erforderlich." }, 400, env);
+  const body = await request.json().catch(() => ({}));
+  const { id, reply } = body;
+  if (!id) return jsonResponse({ error: "id erforderlich." }, 400, env);
   if (!reply || typeof reply !== "string" || reply.trim().length === 0) {
     return jsonResponse({ error: "Antwort darf nicht leer sein." }, 400, env);
   }
 
-  const nameLower = student_name.trim().toLowerCase();
+  // Schreiboperation: nur Schüler selbst, kein Lehrer-Bypass
+  const ident = await resolveStudentIdentity(request, env);
+  if (!ident || ident.isTeacher) return jsonResponse({ error: "Bitte erneut anmelden." }, 401, env);
+  const nameLower = ident.nameLower;
+
   const replyText = reply.trim().slice(0, 5000);
   const now = new Date().toISOString();
 

@@ -3,11 +3,13 @@ import { jsonResponse } from './utils.js';
 import { TOKEN_EXPIRY, RATE_LIMIT_WINDOW } from './config.js';
 
 /* ---- Token-System (HMAC-SHA256) ---- */
-export async function generateToken(env, secret) {
+// extra: optionale Felder, die in den Payload gemerged werden (z.B. { sub: nameLower, sid })
+export async function generateToken(env, secret, extra) {
   const secretKey = secret || env.ACCESS_PASSWORD;
   const payload = JSON.stringify({
     iat: Date.now(),
-    nonce: crypto.randomUUID()
+    nonce: crypto.randomUUID(),
+    ...(extra || {})
   });
   const key = await crypto.subtle.importKey(
     "raw",
@@ -22,15 +24,21 @@ export async function generateToken(env, secret) {
 }
 
 export async function verifyToken(token, env, secret) {
+  return !!(await getTokenPayload(token, env, secret));
+}
+
+// Liefert den Payload bei gültigem Token, sonst null (Signatur + TTL geprüft)
+export async function getTokenPayload(token, env, secret) {
   try {
     const secretKey = secret || env.ACCESS_PASSWORD;
+    if (!token || typeof token !== "string") return null;
     const parts = token.split(".");
-    if (parts.length !== 2) return false;
+    if (parts.length !== 2) return null;
     const [dataB64, sigHex] = parts;
     const data = atob(dataB64);
     const payload = JSON.parse(data);
 
-    if (Date.now() - payload.iat > TOKEN_EXPIRY) return false;
+    if (Date.now() - payload.iat > TOKEN_EXPIRY) return null;
 
     const key = await crypto.subtle.importKey(
       "raw",
@@ -40,10 +48,41 @@ export async function verifyToken(token, env, secret) {
       ["verify"]
     );
     const sigBytes = new Uint8Array(sigHex.match(/.{2}/g).map(b => parseInt(b, 16)));
-    return await crypto.subtle.verify("HMAC", key, sigBytes, new TextEncoder().encode(data));
+    const valid = await crypto.subtle.verify("HMAC", key, sigBytes, new TextEncoder().encode(data));
+    return valid ? payload : null;
   } catch {
-    return false;
+    return null;
   }
+}
+
+// Liest den im Login-Token gebundenen Schüler-Identitätsanteil (sub = name_lower, sid = id).
+// Gibt null zurück, wenn kein Token, ungültig, abgelaufen oder ohne sub-Feld (alter Token vor IDOR-Fix).
+export async function getStudentTokenIdentity(request, env) {
+  const token = request.headers.get("X-Access-Token") || "";
+  const payload = await getTokenPayload(token, env);
+  if (!payload || !payload.sub) return null;
+  return {
+    nameLower: String(payload.sub),
+    studentId: payload.sid != null ? String(payload.sid) : null,
+  };
+}
+
+// Vereinheitlichter Identitäts-Resolver für Schüler-Endpunkte.
+// Schüler-Token: zwingend der gebundene Name (Body wird ignoriert).
+// Lehrer-Token (X-Teacher-Auth-Token): erlaubt Lesezugriff auf den im Body angegebenen Schüler.
+// Rückgabe: { nameLower } oder null (Aufrufer antwortet dann mit 401).
+export async function resolveStudentIdentity(request, env, requestedNameLower) {
+  const teacherToken = request.headers.get("X-Teacher-Auth-Token") || "";
+  if (teacherToken) {
+    const teacherId = await verifyTeacherAuthToken(teacherToken, env);
+    if (teacherId) {
+      const requested = (requestedNameLower || "").trim().toLowerCase();
+      return requested ? { nameLower: requested, isTeacher: true, teacherId } : null;
+    }
+  }
+  const ident = await getStudentTokenIdentity(request, env);
+  if (!ident) return null;
+  return { nameLower: ident.nameLower, studentId: ident.studentId, isTeacher: false };
 }
 
 /* ---- PBKDF2 Password Hashing ---- */

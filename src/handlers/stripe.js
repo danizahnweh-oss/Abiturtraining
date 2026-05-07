@@ -1,6 +1,18 @@
 // Handler: Stripe-Integration (Checkout, Webhooks, Abo-Status, Portal)
 import { jsonResponse } from '../utils.js';
-import { isSchoolLicenseActive } from '../auth.js';
+import { isSchoolLicenseActive, resolveStudentIdentity } from '../auth.js';
+
+// Liefert die Schüler-ID des Aufrufers (aus Token gebunden, fallback per name_lower).
+// Ein im Body übergebenes student_id wird ignoriert – dies schließt die IDOR-Lücke.
+async function getAuthenticatedStudentId(request, env) {
+  const ident = await resolveStudentIdentity(request, env);
+  if (!ident || ident.isTeacher) return null;
+  if (ident.studentId) return ident.studentId;
+  const row = await env.DB.prepare(
+    'SELECT id FROM students WHERE name_lower = ?'
+  ).bind(ident.nameLower).first();
+  return row?.id ? String(row.id) : null;
+}
 
 /* ---- Stripe API Basis ---- */
 const STRIPE_API = 'https://api.stripe.com/v1';
@@ -64,10 +76,16 @@ function planDurationDays(plan) {
 
 /* ================= CHECKOUT SESSION ERSTELLEN ================= */
 export async function handleCreateCheckout(request, env) {
-  const { plan, student_id, student_name, utm } = await request.json();
+  const { plan, student_name, utm } = await request.json();
 
-  if (!plan || !student_id) {
-    return jsonResponse({ error: 'Plan und Student-ID erforderlich.' }, 400, env);
+  if (!plan) {
+    return jsonResponse({ error: 'Plan erforderlich.' }, 400, env);
+  }
+
+  // Schüler-ID kommt zwingend aus dem Token (Body-Wert wird ignoriert)
+  const student_id = await getAuthenticatedStudentId(request, env);
+  if (!student_id) {
+    return jsonResponse({ error: 'Bitte erneut anmelden.' }, 401, env);
   }
 
   // Abitur-Plan nur bis 30. Juni verfügbar
@@ -303,10 +321,10 @@ export async function handleStripeWebhook(request, env) {
 
 /* ================= ABO-STATUS ABRUFEN ================= */
 export async function handleSubscriptionStatus(request, env) {
-  const { student_id } = await request.json();
-
+  // Schüler-ID kommt zwingend aus dem Token
+  const student_id = await getAuthenticatedStudentId(request, env);
   if (!student_id) {
-    return jsonResponse({ error: 'Student-ID erforderlich.' }, 400, env);
+    return jsonResponse({ error: 'Bitte erneut anmelden.' }, 401, env);
   }
 
   const student = await env.DB.prepare(
@@ -418,10 +436,10 @@ export async function handleSubscriptionStatus(request, env) {
 
 /* ================= STRIPE CUSTOMER PORTAL ================= */
 export async function handleCustomerPortal(request, env) {
-  const { student_id } = await request.json();
-
+  // Schüler-ID kommt zwingend aus dem Token
+  const student_id = await getAuthenticatedStudentId(request, env);
   if (!student_id) {
-    return jsonResponse({ error: 'Student-ID erforderlich.' }, 400, env);
+    return jsonResponse({ error: 'Bitte erneut anmelden.' }, 401, env);
   }
 
   const student = await env.DB.prepare(
@@ -448,10 +466,10 @@ export async function handleCustomerPortal(request, env) {
 
 /* ================= TRIAL STARTEN ================= */
 export async function handleStartTrial(request, env) {
-  const { student_id } = await request.json();
-
+  // Schüler-ID kommt zwingend aus dem Token
+  const student_id = await getAuthenticatedStudentId(request, env);
   if (!student_id) {
-    return jsonResponse({ error: 'Student-ID erforderlich.' }, 400, env);
+    return jsonResponse({ error: 'Bitte erneut anmelden.' }, 401, env);
   }
 
   const student = await env.DB.prepare(
@@ -488,10 +506,16 @@ export async function handleStartTrial(request, env) {
 
 /* ================= SCHULCODE / SCHULLIZENZ EINLÖSEN ================= */
 export async function handleRedeemLicense(request, env) {
-  const { student_id, license_code } = await request.json();
+  const { license_code } = await request.json();
 
-  if (!student_id || !license_code) {
-    return jsonResponse({ error: 'Student-ID und Schulcode erforderlich.' }, 400, env);
+  if (!license_code) {
+    return jsonResponse({ error: 'Schulcode erforderlich.' }, 400, env);
+  }
+
+  // Schüler-ID kommt zwingend aus dem Token (Body-Wert wäre IDOR)
+  const student_id = await getAuthenticatedStudentId(request, env);
+  if (!student_id) {
+    return jsonResponse({ error: 'Bitte erneut anmelden.' }, 401, env);
   }
 
   // Schulcode in class_passwords suchen
