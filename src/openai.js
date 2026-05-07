@@ -1,17 +1,46 @@
 import { API_TIMEOUT } from './config.js';
 
 /* ================= TELEGRAM ERROR-ALERT ================= */
-// Sendet API-Fehler per Telegram an den Admin (fire-and-forget)
-async function notifyApiError(env, model, status, detail, elapsed) {
+// Throttle: pro (status+errorType)-Kombi max. 1 Alert / 30 min, damit ein
+// anhaltender 429-/Quota-Sturm nicht hunderte Telegram-Nachrichten erzeugt.
+const _alertThrottle = new Map();
+const ALERT_THROTTLE_MS = 30 * 60 * 1000;
+
+function shouldSendAlert(key) {
+  const now = Date.now();
+  const last = _alertThrottle.get(key) || 0;
+  if (now - last < ALERT_THROTTLE_MS) return false;
+  _alertThrottle.set(key, now);
+  // Cleanup: alte Einträge entfernen
+  if (_alertThrottle.size > 50) {
+    for (const [k, t] of _alertThrottle) {
+      if (now - t > ALERT_THROTTLE_MS) _alertThrottle.delete(k);
+    }
+  }
+  return true;
+}
+
+// Sendet API-Fehler per Telegram an den Admin (fire-and-forget, throttled)
+async function notifyApiError(env, model, status, detail, elapsed, errorType) {
   try {
     const botToken = env.TELEGRAM_BOT_TOKEN;
     const chatId = env.TELEGRAM_CHAT_ID;
     if (!botToken || !chatId) return;
 
-    const text = `🚨 *OpenAI API Fehler*\n\n` +
-      `📌 *Status:* ${status}\n` +
+    // Spezialfall: Quota erschöpft -> kritischer Alert mit Aktion fürs Admin
+    const isQuotaError = errorType === 'insufficient_quota';
+    const throttleKey = `${status}:${errorType || 'unknown'}`;
+    if (!shouldSendAlert(throttleKey)) return;
+
+    const headline = isQuotaError
+      ? `🔥 *KRITISCH — OpenAI Quota erschöpft*\n\nKein Schüler/Lehrer kann gerade KI-Aufgaben/Korrekturen nutzen.\n\n*Aktion:* https://platform.openai.com/settings/organization/billing`
+      : `🚨 *OpenAI API Fehler*`;
+
+    const text = `${headline}\n\n` +
+      `📌 *Status:* ${status}${errorType ? ' (' + errorType + ')' : ''}\n` +
       `🤖 *Modell:* ${model}\n` +
-      `⏱ *Dauer:* ${elapsed}ms\n\n` +
+      `⏱ *Dauer:* ${elapsed}ms\n` +
+      `🔇 *Nächster Alert für diesen Fehler:* frühestens in 30 min\n\n` +
       `\`\`\`\n${detail.substring(0, 800)}\n\`\`\``;
 
     await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
@@ -78,9 +107,10 @@ export async function callOpenAI(env, messages, maxTokens = 4000, { model = "gpt
     const data = await response.json();
     if (!response.ok) {
       const detail = data?.error?.message || JSON.stringify(data).substring(0, 200);
+      const errorType = data?.error?.type;
       const elapsed = Date.now() - t0;
-      // Admin per Telegram benachrichtigen (fire-and-forget)
-      notifyApiError(env, model, response.status, detail, elapsed);
+      // Admin per Telegram benachrichtigen (fire-and-forget, throttled)
+      notifyApiError(env, model, response.status, detail, elapsed, errorType);
       // Benutzerfreundliche Meldung wenn möglich
       const friendly = userFriendlyError(response.status);
       throw new Error(friendly || "OpenAI(" + response.status + "): " + detail);
@@ -145,8 +175,9 @@ export async function callOpenAIStream(env, messages, maxTokens = 4000, { model 
     if (!response.ok) {
       const data = await response.json().catch(() => ({}));
       const detail = data?.error?.message || JSON.stringify(data).substring(0, 200);
+      const errorType = data?.error?.type;
       const elapsed = Date.now() - t0;
-      notifyApiError(env, model, response.status, detail, elapsed);
+      notifyApiError(env, model, response.status, detail, elapsed, errorType);
       const friendly = userFriendlyError(response.status);
       throw new Error(friendly || "OpenAI(" + response.status + "): " + detail);
     }
