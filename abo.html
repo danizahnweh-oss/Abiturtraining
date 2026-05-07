@@ -1259,18 +1259,36 @@
     }
 
     // URL-Parameter prüfen (Success/Cancel von Stripe)
-    (function() {
+    (async function() {
       var params = new URLSearchParams(window.location.search);
       var banner = document.getElementById("resultBanner");
 
       if (params.get("success") === "true") {
-        banner.classList.add("success");
-        document.getElementById("resultIcon").textContent = "\u2705";
-        document.getElementById("resultText").textContent =
-          "Zahlung erfolgreich! Dein Abo ist jetzt aktiv. Viel Erfolg beim Lernen!";
-        // SessionStorage aktualisieren damit Paywall + Banner korrekt reagieren
-        sessionStorage.setItem("subscription_status", "active");
-        sessionStorage.removeItem("free_access");
+        var studentId = getStudentId();
+        try {
+          var statusData = await aboApi("/api/stripe/subscription-status", { student_id: studentId });
+          if (statusData.status === "active" || statusData.status === "trialing") {
+            banner.classList.add("success");
+            document.getElementById("resultIcon").textContent = "\u2705";
+            document.getElementById("resultText").textContent =
+              "Zahlung erfolgreich! Dein Abo ist jetzt aktiv. Viel Erfolg beim Lernen!";
+            sessionStorage.setItem("subscription_status", statusData.status);
+            sessionStorage.removeItem("free_access");
+          } else {
+            banner.classList.add("canceled");
+            document.getElementById("resultIcon").textContent = "\u26A0\uFE0F";
+            document.getElementById("resultText").textContent =
+              "Zahlung wurde zurückgeleitet, aber dein Abo ist noch nicht aktiv. Bitte prüfe deinen Status erneut oder kontaktiere den Support.";
+            sessionStorage.setItem("subscription_status", statusData.status || "inactive");
+            showToast("Abo nach Rückleitung noch nicht aktiv.", "error");
+          }
+        } catch (err) {
+          banner.classList.add("canceled");
+          document.getElementById("resultIcon").textContent = "\u26A0\uFE0F";
+          document.getElementById("resultText").textContent =
+            "Zahlung wurde zurückgeleitet, aber der Abo-Status konnte nicht bestätigt werden. Bitte lade die Seite erneut.";
+          showToast(err.message || "Abo-Status konnte nicht bestätigt werden.", "error");
+        }
         // URL aufräumen
         history.replaceState({}, "", window.location.pathname);
       } else if (params.get("canceled") === "true") {

@@ -5471,16 +5471,16 @@
 
       bar.style.display = "";
       bar.innerHTML = '<div class="progress-stats">' +
-        '<div class="pstat"><span id="pStatTotal">0</span><small>Aufgaben</small></div>' +
-        '<div class="pstat"><span id="pStatAvg">&ndash;</span><small>&Oslash; Punkte</small></div>' +
-        '<div class="pstat"><span id="pStatStreak">0</span><small>Tage-Streak</small></div>' +
+        '<div class="pstat"><span id="pStatTotalAlt">0</span><small>Aufgaben</small></div>' +
+        '<div class="pstat"><span id="pStatAvgAlt">&ndash;</span><small>&Oslash; Punkte</small></div>' +
+        '<div class="pstat"><span id="pStatStreakAlt">0</span><small>Tage-Streak</small></div>' +
         '</div>';
-      document.getElementById("pStatTotal").textContent = results.length;
+      document.getElementById("pStatTotalAlt").textContent = results.length;
 
       var totals = results.map(function (r) { return r.total; }).filter(function (t) { return t != null; });
       if (totals.length) {
         var avg = totals.reduce(function (a, b) { return a + b; }, 0) / totals.length;
-        document.getElementById("pStatAvg").textContent = avg.toFixed(1);
+        document.getElementById("pStatAvgAlt").textContent = avg.toFixed(1);
       }
 
       // Streak calculation
@@ -5512,7 +5512,7 @@
           } else break;
         }
       }
-      document.getElementById("pStatStreak").textContent = streak;
+      document.getElementById("pStatStreakAlt").textContent = streak;
     }
 
     function renderSmartCta(results) {

@@ -455,7 +455,8 @@ async function apiCallStream(streamEndpoint, body) {
         try {
           var data = JSON.parse(line.slice(6));
           if (currentEvent === "status" && statusEl && data.message) {
-            statusEl.innerHTML = data.message + '<span class="ki-dots"><span>.</span><span>.</span><span>.</span></span>';
+            statusEl.textContent = data.message;
+            statusEl.insertAdjacentHTML("beforeend", '<span class="ki-dots"><span>.</span><span>.</span><span>.</span></span>');
           } else if (currentEvent === "result") {
             result = data;
           } else if (currentEvent === "error") {
@@ -1134,6 +1135,7 @@ function initTheme() {
 let timerInterval = null, timerSeconds = 0, timerPaused = false;
 
 function startTimer() {
+  if (window._sharedTimerId) clearInterval(window._sharedTimerId);
   timerSeconds = (parseInt(document.getElementById("timerMinutes").value) || 180) * 60;
   document.getElementById("timerBar").classList.add("active");
   document.getElementById("timerStartBtn").style.display = "none";
@@ -1142,9 +1144,14 @@ function startTimer() {
     if (!timerPaused) {
       timerSeconds--;
       updateTimerDisplay();
-      if (timerSeconds <= 0) { clearInterval(timerInterval); showToast("Zeit abgelaufen!"); }
+      if (timerSeconds <= 0) {
+        clearInterval(timerInterval);
+        window._sharedTimerId = null;
+        showToast("Zeit abgelaufen!");
+      }
     }
   }, 1000);
+  window._sharedTimerId = timerInterval;
 }
 
 function pauseTimer() {
@@ -1154,7 +1161,9 @@ function pauseTimer() {
 
 function stopTimer() {
   if (timerInterval) clearInterval(timerInterval);
+  if (window._sharedTimerId) clearInterval(window._sharedTimerId);
   timerInterval = null;
+  window._sharedTimerId = null;
   timerSeconds = 0;
   document.getElementById("timerBar").classList.remove("active");
   document.getElementById("timerStartBtn").style.display = "inline-flex";
@@ -1792,7 +1801,7 @@ async function handleOCRFiles(fileList) {
     return true;
   });
   for (const f of files) {
-    ocrPages.push({ file: f, url: URL.createObjectURL(f), base64: null, text: "", status: "pending" });
+    ocrPages.push({ id: Date.now() + Math.random(), file: f, url: URL.createObjectURL(f), base64: null, text: "", status: "pending" });
   }
   renderOCRPages();
 
@@ -1804,18 +1813,27 @@ async function handleOCRFiles(fileList) {
   const maxDim = ocrPages.length > 6 ? 1400 : 2000;
 
   for (let i = startIdx; i < ocrPages.length; i++) {
-    const p = ocrPages[i];
+    const pageId = ocrPages[i] && ocrPages[i].id;
+    if (!pageId) continue;
+    let p = ocrPages.find(page => page.id === pageId);
+    if (!p) continue;
     p.status = "processing";
     renderOCRPages();
     document.getElementById("ocrProgress").textContent = `Seite ${i + 1} von ${ocrPages.length} wird erkannt …`;
 
     try {
       const b64 = await compressImage(p.file, maxDim);
+      p = ocrPages.find(page => page.id === pageId);
+      if (!p) continue;
       p.base64 = b64;
       const d = await apiCall(ocrEndpoint, { image_base64: b64 });
+      p = ocrPages.find(page => page.id === pageId);
+      if (!p) continue;
       p.text = d.text || "";
       p.status = "done";
     } catch (e) {
+      p = ocrPages.find(page => page.id === pageId);
+      if (!p) continue;
       p.text = `[Fehler bei Seite ${i + 1}: ${e.message}]`;
       p.status = "error";
     }
@@ -1824,8 +1842,12 @@ async function handleOCRFiles(fileList) {
 
   document.getElementById("ocrLoader").style.display = "none";
   document.getElementById("ocrProgress").textContent = "";
-  combineOCRTexts();
-  document.getElementById("ocrResult").style.display = "block";
+  if (ocrPages.length) {
+    combineOCRTexts();
+    document.getElementById("ocrResult").style.display = "block";
+  } else {
+    document.getElementById("ocrResult").style.display = "none";
+  }
   document.getElementById("ocrFileInput").value = "";
 }
 
@@ -1904,6 +1926,7 @@ function renderOCRPages() {
 }
 
 function removeOCRPage(i) {
+  if (!ocrPages[i]) return;
   URL.revokeObjectURL(ocrPages[i].url);
   ocrPages.splice(i, 1);
   renderOCRPages();
@@ -1958,7 +1981,7 @@ window.checkOcrPending = function (opts) {
 };
 
 function clearOCR() {
-  ocrPages.forEach(p => URL.revokeObjectURL(p.url));
+  ocrPages.slice().forEach(p => URL.revokeObjectURL(p.url));
   ocrPages.length = 0;
   renderOCRPages();
   document.getElementById("ocrText").value = "";
@@ -2234,7 +2257,7 @@ function updateTeacherCodeBtn(code) {
 }
 
 // Main init — only for module pages (deutsch.html, etc.), not index.html
-if (typeof MODULE_CONFIG !== 'undefined') window.onload = function () {
+if (typeof MODULE_CONFIG !== 'undefined') window.addEventListener("load", function () {
   initTheme();
 
   // Teacher-Mode: Login umgehen, Setup + Aufgabe anzeigen
@@ -2382,7 +2405,7 @@ if (typeof MODULE_CONFIG !== 'undefined') window.onload = function () {
       _origGenerateTask();
     };
   }
-};
+});
 
 /* ============================
    Zentrale Bildlade-Funktion
@@ -3494,4 +3517,3 @@ document.addEventListener("DOMContentLoaded", function() {
   getUtmParams();
   initConsentBanner();
 });
-

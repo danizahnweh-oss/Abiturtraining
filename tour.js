@@ -124,8 +124,8 @@
     welcome.innerHTML =
       '<div class="tour-welcome-box">' +
       progressHtml +
-      "<h2>" + step.title + "</h2>" +
-      "<p>" + step.text + "</p>" +
+      "<h2>" + DOMPurify.sanitize(step.title) + "</h2>" +
+      "<p>" + DOMPurify.sanitize(step.text) + "</p>" +
       '<div class="tour-actions">' +
       '<button class="tour-skip" data-tour-action="end">Tour überspringen</button>' +
       '<button class="btn" data-tour-action="next">Los geht\'s</button>' +
@@ -161,8 +161,8 @@
     tooltip.className = "tour-tooltip";
     tooltip.innerHTML =
       progressHtml +
-      "<h3>" + step.title + "</h3>" +
-      "<p>" + step.text + "</p>" +
+      "<h3>" + DOMPurify.sanitize(step.title) + "</h3>" +
+      "<p>" + DOMPurify.sanitize(step.text) + "</p>" +
       '<div class="tour-actions">' +
       '<button class="tour-skip" data-tour-action="end">Überspringen</button>' +
       '<button class="btn btn-small" data-tour-action="next">' +

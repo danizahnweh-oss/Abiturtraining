@@ -1,4 +1,4 @@
-const CACHE_NAME = 'myabiflow-v134';
+const CACHE_NAME = 'myabiflow-v135';
 const STATIC_ASSETS = [
   './',
   './index.html',
@@ -13,7 +13,11 @@ const STATIC_ASSETS = [
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME)
-      .then(cache => cache.addAll(STATIC_ASSETS))
+      .then(cache => Promise.all(
+        STATIC_ASSETS.map(asset =>
+          cache.add(asset).catch(e => console.warn('SW skip', asset, e))
+        )
+      ))
       .then(() => self.skipWaiting())
   );
 });
@@ -22,7 +26,7 @@ self.addEventListener('install', event => {
 self.addEventListener('activate', event => {
   event.waitUntil(
     caches.keys().then(keys =>
-      Promise.all(keys.filter(k => k !== CACHE_NAME).map(k => caches.delete(k)))
+      Promise.all(keys.filter(k => k.startsWith('myabiflow-') && k !== CACHE_NAME).map(k => caches.delete(k)))
     ).then(() => self.clients.claim())
   );
 });
@@ -68,7 +72,22 @@ self.addEventListener('fetch', event => {
           caches.open(CACHE_NAME).then(cache => cache.put(event.request, clone));
         }
         return response;
-      }).catch(() => caches.match(event.request).then(c => c || caches.match('./index.html')))
+      }).catch(() => caches.match(event.request).then(cached => {
+        if (cached) return cached;
+        if (event.request.mode === 'navigate') {
+          return caches.match(url.href).then(exactUrlMatch => {
+            if (exactUrlMatch) return exactUrlMatch;
+            if (url.pathname === '/' || url.pathname === '') {
+              return caches.match('./index.html');
+            }
+            return new Response('Offline - diese Seite ist derzeit nicht im Cache verfügbar.', {
+              status: 503,
+              headers: { 'Content-Type': 'text/plain; charset=utf-8' }
+            });
+          });
+        }
+        return new Response('Offline', { status: 503 });
+      }))
     );
     return;
   }

@@ -117,8 +117,10 @@ function initAiTutor() {
       background: rgba(255, 255, 255, 0.2);
       border: none;
       color: white;
-      width: 28px;
-      height: 28px;
+      width: 44px;
+      height: 44px;
+      min-width: 44px;
+      min-height: 44px;
       border-radius: 50%;
       font-size: 1rem;
       cursor: pointer;
@@ -187,8 +189,10 @@ function initAiTutor() {
       background: var(--accent, #4f46e5);
       color: white;
       border: none;
-      width: 36px;
-      height: 36px;
+      width: 44px;
+      height: 44px;
+      min-width: 44px;
+      min-height: 44px;
       border-radius: 12px;
       cursor: pointer;
       display: flex;
@@ -284,7 +288,8 @@ function initAiTutor() {
   // 7. "Frag mich!" Sprechblase periodisch einblenden (alle 60s, 4s sichtbar)
   var hint = widget.querySelector(".ai-hover-hint");
   if (hint) {
-    setInterval(function () {
+    if (window._aiTutorHintIntervalId) clearInterval(window._aiTutorHintIntervalId);
+    window._aiTutorHintIntervalId = setInterval(function () {
       var chatWin = document.getElementById("ai-chat-window");
       if (chatWin && chatWin.style.display === "flex") return; // Chat offen → nicht zeigen
       hint.classList.add("peek");
@@ -297,6 +302,7 @@ function initAiTutor() {
 
 /* ====== DRAG-AND-DROP ====== */
 function initWidgetDrag(widget) {
+  if (window._aiTutorDragCleanup) window._aiTutorDragCleanup();
   var isDragging = false;
   var wasDragged = false;
   var startX, startY, origX, origY;
@@ -422,11 +428,22 @@ function initWidgetDrag(widget) {
   document.addEventListener("touchend", onEnd);
 
   // Re-clamp on window resize
-  window.addEventListener("resize", function () {
+  var onResize = function () {
     if (widget.style.top && widget.style.top !== "auto") {
       clampPosition();
     }
-  });
+  };
+  window.addEventListener("resize", onResize);
+
+  window._aiTutorDragCleanup = function () {
+    document.removeEventListener("mousedown", onStart);
+    document.removeEventListener("mousemove", onMove);
+    document.removeEventListener("mouseup", onEnd);
+    document.removeEventListener("touchstart", onStart, { passive: false });
+    document.removeEventListener("touchmove", onMove, { passive: false });
+    document.removeEventListener("touchend", onEnd);
+    window.removeEventListener("resize", onResize);
+  };
 }
 
 function toggleAiChat() {
@@ -659,16 +676,32 @@ function addAiMessage(text, sender) {
   return id;
 }
 
-// Auto-Init on Load if not already called
-// Use DOMContentLoaded to make sure body exists
-document.addEventListener("DOMContentLoaded", function () {
-  // If we are on a page that needs login (like tasks), we can check session
-  // Or if we are on index.html, checkSession might also call it.
-  // It is safe to call it multiple times because of the check at the top of initAiTutor.
-  initAiTutor();
-});
+function cleanupAiTutorRuntime() {
+  if (window._aiTutorHintIntervalId) {
+    clearInterval(window._aiTutorHintIntervalId);
+    window._aiTutorHintIntervalId = null;
+  }
+  if (window._aiTutorDragCleanup) {
+    window._aiTutorDragCleanup();
+    window._aiTutorDragCleanup = null;
+  }
+}
 
-// Fallback for immediate load if deferred
-if (document.readyState === "interactive" || document.readyState === "complete") {
+function ensureAiTutor() {
   initAiTutor();
+  var widget = document.getElementById("ai-tutor-widget");
+  if (widget && !window._aiTutorDragCleanup) {
+    initWidgetDrag(widget);
+  }
+}
+
+if (!window._aiTutorInited) {
+  window._aiTutorInited = true;
+  document.addEventListener("DOMContentLoaded", ensureAiTutor);
+  window.addEventListener("pageshow", ensureAiTutor);
+  window.addEventListener("pagehide", cleanupAiTutorRuntime);
+
+  if (document.readyState === "interactive" || document.readyState === "complete") {
+    ensureAiTutor();
+  }
 }
