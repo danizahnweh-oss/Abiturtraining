@@ -18,7 +18,12 @@ dotenv.config({ path: '../.env' });
 
 const app = express();
 const server = createServer(app);
-const wss = new WebSocketServer({ noServer: true });
+const wss = new WebSocketServer({
+  noServer: true,
+  handleProtocols(protocols, request) {
+    return selectWebSocketProtocol(protocols, request);
+  }
+});
 const redis = new Redis(process.env.REDIS_URL || 'redis://127.0.0.1:6379');
 const pool = new pg.Pool({
   connectionString: process.env.DATABASE_URL,
@@ -35,6 +40,10 @@ const ALLOWED_ORIGIN = process.env.ALLOWED_ORIGIN || 'https://myabiflow.de';
 const SESSION_MAX_DURATION_MS = 60 * 60 * 1000;  // 1 Stunde
 const TRANSCRIPT_PERSIST_INTERVAL = 30_000;        // 30 Sekunden
 const MAX_TRANSCRIPT_CHARS = 15_000;
+const SESSION_CREATE_RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000;
+const SESSION_CREATE_RATE_LIMIT_MAX = 5;
+
+const sessionCreateRateLimit = new Map();
 
 app.use(express.json());
 
@@ -46,13 +55,87 @@ function corsHeaders() {
   return {
     'Access-Control-Allow-Origin': ALLOWED_ORIGIN,
     'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-    'Access-Control-Allow-Headers': 'Content-Type',
+    'Access-Control-Allow-Headers': 'Content-Type, X-Access-Token',
   };
 }
 
 app.options('/{*path}', (req, res) => {
   res.set(corsHeaders()).status(204).end();
 });
+
+app.use((req, res, next) => {
+  if (req.method === 'OPTIONS') {
+    return next();
+  }
+
+  if (req.headers.origin !== ALLOWED_ORIGIN) {
+    return res.status(403).send('Forbidden');
+  }
+
+  return next();
+});
+
+function getAccessTokenFromRequest(req) {
+  const headerToken = req.headers['x-access-token'];
+  if (typeof headerToken === 'string' && headerToken.trim()) {
+    return {
+      token: headerToken.trim(),
+      selectedProtocol: null,
+    };
+  }
+
+  const protocolHeader = req.headers['sec-websocket-protocol'];
+  if (typeof protocolHeader !== 'string') {
+    return { token: null, selectedProtocol: null };
+  }
+
+  const protocols = protocolHeader
+    .split(',')
+    .map((value) => value.trim())
+    .filter(Boolean);
+
+  const bearerProtocol = protocols.find((protocol) => protocol.startsWith('bearer.'));
+  if (!bearerProtocol) {
+    return { token: null, selectedProtocol: null };
+  }
+
+  return {
+    token: bearerProtocol.slice('bearer.'.length),
+    selectedProtocol: bearerProtocol,
+  };
+}
+
+function hasValidAccessToken(req) {
+  const { token, selectedProtocol } = getAccessTokenFromRequest(req);
+  if (typeof token !== 'string' || token.length < 16) {
+    return null;
+  }
+
+  return { token, selectedProtocol };
+}
+
+function selectWebSocketProtocol(protocols, request) {
+  if (request.selectedProtocol && protocols.has(request.selectedProtocol)) {
+    return request.selectedProtocol;
+  }
+
+  return false;
+}
+
+function isSessionCreateRateLimited(studentId) {
+  const now = Date.now();
+  const existing = sessionCreateRateLimit.get(studentId) || [];
+  const recentAttempts = existing.filter((timestamp) => now - timestamp < SESSION_CREATE_RATE_LIMIT_WINDOW_MS);
+
+  if (recentAttempts.length >= SESSION_CREATE_RATE_LIMIT_MAX) {
+    sessionCreateRateLimit.set(studentId, recentAttempts);
+    return true;
+  }
+
+  recentAttempts.push(now);
+  sessionCreateRateLimit.set(studentId, recentAttempts);
+  return false;
+}
 
 // ============================================================
 // SESSION MANAGEMENT (ersetzt Durable Objects)
@@ -125,6 +208,12 @@ async function checkStudentAccess(studentId, subject) {
 // Neue Session erstellen
 app.post('/session/create', async (req, res) => {
   try {
+    const accessToken = req.headers['x-access-token'];
+    if (typeof accessToken !== 'string' || accessToken.trim().length < 16) {
+      return res.set(corsHeaders()).status(401).json({ error: 'Unauthorized' });
+    }
+    // TODO: vollwertiger Token-Verify gegen myabiflow-api
+
     const config = req.body || {};
 
     // Subscription-Check: student_id muss mitgeschickt werden
@@ -133,6 +222,12 @@ app.post('/session/create', async (req, res) => {
       return res.set(corsHeaders()).status(403).json({
         error: 'Kein Zugang. Bitte melde dich an.',
         requires_subscription: true,
+      });
+    }
+
+    if (isSessionCreateRateLimited(studentId)) {
+      return res.set(corsHeaders()).status(429).json({
+        error: 'Too Many Requests, bitte spater erneut versuchen',
       });
     }
 
@@ -146,6 +241,7 @@ app.post('/session/create', async (req, res) => {
 
     const sessionId = crypto.randomUUID();
     const session = {
+      studentId,
       config,
       transcript: [],
       reconnectCount: 0,
@@ -204,6 +300,19 @@ app.get('/session/:id/transcript', async (req, res) => {
 // ============================================================
 
 server.on('upgrade', async (request, socket, head) => {
+  if (request.headers.origin !== ALLOWED_ORIGIN) {
+    socket.destroy();
+    return;
+  }
+
+  const accessTokenData = hasValidAccessToken(request);
+  if (!accessTokenData) {
+    socket.destroy();
+    return;
+  }
+
+  request.selectedProtocol = accessTokenData.selectedProtocol;
+
   const url = new URL(request.url, `http://${request.headers.host}`);
 
   // Session-basiertes WebSocket: /session/{id}/ws
@@ -214,6 +323,22 @@ server.on('upgrade', async (request, socket, head) => {
 
   if (sessionMatch) {
     const sessionId = sessionMatch[1];
+    const rawData = await redis.get(`session:${sessionId}`);
+    if (!rawData) {
+      socket.destroy();
+      return;
+    }
+
+    const session = JSON.parse(rawData);
+    const hasAccess = await checkStudentAccess(
+      session.studentId || session.config?.student_id,
+      session.config?.subject
+    );
+    if (!hasAccess) {
+      socket.destroy();
+      return;
+    }
+
     wss.handleUpgrade(request, socket, head, (ws) => {
       handleSessionWebSocket(ws, sessionId, url);
     });
