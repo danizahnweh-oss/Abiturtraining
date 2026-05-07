@@ -20,35 +20,77 @@ function shouldSendAlert(key) {
   return true;
 }
 
-// Sendet API-Fehler per Telegram an den Admin (fire-and-forget, throttled)
+// Sendet API-Fehler an den Admin (fire-and-forget, throttled).
+// Unterstützt parallel Telegram (TELEGRAM_BOT_TOKEN+TELEGRAM_CHAT_ID) und
+// E-Mail (ADMIN_EMAIL+RESEND_API_KEY). Beide unabhängig konfigurierbar.
 async function notifyApiError(env, model, status, detail, elapsed, errorType) {
+  const isQuotaError = errorType === 'insufficient_quota';
+  const throttleKey = `${status}:${errorType || 'unknown'}`;
+  if (!shouldSendAlert(throttleKey)) return;
+
+  // ---- Telegram ----
   try {
     const botToken = env.TELEGRAM_BOT_TOKEN;
     const chatId = env.TELEGRAM_CHAT_ID;
-    if (!botToken || !chatId) return;
-
-    // Spezialfall: Quota erschöpft -> kritischer Alert mit Aktion fürs Admin
-    const isQuotaError = errorType === 'insufficient_quota';
-    const throttleKey = `${status}:${errorType || 'unknown'}`;
-    if (!shouldSendAlert(throttleKey)) return;
-
-    const headline = isQuotaError
-      ? `🔥 *KRITISCH — OpenAI Quota erschöpft*\n\nKein Schüler/Lehrer kann gerade KI-Aufgaben/Korrekturen nutzen.\n\n*Aktion:* https://platform.openai.com/settings/organization/billing`
-      : `🚨 *OpenAI API Fehler*`;
-
-    const text = `${headline}\n\n` +
-      `📌 *Status:* ${status}${errorType ? ' (' + errorType + ')' : ''}\n` +
-      `🤖 *Modell:* ${model}\n` +
-      `⏱ *Dauer:* ${elapsed}ms\n` +
-      `🔇 *Nächster Alert für diesen Fehler:* frühestens in 30 min\n\n` +
-      `\`\`\`\n${detail.substring(0, 800)}\n\`\`\``;
-
-    await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ chat_id: chatId, text, parse_mode: 'Markdown' }),
-    });
+    if (botToken && chatId) {
+      const headline = isQuotaError
+        ? `🔥 *KRITISCH — OpenAI Quota erschöpft*\n\nKein Schüler/Lehrer kann gerade KI-Aufgaben/Korrekturen nutzen.\n\n*Aktion:* https://platform.openai.com/settings/organization/billing`
+        : `🚨 *OpenAI API Fehler*`;
+      const text = `${headline}\n\n` +
+        `📌 *Status:* ${status}${errorType ? ' (' + errorType + ')' : ''}\n` +
+        `🤖 *Modell:* ${model}\n` +
+        `⏱ *Dauer:* ${elapsed}ms\n` +
+        `🔇 *Nächster Alert für diesen Fehler:* frühestens in 30 min\n\n` +
+        `\`\`\`\n${detail.substring(0, 800)}\n\`\`\``;
+      await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ chat_id: chatId, text, parse_mode: 'Markdown' }),
+      });
+    }
   } catch { /* Telegram-Fehler nicht eskalieren */ }
+
+  // ---- E-Mail (Resend) ----
+  try {
+    const adminEmail = env.ADMIN_EMAIL;
+    const resendKey = env.RESEND_API_KEY;
+    if (adminEmail && resendKey) {
+      const subject = isQuotaError
+        ? `[myAbiFlow KRITISCH] OpenAI-Quota erschöpft — Plattform liefert keine KI mehr`
+        : `[myAbiFlow] OpenAI-Fehler ${status}${errorType ? ' / ' + errorType : ''}`;
+      const escape = s => String(s).replace(/[<>&]/g, c => ({ '<': '&lt;', '>': '&gt;', '&': '&amp;' }[c]));
+      const headlineHtml = isQuotaError
+        ? `<div style="background:#fef2f2;border:2px solid #dc2626;padding:16px;border-radius:8px;margin-bottom:16px">
+             <h2 style="margin:0 0 8px;color:#dc2626">🔥 KRITISCH — OpenAI-Quota erschöpft</h2>
+             <p style="margin:0">Aktuell kann <b>kein Schüler und kein Lehrer</b> KI-Aufgaben generieren oder Korrekturen erhalten.</p>
+             <p style="margin:8px 0 0"><a href="https://platform.openai.com/settings/organization/billing" style="background:#dc2626;color:#fff;padding:10px 16px;border-radius:6px;text-decoration:none;display:inline-block;font-weight:600">→ OpenAI Billing öffnen</a></p>
+           </div>`
+        : `<h2 style="margin:0 0 12px;color:#b45309">🚨 OpenAI-API-Fehler</h2>`;
+      const html = `<!DOCTYPE html><html><body style="font-family:-apple-system,system-ui,sans-serif;max-width:600px;margin:0 auto;padding:20px;color:#1a1a1a">
+        ${headlineHtml}
+        <table style="width:100%;border-collapse:collapse;margin:16px 0">
+          <tr><td style="padding:6px 12px;background:#f3f4f6;font-weight:600">Status</td><td style="padding:6px 12px">${escape(status)}${errorType ? ' (' + escape(errorType) + ')' : ''}</td></tr>
+          <tr><td style="padding:6px 12px;background:#f3f4f6;font-weight:600">Modell</td><td style="padding:6px 12px">${escape(model)}</td></tr>
+          <tr><td style="padding:6px 12px;background:#f3f4f6;font-weight:600">Dauer</td><td style="padding:6px 12px">${elapsed} ms</td></tr>
+          <tr><td style="padding:6px 12px;background:#f3f4f6;font-weight:600">Zeit</td><td style="padding:6px 12px">${escape(new Date().toISOString())}</td></tr>
+        </table>
+        <h3 style="margin:20px 0 8px">Original-Antwort von OpenAI</h3>
+        <pre style="background:#f3f4f6;padding:12px;border-radius:6px;overflow-x:auto;font-size:12px;white-space:pre-wrap">${escape(detail.substring(0, 1500))}</pre>
+        <p style="color:#6b7280;font-size:12px;margin-top:24px">Nächster Alert für diesen Fehler-Typ frühestens in 30 Minuten (Throttling). Diese Mail kommt automatisch aus dem myAbiFlow-Backend.</p>
+      </body></html>`;
+      await fetch('https://api.resend.com/emails', {
+        method: 'POST',
+        headers: { 'Authorization': `Bearer ${resendKey}`, 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          from: 'myAbiFlow Alerts <alerts@myabiflow.de>',
+          reply_to: 'info@myabiflow.de',
+          to: [adminEmail],
+          subject,
+          html,
+        }),
+      });
+    }
+  } catch { /* Mail-Fehler nicht eskalieren */ }
 }
 
 // Benutzerfreundliche Fehlermeldung basierend auf HTTP-Status
