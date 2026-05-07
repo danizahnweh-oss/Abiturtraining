@@ -68,6 +68,12 @@ app.use((req, res, next) => {
     return next();
   }
 
+  // /health ist öffentlich (für Backend-Healthchecks und Uptime-Monitoring),
+  // muss vor dem Origin-Check durchgelassen werden.
+  if (req.path === '/health') {
+    return next();
+  }
+
   if (req.headers.origin !== ALLOWED_ORIGIN) {
     return res.status(403).send('Forbidden');
   }

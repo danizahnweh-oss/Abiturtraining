@@ -26,6 +26,7 @@ import { handleDetailFeedback, handleRewrite } from './handlers/features.js';
 import { handleUnsubscribe, sendReminderEmails, sendRetentionEmails } from './handlers/email.js';
 import { handleForgotPassword, handleResetPassword, handleVerifyResetToken } from './handlers/password-reset.js';
 import { handleCreateCheckout, handleStripeWebhook, handleSubscriptionStatus, handleCustomerPortal, handleStartTrial, handleRedeemLicense } from './handlers/stripe.js';
+import { handleHealth } from './handlers/health.js';
 
 // Fach-Handler: Englisch
 import {
@@ -207,6 +208,10 @@ export default {
     }
 
     try {
+      if (pathname === "/api/health" && request.method === "GET") {
+        return await handleHealth(request, env);
+      }
+
       // Auto-Migration (nur beim ersten Request)
       await ensureMigrations(env);
 
