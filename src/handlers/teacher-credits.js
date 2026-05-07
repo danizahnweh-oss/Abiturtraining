@@ -9,6 +9,10 @@ function monthStart() {
   return new Date(d.getFullYear(), d.getMonth(), 1).toISOString();
 }
 
+function currentYearMonth() {
+  return new Date().toISOString().slice(0, 7);
+}
+
 /* ================= GUTHABEN ABFRAGEN ================= */
 export async function handleTeacherCreditBalance(request, env) {
   const { teacher_id } = await request.json();
@@ -17,12 +21,11 @@ export async function handleTeacherCreditBalance(request, env) {
     return jsonResponse({ error: 'Teacher-ID erforderlich.' }, 400, env);
   }
 
-  const start = monthStart();
+  const yearMonth = currentYearMonth();
 
-  // Nutzung dieses Monats zählen
   const row = await env.DB.prepare(
-    'SELECT COUNT(*) AS used FROM teacher_credit_usage WHERE teacher_id = ? AND used_at >= ?'
-  ).bind(teacher_id, start).first();
+    'SELECT count AS used FROM teacher_credit_usage_count WHERE teacher_id = ? AND year_month = ?'
+  ).bind(teacher_id, yearMonth).first();
 
   const used = row?.used || 0;
   const remaining = Math.max(0, MONTHLY_FREE_CREDITS - used);
@@ -63,22 +66,20 @@ export async function handleTeacherCreditHistory(request, env) {
 
 /* ================= HELFER: Credits für Schüler prüfen ================= */
 export async function findAvailableTeacherCredits(studentNameLower, env) {
-  const start = monthStart();
+  const yearMonth = currentYearMonth();
 
   // Alle verlinkten Lehrer finden, die diesen Monat noch Credits haben
-  // Subquery zählt Nutzung pro Lehrer diesen Monat
   const row = await env.DB.prepare(`
     SELECT stl.teacher_id, t.name AS teacher_name
     FROM student_teacher_links stl
     JOIN teachers t ON t.id = stl.teacher_id
+    LEFT JOIN teacher_credit_usage_count tcc
+      ON tcc.teacher_id = stl.teacher_id AND tcc.year_month = ?
     WHERE stl.student_name_lower = ?
-      AND (
-        SELECT COUNT(*) FROM teacher_credit_usage tcu
-        WHERE tcu.teacher_id = stl.teacher_id AND tcu.used_at >= ?
-      ) < ?
+      AND COALESCE(tcc.count, 0) < ?
     ORDER BY stl.linked_at ASC
     LIMIT 1
-  `).bind(studentNameLower, start, MONTHLY_FREE_CREDITS).first();
+  `).bind(yearMonth, studentNameLower, MONTHLY_FREE_CREDITS).first();
 
   return row || null;
 }
@@ -86,15 +87,26 @@ export async function findAvailableTeacherCredits(studentNameLower, env) {
 /* ================= HELFER: 1 Credit abbuchen ================= */
 export async function deductTeacherCredit(teacherId, creditId, studentNameLower, gradingJobId, subject, env) {
   const now = new Date().toISOString();
-  const start = monthStart();
+  const yearMonth = currentYearMonth();
 
-  // Prüfen ob monatliches Limit noch nicht erreicht
-  const row = await env.DB.prepare(
-    'SELECT COUNT(*) AS used FROM teacher_credit_usage WHERE teacher_id = ? AND used_at >= ?'
-  ).bind(teacherId, start).first();
+  const updateResult = await env.DB.prepare(
+    'UPDATE teacher_credit_usage_count SET count = count + 1 WHERE teacher_id = ? AND year_month = ? AND count < ?'
+  ).bind(teacherId, yearMonth, MONTHLY_FREE_CREDITS).run();
 
-  if ((row?.used || 0) >= MONTHLY_FREE_CREDITS) {
-    return false; // Monatliches Limit erreicht
+  let reserved = updateResult.meta?.changes || 0;
+  if (!reserved) {
+    const insertResult = await env.DB.prepare(
+      'INSERT OR IGNORE INTO teacher_credit_usage_count (teacher_id, year_month, count) VALUES (?, ?, 1)'
+    ).bind(teacherId, yearMonth).run();
+    reserved = insertResult.meta?.changes || 0;
+  }
+  if (!reserved) {
+    const retryResult = await env.DB.prepare(
+      'UPDATE teacher_credit_usage_count SET count = count + 1 WHERE teacher_id = ? AND year_month = ? AND count < ?'
+    ).bind(teacherId, yearMonth, MONTHLY_FREE_CREDITS).run();
+    if (!retryResult.meta?.changes) {
+      return false;
+    }
   }
 
   // Nutzungsprotokoll (credit_id wird nicht mehr gebraucht, bleibt 'monthly' für Kompatibilität)

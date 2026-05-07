@@ -43,7 +43,13 @@ async function sendTeacherApprovalNotification(env, teacherId, name, email, subj
     if (!botToken || !chatId) return;
 
     const allowedOrigin = env.ALLOWED_ORIGIN || 'https://myabiflow.de';
-    const approveUrl = `${allowedOrigin}/api/teacher-approve?id=${teacherId}&secret=${env.TEACHER_AUTH_SECRET}`;
+    const approvalToken = crypto.randomUUID();
+    const now = new Date();
+    const expiresAt = new Date(now.getTime() + 7 * 86400000).toISOString();
+    await env.DB.prepare(
+      "INSERT INTO teacher_approvals (teacher_id, token, expires_at, created_at) VALUES (?, ?, ?, ?)"
+    ).bind(teacherId, approvalToken, expiresAt, now.toISOString()).run();
+    const approveUrl = `${allowedOrigin}/api/approve-teacher?token=${approvalToken}`;
     const subjectList = subjects.length ? subjects.join(', ') : 'keine';
 
     const text = `📋 *Neue Lehrer-Registrierung*\n\n` +
@@ -62,25 +68,47 @@ async function sendTeacherApprovalNotification(env, teacherId, name, email, subj
   }
 }
 
-// Lehrer-Konto freischalten (GET — klickbar aus Telegram)
+// Lehrer-Konto freischalten (GET/POST — klickbar aus Telegram)
 export async function handleTeacherApprove(request, env) {
-  const url = new URL(request.url);
-  const teacherId = url.searchParams.get('id');
-  const secret = url.searchParams.get('secret');
-
-  if (!secret || secret !== env.TEACHER_AUTH_SECRET) {
-    return new Response('Nicht autorisiert.', { status: 403 });
-  }
-  if (!teacherId) {
-    return new Response('Keine Teacher-ID.', { status: 400 });
+  let token = null;
+  if (request.method === "GET") {
+    token = new URL(request.url).searchParams.get('token');
+  } else if (request.method === "POST") {
+    const body = await request.json().catch(() => ({}));
+    token = body?.token || null;
   }
 
-  const teacher = await env.DB.prepare("SELECT name, email FROM teachers WHERE id = ?").bind(teacherId).first();
+  if (!token) {
+    return new Response('Kein Token.', { status: 400 });
+  }
+
+  const approval = await env.DB.prepare(
+    "SELECT teacher_id, expires_at, used_at FROM teacher_approvals WHERE token = ?"
+  ).bind(token).first();
+  if (!approval) {
+    return new Response('Freischaltungslink ungültig.', { status: 404 });
+  }
+  if (approval.used_at) {
+    return new Response('Freischaltungslink wurde bereits verwendet.', { status: 400 });
+  }
+  if (new Date(approval.expires_at) <= new Date()) {
+    return new Response('Freischaltungslink ist abgelaufen.', { status: 400 });
+  }
+
+  const teacher = await env.DB.prepare("SELECT name, email FROM teachers WHERE id = ?").bind(approval.teacher_id).first();
   if (!teacher) {
     return new Response('Lehrkraft nicht gefunden.', { status: 404 });
   }
 
-  await env.DB.prepare("UPDATE teachers SET status = 'approved' WHERE id = ?").bind(teacherId).run();
+  const usedAt = new Date().toISOString();
+  const updateApproval = await env.DB.prepare(
+    "UPDATE teacher_approvals SET used_at = ? WHERE token = ? AND used_at IS NULL AND expires_at > ?"
+  ).bind(usedAt, token, usedAt).run();
+  if (!updateApproval.meta?.changes) {
+    return new Response('Freischaltungslink wurde bereits verwendet oder ist abgelaufen.', { status: 400 });
+  }
+
+  await env.DB.prepare("UPDATE teachers SET status = 'approved' WHERE id = ?").bind(approval.teacher_id).run();
 
   // Bestätigungs-E-Mail an Lehrkraft
   sendTeacherApprovedEmail(env, teacher.name, teacher.email);

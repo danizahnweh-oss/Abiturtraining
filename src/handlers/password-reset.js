@@ -2,6 +2,38 @@
 import { jsonResponse } from '../utils.js';
 import { hashPassword } from '../auth.js';
 
+const RESET_RATE_LIMIT_WINDOW = 15 * 60 * 1000;
+const RESET_RATE_LIMIT_MAX = 5;
+const passwordResetRateLimitMap = new Map();
+
+async function sha256Hex(value) {
+  const data = new TextEncoder().encode(value);
+  const digest = await crypto.subtle.digest("SHA-256", data);
+  return [...new Uint8Array(digest)].map(b => b.toString(16).padStart(2, "0")).join("");
+}
+
+function checkPasswordResetRateLimit(request, env) {
+  const ip = request.headers.get("CF-Connecting-IP") || "unknown";
+  const now = Date.now();
+  const entry = passwordResetRateLimitMap.get(ip);
+  if (!entry || now - entry.windowStart > RESET_RATE_LIMIT_WINDOW) {
+    passwordResetRateLimitMap.set(ip, { count: 1, windowStart: now });
+    return null;
+  }
+  entry.count++;
+  if (entry.count > RESET_RATE_LIMIT_MAX) {
+    return jsonResponse({ error: "Zu viele Anfragen. Bitte warte 15 Minuten." }, 429, env);
+  }
+  if (passwordResetRateLimitMap.size > 1000) {
+    for (const [key, value] of passwordResetRateLimitMap) {
+      if (now - value.windowStart > RESET_RATE_LIMIT_WINDOW * 2) {
+        passwordResetRateLimitMap.delete(key);
+      }
+    }
+  }
+  return null;
+}
+
 /* ================= RESET-TOKEN GENERIEREN (HMAC-basiert) ================= */
 async function generateResetToken(nameLower, env) {
   const ts = Date.now();
@@ -44,6 +76,9 @@ async function verifyResetToken(token, env) {
 
 /* ================= PASSWORT VERGESSEN (E-Mail senden) ================= */
 export async function handleForgotPassword(request, env) {
+  const rateLimitError = checkPasswordResetRateLimit(request, env);
+  if (rateLimitError) return rateLimitError;
+
   const { email } = await request.json();
 
   if (!email || typeof email !== "string" || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
@@ -69,6 +104,10 @@ export async function handleForgotPassword(request, env) {
 
   // Reset-Token generieren
   const token = await generateResetToken(student.name_lower, env);
+  const tokenHash = await sha256Hex(token);
+  await env.DB.prepare(
+    "INSERT INTO password_reset_tokens (id, name_lower, token_hash, created_at) VALUES (?, ?, ?, ?)"
+  ).bind(crypto.randomUUID(), student.name_lower, tokenHash, new Date().toISOString()).run();
   const resetUrl = `https://myabiflow.de/reset-password.html?token=${encodeURIComponent(token)}`;
 
   const html = `<!DOCTYPE html><html lang="de"><head><meta charset="utf-8"></head><body style="font-family:system-ui,sans-serif;background:#f0f0f5;padding:20px;margin:0">
@@ -113,6 +152,9 @@ Diese E-Mail wurde automatisch von myAbiFlow gesendet.
 
 /* ================= PASSWORT ZURÜCKSETZEN (mit Token) ================= */
 export async function handleResetPassword(request, env) {
+  const rateLimitError = checkPasswordResetRateLimit(request, env);
+  if (rateLimitError) return rateLimitError;
+
   const { token, new_password } = await request.json();
 
   if (!token || typeof token !== "string") {
@@ -127,12 +169,28 @@ export async function handleResetPassword(request, env) {
     return jsonResponse({ error: "Der Link ist ungültig oder abgelaufen. Bitte fordere einen neuen an." }, 400, env);
   }
 
+  const tokenHash = await sha256Hex(token);
+  const storedToken = await env.DB.prepare(
+    "SELECT token_hash FROM password_reset_tokens WHERE token_hash = ? AND name_lower = ? AND used_at IS NULL"
+  ).bind(tokenHash, data.nameLower).first();
+  if (!storedToken) {
+    return jsonResponse({ error: "Link bereits verwendet oder ungültig." }, 400, env);
+  }
+
   const student = await env.DB.prepare(
     "SELECT id FROM students WHERE name_lower = ?"
   ).bind(data.nameLower).first();
 
   if (!student) {
     return jsonResponse({ error: "Konto nicht gefunden." }, 404, env);
+  }
+
+  const usedAt = new Date().toISOString();
+  const updateResult = await env.DB.prepare(
+    "UPDATE password_reset_tokens SET used_at = ? WHERE token_hash = ? AND used_at IS NULL"
+  ).bind(usedAt, tokenHash).run();
+  if (!updateResult.meta?.changes) {
+    return jsonResponse({ error: "Link bereits verwendet." }, 400, env);
   }
 
   // Neues Passwort setzen
@@ -154,5 +212,12 @@ export async function handleVerifyResetToken(request, env) {
   }
 
   const data = await verifyResetToken(token, env);
-  return jsonResponse({ valid: !!data }, 200, env);
+  if (!data) {
+    return jsonResponse({ valid: false }, 200, env);
+  }
+  const tokenHash = await sha256Hex(token);
+  const storedToken = await env.DB.prepare(
+    "SELECT 1 FROM password_reset_tokens WHERE token_hash = ? AND name_lower = ? AND used_at IS NULL"
+  ).bind(tokenHash, data.nameLower).first();
+  return jsonResponse({ valid: !!storedToken }, 200, env);
 }

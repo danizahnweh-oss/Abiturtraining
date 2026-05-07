@@ -217,12 +217,16 @@ export default {
       }
 
       // Body-Größe prüfen
-      const sizeError = checkBodySize(request, env, MAX_BODY_SIZE);
+      const sizeError = await checkBodySize(request, env, MAX_BODY_SIZE);
       if (sizeError) return sizeError;
 
       // ===== TEMPORÄRER DEBUG ENDPOINT =====
       if (pathname === "/api/debug-license" && request.method === "POST") {
         try {
+          const adminToken = request.headers.get("X-Admin-Token");
+          if (!env.ADMIN_TOKEN || adminToken !== env.ADMIN_TOKEN) {
+            return jsonResponse({ error: "Nicht autorisiert." }, 401, env);
+          }
           const { name } = await request.json();
           const nameLower = (name || "").trim().toLowerCase();
           const student = await env.DB.prepare("SELECT id, subscription_status, subscription_plan, class_group FROM students WHERE name_lower = ?").bind(nameLower).first();
@@ -233,7 +237,7 @@ export default {
           freeAccess = cp?.free_access === 1;
           if (!freeAccess && student.subscription_plan === 'school') effectiveStatus = "none";
           return jsonResponse({ student, cp, freeAccess, effectiveStatus }, 200, env);
-        } catch(e) { return jsonResponse({ error: e.message, stack: e.stack }, 500, env); }
+        } catch(e) { return jsonResponse({ error: "Interner Fehler." }, 500, env); }
       }
 
       // ===== LOGIN ENDPOINTS (Rate-Limited) =====
@@ -390,7 +394,8 @@ export default {
       }
 
       // ===== LEHRER-CODE-SYSTEM (eigene Auth) =====
-      if (pathname === "/api/teacher-approve" && request.method === "GET") {
+      // Neuer Pfad mit Einmal-Token + alter Pfad als Backwards-Compat (Mails im Umlauf).
+      if ((pathname === "/api/approve-teacher" || pathname === "/api/teacher-approve") && (request.method === "GET" || request.method === "POST")) {
         return await handleTeacherApprove(request, env);
       }
       if (pathname === "/api/teacher-register" && request.method === "POST") {

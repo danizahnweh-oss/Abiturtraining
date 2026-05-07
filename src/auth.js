@@ -475,6 +475,49 @@ export async function ensureMigrations(env) {
       )
     `).run();
 
+    await env.DB.prepare(`
+      CREATE TABLE IF NOT EXISTS password_reset_tokens (
+        id TEXT PRIMARY KEY,
+        name_lower TEXT NOT NULL,
+        token_hash TEXT NOT NULL UNIQUE,
+        used_at TEXT DEFAULT NULL,
+        created_at TEXT NOT NULL
+      )
+    `).run();
+
+    await env.DB.prepare(`
+      CREATE TABLE IF NOT EXISTS teacher_approvals (
+        teacher_id TEXT NOT NULL,
+        token TEXT PRIMARY KEY,
+        expires_at TEXT NOT NULL,
+        used_at TEXT DEFAULT NULL,
+        created_at TEXT NOT NULL,
+        FOREIGN KEY (teacher_id) REFERENCES teachers(id) ON DELETE CASCADE
+      )
+    `).run();
+
+    await env.DB.prepare(`
+      CREATE TABLE IF NOT EXISTS stripe_processed_events (
+        event_id TEXT PRIMARY KEY,
+        processed_at TEXT NOT NULL
+      )
+    `).run();
+
+    await env.DB.prepare(`
+      CREATE TABLE IF NOT EXISTS teacher_credit_usage_count (
+        teacher_id TEXT NOT NULL,
+        year_month TEXT NOT NULL,
+        count INTEGER NOT NULL DEFAULT 0,
+        PRIMARY KEY (teacher_id, year_month)
+      )
+    `).run();
+    await env.DB.prepare(`
+      INSERT OR IGNORE INTO teacher_credit_usage_count (teacher_id, year_month, count)
+      SELECT teacher_id, substr(used_at, 1, 7), COUNT(*)
+      FROM teacher_credit_usage
+      GROUP BY teacher_id, substr(used_at, 1, 7)
+    `).run();
+
     // Stripe-Customer-ID für Lehrer
     try { await env.DB.prepare("ALTER TABLE teachers ADD COLUMN stripe_customer_id TEXT DEFAULT NULL").run(); } catch (_) {}
 

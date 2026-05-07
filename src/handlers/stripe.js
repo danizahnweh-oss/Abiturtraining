@@ -38,15 +38,19 @@ async function stripeGet(path, env) {
 }
 
 /* ---- Preis-Mapping (Stripe Price IDs werden als Secrets gespeichert) ---- */
-function getPriceId(plan, env) {
-  const map = {
-    'monthly':   env.STRIPE_PRICE_MONTHLY,     // 15€/Monat, recurring
-    '6months':   env.STRIPE_PRICE_6MONTHS,      // 70€ einmalig
-    '12months':  env.STRIPE_PRICE_12MONTHS,     // 120€ einmalig
-    '24months':  env.STRIPE_PRICE_24MONTHS,     // 180€ einmalig
-    'abitur':    env.STRIPE_PRICE_ABITUR,        // 25€ einmalig, bis 30.06.
+function getValidPlans(env) {
+  return {
+    'monthly': env.STRIPE_PRICE_MONTHLY,
+    '6months': env.STRIPE_PRICE_6MONTHS,
+    '12months': env.STRIPE_PRICE_12MONTHS,
+    '24months': env.STRIPE_PRICE_24MONTHS,
+    'abitur': env.STRIPE_PRICE_ABITUR,
   };
-  return map[plan] || null;
+}
+
+function getPriceId(plan, env) {
+  const validPlans = getValidPlans(env);
+  return Object.prototype.hasOwnProperty.call(validPlans, plan) ? validPlans[plan] : null;
 }
 
 /* Ist der Plan ein Einmalkauf oder ein Abo? */
@@ -78,8 +82,12 @@ function planDurationDays(plan) {
 export async function handleCreateCheckout(request, env) {
   const { plan, student_name, utm } = await request.json();
 
-  if (!plan) {
+  if (!plan || typeof plan !== 'string') {
     return jsonResponse({ error: 'Plan erforderlich.' }, 400, env);
+  }
+  const validPlans = getValidPlans(env);
+  if (!Object.prototype.hasOwnProperty.call(validPlans, plan)) {
+    return jsonResponse({ error: 'Ungültiger Plan.' }, 400, env);
   }
 
   // Schüler-ID kommt zwingend aus dem Token (Body-Wert wird ignoriert)
@@ -184,6 +192,13 @@ export async function handleStripeWebhook(request, env) {
   const now = new Date().toISOString();
 
   try {
+    const processedEvent = await env.DB.prepare(
+      'INSERT OR IGNORE INTO stripe_processed_events (event_id, processed_at) VALUES (?, ?)'
+    ).bind(event.id, now).run();
+    if (!processedEvent.meta?.changes) {
+      return new Response('OK', { status: 200 });
+    }
+
     switch (event.type) {
       case 'checkout.session.completed': {
         const session = event.data.object;
@@ -396,13 +411,12 @@ export async function handleSubscriptionStatus(request, env) {
         SELECT t.name AS teacher_name
         FROM student_teacher_links stl
         JOIN teachers t ON t.id = stl.teacher_id
+        LEFT JOIN teacher_credit_usage_count tcc
+          ON tcc.teacher_id = stl.teacher_id AND tcc.year_month = ?
         WHERE stl.student_name_lower = ?
-          AND (
-            SELECT COUNT(*) FROM teacher_credit_usage tcu
-            WHERE tcu.teacher_id = stl.teacher_id AND tcu.used_at >= ?
-          ) < 20
+          AND COALESCE(tcc.count, 0) < 20
         LIMIT 1
-      `).bind(studentName.name_lower, mStart).first();
+      `).bind(mStart.slice(0, 7), studentName.name_lower).first();
 
       if (tcRow) {
         teacherCreditsAvailable = true;

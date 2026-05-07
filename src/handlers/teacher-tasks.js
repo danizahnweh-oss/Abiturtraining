@@ -271,6 +271,22 @@ export async function handleSubmitSharedTask(request, env) {
 
   const nameLower = student_name.trim().toLowerCase();
   const id = Date.now().toString(36) + crypto.randomUUID().slice(0, 8);
+  const task = await env.DB.prepare(
+    "SELECT teacher_id, subject FROM teacher_tasks WHERE id = ? AND active = 1"
+  ).bind(task_id).first();
+  if (!task) {
+    return jsonResponse({ error: "Aufgabe nicht gefunden oder deaktiviert." }, 404, env);
+  }
+
+  const result = await env.DB.prepare(
+    "SELECT student_name FROM results WHERE id = ?"
+  ).bind(result_id).first();
+  if (!result) {
+    return jsonResponse({ error: "Ergebnis nicht gefunden." }, 404, env);
+  }
+  if ((result.student_name || "").trim().toLowerCase() !== nameLower) {
+    return jsonResponse({ error: "Result gehört nicht zu diesem Schüler." }, 403, env);
+  }
 
   // Upsert: Neuen Eintrag oder result_id aktualisieren
   const existing = await env.DB.prepare(
@@ -288,12 +304,9 @@ export async function handleSubmitSharedTask(request, env) {
   }
 
   // Automatisch Schueler mit Lehrer verlinken (fuer alle Faecher des Codes)
-  const task = await env.DB.prepare("SELECT teacher_id, subject FROM teacher_tasks WHERE id = ?").bind(task_id).first();
-  if (task) {
-    await env.DB.prepare(
-      "INSERT OR IGNORE INTO student_teacher_links (student_name_lower, code, teacher_id, subject, linked_at) VALUES (?, ?, ?, ?, ?)"
-    ).bind(nameLower, "TASK:" + task_id.slice(0, 10), task.teacher_id, task.subject, new Date().toISOString()).run();
-  }
+  await env.DB.prepare(
+    "INSERT OR IGNORE INTO student_teacher_links (student_name_lower, code, teacher_id, subject, linked_at) VALUES (?, ?, ?, ?, ?)"
+  ).bind(nameLower, "TASK:" + task_id.slice(0, 10), task.teacher_id, task.subject, new Date().toISOString()).run();
 
   return jsonResponse({ success: true }, 200, env);
 }

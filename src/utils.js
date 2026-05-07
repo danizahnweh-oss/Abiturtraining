@@ -1,24 +1,18 @@
 /* ================= UTILS ================= */
 /* Gemeinsame Hilfsfunktionen für alle Module */
 
-/* ---- CORS ---- */
-// Cloudflare Pages Preview-Origins (z.B. staging.myabiflow.pages.dev)
-function isAllowedPreviewOrigin(origin) {
-  return /^https:\/\/[a-z0-9-]+\.myabiflow\.pages\.dev$/.test(origin);
-}
-
 export function getAllowedOrigins(env) {
   const primary = env?.ALLOWED_ORIGIN || "https://myabiflow.de";
-  const origins = [primary, primary.replace("://", "://www.")];
+  const origins = [primary];
   if (env?.ALLOWED_ORIGIN_FOS) {
-    origins.push(env.ALLOWED_ORIGIN_FOS, env.ALLOWED_ORIGIN_FOS.replace("://", "://www."));
+    origins.push(env.ALLOWED_ORIGIN_FOS);
   }
   return origins;
 }
 
 export function isOriginAllowed(origin, env) {
   if (!origin) return false;
-  return getAllowedOrigins(env).includes(origin) || isAllowedPreviewOrigin(origin);
+  return getAllowedOrigins(env).includes(origin);
 }
 
 export function corsHeaders(env, requestOrigin) {
@@ -27,7 +21,7 @@ export function corsHeaders(env, requestOrigin) {
   return {
     "Content-Type": "application/json; charset=utf-8",
     "Access-Control-Allow-Origin": origin,
-    "Access-Control-Allow-Headers": "Content-Type, X-Access-Token, X-Teacher-Token, X-Teacher-Auth-Token, X-Student-Name",
+    "Access-Control-Allow-Headers": "Content-Type, X-Access-Token, X-Teacher-Token, X-Teacher-Auth-Token, X-Student-Name, X-Admin-Token",
     "Access-Control-Allow-Methods": "POST, OPTIONS",
     "X-Content-Type-Options": "nosniff",
     "X-Frame-Options": "DENY",
@@ -42,10 +36,17 @@ export function jsonResponse(data, status = 200, env = null) {
 }
 
 /* ---- Input-Validierung ---- */
-export function checkBodySize(request, env, maxBodySize) {
-  const contentLength = parseInt(request.headers.get("Content-Length") || "0", 10);
-  if (contentLength > maxBodySize) {
+export async function checkBodySize(request, env, maxBodySize) {
+  const contentLengthHeader = request.headers.get("Content-Length");
+  const contentLength = parseInt(contentLengthHeader || "", 10);
+  if (Number.isFinite(contentLength) && contentLength > maxBodySize) {
     return jsonResponse({ error: "Anfrage zu groß." }, 413, env);
+  }
+  if (!contentLengthHeader || !Number.isFinite(contentLength)) {
+    const bodySize = (await request.clone().arrayBuffer()).byteLength;
+    if (bodySize > maxBodySize) {
+      return jsonResponse({ error: "Anfrage zu groß." }, 413, env);
+    }
   }
   return null;
 }

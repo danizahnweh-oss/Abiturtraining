@@ -1,3 +1,5 @@
+import { API_TIMEOUT } from './config.js';
+
 /* ================= TELEGRAM ERROR-ALERT ================= */
 // Sendet API-Fehler per Telegram an den Admin (fire-and-forget)
 async function notifyApiError(env, model, status, detail, elapsed) {
@@ -101,6 +103,9 @@ export async function callOpenAI(env, messages, maxTokens = 4000, { model = "gpt
 // Gibt den vollständigen Content-String zurück.
 export async function callOpenAIStream(env, messages, maxTokens = 4000, { model = "gpt-5.2", temperature = 0.7, jsonMode = true } = {}, onChunk) {
   const t0 = Date.now();
+  let reader = null;
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), API_TIMEOUT);
   try {
     // Defensive Prüfung: gpt-5.2 erfordert das Wort "json" in den Messages bei json_object
     if (jsonMode) {
@@ -129,6 +134,7 @@ export async function callOpenAIStream(env, messages, maxTokens = 4000, { model 
 
     const response = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
+      signal: controller.signal,
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${env.OPENAI_API_KEY}`
@@ -145,7 +151,7 @@ export async function callOpenAIStream(env, messages, maxTokens = 4000, { model 
       throw new Error(friendly || "OpenAI(" + response.status + "): " + detail);
     }
 
-    const reader = response.body.getReader();
+    reader = response.body.getReader();
     const decoder = new TextDecoder();
     let content = "";
     let buffer = "";
@@ -179,8 +185,11 @@ export async function callOpenAIStream(env, messages, maxTokens = 4000, { model 
     }
 
     if (!content) throw new Error("OpenAI-Stream lieferte keinen Content.");
+    clearTimeout(timeout);
     return content;
   } catch (err) {
+    clearTimeout(timeout);
+    try { await reader?.cancel(); } catch {}
     const elapsed = Date.now() - t0;
     throw new Error(`[stream ${elapsed}ms ${model}] ${err.message || err}`);
   }
