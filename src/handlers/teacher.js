@@ -239,7 +239,7 @@ export async function handleLinkStudentCode(request, env) {
   }
   const nameLower = student_name.trim().toLowerCase();
   await env.DB.prepare(
-    "INSERT OR IGNORE INTO student_teacher_links (student_name_lower, code, teacher_id, subject, linked_at) VALUES (?, ?, ?, ?, ?)"
+    "INSERT INTO student_teacher_links (student_name_lower, code, teacher_id, subject, linked_at) VALUES (?, ?, ?, ?, ?) ON CONFLICT DO NOTHING"
   ).bind(nameLower, codeUpper, codeRow.teacher_id, subject.trim(), new Date().toISOString()).run();
   return jsonResponse({ success: true, teacher_name: codeRow.teacher_name, label: codeRow.label }, 200, env);
 }

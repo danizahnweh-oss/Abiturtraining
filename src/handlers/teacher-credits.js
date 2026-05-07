@@ -96,7 +96,7 @@ export async function deductTeacherCredit(teacherId, creditId, studentNameLower,
   let reserved = updateResult.meta?.changes || 0;
   if (!reserved) {
     const insertResult = await env.DB.prepare(
-      'INSERT OR IGNORE INTO teacher_credit_usage_count (teacher_id, year_month, count) VALUES (?, ?, 1)'
+      'INSERT INTO teacher_credit_usage_count (teacher_id, year_month, count) VALUES (?, ?, 1) ON CONFLICT DO NOTHING'
     ).bind(teacherId, yearMonth).run();
     reserved = insertResult.meta?.changes || 0;
   }

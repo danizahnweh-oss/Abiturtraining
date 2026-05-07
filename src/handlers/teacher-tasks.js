@@ -305,7 +305,7 @@ export async function handleSubmitSharedTask(request, env) {
 
   // Automatisch Schueler mit Lehrer verlinken (fuer alle Faecher des Codes)
   await env.DB.prepare(
-    "INSERT OR IGNORE INTO student_teacher_links (student_name_lower, code, teacher_id, subject, linked_at) VALUES (?, ?, ?, ?, ?)"
+    "INSERT INTO student_teacher_links (student_name_lower, code, teacher_id, subject, linked_at) VALUES (?, ?, ?, ?, ?) ON CONFLICT DO NOTHING"
   ).bind(nameLower, "TASK:" + task_id.slice(0, 10), task.teacher_id, task.subject, new Date().toISOString()).run();
 
   return jsonResponse({ success: true }, 200, env);

@@ -193,7 +193,7 @@ export async function handleStripeWebhook(request, env) {
 
   try {
     const processedEvent = await env.DB.prepare(
-      'INSERT OR IGNORE INTO stripe_processed_events (event_id, processed_at) VALUES (?, ?)'
+      'INSERT INTO stripe_processed_events (event_id, processed_at) VALUES (?, ?) ON CONFLICT (event_id) DO NOTHING'
     ).bind(event.id, now).run();
     if (!processedEvent.meta?.changes) {
       return new Response('OK', { status: 200 });

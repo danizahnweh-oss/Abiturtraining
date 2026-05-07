@@ -512,10 +512,11 @@ export async function ensureMigrations(env) {
       )
     `).run();
     await env.DB.prepare(`
-      INSERT OR IGNORE INTO teacher_credit_usage_count (teacher_id, year_month, count)
+      INSERT INTO teacher_credit_usage_count (teacher_id, year_month, count)
       SELECT teacher_id, substr(used_at, 1, 7), COUNT(*)
       FROM teacher_credit_usage
       GROUP BY teacher_id, substr(used_at, 1, 7)
+      ON CONFLICT DO NOTHING
     `).run();
 
     // Stripe-Customer-ID für Lehrer
