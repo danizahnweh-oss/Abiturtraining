@@ -31,11 +31,29 @@ interface TranscriptEntry {
   timestamp: number;
 }
 
+interface GeminiPart {
+  text?: string;
+}
+
+interface GeminiServerEvent {
+  serverContent?: {
+    modelTurn?: {
+      parts?: GeminiPart[];
+    };
+    inputTranscription?: {
+      text?: string;
+    };
+  };
+}
+
 const GEMINI_HOST = 'generativelanguage.googleapis.com';
 const GEMINI_MODEL = 'gemini-2.5-flash-native-audio-preview-12-2025';
 const TRANSCRIPT_PERSIST_INTERVAL = 30_000;
 const SESSION_MAX_DURATION_MS = 60 * 60 * 1000;
+const SESSION_IDLE_TIMEOUT_MS = 30 * 60 * 1000;
 const MAX_TRANSCRIPT_CHARS = 15_000;
+const MAX_TRANSCRIPT_ENTRIES = 200;
+const MIN_ACCESS_TOKEN_LENGTH = 16;
 
 export class ColloquiumSession {
   private state: DurableObjectState;
@@ -62,7 +80,14 @@ export class ColloquiumSession {
   async fetch(request: Request): Promise<Response> {
     const url = new URL(request.url);
 
+    if (!this.hasValidAccessToken(request)) {
+      return new Response('Unauthorized', { status: 401 });
+    }
+
     if (url.pathname === '/create' && request.method === 'POST') {
+      if (!request.headers.get('X-Student-Id')?.trim()) {
+        return new Response('Unauthorized', { status: 401 });
+      }
       return this.handleCreate(request);
     }
 
@@ -92,9 +117,12 @@ export class ColloquiumSession {
     await this.state.storage.put('config', config);
     await this.state.storage.put('transcript', []);
     await this.state.storage.put('createdAt', new Date().toISOString());
+    await this.state.storage.put('lastActivityAt', Date.now());
+    await this.state.storage.put('hadPriorConnect', false);
+    await this.state.storage.put('reconnectCount', 0);
 
     // Session nach 1 Stunde automatisch aufräumen
-    await this.state.storage.setAlarm(Date.now() + SESSION_MAX_DURATION_MS);
+    await this.state.storage.setAlarm(Date.now() + Math.min(SESSION_MAX_DURATION_MS, SESSION_IDLE_TIMEOUT_MS));
 
     return new Response(JSON.stringify({
       sessionId: this.state.id.toString(),
@@ -107,6 +135,10 @@ export class ColloquiumSession {
   // ---- Status abfragen ----
   private async handleStatus(): Promise<Response> {
     const config = this.config || await this.state.storage.get('config') as SessionConfig | null;
+    const storedReconnectCount = await this.state.storage.get('reconnectCount') as number | null;
+    if (typeof storedReconnectCount === 'number') {
+      this.reconnectCount = storedReconnectCount;
+    }
     return new Response(JSON.stringify({
       active: !!config,
       transcriptLength: this.transcript.length,
@@ -153,18 +185,26 @@ export class ColloquiumSession {
 
     // WebSocket-Pair für Client
     const pair = new WebSocketPair();
-    const [client, server] = Object.values(pair);
+    // Cloudflare WebSocketPair typing quirk.
+    const [client, server] = Object.values(pair) as [WebSocket, WebSocket];
     server.accept();
     this.clientWs = server;
     this.clientClosed = false;
 
     // Gemini-Verbindung aufbauen
-    const isReconnect = this.reconnectCount > 0;
+    const hadPriorConnect = await this.state.storage.get('hadPriorConnect') as boolean | null;
+    const storedReconnectCount = await this.state.storage.get('reconnectCount') as number | null;
+    if (typeof storedReconnectCount === 'number') {
+      this.reconnectCount = storedReconnectCount;
+    }
+    const isReconnect = hadPriorConnect === true;
+    await this.touchSessionActivity();
     await this.connectToGemini(isReconnect);
 
     // Client-Events
     server.addEventListener('message', (event) => {
       if (this.geminiClosed) return;
+      void this.touchSessionActivity();
       try {
         this.geminiWs?.send(event.data);
       } catch (err) {
@@ -196,7 +236,19 @@ export class ColloquiumSession {
       }));
     }
 
-    return new Response(null, { status: 101, webSocket: client });
+    // Wenn der Browser den Token via Sec-WebSocket-Protocol gesendet hat, müssen wir
+    // das Subprotocol in der Response bestätigen — sonst lehnt der Browser ab.
+    const reqProto = request.headers.get('Sec-WebSocket-Protocol') || '';
+    const acceptedProto = reqProto.split(',').map(s => s.trim()).find(s => s.startsWith('bearer.'));
+    const responseHeaders: Record<string, string> = {};
+    if (acceptedProto) responseHeaders['Sec-WebSocket-Protocol'] = acceptedProto;
+
+    return new Response(null, {
+      status: 101,
+      headers: responseHeaders,
+      // Cloudflare WebSocket-Upgrade typing quirk.
+      webSocket: client,
+    } as ResponseInit & { webSocket: WebSocket });
   }
 
   // ---- Gemini-Verbindung aufbauen ----
@@ -224,6 +276,11 @@ Sage kurz "Die Verbindung steht wieder. Bitte fahren Sie fort." und mache dann w
     // WebSocket zu Gemini aufbauen
     const wsUrl = `https://${GEMINI_HOST}/ws/google.ai.generativelanguage.v1beta.GenerativeService.BidiGenerateContent?key=${this.env.GEMINI_API_KEY}`;
 
+    if (isReconnect) {
+      this.reconnectCount++;
+      await this.state.storage.put('reconnectCount', this.reconnectCount);
+    }
+
     const geminiResp = await fetch(wsUrl, {
       headers: {
         'Upgrade': 'websocket',
@@ -231,6 +288,7 @@ Sage kurz "Die Verbindung steht wieder. Bitte fahren Sie fort." und mache dann w
       },
     });
 
+    // Cloudflare WebSocket-Upgrade typing quirk.
     this.geminiWs = (geminiResp as any).webSocket as WebSocket | null;
     if (!this.geminiWs) {
       console.error('Gemini WebSocket Upgrade fehlgeschlagen');
@@ -244,11 +302,8 @@ Sage kurz "Die Verbindung steht wieder. Bitte fahren Sie fort." und mache dann w
 
     this.geminiWs.accept();
     this.geminiClosed = false;
-
-    if (isReconnect) {
-      this.reconnectCount++;
-      await this.state.storage.put('reconnectCount', this.reconnectCount);
-    }
+    await this.state.storage.put('hadPriorConnect', true);
+    await this.touchSessionActivity();
 
     // Setup-Nachricht an Gemini senden
     const voiceName = this.config.voiceName ||
@@ -291,7 +346,7 @@ Sage kurz "Die Verbindung steht wieder. Bitte fahren Sie fort." und mache dann w
       // Transkript extrahieren
       try {
         if (typeof event.data === 'string') {
-          const data = JSON.parse(event.data);
+          const data = JSON.parse(event.data) as GeminiServerEvent;
           this.extractAndStoreTranscript(data);
         }
       } catch {
@@ -319,7 +374,7 @@ Sage kurz "Die Verbindung steht wieder. Bitte fahren Sie fort." und mache dann w
   }
 
   // ---- Transkript aus Gemini-Messages extrahieren ----
-  private extractAndStoreTranscript(data: any) {
+  private extractAndStoreTranscript(data: GeminiServerEvent) {
     // Modell-Transkription (Prüfer)
     const modelParts = data?.serverContent?.modelTurn?.parts;
     if (modelParts) {
@@ -344,6 +399,9 @@ Sage kurz "Die Verbindung steht wieder. Bitte fahren Sie fort." und mache dann w
       });
     }
 
+    this.trimTranscript();
+    void this.touchSessionActivity();
+
     // Periodisch persistieren
     if (Date.now() - this.lastPersistTime > TRANSCRIPT_PERSIST_INTERVAL) {
       this.persistTranscript();
@@ -354,10 +412,35 @@ Sage kurz "Die Verbindung steht wieder. Bitte fahren Sie fort." und mache dann w
   private async persistTranscript() {
     this.lastPersistTime = Date.now();
     try {
+      this.trimTranscript();
       await this.state.storage.put('transcript', this.transcript);
     } catch (err) {
       console.error('Transkript-Persistierung fehlgeschlagen:', err);
     }
+  }
+
+  private trimTranscript() {
+    if (this.transcript.length > MAX_TRANSCRIPT_ENTRIES) {
+      this.transcript.splice(0, this.transcript.length - MAX_TRANSCRIPT_ENTRIES);
+    }
+  }
+
+  private hasValidAccessToken(request: Request): boolean {
+    let accessToken: string | null = request.headers.get('X-Access-Token');
+    // Fallback: Browser-WebSockets können keinen Custom-Header senden,
+    // daher Token aus Sec-WebSocket-Protocol "bearer.<token>" akzeptieren.
+    if (!accessToken) {
+      const proto = request.headers.get('Sec-WebSocket-Protocol') || '';
+      const bearer = proto.split(',').map(s => s.trim()).find(s => s.startsWith('bearer.'));
+      if (bearer) accessToken = bearer.slice('bearer.'.length);
+    }
+    return typeof accessToken === 'string' && accessToken.trim().length >= MIN_ACCESS_TOKEN_LENGTH;
+  }
+
+  private async touchSessionActivity() {
+    const nextAlarmAt = Date.now() + Math.min(SESSION_MAX_DURATION_MS, SESSION_IDLE_TIMEOUT_MS);
+    await this.state.storage.put('lastActivityAt', Date.now());
+    await this.state.storage.setAlarm(nextAlarmAt);
   }
 
   // ---- Transkript-Text für Kontext-Injection ----
@@ -378,10 +461,22 @@ Sage kurz "Die Verbindung steht wieder. Bitte fahren Sie fort." und mache dann w
   // ---- Alarm: Session aufräumen ----
   async alarm() {
     console.log('Session-Alarm: Aufräumen', this.state.id.toString());
+    const lastActivityAt = await this.state.storage.get('lastActivityAt') as number | null;
+    const idleForMs = lastActivityAt ? Date.now() - lastActivityAt : SESSION_IDLE_TIMEOUT_MS;
+
+    if (idleForMs > SESSION_IDLE_TIMEOUT_MS) {
+      try { this.clientWs?.close(1000, 'Session abgelaufen'); } catch {}
+      try { this.geminiWs?.close(1000, 'Session abgelaufen'); } catch {}
+      this.config = null;
+      this.transcript = [];
+      this.reconnectCount = 0;
+      await this.state.storage.deleteAll();
+      return;
+    }
+
     if (this.transcript.length > 0) {
       await this.persistTranscript();
     }
-    try { this.clientWs?.close(1000, 'Session abgelaufen'); } catch {}
-    try { this.geminiWs?.close(1000, 'Session abgelaufen'); } catch {}
+    await this.state.storage.setAlarm(Date.now() + (SESSION_IDLE_TIMEOUT_MS - idleForMs));
   }
 }

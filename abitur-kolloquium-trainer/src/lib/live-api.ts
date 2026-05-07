@@ -757,10 +757,13 @@ function buildExamInstruction(config: LiveSessionConfig): string {
   let instruction: string;
 
   if (isMathe) {
-    // Mathe-Kolloquium: Gebiete statt Halbjahre, kein Schwerpunkt – beide Gebiete gleichwertig
-    const gebiete = config.weitereHalbjahre.join(' und '); // z.B. "Analysis und Geometrie"
+    const schwerpunktgebiet = config.schwerpunkt;
+    const weitereGebiete = config.weitereHalbjahre.join(' und ');
+    const alleGebiete = [schwerpunktgebiet, ...config.weitereHalbjahre].filter(Boolean).join(' und ');
     instruction = `Du bist ${prüferLabel} im bayerischen Abitur-Kolloquium 2026.
-Fach: Mathematik (eA), Prüfungsgebiete: ${gebiete}.`;
+Fach: Mathematik (eA)
+Schwerpunktgebiet: ${schwerpunktgebiet}
+Weitere prüfungsrelevante Gebiete: ${weitereGebiete}.`;
 
     if (config.aufgabenstellung) {
       instruction += `\nDem Prüfling wurden folgende Aufgaben vorgelegt:\n${config.aufgabenstellung}`;
@@ -785,24 +788,24 @@ WICHTIG für Mathematik-Fragen:
 
     if (mode === 'referat') {
       instruction += `
-ABLAUF: Begrüße den Prüfling KURZ (1 Satz). Er wird seine vorbereiteten Lösungen zu den Aufgaben (${gebiete}) in einem zusammenhängenden Vortrag präsentieren (~10 Min).
+ABLAUF: Begrüße den Prüfling KURZ (1 Satz). Er wird seine vorbereiteten Lösungen zu den Aufgaben (${alleGebiete}) in einem zusammenhängenden Vortrag präsentieren (~10 Min).
 ${stilleRegel}
 Danach beende die Prüfung mit einer kurzen Verabschiedung.`;
     } else if (mode === 'fragen') {
       instruction += `
-ABLAUF: Begrüße den Prüfling. Stelle gemischte Fragen zu ${gebiete} (~20 Min).
-Decke beide Gebiete gleichmäßig ab. Steigere den Schwierigkeitsgrad (AB I→II→III).
+ABLAUF: Begrüße den Prüfling. Stelle zuerst Fragen zum Schwerpunktgebiet ${schwerpunktgebiet} und danach gemischte Fragen zu ${alleGebiete} (~20 Min).
+Decke Schwerpunktgebiet und weitere Gebiete passend zum Prüfungsaufbau ab. Steigere den Schwierigkeitsgrad (AB I→II→III).
 Lege ggf. Zusatzmaterialien vor (Funktionsterme, Gleichungen, Graphen-Beschreibungen, Vektoren).
 Beende die Prüfung.
 ${matheFragenHinweis}`;
     } else {
       instruction += `
 ABLAUF:
-1. Begrüße den Prüfling KURZ (1 Satz). Er wird seine vorbereiteten Lösungen zu den Aufgaben (${gebiete}) in einem zusammenhängenden Vortrag präsentieren (~10 Min).
+1. Begrüße den Prüfling KURZ (1 Satz). Er wird seine vorbereiteten Lösungen zu den Aufgaben (${alleGebiete}) in einem zusammenhängenden Vortrag präsentieren (~10 Min).
    ${stilleRegel}
-2. Stelle vertiefende Fragen zu den vorgelegten Aufgaben und beiden Gebieten (~5 Min, AB II/III).
+2. Stelle vertiefende Fragen zu den vorgelegten Aufgaben und zum Schwerpunktgebiet ${schwerpunktgebiet} (~5 Min, AB II/III).
    Z.B. Fragen die an den Vortrag anknüpfen, Verallgemeinerungen, oder neue Aspekte.
-3. Stelle weitere Fragen zu ${gebiete} (~15 Min): Gemischt aus beiden Gebieten, mit steigendem Schwierigkeitsgrad (AB I→II→III).
+3. Stelle weitere Fragen zu ${weitereGebiete} (~15 Min): Mit steigendem Schwierigkeitsgrad (AB I→II→III).
    Lege ggf. Zusatzmaterialien vor (Funktionsterme, Gleichungen, Graphen-Beschreibungen).
 4. Beende die Prüfung.
 ${matheFragenHinweis}`;
@@ -1212,9 +1215,10 @@ export class StatefulLiveSession {
 
     // Session auf dem Server erstellen (mit student_id für Subscription-Check)
     const studentId = sessionStorage.getItem('student_id') || '';
+    const accessToken = sessionStorage.getItem('access_token') || '';
     const response = await fetch(`${WORKER_URL}/session/create`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', 'X-Access-Token': accessToken },
       body: JSON.stringify({
         student_id: studentId,
         subject: this.config.subject,
@@ -1257,7 +1261,12 @@ export class StatefulLiveSession {
     this.ws = null;
 
     const wsUrl = `${WORKER_URL!.replace('https://', 'wss://').replace('http://', 'ws://')}/session/${this.sessionId}/ws`;
-    this.ws = new WebSocket(wsUrl);
+    // Browser-WebSockets können keine Custom-Header senden — Token wird daher
+    // als Subprotocol übergeben. Server liest Sec-WebSocket-Protocol.
+    const wsAccessToken = sessionStorage.getItem('access_token') || '';
+    this.ws = wsAccessToken
+      ? new WebSocket(wsUrl, [`bearer.${wsAccessToken}`])
+      : new WebSocket(wsUrl);
 
     this.ws.onopen = () => {
       this.connectionOpenedAt = Date.now();
@@ -1416,7 +1425,10 @@ export class StatefulLiveSession {
   async getServerTranscript(): Promise<Array<{ role: string; text: string; timestamp: number }>> {
     if (!this.sessionId) return [];
     try {
-      const res = await fetch(`${WORKER_URL}/session/${this.sessionId}/transcript`);
+      const accessToken = sessionStorage.getItem('access_token') || '';
+      const res = await fetch(`${WORKER_URL}/session/${this.sessionId}/transcript`, {
+        headers: { 'X-Access-Token': accessToken }
+      });
       const data = await res.json() as { transcript: Array<{ role: string; text: string; timestamp: number }> };
       return data.transcript || [];
     } catch {

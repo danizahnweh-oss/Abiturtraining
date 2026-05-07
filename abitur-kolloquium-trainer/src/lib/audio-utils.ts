@@ -50,12 +50,10 @@ export class AudioProcessor {
         }
       });
       this.source = this.audioContext.createMediaStreamSource(this.stream);
-
-      await this.audioContext.audioWorklet.addModule(
-        URL.createObjectURL(
-          new Blob(
-            [
-              `
+      const workletUrl = URL.createObjectURL(
+        new Blob(
+          [
+            `
               class RecorderProcessor extends AudioWorkletProcessor {
                 process(inputs, outputs, parameters) {
                   const input = inputs[0];
@@ -72,11 +70,16 @@ export class AudioProcessor {
               }
               registerProcessor('recorder-processor', RecorderProcessor);
               `,
-            ],
-            { type: 'application/javascript' }
-          )
+          ],
+          { type: 'application/javascript' }
         )
       );
+
+      try {
+        await this.audioContext.audioWorklet.addModule(workletUrl);
+      } finally {
+        URL.revokeObjectURL(workletUrl);
+      }
 
       this.processor = new AudioWorkletNode(this.audioContext, 'recorder-processor');
       this.processor.port.onmessage = (e) => {
@@ -85,7 +88,6 @@ export class AudioProcessor {
       };
 
       this.source.connect(this.processor);
-      this.processor.connect(this.audioContext.destination);
 
       this.flushTimer = window.setInterval(() => this.flush(), SEND_INTERVAL_MS);
       this.recording = true;

@@ -58,10 +58,12 @@ export function ProfileModal({ onClose }: ProfileModalProps) {
     if (!studentName) return;
 
     const token = sessionStorage.getItem('access_token') || '';
+    const ctrl = new AbortController();
     fetch(API_BASE + '/api/get-preferences', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'X-Access-Token': token },
       body: JSON.stringify({ student_name: studentName }),
+      signal: ctrl.signal,
     })
       .then(r => r.json())
       .then(data => {
@@ -76,7 +78,12 @@ export function ProfileModal({ onClose }: ProfileModalProps) {
           setEmail(data.preferences.email || '');
         }
       })
-      .catch(() => setMsg({ text: 'Profil konnte nicht geladen werden.', error: true }));
+      .catch((err: Error) => {
+        if (err.name === 'AbortError') return;
+        setMsg({ text: 'Profil konnte nicht geladen werden.', error: true });
+      });
+
+    return () => ctrl.abort();
   }, []);
 
   async function saveProfile() {

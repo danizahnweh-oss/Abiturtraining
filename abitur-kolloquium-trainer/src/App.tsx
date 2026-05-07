@@ -431,12 +431,14 @@ export default function App() {
   /* Mikrofon-Einwilligung vor dem ersten Zugriff */
   const [showMicConsent, setShowMicConsent] = useState(false);
   const micConsentResolverRef = useRef<(() => void) | null>(null);
+  const micConsentRejecterRef = useRef<((reason?: unknown) => void) | null>(null);
   const ensureMicConsent = useCallback((): Promise<void> => {
     if (typeof window !== 'undefined' && localStorage.getItem('mic_consent_v1') === '1') {
       return Promise.resolve();
     }
-    return new Promise<void>(resolve => {
+    return new Promise<void>((resolve, reject) => {
       micConsentResolverRef.current = resolve;
+      micConsentRejecterRef.current = reject;
       setShowMicConsent(true);
     });
   }, []);
@@ -445,11 +447,15 @@ export default function App() {
     setShowMicConsent(false);
     const r = micConsentResolverRef.current;
     micConsentResolverRef.current = null;
+    micConsentRejecterRef.current = null;
     r?.();
   };
   const cancelMicConsent = () => {
     setShowMicConsent(false);
+    const reject = micConsentRejecterRef.current;
     micConsentResolverRef.current = null;
+    micConsentRejecterRef.current = null;
+    reject?.(new Error('user_cancelled'));
   };
 
   /* Prüfer-Geschlecht (zufällig gewählt) */
@@ -541,7 +547,11 @@ export default function App() {
     if (!recoveryData) return;
 
     // Einwilligung zum Mikrofonzugriff einholen (einmalig pro Gerät)
-    await ensureMicConsent();
+    try {
+      await ensureMicConsent();
+    } catch {
+      return;
+    }
 
     const d = recoveryData;
     setRecoveryData(null);
@@ -621,7 +631,11 @@ export default function App() {
     if (!canGenerate) return;
 
     // Einwilligung zum Mikrofonzugriff einholen (einmalig pro Gerät)
-    await ensureMicConsent();
+    try {
+      await ensureMicConsent();
+    } catch {
+      return;
+    }
 
     // Geschlecht zufällig wählen
     const gender = Math.random() < 0.5 ? 'male' : 'female' as const;
