@@ -98,9 +98,10 @@ main() {
 
   load_database_url
 
-  local tmp_dump admin_url restore_url
+  local tmp_dump=""
+  local admin_url restore_url
+  trap '[[ -n "${tmp_dump:-}" ]] && rm -f -- "$tmp_dump"' EXIT INT TERM
   tmp_dump="$(mktemp /tmp/restore-XXXXXX.dump)"
-  trap 'rm -f -- "$tmp_dump"' EXIT INT TERM
 
   "$OPENSSL_BIN" enc -d -aes-256-cbc -pbkdf2 \
     -pass "file:$KEY_FILE" \
@@ -110,14 +111,27 @@ main() {
   admin_url="$(database_admin_url)"
   restore_url="$(database_named_url "$RESTORE_DB")"
 
-  "$DROPDB_BIN" --if-exists --force --dbname="$admin_url" "$RESTORE_DB"
-  "$CREATEDB_BIN" --dbname="$admin_url" "$RESTORE_DB"
+  # Postgres-CLI-dropdb/createdb kennen --dbname nicht als Connection-Target,
+  # daher per psql DDL gegen die admin-URL.
+  "$PSQL_BIN" "$admin_url" -v ON_ERROR_STOP=1 -Atqc "DROP DATABASE IF EXISTS \"$RESTORE_DB\" WITH (FORCE);"
+  "$PSQL_BIN" "$admin_url" -v ON_ERROR_STOP=1 -Atqc "CREATE DATABASE \"$RESTORE_DB\";"
 
+  # pg_restore liefert Exit-Code 1 schon bei einzelnen ignorierbaren Warnungen
+  # (z.B. fehlende Extensions wie pgvector). Das ist KEIN Restore-Versagen,
+  # solange die Kerntabellen wiederherstellbar sind. Wir prüfen unten via
+  # table_exists/table_count, ob das tatsächlich der Fall ist.
+  set +e
   "$PG_RESTORE_BIN" \
     --dbname="$restore_url" \
     --no-owner \
     --no-acl \
     "$tmp_dump"
+  local pg_restore_exit=$?
+  set -e
+  if [[ $pg_restore_exit -ne 0 && $pg_restore_exit -ne 1 ]]; then
+    fail "pg_restore mit unerwartetem Exit-Code $pg_restore_exit abgebrochen"
+  fi
+  [[ $pg_restore_exit -eq 1 ]] && warn "pg_restore meldete einzelne ignorierte Fehler (oft fehlende Extensions, z.B. pgvector). Verifiziere unten, ob Kerntabellen wiederhergestellt sind."
 
   printf '%-16s %-12s %s\n' 'Tabelle' 'Zeilen' 'OK'
   local table count ok
