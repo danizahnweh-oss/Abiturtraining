@@ -343,7 +343,7 @@ export async function handleSubscriptionStatus(request, env) {
   }
 
   const student = await env.DB.prepare(
-    'SELECT id, subscription_status, subscription_plan, trial_end, stripe_customer_id, class_group FROM students WHERE id = ?'
+    'SELECT id, subscription_status, subscription_plan, trial_end, stripe_customer_id, class_group, free_access_until FROM students WHERE id = ?'
   ).bind(student_id).first();
 
   if (!student) {
@@ -366,6 +366,13 @@ export async function handleSubscriptionStatus(request, env) {
     } else if (sub.status === 'trialing' && student.trial_end) {
       isActive = new Date(student.trial_end) > new Date();
     }
+  }
+
+  // Manuell vom Lehrer gewährter Free Access (orthogonal zu Stripe und Schullizenz)
+  let manualFreeAccess = false;
+  if (!isActive && student.free_access_until && new Date(student.free_access_until) > new Date()) {
+    isActive = true;
+    manualFreeAccess = true;
   }
 
   // Fallback: class_group mit free_access prüfen (für frühe Schüler ohne subscriptions-Eintrag)
@@ -394,6 +401,13 @@ export async function handleSubscriptionStatus(request, env) {
   } else if (sub?.school_license_code) {
     // Schullizenz deaktiviert → als "none" behandeln
     statusLabel = 'none';
+  }
+
+  // Manueller Free Access: Restdauer berechnen (für Banner-Anzeige im Frontend)
+  let freeAccessDaysLeft = 0;
+  if (manualFreeAccess && student.free_access_until) {
+    const diff = new Date(student.free_access_until) - new Date();
+    freeAccessDaysLeft = Math.max(0, Math.ceil(diff / 86400000));
   }
 
   // Lehrer-Credits prüfen (nur wenn kein eigenes Abo aktiv)
@@ -441,6 +455,9 @@ export async function handleSubscriptionStatus(request, env) {
     cancel_at_period_end: sub?.cancel_at_period_end === 1,
     trial_days_left: trialDaysLeft,
     is_school_license: (!!sub?.school_license_code && isActive) || classGroupFreeAccess,
+    is_free_access: manualFreeAccess,
+    free_access_until: manualFreeAccess ? student.free_access_until : null,
+    free_access_days_left: freeAccessDaysLeft,
     has_stripe_customer: !!student.stripe_customer_id,
     teacher_credits_available: teacherCreditsAvailable,
     teacher_credits_name: teacherCreditsName,

@@ -139,7 +139,7 @@ export async function handleCheckStudent(request, env) {
 
   // Student-ID laden (für Stripe und Paywall)
   const student = await env.DB.prepare(
-    "SELECT id, subscription_status, subscription_plan, class_group, email FROM students WHERE name_lower = ?"
+    "SELECT id, subscription_status, subscription_plan, class_group, email, free_access_until FROM students WHERE name_lower = ?"
   ).bind(nameLower).first();
 
   // Prüfen ob der Schulcode free_access hat (auch beim Login)
@@ -154,6 +154,12 @@ export async function handleCheckStudent(request, env) {
     if (!freeAccess && student?.subscription_plan === 'school') {
       effectiveStatus = "none";
     }
+  }
+
+  // Manuell vom Lehrer gewährter Free Access (orthogonal zu Stripe & Schullizenz)
+  if (student?.free_access_until && new Date(student.free_access_until) > new Date()) {
+    freeAccess = true;
+    effectiveStatus = "active";
   }
 
   // E-Mail fehlt? Flag setzen damit das Frontend nachfragt
