@@ -53,9 +53,12 @@ cp *.mp4 _site/ 2>/dev/null || true
 echo "→ Kopiere Lehrpläne..."
 cp -r lehrplaene _site/
 
-# 9. FOS-Seiten kopieren
-echo "→ Kopiere FOS-Seiten..."
-cp -r fos _site/fos
+# 9. FOS-Seiten kopieren (via build-fos.sh – inkl. shared.js, shared-v4.css, fonts/, vendor/)
+echo "→ Baue FOS-Site (Shared-Assets bündeln)..."
+bash build-fos.sh
+echo "→ Kopiere _site-fos/ nach _site/fos/..."
+mkdir -p _site/fos
+cp -r _site-fos/. _site/fos/
 
 # 10. Kolloquiumstrainer dist/ an den richtigen Pfad kopieren
 echo "→ Kopiere Kolloquiumstrainer-Build..."
