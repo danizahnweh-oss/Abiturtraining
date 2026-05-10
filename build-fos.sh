@@ -35,6 +35,9 @@ cp -r vendor _site-fos/
 # 5. Bilder/Videos aus Root kopieren (falls benötigt)
 echo "→ Kopiere Bilder..."
 cp *.png _site-fos/ 2>/dev/null || true
+cp *.webp _site-fos/ 2>/dev/null || true
+cp *.svg _site-fos/ 2>/dev/null || true
+cp *.ico _site-fos/ 2>/dev/null || true
 
 echo ""
 echo "=== FOS Build fertig! ==="
