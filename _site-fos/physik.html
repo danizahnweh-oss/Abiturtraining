@@ -4,25 +4,33 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Physik üben für die bayerische FOS – Mechanik, Elektrizität und Optik mit KI-Feedback auf myAbiFlow.">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#2563eb">
-  <meta http-equiv="Content-Security-Policy" content="default-src * data: blob:; script-src * 'unsafe-inline' 'unsafe-eval'; style-src * 'unsafe-inline'; img-src * data: blob:; font-src * data:; connect-src *;">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: blob: https:; font-src 'self' data: https://fonts.gstatic.com; connect-src 'self' https://myabiflow.de https://*.myabiflow.de https://generativelanguage.googleapis.com https://sag-abi-mediation-api.sanktannagymnasium.workers.dev; media-src 'self' blob:; worker-src 'self' blob:;">
   <title>myAbiFlow FOS &middot; Physik</title>
-  <link rel="icon"
-    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚛️</text></svg>">
-  <script src="https://cdn.jsdelivr.net/npm/marked@9.1.6/marked.min.js" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/dompurify@3.2.4/dist/purify.min.js"
-    integrity="sha384-eEu5CTj3qGvu9PdJuS+YlkNi7d2XxQROAFYOr59zgObtlcux1ae1Il3u7jvdCSWu" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"
-    integrity="sha384-9nhczxUqK87bcKHh20fSQcTGD4qq5GhayNYSYWqwBkINBhOfQLg/P5HG5lF1urn4" crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"
-    integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+" crossorigin="anonymous">
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"
-    integrity="sha384-7zkQWkzuo3B5mTepMUcHkMB5jZaolc2xDwL6VFqjFALcbeS9Ggm/Yr2r3Dy4lfFg" crossorigin="anonymous"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
-    integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRwr4yROQP43s0Xk" crossorigin="anonymous"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <meta property="og:title" content="myAbiFlow FOS · Physik">
+  <meta property="og:description" content="Physik üben für die bayerische FOS – Mechanik, Elektrizität und Optik mit KI-Feedback auf myAbiFlow.">
+  <meta property="og:image" content="https://myabiflow.de/og-image.png">
+  <meta property="og:url" content="https://myabiflow.de/fos/physik.html">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="de_DE">
+  <meta property="og:site_name" content="myAbiFlow">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="myAbiFlow FOS · Physik">
+  <meta name="twitter:description" content="Physik üben für die bayerische FOS – Mechanik, Elektrizität und Optik mit KI-Feedback auf myAbiFlow.">
+  <meta name="twitter:image" content="https://myabiflow.de/og-image.png">
+  <link rel="canonical" href="https://myabiflow.de/fos/physik.html">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/wave-icon-new.png" type="image/png" sizes="48x48">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <script src="/vendor/marked.min.js" defer></script>
+  <script src="/vendor/purify.min.js" defer></script>
+  <script src="/vendor/chart.umd.min.js" defer></script>
+  <link rel="stylesheet" href="/vendor/katex/katex.min.css">
+  <script defer src="/vendor/katex/katex.min.js"></script>
+  <script defer src="/vendor/katex/contrib/auto-render.min.js"></script>
+  <link rel="stylesheet" href="/fonts/fonts.css">
   <link rel="stylesheet" href="shared-v4.css">
   <link rel="stylesheet" href="shared-fos.css">
   <style>
@@ -46,18 +54,84 @@
     .ggb-toggle summary:hover{background:var(--accent-soft)}.ggb-toggle[open] summary{border-bottom:1px solid var(--border)}
     @media(max-width:650px){.hj-grid{grid-template-columns:1fr 1fr}.mode-toggle{grid-template-columns:1fr}}
   </style>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Course",
+      "name": "FOS Physik",
+      "description": "Mechanik, Elektrizität und Optik für die bayerische FOS.",
+      "url": "https://myabiflow.de/fos/physik.html",
+      "provider": {
+        "@id": "https://myabiflow.de/#organization"
+      },
+      "inLanguage": "de",
+      "educationalLevel": "Fachabitur (FOS/BOS Bayern)",
+      "about": "Physik",
+      "audience": {
+        "@type": "EducationalAudience",
+        "educationalRole": "student",
+        "audienceType": "FOS/BOS-Schüler in Bayern"
+      },
+      "learningResourceType": "Übungsaufgaben",
+      "isAccessibleForFree": true,
+      "hasCourseInstance": {
+        "@type": "CourseInstance",
+        "courseMode": "online",
+        "courseWorkload": "PT30M",
+        "instructor": {
+          "@type": "Thing",
+          "name": "KI-Tutor (Flowie)"
+        }
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "EUR",
+        "availability": "https://schema.org/InStock",
+        "category": "Kostenlose Basisversion"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Startseite",
+          "item": "https://myabiflow.de/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "FOS",
+          "item": "https://myabiflow.de/fos/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "FOS Physik",
+          "item": "https://myabiflow.de/fos/physik.html"
+        }
+      ]
+    }
+  ]
+}
+  </script>
 </head>
 
 <body>
+  <a href="#main-content" class="skip-link">Zum Hauptinhalt springen</a>
   <header>
     <div class="header-left">
-      <a href="index.html" class="header-logo-link"><img src="logo.png" alt="myAbiFlow FOS" class="header-logo"></a>
+      <a href="index.html" class="header-logo-link"><img src="logo.webp" alt="myAbiFlow FOS" class="header-logo"></a>
       <a href="index.html?back=physik" class="back-link">&larr; Zur&uuml;ck</a>
       <h1>&#x269B;&#xFE0F; Physik &middot; <span>Klausurtraining</span></h1>
     </div>
     <div class="header-right">
       <span id="studentGreeting" class="header-meta" style="display:none"></span>
-      <button class="theme-toggle" onclick="toggleDarkMode()" id="themeToggleBtn">&#x1F319;</button>
+      <button class="theme-toggle" onclick="toggleDarkMode()" id="themeToggleBtn" aria-label="Farbmodus wechseln">&#x1F319;</button>
     </div>
   </header>
 
@@ -69,7 +143,7 @@
     <button id="nav-progress" onclick="nav('progress')" style="margin-left:auto;"><span class="step-num">&#x1F4CA;</span> Fortschritt</button>
   </nav>
 
-  <main>
+  <main id="main-content">
     <section id="sec-setup" class="active">
       <div class="card">
         <h2 class="card-header">Aufgabe w&auml;hlen</h2>
@@ -114,26 +188,26 @@
         <div class="upload-zone" onclick="document.getElementById('taskFileInput').click()">
           <div class="upload-text"><strong>Bilder oder PDF hochladen</strong> (Aufgabenblatt)</div>
         </div>
-        <input type="file" id="taskFileInput" accept="image/*,.pdf" multiple style="display:none" onchange="handleTaskUpload(this.files)">
+        <input type="file" id="taskFileInput" aria-label="Aufgabe als Bild oder PDF hochladen" accept="image/*,.pdf" multiple style="display:none" onchange="handleTaskUpload(this.files)">
         <div id="taskUploadPages" class="ocr-pages"></div>
         <div class="loader" id="taskUploadLoader"><div class="loader-spinner"></div></div>
         <div id="taskUploadResult" style="display:none;margin-top:1rem">
           <div id="taskUploadPreview" style="margin-bottom:1rem"></div>
           <p style="color:var(--ink-success,#16a34a);font-weight:600;margin:.5rem 0 1rem">&#x2713; Dein Abitrainer hat die Aufgabe gelesen und verstanden.</p>
-          <textarea id="parsedTaskInstruction" style="display:none"></textarea>
+          <textarea id="parsedTaskInstruction" aria-label="Erkannter Aufgabentext Teil A" style="display:none"></textarea>
           <input type="hidden" id="parsedMeta">
           <button class="btn" onclick="useUploadedTask()">&#x2713; Aufgabe verwenden</button>
         </div>
         <hr style="margin:1.5rem 0;border:none;border-top:1px solid var(--border)">
         <h3 style="font-size:.95rem;margin-bottom:.8rem">Oder manuell eingeben:</h3>
-        <div class="form-group"><label>Aufgabenstellung</label><textarea id="manualTaskInstruction" style="min-height:100px" placeholder="Ein K&ouml;rper der Masse m = 2 kg wird &hellip;"></textarea></div>
+        <div class="form-group"><label for="manualTaskInstruction">Aufgabenstellung</label><textarea id="manualTaskInstruction" style="min-height:100px" placeholder="Ein K&ouml;rper der Masse m = 2 kg wird &hellip;"></textarea></div>
         <button class="btn btn-secondary" onclick="useManualTask()">Manuell verwenden</button>
       </div>
       <div class="card">
         <div style="display:flex;gap:2rem;flex-wrap:wrap">
-          <div class="form-group" style="margin:0"><label>Bewertungseinheiten (BE)</label><input type="number" id="totalBE" value="25" min="3" max="150" style="max-width:120px"></div>
-          <div class="form-group" style="margin:0"><label>Bearbeitungszeit (Min.)</label><input type="number" id="timerMinutes" value="45" min="5" max="120" style="max-width:120px"></div>
-          <div class="form-group" style="margin:0"><label>Anzahl Aufgaben</label><input type="number" id="taskCount" value="1" min="1" max="5" style="max-width:120px"></div>
+          <div class="form-group" style="margin:0"><label for="totalBE">Bewertungseinheiten (BE)</label><input type="number" id="totalBE" value="25" min="3" max="150" style="max-width:120px"></div>
+          <div class="form-group" style="margin:0"><label for="timerMinutes">Bearbeitungszeit (Min.)</label><input type="number" id="timerMinutes" value="45" min="5" max="120" style="max-width:120px"></div>
+          <div class="form-group" style="margin:0"><label for="taskCount">Anzahl Aufgaben</label><input type="number" id="taskCount" value="1" min="1" max="5" style="max-width:120px"></div>
         </div>
       </div>
     </section>
@@ -164,6 +238,10 @@
             <div class="task-box" id="writeTaskRef" style="margin:0;font-size:.9rem"></div>
           </div>
         </details>
+        <details style="margin-bottom:1rem" id="writeMaterialDetails">
+          <summary style="cursor:pointer;font-weight:600;color:var(--accent)">&#x1F4CA; Material</summary>
+          <div style="margin-top:.5rem" id="writeMaterialRef"></div>
+        </details>
         <p style="color:var(--ink-muted);font-size:.85rem;margin-bottom:1rem">Tippe deine L&ouml;sung in Plain-Text-Mathe: z.B. <code>F = m * a</code>, <code>E = 1/2 * m * v^2</code>, <code>U = R * I</code></p>
         <div id="studentTextareas"></div>
         <div class="write-toolbar">
@@ -182,12 +260,12 @@
           <div class="upload-text"><strong>Klicken</strong> oder Bilder hierher ziehen</div>
           <div class="upload-text" style="font-size:.8rem;margin-top:.3rem">JPG, PNG &ndash; max. 10 MB pro Bild</div>
         </div>
-        <input type="file" id="ocrFileInput" accept="image/*,.pdf" multiple style="display:none" onchange="handleOCRFiles(this.files)">
+        <input type="file" id="ocrFileInput" aria-label="Abgeschriebenen Text als Bild oder PDF hochladen" accept="image/*,.pdf" multiple style="display:none" onchange="handleOCRFiles(this.files)">
         <div id="ocrPages" class="ocr-pages"></div>
         <div id="ocrLoader" class="loader"><div class="loader-spinner"></div><div class="loader-text">Handschrift wird erkannt &hellip; <span id="ocrProgress"></span></div></div>
         <div id="ocrResult" style="display:none;margin-top:1rem;">
           <label>Erkannter Text (bearbeitbar):</label>
-          <textarea id="ocrText" style="min-height:200px;" placeholder="Erkannter Text erscheint hier &hellip;" oninput="updateOCRWordCount()"></textarea>
+          <textarea id="ocrText" aria-label="Erkannter Text aus Upload" style="min-height:200px;" placeholder="Erkannter Text erscheint hier &hellip;" oninput="updateOCRWordCount()"></textarea>
           <div style="display:flex;gap:.5rem;margin-top:.8rem;flex-wrap:wrap;align-items:center;">
             <button class="btn btn-small" onclick="useOCRText()">&#x2713; Text &uuml;bernehmen</button>
             <button class="btn btn-small btn-secondary" onclick="clearOCR()">Verwerfen</button>
@@ -215,7 +293,7 @@
         <div style="display:flex;gap:.8rem;flex-wrap:wrap">
           <button class="btn btn-secondary" id="showModelBtn" onclick="showModelAnswer()">&#x1F4C4; Musterl&ouml;sung</button>
           <button class="btn btn-secondary" onclick="exportPDF()">&#x1F4D1; PDF</button>
-          <button class="btn" onclick="nav('setup')">Neue Aufgabe</button>
+          <button class="btn" onclick="confirmNewTask()">Neue Aufgabe</button>
         </div>
       </div>
     </section>
@@ -436,8 +514,8 @@
     function fixLatex(latex) { if (!latex) return latex; latex = latex.replace(/e\^(-[0-9]*[\{,\}.]?[0-9]*[a-zA-Z][a-zA-Z0-9]*)/g, 'e^{$1}'); latex = latex.replace(/e\^(-[0-9]+)(?![a-zA-Z{])/g, 'e^{$1}'); latex = latex.replace(/e\^\(([^)]+)\)/g, 'e^{$1}'); latex = latex.replace(/\\exp\s*\\left\s*\((.+?)\\right\s*\)/g, 'e^{$1}'); latex = latex.replace(/\\exp\s*\(([^)]+)\)/g, 'e^{$1}'); return latex; }
     function protectMath(text) { var blocks = []; text = text.replace(/\$\$([\s\S]*?)\$\$/g, function(m,inner){ blocks.push('$$'+fixLatex(inner)+'$$'); return "KATEXPH"+(blocks.length-1)+"ENDPH"; }); text = text.replace(/\\\[([\s\S]*?)\\\]/g, function(m,inner){ blocks.push('$$'+fixLatex(inner)+'$$'); return "KATEXPH"+(blocks.length-1)+"ENDPH"; }); text = text.replace(/\$([^$]+?)\$/g, function(m,inner){ blocks.push('$'+fixLatex(inner)+'$'); return "KATEXPH"+(blocks.length-1)+"ENDPH"; }); text = text.replace(/\\\((.+?)\\\)/g, function(m,inner){ blocks.push('$'+fixLatex(inner)+'$'); return "KATEXPH"+(blocks.length-1)+"ENDPH"; }); return { text: text, blocks: blocks }; }
     function restoreMath(html, blocks) { return html.replace(/KATEXPH(\d+)ENDPH/g, function(_, i) { return blocks[parseInt(i)]; }); }
-    function safeMathParse(text) { var p = protectMath(text); return restoreMath(marked.parse(p.text), p.blocks); }
-    function safeMathParseInline(text) { var p = protectMath(text); return restoreMath(marked.parseInline(p.text), p.blocks); }
+    function safeMathParse(text) { text = (text||"").replace(/\\n(?![a-zA-Z])/g, "\n"); var p = protectMath(text); p.text = p.text.replace(/\{,\}/g, ",").replace(/\\,/g, " "); return restoreMath(marked.parse(p.text), p.blocks); }
+    function safeMathParseInline(text) { var p = protectMath(text); p.text = p.text.replace(/\{,\}/g, ","); return restoreMath(marked.parseInline(p.text), p.blocks); }
     var KATEX_DELIMITERS = [{ left: "$$", right: "$$", display: true },{ left: "\\[", right: "\\]", display: true },{ left: "$", right: "$", display: false },{ left: "\\(", right: "\\)", display: false }];
     function doRenderMath(el) { renderMathInElement(el || document.body, { delimiters: KATEX_DELIMITERS, throwOnError: false }); }
     function renderMath(el) { if (typeof renderMathInElement === "function") { doRenderMath(el); } else { var target = el; var attempts = 0; var timer = setInterval(function() { attempts++; if (typeof renderMathInElement === "function") { clearInterval(timer); doRenderMath(target); } else if (attempts >= 20) clearInterval(timer); }, 250); } }
@@ -462,7 +540,7 @@
         document.getElementById("parsedTaskInstruction").value = d.task_instruction || "";
         document.getElementById("parsedMeta").value = d.primary_meta || "";
         document.getElementById("taskUploadPreview").innerHTML = taskUploadImages.map(function(p) { return '<img src="' + p.url + '" style="width:100%;max-width:800px;border-radius:var(--radius-sm);margin-bottom:1rem;display:block" alt="Aufgabenblatt">'; }).join('');
-        document.getElementById("taskUploadResult").style.display = "block";
+        document.getElementById("taskUploadResult").style.display = "block"; setTimeout(() => { document.getElementById("taskUploadResult").scrollIntoView({ behavior: "smooth", block: "nearest" }); }, 150);
       } catch (e) { showToast("Fehler: " + e.message); }
       document.getElementById("taskUploadLoader").style.display = "none";
     }
@@ -494,7 +572,19 @@
       if (d.grafik && d.grafik.commands && d.grafik.commands.length) { var ggbTarget = document.createElement("div"); container.parentNode.insertBefore(ggbTarget, container); createGeoGebraToggle(ggbTarget, d.grafik, "task"); }
       var writeRef = document.getElementById("writeTaskRef"); writeRef.innerHTML = instrEl.innerHTML;
       if (d.teilaufgaben && d.teilaufgaben.length) writeRef.innerHTML += container.innerHTML;
-      renderMath(writeRef); renderStudentTextareas(d);
+      renderMath(writeRef);
+      // Material im Write-Schritt anzeigen
+      var writeMat = document.getElementById("writeMaterialRef");
+      var writeMatDetails = document.getElementById("writeMaterialDetails");
+      writeMat.innerHTML = "";
+      if (d.material && d.material.length && matContainer) {
+        writeMat.innerHTML = matContainer.innerHTML;
+        writeMatDetails.style.display = "";
+        renderMath(writeMat);
+      } else {
+        writeMatDetails.style.display = "none";
+      }
+      renderStudentTextareas(d);
       requestAnimationFrame(function() { renderMath(document.getElementById("sec-task")); renderMath(document.getElementById("sec-write")); });
     }
 
@@ -539,6 +629,7 @@
 
     /* Bewertung & Musterloesung */
     async function submitForGrading() {
+      if (window.checkOcrPending && window.checkOcrPending()) return;
       var textareas = document.querySelectorAll('#studentTextareas textarea'), teilaufgaben = CONFIG.storedData?.teilaufgaben || [], student_texts = {}, allText = "";
       textareas.forEach(function(ta, i) { var taData = teilaufgaben[i]; var key = taData ? (taData.id || taData.nr || String.fromCharCode(97+i)+")") : "L\u00f6sung"; student_texts[key] = ta.value; if (ta.value.trim()) allText += (allText ? "\n\n" : "") + key + "\n" + ta.value; });
       if (countWords(allText) < MODULE_CONFIG.minWords) { showToast("Bitte eine L\u00f6sung eingeben"); return; }
@@ -578,7 +669,7 @@
 
     /* Formel-Editor (MathLive) */
     let mathLiveLoaded = false, mathLiveLoading = false;
-    function loadMathLive() { return new Promise(function(resolve, reject) { if (mathLiveLoaded) { resolve(); return; } if (mathLiveLoading) { var check = setInterval(function() { if (mathLiveLoaded) { clearInterval(check); resolve(); } }, 100); return; } mathLiveLoading = true; var s = document.createElement("script"); s.type = "module"; s.src = "https://unpkg.com/mathlive?module"; s.onload = function() { mathLiveLoaded = true; mathLiveLoading = false; resolve(); }; s.onerror = function() { mathLiveLoading = false; reject(new Error("MathLive konnte nicht geladen werden.")); }; document.head.appendChild(s); }); }
+    function loadMathLive() { return new Promise(function(resolve, reject) { if (mathLiveLoaded) { resolve(); return; } if (mathLiveLoading) { var check = setInterval(function() { if (mathLiveLoaded) { clearInterval(check); resolve(); } }, 100); return; } mathLiveLoading = true; var s = document.createElement("script"); s.type = "module"; s.src = "/vendor/mathlive.min.mjs"; s.onload = function() { mathLiveLoaded = true; mathLiveLoading = false; resolve(); }; s.onerror = function() { mathLiveLoading = false; reject(new Error("MathLive konnte nicht geladen werden.")); }; document.head.appendChild(s); }); }
     const FORMEL_BUTTONS = {
       grundlagen: { label: "Grundlagen", buttons: [{ label: "x^n", latex: "x^{#0}" },{ label: "a/b", latex: "\\frac{#0}{#0}" },{ label: "\u221A", latex: "\\sqrt{#0}" },{ label: "|x|", latex: "\\left|#0\\right|" },{ label: "\u2264", latex: "\\leq" },{ label: "\u2265", latex: "\\geq" },{ label: "\u2260", latex: "\\neq" },{ label: "\u00B7", latex: "\\cdot" },{ label: "\u03C0", latex: "\\pi" },{ label: "e", latex: "e" },{ label: "\u221E", latex: "\\infty" }] },
       physik: { label: "Physik", buttons: [{ label: "F=ma", latex: "F = m \\cdot a" },{ label: "E_kin", latex: "E_{\\text{kin}} = \\frac{1}{2} m v^2" },{ label: "E_pot", latex: "E_{\\text{pot}} = m g h" },{ label: "p=mv", latex: "p = m \\cdot v" },{ label: "W=Fs", latex: "W = F \\cdot s" },{ label: "P=W/t", latex: "P = \\frac{W}{t}" },{ label: "U=RI", latex: "U = R \\cdot I" },{ label: "F_C", latex: "F_C = \\frac{m v^2}{r}" },{ label: "\u0394", latex: "\\Delta" },{ label: "\u03B1", latex: "\\alpha" },{ label: "\u03C9", latex: "\\omega" }] },

@@ -4,40 +4,41 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Mathematik Abiturtraining 13. Klasse FOS Bayern – Prüfungsvorbereitung mit KI-Feedback auf myAbiFlow.">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#4f46e5">
-  <meta http-equiv="Content-Security-Policy" content="default-src * data: blob:; script-src * 'unsafe-inline' 'unsafe-eval'; style-src * 'unsafe-inline'; img-src * data: blob:; font-src * data:; connect-src *;">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: blob: https:; font-src 'self' data: https://fonts.gstatic.com; connect-src 'self' https://myabiflow.de https://*.myabiflow.de https://generativelanguage.googleapis.com https://sag-abi-mediation-api.sanktannagymnasium.workers.dev; media-src 'self' blob:; worker-src 'self' blob:;">
   <title>myAbiFlow FOS · Mathematik Abiturtraining (13. Klasse)</title>
-  <link rel="icon"
-    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📝</text></svg>">
-  <script src="https://cdn.jsdelivr.net/npm/marked@9.1.6/marked.min.js"
-    crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/dompurify@3.2.4/dist/purify.min.js"
-    integrity="sha384-eEu5CTj3qGvu9PdJuS+YlkNi7d2XxQROAFYOr59zgObtlcux1ae1Il3u7jvdCSWu"
-    crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"
-    integrity="sha384-9nhczxUqK87bcKHh20fSQcTGD4qq5GhayNYSYWqwBkINBhOfQLg/P5HG5lF1urn4"
-    crossorigin="anonymous"></script>
+  <meta property="og:title" content="myAbiFlow FOS · Mathematik Abiturtraining (13. Klasse)">
+  <meta property="og:description" content="Mathematik Abiturtraining 13. Klasse FOS Bayern – Prüfungsvorbereitung mit KI-Feedback auf myAbiFlow.">
+  <meta property="og:image" content="https://myabiflow.de/og-image.png">
+  <meta property="og:url" content="https://myabiflow.de/fos/mathe-abitur13.html">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="de_DE">
+  <meta property="og:site_name" content="myAbiFlow">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="myAbiFlow FOS · Mathematik Abiturtraining (13. Klasse)">
+  <meta name="twitter:description" content="Mathematik Abiturtraining 13. Klasse FOS Bayern – Prüfungsvorbereitung mit KI-Feedback auf myAbiFlow.">
+  <meta name="twitter:image" content="https://myabiflow.de/og-image.png">
+  <link rel="canonical" href="https://myabiflow.de/fos/mathe-abitur13.html">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/wave-icon-new.png" type="image/png" sizes="48x48">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <script src="/vendor/marked.min.js" defer></script>
+  <script src="/vendor/purify.min.js" defer></script>
+  <script src="/vendor/chart.umd.min.js" defer></script>
   <!-- KaTeX -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"
-    integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+" crossorigin="anonymous">
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"
-    integrity="sha384-7zkQWkzuo3B5mTepMUcHkMB5jZaolc2xDwL6VFqjFALcbeS9Ggm/Yr2r3Dy4lfFg"
-    crossorigin="anonymous"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
-    integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRwr4yROQP43s0Xk"
-    crossorigin="anonymous"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link
-    href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=JetBrains+Mono:wght@400;500&display=swap"
-    rel="stylesheet">
+  <link rel="stylesheet" href="/vendor/katex/katex.min.css">
+  <script defer src="/vendor/katex/katex.min.js"></script>
+  <script defer src="/vendor/katex/contrib/auto-render.min.js"></script>
+  <link rel="stylesheet" href="/fonts/fonts.css">
   <link rel="stylesheet" href="shared-v4.css">
   <link rel="stylesheet" href="shared-fos.css">
   <style>
     /* Emerald accent override */
     :root {
-      --accent: #10b981;
-      --accent-hover: #059669;
+      --accent: #047857;
+      --accent-hover: #065f46;
       --accent-soft: #d1fae5;
       --accent-glow: rgba(16, 185, 129, .08);
     }
@@ -96,7 +97,7 @@
 
     .write-part .word-counter {
       font-size: .8rem;
-      color: var(--ink-muted);
+      color: var(--ink-light);
       margin-top: .4rem
     }
 
@@ -118,7 +119,7 @@
 
     .aufgabe-be {
       font-size: .8rem;
-      color: var(--ink-muted);
+      color: var(--ink-light);
       font-weight: 600
     }
 
@@ -157,7 +158,7 @@
 
     .wahl-hint {
       font-size: .85rem;
-      color: var(--ink-muted);
+      color: var(--ink-light);
       padding: .4rem 0;
       font-style: italic
     }
@@ -243,19 +244,85 @@
       }
     }
   </style>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Course",
+      "name": "FOS Mathematik Abitur 13. Klasse",
+      "description": "Mathe-Prüfungsvorbereitung 13. Klasse FOS Bayern.",
+      "url": "https://myabiflow.de/fos/mathe-abitur13.html",
+      "provider": {
+        "@id": "https://myabiflow.de/#organization"
+      },
+      "inLanguage": "de",
+      "educationalLevel": "Fachabitur (FOS/BOS Bayern)",
+      "about": "Mathematik",
+      "audience": {
+        "@type": "EducationalAudience",
+        "educationalRole": "student",
+        "audienceType": "FOS/BOS-Schüler in Bayern"
+      },
+      "learningResourceType": "Prüfungsvorbereitung",
+      "isAccessibleForFree": true,
+      "hasCourseInstance": {
+        "@type": "CourseInstance",
+        "courseMode": "online",
+        "courseWorkload": "PT30M",
+        "instructor": {
+          "@type": "Thing",
+          "name": "KI-Tutor (Flowie)"
+        }
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "EUR",
+        "availability": "https://schema.org/InStock",
+        "category": "Kostenlose Basisversion"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Startseite",
+          "item": "https://myabiflow.de/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "FOS",
+          "item": "https://myabiflow.de/fos/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "FOS Mathematik Abitur 13. Klasse",
+          "item": "https://myabiflow.de/fos/mathe-abitur13.html"
+        }
+      ]
+    }
+  ]
+}
+  </script>
 </head>
 
 <body>
+  <a href="#main-content" class="skip-link">Zum Hauptinhalt springen</a>
 
   <header>
     <div class="header-left">
-      <a href="index.html" class="header-logo-link"><img src="logo.png" alt="myAbiFlow" class="header-logo"></a>
+      <a href="index.html" class="header-logo-link"><img src="logo.webp" alt="myAbiFlow" class="header-logo"></a>
       <a href="index.html?back=mathe" class="back-link">&larr; Zur&uuml;ck</a>
       <h1>Mathematik &middot; <span>Abiturtraining (13. Klasse)</span></h1>
     </div>
     <div class="header-right">
       <span id="studentGreeting" class="header-meta" style="display:none"></span>
-      <button class="theme-toggle" onclick="toggleDarkMode()" id="themeToggleBtn">&#x1F319;</button>
+      <button class="theme-toggle" onclick="toggleDarkMode()" id="themeToggleBtn" aria-label="Farbmodus wechseln">&#x1F319;</button>
     </div>
   </header>
 
@@ -268,7 +335,7 @@
         class="step-num">&#x1F4CA;</span> Fortschritt</button>
   </nav>
 
-  <main>
+  <main id="main-content">
     <!-- STEP 1: SETUP -->
     <section id="sec-setup" class="active">
       <div class="card">
@@ -300,7 +367,7 @@
           <div class="upload-text"><strong>Bilder oder PDF hochladen</strong> (Aufgabenbl&auml;tter)</div>
           <div class="upload-text" style="font-size:.8rem;margin-top:.3rem">JPG, PNG, PDF &ndash; max. 10 MB pro Datei &middot; Mehrere Seiten m&ouml;glich</div>
         </div>
-        <input type="file" id="taskFileInput" accept="image/*,.pdf" multiple style="display:none"
+        <input type="file" id="taskFileInput" aria-label="Aufgabe als Bild oder PDF hochladen" accept="image/*,.pdf" multiple style="display:none"
           onchange="handleTaskUpload(this.files)">
         <div id="taskUploadPages" class="ocr-pages"></div>
         <div class="loader" id="taskUploadLoader">
@@ -310,14 +377,14 @@
         <div id="taskUploadResult" style="display:none;margin-top:1rem">
           <div id="taskUploadPreview" style="margin-bottom:1rem"></div>
           <p style="color:var(--ink-success,#16a34a);font-weight:600;margin:.5rem 0 1rem">&#x2713; Dein Abitrainer hat die Aufgabe gelesen und verstanden.</p>
-          <textarea id="parsedTaskInstruction" style="display:none"></textarea>
+          <textarea id="parsedTaskInstruction" aria-label="Erkannter Aufgabentext Teil A" style="display:none"></textarea>
           <textarea id="parsedMaterials" style="display:none"></textarea>
           <button class="btn" onclick="useUploadedTask()">&#x2713; Aufgabe verwenden</button>
         </div>
       </div>
 
       <div class="card">
-        <label>Bearbeitungszeit (Min.)</label>
+        <label for="timerMinutes">Bearbeitungszeit (Min.)</label>
         <input type="number" id="timerMinutes" value="180" min="60" max="240" style="max-width:120px">
         <div style="font-size:.8rem;color:var(--ink-muted);margin-top:.3rem">FAP: 180 Min. (60 Min. f&uuml;r Teil 1, 120 Min. f&uuml;r Teil 2)</div>
       </div>
@@ -392,7 +459,7 @@
         <!-- Teil A Textarea -->
         <div class="write-part">
           <h3>Teil 1 &ndash; Ohne Hilfsmittel (34 BE)</h3>
-          <textarea id="studentTextA" placeholder="Teil 1: Beginne hier mit deiner L&ouml;sung &hellip;
+          <textarea id="studentTextA" aria-label="Deine Antwort zu Teil A" placeholder="Teil 1: Beginne hier mit deiner L&ouml;sung &hellip;
 
 Analysis:
 Aufgabe 1: ...
@@ -408,7 +475,7 @@ Aufgabe 2: ..." oninput="updateWordCounts()"></textarea>
         <!-- Teil B Textarea -->
         <div class="write-part">
           <h3>Teil 2 &ndash; Mit Hilfsmitteln (66 BE)</h3>
-          <textarea id="studentTextB" placeholder="Teil 2: Beginne hier mit deiner L&ouml;sung &hellip;
+          <textarea id="studentTextB" aria-label="Deine Antwort zu Teil B" placeholder="Teil 2: Beginne hier mit deiner L&ouml;sung &hellip;
 
 Analysis:
 Aufgabe 1: ...
@@ -439,7 +506,7 @@ Aufgabe 1: ..." oninput="updateWordCounts()"></textarea>
           <div class="upload-text"><strong>Klicken</strong> oder Bilder hierher ziehen</div>
           <div class="upload-text" style="font-size:.8rem;margin-top:.3rem">JPG, PNG &ndash; max. 10 MB pro Bild</div>
         </div>
-        <input type="file" id="ocrFileInput" accept="image/*,.pdf" multiple style="display:none"
+        <input type="file" id="ocrFileInput" aria-label="Abgeschriebenen Text als Bild oder PDF hochladen" accept="image/*,.pdf" multiple style="display:none"
           onchange="handleOCRFiles(this.files)">
         <div id="ocrPages" class="ocr-pages"></div>
         <div id="ocrLoader" class="loader">
@@ -448,7 +515,7 @@ Aufgabe 1: ..." oninput="updateWordCounts()"></textarea>
         </div>
         <div id="ocrResult" style="display:none;margin-top:1rem;">
           <label>Erkannter Text (bearbeitbar):</label>
-          <textarea id="ocrText" style="min-height:200px;" placeholder="Erkannter Text erscheint hier &hellip;"
+          <textarea id="ocrText" aria-label="Erkannter Text aus Upload" style="min-height:200px;" placeholder="Erkannter Text erscheint hier &hellip;"
             oninput="updateOCRWordCount()"></textarea>
           <div style="display:flex;gap:.5rem;margin-top:.8rem;flex-wrap:wrap;align-items:center;">
             <button class="btn btn-small" onclick="useOCRTextA()">&#x2713; In Teil 1</button>
@@ -744,10 +811,13 @@ Aufgabe 1: ..." oninput="updateWordCounts()"></textarea>
       return html.replace(/KATEXPH(\d+)ENDPH/g, function (_, i) { return blocks[parseInt(i)]; });
     }
     function safeMathParse(text) {
-      var p = protectMath(text); return restoreMath(marked.parse(p.text), p.blocks);
+      text = (text||"").replace(/\\n(?![a-zA-Z])/g, "\n");
+      var p = protectMath(text);
+      p.text = p.text.replace(/\{,\}/g, ",").replace(/\\,/g, " "); return restoreMath(marked.parse(p.text), p.blocks);
     }
     function safeMathParseInline(text) {
-      var p = protectMath(text); return restoreMath(marked.parseInline(p.text), p.blocks);
+      var p = protectMath(text);
+      p.text = p.text.replace(/\{,\}/g, ",").replace(/\\,/g, " "); return restoreMath(marked.parseInline(p.text), p.blocks);
     }
 
     function renderMath(el) {
@@ -826,7 +896,7 @@ Aufgabe 1: ..." oninput="updateWordCounts()"></textarea>
         document.getElementById("taskUploadPreview").innerHTML = taskUploadImages.map(function(p) {
           return '<img src="' + p.url + '" style="width:100%;max-width:800px;border-radius:var(--radius-sm);margin-bottom:1rem;display:block" alt="Aufgabenblatt">';
         }).join('');
-        document.getElementById("taskUploadResult").style.display = "block";
+        document.getElementById("taskUploadResult").style.display = "block"; setTimeout(() => { document.getElementById("taskUploadResult").scrollIntoView({ behavior: "smooth", block: "nearest" }); }, 150);
       } catch (e) { showToast("Fehler: " + e.message); }
       document.getElementById("taskUploadLoader").style.display = "none";
     }
@@ -899,7 +969,7 @@ Aufgabe 1: ..." oninput="updateWordCounts()"></textarea>
           content += '<div class="aufgaben-liste">';
           if (a.teilaufgaben && a.teilaufgaben.length) {
             a.teilaufgaben.forEach(function (t) {
-              content += '<div class="aufgabe-item"><span class="aufgabe-nr">' + escapeHtml(t.id || "") + '</span> ' + DOMPurify.sanitize(safeMathParseInline(t.text || "")) + ' <span class="aufgabe-be">(' + (t.be || "") + ' BE)</span></div>';
+              content += '<div class="aufgabe-item"><span class="aufgabe-nr">' + escapeHtml(t.id || "") + '</span> ' + DOMPurify.sanitize(safeMathParseInline((t.text||"").replace(/\s*\(\d+\s*BE\)\s*\.?\s*$/i,"").trim())) + ' <span class="aufgabe-be">(' + (t.be || "") + ' BE)</span></div>';
             });
           } else {
             content += '<div class="aufgabe-item">' + DOMPurify.sanitize(safeMathParseInline(a.text || a.aufgabe || "")) + '</div>';
@@ -927,7 +997,7 @@ Aufgabe 1: ..." oninput="updateWordCounts()"></textarea>
           content += '<div class="aufgaben-liste">';
           if (a.teilaufgaben && a.teilaufgaben.length) {
             a.teilaufgaben.forEach(function (t) {
-              content += '<div class="aufgabe-item"><span class="aufgabe-nr">' + escapeHtml(t.id || "") + '</span> ' + DOMPurify.sanitize(safeMathParseInline(t.text || "")) + ' <span class="aufgabe-be">(' + (t.be || "") + ' BE)</span></div>';
+              content += '<div class="aufgabe-item"><span class="aufgabe-nr">' + escapeHtml(t.id || "") + '</span> ' + DOMPurify.sanitize(safeMathParseInline((t.text||"").replace(/\s*\(\d+\s*BE\)\s*\.?\s*$/i,"").trim())) + ' <span class="aufgabe-be">(' + (t.be || "") + ' BE)</span></div>';
             });
           } else {
             content += '<div class="aufgabe-item">' + DOMPurify.sanitize(safeMathParseInline(a.text || a.aufgabe || "")) + '</div>';
@@ -952,7 +1022,7 @@ Aufgabe 1: ..." oninput="updateWordCounts()"></textarea>
           content += '<div class="aufgaben-liste">';
           if (b.teilaufgaben && b.teilaufgaben.length) {
             b.teilaufgaben.forEach(function (t) {
-              content += '<div class="aufgabe-item"><span class="aufgabe-nr">' + escapeHtml(t.id || "") + '</span> ' + DOMPurify.sanitize(safeMathParseInline(t.text || "")) + ' <span class="aufgabe-be">(' + (t.be || "") + ' BE)</span></div>';
+              content += '<div class="aufgabe-item"><span class="aufgabe-nr">' + escapeHtml(t.id || "") + '</span> ' + DOMPurify.sanitize(safeMathParseInline((t.text||"").replace(/\s*\(\d+\s*BE\)\s*\.?\s*$/i,"").trim())) + ' <span class="aufgabe-be">(' + (t.be || "") + ' BE)</span></div>';
             });
           } else {
             content += '<div class="aufgabe-item">' + DOMPurify.sanitize(safeMathParseInline(b.text || b.aufgabe || "")) + '</div>';
@@ -1031,6 +1101,7 @@ Aufgabe 1: ..." oninput="updateWordCounts()"></textarea>
     }
 
     async function submitForGrading() {
+      if (window.checkOcrPending && window.checkOcrPending()) return;
       var tA = document.getElementById("studentTextA").value;
       var tB = document.getElementById("studentTextB").value;
       var totalWords = countWords(tA) + countWords(tB);
@@ -1129,7 +1200,7 @@ Aufgabe 1: ..." oninput="updateWordCounts()"></textarea>
         mathLiveLoading = true;
         var s = document.createElement("script");
         s.type = "module";
-        s.src = "https://unpkg.com/mathlive?module";
+        s.src = "/vendor/mathlive.min.mjs";
         s.onload = function () { mathLiveLoaded = true; mathLiveLoading = false; resolve(); };
         s.onerror = function () { mathLiveLoading = false; reject(new Error("MathLive konnte nicht geladen werden.")); };
         document.head.appendChild(s);

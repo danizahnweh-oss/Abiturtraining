@@ -17,14 +17,93 @@
    };
    ============================ */
 
-const API_BASE = "https://sag-abi-mediation-api.sanktannagymnasium.workers.dev";
+const API_BASE = "";
 const CONFIG = { storedData: null };
+
+/* ================= TEACHER MODE & SHARED TASK ================= */
+const _urlParams = new URLSearchParams(window.location.search);
+const isTeacherMode = _urlParams.get("mode") === "teacher";
+// Teacher-Token kommt NICHT mehr aus der URL (URL leakt in History/Logs/Referrer),
+// sondern wird vom Parent-Frame per postMessage gesetzt — siehe _teacherTokenReady unten.
+let _teacherToken = "";
+let _teacherTokenResolve = null;
+const _teacherTokenReady = new Promise(function(resolve) { _teacherTokenResolve = resolve; });
+if (isTeacherMode) {
+  window.addEventListener("message", function(e) {
+    // Nur Nachrichten von der eigenen Origin akzeptieren (kein Cross-Origin-Token-Leak).
+    if (e.origin !== window.location.origin) return;
+    if (e.data && e.data.type === "teacher-token" && typeof e.data.token === "string") {
+      _teacherToken = e.data.token;
+      if (_teacherTokenResolve) { _teacherTokenResolve(_teacherToken); _teacherTokenResolve = null; }
+    }
+  });
+  // Parent-Frame signalisieren, dass wir bereit sind, das Token entgegenzunehmen.
+  try { window.parent && window.parent !== window && window.parent.postMessage({ type: "teacher-token-request" }, window.location.origin); } catch (e) {}
+}
+const sharedTaskId = _urlParams.get("task_id") || null;
+
+// Teacher-Mode: Banner zum Uebernehmen der Aufgabe
+function _showTeacherAdoptBanner() {
+  if (document.getElementById("teacherAdoptBanner")) return;
+  var banner = document.createElement("div");
+  banner.id = "teacherAdoptBanner";
+  banner.style.cssText = "position:sticky;top:0;z-index:9999;background:linear-gradient(135deg,#4f46e5,#7c3aed);color:#fff;padding:.8rem 1.2rem;display:flex;align-items:center;justify-content:space-between;gap:.8rem;flex-wrap:wrap;font-size:.9rem;box-shadow:0 2px 8px rgba(0,0,0,.2);";
+  banner.innerHTML = '<span style="font-weight:600;">Aufgabe generiert — so sehen es deine Schueler.</span>'
+    + '<button onclick="_teacherAdoptTask()" style="background:#fff;color:#4f46e5;border:none;padding:.5rem 1.2rem;border-radius:8px;font-weight:700;font-size:.85rem;cursor:pointer;min-height:44px;white-space:nowrap;">Aufgabe uebernehmen</button>';
+  document.body.prepend(banner);
+}
+
+function _teacherAdoptTask() {
+  // Same-Origin statt "*", damit Aufgabendaten nicht versehentlich an Drittseiten gehen.
+  window.parent.postMessage({ type: "task-generated", data: CONFIG.storedData }, window.location.origin);
+  var banner = document.getElementById("teacherAdoptBanner");
+  if (banner) { banner.innerHTML = '<span style="font-weight:600;">Aufgabe uebernommen — du kannst den iFrame jetzt schliessen.</span>'; }
+}
+
+// Wartet im Teacher-Mode bis zu 5s auf das per postMessage gesetzte Lehrer-Token,
+// damit der erste API-Call nach iframe-Load nicht ohne Header abgeht.
+async function _ensureTeacherToken() {
+  if (!isTeacherMode || _teacherToken) return;
+  await Promise.race([
+    _teacherTokenReady,
+    new Promise(function(resolve) { setTimeout(resolve, 5000); })
+  ]);
+}
+
+/* ================= FOCUS-TRAP ================= */
+
+/**
+ * Beschränkt Tab/Shift+Tab auf Elemente innerhalb eines Containers.
+ * Gibt eine Cleanup-Funktion zurück (zum Entfernen des Listeners).
+ */
+function trapFocus(container) {
+  const focusable = 'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
+  function getFocusable() {
+    return Array.from(container.querySelectorAll(focusable)).filter(el => !el.closest('[hidden]'));
+  }
+  function handler(e) {
+    if (e.key !== "Tab") return;
+    const els = getFocusable();
+    if (!els.length) { e.preventDefault(); return; }
+    const first = els[0];
+    const last = els[els.length - 1];
+    if (e.shiftKey) {
+      if (document.activeElement === first) { e.preventDefault(); last.focus(); }
+    } else {
+      if (document.activeElement === last) { e.preventDefault(); first.focus(); }
+    }
+  }
+  container.addEventListener("keydown", handler);
+  return () => container.removeEventListener("keydown", handler);
+}
 
 /* ================= UTILITIES ================= */
 
 function showToast(msg, type) {
   const t = document.createElement("div");
   t.className = "toast" + (type === "success" ? " success" : "");
+  t.setAttribute("role", "status");
+  t.setAttribute("aria-live", "polite");
   t.textContent = msg;
   document.body.appendChild(t);
   setTimeout(() => { t.style.opacity = "0"; setTimeout(() => t.remove(), 300); }, 3500);
@@ -40,12 +119,103 @@ function escapeHtml(str) {
   }[m]));
 }
 
+/**
+ * Bricht eine Zeile sanft an Wortgrenzen um, damit Quellenmaterial zitierfähige
+ * "Druckzeilen" mit ~maxLen Zeichen bekommt. Ohne diesen Umbruch hätte ein
+ * langer Absatz nur eine einzige Zeilennummer und Verweise wie "Z. 7-12"
+ * wären unmöglich.
+ */
+function _wrapLineForLineNumbers(line, maxLen) {
+  if (!line || line.length <= maxLen) return [line];
+  var words = line.split(/(\s+)/); // Whitespace beibehalten
+  var out = [];
+  var cur = "";
+  for (var i = 0; i < words.length; i++) {
+    var w = words[i];
+    if (cur.length + w.length > maxLen && cur.trim().length > 0) {
+      out.push(cur.replace(/\s+$/, ""));
+      cur = w.replace(/^\s+/, "");
+    } else {
+      cur += w;
+    }
+  }
+  if (cur.trim().length > 0) out.push(cur);
+  return out.length ? out : [line];
+}
+
+/**
+ * Rendert einen Text mit Zeilennummerierung – jede 5. Zeile bekommt sichtbar
+ * eine Nummer (CSS), interne Logik nummeriert jede Zeile. Lange Zeilen werden
+ * an Wortgrenzen auf ca. maxLineLength Zeichen umbrochen, damit man sich später
+ * auf konkrete Zeilen beziehen kann ("Z. 7–12").
+ *
+ * Sehr kurze Texte (< 200 Zeichen) bekommen KEINE Zeilennummern, da
+ * Zeilenangaben bei Kurzaufgaben überflüssig sind.
+ *
+ * Optionen:
+ *   maxLineLength: maximale Zeichen pro umgebrochener Zeile (default 80)
+ *   force:         erzwingt Zeilennummern auch bei kurzem Text
+ */
+function formatTextWithLineNumbers(text, options) {
+  var raw = String(text || "");
+  var opts = options || {};
+  var maxLineLength = opts.maxLineLength || 80;
+
+  // Bei sehr kurzen Aufgabenstellungen lohnt sich keine Nummerierung
+  if (!opts.force && raw.replace(/\s+/g, " ").trim().length < 200) {
+    return raw.split("\n").map(function (l) {
+      return "<p>" + (escapeHtml(l) || "&nbsp;") + "</p>";
+    }).join("");
+  }
+
+  var rawLines = raw.split("\n");
+  var rendered = [];
+  rawLines.forEach(function (line) {
+    if (line.trim() === "") {
+      rendered.push("");
+    } else {
+      var wrapped = _wrapLineForLineNumbers(line, maxLineLength);
+      wrapped.forEach(function (l) { rendered.push(l); });
+    }
+  });
+
+  return '<div class="lined-text" role="region" aria-label="Materialtext mit Zeilennummerierung">' +
+    rendered.map(function (line) {
+      var isEmpty = line.trim() === "";
+      var cls = "text-line" + (isEmpty ? " text-line--empty" : "");
+      return '<div class="' + cls + '"><span class="text-line-content">' + (escapeHtml(line) || "") + "</span></div>";
+    }).join("") + "</div>";
+}
+
+/**
+ * Rendert Quellenmaterial sinnvoll: Markdown mit Tabellen/Bildern/Headings via
+ * marked+DOMPurify (falls geladen), reine Fließtexte mit Zeilennummern.
+ * So bekommen Geschichte/PuG/Latein etc. zitierfaehige Zeilen, ohne dass
+ * statistische Tabellen oder Bilder zerstoert werden.
+ */
+function formatSourceText(text, options) {
+  var raw = String(text || "");
+  if (!raw.trim()) return "";
+  // Markdown-Indikatoren: Tabellen (|---|---|), Bilder ![..](..), Codeblock ```,
+  // Headings (# ), nummerierte Listen (1. ), Listen (- / *), Blockzitate (> )
+  var hasMarkdown = (
+    /^\s*\|.*\|.*$/m.test(raw) && /^\s*\|\s*[-:]+\s*\|/m.test(raw)  // echte Tabelle (Header + Trenner)
+  ) || /!\[[^\]]*\]\([^)]+\)/.test(raw) || /^```/m.test(raw);
+  if (hasMarkdown && typeof window !== "undefined" && window.marked && window.DOMPurify) {
+    try {
+      return window.DOMPurify.sanitize(window.marked.parse(raw));
+    } catch (e) { /* Fallback */ }
+  }
+  return formatTextWithLineNumbers(raw, options);
+}
+
 function countWords(text) {
   return (text || "").trim().split(/\s+/).filter(w => w.length > 0).length;
 }
 
 function updateWordCount() {
-  document.getElementById("wordCount").textContent = countWords(document.getElementById("studentText").value);
+  var el = document.getElementById("wordCount");
+  if (el) el.textContent = countWords(document.getElementById("studentText").value);
 }
 
 /* ================= API ================= */
@@ -54,7 +224,29 @@ function getAccessToken() {
   return sessionStorage.getItem("access_token") || "";
 }
 
-async function apiCall(endpoint, body) {
+// API-Headers: Im Teacher-Mode zusaetzlich den Lehrer-Token mitsenden
+function _apiHeaders(contentType) {
+  var h = { "X-Access-Token": getAccessToken() };
+  if (contentType) h["Content-Type"] = contentType;
+  if (isTeacherMode && _teacherToken) h["X-Teacher-Auth-Token"] = _teacherToken;
+  var sn = sessionStorage.getItem("student_name");
+  if (sn) h["X-Student-Name"] = encodeURIComponent(sn);
+  return h;
+}
+
+async function apiCall(endpoint, body, _isRetry) {
+  await _ensureTeacherToken();
+  // Abo-Check vor kostenpflichtigen Endpoints (generate/grade)
+  if (/\/api\/(fos-)?(generate|grade)/.test(endpoint) && !isTeacherMode) {
+    var sub = await checkSubscription();
+    var isGrade = /\/api\/(fos-)?grade/.test(endpoint);
+    // Generierung: nur mit Abo/Trial. Korrektur: auch mit Lehrer-Credits.
+    var hasAccess = sub.status === "active" || sub.status === "trialing" || (isGrade && sub.teacher_credits_available);
+    if (!hasAccess) {
+      window.location.href = "/abo.html";
+      throw new Error("Kein aktives Abo.");
+    }
+  }
   // Auto-Attach: OCR-Bilder bei Grade-Endpoints mitsenden
   if (/\/api\/(fos-)?grade/.test(endpoint) && typeof getOCRImages === "function") {
     const imgs = getOCRImages();
@@ -62,14 +254,231 @@ async function apiCall(endpoint, body) {
   }
   const res = await fetch(API_BASE + endpoint, {
     method: "POST",
-    headers: { "Content-Type": "application/json", "X-Access-Token": getAccessToken() },
+    headers: _apiHeaders("application/json"),
     body: JSON.stringify(body)
   });
+  // 401 = Token abgelaufen/ungueltig → Login-Modal zeigen und API-Call wiederholen
+  // Im Teacher-Mode kein Schüler-Login-Modal anzeigen
+  if (res.status === 401 && !_isRetry && !isTeacherMode && typeof requireLogin === "function") {
+    sessionStorage.removeItem("access");
+    sessionStorage.removeItem("access_token");
+    return new Promise(function(resolve, reject) {
+      requireLogin(function() {
+        apiCall(endpoint, body, true).then(resolve).catch(reject);
+      });
+    });
+  }
   if (!res.ok) {
     const err = await res.json().catch(() => ({}));
     throw new Error(err.error || `HTTP ${res.status}`);
   }
-  return res.json();
+  const json = await res.json();
+
+  // Shared-Task: Nach submit-result automatisch Zuordnung machen
+  if (endpoint === "/api/submit-result" && json.result_id) {
+    const stId = sessionStorage.getItem("_shared_task_id");
+    if (stId) {
+      apiCall("/api/submit-shared-task", {
+        task_id: stId,
+        result_id: json.result_id,
+        student_name: sessionStorage.getItem("student_name") || "Unbekannt"
+      }).catch(function(e) { console.warn("submit-shared-task:", e); });
+      sessionStorage.removeItem("_shared_task_id");
+    }
+  }
+
+  return json;
+}
+
+/* ================= SUBSCRIPTION CHECK ================= */
+
+// Abo-Status im Cache halten (pro Session)
+var _subscriptionCache = null;
+var _subscriptionCacheTime = 0;
+var SUBSCRIPTION_CACHE_TTL = 30 * 1000; // 30 Sekunden
+
+async function checkSubscription() {
+  var studentId = sessionStorage.getItem("student_id") || "";
+  var token = getAccessToken();
+  if (!studentId || !token) return { status: "none", plan: "free" };
+
+  // Cache prüfen (Cache invalidieren wenn sessionStorage 'active' sagt aber Cache noch 'trialing')
+  var ssStatus = sessionStorage.getItem("subscription_status") || "";
+  if (_subscriptionCache && (Date.now() - _subscriptionCacheTime < SUBSCRIPTION_CACHE_TTL)) {
+    if (ssStatus === "active" && _subscriptionCache.status === "trialing") {
+      _subscriptionCache = null; // Cache invalidieren
+    } else {
+      return _subscriptionCache;
+    }
+  }
+
+  // Fallback bei Netzwerkfehler: sessionStorage nutzen, aber nur für Stripe-Abos (nicht Schullizenzen)
+  var ssPlan = sessionStorage.getItem("subscription_plan") || "";
+  var ssFallback = ((ssStatus === "active" || ssStatus === "trialing") && ssPlan !== "school")
+    ? { status: ssStatus, plan: ssPlan || "unknown", teacher_credits_available: sessionStorage.getItem("teacher_credits_available") === "1" }
+    : { status: "none", plan: "free" };
+
+  try {
+    var res = await fetch(API_BASE + "/api/stripe/subscription-status", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "X-Access-Token": token },
+      body: JSON.stringify({ student_id: studentId })
+    });
+    if (!res.ok) return ssFallback;
+    var data = await res.json();
+    // Lehrer-Credits in sessionStorage speichern
+    if (data.teacher_credits_available) {
+      sessionStorage.setItem("teacher_credits_available", "1");
+      if (data.teacher_credits_name) sessionStorage.setItem("teacher_credits_name", data.teacher_credits_name);
+    } else {
+      sessionStorage.removeItem("teacher_credits_available");
+      sessionStorage.removeItem("teacher_credits_name");
+    }
+    // Fach-Lizenzen in sessionStorage speichern
+    if (data.subject_licenses && data.subject_licenses.length) {
+      sessionStorage.setItem("subject_licenses", JSON.stringify(data.subject_licenses.map(function(s) { return s.subject; })));
+    }
+    // SessionStorage mit Backend-Antwort synchronisieren
+    sessionStorage.setItem("subscription_status", data.status || "none");
+    if (data.status !== "active" && data.status !== "trialing") {
+      sessionStorage.removeItem("free_access");
+    }
+    _subscriptionCache = data;
+    _subscriptionCacheTime = Date.now();
+    return data;
+  } catch (e) {
+    return ssFallback;
+  }
+}
+
+// Prüft ob der Nutzer ein aktives Abo hat. Gibt true zurück wenn Zugriff erlaubt.
+// Bei abgelaufenem Trial/keinem Abo wird zur Abo-Seite weitergeleitet.
+async function requireSubscription() {
+  var sub = await checkSubscription();
+  if (sub.status === "active" || sub.status === "trialing") {
+    return true;
+  }
+  // Lehrer-Credits als Alternative prüfen
+  if (sub.teacher_credits_available) {
+    return true;
+  }
+  // Kein Abo und keine Lehrer-Credits → zur Abo-Seite weiterleiten
+  window.location.href = "/abo.html";
+  return false;
+}
+
+// Trial-Banner einblenden (wenn Trial aktiv)
+async function showTrialBannerIfNeeded(containerId) {
+  var sub = await checkSubscription();
+  if (sub.status === "trialing" && sub.trial_days_left > 0) {
+    var container = document.getElementById(containerId);
+    if (!container) return;
+    if (container.querySelector(".trial-hint-banner")) return;
+    var banner = document.createElement("div");
+    banner.className = "trial-hint-banner";
+    banner.setAttribute("role", "status");
+    banner.innerHTML =
+      '<div style="display:flex;align-items:center;gap:.5rem;">' +
+        '<span style="font-size:1.1em;">&#9200;</span>' +
+        '<span>Deine <strong>kostenlose Testphase</strong> l\u00e4uft noch <strong>' + sub.trial_days_left + (sub.trial_days_left === 1 ? ' Tag' : ' Tage') + '</strong></span>' +
+      '</div>' +
+      '<a href="/abo.html" style="background:var(--accent,#4f46e5);color:#fff;padding:.45rem 1rem;border-radius:8px;font-weight:700;font-size:.82rem;text-decoration:none;white-space:nowrap;min-height:36px;display:inline-flex;align-items:center;">Abo w\u00e4hlen</a>';
+    banner.style.cssText = "background:var(--surface,#fff);border:1px solid var(--border,#e2e8f0);border-radius:14px;padding:.75rem 1.2rem;margin:0 1rem 1rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;font-size:.9rem;box-shadow:0 2px 8px rgba(0,0,0,.06);";
+    container.prepend(banner);
+  }
+  // Lehrer-Credits-Banner (wenn kein eigenes Abo, aber Lehrer stellt Credits bereit)
+  if (sub.teacher_credits_available && sub.status !== "active" && sub.status !== "trialing") {
+    var container = document.getElementById(containerId);
+    if (!container) return;
+    if (container.querySelector(".teacher-credits-banner")) return;
+    var tcBanner = document.createElement("div");
+    tcBanner.className = "teacher-credits-banner";
+    tcBanner.setAttribute("role", "status");
+    var tName = sub.teacher_credits_name || "Deine Lehrkraft";
+    tcBanner.innerHTML =
+      '<div style="display:flex;align-items:center;gap:.5rem;">' +
+        '<span style="font-size:1.1em;">&#127891;</span>' +
+        '<span><strong>' + tName + '</strong> stellt dir Korrekturen zur Verf\u00fcgung.</span>' +
+      '</div>';
+    tcBanner.style.cssText = "background:#eff6ff;border:1px solid #bfdbfe;border-radius:14px;padding:.75rem 1.2rem;margin:0 1rem 1rem;display:flex;align-items:center;gap:1rem;font-size:.9rem;box-shadow:0 2px 8px rgba(0,0,0,.06);";
+    container.prepend(tcBanner);
+  }
+}
+
+/* ================= STREAMING API (SSE-basiert) ================= */
+
+// Endpoints die Streaming unterstützen (Mapping: Grade-Endpoint → Stream-Endpoint)
+var STREAM_ENDPOINTS = {
+  "grade-deutsch": "grade-deutsch-stream"
+};
+
+// SSE-basierter API-Aufruf für Echtzeit-Fortschritt bei langen Korrekturen
+async function apiCallStream(streamEndpoint, body) {
+  await _ensureTeacherToken();
+  // OCR-Bilder automatisch mitsenden
+  if (/grade/.test(streamEndpoint) && typeof getOCRImages === "function") {
+    var imgs = getOCRImages();
+    if (imgs.length) body.images = imgs;
+  }
+
+  var response = await fetch(API_BASE + "/api/" + streamEndpoint, {
+    method: "POST",
+    headers: _apiHeaders("application/json"),
+    body: JSON.stringify(body)
+  });
+
+  if (!response.ok) {
+    var err = await response.json().catch(function() { return {}; });
+    throw new Error(err.error || "HTTP " + response.status);
+  }
+
+  var reader = response.body.getReader();
+  var decoder = new TextDecoder();
+  var buffer = "";
+  var result = null;
+  var statusEl = document.getElementById("kiStatusText");
+
+  while (true) {
+    var chunk = await reader.read();
+    if (chunk.done) break;
+
+    buffer += decoder.decode(chunk.value, { stream: true });
+    var lines = buffer.split("\n");
+    buffer = lines.pop();
+
+    var currentEvent = null;
+    for (var i = 0; i < lines.length; i++) {
+      var line = lines[i];
+      if (line.startsWith("event: ")) {
+        currentEvent = line.slice(7);
+      } else if (line.startsWith("data: ") && currentEvent) {
+        try {
+          var data = JSON.parse(line.slice(6));
+          if (currentEvent === "status" && statusEl && data.message) {
+            statusEl.textContent = data.message;
+            statusEl.insertAdjacentHTML("beforeend", '<span class="ki-dots"><span>.</span><span>.</span><span>.</span></span>');
+          } else if (currentEvent === "result") {
+            result = data;
+          } else if (currentEvent === "error") {
+            throw new Error(data.message || "Korrektur fehlgeschlagen.");
+          }
+        } catch (e) {
+          if (e.message && e.message !== "Korrektur fehlgeschlagen." && !e.message.startsWith("HTTP")) {
+            // JSON-Parse-Fehler ignorieren, echte Fehler weiterwerfen
+            if (currentEvent === "error") throw e;
+          } else {
+            throw e;
+          }
+        }
+        currentEvent = null;
+      } else if (line === "") {
+        currentEvent = null;
+      }
+    }
+  }
+
+  if (!result) throw new Error("Keine Ergebnisse empfangen.");
+  return result;
 }
 
 /* ================= ASYNC API (Queue-basiert) ================= */
@@ -116,11 +525,45 @@ var _lastGradeBody = null;
 async function apiCallAsync(gradeEndpoint, body, options) {
   options = options || {};
   var pollInterval = options.pollInterval || 3000;
-  var maxWait = options.maxWait || 180000; // 3 Minuten
+  var maxWait = options.maxWait || 300000; // 5 Minuten
   var onProgress = options.onProgress || null;
+
+  await _ensureTeacherToken();
+
+  // Abo-Check vor Korrektur
+  if (!isTeacherMode) {
+    var sub = await checkSubscription();
+    if (sub.status !== "active" && sub.status !== "trialing" && !sub.teacher_credits_available) {
+      window.location.href = "/abo.html";
+      throw new Error("Kein aktives Abo.");
+    }
+  }
 
   // Grading-Kontext speichern fuer spaeteres Detail-Feedback
   _lastGradeBody = body;
+
+  // Streaming-Variante bevorzugen, wenn verfügbar (kein Timeout, Echtzeit-Fortschritt)
+  var streamEndpoint = STREAM_ENDPOINTS[gradeEndpoint];
+  if (streamEndpoint && typeof ReadableStream !== "undefined") {
+    // Roboter-Animation zeigen
+    var feedbackEl = document.getElementById("feedbackLoader");
+    var origHTML = null;
+    if (feedbackEl) {
+      origHTML = feedbackEl.innerHTML;
+      feedbackEl.innerHTML = KI_ROBOT_HTML;
+    }
+    try {
+      var streamResult = await apiCallStream(streamEndpoint, Object.assign({}, body));
+      // Loader-Inhalt wiederherstellen nach Erfolg
+      if (feedbackEl && origHTML !== null) feedbackEl.innerHTML = origHTML;
+      return streamResult;
+    } catch (streamErr) {
+      console.warn("Streaming fehlgeschlagen, Fallback auf Polling:", streamErr.message);
+      // Loader zurücksetzen für Polling-Fallback
+      if (feedbackEl && origHTML !== null) feedbackEl.innerHTML = origHTML;
+      // Weiter mit normalem Polling unten
+    }
+  }
 
   // OCR-Bilder automatisch mitsenden
   if (/grade/.test(gradeEndpoint) && typeof getOCRImages === "function") {
@@ -145,9 +588,31 @@ async function apiCallAsync(gradeEndpoint, body, options) {
 
     var submitRes = await fetch(API_BASE + "/api/grade-submit", {
       method: "POST",
-      headers: { "Content-Type": "application/json", "X-Access-Token": getAccessToken() },
+      headers: _apiHeaders("application/json"),
       body: JSON.stringify(submitBody)
     });
+
+    // 401 = Token abgelaufen → Login-Modal zeigen und erneut versuchen
+    if (submitRes.status === 401 && typeof requireLogin === "function") {
+      // Loader zuruecksetzen
+      if (feedbackEl && originalLoaderHTML) feedbackEl.innerHTML = originalLoaderHTML;
+      sessionStorage.removeItem("access");
+      sessionStorage.removeItem("access_token");
+      return new Promise(function(resolve, reject) {
+        requireLogin(function() {
+          apiCallAsync(gradeEndpoint, body, options).then(resolve).catch(reject);
+        });
+      });
+    }
+
+    if (submitRes.status === 403) {
+      var errData = await submitRes.json().catch(function() { return {}; });
+      if (errData.requires_subscription) {
+        window.location.href = "/abo.html";
+        throw new Error("Kein aktives Abo.");
+      }
+      throw new Error(errData.error || "Zugriff verweigert.");
+    }
 
     if (!submitRes.ok) {
       var submitErr = await submitRes.json().catch(function() { return {}; });
@@ -160,6 +625,7 @@ async function apiCallAsync(gradeEndpoint, body, options) {
     // 2. Polling
     var startTime = Date.now();
     var statusMsgUpdated = false;
+    var _networkErrors = 0;
     while (Date.now() - startTime < maxWait) {
       await new Promise(function(r) { setTimeout(r, pollInterval); });
 
@@ -180,10 +646,11 @@ async function apiCallAsync(gradeEndpoint, body, options) {
       var statusRes;
       try {
         statusRes = await fetch(API_BASE + "/api/grade-status/" + jobId, {
-          headers: { "X-Access-Token": getAccessToken() }
+          headers: _apiHeaders()
         });
       } catch (fetchErr) {
-        // Netzwerkfehler beim Polling – nächster Versuch
+        _networkErrors++;
+        if (_networkErrors >= 5) throw new Error("Verbindung zum Server verloren. Bitte prüfe deine Internetverbindung und versuche es erneut.");
         continue;
       }
 
@@ -226,8 +693,20 @@ function renderKorrekturFeedback(d) {
   if (korrekturCard) korrekturCard.style.display = "none";
   if (aspekteCard) aspekteCard.style.display = "none";
 
-  // Kurzfeedback + Lazy-Load Detail-Feedback
+  // Alte Inhalte aus vorherigen Submits aktiv loeschen, damit kein veralteter
+  // Korrektur-Text stehenbleibt, falls die KI nichts oder Unvollstaendiges liefert.
+  ["korrekturBody", "korrekturBodyA", "korrekturBodyB", "aspekteBody"].forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) el.innerHTML = "";
+  });
+
+  // Rohe uebungsaufgaben-Sektion aus Feedback entfernen (KI dupliziert sie manchmal als Text)
   var fb = document.getElementById("feedbackBody");
+  if (fb) {
+    fb.innerHTML = fb.innerHTML
+      .replace(/<h\d[^>]*>\s*[Uu]ebungsaufgaben\s*<\/h\d>[\s\S]*$/i, '')
+      .replace(/<p>\s*[Uu]ebungsaufgaben\s*<\/p>[\s\S]*$/i, '');
+  }
   if (fb && d.feedback_kurz && d.feedback_kurz.length) {
     // Scores + Kurzfeedback fuer spaeteres Detail-Feedback merken
     window._detailFeedbackScores = d.scores || null;
@@ -237,16 +716,19 @@ function renderKorrekturFeedback(d) {
       d.feedback_kurz.map(function(p) { return '<li>' + escapeHtml(p) + '</li>'; }).join('') +
       '</ul>';
     var detailHtml = fb.innerHTML;
+    var kiHinweis = '<p class="ki-hinweis">🤖 KI-generiert\u2013 Inhalte können Fehler enthalten.</p>';
     if (detailHtml && detailHtml.trim()) {
       // Detail bereits vorhanden (z.B. Fallback) → direkt aufklappbar anzeigen
       fb.innerHTML = kurzHtml +
         '<details class="feedback-detail-toggle"><summary>Detailliertes Feedback anzeigen</summary>' +
-        '<div class="feedback-detail-body">' + detailHtml + '</div></details>';
+        '<div class="feedback-detail-body">' + detailHtml + '</div></details>' +
+        kiHinweis;
     } else {
       // Detail noch nicht generiert → Lade-Button anzeigen
       fb.innerHTML = kurzHtml +
         '<button class="btn btn-secondary feedback-load-detail" onclick="loadDetailFeedback(this)">Detailliertes Feedback laden</button>' +
-        '<div class="feedback-detail-body" id="feedbackDetailContainer" style="display:none"></div>';
+        '<div class="feedback-detail-body" id="feedbackDetailContainer" style="display:none"></div>' +
+        kiHinweis;
     }
   }
 
@@ -256,6 +738,7 @@ function renderKorrekturFeedback(d) {
   const body = document.getElementById("korrekturBody");
   if (body && d.korrektur_text) {
     body.innerHTML = DOMPurify.sanitize(d.korrektur_text.replace(/\n/g, "<br>"), sanitizeOpts);
+    body.insertAdjacentHTML("beforeend", '<p class="ki-hinweis">🤖 KI-generiert\u2013 Inhalte können Fehler enthalten.</p>');
     if (korrekturCard) korrekturCard.style.display = "";
   }
 
@@ -264,7 +747,12 @@ function renderKorrekturFeedback(d) {
   const bodyB = document.getElementById("korrekturBodyB");
   if (bodyA && (d.korrektur_text_a || d.korrektur_text_b)) {
     if (d.korrektur_text_a) bodyA.innerHTML = DOMPurify.sanitize(d.korrektur_text_a.replace(/\n/g, "<br>"), sanitizeOpts);
-    if (d.korrektur_text_b && bodyB) bodyB.innerHTML = DOMPurify.sanitize(d.korrektur_text_b.replace(/\n/g, "<br>"), sanitizeOpts);
+    if (d.korrektur_text_b && bodyB) {
+      bodyB.innerHTML = DOMPurify.sanitize(d.korrektur_text_b.replace(/\n/g, "<br>"), sanitizeOpts);
+      bodyB.insertAdjacentHTML("beforeend", '<p class="ki-hinweis">🤖 KI-generiert\u2013 Inhalte können Fehler enthalten.</p>');
+    } else if (d.korrektur_text_a && bodyA) {
+      bodyA.insertAdjacentHTML("beforeend", '<p class="ki-hinweis">🤖 KI-generiert\u2013 Inhalte können Fehler enthalten.</p>');
+    }
     if (korrekturCard) korrekturCard.style.display = "";
   }
 
@@ -311,6 +799,7 @@ async function loadDetailFeedback(btn) {
     if (container) {
       var parseFn = (typeof safeMathParse === "function") ? safeMathParse : marked.parse;
       container.innerHTML = DOMPurify.sanitize(parseFn(result.feedback || ""));
+      container.insertAdjacentHTML("beforeend", '<p class="ki-hinweis">🤖 KI-generiert\u2013 Inhalte können Fehler enthalten.</p>');
       container.style.display = "";
       if (typeof renderMath === "function") renderMath(container);
     }
@@ -350,7 +839,7 @@ function renderUebungsaufgaben(d) {
       '<div class="uebung-aufgabe">' + DOMPurify.sanitize(marked.parse(a.aufgabe || '')) + '</div>' +
       hinweis +
     '</div>';
-  }).join('');
+  }).join('') + '<p class="ki-hinweis">🤖 KI-generiert\u2013 Inhalte können Fehler enthalten.</p>';
 
   if (typeof renderMath === "function") renderMath(body);
   card.style.display = "";
@@ -465,18 +954,27 @@ var REWRITE_CATEGORY_COLORS = {
   "Stil": "#db2777", "Grammatik": "#ef4444", "Inhalt": "#2563eb", "Quellenarbeit": "#7c3aed"
 };
 
+var _rewriteOverlayCleanup = null;
+var _rewriteOverlayPreviousFocus = null;
+
 function showRewriteOverlay(result) {
   // Altes Overlay entfernen
   var old = document.getElementById("rewriteOverlay");
-  if (old) old.remove();
+  if (old) { old.remove(); if (_rewriteOverlayCleanup) _rewriteOverlayCleanup(); }
+
+  // Fokus merken, um ihn beim Schließen wiederherzustellen
+  _rewriteOverlayPreviousFocus = document.activeElement;
 
   var overlay = document.createElement("div");
   overlay.id = "rewriteOverlay";
   overlay.className = "rewrite-overlay";
+  overlay.setAttribute("role", "dialog");
+  overlay.setAttribute("aria-modal", "true");
+  overlay.setAttribute("aria-labelledby", "rewriteOverlayTitle");
 
   var html = '<div class="rewrite-panel">' +
     '<div class="rewrite-header">' +
-    '<h3>✨ Verbesserungsvorschläge</h3>' +
+    '<h3 id="rewriteOverlayTitle"><span aria-hidden="true">✨</span> Verbesserungsvorschläge</h3>' +
     '<button class="rewrite-close" onclick="closeRewriteOverlay()" aria-label="Schließen">✕</button>' +
     '</div>' +
     '<div class="rewrite-body">';
@@ -514,7 +1012,19 @@ function showRewriteOverlay(result) {
     if (e.target === overlay) closeRewriteOverlay();
   });
 
+  // Escape-Taste schliesst Overlay
+  overlay.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") closeRewriteOverlay();
+  });
+
   document.body.appendChild(overlay);
+
+  // Focus-Trap aktivieren
+  _rewriteOverlayCleanup = trapFocus(overlay);
+
+  // Focus auf Close-Button setzen
+  var closeBtn = overlay.querySelector(".rewrite-close");
+  if (closeBtn) closeBtn.focus();
 
   // Button aktualisieren
   var btnCard = document.getElementById("rewriteBtnCard");
@@ -531,8 +1041,14 @@ function showRewriteOverlay(result) {
 function closeRewriteOverlay() {
   var overlay = document.getElementById("rewriteOverlay");
   if (overlay) {
+    if (_rewriteOverlayCleanup) { _rewriteOverlayCleanup(); _rewriteOverlayCleanup = null; }
     overlay.style.animation = "fadeOut .2s ease-out forwards";
     setTimeout(function () { overlay.remove(); }, 200);
+    // Fokus zurücksetzen
+    if (_rewriteOverlayPreviousFocus && _rewriteOverlayPreviousFocus.focus) {
+      _rewriteOverlayPreviousFocus.focus();
+    }
+    _rewriteOverlayPreviousFocus = null;
   }
 }
 
@@ -544,6 +1060,11 @@ function nav(step, _pushHistory) {
   const prefix = MODULE_CONFIG.sectionPrefix || "";
   const steps = MODULE_CONFIG.steps;
   const idx = steps.indexOf(step);
+
+  // Teacher-Mode: Aufgabe normal anzeigen, aber "Uebernehmen"-Banner einblenden
+  if (isTeacherMode && step === "task" && CONFIG.storedData) {
+    _showTeacherAdoptBanner();
+  }
 
   // Guard: steps 1-3 need a generated task
   if (idx >= 1 && idx <= 3 && !CONFIG.storedData) {
@@ -579,20 +1100,34 @@ function nav(step, _pushHistory) {
   }
 }
 
+// Bestätigung vor dem Verwerfen einer aktuell geladenen Aufgabe (Schutz gegen versehentliches Klicken)
+function confirmNewTask() {
+  if (CONFIG && CONFIG.storedData) {
+    if (!confirm("Wirklich eine neue Aufgabe starten? Die aktuelle Aufgabe geht dabei verloren.")) return;
+  }
+  nav("setup");
+}
+
 /* ================= THEME ================= */
 
 function toggleDarkMode() {
   const isDark = document.documentElement.getAttribute("data-theme") === "dark";
-  document.documentElement.setAttribute("data-theme", isDark ? "light" : "dark");
+  const next = isDark ? "light" : "dark";
+  document.documentElement.setAttribute("data-theme", next);
+  try { localStorage.setItem("theme", next); } catch(e) {}
   const btn = document.getElementById("themeToggleBtn");
   if (btn) btn.textContent = isDark ? "🌙" : "☀️";
   if (progressChartInstance) renderProgressChart();
 }
 
 function initTheme() {
-  document.documentElement.setAttribute("data-theme", "light");
+  let saved;
+  try { saved = localStorage.getItem("theme"); } catch(e) {}
+  const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+  const theme = saved || (prefersDark ? "dark" : "light");
+  document.documentElement.setAttribute("data-theme", theme);
   const btn = document.getElementById("themeToggleBtn");
-  if (btn) btn.textContent = "🌙";
+  if (btn) btn.textContent = theme === "dark" ? "☀️" : "🌙";
 }
 
 /* ================= TIMER ================= */
@@ -600,6 +1135,7 @@ function initTheme() {
 let timerInterval = null, timerSeconds = 0, timerPaused = false;
 
 function startTimer() {
+  if (window._sharedTimerId) clearInterval(window._sharedTimerId);
   timerSeconds = (parseInt(document.getElementById("timerMinutes").value) || 180) * 60;
   document.getElementById("timerBar").classList.add("active");
   document.getElementById("timerStartBtn").style.display = "none";
@@ -608,9 +1144,14 @@ function startTimer() {
     if (!timerPaused) {
       timerSeconds--;
       updateTimerDisplay();
-      if (timerSeconds <= 0) { clearInterval(timerInterval); showToast("Zeit abgelaufen!"); }
+      if (timerSeconds <= 0) {
+        clearInterval(timerInterval);
+        window._sharedTimerId = null;
+        showToast("Zeit abgelaufen!");
+      }
     }
   }, 1000);
+  window._sharedTimerId = timerInterval;
 }
 
 function pauseTimer() {
@@ -620,7 +1161,9 @@ function pauseTimer() {
 
 function stopTimer() {
   if (timerInterval) clearInterval(timerInterval);
+  if (window._sharedTimerId) clearInterval(window._sharedTimerId);
   timerInterval = null;
+  window._sharedTimerId = null;
   timerSeconds = 0;
   document.getElementById("timerBar").classList.remove("active");
   document.getElementById("timerStartBtn").style.display = "inline-flex";
@@ -658,8 +1201,33 @@ function restoreSession() {
         renderTask(s.storedData);
       }
       updateWordCount();
+      // Dezenter Hinweis: gespeicherte Aufgabe wurde wiederhergestellt
+      if ((s.studentText && s.studentText.length > 50) || s.storedData) {
+        try { showToast("Gespeicherte Aufgabe wiederhergestellt — du kannst direkt weiterarbeiten."); } catch (e) {}
+      }
     }
   } catch (e) { console.warn("restoreSession failed:", e); }
+}
+
+/* ================= SHARED TASK LOADING ================= */
+async function loadSharedTask() {
+  const taskId = sharedTaskId || sessionStorage.getItem("_shared_task_id");
+  if (!taskId) return false;
+  try {
+    const data = await apiCall("/api/get-shared-task", { task_id: taskId });
+    if (data && data.task_data) {
+      CONFIG.storedData = data.task_data;
+      // _shared_task_id merken fuer spaetere Zuordnung nach Grading
+      sessionStorage.setItem("_shared_task_id", data.task_id);
+      if (typeof renderTask === "function") renderTask(data.task_data);
+      nav("task");
+      return true;
+    }
+  } catch (e) {
+    console.warn("loadSharedTask failed:", e);
+    showToast("Aufgabe konnte nicht geladen werden: " + e.message);
+  }
+  return false;
 }
 
 /* ================= PROGRESS ================= */
@@ -818,6 +1386,13 @@ function renderProgressChart() {
   if (!ctx) return;
   if (progressChartInstance) progressChartInstance.destroy();
 
+  // Screenreader-Beschreibung: zugängliche Zusammenfassung der Daten
+  const avg = history.length ? Math.round(history.reduce((s, h) => s + (h.total || 0), 0) / history.length) : 0;
+  ctx.setAttribute("role", "img");
+  ctx.setAttribute("aria-label", `Fortschrittsdiagramm: ${history.length} Einträge, Ø ${avg} Punkte`);
+  // Fallback-Text innerhalb des Canvas (für Browser ohne Canvas-Support)
+  ctx.textContent = `Fortschritt: ${history.length} Einträge, Durchschnitt ${avg} Punkte.`;
+
   const color = MODULE_CONFIG.chartColor || "#059669";
   const colorAlpha = color + "1a"; // ~10% opacity
 
@@ -925,52 +1500,61 @@ function isExamPage() {
   return !document.getElementById(prefix + "task") && !!document.getElementById(prefix + "reading");
 }
 
+var _pdfModalCleanup = null;
+var _pdfModalPreviousFocus = null;
+
+function _openPdfModal(innerHtml) {
+  if (document.getElementById("pdfModal")) return;
+  _pdfModalPreviousFocus = document.activeElement;
+  var overlay = document.createElement("div");
+  overlay.className = "pdf-modal-overlay";
+  overlay.id = "pdfModal";
+  overlay.setAttribute("role", "dialog");
+  overlay.setAttribute("aria-modal", "true");
+  overlay.setAttribute("aria-labelledby", "pdfModalTitle");
+  overlay.onclick = function (e) { if (e.target === overlay) closePdfModal(); };
+  overlay.addEventListener("keydown", function (e) { if (e.key === "Escape") closePdfModal(); });
+  overlay.innerHTML = '<div class="pdf-modal">' +
+    '<h3 id="pdfModalTitle">Als PDF speichern</h3>' +
+    '<div class="pdf-modal-buttons">' + innerHtml + '</div>' +
+    '</div>';
+  document.body.appendChild(overlay);
+  _pdfModalCleanup = trapFocus(overlay);
+  overlay.querySelector(".btn").focus();
+}
+
 function showPdfExportModal() {
   if (isExamPage()) {
-    // Englisch-Abitur: Reading + Writing Sections
-    if (document.getElementById("pdfModal")) return;
-    var overlay = document.createElement("div");
-    overlay.className = "pdf-modal-overlay";
-    overlay.id = "pdfModal";
-    overlay.onclick = function (e) { if (e.target === overlay) closePdfModal(); };
-    overlay.innerHTML =
-      '<div class="pdf-modal">' +
-      '<h3>Als PDF speichern</h3>' +
-      '<div class="pdf-modal-buttons">' +
+    _openPdfModal(
       '<button class="btn" onclick="exportTaskPDF(\'reading\')">Nur Reading</button>' +
       '<button class="btn" onclick="exportTaskPDF(\'writing-only\')">Nur Writing</button>' +
       '<button class="btn" onclick="exportTaskPDF(\'exam\')">Komplette Pr\u00fcfung</button>' +
-      '<button class="btn btn-cancel" onclick="closePdfModal()">Abbrechen</button>' +
-      '</div>' +
-      '</div>';
-    document.body.appendChild(overlay);
+      '<button class="btn btn-cancel" onclick="closePdfModal()">Abbrechen</button>'
+    );
     return;
   }
   if (!hasMaterial()) {
     exportTaskPDF("task");
     return;
   }
-  if (document.getElementById("pdfModal")) return;
-  var overlay = document.createElement("div");
-  overlay.className = "pdf-modal-overlay";
-  overlay.id = "pdfModal";
-  overlay.onclick = function (e) { if (e.target === overlay) closePdfModal(); };
-  overlay.innerHTML =
-    '<div class="pdf-modal">' +
-    '<h3>Als PDF speichern</h3>' +
-    '<div class="pdf-modal-buttons">' +
+  _openPdfModal(
     '<button class="btn" onclick="exportTaskPDF(\'task\')">Nur Aufgaben</button>' +
     '<button class="btn" onclick="exportTaskPDF(\'material\')">Nur Material</button>' +
     '<button class="btn" onclick="exportTaskPDF(\'both\')">Aufgaben + Material</button>' +
-    '<button class="btn btn-cancel" onclick="closePdfModal()">Abbrechen</button>' +
-    '</div>' +
-    '</div>';
-  document.body.appendChild(overlay);
+    '<button class="btn btn-cancel" onclick="closePdfModal()">Abbrechen</button>'
+  );
 }
 
 function closePdfModal() {
   var m = document.getElementById("pdfModal");
-  if (m) m.remove();
+  if (m) {
+    if (_pdfModalCleanup) { _pdfModalCleanup(); _pdfModalCleanup = null; }
+    m.remove();
+    if (_pdfModalPreviousFocus && _pdfModalPreviousFocus.focus) {
+      _pdfModalPreviousFocus.focus();
+    }
+    _pdfModalPreviousFocus = null;
+  }
 }
 
 function exportTaskPDF(mode) {
@@ -1193,7 +1777,21 @@ function compressImage(file, maxDim) {
 
 /** Komprimierte Base64-Bilder aller erfolgreich erkannten OCR-Seiten */
 function getOCRImages() {
-  return ocrPages.filter(function (p) { return p.base64 && p.status === "done"; }).map(function (p) { return p.base64; });
+  var done = ocrPages.filter(function (p) { return p.base64 && p.status === "done"; });
+  // Wenn der Editor-Text vom erkannten OCR-Text abweicht, hat der Schüler editiert
+  // → Bilder weglassen, sonst überschreibt die KI die Edits mit dem Foto-Inhalt.
+  var student = document.getElementById("studentText");
+  var ocrTextEl = document.getElementById("ocrText");
+  if (student && ocrTextEl && done.length) {
+    var studentVal = (student.value || "").trim();
+    var ocrCombined = (ocrTextEl.value || "").replace(/---\s*Seite\s*\d+\s*---\n?/g, "").trim();
+    if (studentVal && ocrCombined && studentVal !== ocrCombined) {
+      return [];
+    }
+  }
+  // Bei vielen Seiten (>6) sind die Bilder bereits mit 2000px gespeichert.
+  // Wir geben sie trotzdem zurück – das Backend wechselt auf detail:"auto".
+  return done.map(function (p) { return p.base64; });
 }
 
 async function handleOCRFiles(fileList) {
@@ -1203,26 +1801,39 @@ async function handleOCRFiles(fileList) {
     return true;
   });
   for (const f of files) {
-    ocrPages.push({ file: f, url: URL.createObjectURL(f), base64: null, text: "", status: "pending" });
+    ocrPages.push({ id: Date.now() + Math.random(), file: f, url: URL.createObjectURL(f), base64: null, text: "", status: "pending" });
   }
   renderOCRPages();
 
   const startIdx = ocrPages.length - files.length;
+  const ocrEndpoint = (typeof MODULE_CONFIG !== "undefined" && MODULE_CONFIG.ocrEndpoint) || "/api/ocr";
   document.getElementById("ocrLoader").style.display = "block";
 
+  // Bei vielen Seiten (>6) Bilder stärker komprimieren, damit KI nicht überfordert wird
+  const maxDim = ocrPages.length > 6 ? 1400 : 2000;
+
   for (let i = startIdx; i < ocrPages.length; i++) {
-    const p = ocrPages[i];
+    const pageId = ocrPages[i] && ocrPages[i].id;
+    if (!pageId) continue;
+    let p = ocrPages.find(page => page.id === pageId);
+    if (!p) continue;
     p.status = "processing";
     renderOCRPages();
-    document.getElementById("ocrProgress").textContent = `Seite ${i + 1} von ${ocrPages.length}`;
+    document.getElementById("ocrProgress").textContent = `Seite ${i + 1} von ${ocrPages.length} wird erkannt …`;
 
     try {
-      const b64 = await compressImage(p.file, 2000);
+      const b64 = await compressImage(p.file, maxDim);
+      p = ocrPages.find(page => page.id === pageId);
+      if (!p) continue;
       p.base64 = b64;
-      const d = await apiCall("/api/ocr", { image_base64: b64 });
+      const d = await apiCall(ocrEndpoint, { image_base64: b64 });
+      p = ocrPages.find(page => page.id === pageId);
+      if (!p) continue;
       p.text = d.text || "";
       p.status = "done";
     } catch (e) {
+      p = ocrPages.find(page => page.id === pageId);
+      if (!p) continue;
       p.text = `[Fehler bei Seite ${i + 1}: ${e.message}]`;
       p.status = "error";
     }
@@ -1231,8 +1842,12 @@ async function handleOCRFiles(fileList) {
 
   document.getElementById("ocrLoader").style.display = "none";
   document.getElementById("ocrProgress").textContent = "";
-  combineOCRTexts();
-  document.getElementById("ocrResult").style.display = "block";
+  if (ocrPages.length) {
+    combineOCRTexts();
+    document.getElementById("ocrResult").style.display = "block";
+  } else {
+    document.getElementById("ocrResult").style.display = "none";
+  }
   document.getElementById("ocrFileInput").value = "";
 }
 
@@ -1254,10 +1869,10 @@ function loadPdfJs() {
     if (_pdfjsLoading) return;
     _pdfjsLoading = true;
     const s = document.createElement("script");
-    s.src = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js";
+    s.src = "https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js";
     s.onload = function () {
       _pdfjsLoaded = true; _pdfjsLoading = false;
-      if (window.pdfjsLib) window.pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+      if (window.pdfjsLib) window.pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.worker.min.js";
       _pdfjsCbs.forEach(function (c) { c(); }); _pdfjsCbs = [];
     };
     s.onerror = function () { _pdfjsLoading = false; _pdfjsCbs.forEach(function (c) { c(); }); _pdfjsCbs = []; };
@@ -1303,7 +1918,7 @@ function renderOCRPages() {
   if (!ocrPages.length) { c.innerHTML = ""; return; }
   c.innerHTML = ocrPages.map((p, i) => `
     <div class="ocr-page-thumb ${p.status}">
-      <img src="${p.url}" alt="Seite ${i + 1}">
+      <img src="${p.url}" alt="Seite ${i + 1}" loading="lazy" decoding="async">
       <div class="page-num">Seite ${i + 1}</div>
       <button class="remove-page" onclick="removeOCRPage(${i})" title="Entfernen">✕</button>
     </div>
@@ -1311,6 +1926,7 @@ function renderOCRPages() {
 }
 
 function removeOCRPage(i) {
+  if (!ocrPages[i]) return;
   URL.revokeObjectURL(ocrPages[i].url);
   ocrPages.splice(i, 1);
   renderOCRPages();
@@ -1341,8 +1957,31 @@ function useOCRText() {
   document.getElementById("studentText").scrollIntoView({ behavior: "smooth" });
 }
 
+// Warnt, wenn Submit gedrückt wird, aber erkannter OCR-Text nicht übernommen wurde.
+// Rückgabewert: true → aufrufende Funktion soll abbrechen; false → weiter.
+window.checkOcrPending = function (opts) {
+  opts = opts || {};
+  var studentId = opts.studentId || "studentText";
+  var ocrId = opts.ocrId || "ocrText";
+  var student = document.getElementById(studentId);
+  var ocr = document.getElementById(ocrId);
+  if (!student || !ocr) return false;
+  var sVal = (student.value || "").trim();
+  var oVal = (ocr.value || "").trim();
+  if (!sVal && oVal) {
+    var msg = "Erkannter Text wurde nicht übernommen. Klicke zuerst '✓ Text übernehmen' im Upload-Bereich.";
+    if (typeof showToast === "function") { showToast(msg, "warn"); } else { alert(msg); }
+    try {
+      var ocrBlock = document.getElementById("ocrResult") || ocr;
+      if (ocrBlock && ocrBlock.scrollIntoView) ocrBlock.scrollIntoView({ behavior: "smooth", block: "center" });
+    } catch (e) { /* ignorieren */ }
+    return true;
+  }
+  return false;
+};
+
 function clearOCR() {
-  ocrPages.forEach(p => URL.revokeObjectURL(p.url));
+  ocrPages.slice().forEach(p => URL.revokeObjectURL(p.url));
   ocrPages.length = 0;
   renderOCRPages();
   document.getElementById("ocrText").value = "";
@@ -1350,18 +1989,106 @@ function clearOCR() {
   document.getElementById("ocrFileInput").value = "";
 }
 
-/* ================= DASHBOARD-LINK IM FOOTER ================= */
+/* ================= VERWANDTE FÄCHER (SEO Interlinking) ================= */
 
 ;(function() {
+  var path = window.location.pathname;
+  // Nur auf Fachseiten (Training + Abitur) anzeigen, nicht auf index/profil/abo etc.
+  var allSubjects = [
+    { file: "mathe-abitur.html", name: "Mathe Abitur", cat: "nawi" },
+    { file: "mathe.html", name: "Mathe Training", cat: "nawi" },
+    { file: "biologie-abitur.html", name: "Biologie Abitur", cat: "nawi" },
+    { file: "biologie.html", name: "Biologie Training", cat: "nawi" },
+    { file: "chemie-abitur.html", name: "Chemie Abitur", cat: "nawi" },
+    { file: "chemie.html", name: "Chemie Training", cat: "nawi" },
+    { file: "physik-abitur.html", name: "Physik Abitur", cat: "nawi" },
+    { file: "physik.html", name: "Physik Training", cat: "nawi" },
+    { file: "informatik-abitur.html", name: "Informatik Abitur", cat: "nawi" },
+    { file: "informatik.html", name: "Informatik Training", cat: "nawi" },
+    { file: "analyse.html", name: "Deutsch Analyse", cat: "sprachen" },
+    { file: "interpretation.html", name: "Deutsch Interpretation", cat: "sprachen" },
+    { file: "eroerterung.html", name: "Deutsch Er\u00f6rterung", cat: "sprachen" },
+    { file: "mediation.html", name: "Englisch Mediation", cat: "sprachen" },
+    { file: "writing.html", name: "Englisch Writing", cat: "sprachen" },
+    { file: "listening.html", name: "Englisch Listening", cat: "sprachen" },
+    { file: "latein.html", name: "Latein Training", cat: "sprachen" },
+    { file: "latein-abitur.html", name: "Latein Abitur", cat: "sprachen" },
+    { file: "geschichte-abitur.html", name: "Geschichte Abitur", cat: "gewi" },
+    { file: "geschichte.html", name: "Geschichte Training", cat: "gewi" },
+    { file: "geographie-abitur.html", name: "Geographie Abitur", cat: "gewi" },
+    { file: "geographie.html", name: "Geographie Training", cat: "gewi" },
+    { file: "pug-abitur.html", name: "PuG Abitur", cat: "gewi" },
+    { file: "politik.html", name: "PuG Training", cat: "gewi" },
+    { file: "wr-abitur.html", name: "WR Abitur", cat: "gewi" },
+    { file: "wr.html", name: "WR Training", cat: "gewi" },
+    { file: "ethik-abitur.html", name: "Ethik Abitur", cat: "gewi" },
+    { file: "ethik.html", name: "Ethik Training", cat: "gewi" },
+    { file: "religion-abitur.html", name: "Ev. Religion Abitur", cat: "gewi" },
+    { file: "religion.html", name: "Ev. Religion Training", cat: "gewi" },
+    { file: "katholisch-abitur.html", name: "Kath. Religion Abitur", cat: "gewi" },
+    { file: "katholisch.html", name: "Kath. Religion Training", cat: "gewi" },
+    { file: "sport-abitur.html", name: "Sport Abitur", cat: "nawi" },
+    { file: "sport.html", name: "Sport Training", cat: "nawi" }
+  ];
+
+  var currentFile = path.split("/").pop();
+  var current = allSubjects.find(function(s) { return s.file === currentFile; });
+  if (!current) return;
+
+  // Verwandte Fächer: gleiche Kategorie, aber anderes Fach (max 6)
+  var related = allSubjects.filter(function(s) {
+    return s.cat === current.cat && s.file !== currentFile;
+  });
+  // Mische und limitiere auf 6
+  for (var i = related.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var t = related[i]; related[i] = related[j]; related[j] = t;
+  }
+  related = related.slice(0, 6);
+
   var footer = document.querySelector("footer");
-  if (!footer || /dashboard/i.test(footer.innerHTML)) return;
-  var br = document.createElement("br");
-  var a = document.createElement("a");
-  a.href = "dashboard.html";
-  a.textContent = "Lehrer-Dashboard \u2192";
-  a.style.cssText = "font-size:0.75rem; opacity:0.6; margin-top:0.5rem; display:inline-block;";
-  footer.appendChild(br);
-  footer.appendChild(a);
+  if (!footer) return;
+
+  var section = document.createElement("nav");
+  section.setAttribute("aria-label", "Verwandte F\u00e4cher");
+  section.style.cssText = "max-width:900px;margin:2rem auto 0;padding:0 1rem;";
+  section.innerHTML = '<h3 style="font-family:var(--font-display);font-size:1.05rem;margin-bottom:.8rem;color:var(--ink);">Weitere F\u00e4cher entdecken</h3>' +
+    '<div style="display:flex;flex-wrap:wrap;gap:.5rem;">' +
+    related.map(function(s) {
+      return '<a href="/' + s.file + '" style="display:inline-block;padding:.45rem .9rem;border-radius:8px;background:var(--surface);border:1px solid var(--border);color:var(--ink);text-decoration:none;font-size:.88rem;transition:border-color .2s,background .2s;">' + s.name + '</a>';
+    }).join("") +
+    '</div>' +
+    '<a href="/" style="display:inline-block;margin-top:.8rem;font-size:.85rem;color:var(--accent);text-decoration:none;">\u2190 Alle F\u00e4cher anzeigen</a>';
+
+  footer.parentNode.insertBefore(section, footer);
+})();
+
+/* ================= LEGAL-LINKS + DASHBOARD-LINK IM FOOTER ================= */
+
+;(function() {
+  var footers = document.querySelectorAll("footer");
+  footers.forEach(function(footer) {
+    // Legal-Links: Impressum, AGB, Barrierefreiheit
+    if (!/impressum/i.test(footer.innerHTML)) {
+      var legalDiv = document.createElement("div");
+      legalDiv.style.cssText = "margin-top:0.5rem; font-size:0.75rem; color:var(--ink-light);";
+      legalDiv.innerHTML =
+        '<a href="/impressum.html" style="color:var(--ink-light);text-decoration:underline;">Impressum</a>' +
+        ' &middot; <a href="/agb.html" style="color:var(--ink-light);text-decoration:underline;">AGB</a>' +
+        ' &middot; <a href="/barrierefreiheit.html" style="color:var(--ink-light);text-decoration:underline;">Barrierefreiheit</a>';
+      footer.appendChild(legalDiv);
+    }
+    // Dashboard-Link (nur wenn noch nicht vorhanden)
+    if (!/dashboard/i.test(footer.innerHTML)) {
+      var br = document.createElement("br");
+      var a = document.createElement("a");
+      a.href = "/lehrer.html";
+      a.textContent = "Lehrer-Dashboard \u2192";
+      a.style.cssText = "font-size:0.75rem; color:var(--ink-light); text-decoration:underline; margin-top:0.25rem; display:inline-block;";
+      footer.appendChild(br);
+      footer.appendChild(a);
+    }
+  });
 })();
 
 /* ================= INIT ================= */
@@ -1530,8 +2257,44 @@ function updateTeacherCodeBtn(code) {
 }
 
 // Main init — only for module pages (deutsch.html, etc.), not index.html
-if (typeof MODULE_CONFIG !== 'undefined') window.onload = function () {
+if (typeof MODULE_CONFIG !== 'undefined') window.addEventListener("load", function () {
   initTheme();
+
+  // Teacher-Mode: Login umgehen, Setup + Aufgabe anzeigen
+  if (isTeacherMode) {
+    const ls = document.getElementById("login-screen");
+    const aw = document.getElementById("app-wrapper");
+    if (ls) ls.style.display = "none";
+    if (aw) aw.style.display = "flex";
+    // Schreiben/Feedback/Fortschritt ausblenden, Setup+Task sichtbar lassen
+    const hideSteps = ["write", "feedback", "progress"];
+    document.querySelectorAll("nav button").forEach(function(btn, i) {
+      const step = MODULE_CONFIG.steps[i];
+      if (hideSteps.includes(step)) btn.style.display = "none";
+    });
+    // Lehrer-Name per API holen, Fallback "Lehrer-Vorschau"
+    sessionStorage.setItem("access", "1");
+    sessionStorage.setItem("student_name", "Lehrer-Vorschau");
+    // Token kommt asynchron per postMessage vom Parent. Warten, dann Profil holen.
+    _ensureTeacherToken().then(function() {
+      if (!_teacherToken) return;
+      fetch("https://myabiflow.de/api/teacher-profile", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "X-Teacher-Auth-Token": _teacherToken },
+        body: JSON.stringify({ action: "get" })
+      }).then(function(r) { return r.json(); }).then(function(d) {
+        if (d.name) sessionStorage.setItem("student_name", "Lehrer: " + d.name);
+      }).catch(function() {});
+    });
+    nav(MODULE_CONFIG.steps[0]);
+    initHL();
+    return;
+  }
+
+  // Shared Task laden
+  if (sharedTaskId) {
+    sessionStorage.setItem("_shared_task_id", sharedTaskId);
+  }
 
   var isLoggedIn = sessionStorage.getItem("access") === "1" && sessionStorage.getItem("student_name");
 
@@ -1556,11 +2319,18 @@ if (typeof MODULE_CONFIG !== 'undefined') window.onload = function () {
       greeting.textContent = [name, course, level].filter(Boolean).join(" · ");
       greeting.style.display = "inline";
     }
+    _makeProfileGreetingClickable();
     restoreSession();
+    // Shared Task laden falls vorhanden
+    if (sharedTaskId || sessionStorage.getItem("_shared_task_id")) {
+      loadSharedTask();
+    } else if (!currentStep) {
+      nav(MODULE_CONFIG.steps[0]);
+    }
     initHL();
     initTeacherCodeUI();
     setInterval(saveSession, 15000);
-    history.replaceState({ step: MODULE_CONFIG.steps[0] }, "");
+    history.replaceState({ step: currentStep || MODULE_CONFIG.steps[0] }, "");
     return;
   }
 
@@ -1571,7 +2341,12 @@ if (typeof MODULE_CONFIG !== 'undefined') window.onload = function () {
       greeting.textContent = `${sessionStorage.getItem("student_name")} · ${(sessionStorage.getItem("student_level") || "").toUpperCase()}`;
       greeting.style.display = "inline";
     }
+    _makeProfileGreetingClickable();
     restoreSession();
+    // Shared Task laden falls vorhanden
+    if (sharedTaskId || sessionStorage.getItem("_shared_task_id")) {
+      loadSharedTask();
+    }
     initHL();
     initTeacherCodeUI();
     setInterval(saveSession, 30000);
@@ -1580,6 +2355,10 @@ if (typeof MODULE_CONFIG !== 'undefined') window.onload = function () {
     const greeting = document.getElementById("studentGreeting");
     if (greeting) greeting.style.display = "none";
     initHL();
+    // Auch Gaeste koennen Shared Tasks laden (nach Login-Redirect)
+    if (sharedTaskId) {
+      showToast("Bitte zuerst anmelden, um die Aufgabe zu bearbeiten.");
+    }
   }
   history.replaceState({ step: MODULE_CONFIG.steps[0] }, "");
 
@@ -1614,6 +2393,11 @@ if (typeof MODULE_CONFIG !== 'undefined') window.onload = function () {
   if (typeof window.generateTask === "function") {
     var _origGenerateTask = window.generateTask;
     window.generateTask = function () {
+      if (isTeacherMode) {
+        // Lehrer-Modus (iFrame aus Lehrer-Dashboard): kein Schüler-Login nötig
+        _origGenerateTask();
+        return;
+      }
       if (sessionStorage.getItem("access") !== "1") {
         requireLogin(function () { _origGenerateTask(); });
         return;
@@ -1621,19 +2405,46 @@ if (typeof MODULE_CONFIG !== 'undefined') window.onload = function () {
       _origGenerateTask();
     };
   }
-};
+});
 
 /* ============================
    Zentrale Bildlade-Funktion
    Ersetzt die inline loadDallEImage/loadUnsplashImage in allen Seiten.
    Generiert textfreie Bilder mit HTML-Label-Overlays.
    ============================ */
-async function loadEducationalImage(prompt, containerId, labels, style) {
+async function loadEducationalImage(prompt, containerId, labels, style, _isRetry) {
   var el = document.getElementById(containerId);
   if (!el) return;
+
+  // Bereits fertiges Bild (z.B. Lehrer-Upload als Data-URL)? Direkt anzeigen.
+  if (typeof prompt === "string" && prompt.startsWith("data:image")) {
+    var labelsHtml = '';
+    if (labels && typeof labels === 'object') {
+      var numKeys = Object.keys(labels).filter(function(k) { return /^\d+$/.test(k); });
+      if (numKeys.length > 0) {
+        labelsHtml = '<div class="edu-img-numbered-legend">' +
+          numKeys.sort(function(a,b){ return parseInt(a)-parseInt(b); }).map(function(k) {
+            return '<div class="edu-img-legend-entry"><span class="edu-img-legend-num">' + escapeHtml(k) + '</span> ' + escapeHtml(labels[k]) + '</div>';
+          }).join('') + '</div>';
+      }
+    }
+    el.innerHTML = '<figure class="material-figure"><img src="' + prompt + '" class="material-img" alt="Material" style="max-width:100%;border-radius:var(--radius-sm);" loading="lazy" decoding="async">' + labelsHtml + '</figure>';
+    return;
+  }
+
+  // Bei Neu-Generierung: Ladeanimation anzeigen
+  if (_isRetry) {
+    el.innerHTML = '<div style="text-align:center;padding:1.5rem;"><div class="loader-spinner"></div><span style="display:block;margin-top:.5rem;font-size:.85rem;color:var(--ink-muted);">Bild wird neu generiert…</span></div>';
+  }
+
+  // Bei Retry: Hinweis an Prompt anhängen, genauer auf Details zu achten
+  var actualPrompt = _isRetry
+    ? prompt + " --- IMPORTANT: Pay extra close attention to fine details, accuracy, proportions, and clarity. Make sure all elements are precisely rendered and clearly distinguishable. Improve the overall quality and visual precision compared to the previous attempt."
+    : prompt;
+
   try {
     var d = await apiCall("/api/generate-image", {
-      prompt: prompt,
+      prompt: actualPrompt,
       noText: false,
       style: style || "diagram"
     });
@@ -1645,47 +2456,87 @@ async function loadEducationalImage(prompt, containerId, labels, style) {
       ? '<figcaption class="edu-img-caption">' + escapeHtml(d.caption) + '</figcaption>'
       : '';
 
-    // Labels unter dem Bild als Beschriftungen (nicht mehr als Overlay)
+    // Labels unter dem Bild als Beschriftungen
     var titleHtml = '';
     var labelsHtml = '';
     var legendHtml = '';
-    if (labels) {
-      // Titel als Überschrift unter dem Bild
-      if (labels.title) {
-        titleHtml = '<div class="edu-img-title">' + escapeHtml(labels.title) + '</div>';
-      }
-      // Achsen- und positionierte Labels als Tag-Liste
-      var allLabels = [];
-      if (labels.y_axis) allLabels.push(labels.y_axis);
-      if (labels.x_axis) allLabels.push(labels.x_axis);
-      if (labels.labels && labels.labels.length) {
-        labels.labels.forEach(function(lbl) { allLabels.push(lbl.text); });
-      }
-      if (allLabels.length) {
-        labelsHtml = '<div class="edu-img-labels">' +
-          allLabels.map(function(t) {
-            return '<span class="edu-img-label-tag">' + escapeHtml(t) + '</span>';
+    var numberedLegendHtml = '';
+    var hasNumberedLegend = false;
+    if (labels && typeof labels === 'object') {
+      // Prüfe ob es ein nummeriertes Labels-Objekt ist {"1": "Zellkern", "2": "..."}
+      var numKeys = Object.keys(labels).filter(function(k) { return /^\d+$/.test(k); });
+      if (numKeys.length > 0) {
+        hasNumberedLegend = true;
+        var entries = numKeys.sort(function(a, b) { return parseInt(a) - parseInt(b); });
+        numberedLegendHtml = '<div class="edu-img-numbered-legend">' +
+          entries.map(function(k) {
+            return '<div class="edu-img-legend-entry"><span class="edu-img-legend-num">' + escapeHtml(k) + '</span> ' + escapeHtml(labels[k]) + '</div>';
           }).join('') +
-          '</div>';
-      }
-      // Legende
-      if (labels.legend && labels.legend.length) {
-        legendHtml = '<div class="edu-img-legend">' +
-          labels.legend.map(function(l) {
-            return '<span class="edu-legend-item">' + escapeHtml(l) + '</span>';
-          }).join('') +
-          '</div>';
+        '</div>';
+      } else {
+        // Altes Format: title, labels[], legend[]
+        if (labels.title) {
+          titleHtml = '<div class="edu-img-title">' + escapeHtml(labels.title) + '</div>';
+        }
+        var allLabels = [];
+        if (labels.y_axis) allLabels.push(labels.y_axis);
+        if (labels.x_axis) allLabels.push(labels.x_axis);
+        if (labels.labels && labels.labels.length) {
+          labels.labels.forEach(function(lbl) { allLabels.push(lbl.text); });
+        }
+        if (allLabels.length) {
+          labelsHtml = '<div class="edu-img-labels">' +
+            allLabels.map(function(t) {
+              return '<span class="edu-img-label-tag">' + escapeHtml(t) + '</span>';
+            }).join('') +
+            '</div>';
+        }
+        if (labels.legend && labels.legend.length) {
+          legendHtml = '<div class="edu-img-legend">' +
+            labels.legend.map(function(l) {
+              return '<span class="edu-legend-item">' + escapeHtml(l) + '</span>';
+            }).join('') +
+            '</div>';
+        }
       }
     }
+
+    // KI-Hinweis
+    var noticeText = hasNumberedLegend
+      ? 'KI-generiertes Bild — Beschriftungen siehe Legende.'
+      : 'KI-generiertes Bild — Texte und Beschriftungen können Fehler enthalten.';
+    var aiNoticeHtml =
+      '<div class="edu-img-ai-notice">' +
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="edu-img-ai-notice-icon"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>' +
+        noticeText +
+      '</div>';
+
+    // Neu-Generieren-Button
+    var regenBtnHtml =
+      '<div style="text-align:center;">' +
+        '<button type="button" class="edu-img-regen-btn" title="Bild neu generieren">' +
+          '<svg class="regen-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>' +
+          'Neu generieren' +
+        '</button>' +
+      '</div>';
 
     var altText = labels && labels.title ? escapeHtml(labels.title) : 'Illustration';
     el.innerHTML =
       '<figure class="edu-img-figure">' +
         '<div class="edu-img-wrapper">' +
-          '<img src="' + d.url + '" alt="' + altText + '" class="edu-img">' +
+          '<img src="' + d.url + '" alt="' + altText + '" class="edu-img" loading="lazy" decoding="async">' +
         '</div>' +
-        titleHtml + labelsHtml + caption + legendHtml + credit +
+        titleHtml + labelsHtml + numberedLegendHtml + caption + legendHtml + credit +
+        aiNoticeHtml + regenBtnHtml +
       '</figure>';
+
+    // Klick-Handler für Neu-Generieren
+    var regenBtn = el.querySelector('.edu-img-regen-btn');
+    if (regenBtn) {
+      regenBtn.addEventListener('click', function() {
+        loadEducationalImage(prompt, containerId, labels, style, true);
+      });
+    }
   } catch (e) {
     console.error('Bild-Fehler:', e);
     var el2 = document.getElementById(containerId);
@@ -1708,8 +2559,18 @@ var loadUnsplashImage = loadDallEImage;
 var _loginModalCallback = null;
 var _loginModalMode = "login";
 
-function requireLogin(callback) {
+async function requireLogin(callback) {
   if (sessionStorage.getItem("access") === "1" && sessionStorage.getItem("student_name")) {
+    // Paywall-Check: Frischen Abo-Status vom Server holen statt nur sessionStorage zu vertrauen
+    var freeAccess = sessionStorage.getItem("free_access") === "1";
+    if (!freeAccess) {
+      var sub = await checkSubscription();
+      var hasAccess = sub.status === "active" || sub.status === "trialing" || sub.teacher_credits_available;
+      if (!hasAccess) {
+        window.location.href = "/abo.html";
+        return;
+      }
+    }
     callback();
     return;
   }
@@ -1741,8 +2602,9 @@ function _ensureLoginModal() {
     '<input type="text" id="slModalName" placeholder="Dein Name …" style="width:100%;padding:.7rem .9rem;font-size:16px;border:1px solid var(--border);border-radius:10px;margin-bottom:.6rem;background:var(--surface);color:var(--ink);box-sizing:border-box;min-height:44px;font-family:inherit;">' +
     '<input type="password" id="slModalPw" placeholder="Dein Passwort …" style="width:100%;padding:.7rem .9rem;font-size:16px;border:1px solid var(--border);border-radius:10px;margin-bottom:.6rem;background:var(--surface);color:var(--ink);box-sizing:border-box;min-height:44px;font-family:inherit;">' +
     '<div id="slRegFields" style="display:none;">' +
-    '<input type="password" id="slModalPwConfirm" placeholder="Passwort bestätigen …" style="width:100%;padding:.7rem .9rem;font-size:16px;border:1px solid var(--border);border-radius:10px;margin-bottom:.6rem;background:var(--surface);color:var(--ink);box-sizing:border-box;min-height:44px;font-family:inherit;">' +
-    '<input type="password" id="slModalClassPw" placeholder="Klassenpasswort …" style="width:100%;padding:.7rem .9rem;font-size:16px;border:1px solid var(--border);border-radius:10px;margin-bottom:.6rem;background:var(--surface);color:var(--ink);box-sizing:border-box;min-height:44px;font-family:inherit;">' +
+    '<input type="password" id="slModalPwConfirm" placeholder="Passwort best\u00e4tigen \u2026" style="width:100%;padding:.7rem .9rem;font-size:16px;border:1px solid var(--border);border-radius:10px;margin-bottom:.6rem;background:var(--surface);color:var(--ink);box-sizing:border-box;min-height:44px;font-family:inherit;">' +
+    '<input type="email" id="slModalEmail" placeholder="Deine E-Mail-Adresse \u2026" style="width:100%;padding:.7rem .9rem;font-size:16px;border:1px solid var(--border);border-radius:10px;margin-bottom:.6rem;background:var(--surface);color:var(--ink);box-sizing:border-box;min-height:44px;font-family:inherit;">' +
+    '<p style="font-size:.82rem;color:var(--ink-muted);margin-top:.2rem;text-align:center;">Schulcode? Gibst du sp\u00e4ter beim Abo ein.</p>' +
     '</div>' +
     '<div id="slModalError" style="display:none;color:#ef4444;font-size:.82rem;margin-bottom:.6rem;text-align:center;"></div>' +
     '<button id="slModalBtn" type="button" onclick="_doLoginModal()" style="width:100%;padding:.85rem;background:var(--accent);color:#fff;border:none;border-radius:12px;font-size:1rem;font-weight:600;cursor:pointer;min-height:52px;font-family:inherit;">Anmelden</button>' +
@@ -1794,29 +2656,60 @@ async function _doLoginModal() {
 
   if (_loginModalMode === "register") {
     var confirmPw = document.getElementById("slModalPwConfirm").value;
-    var classPw = document.getElementById("slModalClassPw").value.trim();
-    if (pw !== confirmPw) { err.textContent = "Passwörter stimmen nicht überein."; err.style.display = "block"; return; }
-    if (!classPw) { err.textContent = "Bitte gib das Klassenpasswort ein."; err.style.display = "block"; return; }
-    body.password = classPw;
+    var regEmail = document.getElementById("slModalEmail").value.trim();
+    if (pw !== confirmPw) { err.textContent = "Passw\u00f6rter stimmen nicht \u00fcberein."; err.style.display = "block"; return; }
+    if (!regEmail || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(regEmail)) { err.textContent = "Bitte gib eine g\u00fcltige E-Mail-Adresse ein."; err.style.display = "block"; return; }
+    body.email = regEmail;
+    try { if (localStorage.getItem("myabiflow_trial_used")) body.trial_used = true; } catch(e) {}
   }
 
   btn.disabled = true;
-  btn.textContent = "Prüfe …";
+  btn.textContent = "Pr\u00fcfe \u2026";
   err.style.display = "none";
 
   try {
-    var res = await fetch(API_BASE + "/api/check-student", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body)
-    });
-    var data = await res.json();
+    // Retry-Logik bei Netzwerkfehlern (max 2 Versuche)
+    var res, data;
+    for (var _attempt = 0; _attempt < 2; _attempt++) {
+      try {
+        res = await fetch(API_BASE + "/api/check-student", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body)
+        });
+        break;
+      } catch (fetchErr) {
+        if (_attempt === 1) throw fetchErr;
+        await new Promise(function(r) { setTimeout(r, 1500); });
+      }
+    }
+    if (!res.ok) {
+      data = await res.json().catch(function() { return {}; });
+      err.textContent = data.error || "Serverfehler (" + res.status + "). Bitte versuche es erneut.";
+      err.style.display = "block";
+      btn.disabled = false;
+      btn.textContent = _loginModalMode === "register" ? "Registrieren" : "Anmelden";
+      return;
+    }
+    data = await res.json();
 
     if (data.success) {
       sessionStorage.setItem("access", "1");
       sessionStorage.setItem("access_token", data.token);
       sessionStorage.setItem("student_name", name);
+      // Fallback für Feedback nach Tab-Neustart
+      try { localStorage.setItem("myabiflow_student_name", name); } catch(e) {}
+      if (data.student_id) sessionStorage.setItem("student_id", data.student_id);
+      if (data.free_access) sessionStorage.setItem("free_access", "1");
+      if (data.subscription_status) sessionStorage.setItem("subscription_status", data.subscription_status);
+      if (data.subject_licenses && data.subject_licenses.length) {
+        sessionStorage.setItem("subject_licenses", JSON.stringify(data.subject_licenses));
+      }
       if (!sessionStorage.getItem("student_level")) sessionStorage.setItem("student_level", "eA");
+      // Ger\u00e4te-Flag: Trial auf diesem Ger\u00e4t wurde genutzt
+      if (_loginModalMode === "register" && data.subscription_status === "trialing") {
+        try { localStorage.setItem("myabiflow_trial_used", "1"); } catch(e) {}
+      }
 
       // Greeting aktualisieren
       var greeting = document.getElementById("studentGreeting");
@@ -1824,8 +2717,43 @@ async function _doLoginModal() {
         greeting.textContent = name + " · " + (sessionStorage.getItem("student_level") || "eA").toUpperCase();
         greeting.style.display = "inline";
       }
+      _makeProfileGreetingClickable();
 
       _closeLoginModal();
+
+      // Lehrer-Credits synchron prüfen bevor Paywall-Check
+      var subData = await checkSubscription();
+
+      // E-Mail nachtragen falls fehlend
+      if (data.email_missing) {
+        _showEmailCollectModal(function() {
+          // Paywall-Check nach E-Mail-Dialog
+          var hasTeacherCredits = subData.teacher_credits_available || sessionStorage.getItem("teacher_credits_available") === "1";
+          if (!data.free_access && !hasTeacherCredits && data.subscription_status !== "active" && data.subscription_status !== "trialing" && subData.status !== "active" && subData.status !== "trialing") {
+            var aboUrl = "/abo.html";
+            if (_loginModalMode === "register") aboUrl += "?trial_used=1";
+            window.location.href = aboUrl;
+            return;
+          }
+          if (_loginModalCallback) {
+            var cb = _loginModalCallback;
+            _loginModalCallback = null;
+            cb();
+          }
+        });
+        return;
+      }
+
+      // Paywall-Check: Kein free_access, kein aktives Abo und keine Lehrer-Credits → zur Abo-Seite
+      var hasTeacherCredits = subData.teacher_credits_available || sessionStorage.getItem("teacher_credits_available") === "1";
+      if (!data.free_access && !hasTeacherCredits && data.subscription_status !== "active" && data.subscription_status !== "trialing" && subData.status !== "active" && subData.status !== "trialing") {
+        // Re-Registration ohne Trial → freundlichen Hinweis auf Abo-Seite zeigen
+        var aboUrl = "/abo.html";
+        if (_loginModalMode === "register") aboUrl += "?trial_used=1";
+        window.location.href = aboUrl;
+        return;
+      }
+
       // Callback ausfuehren (z.B. generateTask)
       if (_loginModalCallback) {
         var cb = _loginModalCallback;
@@ -1851,3 +2779,741 @@ function _closeLoginModal() {
   _loginModalCallback = null;
 }
 
+/* ================= E-MAIL NACHTRAGEN ================= */
+function _showEmailCollectModal(callback) {
+  // Overlay erstellen
+  var overlay = document.createElement("div");
+  overlay.id = "emailCollectOverlay";
+  overlay.style.cssText = "position:fixed;inset:0;z-index:100000;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.45);padding:1rem;";
+  overlay.innerHTML =
+    '<div style="background:var(--surface,#fff);border-radius:16px;padding:1.8rem;max-width:400px;width:100%;box-shadow:0 8px 32px rgba(0,0,0,.15);">' +
+    '<h3 style="margin:0 0 .5rem;font-size:1.1rem;color:var(--ink,#1a1a1a);">E-Mail-Adresse ergänzen</h3>' +
+    '<p style="margin:0 0 1rem;font-size:.88rem;color:var(--ink-muted,#666);">Bitte hinterlege deine E-Mail-Adresse, damit wir dir bei Bedarf Erinnerungen schicken können.</p>' +
+    '<input type="email" id="emailCollectInput" placeholder="Deine E-Mail-Adresse …" style="width:100%;padding:.7rem .9rem;font-size:16px;border:1px solid var(--border,#ddd);border-radius:10px;margin-bottom:.6rem;background:var(--surface,#fff);color:var(--ink,#1a1a1a);box-sizing:border-box;min-height:44px;font-family:inherit;">' +
+    '<div id="emailCollectError" style="display:none;color:#ef4444;font-size:.82rem;margin-bottom:.6rem;text-align:center;"></div>' +
+    '<button id="emailCollectBtn" type="button" style="width:100%;padding:.85rem;background:var(--accent,#4f6ef7);color:#fff;border:none;border-radius:12px;font-size:1rem;font-weight:600;cursor:pointer;min-height:52px;font-family:inherit;">Speichern</button>' +
+    '<button id="emailCollectSkip" type="button" style="width:100%;padding:.6rem;background:none;border:none;color:var(--ink-muted,#666);font-size:.82rem;cursor:pointer;margin-top:.4rem;">Später</button>' +
+    '</div>';
+  document.body.appendChild(overlay);
+
+  var input = document.getElementById("emailCollectInput");
+  var errEl = document.getElementById("emailCollectError");
+  var saveBtn = document.getElementById("emailCollectBtn");
+  var skipBtn = document.getElementById("emailCollectSkip");
+
+  setTimeout(function() { input.focus(); }, 100);
+
+  function close() {
+    var el = document.getElementById("emailCollectOverlay");
+    if (el) el.remove();
+    if (callback) callback();
+  }
+
+  skipBtn.onclick = close;
+
+  saveBtn.onclick = async function() {
+    var email = input.value.trim();
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      errEl.textContent = "Bitte gib eine gültige E-Mail-Adresse ein.";
+      errEl.style.display = "block";
+      return;
+    }
+    saveBtn.disabled = true;
+    saveBtn.textContent = "Speichere …";
+    errEl.style.display = "none";
+    try {
+      var name = sessionStorage.getItem("student_name");
+      var res = await fetch(API_BASE + "/api/save-preferences", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "X-Access-Token": sessionStorage.getItem("access_token") || "" },
+        body: JSON.stringify({ student_name: name, email: email })
+      });
+      var d = await res.json();
+      if (d.success) {
+        close();
+      } else {
+        errEl.textContent = d.error || "Fehler beim Speichern.";
+        errEl.style.display = "block";
+        saveBtn.disabled = false;
+        saveBtn.textContent = "Speichern";
+      }
+    } catch(e) {
+      errEl.textContent = "Verbindungsfehler. Bitte versuche es erneut.";
+      errEl.style.display = "block";
+      saveBtn.disabled = false;
+      saveBtn.textContent = "Speichern";
+    }
+  };
+
+  // Enter-Taste
+  input.onkeyup = function(e) { if (e.key === "Enter") saveBtn.onclick(); };
+}
+
+/* ================= PROFIL-MODAL ================= */
+function _makeProfileGreetingClickable() {
+  var greeting = document.getElementById("studentGreeting");
+  if (!greeting) return;
+  if (sessionStorage.getItem("access") !== "1") return;
+  greeting.style.cursor = "pointer";
+  greeting.title = "Profil öffnen";
+  greeting.onclick = showProfileModal;
+}
+
+function showProfileModal() {
+  var old = document.getElementById("profileModalOverlay");
+  if (old) old.remove();
+
+  var overlay = document.createElement("div");
+  overlay.id = "profileModalOverlay";
+  overlay.style.cssText = "display:flex;position:fixed;inset:0;z-index:9900;background:rgba(0,0,0,.6);align-items:center;justify-content:center;padding:1rem;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);";
+  overlay.addEventListener("click", function (e) { if (e.target === overlay) overlay.remove(); });
+
+  overlay.innerHTML =
+    '<div style="background:var(--surface);border-radius:20px;padding:2rem;max-width:440px;width:100%;box-shadow:0 25px 60px rgba(0,0,0,.3);animation:slideUp .25s ease;max-height:90vh;overflow-y:auto;-webkit-overflow-scrolling:touch;">' +
+      '<h2 style="font-size:1.2rem;margin:0 0 1.2rem;text-align:center;font-family:var(--font-display);">Mein Profil</h2>' +
+
+      // Profil-Info
+      '<div id="profileInfo" style="margin-bottom:1.2rem;">' +
+        '<div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.8rem;">' +
+          '<span style="font-size:.82rem;color:var(--ink-muted);min-width:80px;">Name</span>' +
+          '<span id="profName" style="font-weight:600;font-size:.95rem;">–</span>' +
+        '</div>' +
+        '<div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.8rem;">' +
+          '<span style="font-size:.82rem;color:var(--ink-muted);min-width:80px;">Klasse</span>' +
+          '<span id="profClass" style="font-size:.95rem;">–</span>' +
+        '</div>' +
+        '<div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.8rem;">' +
+          '<label for="profSchool" style="font-size:.82rem;color:var(--ink-muted);min-width:80px;">Schule</label>' +
+          '<input type="text" id="profSchool" placeholder="z.\u2009B. Gymnasium Musterstadt" style="flex:1;padding:.5rem .7rem;font-size:16px;border:1px solid var(--border);border-radius:10px;background:var(--surface);color:var(--ink);box-sizing:border-box;min-height:44px;font-family:inherit;">' +
+        '</div>' +
+        '<div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.8rem;">' +
+          '<label for="profEmail" style="font-size:.82rem;color:var(--ink-muted);min-width:80px;">E-Mail</label>' +
+          '<input type="email" id="profEmail" placeholder="Optional – für Erinnerungen" style="flex:1;padding:.5rem .7rem;font-size:16px;border:1px solid var(--border);border-radius:10px;background:var(--surface);color:var(--ink);box-sizing:border-box;min-height:44px;font-family:inherit;">' +
+        '</div>' +
+        '<div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.8rem;">' +
+          '<span style="font-size:.82rem;color:var(--ink-muted);min-width:80px;">Dabei seit</span>' +
+          '<span id="profSince" style="font-size:.85rem;color:var(--ink-muted);">–</span>' +
+        '</div>' +
+        '<div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.4rem;">' +
+          '<span style="font-size:.82rem;color:var(--ink-muted);min-width:80px;">Abo</span>' +
+          '<span id="profAbo" style="font-size:.85rem;">–</span>' +
+        '</div>' +
+      '</div>' +
+
+      '<div id="profMsg" style="display:none;font-size:.82rem;margin-bottom:.8rem;text-align:center;padding:.5rem;border-radius:8px;"></div>' +
+
+      '<button type="button" onclick="_saveProfileChanges()" style="width:100%;padding:.75rem;background:var(--accent);color:#fff;border:none;border-radius:12px;font-size:.95rem;font-weight:600;cursor:pointer;min-height:48px;font-family:inherit;margin-bottom:1rem;">Änderungen speichern</button>' +
+
+      // Passwort ändern (aufklappbar)
+      '<details style="margin-bottom:1rem;">' +
+        '<summary style="cursor:pointer;font-size:.9rem;font-weight:600;color:var(--ink);padding:.6rem 0;min-height:44px;display:flex;align-items:center;">Passwort ändern</summary>' +
+        '<div style="padding-top:.5rem;">' +
+          '<input type="password" id="profOldPw" placeholder="Aktuelles Passwort" style="width:100%;padding:.6rem .8rem;font-size:16px;border:1px solid var(--border);border-radius:10px;margin-bottom:.5rem;background:var(--surface);color:var(--ink);box-sizing:border-box;min-height:44px;font-family:inherit;">' +
+          '<input type="password" id="profNewPw" placeholder="Neues Passwort (min. 6 Zeichen)" style="width:100%;padding:.6rem .8rem;font-size:16px;border:1px solid var(--border);border-radius:10px;margin-bottom:.5rem;background:var(--surface);color:var(--ink);box-sizing:border-box;min-height:44px;font-family:inherit;">' +
+          '<input type="password" id="profNewPwConfirm" placeholder="Neues Passwort bestätigen" style="width:100%;padding:.6rem .8rem;font-size:16px;border:1px solid var(--border);border-radius:10px;margin-bottom:.5rem;background:var(--surface);color:var(--ink);box-sizing:border-box;min-height:44px;font-family:inherit;">' +
+          '<div id="profPwMsg" style="display:none;font-size:.82rem;margin-bottom:.5rem;text-align:center;padding:.4rem;border-radius:8px;"></div>' +
+          '<button type="button" onclick="_changePassword()" style="width:100%;padding:.65rem;background:var(--ink);color:var(--surface);border:none;border-radius:10px;font-size:.9rem;font-weight:600;cursor:pointer;min-height:44px;font-family:inherit;">Passwort ändern</button>' +
+        '</div>' +
+      '</details>' +
+
+      // Aktionen
+      '<div style="display:flex;gap:.5rem;">' +
+        '<button type="button" onclick="_doLogout()" style="flex:1;padding:.6rem;background:none;border:1px solid #ef4444;color:#ef4444;border-radius:10px;font-size:.85rem;font-weight:600;cursor:pointer;min-height:44px;font-family:inherit;">Abmelden</button>' +
+        '<button type="button" onclick="document.getElementById(\'profileModalOverlay\').remove()" style="flex:1;padding:.6rem;background:none;border:1px solid var(--border);color:var(--ink-muted);border-radius:10px;font-size:.85rem;cursor:pointer;min-height:44px;font-family:inherit;">Schließen</button>' +
+      '</div>' +
+    '</div>';
+
+  document.body.appendChild(overlay);
+  _loadProfileData();
+}
+
+async function _loadProfileData() {
+  var name = sessionStorage.getItem("student_name");
+  if (!name) return;
+
+  document.getElementById("profName").textContent = name;
+
+  try {
+    var data = await apiCall("/api/get-preferences", { student_name: name });
+    if (data.profile) {
+      document.getElementById("profClass").textContent = data.profile.class_group || "–";
+      if (data.profile.created_at) {
+        var d = new Date(data.profile.created_at);
+        document.getElementById("profSince").textContent = d.toLocaleDateString("de-DE", { day: "2-digit", month: "long", year: "numeric" });
+      }
+      document.getElementById("profSchool").value = data.profile.school || "";
+    }
+    if (data.preferences) {
+      document.getElementById("profEmail").value = data.preferences.email || "";
+    }
+  } catch (e) {
+    _showProfileMsg("profMsg", "Profil konnte nicht geladen werden.", true);
+  }
+
+  // Abo-Status laden
+  try {
+    var sub = await checkSubscription();
+    var aboEl = document.getElementById("profAbo");
+    if (!aboEl) return;
+    var planNames = { monthly: "Monatsabo", "6months": "6-Monats-Abo", "12months": "12-Monats-Abo", "24months": "24-Monats-Abo", abitur: "Abiturendspurt", school: "Schullizenz", trial: "Testphase" };
+    var manageBtn = '';
+    if (sub.has_stripe_customer && (sub.status === "active" || sub.status === "trialing")) {
+      manageBtn = '<button type="button" onclick="_openCustomerPortal()" id="profManageAbo" style="margin-top:.6rem;width:100%;padding:.6rem;background:none;border:1px solid var(--accent);color:var(--accent);border-radius:10px;font-size:.85rem;font-weight:600;cursor:pointer;min-height:44px;font-family:inherit;">Abo verwalten</button>';
+    }
+    if (sub.status === "active") {
+      var planLabel = planNames[sub.plan] || sub.plan || "Aktiv";
+      var endStr = "";
+      if (sub.current_period_end) {
+        var endDate = new Date(sub.current_period_end);
+        endStr = " (bis " + endDate.toLocaleDateString("de-DE", { day: "2-digit", month: "2-digit", year: "numeric" }) + ")";
+      }
+      aboEl.innerHTML = '<span style="background:#ecfdf5;color:#059669;padding:.2rem .6rem;border-radius:6px;font-weight:700;font-size:.82rem;">' + planLabel + '</span>' +
+        (endStr ? '<span style="color:var(--ink-muted);font-size:.8rem;margin-left:.4rem;">' + endStr + '</span>' : '') + manageBtn;
+    } else if (sub.status === "trialing") {
+      var daysLeft = sub.trial_days_left || 0;
+      aboEl.innerHTML = '<span style="background:#fef3c7;color:#d97706;padding:.2rem .6rem;border-radius:6px;font-weight:700;font-size:.82rem;">Testphase</span>' +
+        '<span style="color:var(--ink-muted);font-size:.8rem;margin-left:.4rem;">(' + daysLeft + ' Tage übrig)</span>' + manageBtn;
+    } else if (sub.teacher_credits_available) {
+      aboEl.innerHTML = '<span style="background:#eff6ff;color:#2563eb;padding:.2rem .6rem;border-radius:6px;font-weight:700;font-size:.82rem;">Lehrer-Credits</span>';
+    } else {
+      aboEl.innerHTML = '<span style="color:var(--ink-muted);font-size:.82rem;">Kein aktives Abo</span> <a href="/abo.html" style="color:var(--accent);font-size:.82rem;font-weight:600;margin-left:.3rem;">Jetzt abonnieren</a>';
+    }
+  } catch (e) {
+    // Abo-Status nicht kritisch
+  }
+}
+
+async function _openCustomerPortal() {
+  var btn = document.getElementById("profManageAbo");
+  if (btn) { btn.disabled = true; btn.textContent = "Wird geladen …"; }
+  try {
+    var studentId = sessionStorage.getItem("student_id");
+    var res = await fetch(API_BASE + "/api/stripe/customer-portal", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "X-Access-Token": getAccessToken() },
+      body: JSON.stringify({ student_id: studentId })
+    });
+    var data = await res.json();
+    if (data.url) {
+      window.location.href = data.url;
+    } else {
+      _showProfileMsg("profMsg", data.error || "Kundenportal konnte nicht geöffnet werden.", true);
+    }
+  } catch (e) {
+    _showProfileMsg("profMsg", "Fehler beim Öffnen des Kundenportals.", true);
+  }
+  if (btn) { btn.disabled = false; btn.textContent = "Abo verwalten"; }
+}
+
+async function _saveProfileChanges() {
+  var name = sessionStorage.getItem("student_name");
+  var school = document.getElementById("profSchool").value.trim();
+  var email = document.getElementById("profEmail").value.trim();
+
+  try {
+    await apiCall("/api/update-profile", { student_name: name, school: school, email: email });
+
+    _showProfileMsg("profMsg", "Änderungen gespeichert!", false);
+  } catch (e) {
+    _showProfileMsg("profMsg", e.message || "Fehler beim Speichern.", true);
+  }
+}
+
+async function _changePassword() {
+  var oldPw = document.getElementById("profOldPw").value;
+  var newPw = document.getElementById("profNewPw").value;
+  var confirmPw = document.getElementById("profNewPwConfirm").value;
+
+  if (!oldPw) { _showProfileMsg("profPwMsg", "Aktuelles Passwort eingeben.", true); return; }
+  if (!newPw || newPw.length < 6) { _showProfileMsg("profPwMsg", "Neues Passwort muss mind. 6 Zeichen haben.", true); return; }
+  if (newPw !== confirmPw) { _showProfileMsg("profPwMsg", "Passwörter stimmen nicht überein.", true); return; }
+
+  try {
+    var res = await fetch(API_BASE + "/api/change-password", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "X-Access-Token": sessionStorage.getItem("access_token") || "" },
+      body: JSON.stringify({ student_name: sessionStorage.getItem("student_name"), old_password: oldPw, new_password: newPw })
+    });
+    var data = await res.json();
+
+    if (data.success) {
+      if (data.token) sessionStorage.setItem("access_token", data.token);
+      document.getElementById("profOldPw").value = "";
+      document.getElementById("profNewPw").value = "";
+      document.getElementById("profNewPwConfirm").value = "";
+      _showProfileMsg("profPwMsg", "Passwort erfolgreich geändert!", false);
+    } else {
+      _showProfileMsg("profPwMsg", data.error || "Fehler beim Ändern.", true);
+    }
+  } catch (e) {
+    _showProfileMsg("profPwMsg", "Verbindungsfehler.", true);
+  }
+}
+
+function _showProfileMsg(id, msg, isError) {
+  var el = document.getElementById(id);
+  if (!el) return;
+  el.textContent = msg;
+  el.style.display = "block";
+  el.style.background = isError ? "#fef2f2" : "#f0fdf4";
+  el.style.color = isError ? "#ef4444" : "#16a34a";
+  if (!isError) setTimeout(function () { el.style.display = "none"; }, 3000);
+}
+
+function _doLogout() {
+  sessionStorage.removeItem("access");
+  sessionStorage.removeItem("access_token");
+  sessionStorage.removeItem("student_name");
+  sessionStorage.removeItem("student_level");
+  sessionStorage.removeItem("student_course");
+  location.reload();
+}
+
+/* ================= FEEDBACK-WIDGET ================= */
+
+function initFeedbackWidget() {
+  // Nicht auf Dashboard/Lehrer/Impressum/AGB-Seiten anzeigen
+  var page = window.location.pathname;
+  if (/dashboard|lehrer|impressum|agb|barrierefreiheit|dsfa|tom|404/.test(page)) return;
+
+  // Widget-Container
+  var widget = document.createElement("div");
+  widget.className = "feedback-widget";
+  widget.innerHTML =
+    '<button class="feedback-fab" aria-label="Feedback geben" title="Feedback geben">' +
+      '<span class="feedback-fab-pulse"></span>' +
+      '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
+        '<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>' +
+      '</svg>' +
+      '<span class="feedback-fab-label">Feedback</span>' +
+    '</button>' +
+    '<div class="feedback-panel" role="dialog" aria-label="Feedback" aria-hidden="true">' +
+      '<div class="feedback-panel-header">' +
+        '<span>Wie findest du myAbiFlow?</span>' +
+        '<button class="feedback-close" aria-label="Schließen">&times;</button>' +
+      '</div>' +
+      '<div class="feedback-panel-body">' +
+        '<div class="feedback-emojis" role="radiogroup" aria-label="Bewertung">' +
+          '<button class="feedback-emoji" data-rating="1" aria-label="Schlecht" title="Schlecht">😞</button>' +
+          '<button class="feedback-emoji" data-rating="2" aria-label="Geht so" title="Geht so">😐</button>' +
+          '<button class="feedback-emoji" data-rating="3" aria-label="Gut" title="Gut">😊</button>' +
+          '<button class="feedback-emoji" data-rating="4" aria-label="Super" title="Super">🤩</button>' +
+        '</div>' +
+        '<div class="feedback-categories" style="display:none">' +
+          '<button class="feedback-cat" data-cat="bug">🐛 Problem</button>' +
+          '<button class="feedback-cat" data-cat="wunsch">💡 Wunsch</button>' +
+          '<button class="feedback-cat" data-cat="lob">👍 Lob</button>' +
+        '</div>' +
+        '<textarea class="feedback-text" placeholder="Was möchtest du uns sagen? (optional)" rows="3" style="display:none"></textarea>' +
+        '<div class="feedback-photo-area" style="display:none">' +
+          '<label class="feedback-photo-label">' +
+            '<input type="file" class="feedback-photo-input" accept="image/*" style="display:none">' +
+            '<span class="feedback-photo-btn">📷 Foto hinzufügen (optional)</span>' +
+          '</label>' +
+          '<div class="feedback-photo-preview" style="display:none"></div>' +
+        '</div>' +
+        '<button class="feedback-submit btn" style="display:none">Absenden</button>' +
+      '</div>' +
+    '</div>';
+  document.body.appendChild(widget);
+
+  var fab = widget.querySelector(".feedback-fab");
+  var panel = widget.querySelector(".feedback-panel");
+  var closeBtn = widget.querySelector(".feedback-close");
+  var emojis = widget.querySelectorAll(".feedback-emoji");
+  var cats = widget.querySelectorAll(".feedback-cat");
+  var catGroup = widget.querySelector(".feedback-categories");
+  var textarea = widget.querySelector(".feedback-text");
+  var submitBtn = widget.querySelector(".feedback-submit");
+
+  var photoInput = widget.querySelector(".feedback-photo-input");
+  var photoArea = widget.querySelector(".feedback-photo-area");
+  var photoPreview = widget.querySelector(".feedback-photo-preview");
+
+  var selectedRating = 0;
+  var selectedCategory = null;
+  var selectedPhoto = null; // base64 JPEG
+
+  function togglePanel(open) {
+    if (open) {
+      panel.classList.add("open");
+      panel.setAttribute("aria-hidden", "false");
+      fab.style.display = "none";
+    } else {
+      panel.classList.remove("open");
+      panel.setAttribute("aria-hidden", "true");
+      fab.style.display = "";
+      // Zustand zurücksetzen
+      selectedRating = 0;
+      selectedCategory = null;
+      emojis.forEach(function(e) { e.classList.remove("active"); });
+      cats.forEach(function(c) { c.classList.remove("active"); });
+      catGroup.style.display = "none";
+      textarea.style.display = "none";
+      textarea.value = "";
+      photoArea.style.display = "none";
+      photoPreview.style.display = "none";
+      photoPreview.innerHTML = "";
+      photoInput.value = "";
+      selectedPhoto = null;
+      submitBtn.style.display = "none";
+    }
+  }
+
+  fab.addEventListener("click", function() { togglePanel(true); });
+  closeBtn.addEventListener("click", function() { togglePanel(false); });
+
+  // Emoji-Auswahl
+  emojis.forEach(function(btn) {
+    btn.addEventListener("click", function() {
+      selectedRating = parseInt(btn.dataset.rating);
+      emojis.forEach(function(e) { e.classList.remove("active"); });
+      btn.classList.add("active");
+      catGroup.style.display = "";
+      textarea.style.display = "";
+      photoArea.style.display = "";
+      submitBtn.style.display = "";
+    });
+  });
+
+  // Kategorie-Auswahl
+  cats.forEach(function(btn) {
+    btn.addEventListener("click", function() {
+      cats.forEach(function(c) { c.classList.remove("active"); });
+      btn.classList.add("active");
+      selectedCategory = btn.dataset.cat;
+    });
+  });
+
+  // Foto-Upload
+  photoInput.addEventListener("change", async function() {
+    var file = photoInput.files[0];
+    if (!file) return;
+    // Bild via Canvas komprimieren (max 800px, JPEG 0.65)
+    var dataURL = await new Promise(function(resolve) {
+      var reader = new FileReader();
+      reader.onload = function(e) {
+        var img = new Image();
+        img.onload = function() {
+          var maxW = 800;
+          var scale = Math.min(1, maxW / img.width);
+          var canvas = document.createElement("canvas");
+          canvas.width = Math.round(img.width * scale);
+          canvas.height = Math.round(img.height * scale);
+          canvas.getContext("2d").drawImage(img, 0, 0, canvas.width, canvas.height);
+          resolve(canvas.toDataURL("image/jpeg", 0.65));
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    });
+    selectedPhoto = dataURL.split(",")[1]; // nur base64-Teil
+    // Vorschau anzeigen
+    photoPreview.innerHTML = '<img src="' + dataURL + '" alt="Vorschau">' +
+      '<button class="feedback-photo-remove" aria-label="Foto entfernen" title="Foto entfernen">&times;</button>';
+    photoPreview.style.display = "";
+    photoPreview.querySelector(".feedback-photo-remove").addEventListener("click", function() {
+      selectedPhoto = null;
+      photoInput.value = "";
+      photoPreview.style.display = "none";
+      photoPreview.innerHTML = "";
+    });
+  });
+
+  // Absenden
+  submitBtn.addEventListener("click", async function() {
+    if (!selectedRating) return;
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Wird gesendet…";
+    try {
+      var res = await fetch(API_BASE + "/api/feedback", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          rating: selectedRating,
+          category: selectedCategory,
+          message: textarea.value.trim() || null,
+          page: window.location.pathname,
+          studentName: sessionStorage.getItem("student_name") || localStorage.getItem("myabiflow_student_name") || null,
+          photo: selectedPhoto || null
+        })
+      });
+      if (res.ok) {
+        showToast("Danke für dein Feedback!", "success");
+      } else {
+        showToast("Feedback konnte nicht gesendet werden.");
+      }
+    } catch (e) {
+      showToast("Feedback konnte nicht gesendet werden.");
+    }
+    togglePanel(false);
+    submitBtn.disabled = false;
+    submitBtn.textContent = "Absenden";
+  });
+
+  // Panel schließen bei Klick außerhalb
+  document.addEventListener("click", function(e) {
+    if (panel.classList.contains("open") && !widget.contains(e.target)) {
+      togglePanel(false);
+    }
+  });
+
+  // Escape-Taste
+  document.addEventListener("keydown", function(e) {
+    if (e.key === "Escape" && panel.classList.contains("open")) {
+      togglePanel(false);
+    }
+  });
+}
+
+document.addEventListener("DOMContentLoaded", initFeedbackWidget);
+
+/* ================= WÖCHENTLICHER FEEDBACK-NUDGE ================= */
+
+function initFeedbackNudge() {
+  // Nur auf Trainingsseiten (nicht auf Präsentation, Dashboard, etc.)
+  var page = window.location.pathname;
+  if (/dashboard|lehrer|impressum|agb|barrierefreiheit|dsfa|tom|404|praesentation|datenschutz|features/.test(page)) return;
+
+  var NUDGE_KEY = "feedback_nudge_last";
+  var WEEK_MS = 7 * 24 * 60 * 60 * 1000;
+  var lastShown = parseInt(localStorage.getItem(NUDGE_KEY) || "0", 10);
+
+  if (Date.now() - lastShown < WEEK_MS) return;
+
+  // Verzögert anzeigen (nach 30 Sekunden aktiver Nutzung)
+  setTimeout(function() {
+    // Prüfen ob Feedback-Panel gerade offen ist
+    var openPanel = document.querySelector(".feedback-panel.open");
+    if (openPanel) return;
+
+    showFeedbackNudge();
+    localStorage.setItem(NUDGE_KEY, String(Date.now()));
+  }, 30000);
+}
+
+function showFeedbackNudge() {
+  // Overlay
+  var overlay = document.createElement("div");
+  overlay.className = "feedback-nudge-overlay";
+
+  // Modal
+  var modal = document.createElement("div");
+  modal.className = "feedback-nudge-modal";
+  modal.setAttribute("role", "dialog");
+  modal.setAttribute("aria-label", "Feedback geben");
+  modal.innerHTML =
+    '<button class="feedback-nudge-close" aria-label="Schließen">&times;</button>' +
+    '<div class="feedback-nudge-icon">💬</div>' +
+    '<h3 class="feedback-nudge-title">Deine Meinung zählt!</h3>' +
+    '<p class="feedback-nudge-text">Hilf uns, myAbiFlow noch besser zu machen. Was gefällt dir? Was können wir verbessern?</p>' +
+    '<div class="feedback-nudge-actions">' +
+      '<button class="feedback-nudge-btn feedback-nudge-btn-primary" data-action="widget">Feedback geben</button>' +
+      '<a href="mailto:feedback@myabiflow.de?subject=Feedback%20zu%20myAbiFlow" class="feedback-nudge-btn feedback-nudge-btn-secondary">Per E-Mail schreiben</a>' +
+    '</div>' +
+    '<button class="feedback-nudge-later">Später erinnern</button>';
+
+  overlay.appendChild(modal);
+  document.body.appendChild(overlay);
+
+  // Animation
+  requestAnimationFrame(function() {
+    overlay.classList.add("visible");
+  });
+
+  // Schließen-Funktion
+  function closeNudge() {
+    overlay.classList.remove("visible");
+    setTimeout(function() { overlay.remove(); }, 300);
+  }
+
+  // Schließen-Button
+  modal.querySelector(".feedback-nudge-close").addEventListener("click", closeNudge);
+
+  // "Später erinnern" — nächstes Mal in 3 Tagen
+  modal.querySelector(".feedback-nudge-later").addEventListener("click", function() {
+    localStorage.setItem("feedback_nudge_last", String(Date.now() - (4 * 24 * 60 * 60 * 1000)));
+    closeNudge();
+  });
+
+  // Feedback-Widget öffnen
+  modal.querySelector('[data-action="widget"]').addEventListener("click", function() {
+    closeNudge();
+    // Feedback-FAB klicken
+    setTimeout(function() {
+      var fab = document.querySelector(".feedback-fab");
+      if (fab) fab.click();
+    }, 350);
+  });
+
+  // Overlay-Klick schließt
+  overlay.addEventListener("click", function(e) {
+    if (e.target === overlay) closeNudge();
+  });
+
+  // Escape-Taste
+  function escHandler(e) {
+    if (e.key === "Escape") { closeNudge(); document.removeEventListener("keydown", escHandler); }
+  }
+  document.addEventListener("keydown", escHandler);
+}
+
+document.addEventListener("DOMContentLoaded", initFeedbackNudge);
+
+/* ================= KI-HINWEIS AUFGABEN ================= */
+
+function _appendKiHinweisToTask() {
+  // Bekannte Aufgaben-Container aller Fachseiten
+  var ids = ["aufgabengruppenContainer", "taskInstruction", "materialsContainer"];
+  for (var i = 0; i < ids.length; i++) {
+    var el = document.getElementById(ids[i]);
+    if (el && el.innerHTML.trim() && !el.querySelector(".ki-hinweis")) {
+      el.insertAdjacentHTML("afterend", '<p class="ki-hinweis">🤖 KI-generiert\u2013 Inhalte können Fehler enthalten.</p>');
+      return;
+    }
+  }
+}
+
+// renderTask nach DOMContentLoaded wrappen, damit der Hinweis bei jeder
+// Aufgabengenerierung automatisch erscheint (ohne jede HTML-Seite anzufassen).
+document.addEventListener("DOMContentLoaded", function () {
+  if (typeof renderTask === "function") {
+    var _orig = renderTask;
+    window.renderTask = function (data) {
+      _orig(data);
+      _appendKiHinweisToTask();
+    };
+  }
+});
+
+/* ================= DSGVO CONSENT-BANNER + TRACKING ================= */
+
+// Platzhalter-IDs – nach Einrichtung der Konten ersetzen:
+var TRACKING_CONFIG = {
+  GA_MEASUREMENT_ID: "G-H2T0ZWDHW8",       // Google Analytics 4
+  AW_CONVERSION_ID: "AW-18038861321",       // Google Ads
+  META_PIXEL_ID: "XXXXXXXXXXXXXXX"          // Meta/Facebook Pixel
+};
+
+function getTrackingConsent() {
+  return localStorage.getItem("myabiflow_tracking_consent");
+}
+
+function setTrackingConsent(value) {
+  localStorage.setItem("myabiflow_tracking_consent", value);
+}
+
+// Google Tag (gtag.js) laden
+function loadGoogleTag() {
+  if (TRACKING_CONFIG.GA_MEASUREMENT_ID === "G-XXXXXXXXXX") return;
+  if (document.getElementById("gtag-script")) return;
+
+  var s = document.createElement("script");
+  s.id = "gtag-script";
+  s.async = true;
+  s.src = "https://www.googletagmanager.com/gtag/js?id=" + TRACKING_CONFIG.GA_MEASUREMENT_ID;
+  document.head.appendChild(s);
+
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function() { window.dataLayer.push(arguments); };
+  window.gtag("js", new Date());
+  window.gtag("config", TRACKING_CONFIG.GA_MEASUREMENT_ID, { anonymize_ip: true });
+
+  if (TRACKING_CONFIG.AW_CONVERSION_ID !== "AW-XXXXXXXXXX") {
+    window.gtag("config", TRACKING_CONFIG.AW_CONVERSION_ID);
+  }
+}
+
+// Meta Pixel laden
+function loadMetaPixel() {
+  if (TRACKING_CONFIG.META_PIXEL_ID === "XXXXXXXXXXXXXXX") return;
+  if (window.fbq) return;
+
+  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+  n.push=n;n.loaded=!0;n.version="2.0";n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+  document,"script","https://connect.facebook.net/en_US/fbevents.js");
+
+  window.fbq("init", TRACKING_CONFIG.META_PIXEL_ID);
+  window.fbq("track", "PageView");
+}
+
+function loadTrackingScripts() {
+  loadGoogleTag();
+  loadMetaPixel();
+}
+
+// Tracking-Event senden (nur wenn Consent gegeben)
+function trackEvent(eventName, params) {
+  if (getTrackingConsent() !== "accepted") return;
+
+  // Google Analytics / Ads
+  if (window.gtag) {
+    window.gtag("event", eventName, params || {});
+  }
+
+  // Meta Pixel
+  if (window.fbq) {
+    window.fbq("track", eventName, params || {});
+  }
+}
+
+// UTM-Parameter aus URL lesen
+function getUtmParams() {
+  var params = new URLSearchParams(window.location.search);
+  var utm = {};
+  ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"].forEach(function(key) {
+    var val = params.get(key);
+    if (val) utm[key] = val;
+  });
+  // UTM in sessionStorage speichern (bleibt waehrend des Besuchs erhalten)
+  if (Object.keys(utm).length > 0) {
+    sessionStorage.setItem("myabiflow_utm", JSON.stringify(utm));
+  }
+  return JSON.parse(sessionStorage.getItem("myabiflow_utm") || "{}");
+}
+
+// Consent-Banner anzeigen
+function initConsentBanner() {
+  if (getTrackingConsent()) {
+    // Consent schon gegeben oder abgelehnt
+    if (getTrackingConsent() === "accepted") loadTrackingScripts();
+    return;
+  }
+
+  var banner = document.createElement("div");
+  banner.id = "consentBanner";
+  banner.setAttribute("role", "dialog");
+  banner.setAttribute("aria-label", "Cookie-Hinweis");
+  banner.style.cssText = "position:fixed;bottom:0;left:0;right:0;z-index:99999;background:var(--surface,#fff);border-top:1px solid var(--border,#e2e8f0);padding:1rem 1.2rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;font-size:.875rem;color:var(--ink,#0f172a);box-shadow:0 -4px 20px rgba(0,0,0,.1);font-family:var(--font-body,'DM Sans',sans-serif);";
+
+  banner.innerHTML =
+    '<p style="flex:1;min-width:200px;margin:0;line-height:1.5;">' +
+      'Wir nutzen Cookies fuer Analyse und Marketing, um myAbiFlow zu verbessern. ' +
+      '<a href="/dsfa.html" style="color:var(--accent,#4f46e5);text-decoration:underline;">Mehr erfahren</a>' +
+    '</p>' +
+    '<div style="display:flex;gap:.5rem;flex-shrink:0;">' +
+      '<button id="consentReject" style="background:transparent;color:var(--ink-light,#475569);border:1px solid var(--border,#e2e8f0);padding:.5rem 1rem;border-radius:8px;font-size:.85rem;cursor:pointer;min-height:44px;min-width:44px;font-family:inherit;">Ablehnen</button>' +
+      '<button id="consentAccept" style="background:var(--accent,#4f46e5);color:#fff;border:none;padding:.5rem 1.2rem;border-radius:8px;font-weight:600;font-size:.85rem;cursor:pointer;min-height:44px;min-width:44px;font-family:inherit;">Akzeptieren</button>' +
+    '</div>';
+
+  document.body.appendChild(banner);
+
+  document.getElementById("consentAccept").addEventListener("click", function() {
+    setTrackingConsent("accepted");
+    loadTrackingScripts();
+    banner.remove();
+  });
+
+  document.getElementById("consentReject").addEventListener("click", function() {
+    setTrackingConsent("rejected");
+    banner.remove();
+  });
+}
+
+// UTM-Parameter beim Laden erfassen + Consent-Banner initialisieren
+document.addEventListener("DOMContentLoaded", function() {
+  getUtmParams();
+  initConsentBanner();
+});

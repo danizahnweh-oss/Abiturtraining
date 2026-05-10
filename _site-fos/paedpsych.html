@@ -4,24 +4,30 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Pädagogik/Psychologie üben für die bayerische FOS – Lerntheorien und Entwicklung mit KI-Feedback auf myAbiFlow.">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#db2777">
-  <meta http-equiv="Content-Security-Policy" content="default-src * data: blob:; script-src * 'unsafe-inline' 'unsafe-eval'; style-src * 'unsafe-inline'; img-src * data: blob:; font-src * data:; connect-src *;">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: blob: https:; font-src 'self' data: https://fonts.gstatic.com; connect-src 'self' https://myabiflow.de https://*.myabiflow.de https://generativelanguage.googleapis.com https://sag-abi-mediation-api.sanktannagymnasium.workers.dev; media-src 'self' blob:; worker-src 'self' blob:;">
   <title>myAbiFlow FOS · Pädagogik/Psychologie</title>
-  <link rel="icon"
-    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧩</text></svg>">
-  <script src="https://cdn.jsdelivr.net/npm/marked@9.1.6/marked.min.js"
-    crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/dompurify@3.2.4/dist/purify.min.js"
-    integrity="sha384-eEu5CTj3qGvu9PdJuS+YlkNi7d2XxQROAFYOr59zgObtlcux1ae1Il3u7jvdCSWu"
-    crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"
-    integrity="sha384-9nhczxUqK87bcKHh20fSQcTGD4qq5GhayNYSYWqwBkINBhOfQLg/P5HG5lF1urn4"
-    crossorigin="anonymous"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link
-    href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=JetBrains+Mono:wght@400;500&display=swap"
-    rel="stylesheet">
+  <meta property="og:title" content="myAbiFlow FOS · Pädagogik/Psychologie">
+  <meta property="og:description" content="Pädagogik/Psychologie üben für die bayerische FOS – Lerntheorien und Entwicklung mit KI-Feedback auf myAbiFlow.">
+  <meta property="og:image" content="https://myabiflow.de/og-image.png">
+  <meta property="og:url" content="https://myabiflow.de/fos/paedpsych.html">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="de_DE">
+  <meta property="og:site_name" content="myAbiFlow">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="myAbiFlow FOS · Pädagogik/Psychologie">
+  <meta name="twitter:description" content="Pädagogik/Psychologie üben für die bayerische FOS – Lerntheorien und Entwicklung mit KI-Feedback auf myAbiFlow.">
+  <meta name="twitter:image" content="https://myabiflow.de/og-image.png">
+  <link rel="canonical" href="https://myabiflow.de/fos/paedpsych.html">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/wave-icon-new.png" type="image/png" sizes="48x48">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <script src="/vendor/marked.min.js" defer></script>
+  <script src="/vendor/purify.min.js" defer></script>
+  <script src="/vendor/chart.umd.min.js" defer></script>
+  <link rel="stylesheet" href="/fonts/fonts.css">
   <link rel="stylesheet" href="shared-v4.css">
   <link rel="stylesheet" href="shared-fos.css">
   <style>
@@ -106,7 +112,7 @@
 
     .material-caption {
       font-size: .8rem;
-      color: var(--ink-muted);
+      color: var(--ink-light);
       text-align: center;
       margin-top: .4rem;
       font-style: italic;
@@ -115,7 +121,7 @@
 
     .material-credit {
       font-size: .7rem;
-      color: var(--ink-muted);
+      color: var(--ink-light);
       text-align: right;
       margin-top: .2rem;
       opacity: .7
@@ -127,13 +133,13 @@
       justify-content: center;
       gap: .5rem;
       padding: 2rem;
-      color: var(--ink-muted);
+      color: var(--ink-light);
       font-size: .85rem
     }
 
     .material-img-credit {
       font-size: .7rem;
-      color: var(--ink-muted);
+      color: var(--ink-light);
       text-align: right;
       margin-top: .25rem
     }
@@ -141,13 +147,13 @@
     .material-img-error {
       padding: 1rem;
       text-align: center;
-      color: var(--ink-muted);
+      color: var(--ink-light);
       font-style: italic
     }
 
     .material-source {
       font-size: .8rem;
-      color: var(--ink-muted);
+      color: var(--ink-light);
       font-style: italic;
       margin-top: .5rem
     }
@@ -179,7 +185,7 @@
 
     .be-max {
       font-size: 1rem;
-      color: var(--ink-muted)
+      color: var(--ink-light)
     }
 
     .np-badge {
@@ -258,7 +264,7 @@
     .teilaufgabe .ta-be {
       font-family: var(--font-mono);
       font-size: .8rem;
-      color: var(--ink-muted);
+      color: var(--ink-light);
       margin-left: .5rem
     }
 
@@ -308,21 +314,87 @@
 
     .hj-desc {
       font-size: .8rem;
-      color: var(--ink-muted)
+      color: var(--ink-light)
     }
   </style>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Course",
+      "name": "FOS Pädagogik/Psychologie",
+      "description": "Lerntheorien und Entwicklung für die bayerische FOS.",
+      "url": "https://myabiflow.de/fos/paedpsych.html",
+      "provider": {
+        "@id": "https://myabiflow.de/#organization"
+      },
+      "inLanguage": "de",
+      "educationalLevel": "Fachabitur (FOS/BOS Bayern)",
+      "about": "Pädagogik/Psychologie",
+      "audience": {
+        "@type": "EducationalAudience",
+        "educationalRole": "student",
+        "audienceType": "FOS/BOS-Schüler in Bayern"
+      },
+      "learningResourceType": "Übungsaufgaben",
+      "isAccessibleForFree": true,
+      "hasCourseInstance": {
+        "@type": "CourseInstance",
+        "courseMode": "online",
+        "courseWorkload": "PT30M",
+        "instructor": {
+          "@type": "Thing",
+          "name": "KI-Tutor (Flowie)"
+        }
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "EUR",
+        "availability": "https://schema.org/InStock",
+        "category": "Kostenlose Basisversion"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Startseite",
+          "item": "https://myabiflow.de/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "FOS",
+          "item": "https://myabiflow.de/fos/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "FOS Pädagogik/Psychologie",
+          "item": "https://myabiflow.de/fos/paedpsych.html"
+        }
+      ]
+    }
+  ]
+}
+  </script>
 </head>
 
 <body>
+  <a href="#main-content" class="skip-link">Zum Hauptinhalt springen</a>
   <header>
     <div class="header-left">
-      <a href="index.html" class="header-logo-link"><img src="logo.png" alt="myAbiFlow" class="header-logo"></a>
+      <a href="index.html" class="header-logo-link"><img src="logo.webp" alt="myAbiFlow" class="header-logo"></a>
       <a href="index.html?back=paedpsych" class="back-link">&larr; Zurück</a>
       <h1>🧩 Pädagogik/Psychologie &middot; <span>Klausurtraining</span></h1>
     </div>
     <div class="header-right">
       <span id="studentGreeting" class="header-meta" style="display:none"></span>
-      <button class="theme-toggle" onclick="toggleDarkMode()" id="themeToggleBtn">🌙</button>
+      <button class="theme-toggle" onclick="toggleDarkMode()" id="themeToggleBtn" aria-label="Farbmodus wechseln">🌙</button>
     </div>
   </header>
   <nav>
@@ -333,7 +405,7 @@
     <button id="nav-progress" onclick="nav('progress')" style="margin-left:auto;"><span class="step-num">📊</span>
       Fortschritt</button>
   </nav>
-  <main>
+  <main id="main-content">
     <!-- STEP 1: SETUP -->
     <section id="sec-setup" class="active">
       <div class="card">
@@ -379,15 +451,15 @@
         </div>
         <div style="display:flex;gap:2rem;flex-wrap:wrap">
           <div class="form-group" style="margin:0">
-            <label>Bewertungseinheiten (BE)</label>
+            <label for="totalBE">Bewertungseinheiten (BE)</label>
             <input type="number" id="totalBE" value="60" min="10" max="150" style="max-width:120px">
           </div>
           <div class="form-group" style="margin:0">
-            <label>Bearbeitungszeit (Min.)</label>
+            <label for="timerMinutes">Bearbeitungszeit (Min.)</label>
             <input type="number" id="timerMinutes" value="135" min="30" max="315" style="max-width:120px">
           </div>
           <div class="form-group" style="margin:0">
-            <label>Anzahl Aufgaben</label>
+            <label for="taskCount">Anzahl Aufgaben</label>
             <input type="number" id="taskCount" value="1" min="1" max="5" style="max-width:120px">
           </div>
         </div>
@@ -406,7 +478,7 @@
           <div class="upload-text" style="font-size:.8rem;margin-top:.3rem">JPG, PNG – max. 10 MB pro Bild · Mehrere
             Seiten möglich</div>
         </div>
-        <input type="file" id="taskFileInput" accept="image/*,.pdf" multiple style="display:none"
+        <input type="file" id="taskFileInput" aria-label="Aufgabe als Bild oder PDF hochladen" accept="image/*,.pdf" multiple style="display:none"
           onchange="handleTaskUpload(this.files)">
         <div id="taskUploadPages" class="ocr-pages"></div>
         <div class="loader" id="taskUploadLoader">
@@ -416,7 +488,7 @@
         <div id="taskUploadResult" style="display:none;margin-top:1rem">
           <div id="taskUploadPreview" style="margin-bottom:1rem"></div>
           <p style="color:var(--ink-success,#16a34a);font-weight:600;margin:.5rem 0 1rem">&#x2713; Dein Abitrainer hat die Aufgabe gelesen und verstanden.</p>
-          <textarea id="parsedTaskInstruction" style="display:none"></textarea>
+          <textarea id="parsedTaskInstruction" aria-label="Erkannter Aufgabentext Teil A" style="display:none"></textarea>
           <textarea id="parsedMaterials" style="display:none"></textarea>
           <button class="btn" onclick="useUploadedTask()">&#x2713; Aufgabe verwenden</button>
         </div>
@@ -477,7 +549,7 @@
             <div id="writeMaterialRef" class="material-box" style="max-height:300px;overflow-y:auto"></div>
           </div>
         </details>
-        <textarea id="studentText" placeholder="Beginne hier mit deiner Ausarbeitung …
+        <textarea id="studentText" aria-label="Deine Antwort" placeholder="Beginne hier mit deiner Ausarbeitung …
 
 Struktur:
 • Bearbeite alle Teilaufgaben der Reihe nach
@@ -503,7 +575,7 @@ Struktur:
           <div class="upload-text" style="font-size:.8rem;margin-top:.3rem">JPG, PNG – max. 10 MB pro Bild · Mehrere
             Seiten möglich</div>
         </div>
-        <input type="file" id="ocrFileInput" accept="image/*,.pdf" multiple style="display:none"
+        <input type="file" id="ocrFileInput" aria-label="Abgeschriebenen Text als Bild oder PDF hochladen" accept="image/*,.pdf" multiple style="display:none"
           onchange="handleOCRFiles(this.files)">
         <div id="ocrPages" class="ocr-pages"></div>
         <div id="ocrLoader" class="loader">
@@ -512,7 +584,7 @@ Struktur:
         </div>
         <div id="ocrResult" style="display:none;margin-top:1rem;">
           <label>Erkannter Text (bearbeitbar):</label>
-          <textarea id="ocrText" style="min-height:200px;" placeholder="Erkannter Text erscheint hier …"
+          <textarea id="ocrText" aria-label="Erkannter Text aus Upload" style="min-height:200px;" placeholder="Erkannter Text erscheint hier …"
             oninput="updateOCRWordCount()"></textarea>
           <div style="display:flex;gap:.5rem;margin-top:.8rem;flex-wrap:wrap;align-items:center;">
             <button class="btn btn-small" onclick="useOCRText()">✓ Text übernehmen</button>
@@ -564,7 +636,7 @@ Struktur:
         <div style="display:flex;gap:.8rem;flex-wrap:wrap">
           <button class="btn btn-secondary" onclick="requestModelAnswer()">💡 Musterlösung</button>
           <button class="btn btn-secondary" onclick="exportPDF()">📑 PDF</button>
-          <button class="btn" onclick="nav('setup')">Neue Aufgabe</button>
+          <button class="btn" onclick="confirmNewTask()">Neue Aufgabe</button>
         </div>
         <div id="modelAnswerContainer" style="display:none;margin-top:1.5rem">
           <div class="card">
@@ -766,7 +838,7 @@ Struktur:
         document.getElementById("taskUploadPreview").innerHTML = taskUploadImages.map(function(p) {
           return '<img src="' + p.url + '" style="width:100%;max-width:800px;border-radius:var(--radius-sm);margin-bottom:1rem;display:block" alt="Aufgabenblatt">';
         }).join('');
-        document.getElementById("taskUploadResult").style.display = "block";
+        document.getElementById("taskUploadResult").style.display = "block"; setTimeout(() => { document.getElementById("taskUploadResult").scrollIntoView({ behavior: "smooth", block: "nearest" }); }, 150);
       } catch (e) { showToast("Fehler: " + e.message); }
       document.getElementById("taskUploadLoader").style.display = "none";
     }
@@ -863,7 +935,7 @@ Struktur:
         } else if (m.typ === "foto") {
           inhalt = `<div class="material-img-loading" id="img-pp-${idx}"><div class="loader-spinner"></div><span>Foto wird geladen...</span></div>`;
         } else {
-          inhalt = escapeHtml(m.inhalt || "").replace(/\n/g, "<br>");
+          inhalt = formatTextWithLineNumbers(m.inhalt);
         }
         return `<details class="material-card" open>
       <summary><span class="material-badge">${escapeHtml(m.nr || "")}</span> ${escapeHtml(m.titel || "")} <span style="margin-left:auto;font-size:.8rem;color:var(--ink-muted)">${escapeHtml(m.typ || "")}</span></summary>
@@ -889,6 +961,7 @@ Struktur:
 
     /* ====== SUBMIT FOR GRADING ====== */
     async function submitForGrading() {
+      if (window.checkOcrPending && window.checkOcrPending()) return;
       const t = document.getElementById("studentText").value;
       if (countWords(t) < 80) { showToast("Bitte mindestens 80 Wörter schreiben."); return; }
       if (!CONFIG.storedData) { showToast("Bitte zuerst eine Aufgabe generieren."); return; }

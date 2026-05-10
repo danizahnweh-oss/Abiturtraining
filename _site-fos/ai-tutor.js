@@ -68,6 +68,11 @@ function initAiTutor() {
       transform: translateX(0);
       box-shadow: 0 4px 10px rgba(0,0,0,0.2);
     }
+    .ai-hover-hint.peek {
+      opacity: 1;
+      transform: translateX(-10px);
+      pointer-events: auto;
+    }
     .ai-hover-hint::after {
       content: '';
       position: absolute;
@@ -112,8 +117,10 @@ function initAiTutor() {
       background: rgba(255, 255, 255, 0.2);
       border: none;
       color: white;
-      width: 28px;
-      height: 28px;
+      width: 44px;
+      height: 44px;
+      min-width: 44px;
+      min-height: 44px;
       border-radius: 50%;
       font-size: 1rem;
       cursor: pointer;
@@ -182,8 +189,10 @@ function initAiTutor() {
       background: var(--accent, #4f46e5);
       color: white;
       border: none;
-      width: 36px;
-      height: 36px;
+      width: 44px;
+      height: 44px;
+      min-width: 44px;
+      min-height: 44px;
       border-radius: 12px;
       cursor: pointer;
       display: flex;
@@ -263,7 +272,7 @@ function initAiTutor() {
         <div class="ai-message ai">${greeting}</div>
       </div>
       <div class="ai-chat-input">
-        <input type="text" id="ai-input" placeholder="Deine Frage zu ${pageInfo.isIndex ? "den Fächern" : pageInfo.subject}..." onkeypress="handleAiEnter(event)">
+        <input type="text" id="ai-input" aria-label="Deine Frage an den KI-Assistenten" placeholder="Deine Frage zu ${pageInfo.isIndex ? "den Fächern" : pageInfo.subject}..." onkeypress="handleAiEnter(event)">
         <button id="ai-send-btn" onclick="sendAiMessage()">➤</button>
       </div>
     </div>
@@ -275,10 +284,25 @@ function initAiTutor() {
 
   // 6. Always show widget (even for guests)
   widget.style.display = "block";
+
+  // 7. "Frag mich!" Sprechblase periodisch einblenden (alle 60s, 4s sichtbar)
+  var hint = widget.querySelector(".ai-hover-hint");
+  if (hint) {
+    if (window._aiTutorHintIntervalId) clearInterval(window._aiTutorHintIntervalId);
+    window._aiTutorHintIntervalId = setInterval(function () {
+      var chatWin = document.getElementById("ai-chat-window");
+      if (chatWin && chatWin.style.display === "flex") return; // Chat offen → nicht zeigen
+      hint.classList.add("peek");
+      setTimeout(function () {
+        hint.classList.remove("peek");
+      }, 4000);
+    }, 60000);
+  }
 }
 
 /* ====== DRAG-AND-DROP ====== */
 function initWidgetDrag(widget) {
+  if (window._aiTutorDragCleanup) window._aiTutorDragCleanup();
   var isDragging = false;
   var wasDragged = false;
   var startX, startY, origX, origY;
@@ -381,13 +405,15 @@ function initWidgetDrag(widget) {
       widget._justDragged = true;
       setTimeout(function () { widget._justDragged = false; }, 50);
     } else if (e.type === "touchend") {
-      // Auf Touch-Geräten wird der Click-Event durch den Drag-Handler unterdrückt.
-      // Bei einem Tap (kein Drag) manuell toggleAiChat/Close auslösen.
+      // Auf Touch-Geräten: Bei einem Tap (kein Drag) manuell toggleAiChat auslösen
+      // und den synthetischen Click unterdrücken, damit toggleAiChat nicht doppelt feuert.
       var btn = document.getElementById("ai-tutor-btn");
       var closeBtn = document.getElementById("ai-close-btn");
       if (dragStartTarget && (dragStartTarget === closeBtn || (closeBtn && closeBtn.contains(dragStartTarget)))) {
+        e.preventDefault();
         toggleAiChat();
       } else if (dragStartTarget && (dragStartTarget === btn || (btn && btn.contains(dragStartTarget)))) {
+        e.preventDefault();
         toggleAiChat();
       }
     }
@@ -402,11 +428,22 @@ function initWidgetDrag(widget) {
   document.addEventListener("touchend", onEnd);
 
   // Re-clamp on window resize
-  window.addEventListener("resize", function () {
+  var onResize = function () {
     if (widget.style.top && widget.style.top !== "auto") {
       clampPosition();
     }
-  });
+  };
+  window.addEventListener("resize", onResize);
+
+  window._aiTutorDragCleanup = function () {
+    document.removeEventListener("mousedown", onStart);
+    document.removeEventListener("mousemove", onMove);
+    document.removeEventListener("mouseup", onEnd);
+    document.removeEventListener("touchstart", onStart, { passive: false });
+    document.removeEventListener("touchmove", onMove, { passive: false });
+    document.removeEventListener("touchend", onEnd);
+    window.removeEventListener("resize", onResize);
+  };
 }
 
 function toggleAiChat() {
@@ -589,10 +626,10 @@ async function sendAiMessage() {
 
   try {
     console.log("Sending request to AI Tutor...");
-    var res = await fetch("https://backend-tutor.sanktannagymnasium.workers.dev/query", {
+    var res = await fetch("https://myabiflow.de/tutor/query", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ prompt: text, studentName: sName, taskContext: taskContext })
+      body: JSON.stringify({ question: text, studentName: sName, taskContext: taskContext })
     });
 
     if (!res.ok) {
@@ -639,16 +676,32 @@ function addAiMessage(text, sender) {
   return id;
 }
 
-// Auto-Init on Load if not already called
-// Use DOMContentLoaded to make sure body exists
-document.addEventListener("DOMContentLoaded", function () {
-  // If we are on a page that needs login (like tasks), we can check session
-  // Or if we are on index.html, checkSession might also call it.
-  // It is safe to call it multiple times because of the check at the top of initAiTutor.
-  initAiTutor();
-});
+function cleanupAiTutorRuntime() {
+  if (window._aiTutorHintIntervalId) {
+    clearInterval(window._aiTutorHintIntervalId);
+    window._aiTutorHintIntervalId = null;
+  }
+  if (window._aiTutorDragCleanup) {
+    window._aiTutorDragCleanup();
+    window._aiTutorDragCleanup = null;
+  }
+}
 
-// Fallback for immediate load if deferred
-if (document.readyState === "interactive" || document.readyState === "complete") {
+function ensureAiTutor() {
   initAiTutor();
+  var widget = document.getElementById("ai-tutor-widget");
+  if (widget && !window._aiTutorDragCleanup) {
+    initWidgetDrag(widget);
+  }
+}
+
+if (!window._aiTutorInited) {
+  window._aiTutorInited = true;
+  document.addEventListener("DOMContentLoaded", ensureAiTutor);
+  window.addEventListener("pageshow", ensureAiTutor);
+  window.addEventListener("pagehide", cleanupAiTutorRuntime);
+
+  if (document.readyState === "interactive" || document.readyState === "complete") {
+    ensureAiTutor();
+  }
 }

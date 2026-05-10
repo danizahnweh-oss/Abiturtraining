@@ -4,31 +4,37 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="BwR Fachabiturtraining FOS Bayern – Prüfungsaufgaben mit KI-gestützter Bewertung auf myAbiFlow.">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#f59e0b">
-  <meta http-equiv="Content-Security-Policy" content="default-src * data: blob:; script-src * 'unsafe-inline' 'unsafe-eval'; style-src * 'unsafe-inline'; img-src * data: blob:; font-src * data:; connect-src *;">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: blob: https:; font-src 'self' data: https://fonts.gstatic.com; connect-src 'self' https://myabiflow.de https://*.myabiflow.de https://generativelanguage.googleapis.com https://sag-abi-mediation-api.sanktannagymnasium.workers.dev; media-src 'self' blob:; worker-src 'self' blob:;">
   <title>myAbiFlow FOS &middot; BwR Fachabiturtraining</title>
-  <link rel="icon"
-    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#x1F4DD;</text></svg>">
-  <script src="https://cdn.jsdelivr.net/npm/marked@9.1.6/marked.min.js"
-    crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/dompurify@3.2.4/dist/purify.min.js"
-    integrity="sha384-eEu5CTj3qGvu9PdJuS+YlkNi7d2XxQROAFYOr59zgObtlcux1ae1Il3u7jvdCSWu"
-    crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"
-    integrity="sha384-9nhczxUqK87bcKHh20fSQcTGD4qq5GhayNYSYWqwBkINBhOfQLg/P5HG5lF1urn4"
-    crossorigin="anonymous"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link
-    href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=JetBrains+Mono:wght@400;500&display=swap"
-    rel="stylesheet">
+  <meta property="og:title" content="myAbiFlow FOS · BwR Fachabiturtraining">
+  <meta property="og:description" content="BwR Fachabiturtraining FOS Bayern – Prüfungsaufgaben mit KI-gestützter Bewertung auf myAbiFlow.">
+  <meta property="og:image" content="https://myabiflow.de/og-image.png">
+  <meta property="og:url" content="https://myabiflow.de/fos/bwr-abitur.html">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="de_DE">
+  <meta property="og:site_name" content="myAbiFlow">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="myAbiFlow FOS · BwR Fachabiturtraining">
+  <meta name="twitter:description" content="BwR Fachabiturtraining FOS Bayern – Prüfungsaufgaben mit KI-gestützter Bewertung auf myAbiFlow.">
+  <meta name="twitter:image" content="https://myabiflow.de/og-image.png">
+  <link rel="canonical" href="https://myabiflow.de/fos/bwr-abitur.html">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/wave-icon-new.png" type="image/png" sizes="48x48">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <script src="/vendor/marked.min.js" defer></script>
+  <script src="/vendor/purify.min.js" defer></script>
+  <script src="/vendor/chart.umd.min.js" defer></script>
+  <link rel="stylesheet" href="/fonts/fonts.css">
   <link rel="stylesheet" href="shared-v4.css">
   <link rel="stylesheet" href="shared-fos.css">
   <style>
     /* Amber accent override */
     :root {
-      --accent: #f59e0b;
-      --accent-hover: #d97706;
+      --accent: #b45309;
+      --accent-hover: #92400e;
       --accent-soft: #fef3c7;
       --accent-glow: rgba(245, 158, 11, .08);
     }
@@ -87,7 +93,7 @@
 
     .write-part .word-counter {
       font-size: .8rem;
-      color: var(--ink-muted);
+      color: var(--ink-light);
       margin-top: .4rem
     }
 
@@ -114,7 +120,7 @@
 
     .aufgabe-be {
       font-size: .8rem;
-      color: var(--ink-muted);
+      color: var(--ink-light);
       font-weight: 600
     }
 
@@ -216,19 +222,85 @@
       }
     }
   </style>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Course",
+      "name": "FOS BwR Fachabiturtraining",
+      "description": "Prüfungsaufgaben BwR für das Fachabitur Bayern.",
+      "url": "https://myabiflow.de/fos/bwr-abitur.html",
+      "provider": {
+        "@id": "https://myabiflow.de/#organization"
+      },
+      "inLanguage": "de",
+      "educationalLevel": "Fachabitur (FOS/BOS Bayern)",
+      "about": "BwR",
+      "audience": {
+        "@type": "EducationalAudience",
+        "educationalRole": "student",
+        "audienceType": "FOS/BOS-Schüler in Bayern"
+      },
+      "learningResourceType": "Prüfungsvorbereitung",
+      "isAccessibleForFree": true,
+      "hasCourseInstance": {
+        "@type": "CourseInstance",
+        "courseMode": "online",
+        "courseWorkload": "PT30M",
+        "instructor": {
+          "@type": "Thing",
+          "name": "KI-Tutor (Flowie)"
+        }
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "EUR",
+        "availability": "https://schema.org/InStock",
+        "category": "Kostenlose Basisversion"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Startseite",
+          "item": "https://myabiflow.de/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "FOS",
+          "item": "https://myabiflow.de/fos/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "FOS BwR Fachabiturtraining",
+          "item": "https://myabiflow.de/fos/bwr-abitur.html"
+        }
+      ]
+    }
+  ]
+}
+  </script>
 </head>
 
 <body>
+  <a href="#main-content" class="skip-link">Zum Hauptinhalt springen</a>
 
   <header>
     <div class="header-left">
-      <a href="index.html" class="header-logo-link"><img src="logo.png" alt="myAbiFlow" class="header-logo"></a>
+      <a href="index.html" class="header-logo-link"><img src="logo.webp" alt="myAbiFlow" class="header-logo"></a>
       <a href="index.html?back=bwr" class="back-link">&larr; Zur&uuml;ck</a>
       <h1>BwR &middot; <span>Fachabiturtraining</span></h1>
     </div>
     <div class="header-right">
       <span id="studentGreeting" class="header-meta" style="display:none"></span>
-      <button class="theme-toggle" onclick="toggleDarkMode()" id="themeToggleBtn">&#x1F319;</button>
+      <button class="theme-toggle" onclick="toggleDarkMode()" id="themeToggleBtn" aria-label="Farbmodus wechseln">&#x1F319;</button>
     </div>
   </header>
 
@@ -241,7 +313,7 @@
         class="step-num">&#x1F4CA;</span> Fortschritt</button>
   </nav>
 
-  <main>
+  <main id="main-content">
     <!-- STEP 1: SETUP -->
     <section id="sec-setup" class="active">
       <div class="card">
@@ -274,7 +346,7 @@
           <div class="upload-text"><strong>Bilder oder PDF hochladen</strong> (Aufgabenbl&auml;tter)</div>
           <div class="upload-text" style="font-size:.8rem;margin-top:.3rem">JPG, PNG, PDF &ndash; max. 10 MB pro Datei &middot; Mehrere Seiten m&ouml;glich</div>
         </div>
-        <input type="file" id="taskFileInput" accept="image/*,.pdf" multiple style="display:none"
+        <input type="file" id="taskFileInput" aria-label="Aufgabe als Bild oder PDF hochladen" accept="image/*,.pdf" multiple style="display:none"
           onchange="handleTaskUpload(this.files)">
         <div id="taskUploadPages" class="ocr-pages"></div>
         <div class="loader" id="taskUploadLoader">
@@ -284,14 +356,14 @@
         <div id="taskUploadResult" style="display:none;margin-top:1rem">
           <div id="taskUploadPreview" style="margin-bottom:1rem"></div>
           <p style="color:var(--ink-success,#16a34a);font-weight:600;margin:.5rem 0 1rem">&#x2713; Dein Abitrainer hat die Aufgabe gelesen und verstanden.</p>
-          <textarea id="parsedTaskInstruction" style="display:none"></textarea>
+          <textarea id="parsedTaskInstruction" aria-label="Erkannter Aufgabentext Teil A" style="display:none"></textarea>
           <textarea id="parsedMaterials" style="display:none"></textarea>
           <button class="btn" onclick="useUploadedTask()">&#x2713; Aufgabe verwenden</button>
         </div>
       </div>
 
       <div class="card">
-        <label>Bearbeitungszeit (Min.)</label>
+        <label for="timerMinutes">Bearbeitungszeit (Min.)</label>
         <input type="number" id="timerMinutes" value="180" min="60" max="300" style="max-width:120px">
         <div style="font-size:.8rem;color:var(--ink-muted);margin-top:.3rem">FAP: 180 Min. (3 Aufgabenbl&ouml;cke)</div>
       </div>
@@ -387,7 +459,7 @@
           <div class="upload-text"><strong>Klicken</strong> oder Fotos hierher ziehen</div>
           <div class="upload-text" style="font-size:.8rem;margin-top:.3rem">JPG, PNG &ndash; max. 10 MB pro Foto &middot; Mehrere Seiten m&ouml;glich</div>
         </div>
-        <input type="file" id="ocrFileInput" accept="image/*" multiple style="display:none"
+        <input type="file" id="ocrFileInput" aria-label="Abgeschriebenen Text als Bild oder PDF hochladen" accept="image/*" multiple style="display:none"
           onchange="handleOCRFiles(this.files)">
         <div id="ocrPages" class="ocr-pages"></div>
         <div id="ocrLoader" class="loader">
@@ -396,7 +468,7 @@
         </div>
         <div id="ocrResult" style="display:none;margin-top:1rem;">
           <label>Erkannter Text <span style="font-weight:normal;color:var(--ink-muted)">&ndash; bitte pr&uuml;fen und ggf. korrigieren:</span></label>
-          <textarea id="ocrText" style="min-height:200px;" placeholder="Erkannter Text erscheint hier &hellip;"
+          <textarea id="ocrText" aria-label="Erkannter Text aus Upload" style="min-height:200px;" placeholder="Erkannter Text erscheint hier &hellip;"
             oninput="updateOCRWordCount()"></textarea>
           <p style="font-size:.8rem;color:var(--ink-muted);margin:.5rem 0;">
             Deine Originalfotos werden zus&auml;tzlich zum Text bei der Bewertung ber&uuml;cksichtigt.
@@ -620,7 +692,7 @@
         document.getElementById("taskUploadPreview").innerHTML = taskUploadImages.map(function(p) {
           return '<img src="' + p.url + '" style="width:100%;max-width:800px;border-radius:var(--radius-sm);margin-bottom:1rem;display:block" alt="Aufgabenblatt">';
         }).join('');
-        document.getElementById("taskUploadResult").style.display = "block";
+        document.getElementById("taskUploadResult").style.display = "block"; setTimeout(() => { document.getElementById("taskUploadResult").scrollIntoView({ behavior: "smooth", block: "nearest" }); }, 150);
       } catch (e) { showToast("Fehler: " + e.message); }
       document.getElementById("taskUploadLoader").style.display = "none";
     }
@@ -736,6 +808,7 @@
     function useOCRTextB() { useOCRText("II"); }
 
     async function submitForGrading() {
+      if (window.checkOcrPending && window.checkOcrPending()) return;
       var tI = document.getElementById("studentTextI").value;
       var tII = document.getElementById("studentTextII").value;
       var tIII = document.getElementById("studentTextIII").value;

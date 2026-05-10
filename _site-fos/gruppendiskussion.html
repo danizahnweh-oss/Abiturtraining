@@ -4,25 +4,31 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Gruppendiskussion üben für die bayerische FOS – mündliche Prüfungsvorbereitung mit KI-Feedback auf myAbiFlow.">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#4f46e5">
-  <meta http-equiv="Content-Security-Policy" content="default-src * data: blob:; script-src * 'unsafe-inline' 'unsafe-eval'; style-src * 'unsafe-inline'; img-src * data: blob:; font-src * data:; connect-src *;">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: blob: https:; font-src 'self' data: https://fonts.gstatic.com; connect-src 'self' https://myabiflow.de https://*.myabiflow.de https://generativelanguage.googleapis.com https://sag-abi-mediation-api.sanktannagymnasium.workers.dev; media-src 'self' blob:; worker-src 'self' blob:;">
   <title>myAbiFlow FOS · Gruppendiskussion</title>
-  <link rel="icon"
-    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🗣️</text></svg>">
+  <meta property="og:title" content="myAbiFlow FOS · Gruppendiskussion">
+  <meta property="og:description" content="Gruppendiskussion üben für die bayerische FOS – mündliche Prüfungsvorbereitung mit KI-Feedback auf myAbiFlow.">
+  <meta property="og:image" content="https://myabiflow.de/og-image.png">
+  <meta property="og:url" content="https://myabiflow.de/fos/gruppendiskussion.html">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="de_DE">
+  <meta property="og:site_name" content="myAbiFlow">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="myAbiFlow FOS · Gruppendiskussion">
+  <meta name="twitter:description" content="Gruppendiskussion üben für die bayerische FOS – mündliche Prüfungsvorbereitung mit KI-Feedback auf myAbiFlow.">
+  <meta name="twitter:image" content="https://myabiflow.de/og-image.png">
+  <link rel="canonical" href="https://myabiflow.de/fos/gruppendiskussion.html">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/wave-icon-new.png" type="image/png" sizes="48x48">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
-  <script src="https://cdn.jsdelivr.net/npm/marked@9.1.6/marked.min.js"
-    crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/dompurify@3.2.4/dist/purify.min.js"
-    integrity="sha384-eEu5CTj3qGvu9PdJuS+YlkNi7d2XxQROAFYOr59zgObtlcux1ae1Il3u7jvdCSWu"
-    crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"
-    integrity="sha384-9nhczxUqK87bcKHh20fSQcTGD4qq5GhayNYSYWqwBkINBhOfQLg/P5HG5lF1urn4"
-    crossorigin="anonymous"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link
-    href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=JetBrains+Mono:wght@400;500&display=swap"
-    rel="stylesheet">
+  <script src="/vendor/marked.min.js" defer></script>
+  <script src="/vendor/purify.min.js" defer></script>
+  <script src="/vendor/chart.umd.min.js" defer></script>
+  <link rel="stylesheet" href="/fonts/fonts.css">
   <link rel="stylesheet" href="shared-v4.css">
   <link rel="stylesheet" href="shared-fos.css">
 
@@ -99,7 +105,7 @@
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: .04em;
-      color: var(--ink-muted);
+      color: var(--ink-light);
       margin-bottom: .4rem;
     }
 
@@ -162,7 +168,7 @@
 
     .opinion-badge.ai {
       background: var(--border);
-      color: var(--ink-muted);
+      color: var(--ink-light);
     }
 
     .opinion-text {
@@ -283,7 +289,7 @@
 
     .prep-timer-label {
       font-size: .9rem;
-      color: var(--ink-muted);
+      color: var(--ink-light);
       margin-top: .3rem;
     }
 
@@ -336,7 +342,7 @@
       align-items: center;
       gap: .4rem;
       font-size: .85rem;
-      color: var(--ink-muted);
+      color: var(--ink-light);
     }
 
     .mic-indicator .mic-dot {
@@ -440,7 +446,7 @@
 
     .score-label {
       font-size: .9rem;
-      color: var(--ink-muted);
+      color: var(--ink-light);
       margin-top: .3rem;
     }
 
@@ -475,9 +481,75 @@
       }
     }
   </style>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Course",
+      "name": "FOS Gruppendiskussion",
+      "description": "Mündliche Prüfungsvorbereitung für die bayerische FOS.",
+      "url": "https://myabiflow.de/fos/gruppendiskussion.html",
+      "provider": {
+        "@id": "https://myabiflow.de/#organization"
+      },
+      "inLanguage": "de",
+      "educationalLevel": "Fachabitur (FOS/BOS Bayern)",
+      "about": "Gruppendiskussion",
+      "audience": {
+        "@type": "EducationalAudience",
+        "educationalRole": "student",
+        "audienceType": "FOS/BOS-Schüler in Bayern"
+      },
+      "learningResourceType": "Übungsaufgaben",
+      "isAccessibleForFree": true,
+      "hasCourseInstance": {
+        "@type": "CourseInstance",
+        "courseMode": "online",
+        "courseWorkload": "PT30M",
+        "instructor": {
+          "@type": "Thing",
+          "name": "KI-Tutor (Flowie)"
+        }
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "EUR",
+        "availability": "https://schema.org/InStock",
+        "category": "Kostenlose Basisversion"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Startseite",
+          "item": "https://myabiflow.de/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "FOS",
+          "item": "https://myabiflow.de/fos/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "FOS Gruppendiskussion",
+          "item": "https://myabiflow.de/fos/gruppendiskussion.html"
+        }
+      ]
+    }
+  ]
+}
+  </script>
 </head>
 
 <body>
+  <a href="#main-content" class="skip-link">Zum Hauptinhalt springen</a>
 
   <!-- ====== LOGIN REDIRECT ====== -->
   <div id="login-screen" style="min-height:100vh;display:flex;align-items:center;justify-content:center;">
@@ -492,14 +564,14 @@
   <div id="app-wrapper" style="display:none">
 
     <header>
-      <a href="index.html" class="header-logo-link"><img src="logo.png" alt="myAbiFlow" class="header-logo"></a>
+      <a href="index.html" class="header-logo-link"><img src="logo.webp" alt="myAbiFlow" class="header-logo"></a>
       <h1><a href="index.html?back=english" style="color:var(--ink);text-decoration:none;">←</a> Englisch &middot;
         <span>Gruppendiskussion</span></h1>
       <div class="header-right">
         <span id="studentGreeting" class="header-meta" style="display:none"></span>
         <div class="header-meta">myAbiFlow</div>
         <button class="theme-toggle" onclick="toggleDarkMode()" title="Dark Mode umschalten"
-          id="themeToggleBtn">🌙</button>
+          id="themeToggleBtn" aria-label="Farbmodus wechseln">🌙</button>
       </div>
     </header>
 
@@ -518,7 +590,7 @@
       </button>
     </nav>
 
-    <main>
+    <main id="main-content">
 
       <!-- ====== SETUP ====== -->
       <section id="sec-setup" class="active">
@@ -1057,9 +1129,11 @@
       var html = DOMPurify.sanitize(marked.parse(markdown));
       document.getElementById('feedbackBody').innerHTML = html;
 
-      // Punkte extrahieren (suche nach "X/15" oder "X von 15")
-      var scoreMatch = markdown.match(/(\d{1,2})\s*(?:\/|von)\s*15/);
-      var score = scoreMatch ? parseInt(scoreMatch[1]) : null;
+      // Gesamtpunktzahl extrahieren (letzte "X/15"-Angabe = Gesamtnote nach Bewertungsraster)
+      var allMatches = markdown.match(/(\d{1,2})\s*(?:\/|von)\s*15/g);
+      var lastMatch = allMatches ? allMatches[allMatches.length - 1] : null;
+      var scoreNum = lastMatch ? lastMatch.match(/(\d{1,2})/) : null;
+      var score = scoreNum ? parseInt(scoreNum[1]) : null;
 
       if (score !== null && score >= 0 && score <= 15) {
         document.getElementById('scoreDisplay').style.display = 'block';
