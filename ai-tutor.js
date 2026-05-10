@@ -626,10 +626,10 @@ async function sendAiMessage() {
 
   try {
     console.log("Sending request to AI Tutor...");
-    var res = await fetch("https://backend-tutor.sanktannagymnasium.workers.dev/query", {
+    var res = await fetch("https://myabiflow.de/tutor/query", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ prompt: text, studentName: sName, taskContext: taskContext })
+      body: JSON.stringify({ question: text, studentName: sName, taskContext: taskContext })
     });
 
     if (!res.ok) {
