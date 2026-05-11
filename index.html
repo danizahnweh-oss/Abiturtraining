@@ -6654,50 +6654,23 @@
             showTrialBannerIfNeeded("trialBannerContainer");
           }
 
-          // Show/hide auth-dependent UI elements
-          var logoutBtn = document.getElementById("logoutBtn");
-          var guestLoginBtn = document.getElementById("guestLoginBtn");
-          var userInfoEl = document.getElementById("userInfo");
-          var profileBtn = document.getElementById("profileBtn");
-          if (logoutBtn) logoutBtn.style.display = "";
-          if (guestLoginBtn) guestLoginBtn.style.display = "none";
-          if (userInfoEl) userInfoEl.style.display = "";
-          if (profileBtn) profileBtn.style.display = "";
-
-          // If user clicked a subject before login, go there directly
-          var pendingSubject = sessionStorage.getItem("pending_subject");
-          if (pendingSubject) {
-            sessionStorage.removeItem("pending_subject");
-            showSubjectSelection();
-            selectSubject(pendingSubject, true);
-          } else {
-            showSubjectSelection();
-          }
-          loadStudentProgress();
-          loadHiddenSubjects();
-          // Gast-Praeferenzen (Wizard-Daten) in API hochladen
+          // Gast-Praeferenzen (Wizard-Daten) in API hochladen, BEVOR checkSession den Cache neu lädt
           if (examSubjectsCache.written.length > 0 || examSubjectsCache.oral.length > 0) {
             saveAllPreferences();
           }
-          var profilLink = document.getElementById("profilLink");
-          if (profilLink) profilLink.style.display = "";
-          history.replaceState({ screen: pendingSubject ? "module-" + pendingSubject : "subjects" }, "");
-          // Layout und Wizard erst nach dem Laden der Abiturfaecher
-          loadExamSubjects().then(function () {
-            var _remBtn = document.getElementById("reminderSettingsBtn");
-            if (_remBtn) _remBtn.style.display = "";
-            if (!localStorage.getItem(LS_WIZARD_KEY)) {
-              // Wizard anzeigen – Tour erst NACH Wizard starten (sonst ueberdeckt Tour den Wizard)
-              setTimeout(function () { showAbiWizard(); }, 500);
-            } else {
-              // Kein Wizard noetig → Tour direkt starten
-              if (!isTourDone("onboarding_done")) {
-                setTimeout(function () {
-                  startTour({ steps: indexTourSteps, storageKey: "onboarding_done" });
-                }, 600);
-              }
-            }
-          });
+
+          // Single Source of Truth: checkSession() übernimmt die gesamte UI-Aktualisierung
+          // (Greeting, guestHint, Auth-Buttons, Abifächer-Layout, Wizard, Tour). Verhindert
+          // den inkonsistenten Halb-Gast/Halb-Login-Zustand, der entsteht wenn checkSession
+          // beim Page-Load mit Gast-State lief und _continueAfterLogin nur Teile updatete.
+          checkSession();
+
+          // Wenn der Schüler vor dem Login bereits ein Fach geklickt hatte: Modal öffnen
+          var pendingSubject = sessionStorage.getItem("pending_subject");
+          if (pendingSubject) {
+            sessionStorage.removeItem("pending_subject");
+            if (typeof selectSubject === "function") selectSubject(pendingSubject, true);
+          }
     }
 
     function showSubjectSelection(_push) {
