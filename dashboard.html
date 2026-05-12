@@ -747,11 +747,30 @@ details[open] > .collapsible-header .collapsible-chevron {
           <input type="date" id="filterStudentFrom" onchange="renderStudents()" title="Registriert ab" style="font-size:16px;min-height:44px;">
           <label for="filterStudentTo" class="sr-only">Registriert bis</label>
           <input type="date" id="filterStudentTo" onchange="renderStudents()" title="Registriert bis" style="font-size:16px;min-height:44px;">
+          <label for="filterStudentAbo" class="sr-only">Abo filtern</label>
+          <select id="filterStudentAbo" onchange="renderStudents()" style="font-size:16px;min-height:44px;" title="Nach Abo-Variante filtern">
+            <option value="">Alle Abos</option>
+            <option value="active">Nur aktiv</option>
+            <option value="plan:monthly">Aktiv – Monat</option>
+            <option value="plan:6months">Aktiv – 6 Mo.</option>
+            <option value="plan:12months">Aktiv – 12 Mo.</option>
+            <option value="plan:24months">Aktiv – 24 Mo.</option>
+            <option value="plan:abitur">Aktiv – Abitur</option>
+            <option value="plan:school">Aktiv – Schule</option>
+            <option value="plan:trial">Aktiv – Trial</option>
+            <option value="trialing">Testphase</option>
+            <option value="trial_expired">Testphase abgelaufen</option>
+            <option value="past_due">Überfällig</option>
+            <option value="canceled">Gekündigt</option>
+            <option value="trial_used">Trial verbraucht</option>
+            <option value="free_access">🎁 Gratis-Zugang (vom Lehrer)</option>
+          </select>
           <label for="filterStudentSort" class="sr-only">Sortierung</label>
           <select id="filterStudentSort" onchange="renderStudents()" style="font-size:16px;min-height:44px;">
             <option value="name-asc">Name A–Z</option>
             <option value="date-desc">Neueste zuerst</option>
             <option value="date-asc">Älteste zuerst</option>
+            <option value="abo">Nach Abo gruppiert</option>
           </select>
           <button class="btn btn-small" onclick="loadStudents()" style="min-height:44px;">🔄</button>
         </div>
@@ -1631,14 +1650,46 @@ function renderStudents() {
   const fromDate = document.getElementById("filterStudentFrom")?.value || "";
   const toDate = document.getElementById("filterStudentTo")?.value || "";
   const sortMode = document.getElementById("filterStudentSort")?.value || "name-asc";
+  const aboFilter = document.getElementById("filterStudentAbo")?.value || "";
   let filtered = [...allStudents];
   if (classFilter) filtered = filtered.filter(s => s.class_group === classFilter);
   if (fromDate) filtered = filtered.filter(s => s.date && s.date.slice(0, 10) >= fromDate);
   if (toDate) filtered = filtered.filter(s => s.date && s.date.slice(0, 10) <= toDate);
+  if (aboFilter) {
+    filtered = filtered.filter(s => {
+      if (aboFilter === "free_access") return !!s.free_access_active;
+      if (aboFilter === "active") return s.subscription_status === "active";
+      if (aboFilter.startsWith("plan:")) {
+        const plan = aboFilter.slice(5);
+        return s.subscription_status === "active" && s.subscription_plan === plan;
+      }
+      if (aboFilter === "trial_used") {
+        // "Trial verbraucht" = kein bekannter Status (else-Zweig im Badge)
+        const known = ["active", "trialing", "trial_expired", "past_due", "canceled"];
+        return !known.includes(s.subscription_status);
+      }
+      return s.subscription_status === aboFilter;
+    });
+  }
+  // Sortier-Rang für Abo-Gruppierung
+  const aboRank = (s) => {
+    if (s.subscription_status === "active") {
+      const planOrder = { monthly: 1, "6months": 2, "12months": 3, "24months": 4, abitur: 5, school: 6, trial: 7 };
+      return [0, planOrder[s.subscription_plan] ?? 99, s.subscription_plan || ""];
+    }
+    const statusOrder = { trialing: 10, trial_expired: 11, past_due: 12, canceled: 13 };
+    return [statusOrder[s.subscription_status] ?? 20, 0, ""];
+  };
   filtered.sort((a, b) => {
     switch (sortMode) {
       case "date-desc": return (b.date || "").localeCompare(a.date || "");
       case "date-asc": return (a.date || "").localeCompare(b.date || "");
+      case "abo": {
+        const ra = aboRank(a), rb = aboRank(b);
+        if (ra[0] !== rb[0]) return ra[0] - rb[0];
+        if (ra[1] !== rb[1]) return ra[1] - rb[1];
+        return a.name.localeCompare(b.name);
+      }
       default: return a.name.localeCompare(b.name);
     }
   });
