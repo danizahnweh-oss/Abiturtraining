@@ -393,6 +393,9 @@ export async function ensureMigrations(env) {
     await addCol("subscription_plan", "TEXT DEFAULT 'free'");
     await addCol("trial_end", "TEXT DEFAULT NULL");
 
+    // Zähler für Kolloquium-Übungen im Probezeitraum (Limit: 3 Stück)
+    await addCol("trial_colloquium_count", "INTEGER DEFAULT 0");
+
     // Manuell vom Lehrer/Admin gewährter freier Zugang (orthogonal zu Stripe & Trial)
     await addCol("free_access_until", "TEXT DEFAULT NULL");
 

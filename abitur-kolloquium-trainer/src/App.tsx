@@ -359,7 +359,9 @@ function MaterialImpulsCard({ impuls, onMinimize }: { impuls: MaterialImpuls; on
 
 /* ───────── Main component ───────── */
 
-type Step = 'setup' | 'generating' | 'preparation' | 'exam' | 'feedback-choice' | 'feedback';
+type Step = 'setup' | 'generating' | 'preparation' | 'exam' | 'feedback-choice' | 'feedback' | 'trial-limit-reached';
+
+const API_BASE = 'https://sag-abi-mediation-api.sanktannagymnasium.workers.dev';
 
 const PHASE_LABELS: Record<string, string> = {
   'referat': 'Kurzreferat (ca. 10 Min)',
@@ -382,6 +384,29 @@ export default function App() {
 
   /* Wiederherstellbare Prüfung aus sessionStorage */
   const [recoveryData, setRecoveryData] = useState<any>(null);
+
+  /* Trial-Limit-Status: null = noch nicht geladen / unbegrenzt, sonst Restanzahl */
+  const [trialRemaining, setTrialRemaining] = useState<number | null>(null);
+  const [trialMax, setTrialMax] = useState<number>(3);
+
+  /* Beim Mount Abo-/Trial-Status laden, damit Counter direkt sichtbar ist */
+  useEffect(() => {
+    const token = sessionStorage.getItem('access_token');
+    if (!token) return;
+    fetch(`${API_BASE}/api/colloquium/status`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'X-Access-Token': token },
+    })
+      .then(r => r.ok ? r.json() : null)
+      .then(data => {
+        if (!data) return;
+        if (data.trial) {
+          setTrialRemaining(typeof data.remaining === 'number' ? data.remaining : null);
+          if (typeof data.max === 'number') setTrialMax(data.max);
+        }
+      })
+      .catch(() => {});
+  }, []);
 
   /* Config state */
   const [step, setStep] = useState<Step>('setup');
@@ -730,6 +755,38 @@ export default function App() {
 
   const startExam = async () => {
     if (!material) return;
+
+    // Pre-Flight: Trial-Limit prüfen / Zugang verifizieren (zählt Trial-Counter atomar hoch)
+    const token = sessionStorage.getItem('access_token');
+    if (token) {
+      try {
+        const res = await fetch(`${API_BASE}/api/colloquium/start`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'X-Access-Token': token },
+        });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok) {
+          if (data.trial_limit_reached) {
+            setTrialRemaining(0);
+            setStep('trial-limit-reached');
+            return;
+          }
+          if (data.requires_subscription) {
+            window.location.href = 'https://myabiflow.de/abo.html';
+            return;
+          }
+          alert(data.error || 'Start der Prüfung nicht möglich. Bitte später erneut versuchen.');
+          return;
+        }
+        if (data.trial && typeof data.remaining === 'number') {
+          setTrialRemaining(data.remaining);
+          if (typeof data.max === 'number') setTrialMax(data.max);
+        }
+      } catch {
+        // Netzwerk-Fehler → still durchlassen, damit User nicht blockiert wird
+      }
+    }
+
     prep.stop();
     setStep('exam');
     setModelTx([]);
@@ -1480,9 +1537,22 @@ export default function App() {
                 </p>
               </div>
 
+              {/* Trial-Counter (nur sichtbar bei aktivem Probezeitraum) */}
+              {trialRemaining !== null && (
+                <div className="flex items-start gap-3 p-4 bg-amber-50 rounded-2xl border border-amber-200 text-sm text-amber-900">
+                  <span className="shrink-0 mt-0.5">⏳</span>
+                  <p>
+                    <span className="font-medium">Probezeitraum:</span>{' '}
+                    Noch <span className="font-semibold">{trialRemaining}</span> von {trialMax} Kolloquium-Übungen verfügbar.
+                  </p>
+                </div>
+              )}
+
               <button
                 onClick={startExam}
-                className="w-full bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-2xl py-4 font-medium flex items-center justify-center gap-2 hover:from-emerald-600 hover:to-emerald-700 transition-all shadow-lg shadow-emerald-500/25 hover:shadow-emerald-500/40 active:scale-[0.98]"
+                disabled={trialRemaining === 0}
+                className="w-full bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-2xl py-4 font-medium flex items-center justify-center gap-2 hover:from-emerald-600 hover:to-emerald-700 transition-all shadow-lg shadow-emerald-500/25 hover:shadow-emerald-500/40 active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed disabled:active:scale-100"
+                style={{ minHeight: 44 }}
               >
                 <Mic size={18} />
                 Prüfung starten
@@ -1687,6 +1757,38 @@ export default function App() {
                   Tipp: Sprich möglichst nah am Mikrofon und in kurzen Sinnabschnitten. Kurze Pausen sind kein Problem.
                 </p>
               )}
+            </motion.div>
+          )}
+
+          {/* ════════ TRIAL-LIMIT ERREICHT ════════ */}
+          {step === 'trial-limit-reached' && (
+            <motion.div key="trial-limit" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="flex flex-col items-center">
+              <div className="bg-white/90 backdrop-blur-md rounded-3xl p-8 sm:p-10 shadow-xl shadow-emerald-50/50 border border-emerald-100/50 ring-1 ring-white max-w-xl w-full text-center">
+                <div className="text-5xl mb-4">⏳</div>
+                <h2 className="text-2xl sm:text-3xl font-semibold text-slate-800 mb-3">
+                  Probezeitraum-Limit erreicht
+                </h2>
+                <p className="text-slate-600 mb-6 text-base leading-relaxed">
+                  Du hast deine <span className="font-medium">{trialMax} kostenlosen Kolloquium-Übungen</span> im Probezeitraum genutzt.
+                  Schalte das Abo frei, um unbegrenzt weiter zu üben.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                  <a
+                    href="https://myabiflow.de/abo.html"
+                    className="bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-2xl px-6 py-3 font-medium hover:from-emerald-600 hover:to-emerald-700 transition-all shadow-lg shadow-emerald-500/25 active:scale-[0.98] inline-flex items-center justify-center"
+                    style={{ minHeight: 44 }}
+                  >
+                    Jetzt Abo abschließen
+                  </a>
+                  <button
+                    onClick={() => setStep('setup')}
+                    className="bg-white text-slate-700 border border-slate-200 hover:bg-slate-50 rounded-2xl px-6 py-3 font-medium transition-all active:scale-[0.98]"
+                    style={{ minHeight: 44 }}
+                  >
+                    Zurück
+                  </button>
+                </div>
+              </div>
             </motion.div>
           )}
 
