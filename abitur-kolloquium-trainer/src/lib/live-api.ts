@@ -96,11 +96,16 @@ export interface ExamConfig {
   schwerpunktHalbjahr: string;
   weitereHalbjahre: string[];
   isMathe?: boolean; // Mathe-Kolloquium: Gebiete statt Halbjahre
+  topicScope?: TopicScope; // Umfang der Schwerpunkt-Fragen
 }
 
 export type ExamMode = 'gesamt' | 'referat' | 'fragen';
 
 export type PrueferTyp = 'standard' | 'streng' | 'freundlich' | 'zeitdruck' | 'detailfragen';
+
+// Im Schwerpunkthalbjahr: 'strikt' = nur konkretes Schwerpunktthema,
+// 'gemischt' = auch andere Themen aus dem Halbjahr
+export type TopicScope = 'strikt' | 'gemischt';
 
 const PRUEFER_PRESETS: Record<PrueferTyp, string> = {
   standard: 'Freundlich und fair. Gib dem Prüfling das Gefühl, dass du auf seiner Seite bist. Bei Fehlern: behutsame Nachfrage ("Sind Sie sich da sicher?") statt sofortige Korrektur. Bei Stocken: ermutigende Hilfestellung ("Denken Sie nochmal an..."). Lobe gute Ansätze kurz ("Gut", "Genau"). Natürlicher, entspannter Gesprächsfluss — wie ein wohlwollendes Fachgespräch, kein Verhör.',
@@ -212,6 +217,7 @@ export interface LiveSessionConfig {
   prueferTyp?: PrueferTyp;
   feedbackMode?: boolean;
   examTranscript?: string;
+  topicScope?: TopicScope;
   /** Wenn gesetzt: Model-Audio wird nur abgespielt wenn true zurückgegeben wird */
   shouldPlayModelAudio?: () => boolean;
   onModelTranscription?: (text: string) => void;
@@ -822,6 +828,12 @@ Fach: ${config.subject} (${level}), Schwerpunkt: "${config.schwerpunkt}" (${hj})
       instruction += `\nAufgabe: ${config.aufgabenstellung}\nMaterial: ${config.material}`;
     }
 
+    // Umfang der Schwerpunkt-Fragen
+    const scope: TopicScope = config.topicScope || 'strikt';
+    const schwerpunktFragenBeschreibung = scope === 'strikt'
+      ? `2–3 vertiefende Fragen AUSSCHLIESSLICH zum konkreten Schwerpunktthema "${config.schwerpunkt}" aus ${hj} (AB II/III, ~5 Min). WICHTIG: Stelle in dieser Phase KEINE Fragen zu anderen Themen aus ${hj} — bleibe strikt beim Schwerpunktthema und eng damit verbundenen Aspekten.`
+      : `2–3 vertiefende Fragen zum Schwerpunkthalbjahr ${hj} (AB II/III, ~5 Min). Decke dabei sowohl das konkrete Schwerpunktthema "${config.schwerpunkt}" als auch weitere Themen aus ${hj} ab.`;
+
     if (mode === 'referat') {
       instruction += `
 ABLAUF: Begrüße den Prüfling KURZ (1 Satz), dann lass ihn sein Kurzreferat halten (~10 Min).
@@ -838,7 +850,7 @@ KRITISCHE REGEL FÜR DAS KURZREFERAT:
 Danach beende die Prüfung mit einer kurzen Verabschiedung.`;
     } else if (mode === 'fragen') {
       instruction += `
-ABLAUF: Begrüße den Prüfling. Stelle 2–3 vertiefende Fragen zum Schwerpunkt (${hj}, AB II/III, ~5 Min). Dann wechsle zu ${weitere} mit 3–4 Fragen pro HJ (~15 Min, AB I→II→III). Beende die Prüfung.
+ABLAUF: Begrüße den Prüfling. Stelle ${schwerpunktFragenBeschreibung} Dann wechsle zu ${weitere} mit 3–4 Fragen pro HJ (~15 Min, AB I→II→III). Beende die Prüfung.
 
 INTERAKTIONSREGELN FÜR DIE FRAGEPHASE:
 - Du bist der GESPRÄCHSFÜHRER. Warte NICHT darauf, dass der Prüfling von sich aus etwas sagt — stelle aktiv Fragen.
@@ -852,7 +864,7 @@ INTERAKTIONSREGELN FÜR DIE FRAGEPHASE:
 ABLAUF:
 1. Begrüße den Prüfling KURZ (1 Satz), dann lass ihn sein Kurzreferat halten (~10 Min).
    KRITISCHE REGEL: Während des Kurzreferats ABSOLUTE STILLE. KEIN EINZIGES WORT. KEINE Reaktion. Auch bei Pausen SCHWEIGEN. Wenn das Audio kurz leise wird, undeutlich klingt oder du nichts hörst, NICHT kommentieren – einfach weiter zuhören. Platzhalter wie "Schweigen", "Stille" oder "..." sind reine Mikrofon-Signale und KEIN gesprochener Inhalt – darauf NICHT antworten. Erst wieder sprechen, wenn der Prüfling EXPLIZIT sagt, dass er fertig ist (z.B. "Damit bin ich am Ende", "Vielen Dank"). Nach 10–12 Min ohne Abschluss darfst du freundlich bitten, zum Ende zu kommen.
-2. Stelle 2–3 vertiefende Fragen zum Schwerpunkt (${hj}, AB II/III, ~5 Min).
+2. Stelle ${schwerpunktFragenBeschreibung}
 3. Wechsle zu ${weitere} mit 3–4 Fragen pro HJ (~15 Min, AB I→II→III).
 4. Beende die Prüfung.
 

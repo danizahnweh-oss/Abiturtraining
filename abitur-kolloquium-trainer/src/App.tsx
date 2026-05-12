@@ -17,7 +17,7 @@ import {
 } from 'lucide-react';
 import {
   LiveSession, StatefulLiveSession, SUBJECTS, generateExamMaterial, generateMatheAufgaben, generateMaterialImpulse, generateWrittenFeedback,
-  type ExamLevel, type ExamMode, type ExamMaterial, type MaterialImpuls, type PrueferTyp,
+  type ExamLevel, type ExamMode, type ExamMaterial, type MaterialImpuls, type PrueferTyp, type TopicScope,
 } from './lib/live-api';
 import { GeoGebraGraph } from './GeoGebraGraph';
 
@@ -371,6 +371,40 @@ const PHASE_LABELS: Record<string, string> = {
 
 const IS_FIREFOX = navigator.userAgent.includes('Firefox');
 
+/* ───────── Fach-Setup-Persistenz ─────────
+ * Speichert pro Fach das vom Lehrer vorgegebene Setup, damit Schüler:innen
+ * die Schwerpunkte nicht jedes Mal neu eingeben müssen. */
+type SubjectSetup = {
+  examLevel: ExamLevel;
+  gestrichen: string;
+  customSp: boolean;
+  customSchwerpunkte: Record<string, string[]>;
+  spHalbjahr: string;
+  schwerpunkt: string;
+  topicScope: TopicScope;
+};
+const SUBJECT_SETUP_KEY = 'kolloquium_subject_setup_v1';
+
+function loadAllSubjectSetups(): Record<string, Partial<SubjectSetup>> {
+  try {
+    const raw = localStorage.getItem(SUBJECT_SETUP_KEY);
+    return raw ? JSON.parse(raw) : {};
+  } catch { return {}; }
+}
+function loadSubjectSetup(subject: string): Partial<SubjectSetup> | null {
+  if (!subject) return null;
+  const all = loadAllSubjectSetups();
+  return all[subject] || null;
+}
+function saveSubjectSetup(subject: string, setup: SubjectSetup) {
+  if (!subject) return;
+  try {
+    const all = loadAllSubjectSetups();
+    all[subject] = setup;
+    localStorage.setItem(SUBJECT_SETUP_KEY, JSON.stringify(all));
+  } catch { /* Storage voll */ }
+}
+
 export default function App() {
   /* Auth gate — redirect to main app if not logged in */
   useEffect(() => {
@@ -411,14 +445,25 @@ export default function App() {
   /* Config state */
   const [step, setStep] = useState<Step>('setup');
   const [showProfile, setShowProfile] = useState(false);
+  // Initial-Setup aus LocalStorage laden (pro Fach gespeichert)
+  const initialSetup = useMemo<Partial<SubjectSetup>>(
+    () => (fachFromUrl ? loadSubjectSetup(fachFromUrl) || {} : {}),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [],
+  );
   const [subject, setSubject] = useState(fachFromUrl);
-  const [examLevel, setExamLevel] = useState<ExamLevel>('gA');
+  const [examLevel, setExamLevel] = useState<ExamLevel>(
+    initialSetup.examLevel ?? (fachFromUrl === 'Mathematik' ? 'eA' : 'gA'),
+  );
   const [examMode, setExamMode] = useState<ExamMode>('gesamt');
-  const [gestrichen, setGestrichen] = useState('');
-  const [spHalbjahr, setSpHalbjahr] = useState('');
-  const [schwerpunkt, setSchwerpunkt] = useState('');
-  const [customSp, setCustomSp] = useState(false);
-  const [customSchwerpunkte, setCustomSchwerpunkte] = useState<Record<string, string[]>>({});
+  const [gestrichen, setGestrichen] = useState(initialSetup.gestrichen ?? '');
+  const [spHalbjahr, setSpHalbjahr] = useState(initialSetup.spHalbjahr ?? '');
+  const [schwerpunkt, setSchwerpunkt] = useState(initialSetup.schwerpunkt ?? '');
+  const [customSp, setCustomSp] = useState(!!initialSetup.customSp);
+  const [customSchwerpunkte, setCustomSchwerpunkte] = useState<Record<string, string[]>>(initialSetup.customSchwerpunkte ?? {});
+  const [topicScope, setTopicScope] = useState<TopicScope>(initialSetup.topicScope ?? 'strikt');
+  // Verhindert, dass beim Subject-Wechsel (Auto-Load) der Save-Effect feuert und Defaults überschreibt
+  const setupHydratingRef = useRef(false);
 
   /* Material */
   const [material, setMaterial] = useState<ExamMaterial | null>(null);
@@ -582,12 +627,14 @@ export default function App() {
     setRecoveryData(null);
 
     // State aus dem Backup wiederherstellen
+    setupHydratingRef.current = true;
     setSubject(d.subject);
     setExamLevel(d.examLevel);
     setExamMode(d.examMode);
     setSchwerpunkt(d.schwerpunkt);
     setSpHalbjahr(d.spHalbjahr);
     setGestrichen(d.gestrichen || '');
+    setTopicScope(d.topicScope || 'strikt');
     setExaminerGender(d.examinerGender || 'male');
     setPrueferTyp(d.prueferTyp || 'standard');
     setMaterial(d.material || null);
@@ -613,6 +660,7 @@ export default function App() {
       materialImpulse: d.matImpulse?.length > 0 ? d.matImpulse : undefined,
       examMode: d.examMode, gender: d.examinerGender || 'male',
       prueferTyp: d.prueferTyp || 'standard',
+      topicScope: d.topicScope || 'strikt',
       shouldPlayModelAudio: makeShouldPlayAudio(d.examMode),
       getTranscripts,
       onStatusChange: s => setStatus(s),
@@ -632,6 +680,43 @@ export default function App() {
 
   /* ── Reset helpers ── */
   const resetSpHalbjahr = () => { setSpHalbjahr(''); setSchwerpunkt(''); setCustomSp(false); setCustomSchwerpunkte({}); };
+
+  /* ── Fach wechseln: gespeichertes Setup laden (oder leerer Zustand) ── */
+  const applySubjectChange = (newSubject: string) => {
+    setupHydratingRef.current = true;
+    setSubject(newSubject);
+    const setup = newSubject ? loadSubjectSetup(newSubject) : null;
+    if (setup) {
+      setExamLevel(setup.examLevel ?? (newSubject === 'Mathematik' ? 'eA' : 'gA'));
+      setGestrichen(setup.gestrichen ?? '');
+      setCustomSp(!!setup.customSp);
+      setCustomSchwerpunkte(setup.customSchwerpunkte ?? {});
+      setSpHalbjahr(setup.spHalbjahr ?? '');
+      setSchwerpunkt(setup.schwerpunkt ?? '');
+      setTopicScope(setup.topicScope ?? 'strikt');
+    } else {
+      setExamLevel(newSubject === 'Mathematik' ? 'eA' : 'gA');
+      setGestrichen('');
+      setSpHalbjahr('');
+      setSchwerpunkt('');
+      setCustomSp(false);
+      setCustomSchwerpunkte({});
+      setTopicScope('strikt');
+    }
+  };
+
+  /* ── Setup auto-speichern (pro Fach) ── */
+  useEffect(() => {
+    if (!subject) return;
+    if (setupHydratingRef.current) {
+      // Erster Effect-Lauf nach applySubjectChange überspringen
+      setupHydratingRef.current = false;
+      return;
+    }
+    saveSubjectSetup(subject, {
+      examLevel, gestrichen, customSp, customSchwerpunkte, spHalbjahr, schwerpunkt, topicScope,
+    });
+  }, [subject, examLevel, gestrichen, customSp, customSchwerpunkte, spHalbjahr, schwerpunkt, topicScope]);
 
   const toggleCustomSp = () => {
     if (!customSp) {
@@ -701,7 +786,7 @@ export default function App() {
         subject, examLevel: level, schwerpunkt, schwerpunktHalbjahr: configHalbjahr,
         weitereHalbjahre: weitereHJ, aufgabenstellung: '', material: '',
         materialImpulse: impulse.length > 0 ? impulse : undefined,
-        examMode, gender, prueferTyp, shouldPlayModelAudio: makeShouldPlayAudio(examMode),
+        examMode, gender, prueferTyp, topicScope, shouldPlayModelAudio: makeShouldPlayAudio(examMode),
         getTranscripts,
         onStatusChange: s => setStatus(s),
         onModelTranscription: t => { modelTxCountRef.current++; setModelTx(prev => [...prev, t]); },
@@ -802,7 +887,7 @@ export default function App() {
       subject, examLevel: level, schwerpunkt, schwerpunktHalbjahr: configHj,
       weitereHalbjahre: weitereHJ, aufgabenstellung: material.aufgabenstellung, material: material.material,
       materialImpulse: matImpulse.length > 0 ? matImpulse : undefined,
-      examMode, gender: examinerGender, prueferTyp, shouldPlayModelAudio: makeShouldPlayAudio(examMode),
+      examMode, gender: examinerGender, prueferTyp, topicScope, shouldPlayModelAudio: makeShouldPlayAudio(examMode),
       getTranscripts,
       onStatusChange: s => setStatus(s),
       onModelTranscription: t => { modelTxCountRef.current++; setModelTx(prev => [...prev, t]); },
@@ -943,9 +1028,32 @@ export default function App() {
     setFbText('');
     setExamMode('gesamt');
     setPrueferTyp('standard');
-    setGestrichen('');
-    setSpHalbjahr('');
-    setSchwerpunkt('');
+    // Lehrer-Setup (gestrichen/Schwerpunkte/topicScope) NICHT zurücksetzen —
+    // wir laden es aus dem gespeicherten Profil des aktuellen Fachs neu.
+    if (subject) {
+      const saved = loadSubjectSetup(subject);
+      setupHydratingRef.current = true;
+      if (saved) {
+        setGestrichen(saved.gestrichen ?? '');
+        setCustomSp(!!saved.customSp);
+        setCustomSchwerpunkte(saved.customSchwerpunkte ?? {});
+        setSpHalbjahr(saved.spHalbjahr ?? '');
+        setSchwerpunkt(saved.schwerpunkt ?? '');
+        setTopicScope(saved.topicScope ?? 'strikt');
+      } else {
+        setGestrichen('');
+        setSpHalbjahr('');
+        setSchwerpunkt('');
+        setCustomSp(false);
+        setCustomSchwerpunkte({});
+        setTopicScope('strikt');
+      }
+    } else {
+      setGestrichen('');
+      setSpHalbjahr('');
+      setSchwerpunkt('');
+      setTopicScope('strikt');
+    }
     prep.reset(30 * 60);
     localStorage.removeItem('kolloquium_active_exam');
     localStorage.removeItem('kolloquium_transcript_backup');
@@ -960,14 +1068,14 @@ export default function App() {
           subject, examLevel: level, examMode, schwerpunkt, spHalbjahr,
           weitereHJ, gestrichen, material, matImpulse,
           modelTx, userTx, elapsed: exam.elapsed,
-          examinerGender, prueferTyp, timestamp: Date.now(),
+          examinerGender, prueferTyp, topicScope, timestamp: Date.now(),
         }));
       } catch { /* localStorage voll */ }
     };
     save();
     const interval = setInterval(save, 15_000);
     return () => clearInterval(interval);
-  }, [step, exam.elapsed, modelTx, userTx, subject, level, examMode, schwerpunkt, spHalbjahr, weitereHJ, gestrichen, material, matImpulse, examinerGender, prueferTyp]);
+  }, [step, exam.elapsed, modelTx, userTx, subject, level, examMode, schwerpunkt, spHalbjahr, weitereHJ, gestrichen, material, matImpulse, examinerGender, prueferTyp, topicScope]);
 
   /* ── Bei Verbindungsfehler sofort Transkripte sichern ── */
   useEffect(() => {
@@ -977,7 +1085,7 @@ export default function App() {
         subject, examLevel: level, examMode, schwerpunkt, spHalbjahr,
         weitereHJ, gestrichen, material, matImpulse,
         modelTx, userTx, elapsed: exam.elapsed,
-        examinerGender, prueferTyp, timestamp: Date.now(),
+        examinerGender, prueferTyp, topicScope, timestamp: Date.now(),
       }));
       localStorage.setItem('kolloquium_transcript_backup', JSON.stringify({
         modelTx, userTx, timestamp: Date.now(),
@@ -1171,7 +1279,7 @@ export default function App() {
                     <div className="relative">
                       <select
                         value={subject}
-                        onChange={e => { setSubject(e.target.value); setGestrichen(''); resetSpHalbjahr(); if (e.target.value === 'Mathematik') setExamLevel('eA'); }}
+                        onChange={e => applySubjectChange(e.target.value)}
                         aria-label="Prüfungsfach auswählen"
                         className="w-full appearance-none bg-[#F9F9F9] border border-black/5 rounded-2xl px-5 py-4 pr-12 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500/50 transition-all cursor-pointer"
                       >
@@ -1309,6 +1417,24 @@ export default function App() {
                                 {opt}
                               </Pill>
                             ))}
+                          </div>
+                        </div>
+                      )}
+
+                      {/* Fragen-Umfang im Schwerpunkthalbjahr */}
+                      {schwerpunkt && (
+                        <div className="space-y-2">
+                          <label className="text-xs font-semibold uppercase tracking-widest opacity-40 ml-1">Fragen im Schwerpunkthalbjahr</label>
+                          <p className="text-xs opacity-50 ml-1 -mt-1">Wie prüft dein/e Lehrer/in das Schwerpunkthalbjahr ({spHalbjahr})?</p>
+                          <div className="grid gap-2">
+                            <Pill active={topicScope === 'strikt'} onClick={() => setTopicScope('strikt')} className="w-full">
+                              <span className="font-medium">Nur dieses Schwerpunktthema</span>
+                              <span className="block text-xs opacity-60 mt-0.5">Fragen ausschließlich zu „{schwerpunkt}"</span>
+                            </Pill>
+                            <Pill active={topicScope === 'gemischt'} onClick={() => setTopicScope('gemischt')} className="w-full">
+                              <span className="font-medium">Auch andere Themen des Halbjahres</span>
+                              <span className="block text-xs opacity-60 mt-0.5">Schwerpunktthema + verwandte Themen aus {spHalbjahr}</span>
+                            </Pill>
                           </div>
                         </div>
                       )}
