@@ -662,6 +662,7 @@ WICHTIGE ANWEISUNGEN:
 - Erkenne ausdrücklich an, was gelungen ist – auch kleine Stärken sollen sichtbar werden.
 - Unterscheide zwischen auswendig Gelerntem (AB I) und eigenständigem Denken (AB II/III), aber wirf dem Prüfling AB I nicht negativ vor – solides Grundwissen ist wertvoll.
 - Bewerte die Ausdrucksweise nach diesen Kriterien: Sind Fachbegriffe korrekt verwendet? Ist die Argumentationsstruktur schlüssig? Wie ist die Präsentationsfähigkeit? — Umgangssprachliche Formulierungen sind KEIN Fehler und dürfen NICHT negativ bewertet werden. Perfektes Standarddeutsch ist nicht erforderlich; entscheidend ist die fachliche Korrektheit.
+- BEACHTE bei der Bewertung: Das Transkript stammt aus einer automatischen Spracherkennung, die besonders bei Abkürzungen (z.B. NSDAP, KPD, BRD, DDR, NATO, EWG, EU, UdSSR, USA, BIP, DNA, RNA, ATP, CO₂) und bei englischsprachigen Fachbegriffen, Eigennamen oder Zitaten häufig Fehler macht. Wenn ein Begriff im Transkript verstümmelt, phonetisch geschrieben oder offensichtlich falsch erkannt wurde, behandle ihn als korrekt, sofern der Kontext eindeutig auf den richtigen Fachbegriff hinweist. Werte solche Erkennungsfehler NICHT als fachlichen Fehler des Prüflings.
 
 Strukturiere dein Feedback so:
 
@@ -917,7 +918,13 @@ GEDÄCHTNIS-REGEL:
 - Merke dir EXAKT, was der Prüfling bereits gesagt hat – sowohl im ${isMathe ? 'Vortrag' : 'Referat'} als auch bei Antworten.
 - Stelle NIEMALS eine Frage zu einem Thema, das der Prüfling bereits ausführlich behandelt hat.
 - Wenn der Prüfling etwas im ${isMathe ? 'Vortrag' : 'Referat'} erklärt hat, frage NICHT nochmal danach, sondern stelle VERTIEFENDE Fragen dazu oder wechsle zu einem NEUEN Aspekt.
-- Beziehe dich auf das Gesagte: "Sie haben vorhin ... erwähnt. Können Sie das vertiefen?" statt das Thema nochmal von vorne aufzurollen.`;
+- Beziehe dich auf das Gesagte: "Sie haben vorhin ... erwähnt. Können Sie das vertiefen?" statt das Thema nochmal von vorne aufzurollen.
+
+SPRACHERKENNUNGS-REGEL (sehr wichtig):
+- Die Spracherkennung hat besonders bei Abkürzungen (z.B. NSDAP, KPD, BRD, DDR, NATO, EWG, EU, UN, UdSSR, USA, BIP, DNA, RNA, ATP, CO₂) und bei englischsprachigen Fachbegriffen, Eigennamen oder Zitaten häufig Fehler.
+- Wenn du ein Wort, eine Abkürzung oder einen Namen NICHT eindeutig verstanden hast: RATE NICHT, sondern frage KURZ nach. Beispiele: "Welche Abkürzung meinen Sie genau?" / "Können Sie das nochmal sagen?" / "Habe ich Sie richtig verstanden: Sie meinen NSDAP?"
+- Akzeptiere phonetisch ähnliche Varianten als korrekten Begriff, wenn der Kontext eindeutig ist (z.B. "En-Es-De-A-Pe" oder "Ene-Es-De-A-Pe" = NSDAP).
+- Bewerte einen Fachbegriff NIEMALS als falsch, wenn die Unklarheit aus der Spracherkennung kommen kann — frage im Zweifel nach.`;
 
   const verhalten = PRUEFER_PRESETS[config.prueferTyp || 'standard'];
   instruction += `
