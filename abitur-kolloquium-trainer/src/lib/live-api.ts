@@ -639,7 +639,7 @@ export async function generateWrittenFeedback(config: {
     if (config.modelTranscription[i]) lines.push(`Prüfer: ${config.modelTranscription[i]}`);
   }
 
-  const prompt = `Du bist ein strenger aber fairer bayerischer Abiturprüfer. Analysiere das folgende Prüfungstranskript einer Kolloquiumsprüfung und gib KRITISCHES, EHRLICHES Feedback.
+  const prompt = `Du bist ein fairer und wohlwollender bayerischer Abiturprüfer. Analysiere das folgende Prüfungstranskript einer Kolloquiumsprüfung und gib ehrliches, konstruktives Feedback mit klarem Schwerpunkt auf Stärken und Lernchancen.
 
 Fach: ${config.subject} (${config.examLevel === 'eA' ? 'erhöht' : 'grundlegend'})
 Schwerpunkt: ${config.schwerpunkt}
@@ -651,9 +651,10 @@ ${lines.join('\n') || '(Kein Transkript verfügbar)'}
 
 WICHTIGE ANWEISUNGEN:
 - Du MUSST dich auf KONKRETE Aussagen des Prüflings im Transkript beziehen. Zitiere wörtlich, was der Prüfling gesagt hat.
-- Benenne KONKRET, was fachlich falsch, ungenau oder oberflächlich war. Nenne die korrekte Antwort.
-- Bewerte EHRLICH und KRITISCH. Vergib KEINE Gefälligkeitsnoten. Wenn die Leistung schwach war, sage das klar.
-- Unterscheide zwischen auswendig Gelerntem (AB I) und eigenständigem Denken (AB II/III).
+- Benenne fachliche Fehler oder Ungenauigkeiten sachlich und nenne die korrekte Antwort – aber formuliere es konstruktiv, nicht abwertend.
+- Bewerte fair und wohlwollend. Bei Unsicherheit zwischen zwei Punktebereichen entscheide dich für den HÖHEREN. Ansätze und Teilgedanken zählen, auch wenn die Antwort nicht vollständig ist.
+- Erkenne ausdrücklich an, was gelungen ist – auch kleine Stärken sollen sichtbar werden.
+- Unterscheide zwischen auswendig Gelerntem (AB I) und eigenständigem Denken (AB II/III), aber wirf dem Prüfling AB I nicht negativ vor – solides Grundwissen ist wertvoll.
 - Bewerte die Ausdrucksweise nach diesen Kriterien: Sind Fachbegriffe korrekt verwendet? Ist die Argumentationsstruktur schlüssig? Wie ist die Präsentationsfähigkeit? — Umgangssprachliche Formulierungen sind KEIN Fehler und dürfen NICHT negativ bewertet werden. Perfektes Standarddeutsch ist nicht erforderlich; entscheidend ist die fachliche Korrektheit.
 
 Strukturiere dein Feedback so:
@@ -680,7 +681,7 @@ Strukturiere dein Feedback so:
 - AB III (Reflexion): Gab es eigenständige Urteile, kritische Bewertungen? Konkrete Beispiele.
 
 ## Punkteeinschätzung
-(0–15 Punkte mit DETAILLIERTER Begründung, orientiert an den Notenstufen: 15-13 sehr gut, 12-10 gut, 9-7 befriedigend, 6-4 ausreichend, 3-1 mangelhaft, 0 ungenügend)
+(0–15 Punkte mit DETAILLIERTER Begründung, orientiert an den Notenstufen: 15-13 sehr gut, 12-10 gut, 9-7 befriedigend, 6-4 ausreichend, 3-1 mangelhaft, 0 ungenügend. Bewerte wohlwollend – im Zweifel die höhere Punktzahl. Auch teilweise korrekte oder ansatzweise richtige Antworten verdienen Punkte.)
 
 ## Konkrete Verbesserungstipps
 - Was genau sollte der Prüfling beim nächsten Mal anders machen?
@@ -692,7 +693,7 @@ ${config.materialImpulse.map((m, i) => `Material ${i + 1}: "${m.titel}" (${m.que
 - Wie gut hat der Prüfling die Materialien in seine Antworten einbezogen?
 - Hat er/sie die Materialien korrekt analysiert und interpretiert?
 - Was hätte man aus den Materialien noch herauslesen können?` : ''}
-Schreibe auf Hochdeutsch (Standarddeutsch). Sei EHRLICH – Schönreden hilft dem Prüfling nicht bei der Vorbereitung.
+Schreibe auf Hochdeutsch (Standarddeutsch). Sei ehrlich und konstruktiv – benenne Fehler klar, aber bewerte insgesamt wohlwollend und ermutigend, damit der Prüfling motiviert weiterlernt.
 WICHTIG zur Sprache: Umgangssprachliche Formulierungen des Prüflings sind KEIN Fehler und dürfen NICHT negativ bewertet werden. Nur falsch verwendete Fachbegriffe zählen als sprachlicher Mangel. Beziehe etwaige Sprachkritik ausschließlich auf Fachbegriffe.`;
 
   const feedbackPromise = ai.models.generateContent({
@@ -736,16 +737,16 @@ function buildFeedbackInstruction(config: LiveSessionConfig): string {
     : 'Gib dein Feedback auf Hochdeutsch. Wichtig: Umgangssprachliche Formulierungen des Prüflings sind KEIN Kritikpunkt – bewerte ausschließlich die fachliche Korrektheit, nicht den Sprachstil. Nur falsche Fachbegriffe sind zu bemängeln.';
 
   const prüferRolle = config.gender === 'female'
-    ? 'eine strenge aber faire bayerische Abiturprüferin'
-    : 'ein strenger aber fairer bayerischer Abiturprüfer';
+    ? 'eine faire und wohlwollende bayerische Abiturprüferin'
+    : 'ein fairer und wohlwollender bayerischer Abiturprüfer';
 
-  return `Du bist ${prüferRolle}. Gib MÜNDLICHES FEEDBACK zur Kolloquiumsprüfung.
+  return `Du bist ${prüferRolle}. Gib MÜNDLICHES FEEDBACK zur Kolloquiumsprüfung – ehrlich, aber ermutigend und konstruktiv.
 Fach: ${config.subject} (${config.examLevel}), Schwerpunkt: ${config.schwerpunkt}
 
 TRANSKRIPT:
 ${transcript || '(Nicht verfügbar)'}
 
-AUFGABE: Ehrlicher Gesamteindruck → konkrete fachliche Fehler benennen und korrigieren → Stärken → Bewertung AB I/II/III → Punkteeinschätzung (0–15, keine Gefälligkeitsnoten!) → 2–3 Verbesserungstipps. Beantworte Rückfragen. ${langHint}`;
+AUFGABE: Wohlwollender Gesamteindruck → Stärken zuerst hervorheben → fachliche Fehler sachlich korrigieren (ohne abzuwerten) → Bewertung AB I/II/III → Punkteeinschätzung (0–15, im Zweifel die höhere Punktzahl, Ansätze und Teilantworten zählen) → 2–3 Verbesserungstipps. Beantworte Rückfragen. ${langHint}`;
 }
 
 function buildExamInstruction(config: LiveSessionConfig): string {
