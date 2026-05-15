@@ -25,6 +25,7 @@ import { handleGenerateImage, handleFetchUnsplash, handleSubmitResult } from './
 import { handleDetailFeedback, handleRewrite } from './handlers/features.js';
 import { handleUnsubscribe, sendReminderEmails, sendRetentionEmails } from './handlers/email.js';
 import { handleForgotPassword, handleResetPassword, handleVerifyResetToken } from './handlers/password-reset.js';
+import { handleVerifyEmail, handleResendVerification } from './handlers/email-verification.js';
 import { handleCreateCheckout, handleStripeWebhook, handleSubscriptionStatus, handleCustomerPortal, handleStartTrial, handleRedeemLicense } from './handlers/stripe.js';
 import { handleColloquiumStart, handleColloquiumStatus } from './handlers/colloquium.js';
 import { handleHealth } from './handlers/health.js';
@@ -275,6 +276,17 @@ export default {
       }
       if (pathname === "/api/verify-reset-token" && request.method === "POST") {
         return await handleVerifyResetToken(request, env);
+      }
+
+      // ===== EMAIL-VERIFIZIERUNG ENDPOINTS =====
+      if (pathname === "/api/verify-email" && request.method === "POST") {
+        return await handleVerifyEmail(request, env);
+      }
+      if (pathname === "/api/resend-verification" && request.method === "POST") {
+        const loginLimit = checkRateLimit(request, loginRateLimitMap, MAX_LOGIN_ATTEMPTS, env);
+        if (loginLimit) return loginLimit;
+        cleanupRateLimitMaps();
+        return await handleResendVerification(request, env);
       }
 
       // ===== DASHBOARD ENDPOINTS (Token-basiert) =====

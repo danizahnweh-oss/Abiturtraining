@@ -2685,6 +2685,12 @@ async function _doLoginModal() {
     }
     if (!res.ok) {
       data = await res.json().catch(function() { return {}; });
+      // Spezialfall: Account ist registriert, aber E-Mail noch nicht bestätigt
+      if (data.verification_required) {
+        _closeLoginModal();
+        _showVerificationPendingModal(name, pw, data.email || "deine E-Mail-Adresse", false);
+        return;
+      }
       err.textContent = data.error || "Serverfehler (" + res.status + "). Bitte versuche es erneut.";
       err.style.display = "block";
       btn.disabled = false;
@@ -2692,6 +2698,13 @@ async function _doLoginModal() {
       return;
     }
     data = await res.json();
+
+    // Spezialfall: Registrierung erfolgreich, aber E-Mail-Bestätigung steht aus
+    if (data.success && data.verification_required) {
+      _closeLoginModal();
+      _showVerificationPendingModal(name, pw, data.email || "deine E-Mail-Adresse", true);
+      return;
+    }
 
     if (data.success) {
       sessionStorage.setItem("access", "1");
@@ -2777,6 +2790,75 @@ function _closeLoginModal() {
   var overlay = document.getElementById("sharedLoginOverlay");
   if (overlay) overlay.style.display = "none";
   _loginModalCallback = null;
+}
+
+/* ================= E-MAIL-BESTÄTIGUNG AUSSTEHEND ================= */
+function _showVerificationPendingModal(studentName, password, maskedEmail, afterRegister) {
+  // Falls bereits offen: entfernen
+  var existing = document.getElementById("verifyPendingOverlay");
+  if (existing) existing.remove();
+
+  var headline = afterRegister ? "Fast geschafft!" : "E-Mail-Bestätigung ausstehend";
+  var intro = afterRegister
+    ? "Wir haben dir eine Bestätigungs-E-Mail an <strong>" + maskedEmail + "</strong> geschickt. Bitte klicke den Link in der E-Mail, um deinen Account zu aktivieren."
+    : "Dein Account wurde erstellt, aber die E-Mail-Adresse <strong>" + maskedEmail + "</strong> ist noch nicht bestätigt. Bitte klicke den Link in der E-Mail, die wir dir geschickt haben.";
+
+  var overlay = document.createElement("div");
+  overlay.id = "verifyPendingOverlay";
+  overlay.style.cssText = "position:fixed;inset:0;z-index:100000;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.45);padding:1rem;";
+  overlay.innerHTML =
+    '<div style="background:var(--surface,#fff);border-radius:16px;padding:1.8rem;max-width:420px;width:100%;box-shadow:0 8px 32px rgba(0,0,0,.15);">' +
+    '<div style="font-size:2.5rem;text-align:center;margin-bottom:.5rem;line-height:1;">📧</div>' +
+    '<h3 style="margin:0 0 .5rem;font-size:1.1rem;color:var(--ink,#1a1a1a);text-align:center;">' + headline + '</h3>' +
+    '<p style="margin:0 0 1rem;font-size:.88rem;color:var(--ink-muted,#666);line-height:1.5;text-align:center;">' + intro + '</p>' +
+    '<p style="margin:0 0 1.2rem;font-size:.78rem;color:var(--ink-muted,#888);line-height:1.5;text-align:center;">Tipp: Schau auch in deinem Spam-Ordner nach. Der Link ist 24 Stunden gültig.</p>' +
+    '<div id="verifyPendingStatus" style="display:none;font-size:.85rem;text-align:center;margin-bottom:.8rem;"></div>' +
+    '<button id="verifyResendBtn" type="button" style="width:100%;padding:.85rem;background:var(--accent,#4f6ef7);color:#fff;border:none;border-radius:12px;font-size:1rem;font-weight:600;cursor:pointer;min-height:52px;font-family:inherit;">E-Mail erneut senden</button>' +
+    '<button id="verifyCloseBtn" type="button" style="width:100%;padding:.6rem;background:none;border:none;color:var(--ink-muted,#666);font-size:.85rem;cursor:pointer;margin-top:.4rem;font-family:inherit;">Schließen</button>' +
+    '</div>';
+  document.body.appendChild(overlay);
+
+  var resendBtn = document.getElementById("verifyResendBtn");
+  var closeBtn = document.getElementById("verifyCloseBtn");
+  var statusEl = document.getElementById("verifyPendingStatus");
+
+  resendBtn.addEventListener("click", async function() {
+    resendBtn.disabled = true;
+    resendBtn.textContent = "Wird gesendet …";
+    statusEl.style.display = "none";
+    try {
+      var res = await fetch(API_BASE + "/api/resend-verification", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ student_name: studentName, personal_password: password })
+      });
+      var data = await res.json().catch(function() { return {}; });
+      if (res.ok && data.success) {
+        if (data.alreadyVerified) {
+          statusEl.textContent = "Deine E-Mail ist bereits bestätigt. Du kannst dich jetzt anmelden.";
+          statusEl.style.color = "#16a34a";
+        } else {
+          statusEl.textContent = "Neue Bestätigungs-E-Mail wurde gesendet. Schau in dein Postfach.";
+          statusEl.style.color = "#16a34a";
+        }
+        resendBtn.textContent = "Gesendet";
+      } else {
+        statusEl.textContent = data.error || "Fehler beim Senden. Bitte versuche es später erneut.";
+        statusEl.style.color = "#ef4444";
+        resendBtn.disabled = false;
+        resendBtn.textContent = "E-Mail erneut senden";
+      }
+      statusEl.style.display = "block";
+    } catch (e) {
+      statusEl.textContent = "Verbindungsfehler. Bitte versuche es erneut.";
+      statusEl.style.color = "#ef4444";
+      statusEl.style.display = "block";
+      resendBtn.disabled = false;
+      resendBtn.textContent = "E-Mail erneut senden";
+    }
+  });
+
+  closeBtn.addEventListener("click", function() { overlay.remove(); });
 }
 
 /* ================= E-MAIL NACHTRAGEN ================= */

@@ -1,6 +1,16 @@
 // Handler: Student (Login, Check, Preferences, Reminders)
 import { jsonResponse } from '../utils.js';
 import { generateToken, safeCompare, hashPassword, verifyPassword, resolveStudentIdentity } from '../auth.js';
+import { sendVerificationEmail } from './email-verification.js';
+
+// E-Mail für Frontend-Anzeige teilmaskieren (z.B. max***@gmail.com)
+function maskEmail(email) {
+  if (!email || typeof email !== "string") return "";
+  const [local, domain] = email.split("@");
+  if (!domain) return email;
+  if (local.length <= 2) return local[0] + "***@" + domain;
+  return local.slice(0, 2) + "***@" + domain;
+}
 
 /* ================= LOGIN HANDLER ================= */
 export async function handleLogin(request, env) {
@@ -73,7 +83,7 @@ export async function handleCheckStudent(request, env) {
 
   const nameLower = student_name.trim().toLowerCase();
   const existing = await env.DB.prepare(
-    "SELECT id, name, level, salt, hash FROM students WHERE name_lower = ?"
+    "SELECT id, name, level, salt, hash, email, email_verified FROM students WHERE name_lower = ?"
   ).bind(nameLower).first();
 
   if (mode === "register") {
@@ -98,8 +108,9 @@ export async function handleCheckStudent(request, env) {
 
     const salt = crypto.randomUUID();
     const hash = await hashPassword(personal_password, salt);
+    // Neuer Account: email_verified = 0 → Login erst nach Bestätigung möglich
     await env.DB.prepare(
-      "INSERT INTO students (name, name_lower, level, salt, hash, hidden_subjects, email, created_at) VALUES (?, ?, ?, ?, ?, '[]', ?, ?)"
+      "INSERT INTO students (name, name_lower, level, salt, hash, hidden_subjects, email, created_at, email_verified) VALUES (?, ?, ?, ?, ?, '[]', ?, ?, 0)"
     ).bind(student_name.trim(), nameLower, level || "", salt, hash, emailLower, new Date().toISOString()).run();
 
     const newStudent = await env.DB.prepare(
@@ -119,6 +130,20 @@ export async function handleCheckStudent(request, env) {
       `).bind(crypto.randomUUID(), newStudent.id, trialEnd, now, now).run();
     }
     // Kein Trial erlaubt → Schueler wird ohne Trial erstellt (muss direkt zahlen)
+
+    // Bestätigungs-Mail senden (Fehler nicht-blockierend — Resend kann später nachholen)
+    try {
+      await sendVerificationEmail(env, nameLower, student_name.trim(), emailLower);
+    } catch (err) {
+      console.error("sendVerificationEmail nach Register fehlgeschlagen:", err.message);
+    }
+
+    // KEIN Login-Token zurück — User muss erst E-Mail bestätigen
+    return jsonResponse({
+      success: true,
+      verification_required: true,
+      email: maskEmail(emailLower),
+    }, 200, env);
   } else {
     if (!existing) {
       return jsonResponse({ success: false, error: "Name nicht gefunden. Bitte zuerst registrieren." }, 404, env);
@@ -134,6 +159,16 @@ export async function handleCheckStudent(request, env) {
       if (!match) {
         return jsonResponse({ success: false, error: "Falsches Passwort." }, 401, env);
       }
+    }
+
+    // Email-Verifizierung erforderlich? (nur neue Accounts haben email_verified=0)
+    if (existing.email_verified === 0 || existing.email_verified === false) {
+      return jsonResponse({
+        success: false,
+        verification_required: true,
+        email: maskEmail(existing.email || ""),
+        error: "Bitte bestätige zuerst deine E-Mail-Adresse. Wir haben dir einen Link an deine E-Mail geschickt."
+      }, 403, env);
     }
   }
 

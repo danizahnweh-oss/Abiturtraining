@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>myAbiFlow – E-Mail bestätigen</title>
+  <meta name="robots" content="noindex, nofollow">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    :root {
+      --accent: #2563eb;
+      --accent-hover: #1d4ed8;
+      --bg: #f0f0f5;
+      --card: #fff;
+      --ink: #1a1a2e;
+      --ink-muted: #6b7280;
+      --warning: #ef4444;
+      --success: #16a34a;
+      --radius: 12px;
+    }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      padding: 1rem;
+    }
+    .card {
+      background: var(--card);
+      padding: 2rem;
+      border-radius: var(--radius);
+      max-width: 420px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 2px 12px rgba(0,0,0,.1);
+    }
+    .card img { height: 42px; width: auto; margin-bottom: 1rem; }
+    h2 { margin: 0 0 .5rem; font-size: 1.25rem; }
+    p { font-size: .9rem; color: var(--ink-muted); line-height: 1.5; }
+    .icon { font-size: 3rem; margin-bottom: .5rem; line-height: 1; }
+    .btn {
+      display: block;
+      width: 100%;
+      padding: .8rem;
+      margin-top: 1rem;
+      border: none;
+      border-radius: 8px;
+      background: var(--accent);
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background .2s;
+      min-height: 44px;
+      line-height: 1.5;
+    }
+    .btn:hover { background: var(--accent-hover); }
+    .spinner {
+      display: inline-block;
+      width: 32px;
+      height: 32px;
+      border: 3px solid #e5e7eb;
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 1rem auto;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <img src="logo.webp" alt="myAbiFlow Logo">
+
+    <div id="stepLoading">
+      <h2>E-Mail wird bestätigt …</h2>
+      <div class="spinner"></div>
+      <p>Einen Moment bitte.</p>
+    </div>
+
+    <div id="stepSuccess" style="display:none">
+      <div class="icon" style="color: var(--success)">✓</div>
+      <h2>E-Mail bestätigt!</h2>
+      <p>Dein Account ist jetzt aktiv. Du kannst dich anmelden und loslegen.</p>
+      <a href="/" class="btn">Zur Anmeldung</a>
+    </div>
+
+    <div id="stepAlready" style="display:none">
+      <div class="icon" style="color: var(--success)">✓</div>
+      <h2>Bereits bestätigt</h2>
+      <p>Diese E-Mail-Adresse wurde bereits bestätigt. Du kannst dich direkt anmelden.</p>
+      <a href="/" class="btn">Zur Anmeldung</a>
+    </div>
+
+    <div id="stepInvalid" style="display:none">
+      <div class="icon" style="color: var(--warning)">⚠</div>
+      <h2>Link ungültig</h2>
+      <p id="invalidMsg">Dieser Bestätigungslink ist ungültig oder abgelaufen. Bitte logge dich ein – du kannst dort einen neuen Link anfordern.</p>
+      <a href="/" class="btn">Zur Anmeldung</a>
+    </div>
+
+    <div id="stepNoToken" style="display:none">
+      <h2>Bestätigungslink fehlt</h2>
+      <p>Bitte öffne den Link aus der E-Mail, die wir dir geschickt haben.</p>
+      <a href="/" class="btn">Zur Startseite</a>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      var token = new URLSearchParams(window.location.search).get("token");
+
+      // Token aus der Adressleiste entfernen (Browser-History, Referrer, Screenshots)
+      if (token) {
+        try { history.replaceState({}, "", "/verify-email.html"); } catch (e) {}
+      }
+
+      function show(id) {
+        ["stepLoading","stepSuccess","stepAlready","stepInvalid","stepNoToken"].forEach(function(s) {
+          var el = document.getElementById(s);
+          if (el) el.style.display = (s === id) ? "block" : "none";
+        });
+      }
+
+      if (!token) {
+        show("stepNoToken");
+        return;
+      }
+
+      fetch("/api/verify-email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ token: token })
+      })
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        if (data.success) {
+          show(data.alreadyVerified ? "stepAlready" : "stepSuccess");
+        } else {
+          var msg = document.getElementById("invalidMsg");
+          if (msg && data.error) msg.textContent = data.error;
+          show("stepInvalid");
+        }
+      })
+      .catch(function() {
+        show("stepInvalid");
+      });
+    })();
+  </script>
+</body>
+</html>
