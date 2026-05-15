@@ -14,7 +14,7 @@ import crypto from 'node:crypto';
 import pg from 'pg';
 import dotenv from 'dotenv';
 
-dotenv.config({ path: '../.env' });
+dotenv.config({ path: '/app/myabiflow-backend/.env' });
 
 const app = express();
 const server = createServer(app);
