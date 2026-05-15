@@ -502,19 +502,27 @@ async function handleSessionWebSocket(clientWs, sessionId, url) {
  * Für einfache bidirektionale Kommunikation
  */
 async function handleDirectWebSocket(clientWs, url) {
-  const targetPath = url.searchParams.get('target') || url.pathname.replace(/^\/ws\/?/, '/');
-  const geminiUrl = `wss://${GEMINI_HOST}${targetPath}${targetPath.includes('?') ? '&' : '?'}key=${GEMINI_API_KEY}`;
+  // Pfad 1:1 weiterreichen (SDK sendet /ws/google.ai.generativelanguage…)
+  // und nur den Dummy-Key 'PROXY' durch den echten Key ersetzen.
+  const targetPath = url.searchParams.get('target') || url.pathname;
+  const params = new URLSearchParams();
+  for (const [k, v] of url.searchParams.entries()) {
+    if (k !== 'key' && k !== 'target') params.set(k, v);
+  }
+  params.set('key', GEMINI_API_KEY);
+  const geminiUrl = `wss://${GEMINI_HOST}${targetPath}?${params.toString()}`;
 
   let upstream;
   try {
     upstream = new WebSocket(geminiUrl);
   } catch (err) {
+    console.error('Direct-WS: Upstream-Connect Fehler:', err.message);
     clientWs.close(1011, 'Upstream connection failed');
     return;
   }
 
   upstream.on('open', () => {
-    console.log('Direktes WebSocket-Proxy: Gemini verbunden');
+    console.log(`Direct-WS: Gemini verbunden (${targetPath})`);
   });
 
   clientWs.on('message', (data) => {
@@ -532,12 +540,14 @@ async function handleDirectWebSocket(clientWs, url) {
 
   clientWs.on('close', cleanup);
   upstream.on('close', (code, reason) => {
+    console.log(`Direct-WS: Upstream geschlossen ${code} ${reason?.toString() || ''}`);
     if (clientWs.readyState === WebSocket.OPEN) {
       clientWs.close(code || 1000, reason?.toString() || '');
     }
   });
-  clientWs.on('error', () => cleanup());
-  upstream.on('error', () => {
+  clientWs.on('error', (err) => { console.error('Direct-WS: Client-Fehler:', err.message); cleanup(); });
+  upstream.on('error', (err) => {
+    console.error('Direct-WS: Upstream-Fehler:', err.message);
     if (clientWs.readyState === WebSocket.OPEN) clientWs.close(1011, 'upstream error');
   });
 }
