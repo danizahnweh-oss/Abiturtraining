@@ -145,9 +145,12 @@ export async function handleCheckStudent(request, env) {
       email: maskEmail(emailLower),
     }, 200, env);
   } else {
-    if (!existing) {
-      return jsonResponse({ success: false, error: "Name nicht gefunden. Bitte zuerst registrieren." }, 404, env);
-    }
+    // Einheitliche Fehlermeldung für "Name unbekannt" UND "Passwort falsch"
+    // → verhindert Account-Enumeration über differenzierte Antworten.
+    const invalidCreds = () => jsonResponse(
+      { success: false, error: "Name oder Passwort ist falsch." }, 401, env
+    );
+    if (!existing) return invalidCreds();
     if (!existing.hash || !existing.salt) {
       const salt = crypto.randomUUID();
       const hash = await hashPassword(personal_password, salt);
@@ -156,9 +159,7 @@ export async function handleCheckStudent(request, env) {
       ).bind(salt, hash, existing.id).run();
     } else {
       const match = await verifyPassword(personal_password, existing.salt, existing.hash);
-      if (!match) {
-        return jsonResponse({ success: false, error: "Falsches Passwort." }, 401, env);
-      }
+      if (!match) return invalidCreds();
     }
 
     // Email-Verifizierung erforderlich? (nur neue Accounts haben email_verified=0)

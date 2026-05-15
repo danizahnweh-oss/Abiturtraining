@@ -11,6 +11,22 @@ async function sha256Hex(value) {
   return [...new Uint8Array(digest)].map(b => b.toString(16).padStart(2, "0")).join("");
 }
 
+// HTML-Sonderzeichen escapen — verhindert Markup-Injection in der Bestätigungs-Mail.
+function escapeHtml(str) {
+  if (str == null) return "";
+  return String(str)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+// Eigener HMAC-Schlüssel für Verify-Token (Fallback auf ACCESS_PASSWORD, falls Server-Env noch nicht aktualisiert).
+function getVerifySecret(env) {
+  return env.EMAIL_VERIFY_SECRET || env.ACCESS_PASSWORD;
+}
+
 function checkVerifyRateLimit(request, env) {
   const ip = request.headers.get("CF-Connecting-IP") || "unknown";
   const now = Date.now();
@@ -38,7 +54,7 @@ async function generateVerifyToken(nameLower, env) {
   const ts = Date.now();
   const payload = `verify:${nameLower}:${ts}`;
   const key = await crypto.subtle.importKey(
-    "raw", new TextEncoder().encode(env.ACCESS_PASSWORD),
+    "raw", new TextEncoder().encode(getVerifySecret(env)),
     { name: "HMAC", hash: "SHA-256" }, false, ["sign"]
   );
   const sig = await crypto.subtle.sign("HMAC", key, new TextEncoder().encode(payload));
@@ -59,7 +75,7 @@ async function verifyToken(token, env) {
     if (Date.now() - ts > 24 * 60 * 60 * 1000) return null;
 
     const key = await crypto.subtle.importKey(
-      "raw", new TextEncoder().encode(env.ACCESS_PASSWORD),
+      "raw", new TextEncoder().encode(getVerifySecret(env)),
       { name: "HMAC", hash: "SHA-256" }, false, ["verify"]
     );
     const payload = `verify:${nameLower}:${ts}`;
@@ -75,14 +91,16 @@ async function verifyToken(token, env) {
 
 /* ================= Bestätigungs-Mail bauen + senden ================= */
 function buildVerifyEmail(studentName, verifyUrl) {
+  const safeName = escapeHtml(studentName);
+  const safeUrl = escapeHtml(verifyUrl);
   return `<!DOCTYPE html><html lang="de"><head><meta charset="utf-8"></head><body style="font-family:system-ui,sans-serif;background:#f0f0f5;padding:20px;margin:0">
 <div style="max-width:500px;margin:0 auto;background:#fff;border-radius:12px;padding:24px;box-shadow:0 2px 12px rgba(0,0,0,.1)">
 <a href="https://myabiflow.de" style="display:block;text-align:center;margin-bottom:20px;text-decoration:none"><img src="https://myabiflow.de/logo-v2.png" alt="myAbiFlow" width="140" style="width:140px;height:auto" /></a>
 <h2 style="color:#2563eb;margin-top:0">Willkommen bei myAbiFlow!</h2>
-<p>Hallo ${studentName},</p>
+<p>Hallo ${safeName},</p>
 <p>schön, dass du dabei bist! Bitte bestätige deine E-Mail-Adresse, damit dein Account aktiviert wird:</p>
 <p style="text-align:center;margin:24px 0">
-<a href="${verifyUrl}" style="background:#2563eb;color:#fff;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:600;display:inline-block">E-Mail bestätigen</a>
+<a href="${safeUrl}" style="background:#2563eb;color:#fff;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:600;display:inline-block">E-Mail bestätigen</a>
 </p>
 <p style="font-size:13px;color:#666">Dieser Link ist <strong>24 Stunden</strong> gültig. Falls du dich nicht bei myAbiFlow registriert hast, kannst du diese E-Mail einfach ignorieren.</p>
 <p style="font-size:12px;color:#999;margin-top:24px;border-top:1px solid #eee;padding-top:12px">Diese E-Mail wurde automatisch von myAbiFlow gesendet.</p>
@@ -201,28 +219,24 @@ export async function handleResendVerification(request, env) {
     "SELECT name, name_lower, email, email_verified, salt, hash FROM students WHERE name_lower = ?"
   ).bind(nameLower).first();
 
-  // Aus Sicherheitsgründen immer Erfolg melden (verhindert Account-Enumeration)
-  if (!student) {
-    return jsonResponse({ success: true }, 200, env);
-  }
+  // Generische Erfolgsantwort, unabhängig davon ob Account existiert / Passwort stimmt /
+  // E-Mail hinterlegt ist. Verhindert Account-Enumeration über differenzierte Fehlerpfade.
+  const genericSuccess = () => jsonResponse({ success: true }, 200, env);
 
-  // Passwort prüfen – sonst könnte jeder Resends triggern und User zuspammen
+  if (!student) return genericSuccess();
+  if (!student.salt || !student.hash) return genericSuccess();
+
   const { verifyPassword } = await import('../auth.js');
-  if (!student.salt || !student.hash) {
-    return jsonResponse({ success: true }, 200, env);
-  }
   const match = await verifyPassword(personal_password, student.salt, student.hash);
-  if (!match) {
-    return jsonResponse({ success: false, error: "Falsches Passwort." }, 401, env);
-  }
+  if (!match) return genericSuccess();
 
+  // Ab hier: User existiert und Passwort stimmt → UI darf "bereits bestätigt" sehen,
+  // weil ein Angreifer mit korrektem Passwort sich ohnehin einloggen könnte.
   if (student.email_verified === 1) {
     return jsonResponse({ success: true, alreadyVerified: true }, 200, env);
   }
-  if (!student.email || !student.email.trim()) {
-    return jsonResponse({ success: false, error: "Keine E-Mail-Adresse hinterlegt." }, 400, env);
-  }
+  if (!student.email || !student.email.trim()) return genericSuccess();
 
   await sendVerificationEmail(env, student.name_lower, student.name, student.email);
-  return jsonResponse({ success: true }, 200, env);
+  return genericSuccess();
 }

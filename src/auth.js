@@ -488,6 +488,19 @@ export async function ensureMigrations(env) {
       )
     `).run();
 
+    // Double-Opt-In Email-Verifizierung: Spalte + Token-Tabelle
+    // Default 1 → Bestandsuser bleiben verifiziert; neue Inserts setzen explizit 0.
+    try { await env.DB.prepare("ALTER TABLE students ADD COLUMN email_verified INTEGER NOT NULL DEFAULT 1").run(); } catch (_) {}
+    await env.DB.prepare(`
+      CREATE TABLE IF NOT EXISTS email_verification_tokens (
+        id TEXT PRIMARY KEY,
+        name_lower TEXT NOT NULL,
+        token_hash TEXT NOT NULL UNIQUE,
+        used_at TEXT DEFAULT NULL,
+        created_at TEXT NOT NULL
+      )
+    `).run();
+
     await env.DB.prepare(`
       CREATE TABLE IF NOT EXISTS teacher_approvals (
         teacher_id TEXT NOT NULL,

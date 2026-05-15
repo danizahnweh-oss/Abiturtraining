@@ -2799,9 +2799,10 @@ function _showVerificationPendingModal(studentName, password, maskedEmail, after
   if (existing) existing.remove();
 
   var headline = afterRegister ? "Fast geschafft!" : "E-Mail-Bestätigung ausstehend";
+  var safeEmail = escapeHtml(maskedEmail || "");
   var intro = afterRegister
-    ? "Wir haben dir eine Bestätigungs-E-Mail an <strong>" + maskedEmail + "</strong> geschickt. Bitte klicke den Link in der E-Mail, um deinen Account zu aktivieren."
-    : "Dein Account wurde erstellt, aber die E-Mail-Adresse <strong>" + maskedEmail + "</strong> ist noch nicht bestätigt. Bitte klicke den Link in der E-Mail, die wir dir geschickt haben.";
+    ? "Wir haben dir eine Bestätigungs-E-Mail an <strong>" + safeEmail + "</strong> geschickt. Bitte klicke den Link in der E-Mail, um deinen Account zu aktivieren."
+    : "Dein Account wurde erstellt, aber die E-Mail-Adresse <strong>" + safeEmail + "</strong> ist noch nicht bestätigt. Bitte klicke den Link in der E-Mail, die wir dir geschickt haben.";
 
   var overlay = document.createElement("div");
   overlay.id = "verifyPendingOverlay";
