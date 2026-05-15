@@ -866,6 +866,35 @@ Fach: ${config.subject} (${level}), Schwerpunkt: "${config.schwerpunkt}" (${hj})
     }
     instruction += themenRahmen;
 
+    // Phasen-Plan für die Fragephase — verhindert, dass die KI zu schon
+    // behandelten Themen/HJ zurückspringt oder sich in einem HJ verliert.
+    if (mode !== 'referat') {
+      const weitereCount = config.weitereHalbjahre.length;
+      // 15 Min Phase 2 gleichmäßig auf die weiteren HJ verteilen
+      const dauerProWeiteresHJ = weitereCount > 0 ? Math.round(15 / weitereCount) : 0;
+      const phasenZeilen: string[] = [];
+      phasenZeilen.push(`Phase 1 (~5 Min, 2–3 Fragen): Schwerpunktthema "${config.schwerpunkt}" aus ${hj}`);
+      config.weitereHalbjahre.forEach((h, i) => {
+        const t = topicsMap[h] || [];
+        const themenHinweis = t.length > 0 ? ` — erlaubte Themen: ${t.filter(x => x && x.trim()).join(', ')}` : '';
+        phasenZeilen.push(`Phase ${i + 2} (~${dauerProWeiteresHJ} Min, 3–4 Fragen): Halbjahr ${h}${themenHinweis}`);
+      });
+
+      instruction += `
+
+PRÜFUNGSPHASEN (chronologisch, nacheinander abzuarbeiten):
+${phasenZeilen.map(p => `• ${p}`).join('\n')}
+
+PHASEN-FORTSCHRITTS-REGEL (kritisch — vor jeder Frage prüfen):
+1. Du arbeitest die Phasen STRENG NACHEINANDER ab. Nach maximal 4 Fragen pro Phase MUSST du diese Phase verlassen und zur nächsten wechseln.
+2. Phasenwechsel kündigst du klar an: "Wir kommen nun zu Halbjahr ${config.weitereHalbjahre[0] || 'X'}." — und stellst ab sofort AUSSCHLIESSLICH Fragen zur neuen Phase.
+3. SOBALD DU EINE PHASE VERLASSEN HAST, IST SIE ENDGÜLTIG ERLEDIGT. Du darfst NIEMALS zu ihr zurückkehren — auch nicht für eine "kurze Nachfrage", "Ergänzung" oder weil dir noch etwas einfällt.
+4. Auch wenn der Prüfling in einer späteren Phase ein Thema aus einer früheren Phase erwähnt: KEINE neuen Fragen dazu. Du darfst es höchstens kurz bestätigen ("Genau, das hatten Sie schon erwähnt.") und stellst dann die nächste Frage aus der AKTUELLEN Phase.
+5. Frage NIE zweimal nach demselben Konzept — auch nicht umformuliert. Wenn dir eine Folgefrage einfällt, die thematisch an etwas bereits Behandeltes erinnert: VERWIRF sie und nimm eine neue.
+6. Achte aktiv darauf, alle Phasen zu erreichen. Wenn nach ca. 13 Min noch ein Halbjahr fehlt, gehe SOFORT dorthin — auch wenn die aktuelle Phase noch nicht "voll" war.
+7. Wenn alle Phasen behandelt sind und noch Restzeit übrig ist: beende die Prüfung mit einer kurzen Verabschiedung, statt Themen zu wiederholen.`;
+    }
+
     if (mode === 'referat') {
       instruction += `
 ABLAUF: Begrüße den Prüfling KURZ (1 Satz), dann lass ihn sein Kurzreferat halten (~10 Min).

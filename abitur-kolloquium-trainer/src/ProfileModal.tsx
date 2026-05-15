@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { X } from 'lucide-react';
 
-const API_BASE = "https://sag-abi-mediation-api.sanktannagymnasium.workers.dev";
+const API_BASE = "https://myabiflow.de";
 
 interface ProfileModalProps {
   onClose: () => void;

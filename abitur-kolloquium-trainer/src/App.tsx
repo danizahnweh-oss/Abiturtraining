@@ -361,7 +361,7 @@ function MaterialImpulsCard({ impuls, onMinimize }: { impuls: MaterialImpuls; on
 
 type Step = 'setup' | 'generating' | 'preparation' | 'exam' | 'feedback-choice' | 'feedback' | 'trial-limit-reached';
 
-const API_BASE = 'https://sag-abi-mediation-api.sanktannagymnasium.workers.dev';
+const API_BASE = 'https://myabiflow.de';
 
 const PHASE_LABELS: Record<string, string> = {
   'referat': 'Kurzreferat (ca. 10 Min)',
