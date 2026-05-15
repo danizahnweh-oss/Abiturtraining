@@ -311,23 +311,26 @@ server.on('upgrade', async (request, socket, head) => {
     return;
   }
 
-  const accessTokenData = hasValidAccessToken(request);
-  if (!accessTokenData) {
-    socket.destroy();
-    return;
-  }
-
-  request.selectedProtocol = accessTokenData.selectedProtocol;
-
-  const url = new URL(request.url, `http://${request.headers.host}`);
+  // URL normalisieren (das @google/genai SDK erzeugt durch new URL(baseUrl).toString()
+  // ein "//ws/..." mit Doppel-Slash — wir entfernen führende Doppel-Slashes hier).
+  const rawPath = (request.url || '/').replace(/^\/+/, '/');
+  const url = new URL(rawPath, `http://${request.headers.host}`);
 
   // Session-basiertes WebSocket: /session/{id}/ws
   const sessionMatch = url.pathname.match(/^\/session\/([^/]+)\/ws$/);
 
-  // Direktes WebSocket-Proxy (ohne Session)
+  // Direktes WebSocket-Proxy (ohne Session) — z.B. /ws/google.ai.generativelanguage...
   const directWs = request.headers.upgrade?.toLowerCase() === 'websocket' && !sessionMatch;
 
   if (sessionMatch) {
+    // Session-Mode: Access-Token-Pflicht (wie im alten CF-Worker)
+    const accessTokenData = hasValidAccessToken(request);
+    if (!accessTokenData) {
+      socket.destroy();
+      return;
+    }
+    request.selectedProtocol = accessTokenData.selectedProtocol;
+
     const sessionId = sessionMatch[1];
     const rawData = await redis.get(`session:${sessionId}`);
     if (!rawData) {
@@ -349,6 +352,9 @@ server.on('upgrade', async (request, socket, head) => {
       handleSessionWebSocket(ws, sessionId, url);
     });
   } else if (directWs) {
+    // Direct-Mode (Gemini Live API): nur Origin-Check, kein Access-Token —
+    // das @google/genai SDK kann keine Custom-Header für WebSocket senden.
+    // Schutz erfolgt via Origin-Whitelist + Trial-Counter im /api/colloquium/start.
     wss.handleUpgrade(request, socket, head, (ws) => {
       handleDirectWebSocket(ws, url);
     });
