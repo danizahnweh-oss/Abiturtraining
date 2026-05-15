@@ -559,6 +559,17 @@ export default function App() {
   const weitereHJ = isMathe
     ? (schwerpunkt ? matheGebiete.filter(g => g !== schwerpunkt) : matheGebiete)
     : ((gestrichen && spHalbjahr) ? availHJ.filter(h => h !== spHalbjahr) : []);
+  // Themen je Halbjahr (für KI-Prompt) — Lehrer-Custom hat Vorrang vor LehrplanPLUS
+  const topicsByHalbjahr = useMemo<Record<string, string[]>>(() => {
+    if (isMathe || !subject || !gestrichen) return {};
+    return availHJ.reduce<Record<string, string[]>>((acc, hj) => {
+      const custom = (customSchwerpunkte[hj] || []).filter(s => s.trim());
+      acc[hj] = customSp && custom.length > 0 ? custom : getSchwerpunkte(subject, hj, level);
+      return acc;
+    }, {});
+    // availHJ ist deterministisch aus subject+gestrichen ableitbar → keine eigene dep
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isMathe, subject, gestrichen, customSp, customSchwerpunkte, level]);
   const canGenerate = isMathe
     ? !!(subject && gestrichen && schwerpunkt)
     : !!(subject && gestrichen && spHalbjahr && schwerpunkt);
@@ -661,6 +672,7 @@ export default function App() {
       examMode: d.examMode, gender: d.examinerGender || 'male',
       prueferTyp: d.prueferTyp || 'standard',
       topicScope: d.topicScope || 'strikt',
+      topicsByHalbjahr: d.topicsByHalbjahr || {},
       shouldPlayModelAudio: makeShouldPlayAudio(d.examMode),
       getTranscripts,
       onStatusChange: s => setStatus(s),
@@ -786,7 +798,7 @@ export default function App() {
         subject, examLevel: level, schwerpunkt, schwerpunktHalbjahr: configHalbjahr,
         weitereHalbjahre: weitereHJ, aufgabenstellung: '', material: '',
         materialImpulse: impulse.length > 0 ? impulse : undefined,
-        examMode, gender, prueferTyp, topicScope, shouldPlayModelAudio: makeShouldPlayAudio(examMode),
+        examMode, gender, prueferTyp, topicScope, topicsByHalbjahr, shouldPlayModelAudio: makeShouldPlayAudio(examMode),
         getTranscripts,
         onStatusChange: s => setStatus(s),
         onModelTranscription: t => { modelTxCountRef.current++; setModelTx(prev => [...prev, t]); },
@@ -887,7 +899,7 @@ export default function App() {
       subject, examLevel: level, schwerpunkt, schwerpunktHalbjahr: configHj,
       weitereHalbjahre: weitereHJ, aufgabenstellung: material.aufgabenstellung, material: material.material,
       materialImpulse: matImpulse.length > 0 ? matImpulse : undefined,
-      examMode, gender: examinerGender, prueferTyp, topicScope, shouldPlayModelAudio: makeShouldPlayAudio(examMode),
+      examMode, gender: examinerGender, prueferTyp, topicScope, topicsByHalbjahr, shouldPlayModelAudio: makeShouldPlayAudio(examMode),
       getTranscripts,
       onStatusChange: s => setStatus(s),
       onModelTranscription: t => { modelTxCountRef.current++; setModelTx(prev => [...prev, t]); },
@@ -1068,7 +1080,7 @@ export default function App() {
           subject, examLevel: level, examMode, schwerpunkt, spHalbjahr,
           weitereHJ, gestrichen, material, matImpulse,
           modelTx, userTx, elapsed: exam.elapsed,
-          examinerGender, prueferTyp, topicScope, timestamp: Date.now(),
+          examinerGender, prueferTyp, topicScope, topicsByHalbjahr, timestamp: Date.now(),
         }));
       } catch { /* localStorage voll */ }
     };
@@ -1085,7 +1097,7 @@ export default function App() {
         subject, examLevel: level, examMode, schwerpunkt, spHalbjahr,
         weitereHJ, gestrichen, material, matImpulse,
         modelTx, userTx, elapsed: exam.elapsed,
-        examinerGender, prueferTyp, topicScope, timestamp: Date.now(),
+        examinerGender, prueferTyp, topicScope, topicsByHalbjahr, timestamp: Date.now(),
       }));
       localStorage.setItem('kolloquium_transcript_backup', JSON.stringify({
         modelTx, userTx, timestamp: Date.now(),

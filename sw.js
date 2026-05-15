@@ -1,4 +1,4 @@
-const CACHE_NAME = 'myabiflow-v136';
+const CACHE_NAME = 'myabiflow-v138';
 const STATIC_ASSETS = [
   './',
   './index.html',
@@ -35,8 +35,11 @@ self.addEventListener('activate', event => {
 self.addEventListener('fetch', event => {
   const url = new URL(event.request.url);
 
-  // API calls: network only, return JSON error when offline
-  if (url.pathname.startsWith('/api/')) {
+  // API calls auf gleicher Origin: network only, JSON-Fehler bei offline
+  // WICHTIG: Origin-Check zuerst, sonst werden externe Worker-APIs (z.B. CF-Worker
+  // unter *.workers.dev) fälschlich als "Offline" gemeldet, sobald deren Response
+  // den SW passiert.
+  if (url.origin === location.origin && url.pathname.startsWith('/api/')) {
     event.respondWith(fetch(event.request).catch(() =>
       new Response(JSON.stringify({ error: 'Offline' }), {
         status: 503,

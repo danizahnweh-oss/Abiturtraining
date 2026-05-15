@@ -218,6 +218,8 @@ export interface LiveSessionConfig {
   feedbackMode?: boolean;
   examTranscript?: string;
   topicScope?: TopicScope;
+  /** Themen je Halbjahr (Lehrer-Custom oder LehrplanPLUS). Schlüssel = Halbjahr-Label (z.B. "12/2"). */
+  topicsByHalbjahr?: Record<string, string[]>;
   /** Wenn gesetzt: Model-Audio wird nur abgespielt wenn true zurückgegeben wird */
   shouldPlayModelAudio?: () => boolean;
   onModelTranscription?: (text: string) => void;
@@ -834,6 +836,35 @@ Fach: ${config.subject} (${level}), Schwerpunkt: "${config.schwerpunkt}" (${hj})
     const schwerpunktFragenBeschreibung = scope === 'strikt'
       ? `2–3 vertiefende Fragen AUSSCHLIESSLICH zum konkreten Schwerpunktthema "${config.schwerpunkt}" aus ${hj} (AB II/III, ~5 Min). WICHTIG: Stelle in dieser Phase KEINE Fragen zu anderen Themen aus ${hj} — bleibe strikt beim Schwerpunktthema und eng damit verbundenen Aspekten.`
       : `2–3 vertiefende Fragen zum Schwerpunkthalbjahr ${hj} (AB II/III, ~5 Min). Decke dabei sowohl das konkrete Schwerpunktthema "${config.schwerpunkt}" als auch weitere Themen aus ${hj} ab.`;
+
+    // Explizite Themenlisten pro Halbjahr (Lehrer-Custom oder LehrplanPLUS),
+    // damit das Modell weiß, welche Inhalte zu welchem Halbjahr gehören.
+    const topicsMap = config.topicsByHalbjahr || {};
+    const formatTopics = (list: string[]) => list.filter(t => t && t.trim()).map(t => `• ${t.trim()}`).join('\n');
+    const schwerpunktHjTopics = (topicsMap[hj] || []).filter(t => t && t.trim());
+    const verboteneSchwerpunktThemen = schwerpunktHjTopics.filter(t => t.trim() !== config.schwerpunkt.trim());
+    const weitereHjBlocks = config.weitereHalbjahre
+      .map(h => {
+        const t = topicsMap[h] || [];
+        return t.length > 0 ? `Halbjahr ${h} – erlaubte Themen:\n${formatTopics(t)}` : `Halbjahr ${h}: (Themen gemäß bayerischem LehrplanPLUS für ${config.subject})`;
+      })
+      .join('\n\n');
+
+    let themenRahmen = `\n\nTHEMENRAHMEN DER PRÜFUNG:`;
+    themenRahmen += `\n\nSchwerpunktthema (Halbjahr ${hj}): "${config.schwerpunkt}"`;
+    if (verboteneSchwerpunktThemen.length > 0) {
+      themenRahmen += `\n\nAndere Themen aus ${hj}, die in der Klausur des Schülers WEDER prüfungsrelevant noch erlaubt sind:\n${formatTopics(verboteneSchwerpunktThemen)}`;
+      if (scope === 'strikt') {
+        themenRahmen += `\n→ Diese Themen sind während der GESAMTEN Prüfung TABU. Stelle dazu KEINE Fragen — weder in Phase 1 (Schwerpunkt-Fragen) noch in Phase 2 (weitere Halbjahre). Auch wenn du als Überleitung sagst "Wir kommen jetzt zu ${config.weitereHalbjahre[0] || 'einem weiteren Halbjahr'}", darfst du danach NIE Fragen zu diesen Themen aus ${hj} stellen.`;
+      } else {
+        themenRahmen += `\n→ In Phase 1 (Schwerpunkt-Fragen) darfst du diese Themen ergänzend ansprechen. In Phase 2 (weitere Halbjahre) sind sie TABU — dort gehören nur die Themen der anderen Halbjahre hin.`;
+      }
+    }
+    if (weitereHjBlocks) {
+      themenRahmen += `\n\nWeitere Halbjahre (Phase 2 der Fragephase):\n\n${weitereHjBlocks}`;
+      themenRahmen += `\n\n→ In Phase 2 stellst du Fragen AUSSCHLIESSLICH zu den oben aufgeführten Themen der weiteren Halbjahre. Wenn du ein Halbjahr ankündigst (z.B. "Wir kommen nun zu ${config.weitereHalbjahre[0] || '13/1'}"), müssen die Fragen auch tatsächlich aus diesem Halbjahr stammen.`;
+    }
+    instruction += themenRahmen;
 
     if (mode === 'referat') {
       instruction += `
