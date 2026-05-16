@@ -197,22 +197,24 @@ export async function checkSubscriptionAccess(studentName, env, allowTeacherCred
     return null;
   }
 
-  // Aktives Abo prüfen (Vollzugang)
+  // Aktives Abo prüfen (Vollzugang) – alle aktiven Subs durchgehen, weil ein
+  // Schüler gleichzeitig Schullizenz + Stripe-Abo haben kann
   if (student.subscription_status === 'active') {
-    const sub = await env.DB.prepare(
-      "SELECT current_period_end, school_license_code FROM subscriptions WHERE student_id = $1 AND status = 'active' LIMIT 1"
-    ).bind(String(student.id)).first();
-    if (sub) {
+    const subsResult = await env.DB.prepare(
+      "SELECT current_period_end, school_license_code FROM subscriptions WHERE student_id = $1 AND status = 'active'"
+    ).bind(String(student.id)).all();
+    const subs = subsResult?.rows || [];
+    const now = new Date();
+    for (const sub of subs) {
       if (sub.school_license_code) {
-        // Schullizenz: prüfen ob noch aktiv in class_passwords
         if (await isSchoolLicenseActive(sub.school_license_code, env)) {
           return null; // Schullizenz aktiv → Zugang erlaubt
         }
-        // Schullizenz deaktiviert → weiter zu Trial/Credits-Prüfung
-      } else if (sub.current_period_end && new Date(sub.current_period_end) > new Date()) {
+      } else if (sub.current_period_end && new Date(sub.current_period_end) > now) {
         return null; // Normales Abo gültig
       }
     }
+    // Keine Sub gültig → weiter zu Trial/Credits-Prüfung
   }
 
   // Schullizenz via class_group (für Schüler ohne subscriptions-Eintrag)
