@@ -630,10 +630,67 @@ Antworte EXAKT in diesem JSON-Format (kein Markdown, kein Codeblock, nur reines 
 
 /* ───────── Written feedback ───────── */
 
+/**
+ * Baut den PRÜFUNGSRAHMEN-Block für Feedback-Prompts (schriftlich + mündlich).
+ * Gibt der KI den vollständigen Themenrahmen mit, damit sie Antworten auf
+ * Fragen zu Nicht-Schwerpunkt-Halbjahren nicht fälschlich als "Abschweifen" wertet.
+ */
+function buildPrüfungsrahmenBlock(args: {
+  subject: string;
+  schwerpunkt: string;
+  schwerpunktHalbjahr?: string;
+  weitereHalbjahre?: string[];
+  topicsByHalbjahr?: Record<string, string[]>;
+  examMode?: ExamMode;
+}): string {
+  const weitere = (args.weitereHalbjahre || []).filter(h => h && h.trim());
+  const hatWeitere = weitere.length > 0;
+  const mode = args.examMode || 'gesamt';
+  // Im reinen Referat-Modus gibt es keine Fragephase → kein Rahmen nötig.
+  if (mode === 'referat' || !hatWeitere) {
+    return '';
+  }
+
+  const lines: string[] = [];
+  lines.push('');
+  lines.push('PRÜFUNGSRAHMEN (was war Bestandteil der Prüfung?):');
+  if (args.schwerpunktHalbjahr) {
+    lines.push(`• Schwerpunktthema: "${args.schwerpunkt}" (Halbjahr ${args.schwerpunktHalbjahr})`);
+  } else {
+    lines.push(`• Schwerpunktthema: "${args.schwerpunkt}"`);
+  }
+  lines.push(`• Weitere prüfungsrelevante Halbjahre: ${weitere.join(', ')}`);
+
+  const topicsMap = args.topicsByHalbjahr || {};
+  const themenBlocks: string[] = [];
+  for (const h of weitere) {
+    const t = (topicsMap[h] || []).filter(x => x && x.trim());
+    if (t.length > 0) {
+      themenBlocks.push(`  – ${h}: ${t.map(x => x.trim()).join(', ')}`);
+    } else {
+      themenBlocks.push(`  – ${h}: Themen gemäß bayerischem LehrplanPLUS für ${args.subject}`);
+    }
+  }
+  if (themenBlocks.length > 0) {
+    lines.push('• Erlaubte Themen je weiterem Halbjahr:');
+    lines.push(...themenBlocks);
+  }
+
+  lines.push('');
+  lines.push('WICHTIG zur Bewertung des Themenrahmens:');
+  lines.push('Im bayerischen Kolloquium darf der Prüfer nicht nur zum Schwerpunktthema, sondern auch zu Themen der weiteren oben genannten Halbjahre fragen. Antworten des Prüflings auf solche Fragen sind KEIN Themenabschweifen und KEIN Fehler — sie waren laut Prüfungsdesign genau so vorgesehen. Bewerte sie inhaltlich auf gleicher Ebene wie Antworten zum Schwerpunktthema. Nur tatsächliches Abdriften auf Inhalte, die in KEINEM der oben genannten Halbjahre/Themen liegen, darf als Abschweifen markiert werden — und auch nur dann, wenn der Prüfling von sich aus dorthin springt (nicht, wenn der Prüfer danach gefragt hat).');
+  lines.push('');
+  return lines.join('\n');
+}
+
 export async function generateWrittenFeedback(config: {
   subject: string;
   examLevel: ExamLevel;
   schwerpunkt: string;
+  schwerpunktHalbjahr?: string;
+  weitereHalbjahre?: string[];
+  topicsByHalbjahr?: Record<string, string[]>;
+  examMode?: ExamMode;
   modelTranscription: string[];
   userTranscription: string[];
   materialImpulse?: MaterialImpuls[];
@@ -647,11 +704,20 @@ export async function generateWrittenFeedback(config: {
     if (config.modelTranscription[i]) lines.push(`Prüfer: ${config.modelTranscription[i]}`);
   }
 
+  const prüfungsrahmen = buildPrüfungsrahmenBlock({
+    subject: config.subject,
+    schwerpunkt: config.schwerpunkt,
+    schwerpunktHalbjahr: config.schwerpunktHalbjahr,
+    weitereHalbjahre: config.weitereHalbjahre,
+    topicsByHalbjahr: config.topicsByHalbjahr,
+    examMode: config.examMode,
+  });
+
   const prompt = `Du bist ein fairer und wohlwollender bayerischer Abiturprüfer. Analysiere das folgende Prüfungstranskript einer Kolloquiumsprüfung und gib ehrliches, konstruktives Feedback mit klarem Schwerpunkt auf Stärken und Lernchancen.
 
 Fach: ${config.subject} (${config.examLevel === 'eA' ? 'erhöht' : 'grundlegend'})
 Schwerpunkt: ${config.schwerpunkt}
-
+${prüfungsrahmen}
 VOLLSTÄNDIGES TRANSKRIPT DER PRÜFUNG:
 ---
 ${lines.join('\n') || '(Kein Transkript verfügbar)'}
@@ -749,9 +815,18 @@ function buildFeedbackInstruction(config: LiveSessionConfig): string {
     ? 'eine faire und wohlwollende bayerische Abiturprüferin'
     : 'ein fairer und wohlwollender bayerischer Abiturprüfer';
 
+  const prüfungsrahmen = buildPrüfungsrahmenBlock({
+    subject: config.subject,
+    schwerpunkt: config.schwerpunkt,
+    schwerpunktHalbjahr: config.schwerpunktHalbjahr,
+    weitereHalbjahre: config.weitereHalbjahre,
+    topicsByHalbjahr: config.topicsByHalbjahr,
+    examMode: config.examMode,
+  });
+
   return `Du bist ${prüferRolle}. Gib MÜNDLICHES FEEDBACK zur Kolloquiumsprüfung – ehrlich, aber ermutigend und konstruktiv.
 Fach: ${config.subject} (${config.examLevel}), Schwerpunkt: ${config.schwerpunkt}
-
+${prüfungsrahmen}
 TRANSKRIPT:
 ${transcript || '(Nicht verfügbar)'}
 
@@ -834,8 +909,8 @@ Fach: ${config.subject} (${level}), Schwerpunkt: "${config.schwerpunkt}" (${hj})
     // Umfang der Schwerpunkt-Fragen
     const scope: TopicScope = config.topicScope || 'strikt';
     const schwerpunktFragenBeschreibung = scope === 'strikt'
-      ? `2–3 vertiefende Fragen AUSSCHLIESSLICH zum konkreten Schwerpunktthema "${config.schwerpunkt}" aus ${hj} (AB II/III, ~5 Min). WICHTIG: Stelle in dieser Phase KEINE Fragen zu anderen Themen aus ${hj} — bleibe strikt beim Schwerpunktthema und eng damit verbundenen Aspekten.`
-      : `2–3 vertiefende Fragen zum Schwerpunkthalbjahr ${hj} (AB II/III, ~5 Min). Decke dabei sowohl das konkrete Schwerpunktthema "${config.schwerpunkt}" als auch weitere Themen aus ${hj} ab.`;
+      ? `3–4 vertiefende Fragen AUSSCHLIESSLICH zum konkreten Schwerpunktthema "${config.schwerpunkt}" aus ${hj} (AB II/III, ~5–6 Min). WICHTIG: Stelle in dieser Phase KEINE Fragen zu anderen Themen aus ${hj} — bleibe strikt beim Schwerpunktthema und eng damit verbundenen Aspekten.`
+      : `3–4 vertiefende Fragen zum Schwerpunkthalbjahr ${hj} (AB II/III, ~5–6 Min). Decke dabei sowohl das konkrete Schwerpunktthema "${config.schwerpunkt}" als auch weitere Themen aus ${hj} ab.`;
 
     // Explizite Themenlisten pro Halbjahr (Lehrer-Custom oder LehrplanPLUS),
     // damit das Modell weiß, welche Inhalte zu welchem Halbjahr gehören.
@@ -870,14 +945,18 @@ Fach: ${config.subject} (${level}), Schwerpunkt: "${config.schwerpunkt}" (${hj})
     // behandelten Themen/HJ zurückspringt oder sich in einem HJ verliert.
     if (mode !== 'referat') {
       const weitereCount = config.weitereHalbjahre.length;
-      // 15 Min Phase 2 gleichmäßig auf die weiteren HJ verteilen
-      const dauerProWeiteresHJ = weitereCount > 0 ? Math.round(15 / weitereCount) : 0;
+      // Im "fragen"-Modus dauert die Phase 2 insgesamt ~18 Min (UI-Label: ca. 20 Min Gesamt),
+      // im "gesamt"-Modus ~15 Min (Referat + Fragen zusammen ~30 Min).
+      const phase2Gesamt = mode === 'fragen' ? 18 : 15;
+      const dauerProWeiteresHJ = weitereCount > 0 ? Math.round(phase2Gesamt / weitereCount) : 0;
+      // Mindestdauer Gesamtgespräch vor erlaubtem Beenden
+      const minGesamtMin = mode === 'fragen' ? 17 : 13;
       const phasenZeilen: string[] = [];
-      phasenZeilen.push(`Phase 1 (~5 Min, 2–3 Fragen): Schwerpunktthema "${config.schwerpunkt}" aus ${hj}`);
+      phasenZeilen.push(`Phase 1 (~5–6 Min, 3–4 Fragen): Schwerpunktthema "${config.schwerpunkt}" aus ${hj}`);
       config.weitereHalbjahre.forEach((h, i) => {
         const t = topicsMap[h] || [];
         const themenHinweis = t.length > 0 ? ` — erlaubte Themen: ${t.filter(x => x && x.trim()).join(', ')}` : '';
-        phasenZeilen.push(`Phase ${i + 2} (~${dauerProWeiteresHJ} Min, 3–4 Fragen): Halbjahr ${h}${themenHinweis}`);
+        phasenZeilen.push(`Phase ${i + 2} (~${dauerProWeiteresHJ} Min, 4–5 Fragen): Halbjahr ${h}${themenHinweis}`);
       });
 
       instruction += `
@@ -886,13 +965,13 @@ PRÜFUNGSPHASEN (chronologisch, nacheinander abzuarbeiten):
 ${phasenZeilen.map(p => `• ${p}`).join('\n')}
 
 PHASEN-FORTSCHRITTS-REGEL (kritisch — vor jeder Frage prüfen):
-1. Du arbeitest die Phasen STRENG NACHEINANDER ab. Nach maximal 4 Fragen pro Phase MUSST du diese Phase verlassen und zur nächsten wechseln.
+1. Du arbeitest die Phasen STRENG NACHEINANDER ab. Stelle in Phase 1 MINDESTENS 3 Fragen, in jeder weiteren Phase MINDESTENS 4 Fragen, bevor du wechselst. Obergrenze pro Phase: 5 Fragen — danach MUSST du zur nächsten Phase wechseln.
 2. Phasenwechsel kündigst du klar an: "Wir kommen nun zu Halbjahr ${config.weitereHalbjahre[0] || 'X'}." — und stellst ab sofort AUSSCHLIESSLICH Fragen zur neuen Phase.
 3. SOBALD DU EINE PHASE VERLASSEN HAST, IST SIE ENDGÜLTIG ERLEDIGT. Du darfst NIEMALS zu ihr zurückkehren — auch nicht für eine "kurze Nachfrage", "Ergänzung" oder weil dir noch etwas einfällt.
 4. Auch wenn der Prüfling in einer späteren Phase ein Thema aus einer früheren Phase erwähnt: KEINE neuen Fragen dazu. Du darfst es höchstens kurz bestätigen ("Genau, das hatten Sie schon erwähnt.") und stellst dann die nächste Frage aus der AKTUELLEN Phase.
 5. Frage NIE zweimal nach demselben Konzept — auch nicht umformuliert. Wenn dir eine Folgefrage einfällt, die thematisch an etwas bereits Behandeltes erinnert: VERWIRF sie und nimm eine neue.
-6. Achte aktiv darauf, alle Phasen zu erreichen. Wenn nach ca. 13 Min noch ein Halbjahr fehlt, gehe SOFORT dorthin — auch wenn die aktuelle Phase noch nicht "voll" war.
-7. Wenn alle Phasen behandelt sind und noch Restzeit übrig ist: beende die Prüfung mit einer kurzen Verabschiedung, statt Themen zu wiederholen.`;
+6. Achte aktiv darauf, alle Phasen zu erreichen. Wenn nach ca. ${minGesamtMin} Min Gesprächsdauer noch ein Halbjahr fehlt, gehe SOFORT dorthin — auch wenn die aktuelle Phase noch nicht "voll" war.
+7. Beende den Fragenteil NICHT vor ca. ${minGesamtMin} Min Gesprächsdauer. Wenn alle Phasen mit ihrer Mindestzahl behandelt sind und noch Zeit übrig ist, vertiefe in der AKTUELLEN Phase mit ein bis zwei zusätzlichen AB-III-Fragen — kehre NICHT zu früheren Phasen zurück. Erst wenn die Mindestdauer erreicht ist und alle Phasen substanziell behandelt sind, darfst du verabschieden.`;
     }
 
     if (mode === 'referat') {
@@ -911,7 +990,7 @@ KRITISCHE REGEL FÜR DAS KURZREFERAT:
 Danach beende die Prüfung mit einer kurzen Verabschiedung.`;
     } else if (mode === 'fragen') {
       instruction += `
-ABLAUF: Begrüße den Prüfling. Stelle ${schwerpunktFragenBeschreibung} Dann wechsle zu ${weitere} mit 3–4 Fragen pro HJ (~15 Min, AB I→II→III). Beende die Prüfung.
+ABLAUF: Begrüße den Prüfling. Stelle ${schwerpunktFragenBeschreibung} Dann wechsle zu ${weitere} mit 4–5 Fragen pro HJ (~17–18 Min, AB I→II→III). Beende die Prüfung NICHT vor ca. 17 Min Gesprächsdauer — füge bei Restzeit lieber weitere vertiefende Fragen in der aktuellen Phase ein, statt früh zu verabschieden.
 
 INTERAKTIONSREGELN FÜR DIE FRAGEPHASE:
 - Du bist der GESPRÄCHSFÜHRER. Warte NICHT darauf, dass der Prüfling von sich aus etwas sagt — stelle aktiv Fragen.
@@ -926,7 +1005,7 @@ ABLAUF:
 1. Begrüße den Prüfling KURZ (1 Satz), dann lass ihn sein Kurzreferat halten (~10 Min).
    KRITISCHE REGEL: Während des Kurzreferats ABSOLUTE STILLE. KEIN EINZIGES WORT. KEINE Reaktion. Auch bei Pausen SCHWEIGEN. Wenn das Audio kurz leise wird, undeutlich klingt oder du nichts hörst, NICHT kommentieren – einfach weiter zuhören. Platzhalter wie "Schweigen", "Stille" oder "..." sind reine Mikrofon-Signale und KEIN gesprochener Inhalt – darauf NICHT antworten. Erst wieder sprechen, wenn der Prüfling EXPLIZIT sagt, dass er fertig ist (z.B. "Damit bin ich am Ende", "Vielen Dank"). Nach 10–12 Min ohne Abschluss darfst du freundlich bitten, zum Ende zu kommen.
 2. Stelle ${schwerpunktFragenBeschreibung}
-3. Wechsle zu ${weitere} mit 3–4 Fragen pro HJ (~15 Min, AB I→II→III).
+3. Wechsle zu ${weitere} mit 4–5 Fragen pro HJ (~15 Min, AB I→II→III).
 4. Beende die Prüfung.
 
 INTERAKTIONSREGELN FÜR DIE FRAGEPHASE (Punkte 2-4):

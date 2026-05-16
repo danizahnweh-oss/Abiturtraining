@@ -965,7 +965,12 @@ export default function App() {
     for (let attempt = 0; attempt < 3; attempt++) {
       try {
         const fb = await generateWrittenFeedback({
-          subject, examLevel: level, schwerpunkt, modelTranscription: mTx, userTranscription: uTx,
+          subject, examLevel: level, schwerpunkt,
+          schwerpunktHalbjahr: spHalbjahr,
+          weitereHalbjahre: weitereHJ,
+          topicsByHalbjahr,
+          examMode,
+          modelTranscription: mTx, userTranscription: uTx,
           materialImpulse: matImpulse.length > 0 ? matImpulse : undefined,
         });
         setFbText(fb);
