@@ -286,18 +286,32 @@ export async function handleStripeWebhook(request, env) {
           const status = sub.status === 'active' ? 'active' :
                          sub.status === 'trialing' ? 'trialing' :
                          sub.status === 'past_due' ? 'past_due' : 'canceled';
-          const periodEnd = sub.current_period_end
-            ? new Date(sub.current_period_end * 1000).toISOString()
+          // current_period_end liegt je nach Stripe-API-Version entweder direkt auf
+          // sub oder im ersten Item (API ≥ 2025-04 verlagert es zu items.data[])
+          const rawPeriodEnd = sub.current_period_end
+            || sub.items?.data?.[0]?.current_period_end
+            || null;
+          const periodEnd = rawPeriodEnd
+            ? new Date(rawPeriodEnd * 1000).toISOString()
             : null;
 
           await env.DB.prepare(
             'UPDATE students SET subscription_status = ? WHERE id = ?'
           ).bind(status, student.id).run();
 
-          await env.DB.prepare(`
-            UPDATE subscriptions SET status = ?, current_period_end = ?, cancel_at_period_end = ?, updated_at = ?
-            WHERE student_id = ? AND stripe_subscription_id = ?
-          `).bind(status, periodEnd, sub.cancel_at_period_end ? 1 : 0, now, student.id, sub.id).run();
+          // current_period_end NUR überschreiben wenn das Event einen Wert liefert –
+          // sonst bestehenden Wert behalten (verhindert versehentlichen Lockout)
+          if (periodEnd) {
+            await env.DB.prepare(`
+              UPDATE subscriptions SET status = ?, current_period_end = ?, cancel_at_period_end = ?, updated_at = ?
+              WHERE student_id = ? AND stripe_subscription_id = ?
+            `).bind(status, periodEnd, sub.cancel_at_period_end ? 1 : 0, now, student.id, sub.id).run();
+          } else {
+            await env.DB.prepare(`
+              UPDATE subscriptions SET status = ?, cancel_at_period_end = ?, updated_at = ?
+              WHERE student_id = ? AND stripe_subscription_id = ?
+            `).bind(status, sub.cancel_at_period_end ? 1 : 0, now, student.id, sub.id).run();
+          }
         }
         break;
       }
