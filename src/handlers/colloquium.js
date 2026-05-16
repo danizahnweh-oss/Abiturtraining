@@ -25,18 +25,18 @@ async function hasUnlimitedAccess(student, env) {
     return true;
   }
 
-  // Aktives Stripe-Abo (alle aktiven Subs prüfen – ein Schüler kann gleichzeitig
-  // Schullizenz + Stripe-Abo haben; sobald EINE Sub gültig ist, durchlassen)
-  if (student.subscription_status === 'active') {
-    const subsResult = await env.DB.prepare(
-      "SELECT current_period_end, school_license_code FROM subscriptions WHERE student_id = $1 AND status = 'active'"
-    ).bind(String(student.id)).all();
-    for (const sub of subsResult?.rows || []) {
-      if (sub.school_license_code) {
-        if (await isSchoolLicenseActive(sub.school_license_code, env)) return true;
-      } else if (sub.current_period_end && new Date(sub.current_period_end) > now) {
-        return true;
-      }
+  // Aktive Subs (Stripe-Abo / Schullizenz) direkt in der subscriptions-Tabelle prüfen.
+  // KEIN Vorab-Check auf students.subscription_status – sonst sperrt ein Desync zwischen
+  // students und subscriptions ungewollt aus. Alle aktiven Subs durchgehen, sobald EINE
+  // gültig ist, durchlassen.
+  const subsResult = await env.DB.prepare(
+    "SELECT current_period_end, school_license_code FROM subscriptions WHERE student_id = $1 AND status = 'active'"
+  ).bind(String(student.id)).all();
+  for (const sub of subsResult?.rows || []) {
+    if (sub.school_license_code) {
+      if (await isSchoolLicenseActive(sub.school_license_code, env)) return true;
+    } else if (sub.current_period_end && new Date(sub.current_period_end) > now) {
+      return true;
     }
   }
 

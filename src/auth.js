@@ -197,25 +197,25 @@ export async function checkSubscriptionAccess(studentName, env, allowTeacherCred
     return null;
   }
 
-  // Aktives Abo prüfen (Vollzugang) – alle aktiven Subs durchgehen, weil ein
-  // Schüler gleichzeitig Schullizenz + Stripe-Abo haben kann
-  if (student.subscription_status === 'active') {
-    const subsResult = await env.DB.prepare(
-      "SELECT current_period_end, school_license_code FROM subscriptions WHERE student_id = $1 AND status = 'active'"
-    ).bind(String(student.id)).all();
-    const subs = subsResult?.rows || [];
-    const now = new Date();
-    for (const sub of subs) {
-      if (sub.school_license_code) {
-        if (await isSchoolLicenseActive(sub.school_license_code, env)) {
-          return null; // Schullizenz aktiv → Zugang erlaubt
-        }
-      } else if (sub.current_period_end && new Date(sub.current_period_end) > now) {
-        return null; // Normales Abo gültig
+  // Aktive Subs direkt in der subscriptions-Tabelle prüfen (Vollzugang).
+  // KEIN Vorab-Check auf students.subscription_status – sonst sperrt ein Desync zwischen
+  // students und subscriptions ungewollt aus. Alle aktiven Subs durchgehen, sobald EINE
+  // gültig ist, durchlassen.
+  const subsResult = await env.DB.prepare(
+    "SELECT current_period_end, school_license_code FROM subscriptions WHERE student_id = $1 AND status = 'active'"
+  ).bind(String(student.id)).all();
+  const subs = subsResult?.rows || [];
+  const now = new Date();
+  for (const sub of subs) {
+    if (sub.school_license_code) {
+      if (await isSchoolLicenseActive(sub.school_license_code, env)) {
+        return null; // Schullizenz aktiv → Zugang erlaubt
       }
+    } else if (sub.current_period_end && new Date(sub.current_period_end) > now) {
+      return null; // Normales Abo gültig
     }
-    // Keine Sub gültig → weiter zu Trial/Credits-Prüfung
   }
+  // Keine Sub gültig → weiter zu Trial/Credits-Prüfung
 
   // Schullizenz via class_group (für Schüler ohne subscriptions-Eintrag)
   if (student.class_group) {
