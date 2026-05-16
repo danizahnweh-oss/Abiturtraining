@@ -521,12 +521,28 @@ async function handleDirectWebSocket(clientWs, url) {
     return;
   }
 
+  // Frames vom Client puffern, falls sie ankommen BEVOR der Upstream OPEN ist
+  // (Race-Condition: Browser-WS ist sofort offen + sendet Setup-Frame,
+  //  Upstream-WS zu Google braucht ein paar ms — sonst geht das Setup verloren
+  //  und Gemini schließt mit Code 1007 'invalid argument').
+  const pendingClientFrames = [];
+  let upstreamReady = false;
+
   upstream.on('open', () => {
     console.log(`Direct-WS: Gemini verbunden (${targetPath})`);
+    upstreamReady = true;
+    for (const frame of pendingClientFrames) {
+      try { upstream.send(frame); } catch (err) { console.error('Direct-WS: Flush-Fehler:', err.message); }
+    }
+    pendingClientFrames.length = 0;
   });
 
   clientWs.on('message', (data) => {
-    if (upstream.readyState === WebSocket.OPEN) upstream.send(data);
+    if (upstreamReady && upstream.readyState === WebSocket.OPEN) {
+      upstream.send(data);
+    } else {
+      pendingClientFrames.push(data);
+    }
   });
 
   upstream.on('message', (data) => {
