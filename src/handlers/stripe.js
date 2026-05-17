@@ -240,17 +240,23 @@ export async function handleStripeWebhook(request, env) {
         if (!studentId) break;
 
         if (isRecurring(plan)) {
-          // Abo-Modus: subscription_id speichern
+          // Abo-Modus: subscription_id speichern.
+          // UPSERT auf stripe_subscription_id verhindert Duplikate bei Webhook-Retries
+          // oder mehrfachen Events für dieselbe Stripe-Subscription.
           const subId = session.subscription;
           const periodEnd = new Date(Date.now() + 30 * 86400000).toISOString();
 
           await env.DB.prepare(`
             INSERT INTO subscriptions (id, student_id, stripe_customer_id, stripe_subscription_id, plan, status, current_period_end, created_at, updated_at)
             VALUES (?, ?, ?, ?, ?, 'active', ?, ?, ?)
-            ON CONFLICT(id) DO UPDATE SET status='active', plan=?, stripe_subscription_id=?, current_period_end=?, updated_at=?
+            ON CONFLICT(stripe_subscription_id) DO UPDATE SET
+              status='active',
+              plan=EXCLUDED.plan,
+              stripe_customer_id=EXCLUDED.stripe_customer_id,
+              current_period_end=EXCLUDED.current_period_end,
+              updated_at=EXCLUDED.updated_at
           `).bind(
-            crypto.randomUUID(), studentId, customerId, subId, plan, periodEnd, now, now,
-            plan, subId, periodEnd, now
+            crypto.randomUUID(), studentId, customerId, subId, plan, periodEnd, now, now
           ).run();
 
           await env.DB.prepare(
