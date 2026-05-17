@@ -594,6 +594,24 @@ export async function ensureMigrations(env) {
     await addCol("onboarding_stage", "INTEGER DEFAULT 0");
     await addCol("retention_optout", "INTEGER DEFAULT 0");
 
+    // Kolloquium-Sessions (Start/Ende fuer Activity Feed)
+    // Wichtig: students.id ist INTEGER (SERIAL) – student_id muss daher INTEGER sein,
+    // sonst lehnt Postgres den Foreign Key ab.
+    await env.DB.prepare(`
+      CREATE TABLE IF NOT EXISTS colloquium_sessions (
+        id           TEXT PRIMARY KEY,
+        student_id   INTEGER NOT NULL,
+        student_name TEXT,
+        subject      TEXT,
+        started_at   TEXT NOT NULL,
+        ended_at     TEXT,
+        duration_s   INTEGER,
+        FOREIGN KEY (student_id) REFERENCES students(id) ON DELETE CASCADE
+      )
+    `).run();
+    try { await env.DB.prepare("CREATE INDEX IF NOT EXISTS idx_colloquium_sessions_started ON colloquium_sessions (started_at DESC)").run(); } catch (_) {}
+    try { await env.DB.prepare("CREATE INDEX IF NOT EXISTS idx_colloquium_sessions_ended ON colloquium_sessions (ended_at DESC)").run(); } catch (_) {}
+
     _migrated = true;
   } catch (e) {
     console.error("Migration error:", e);

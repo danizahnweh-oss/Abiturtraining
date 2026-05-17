@@ -483,6 +483,8 @@ export default function App() {
   const [userTx, setUserTx] = useState<string[]>([]);
   const sessionRef = useRef<LiveSession | StatefulLiveSession | null>(null);
   const micRef = useRef<AudioProcessor | null>(null);
+  // Backend-Session-ID fuer /api/colloquium/end (Activity Feed im Lehrer-Dashboard)
+  const colloquiumSessionIdRef = useRef<string | null>(null);
 
   /* Refs für Transkripte (für Reconnect-Kontext-Wiederherstellung) */
   const modelTxRef = useRef<string[]>([]);
@@ -860,6 +862,7 @@ export default function App() {
         const res = await fetch(`${API_BASE}/api/colloquium/start`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', 'X-Access-Token': token },
+          body: JSON.stringify({ subject }),
         });
         const data = await res.json().catch(() => ({}));
         if (!res.ok) {
@@ -879,6 +882,7 @@ export default function App() {
           setTrialRemaining(data.remaining);
           if (typeof data.max === 'number') setTrialMax(data.max);
         }
+        colloquiumSessionIdRef.current = (typeof data.session_id === 'string') ? data.session_id : null;
       } catch {
         // Netzwerk-Fehler → still durchlassen, damit User nicht blockiert wird
       }
@@ -924,6 +928,20 @@ export default function App() {
     setStatus('disconnected');
     setStep('feedback-choice');
     localStorage.removeItem('kolloquium_active_exam');
+
+    // Backend benachrichtigen, damit das Lehrer-Dashboard "Kolloquium beendet" sieht.
+    // Fire-and-forget: blockiert den Stop-Flow nicht.
+    const sid = colloquiumSessionIdRef.current;
+    const token = sessionStorage.getItem('access_token');
+    if (sid && token) {
+      colloquiumSessionIdRef.current = null;
+      fetch(`${API_BASE}/api/colloquium/end`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'X-Access-Token': token },
+        body: JSON.stringify({ session_id: sid }),
+        keepalive: true,
+      }).catch(() => { /* Netzwerk-Fehler still ignorieren */ });
+    }
   };
 
   /** Transkript-Fallback: Lokal → sessionStorage-Backup → Server (StatefulLiveSession) */

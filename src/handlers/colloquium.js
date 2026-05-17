@@ -61,11 +61,36 @@ async function hasUnlimitedAccess(student, env) {
   return false;
 }
 
+// Legt einen Eintrag in colloquium_sessions an und gibt die Session-ID zurueck.
+// Failure-tolerant: wenn das Loggen fehlschlaegt, wird der Kolloquium-Start NICHT blockiert.
+async function logColloquiumStart(env, studentId, subject) {
+  try {
+    const student = await env.DB.prepare('SELECT name FROM students WHERE id = ?').bind(studentId).first();
+    const sessionId = crypto.randomUUID();
+    const subjectClean = (typeof subject === 'string' && subject.trim()) ? subject.trim().slice(0, 64) : null;
+    await env.DB.prepare(
+      `INSERT INTO colloquium_sessions (id, student_id, student_name, subject, started_at)
+       VALUES ($1, $2, $3, $4, $5)`
+    ).bind(sessionId, studentId, student?.name || null, subjectClean, new Date().toISOString()).run();
+    return sessionId;
+  } catch (e) {
+    console.error('logColloquiumStart failed:', e);
+    return null;
+  }
+}
+
 export async function handleColloquiumStart(request, env) {
   const studentId = await getAuthenticatedStudentId(request, env);
   if (!studentId) {
     return jsonResponse({ error: 'Bitte erneut anmelden.' }, 401, env);
   }
+
+  // Subject aus Body lesen (optional) – fuer Activity Feed
+  let subject = null;
+  try {
+    const body = await request.json();
+    if (body && typeof body.subject === 'string') subject = body.subject;
+  } catch (_) { /* kein Body / kein JSON → ok */ }
 
   const student = await env.DB.prepare(
     'SELECT id, subscription_status, trial_end, trial_colloquium_count, class_group, free_access_until FROM students WHERE id = ?'
@@ -77,7 +102,8 @@ export async function handleColloquiumStart(request, env) {
 
   // Bezahlt / Schullizenz / Free-Access → unbegrenzt, kein Hochzählen
   if (await hasUnlimitedAccess(student, env)) {
-    return jsonResponse({ allowed: true, unlimited: true }, 200, env);
+    const sessionId = await logColloquiumStart(env, studentId, subject);
+    return jsonResponse({ allowed: true, unlimited: true, session_id: sessionId }, 200, env);
   }
 
   // Trial-Pfad
@@ -107,12 +133,14 @@ export async function handleColloquiumStart(request, env) {
     }
 
     const used = (student.trial_colloquium_count || 0) + 1;
+    const sessionId = await logColloquiumStart(env, studentId, subject);
     return jsonResponse({
       allowed: true,
       trial: true,
       used,
       max: TRIAL_COLLOQUIUM_LIMIT,
       remaining: TRIAL_COLLOQUIUM_LIMIT - used,
+      session_id: sessionId,
     }, 200, env);
   }
 
@@ -121,6 +149,47 @@ export async function handleColloquiumStart(request, env) {
     error: 'Kein aktives Abo. Bitte schließe ein Abo ab.',
     requires_subscription: true,
   }, 403, env);
+}
+
+// Markiert eine Kolloquium-Session als beendet (setzt ended_at + duration_s).
+// Wird von der SPA beim Stop-Button aufgerufen. Erwartet Body: { session_id }.
+export async function handleColloquiumEnd(request, env) {
+  const studentId = await getAuthenticatedStudentId(request, env);
+  if (!studentId) {
+    return jsonResponse({ error: 'Bitte erneut anmelden.' }, 401, env);
+  }
+
+  let sessionId = null;
+  try {
+    const body = await request.json();
+    if (body && typeof body.session_id === 'string') sessionId = body.session_id;
+  } catch (_) { /* ignorieren */ }
+
+  if (!sessionId) {
+    return jsonResponse({ error: 'Missing session_id.' }, 400, env);
+  }
+
+  // Nur eigene, noch nicht beendete Session aktualisieren
+  const row = await env.DB.prepare(
+    'SELECT id, started_at, ended_at FROM colloquium_sessions WHERE id = ? AND student_id = ?'
+  ).bind(sessionId, studentId).first();
+
+  if (!row) {
+    return jsonResponse({ error: 'Session nicht gefunden.' }, 404, env);
+  }
+  if (row.ended_at) {
+    return jsonResponse({ success: true, already_ended: true }, 200, env);
+  }
+
+  const endedAt = new Date();
+  const startedAt = row.started_at ? new Date(row.started_at) : null;
+  const durationS = startedAt ? Math.max(0, Math.round((endedAt.getTime() - startedAt.getTime()) / 1000)) : null;
+
+  await env.DB.prepare(
+    'UPDATE colloquium_sessions SET ended_at = $1, duration_s = $2 WHERE id = $3'
+  ).bind(endedAt.toISOString(), durationS, sessionId).run();
+
+  return jsonResponse({ success: true, duration_s: durationS }, 200, env);
 }
 
 // Liefert den aktuellen Stand (Trial-Counter, unbegrenzt/Trial/abgelaufen) OHNE hochzuzählen.

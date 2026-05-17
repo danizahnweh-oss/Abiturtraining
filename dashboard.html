@@ -186,6 +186,8 @@ footer a { color: var(--accent); }
 .activity-icon--graded { background: rgba(5,150,105,.12); }
 .activity-icon--student { background: rgba(219,39,119,.12); }
 .activity-icon--teacher { background: rgba(99,102,241,.12); }
+.activity-icon--colloq-start { background: rgba(13,148,136,.12); }
+.activity-icon--colloq-end   { background: rgba(100,116,139,.12); }
 
 /* ====== QUICK ACTIONS ====== */
 .quick-actions {
@@ -2364,6 +2366,14 @@ const ACTIVITY_CONFIG = {
   graded:             { icon: '✅', cls: 'activity-icon--graded',     text: e => `<strong>${escapeHtml(e.actor)}</strong> — „${escapeHtml(e.label || '–')}" bewertet: ${escapeHtml(e.detail)}/15 NP` },
   student_registered: { icon: '👤', cls: 'activity-icon--student',    text: e => `Neuer Schüler: <strong>${escapeHtml(e.label)}</strong>` },
   teacher_registered: { icon: '🎓', cls: 'activity-icon--teacher',    text: e => `Neue Lehrkraft: <strong>${escapeHtml(e.label)}</strong>${e.detail === 'pending' ? ' (wartet auf Freischaltung)' : ''}` },
+  colloquium_started: { icon: '🎤', cls: 'activity-icon--colloq-start', text: e => `<strong>${escapeHtml(e.actor)}</strong> hat Kolloquium gestartet (Fach: ${escapeHtml(e.label || '–')})` },
+  colloquium_ended:   { icon: '🏁', cls: 'activity-icon--colloq-end',   text: e => {
+    const sec = parseInt(e.detail, 10);
+    const dauer = Number.isFinite(sec) && sec > 0
+      ? (sec >= 60 ? `${Math.round(sec / 60)} min` : `${sec} s`)
+      : '–';
+    return `<strong>${escapeHtml(e.actor)}</strong> hat Kolloquium beendet (Fach: ${escapeHtml(e.label || '–')}, Dauer: ${dauer})`;
+  } },
 };
 
 async function loadActivityFeed(force) {

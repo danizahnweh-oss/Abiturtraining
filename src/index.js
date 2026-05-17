@@ -27,7 +27,7 @@ import { handleUnsubscribe, sendReminderEmails, sendRetentionEmails } from './ha
 import { handleForgotPassword, handleResetPassword, handleVerifyResetToken } from './handlers/password-reset.js';
 import { handleVerifyEmail, handleResendVerification } from './handlers/email-verification.js';
 import { handleCreateCheckout, handleStripeWebhook, handleSubscriptionStatus, handleCustomerPortal, handleStartTrial, handleRedeemLicense } from './handlers/stripe.js';
-import { handleColloquiumStart, handleColloquiumStatus } from './handlers/colloquium.js';
+import { handleColloquiumStart, handleColloquiumStatus, handleColloquiumEnd } from './handlers/colloquium.js';
 import { handleHealth } from './handlers/health.js';
 
 // Fach-Handler: Englisch
@@ -824,6 +824,7 @@ ${photo ? `<div style="margin:12px 0"><p style="font-weight:600;margin-bottom:6p
       if (pathname === "/api/stripe/redeem-license" && request.method === "POST") return await handleRedeemLicense(request, env);
       if (pathname === "/api/colloquium/start" && request.method === "POST") return await handleColloquiumStart(request, env);
       if (pathname === "/api/colloquium/status" && request.method === "POST") return await handleColloquiumStatus(request, env);
+      if (pathname === "/api/colloquium/end" && request.method === "POST") return await handleColloquiumEnd(request, env);
 
       // ===== UNSUBSCRIBE =====
       if (pathname === "/api/unsubscribe" && request.method === "GET") return await handleUnsubscribe(request, env);

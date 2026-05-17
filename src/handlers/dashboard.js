@@ -547,6 +547,28 @@ export async function handleActivityFeed(request, env) {
       WHERE t.created_at IS NOT NULL
       ORDER BY t.created_at DESC LIMIT 5
     )
+    UNION ALL
+    SELECT * FROM (
+      SELECT 'colloquium_started' AS type,
+             COALESCE(cs.subject, '–') AS label,
+             COALESCE(cs.student_name, '–') AS actor,
+             '' AS detail,
+             cs.started_at AS ts
+      FROM colloquium_sessions cs
+      WHERE cs.started_at IS NOT NULL
+      ORDER BY cs.started_at DESC LIMIT 15
+    )
+    UNION ALL
+    SELECT * FROM (
+      SELECT 'colloquium_ended' AS type,
+             COALESCE(cs.subject, '–') AS label,
+             COALESCE(cs.student_name, '–') AS actor,
+             CAST(cs.duration_s AS TEXT) AS detail,
+             cs.ended_at AS ts
+      FROM colloquium_sessions cs
+      WHERE cs.ended_at IS NOT NULL
+      ORDER BY cs.ended_at DESC LIMIT 15
+    )
     ORDER BY ts DESC
     LIMIT 50
   `).all();
