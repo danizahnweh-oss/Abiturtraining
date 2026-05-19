@@ -852,7 +852,7 @@
               <span class="decision-card-arrow">Abo wählen →</span>
             </a>
 
-            <a href="aufgabe.html" class="decision-card" id="decisionCode">
+            <a href="#licenseSection" class="decision-card" id="decisionCode">
               <div class="decision-card-icon" aria-hidden="true">🏫</div>
               <div class="decision-card-label">Meine Schule hat einen Code</div>
               <p class="decision-card-text">Kurs- oder Schulcode direkt einlösen – dein Zugang ist dann kostenlos.</p>
@@ -966,12 +966,12 @@
 
           <div class="divider">oder &uuml;ber deine Schule</div>
 
-          <div class="license-section">
+          <div class="license-section" id="licenseSection">
             <p style="font-size: .95rem; margin-bottom: .4rem;"><strong style="color: var(--ink);">Du hast einen Schul- oder Fachcode?</strong></p>
             <p>Gib den Code deiner Schule oder Fachschaft ein &ndash; damit bekommst du ggf. kostenlosen Zugang.</p>
             <div class="license-input-row">
               <label for="licenseInput" class="sr-only">Lizenzcode</label>
-              <input type="text" class="license-input" id="licenseInput" placeholder="z.B. SAG-2026-ABCD" maxlength="30" autocomplete="off">
+              <input type="text" class="license-input" id="licenseInput" placeholder="z.B. SAG-2026-ABCD" maxlength="30" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false">
               <button class="license-btn" id="redeemBtn" type="button">Einl&ouml;sen</button>
             </div>
             <div id="activeSubjectLicenses" style="display:none;margin-top:.8rem;text-align:left;">
@@ -1035,6 +1035,21 @@
       if (!res.ok) throw new Error(data.error || "HTTP " + res.status);
       return data;
     }
+
+    // Schulcode-Karte: nach Klick Input fokussieren
+    (function() {
+      var codeCard = document.getElementById("decisionCode");
+      if (!codeCard) return;
+      codeCard.addEventListener("click", function() {
+        // kurz warten bis Browser zum Anker gescrollt hat
+        setTimeout(function() {
+          var input = document.getElementById("licenseInput");
+          if (input) {
+            try { input.focus({ preventScroll: true }); } catch (_) { input.focus(); }
+          }
+        }, 400);
+      });
+    })();
 
     // Plan-Karten
     document.querySelectorAll(".pricing-card").forEach(function(card) {
