@@ -892,7 +892,7 @@
           <p class="sub-period" id="subPeriod">G&uuml;ltig bis 03.03.2027</p>
           <div class="sub-actions">
             <button class="btn" id="manageBtn" type="button">Abo verwalten</button>
-            <a href="/" class="btn btn-secondary">Weiter lernen</a>
+            <a href="/" id="continueLearningBtn" class="btn btn-secondary">Weiter lernen</a>
           </div>
         </div>
 
@@ -1201,6 +1201,26 @@
         if (saved === "dark") {
           document.documentElement.setAttribute("data-theme", "dark");
           document.getElementById("themeIcon").textContent = "\u{2600}\u{FE0F}";
+        }
+      } catch (e) {}
+    })();
+
+    // "Weiter lernen"-Button auf den Kolloquiumstrainer umlenken, wenn der User von dort kam
+    // (Trainer setzt ?return=trainer in der Abo-Link-URL). Der Wunsch wird in sessionStorage
+    // gespeichert, damit er auch nach dem Stripe-Checkout-Redirect (success/cancel) erhalten bleibt.
+    (function setupContinueLearningTarget() {
+      try {
+        var params = new URLSearchParams(window.location.search);
+        var ret = params.get("return");
+        if (ret === "trainer") {
+          sessionStorage.setItem("abo_return_to", "trainer");
+        }
+        if (sessionStorage.getItem("abo_return_to") === "trainer") {
+          var btn = document.getElementById("continueLearningBtn");
+          if (btn) {
+            btn.setAttribute("href", "/abitur-kolloquium-trainer/dist/");
+            btn.textContent = "Zurück zum Kolloquiumstrainer";
+          }
         }
       } catch (e) {}
     })();

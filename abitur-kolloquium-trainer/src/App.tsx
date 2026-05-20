@@ -359,7 +359,7 @@ function MaterialImpulsCard({ impuls, onMinimize }: { impuls: MaterialImpuls; on
 
 /* ───────── Main component ───────── */
 
-type Step = 'setup' | 'generating' | 'preparation' | 'exam' | 'feedback-choice' | 'feedback' | 'trial-limit-reached';
+type Step = 'setup' | 'generating' | 'preparation' | 'exam' | 'feedback-choice' | 'feedback' | 'trial-limit-reached' | 'subscription-required';
 
 const API_BASE = 'https://myabiflow.de';
 
@@ -629,14 +629,19 @@ export default function App() {
   const resumeExam = async () => {
     if (!recoveryData) return;
 
-    // Einwilligung zum Mikrofonzugriff einholen (einmalig pro Gerät)
-    try {
-      await ensureMicConsent();
-    } catch {
-      return;
+    const d = recoveryData;
+    const phase: 'preparation' | 'exam' = d.phase === 'preparation' ? 'preparation' : 'exam';
+
+    // Einwilligung zum Mikrofonzugriff einholen (nur nötig, wenn Prüfung läuft;
+    // in der Vorbereitungsphase reicht das Material — Mikrofon wird beim Start erfragt)
+    if (phase === 'exam') {
+      try {
+        await ensureMicConsent();
+      } catch {
+        return;
+      }
     }
 
-    const d = recoveryData;
     setRecoveryData(null);
 
     // State aus dem Backup wiederherstellen
@@ -654,6 +659,20 @@ export default function App() {
     setMatImpulse(d.matImpulse || []);
     setModelTx(d.modelTx || []);
     setUserTx(d.userTx || []);
+
+    if (phase === 'preparation') {
+      // Vorbereitungsphase wiederherstellen: Material zurück, Countdown fortsetzen
+      setStep('preparation');
+      const remaining = typeof d.prepRemaining === 'number' ? d.prepRemaining : 30 * 60;
+      prep.reset(Math.max(0, remaining));
+      prep.start();
+      // Mikrofon im Hintergrund vorwärmen (wie nach Material-Generierung)
+      if (!micRef.current) {
+        micRef.current = new AudioProcessor();
+        micRef.current.warmup().catch(() => {});
+      }
+      return;
+    }
 
     setStep('exam');
 
@@ -855,16 +874,40 @@ export default function App() {
   const startExam = async () => {
     if (!material) return;
 
-    // Pre-Flight: Trial-Limit prüfen / Zugang verifizieren (zählt Trial-Counter atomar hoch)
+    // Pre-Flight: Trial-Limit prüfen / Zugang verifizieren (zählt Trial-Counter atomar hoch).
+    // Bei requires_subscription wird einmalig der Abo-Status neu geprüft (Race-Condition mit
+    // Stripe-Webhook nach frischem Checkout), und falls dann unlimited → Start nochmal versuchen.
     const token = sessionStorage.getItem('access_token');
+    const callStart = async () => {
+      const res = await fetch(`${API_BASE}/api/colloquium/start`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'X-Access-Token': token! },
+        body: JSON.stringify({ subject }),
+      });
+      const data = await res.json().catch(() => ({} as any));
+      return { res, data };
+    };
+
     if (token) {
       try {
-        const res = await fetch(`${API_BASE}/api/colloquium/start`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'X-Access-Token': token },
-          body: JSON.stringify({ subject }),
-        });
-        const data = await res.json().catch(() => ({}));
+        let { res, data } = await callStart();
+
+        if (!res.ok && data.requires_subscription) {
+          // Race-Condition-Schutz: kurz warten, Status erneut prüfen, ggf. Start retryen
+          try {
+            const statusRes = await fetch(`${API_BASE}/api/colloquium/status`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json', 'X-Access-Token': token },
+            });
+            const statusData = statusRes.ok ? await statusRes.json().catch(() => ({} as any)) : null;
+            if (statusData && (statusData.unlimited || statusData.trial)) {
+              const retry = await callStart();
+              res = retry.res;
+              data = retry.data;
+            }
+          } catch { /* Netzwerk-Fehler → fallthrough zur ursprünglichen Antwort */ }
+        }
+
         if (!res.ok) {
           if (data.trial_limit_reached) {
             setTrialRemaining(0);
@@ -872,7 +915,9 @@ export default function App() {
             return;
           }
           if (data.requires_subscription) {
-            window.location.href = 'https://myabiflow.de/abo.html';
+            // Kein Hard-Redirect — sonst geht das generierte Material verloren.
+            // Sanfter Step mit CTA + Zurück-Option; Material bleibt im State.
+            setStep('subscription-required');
             return;
           }
           alert(data.error || 'Start der Prüfung nicht möglich. Bitte später erneut versuchen.');
@@ -1094,15 +1139,21 @@ export default function App() {
     localStorage.removeItem('kolloquium_transcript_backup');
   };
 
-  /* ── Prüfungsstatus in localStorage sichern (für Wiederherstellung nach Tab-Schließen) ── */
+  /* ── Prüfungsstatus in localStorage sichern (für Wiederherstellung nach Tab-Schließen) ──
+     Speichert sowohl die Vorbereitungsphase (Material schon generiert) als auch die laufende Prüfung.
+     So gehen die generierten Aufgaben nicht verloren, falls vor dem Prüfungsstart umgeleitet wird
+     (z.B. Abo-Check, versehentliches Schließen des Tabs). */
   useEffect(() => {
-    if (step !== 'exam') return;
+    if (step !== 'preparation' && step !== 'exam') return;
+    if (!material) return;
     const save = () => {
       try {
         localStorage.setItem('kolloquium_active_exam', JSON.stringify({
+          phase: step, // 'preparation' | 'exam'
           subject, examLevel: level, examMode, schwerpunkt, spHalbjahr,
           weitereHJ, gestrichen, material, matImpulse,
           modelTx, userTx, elapsed: exam.elapsed,
+          prepRemaining: prep.remaining,
           examinerGender, prueferTyp, topicScope, topicsByHalbjahr, timestamp: Date.now(),
         }));
       } catch { /* localStorage voll */ }
@@ -1110,7 +1161,7 @@ export default function App() {
     save();
     const interval = setInterval(save, 15_000);
     return () => clearInterval(interval);
-  }, [step, exam.elapsed, modelTx, userTx, subject, level, examMode, schwerpunkt, spHalbjahr, weitereHJ, gestrichen, material, matImpulse, examinerGender, prueferTyp, topicScope]);
+  }, [step, exam.elapsed, prep.remaining, modelTx, userTx, subject, level, examMode, schwerpunkt, spHalbjahr, weitereHJ, gestrichen, material, matImpulse, examinerGender, prueferTyp, topicScope]);
 
   /* ── Bei Verbindungsfehler sofort Transkripte sichern ── */
   useEffect(() => {
@@ -1263,41 +1314,51 @@ export default function App() {
             <motion.div key="setup" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, scale: 0.95 }} className="grid gap-8">
               <TutorialOverlay steps={KOLLOQUIUM_TOUR_STEPS} storageKey={KOLLOQUIUM_STORAGE_KEY} />
 
-              {/* ── Recovery-Banner: Unterbrochene Prüfung fortsetzen ── */}
-              {recoveryData && (
-                <motion.div
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="bg-amber-50/90 backdrop-blur-md p-5 rounded-2xl border border-amber-200/60 shadow-lg shadow-amber-100/30"
-                >
-                  <div className="flex items-start gap-3">
-                    <div className="p-2 bg-amber-100 rounded-lg text-amber-600 shrink-0 mt-0.5">
-                      <RotateCcw size={20} />
+              {/* ── Recovery-Banner: Unterbrochene Prüfung / Vorbereitung fortsetzen ── */}
+              {recoveryData && (() => {
+                const isPrep = recoveryData.phase === 'preparation';
+                const prepRemainMin = typeof recoveryData.prepRemaining === 'number'
+                  ? Math.max(0, Math.ceil(recoveryData.prepRemaining / 60))
+                  : null;
+                return (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="bg-amber-50/90 backdrop-blur-md p-5 rounded-2xl border border-amber-200/60 shadow-lg shadow-amber-100/30"
+                  >
+                    <div className="flex items-start gap-3">
+                      <div className="p-2 bg-amber-100 rounded-lg text-amber-600 shrink-0 mt-0.5">
+                        <RotateCcw size={20} />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <h3 className="font-medium text-amber-900 text-sm">
+                          {isPrep ? 'Unterbrochene Vorbereitung gefunden' : 'Unterbrochene Prüfung gefunden'}
+                        </h3>
+                        <p className="text-xs text-amber-700 mt-1">
+                          {recoveryData.subject} – {recoveryData.schwerpunkt}
+                          {isPrep
+                            ? (prepRemainMin !== null ? ` (noch ${prepRemainMin} Min. Vorbereitungszeit)` : '')
+                            : ` (${Math.floor((recoveryData.elapsed || 0) / 60)} Min. gelaufen)`}
+                        </p>
+                      </div>
                     </div>
-                    <div className="flex-1 min-w-0">
-                      <h3 className="font-medium text-amber-900 text-sm">Unterbrochene Prüfung gefunden</h3>
-                      <p className="text-xs text-amber-700 mt-1">
-                        {recoveryData.subject} – {recoveryData.schwerpunkt}
-                        {' '}({Math.floor((recoveryData.elapsed || 0) / 60)} Min. gelaufen)
-                      </p>
+                    <div className="flex gap-3 mt-4">
+                      <button
+                        onClick={resumeExam}
+                        className="flex-1 py-3 px-4 bg-amber-600 text-white rounded-xl text-sm font-medium hover:bg-amber-700 transition-colors"
+                      >
+                        {isPrep ? 'Vorbereitung fortsetzen' : 'Prüfung fortsetzen'}
+                      </button>
+                      <button
+                        onClick={dismissRecovery}
+                        className="py-3 px-4 bg-white/80 border border-amber-200 rounded-xl text-sm text-amber-700 hover:bg-white transition-colors"
+                      >
+                        Verwerfen
+                      </button>
                     </div>
-                  </div>
-                  <div className="flex gap-3 mt-4">
-                    <button
-                      onClick={resumeExam}
-                      className="flex-1 py-3 px-4 bg-amber-600 text-white rounded-xl text-sm font-medium hover:bg-amber-700 transition-colors"
-                    >
-                      Prüfung fortsetzen
-                    </button>
-                    <button
-                      onClick={dismissRecovery}
-                      className="py-3 px-4 bg-white/80 border border-amber-200 rounded-xl text-sm text-amber-700 hover:bg-white transition-colors"
-                    >
-                      Verwerfen
-                    </button>
-                  </div>
-                </motion.div>
-              )}
+                  </motion.div>
+                );
+              })()}
 
               <div className="bg-white/80 backdrop-blur-md p-8 rounded-3xl shadow-xl shadow-emerald-50/50 border border-emerald-100/50 ring-1 ring-white">
                 <div className="flex items-center gap-3 mb-6">
@@ -1921,6 +1982,38 @@ export default function App() {
             </motion.div>
           )}
 
+          {/* ════════ ABO ERFORDERLICH (Race-Condition oder Trial abgelaufen) ════════ */}
+          {step === 'subscription-required' && (
+            <motion.div key="sub-required" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="flex flex-col items-center">
+              <div className="bg-white/90 backdrop-blur-md rounded-3xl p-8 sm:p-10 shadow-xl shadow-emerald-50/50 border border-emerald-100/50 ring-1 ring-white max-w-xl w-full text-center">
+                <div className="text-5xl mb-4">🔒</div>
+                <h2 className="text-2xl sm:text-3xl font-semibold text-slate-800 mb-3">
+                  Abo erforderlich
+                </h2>
+                <p className="text-slate-600 mb-6 text-base leading-relaxed">
+                  Um die Kolloquium-Übung zu starten, benötigst du ein aktives Abo.
+                  Deine vorbereiteten Aufgaben bleiben erhalten — du kannst nach dem Abschluss direkt weiterüben.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                  <a
+                    href="https://myabiflow.de/abo.html?return=trainer"
+                    className="bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-2xl px-6 py-3 font-medium hover:from-emerald-600 hover:to-emerald-700 transition-all shadow-lg shadow-emerald-500/25 active:scale-[0.98] inline-flex items-center justify-center"
+                    style={{ minHeight: 44 }}
+                  >
+                    Jetzt Abo abschließen
+                  </a>
+                  <button
+                    onClick={() => setStep(material ? 'preparation' : 'setup')}
+                    className="bg-white text-slate-700 border border-slate-200 hover:bg-slate-50 rounded-2xl px-6 py-3 font-medium transition-all active:scale-[0.98]"
+                    style={{ minHeight: 44 }}
+                  >
+                    Zurück
+                  </button>
+                </div>
+              </div>
+            </motion.div>
+          )}
+
           {/* ════════ TRIAL-LIMIT ERREICHT ════════ */}
           {step === 'trial-limit-reached' && (
             <motion.div key="trial-limit" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="flex flex-col items-center">
@@ -1935,7 +2028,7 @@ export default function App() {
                 </p>
                 <div className="flex flex-col sm:flex-row gap-3 justify-center">
                   <a
-                    href="https://myabiflow.de/abo.html"
+                    href="https://myabiflow.de/abo.html?return=trainer"
                     className="bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-2xl px-6 py-3 font-medium hover:from-emerald-600 hover:to-emerald-700 transition-all shadow-lg shadow-emerald-500/25 active:scale-[0.98] inline-flex items-center justify-center"
                     style={{ minHeight: 44 }}
                   >
