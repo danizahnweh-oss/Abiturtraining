@@ -210,7 +210,8 @@ export async function handleCheckStudent(request, env) {
       WHERE ssl.student_id = $1 AND sl.active = 1
         AND (sl.expires_at IS NULL OR sl.expires_at > $2)
     `).bind(student.id, new Date().toISOString()).all();
-    subjectLicenses = (slResult?.rows || []).map(s => s.subject);
+    // D1-Format des Adapters: { results: [...], success: true } — NICHT .rows!
+    subjectLicenses = (slResult?.results || []).map(s => s.subject);
   }
 
   // Token an Schüler-Identität binden (verhindert IDOR – Body-Name wird auf dem Server nie wieder vertraut)

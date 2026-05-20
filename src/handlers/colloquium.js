@@ -32,7 +32,8 @@ async function hasUnlimitedAccess(student, env) {
   const subsResult = await env.DB.prepare(
     "SELECT current_period_end, school_license_code FROM subscriptions WHERE student_id = $1 AND status = 'active'"
   ).bind(String(student.id)).all();
-  for (const sub of subsResult?.rows || []) {
+  // D1-Format des Adapters: { results: [...], success: true } — NICHT .rows!
+  for (const sub of subsResult?.results || []) {
     if (sub.school_license_code) {
       if (await isSchoolLicenseActive(sub.school_license_code, env)) return true;
     } else if (sub.current_period_end && new Date(sub.current_period_end) > now) {

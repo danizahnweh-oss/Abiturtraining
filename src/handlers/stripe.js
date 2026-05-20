@@ -466,7 +466,8 @@ export async function handleSubscriptionStatus(request, env) {
     WHERE ssl.student_id = $1 AND sl.active = 1
       AND (sl.expires_at IS NULL OR sl.expires_at > $2)
   `).bind(student_id, new Date().toISOString()).all();
-  const subjectLicenses = (slResult?.rows || []).map(s => ({ subject: s.subject, school: s.label }));
+  // D1-Format des Adapters: { results: [...], success: true } — NICHT .rows!
+  const subjectLicenses = (slResult?.results || []).map(s => ({ subject: s.subject, school: s.label }));
 
   return jsonResponse({
     status: statusLabel,

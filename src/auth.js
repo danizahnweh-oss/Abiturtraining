@@ -204,7 +204,8 @@ export async function checkSubscriptionAccess(studentName, env, allowTeacherCred
   const subsResult = await env.DB.prepare(
     "SELECT current_period_end, school_license_code FROM subscriptions WHERE student_id = $1 AND status = 'active'"
   ).bind(String(student.id)).all();
-  const subs = subsResult?.rows || [];
+  // D1-Format des Adapters: { results: [...], success: true } — NICHT .rows!
+  const subs = subsResult?.results || [];
   const now = new Date();
   for (const sub of subs) {
     if (sub.school_license_code) {
