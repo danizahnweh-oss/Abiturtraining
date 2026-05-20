@@ -337,6 +337,21 @@ function parseExamMaterialResponse(text: string): ExamMaterial | null {
 export async function generateExamMaterial(config: ExamConfig): Promise<ExamMaterial> {
   const levelLabel = config.examLevel === 'eA' ? 'erhöhtes Anforderungsniveau' : 'grundlegendes Anforderungsniveau';
 
+  // Fremdsprachen-Fächer: Aufgabe, Material und Hinweise in der Zielsprache.
+  // Latein: Quellentexte ggf. lateinisch, Aufgabe + Hinweise auf Deutsch (so wie in echten Abi-Prüfungen).
+  const fremdsprache: Record<string, string> = {
+    'Englisch': 'Englisch',
+    'Französisch': 'Französisch',
+    'Italienisch': 'Italienisch',
+    'Spanisch': 'Spanisch',
+  };
+  const zielsprache = fremdsprache[config.subject];
+  const sprachBlock = zielsprache
+    ? `\nSPRACHE (WICHTIG): Das Fach ist ${config.subject}. Schreibe die Felder "aufgabenstellung", "material" und "hinweise" VOLLSTÄNDIG auf ${zielsprache} – inklusive aller Quellen, Zitate, Tabellen-Beschriftungen, Chart-Titel und Chart-Labels. KEINE deutschen Wörter, Sätze oder Beschriftungen mischen. Die Operatoren ("Analyse / Analyze", "Discuss", "Comment on" etc.) entsprechen den im ${config.subject}-Unterricht üblichen.`
+    : config.subject === 'Latein'
+      ? `\nSPRACHE: Die Aufgabenstellung und Hinweise auf Hochdeutsch. Quellentexte (Zitate aus antiken Autoren) auf Latein mit Autor/Werk/Stelle als Quellenangabe; eine deutsche Übersetzungshilfe für schwierige Vokabeln in Klammern ist erlaubt.`
+      : '';
+
   const prompt = `Du bist ein erfahrener Prüfungsausschuss-Vorsitzender für das bayerische Abitur-Kolloquium.
 
 Erstelle eine realistische Aufgabenstellung mit Material für ein Kurzreferat im Kolloquium.
@@ -345,6 +360,7 @@ Fach: ${config.subject}
 Anforderungsniveau: ${levelLabel}
 Halbjahr: ${config.schwerpunktHalbjahr}
 Schwerpunktthema: ${config.schwerpunkt}
+${sprachBlock}
 
 Anforderungen:
 1. Formuliere eine klare, anspruchsvolle Aufgabenstellung, die alle drei Anforderungsbereiche (Reproduktion, Transfer, Reflexion) abdeckt.
@@ -411,7 +427,12 @@ Antworte als JSON-Objekt mit den Feldern: aufgabenstellung, material, hinweise, 
 
   // Letzter Fallback: vereinfachter Prompt
   try {
-    const fallbackPrompt = `Erstelle für das Fach ${config.subject} (${levelLabel}) zum Thema "${config.schwerpunkt}" (Halbjahr ${config.schwerpunktHalbjahr}) eine Kolloquiums-Aufgabe mit konkretem Material.
+    const sprachHinweisFallback = zielsprache
+      ? ` Schreibe Aufgabe, Material und Hinweise vollständig auf ${zielsprache}.`
+      : config.subject === 'Latein'
+        ? ' Aufgabe und Hinweise auf Deutsch, Quellentexte auf Latein.'
+        : '';
+    const fallbackPrompt = `Erstelle für das Fach ${config.subject} (${levelLabel}) zum Thema "${config.schwerpunkt}" (Halbjahr ${config.schwerpunktHalbjahr}) eine Kolloquiums-Aufgabe mit konkretem Material.${sprachHinweisFallback}
 
 Das Material muss ein echtes Zitat, eine Statistik oder einen Quellentext enthalten – mit Quellenangabe (Autor, Werk, Jahr). Keine generischen Anweisungen wie "Nutzen Sie Ihr Vorwissen".
 
@@ -427,6 +448,34 @@ Antworte als JSON mit: aufgabenstellung, material, hinweise.`;
   }
 
   // Absoluter Fallback — konkreter als "Material wie im Unterricht"
+  if (config.subject === 'Englisch') {
+    return {
+      aufgabenstellung: `Present the key aspects of the topic "${config.schwerpunkt}" (${config.schwerpunktHalbjahr}) in a structured way. Explain central concepts and connections. Finally, assess the relevance of this topic.`,
+      material: `Material 1 – Guiding questions for your presentation:\n• Which key concepts and terms belong to the topic "${config.schwerpunkt}"?\n• Which connections and interrelations can be identified?\n• Which concrete examples or current developments illustrate the topic?\n• Which controversial positions or open questions exist?\n\nMaterial 2 – Requirements for the presentation:\nYour short presentation should cover all three levels of competence:\n(I) Reproduction: Define and describe the most important terms.\n(II) Reorganisation / Transfer: Explain connections and apply your knowledge to a concrete example.\n(III) Evaluation: Take a reasoned stance on a current question related to the topic.`,
+      hinweise: 'Structure your presentation clearly into introduction, main part and conclusion. Plan around 10 minutes. Use accurate subject-specific English throughout.',
+    };
+  }
+  if (config.subject === 'Französisch') {
+    return {
+      aufgabenstellung: `Présentez de manière structurée les aspects essentiels du sujet « ${config.schwerpunkt} » (${config.schwerpunktHalbjahr}). Expliquez les notions centrales et leurs liens. Évaluez enfin l'importance de ce thème.`,
+      material: `Document 1 – Questions directrices :\n• Quelles sont les notions clés du thème « ${config.schwerpunkt} » ?\n• Quels liens et interactions peut-on identifier ?\n• Quels exemples concrets illustrent le sujet ?\n• Quelles positions controversées ou questions ouvertes existent ?\n\nDocument 2 – Exigences pour l'exposé :\nVotre court exposé doit couvrir les trois niveaux d'exigence :\n(I) Reproduction : définissez les notions essentielles.\n(II) Application : expliquez les liens et appliquez vos connaissances à un exemple précis.\n(III) Évaluation : prenez position de manière argumentée.`,
+      hinweise: 'Structurez clairement votre exposé (introduction, développement, conclusion). Prévoyez environ 10 minutes. Utilisez un français correct et précis.',
+    };
+  }
+  if (config.subject === 'Italienisch') {
+    return {
+      aufgabenstellung: `Presenta in modo strutturato gli aspetti essenziali del tema "${config.schwerpunkt}" (${config.schwerpunktHalbjahr}). Spiega i concetti centrali e i loro collegamenti. Valuta infine l'importanza di questo tema.`,
+      material: `Documento 1 – Domande guida:\n• Quali sono i concetti chiave del tema "${config.schwerpunkt}"?\n• Quali collegamenti e interazioni si possono individuare?\n• Quali esempi concreti illustrano il tema?\n• Quali posizioni controverse o questioni aperte esistono?\n\nDocumento 2 – Requisiti per la presentazione:\nLa tua breve presentazione deve coprire i tre livelli di competenza:\n(I) Riproduzione: definisci i concetti essenziali.\n(II) Applicazione: spiega i collegamenti e applica le tue conoscenze a un esempio concreto.\n(III) Valutazione: prendi posizione in modo argomentato.`,
+      hinweise: 'Struttura chiaramente la presentazione (introduzione, parte centrale, conclusione). Prevedi circa 10 minuti. Usa un italiano corretto e preciso.',
+    };
+  }
+  if (config.subject === 'Spanisch') {
+    return {
+      aufgabenstellung: `Presente de forma estructurada los aspectos esenciales del tema "${config.schwerpunkt}" (${config.schwerpunktHalbjahr}). Explique los conceptos centrales y sus relaciones. Valore finalmente la relevancia de este tema.`,
+      material: `Documento 1 – Preguntas orientadoras:\n• ¿Cuáles son los conceptos clave del tema "${config.schwerpunkt}"?\n• ¿Qué relaciones e interacciones se pueden identificar?\n• ¿Qué ejemplos concretos ilustran el tema?\n• ¿Qué posiciones controvertidas o preguntas abiertas existen?\n\nDocumento 2 – Requisitos para la exposición:\nSu breve exposición debe cubrir los tres niveles de exigencia:\n(I) Reproducción: defina los conceptos esenciales.\n(II) Aplicación: explique las relaciones y aplique sus conocimientos a un ejemplo concreto.\n(III) Valoración: tome posición de forma argumentada.`,
+      hinweise: 'Estructure claramente su exposición (introducción, desarrollo, conclusión). Prevea unos 10 minutos. Utilice un español correcto y preciso.',
+    };
+  }
   return {
     aufgabenstellung: `Stellen Sie die wesentlichen Aspekte des Themas "${config.schwerpunkt}" (${config.schwerpunktHalbjahr}) strukturiert dar. Erläutern Sie zentrale Fachbegriffe und Zusammenhänge. Beurteilen Sie abschließend die Bedeutung dieses Themenbereichs.`,
     material: `Material 1 – Leitfragen zur Strukturierung:\n• Welche zentralen Fachbegriffe und Konzepte gehören zum Thema "${config.schwerpunkt}"?\n• Welche Zusammenhänge und Wechselwirkungen lassen sich erkennen?\n• Welche konkreten Beispiele oder Anwendungen gibt es?\n• Welche kontroversen Positionen oder offenen Fragen bestehen?\n\nMaterial 2 – Anforderungen an den Vortrag:\nIhr Kurzreferat soll die drei Anforderungsbereiche abdecken:\n(I) Grundwissen: Definieren und beschreiben Sie die wichtigsten Begriffe.\n(II) Anwendung: Erklären Sie Zusammenhänge und wenden Sie Ihr Wissen auf ein konkretes Beispiel an.\n(III) Bewertung: Nehmen Sie begründet Stellung zu einer aktuellen Fragestellung im Kontext des Themas.`,
