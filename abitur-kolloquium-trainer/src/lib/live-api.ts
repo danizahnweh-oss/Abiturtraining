@@ -1133,18 +1133,17 @@ const RECONNECT_BASE_DELAY_MS = 1500;
 /** Maximale Verzögerung zwischen Reconnect-Versuchen (30 Sekunden) */
 const MAX_RECONNECT_DELAY_MS = 30_000;
 /**
- * Wenn vom Server 5 Minuten lang keine Nachricht kommt → proaktiver Reconnect.
+ * Wenn weder Server noch Client 60s lang etwas geschickt haben → proaktiver Reconnect.
  *
  * Why: Im Kurzreferat (Teil 1) spricht der Prüfling bis zu ~10 Minuten am Stück
- * und die KI schweigt absichtlich. Mit dem alten Wert (45s) schlug der Monitor
- * mitten im Vortrag falsch-positiv zu, schloss die WS, der Reconnect verlor
- * den Kontext → KI antwortete danach nicht mehr und wechselte nicht zu Teil 2.
- * 5 Minuten KI-Stille sind ein realistisches Signal für eine wirklich tote
- * Verbindung, ohne legitime Vortragsphasen abzuwürgen.
+ * und die KI schweigt absichtlich. Der Monitor zählt jetzt BEIDE Richtungen:
+ * solange der Client Audio-Frames sendet (User spricht), ist die Verbindung
+ * nachweislich lebendig — egal ob die KI antwortet. Erst wenn auch der User
+ * 60s+ stumm ist UND die KI nichts sagt, ist die WS wirklich tot.
  */
-const ACTIVITY_TIMEOUT_MS = 300_000;
+const ACTIVITY_TIMEOUT_MS = 60_000;
 /** Intervall für den Activity-Check */
-const ACTIVITY_CHECK_INTERVAL_MS = 30_000;
+const ACTIVITY_CHECK_INTERVAL_MS = 15_000;
 
 export class LiveSession {
   private ai: GoogleGenAI;
@@ -1158,6 +1157,10 @@ export class LiveSession {
   private instruction = '';
   private activityTimer: number | null = null;
   private lastMessageTime = 0;
+  /** Zeitpunkt des letzten erfolgreich gesendeten Audio-Frames vom Client.
+   *  Wird genutzt, damit der Activity-Monitor während des Kurzreferats nicht
+   *  fälschlich anschlägt — solange der User spricht, ist die WS lebendig. */
+  private lastClientSentTime = 0;
   /** Zeitpunkt des letzten onopen – für Stabilitätsprüfung */
   private connectionOpenedAt = 0;
   /** Mindest-Dauer (ms) damit eine Verbindung als "stabil" gilt */
@@ -1241,6 +1244,7 @@ ${transcript}`;
           onopen: () => {
             this.connectionOpenedAt = Date.now();
             this.lastMessageTime = Date.now();
+            this.lastClientSentTime = Date.now();
             this.reconnecting = false;
             // reconnectAttempts wird NICHT hier zurückgesetzt –
             // erst in onclose, wenn die Verbindung stabil war (>10s)
@@ -1253,6 +1257,7 @@ ${transcript}`;
                 this.session?.sendRealtimeInput({
                   media: { data: base64Data, mimeType: 'audio/pcm;rate=16000' }
                 });
+                this.lastClientSentTime = Date.now();
               } catch {
                 // Sendefehler ignorieren – wird beim nächsten Chunk erneut versucht
               }
@@ -1329,14 +1334,22 @@ ${transcript}`;
     }
   }
 
-  /** Erkennt "tote" Verbindungen (offen aber keine Daten) */
+  /** Erkennt "tote" Verbindungen: offen, aber weder Server-Nachrichten noch
+   *  Client-Audio fließen. Während eines langen Vortrags sendet der Client
+   *  konstant Audio-Frames — der Monitor schlägt dann zurecht nicht an. */
   private startActivityMonitor() {
     this.stopActivityMonitor();
     this.activityTimer = window.setInterval(() => {
       if (this.stopped) return;
-      const idle = Date.now() - this.lastMessageTime;
+      const now = Date.now();
+      const idleServer = now - this.lastMessageTime;
+      const idleClient = now - this.lastClientSentTime;
+      const idle = Math.min(idleServer, idleClient);
       if (idle > ACTIVITY_TIMEOUT_MS) {
-        console.warn(`Keine Server-Aktivität seit ${Math.round(idle / 1000)}s – Reconnect wird ausgelöst`);
+        console.warn(
+          `Beide Seiten stumm seit ${Math.round(idle / 1000)}s ` +
+          `(Server: ${Math.round(idleServer / 1000)}s, Client: ${Math.round(idleClient / 1000)}s) – Reconnect`
+        );
         try { this.session?.close(); } catch { /* ignorieren */ }
         // onclose löst tryReconnect() aus
       }
