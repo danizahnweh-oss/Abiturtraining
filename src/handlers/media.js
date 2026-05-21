@@ -250,6 +250,18 @@ export async function handleSubmitResult(request, env) {
     createdAt
   ).run();
 
+  // Aktivierungs-Event: erstes erhaltenes KI-Feedback (idempotent pro Schueler)
+  try {
+    const { logActivationEvent } = await import('./activation.js');
+    await logActivationEvent(env, "first_feedback_received", {
+      studentId: studentRow?.id,
+      studentName: sName,
+      nameLower,
+    }, { type: type || null });
+  } catch (e) {
+    console.error("activation log (first_feedback_received) failed:", e.message);
+  }
+
   // Kompetenzprofil: Optionale Detail-Daten speichern
   if (details && typeof details === "object") {
     try {

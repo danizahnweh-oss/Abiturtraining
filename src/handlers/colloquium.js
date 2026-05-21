@@ -1,6 +1,7 @@
 // Handler: Kolloquium-Übungsstart – Trial-Limit (3 Stück) + Bypass für bezahlte Zugänge
 import { jsonResponse } from '../utils.js';
 import { isSchoolLicenseActive, resolveStudentIdentity } from '../auth.js';
+import { logActivationEvent } from './activation.js';
 
 // Maximale Anzahl Kolloquium-Übungen im Probezeitraum
 const TRIAL_COLLOQUIUM_LIMIT = 3;
@@ -104,6 +105,7 @@ export async function handleColloquiumStart(request, env) {
   // Bezahlt / Schullizenz / Free-Access → unbegrenzt, kein Hochzählen
   if (await hasUnlimitedAccess(student, env)) {
     const sessionId = await logColloquiumStart(env, studentId, subject);
+    await logActivationEvent(env, "first_colloquium_started", { studentId }, { subject: subject || null });
     return jsonResponse({ allowed: true, unlimited: true, session_id: sessionId }, 200, env);
   }
 
@@ -135,6 +137,7 @@ export async function handleColloquiumStart(request, env) {
 
     const used = (student.trial_colloquium_count || 0) + 1;
     const sessionId = await logColloquiumStart(env, studentId, subject);
+    await logActivationEvent(env, "first_colloquium_started", { studentId }, { subject: subject || null });
     return jsonResponse({
       allowed: true,
       trial: true,
@@ -189,6 +192,8 @@ export async function handleColloquiumEnd(request, env) {
   await env.DB.prepare(
     'UPDATE colloquium_sessions SET ended_at = $1, duration_s = $2 WHERE id = $3'
   ).bind(endedAt.toISOString(), durationS, sessionId).run();
+
+  await logActivationEvent(env, "first_colloquium_completed", { studentId }, { duration_s: durationS });
 
   return jsonResponse({ success: true, duration_s: durationS }, 200, env);
 }

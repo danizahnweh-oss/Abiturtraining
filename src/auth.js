@@ -613,6 +613,24 @@ export async function ensureMigrations(env) {
     try { await env.DB.prepare("CREATE INDEX IF NOT EXISTS idx_colloquium_sessions_started ON colloquium_sessions (started_at DESC)").run(); } catch (_) {}
     try { await env.DB.prepare("CREATE INDEX IF NOT EXISTS idx_colloquium_sessions_ended ON colloquium_sessions (ended_at DESC)").run(); } catch (_) {}
 
+    // Aktivierungs-Kette: pro Schueler einmaliges Event je Stufe.
+    // Unique-Index auf (event_name, student_id) sorgt fuer Idempotenz via ON CONFLICT DO NOTHING.
+    // BIGSERIAL statt SQLite-AUTOINCREMENT, da auf Hetzner-PostgreSQL ausgefuehrt.
+    await env.DB.prepare(`
+      CREATE TABLE IF NOT EXISTS analytics_events (
+        id           BIGSERIAL PRIMARY KEY,
+        event_name   TEXT NOT NULL,
+        student_id   INTEGER,
+        student_name TEXT,
+        meta         TEXT,
+        created_at   TEXT NOT NULL
+      )
+    `).run();
+    try { await env.DB.prepare("CREATE INDEX IF NOT EXISTS idx_ae_event ON analytics_events (event_name)").run(); } catch (_) {}
+    try { await env.DB.prepare("CREATE INDEX IF NOT EXISTS idx_ae_student ON analytics_events (student_id)").run(); } catch (_) {}
+    try { await env.DB.prepare("CREATE INDEX IF NOT EXISTS idx_ae_created ON analytics_events (created_at)").run(); } catch (_) {}
+    try { await env.DB.prepare("CREATE UNIQUE INDEX IF NOT EXISTS idx_ae_first_per_student ON analytics_events (event_name, student_id)").run(); } catch (_) {}
+
     _migrated = true;
   } catch (e) {
     console.error("Migration error:", e);

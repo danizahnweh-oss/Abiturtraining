@@ -1027,6 +1027,49 @@ details[open] > .collapsible-header .collapsible-chevron {
     <!-- ═══════ TAB: ANALYTICS ═══════ -->
     <div id="tab-analytics" role="tabpanel" style="display:none">
 
+      <!-- Aktivierungs-Funnel: zeigt pro Woche, wie viele Schueler durch die Kette laufen -->
+      <div class="card" id="activationFunnelCard">
+        <div style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:.8rem;margin-bottom:.8rem;">
+          <div>
+            <h2 style="font-family:var(--font-display);">Aktivierungs-Funnel</h2>
+            <p style="font-size:.85rem;color:var(--ink-muted);margin-top:.2rem;">Pro Woche: Registrierungen, erste Aufgabe, erste Abgabe, erstes Feedback, 7-Tage-Wiederkehr.</p>
+          </div>
+          <div style="display:flex;gap:.5rem;align-items:center;">
+            <label for="funnelWeeks" style="font-size:.85rem;color:var(--ink-muted);">Zeitraum:</label>
+            <select id="funnelWeeks" onchange="loadActivationFunnel(true)" style="padding:.5rem .8rem;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:16px;background:var(--surface);color:var(--ink);min-height:44px;">
+              <option value="4">4 Wochen</option>
+              <option value="8">8 Wochen</option>
+              <option value="12" selected>12 Wochen</option>
+              <option value="26">26 Wochen</option>
+            </select>
+            <button class="btn btn-small" onclick="loadActivationFunnel(true)" title="Aktualisieren" style="min-height:44px;">🔄</button>
+          </div>
+        </div>
+        <div id="funnelTotals" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:.6rem;margin-bottom:1rem;"></div>
+        <div style="overflow-x:auto;-webkit-overflow-scrolling:touch;">
+          <table class="results-table" id="funnelTable" style="min-width:760px;">
+            <thead>
+              <tr>
+                <th>Woche (Mo)</th>
+                <th title="Neu registrierte Schüler in dieser Woche">Registriert</th>
+                <th title="Erster Login (idempotent pro Schüler)">1. Login</th>
+                <th title="Erste KI-Aufgabe generiert">1. Aufgabe</th>
+                <th title="Erste Korrektur eingereicht">1. Abgabe</th>
+                <th title="Erstes Feedback erhalten">1. Feedback</th>
+                <th title="Erstes Kolloquium gestartet">1. Koll. start</th>
+                <th title="Erstes Kolloquium beendet">1. Koll. fertig</th>
+                <th title="Anteil der in dieser Woche registrierten Schüler, die ≥7 Tage später noch aktiv waren">Wiederkehr 7d</th>
+              </tr>
+            </thead>
+            <tbody id="funnelTableBody"></tbody>
+          </table>
+        </div>
+        <div id="funnelEmpty" class="empty-state" style="display:none;">
+          <div class="icon">📭</div>
+          <p>Noch keine Aktivierungs-Daten im gewählten Zeitraum.</p>
+        </div>
+      </div>
+
       <!-- Warnsystem -->
       <div class="card" id="warnCard" style="display:none">
         <h2 style="font-family:var(--font-display);margin-bottom:1rem;color:#ef4444;">⚠ Warnsystem</h2>
@@ -2761,6 +2804,92 @@ function renderAnalytics() {
   renderHeatmap();
   renderWarnSystem();
   renderTrendChart();
+  loadActivationFunnel();
+}
+
+/* ====== AKTIVIERUNGS-FUNNEL ====== */
+let activationFunnelLoaded = false;
+async function loadActivationFunnel(force = false) {
+  if (activationFunnelLoaded && !force) return;
+  const tbody = document.getElementById('funnelTableBody');
+  const totalsEl = document.getElementById('funnelTotals');
+  const emptyEl = document.getElementById('funnelEmpty');
+  if (!tbody || !totalsEl) return;
+
+  const weeks = parseInt(document.getElementById('funnelWeeks')?.value, 10) || 12;
+  tbody.innerHTML = '<tr><td colspan="9" style="text-align:center;color:var(--ink-muted);padding:1rem;">Lade…</td></tr>';
+  if (emptyEl) emptyEl.style.display = 'none';
+
+  try {
+    const res = await fetch(API_BASE + '/api/activation-funnel', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'X-Teacher-Token': teacherToken },
+      body: JSON.stringify({ weeks }),
+    });
+    const data = await res.json();
+    if (!res.ok) {
+      tbody.innerHTML = '<tr><td colspan="9" style="text-align:center;color:#ef4444;padding:1rem;">' + escapeHtml(data.error || 'Fehler beim Laden.') + '</td></tr>';
+      return;
+    }
+    activationFunnelLoaded = true;
+    renderActivationFunnel(data);
+  } catch (e) {
+    tbody.innerHTML = '<tr><td colspan="9" style="text-align:center;color:#ef4444;padding:1rem;">Verbindungsfehler: ' + escapeHtml(e.message) + '</td></tr>';
+  }
+}
+
+function renderActivationFunnel(data) {
+  const tbody = document.getElementById('funnelTableBody');
+  const totalsEl = document.getElementById('funnelTotals');
+  const emptyEl = document.getElementById('funnelEmpty');
+  const series = Array.isArray(data?.series) ? data.series : [];
+  const totals = data?.totals || {};
+
+  // Kachel-Summen oben
+  const tiles = [
+    { label: 'Registrierungen', value: totals.registrations || 0, color: '#2563eb' },
+    { label: '1. Login', value: totals.first_login || 0, color: '#7c3aed' },
+    { label: '1. Aufgabe', value: totals.first_task_generated || 0, color: '#0d9488' },
+    { label: '1. Abgabe', value: totals.first_solution_submitted || 0, color: '#f59e0b' },
+    { label: '1. Feedback', value: totals.first_feedback_received || 0, color: '#059669' },
+    { label: '1. Kolloquium', value: totals.first_colloquium_started || 0, color: '#db2777' },
+    { label: 'Wiederkehr 7d', value: totals.returning_7d_rate == null ? '–' : (totals.returning_7d_rate + '%'), color: '#6366f1' },
+  ];
+  totalsEl.innerHTML = tiles.map(t => `
+    <div style="background:var(--accent-glow);border-radius:var(--radius-sm);padding:.7rem .9rem;border-left:3px solid ${t.color};">
+      <div style="font-size:.75rem;color:var(--ink-muted);text-transform:uppercase;letter-spacing:.04em;">${escapeHtml(t.label)}</div>
+      <div style="font-size:1.4rem;font-weight:700;color:var(--ink);font-family:var(--font-display);">${escapeHtml(String(t.value))}</div>
+    </div>
+  `).join('');
+
+  // Tabellenzeilen (neueste Woche oben)
+  const hasAnyData = series.some(b => (b.registrations || 0) + (b.first_login || 0) + (b.first_task_generated || 0) + (b.first_solution_submitted || 0) + (b.first_feedback_received || 0) > 0);
+  if (!hasAnyData) {
+    tbody.innerHTML = '';
+    if (emptyEl) emptyEl.style.display = '';
+    return;
+  }
+  if (emptyEl) emptyEl.style.display = 'none';
+
+  const rows = series.slice().reverse().map(b => {
+    const rate = b.returning_7d_rate == null ? '–' : (b.returning_7d_rate + '%');
+    const rateTitle = b.returning_7d_eligible
+      ? `${b.returning_7d}/${b.returning_7d_eligible} Schüler aktiv nach 7 Tagen`
+      : 'Noch keine 7 Tage seit Registrierung vergangen';
+    const weekLabel = b.week_start || b.week_key;
+    return `<tr>
+      <td><strong>${escapeHtml(weekLabel)}</strong><br><span style="font-size:.7rem;color:var(--ink-muted);">${escapeHtml(b.week_key)}</span></td>
+      <td>${b.registrations || 0}</td>
+      <td>${b.first_login || 0}</td>
+      <td>${b.first_task_generated || 0}</td>
+      <td>${b.first_solution_submitted || 0}</td>
+      <td>${b.first_feedback_received || 0}</td>
+      <td>${b.first_colloquium_started || 0}</td>
+      <td>${b.first_colloquium_completed || 0}</td>
+      <td title="${escapeHtml(rateTitle)}">${escapeHtml(rate)}</td>
+    </tr>`;
+  });
+  tbody.innerHTML = rows.join('');
 }
 
 function renderSubjectChart() {

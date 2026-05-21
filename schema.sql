@@ -105,3 +105,21 @@ CREATE TABLE IF NOT EXISTS learning_plans (
 );
 
 CREATE INDEX IF NOT EXISTS idx_lp_student ON learning_plans(student_name_lower);
+
+-- Aktivierungs-Kette: einmaliges Event pro Schueler je Stufe
+-- (registration_completed, first_login, first_task_generated,
+--  first_solution_submitted, first_feedback_received,
+--  first_colloquium_started, first_colloquium_completed)
+CREATE TABLE IF NOT EXISTS analytics_events (
+  id           INTEGER PRIMARY KEY AUTOINCREMENT,
+  event_name   TEXT NOT NULL,
+  student_id   INTEGER,
+  student_name TEXT,
+  meta         TEXT,
+  created_at   TEXT NOT NULL
+);
+
+CREATE INDEX IF NOT EXISTS idx_ae_event ON analytics_events (event_name);
+CREATE INDEX IF NOT EXISTS idx_ae_student ON analytics_events (student_id);
+CREATE INDEX IF NOT EXISTS idx_ae_created ON analytics_events (created_at);
+CREATE UNIQUE INDEX IF NOT EXISTS idx_ae_first_per_student ON analytics_events (event_name, student_id);
