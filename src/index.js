@@ -19,6 +19,7 @@ import { handleTeacherProfile, handleTeacherTasks, handleTeacherTaskResults, han
 import { handleTeacherLogin, handleGetResults, handleDeleteResult, handleGetStudents, handleDeleteStudent, handleGrantFreeAccess, handleClassPasswords, handleSubjectLicenses, handleGetFeedback, handleToggleFeedbackValuable, handleGetTeachers, handleApproveTeacher, handleDeleteTeacher, handleActivityFeed } from './handlers/dashboard.js';
 import { handleSendMessage, handleSendGroupMessage, handleListMessages, handleDeleteMessage, handleStudentMessages, handleMarkMessageRead, handleReplyMessage } from './handlers/messages.js';
 import { handleStudentResults, handleCompetencyProfile, handleLearningPlan } from './handlers/analytics.js';
+import { logActivationEvent, handleActivationFunnel } from './handlers/activation.js';
 import { setGradeHandlerMap, setFOSRouteHandler, handleGradeSubmit, handleGradeStatus, executeGradeHandler, cleanupOldGradingJobs, tryDeductTeacherCredit } from './handlers/grading.js';
 import { handleTeacherCreditBalance, handleTeacherCreditHistory } from './handlers/teacher-credits.js';
 import { handleGenerateImage, handleFetchUnsplash, handleSubmitResult } from './handlers/media.js';
@@ -27,6 +28,7 @@ import { handleUnsubscribe, sendReminderEmails, sendRetentionEmails } from './ha
 import { handleForgotPassword, handleResetPassword, handleVerifyResetToken } from './handlers/password-reset.js';
 import { handleVerifyEmail, handleResendVerification } from './handlers/email-verification.js';
 import { handleCreateCheckout, handleStripeWebhook, handleSubscriptionStatus, handleCustomerPortal, handleStartTrial, handleRedeemLicense } from './handlers/stripe.js';
+import { handleAdminStats } from './handlers/admin-stats.js';
 import { handleColloquiumStart, handleColloquiumStatus, handleColloquiumEnd } from './handlers/colloquium.js';
 import { handleHealth } from './handlers/health.js';
 
@@ -247,6 +249,11 @@ export default {
         } catch(e) { return jsonResponse({ error: "Interner Fehler." }, 500, env); }
       }
 
+      // ===== INTERNES ADMIN-DASHBOARD: BREAK-EVEN-TRACKER =====
+      if (pathname === "/api/admin-stats" && request.method === "POST") {
+        return await handleAdminStats(request, env);
+      }
+
       // ===== LOGIN ENDPOINTS (Rate-Limited) =====
       if (pathname === "/api/login" && request.method === "POST") {
         const loginLimit = checkRateLimit(request, loginRateLimitMap, MAX_LOGIN_ATTEMPTS, env);
@@ -369,6 +376,14 @@ export default {
         if (rl) return rl;
         cleanupRateLimitMaps();
         return await handleActivityFeed(request, env);
+      }
+
+      // ===== AKTIVIERUNGS-FUNNEL (Dashboard) =====
+      if (pathname === "/api/activation-funnel" && request.method === "POST") {
+        const rl = checkRateLimit(request, rateLimitMap, MAX_REQUESTS_PER_WINDOW, env);
+        if (rl) return rl;
+        cleanupRateLimitMaps();
+        return await handleActivationFunnel(request, env);
       }
 
       // ===== FEEDBACK (Dashboard) =====
@@ -571,6 +586,16 @@ ${photo ? `<div style="margin:12px 0"><p style="font-weight:600;margin-bottom:6p
             const subject = getSubjectFromPathname(pathname);
             const subError = await checkSubscriptionAccess(studentName, env, isGrade, subject);
             if (subError) return subError;
+
+            // Aktivierungs-Event: erste KI-Aufgabe (generate) bzw. erste Abgabe (grade)
+            // Wird erst nach bestandenem Abo-Check gefeuert → kein Spam von rejected Requests.
+            if (studentName) {
+              const eventName = isGrade ? "first_solution_submitted" : "first_task_generated";
+              await logActivationEvent(env, eventName, {
+                studentName,
+                nameLower: studentName.trim().toLowerCase(),
+              }, { subject: subject || null });
+            }
           }
         }
       }

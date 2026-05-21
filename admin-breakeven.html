@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="de" data-accent="blue">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Internes Admin-Dashboard von myAbiFlow – Break-even-Tracker.">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:; font-src 'self' data: https://fonts.gstatic.com; connect-src 'self' https://myabiflow.de;">
+<title>myAbiFlow · Admin · Break-even</title>
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/wave-icon-new.png" type="image/png" sizes="48x48">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="stylesheet" href="/fonts/fonts.css">
+<link rel="stylesheet" href="shared-v4.css">
+
+<style>
+  body { display: block; }
+  header { position: static; z-index: auto; }
+  main { max-width: 1100px; margin: 1.5rem auto; padding: 0 1rem; }
+
+  /* Login */
+  .login-card {
+    max-width: 420px;
+    margin: 3rem auto;
+    padding: 2rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-md);
+  }
+  .login-card h1 {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    margin: 0 0 .4rem;
+  }
+  .login-card p { color: var(--ink-light); margin: 0 0 1.2rem; font-size: .9rem; }
+  .login-card input {
+    width: 100%;
+    padding: .8rem 1rem;
+    font-size: 16px; /* kein Auto-Zoom auf Tablet */
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: var(--bg);
+    color: var(--ink);
+    margin-bottom: 1rem;
+    min-height: 44px;
+    box-sizing: border-box;
+  }
+  .login-card input:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+  .login-card button {
+    width: 100%;
+    padding: .8rem 1rem;
+    min-height: 44px;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: var(--radius-sm);
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 1rem;
+  }
+  .login-card .error {
+    color: #dc2626;
+    font-size: .85rem;
+    margin-top: .5rem;
+    min-height: 1.2em;
+  }
+
+  /* Hero */
+  .hero {
+    background: linear-gradient(135deg, var(--accent) 0%, #7c3aed 100%);
+    color: #fff;
+    border-radius: var(--radius);
+    padding: 1.8rem 1.6rem;
+    margin-bottom: 1.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  .hero-label {
+    font-size: .85rem;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    opacity: .85;
+    font-weight: 600;
+    margin: 0;
+  }
+  .hero-number {
+    font-family: var(--font-mono);
+    font-size: clamp(2.4rem, 6vw, 3.6rem);
+    font-weight: 800;
+    line-height: 1;
+    margin: .3rem 0;
+  }
+  .hero-target { font-size: 1rem; opacity: .9; }
+  .hero-distance {
+    background: rgba(255,255,255,.16);
+    padding: .5rem 1rem;
+    border-radius: 9999px;
+    font-size: .9rem;
+    font-weight: 700;
+    backdrop-filter: blur(8px);
+    display: inline-flex;
+    align-items: center;
+    gap: .4rem;
+  }
+
+  /* Progress */
+  .progress-wrap { margin-top: 1.2rem; }
+  .progress-bar {
+    height: 12px;
+    background: rgba(255,255,255,.2);
+    border-radius: 9999px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: #fff;
+    border-radius: 9999px;
+    transition: width .6s ease;
+  }
+  .progress-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: .8rem;
+    opacity: .9;
+    margin-top: .4rem;
+  }
+
+  /* Stats Grid */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  .stat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.3rem 1.1rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .stat-card::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--stat-color, var(--accent));
+  }
+  .stat-label {
+    font-size: .72rem;
+    color: var(--ink-light);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    margin-bottom: .4rem;
+  }
+  .stat-value {
+    font-family: var(--font-mono);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--stat-color, var(--accent));
+    line-height: 1;
+  }
+  .stat-sub {
+    margin-top: .35rem;
+    font-size: .78rem;
+    color: var(--ink-muted);
+    line-height: 1.3;
+  }
+  .stat-sub strong { color: var(--ink); }
+  .stat-card--blue   { --stat-color: #2563eb; }
+  .stat-card--violet { --stat-color: #7c3aed; }
+  .stat-card--green  { --stat-color: #059669; }
+  .stat-card--amber  { --stat-color: #f59e0b; }
+  .stat-card--pink   { --stat-color: #db2777; }
+  .stat-card--gray   { --stat-color: #6b7280; }
+  [data-theme="dark"] .stat-card--blue   { --stat-color: #60a5fa; }
+  [data-theme="dark"] .stat-card--violet { --stat-color: #a78bfa; }
+  [data-theme="dark"] .stat-card--green  { --stat-color: #34d399; }
+  [data-theme="dark"] .stat-card--amber  { --stat-color: #fbbf24; }
+  [data-theme="dark"] .stat-card--pink   { --stat-color: #f472b6; }
+
+  /* Calc Cards (Was wäre nötig …) */
+  .calc-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  .calc-card {
+    background: var(--surface);
+    border: 2px dashed var(--border);
+    border-radius: var(--radius);
+    padding: 1.4rem;
+    position: relative;
+  }
+  .calc-card.calc-card--b2b { border-color: #f59e0b; }
+  .calc-card.calc-card--b2c { border-color: #2563eb; }
+  .calc-title {
+    font-size: .85rem;
+    color: var(--ink-light);
+    font-weight: 600;
+    margin: 0 0 .8rem;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+  }
+  .calc-headline {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin: 0 0 .5rem;
+    line-height: 1.3;
+  }
+  .calc-formula {
+    font-family: var(--font-mono);
+    font-size: .82rem;
+    color: var(--ink-muted);
+    line-height: 1.5;
+  }
+  .calc-formula strong { color: var(--ink); }
+
+  /* Section card */
+  .section-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.4rem;
+    margin-bottom: 1rem;
+  }
+  .section-card h2 {
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin: 0 0 1rem;
+  }
+  .plan-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .plan-table th, .plan-table td {
+    text-align: left;
+    padding: .6rem .4rem;
+    font-size: .88rem;
+    border-bottom: 1px solid color-mix(in srgb, var(--border) 50%, transparent);
+  }
+  .plan-table th {
+    font-weight: 700;
+    color: var(--ink-light);
+    text-transform: uppercase;
+    font-size: .72rem;
+    letter-spacing: .04em;
+  }
+  .plan-table td.num {
+    font-family: var(--font-mono);
+    font-weight: 600;
+    text-align: right;
+  }
+
+  /* Toolbar */
+  .toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+  }
+  .toolbar h1 {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    margin: 0;
+  }
+  .toolbar-actions { display: flex; gap: .5rem; flex-wrap: wrap; }
+  .btn-tool {
+    padding: .55rem 1rem;
+    min-height: 44px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: var(--surface);
+    color: var(--ink);
+    font-size: .85rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: .4rem;
+  }
+  .btn-tool:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .btn-tool--primary {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+  }
+  .btn-tool--primary:hover { background: var(--accent); color: #fff; opacity: .92; }
+
+  .last-updated {
+    font-size: .78rem;
+    color: var(--ink-muted);
+    font-family: var(--font-mono);
+  }
+
+  .loading, .empty {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: var(--ink-muted);
+  }
+
+  /* Tablet: Grid bleibt 2-spaltig */
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .stats-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+  @media (max-width: 480px) {
+    .hero { padding: 1.4rem 1.1rem; }
+    main { padding: 0 .6rem; }
+  }
+</style>
+</head>
+<body>
+  <main>
+    <!-- Login-Bereich -->
+    <section id="login-section" class="login-card" aria-labelledby="login-title">
+      <h1 id="login-title">Admin · Break-even-Tracker</h1>
+      <p>Internes Dashboard. Bitte Admin-Token eingeben.</p>
+      <form id="login-form" autocomplete="off">
+        <label for="admin-token-input" style="display:block;font-size:.85rem;font-weight:600;margin-bottom:.4rem;">Admin-Token</label>
+        <input type="password" id="admin-token-input" placeholder="ADMIN_TOKEN" required>
+        <button type="submit">Einloggen</button>
+        <div class="error" id="login-error" role="alert" aria-live="polite"></div>
+      </form>
+    </section>
+
+    <!-- Dashboard-Bereich -->
+    <section id="dashboard-section" hidden>
+      <div class="toolbar">
+        <h1>Break-even-Tracker</h1>
+        <div class="toolbar-actions">
+          <span class="last-updated" id="last-updated"></span>
+          <button class="btn-tool" id="btn-refresh" type="button" aria-label="Aktualisieren">
+            <span aria-hidden="true">⟳</span> Aktualisieren
+          </button>
+          <button class="btn-tool" id="btn-logout" type="button">Abmelden</button>
+        </div>
+      </div>
+
+      <!-- Hero: Break-even-Fortschritt -->
+      <div class="hero" id="hero">
+        <div class="hero-row">
+          <div>
+            <p class="hero-label">Aktive zahlende Nutzer</p>
+            <div class="hero-number" id="hero-paying">–</div>
+            <div class="hero-target">Ziel: <strong id="hero-target">140</strong> · Break-even</div>
+          </div>
+          <div class="hero-distance" id="hero-distance" aria-label="Abstand zum Break-even">
+            … bis zum Break-even
+          </div>
+        </div>
+        <div class="progress-wrap">
+          <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+          <div class="progress-meta">
+            <span id="progress-percent">0 %</span>
+            <span id="progress-remaining">– weitere Nutzer</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Was wäre nötig … -->
+      <div class="calc-grid">
+        <div class="calc-card calc-card--b2b">
+          <p class="calc-title">Benötigt – B2B-Weg</p>
+          <p class="calc-headline" id="calc-b2b-headline">– weitere Fachschaftslizenzen</p>
+          <p class="calc-formula" id="calc-b2b-formula">bei <strong>40 €/Schüler/Jahr</strong></p>
+        </div>
+        <div class="calc-card calc-card--b2c">
+          <p class="calc-title">Benötigt – B2C-Weg</p>
+          <p class="calc-headline" id="calc-b2c-headline">– weitere B2C-Abos</p>
+          <p class="calc-formula" id="calc-b2c-formula">bei <strong>15 €/Monat</strong></p>
+        </div>
+      </div>
+
+      <!-- Stat-Grid: Kennzahlen -->
+      <div class="stats-grid">
+        <div class="stat-card stat-card--blue">
+          <div class="stat-label">B2C-Abos aktiv</div>
+          <div class="stat-value" id="kpi-b2c">–</div>
+          <div class="stat-sub" id="kpi-b2c-sub">Stripe-Subscriptions</div>
+        </div>
+        <div class="stat-card stat-card--amber">
+          <div class="stat-label">B2B-Schüler aktiv</div>
+          <div class="stat-value" id="kpi-b2b">–</div>
+          <div class="stat-sub" id="kpi-b2b-sub">Fachschaftslizenz · <span id="kpi-b2b-codes">0</span> Codes</div>
+        </div>
+        <div class="stat-card stat-card--green">
+          <div class="stat-label">Neue zahlende · 7 T</div>
+          <div class="stat-value" id="kpi-new">–</div>
+          <div class="stat-sub" id="kpi-new-sub">B2C + B2B</div>
+        </div>
+        <div class="stat-card stat-card--pink">
+          <div class="stat-label">Churn · 30 T</div>
+          <div class="stat-value" id="kpi-churn">–</div>
+          <div class="stat-sub" id="kpi-churn-sub">Kündigungen</div>
+        </div>
+        <div class="stat-card stat-card--violet">
+          <div class="stat-label">Trial → Paid</div>
+          <div class="stat-value" id="kpi-conv">–</div>
+          <div class="stat-sub" id="kpi-conv-sub">Cohort: 7-60 T</div>
+        </div>
+        <div class="stat-card stat-card--gray">
+          <div class="stat-label">Pilot-Schüler · kostenlos</div>
+          <div class="stat-value" id="kpi-pilot">–</div>
+          <div class="stat-sub" id="kpi-pilot-sub">– Pilotschulen</div>
+        </div>
+      </div>
+
+      <!-- Aufschlüsselung -->
+      <div class="section-card">
+        <h2>B2C-Aufschlüsselung nach Plan</h2>
+        <table class="plan-table" id="plan-table">
+          <thead>
+            <tr><th>Plan</th><th style="text-align:right;">Aktive Nutzer</th></tr>
+          </thead>
+          <tbody id="plan-table-body">
+            <tr><td colspan="2" style="text-align:center;color:var(--ink-muted);padding:1rem;">–</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section-card">
+        <h2>Umsatz-Schätzung (Run-Rate)</h2>
+        <table class="plan-table">
+          <tbody>
+            <tr><td>MRR B2C</td><td class="num" id="rev-b2c">– €</td></tr>
+            <tr><td>MRR B2B (Fachschafts­lizenzen, anteilig)</td><td class="num" id="rev-b2b">– €</td></tr>
+            <tr><td><strong>MRR gesamt</strong></td><td class="num" id="rev-total"><strong>– €</strong></td></tr>
+            <tr><td>ARR (× 12)</td><td class="num" id="rev-arr">– €</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="loading" id="loading" hidden>Lade Daten…</div>
+    </section>
+  </main>
+
+<script>
+(function() {
+  'use strict';
+
+  const API_BASE = 'https://myabiflow.de';
+  const STORAGE_KEY = 'myabiflow_admin_token';
+
+  // Theme aus shared.js übernehmen, falls vorhanden
+  try {
+    const t = localStorage.getItem('theme');
+    if (t) document.documentElement.setAttribute('data-theme', t);
+  } catch(_) {}
+
+  const $ = (id) => document.getElementById(id);
+
+  const fmtInt = (n) => Number(n).toLocaleString('de-DE');
+  const fmtEur = (n) => Number(n).toLocaleString('de-DE') + ' €';
+  const fmtPct = (n) => (n * 100).toLocaleString('de-DE', { maximumFractionDigits: 1 }) + ' %';
+
+  const PLAN_LABEL = {
+    'monthly':  'Monatlich (15 €/Monat)',
+    '6months':  '6 Monate (70 €)',
+    '12months': '12 Monate (120 €)',
+    '24months': '24 Monate (180 €)',
+    'abitur':   'Abitur (bis 30. Juni)',
+  };
+
+  function showLogin() {
+    $('login-section').hidden = false;
+    $('dashboard-section').hidden = true;
+    setTimeout(() => $('admin-token-input').focus(), 50);
+  }
+
+  function showDashboard() {
+    $('login-section').hidden = true;
+    $('dashboard-section').hidden = false;
+  }
+
+  function getToken() {
+    try { return sessionStorage.getItem(STORAGE_KEY) || ''; } catch(_) { return ''; }
+  }
+  function setToken(t) {
+    try { sessionStorage.setItem(STORAGE_KEY, t); } catch(_) {}
+  }
+  function clearToken() {
+    try { sessionStorage.removeItem(STORAGE_KEY); } catch(_) {}
+  }
+
+  async function fetchStats(token) {
+    const res = await fetch(API_BASE + '/api/admin-stats', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Admin-Token': token,
+      },
+      body: '{}',
+    });
+    if (res.status === 401) throw new Error('Nicht autorisiert. Token ungültig.');
+    if (!res.ok) throw new Error('Server-Fehler (' + res.status + ').');
+    return res.json();
+  }
+
+  function render(data) {
+    const bk = data.breakeven;
+    const paying = bk.active_paying;
+    const target = bk.target;
+    const distance = bk.distance;
+
+    $('hero-paying').textContent = fmtInt(paying);
+    $('hero-target').textContent = fmtInt(target);
+
+    const distEl = $('hero-distance');
+    if (distance <= 0) {
+      distEl.textContent = '✓ Break-even erreicht';
+      distEl.style.background = 'rgba(16,185,129,.85)';
+    } else {
+      distEl.textContent = 'noch ' + fmtInt(distance) + ' bis Break-even';
+      distEl.style.background = 'rgba(255,255,255,.16)';
+    }
+
+    const pct = target > 0 ? Math.min(100, (paying / target) * 100) : 0;
+    $('progress-fill').style.width = pct.toFixed(1) + '%';
+    $('progress-percent').textContent = pct.toFixed(1).replace('.', ',') + ' %';
+    $('progress-remaining').textContent = distance > 0
+      ? (fmtInt(distance) + ' weitere Nutzer')
+      : 'Ziel erreicht';
+
+    // Calc-Cards
+    $('calc-b2b-headline').textContent =
+      bk.additional_b2b_licenses_needed > 0
+        ? (fmtInt(bk.additional_b2b_licenses_needed) + ' weitere Fachschaftslizenz' + (bk.additional_b2b_licenses_needed === 1 ? '' : 'en'))
+        : 'Keine weitere Lizenz nötig';
+    $('calc-b2b-formula').innerHTML =
+      'bei <strong>' + bk.price_b2b_per_seat_year + ' €/Schüler/Jahr</strong>' +
+      ' · Ø <strong>' + bk.avg_seats_per_license.toLocaleString('de-DE') + '</strong> Schüler/Code' +
+      ' → deckt ' + fmtInt(distance) + ' fehlende Nutzer';
+
+    $('calc-b2c-headline').textContent =
+      bk.additional_b2c_subs_needed > 0
+        ? (fmtInt(bk.additional_b2c_subs_needed) + ' weitere B2C-Abos')
+        : 'Keine weiteren Abos nötig';
+    $('calc-b2c-formula').innerHTML =
+      'bei <strong>' + bk.price_b2c_monthly + ' €/Monat</strong>' +
+      ' · würde ' + fmtEur(bk.additional_b2c_subs_needed * bk.price_b2c_monthly) + '/Monat zusätzlich bringen';
+
+    // KPI-Cards
+    $('kpi-b2c').textContent = fmtInt(data.b2c.active);
+    $('kpi-b2c-sub').innerHTML = 'Stripe · +<strong>' + fmtInt(data.b2c.new_7d) + '</strong> diese Woche';
+
+    $('kpi-b2b').textContent = fmtInt(data.b2b.seats);
+    $('kpi-b2b-codes').textContent = fmtInt(data.b2b.license_codes);
+    $('kpi-b2b-sub').innerHTML = 'Fachschaftslizenz · <strong>' + fmtInt(data.b2b.license_codes) + '</strong> Codes · +<strong>' + fmtInt(data.b2b.new_7d) + '</strong> Schüler/7T';
+
+    $('kpi-new').textContent = fmtInt(data.growth.new_paying_7d);
+    $('kpi-new-sub').innerHTML =
+      '<strong>' + fmtInt(data.b2c.new_7d) + '</strong> B2C · <strong>' + fmtInt(data.b2b.new_7d) + '</strong> B2B';
+
+    $('kpi-churn').textContent = fmtInt(data.churn.canceled_30d);
+    $('kpi-churn-sub').innerHTML = 'Rate: <strong>' + fmtPct(data.churn.rate_30d) + '</strong> (30 T)';
+
+    $('kpi-conv').textContent = fmtPct(data.conversion.rate);
+    $('kpi-conv-sub').innerHTML =
+      '<strong>' + fmtInt(data.conversion.trials_converted) + '</strong> von <strong>' +
+      fmtInt(data.conversion.trials_started_cohort) + '</strong> · ' +
+      fmtInt(data.conversion.trials_active_now) + ' Trials aktiv';
+
+    $('kpi-pilot').textContent = fmtInt(data.pilot.students);
+    $('kpi-pilot-sub').innerHTML = '<strong>' + fmtInt(data.pilot.schools) + '</strong> Pilotschulen (kostenlos)';
+
+    // Plan-Tabelle
+    const tbody = $('plan-table-body');
+    tbody.innerHTML = '';
+    const planEntries = Object.entries(data.b2c.by_plan).sort((a, b) => b[1] - a[1]);
+    if (planEntries.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="2" style="text-align:center;color:var(--ink-muted);padding:1rem;">Noch keine aktiven B2C-Abos</td></tr>';
+    } else {
+      for (const [plan, n] of planEntries) {
+        const tr = document.createElement('tr');
+        const td1 = document.createElement('td');
+        td1.textContent = PLAN_LABEL[plan] || plan;
+        const td2 = document.createElement('td');
+        td2.className = 'num';
+        td2.textContent = fmtInt(n);
+        tr.appendChild(td1); tr.appendChild(td2);
+        tbody.appendChild(tr);
+      }
+    }
+
+    // Umsatz
+    $('rev-b2c').textContent = fmtEur(data.revenue.mrr_b2c_eur);
+    $('rev-b2b').textContent = fmtEur(data.revenue.mrr_b2b_eur);
+    $('rev-total').innerHTML = '<strong>' + fmtEur(data.revenue.mrr_total_eur) + '</strong>';
+    $('rev-arr').textContent = fmtEur(data.revenue.arr_total_eur);
+
+    // Last updated
+    const d = new Date(data.generated_at);
+    $('last-updated').textContent = 'Stand: ' + d.toLocaleString('de-DE');
+  }
+
+  async function loadData() {
+    const token = getToken();
+    if (!token) { showLogin(); return; }
+    $('loading').hidden = false;
+    try {
+      const data = await fetchStats(token);
+      render(data);
+      showDashboard();
+    } catch (err) {
+      clearToken();
+      $('login-error').textContent = err.message || 'Fehler beim Laden.';
+      showLogin();
+    } finally {
+      $('loading').hidden = true;
+    }
+  }
+
+  // Login-Form
+  $('login-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const token = $('admin-token-input').value.trim();
+    if (!token) return;
+    $('login-error').textContent = '';
+    try {
+      const data = await fetchStats(token);
+      setToken(token);
+      render(data);
+      showDashboard();
+    } catch (err) {
+      $('login-error').textContent = err.message || 'Login fehlgeschlagen.';
+    }
+  });
+
+  $('btn-refresh').addEventListener('click', loadData);
+  $('btn-logout').addEventListener('click', () => {
+    clearToken();
+    $('admin-token-input').value = '';
+    showLogin();
+  });
+
+  // Initial-Load
+  loadData();
+})();
+</script>
+</body>
+</html>
