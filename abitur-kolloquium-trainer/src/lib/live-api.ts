@@ -1132,10 +1132,19 @@ const MAX_RECONNECT_ATTEMPTS = 12;
 const RECONNECT_BASE_DELAY_MS = 1500;
 /** Maximale Verzögerung zwischen Reconnect-Versuchen (30 Sekunden) */
 const MAX_RECONNECT_DELAY_MS = 30_000;
-/** Wenn vom Server 45s lang keine Nachricht kommt → proaktiver Reconnect */
-const ACTIVITY_TIMEOUT_MS = 45_000;
+/**
+ * Wenn vom Server 5 Minuten lang keine Nachricht kommt → proaktiver Reconnect.
+ *
+ * Why: Im Kurzreferat (Teil 1) spricht der Prüfling bis zu ~10 Minuten am Stück
+ * und die KI schweigt absichtlich. Mit dem alten Wert (45s) schlug der Monitor
+ * mitten im Vortrag falsch-positiv zu, schloss die WS, der Reconnect verlor
+ * den Kontext → KI antwortete danach nicht mehr und wechselte nicht zu Teil 2.
+ * 5 Minuten KI-Stille sind ein realistisches Signal für eine wirklich tote
+ * Verbindung, ohne legitime Vortragsphasen abzuwürgen.
+ */
+const ACTIVITY_TIMEOUT_MS = 300_000;
 /** Intervall für den Activity-Check */
-const ACTIVITY_CHECK_INTERVAL_MS = 10_000;
+const ACTIVITY_CHECK_INTERVAL_MS = 30_000;
 
 export class LiveSession {
   private ai: GoogleGenAI;
