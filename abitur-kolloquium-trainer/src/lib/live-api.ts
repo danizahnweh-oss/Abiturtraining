@@ -1125,8 +1125,17 @@ VERHALTEN: ${verhalten}${getLanguageInstruction(config.subject)}`;
 
 interface LiveAPISession {
   sendRealtimeInput(input: { media: { data: string; mimeType: string } }): void;
+  sendClientContent(input: { turns?: string | object | object[]; turnComplete?: boolean }): void;
   close(): void;
 }
+
+/**
+ * Text-Signal, das dem Modell signalisiert, dass das Referat manuell beendet wurde.
+ * Matcht die im System-Prompt erwarteten Abschluss-Phrasen ("Damit bin ich am Ende",
+ * "Vielen Dank", "Das war mein Referat") — damit das Modell die Stille-Regel verlässt
+ * und mit Verabschiedung bzw. Vertiefungsfragen weitermacht.
+ */
+const PRESENTATION_FINISHED_MESSAGE = 'Damit bin ich am Ende meines Referats. Vielen Dank.';
 
 const MAX_RECONNECT_ATTEMPTS = 12;
 const RECONNECT_BASE_DELAY_MS = 1500;
@@ -1409,6 +1418,19 @@ ${transcript}`;
     try { this.session?.close(); } catch { /* ignorieren */ }
     this.session = null;
   }
+
+  /** Signalisiert dem Modell per Text-Turn, dass das Referat beendet ist. */
+  notifyPresentationFinished() {
+    if (!this.session || this.stopped) return;
+    try {
+      this.session.sendClientContent({
+        turns: PRESENTATION_FINISHED_MESSAGE,
+        turnComplete: true,
+      });
+    } catch (err) {
+      console.warn('notifyPresentationFinished fehlgeschlagen:', err);
+    }
+  }
 }
 
 /* ───────── Stateful Live Session (mit Server-Side State via Durable Object) ───────── */
@@ -1649,6 +1671,22 @@ export class StatefulLiveSession {
     this.audioPlayer.stop();
     try { this.ws?.close(); } catch {}
     this.ws = null;
+  }
+
+  /** Signalisiert dem Modell per Text-Turn, dass das Referat beendet ist.
+   *  Wird vom Worker transparent an Gemini weitergeleitet. */
+  notifyPresentationFinished() {
+    if (!this.ws || this.stopped || this.ws.readyState !== WebSocket.OPEN) return;
+    try {
+      this.ws.send(JSON.stringify({
+        clientContent: {
+          turns: [{ role: 'user', parts: [{ text: PRESENTATION_FINISHED_MESSAGE }] }],
+          turnComplete: true,
+        },
+      }));
+    } catch (err) {
+      console.warn('notifyPresentationFinished fehlgeschlagen:', err);
+    }
   }
 
   /** Transkript vom Server abrufen (für Feedback-Generierung) */

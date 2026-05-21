@@ -497,6 +497,11 @@ export default function App() {
   const examElapsedRef = useRef(0);
   const modelTxCountRef = useRef(0);
 
+  /* Manueller Referat-Ende-Override (Button "Referat beenden") */
+  const [referatFinished, setReferatFinished] = useState(false);
+  const referatFinishedRef = useRef(false);
+  useEffect(() => { referatFinishedRef.current = referatFinished; }, [referatFinished]);
+
   /* Firefox-Hinweis-Banner */
   const [firefoxBannerDismissed, setFirefoxBannerDismissed] = useState(false);
 
@@ -584,8 +589,10 @@ export default function App() {
   const makeShouldPlayAudio = (mode: ExamMode) => (): boolean => {
     // Im Fragen-Modus: immer abspielen
     if (mode === 'fragen') return true;
-    // Referat/Gesamt: Erste Model-Äußerung (Begrüßung) abspielen
+    // Erste Model-Äußerung (Begrüßung) abspielen
     if (modelTxCountRef.current <= 1) return true;
+    // Manueller Override per "Referat beenden"-Button → KI darf wieder sprechen
+    if (referatFinishedRef.current) return true;
     // Danach stumm bis Referat-Phase vorbei (10 Min)
     if (mode === 'referat') return false;
     if (examElapsedRef.current < 600) return false;
@@ -675,6 +682,8 @@ export default function App() {
     }
 
     setStep('exam');
+    setReferatFinished(false);
+    referatFinishedRef.current = false;
 
     // Mikrofon initialisieren
     const processor = new AudioProcessor();
@@ -937,6 +946,8 @@ export default function App() {
     setStep('exam');
     setModelTx([]);
     setUserTx([]);
+    setReferatFinished(false);
+    referatFinishedRef.current = false;
 
     const processor = micRef.current || undefined;
     micRef.current = null;
@@ -1951,6 +1962,20 @@ export default function App() {
                       >
                         <BookOpen size={16} aria-hidden="true" />
                         Material
+                      </button>
+                    )}
+                    {(examMode === 'referat' || (examMode === 'gesamt' && exam.phase === 'referat')) && !referatFinished && status === 'connected' && (
+                      <button
+                        onClick={() => {
+                          setReferatFinished(true);
+                          referatFinishedRef.current = true;
+                          sessionRef.current?.notifyPresentationFinished();
+                        }}
+                        className="bg-gradient-to-r from-emerald-500 to-emerald-600 text-white hover:from-emerald-600 hover:to-emerald-700 px-6 py-2.5 rounded-xl font-medium flex items-center gap-2 shadow-lg shadow-emerald-500/25 hover:shadow-emerald-500/40 transition-all active:scale-[0.98] min-h-[44px]"
+                        aria-label="Referat beenden — der Prüfer übernimmt das Gespräch"
+                      >
+                        <GraduationCap size={16} aria-hidden="true" />
+                        Referat beenden
                       </button>
                     )}
                     <button onClick={stopExam} className="bg-gradient-to-r from-red-50 to-white text-red-600 hover:text-red-700 border border-red-100 hover:border-red-200 px-6 py-2.5 rounded-xl font-medium flex items-center gap-2 hover:shadow-md transition-all active:scale-[0.98] min-h-[44px]">
