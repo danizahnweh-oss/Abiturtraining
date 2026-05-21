@@ -18,6 +18,10 @@
   header { position: static; z-index: auto; }
   main { max-width: 1100px; margin: 1.5rem auto; padding: 0 1rem; }
 
+  /* shared-v4.css setzt section { display: none } per Default – hier überschreiben */
+  section { display: block; animation: none; }
+  section[hidden] { display: none; }
+
   /* Login */
   .login-card {
     max-width: 420px;
