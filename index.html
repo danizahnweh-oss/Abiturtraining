@@ -3597,6 +3597,7 @@
       </div>
     </div>
     <div id="trialBannerContainer"></div>
+    <div id="trialStatusCard"></div>
     <div class="dashboard-hero">
       <h2 id="greetingText" role="heading" aria-level="2">Willkommen zurück!</h2>
       <p id="guestHint" style="display:none; color:rgba(255,255,255,0.7); font-size:0.95rem; margin-top:0.3rem;">Wähle
@@ -5454,6 +5455,13 @@
             renderProgressBar(data.results);
             renderLastActivity(data.results);
             renderSmartCta(data.results);
+            // Trial-Status-Karte mit aktuellen Nutzungs-Stats füttern
+            if (typeof showTrialConversionUI === "function") {
+              showTrialConversionUI("trialBannerContainer", {
+                statusCardContainerId: "trialStatusCard",
+                results: data.results
+              });
+            }
           }
         })
         .catch(function () { });
@@ -6649,9 +6657,12 @@
             return;
           }
 
-          // Trial-Banner anzeigen
-          if (data.subscription_status === "trialing") {
-            showTrialBannerIfNeeded("trialBannerContainer");
+          // Trial-Conversion-UI anzeigen (Banner + Status-Karte)
+          if (data.subscription_status === "trialing" || data.subscription_status === "trial_expired") {
+            showTrialConversionUI("trialBannerContainer", {
+              statusCardContainerId: "trialStatusCard",
+              results: (typeof studentResults !== "undefined" ? studentResults : [])
+            });
           }
 
           // Gast-Praeferenzen (Wizard-Daten) in API hochladen, BEVOR checkSession den Cache neu lädt
@@ -7271,7 +7282,12 @@
         loadStudentProgress();
         loadHiddenSubjects();
         loadStudentMessages();
-        showTrialBannerIfNeeded("trialBannerContainer");
+        // Trial-Conversion-UI: Banner sofort zeigen, Status-Karte wird durch
+        // loadStudentProgress() mit echten Stats nachgerendert
+        showTrialConversionUI("trialBannerContainer", {
+          statusCardContainerId: "trialStatusCard",
+          results: (typeof studentResults !== "undefined" ? studentResults : [])
+        });
         var profilLink = document.getElementById("profilLink");
         if (profilLink) profilLink.style.display = "";
 

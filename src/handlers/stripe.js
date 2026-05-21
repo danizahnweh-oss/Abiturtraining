@@ -363,7 +363,7 @@ export async function handleSubscriptionStatus(request, env) {
   }
 
   const student = await env.DB.prepare(
-    'SELECT id, subscription_status, subscription_plan, trial_end, stripe_customer_id, class_group, free_access_until FROM students WHERE id = ?'
+    'SELECT id, subscription_status, subscription_plan, trial_end, stripe_customer_id, class_group, free_access_until, created_at FROM students WHERE id = ?'
   ).bind(student_id).first();
 
   if (!student) {
@@ -469,12 +469,22 @@ export async function handleSubscriptionStatus(request, env) {
   // D1-Format des Adapters: { results: [...], success: true } — NICHT .rows!
   const subjectLicenses = (slResult?.results || []).map(s => ({ subject: s.subject, school: s.label }));
 
+  // Gesamtdauer des Trials berechnen (für Fortschrittsanzeige)
+  let trialTotalDays = 0;
+  if (student.trial_end && student.created_at) {
+    const diff = new Date(student.trial_end) - new Date(student.created_at);
+    trialTotalDays = Math.max(1, Math.round(diff / 86400000));
+  }
+
   return jsonResponse({
     status: statusLabel,
     plan: sub?.plan || student.subscription_plan || 'free',
     current_period_end: sub?.current_period_end || null,
     cancel_at_period_end: sub?.cancel_at_period_end === 1,
     trial_days_left: trialDaysLeft,
+    trial_end: student.trial_end || null,
+    trial_total_days: trialTotalDays,
+    student_created_at: student.created_at || null,
     is_school_license: (!!sub?.school_license_code && isActive) || classGroupFreeAccess,
     is_free_access: manualFreeAccess,
     free_access_until: manualFreeAccess ? student.free_access_until : null,

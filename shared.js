@@ -367,42 +367,294 @@ async function requireSubscription() {
   return false;
 }
 
-// Trial-Banner einblenden (wenn Trial aktiv)
-async function showTrialBannerIfNeeded(containerId) {
-  var sub = await checkSubscription();
-  if (sub.status === "trialing" && sub.trial_days_left > 0) {
-    var container = document.getElementById(containerId);
-    if (!container) return;
-    if (container.querySelector(".trial-hint-banner")) return;
-    var banner = document.createElement("div");
-    banner.className = "trial-hint-banner";
-    banner.setAttribute("role", "status");
-    banner.innerHTML =
-      '<div style="display:flex;align-items:center;gap:.5rem;">' +
-        '<span style="font-size:1.1em;">&#9200;</span>' +
-        '<span>Deine <strong>kostenlose Testphase</strong> l\u00e4uft noch <strong>' + sub.trial_days_left + (sub.trial_days_left === 1 ? ' Tag' : ' Tage') + '</strong></span>' +
+/* ================= TRIAL-CONVERSION-STRECKE ================= */
+
+// Bestimmt die aktuelle Trial-Phase basierend auf Days-Left und Days-Since-Registration.
+// Liefert eines von: 'WELCOME' (Tag 1 nach Registrierung), 'URGENCY' (<= 2 Tage),
+// 'ENDED' (Trial vorbei) oder null (kein Trial / aktives Abo).
+function _getTrialPhase(sub) {
+  if (!sub) return null;
+  var isTrialing = sub.status === "trialing";
+  var isExpired = sub.status === "trial_expired" ||
+    (sub.plan === "trial" && (sub.trial_days_left === 0 || sub.trial_days_left == null) && !isTrialing);
+  if (!isTrialing && !isExpired) return null;
+
+  var daysLeft = sub.trial_days_left || 0;
+  if (isExpired || daysLeft === 0) return "ENDED";
+
+  // Tag 1 = Registrierungstag (Datums-Diff, ignoriert Uhrzeit)
+  if (sub.student_created_at) {
+    var reg = new Date(sub.student_created_at);
+    var now = new Date();
+    var msPerDay = 86400000;
+    var dayDiff = Math.floor(
+      (Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()) -
+       Date.UTC(reg.getFullYear(), reg.getMonth(), reg.getDate())) / msPerDay
+    );
+    if (dayDiff <= 0) return "WELCOME";
+  }
+  if (daysLeft <= 2) return "URGENCY";
+  return "WELCOME";
+}
+
+// Inhalt der drei Trial-Phasen (f\u00fcr Banner)
+function _trialBannerContent(phase, daysLeft) {
+  var tageWort = (daysLeft === 1) ? "Tag" : "Tage";
+  if (phase === "WELCOME") {
+    return {
+      icon: "\ud83c\udf89", // \ud83c\udf89
+      title: "Willkommen bei myAbiFlow!",
+      body: "Deine kostenlose Testphase l\u00e4uft \u2013 probiere alle Premium-Funktionen aus: KI-Korrekturen, Kolloquiumstrainer und Kompetenzprofil.",
+      ctaLabel: "Mehr erfahren",
+      ctaHref: "/abo.html",
+      bg: "linear-gradient(135deg,#eef2ff,#f5f3ff)",
+      borderColor: "#c7d2fe",
+      titleColor: "var(--accent,#4f46e5)",
+      role: "status"
+    };
+  }
+  if (phase === "URGENCY") {
+    return {
+      icon: "\u23f3", // \u23f3
+      title: "Noch " + daysLeft + " " + tageWort + " kostenlos",
+      body: "Deine Testphase endet bald. Sichere deine Abi-Vorbereitung, damit du nahtlos weitermachen kannst \u2013 dein Fortschritt bleibt erhalten.",
+      ctaLabel: "Abi-Vorbereitung sichern",
+      ctaHref: "/abo.html",
+      bg: "#fffbeb",
+      borderColor: "#fde68a",
+      titleColor: "#b45309",
+      role: "status"
+    };
+  }
+  // ENDED
+  return {
+    icon: "\ud83d\udd12", // \ud83d\udd12
+    title: "Deine Testphase ist beendet",
+    body: "Neue KI-Korrekturen sind ohne Abo nicht m\u00f6glich \u2013 dein bisheriger Fortschritt und deine Daten bleiben gespeichert.",
+    ctaLabel: "Abi-Vorbereitung sichern",
+    ctaHref: "/abo.html",
+    bg: "#fef2f2",
+    borderColor: "#fecaca",
+    titleColor: "#b91c1c",
+    role: "status"
+  };
+}
+
+// Pro Tag/Phase einen Dismiss-Key, damit Hinweise nicht aggressiv wirken.
+function _trialBannerDismissKey(phase) {
+  var today = new Date().toISOString().slice(0, 10);
+  return "myabiflow_trial_banner_dismissed_" + phase + "_" + today;
+}
+
+function _renderTrialBanner(container, phase, daysLeft) {
+  if (!container) return;
+  if (container.querySelector(".trial-banner-v2")) return;
+  // Heutige Dismiss-Anzeige respektieren (au\u00dfer ENDED \u2013 das wird immer gezeigt)
+  if (phase !== "ENDED") {
+    try { if (localStorage.getItem(_trialBannerDismissKey(phase)) === "1") return; } catch (e) {}
+  }
+
+  var c = _trialBannerContent(phase, daysLeft);
+  var banner = document.createElement("div");
+  banner.className = "trial-banner-v2 trial-phase-" + phase.toLowerCase();
+  banner.setAttribute("role", c.role);
+  banner.style.cssText =
+    "background:" + c.bg + ";" +
+    "border:1px solid " + c.borderColor + ";" +
+    "border-radius:14px;padding:1rem 1.2rem;margin:0 1rem 1rem;" +
+    "display:flex;align-items:center;gap:1rem;flex-wrap:wrap;font-size:.92rem;" +
+    "box-shadow:0 2px 8px rgba(0,0,0,.04);line-height:1.45;";
+
+  var dismissBtn = (phase !== "ENDED")
+    ? '<button type="button" class="trial-banner-dismiss" aria-label="Hinweis ausblenden" ' +
+      'style="background:none;border:none;color:var(--ink-muted,#64748b);font-size:1.2rem;line-height:1;cursor:pointer;padding:.4rem;min-width:44px;min-height:44px;display:inline-flex;align-items:center;justify-content:center;">\u2715</button>'
+    : '';
+
+  banner.innerHTML =
+    '<div style="font-size:1.6rem;flex-shrink:0;">' + c.icon + '</div>' +
+    '<div style="flex:1;min-width:200px;">' +
+      '<div style="font-weight:700;color:' + c.titleColor + ';margin-bottom:.2rem;font-size:.98rem;">' + c.title + '</div>' +
+      '<div style="color:var(--ink,#1e293b);">' + c.body + '</div>' +
+    '</div>' +
+    '<a href="' + c.ctaHref + '" ' +
+    'style="background:var(--accent,#4f46e5);color:#fff;padding:.6rem 1.1rem;border-radius:10px;font-weight:700;font-size:.88rem;text-decoration:none;white-space:nowrap;min-height:44px;display:inline-flex;align-items:center;">' +
+    c.ctaLabel + '</a>' +
+    dismissBtn;
+
+  var btn = banner.querySelector(".trial-banner-dismiss");
+  if (btn) {
+    btn.addEventListener("click", function () {
+      try { localStorage.setItem(_trialBannerDismissKey(phase), "1"); } catch (e) {}
+      banner.remove();
+    });
+  }
+  container.prepend(banner);
+}
+
+// Status-Karte: Tage verbleibend, genutzte Premium-Features, Fortschritt
+function _renderTrialStatusCard(container, sub, stats) {
+  if (!container) return;
+  container.innerHTML = "";
+
+  var daysLeft = Math.max(0, sub.trial_days_left || 0);
+  var totalDays = Math.max(daysLeft, sub.trial_total_days || 0);
+  if (!totalDays) totalDays = Math.max(daysLeft, 3);
+  var daysUsed = Math.max(0, totalDays - daysLeft);
+  var pct = totalDays > 0 ? Math.min(100, Math.round((daysUsed / totalDays) * 100)) : 0;
+  var isEnded = daysLeft === 0 || sub.status === "trial_expired";
+
+  var trialEndStr = "";
+  if (sub.trial_end) {
+    try {
+      trialEndStr = new Date(sub.trial_end).toLocaleDateString("de-DE",
+        { day: "2-digit", month: "long", year: "numeric" });
+    } catch (e) {}
+  }
+
+  var n = stats || { count: 0, subjects: 0, streak: 0, avg: null };
+  var statHtml =
+    '<div class="trial-stat"><div class="trial-stat-num">' + n.count + '</div><div class="trial-stat-lbl">KI-Korrekturen</div></div>' +
+    '<div class="trial-stat"><div class="trial-stat-num">' + n.subjects + '</div><div class="trial-stat-lbl">F\u00e4cher trainiert</div></div>' +
+    '<div class="trial-stat"><div class="trial-stat-num">' + n.streak + '</div><div class="trial-stat-lbl">Tage-Streak</div></div>';
+  if (n.avg != null) {
+    statHtml += '<div class="trial-stat"><div class="trial-stat-num">' + n.avg + '</div><div class="trial-stat-lbl">\u00d8 Punkte</div></div>';
+  }
+
+  var headline = isEnded
+    ? "Testphase beendet"
+    : "Noch <strong>" + daysLeft + (daysLeft === 1 ? " Tag" : " Tage") + "</strong> kostenlos";
+  var endHint = isEnded
+    ? "Dein Fortschritt bleibt gespeichert \u2013 neue Korrekturen ben\u00f6tigen ein Abo."
+    : (trialEndStr ? ("Testphase endet am " + trialEndStr + ".") : "");
+
+  var card = document.createElement("section");
+  card.className = "trial-status-card";
+  card.setAttribute("aria-label", "Status deiner Testphase");
+  card.innerHTML =
+    '<div class="trial-status-header">' +
+      '<div>' +
+        '<div class="trial-status-eyebrow">Deine Testphase</div>' +
+        '<h3 class="trial-status-title">' + headline + '</h3>' +
+        (endHint ? '<div class="trial-status-sub">' + endHint + '</div>' : '') +
       '</div>' +
-      '<a href="/abo.html" style="background:var(--accent,#4f46e5);color:#fff;padding:.45rem 1rem;border-radius:8px;font-weight:700;font-size:.82rem;text-decoration:none;white-space:nowrap;min-height:36px;display:inline-flex;align-items:center;">Abo w\u00e4hlen</a>';
-    banner.style.cssText = "background:var(--surface,#fff);border:1px solid var(--border,#e2e8f0);border-radius:14px;padding:.75rem 1.2rem;margin:0 1rem 1rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;font-size:.9rem;box-shadow:0 2px 8px rgba(0,0,0,.06);";
-    container.prepend(banner);
+      '<a href="/abo.html" class="trial-status-cta">Abi-Vorbereitung sichern</a>' +
+    '</div>' +
+    '<div class="trial-progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="' + pct + '" aria-label="Tag ' + daysUsed + ' von ' + totalDays + '">' +
+      '<div class="trial-progress-fill" style="width:' + pct + '%;"></div>' +
+    '</div>' +
+    '<div class="trial-progress-labels"><span>Tag ' + daysUsed + ' von ' + totalDays + '</span><span>' + pct + ' %</span></div>' +
+    '<div class="trial-stats-grid">' + statHtml + '</div>' +
+    '<div class="trial-loss-box">' +
+      '<strong>Was passiert nach der Testphase?</strong> ' +
+      'Dein Fortschritt, deine Korrekturen und dein Kompetenzprofil bleiben gespeichert \u2013 aber neue KI-Korrekturen und der Kolloquiumstrainer sind dann nicht mehr verf\u00fcgbar.' +
+    '</div>';
+
+  container.appendChild(card);
+}
+
+// Statistiken aus Sch\u00fcler-Ergebnissen extrahieren
+function _computeTrialUsageStats(results) {
+  if (!Array.isArray(results) || !results.length) {
+    return { count: 0, subjects: 0, streak: 0, avg: null };
   }
-  // Lehrer-Credits-Banner (wenn kein eigenes Abo, aber Lehrer stellt Credits bereit)
+  var subjects = {};
+  results.forEach(function (r) {
+    var key = (r.course || r.type || "").toLowerCase().trim();
+    if (key) subjects[key] = true;
+  });
+
+  var totals = results.map(function (r) { return r.total; })
+    .filter(function (t) { return typeof t === "number" && !isNaN(t); });
+  var avg = null;
+  if (totals.length) {
+    var sum = totals.reduce(function (a, b) { return a + b; }, 0);
+    avg = (sum / totals.length).toFixed(1);
+  }
+
+  // Streak: aufeinanderfolgende Tage mit Aktivit\u00e4t
+  var dates = results.map(function (r) {
+    var d = r.date || r.created_at;
+    if (!d) return null;
+    return new Date(d).toISOString().slice(0, 10);
+  }).filter(Boolean);
+  var unique = [];
+  dates.forEach(function (d) { if (unique.indexOf(d) === -1) unique.push(d); });
+  unique.sort().reverse();
+
+  var streak = 0;
+  var check = new Date();
+  check.setHours(0, 0, 0, 0);
+  for (var i = 0; i < unique.length; i++) {
+    var d = unique[i];
+    var checkStr = check.toISOString().slice(0, 10);
+    if (d === checkStr) {
+      streak++;
+      check.setDate(check.getDate() - 1);
+    } else if (i === 0) {
+      // Heute keine Aktivit\u00e4t, gestern pr\u00fcfen
+      check.setDate(check.getDate() - 1);
+      if (d === check.toISOString().slice(0, 10)) {
+        streak++;
+        check.setDate(check.getDate() - 1);
+      } else break;
+    } else break;
+  }
+
+  return { count: results.length, subjects: Object.keys(subjects).length, streak: streak, avg: avg };
+}
+
+// Trial-Conversion-UI einblenden: Phase-passender Banner + optional Status-Karte.
+// opts.statusCardContainerId: ID des Containers f\u00fcr die ausf\u00fchrliche Status-Karte
+// opts.results: Sch\u00fcler-Ergebnisse (f\u00fcr Premium-Nutzungs-Statistiken)
+async function showTrialConversionUI(containerId, opts) {
+  opts = opts || {};
+  var sub = await checkSubscription();
+
+  // Lehrer-Credits-Banner (nur wenn kein eigenes Abo/Trial)
   if (sub.teacher_credits_available && sub.status !== "active" && sub.status !== "trialing") {
-    var container = document.getElementById(containerId);
-    if (!container) return;
-    if (container.querySelector(".teacher-credits-banner")) return;
-    var tcBanner = document.createElement("div");
-    tcBanner.className = "teacher-credits-banner";
-    tcBanner.setAttribute("role", "status");
-    var tName = sub.teacher_credits_name || "Deine Lehrkraft";
-    tcBanner.innerHTML =
-      '<div style="display:flex;align-items:center;gap:.5rem;">' +
-        '<span style="font-size:1.1em;">&#127891;</span>' +
-        '<span><strong>' + tName + '</strong> stellt dir Korrekturen zur Verf\u00fcgung.</span>' +
-      '</div>';
-    tcBanner.style.cssText = "background:#eff6ff;border:1px solid #bfdbfe;border-radius:14px;padding:.75rem 1.2rem;margin:0 1rem 1rem;display:flex;align-items:center;gap:1rem;font-size:.9rem;box-shadow:0 2px 8px rgba(0,0,0,.06);";
-    container.prepend(tcBanner);
+    var tcContainer = document.getElementById(containerId);
+    if (tcContainer && !tcContainer.querySelector(".teacher-credits-banner")) {
+      var tcBanner = document.createElement("div");
+      tcBanner.className = "teacher-credits-banner";
+      tcBanner.setAttribute("role", "status");
+      var tName = sub.teacher_credits_name || "Deine Lehrkraft";
+      tcBanner.innerHTML =
+        '<div style="display:flex;align-items:center;gap:.5rem;">' +
+          '<span style="font-size:1.1em;">\ud83c\udf93</span>' +
+          '<span><strong>' + tName + '</strong> stellt dir Korrekturen zur Verf\u00fcgung.</span>' +
+        '</div>';
+      tcBanner.style.cssText = "background:#eff6ff;border:1px solid #bfdbfe;border-radius:14px;padding:.75rem 1.2rem;margin:0 1rem 1rem;display:flex;align-items:center;gap:1rem;font-size:.9rem;box-shadow:0 2px 8px rgba(0,0,0,.06);";
+      tcContainer.prepend(tcBanner);
+    }
   }
+
+  var phase = _getTrialPhase(sub);
+  if (!phase) {
+    // Kein Trial \u2013 Status-Karte ausblenden (falls Container vorhanden)
+    if (opts.statusCardContainerId) {
+      var sc0 = document.getElementById(opts.statusCardContainerId);
+      if (sc0) sc0.innerHTML = "";
+    }
+    return;
+  }
+
+  // 1. Kontextuellen Banner einblenden
+  var bannerContainer = document.getElementById(containerId);
+  _renderTrialBanner(bannerContainer, phase, sub.trial_days_left || 0);
+
+  // 2. Detaillierte Status-Karte (nur wenn Container angegeben)
+  if (opts.statusCardContainerId) {
+    var sc = document.getElementById(opts.statusCardContainerId);
+    if (sc) {
+      var stats = _computeTrialUsageStats(opts.results || []);
+      _renderTrialStatusCard(sc, sub, stats);
+    }
+  }
+}
+
+// Abw\u00e4rts-Kompatibilit\u00e4t: bestehende Aufrufe weiterleiten
+async function showTrialBannerIfNeeded(containerId) {
+  return showTrialConversionUI(containerId);
 }
 
 /* ================= STREAMING API (SSE-basiert) ================= */
