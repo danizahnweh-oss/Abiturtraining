@@ -1,5 +1,5 @@
 // Handler: Email (Unsubscribe, Reminder Emails, Retention)
-import { jsonResponse } from '../utils.js';
+import { jsonResponse, safeJsonParse } from '../utils.js';
 import { SUBJECT_TYPES_MAP, SUBJECT_NAMES, SUBJECT_ICONS } from './student.js';
 
 // TEST-MODUS: Alle Retention-Emails gehen nur an diese Adresse
@@ -128,29 +128,53 @@ Du kannst die Erinnerungsfrequenz jederzeit in der App ändern.<br>
 
 /* ================= RETENTION-EMAILS (CRON) ================= */
 
-// Hilfsfunktion: Email über Resend senden (im Test-Modus nur an Test-Adresse)
+// Resend-Throttle: max 5 Mails/Sekunde → 250 ms zwischen Aufrufen sicher unter Limit
+// Bei 429 (Rate-Limit) bis zu 3x exponentiell warten und neu probieren.
+let _lastResendSendAt = 0;
+const RESEND_MIN_GAP_MS = 250;
+
 async function sendEmail(env, to, subject, html) {
   const recipient = RETENTION_TEST_MODE ? RETENTION_TEST_EMAIL : to;
   const testPrefix = RETENTION_TEST_MODE ? `[TEST an ${to}] ` : "";
-  const res = await fetch("https://api.resend.com/emails", {
-    method: "POST",
-    headers: {
-      "Authorization": `Bearer ${env.RESEND_API_KEY}`,
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      from: "myAbiFlow <erinnerung@myabiflow.de>",
-      reply_to: "info@myabiflow.de",
-      to: [recipient],
-      subject: testPrefix + subject,
-      html
-    })
+
+  // Throttle: warte mindestens RESEND_MIN_GAP_MS seit letztem Aufruf
+  const elapsed = Date.now() - _lastResendSendAt;
+  if (elapsed < RESEND_MIN_GAP_MS) {
+    await new Promise(r => setTimeout(r, RESEND_MIN_GAP_MS - elapsed));
+  }
+
+  const body = JSON.stringify({
+    from: "myAbiFlow <erinnerung@myabiflow.de>",
+    reply_to: "info@myabiflow.de",
+    to: [recipient],
+    subject: testPrefix + subject,
+    html
   });
-  if (!res.ok) {
+
+  let lastErr = null;
+  for (let attempt = 0; attempt < 3; attempt++) {
+    _lastResendSendAt = Date.now();
+    const res = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${env.RESEND_API_KEY}`,
+        "Content-Type": "application/json"
+      },
+      body
+    });
+    if (res.ok) return true;
+
+    if (res.status === 429) {
+      // Retry-Backoff: 600 ms, 1500 ms, 3000 ms
+      const backoff = 600 * Math.pow(2.5, attempt);
+      await new Promise(r => setTimeout(r, backoff));
+      continue;
+    }
+
     const errBody = await res.text();
     throw new Error(`Resend ${res.status}: ${errBody}`);
   }
-  return true;
+  throw new Error(`Resend 429 nach Retries: ${lastErr || "Rate-Limit"}`);
 }
 
 // Gemeinsamer Email-Wrapper (Logo + Header + Footer mit Unsubscribe)
@@ -396,7 +420,7 @@ export async function sendRetentionEmails(env) {
 
     for (const student of examStudents) {
       try {
-        const examSubjects = JSON.parse(student.exam_subjects || "{}");
+        const examSubjects = safeJsonParse(student.exam_subjects, {});
         const eaSubject = examSubjects.ea || null;
         const allExam = [...(examSubjects.written || []), ...(examSubjects.oral || [])];
 
@@ -449,7 +473,7 @@ export async function sendReminderEmails(env) {
       if (daysSinceSent < student.reminder_interval) continue;
     }
 
-    const examSubjects = JSON.parse(student.exam_subjects || "{}");
+    const examSubjects = safeJsonParse(student.exam_subjects, {});
     const allExam = [...(examSubjects.written || []), ...(examSubjects.oral || [])];
     if (allExam.length === 0) continue;
 
@@ -493,35 +517,17 @@ export async function sendReminderEmails(env) {
       ? `myAbiFlow – ${SUBJECT_NAMES[overdue[0].subject] || overdue[0].subject} wartet auf dich`
       : `myAbiFlow – ${count} Abifächer warten auf dich`;
 
-    // Via Resend senden
+    // Via gemeinsame sendEmail-Funktion (mit Throttling + Retry bei 429)
     try {
       console.log(`Sende Erinnerungsmail an ${student.name_lower} (${student.email}), ${overdue.length} Fächer überfällig`);
-      const res = await fetch("https://api.resend.com/emails", {
-        method: "POST",
-        headers: {
-          "Authorization": `Bearer ${env.RESEND_API_KEY}`,
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          from: "myAbiFlow <erinnerung@myabiflow.de>",
-          to: [student.email],
-          subject,
-          html
-        })
-      });
-
-      if (!res.ok) {
-        const errBody = await res.text();
-        console.error(`Resend-Fehler für ${student.name_lower} (${res.status}):`, errBody);
-        continue; // last_reminder_sent NICHT updaten → nächster Versuch morgen
-      }
-
+      await sendEmail(env, student.email, subject, html);
       console.log(`Email erfolgreich gesendet an ${student.name_lower}`);
       await env.DB.prepare(
         "UPDATE students SET last_reminder_sent = ? WHERE name_lower = ?"
       ).bind(new Date().toISOString(), student.name_lower).run();
     } catch (err) {
       console.error(`Email-Fehler für ${student.name_lower}:`, err.message);
+      // last_reminder_sent bleibt unverändert → nächster Versuch morgen
     }
   }
 }

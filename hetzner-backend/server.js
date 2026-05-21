@@ -77,7 +77,7 @@ async function bridgeToWorker(req, res) {
     const request = new Request(url, requestInit);
     const workerEnv = { ...env, _origin: req.headers.origin || '' };
     const response = await workerModule.fetch(request, workerEnv, {
-      waitUntil: (promise) => { promise.catch(err => console.error('waitUntil Fehler:', err.message)); }
+      waitUntil: (promise) => { promise.catch(err => console.error(`[waitUntil ${req.method} ${req.originalUrl}]`, err.message, err.stack)); }
     });
     res.status(response.status);
     for (const [key, value] of response.headers.entries()) {
@@ -86,8 +86,10 @@ async function bridgeToWorker(req, res) {
     const body = await response.text();
     res.send(body);
   } catch (err) {
-    console.error('Bridge-Fehler:', err);
-    res.status(500).json({ error: 'Interner Serverfehler' });
+    console.error(`[Bridge-Fehler ${req.method} ${req.originalUrl}]`, err.message, err.stack);
+    if (!res.headersSent) {
+      res.status(500).json({ error: 'Interner Serverfehler' });
+    }
   }
 }
 
@@ -277,11 +279,73 @@ app.post(/^\/api\/(fos-)?(generate|grade)/, async (req, res, next) => {
   return res.status(403).json({ error: 'Kein aktives Abo. Bitte schließe ein Abo ab.', requires_subscription: true });
 });
 
-app.all('/api/{*path}', bridgeToWorker);
+// ── HEALTHCHECK ──
+// Strukturierter Statusbericht: Prozess, DB, Redis, Queue, Speicher, Cron-Tracking.
+// Externe Monitore können /api/health pollen (200 = OK, 503 = degraded).
+const PROCESS_STARTED_AT = Date.now();
+const healthState = {
+  lastCronRun: null,
+  lastCronSuccess: null,
+  lastCronError: null,
+  lastUnhandled: null,
+};
 
-app.get('/health', (req, res) => {
-  res.json({ status: 'ok', timestamp: new Date().toISOString() });
+async function checkHealth() {
+  const checks = { process: 'ok', db: 'ok', queue: 'ok' };
+  let healthy = true;
+
+  // DB-Roundtrip
+  try {
+    await db.prepare('SELECT 1 AS ok').first();
+  } catch (err) {
+    checks.db = `error: ${err.message}`;
+    healthy = false;
+  }
+
+  // Queue-Status: BullMQ ist konfiguriert wenn Redis erreichbar war.
+  try {
+    if (GRADING_QUEUE?.client) {
+      await GRADING_QUEUE.client.ping();
+    } else if (typeof GRADING_QUEUE?.getJobCounts === 'function') {
+      await GRADING_QUEUE.getJobCounts();
+    }
+  } catch (err) {
+    checks.queue = `error: ${err.message}`;
+    healthy = false;
+  }
+
+  const mem = process.memoryUsage();
+  return {
+    status: healthy ? 'ok' : 'degraded',
+    timestamp: new Date().toISOString(),
+    uptime_s: Math.floor((Date.now() - PROCESS_STARTED_AT) / 1000),
+    pid: process.pid,
+    node: process.version,
+    memory_mb: {
+      rss: +(mem.rss / 1024 / 1024).toFixed(1),
+      heap_used: +(mem.heapUsed / 1024 / 1024).toFixed(1),
+      heap_total: +(mem.heapTotal / 1024 / 1024).toFixed(1),
+    },
+    checks,
+    cron: {
+      last_run: healthState.lastCronRun,
+      last_success: healthState.lastCronSuccess,
+      last_error: healthState.lastCronError,
+    },
+    last_unhandled: healthState.lastUnhandled,
+  };
+}
+
+app.get('/api/health', async (_req, res) => {
+  const h = await checkHealth();
+  res.status(h.status === 'ok' ? 200 : 503).json(h);
 });
+app.get('/health', async (_req, res) => {
+  const h = await checkHealth();
+  res.status(h.status === 'ok' ? 200 : 503).json(h);
+});
+
+app.all('/api/{*path}', bridgeToWorker);
 
 if (workerModule.executeGradeHandler) {
   startQueueWorker(workerModule.executeGradeHandler, env);
@@ -291,19 +355,55 @@ if (workerModule.executeGradeHandler) {
 
 cron.schedule('0 7 * * *', async () => {
   console.log('Cron: Starte tägliche Jobs...');
+  healthState.lastCronRun = new Date().toISOString();
   try {
     if (workerModule.scheduled) {
       await workerModule.scheduled(
         { cron: '0 7 * * *', scheduledTime: Date.now() },
         env,
-        { waitUntil: (promise) => { promise.catch(err => console.error('Cron waitUntil Fehler:', err.message)); } }
+        { waitUntil: (promise) => { promise.catch(err => console.error('Cron waitUntil Fehler:', err.message, err.stack)); } }
       );
     }
+    healthState.lastCronSuccess = new Date().toISOString();
     console.log('Cron: Tägliche Jobs abgeschlossen');
   } catch (err) {
-    console.error('Cron-Fehler:', err.message);
+    healthState.lastCronError = { at: new Date().toISOString(), message: err.message };
+    console.error('Cron-Fehler:', err.message, err.stack);
   }
 });
+
+// ── GLOBALER CRASH-SCHUTZ ──
+// Verhindert PM2-Restarts durch versehentliche Exceptions/Rejections, die nicht im
+// Express-Catch landen (z.B. asynchron in setTimeout, Queue-Worker, etc.).
+// Wir loggen strukturiert und halten den Prozess am Leben — kontrollierter Exit nur
+// bei harten Fehlern (z.B. Out-of-Memory) durch PM2.
+process.on('unhandledRejection', (reason, promise) => {
+  const stack = (reason && reason.stack) || '';
+  const message = (reason && reason.message) || String(reason);
+  const entry = { at: new Date().toISOString(), kind: 'unhandledRejection', message, stack };
+  healthState.lastUnhandled = entry;
+  console.error(`[UNHANDLED_REJECTION ${entry.at}] ${message}\n${stack}`);
+});
+
+process.on('uncaughtException', (err, origin) => {
+  const entry = {
+    at: new Date().toISOString(),
+    kind: 'uncaughtException',
+    origin,
+    message: err.message,
+    stack: err.stack,
+  };
+  healthState.lastUnhandled = entry;
+  console.error(`[UNCAUGHT_EXCEPTION ${entry.at}] origin=${origin} ${err.message}\n${err.stack}`);
+});
+
+// Speichernutzung alle 5 Minuten loggen → bei Memory-Leaks erkennbar in den Logs.
+setInterval(() => {
+  const mem = process.memoryUsage();
+  const rssMB = (mem.rss / 1024 / 1024).toFixed(1);
+  const heapMB = (mem.heapUsed / 1024 / 1024).toFixed(1);
+  console.log(`[health] rss=${rssMB}MB heap=${heapMB}MB uptime=${Math.floor(process.uptime())}s pid=${process.pid}`);
+}, 5 * 60 * 1000).unref();
 
 server.listen(PORT, () => {
   console.log(`

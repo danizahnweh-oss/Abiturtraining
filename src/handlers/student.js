@@ -1,7 +1,8 @@
 // Handler: Student (Login, Check, Preferences, Reminders)
-import { jsonResponse } from '../utils.js';
+import { jsonResponse, safeJsonParse } from '../utils.js';
 import { generateToken, safeCompare, hashPassword, verifyPassword, resolveStudentIdentity } from '../auth.js';
 import { sendVerificationEmail } from './email-verification.js';
+import { logActivationEvent } from './activation.js';
 
 // E-Mail für Frontend-Anzeige teilmaskieren (z.B. max***@gmail.com)
 function maskEmail(email) {
@@ -117,6 +118,15 @@ export async function handleCheckStudent(request, env) {
       "SELECT id FROM students WHERE name_lower = ?"
     ).bind(nameLower).first();
 
+    // Aktivierungs-Event: Registrierung abgeschlossen (nicht blockierend)
+    if (newStudent) {
+      await logActivationEvent(env, "registration_completed", {
+        studentId: newStudent.id,
+        studentName: student_name.trim(),
+        nameLower,
+      });
+    }
+
     if (newStudent && trialAllowed) {
       // Trial starten (3 Tage)
       const trialEnd = new Date(Date.now() + 3 * 86400000).toISOString();
@@ -214,6 +224,14 @@ export async function handleCheckStudent(request, env) {
     subjectLicenses = (slResult?.results || []).map(s => s.subject);
   }
 
+  // Aktivierungs-Event: erfolgreicher Login (idempotent — feuert nur beim allerersten Mal)
+  if (student?.id) {
+    await logActivationEvent(env, "first_login", {
+      studentId: student.id,
+      nameLower,
+    });
+  }
+
   // Token an Schüler-Identität binden (verhindert IDOR – Body-Name wird auf dem Server nie wieder vertraut)
   const token = await generateToken(env, undefined, {
     sub: nameLower,
@@ -252,8 +270,8 @@ export async function handleGetPreferences(request, env) {
       created_at: student.created_at || ""
     },
     preferences: {
-      hidden_subjects: JSON.parse(student.hidden_subjects || "[]"),
-      exam_subjects: JSON.parse(student.exam_subjects || "{}"),
+      hidden_subjects: safeJsonParse(student.hidden_subjects, []),
+      exam_subjects: safeJsonParse(student.exam_subjects, {}),
       reminder_interval: student.reminder_interval ?? 3,
       email: student.email || ""
     }
@@ -296,11 +314,15 @@ export async function handleSavePreferences(request, env) {
     binds.push(ri);
   }
   if (email !== undefined) {
-    if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      return jsonResponse({ error: "Ungültige Email-Adresse." }, 400, env);
+    // Spalte ist NOT NULL → leerer String darf nicht als NULL gespeichert werden.
+    // Wenn Client "" schickt, ignorieren wir das Feld (kein Update) statt zu crashen.
+    if (typeof email === "string" && email.trim() !== "") {
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        return jsonResponse({ error: "Ungültige Email-Adresse." }, 400, env);
+      }
+      updates.push("email = ?");
+      binds.push(email.trim());
     }
-    updates.push("email = ?");
-    binds.push(email || null);
   }
 
   if (updates.length === 0) {
@@ -374,11 +396,15 @@ export async function handleUpdateProfile(request, env) {
     binds.push(level);
   }
   if (email !== undefined) {
-    if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      return jsonResponse({ error: "Ungültige Email-Adresse." }, 400, env);
+    // Siehe handleUpdatePreferences: NOT NULL Spalte → leeren String ignorieren statt
+    // einen DB-Constraint-Fehler auszulösen.
+    if (typeof email === "string" && email.trim() !== "") {
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        return jsonResponse({ error: "Ungültige Email-Adresse." }, 400, env);
+      }
+      updates.push("email = ?");
+      binds.push(email.trim());
     }
-    updates.push("email = ?");
-    binds.push(email || null);
   }
   if (school !== undefined) {
     updates.push("school = ?");
@@ -449,7 +475,7 @@ export async function handleCheckReminders(request, env) {
   ).bind(nameLower).first();
   if (!student) return jsonResponse({ error: "Schüler nicht gefunden." }, 404, env);
 
-  const examSubjects = JSON.parse(student.exam_subjects || "{}");
+  const examSubjects = safeJsonParse(student.exam_subjects, {});
   const allExam = [...(examSubjects.written || []), ...(examSubjects.oral || [])];
   if (allExam.length === 0) {
     return jsonResponse({ success: true, reminders: [] }, 200, env);

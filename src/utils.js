@@ -35,6 +35,20 @@ export function jsonResponse(data, status = 200, env = null) {
   return new Response(JSON.stringify(data), { status, headers: corsHeaders(env, env?._origin) });
 }
 
+/* ---- Sicheres JSON.parse: nie werfen, nur Default zurückgeben ---- */
+// Wird genutzt für DB-Felder wie exam_subjects, in denen historisch kaputte
+// Werte landen können (z.B. "{" durch Browser-Abbruch). Verhindert, dass der
+// Cron komplett stehenbleibt, wenn ein einzelner Schüler einen Schaden hat.
+export function safeJsonParse(value, fallback = {}) {
+  if (value == null || value === "") return fallback;
+  if (typeof value === "object") return value;
+  try {
+    return JSON.parse(value);
+  } catch {
+    return fallback;
+  }
+}
+
 /* ---- Input-Validierung ---- */
 export async function checkBodySize(request, env, maxBodySize) {
   const contentLengthHeader = request.headers.get("Content-Length");
