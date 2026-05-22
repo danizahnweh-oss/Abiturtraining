@@ -599,6 +599,21 @@ export default function App() {
     return true;
   };
 
+  /* ── Auto-Trigger: KI im Gesamtmodus aufwecken, wenn die Referat-Phase abläuft ──
+   * Nach 10 Min wechselt die UI in 'fragen-schwerpunkt'. Damit die KI dann auch
+   * tatsächlich übernimmt (sie wartet sonst auf das Stichwort "Damit bin ich am Ende"),
+   * schicken wir hier automatisch das Signal. Wir setzen nur die Ref (für shouldPlayModelAudio),
+   * nicht den State — so bleibt der "Referat beenden"-Button als Notfall in der Fragen-Phase
+   * sichtbar, falls der Auto-Trigger im Live-Channel mal hängt. */
+  useEffect(() => {
+    if (step !== 'exam') return;
+    if (examMode !== 'gesamt') return;
+    if (exam.phase === 'referat') return;
+    if (referatFinishedRef.current) return;
+    referatFinishedRef.current = true;
+    sessionRef.current?.notifyPresentationFinished();
+  }, [step, examMode, exam.phase]);
+
   /* ── Material-Impuls Timer ── */
   useEffect(() => {
     if (step !== 'exam' || matImpulse.length === 0) return;
@@ -1964,7 +1979,7 @@ export default function App() {
                         Material
                       </button>
                     )}
-                    {(examMode === 'referat' || (examMode === 'gesamt' && exam.phase === 'referat')) && !referatFinished && status === 'connected' && (
+                    {(examMode === 'referat' || (examMode === 'gesamt' && (exam.phase === 'referat' || exam.phase === 'fragen-schwerpunkt'))) && !referatFinished && status === 'connected' && (
                       <button
                         onClick={() => {
                           setReferatFinished(true);
