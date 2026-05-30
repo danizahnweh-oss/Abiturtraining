@@ -92,6 +92,15 @@ export function daysUntilExam(subject, isEa) {
   return Math.ceil((exam - now) / 86400000);
 }
 
+// Stichtag: Sobald alle Prüfungen (inkl. Kolloquium) vorbei sind, werden keine
+// automatischen Erinnerungs-/Retention-Mails mehr verschickt (ab 10.06.2026).
+export const NO_EXAMS_AFTER = "2026-06-10";
+
+export function examsOver() {
+  const today = new Date(); today.setHours(0, 0, 0, 0);
+  return today >= new Date(NO_EXAMS_AFTER + "T00:00:00");
+}
+
 export function buildReminderEmail(studentName, overdueSubjects, unsubscribeUrl, eaSubject) {
   const rows = overdueSubjects.map(s => {
     const icon = SUBJECT_ICONS[s.subject] || "📚";
@@ -300,6 +309,12 @@ export async function sendRetentionEmails(env) {
     return;
   }
 
+  // Keine Prüfung steht mehr an → alle automatischen Mails abstellen
+  if (examsOver()) {
+    console.log("Cron: sendRetentionEmails — keine Prüfungen mehr offen, Versand deaktiviert");
+    return;
+  }
+
   const now = Date.now();
   const BASE_URL = "https://myabiflow.de/api";
 
@@ -455,6 +470,12 @@ export async function sendReminderEmails(env) {
     return;
   }
 
+  // Keine Prüfung steht mehr an → Erinnerungsmails komplett abstellen
+  if (examsOver()) {
+    console.log("Cron: sendReminderEmails — keine Prüfungen mehr offen, Versand deaktiviert");
+    return;
+  }
+
   // Alle Schüler mit Email + aktiver Erinnerung laden
   const { results: students } = await env.DB.prepare(
     "SELECT name, name_lower, email, exam_subjects, reminder_interval, last_reminder_sent FROM students WHERE email IS NOT NULL AND email != '' AND reminder_interval > 0"
@@ -474,6 +495,7 @@ export async function sendReminderEmails(env) {
     }
 
     const examSubjects = safeJsonParse(student.exam_subjects, {});
+    const eaSubject = examSubjects.ea || null;
     const allExam = [...(examSubjects.written || []), ...(examSubjects.oral || [])];
     if (allExam.length === 0) continue;
 
@@ -490,6 +512,13 @@ export async function sendReminderEmails(env) {
     // Überfällige Fächer ermitteln
     const overdue = [];
     for (const subj of allExam) {
+      // Nur an Prüfungen erinnern, die noch nicht stattgefunden haben.
+      // Schriftliche Prüfungen haben ein Datum → bereits vergangene fallen raus.
+      // Mündliche Prüfungen (Kolloquium) haben keinen Termin im Mapping
+      //   (daysUntilExam → null) und gelten bis zum Stichtag als offen.
+      const daysLeft = daysUntilExam(subj, subj === eaSubject);
+      if (daysLeft !== null && daysLeft < 0) continue;
+
       const types = SUBJECT_TYPES_MAP[subj] || [];
       let lastDate = null;
       for (const t of types) {
@@ -509,7 +538,6 @@ export async function sendReminderEmails(env) {
     // Unsubscribe-Token + Email bauen
     const unsubToken = await generateUnsubscribeToken(student.name_lower, env);
     const unsubUrl = `https://sag-abi-mediation-api.sanktannagymnasium.workers.dev/api/unsubscribe?token=${encodeURIComponent(unsubToken)}`;
-    const eaSubject = examSubjects.ea || null;
     const html = buildReminderEmail(student.name, overdue, unsubUrl, eaSubject);
 
     const count = overdue.length;
