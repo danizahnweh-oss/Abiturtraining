@@ -18,6 +18,7 @@ CREATE TABLE IF NOT EXISTS students (
     class_group TEXT,
     email TEXT,
     exam_subjects TEXT DEFAULT '{}',
+    exam_dates TEXT DEFAULT '{}',
     reminder_interval INTEGER DEFAULT 0,
     last_reminder_sent TEXT,
     created_at TEXT DEFAULT (TO_CHAR(NOW(), 'YYYY-MM-DD"T"HH24:MI:SS"Z"'))

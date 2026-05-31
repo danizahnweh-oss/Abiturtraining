@@ -6125,6 +6125,11 @@
             reminderIntervalCache = data.preferences.reminder_interval ?? 3;
             reminderEmailCache = data.preferences.email || "";
 
+            // Eigene Prüfungstermine vom Server in den Browser übernehmen (Geräte-Sync)
+            if (data.preferences.exam_dates && typeof data.preferences.exam_dates === "object") {
+              saveCustomExamDates(data.preferences.exam_dates);
+            }
+
             document.getElementById("reminderInterval").value = String(reminderIntervalCache);
             document.getElementById("reminderEmail").value = reminderEmailCache;
             applyExamBadges();
@@ -6272,6 +6277,7 @@
         body: JSON.stringify({
           student_name: name,
           exam_subjects: examSubjectsCache,
+          exam_dates: loadCustomExamDates(),
           reminder_interval: interval,
           email: email
         })
@@ -6389,9 +6395,23 @@
         delete customDates[subj];
       }
       saveCustomExamDates(customDates);
+      persistCustomExamDates(customDates);
       renderCountdowns();
       renderExamDatePanel();
       renderAdditionalDatePanel();
+    }
+
+    // Eigene Prüfungstermine auf den Server speichern, damit der
+    // Mail-Versand (Server) sie kennt und Erinnerungen bis dahin laufen.
+    function persistCustomExamDates(dates) {
+      var name = sessionStorage.getItem("student_name");
+      var token = sessionStorage.getItem("access_token");
+      if (!name || !token) return;
+      fetch(API_BASE + "/api/save-preferences", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "X-Access-Token": token },
+        body: JSON.stringify({ student_name: name, exam_dates: dates })
+      }).catch(function () { });
     }
 
     function toggleAdditionalSubjects() {

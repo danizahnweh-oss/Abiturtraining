@@ -77,15 +77,20 @@ export const ABITUR_DATES_Q13 = {
   biologie: { gA: "2026-05-11", eA: "2026-05-13" }
 };
 
-export function getExamDateStr(subject, isEa) {
+// customDates: optional { fach: "YYYY-MM-DD" } — vom Schüler eingetragene Termine
+// haben Vorrang vor den festen Standard-Terminen.
+export function getExamDateStr(subject, isEa, customDates) {
+  if (customDates && typeof customDates[subject] === "string" && customDates[subject]) {
+    return customDates[subject];
+  }
   const d = ABITUR_DATES_Q13[subject];
   if (!d) return null;
   if (typeof d === "string") return d;
   return isEa ? d.eA : d.gA;
 }
 
-export function daysUntilExam(subject, isEa) {
-  const dateStr = getExamDateStr(subject, isEa);
+export function daysUntilExam(subject, isEa, customDates) {
+  const dateStr = getExamDateStr(subject, isEa, customDates);
   if (!dateStr) return null;
   const exam = new Date(dateStr + "T00:00:00");
   const now = new Date(); now.setHours(0, 0, 0, 0);
@@ -94,6 +99,8 @@ export function daysUntilExam(subject, isEa) {
 
 // Stichtag: Sobald alle Prüfungen (inkl. Kolloquium) vorbei sind, werden keine
 // automatischen Erinnerungs-/Retention-Mails mehr verschickt (ab 10.06.2026).
+// Gilt nur für Fächer OHNE eingetragenen Termin (z.B. mündliche Prüfungen);
+// wer einen späteren Termin einträgt, bekommt weiterhin Mails (siehe examUpcoming).
 export const NO_EXAMS_AFTER = "2026-06-10";
 
 export function examsOver() {
@@ -101,14 +108,32 @@ export function examsOver() {
   return today >= new Date(NO_EXAMS_AFTER + "T00:00:00");
 }
 
-export function buildReminderEmail(studentName, overdueSubjects, unsubscribeUrl, eaSubject) {
+// Steht die Prüfung für dieses Fach noch aus?
+// - Bekanntes Datum (Standard ODER eingetragen): noch nicht vorbei → offen
+// - Kein Datum (z.B. mündlich ohne eingetragenen Termin): offen bis zum Stichtag
+export function examUpcoming(subject, isEa, customDates) {
+  const dateStr = getExamDateStr(subject, isEa, customDates);
+  if (dateStr) {
+    return daysUntilExam(subject, isEa, customDates) >= 0;
+  }
+  return !examsOver();
+}
+
+// Hat der Schüler noch mindestens eine ausstehende Prüfung?
+export function hasUpcomingExam(examSubjects, customDates) {
+  const eaSubject = examSubjects?.ea || null;
+  const all = [...(examSubjects?.written || []), ...(examSubjects?.oral || [])];
+  return all.some(subj => examUpcoming(subj, subj === eaSubject, customDates));
+}
+
+export function buildReminderEmail(studentName, overdueSubjects, unsubscribeUrl, eaSubject, customDates) {
   const rows = overdueSubjects.map(s => {
     const icon = SUBJECT_ICONS[s.subject] || "📚";
     const name = SUBJECT_NAMES[s.subject] || s.subject;
     const days = s.daysSince === null ? "noch nie geübt" : `zuletzt vor ${s.daysSince} Tagen`;
     const isEa = s.subject === eaSubject;
     const level = isEa ? "eA" : "gA";
-    const daysLeft = daysUntilExam(s.subject, isEa);
+    const daysLeft = daysUntilExam(s.subject, isEa, customDates);
     const countdown = daysLeft !== null && daysLeft > 0
       ? `<span style="color:#dc2626;font-weight:600">noch ${daysLeft} Tage bis zur Prüfung</span>`
       : daysLeft === 0 ? `<span style="color:#dc2626;font-weight:600">Prüfung HEUTE!</span>` : "";
@@ -309,18 +334,12 @@ export async function sendRetentionEmails(env) {
     return;
   }
 
-  // Keine Prüfung steht mehr an → alle automatischen Mails abstellen
-  if (examsOver()) {
-    console.log("Cron: sendRetentionEmails — keine Prüfungen mehr offen, Versand deaktiviert");
-    return;
-  }
-
   const now = Date.now();
   const BASE_URL = "https://myabiflow.de/api";
 
   // Alle Schüler laden die Retention-Mails bekommen können
   const { results: students } = await env.DB.prepare(
-    `SELECT name, name_lower, email, created_at, onboarding_stage, retention_optout
+    `SELECT name, name_lower, email, created_at, onboarding_stage, retention_optout, exam_subjects, exam_dates
      FROM students
      WHERE email IS NOT NULL AND email != '' AND email != 'fehlt@unbekannt.de'
        AND retention_optout = 0`
@@ -368,6 +387,14 @@ export async function sendRetentionEmails(env) {
 
       // Ab hier: Nur für Schüler die Onboarding abgeschlossen haben (stage >= 2)
       if (stage < 2) continue;
+
+      // Nach Ende der Prüfungsphase (Stichtag) keine Engagement-Mails mehr —
+      // außer der Schüler hat noch eine Prüfung vor sich (z.B. eigener späterer Termin).
+      if (examsOver()) {
+        const examSubjects = safeJsonParse(student.exam_subjects, {});
+        const customDates = safeJsonParse(student.exam_dates, {});
+        if (!hasUpcomingExam(examSubjects, customDates)) continue;
+      }
 
       // ── Inaktivitäts-Mail (7+ Tage keine Übung, max 1x pro 14 Tage) ──
       const { results: lastActivity } = await env.DB.prepare(
@@ -423,7 +450,7 @@ export async function sendRetentionEmails(env) {
   // ── Abitur-Viel-Erfolg-Mails (Tag vor der Prüfung) ──
   // Separat, weil hier exam_subjects gebraucht werden
   const { results: examStudents } = await env.DB.prepare(
-    `SELECT name, name_lower, email, exam_subjects
+    `SELECT name, name_lower, email, exam_subjects, exam_dates
      FROM students
      WHERE email IS NOT NULL AND email != '' AND email != 'fehlt@unbekannt.de'
        AND retention_optout = 0 AND exam_subjects IS NOT NULL AND exam_subjects != '{}'`
@@ -436,12 +463,13 @@ export async function sendRetentionEmails(env) {
     for (const student of examStudents) {
       try {
         const examSubjects = safeJsonParse(student.exam_subjects, {});
+        const customDates = safeJsonParse(student.exam_dates, {});
         const eaSubject = examSubjects.ea || null;
         const allExam = [...(examSubjects.written || []), ...(examSubjects.oral || [])];
 
         for (const subj of allExam) {
           const isEa = subj === eaSubject;
-          const examDateStr = getExamDateStr(subj, isEa);
+          const examDateStr = getExamDateStr(subj, isEa, customDates);
           if (examDateStr === tomorrowStr) {
             const unsubToken = await generateUnsubscribeToken(student.name_lower, env);
             const unsubUrl = `${BASE_URL}/unsubscribe?token=${encodeURIComponent(unsubToken)}`;
@@ -470,15 +498,9 @@ export async function sendReminderEmails(env) {
     return;
   }
 
-  // Keine Prüfung steht mehr an → Erinnerungsmails komplett abstellen
-  if (examsOver()) {
-    console.log("Cron: sendReminderEmails — keine Prüfungen mehr offen, Versand deaktiviert");
-    return;
-  }
-
   // Alle Schüler mit Email + aktiver Erinnerung laden
   const { results: students } = await env.DB.prepare(
-    "SELECT name, name_lower, email, exam_subjects, reminder_interval, last_reminder_sent FROM students WHERE email IS NOT NULL AND email != '' AND reminder_interval > 0"
+    "SELECT name, name_lower, email, exam_subjects, exam_dates, reminder_interval, last_reminder_sent FROM students WHERE email IS NOT NULL AND email != '' AND reminder_interval > 0"
   ).all();
 
   console.log(`Cron: ${students?.length || 0} Schüler mit aktiver Erinnerung gefunden`);
@@ -495,6 +517,7 @@ export async function sendReminderEmails(env) {
     }
 
     const examSubjects = safeJsonParse(student.exam_subjects, {});
+    const customDates = safeJsonParse(student.exam_dates, {});
     const eaSubject = examSubjects.ea || null;
     const allExam = [...(examSubjects.written || []), ...(examSubjects.oral || [])];
     if (allExam.length === 0) continue;
@@ -513,11 +536,10 @@ export async function sendReminderEmails(env) {
     const overdue = [];
     for (const subj of allExam) {
       // Nur an Prüfungen erinnern, die noch nicht stattgefunden haben.
-      // Schriftliche Prüfungen haben ein Datum → bereits vergangene fallen raus.
-      // Mündliche Prüfungen (Kolloquium) haben keinen Termin im Mapping
-      //   (daysUntilExam → null) und gelten bis zum Stichtag als offen.
-      const daysLeft = daysUntilExam(subj, subj === eaSubject);
-      if (daysLeft !== null && daysLeft < 0) continue;
+      // - Schriftliche Prüfungen haben einen Termin → vergangene fallen raus.
+      // - Mündliche ohne eingetragenen Termin gelten bis zum Stichtag als offen.
+      // - Eigener (späterer) Termin hat Vorrang → Mails laufen bis dahin weiter.
+      if (!examUpcoming(subj, subj === eaSubject, customDates)) continue;
 
       const types = SUBJECT_TYPES_MAP[subj] || [];
       let lastDate = null;
@@ -538,7 +560,7 @@ export async function sendReminderEmails(env) {
     // Unsubscribe-Token + Email bauen
     const unsubToken = await generateUnsubscribeToken(student.name_lower, env);
     const unsubUrl = `https://sag-abi-mediation-api.sanktannagymnasium.workers.dev/api/unsubscribe?token=${encodeURIComponent(unsubToken)}`;
-    const html = buildReminderEmail(student.name, overdue, unsubUrl, eaSubject);
+    const html = buildReminderEmail(student.name, overdue, unsubUrl, eaSubject, customDates);
 
     const count = overdue.length;
     const subject = count === 1

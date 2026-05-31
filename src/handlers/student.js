@@ -256,7 +256,7 @@ export async function handleGetPreferences(request, env) {
   const nameLower = ident.nameLower;
 
   const student = await env.DB.prepare(
-    "SELECT name, level, class_group, school, created_at, hidden_subjects, exam_subjects, reminder_interval, email FROM students WHERE name_lower = ?"
+    "SELECT name, level, class_group, school, created_at, hidden_subjects, exam_subjects, exam_dates, reminder_interval, email FROM students WHERE name_lower = ?"
   ).bind(nameLower).first();
   if (!student) return jsonResponse({ error: "Schüler nicht gefunden." }, 404, env);
 
@@ -272,6 +272,7 @@ export async function handleGetPreferences(request, env) {
     preferences: {
       hidden_subjects: safeJsonParse(student.hidden_subjects, []),
       exam_subjects: safeJsonParse(student.exam_subjects, {}),
+      exam_dates: safeJsonParse(student.exam_dates, {}),
       reminder_interval: student.reminder_interval ?? 3,
       email: student.email || ""
     }
@@ -280,7 +281,7 @@ export async function handleGetPreferences(request, env) {
 
 export async function handleSavePreferences(request, env) {
   const body = await request.json().catch(() => ({}));
-  const { hidden_subjects, exam_subjects, reminder_interval, email } = body;
+  const { hidden_subjects, exam_subjects, exam_dates, reminder_interval, email } = body;
   // Schreiboperation: nur Schüler selbst, kein Lehrer-Bypass
   const ident = await resolveStudentIdentity(request, env);
   if (!ident || ident.isTeacher) return jsonResponse({ error: "Bitte erneut anmelden." }, 401, env);
@@ -304,6 +305,20 @@ export async function handleSavePreferences(request, env) {
     }
     updates.push("exam_subjects = ?");
     binds.push(JSON.stringify(es));
+  }
+  if (exam_dates && typeof exam_dates === "object" && !Array.isArray(exam_dates)) {
+    // Eigene Prüfungstermine: { fach: "YYYY-MM-DD" }. Nur valide Einträge übernehmen.
+    const clean = {};
+    for (const [subj, val] of Object.entries(exam_dates)) {
+      if (typeof subj === "string" && typeof val === "string" && /^\d{4}-\d{2}-\d{2}$/.test(val)) {
+        clean[subj] = val;
+      }
+    }
+    if (Object.keys(clean).length > 20) {
+      return jsonResponse({ error: "Zu viele Prüfungstermine." }, 400, env);
+    }
+    updates.push("exam_dates = ?");
+    binds.push(JSON.stringify(clean));
   }
   if (reminder_interval !== undefined) {
     const ri = parseInt(reminder_interval, 10);
