@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="KI-Abiturtraining Bayern – ab 15€/Monat oder 25€ bis zum Abitur. Alle Fächer, sofortiges Feedback, LehrplanPLUS-konform. Jetzt Abo sichern.">
+  <meta name="description" content="KI-Abiturtraining Bayern – ab 15€/Monat. Alle Fächer, sofortiges Feedback, LehrplanPLUS-konform. Jetzt Abo sichern.">
   <meta name="theme-color" content="#4f46e5">
   <meta name="color-scheme" content="light dark">
   <title>Abo &amp; Preise – KI-Abiturtraining Bayern | myAbiFlow</title>
   <meta property="og:title" content="Abo & Preise – KI-Abiturtraining Bayern | myAbiFlow">
-  <meta property="og:description" content="Ab 15€/Monat oder 25€ bis zum Abitur – voller KI-Zugang zu allen Fächern für Bayern G9 & FOS/BOS. Jetzt sichern.">
+  <meta property="og:description" content="Ab 15€/Monat – voller KI-Zugang zu allen Fächern für Bayern G9 & FOS/BOS. Jetzt sichern.">
   <meta property="og:image" content="https://myabiflow.de/og-image.png">
   <meta property="og:url" content="https://myabiflow.de/abo.html">
   <meta property="og:type" content="website">
@@ -16,7 +16,7 @@
   <meta property="og:site_name" content="myAbiFlow">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Abo & Preise – KI-Abiturtraining Bayern | myAbiFlow">
-  <meta name="twitter:description" content="Ab 15€/Monat oder 25€ bis zum Abitur – voller KI-Zugang zu allen Fächern für Bayern G9 & FOS/BOS.">
+  <meta name="twitter:description" content="Ab 15€/Monat – voller KI-Zugang zu allen Fächern für Bayern G9 & FOS/BOS.">
   <meta name="twitter:image" content="https://myabiflow.de/og-image.png">
   <link rel="canonical" href="https://myabiflow.de/abo.html">
   <link rel="icon" href="/favicon.ico" sizes="any">
@@ -376,42 +376,6 @@
       gap: 1rem;
       margin-bottom: 1.5rem;
     }
-
-    /* Abitur-Aktionskarte hervorgehoben */
-    .pricing-card.abitur-highlight {
-      border-color: #f59e0b;
-      background: linear-gradient(135deg, rgba(245, 158, 11, 0.06), rgba(245, 158, 11, 0.02));
-    }
-
-    .pricing-card.abitur-highlight .pricing-badge {
-      background: linear-gradient(135deg, #f59e0b, #d97706);
-    }
-
-    .pricing-card.abitur-highlight .pricing-price {
-      color: #d97706;
-    }
-
-    .pricing-card.abitur-highlight.selected {
-      border-color: #f59e0b;
-      box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.2);
-    }
-
-    /* Abitur-Banner über dem Grid */
-    .abitur-banner {
-      display: none;
-      background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(245, 158, 11, 0.04));
-      border: 1px solid #f59e0b;
-      border-radius: var(--radius-sm);
-      padding: .8rem 1.2rem;
-      margin-bottom: 1rem;
-      text-align: center;
-      font-size: .9rem;
-      color: var(--ink);
-    }
-
-    .abitur-banner.visible { display: block; }
-
-    .abitur-banner strong { color: #d97706; }
 
     @media (max-width: 540px) {
       .pricing-grid { grid-template-columns: 1fr; }
@@ -778,15 +742,6 @@
   "offers": [
     {
       "@type": "Offer",
-      "name": "Bis zum Abitur",
-      "description": "Voller Zugang bis zum Abitur – Einmalzahlung",
-      "price": "25.00",
-      "priceCurrency": "EUR",
-      "availability": "https://schema.org/InStock",
-      "url": "https://myabiflow.de/abo.html"
-    },
-    {
-      "@type": "Offer",
       "name": "1 Monat",
       "description": "Monatliches Abo – jederzeit kündbar",
       "price": "15.00",
@@ -799,6 +754,24 @@
       "name": "6 Monate",
       "description": "6-Monats-Paket – Einmalzahlung",
       "price": "70.00",
+      "priceCurrency": "EUR",
+      "availability": "https://schema.org/InStock",
+      "url": "https://myabiflow.de/abo.html"
+    },
+    {
+      "@type": "Offer",
+      "name": "12 Monate",
+      "description": "12-Monats-Paket – Einmalzahlung",
+      "price": "120.00",
+      "priceCurrency": "EUR",
+      "availability": "https://schema.org/InStock",
+      "url": "https://myabiflow.de/abo.html"
+    },
+    {
+      "@type": "Offer",
+      "name": "24 Monate",
+      "description": "24-Monats-Paket – Einmalzahlung",
+      "price": "180.00",
       "priceCurrency": "EUR",
       "availability": "https://schema.org/InStock",
       "url": "https://myabiflow.de/abo.html"
@@ -848,7 +821,7 @@
             <a href="#pricingSection" class="decision-card" id="decisionPrivat">
               <div class="decision-card-icon" aria-hidden="true">🎓</div>
               <div class="decision-card-label">Ich lerne privat</div>
-              <p class="decision-card-text">Einzel-Abo buchen und sofort mit KI-Feedback lernen – monatlich oder bis zum Abitur.</p>
+              <p class="decision-card-text">Einzel-Abo buchen und sofort mit KI-Feedback lernen – monatlich oder als Laufzeitpaket.</p>
               <span class="decision-card-arrow">Abo wählen →</span>
             </a>
 
@@ -898,21 +871,7 @@
 
         <!-- Pricing (versteckt wenn Abo aktiv) -->
         <div class="pricing-section visible" id="pricingSection">
-          <div class="abitur-banner" id="abiturBanner">
-            <strong>Abiturendspurt!</strong> Nur bis 30. Juni &ndash; voller Zugang f&uuml;r nur 25&euro;.
-          </div>
           <div class="pricing-grid">
-            <!-- Abitur-Plan: nur bis 30. Juni sichtbar (per JS gesteuert) -->
-            <div class="pricing-card abitur-highlight" data-plan="abitur" id="abiturCard" tabindex="0" role="radio" aria-checked="false" style="display:none;">
-              <div class="pricing-badge">Abiturendspurt</div>
-              <div class="pricing-check">&#10003;</div>
-              <div class="pricing-plan">Bis zum Abitur</div>
-              <div class="pricing-price">25&#8364;</div>
-              <div class="pricing-detail">Einmalzahlung, bis 30. Juni</div>
-              <div class="pricing-monthly-price">Voller Zugang bis zum Abitur</div>
-              <div class="pricing-savings">Bestes Angebot</div>
-            </div>
-
             <div class="pricing-card" data-plan="monthly" tabindex="0" role="radio" aria-checked="false">
               <div class="pricing-check">&#10003;</div>
               <div class="pricing-plan">1 Monat</div>
@@ -1332,26 +1291,6 @@
         document.getElementById("resultText").textContent =
           "Zahlung abgebrochen. Du kannst es jederzeit erneut versuchen.";
         history.replaceState({}, "", window.location.pathname);
-      }
-    })();
-
-    // Abitur-Plan nur bis 30. Juni anzeigen
-    (function() {
-      var now = new Date();
-      var cutoff = new Date(now.getFullYear(), 5, 30, 23, 59, 59); // 30. Juni
-      if (now <= cutoff) {
-        var card = document.getElementById("abiturCard");
-        var banner = document.getElementById("abiturBanner");
-        if (card) card.style.display = "";
-        if (banner) banner.classList.add("visible");
-        // Abitur-Plan als Standard-Auswahl setzen
-        document.querySelectorAll(".pricing-card").forEach(function(c) {
-          c.classList.remove("selected");
-          c.setAttribute("aria-checked", "false");
-        });
-        card.classList.add("selected");
-        card.setAttribute("aria-checked", "true");
-        selectedPlan = "abitur";
       }
     })();
 
