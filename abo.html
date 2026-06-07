@@ -131,13 +131,10 @@
     .abo-container {
       background: var(--surface);
       border-radius: var(--radius-lg);
-      max-width: 720px;
+      max-width: 1120px;
       width: 100%;
       padding: 2.5rem;
       box-shadow: var(--shadow-lg);
-      max-height: 95vh;
-      overflow-y: auto;
-      -webkit-overflow-scrolling: touch;
     }
 
     /* Header */
@@ -394,9 +391,20 @@
 
     .pricing-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 1rem;
       margin-bottom: 1.5rem;
+    }
+
+    @media (max-width: 900px) {
+      .abo-container {
+        max-width: 720px;
+        max-height: 95vh;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .pricing-grid { grid-template-columns: 1fr 1fr; }
     }
 
     @media (max-width: 540px) {
