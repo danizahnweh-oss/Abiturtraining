@@ -265,7 +265,7 @@
       font-family: var(--font-body);
       font-weight: 700;
       font-size: .95rem;
-      transition: all .2s;
+      transition: background-color .2s, border-color .2s, color .2s, transform .2s, box-shadow .2s;
       min-height: 44px;
       text-decoration: none;
     }
@@ -273,6 +273,16 @@
     .btn:hover {
       background: var(--accent-hover);
       transform: translateY(-1px);
+    }
+
+    .btn:focus-visible,
+    .cta-btn:focus-visible,
+    .license-btn:focus-visible,
+    .sticky-cta .sticky-cta-btn:focus-visible,
+    .theme-toggle:focus-visible,
+    .back-link:focus-visible {
+      outline: 3px solid var(--accent);
+      outline-offset: 3px;
     }
 
     .btn-secondary {
@@ -331,7 +341,8 @@
       transform: translateY(-2px);
       border-color: var(--accent);
       box-shadow: var(--shadow-lg);
-      outline: none;
+      outline: 3px solid var(--accent);
+      outline-offset: 3px;
     }
     .decision-card-icon {
       width: 44px; height: 44px;
@@ -367,7 +378,18 @@
     }
     @media (max-width: 700px) {
       .decision-cards { grid-template-columns: 1fr; }
-      .decision-card { min-height: auto; }
+      .decision-wrap { margin: 20px 0 28px; }
+      .decision-card {
+        min-height: auto;
+        padding: 18px;
+      }
+      .decision-card-icon {
+        width: 38px;
+        height: 38px;
+        margin-bottom: 12px;
+        font-size: 20px;
+      }
+      .decision-card-text { margin-bottom: 10px; }
     }
 
     .pricing-grid {
@@ -387,16 +409,19 @@
       border-radius: var(--radius);
       padding: 1.5rem;
       text-align: center;
-      transition: all .25s;
+      transition: background-color .25s, border-color .25s, box-shadow .25s, transform .25s;
       cursor: pointer;
       position: relative;
       min-height: 44px;
     }
 
-    .pricing-card:hover {
+    .pricing-card:hover,
+    .pricing-card:focus-visible {
       border-color: var(--accent);
       box-shadow: 0 0 0 3px var(--accent-soft);
       transform: translateY(-2px);
+      outline: 3px solid var(--accent);
+      outline-offset: 3px;
     }
 
     .pricing-card.selected {
@@ -523,7 +548,7 @@
       font-family: var(--font-body);
       font-weight: 700;
       font-size: 1.05rem;
-      transition: all .2s;
+      transition: background-color .2s, box-shadow .2s, transform .2s;
       min-height: 52px;
     }
 
@@ -580,7 +605,6 @@
       border-radius: var(--radius-sm);
       font-family: var(--font-body);
       font-size: 16px;
-      outline: none;
       background: var(--surface);
       color: var(--ink);
       text-align: center;
@@ -609,7 +633,7 @@
       font-weight: 700;
       font-size: .9rem;
       cursor: pointer;
-      transition: all .2s;
+      transition: background-color .2s, transform .2s, box-shadow .2s;
       white-space: nowrap;
       min-height: 44px;
       min-width: 44px;
@@ -687,7 +711,17 @@
 
     /* Responsive */
     @media (max-width: 768px) {
-      .abo-container { padding: 1.5rem; }
+      .abo-page {
+        min-height: auto;
+        align-items: stretch;
+        justify-content: flex-start;
+        padding: 1rem .85rem;
+      }
+      .abo-container {
+        max-height: none;
+        overflow: visible;
+        padding: 1.5rem;
+      }
       .abo-title { font-size: 1.3rem; }
       .pricing-price { font-size: 1.8rem; }
     }
@@ -719,13 +753,32 @@
       cursor: pointer;
       min-height: 48px;
       font-family: var(--font-display);
-      transition: background .2s;
+      transition: background-color .2s;
     }
     .sticky-cta .sticky-cta-btn:hover { background: var(--accent-hover); }
     @media (max-width: 1024px) {
-      .sticky-cta { display: block; }
-      /* Platz fuer Sticky CTA am Seitenende */
-      body { padding-bottom: 80px; }
+      .sticky-cta.visible { display: block; }
+      body.sticky-cta-visible { padding-bottom: calc(80px + env(safe-area-inset-bottom, 0px)); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+      }
+
+      .btn:hover,
+      .cta-btn:hover,
+      .decision-card:hover,
+      .decision-card:focus-visible,
+      .pricing-card:hover,
+      .pricing-card:focus-visible {
+        transform: none;
+      }
     }
   </style>
 <script type="application/ld+json">
@@ -871,8 +924,8 @@
 
         <!-- Pricing (versteckt wenn Abo aktiv) -->
         <div class="pricing-section visible" id="pricingSection">
-          <div class="pricing-grid">
-            <div class="pricing-card" data-plan="monthly" tabindex="0" role="radio" aria-checked="false">
+          <div class="pricing-grid" role="radiogroup" aria-label="Abo-Laufzeit auswählen">
+            <div class="pricing-card" data-plan="monthly" tabindex="-1" role="radio" aria-checked="false" aria-label="1 Monat, 15 Euro, automatische Verlängerung">
               <div class="pricing-check">&#10003;</div>
               <div class="pricing-plan">1 Monat</div>
               <div class="pricing-price">15&#8364;</div>
@@ -880,7 +933,7 @@
               <div class="pricing-monthly-price">15,00&#8364;/Monat</div>
             </div>
 
-            <div class="pricing-card" data-plan="6months" tabindex="0" role="radio" aria-checked="false">
+            <div class="pricing-card" data-plan="6months" tabindex="-1" role="radio" aria-checked="false" aria-label="6 Monate, 70 Euro, einmalige Zahlung">
               <div class="pricing-check">&#10003;</div>
               <div class="pricing-plan">6 Monate</div>
               <div class="pricing-price">70&#8364;</div>
@@ -889,7 +942,7 @@
               <div class="pricing-savings">22% gespart</div>
             </div>
 
-            <div class="pricing-card selected" data-plan="12months" tabindex="0" role="radio" aria-checked="true">
+            <div class="pricing-card selected" data-plan="12months" tabindex="0" role="radio" aria-checked="true" aria-label="12 Monate, 120 Euro, beliebteste Wahl">
               <div class="pricing-badge">Beliebteste Wahl</div>
               <div class="pricing-check">&#10003;</div>
               <div class="pricing-plan">12 Monate</div>
@@ -899,7 +952,7 @@
               <div class="pricing-savings">33% gespart</div>
             </div>
 
-            <div class="pricing-card" data-plan="24months" tabindex="0" role="radio" aria-checked="false">
+            <div class="pricing-card" data-plan="24months" tabindex="-1" role="radio" aria-checked="false" aria-label="24 Monate, 180 Euro, einmalige Zahlung">
               <div class="pricing-check">&#10003;</div>
               <div class="pricing-plan">24 Monate</div>
               <div class="pricing-price">180&#8364;</div>
@@ -930,7 +983,7 @@
             <p>Gib den Code deiner Schule oder Fachschaft ein &ndash; damit bekommst du ggf. kostenlosen Zugang.</p>
             <div class="license-input-row">
               <label for="licenseInput" class="sr-only">Lizenzcode</label>
-              <input type="text" class="license-input" id="licenseInput" placeholder="z.B. SAG-2026-ABCD" maxlength="30" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false">
+              <input type="text" class="license-input" id="licenseInput" name="license_code" placeholder="z.B. SAG-2026-ABCD" maxlength="30" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" inputmode="text">
               <button class="license-btn" id="redeemBtn" type="button">Einl&ouml;sen</button>
             </div>
             <div id="activeSubjectLicenses" style="display:none;margin-top:.8rem;text-align:left;">
@@ -1011,21 +1064,36 @@
     })();
 
     // Plan-Karten
-    document.querySelectorAll(".pricing-card").forEach(function(card) {
+    var pricingCards = Array.prototype.slice.call(document.querySelectorAll(".pricing-card"));
+
+    function selectPricingCard(card, shouldFocus) {
+      pricingCards.forEach(function(c) {
+        c.classList.remove("selected");
+        c.setAttribute("aria-checked", "false");
+        c.setAttribute("tabindex", "-1");
+      });
+      card.classList.add("selected");
+      card.setAttribute("aria-checked", "true");
+      card.setAttribute("tabindex", "0");
+      selectedPlan = card.dataset.plan;
+      if (shouldFocus) card.focus();
+    }
+
+    pricingCards.forEach(function(card, index) {
       card.addEventListener("click", function() {
-        document.querySelectorAll(".pricing-card").forEach(function(c) {
-          c.classList.remove("selected");
-          c.setAttribute("aria-checked", "false");
-        });
-        card.classList.add("selected");
-        card.setAttribute("aria-checked", "true");
-        selectedPlan = card.dataset.plan;
+        selectPricingCard(card, false);
       });
       // Tastatur-Unterstützung
       card.addEventListener("keydown", function(e) {
         if (e.key === "Enter" || e.key === " ") {
           e.preventDefault();
           card.click();
+        } else if (e.key === "ArrowRight" || e.key === "ArrowDown") {
+          e.preventDefault();
+          selectPricingCard(pricingCards[(index + 1) % pricingCards.length], true);
+        } else if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
+          e.preventDefault();
+          selectPricingCard(pricingCards[(index - 1 + pricingCards.length) % pricingCards.length], true);
         }
       });
     });
@@ -1042,7 +1110,7 @@
       }
 
       btn.disabled = true;
-      btn.innerHTML = '<span class="spinner"></span> Weiterleitung zu Stripe...';
+      btn.innerHTML = '<span class="spinner"></span> Weiterleitung zu Stripe…';
 
       // UTM-Parameter fuer Stripe Metadata mitsenden
       var utmData = (typeof getUtmParams === "function") ? getUtmParams() : {};
@@ -1094,7 +1162,7 @@
       }
 
       this.disabled = true;
-      this.textContent = "Prüfe...";
+      this.textContent = "Prüfe…";
 
       try {
         var data = await aboApi("/api/stripe/redeem-license", {
@@ -1130,7 +1198,7 @@
       if (!studentId) return;
 
       this.disabled = true;
-      this.innerHTML = '<span class="spinner"></span> Wird geladen...';
+      this.innerHTML = '<span class="spinner"></span> Wird geladen…';
 
       try {
         var data = await aboApi("/api/stripe/customer-portal", { student_id: studentId });
@@ -1297,29 +1365,57 @@
     // Status laden
     loadSubscriptionStatus();
 
-    // Sticky CTA: verstecken wenn Abo aktiv oder wenn Checkout-Button sichtbar
+    // Sticky CTA: erst zeigen, wenn der normale Checkout-Button nicht sichtbar ist
     (function() {
       var stickyCta = document.getElementById("stickyCta");
       if (!stickyCta) return;
+      var checkoutBtn = document.getElementById("checkoutBtn");
+      var pricingSection = document.getElementById("pricingSection");
+      var checkoutVisible = true;
+      var checkoutAboveViewport = false;
+
+      function setStickyVisible(visible) {
+        stickyCta.classList.toggle("visible", visible);
+        document.body.classList.toggle("sticky-cta-visible", visible);
+      }
+
+      function updateStickyCta() {
+        var pricingVisible = pricingSection && pricingSection.classList.contains("visible");
+        var compactViewport = window.matchMedia("(max-width: 1024px)").matches;
+        setStickyVisible(Boolean(pricingVisible && compactViewport && !checkoutVisible && checkoutAboveViewport));
+      }
 
       // Klick leitet zum Checkout-Button weiter
       stickyCta.querySelector(".sticky-cta-btn").addEventListener("click", function() {
-        var checkoutBtn = document.getElementById("checkoutBtn");
         if (checkoutBtn) checkoutBtn.click();
       });
 
-      // Sticky CTA ausblenden wenn Pricing-Section nicht sichtbar
+      if ("IntersectionObserver" in window && checkoutBtn) {
+        var checkoutObserver = new IntersectionObserver(function(entries) {
+          var entry = entries[0];
+          checkoutVisible = entry && entry.isIntersecting;
+          checkoutAboveViewport = Boolean(entry && entry.boundingClientRect.top < 0);
+          updateStickyCta();
+        }, { threshold: 0.25 });
+        checkoutObserver.observe(checkoutBtn);
+      } else {
+        checkoutVisible = true;
+        checkoutAboveViewport = false;
+      }
+
+      // Sticky CTA ausblenden, wenn Pricing-Section nicht sichtbar ist
       var observer = new MutationObserver(function() {
-        var pricingSection = document.getElementById("pricingSection");
-        stickyCta.style.display = (pricingSection && pricingSection.classList.contains("visible")) ? "" : "none";
+        updateStickyCta();
       });
-      observer.observe(document.getElementById("pricingSection"), { attributes: true, attributeFilter: ["class"] });
+      if (pricingSection) observer.observe(pricingSection, { attributes: true, attributeFilter: ["class"] });
+      window.addEventListener("resize", updateStickyCta);
+      updateStickyCta();
     })();
   </script>
 
   <!-- Sticky CTA fuer Mobile/Tablet -->
   <div class="sticky-cta" id="stickyCta">
-    <button class="sticky-cta-btn" type="button">Jetzt Abo abschliessen &rarr;</button>
+    <button class="sticky-cta-btn" type="button">Jetzt Abo abschlie&szlig;en &rarr;</button>
   </div>
 </body>
 </html>
