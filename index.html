@@ -570,8 +570,15 @@
       position: fixed;
       inset: 0;
       z-index: 10000;
-      overflow: hidden;
+      overflow-y: auto;
+      overscroll-behavior: contain;
       background: var(--bg)
+    }
+
+    /* Body-Scroll sperren, solange die Rollen-Auswahl sichtbar ist */
+    body.role-screen-open {
+      overflow: hidden;
+      height: 100vh;
     }
 
     #role-screen::before {
@@ -2969,7 +2976,7 @@
     {
       "@type": ["Organization", "EducationalOrganization"],
       "@id": "https://myabiflow.de/#organization",
-      "name": "myAbiFlow UG (haftungsbeschränkt) i.G.",
+      "name": "myAbiFlow UG (haftungsbeschränkt)",
       "alternateName": "myAbiFlow",
       "url": "https://myabiflow.de",
       "logo": {
@@ -3359,9 +3366,9 @@
     },
     {
       "@type": "Offer",
-      "price": "25.00",
+      "price": "180.00",
       "priceCurrency": "EUR",
-      "description": "Bis zum Abitur – Einmalzahlung"
+      "description": "24 Monate – voller Zugang"
     }
   ],
   "aggregateRating": {
@@ -3373,7 +3380,7 @@
   },
   "author": {
     "@type": "Organization",
-    "name": "myAbiFlow UG (haftungsbeschränkt) i.G."
+    "name": "myAbiFlow UG (haftungsbeschränkt)"
   },
   "inLanguage": "de",
   "audience": {
@@ -3392,7 +3399,7 @@
   <div id="splash" role="status" aria-label="App wird geladen">
     <div class="splash-content">
       <canvas id="splashCanvas" class="splash-wave-video" width="500" height="500"></canvas>
-      <video id="splashVideo" muted playsinline preload="auto" style="display:none">
+      <video id="splashVideo" muted playsinline preload="metadata" style="display:none">
       </video>
       <img src="logo.webp" class="splash-logo" id="splashLogo" alt="myAbiFlow Logo – Abitur Vorbereitung Bayern" loading="eager" decoding="async" width="2095" height="431">
     </div>
@@ -6705,7 +6712,7 @@
     }
 
     function showSubjectSelection(_push) {
-      document.getElementById("role-screen").style.display = "none";
+      hideRoleScreen();
       document.getElementById("login-screen").style.display = "none";
       document.getElementById("subject-screen").style.display = "flex";
       document.getElementById("module-screen-english").style.display = "none";
@@ -7107,7 +7114,7 @@
       // Zur Rollen-Auswahl zurueck
       document.getElementById("subject-screen").style.display = "none";
       document.getElementById("login-screen").style.display = "none";
-      document.getElementById("role-screen").style.display = "flex";
+      showRoleScreen();
     }
 
     function toggleDark() {
@@ -7236,13 +7243,24 @@
       startTour({ steps: indexTourSteps, storageKey: "onboarding_done", force: true });
     }
 
+    // Rollen-Auswahl ein-/ausblenden inkl. Body-Scroll-Sperre,
+    // damit man hinter dem Vollbild-Overlay nicht ins Leere scrollt
+    function showRoleScreen() {
+      document.getElementById("role-screen").style.display = "flex";
+      document.body.classList.add("role-screen-open");
+    }
+    function hideRoleScreen() {
+      document.getElementById("role-screen").style.display = "none";
+      document.body.classList.remove("role-screen-open");
+    }
+
     function selectRole(role) {
       if (role === 'teacher') {
         // Lehrer-Bereich kommt spaeter
         return;
       }
       sessionStorage.setItem('role_selected', '1');
-      document.getElementById('role-screen').style.display = 'none';
+      hideRoleScreen();
       // Gast-Modus: Direkt zur Fachauswahl statt Login
       showSubjectSelection();
       renderSubjectLayout();
@@ -7262,7 +7280,7 @@
 
       // Beide Screens ausblenden – werden bei Bedarf angezeigt
       document.getElementById("login-screen").style.display = "none";
-      document.getElementById("role-screen").style.display = "none";
+      hideRoleScreen();
 
       // UI-Elemente je nach Login-Status
       var logoutBtn = document.getElementById("logoutBtn");
@@ -7326,7 +7344,7 @@
           showSubjectSelection();
           renderSubjectLayout();
         } else {
-          document.getElementById("role-screen").style.display = "flex";
+          showRoleScreen();
         }
       }
     }
