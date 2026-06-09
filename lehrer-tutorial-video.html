@@ -322,7 +322,7 @@
     pointer-events: none;
     z-index: 10;
     opacity: 0;
-    transition: all .8s cubic-bezier(.4,0,.2,1);
+    transition: background-color .8s cubic-bezier(.4,0,.2,1), border-color .8s cubic-bezier(.4,0,.2,1), color .8s cubic-bezier(.4,0,.2,1), box-shadow .8s cubic-bezier(.4,0,.2,1), transform .8s cubic-bezier(.4,0,.2,1);
     box-shadow: 0 0 20px rgba(79,70,229,.5);
   }
   .pointer.visible { opacity: 1; }
@@ -404,7 +404,7 @@
     font-size: .72rem; font-weight: 700;
     color: #94a3b8; background: #1e293b;
     border: 1px solid #334155; cursor: pointer;
-    transition: all .2s; min-height: 30px;
+    transition: background-color .2s, border-color .2s, color .2s, box-shadow .2s, transform .2s; min-height: 30px;
     flex-shrink: 0;
   }
   .speed-btn:hover { border-color: var(--accent); color: #e2e8f0; }
@@ -423,7 +423,7 @@
     font-size: .78rem; font-weight: 700;
     color: #fbbf24; background: rgba(251,191,36,.1);
     border: 1px solid rgba(251,191,36,.25); cursor: pointer;
-    transition: all .2s; min-height: 36px; flex-shrink: 0;
+    transition: background-color .2s, border-color .2s, color .2s, box-shadow .2s, transform .2s; min-height: 36px; flex-shrink: 0;
     white-space: nowrap;
   }
   .skip-btn:hover { background: rgba(251,191,36,.2); border-color: rgba(251,191,36,.5); }
