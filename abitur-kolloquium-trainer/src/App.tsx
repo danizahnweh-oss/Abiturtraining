@@ -222,7 +222,7 @@ function Pill({ active, disabled, onClick, children, className }: {
       disabled={disabled}
       aria-pressed={active}
       className={cn(
-        "py-3 px-4 rounded-xl text-sm border transition-all text-left duration-200",
+        "py-3 px-4 rounded-xl text-sm border transition text-left duration-200",
         active
           ? "bg-gradient-to-r from-emerald-50 to-emerald-100/50 border-emerald-300 text-emerald-800 shadow-sm shadow-emerald-100"
           : "bg-white border-black/5 opacity-50 hover:opacity-70 hover:border-black/10 hover:bg-slate-50/50 hover:shadow-sm",
@@ -1227,13 +1227,13 @@ export default function App() {
         </div>
       )}
       {/* Header */}
-      <header className="sticky top-0 z-10 backdrop-blur-md bg-white/70 border-b border-white/50 transition-all w-full">
+      <header className="sticky top-0 z-10 backdrop-blur-md bg-white/70 border-b border-white/50 transition w-full">
         <div className="max-w-4xl mx-auto py-4 px-6 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <a
               href="/"
               onClick={(e) => { e.preventDefault(); sessionRef.current?.stop(); window.location.href = '/'; }}
-              className="w-11 h-11 bg-white/80 backdrop-blur-sm rounded-xl flex items-center justify-center border border-black/5 hover:bg-white hover:shadow-sm transition-all shadow-sm"
+              className="w-11 h-11 bg-white/80 backdrop-blur-sm rounded-xl flex items-center justify-center border border-black/5 hover:bg-white hover:shadow-sm transition shadow-sm"
               aria-label="Zurück zur Startseite"
             >
               <ArrowLeft size={20} className="opacity-60" aria-hidden="true" />
@@ -1263,7 +1263,7 @@ export default function App() {
             )}
             <button
               onClick={() => setShowProfile(true)}
-              className="w-11 h-11 bg-white/80 backdrop-blur-sm rounded-xl flex items-center justify-center border border-black/5 hover:bg-white hover:shadow-sm transition-all shadow-sm"
+              className="w-11 h-11 bg-white/80 backdrop-blur-sm rounded-xl flex items-center justify-center border border-black/5 hover:bg-white hover:shadow-sm transition shadow-sm"
               aria-label="Profil öffnen"
             >
               <User size={18} className="opacity-60" aria-hidden="true" />
@@ -1313,7 +1313,7 @@ export default function App() {
                 Verstanden – Kolloquium starten
               </button>
               <a
-                href="https://myabiflow.de/datenschutz.html"
+                href="https://myabiflow.de/impressum.html#datenschutz"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex-1 text-center border border-slate-200 hover:bg-slate-50 text-slate-700 font-semibold rounded-xl py-3 px-4 min-h-[48px] flex items-center justify-center transition-colors"
@@ -1403,7 +1403,7 @@ export default function App() {
                         value={subject}
                         onChange={e => applySubjectChange(e.target.value)}
                         aria-label="Prüfungsfach auswählen"
-                        className="w-full appearance-none bg-[#F9F9F9] border border-black/5 rounded-2xl px-5 py-4 pr-12 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500/50 transition-all cursor-pointer"
+                        className="w-full appearance-none bg-[#F9F9F9] border border-black/5 rounded-2xl px-5 py-4 pr-12 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500/50 transition cursor-pointer"
                       >
                         <option value="" disabled>Fach auswählen...</option>
                         {SUBJECTS.map(s => <option key={s} value={s}>{s}</option>)}
@@ -1657,7 +1657,7 @@ export default function App() {
                 <button
                   onClick={handleGenerate}
                   disabled={!canGenerate}
-                  className="w-full mt-4 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-2xl py-4 font-medium flex items-center justify-center gap-2 hover:from-emerald-600 hover:to-emerald-700 disabled:from-gray-300 disabled:to-gray-300 disabled:shadow-none transition-all shadow-lg shadow-emerald-500/25 hover:shadow-emerald-500/40 active:scale-[0.98]"
+                  className="w-full mt-4 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-2xl py-4 font-medium flex items-center justify-center gap-2 hover:from-emerald-600 hover:to-emerald-700 disabled:from-gray-300 disabled:to-gray-300 disabled:shadow-none transition shadow-lg shadow-emerald-500/25 hover:shadow-emerald-500/40 active:scale-[0.98]"
                 >
                   <Play size={18} fill="currentColor" />
                   {examMode === 'fragen' ? 'Prüfung starten' : 'Aufgabenstellung generieren'}
@@ -1799,7 +1799,7 @@ export default function App() {
               <button
                 onClick={startExam}
                 disabled={trialRemaining === 0}
-                className="w-full bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-2xl py-4 font-medium flex items-center justify-center gap-2 hover:from-emerald-600 hover:to-emerald-700 transition-all shadow-lg shadow-emerald-500/25 hover:shadow-emerald-500/40 active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed disabled:active:scale-100"
+                className="w-full bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-2xl py-4 font-medium flex items-center justify-center gap-2 hover:from-emerald-600 hover:to-emerald-700 transition shadow-lg shadow-emerald-500/25 hover:shadow-emerald-500/40 active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed disabled:active:scale-100"
                 style={{ minHeight: 44 }}
               >
                 <Mic size={18} />
@@ -1820,7 +1820,7 @@ export default function App() {
                     ) : examMode === 'fragen' ? (
                       (['fragen-schwerpunkt', 'fragen-weitere'] as const).map(p => (
                         <span key={p} className={cn(
-                          "text-xs font-medium uppercase tracking-wider transition-all",
+                          "text-xs font-medium uppercase tracking-wider transition",
                           exam.phase === p || (exam.phase === 'referat' && p === 'fragen-schwerpunkt') ? "text-emerald-700" : "opacity-30",
                         )}>
                           {p === 'fragen-schwerpunkt' ? 'Fragen SP' : 'Fragen HJ'}
@@ -1829,7 +1829,7 @@ export default function App() {
                     ) : (
                       (['referat', 'fragen-schwerpunkt', 'fragen-weitere'] as const).map(p => (
                         <span key={p} className={cn(
-                          "text-xs font-medium uppercase tracking-wider transition-all",
+                          "text-xs font-medium uppercase tracking-wider transition",
                           exam.phase === p ? "text-emerald-700" : "opacity-30",
                         )}>
                           {p === 'referat' ? 'Referat' : p === 'fragen-schwerpunkt' ? 'Fragen SP' : 'Fragen HJ'}
@@ -1972,7 +1972,7 @@ export default function App() {
                     {material && (material.aufgabenstellung || material.material) && (
                       <button
                         onClick={() => setShowMaterialDrawer(true)}
-                        className="bg-white text-emerald-700 border border-emerald-200 hover:bg-emerald-50 px-5 py-2.5 rounded-xl font-medium flex items-center gap-2 hover:shadow-sm transition-all active:scale-[0.98] min-h-[44px]"
+                        className="bg-white text-emerald-700 border border-emerald-200 hover:bg-emerald-50 px-5 py-2.5 rounded-xl font-medium flex items-center gap-2 hover:shadow-sm transition active:scale-[0.98] min-h-[44px]"
                         aria-label="Material aus der Vorbereitungszeit anzeigen"
                       >
                         <BookOpen size={16} aria-hidden="true" />
@@ -1986,14 +1986,14 @@ export default function App() {
                           referatFinishedRef.current = true;
                           sessionRef.current?.notifyPresentationFinished();
                         }}
-                        className="bg-gradient-to-r from-emerald-500 to-emerald-600 text-white hover:from-emerald-600 hover:to-emerald-700 px-6 py-2.5 rounded-xl font-medium flex items-center gap-2 shadow-lg shadow-emerald-500/25 hover:shadow-emerald-500/40 transition-all active:scale-[0.98] min-h-[44px]"
+                        className="bg-gradient-to-r from-emerald-500 to-emerald-600 text-white hover:from-emerald-600 hover:to-emerald-700 px-6 py-2.5 rounded-xl font-medium flex items-center gap-2 shadow-lg shadow-emerald-500/25 hover:shadow-emerald-500/40 transition active:scale-[0.98] min-h-[44px]"
                         aria-label="Referat beenden — der Prüfer übernimmt das Gespräch"
                       >
                         <GraduationCap size={16} aria-hidden="true" />
                         Referat beenden
                       </button>
                     )}
-                    <button onClick={stopExam} className="bg-gradient-to-r from-red-50 to-white text-red-600 hover:text-red-700 border border-red-100 hover:border-red-200 px-6 py-2.5 rounded-xl font-medium flex items-center gap-2 hover:shadow-md transition-all active:scale-[0.98] min-h-[44px]">
+                    <button onClick={stopExam} className="bg-gradient-to-r from-red-50 to-white text-red-600 hover:text-red-700 border border-red-100 hover:border-red-200 px-6 py-2.5 rounded-xl font-medium flex items-center gap-2 hover:shadow-md transition active:scale-[0.98] min-h-[44px]">
                       <Square size={16} fill="currentColor" />
                       Prüfung beenden
                     </button>
@@ -2037,14 +2037,14 @@ export default function App() {
                 <div className="flex flex-col sm:flex-row gap-3 justify-center">
                   <a
                     href="https://myabiflow.de/abo.html?return=trainer"
-                    className="bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-2xl px-6 py-3 font-medium hover:from-emerald-600 hover:to-emerald-700 transition-all shadow-lg shadow-emerald-500/25 active:scale-[0.98] inline-flex items-center justify-center"
+                    className="bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-2xl px-6 py-3 font-medium hover:from-emerald-600 hover:to-emerald-700 transition shadow-lg shadow-emerald-500/25 active:scale-[0.98] inline-flex items-center justify-center"
                     style={{ minHeight: 44 }}
                   >
                     Jetzt Abo abschließen
                   </a>
                   <button
                     onClick={() => setStep(material ? 'preparation' : 'setup')}
-                    className="bg-white text-slate-700 border border-slate-200 hover:bg-slate-50 rounded-2xl px-6 py-3 font-medium transition-all active:scale-[0.98]"
+                    className="bg-white text-slate-700 border border-slate-200 hover:bg-slate-50 rounded-2xl px-6 py-3 font-medium transition active:scale-[0.98]"
                     style={{ minHeight: 44 }}
                   >
                     Zurück
@@ -2069,14 +2069,14 @@ export default function App() {
                 <div className="flex flex-col sm:flex-row gap-3 justify-center">
                   <a
                     href="https://myabiflow.de/abo.html?return=trainer"
-                    className="bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-2xl px-6 py-3 font-medium hover:from-emerald-600 hover:to-emerald-700 transition-all shadow-lg shadow-emerald-500/25 active:scale-[0.98] inline-flex items-center justify-center"
+                    className="bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-2xl px-6 py-3 font-medium hover:from-emerald-600 hover:to-emerald-700 transition shadow-lg shadow-emerald-500/25 active:scale-[0.98] inline-flex items-center justify-center"
                     style={{ minHeight: 44 }}
                   >
                     Jetzt Abo abschließen
                   </a>
                   <button
                     onClick={() => setStep('setup')}
-                    className="bg-white text-slate-700 border border-slate-200 hover:bg-slate-50 rounded-2xl px-6 py-3 font-medium transition-all active:scale-[0.98]"
+                    className="bg-white text-slate-700 border border-slate-200 hover:bg-slate-50 rounded-2xl px-6 py-3 font-medium transition active:scale-[0.98]"
                     style={{ minHeight: 44 }}
                   >
                     Zurück
@@ -2097,7 +2097,7 @@ export default function App() {
                 <div className="grid grid-cols-2 gap-4">
                   <button
                     onClick={handleWrittenFb}
-                    className="p-6 rounded-3xl bg-white border border-black/5 hover:border-emerald-300 hover:shadow-xl hover:shadow-emerald-50 hover:-translate-y-1 transition-all duration-300 text-left group"
+                    className="p-6 rounded-3xl bg-white border border-black/5 hover:border-emerald-300 hover:shadow-xl hover:shadow-emerald-50 hover:-translate-y-1 transition duration-300 text-left group"
                   >
                     <PenLine size={28} className="text-emerald-600 mb-3 group-hover:scale-110 transition-transform" />
                     <p className="font-semibold mb-1 text-slate-800">Schriftlich</p>
@@ -2105,7 +2105,7 @@ export default function App() {
                   </button>
                   <button
                     onClick={handleOralFb}
-                    className="p-6 rounded-3xl bg-white border border-black/5 hover:border-emerald-300 hover:shadow-xl hover:shadow-emerald-50 hover:-translate-y-1 transition-all duration-300 text-left group"
+                    className="p-6 rounded-3xl bg-white border border-black/5 hover:border-emerald-300 hover:shadow-xl hover:shadow-emerald-50 hover:-translate-y-1 transition duration-300 text-left group"
                   >
                     <Volume2 size={28} className="text-emerald-600 mb-3 group-hover:scale-110 transition-transform" />
                     <p className="font-semibold mb-1 text-slate-800">Mündlich</p>
@@ -2137,7 +2137,7 @@ export default function App() {
                       <div className="mt-6 pt-5 border-t border-black/5 flex justify-end">
                         <button
                           onClick={() => downloadFeedbackPdf({ subject, schwerpunkt, level, feedbackText: fbText })}
-                          className="bg-white text-emerald-700 border border-emerald-200 px-5 py-2.5 rounded-xl font-medium flex items-center gap-2 hover:bg-emerald-50 transition-all hover:shadow-sm active:scale-95 text-sm"
+                          className="bg-white text-emerald-700 border border-emerald-200 px-5 py-2.5 rounded-xl font-medium flex items-center gap-2 hover:bg-emerald-50 transition hover:shadow-sm active:scale-95 text-sm"
                         >
                           <Download size={16} />
                           Als PDF herunterladen
@@ -2185,7 +2185,7 @@ export default function App() {
                   </div>
 
                   <div className="bg-slate-50/80 p-5 flex justify-end border-t border-black/5">
-                    <button onClick={stopFeedback} className="bg-white text-slate-600 border border-black/10 px-5 py-2.5 rounded-xl font-medium flex items-center gap-2 hover:bg-slate-50 transition-all hover:shadow-sm active:scale-95">
+                    <button onClick={stopFeedback} className="bg-white text-slate-600 border border-black/10 px-5 py-2.5 rounded-xl font-medium flex items-center gap-2 hover:bg-slate-50 transition hover:shadow-sm active:scale-95">
                       Feedback beenden
                     </button>
                   </div>
