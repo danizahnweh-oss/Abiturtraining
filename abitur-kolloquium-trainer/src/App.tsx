@@ -335,8 +335,9 @@ function MaterialImpulsCard({ impuls, onMinimize }: { impuls: MaterialImpuls; on
         </div>
         <button
           onClick={onMinimize}
-          className="w-9 h-9 flex items-center justify-center rounded-lg hover:bg-amber-200/50 transition-colors text-amber-700"
+          className="w-11 h-11 flex items-center justify-center rounded-lg hover:bg-amber-200/50 transition-colors text-amber-700"
           title="Minimieren"
+          aria-label="Material minimieren"
         >
           <ChevronUp size={18} />
         </button>
@@ -406,7 +407,7 @@ function saveSubjectSetup(subject: string, setup: SubjectSetup) {
 }
 
 export default function App() {
-  /* Auth gate — redirect to main app if not logged in */
+  /* Auth gate – redirect to main app if not logged in */
   useEffect(() => {
     if (sessionStorage.getItem('access') !== '1' || !sessionStorage.getItem('student_name')) {
       window.location.href = '/';
@@ -566,7 +567,7 @@ export default function App() {
   const weitereHJ = isMathe
     ? (schwerpunkt ? matheGebiete.filter(g => g !== schwerpunkt) : matheGebiete)
     : ((gestrichen && spHalbjahr) ? availHJ.filter(h => h !== spHalbjahr) : []);
-  // Themen je Halbjahr (für KI-Prompt) — Lehrer-Custom hat Vorrang vor LehrplanPLUS
+  // Themen je Halbjahr (für KI-Prompt) – Lehrer-Custom hat Vorrang vor LehrplanPLUS
   const topicsByHalbjahr = useMemo<Record<string, string[]>>(() => {
     if (isMathe || !subject || !gestrichen) return {};
     return availHJ.reduce<Record<string, string[]>>((acc, hj) => {
@@ -603,7 +604,7 @@ export default function App() {
    * Nach 10 Min wechselt die UI in 'fragen-schwerpunkt'. Damit die KI dann auch
    * tatsächlich übernimmt (sie wartet sonst auf das Stichwort "Damit bin ich am Ende"),
    * schicken wir hier automatisch das Signal. Wir setzen nur die Ref (für shouldPlayModelAudio),
-   * nicht den State — so bleibt der "Referat beenden"-Button als Notfall in der Fragen-Phase
+   * nicht den State – so bleibt der "Referat beenden"-Button als Notfall in der Fragen-Phase
    * sichtbar, falls der Auto-Trigger im Live-Channel mal hängt. */
   useEffect(() => {
     if (step !== 'exam') return;
@@ -655,7 +656,7 @@ export default function App() {
     const phase: 'preparation' | 'exam' = d.phase === 'preparation' ? 'preparation' : 'exam';
 
     // Einwilligung zum Mikrofonzugriff einholen (nur nötig, wenn Prüfung läuft;
-    // in der Vorbereitungsphase reicht das Material — Mikrofon wird beim Start erfragt)
+    // in der Vorbereitungsphase reicht das Material – Mikrofon wird beim Start erfragt)
     if (phase === 'exam') {
       try {
         await ensureMicConsent();
@@ -939,7 +940,7 @@ export default function App() {
             return;
           }
           if (data.requires_subscription) {
-            // Kein Hard-Redirect — sonst geht das generierte Material verloren.
+            // Kein Hard-Redirect – sonst geht das generierte Material verloren.
             // Sanfter Step mit CTA + Zurück-Option; Material bleibt im State.
             setStep('subscription-required');
             return;
@@ -1134,7 +1135,7 @@ export default function App() {
     setFbText('');
     setExamMode('gesamt');
     setPrueferTyp('standard');
-    // Lehrer-Setup (gestrichen/Schwerpunkte/topicScope) NICHT zurücksetzen —
+    // Lehrer-Setup (gestrichen/Schwerpunkte/topicScope) NICHT zurücksetzen –
     // wir laden es aus dem gespeicherten Profil des aktuellen Fachs neu.
     if (subject) {
       const saved = loadSubjectSetup(subject);
@@ -1241,7 +1242,7 @@ export default function App() {
             <div className="w-10 h-10 bg-gradient-to-br from-emerald-400 to-emerald-600 rounded-xl flex items-center justify-center text-white shadow-lg shadow-emerald-200 ring-1 ring-black/5 ring-inset">
               <GraduationCap size={24} />
             </div>
-            <h1 className="text-xl font-semibold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-slate-800 to-slate-600">Kolloquium Trainer</h1>
+            <h1 className="text-xl font-semibold tracking-tight text-slate-800">Kolloquium Trainer</h1>
           </div>
 
           <div className="flex items-center gap-3">
@@ -1397,7 +1398,7 @@ export default function App() {
                 <div className="space-y-6">
                   {/* Subject */}
                   <div className="space-y-2">
-                    <label className="text-xs font-semibold uppercase tracking-widest opacity-40 ml-1">Prüfungsfach</label>
+                    <label className="text-xs font-semibold uppercase tracking-widest text-slate-500 ml-1">Prüfungsfach</label>
                     <div className="relative">
                       <select
                         value={subject}
@@ -1415,7 +1416,7 @@ export default function App() {
                   {/* Level */}
                   {subject && (
                     <div className="space-y-2">
-                      <label className="text-xs font-semibold uppercase tracking-widest opacity-40 ml-1">
+                      <label className="text-xs font-semibold uppercase tracking-widest text-slate-500 ml-1">
                         Anforderungsniveau
                         {isMathe && <span className="normal-case tracking-normal ml-2 opacity-70">(Mathe nur eA)</span>}
                       </label>
@@ -1430,7 +1431,7 @@ export default function App() {
                   {isMathe && subject && CURRICULUM[subject] && (
                     <>
                       <div className="space-y-2">
-                        <label className="text-xs font-semibold uppercase tracking-widest opacity-40 ml-1">Gebiet ausschließen</label>
+                        <label className="text-xs font-semibold uppercase tracking-widest text-slate-500 ml-1">Gebiet ausschließen</label>
                         <p className="text-xs opacity-50 ml-1 -mt-1">Welches Gebiet möchtest du ausschließen? (Analysis ist immer dabei)</p>
                         <div className="flex gap-3">
                           {getMatheStreichbareGebiete().map(g => (
@@ -1443,7 +1444,7 @@ export default function App() {
                       {/* ── Mathe: Schwerpunkt wählen ── */}
                       {gestrichen && (
                         <div className="space-y-2">
-                          <label className="text-xs font-semibold uppercase tracking-widest opacity-40 ml-1">Schwerpunkt wählen</label>
+                          <label className="text-xs font-semibold uppercase tracking-widest text-slate-500 ml-1">Schwerpunkt wählen</label>
                           <p className="text-xs opacity-50 ml-1 -mt-1">Aus welchem Gebiet kommen deine Aufgaben für den Vortrag?</p>
                           <div className="flex gap-3">
                             {matheGebiete.map(g => (
@@ -1461,7 +1462,7 @@ export default function App() {
                   {!isMathe && subject && CURRICULUM[subject] && (
                     <>
                       <div className="space-y-2">
-                        <label className="text-xs font-semibold uppercase tracking-widest opacity-40 ml-1">Halbjahr streichen</label>
+                        <label className="text-xs font-semibold uppercase tracking-widest text-slate-500 ml-1">Halbjahr streichen</label>
                         <p className="text-xs opacity-50 ml-1 -mt-1">Welches Halbjahr möchtest du von der Prüfung ausschließen?</p>
                         <div className="flex gap-3">
                           <Pill active={gestrichen === '12/1'} onClick={() => { setGestrichen('12/1'); resetSpHalbjahr(); }} className="flex-1 text-center">
@@ -1476,7 +1477,7 @@ export default function App() {
                       {/* Eigene Schwerpunkte Toggle */}
                       {gestrichen && (
                         <div className="space-y-2">
-                          <label className="text-xs font-semibold uppercase tracking-widest opacity-40 ml-1">Schwerpunkte</label>
+                          <label className="text-xs font-semibold uppercase tracking-widest text-slate-500 ml-1">Schwerpunkte</label>
                           <p className="text-xs opacity-50 ml-1 -mt-1">Hat dein Lehrer eigene Schwerpunkte festgelegt?</p>
                           <div className="flex gap-3">
                             <Pill active={!customSp} onClick={() => { if (customSp) { setCustomSp(false); setCustomSchwerpunkte({}); setSchwerpunkt(''); setSpHalbjahr(''); } }} className="flex-1 text-center">
@@ -1514,7 +1515,7 @@ export default function App() {
                       {/* Schwerpunkt Halbjahr */}
                       {gestrichen && (!customSp || availHJ.some(hj => (customSchwerpunkte[hj] || []).filter(s => s.trim()).length > 0)) && (
                         <div className="space-y-2">
-                          <label className="text-xs font-semibold uppercase tracking-widest opacity-40 ml-1">Schwerpunkt-Halbjahr</label>
+                          <label className="text-xs font-semibold uppercase tracking-widest text-slate-500 ml-1">Schwerpunkt-Halbjahr</label>
                           <p className="text-xs opacity-50 ml-1 -mt-1">Aus welchem Halbjahr kommt dein Schwerpunktthema?</p>
                           <div className="flex gap-3">
                             {availHJ.map(hj => {
@@ -1532,7 +1533,7 @@ export default function App() {
                       {/* Schwerpunkt */}
                       {spHalbjahr && spOptions.length > 0 && (
                         <div className="space-y-2">
-                          <label className="text-xs font-semibold uppercase tracking-widest opacity-40 ml-1">Schwerpunktthema</label>
+                          <label className="text-xs font-semibold uppercase tracking-widest text-slate-500 ml-1">Schwerpunktthema</label>
                           <div className="grid gap-2">
                             {spOptions.map(opt => (
                               <Pill key={opt} active={schwerpunkt === opt} onClick={() => setSchwerpunkt(opt)} className="w-full">
@@ -1546,7 +1547,7 @@ export default function App() {
                       {/* Fragen-Umfang im Schwerpunkthalbjahr */}
                       {schwerpunkt && (
                         <div className="space-y-2">
-                          <label className="text-xs font-semibold uppercase tracking-widest opacity-40 ml-1">Fragen im Schwerpunkthalbjahr</label>
+                          <label className="text-xs font-semibold uppercase tracking-widest text-slate-500 ml-1">Fragen im Schwerpunkthalbjahr</label>
                           <p className="text-xs opacity-50 ml-1 -mt-1">Wie prüft dein/e Lehrer/in das Schwerpunkthalbjahr ({spHalbjahr})?</p>
                           <div className="grid gap-2">
                             <Pill active={topicScope === 'strikt'} onClick={() => setTopicScope('strikt')} className="w-full">
@@ -1566,7 +1567,7 @@ export default function App() {
                   {/* Prüfungsmodus */}
                   {schwerpunkt && (
                     <div className="space-y-2">
-                      <label className="text-xs font-semibold uppercase tracking-widest opacity-40 ml-1">Prüfungsmodus</label>
+                      <label className="text-xs font-semibold uppercase tracking-widest text-slate-500 ml-1">Prüfungsmodus</label>
                       <p className="text-xs opacity-50 ml-1 -mt-1">Was möchtest du üben?</p>
                       <div className="grid gap-2">
                         <Pill active={examMode === 'gesamt'} onClick={() => setExamMode('gesamt')} className="w-full">
@@ -1588,12 +1589,12 @@ export default function App() {
                   {/* Prüfertyp */}
                   {schwerpunkt && (
                     <div className="space-y-2">
-                      <label className="text-xs font-semibold uppercase tracking-widest opacity-40 ml-1">Prüfertyp</label>
+                      <label className="text-xs font-semibold uppercase tracking-widest text-slate-500 ml-1">Prüfertyp</label>
                       <p className="text-xs opacity-50 ml-1 -mt-1">Wie soll sich der/die Prüfer/in verhalten?</p>
                       <div className="grid gap-2">
                         <Pill active={prueferTyp === 'standard'} onClick={() => setPrueferTyp('standard')} className="w-full">
                           <span className="font-medium">Standard</span>
-                          <span className="block text-xs opacity-60 mt-0.5">Wohlwollend, aber anspruchsvoll — wie in der echten Prüfung</span>
+                          <span className="block text-xs opacity-60 mt-0.5">Wohlwollend, aber anspruchsvoll – wie in der echten Prüfung</span>
                         </Pill>
                         <Pill active={prueferTyp === 'streng'} onClick={() => setPrueferTyp('streng')} className="w-full">
                           <span className="font-medium">Streng</span>
@@ -1605,19 +1606,19 @@ export default function App() {
                         </Pill>
                         <Pill active={prueferTyp === 'zeitdruck'} onClick={() => setPrueferTyp('zeitdruck')} className="w-full">
                           <span className="font-medium">Zeitdruck</span>
-                          <span className="block text-xs opacity-60 mt-0.5">Streng getaktet — geht bei langen Antworten zügig weiter</span>
+                          <span className="block text-xs opacity-60 mt-0.5">Streng getaktet – geht bei langen Antworten zügig weiter</span>
                         </Pill>
                         <Pill active={prueferTyp === 'detailfragen'} onClick={() => setPrueferTyp('detailfragen')} className="w-full">
                           <span className="font-medium">Detailfragen</span>
-                          <span className="block text-xs opacity-60 mt-0.5">Geht in die Tiefe — fragt immer „Warum?" und fordert Belege</span>
+                          <span className="block text-xs opacity-60 mt-0.5">Geht in die Tiefe – fragt immer „Warum?" und fordert Belege</span>
                         </Pill>
                       </div>
                     </div>
                   )}
-                  {/* Materialimpulse Toggle — nur bei gesamt/fragen */}
+                  {/* Materialimpulse Toggle – nur bei gesamt/fragen */}
                   {schwerpunkt && examMode !== 'referat' && (
                     <div className="space-y-2">
-                      <label className="text-xs font-semibold uppercase tracking-widest opacity-40 ml-1">Materialimpulse</label>
+                      <label className="text-xs font-semibold uppercase tracking-widest text-slate-500 ml-1">Materialimpulse</label>
                       <p className="text-xs opacity-50 ml-1 -mt-1">Sollen im Fragenteil Materialien (Statistik, Zitat etc.) eingeblendet werden?</p>
                       <div className="flex gap-3">
                         <Pill active={mitMaterial} onClick={() => setMitMaterial(true)} className="flex-1 text-center">
@@ -1690,7 +1691,7 @@ export default function App() {
                     <Clock size={20} />
                   </div>
                   <div>
-                    <p className="text-xs font-semibold uppercase tracking-widest opacity-40">Vorbereitungszeit</p>
+                    <p className="text-xs font-semibold uppercase tracking-widest text-slate-500">Vorbereitungszeit</p>
                     <p className="text-sm opacity-60">{isMathe ? 'Bearbeite die Aufgaben und bereite deinen Vortrag vor!' : 'Erstelle dein Kurzreferat. Kein ausformuliertes Manuskript!'}</p>
                   </div>
                 </div>
@@ -1923,7 +1924,7 @@ export default function App() {
                       <div className="text-center">
                         <Loader2 size={24} className="text-emerald-500 animate-spin mx-auto mb-3" />
                         <p className="text-sm opacity-50 italic">Verbindung {examinerGender === 'female' ? 'zur' : 'zum'} {prüferLabel} wird hergestellt...</p>
-                        <p className="text-xs opacity-35 mt-2">Dies kann bis zu 2 Minuten dauern. Bitte hab Geduld.</p>
+                        <p className="text-xs text-slate-500 mt-2">Dies kann bis zu 2 Minuten dauern. Bitte hab Geduld.</p>
                         <div className="mt-3 px-4 py-2.5 bg-emerald-50 rounded-xl border border-emerald-200">
                           <p className="text-sm text-emerald-700 font-medium">Tipp: Begrüße {examinerGender === 'female' ? 'die' : 'den'} {prüferLabel} – das hilft, das Gespräch zu starten!</p>
                         </div>
@@ -1987,7 +1988,7 @@ export default function App() {
                           sessionRef.current?.notifyPresentationFinished();
                         }}
                         className="bg-gradient-to-r from-emerald-500 to-emerald-600 text-white hover:from-emerald-600 hover:to-emerald-700 px-6 py-2.5 rounded-xl font-medium flex items-center gap-2 shadow-lg shadow-emerald-500/25 hover:shadow-emerald-500/40 transition active:scale-[0.98] min-h-[44px]"
-                        aria-label="Referat beenden — der Prüfer übernimmt das Gespräch"
+                        aria-label="Referat beenden – der Prüfer übernimmt das Gespräch"
                       >
                         <GraduationCap size={16} aria-hidden="true" />
                         Referat beenden
@@ -2015,7 +2016,7 @@ export default function App() {
                         : `${examinerGender === 'female' ? 'Die' : 'Der'} ${prüferLabel} fragt jetzt zu den weiteren Halbjahren.`}
               </p>
               {(examMode === 'referat' || (examMode === 'gesamt' && exam.phase === 'referat')) && (
-                <p className="mt-2 text-xs opacity-35 text-center max-w-md">
+                <p className="mt-2 text-xs text-slate-500 text-center max-w-md">
                   Tipp: Sprich möglichst nah am Mikrofon und in kurzen Sinnabschnitten. Kurze Pausen sind kein Problem.
                 </p>
               )}
@@ -2032,7 +2033,7 @@ export default function App() {
                 </h2>
                 <p className="text-slate-600 mb-6 text-base leading-relaxed">
                   Um die Kolloquium-Übung zu starten, benötigst du ein aktives Abo.
-                  Deine vorbereiteten Aufgaben bleiben erhalten — du kannst nach dem Abschluss direkt weiterüben.
+                  Deine vorbereiteten Aufgaben bleiben erhalten – du kannst nach dem Abschluss direkt weiterüben.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-3 justify-center">
                   <a
@@ -2174,7 +2175,7 @@ export default function App() {
                         <div className="text-center">
                           <Loader2 size={24} className="text-emerald-500 animate-spin mx-auto mb-3" />
                           <p className="text-sm opacity-50 italic">Verbindung wird hergestellt...</p>
-                          <p className="text-xs opacity-35 mt-2">Dies kann bis zu 2 Minuten dauern. Bitte hab Geduld.</p>
+                          <p className="text-xs text-slate-500 mt-2">Dies kann bis zu 2 Minuten dauern. Bitte hab Geduld.</p>
                         </div>
                       ) : modelTx.length > 0 ? (
                         <p className="text-base leading-relaxed text-slate-800">{modelTx[modelTx.length - 1]}</p>
@@ -2246,7 +2247,7 @@ export default function App() {
               </div>
               <div className="p-5 sm:p-6 space-y-5">
                 <p className="text-xs text-slate-500">
-                  Du kannst jederzeit auf Aufgabe und Material zurückgreifen — Zahlen, Quellen und Impulse bleiben sichtbar. Das Mikrofon und der Timer laufen im Hintergrund weiter.
+                  Du kannst jederzeit auf Aufgabe und Material zurückgreifen – Zahlen, Quellen und Impulse bleiben sichtbar. Das Mikrofon und der Timer laufen im Hintergrund weiter.
                 </p>
 
                 {material.aufgabenstellung && (
@@ -2325,7 +2326,7 @@ export default function App() {
           Alle Pr&uuml;fungen, Bewertungen und Feedback werden mithilfe von KI erstellt.
           Die Richtigkeit kann nicht garantiert werden.
         </p>
-        <p className="text-[10px] font-semibold uppercase tracking-[0.2em] opacity-15 mt-1">
+        <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-slate-400 mt-1">
           Powered by Gemini 2.5 Live API
         </p>
       </footer>

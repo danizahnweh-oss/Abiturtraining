@@ -515,6 +515,14 @@
 
     .pricing-card.selected .pricing-check { display: flex; }
 
+    /* Dark Mode: --accent ist hell (#818cf8); weisser Text darauf < 4.5:1.
+       Badge/Check daher mit dunklerem Indigo unterlegen (WCAG AA). */
+    [data-theme="dark"] .pricing-badge,
+    [data-theme="dark"] .pricing-check {
+      background: #4f46e5;
+      color: #fff;
+    }
+
     /* Features */
     .features-list {
       list-style: none;

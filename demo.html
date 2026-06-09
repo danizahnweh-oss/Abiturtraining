@@ -183,10 +183,16 @@
       color: var(--ink-muted);
       margin: 0 0 8px;
     }
+    /* Label-Farben mit Dark-Mode-Varianten (sonst dunkle Schrift auf dunklem Block) */
+    .dm-label--strong { color: #047857; }
+    .dm-label--weak { color: #c2410c; }
+    .dm-label--solution { color: var(--accent); }
+    [data-theme="dark"] .dm-label--strong { color: #6ee7b7; }
+    [data-theme="dark"] .dm-label--weak { color: #fdba74; }
     .dm-text {
       font-size: .95rem; color: var(--ink); line-height: 1.55; margin: 0;
     }
-    .dm-block--strong { background: #ecfdf5; border-color: #a7f3d0; }
+    .dm-block--strong { background: var(--success-bg); border-color: #a7f3d0; }
     .dm-block--weak { background: #fff7ed; border-color: #fed7aa; }
     .dm-block--solution { background: var(--accent-soft); border-color: var(--accent); }
     [data-theme="dark"] .dm-block--strong { background: rgba(16, 185, 129, .08); border-color: rgba(16, 185, 129, .3); }
@@ -304,7 +310,7 @@
           <p class="dm-text" style="font-style:italic;">„Die Hauptfigur wirkt zunächst entschlossen, was durch die parataktischen Hauptsätze verstärkt wird. Im weiteren Verlauf zeigt sich jedoch ein innerer Konflikt, der durch die erlebte Rede deutlich wird. Der Erzähler distanziert sich zunehmend und die Leserin erkennt …"</p>
         </div>
         <div class="dm-block dm-block--strong">
-          <p class="dm-label" style="color:#047857;">Stärken</p>
+          <p class="dm-label dm-label--strong">Stärken</p>
           <ul class="dm-list">
             <li>Fachbegriffe (Parataxe, erlebte Rede) korrekt und gezielt eingesetzt</li>
             <li>Klare Argumentationsstruktur mit nachvollziehbarer Beweisführung</li>
@@ -312,7 +318,7 @@
           </ul>
         </div>
         <div class="dm-block dm-block--weak">
-          <p class="dm-label" style="color:#c2410c;">Verbesserungen</p>
+          <p class="dm-label dm-label--weak">Verbesserungen</p>
           <ul class="dm-list">
             <li>Erzählperspektive wird nur kurz benannt – Wirkung auf die Leserführung fehlt</li>
             <li>Deutungshypothese im Einleitungsabschnitt zu allgemein formuliert</li>
@@ -321,7 +327,7 @@
           </ul>
         </div>
         <div class="dm-block dm-block--solution">
-          <p class="dm-label" style="color:var(--accent);">Musterlösung (Auszug)</p>
+          <p class="dm-label dm-label--solution">Musterlösung (Auszug)</p>
           <p class="dm-text">Die personale Erzählsituation fokussiert die Wahrnehmung der Hauptfigur und schafft Nähe zu ihrem inneren Konflikt. Dieser wird durch den Wechsel von parataktischem zu hypotaktischem Satzbau formal gespiegelt: Die Brüche in der Syntax entsprechen den emotionalen Brüchen der Figur. Das wiederkehrende Motiv des geöffneten Fensters …</p>
         </div>
       </div>
@@ -348,7 +354,7 @@
           <p class="dm-text" style="font-style:italic;">f′(x) = 3x² − 6x = 3x(x−2). Nullstellen: x = 0 und x = 2. f″(x) = 6x − 6. f″(0) = −6 &lt; 0 → Hochpunkt. f″(2) = 6 &gt; 0 → Tiefpunkt. Wendepunkt: f″(x) = 0 ⇒ x = 1, f(1) = 0. Monotonie wird in der Skizze gezeigt …</p>
         </div>
         <div class="dm-block dm-block--strong">
-          <p class="dm-label" style="color:#047857;">Stärken</p>
+          <p class="dm-label dm-label--strong">Stärken</p>
           <ul class="dm-list">
             <li>Ableitungen korrekt berechnet</li>
             <li>Extrempunkte sauber klassifiziert (2. Ableitungstest)</li>
@@ -356,7 +362,7 @@
           </ul>
         </div>
         <div class="dm-block dm-block--weak">
-          <p class="dm-label" style="color:#c2410c;">Verbesserungen</p>
+          <p class="dm-label dm-label--weak">Verbesserungen</p>
           <ul class="dm-list">
             <li>Funktionswerte der Extrempunkte fehlen (nur x-Koordinaten angegeben)</li>
             <li>Monotonieverhalten nicht explizit beschrieben – nur in Skizze angedeutet</li>
@@ -364,7 +370,7 @@
           </ul>
         </div>
         <div class="dm-block dm-block--solution">
-          <p class="dm-label" style="color:var(--accent);">Musterlösung (Auszug)</p>
+          <p class="dm-label dm-label--solution">Musterlösung (Auszug)</p>
           <p class="dm-text">Hochpunkt H(0 | 2), Tiefpunkt T(2 | −2), Wendepunkt W(1 | 0). Monotonie: streng monoton steigend auf (−∞; 0], streng monoton fallend auf [0; 2], streng monoton steigend auf [2; ∞). Krümmung: rechtsgekrümmt auf (−∞; 1), linksgekrümmt auf (1; ∞) – Wechsel bei W(1 | 0).</p>
         </div>
       </div>
@@ -391,7 +397,7 @@
           <p class="dm-text" style="font-style:italic;">„Der Verfasser kritisiert das Versailler Vertragssystem und fordert eine Stärkung der Reichswehr. Seine Argumentation stützt sich auf nationalistische Topoi, die in der Krise der Jahre 1929–1933 breite Zustimmung fanden …"</p>
         </div>
         <div class="dm-block dm-block--strong">
-          <p class="dm-label" style="color:#047857;">Stärken</p>
+          <p class="dm-label dm-label--strong">Stärken</p>
           <ul class="dm-list">
             <li>Quellenkritische Einordnung (Autor, Entstehungszeit, Adressat) korrekt</li>
             <li>Klare Zuordnung zu Verfassungskrise der WR</li>
@@ -399,7 +405,7 @@
           </ul>
         </div>
         <div class="dm-block dm-block--weak">
-          <p class="dm-label" style="color:#c2410c;">Verbesserungen</p>
+          <p class="dm-label dm-label--weak">Verbesserungen</p>
           <ul class="dm-list">
             <li>Keine eigene Stellungnahme zur Aussagekraft der Quelle</li>
             <li>Historischer Kontext bleibt zu knapp – Brüning-Kabinett unerwähnt</li>
@@ -407,7 +413,7 @@
           </ul>
         </div>
         <div class="dm-block dm-block--solution">
-          <p class="dm-label" style="color:var(--accent);">Musterlösung (Auszug)</p>
+          <p class="dm-label dm-label--solution">Musterlösung (Auszug)</p>
           <p class="dm-text">Die Quelle ist repräsentativ für den antidemokratischen Diskurs der späten WR. Der Bezug auf „Dolchstoßlegende" und „Novemberverbrecher" (Z. 7–9) verweist auf den geschichtspolitischen Deutungskampf um die Niederlage 1918. Im Kontext des Brüning-Kabinetts und der Präsidialdemokratie seit 1930 …</p>
         </div>
       </div>
@@ -434,7 +440,7 @@
           <p class="dm-text" style="font-style:italic;">„The article discusses the current state of renewable energy in Germany. It argues that the expansion of wind and solar power is crucial but faces local opposition. The author emphasises that political support is necessary to meet the climate goals by 2030 …"</p>
         </div>
         <div class="dm-block dm-block--strong">
-          <p class="dm-label" style="color:#047857;">Stärken</p>
+          <p class="dm-label dm-label--strong">Stärken</p>
           <ul class="dm-list">
             <li>Adressatengerecht und kommunikativ (friend-Kontext gewahrt)</li>
             <li>Eigene Worte – keine Übersetzung</li>
@@ -442,7 +448,7 @@
           </ul>
         </div>
         <div class="dm-block dm-block--weak">
-          <p class="dm-label" style="color:#c2410c;">Verbesserungen</p>
+          <p class="dm-label dm-label--weak">Verbesserungen</p>
           <ul class="dm-list">
             <li>Conditional forms im letzten Absatz inkonsistent (If ... would statt If ... will)</li>
             <li>Eine konkrete Zahl aus dem Original fehlt als Beleg</li>
@@ -450,7 +456,7 @@
           </ul>
         </div>
         <div class="dm-block dm-block--solution">
-          <p class="dm-label" style="color:var(--accent);">Musterlösung (Auszug)</p>
+          <p class="dm-label dm-label--solution">Musterlösung (Auszug)</p>
           <p class="dm-text">„Dear Sam, you asked about the renewable energy debate over here. The German article highlights three main points: first, wind and solar currently cover around 52 % of gross electricity consumption – a new record. Second, the pace of new wind-farm approvals remains too slow due to local resistance. Third, the author argues that if Germany wants to meet its 2030 climate goals, federal-state coordination will have to improve …"</p>
         </div>
       </div>

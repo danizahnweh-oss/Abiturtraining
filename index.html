@@ -722,7 +722,7 @@
       }
     }
 
-    /* ====== LOGIN SCREEN — aufgewertet (#2) ====== */
+    /* ====== LOGIN SCREEN – aufgewertet (#2) ====== */
     #login-screen {
       position: relative;
       overflow: hidden
@@ -911,7 +911,7 @@
       top: .5rem;
       background: none;
       border: none;
-      color: rgba(255, 255, 255, 0.6);
+      color: rgba(255, 255, 255, 0.9);
       font-size: 1.2rem;
       cursor: pointer;
       padding: .2rem .5rem;
@@ -946,7 +946,7 @@
       cursor: pointer;
       transition: background-color .2s, border-color .2s, color .2s, box-shadow .2s, transform .2s;
       background: rgba(255, 255, 255, 0.1);
-      color: rgba(255, 255, 255, 0.6);
+      color: rgba(255, 255, 255, 0.92);
     }
 
     .cohort-btn:hover {
@@ -3472,7 +3472,7 @@
         }
 
         // Manueller Frame-Stepper: Video Frame für Frame per currentTime abspielen
-        // Funktioniert ohne play() — umgeht Autoplay-Blockade
+        // Funktioniert ohne play() – umgeht Autoplay-Blockade
         function startManualPlayback() {
           canvas.width = vid.videoWidth || 500;
           canvas.height = vid.videoHeight || 500;
@@ -3520,7 +3520,7 @@
           vid.addEventListener('loadeddata', function () {
             var p = vid.play();
             if (p) p.catch(function () {
-              // Autoplay blockiert — manuell Frame für Frame abspielen
+              // Autoplay blockiert – manuell Frame für Frame abspielen
               startManualPlayback();
             });
           });
@@ -3887,7 +3887,7 @@
         aria-label="Chemie">
         <div class="subject-icon" aria-hidden="true">🧪</div>
         <div class="subject-title">Chemie</div>
-        <div class="subject-desc">Elektrochemie, Organik, Thermochemie, Gleichgewichte — materialgestützte Aufgaben nach
+        <div class="subject-desc">Elektrochemie, Organik, Thermochemie, Gleichgewichte – materialgestützte Aufgaben nach
           ISB-Format.</div>
         <div class="subject-badge">2 Module · gA + eA</div>
         <span class="subject-countdown" data-subject="chemie"></span>
@@ -3897,7 +3897,7 @@
         aria-label="Physik">
         <div class="subject-icon" aria-hidden="true">⚛️</div>
         <div class="subject-title">Physik</div>
-        <div class="subject-desc">Elektrostatik, EM-Wellen, Quantenphysik, Kernphysik — mit KaTeX-Formeln und
+        <div class="subject-desc">Elektrostatik, EM-Wellen, Quantenphysik, Kernphysik – mit KaTeX-Formeln und
           BE-Bewertung.</div>
         <div class="subject-badge">2 Module · gA + eA</div>
         <span class="subject-countdown" data-subject="physik"></span>
@@ -3907,7 +3907,7 @@
         aria-label="Biologie">
         <div class="subject-icon" aria-hidden="true">🧬</div>
         <div class="subject-title">Biologie</div>
-        <div class="subject-desc">Genetik, Neurobiologie, Stoffwechsel, Ökologie, Evolution — mit KaTeX-Formeln und
+        <div class="subject-desc">Genetik, Neurobiologie, Stoffwechsel, Ökologie, Evolution – mit KaTeX-Formeln und
           BE-Bewertung.</div>
         <div class="subject-badge">2 Module · gA + eA</div>
         <span class="subject-countdown" data-subject="biologie"></span>
@@ -3917,7 +3917,7 @@
         aria-label="Sport">
         <div class="subject-icon" aria-hidden="true">⚽</div>
         <div class="subject-title">Sport</div>
-        <div class="subject-desc">Trainingslehre, Sportbiologie, Bewegungslehre, Sportpsychologie — mit BE-Bewertung.
+        <div class="subject-desc">Trainingslehre, Sportbiologie, Bewegungslehre, Sportpsychologie – mit BE-Bewertung.
         </div>
         <div class="subject-badge">2 Module · eA</div>
         <span class="subject-countdown" data-subject="sport"></span>
@@ -3927,14 +3927,14 @@
         aria-label="Informatik">
         <div class="subject-icon" aria-hidden="true">💻</div>
         <div class="subject-title">Informatik</div>
-        <div class="subject-desc">Algorithmen, OOP, Datenbanken, Rechnernetze, Automaten — mit BE-Bewertung.</div>
+        <div class="subject-desc">Algorithmen, OOP, Datenbanken, Rechnernetze, Automaten – mit BE-Bewertung.</div>
         <div class="subject-badge">1 Modul</div>
         <span class="subject-countdown" data-subject="informatik"></span>
         <span class="subject-last-activity" data-activity="informatik"></span>
       </button>
     </div>
     <!-- Exam type modal -->
-    <div class="exam-type-overlay" id="examTypeOverlay" onclick="if(event.target===this)closeExamTypeModal()">
+    <div class="exam-type-overlay" id="examTypeOverlay" role="dialog" aria-modal="true" aria-labelledby="examTypeTitle" onclick="if(event.target===this)closeExamTypeModal()">
       <div class="exam-type-modal">
         <h3 id="examTypeTitle">Englisch</h3>
         <p class="etm-sub">Was möchtest du üben?</p>
@@ -3972,9 +3972,9 @@
     </div>
 
     <!-- Training-Fachauswahl Modal -->
-    <div class="exam-type-overlay" id="trainingOverlay" onclick="if(event.target===this)closeTrainingModal()">
+    <div class="exam-type-overlay" id="trainingOverlay" role="dialog" aria-modal="true" aria-labelledby="trainingTitle" onclick="if(event.target===this)closeTrainingModal()">
       <div class="exam-type-modal">
-        <h3>📝 Training starten</h3>
+        <h3 id="trainingTitle">📝 Training starten</h3>
         <p class="etm-sub">Welches Fach möchtest du üben?</p>
         <div id="trainingFachList" class="exam-type-choices" style="flex-direction:column;"></div>
         <button class="exam-type-cancel" onclick="closeTrainingModal()">Abbrechen</button>
@@ -4207,7 +4207,7 @@
       <a class="module-card history" href="geschichte-abitur.html">
         <div class="module-icon">📝</div>
         <div class="module-title">Abiturtraining</div>
-        <div class="module-desc">Komplette Geschichtsprüfung — Quellenanalyse + Darstellung mit Gesamtbewertung.</div>
+        <div class="module-desc">Komplette Geschichtsprüfung – Quellenanalyse + Darstellung mit Gesamtbewertung.</div>
         <div class="module-badge">Komplette Prüfung</div>
       </a>
     </div>
@@ -4285,7 +4285,7 @@
       <a class="module-card wr" href="wr-abitur.html">
         <div class="module-icon">📝</div>
         <div class="module-title">Abiturtraining</div>
-        <div class="module-desc">Komplette WR-Prüfung simulieren — zwei Aufgaben aus verschiedenen Bereichen mit
+        <div class="module-desc">Komplette WR-Prüfung simulieren – zwei Aufgaben aus verschiedenen Bereichen mit
           Gesamtbewertung.</div>
         <div class="module-badge">Komplette Prüfung</div>
       </a>
@@ -4332,7 +4332,7 @@
       <a class="module-card french" href="francais-listening.html">
         <div class="module-icon">🎧</div>
         <div class="module-title">Hörverstehen</div>
-        <div class="module-desc">Compréhension orale — Prüfungsteil A mit KI-Bewertung.</div>
+        <div class="module-desc">Compréhension orale – Prüfungsteil A mit KI-Bewertung.</div>
         <div class="module-badge">Prüfungsteil A</div>
       </a>
     </div>
@@ -4378,7 +4378,7 @@
       <a class="module-card italian" href="italiano-listening.html">
         <div class="module-icon">🎧</div>
         <div class="module-title">Hörverstehen</div>
-        <div class="module-desc">Comprensione orale — Prüfungsteil A mit KI-Bewertung.</div>
+        <div class="module-desc">Comprensione orale – Prüfungsteil A mit KI-Bewertung.</div>
         <div class="module-badge">Prüfungsteil A</div>
       </a>
     </div>
@@ -4592,7 +4592,7 @@
       <a class="module-card mathe" href="mathe-abitur.html">
         <div class="module-icon">📝</div>
         <div class="module-title">Abiturtraining</div>
-        <div class="module-desc">Vollständige Mathe-Prüfung — Teil A (ohne Hilfsmittel) + Teil B (mit Hilfsmittel) mit 100 BE
+        <div class="module-desc">Vollständige Mathe-Prüfung – Teil A (ohne Hilfsmittel) + Teil B (mit Hilfsmittel) mit 100 BE
           Gesamtbewertung.</div>
         <div class="module-badge">Komplette Prüfung · 300 min</div>
       </a>
@@ -4625,14 +4625,14 @@
       <a class="module-card chemie" href="chemie.html">
         <div class="module-icon">🧪</div>
         <div class="module-title">Klausurtraining</div>
-        <div class="module-desc">Kurz- und Langaufgaben aus Elektrochemie, Organik, Thermochemie und mehr — mit
+        <div class="module-desc">Kurz- und Langaufgaben aus Elektrochemie, Organik, Thermochemie und mehr – mit
           BE-Bewertung.</div>
         <div class="module-badge">Einzelaufgabe</div>
       </a>
       <a class="module-card chemie" href="chemie-abitur.html">
         <div class="module-icon">📝</div>
         <div class="module-title">Abiturtraining</div>
-        <div class="module-desc">Vollständige Chemie-Prüfung — 4 Aufgabengruppen (3 wählen) mit Material und
+        <div class="module-desc">Vollständige Chemie-Prüfung – 4 Aufgabengruppen (3 wählen) mit Material und
           Gesamtbewertung.</div>
         <div class="module-badge">Komplette Prüfung</div>
       </a>
@@ -4665,14 +4665,14 @@
       <a class="module-card physik" href="physik.html">
         <div class="module-icon">⚛️</div>
         <div class="module-title">Klausurtraining</div>
-        <div class="module-desc">Kurz- und Langaufgaben aus Elektrostatik, EM-Wellen, Quantenphysik und mehr — mit
+        <div class="module-desc">Kurz- und Langaufgaben aus Elektrostatik, EM-Wellen, Quantenphysik und mehr – mit
           BE-Bewertung.</div>
         <div class="module-badge">Einzelaufgabe</div>
       </a>
       <a class="module-card physik" href="physik-abitur.html">
         <div class="module-icon">📝</div>
         <div class="module-title">Abiturtraining</div>
-        <div class="module-desc">Komplette Physik-Prüfung — 4 Sachgebiete (3 wählen) mit Gesamtbewertung.</div>
+        <div class="module-desc">Komplette Physik-Prüfung – 4 Sachgebiete (3 wählen) mit Gesamtbewertung.</div>
         <div class="module-badge">Komplette Prüfung</div>
       </a>
     </div>
@@ -4704,7 +4704,7 @@
       <a class="module-card biologie" href="biologie.html">
         <div class="module-icon">🧬</div>
         <div class="module-title">Klausurtraining</div>
-        <div class="module-desc">Kurz- und Langaufgaben aus Genetik, Neurobiologie, Stoffwechsel, Ökologie und mehr —
+        <div class="module-desc">Kurz- und Langaufgaben aus Genetik, Neurobiologie, Stoffwechsel, Ökologie und mehr –
           mit
           BE-Bewertung.</div>
         <div class="module-badge">Einzelaufgabe</div>
@@ -4712,7 +4712,7 @@
       <a class="module-card biologie" href="biologie-abitur.html">
         <div class="module-icon">📝</div>
         <div class="module-title">Abiturtraining</div>
-        <div class="module-desc">Komplette Biologie-Prüfung — 4 Sachgebiete (3 wählen) mit Gesamtbewertung.</div>
+        <div class="module-desc">Komplette Biologie-Prüfung – 4 Sachgebiete (3 wählen) mit Gesamtbewertung.</div>
         <div class="module-badge">Komplette Prüfung</div>
       </a>
     </div>
@@ -4744,7 +4744,7 @@
       <a class="module-card sport" href="sport.html">
         <div class="module-icon">⚽</div>
         <div class="module-title">Klausurtraining</div>
-        <div class="module-desc">Trainingslehre, Sportbiologie, Bewegungslehre, Sportpsychologie und mehr — mit
+        <div class="module-desc">Trainingslehre, Sportbiologie, Bewegungslehre, Sportpsychologie und mehr – mit
           BE-Bewertung.</div>
         <div class="module-badge">Einzelaufgabe</div>
       </a>
@@ -4783,14 +4783,14 @@
       <a class="module-card informatik" href="informatik.html">
         <div class="module-icon">💻</div>
         <div class="module-title">Klausurtraining</div>
-        <div class="module-desc">Algorithmen, OOP, Datenbanken, Rechnernetze, Automaten und mehr — mit
+        <div class="module-desc">Algorithmen, OOP, Datenbanken, Rechnernetze, Automaten und mehr – mit
           BE-Bewertung.</div>
         <div class="module-badge">Einzelaufgabe</div>
       </a>
       <a class="module-card informatik" href="informatik-abitur.html">
         <div class="module-icon">📝</div>
         <div class="module-title">Abiturtraining</div>
-        <div class="module-desc">Komplette Informatik-Prüfung — 4 Sachgebiete (3 wählen) mit Gesamtbewertung.</div>
+        <div class="module-desc">Komplette Informatik-Prüfung – 4 Sachgebiete (3 wählen) mit Gesamtbewertung.</div>
         <div class="module-badge">Komplette Prüfung</div>
       </a>
     </div>
@@ -4822,13 +4822,13 @@
       <a class="module-card kunst" href="kunst.html">
         <div class="module-icon">🎨</div>
         <div class="module-title">Klausurtraining</div>
-        <div class="module-desc">Werkerschließung, Analyse und Interpretation — mit BE-Bewertung.</div>
+        <div class="module-desc">Werkerschließung, Analyse und Interpretation – mit BE-Bewertung.</div>
         <div class="module-badge">Einzelaufgabe</div>
       </a>
       <a class="module-card kunst" href="kunst-abitur.html">
         <div class="module-icon">📝</div>
         <div class="module-title">Abiturtraining</div>
-        <div class="module-desc">Besondere Fachprüfung (eA) — Werkerschließung mit praktischem Anteil.</div>
+        <div class="module-desc">Besondere Fachprüfung (eA) – Werkerschließung mit praktischem Anteil.</div>
         <div class="module-badge">Komplette Prüfung</div>
       </a>
     </div>
@@ -4860,19 +4860,19 @@
       <a class="module-card spanisch" href="spanisch-mediation.html">
         <div class="module-icon">🇪🇸</div>
         <div class="module-title">Sprachmittlung</div>
-        <div class="module-desc">Mediation Spanisch-Deutsch — Prüfungsteil C mit BE-Bewertung.</div>
+        <div class="module-desc">Mediation Spanisch-Deutsch – Prüfungsteil C mit BE-Bewertung.</div>
         <div class="module-badge">Prüfungsteil C</div>
       </a>
       <a class="module-card spanisch" href="spanisch-schreiben.html">
         <div class="module-icon">✍️</div>
         <div class="module-title">Textproduktion</div>
-        <div class="module-desc">Textproduktion auf Spanisch — Prüfungsteil B mit BE-Bewertung.</div>
+        <div class="module-desc">Textproduktion auf Spanisch – Prüfungsteil B mit BE-Bewertung.</div>
         <div class="module-badge">Prüfungsteil B</div>
       </a>
       <a class="module-card spanisch" href="spanisch-listening.html">
         <div class="module-icon">🎧</div>
         <div class="module-title">Hörverstehen</div>
-        <div class="module-desc">Comprensión auditiva — Prüfungsteil A mit KI-Bewertung.</div>
+        <div class="module-desc">Comprensión auditiva – Prüfungsteil A mit KI-Bewertung.</div>
         <div class="module-badge">Prüfungsteil A</div>
       </a>
     </div>
@@ -6820,6 +6820,41 @@
     };
 
     /* ====== TRAINING STARTEN ====== */
+    // ===== Modal-A11y: Fokus-Trap, Escape, Fokus-Rueckgabe =====
+    var _modalLastFocus = null;
+    var _modalTrapEl = null;
+    function _modalFocusables(el) {
+      return Array.prototype.slice.call(
+        el.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])')
+      ).filter(function (n) { return n.offsetParent !== null && !n.disabled; });
+    }
+    function openModalA11y(overlay) {
+      _modalLastFocus = document.activeElement;
+      _modalTrapEl = overlay;
+      var f = _modalFocusables(overlay);
+      if (f.length) f[0].focus();
+    }
+    function closeModalA11y() {
+      _modalTrapEl = null;
+      if (_modalLastFocus && typeof _modalLastFocus.focus === "function") _modalLastFocus.focus();
+      _modalLastFocus = null;
+    }
+    document.addEventListener("keydown", function (e) {
+      if (!_modalTrapEl || _modalTrapEl.offsetParent === null) return;
+      if (e.key === "Escape") {
+        if (_modalTrapEl.id === "examTypeOverlay") closeExamTypeModal();
+        else if (_modalTrapEl.id === "trainingOverlay") closeTrainingModal();
+        return;
+      }
+      if (e.key === "Tab") {
+        var f = _modalFocusables(_modalTrapEl);
+        if (!f.length) return;
+        var first = f[0], last = f[f.length - 1];
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+      }
+    });
+
     function openTrainingModal() {
       var list = document.getElementById("trainingFachList");
       if (!list) return;
@@ -6878,10 +6913,12 @@
       }
 
       document.getElementById("trainingOverlay").classList.add("open");
+      openModalA11y(document.getElementById("trainingOverlay"));
     }
 
     function closeTrainingModal() {
       document.getElementById("trainingOverlay").classList.remove("open");
+      closeModalA11y();
     }
 
     function selectSubject(subject, _push) {
@@ -6890,6 +6927,7 @@
       _pendingSubjectForModal = subject;
       document.getElementById("examTypeTitle").textContent = subjectTitleMap[subject] || subject;
       document.getElementById("examTypeOverlay").classList.add("open");
+      openModalA11y(document.getElementById("examTypeOverlay"));
       // Lehrer-Code vorausfuellen
       var types = subjectHistoryTypes[subject] || [];
       var savedCode = "";
@@ -6915,6 +6953,7 @@
     function closeExamTypeModal() {
       document.getElementById("examTypeOverlay").classList.remove("open");
       _pendingSubjectForModal = null;
+      closeModalA11y();
     }
 
     async function saveExamTeacherCode() {
@@ -7150,19 +7189,19 @@
       {
         target: ".training-card",
         title: "Training starten",
-        text: "Starte direkt mit dem Üben — wähle ein Fach und los geht's mit schriftlichen Aufgaben, Abiturtraining und mehr.",
+        text: "Starte direkt mit dem Üben – wähle ein Fach und los geht's mit schriftlichen Aufgaben, Abiturtraining und mehr.",
         pos: "bottom"
       },
       {
         target: "a.kolloquium-card:not(.profil-card)",
         title: "Kolloquiumstrainer",
-        text: "Übe mündliche Prüfungen mit dem KI-Prüfer. Er stellt dir Fragen und gibt Feedback — wie im echten Kolloquium.",
+        text: "Übe mündliche Prüfungen mit dem KI-Prüfer. Er stellt dir Fragen und gibt Feedback – wie im echten Kolloquium.",
         pos: "bottom"
       },
       {
         target: "#profilLink",
         title: "Dein Kompetenzprofil",
-        text: "Nach ein paar Aufgaben erstellt die KI eine Analyse deiner Stärken und Schwächen — mit personalisierten Empfehlungen.",
+        text: "Nach ein paar Aufgaben erstellt die KI eine Analyse deiner Stärken und Schwächen – mit personalisierten Empfehlungen.",
         pos: "bottom",
         condition: function () {
           var el = document.getElementById("profilLink");
@@ -7212,12 +7251,12 @@
       {
         target: ".subject-grid",
         title: "Fächer sortieren",
-        text: "Halte ein Fach länger gedrückt und ziehe es an eine neue Position — so schiebst du wichtige Fächer nach oben.",
+        text: "Halte ein Fach länger gedrückt und ziehe es an eine neue Position – so schiebst du wichtige Fächer nach oben.",
         pos: "top"
       },
       {
         target: "#ai-tutor-widget",
-        title: "Flowie — Dein KI-Tutor",
+        title: "Flowie – Dein KI-Tutor",
         text: "Klicke auf Flowie, um jederzeit Fragen zu stellen. Sie erklärt dir Themen, hilft bei Aufgaben und gibt Tipps.",
         pos: "left",
         condition: function () {
@@ -7227,7 +7266,7 @@
       {
         target: "#themeBtn",
         title: "Dark Mode",
-        text: "Wechsle zwischen hellem und dunklem Design — je nachdem was für deine Augen angenehmer ist.",
+        text: "Wechsle zwischen hellem und dunklem Design – je nachdem was für deine Augen angenehmer ist.",
         pos: "left"
       },
       {
