@@ -559,7 +559,7 @@ export async function sendReminderEmails(env) {
 
     // Unsubscribe-Token + Email bauen
     const unsubToken = await generateUnsubscribeToken(student.name_lower, env);
-    const unsubUrl = `https://sag-abi-mediation-api.sanktannagymnasium.workers.dev/api/unsubscribe?token=${encodeURIComponent(unsubToken)}`;
+    const unsubUrl = `https://myabiflow.de/api/unsubscribe?token=${encodeURIComponent(unsubToken)}`;
     const html = buildReminderEmail(student.name, overdue, unsubUrl, eaSubject, customDates);
 
     const count = overdue.length;
