@@ -17,7 +17,7 @@
   <meta property="og:locale" content="de_DE">
   <meta property="og:site_name" content="myAbiFlow">
   <meta name="twitter:card" content="summary_large_image">
-  <link rel="canonical" href="https://myabiflow.de/">
+  <link rel="canonical" href="https://myabiflow.de/landing.html">
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" href="/wave-icon-new.png" type="image/png" sizes="48x48">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -48,6 +48,21 @@
       overflow-x: hidden;
       min-height: 100vh;
     }
+
+    /* ===== SKIPLINK ===== */
+    .lp-skip {
+      position: absolute;
+      left: 16px; top: -64px;
+      z-index: 100;
+      background: var(--accent);
+      color: #fff;
+      padding: 12px 18px;
+      border-radius: 8px;
+      font-size: .9rem; font-weight: 700;
+      text-decoration: none;
+      transition: top .15s ease-out;
+    }
+    .lp-skip:focus { top: 12px; }
 
     /* ===== NAV ===== */
     .lp-nav {
@@ -92,7 +107,7 @@
     .lp-nav-login:hover { color: var(--accent); background: var(--accent-soft); }
 
     .theme-toggle {
-      width: 40px; height: 40px; min-width: 40px;
+      width: 44px; height: 44px; min-width: 44px;
       border-radius: 8px;
       border: 1px solid var(--border);
       background: transparent;
@@ -234,7 +249,8 @@
     }
     .lp-author-name { font-weight: 700; font-size: 0.85rem; color: var(--ink); }
     .lp-author-role { font-size: 0.75rem; color: var(--ink-muted); }
-    .lp-stars { color: #f59e0b; font-size: 0.8rem; letter-spacing: 1px; margin-bottom: 4px; }
+    .lp-stars { color: #b45309; font-size: 0.8rem; letter-spacing: 1px; margin-bottom: 4px; }
+    [data-theme="dark"] .lp-stars { color: #fbbf24; }
 
     .lp-proof {
       margin-top: 8px;
@@ -307,10 +323,16 @@
       color: var(--ink-muted);
       margin: 0 0 8px;
     }
+    /* Label-Farben mit Dark-Mode-Varianten (sonst dunkle Schrift auf dunklem Block) */
+    .lp-demo-label--strong { color: #047857; }
+    .lp-demo-label--weak { color: #c2410c; }
+    .lp-demo-label--solution { color: var(--accent); }
+    [data-theme="dark"] .lp-demo-label--strong { color: #6ee7b7; }
+    [data-theme="dark"] .lp-demo-label--weak { color: #fdba74; }
     .lp-demo-text {
       font-size: .95rem; color: var(--ink); line-height: 1.55; margin: 0;
     }
-    .lp-demo-block--strong { background: #ecfdf5; border-color: #a7f3d0; }
+    .lp-demo-block--strong { background: var(--success-bg); border-color: #a7f3d0; }
     .lp-demo-block--weak { background: #fff7ed; border-color: #fed7aa; }
     .lp-demo-block--solution { background: var(--accent-soft); border-color: var(--accent); }
     [data-theme="dark"] .lp-demo-block--strong { background: rgba(16, 185, 129, .08); border-color: rgba(16, 185, 129, .3); }
@@ -465,29 +487,38 @@
     /* ===== DARK MODE ===== */
     [data-theme="dark"] .lp-nav { background: rgba(20, 20, 31, 0.98); }
     [data-theme="dark"] .lp-footer { background: rgba(20, 20, 31, 0.98); }
+
+    /* ===== REDUCED MOTION ===== */
+    @media (prefers-reduced-motion: reduce) {
+      .lp-skip, .lp-nav-login, .theme-toggle, .lp-footer a,
+      .lp-pillar, .lp-pillar:hover { transition: none; }
+      .lp-pillar:hover { transform: none; }
+    }
   </style>
 </head>
 
 <body>
 
+  <a href="#main" class="lp-skip">Zum Inhalt springen</a>
+
   <!-- NAV -->
   <nav class="lp-nav" role="navigation" aria-label="Hauptnavigation">
     <div class="lp-nav-inner">
       <a href="landing.html" class="lp-logo" aria-label="myAbiFlow – zur Startseite">
-        <img src="logo-v2.png" alt="myAbiFlow" width="130" height="17">
+        <img src="logo-v2.png" alt="myAbiFlow" width="130" height="17" fetchpriority="high">
       </a>
       <div class="lp-nav-actions">
         <button class="theme-toggle" id="themeToggle" aria-label="Erscheinungsbild wechseln">
           <span id="themeIcon">☀️</span>
         </button>
         <a href="index.html?login=1" class="lp-nav-login" id="navLoginLink">Einloggen</a>
-        <a href="index.html?app=1" class="btn" id="navPrimaryCta" style="height:40px; padding:0 20px; font-size:0.875rem;">Kostenlos testen</a>
+        <a href="index.html?app=1" class="btn" id="navPrimaryCta" style="height:44px; padding:0 20px; font-size:0.875rem;">Kostenlos testen</a>
       </div>
     </div>
   </nav>
 
   <!-- HERO -->
-  <main class="lp-main">
+  <main class="lp-main" id="main">
 
     <!-- LINKE SPALTE: Headline + CTAs + Proof -->
     <div class="lp-left">
@@ -505,11 +536,11 @@
       </p>
 
       <div class="lp-ctas">
-        <a href="index.html?app=1" class="btn" id="heroPrimaryCta">Kostenlos testen →</a>
-        <a href="lehrer.html" class="btn btn-secondary">Für Lehrkräfte &amp; Schulen</a>
+        <a href="index.html?app=1" class="btn" id="heroPrimaryCta">Mein Fach wählen <span aria-hidden="true">→</span></a>
+        <a href="demo.html" class="btn btn-secondary">Beispiel-Feedback ansehen</a>
       </div>
 
-      <p class="lp-cta-sub">Für Fachschaften, Kurse und Schullizenzen.</p>
+      <p class="lp-cta-sub">3 Tage kostenlos testen, keine Zahlungsdaten nötig. Für Lehrkräfte &amp; Schulen: <a href="lehrer.html">Zugang anfragen</a>.</p>
 
       <div class="lp-features-row">
         <div class="lp-feat">
@@ -601,7 +632,7 @@
         </div>
 
         <div class="lp-demo-block lp-demo-block--strong">
-          <p class="lp-demo-label" style="color:#047857;">Stärken</p>
+          <p class="lp-demo-label lp-demo-label--strong">Stärken</p>
           <ul class="lp-demo-list">
             <li>Fachbegriffe (Parataxe, erlebte Rede) korrekt und gezielt eingesetzt</li>
             <li>Klare Argumentationsstruktur mit nachvollziehbarer Beweisführung</li>
@@ -610,7 +641,7 @@
         </div>
 
         <div class="lp-demo-block lp-demo-block--weak">
-          <p class="lp-demo-label" style="color:#c2410c;">Verbesserungen</p>
+          <p class="lp-demo-label lp-demo-label--weak">Verbesserungen</p>
           <ul class="lp-demo-list">
             <li>Erzählperspektive wird nur kurz benannt – Wirkung auf die Leserführung fehlt</li>
             <li>Deutungshypothese im Einleitungsabschnitt zu allgemein</li>
@@ -619,14 +650,14 @@
         </div>
 
         <div class="lp-demo-block lp-demo-block--solution">
-          <p class="lp-demo-label" style="color:var(--accent);">Musterlösung (Auszug)</p>
+          <p class="lp-demo-label lp-demo-label--solution">Musterlösung (Auszug)</p>
           <p class="lp-demo-text">Die personale Erzählsituation fokussiert die Wahrnehmung der Hauptfigur und schafft Nähe zu ihrem inneren Konflikt. Dieser wird durch den Wechsel von parataktischem zu hypotaktischem Satzbau formal gespiegelt: Die Brüche in der Syntax entsprechen den emotionalen Brüchen der Figur …</p>
         </div>
 
       </div>
 
       <div class="lp-demo-cta">
-        <a href="demo.html" class="btn" style="height:46px;">Beispiel-Feedback ansehen →</a>
+        <a href="demo.html" class="btn" style="height:46px;">Beispiel-Feedback ansehen <span aria-hidden="true">→</span></a>
       </div>
     </div>
   </section>
@@ -725,7 +756,7 @@
     <a href="demo.html">Demo</a>
     <a href="ueber-uns.html">Über uns</a>
     <a href="impressum.html">Impressum</a>
-    <a href="datenschutz.html">Datenschutz</a>
+    <a href="impressum.html#datenschutz">Datenschutz</a>
     <a href="index.html?login=1">Einloggen</a>
   </footer>
 
@@ -756,7 +787,7 @@
           var login = document.getElementById('navLoginLink');
           var hero = document.getElementById('heroPrimaryCta');
           if (nav) { nav.textContent = 'Zum Dashboard'; nav.setAttribute('href', 'index.html?app=1'); }
-          if (hero) { hero.innerHTML = 'Weiterlernen →'; hero.setAttribute('href', 'index.html?app=1'); }
+          if (hero) { hero.innerHTML = 'Weiterlernen <span aria-hidden="true">→</span>'; hero.setAttribute('href', 'index.html?app=1'); }
           if (login) { login.style.display = 'none'; }
         }
       } catch (e) { /* ignorieren */ }

@@ -376,7 +376,7 @@ html {
   font-family: var(--font-mono);
   color: var(--ink);
   text-align: center;
-  transition: border-color, background-color, color .12s;
+  transition: border-color .12s, background-color .12s, color .12s;
   line-height: 1.2;
   min-height: 44px;
   min-width: 44px;
@@ -935,12 +935,24 @@ input:focus:not(:focus-visible) {
 .btn:hover,
 .btn:focus-visible {
   background: var(--accent-hover);
-  transform: translateY(-1px);
   box-shadow: 0 4px 12px var(--accent-glow);
 }
 
+/* Sichtbarer Fokus-Ring für Tastatur-Navigation (WCAG 2.4.7) */
+.btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Lift nur auf echten Hover-Geräten – verhindert Sticky-Hover auf Tablets */
+@media (hover: hover) and (pointer: fine) {
+  .btn:hover {
+    transform: translateY(-1px);
+  }
+}
+
 .btn:active {
-  transform: translateY(0);
+  transform: scale(0.97);
   box-shadow: var(--shadow-sm);
 }
 
@@ -1864,9 +1876,14 @@ details table tr:hover td {
   }
 }
 
-.hl-btn:hover,
 .hl-btn:focus-visible {
   transform: scale(1.1);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .hl-btn:hover {
+    transform: scale(1.1);
+  }
 }
 
 .hl-btn.active {
@@ -1992,7 +2009,7 @@ details table tr:hover td {
   padding: var(--space-7);
   text-align: center;
   cursor: pointer;
-  transition: border-color, background-color .2s;
+  transition: border-color .2s, background-color .2s;
   background: var(--bg-warm);
 }
 
@@ -2126,7 +2143,7 @@ details table tr:hover td {
   font-weight: 600;
   font-size: var(--text-sm);
   color: var(--ink-light);
-  transition: border-color, color .2s;
+  transition: border-color .2s, color .2s;
 }
 
 .mode-btn:hover,
@@ -2180,6 +2197,13 @@ details table tr:hover td {
   max-width: 360px;
   width: 90%;
   text-align: center;
+  transform-origin: center;
+  animation: modalIn .2s ease-out;
+}
+
+@keyframes modalIn {
+  from { opacity: 0; transform: scale(0.97); }
+  to { opacity: 1; transform: scale(1); }
 }
 
 .pdf-modal h3 {
@@ -2584,10 +2608,16 @@ footer a:focus-visible {
 
 /* ================= LEHRER-CODE BUTTON ================= */
 
-.teacher-code-btn:hover,
 .teacher-code-btn:focus-visible {
   transform: scale(1.05);
   box-shadow: var(--shadow-md);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .teacher-code-btn:hover {
+    transform: scale(1.05);
+    box-shadow: var(--shadow-md);
+  }
 }
 
 /* ================= PRINT STYLES ================= */
@@ -3780,9 +3810,11 @@ button:focus-visible,
   white-space: nowrap;
 }
 
-.feedback-fab:hover {
-  transform: scale(1.06) translateY(-2px);
-  box-shadow: var(--shadow-xl);
+@media (hover: hover) and (pointer: fine) {
+  .feedback-fab:hover {
+    transform: scale(1.06) translateY(-2px);
+    box-shadow: var(--shadow-xl);
+  }
 }
 
 .feedback-fab:active {
@@ -3894,9 +3926,11 @@ button:focus-visible,
   min-height: 44px;
 }
 
-.feedback-emoji:hover {
-  transform: scale(1.15);
-  background: var(--accent-glow);
+@media (hover: hover) and (pointer: fine) {
+  .feedback-emoji:hover {
+    transform: scale(1.15);
+    background: var(--accent-glow);
+  }
 }
 
 .feedback-emoji.active {
