@@ -45,6 +45,96 @@ const SESSION_CREATE_RATE_LIMIT_MAX = 5;
 
 const sessionCreateRateLimit = new Map();
 
+// ── Härtung: Token-Verifikation + Endpoint-Whitelist + Rate-Limit ──
+// Muss zur Backend-Konfiguration passen (src/config.js TOKEN_EXPIRY = 24h).
+const TOKEN_EXPIRY_MS = 24 * 60 * 60 * 1000;
+const GENERIC_RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000;
+const MAX_GENERIC_REQUESTS_PER_WINDOW = 100;
+// Nur die tatsächlich genutzten Gemini-Endpoints zulassen (kein offener Proxy
+// auf beliebige/teure Modelle oder die File-/Batch-APIs).
+const ALLOWED_HTTP_PATH = /^\/v1beta\/models\/gemini-2\.5-flash[a-z0-9.\-]*:(generateContent|streamGenerateContent)$/;
+const ALLOWED_WS_PATH = /\/ws\/google\.ai\.generativelanguage\.[^/]+\.GenerativeService\.BidiGenerateContent$/;
+const genericRateLimit = new Map();
+
+// Verifiziert ein HMAC-SHA256-Login-Token aus dem Backend (src/auth.js generateToken).
+// Liefert den Payload bei gültiger Signatur + nicht abgelaufenem iat, sonst null.
+// Signiert wird mit ACCESS_PASSWORD — derselbe Wert wie im Backend (gleiche .env).
+function getTokenPayload(token) {
+  try {
+    if (!token || typeof token !== 'string') return null;
+    const secret = process.env.ACCESS_PASSWORD;
+    if (!secret) return null;
+    const parts = token.split('.');
+    if (parts.length !== 2) return null;
+    const [dataB64, sigHex] = parts;
+    // Exakt wie das Backend (src/auth.js): data = atob(dataB64) liefert den Latin1-String,
+    // signiert wird dann dessen UTF-8-Repräsentation (TextEncoder.encode(data)).
+    // Wichtig für Nicht-ASCII im Payload (z.B. sub mit Umlaut: "müller").
+    const data = Buffer.from(dataB64, 'base64').toString('latin1'); // = atob(dataB64)
+    const payload = JSON.parse(data);
+    const iat = typeof payload.iat === 'number' ? payload.iat : 0;
+    if (!iat || Date.now() - iat > TOKEN_EXPIRY_MS) return null;
+    const expected = crypto.createHmac('sha256', secret).update(Buffer.from(data, 'utf8')).digest('hex');
+    const a = Buffer.from(expected, 'utf8');
+    const b = Buffer.from(String(sigHex), 'utf8');
+    if (a.length !== b.length) return null;
+    if (!crypto.timingSafeEqual(a, b)) return null;
+    return payload;
+  } catch {
+    return null;
+  }
+}
+
+// base64url → String. Der Token wird im URL-key-Parameter transportiert, weil das
+// @google/genai-SDK die WS-URL per String-Konkatenation baut (rohe +/= würden ihn zerschießen).
+function b64urlDecodeToken(value) {
+  try {
+    return Buffer.from(value.replace(/-/g, '+').replace(/_/g, '/'), 'base64').toString('utf8');
+  } catch {
+    return null;
+  }
+}
+
+// Token aus REST-Request: X-Access-Token Header oder key=tok_<base64url> Query-Param.
+function getRestAccessToken(req) {
+  const header = req.headers['x-access-token'];
+  if (typeof header === 'string' && header.trim()) return header.trim();
+  const keyParam = req.query?.key;
+  if (typeof keyParam === 'string' && keyParam.startsWith('tok_')) return b64urlDecodeToken(keyParam.slice(4));
+  return null;
+}
+
+// Token aus WS-Upgrade: key=tok_<base64url> Query oder bearer.<token> Subprotocol.
+function getWsAccessToken(url, request) {
+  const keyParam = url.searchParams.get('key');
+  if (keyParam && keyParam.startsWith('tok_')) return b64urlDecodeToken(keyParam.slice(4));
+  const protocolHeader = request.headers['sec-websocket-protocol'];
+  if (typeof protocolHeader === 'string') {
+    const bearer = protocolHeader.split(',').map((s) => s.trim()).find((s) => s.startsWith('bearer.'));
+    if (bearer) return bearer.slice('bearer.'.length);
+  }
+  return null;
+}
+
+// Rate-Limit je authentifizierter Identität (sub aus dem Token, sonst Token-Fingerprint).
+function enforceGenericRateLimit(key) {
+  const now = Date.now();
+  const recent = (genericRateLimit.get(key) || []).filter((t) => now - t < GENERIC_RATE_LIMIT_WINDOW_MS);
+  if (recent.length >= MAX_GENERIC_REQUESTS_PER_WINDOW) {
+    genericRateLimit.set(key, recent);
+    return false;
+  }
+  recent.push(now);
+  genericRateLimit.set(key, recent);
+  return true;
+}
+
+function rateLimitIdentity(payload, token) {
+  return (payload && typeof payload.sub === 'string' && payload.sub)
+    ? `sub:${payload.sub}`
+    : `tok:${String(token).slice(0, 40)}`;
+}
+
 app.use(express.json());
 
 // ============================================================
@@ -113,7 +203,7 @@ function getAccessTokenFromRequest(req) {
 
 function hasValidAccessToken(req) {
   const { token, selectedProtocol } = getAccessTokenFromRequest(req);
-  if (typeof token !== 'string' || token.length < 16) {
+  if (typeof token !== 'string' || !getTokenPayload(token)) {
     return null;
   }
 
@@ -215,10 +305,9 @@ async function checkStudentAccess(studentId, subject) {
 app.post('/session/create', async (req, res) => {
   try {
     const accessToken = req.headers['x-access-token'];
-    if (typeof accessToken !== 'string' || accessToken.trim().length < 16) {
+    if (typeof accessToken !== 'string' || !getTokenPayload(accessToken.trim())) {
       return res.set(corsHeaders()).status(401).json({ error: 'Unauthorized' });
     }
-    // TODO: vollwertiger Token-Verify gegen myabiflow-api
 
     const config = req.body || {};
 
@@ -352,9 +441,23 @@ server.on('upgrade', async (request, socket, head) => {
       handleSessionWebSocket(ws, sessionId, url);
     });
   } else if (directWs) {
-    // Direct-Mode (Gemini Live API): nur Origin-Check, kein Access-Token —
-    // das @google/genai SDK kann keine Custom-Header für WebSocket senden.
-    // Schutz erfolgt via Origin-Whitelist + Trial-Counter im /api/colloquium/start.
+    // Direct-Mode (Gemini Live API): Access-Token kommt im key-Parameter
+    // (tok_<base64url>, vom SDK gesetzt) bzw. als bearer-Subprotocol und wird
+    // HMAC-verifiziert. Zusätzlich Endpoint-Whitelist (nur BidiGenerateContent).
+    if (!ALLOWED_WS_PATH.test(url.pathname)) {
+      socket.destroy();
+      return;
+    }
+    const wsToken = getWsAccessToken(url, request);
+    const wsPayload = getTokenPayload(wsToken);
+    if (!wsPayload) {
+      socket.destroy();
+      return;
+    }
+    if (!enforceGenericRateLimit(rateLimitIdentity(wsPayload, wsToken))) {
+      socket.destroy();
+      return;
+    }
     wss.handleUpgrade(request, socket, head, (ws) => {
       handleDirectWebSocket(ws, url);
     });
@@ -503,8 +606,10 @@ async function handleSessionWebSocket(clientWs, sessionId, url) {
  */
 async function handleDirectWebSocket(clientWs, url) {
   // Pfad 1:1 weiterreichen (SDK sendet /ws/google.ai.generativelanguage…)
-  // und nur den Dummy-Key 'PROXY' durch den echten Key ersetzen.
-  const targetPath = url.searchParams.get('target') || url.pathname;
+  // und nur den Dummy-Key durch den echten Key ersetzen.
+  // WICHTIG: kein ?target=-Override mehr — der wurde nur per url.pathname gegen die
+  // Whitelist geprüft, hätte sie aber umgangen. Es zählt ausschließlich der echte Pfad.
+  const targetPath = url.pathname;
   const params = new URLSearchParams();
   for (const [k, v] of url.searchParams.entries()) {
     if (k !== 'key' && k !== 'target') params.set(k, v);
@@ -574,10 +679,29 @@ async function handleDirectWebSocket(clientWs, url) {
 
 app.all('/v1beta/{*path}', async (req, res) => {
   try {
-    const targetUrl = `https://${GEMINI_HOST}${req.originalUrl}`;
+    // 1) Auth: HMAC-verifizierter Access-Token (Header oder key=tok_… Param)
+    const token = getRestAccessToken(req);
+    const payload = getTokenPayload(token);
+    if (!payload) {
+      return res.set(corsHeaders()).status(401).json({ error: 'Unauthorized' });
+    }
+    // 2) Endpoint-Whitelist: nur Flash-Modelle, nur generateContent
+    if (req.method !== 'POST' || !ALLOWED_HTTP_PATH.test(req.path)) {
+      return res.set(corsHeaders()).status(403).json({ error: 'Forbidden' });
+    }
+    // 3) Rate-Limit je Identität
+    if (!enforceGenericRateLimit(rateLimitIdentity(payload, token))) {
+      return res.set(corsHeaders()).status(429).json({ error: 'Too Many Requests' });
+    }
+
+    // Upstream-URL ohne den Client-key-Parameter (echter Key geht nur per Header)
+    const upstream = new URL(`https://${GEMINI_HOST}${req.path}`);
+    for (const [k, v] of Object.entries(req.query)) {
+      if (k !== 'key' && typeof v === 'string') upstream.searchParams.set(k, v);
+    }
     const headers = { 'Content-Type': 'application/json', 'x-goog-api-key': GEMINI_API_KEY };
 
-    const response = await fetch(targetUrl, {
+    const response = await fetch(upstream.toString(), {
       method: req.method,
       headers,
       body: req.method !== 'GET' ? JSON.stringify(req.body) : undefined

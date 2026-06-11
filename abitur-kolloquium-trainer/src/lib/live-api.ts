@@ -235,9 +235,31 @@ if (!WORKER_URL) {
   throw new Error('[live-api] WORKER_URL nicht gesetzt – Gemini Key darf nie direkt im Frontend landen!');
 }
 
+/** Liest den Login-Token (HMAC, vom Backend signiert) aus dem sessionStorage. */
+function getAccessToken(): string {
+  try {
+    return sessionStorage.getItem('access_token') || '';
+  } catch {
+    return '';
+  }
+}
+
+/**
+ * Kodiert den Access-Token base64url, damit er im URL-`key`-Parameter transportiert
+ * werden kann: Das Google-SDK baut die WebSocket-URL per String-Konkatenation, rohe
+ * base64-Zeichen (+ / =) würden den Token sonst zerschießen. Der Worker dekodiert das
+ * `tok_`-Präfix und verifiziert die HMAC-Signatur. Ohne Token bleibt 'PROXY' (→ 401).
+ */
+function tokenForKeyParam(): string {
+  const t = getAccessToken();
+  if (!t) return 'PROXY';
+  const b64url = btoa(t).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+  return `tok_${b64url}`;
+}
+
 const createAI = () => {
   return new GoogleGenAI({
-    apiKey: 'PROXY',
+    apiKey: tokenForKeyParam(),
     httpOptions: { baseUrl: WORKER_URL },
   });
 };
@@ -251,6 +273,10 @@ async function geminiJSON(prompt: string): Promise<string> {
   const model = 'gemini-2.5-flash';
   let url: string;
   const headers: Record<string, string> = { 'Content-Type': 'application/json' };
+
+  // Proxy authentifiziert per Access-Token (HMAC-verifiziert im Worker).
+  const accessToken = getAccessToken();
+  if (accessToken) headers['X-Access-Token'] = accessToken;
 
   // Über Worker-Proxy – Worker setzt x-goog-api-key automatisch
   url = `${WORKER_URL}/v1beta/models/${model}:generateContent`;
