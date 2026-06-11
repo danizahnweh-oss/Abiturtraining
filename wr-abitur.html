@@ -915,6 +915,8 @@ Tipp: Beachte den Fachbereich:
           inhalt = `<div class="material-img-loading" id="img-${pfx}-${idx}"><div class="loader-spinner"></div><span>Bild wird generiert...</span></div>`;
         } else if (m.typ === "foto") {
           inhalt = `<div class="material-img-loading" id="img-${pfx}-${idx}"><div class="loader-spinner"></div><span>Foto wird geladen...</span></div>`;
+        } else if (m.typ === "karikatur") {
+          inhalt = `<div class="material-img-loading" id="img-${pfx}-${idx}"><div class="loader-spinner"></div><span>Karikatur wird generiert...</span></div>`;
         } else {
           inhalt = formatTextWithLineNumbers(m.inhalt);
         }
@@ -928,8 +930,12 @@ Tipp: Beachte den Fachbereich:
       (mats || []).forEach((m, idx) => {
         if ((m.typ === "statistik" || (m.inhalt || "").includes("|")) && (m.inhalt || "").includes("|")) {
           renderStatistikChart(m.inhalt, `chart-${prefix}-${idx}`);
-        } else if (m.typ === "bild" || m.typ === "foto") {
+        } else if (m.typ === "bild") {
           loadEducationalImage(m.inhalt, `img-${prefix}-${idx}`, m.bild_labels || null);
+        } else if (m.typ === "foto") {
+          loadEducationalImage(m.inhalt, `img-${prefix}-${idx}`, m.bild_labels || null, "foto");
+        } else if (m.typ === "karikatur") {
+          loadEducationalImage(m.inhalt, `img-${prefix}-${idx}`, m.bild_labels || null, "karikatur");
         }
       });
     }

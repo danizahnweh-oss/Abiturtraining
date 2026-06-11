@@ -104,9 +104,10 @@ MATERIALIEN:
 - Tabellen/Statistiken: Als Markdown-Tabelle mit plausiblen Zahlen, mindestens 6-10 Datenzeilen
 - Gesetzestexte: Korrekte §-Angaben mit vereinfachtem Wortlaut (150-300 Wörter)
 - Jedes Material hat einen Titel und eine Quellenangabe
-- Erstelle ergänzende Materialien NUR wenn sie in den Aufgabenstellungen referenziert werden ("mithilfe von M 2", "anhand von M 2"). Keine ungenutzten Materialien! BEVORZUGE "foto" (Produkte, Märkte, Wirtschaftsszenarien, Unternehmen) oder "statistik" (Tabellen mit echten Daten). Verwende "bild" NUR wenn ein Schaubild wirklich nötig ist:
+- Erstelle ergänzende Materialien NUR wenn sie in den Aufgabenstellungen referenziert werden ("mithilfe von M 2", "anhand von M 2"). Keine ungenutzten Materialien! BEVORZUGE "foto" (Produkte, Märkte, Wirtschaftsszenarien, Unternehmen), "statistik" (Tabellen mit echten Daten) oder "karikatur" (Wirtschafts-/Gesellschaftskarikatur — laut Lehrplan zentrale Analysekompetenz, wenn thematisch passend). Verwende "bild" für Schaubilder/Diagramme:
   - typ "foto": Realistisches Foto. inhalt = Prompt KOMPLETT auf Englisch (5-10 Sätze). Z.B. Unternehmen, Fabriken, Märkte, Produkte, Büros, Gerichtssaal. KEINE Personen! Falls das Foto beschriftete Elemente zeigt, optional "bild_labels" mitliefern.
-  - typ "bild": Schaubild/Diagramm. inhalt = Bildprompt KOMPLETT auf Englisch (5-10 Sätze). NUR visuellen Inhalt beschreiben. Verwende NUR NUMMERN (1, 2, 3...) als Beschriftungen statt Text. KEINE Wörter im Bild! Zusätzlich MUSS ein Feld "bild_labels" als Objekt mitgeliefert werden: {"1": "Deutsche Beschriftung", "2": "..."}.
+  - typ "bild": Schaubild/Diagramm. inhalt = Bildprompt KOMPLETT auf Englisch (5-10 Sätze). Korrekt geschriebene DEUTSCHE Beschriftungen (Achsen, Pfeile, Bezeichnungen) dürfen direkt im Bild stehen — erfinde dabei KEINE Zahlenwerte (Zahlen gehören in "statistik"-Tabellen). "bild_labels" optional als Fallback.
+  - typ "karikatur": Wirtschafts-/Gesellschaftskarikatur als Analysequelle. inhalt = Bildprompt KOMPLETT auf Englisch (5-10 Sätze): Motiv, Symbolik, Übertreibung und den deutschen Text in Sprechblasen/Bildunterschrift beschreiben. Es entsteht eine KI-generierte Übungskarikatur — "quelle" z.B. "Karikatur, KI-generiert".
 ${isGA ? "\n- Bei gA: Die Aufgabe muss alle drei Fachbereiche (BWL, VWL, Recht) integrieren" : ""}
 
 Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
@@ -126,7 +127,7 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
   "materialien": [
     {"nr": "M1", "titel": "Titel des Materials", "typ": "text", "inhalt": "Ausführlicher Materialtext (300-600 Wörter!)", "quelle": "Quellenangabe"},
     {"nr": "M2", "titel": "Statistik: ...", "typ": "statistik", "inhalt": "| Spalte1 | Spalte2 |\\n|---|---|\\n| ... | ... |", "quelle": "Institut, Jahr"},
-    {"nr": "M3", "titel": "Schaubild: ...", "typ": "bild", "inhalt": "Bildprompt auf Englisch. Visuellen Inhalt beschreiben, NUR Nummern als Marker im Bild, KEINE Wörter.", "bild_labels": {"1": "Beschriftung 1", "2": "Beschriftung 2"}, "quelle": ""},
+    {"nr": "M3", "titel": "Schaubild: ...", "typ": "bild", "inhalt": "Bildprompt auf Englisch. Visuellen Inhalt beschreiben; korrekt geschriebene deutsche Beschriftungen dürfen direkt im Bild stehen.", "bild_labels": {"1": "Beschriftung 1", "2": "Beschriftung 2"}, "quelle": ""},
     {"nr": "M4", "titel": "Foto: ...", "typ": "foto", "inhalt": "Prompt KOMPLETT auf Englisch (5-10 Sätze). Realistisches Foto. KEINE Personen!", "quelle": ""}
   ],
   "gesamt_be": ${gesamtBE},
@@ -1001,9 +1002,10 @@ MATERIALIEN:
 - Textmaterialien: MINDESTENS 300-600 Wörter pro Material! Vollständige, ausführliche Texte — NICHT Zusammenfassungen! Die Materialien sollen MEHR Informationen enthalten als strikt nötig, damit Schüler die relevanten Inhalte herausarbeiten müssen.
 - Tabellen: Als Markdown-Tabelle mit plausiblen Zahlen, mindestens 6-10 Datenzeilen
 - Gesetzestexte: Korrekte §-Angaben (150-300 Wörter)
-- Erstelle ergänzende Materialien NUR wenn sie in den Aufgabenstellungen referenziert werden ("mithilfe von M 2", "anhand von M 2"). Keine ungenutzten Materialien! BEVORZUGE "foto" (Produkte, Märkte, Wirtschaftsszenarien, Unternehmen) oder "statistik" (Tabellen mit echten Daten). Verwende "bild" NUR wenn ein Schaubild wirklich nötig ist:
+- Erstelle ergänzende Materialien NUR wenn sie in den Aufgabenstellungen referenziert werden ("mithilfe von M 2", "anhand von M 2"). Keine ungenutzten Materialien! BEVORZUGE "foto" (Produkte, Märkte, Wirtschaftsszenarien, Unternehmen), "statistik" (Tabellen mit echten Daten) oder "karikatur" (Wirtschafts-/Gesellschaftskarikatur — laut Lehrplan zentrale Analysekompetenz, wenn thematisch passend). Verwende "bild" für Schaubilder/Diagramme:
   - typ "foto": Realistisches Foto. inhalt = Prompt KOMPLETT auf Englisch (5-10 Sätze). Z.B. Unternehmen, Fabriken, Produkte, Büros. KEINE Personen! Falls das Foto beschriftete Elemente zeigt, optional "bild_labels" mitliefern.
-  - typ "bild": Schaubild/Diagramm. inhalt = Bildprompt KOMPLETT auf Englisch (5-10 Sätze). NUR visuellen Inhalt beschreiben. Verwende NUR NUMMERN (1, 2, 3...) als Beschriftungen statt Text. KEINE Wörter im Bild! Zusätzlich MUSS ein Feld "bild_labels" als Objekt mitgeliefert werden: {"1": "Deutsche Beschriftung", "2": "..."}.
+  - typ "bild": Schaubild/Diagramm. inhalt = Bildprompt KOMPLETT auf Englisch (5-10 Sätze). Korrekt geschriebene DEUTSCHE Beschriftungen (Achsen, Pfeile, Bezeichnungen) dürfen direkt im Bild stehen — erfinde dabei KEINE Zahlenwerte (Zahlen gehören in "statistik"-Tabellen). "bild_labels" optional als Fallback.
+  - typ "karikatur": Wirtschafts-/Gesellschaftskarikatur als Analysequelle. inhalt = Bildprompt KOMPLETT auf Englisch (5-10 Sätze): Motiv, Symbolik, Übertreibung und den deutschen Text in Sprechblasen/Bildunterschrift beschreiben. Es entsteht eine KI-generierte Übungskarikatur — "quelle" z.B. "Karikatur, KI-generiert".
 
 WICHTIG: Die folgenden Beispiele zeigen NUR die JSON-Struktur und das erwartete Qualitätsniveau. Generiere KOMPLETT EIGENE, NEUE Aufgaben mit ANDEREN Themen, Fallbeispielen und Materialien! Kopiere NIEMALS Inhalte aus den Beispielen!
 
@@ -1022,11 +1024,11 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
   "materialien_1": [
     {"nr":"M1","titel":"Kostenkalkulation der Erweiterung","typ":"text","inhalt":"EIGENEN ausführlichen Text generieren (300-600 Wörter): Fallbeispiel mit konkreten Zahlen zu Fixkosten, variablen Kosten, Absatzpreis, geplanter Produktionsmenge etc.","quelle":"Unternehmensunterlagen"},
     {"nr":"M2","titel":"Vergleich Investitionsalternativen","typ":"statistik","inhalt":"EIGENE Markdown-Tabelle mit konkreten Zahlenwerten generieren (mind. 6 Zeilen): Vergleich zweier Maschinen mit Anschaffungskosten, Nutzungsdauer, Erlösen, Kosten etc.","quelle":"Angebote der Hersteller, 2025"},
-    {"nr":"M3","titel":"Schaubild: Kostenvergleich","typ":"bild","inhalt":"Bildprompt auf Englisch. Visuellen Inhalt beschreiben, NUR Nummern als Marker im Bild, KEINE Wörter.","bild_labels":{"1":"Beschriftung 1","2":"Beschriftung 2"},"quelle":""}
+    {"nr":"M3","titel":"Schaubild: Kostenvergleich","typ":"bild","inhalt":"Bildprompt auf Englisch. Visuellen Inhalt beschreiben; korrekt geschriebene deutsche Beschriftungen dürfen direkt im Bild stehen.","bild_labels":{"1":"Beschriftung 1","2":"Beschriftung 2"},"quelle":""}
   ],
   "task_instruction_2": "EIGENEN Situationstext generieren (anderes Thema/anderer Fachbereich als Aufgabe 1)",
   "aufgabenbloecke_2": [{"nr":1,"titel":"EIGENEN Aufgabenblock generieren","teilaufgaben":["EIGENE Teilaufgaben generieren (3-4 Teilaufgaben, AFB I→II→III, mit konkreten BE-Angaben)"],"be_gesamt":"EIGENE BE-Verteilung"}],
-  "materialien_2": [{"nr":"M1","titel":"EIGENES Material generieren","typ":"text","inhalt":"EIGENEN ausführlichen Text generieren (300-600 Wörter)","quelle":"EIGENE Quelle"},{"nr":"M2","titel":"Schaubild: EIGENES Thema","typ":"bild","inhalt":"Bildprompt auf Englisch. Visuellen Inhalt beschreiben, NUR Nummern als Marker im Bild, KEINE Wörter.","bild_labels":{"1":"Beschriftung 1","2":"Beschriftung 2"},"quelle":""}],
+  "materialien_2": [{"nr":"M1","titel":"EIGENES Material generieren","typ":"text","inhalt":"EIGENEN ausführlichen Text generieren (300-600 Wörter)","quelle":"EIGENE Quelle"},{"nr":"M2","titel":"Schaubild: EIGENES Thema","typ":"bild","inhalt":"Bildprompt auf Englisch. Visuellen Inhalt beschreiben; korrekt geschriebene deutsche Beschriftungen dürfen direkt im Bild stehen.","bild_labels":{"1":"Beschriftung 1","2":"Beschriftung 2"},"quelle":""}],
   "gesamt_be": ${isEA ? 120 : 100},
   "fachbereich_1": "${isEA ? (fachbereich_1 || "bwl") : "integriert"}",
   "fachbereich_2": "${isEA ? (fachbereich_2 || "vwl") : "transfer"}",

@@ -10,17 +10,45 @@ export async function handleGenerateImage(request, env) {
     return jsonResponse({ error: "prompt erforderlich." }, 400, env);
   }
 
-  // Ideogram-Prompt: Sauber und fokussiert, Einschränkungen gehen in negative_prompt
-  const ideogramPrompt = `Professional educational diagram: ${prompt}. Clean, precise illustration with vivid colors, sharp lines, white background. Label elements with numbers only (1, 2, 3).`;
+  // Stil normalisieren: "diagram" (Standard), "foto", "karikatur"
+  const styleKind = style === "karikatur" ? "karikatur" : style === "foto" ? "foto" : "diagram";
+  // noText=true erzwingt nummern-basierte Beschriftung (Fallback-Sicherung für schwächere Modelle).
+  // Standard: Nano Banana Pro rendert deutsche Beschriftungen direkt ins Bild.
+  const allowText = noText !== true && styleKind !== "foto";
 
-  // Gemini-Prompt (Nano Banana Pro + Flash): Bild + deutsche Bildunterschrift in einem Aufruf
-  const geminiPrompt = `Generate a professional educational illustration for a German school textbook.
+  // --- Stil-spezifische Anweisungen für Gemini (Nano Banana Pro + Flash) ---
+  let styleInstruction;
+  if (styleKind === "karikatur") {
+    styleInstruction = `Style: A political/editorial cartoon (German "Karikatur") in the tradition of newspaper caricatures. Use satirical exaggeration, symbolic imagery, and visual metaphor appropriate for analysis in a German school exam. Hand-drawn ink-and-wash or pen style, expressive linework. German text in speech bubbles, signs and labels is allowed and should be spelled correctly and legibly. The cartoon must be a NEWLY DRAWN illustration in the style of the period — not a copy of any existing real artwork.`;
+  } else if (styleKind === "foto") {
+    styleInstruction = `Style: A realistic, high-quality photograph. Natural lighting, authentic detail. No text or words in the image.`;
+  } else {
+    styleInstruction = allowText
+      ? `Style: Clean, precise educational diagram with vivid colors, sharp lines and a white background. Render concise, correctly spelled GERMAN labels directly in the image (axis labels, part names, arrows with short captions). Keep text minimal and legible. Do NOT invent numeric data values — only label what is described.`
+      : `Style: Clean, precise diagram with vivid colors, sharp lines, white background. Label elements with numbers (1, 2, 3) only — no text or words in the image.`;
+  }
+
+  // Gemini-Prompt: Bild + deutsche Bildunterschrift in einem Aufruf
+  const geminiPrompt = `Generate a professional illustration for a German school exam (Abitur).
 
 ${prompt}
 
-Style: Clean, precise diagram with vivid colors, sharp lines, white background. Label elements with numbers (1, 2, 3) only — no text or words in the image.
+${styleInstruction}
 
 After generating the image, write a short factual German caption (max 15 words). Only the caption, no prefix.`;
+
+  // --- Ideogram-Prompt (Provider-Fallback) ---
+  const ideogramPrompt = styleKind === "karikatur"
+    ? `Editorial political cartoon (Karikatur), hand-drawn satirical style with symbolic exaggeration: ${prompt}. Expressive ink linework, correctly spelled German text in speech bubbles where appropriate.`
+    : styleKind === "foto"
+      ? `Realistic high-quality photograph: ${prompt}. Natural lighting, authentic detail, no text.`
+      : `Professional educational diagram: ${prompt}. Clean, precise illustration with vivid colors, sharp lines, white background.${allowText ? " Concise correctly spelled German labels." : " Label elements with numbers only (1, 2, 3)."}`;
+  // Negative-Prompt nur außerhalb von Karikaturen einschränken (dort sind Personen/Text gewollt)
+  const ideogramNegative = styleKind === "karikatur"
+    ? "watermark, modern logo, blurry, low quality, signature"
+    : (allowText
+        ? "people, persons, faces, portraits, caricatures, watermark, logo, blurry, low quality, ugly, gibberish text, misspelled words"
+        : "text, words, letters, sentences, captions, titles, labels with text, English text, German text, people, persons, faces, portraits, caricatures, watermark, logo, blurry, low quality, ugly");
 
   // Hilfsfunktion: Caption über GPT generieren (nur für Ideogram, das keinen Text liefert)
   async function generateCaption() {
@@ -125,7 +153,7 @@ After generating the image, write a short factual German caption (max 15 words).
           style_type: "GENERAL",
           magic_prompt: "ON",
           num_images: 1,
-          negative_prompt: "text, words, letters, sentences, captions, titles, labels with text, English text, German text, people, persons, faces, portraits, caricatures, watermark, logo, blurry, low quality, ugly"
+          negative_prompt: ideogramNegative
         })
       });
       const ideogramData = await ideogramRes.json();

@@ -1062,7 +1062,7 @@ gesamt_np = round(sach_a_np * 0.4 + sach_b_np * 0.3 + darstellung_np * 0.3)`;
       const zmContainer = document.getElementById("zusatzMaterialien");
       if (zm.length) {
         zmContainer.innerHTML = '<div class="card"><h2 class="card-header">Ergänzende Materialien</h2>' + zm.map((m, i) => {
-          const typeBadges = { statistik: 'Statistik', bild: 'Bild', foto: 'Foto' };
+          const typeBadges = { statistik: 'Statistik', bild: 'Bild', foto: 'Foto', karikatur: 'Karikatur' };
           const typeBadge = `<span class="material-type-badge">${typeBadges[m.type] || 'Text'}</span>`;
           let body;
           if (m.type === "statistik") {
@@ -1073,6 +1073,8 @@ gesamt_np = round(sach_a_np * 0.4 + sach_b_np * 0.3 + darstellung_np * 0.3)`;
             body = `<div class="material-img-loading" id="img-ga-${i}"><div class="loader-spinner"></div><span>Bild wird generiert...</span></div>`;
           } else if (m.type === "foto") {
             body = `<div class="material-img-loading" id="img-ga-${i}"><div class="loader-spinner"></div><span>Foto wird geladen...</span></div>`;
+          } else if (m.type === "karikatur") {
+            body = `<div class="material-img-loading" id="img-ga-${i}"><div class="loader-spinner"></div><span>Karikatur wird generiert...</span></div>`;
           } else {
             body = renderMd(m.content || "");
           }
@@ -1088,7 +1090,9 @@ gesamt_np = round(sach_a_np * 0.4 + sach_b_np * 0.3 + darstellung_np * 0.3)`;
           } else if (m.type === "bild") {
             loadEducationalImage(m.content, `img-ga-${i}`, m.bild_labels || m.image_labels || null);
           } else if (m.type === "foto") {
-            loadEducationalImage(m.content, `img-ga-${i}`, m.bild_labels || m.image_labels || null);
+            loadEducationalImage(m.content, `img-ga-${i}`, m.bild_labels || m.image_labels || null, "foto");
+          } else if (m.type === "karikatur") {
+            loadEducationalImage(m.content, `img-ga-${i}`, m.bild_labels || m.image_labels || null, "karikatur");
           }
         });
       } else {

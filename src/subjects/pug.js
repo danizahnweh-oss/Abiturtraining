@@ -170,9 +170,10 @@ MATERIALIEN:
 - Textmaterialien: MINDESTENS 400-800 Wörter pro Material! Authentische, ausführliche Quellentexte (Zeitungsartikel, Interviews, Reden, Fachtexte). NICHT kürzer als 400 Wörter!
 - Statistiken: Als Markdown-Tabelle mit plausiblen Zahlen, mindestens 6-10 Datenzeilen
 - Materialien werden in der Aufgabenstellung mit M 1, M 2 etc. referenziert
-- Erstelle ergänzende Materialien NUR wenn sie in den Aufgabenstellungen referenziert werden ("mithilfe von M 2", "anhand von M 2"). Keine ungenutzten Materialien! BEVORZUGE "foto" (Parlamentsgebäude, Gerichtssäle, Institutionen, EU-Gebäude) oder "statistik" (Tabellen mit echten Daten). Verwende "bild" NUR wenn ein Schaubild wirklich nötig ist:
+- Erstelle ergänzende Materialien NUR wenn sie in den Aufgabenstellungen referenziert werden ("mithilfe von M 2", "anhand von M 2"). Keine ungenutzten Materialien! BEVORZUGE "foto" (Parlamentsgebäude, Gerichtssäle, Institutionen, EU-Gebäude), "statistik" (Tabellen mit echten Daten) oder "karikatur" (politische Karikatur — klassische und sehr geeignete Analysequelle in Sozialkunde, wenn sie thematisch passt). Verwende "bild" für Schaubilder/Infografiken:
   - type "foto": Realistisches Foto. content = Prompt KOMPLETT auf Englisch (5-10 Sätze). Z.B. Parlamentsgebäude, Gerichtssaal, Wahlplakate, Demonstrationen (ohne erkennbare Gesichter), EU-Institutionen, Grenzkontrollen. KEINE Personen! Falls das Foto beschriftete Elemente zeigt, optional "bild_labels" mitliefern.
-  - type "bild": Schaubild/Infografik/Diagramm. content = Bildprompt KOMPLETT auf Englisch (5-10 Sätze). NUR visuellen Inhalt beschreiben. Verwende NUR NUMMERN (1, 2, 3...) als Beschriftungen im Bild statt Text. KEINE Wörter oder Sätze im Bild! Zusätzlich MUSS das Material-Objekt ein Feld "bild_labels" enthalten: {"1": "Deutsche Beschriftung", "2": "Weitere Beschriftung", ...}. KEINE Karikaturen oder Personen!
+  - type "bild": Schaubild/Infografik/Diagramm. content = Bildprompt KOMPLETT auf Englisch (5-10 Sätze). Korrekt geschriebene DEUTSCHE Beschriftungen (Achsen, Pfeile, Bezeichnungen) dürfen direkt im Bild stehen — erfinde dabei KEINE Zahlenwerte (Zahlen gehören in "statistik"-Tabellen). "bild_labels" optional als Fallback.
+  - type "karikatur": Politische Karikatur als Analysequelle. content = Bildprompt KOMPLETT auf Englisch (5-10 Sätze): Motiv, Symbolik, Übertreibung und den deutschen Text in Sprechblasen/Bildunterschrift beschreiben. Es entsteht eine KI-generierte Übungskarikatur — "source" z.B. "Karikatur, KI-generiert".
 HALBJAHR: ${halbjahr?.replace("_", "/") || "12/1"} – ${hj.title}
 Lernbereiche: ${hj.lernbereiche}
 Relevante Inhalte:
@@ -193,7 +194,8 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
   "materials": [
     {"title": "Titel des Materials", "type": "text", "content": "Ausführlicher Materialtext (200-500 Wörter)", "source": "Autor, Quelle, Datum"},
     {"title": "Titel ggf. Statistik", "type": "statistik", "content": "| Spalte1 | Spalte2 |\\n|---|---|\\n| Daten | ... |", "source": "Institut, Jahr"},
-    {"title": "Schaubild: ...", "type": "bild", "content": "Bildprompt auf Englisch. Visuellen Inhalt beschreiben, NUR Nummern als Marker im Bild, KEINE Wörter.", "bild_labels": {"1": "Beschriftung 1", "2": "Beschriftung 2"}, "source": ""},
+    {"title": "Schaubild: ...", "type": "bild", "content": "Bildprompt auf Englisch. Visuellen Inhalt beschreiben; korrekt geschriebene deutsche Beschriftungen dürfen direkt im Bild stehen.", "source": ""},
+    {"title": "Karikatur: ...", "type": "karikatur", "content": "Bildprompt auf Englisch (5-10 Sätze): Motiv, Symbolik, Übertreibung und deutschen Sprechblasen-/Bildunterschrift-Text beschreiben.", "source": "Karikatur, KI-generiert"},
     {"title": "Foto: ...", "type": "foto", "content": "Prompt KOMPLETT auf Englisch (5-10 Sätze). Realistisches Foto. KEINE Personen!", "source": ""}
   ],
   "halbjahr": "${halbjahr || "12_1"}",
@@ -458,9 +460,10 @@ MATERIALIEN (nur für Teil A):
 - 2-3 realistische Materialien (Texte, Statistiken, Bilder)
 - Textmaterialien: MINDESTENS 400-800 Wörter pro Material! Vollständige, ausführliche Quellentexte — NICHT Zusammenfassungen! Die Materialien sollen MEHR Informationen enthalten als strikt nötig, damit Schüler die relevanten Inhalte selbst herausarbeiten müssen.
 - Statistiken: Als Markdown-Tabelle mit plausiblen Zahlen, mindestens 6-10 Datenzeilen
-- Erstelle ergänzende Materialien NUR wenn sie in den Aufgabenstellungen referenziert werden ("mithilfe von M 2", "anhand von M 2"). Keine ungenutzten Materialien! BEVORZUGE "foto" (Parlamentsgebäude, Gerichtssäle, Institutionen) oder "statistik" (Tabellen mit echten Daten). Verwende "bild" NUR wenn ein Schaubild wirklich nötig ist:
-  - type "foto": Realistisches Foto. content = Prompt KOMPLETT auf Englisch (5-10 Sätze). Z.B. italienische Landschaften, Architektur, Alltagsszenen, Kultur. KEINE Personen! Falls das Foto beschriftete Elemente zeigt, optional "bild_labels" mitliefern.
-  - type "bild": Schaubild/Infografik/Diagramm. content = Bildprompt KOMPLETT auf Englisch (5-10 Sätze). NUR visuellen Inhalt beschreiben. Verwende NUR NUMMERN (1, 2, 3...) als Beschriftungen im Bild statt Text. KEINE Wörter oder Sätze im Bild! Zusätzlich MUSS das Material-Objekt ein Feld "bild_labels" enthalten: {"1": "Deutsche Beschriftung", "2": "Weitere Beschriftung", ...}. KEINE Karikaturen oder Personen!
+- Erstelle ergänzende Materialien NUR wenn sie in den Aufgabenstellungen referenziert werden ("mithilfe von M 2", "anhand von M 2"). Keine ungenutzten Materialien! BEVORZUGE "foto" (Parlamentsgebäude, Gerichtssäle, Institutionen), "statistik" (Tabellen mit echten Daten) oder "karikatur" (politische Karikatur — klassische Analysequelle, wenn thematisch passend). Verwende "bild" für Schaubilder/Infografiken:
+  - type "foto": Realistisches Foto. content = Prompt KOMPLETT auf Englisch (5-10 Sätze). Z.B. Parlamentsgebäude, Institutionen, Gerichtssäle, Alltagsszenen. KEINE Personen! Falls das Foto beschriftete Elemente zeigt, optional "bild_labels" mitliefern.
+  - type "bild": Schaubild/Infografik/Diagramm. content = Bildprompt KOMPLETT auf Englisch (5-10 Sätze). Korrekt geschriebene DEUTSCHE Beschriftungen (Achsen, Pfeile, Bezeichnungen) dürfen direkt im Bild stehen — erfinde dabei KEINE Zahlenwerte (Zahlen gehören in "statistik"-Tabellen). "bild_labels" optional als Fallback.
+  - type "karikatur": Politische Karikatur als Analysequelle. content = Bildprompt KOMPLETT auf Englisch (5-10 Sätze): Motiv, Symbolik, Übertreibung und den deutschen Text in Sprechblasen/Bildunterschrift beschreiben. Es entsteht eine KI-generierte Übungskarikatur — "source" z.B. "Karikatur, KI-generiert".
 HALBJAHR: ${halbjahr?.replace("_", "/") || "12/1"} – ${hj.title}
 Lernbereiche: ${hj.lernbereiche}
 Relevante Inhalte:
@@ -489,7 +492,8 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
   "materials": [
     {"title": "Titel", "type": "text", "content": "Ausführlicher Materialtext (400-800 Wörter!)", "source": "Autor, Quelle, Datum"},
     {"title": "Titel", "type": "statistik", "content": "| Spalte1 | Spalte2 |\\n|---|---|\\n| ... | ... |", "source": "Institut, Jahr"},
-    {"title": "Schaubild: ...", "type": "bild", "content": "Bildprompt auf Englisch. Visuellen Inhalt beschreiben, NUR Nummern als Marker im Bild, KEINE Wörter.", "bild_labels": {"1": "Beschriftung 1", "2": "Beschriftung 2"}, "source": ""}
+    {"title": "Schaubild: ...", "type": "bild", "content": "Bildprompt auf Englisch. Visuellen Inhalt beschreiben; korrekt geschriebene deutsche Beschriftungen dürfen direkt im Bild stehen.", "source": ""},
+    {"title": "Karikatur: ...", "type": "karikatur", "content": "Bildprompt auf Englisch (5-10 Sätze): Motiv, Symbolik, Übertreibung und deutschen Sprechblasen-/Bildunterschrift-Text beschreiben.", "source": "Karikatur, KI-generiert"}
   ],
   "task_instruction_b": "Vollständige Aufgabenstellung Teil B (Ausweitung) mit BE-Angaben",
   "halbjahr": "${halbjahr || "12_1"}",

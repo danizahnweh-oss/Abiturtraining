@@ -2753,10 +2753,15 @@ async function loadEducationalImage(prompt, containerId, labels, style, _isRetry
       }
     }
 
-    // KI-Hinweis
-    var noticeText = hasNumberedLegend
-      ? 'KI-generiertes Bild — Beschriftungen siehe Legende.'
-      : 'KI-generiertes Bild — Texte und Beschriftungen können Fehler enthalten.';
+    // KI-Hinweis (Karikaturen klar als synthetische Übungsmaterialien kennzeichnen)
+    var noticeText;
+    if (style === 'karikatur') {
+      noticeText = 'KI-generierte Übungskarikatur — kein historisches Original. Symbole und Texte können Fehler enthalten.';
+    } else if (hasNumberedLegend) {
+      noticeText = 'KI-generiertes Bild — Beschriftungen siehe Legende.';
+    } else {
+      noticeText = 'KI-generiertes Bild — Texte und Beschriftungen können Fehler enthalten.';
+    }
     var aiNoticeHtml =
       '<div class="edu-img-ai-notice">' +
         '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="edu-img-ai-notice-icon"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>' +
