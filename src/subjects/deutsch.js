@@ -166,7 +166,7 @@ Die Aufgabe besteht aus einem Einleitungstext, einem Hauptmaterial (M 1) und ${t
    c) primary_type "foto" (ca. 20% der Fälle):
       - Historisches Foto, Gemälde, Plakat, Denkmal, Gebäude, Ort
       - "primary_text" = Bildprompt auf Englisch (5-10 Sätze), NUR visuellen Inhalt
-      - Verwende NUR NUMMERN (1, 2, 3...) als Beschriftungen, KEINE Wörter im Bild!
+      - Korrekt geschriebene deutsche Beschriftungen dürfen direkt im Bild stehen — erfinde dabei KEINE Zahlenwerte.
       - "primary_bild_labels": {"1": "Deutsche Beschriftung", "2": "..."}
       - "primary_meta" = Bildunterschrift/Quellenangabe
       - KEINE Karikaturen oder realen Personen!
@@ -186,13 +186,13 @@ ABSOLUTE PFLICHT:
 - Die Aufgabe MUSS zum Schwerpunkt passen
 - Bei primary_type "text": Quelle MUSS 400-800 Wörter lang sein, NICHT kürzer!
 - Bei primary_type "statistik": Tabelle mit mindestens 5 Zeilen realer historischer Daten
-- Bei primary_type "foto": Detaillierter englischer Bildprompt (5-10 Sätze), NUR Nummern als Marker
+- Bei primary_type "foto": Detaillierter englischer Bildprompt (5-10 Sätze), deutsche Beschriftungen erlaubt
 - LEHRPLAN-TREUE: Stelle NUR Aufgaben zu Themen, die in den oben genannten Lernbereichen stehen. Gehe NICHT über den Lehrplan hinaus.
 - KEINE LÖSUNGSHINWEISE: Nenne in den Aufgabenstellungen KEINE konkreten Beispiele, Hinweise oder Lösungsansätze in Klammern.
 ${level !== "eA" ? `- ⚠️ STRENGE gA-BESCHRÄNKUNG: Diese Aufgabe ist für das GRUNDLEGENDE Anforderungsniveau (gA). Verwende AUSSCHLIESSLICH Inhalte aus dem gA-Lehrplan. Themen mit "nur eA" oder Vertiefungsmodule (z.B. Jüdisches Leben, Erinnerungskultur, Naher/Mittlerer Osten) dürfen NICHT vorkommen. Die Aufgabe muss in Tiefe und Komplexität dem gA-Niveau entsprechen.` : ""}
 - JEDES Material MUSS in mindestens einer Teilaufgabe explizit referenziert werden (z.B. "mithilfe von M 1", "anhand von M 2"). Erstelle KEINE Materialien, die nicht in den Aufgabenstellungen genutzt werden!
 - Optional 0-2 ergänzende Materialien (M 2, M 3) als Array "zusatz_materialien", NUR wenn sie in den Teilaufgaben benötigt und referenziert werden
-  - type "foto"/"bild": content = Bildprompt auf Englisch (5-10 Sätze), NUR Nummern als Marker. "bild_labels": {"1": "Beschriftung", ...}. KEINE Karikaturen oder Personen!
+  - type "foto"/"bild": content = Bildprompt auf Englisch (5-10 Sätze), deutsche Beschriftungen erlaubt. "bild_labels": {"1": "Beschriftung", ...}. KEINE Karikaturen oder Personen!
   - type "statistik": content = Markdown-Tabelle, title = Titel
   - type "text": content = Textauszug
 
@@ -220,10 +220,10 @@ KRITISCH:
 - Wähle einen passenden primary_type für M 1: "text" (Textquelle, ca. 60%), "statistik" (Daten/Tabelle, ca. 20%) oder "foto" (historisches Bild, ca. 20%). Variiere den Typ!
 - Bei primary_type "text": Mindestens 500-800 Wörter! Substanzielle Quelle mit MEHR Informationen als nötig. Verwende eine REALE historische Persönlichkeit als Autor.
 - Bei primary_type "statistik": Markdown-Tabelle mit realen historischen Daten (mind. 5 Zeilen). Z.B. Wahlergebnisse, Bevölkerungsentwicklung, Wirtschaftsdaten, Zeitleiste.
-- Bei primary_type "foto": Detaillierter Bildprompt auf Englisch (5-10 Sätze). Historisches Foto, Gemälde, Denkmal, Gebäude, Plakat. NUR NUMMERN als Marker! "primary_bild_labels" mitliefern.
+- Bei primary_type "foto": Detaillierter Bildprompt auf Englisch (5-10 Sätze). Historisches Foto, Gemälde, Denkmal, Gebäude, Plakat. deutsche Beschriftungen erlaubt! "primary_bild_labels" mitliefern.
 - Die Teilaufgaben müssen nummeriert sein (${teilaufgabenNummern}) mit BE-Angaben in Klammern. Summe = ${beProAufgabe} BE!
 - Orientiere dich am Format der offiziellen bayerischen Beispielabitur-Aufgaben.
-- ALLE Texte und Statistiken auf DEUTSCH! Bildprompts auf Englisch, NUR Nummern als Beschriftungen.
+- ALLE Texte und Statistiken auf DEUTSCH! Bildprompts auf Englisch, mit deutschen Beschriftungen.
 - Erstelle NUR dann ergänzende Materialien (zusatz_materialien), wenn sie in den Teilaufgaben auch explizit referenziert werden ("mithilfe von M 2", "anhand von M 2"). Keine ungenutzten Materialien! BEVORZUGE "statistik" oder "foto". KEINE Karikaturen oder Personen!`;
 
   // Bei mehreren Aufgaben: parallele API-Aufrufe, dann Ergebnisse zusammenführen
@@ -526,7 +526,7 @@ KEINE LÖSUNGSHINWEISE: Nenne in den Aufgabenstellungen KEINE konkreten Beispiel
 
 - Erstelle ergänzende Materialien NUR wenn sie in den Aufgabenstellungen referenziert werden ("mithilfe von M 2", "anhand von M 2"). Keine ungenutzten Materialien! BEVORZUGE "foto" (Alltagssituationen, Symbolbilder, Natur) oder "statistik" (Tabellen mit echten Daten). Verwende "bild" NUR wenn ein Schaubild wirklich nötig ist:
   - type "foto": Realistisches Foto. content = Prompt KOMPLETT auf Englisch (5-10 Sätze). Z.B. Alltagsszenen (ohne Gesichter), Gebäude, Natur, Symbolbilder. KEINE Personen! Falls das Foto beschriftete Elemente zeigt, optional "bild_labels" mitliefern.
-  - type "bild": Schaubild/Infografik/Diagramm. content = Bildprompt KOMPLETT auf Englisch (5-10 Sätze). NUR visuellen Inhalt beschreiben. Verwende NUR NUMMERN (1, 2, 3...) als Beschriftungen im Bild statt Text. KEINE Wörter oder Sätze im Bild! Zusätzlich MUSS das Material-Objekt ein Feld "bild_labels" enthalten: {"1": "Deutsche Beschriftung", "2": "Weitere Beschriftung", ...}. KEINE Karikaturen oder Personen!
+  - type "bild": Schaubild/Infografik/Diagramm. content = Bildprompt KOMPLETT auf Englisch (5-10 Sätze). NUR visuellen Inhalt beschreiben. Korrekt geschriebene deutsche Beschriftungen dürfen direkt im Bild stehen — erfinde dabei KEINE Zahlenwerte (Zahlen gehören in Tabellen). "bild_labels" optional als Fallback. KEINE Karikaturen oder Personen!
 Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
 {
   "task_instruction": "Präzise Aufgabenstellung mit Textsorte, Adressat, Anlass und konkretem Schreibauftrag",
@@ -535,7 +535,7 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
   "materials": [
     {"title": "Titel des Materials", "type": "text", "content": "Ausführlicher Inhalt (300-600 Wörter)", "source": "Autor, Quelle, Jahr"},
     {"title": "Titel der Statistik", "type": "statistik", "content": "| Kategorie | Wert |\\n|---|---|\\n| ... | ... |\\nBeschreibung der Statistik.", "source": "Institut/Studie, Jahr"},
-    {"title": "Schaubild: ...", "type": "bild", "content": "Bildprompt auf Englisch. Visuellen Inhalt beschreiben, NUR Nummern als Marker im Bild, KEINE Wörter.", "bild_labels": {"1": "Beschriftung 1", "2": "Beschriftung 2"}, "source": ""}
+    {"title": "Schaubild: ...", "type": "bild", "content": "Bildprompt auf Englisch. Visuellen Inhalt beschreiben; korrekt geschriebene deutsche Beschriftungen dürfen direkt im Bild stehen.", "bild_labels": {"1": "Beschriftung 1", "2": "Beschriftung 2"}, "source": ""}
   ]
 }`;
     userPrompt = `Erstelle eine materialgestützte Aufgabe:

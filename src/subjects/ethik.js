@@ -190,7 +190,7 @@ MATERIALIEN:
 - Materialien werden in der Aufgabenstellung mit M 1, M 2 etc. referenziert
 - Erstelle ergänzende Materialien NUR wenn sie in den Aufgabenstellungen referenziert werden ("mithilfe von M 2", "anhand von M 2"). Keine ungenutzten Materialien! BEVORZUGE "foto" (Alltagssituationen, Symbolbilder, Natur) oder "statistik" (Tabellen mit echten Daten). Verwende "bild" NUR wenn ein Schaubild wirklich nötig ist:
   - type "foto": Realistisches Foto. content = Prompt KOMPLETT auf Englisch (5-10 Sätze). Z.B. Alltagssituationen (ohne Gesichter), Symbolbilder (Waage der Gerechtigkeit, Friedenstaube), Architektur, Natur. KEINE Personen! Falls das Foto beschriftete Elemente zeigt, optional "bild_labels" mitliefern.
-  - type "bild": Schaubild/Infografik/Diagramm. content = Bildprompt KOMPLETT auf Englisch (5-10 Sätze). NUR visuellen Inhalt beschreiben. Verwende NUR NUMMERN (1, 2, 3...) als Beschriftungen im Bild statt Text. KEINE Wörter oder Sätze im Bild! Zusätzlich MUSS das Material-Objekt ein Feld "bild_labels" enthalten: {"1": "Deutsche Beschriftung", "2": "Weitere Beschriftung", ...}. KEINE Personen!
+  - type "bild": Schaubild/Infografik/Diagramm. content = Bildprompt KOMPLETT auf Englisch (5-10 Sätze). NUR visuellen Inhalt beschreiben. Korrekt geschriebene deutsche Beschriftungen dürfen direkt im Bild stehen — erfinde dabei KEINE Zahlenwerte (Zahlen gehören in Tabellen). "bild_labels" optional als Fallback. KEINE Personen!
 LERNBEREICH: ${lernbereich?.replace("_", "/") || "12/1"} – ${lb.title}
 Lernbereiche: ${lb.lernbereiche}
 Relevante Inhalte:
@@ -211,7 +211,7 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
   "materials": [
     {"title": "Titel des Materials", "type": "text", "content": "Ausführlicher Materialtext (400-800 Wörter)", "source": "Autor, Quelle, Datum"},
     {"title": "Statistik: ...", "type": "statistik", "content": "| Spalte1 | Spalte2 |\\n|---|---|\\n| Daten | ... |", "source": "Institut, Jahr"},
-    {"title": "Schaubild: ...", "type": "bild", "content": "Bildprompt auf Englisch. Visuellen Inhalt beschreiben, NUR Nummern als Marker im Bild, KEINE Wörter.", "bild_labels": {"1": "Beschriftung 1", "2": "Beschriftung 2"}, "source": ""},
+    {"title": "Schaubild: ...", "type": "bild", "content": "Bildprompt auf Englisch. Visuellen Inhalt beschreiben; korrekt geschriebene deutsche Beschriftungen dürfen direkt im Bild stehen.", "bild_labels": {"1": "Beschriftung 1", "2": "Beschriftung 2"}, "source": ""},
     {"title": "Foto: ...", "type": "foto", "content": "Prompt KOMPLETT auf Englisch (5-10 Sätze). Realistisches Foto. KEINE Personen!", "source": ""}
   ],
   "lernbereich": "${lernbereich || "12_1"}",
@@ -434,7 +434,7 @@ Antworte NUR mit validem JSON:
     "materials": [
       {"title": "Titel", "type": "text", "content": "Philosophischer Quelltext (400-800 Wörter)", "source": "Autor, Werk, Jahr"},
       {"title": "Statistik: ...", "type": "statistik", "content": "| ... |", "source": "Institut, Jahr"},
-      {"title": "Schaubild: ...", "type": "bild", "content": "Bildprompt auf Englisch. Visuellen Inhalt beschreiben, NUR Nummern als Marker im Bild, KEINE Wörter.", "bild_labels": {"1": "Beschriftung 1", "2": "Beschriftung 2"}, "source": ""}
+      {"title": "Schaubild: ...", "type": "bild", "content": "Bildprompt auf Englisch. Visuellen Inhalt beschreiben; korrekt geschriebene deutsche Beschriftungen dürfen direkt im Bild stehen.", "bild_labels": {"1": "Beschriftung 1", "2": "Beschriftung 2"}, "source": ""}
     ]
   },
   "teil_b": {

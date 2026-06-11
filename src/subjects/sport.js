@@ -66,7 +66,7 @@ MATERIAL-TYPEN (jedes Material braucht ein "type"-Feld):
 - "statistik" + "chart_type":"bar" → "text" = vollständige Markdown-Tabelle mit echten Zahlenwerten (mind. 4 Datenzeilen)
 - "diagramm" + "chart_type":"line" → "text" = vollständige Markdown-Tabelle mit echten x/y-Messwerten (mind. 5 Datenpunkte)
 - "text" → "text" = vollständiger, ausformulierter Fachtext (mind. 100 Wörter), KEIN Platzhalter
-- "bild" → "text" = Bildprompt KOMPLETT auf Englisch (5-10 Sätze). NUR visuellen Inhalt beschreiben. Verwende NUR NUMMERN (1, 2, 3...) als Beschriftungen statt Text. KEINE Wörter im Bild! Zusätzlich MUSS ein Feld "bild_labels" als Objekt mitgeliefert werden: {"1": "Deutsche Beschriftung", "2": "..."}
+- "bild" → "text" = Bildprompt KOMPLETT auf Englisch (5-10 Sätze). NUR visuellen Inhalt beschreiben. Korrekt geschriebene deutsche Beschriftungen (Bezeichnungen, Achsen, Pfeile) dürfen direkt im Bild stehen — erfinde dabei KEINE Zahlenwerte (Zahlen gehören in Tabellen). "bild_labels" optional als Fallback
 KRITISCH: Materialien MÜSSEN echte Inhalte enthalten — NIEMALS Platzhalter wie "Ein Text über..." oder "(vollständiger Text...)". Schreibe den TATSÄCHLICHEN Inhalt!
 
 Antworte NUR mit validem JSON (kein Markdown-Codeblock). EXAKTES Format:
@@ -360,7 +360,7 @@ MATERIALIEN — ISB-STIL:
 Materialien heißen "Abb. 1", "Abb. 2", "Abb. 3" (für Bilder, Diagramme, Schaubilder) oder "Blogauszug – Teil 1", "Textquelle 1", "Tabelle 1" etc. NICHT "M1", "M2"!
 Sie sind thematisch in die Aufgabe eingebettet und werden in den Teilaufgaben direkt referenziert ("vgl. Abb. 1", "unter Berücksichtigung von Abb. 2").
 Pro Aufgabe 2-4 Materialien. Typen:
-- **"bild"** — Schaubilder, Diagramme, anatomische Darstellungen. "text" = Bildprompt KOMPLETT auf Englisch (5-10 Sätze). NUR visuellen Inhalt beschreiben. Verwende NUR NUMMERN (1, 2, 3...) als Beschriftungen statt Text. KEINE Wörter im Bild! Zusätzlich MUSS ein Feld "bild_labels" als Objekt mitgeliefert werden: {"1": "Deutsche Beschriftung", "2": "..."}. "titel" = z.B. "Abb. 1: Muskelgruppen"
+- **"bild"** — Schaubilder, Diagramme, anatomische Darstellungen. "text" = Bildprompt KOMPLETT auf Englisch (5-10 Sätze). NUR visuellen Inhalt beschreiben. Korrekt geschriebene deutsche Beschriftungen (Bezeichnungen, Achsen, Pfeile) dürfen direkt im Bild stehen — erfinde dabei KEINE Zahlenwerte (Zahlen gehören in Tabellen). "bild_labels" optional als Fallback. "titel" = z.B. "Abb. 1: Muskelgruppen"
 - **"foto"** — Bewegungsabläufe, Bildreihen, Sportgeräte, Spielfelder, Sportstätten. "text" = Prompt KOMPLETT auf Englisch (5-10 Sätze). Realistisches Foto. KEINE Personen! "titel" = z.B. "Abb. 2: Speerwurf-Anlauf". Falls das Foto beschriftete Elemente zeigt, optional "bild_labels" mitliefern.
 - **"diagramm"** — Kurvenverläufe (Laktat, HF, Streckenprofil). "text" = Markdown-Tabelle mit ECHTEN Zahlenwerten. "chart_type": "line". "titel" = z.B. "Abb. 2: Laktatleistungskurve"
 - **"statistik"** — Datentabellen (Leistungswerte, Testergebnisse). "text" = Markdown-Tabelle mit ECHTEN Zahlenwerten. "chart_type": "bar". "titel" = z.B. "Tabelle 1: Testergebnisse"
@@ -369,7 +369,7 @@ Pro Aufgabe 2-4 Materialien. Typen:
 WICHTIG:
 - KRITISCH: Jedes Material MUSS ein "type"-Feld haben!
 - KRITISCH: Für "statistik" und "diagramm": "text" = Markdown-Tabelle mit ECHTEN Zahlenwerten
-- KRITISCH: Für "bild": "text" = Bildprompt KOMPLETT auf Englisch (5-10 Sätze). NUR visuellen Inhalt. Verwende NUR NUMMERN (1, 2, 3...) statt Text. KEINE Wörter im Bild! "bild_labels" als Objekt MUSS mitgeliefert werden.
+- KRITISCH: Für "bild": "text" = Bildprompt KOMPLETT auf Englisch (5-10 Sätze). NUR visuellen Inhalt. Korrekt geschriebene deutsche Beschriftungen dürfen direkt im Bild stehen — erfinde dabei KEINE Zahlenwerte. "bild_labels" als Objekt MUSS mitgeliefert werden.
 - Pro Aufgabe: MINDESTENS 1x "bild" oder "diagramm" + 1x "text"
 - Aufgaben müssen fachlich korrekt und eindeutig lösbar sein
 - ${KEINE_LOESUNGSHINWEISE}
@@ -387,8 +387,8 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
       "titel": "Zehnkampf",
       "lernbereiche": ["Sportbiologie/Trainingslehre und Bewegungslehre", "Psychologische, soziale und gesellschaftspolitische Bedeutung des Sports"],
       "material": [
-        {"id": "Abb. 1", "titel": "Abb. 1: Speerwurf", "type": "bild", "text": "<Bildprompt auf Englisch, NUR Nummern als Marker>", "bild_labels": {"1": "Beschriftung 1", "2": "Beschriftung 2"}},
-        {"id": "Abb. 2", "titel": "Abb. 2: Diskuswurf", "type": "bild", "text": "<Bildprompt auf Englisch, NUR Nummern als Marker>", "bild_labels": {"1": "Beschriftung 1", "2": "Beschriftung 2"}}
+        {"id": "Abb. 1", "titel": "Abb. 1: Speerwurf", "type": "bild", "text": "<Bildprompt auf Englisch, deutsche Beschriftungen erlaubt>", "bild_labels": {"1": "Beschriftung 1", "2": "Beschriftung 2"}},
+        {"id": "Abb. 2", "titel": "Abb. 2: Diskuswurf", "type": "bild", "text": "<Bildprompt auf Englisch, deutsche Beschriftungen erlaubt>", "bild_labels": {"1": "Beschriftung 1", "2": "Beschriftung 2"}}
       ],
       "teilaufgaben": [
         {"id": "1", "text": "Mehrkämpferinnen und Mehrkämpfer gelten als die Königinnen bzw. die Könige der Leichtathletik...", "be": 0, "typ": "block"},

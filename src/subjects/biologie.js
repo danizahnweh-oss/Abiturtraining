@@ -98,7 +98,7 @@ MATERIAL-TYPEN (jedes Material braucht ein "type"-Feld):
 - "statistik" + "chart_type":"bar" → "text" = vollständige Markdown-Tabelle mit echten Zahlenwerten (mind. 4 Datenzeilen)
 - "diagramm" + "chart_type":"line" → "text" = vollständige Markdown-Tabelle mit echten x/y-Messwerten (mind. 5 Datenpunkte)
 - "text" → "text" = vollständiger, ausformulierter Fachtext (mind. 100 Wörter), KEIN Platzhalter. NICHT für Stammbäume oder Kreuzungsschemata!
-- "bild" → "text" = Bildprompt KOMPLETT auf Englisch (5-10 Sätze). NUR visuellen Inhalt beschreiben. Verwende NUR NUMMERN (1, 2, 3...) als Beschriftungen statt Text. KEINE Wörter im Bild! Zusätzlich MUSS ein Feld "bild_labels" als Objekt mitgeliefert werden: {"1": "Deutsche Beschriftung", "2": "..."}. NICHT für Stammbäume!
+- "bild" → "text" = Bildprompt KOMPLETT auf Englisch (5-10 Sätze). NUR visuellen Inhalt beschreiben. Korrekt geschriebene deutsche Beschriftungen (Bezeichnungen, Achsen, Pfeile) dürfen direkt im Bild stehen — erfinde dabei KEINE Zahlenwerte (Zahlen gehören in Tabellen). "bild_labels" optional als Fallback. NICHT für Stammbäume!
 - "stammbaum" → Für Stammbäume/Erbgänge/Pedigrees. MUSS ein Feld "stammbaum_data" als Objekt haben. Format:
   "stammbaum_data": {
     "generationen": [
@@ -473,7 +473,7 @@ Jedes Material hat ein "type"-Feld:
   | 1 | +30 |
   | 2 | -80 |
 
-- **"bild"** — Schaubilder/Diagramme werden GENERIERT. Geeignet für: Schematische Darstellungen, Zelldiagramme, Stoffwechselwege, Gelelektrophorese-Ergebnisse, STAMMBÄUME (Erbgänge), Kreuzungsschemata. "text" MUSS ein ausführlicher Bildprompt KOMPLETT auf Englisch sein (mind. 3-5 Sätze) mit Layout, Farben, Stil und allen visuellen Details. Verwende NUR NUMMERN (1, 2, 3...) als Beschriftungen statt Text. KEINE Wörter im Bild! Zusätzlich MUSS ein Feld "bild_labels" als Objekt mitgeliefert werden: {"1": "Deutsche Beschriftung", "2": "..."}. KEIN chart_type. WICHTIG: Bilder NIEMALS als Text beschreiben — IMMER type "bild" oder "foto" verwenden! STAMMBÄUME MÜSSEN IMMER als type "bild" generiert werden — NIEMALS als Text!
+- **"bild"** — Schaubilder/Diagramme werden GENERIERT. Geeignet für: Schematische Darstellungen, Zelldiagramme, Stoffwechselwege, Gelelektrophorese-Ergebnisse, STAMMBÄUME (Erbgänge), Kreuzungsschemata. "text" MUSS ein ausführlicher Bildprompt KOMPLETT auf Englisch sein (mind. 3-5 Sätze) mit Layout, Farben, Stil und allen visuellen Details. Korrekt geschriebene deutsche Beschriftungen (Bezeichnungen, Achsen, Pfeile) dürfen direkt im Bild stehen — erfinde dabei KEINE Zahlenwerte (Zahlen gehören in Tabellen). "bild_labels" optional als Fallback. KEIN chart_type. WICHTIG: Bilder NIEMALS als Text beschreiben — IMMER type "bild" oder "foto" verwenden! STAMMBÄUME MÜSSEN IMMER als type "bild" generiert werden — NIEMALS als Text!
 
 - **"foto"** — Realistische Fotos. Geeignet für: Mikroskopaufnahmen, Laboraufbauten, Ökosysteme, Organismen, Pflanzen, Tiere, Versuchsaufbauten, Biotope. "text" = Prompt KOMPLETT auf Englisch (5-10 Sätze). KEINE Personen! Falls das Foto beschriftete Elemente zeigt, optional "bild_labels" mitliefern.
 
@@ -482,7 +482,7 @@ Jedes Material hat ein "type"-Feld:
 WICHTIG:
 - KRITISCH: Jedes Material MUSS ein "type"-Feld haben ("statistik", "diagramm", "bild" oder "text"). Materialien OHNE type-Feld werden nicht korrekt dargestellt!
 - KRITISCH: Für "statistik" und "diagramm": "text" MUSS eine Markdown-Tabelle sein (mit | ... | Syntax und echten Zahlenwerten). KEINE Textbeschreibungen von Diagrammen — stattdessen die Datenpunkte als Tabelle!
-- KRITISCH: Für "bild": "text" = Bildprompt KOMPLETT auf Englisch (5-10 Sätze). NUR visuellen Inhalt. Verwende NUR NUMMERN (1, 2, 3...) statt Text. KEINE Wörter im Bild! "bild_labels" als Objekt MUSS mitgeliefert werden. KEINE kurzen Stichworte — KEINE 2-4 Wort Keywords!
+- KRITISCH: Für "bild": "text" = Bildprompt KOMPLETT auf Englisch (5-10 Sätze). NUR visuellen Inhalt. Korrekt geschriebene deutsche Beschriftungen dürfen direkt im Bild stehen — erfinde dabei KEINE Zahlenwerte. "bild_labels" als Objekt MUSS mitgeliefert werden. KEINE kurzen Stichworte — KEINE 2-4 Wort Keywords!
 - VERBOTEN: Bilder, Fotos, Abbildungen, Schaubilder oder visuelle Materialien als Textbeschreibung in type "text" einbetten! Wenn ein Material visuell ist (Foto, Mikroskopaufnahme, Versuchsaufbau, Landschaft, Organismus), MUSS es type "bild" mit einem ausführlichen Imagen-Prompt sein. Texte wie "Die Abbildung zeigt..." oder "[Beschreibung eines Bildes]" sind NICHT erlaubt — stattdessen als type "bild" generieren!
 - Pro Aufgabengruppe: MINDESTENS 1x "statistik" oder "diagramm" (mit Markdown-Tabelle + chart_type), PLUS mindestens 1x "bild" (mit Imagen-Prompt)
 - LaTeX $...$ NUR für mathematische Formeln: $Aa$, $\\frac{dN}{dt}$, $p^2 + 2pq + q^2 = 1$
@@ -581,7 +581,7 @@ KRITISCH: Mathematische Formeln in LaTeX ($...$). Einheiten und Summenformeln al
 KRITISCH: Jedes Material MUSS ein "type"-Feld haben! Verwende die 4 Typen:
 - "statistik" (type + chart_type "bar"): "text" = VOLLSTÄNDIGE Markdown-Tabelle mit ECHTEN Zahlenwerten (mind. 4-6 Datenzeilen)
 - "diagramm" (type + chart_type "line"): "text" = VOLLSTÄNDIGE Markdown-Tabelle mit ECHTEN x/y-Datenpunkten (mind. 5-8 Messwerte)
-- "bild" (type): "text" = Bildprompt KOMPLETT auf Englisch (5-10 Sätze). NUR visuellen Inhalt beschreiben. Verwende NUR NUMMERN (1, 2, 3...) als Beschriftungen statt Text. KEINE Wörter im Bild! Zusätzlich MUSS ein Feld "bild_labels" als Objekt mitgeliefert werden: {"1": "Deutsche Beschriftung", "2": "..."}
+- "bild" (type): "text" = Bildprompt KOMPLETT auf Englisch (5-10 Sätze). NUR visuellen Inhalt beschreiben. Korrekt geschriebene deutsche Beschriftungen (Bezeichnungen, Achsen, Pfeile) dürfen direkt im Bild stehen — erfinde dabei KEINE Zahlenwerte (Zahlen gehören in Tabellen). "bild_labels" optional als Fallback
 - "foto" (type): "text" = Prompt KOMPLETT auf Englisch (5-10 Sätze). Realistisches Foto von Mikroskopaufnahmen, Organismen, Ökosystemen, Laboraufbauten, Pflanzen, Tieren. KEINE Personen! Falls das Foto beschriftete Elemente zeigt, optional "bild_labels" mitliefern.
 - "text" (type): "text" = VOLLSTÄNDIGER AUSFORMULIERTER Fachtext (mind. 150-300 Wörter)
 ABSOLUT VERBOTEN: Platzhalter wie "Ein Fachtext, der..." oder "Eine Tabelle mit..." — das "text"-Feld MUSS den TATSÄCHLICHEN Inhalt enthalten!

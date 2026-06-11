@@ -126,7 +126,7 @@ Relevante Inhalte:
 ${lb.inhalte}${schwerpunktZusatz}
 
 MATERIALIEN:
-- MINDESTENS 1 Werkabbildung als "bild" (Bildprompt auf Englisch, 5-10 Sätze, NUR Nummern als Marker, bild_labels als Objekt)
+- MINDESTENS 1 Werkabbildung als "bild" (Bildprompt auf Englisch, 5-10 Sätze, deutsche Beschriftungen erlaubt, bild_labels als Objekt)
 - MINDESTENS 1 Textquelle als "text" (Kunstkritik, Künstlerzitat, kunsttheoretischer Text — 200-500 Wörter Fließtext)
 - Optional: "foto" (Künstlerporträt, Ausstellungsansicht), "statistik" (Markdown-Tabelle)
 
@@ -137,7 +137,7 @@ Antworte NUR mit validem JSON:
   "teil_a": {
     "task_instruction": "Werkerschließung: Alle Teilaufgaben (Annäherung, Beschreibung, Analyse, Interpretation) mit BE-Angaben",
     "materials": [
-      {"title": "Abb. 1: Werktitel, Künstler (Jahr)", "type": "bild", "content": "Bildprompt auf Englisch (5-10 Sätze). NUR Nummern als Marker.", "bild_labels": {"1": "Beschriftung"}, "source": "Künstler, Werktitel, Jahr, Museum"},
+      {"title": "Abb. 1: Werktitel, Künstler (Jahr)", "type": "bild", "content": "Bildprompt auf Englisch (5-10 Sätze). deutsche Beschriftungen erlaubt.", "bild_labels": {"1": "Beschriftung"}, "source": "Künstler, Werktitel, Jahr, Museum"},
       {"title": "Textquelle 1: Titel", "type": "text", "content": "Kunstkritik oder Künstlerzitat (200-500 Wörter)", "source": "Autor, Quelle, Jahr"}
     ]
   },

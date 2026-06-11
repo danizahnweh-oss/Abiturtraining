@@ -110,7 +110,7 @@ TABELLEN-FORMATIERUNG IN MATERIALIEN:
 MATERIAL-TYPEN (jedes Material MUSS ein "type"-Feld haben):
 - "statistik" + "chart_type":"bar": "text" enthält eine VOLLSTÄNDIGE Markdown-Tabelle mit ECHTEN Messwerten (mind. 4-6 Datenzeilen)
 - "diagramm" + "chart_type":"line": "text" enthält eine VOLLSTÄNDIGE Markdown-Tabelle mit ECHTEN x/y-Datenpunkten (mind. 5-8 Messwerte, z.B. t/U, t/I, λ/Intensität)
-- "bild": "text" = Bildprompt KOMPLETT auf Englisch (5-10 Sätze). NUR visuellen Inhalt beschreiben. Verwende NUR NUMMERN (1, 2, 3...) als Beschriftungen statt Text. KEINE Wörter im Bild! Zusätzlich MUSS ein Feld "bild_labels" als Objekt mitgeliefert werden: {"1": "Deutsche Beschriftung", "2": "..."}
+- "bild": "text" = Bildprompt KOMPLETT auf Englisch (5-10 Sätze). NUR visuellen Inhalt beschreiben. Korrekt geschriebene deutsche Beschriftungen (Bezeichnungen, Achsen, Pfeile) dürfen direkt im Bild stehen — erfinde dabei KEINE Zahlenwerte (Zahlen gehören in Tabellen). "bild_labels" optional als Fallback
 - "foto": Realistisches Foto. "text" = Prompt KOMPLETT auf Englisch (5-10 Sätze). Z.B. Laboraufbauten, Versuchsapparaturen, Mikroskopaufnahmen, Organismen, Ökosysteme, Messgeräte, Naturphänomene. KEINE Personen! Falls das Foto beschriftete Elemente zeigt, optional "bild_labels" mitliefern.
 - "text": "text" enthält den VOLLSTÄNDIGEN AUSFORMULIERTEN Fachtext (mind. 150-300 Wörter)
 
@@ -379,7 +379,7 @@ export async function repairPlaceholderMaterials(env, materials, sachgebietTitle
       text: `Schreibe einen vollständigen, ausformulierten Fachtext (mind. 150 Wörter) für Oberstufenschüler. Der Text soll als Material in einer Klausuraufgabe dienen. Thema: "${m.titel || "Fachtext"}". Sachgebiet: ${sachgebietTitle}. Gib NUR den reinen Fachtext aus, keine Überschrift, kein JSON.`,
       statistik: `Erstelle eine vollständige Markdown-Tabelle mit echten, realistischen Zahlenwerten (mind. 4 Datenzeilen) zum Thema "${m.titel || "Daten"}". Sachgebiet: ${sachgebietTitle}. Gib NUR die Markdown-Tabelle aus.`,
       diagramm: `Erstelle eine vollständige Markdown-Tabelle mit echten, realistischen x/y-Messwerten (mind. 6 Datenpunkte) zum Thema "${m.titel || "Messwerte"}". Sachgebiet: ${sachgebietTitle}. Gib NUR die Markdown-Tabelle aus.`,
-      bild: `Schreibe einen Bildprompt KOMPLETT auf Englisch (5-10 Sätze) für eine biologische Abbildung zum Thema "${m.titel || "Abbildung"}". NUR visuellen Inhalt beschreiben. Verwende NUR NUMMERN (1, 2, 3...) als Beschriftungen im Bild statt Text. KEINE Wörter oder Sätze im Bild! Gib NUR den Prompt aus.`
+      bild: `Schreibe einen Bildprompt KOMPLETT auf Englisch (5-10 Sätze) für eine biologische Abbildung zum Thema "${m.titel || "Abbildung"}". NUR visuellen Inhalt beschreiben. Korrekt geschriebene deutsche Beschriftungen dürfen direkt im Bild stehen — erfinde dabei KEINE Zahlenwerte. Gib NUR den Prompt aus.`
     };
     const prompt = typeInstr[m.type] || typeInstr.text;
     try {
@@ -486,7 +486,7 @@ TABELLEN-FORMATIERUNG IN MATERIALIEN:
 MATERIAL-TYPEN (jedes Material MUSS ein "type"-Feld haben):
 - "statistik" + "chart_type":"bar": "text" enthält eine VOLLSTÄNDIGE Markdown-Tabelle mit EIGENEN, NEUEN Messwerten (mind. 4-6 Datenzeilen). KEINE Werte aus den Beispielen kopieren!
 - "diagramm" + "chart_type":"line": "text" enthält eine VOLLSTÄNDIGE Markdown-Tabelle mit EIGENEN, NEUEN x/y-Datenpunkten (mind. 5-8 Messwerte). KEINE Werte aus den Beispielen kopieren!
-- "bild": "text" = Bildprompt KOMPLETT auf Englisch (5-10 Sätze). NUR visuellen Inhalt beschreiben. Verwende NUR NUMMERN (1, 2, 3...) als Beschriftungen statt Text. KEINE Wörter im Bild! Zusätzlich MUSS ein Feld "bild_labels" als Objekt mitgeliefert werden: {"1": "Deutsche Beschriftung", "2": "..."}
+- "bild": "text" = Bildprompt KOMPLETT auf Englisch (5-10 Sätze). NUR visuellen Inhalt beschreiben. Korrekt geschriebene deutsche Beschriftungen (Bezeichnungen, Achsen, Pfeile) dürfen direkt im Bild stehen — erfinde dabei KEINE Zahlenwerte (Zahlen gehören in Tabellen). "bild_labels" optional als Fallback
 - "foto": Realistisches Foto. "text" = Prompt KOMPLETT auf Englisch (5-10 Sätze). Z.B. Laboraufbauten, Versuchsapparaturen, Mikroskopaufnahmen, Organismen, Ökosysteme, Messgeräte, Naturphänomene. KEINE Personen! Falls das Foto beschriftete Elemente zeigt, optional "bild_labels" mitliefern.
 - "text": "text" enthält den VOLLSTÄNDIGEN AUSFORMULIERTEN Fachtext (mind. 150-300 Wörter)
 

@@ -2288,13 +2288,13 @@ AUFGABENSTRUKTUR:
 MATERIALIEN:
 - Textmaterialien: 300-600 Wörter pro Material
 - Tabellen/Statistiken: Markdown-Tabelle mit plausiblen Zahlen
-- 1 Material vom Typ "bild" (KI-generiert): inhalt = Bildprompt KOMPLETT auf Englisch (5-10 Sätze). NUR visuellen Inhalt beschreiben. Verwende NUR NUMMERN (1, 2, 3...) als Beschriftungen statt Text. KEINE Wörter im Bild! Zusätzlich MUSS ein Feld "bild_labels" als Objekt mitgeliefert werden: {"1": "Deutsche Beschriftung", "2": "..."}.
+- 1 Material vom Typ "bild" (KI-generiert): inhalt = Bildprompt KOMPLETT auf Englisch (5-10 Sätze). NUR visuellen Inhalt beschreiben. Korrekt geschriebene deutsche Beschriftungen (Bezeichnungen, Achsen, Pfeile) dürfen direkt im Bild stehen — erfinde dabei KEINE Zahlenwerte (Zahlen gehören in Tabellen). "bild_labels" optional als Fallback.
 
 Antworte NUR mit validem JSON:
 {
   "task_instruction": "Einleitender Situationstext",
   "aufgabenbloecke": [{"nr": 1, "titel": "...", "teilaufgaben": [{"nr": "1.1", "text": "...", "be": 5, "afb": "I"}], "be_gesamt": 15}],
-  "materialien": [{"nr": "M1", "titel": "...", "typ": "text", "inhalt": "...", "quelle": "..."}, {"nr": "M2", "titel": "Schaubild: ...", "typ": "bild", "inhalt": "Bildprompt auf Englisch. Visuellen Inhalt beschreiben, NUR Nummern als Marker im Bild, KEINE Wörter.", "bild_labels": {"1": "Beschriftung 1", "2": "Beschriftung 2"}, "quelle": ""}],
+  "materialien": [{"nr": "M1", "titel": "...", "typ": "text", "inhalt": "...", "quelle": "..."}, {"nr": "M2", "titel": "Schaubild: ...", "typ": "bild", "inhalt": "Bildprompt auf Englisch. Visuellen Inhalt beschreiben; korrekt geschriebene deutsche Beschriftungen dürfen direkt im Bild stehen.", "bild_labels": {"1": "Beschriftung 1", "2": "Beschriftung 2"}, "quelle": ""}],
   "gesamt_be": ${gesamtBE},
   "fachbereich": "${fbLabel}",
   "thema": "Konkretes Thema"

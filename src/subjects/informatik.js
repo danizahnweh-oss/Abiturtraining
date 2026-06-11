@@ -79,8 +79,8 @@ MATERIAL-TYPEN (jedes Material braucht ein "type"-Feld):
 - "statistik" + "chart_type":"bar" → "text" = vollständige Markdown-Tabelle mit echten Zahlenwerten (mind. 4 Datenzeilen)
 - "diagramm" + "chart_type":"line" → "text" = vollständige Markdown-Tabelle mit echten x/y-Messwerten (mind. 5 Datenpunkte)
 - "text" → "text" = vollständiger, ausformulierter Fachtext (mind. 100 Wörter) oder Code-Listing, KEIN Platzhalter
-- "bild" → "text" = Bildprompt KOMPLETT auf Englisch (5-10 Sätze). NUR visuellen Inhalt beschreiben. Verwende NUR NUMMERN (1, 2, 3...) als Beschriftungen statt Text. KEINE Wörter im Bild! Zusätzlich MUSS ein Feld "bild_labels" als Objekt mitgeliefert werden: {"1": "Deutsche Beschriftung", "2": "..."}.
-  REGELN für "bild": (1) Layout, Farben und visuelle Elemente detailliert beschreiben (2) NUR Nummern als Marker im Bild (3) KEINE Personen!
+- "bild" → "text" = Bildprompt KOMPLETT auf Englisch (5-10 Sätze). NUR visuellen Inhalt beschreiben. Korrekt geschriebene deutsche Beschriftungen (Bezeichnungen, Achsen, Pfeile) dürfen direkt im Bild stehen — erfinde dabei KEINE Zahlenwerte (Zahlen gehören in Tabellen). "bild_labels" optional als Fallback.
+  REGELN für "bild": (1) Layout, Farben und visuelle Elemente detailliert beschreiben (2) deutsche Beschriftungen erlaubt im Bild (3) KEINE Personen!
 - "foto" → "text" = Prompt KOMPLETT auf Englisch (5-10 Sätze). Realistisches Foto von Hardware, Serverräumen, Netzwerkgeräten, Leiterplatten, Robotern, Alltagstechnologie. KEINE Personen! Falls das Foto beschriftete Elemente zeigt, optional "bild_labels" mitliefern.
 - Erstelle pro Aufgabengruppe IMMER mindestens 1 visuelles Material. BEVORZUGE "statistik" (Benchmark-Tabellen, Vergleichsdaten) oder "foto" (Hardware, Netzwerkgeräte). Für UML-/Architekturdiagramme verwende "bild".
   VERBOTEN: Diagramme/Bilder als Textbeschreibung oder ASCII-Art einfügen — IMMER type "bild" mit englischem Imagen-Prompt verwenden!
@@ -99,7 +99,7 @@ Antworte NUR mit validem JSON (kein Markdown-Codeblock). EXAKTES Format:
   "sachgebiet": "${sg}",
   "material": [
     {"id": "M1", "titel": "<Titel>", "type": "<statistik|diagramm|text|bild>", "text": "<ECHTER Inhalt>"},
-    {"id": "M2", "titel": "Schaubild: ...", "type": "bild", "text": "<Bildprompt auf Englisch. Visuellen Inhalt beschreiben, NUR Nummern als Marker>", "bild_labels": {"1": "Beschriftung 1", "2": "Beschriftung 2"}}
+    {"id": "M2", "titel": "Schaubild: ...", "type": "bild", "text": "<Bildprompt auf Englisch. Visuellen Inhalt beschreiben, deutsche Beschriftungen erlaubt>", "bild_labels": {"1": "Beschriftung 1", "2": "Beschriftung 2"}}
   ]
 }`;
 
@@ -385,9 +385,9 @@ MATERIAL-TYPEN (jedes Material MUSS ein "type"-Feld haben):
 - "text": Vollständige Textbeschreibung einer Situation/eines Systems (150-300 Wörter) oder Code-Listing
 - "statistik" + "chart_type":"bar": Markdown-Tabelle mit Daten (mind. 4-6 Zeilen)
 - "diagramm" + "chart_type":"line": Markdown-Tabelle mit x/y-Werten (mind. 5-8 Werte)
-- "bild": Bildprompt KOMPLETT auf Englisch (5-10 Sätze) für UML/Zustandsdiagramm. NUR visuellen Inhalt beschreiben. Verwende NUR NUMMERN (1, 2, 3...) als Beschriftungen statt Text. KEINE Wörter im Bild! Zusätzlich MUSS ein Feld "bild_labels" als Objekt mitgeliefert werden: {"1": "Deutsche Beschriftung", "2": "..."}
+- "bild": Bildprompt KOMPLETT auf Englisch (5-10 Sätze) für UML/Zustandsdiagramm. NUR visuellen Inhalt beschreiben. Korrekt geschriebene deutsche Beschriftungen (Bezeichnungen, Achsen, Pfeile) dürfen direkt im Bild stehen — erfinde dabei KEINE Zahlenwerte (Zahlen gehören in Tabellen). "bild_labels" optional als Fallback
 - Erstelle pro Aufgabengruppe IMMER mindestens 1 visuelles Material. BEVORZUGE "statistik" (Benchmark-Tabellen, Vergleichsdaten) oder "foto" (Hardware, Netzwerkgeräte). Für UML-/Architekturdiagramme verwende "bild".
-  REGELN für "bild": (1) Layout, Farben, Stil detailliert beschreiben (2) NUR Nummern als Marker im Bild (3) KEINE Personen!
+  REGELN für "bild": (1) Layout, Farben, Stil detailliert beschreiben (2) deutsche Beschriftungen erlaubt im Bild (3) KEINE Personen!
   VERBOTEN: Diagramme/Bilder als Textbeschreibung oder ASCII-Art einfügen — IMMER type "bild" mit englischem Imagen-Prompt verwenden!
 
 KRITISCH — ABSOLUT VERBOTEN:
@@ -405,7 +405,7 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
       "sachgebiet": "sachgebiet_key",
       "material": [
         {"id": "M1", "titel": "Materialtitel", "type": "text", "text": "Vollständiger Materialtext..."},
-        {"id": "M2", "titel": "Diagramm: ...", "type": "bild", "text": "Bildprompt auf Englisch. Visuellen Inhalt beschreiben, NUR Nummern als Marker", "bild_labels": {"1": "Beschriftung 1", "2": "Beschriftung 2"}}
+        {"id": "M2", "titel": "Diagramm: ...", "type": "bild", "text": "Bildprompt auf Englisch. Visuellen Inhalt beschreiben, deutsche Beschriftungen erlaubt", "bild_labels": {"1": "Beschriftung 1", "2": "Beschriftung 2"}}
       ],
       "teilaufgaben": [
         {"id": "1.1", "text": "Aufgabentext", "be": 4}
