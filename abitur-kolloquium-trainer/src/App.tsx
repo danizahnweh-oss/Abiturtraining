@@ -615,7 +615,30 @@ export default function App() {
     sessionRef.current?.notifyPresentationFinished();
   }, [step, examMode, exam.phase]);
 
-  /* ── Material-Impuls Timer ── */
+  /* ── Material-Impuls: Einblendung sobald der Prüfer es ankündigt ──
+     Der Prüfer kündigt das Material verbal an ("Ich möchte Ihnen nun ein
+     Material vorlegen"). Wir blenden es dann SOFORT ein, damit Ansage und
+     Anzeige synchron sind. Der Timer unten dient nur noch als Fallback,
+     falls die Ansage von der Spracherkennung nicht sauber erkannt wird. */
+  useEffect(() => {
+    if (step !== 'exam' || matImpulse.length === 0) return;
+    const last = modelTx[modelTx.length - 1];
+    if (!last) return;
+    const t = last.toLowerCase();
+    // Phrasen, mit denen der Prüfer ein Material einleitet
+    const kündigtMaterialAn =
+      /material(ien)?\s+(vorlegen|vorzulegen|vor\b|zeigen|anschauen)/.test(t) ||
+      /(lege|zeige|möchte)\s+ihnen\b[^.!?]*\bmaterial/.test(t) ||
+      /hier\s+(ist|sehen sie|haben sie)\b[^.!?]*\bmaterial/.test(t);
+    if (!kündigtMaterialAn) return;
+    // Nächsten noch nicht gezeigten Impuls einblenden
+    const next = matImpulse.findIndex((_, i) => !shownImpulse.has(i));
+    if (next === -1) return;
+    setActiveImpuls(next);
+    setShownImpulse(prev => new Set(prev).add(next));
+  }, [step, modelTx, matImpulse, shownImpulse]);
+
+  /* ── Material-Impuls Timer (Fallback, falls Ansage nicht erkannt) ── */
   useEffect(() => {
     if (step !== 'exam' || matImpulse.length === 0) return;
 

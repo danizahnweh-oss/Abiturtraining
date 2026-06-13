@@ -1120,11 +1120,22 @@ Dir stehen folgende Materialien zur Verfügung, die dem Prüfling NUR während d
 ${m.inhalt}
 (Quelle: ${m.quellenangabe})`;
       if (i === 0) {
-        instruction += `\n→ Wird dem Prüfling kurz nach Beginn der Fragen ${isMathe ? 'zum weiteren Gebiet' : 'zu den weiteren Halbjahren'} eingeblendet. Leite über mit: "Ich möchte Ihnen nun ein Material vorlegen." Stelle dann eine Frage, die sich auf dieses Material bezieht.`;
+        instruction += `\n→ Lege dieses Material während der Fragen ${isMathe ? 'zum weiteren Gebiet' : 'zu den weiteren Halbjahren'} vor. Kündige es ZUERST mit genau diesem Satz an: "Ich möchte Ihnen nun ein Material vorlegen." — denn SOBALD du das ankündigst, wird es dem Prüfling eingeblendet. Stelle DANACH (nicht vorher) eine kurze Frage dazu, damit Ansage, Anzeige und Frage zusammenpassen.`;
       } else {
-        instruction += `\n→ Wird etwas später eingeblendet. Leite erneut über mit: "Ich lege Ihnen ein weiteres Material vor." Stelle dann eine Frage dazu.`;
+        instruction += `\n→ Lege dieses Material etwas später vor. Kündige es ZUERST mit genau diesem Satz an: "Ich lege Ihnen ein weiteres Material vor." — damit es eingeblendet wird. Stelle DANACH eine kurze Frage dazu.`;
       }
     });
+  }
+
+  if (mode !== 'referat') {
+    instruction += `
+
+FRAGESTIL (sehr wichtig — so fragen echte Prüfer):
+- Stelle KURZE, KLARE Fragen: in der Regel EIN bis ZWEI Sätze. Eine echte Kolloquiumsfrage ist knapp formuliert, nicht ausschweifend.
+- Immer nur EINE Frage auf einmal. Verpacke NICHT mehrere Teilfragen in einen Redebeitrag — der Prüfling kann sich sonst nur einen Teil merken und verliert den Faden.
+- KEIN langes Vorgeplänkel vor der Frage: kein ausführliches Einordnen, Zusammenfassen oder Erklären, bevor die eigentliche Frage kommt. Komm zügig auf den Punkt.
+- Formuliere die Frage so, dass der Prüfling sie nach EINMALIGEM Hören vollständig erfassen und beantworten kann.
+- Wenn du einen Impuls einleiten musst (z.B. ein Material), beschränke die Einleitung auf EINEN kurzen Satz — danach folgt sofort die eigentliche, knappe Frage.`;
   }
 
   instruction += `
