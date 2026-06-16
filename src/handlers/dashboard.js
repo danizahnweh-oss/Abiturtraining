@@ -535,6 +535,18 @@ export async function handleActivityFeed(request, env) {
     )
     UNION ALL
     SELECT * FROM (
+      SELECT 'task_submission' AS type, tt.title AS label,
+             COALESCE(r.student_name, ts.student_name_lower) AS actor,
+             t.name AS detail, ts.submitted_at AS ts
+      FROM task_submissions ts
+      JOIN teacher_tasks tt ON tt.id = ts.task_id
+      JOIN teachers t ON t.id = tt.teacher_id
+      LEFT JOIN results r ON r.id = ts.result_id
+      WHERE ts.submitted_at IS NOT NULL
+      ORDER BY ts.submitted_at DESC LIMIT 15
+    )
+    UNION ALL
+    SELECT * FROM (
       SELECT 'student_registered' AS type, s.name AS label, s.name AS actor, '' AS detail, s.created_at AS ts
       FROM students s
       WHERE s.created_at IS NOT NULL

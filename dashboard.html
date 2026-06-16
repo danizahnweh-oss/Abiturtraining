@@ -183,6 +183,7 @@ footer a { color: var(--accent); }
 .activity-icon--task { background: rgba(37,99,235,.12); }
 .activity-icon--code { background: rgba(124,58,237,.12); }
 .activity-icon--submission { background: rgba(245,158,11,.12); }
+.activity-icon--task-sub { background: rgba(14,165,233,.12); }
 .activity-icon--graded { background: rgba(5,150,105,.12); }
 .activity-icon--student { background: rgba(219,39,119,.12); }
 .activity-icon--teacher { background: rgba(99,102,241,.12); }
@@ -2406,6 +2407,7 @@ const ACTIVITY_CONFIG = {
   task_created:       { icon: '📝', cls: 'activity-icon--task',       text: e => `<strong>${escapeHtml(e.actor)}</strong> hat Aufgabe „${escapeHtml(e.label)}" erstellt (${escapeHtml(e.detail)})` },
   code_created:       { icon: '🔑', cls: 'activity-icon--code',       text: e => `<strong>${escapeHtml(e.actor)}</strong> hat Zugangscode „${escapeHtml(e.label)}" erstellt` },
   submission:         { icon: '📤', cls: 'activity-icon--submission', text: e => `<strong>${escapeHtml(e.actor)}</strong> hat „${escapeHtml(e.label || '–')}" eingereicht (${escapeHtml(e.detail || '–')})` },
+  task_submission:    { icon: '🧑‍🏫', cls: 'activity-icon--task-sub',  text: e => `<strong>${escapeHtml(e.actor)}</strong> hat Aufgabe „${escapeHtml(e.label || '–')}" von ${escapeHtml(e.detail || 'Lehrkraft')} bearbeitet` },
   graded:             { icon: '✅', cls: 'activity-icon--graded',     text: e => `<strong>${escapeHtml(e.actor)}</strong> — „${escapeHtml(e.label || '–')}" bewertet: ${escapeHtml(e.detail)}/15 NP` },
   student_registered: { icon: '👤', cls: 'activity-icon--student',    text: e => `Neuer Schüler: <strong>${escapeHtml(e.label)}</strong>` },
   teacher_registered: { icon: '🎓', cls: 'activity-icon--teacher',    text: e => `Neue Lehrkraft: <strong>${escapeHtml(e.label)}</strong>${e.detail === 'pending' ? ' (wartet auf Freischaltung)' : ''}` },
