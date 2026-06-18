@@ -179,11 +179,12 @@ function initAiTutor() {
       border: none;
       border-radius: 12px;
       outline: none;
-      background: #f1f5f9;
+      background: var(--surface-alt, #f1f5f9);
       color: var(--ink, #0f172a);
-      font-size: 0.875rem;
+      font-size: 16px;
       transition: box-shadow 0.2s;
     }
+    #ai-input::placeholder { color: var(--ink-muted, #94a3b8); }
     #ai-input:focus { box-shadow: 0 0 0 2px var(--accent, #4f46e5); }
     .ai-chat-input button {
       background: var(--accent, #4f46e5);
