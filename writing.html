@@ -1455,8 +1455,8 @@ Schreibe auf DEUTSCH, zitiere Schülertext auf Englisch.`;
         if (bubbles && bubbles.length) {
           bubblesHtml = bubbles.map(function(b) {
             var pos = ["top-left","top-right","bottom-left","bottom-right"].indexOf(b.position) !== -1 ? b.position : "top-left";
-            var speaker = b.speaker ? '<span class="bubble-speaker">' + escapeHtml(b.speaker) + '</span>' : '';
-            return '<div class="cartoon-bubble ' + pos + '">' + speaker + escapeHtml(b.text || "") + '</div>';
+            // Nur Sprechblasen-Text — keine Sprecher-Beschriftung über der Blase
+            return '<div class="cartoon-bubble ' + pos + '">' + escapeHtml(b.text || "") + '</div>';
           }).join("");
         }
 
