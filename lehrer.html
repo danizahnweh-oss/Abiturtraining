@@ -23,6 +23,10 @@
   <link rel="icon" href="/wave-icon-new.png" type="image/png" sizes="48x48">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <script src="/vendor/chart.umd.min.js" defer></script>
+  <!-- KaTeX (Live-Vorschau im Aufgaben-Editor) -->
+  <link rel="stylesheet" href="/vendor/katex/katex.min.css">
+  <script defer src="/vendor/katex/katex.min.js"></script>
+  <script defer src="/vendor/katex/contrib/auto-render.min.js"></script>
   <link rel="stylesheet" href="/fonts/fonts.css">
 <link rel="stylesheet" href="shared-v4.css">
 
@@ -741,7 +745,7 @@ main { max-width: 1100px; margin: 1.5rem auto; }
       <div class="card" style="margin-bottom:1.5rem;">
         <h2 style="margin:0 0 1rem;">Aufgabe erstellen</h2>
         <p style="font-size:.85rem;color:var(--ink-muted);margin-bottom:1rem;">
-          Generiere eine Aufgabe wie deine Schüler — wenn sie dir gefällt, erstelle einen Code zum Teilen.
+          Generiere eine Aufgabe wie deine Schüler – wenn sie dir gefällt, erstelle einen Code zum Teilen.
         </p>
 
         <!-- Schritt 1: Fach + Typ + Modus wählen -->
@@ -810,13 +814,13 @@ main { max-width: 1100px; margin: 1.5rem auto; }
         <!-- Schritt 3: Bearbeiten + Speichern -->
         <div id="taskStep3" style="display:none;">
           <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.8rem;">
-            <span style="font-size:.85rem;font-weight:600;color:var(--accent);">Aufgabe übernommen — Texte bearbeiten</span>
+            <span style="font-size:.85rem;font-weight:600;color:var(--accent);">Aufgabe übernommen – Texte bearbeiten</span>
             <button class="btn-small btn-secondary" onclick="resetTaskCreation()">Neue Aufgabe</button>
           </div>
           <p style="font-size:.82rem;color:var(--ink-muted);margin-bottom:1rem;">Die Vorschau hast du im iFrame gesehen. Hier kannst du alle Texte anpassen, bevor du die Aufgabe teilst.</p>
           <div style="margin-bottom:1rem;">
             <label for="taskTitleInput" style="font-size:.82rem;font-weight:600;display:block;margin-bottom:.3rem;">Titel (für deine Übersicht)</label>
-            <input type="text" id="taskTitleInput" placeholder="z.B. Klausur Analyse — Rede Bildung"
+            <input type="text" id="taskTitleInput" placeholder="z.B. Klausur Analyse – Rede Bildung"
                    style="width:100%;padding:.6rem .8rem;border:1px solid var(--border);border-radius:var(--radius);background:var(--surface);color:var(--ink);font-size:16px;min-height:44px;box-sizing:border-box;">
           </div>
           <div id="taskEditFields"></div>
@@ -1364,8 +1368,8 @@ function renderStudentsTab() {
 function renderStats() {
   const students = new Set(allResults.map(r => r.student_name));
   const scores = allResults.filter(r => r.total != null).map(r => r.total);
-  const avg = scores.length ? (scores.reduce((a,b) => a+b, 0) / scores.length).toFixed(1) : "—";
-  const best = scores.length ? Math.max(...scores).toFixed(1) : "—";
+  const avg = scores.length ? (scores.reduce((a,b) => a+b, 0) / scores.length).toFixed(1) : "–";
+  const best = scores.length ? Math.max(...scores).toFixed(1) : "–";
   document.getElementById("statsGrid").innerHTML = `
     <div class="stat-card"><div class="stat-value">${students.size}</div><div class="stat-label">Schüler</div></div>
     <div class="stat-card"><div class="stat-value">${allResults.length}</div><div class="stat-label">Ergebnisse</div></div>
@@ -1420,7 +1424,7 @@ function renderWarnSystem() {
   Object.entries(studentScores).forEach(([name, scores]) => {
     const avg = scores.reduce((a,b) => a + b.total, 0) / scores.length;
     if (avg < 5) {
-      warnings.push({ name, type: "red", reason: `Durchschnitt ${avg.toFixed(1)} NP — deutlich unter Klassenziel` });
+      warnings.push({ name, type: "red", reason: `Durchschnitt ${avg.toFixed(1)} NP – deutlich unter Klassenziel` });
     }
     if (scores.length >= 4) {
       const sorted = [...scores].sort((a,b) => new Date(a.date) - new Date(b.date));
@@ -1487,12 +1491,12 @@ function renderHeatmap() {
         const cls = avg >= 10 ? "hm-good" : avg >= 5 ? "hm-ok" : "hm-bad";
         html += `<td class="${cls}">${avg.toFixed(1)}</td>`;
       } else {
-        html += '<td class="hm-empty">—</td>';
+        html += '<td class="hm-empty">–</td>';
       }
     });
     const totalAvg = allScores.length ? (allScores.reduce((a,b) => a+b,0) / allScores.length) : 0;
     const totalCls = totalAvg >= 10 ? "hm-good" : totalAvg >= 5 ? "hm-ok" : "hm-bad";
-    html += `<td class="${allScores.length ? totalCls : 'hm-empty'}">${allScores.length ? totalAvg.toFixed(1) : '—'}</td></tr>`;
+    html += `<td class="${allScores.length ? totalCls : 'hm-empty'}">${allScores.length ? totalAvg.toFixed(1) : '–'}</td></tr>`;
   });
 
   html += '</tbody>';
@@ -1620,8 +1624,8 @@ function showStudentDetail(name) {
   if (!results.length) return;
 
   const scores = results.filter(r => r.total != null).map(r => r.total);
-  const avg = scores.length ? (scores.reduce((a,b) => a+b,0) / scores.length).toFixed(1) : "—";
-  const best = scores.length ? Math.max(...scores).toFixed(1) : "—";
+  const avg = scores.length ? (scores.reduce((a,b) => a+b,0) / scores.length).toFixed(1) : "–";
+  const best = scores.length ? Math.max(...scores).toFixed(1) : "–";
 
   const subjData = {};
   results.forEach(r => {
@@ -1829,7 +1833,7 @@ function renderMaterialPreviews() {
   container.innerHTML = materialUploadFiles.map((f, i) => `
     <div style="position:relative;width:100px;height:100px;border-radius:var(--radius-sm);overflow:hidden;border:1px solid var(--border);flex-shrink:0;">
       <img src="${f.url}" style="width:100%;height:100%;object-fit:cover;" alt="Material ${i+1}" loading="lazy" decoding="async">
-      <span style="position:absolute;top:2px;left:4px;background:var(--accent);color:#fff;font-size:.65rem;font-weight:700;padding:1px 4px;border-radius:3px;">M ${i+1}</span>
+      <span style="position:absolute;top:2px;left:4px;background:var(--accent);color:var(--on-accent);font-size:.65rem;font-weight:700;padding:1px 4px;border-radius:3px;">M ${i+1}</span>
       <button onclick="removeMaterial(${i})" style="position:absolute;top:2px;right:2px;background:rgba(0,0,0,.6);color:#fff;border:none;border-radius:50%;width:22px;height:22px;font-size:.8rem;cursor:pointer;line-height:1;" aria-label="Material entfernen">&times;</button>
     </div>
   `).join("");
@@ -1886,7 +1890,7 @@ function openTaskIframe() {
 
   document.getElementById("taskStep1").style.display = "none";
   document.getElementById("taskStep2").style.display = "block";
-  document.getElementById("iframeSubjectLabel").textContent = SUBJECT_NAMES[subj] + " — " + typeOpt.textContent;
+  document.getElementById("iframeSubjectLabel").textContent = SUBJECT_NAMES[subj] + " – " + typeOpt.textContent;
 
   const iframe = document.getElementById("taskIframe");
   // Token NICHT mehr in die URL - das leakt in Browser-History/Logs/Referrer.
@@ -1938,18 +1942,28 @@ function showTaskPreview() {
   const d = pendingTaskData;
   const container = document.getElementById("taskEditFields");
   const taStyle = 'width:100%;padding:.6rem .8rem;border:1px solid var(--border);border-radius:var(--radius);background:var(--surface);color:var(--ink);font-size:16px;box-sizing:border-box;resize:vertical;font-family:inherit;';
+  const pvStyle = 'margin-top:.35rem;padding:.5rem .75rem;background:var(--bg);border:1px dashed var(--border);border-radius:var(--radius-sm);font-size:.95rem;line-height:1.55;color:var(--ink);white-space:pre-wrap;word-break:break-word;overflow-x:auto;-webkit-overflow-scrolling:touch;';
   let html = "";
+
+  // Vorschau nur für Felder mit LaTeX ($...$, \(...\), \[...\] oder \befehl)
+  let _pvCount = 0;
+  function pv(val) {
+    if (!/\$|\\\(|\\\[|\\[a-zA-Z]/.test(val || "")) return { attr: "", div: "" };
+    const id = "taPv" + (_pvCount++);
+    return { attr: ` data-preview="${id}"`, div: `<div id="${id}" class="je-preview" style="${pvStyle}"></div>` };
+  }
 
   function field(key, label, val, rows) {
     if (!val) return "";
     rows = rows || Math.min(Math.max(3, Math.ceil(val.length / 80)), 12);
-    return `<div style="margin-bottom:.8rem;"><label style="font-size:.82rem;font-weight:600;display:block;margin-bottom:.3rem;">${esc(label)}</label><textarea data-field="${key}" rows="${rows}" style="${taStyle}">${esc(val)}</textarea></div>`;
+    const p = pv(val);
+    return `<div style="margin-bottom:.8rem;"><label style="font-size:.82rem;font-weight:600;display:block;margin-bottom:.3rem;">${esc(label)}</label><textarea data-field="${key}"${p.attr} rows="${rows}" style="${taStyle}">${esc(val)}</textarea>${p.div}</div>`;
   }
 
   // === Aufgabenstellung / Aufgabentext ===
   html += field("task_instruction", "Aufgabenstellung", d.task_instruction);
-  html += field("task_instruction_a", "Teil A — Quellenanalyse", d.task_instruction_a);
-  html += field("task_instruction_b", "Teil B — Darstellung", d.task_instruction_b);
+  html += field("task_instruction_a", "Teil A – Quellenanalyse", d.task_instruction_a);
+  html += field("task_instruction_b", "Teil B – Darstellung", d.task_instruction_b);
   html += field("aufgabe", "Aufgabentext", d.aufgabe);
 
   // === Primaertexte ===
@@ -1962,11 +1976,12 @@ function showTaskPreview() {
   if (d.teilaufgaben && Array.isArray(d.teilaufgaben) && d.teilaufgaben.length) {
     html += `<div style="margin-bottom:.8rem;"><label style="font-size:.82rem;font-weight:600;display:block;margin-bottom:.5rem;">Teilaufgaben${d.gesamt_be ? ' (' + d.gesamt_be + ' BE gesamt)' : ''}</label>`;
     d.teilaufgaben.forEach((t, i) => {
-      html += `<div style="display:flex;gap:.4rem;align-items:flex-start;margin-bottom:.4rem;">
+      const p = pv(t.text || '');
+      html += `<div style="margin-bottom:.4rem;"><div style="display:flex;gap:.4rem;align-items:flex-start;">
         <span style="font-weight:700;font-size:.85rem;min-width:2rem;padding-top:.5rem;">${esc(t.id || t.nr || (i+1)+')')}</span>
-        <textarea data-field="teilaufgaben" data-index="${i}" rows="2" style="${taStyle}flex:1;">${esc(t.text || '')}</textarea>
+        <textarea data-field="teilaufgaben" data-index="${i}"${p.attr} rows="2" style="${taStyle}flex:1;">${esc(t.text || '')}</textarea>
         <span style="font-size:.78rem;color:var(--ink-light);padding-top:.5rem;white-space:nowrap;">${t.be ? t.be + ' BE' : ''}</span>
-      </div>`;
+      </div>${p.div}</div>`;
     });
     html += `</div>`;
   }
@@ -1978,11 +1993,12 @@ function showTaskPreview() {
         <label style="font-size:.82rem;font-weight:700;display:block;margin-bottom:.5rem;">${esc(block.titel || 'Block ' + (block.nr || bi+1))}${block.be_gesamt ? ' (' + block.be_gesamt + ' BE)' : ''}</label>`;
       if (block.teilaufgaben && Array.isArray(block.teilaufgaben)) {
         block.teilaufgaben.forEach((t, ti) => {
-          html += `<div style="display:flex;gap:.4rem;align-items:flex-start;margin-bottom:.4rem;">
+          const p = pv(t.text || '');
+          html += `<div style="margin-bottom:.4rem;"><div style="display:flex;gap:.4rem;align-items:flex-start;">
             <span style="font-weight:700;font-size:.85rem;min-width:2.5rem;padding-top:.5rem;">${esc(String(t.nr || ''))}</span>
-            <textarea data-field="aufgabenbloecke" data-block="${bi}" data-index="${ti}" rows="2" style="${taStyle}flex:1;">${esc(t.text || '')}</textarea>
+            <textarea data-field="aufgabenbloecke" data-block="${bi}" data-index="${ti}"${p.attr} rows="2" style="${taStyle}flex:1;">${esc(t.text || '')}</textarea>
             <span style="font-size:.78rem;color:var(--ink-light);padding-top:.5rem;white-space:nowrap;">${t.be ? t.be + ' BE' : ''}${t.afb ? ' AFB ' + t.afb : ''}</span>
-          </div>`;
+          </div>${p.div}</div>`;
         });
       }
       html += `</div>`;
@@ -2002,7 +2018,8 @@ function showTaskPreview() {
         <span style="font-size:.82rem;font-weight:700;">${esc(mTitle)}</span>
         <span style="font-size:.72rem;color:var(--ink-light);margin-left:.3rem;">${esc(mType)}</span>`;
       if (mType === 'text' || mType === 'statistik' || (!mType && content)) {
-        html += `<textarea data-field="${matKey}" data-mat="${mi}" rows="${Math.min(6, Math.max(2, Math.ceil(content.length / 80)))}" style="${taStyle}margin-top:.3rem;">${esc(content)}</textarea>`;
+        const p = pv(content);
+        html += `<textarea data-field="${matKey}" data-mat="${mi}"${p.attr} rows="${Math.min(6, Math.max(2, Math.ceil(content.length / 80)))}" style="${taStyle}margin-top:.3rem;">${esc(content)}</textarea>${p.div}`;
       } else if (mType === 'bild' || mType === 'foto') {
         const imgId = 'matImg_' + matKey + '_' + mi;
         if (m.image_url && m.image_url !== '[KV]') {
@@ -2020,9 +2037,43 @@ function showTaskPreview() {
   if (!html) html = '<p style="color:var(--ink-muted);">Keine bearbeitbaren Felder gefunden.</p>';
   container.innerHTML = html;
 
+  // Live-Vorschau: Rohtext aus Textarea in Preview-Div rendern (wie echte Aufgabe)
+  container.querySelectorAll("textarea[data-preview]").forEach(ta => {
+    const target = document.getElementById(ta.dataset.preview);
+    if (target) renderTaskPreview(ta.value, target);
+  });
+  if (!container._pvBound) {
+    container.addEventListener("input", e => {
+      const ta = e.target.closest("textarea[data-preview]");
+      if (!ta) return;
+      const target = document.getElementById(ta.dataset.preview);
+      if (target) renderTaskPreview(ta.value, target);
+    });
+    container._pvBound = true;
+  }
+
   // Auto-Titel
   const titleInput = document.getElementById("taskTitleInput");
-  titleInput.value = (SUBJECT_NAMES[pendingTaskSubjectGroup] || "") + " — " + (d.topic || d.thema || d.title || d.sachgebiet || d.fachbereich || pendingTaskSubject).slice(0, 60);
+  titleInput.value = (SUBJECT_NAMES[pendingTaskSubjectGroup] || "") + " – " + (d.topic || d.thema || d.title || d.sachgebiet || d.fachbereich || pendingTaskSubject).slice(0, 60);
+}
+
+// Rohtext mit LaTeX in ein Vorschau-Element rendern – gleiche Delimiter wie echte Aufgabe
+var TASK_KATEX_DELIMITERS = [
+  { left: "$$", right: "$$", display: true },
+  { left: "\\[", right: "\\]", display: true },
+  { left: "$", right: "$", display: false },
+  { left: "\\(", right: "\\)", display: false }
+];
+function renderTaskPreview(text, target, _attempt) {
+  target.textContent = text || "";
+  if (typeof renderMathInElement === "function") {
+    try {
+      renderMathInElement(target, { delimiters: TASK_KATEX_DELIMITERS, throwOnError: false });
+    } catch (e) {}
+  } else if ((_attempt || 0) < 20) {
+    // KaTeX noch nicht geladen – kurz warten und erneut versuchen
+    setTimeout(function() { renderTaskPreview(text, target, (_attempt || 0) + 1); }, 200);
+  }
 }
 
 function resetTaskCreation() {
@@ -2216,7 +2267,7 @@ async function showTaskResults(taskId) {
     const task = allTasks.find(t => t.id === taskId);
 
     const scores = subs.filter(s => s.total != null).map(s => s.total);
-    const avg = scores.length ? (scores.reduce((a,b) => a+b, 0) / scores.length).toFixed(1) : "—";
+    const avg = scores.length ? (scores.reduce((a,b) => a+b, 0) / scores.length).toFixed(1) : "–";
 
     // Stärken & Schwächen sammeln
     const str = {}, weak = {};
@@ -2263,7 +2314,7 @@ async function showTaskResults(taskId) {
             <thead><tr><th style="text-align:left;">Schüler</th><th>Punkte</th><th>Datum</th></tr></thead>
             <tbody>${subs.map(s => {
               const cls = s.total >= 10 ? "hm-good" : s.total >= 5 ? "hm-ok" : s.total != null ? "hm-bad" : "hm-empty";
-              return `<tr><td style="text-align:left;">${esc(s.student_name || s.student_name_lower)}</td><td class="${cls}">${s.total != null ? s.total : '—'}</td><td>${s.submitted_at ? new Date(s.submitted_at).toLocaleDateString("de-DE") : '—'}</td></tr>`;
+              return `<tr><td style="text-align:left;">${esc(s.student_name || s.student_name_lower)}</td><td class="${cls}">${s.total != null ? s.total : '–'}</td><td>${s.submitted_at ? new Date(s.submitted_at).toLocaleDateString("de-DE") : '–'}</td></tr>`;
             }).join("")}</tbody>
           </table></div>` : '<p style="color:var(--ink-muted);font-size:.85rem;">Noch keine Bearbeitungen.</p>'}
         </div>
@@ -2284,7 +2335,7 @@ function replaceTaskImage(matKey, index, inputEl, imgId) {
   const reader = new FileReader();
   reader.onload = function() {
     const dataUrl = reader.result;
-    // Daten aktualisieren — Data-URL in image_url UND im Inhalt-Feld speichern
+    // Daten aktualisieren – Data-URL in image_url UND im Inhalt-Feld speichern
     // (Fachseiten übergeben inhalt/content/text an loadEducationalImage)
     if (pendingTaskData[matKey] && pendingTaskData[matKey][index]) {
       const mat = pendingTaskData[matKey][index];
