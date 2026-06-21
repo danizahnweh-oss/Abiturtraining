@@ -880,7 +880,7 @@ details[open] > .collapsible-header .collapsible-chevron {
             <div style="flex:1;min-width:140px;">
               <label for="slSubject" style="font-size:.78rem;font-weight:600;color:var(--ink-muted);display:block;margin-bottom:.3rem;">Fach</label>
               <select id="slSubject" style="width:100%;padding:.5rem .8rem;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:16px;background:var(--surface);color:var(--ink);">
-                <option value="">— Fach wählen —</option>
+                <option value="">– Fach wählen –</option>
                 <option>Biologie</option><option>Chemie</option><option>Deutsch</option>
                 <option>Englisch</option><option>Ethik</option><option>Evangelische Religionslehre</option>
                 <option>Französisch</option><option>Geographie</option><option>Geschichte</option>
@@ -1153,7 +1153,7 @@ details[open] > .collapsible-header .collapsible-chevron {
 
           <!-- Toggle: Einzel / Gruppe -->
           <div style="display:flex;gap:0;margin-bottom:1rem;border:1px solid var(--border);border-radius:8px;overflow:hidden;max-width:360px;">
-            <button id="msgModeEinzel" onclick="setMsgMode('einzel')" style="flex:1;padding:10px 16px;border:none;cursor:pointer;font-weight:600;font-size:.85rem;min-height:44px;background:var(--accent);color:#fff;">👤 Einzeln</button>
+            <button id="msgModeEinzel" onclick="setMsgMode('einzel')" style="flex:1;padding:10px 16px;border:none;cursor:pointer;font-weight:600;font-size:.85rem;min-height:44px;background:var(--accent);color:var(--on-accent);">👤 Einzeln</button>
             <button id="msgModeGruppe" onclick="setMsgMode('gruppe')" style="flex:1;padding:10px 16px;border:none;cursor:pointer;font-weight:600;font-size:.85rem;min-height:44px;background:var(--bg);color:var(--ink);">👥 An Schulcode</button>
           </div>
 
@@ -1180,7 +1180,7 @@ details[open] > .collapsible-header .collapsible-chevron {
           <label style="font-size:.8rem;font-weight:600;display:block;margin-bottom:4px;">Nachricht</label>
           <textarea id="msgBody" rows="4" placeholder="Deine Nachricht an den Schüler…" style="width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:8px;background:var(--bg);color:var(--ink);font-size:16px;resize:vertical;" maxlength="5000"></textarea>
           <div style="display:flex;justify-content:flex-end;margin-top:.75rem;">
-            <button onclick="sendMessage()" style="padding:10px 24px;background:var(--accent);color:#fff;border:none;border-radius:8px;font-weight:600;cursor:pointer;font-size:.95rem;min-height:44px;">Nachricht senden</button>
+            <button onclick="sendMessage()" style="padding:10px 24px;background:var(--accent);color:var(--on-accent);border:none;border-radius:8px;font-weight:600;cursor:pointer;font-size:.95rem;min-height:44px;">Nachricht senden</button>
           </div>
           <p id="msgStatus" style="font-size:.85rem;margin-top:.5rem;display:none;"></p>
         </div>
@@ -1461,7 +1461,7 @@ function renderTable() {
       <td><strong>${escapeHtml(r.student_name)}</strong></td>
       <td><span style="font-size:.8rem;background:var(--accent-soft);color:var(--accent);padding:.15rem .5rem;border-radius:4px;font-weight:700;">${escapeHtml(r.course || "–")}</span></td>
       <td>${(() => { const s = typeToSubject(r.type); const c = s ? SUBJECT_COLORS[s] || '#6366f1' : '#6366f1'; const n = s ? (SUBJECT_NAMES[s] || r.type) : r.type; return '<span style="font-size:.8rem;background:' + c + '15;color:' + c + ';padding:.15rem .5rem;border-radius:4px;font-weight:700;">' + n + '</span>'; })()}</td>
-      <td style="max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${escapeHtml(r.topic || "—")}</td>
+      <td style="max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${escapeHtml(r.topic || "–")}</td>
       <td class="score-cell">${contentCell}</td>
       <td class="score-cell">${languageCell}</td>
       <td class="score-cell" style="font-size:1.05rem;">${r.total ?? "–"}/15</td>
@@ -2408,7 +2408,7 @@ const ACTIVITY_CONFIG = {
   code_created:       { icon: '🔑', cls: 'activity-icon--code',       text: e => `<strong>${escapeHtml(e.actor)}</strong> hat Zugangscode „${escapeHtml(e.label)}" erstellt` },
   submission:         { icon: '📤', cls: 'activity-icon--submission', text: e => `<strong>${escapeHtml(e.actor)}</strong> hat „${escapeHtml(e.label || '–')}" eingereicht (${escapeHtml(e.detail || '–')})` },
   task_submission:    { icon: '🧑‍🏫', cls: 'activity-icon--task-sub',  text: e => `<strong>${escapeHtml(e.actor)}</strong> hat Aufgabe „${escapeHtml(e.label || '–')}" von ${escapeHtml(e.detail || 'Lehrkraft')} bearbeitet` },
-  graded:             { icon: '✅', cls: 'activity-icon--graded',     text: e => `<strong>${escapeHtml(e.actor)}</strong> — „${escapeHtml(e.label || '–')}" bewertet: ${escapeHtml(e.detail)}/15 NP` },
+  graded:             { icon: '✅', cls: 'activity-icon--graded',     text: e => `<strong>${escapeHtml(e.actor)}</strong> – „${escapeHtml(e.label || '–')}" bewertet: ${escapeHtml(e.detail)}/15 NP` },
   student_registered: { icon: '👤', cls: 'activity-icon--student',    text: e => `Neuer Schüler: <strong>${escapeHtml(e.label)}</strong>` },
   teacher_registered: { icon: '🎓', cls: 'activity-icon--teacher',    text: e => `Neue Lehrkraft: <strong>${escapeHtml(e.label)}</strong>${e.detail === 'pending' ? ' (wartet auf Freischaltung)' : ''}` },
   colloquium_started: { icon: '🎤', cls: 'activity-icon--colloq-start', text: e => `<strong>${escapeHtml(e.actor)}</strong> hat Kolloquium gestartet (Fach: ${escapeHtml(e.label || '–')})` },
@@ -3015,7 +3015,7 @@ function renderWarnSystem() {
 
     // Warn: Durchschnitt < 5 NP
     if (avg < 5) {
-      warnings.push({ name, course: data.course, reason: "Ø " + avg + " NP — deutlich unter dem Klassenziel", level: "red" });
+      warnings.push({ name, course: data.course, reason: "Ø " + avg + " NP – deutlich unter dem Klassenziel", level: "red" });
     }
 
     // Warn: Abfallender Trend (letzte 3 vs. vorherige)

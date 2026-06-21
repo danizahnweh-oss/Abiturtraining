@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Deine bisherigen Korrekturen auf myAbiFlow – jederzeit nachlesbar.">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#4f46e5">
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://www.googletagmanager.com https://connect.facebook.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: blob: https:; font-src 'self' data: https://fonts.gstatic.com; connect-src 'self' https://myabiflow.de https://*.myabiflow.de https://generativelanguage.googleapis.com; media-src 'self' blob:; worker-src 'self' blob:;">
+  <title>myAbiFlow · Meine Korrekturen</title>
+  <link rel="canonical" href="https://myabiflow.de/meine-korrekturen.html">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/wave-icon-new.png" type="image/png" sizes="48x48">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="stylesheet" href="/fonts/fonts.css">
+  <link rel="stylesheet" href="shared-v4.css">
+  <link rel="stylesheet" href="/vendor/katex/katex.min.css">
+  <script src="/vendor/purify.min.js" defer></script>
+  <style>
+    :root {
+      --accent: #4f46e5;
+      --accent-hover: #4338ca;
+      --accent-soft: #e0e7ff;
+    }
+
+    [data-theme="dark"] {
+      --accent: #818cf8;
+      --accent-hover: #a5b4fc;
+      --accent-soft: rgba(129, 140, 248, .15);
+    }
+
+    .korr-container {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 1rem 1rem 4rem;
+    }
+
+    .korr-intro {
+      color: var(--ink-light);
+      font-size: .95rem;
+      margin: .2rem 0 1.4rem;
+      line-height: 1.5;
+    }
+
+    /* Lade- und Leerzustand */
+    .korr-state {
+      text-align: center;
+      padding: 3rem 1rem;
+      color: var(--ink-light);
+    }
+
+    .korr-state .empty-icon {
+      font-size: 2.6rem;
+      margin-bottom: .6rem;
+    }
+
+    .korr-state .spinner {
+      margin: 0 auto 1rem;
+    }
+
+    /* Liste */
+    .korr-list {
+      display: flex;
+      flex-direction: column;
+      gap: .8rem;
+    }
+
+    .korr-group-label {
+      font-size: .8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      color: var(--ink-muted);
+      margin: 1rem 0 .2rem;
+    }
+
+    .korr-group-label:first-child {
+      margin-top: 0;
+    }
+
+    .korr-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      width: 100%;
+      text-align: left;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1rem 1.1rem;
+      cursor: pointer;
+      font: inherit;
+      color: inherit;
+      transition: transform .12s ease, box-shadow .12s ease, border-color .12s ease;
+      min-height: 44px;
+    }
+
+    .korr-item:hover,
+    .korr-item:focus-visible {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, .08);
+      border-color: var(--accent);
+      outline: none;
+    }
+
+    .korr-item[disabled] {
+      cursor: default;
+      opacity: .68;
+    }
+
+    .korr-item[disabled]:hover {
+      transform: none;
+      box-shadow: none;
+      border-color: var(--border);
+    }
+
+    .korr-emoji {
+      font-size: 1.6rem;
+      flex-shrink: 0;
+      width: 2.4rem;
+      height: 2.4rem;
+      display: grid;
+      place-items: center;
+      background: var(--accent-soft);
+      border-radius: 12px;
+    }
+
+    .korr-main {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .korr-subject {
+      font-weight: 700;
+      font-size: 1.02rem;
+      color: var(--ink);
+    }
+
+    .korr-topic {
+      font-size: .85rem;
+      color: var(--ink-light);
+      margin-top: .15rem;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .korr-meta {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: .3rem;
+      flex-shrink: 0;
+    }
+
+    .korr-score {
+      font-weight: 800;
+      font-size: 1.1rem;
+      color: var(--accent);
+      white-space: nowrap;
+    }
+
+    .korr-date {
+      font-size: .78rem;
+      color: var(--ink-muted);
+      white-space: nowrap;
+    }
+
+    .korr-chevron {
+      color: var(--ink-muted);
+      flex-shrink: 0;
+      font-size: 1.2rem;
+    }
+
+    .korr-unavailable {
+      font-size: .78rem;
+      color: var(--ink-muted);
+      font-style: italic;
+    }
+
+    /* Detail-Overlay */
+    .korr-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, .55);
+      backdrop-filter: blur(2px);
+      z-index: 1000;
+      display: none;
+      padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+    }
+
+    .korr-overlay.open {
+      display: flex;
+      align-items: stretch;
+      justify-content: center;
+    }
+
+    .korr-sheet {
+      background: var(--bg);
+      width: 100%;
+      max-width: 820px;
+      margin: auto;
+      max-height: 100%;
+      display: flex;
+      flex-direction: column;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, .3);
+    }
+
+    @media (min-width: 700px) {
+      .korr-overlay.open {
+        align-items: center;
+        padding: 1.5rem;
+      }
+
+      .korr-sheet {
+        max-height: calc(100% - 3rem);
+      }
+    }
+
+    .korr-sheet-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 1rem 1.2rem;
+      border-bottom: 1px solid var(--border);
+      background: var(--card);
+      flex-shrink: 0;
+    }
+
+    .korr-sheet-title {
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: var(--ink);
+      min-width: 0;
+    }
+
+    .korr-sheet-sub {
+      font-size: .8rem;
+      color: var(--ink-muted);
+      margin-top: .1rem;
+    }
+
+    .korr-close {
+      flex-shrink: 0;
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      color: var(--ink);
+      font-size: 1.3rem;
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+    }
+
+    .korr-sheet-body {
+      padding: 1.1rem;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      flex: 1;
+    }
+
+    /* Gespeichertes Korrektur-HTML nutzt shared-v4.css-Klassen (card, score-card …) */
+    .korr-sheet-body .card {
+      margin-bottom: 1rem;
+    }
+
+    .korr-sheet-body .card:last-child {
+      margin-bottom: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <a href="#main-content" class="skip-link">Zum Hauptinhalt springen</a>
+  <div class="page-wrapper" style="min-height:100vh;display:flex;flex-direction:column">
+    <div class="module-header">
+      <div>
+        <a href="index.html" class="back-link">← Zur Fachauswahl</a>
+        <h1 style="margin-top:.3rem">Meine <span style="color:var(--accent)">Korrekturen</span></h1>
+      </div>
+      <div class="header-right">
+        <button class="theme-toggle" onclick="toggleDark()" id="themeBtn" aria-label="Dark Mode umschalten">🌙</button>
+      </div>
+    </div>
+
+    <main id="main-content" class="korr-container">
+      <p class="korr-intro">Hier findest du alle Korrekturen, die du bisher von der KI bekommen hast – tippe auf eine, um das vollständige Feedback erneut zu lesen.</p>
+
+      <div id="korrLoading" class="korr-state">
+        <div class="spinner"></div>
+        <p>Deine Korrekturen werden geladen…</p>
+      </div>
+
+      <div id="korrEmpty" class="korr-state" style="display:none">
+        <div class="empty-icon">📝</div>
+        <h3>Noch keine Korrekturen</h3>
+        <p>Sobald du eine Aufgabe abgibst und Feedback bekommst, erscheint die Korrektur hier – dauerhaft nachlesbar.</p>
+        <a href="index.html"
+          style="display:inline-block;margin-top:1rem;padding:.7rem 1.5rem;background:var(--accent);color:var(--on-accent);border-radius:12px;text-decoration:none;font-weight:600;min-height:44px;line-height:30px;">
+          Jetzt üben
+        </a>
+      </div>
+
+      <div id="korrList" class="korr-list" style="display:none"></div>
+    </main>
+  </div>
+
+  <!-- Detail-Overlay -->
+  <div class="korr-overlay" id="korrOverlay" role="dialog" aria-modal="true" aria-labelledby="korrSheetTitle">
+    <div class="korr-sheet">
+      <div class="korr-sheet-head">
+        <div style="min-width:0">
+          <div class="korr-sheet-title" id="korrSheetTitle">Korrektur</div>
+          <div class="korr-sheet-sub" id="korrSheetSub"></div>
+        </div>
+        <button class="korr-close" onclick="closeKorrektur()" aria-label="Schließen">✕</button>
+      </div>
+      <div class="korr-sheet-body" id="korrSheetBody"></div>
+    </div>
+  </div>
+
+  <script>
+    /* ================= THEME ================= */
+    function toggleDark() {
+      var d = document.documentElement;
+      var isDark = d.getAttribute("data-theme") === "dark";
+      d.setAttribute("data-theme", isDark ? "" : "dark");
+      localStorage.setItem("theme", isDark ? "light" : "dark");
+      var btn = document.getElementById("themeBtn");
+      if (btn) btn.textContent = isDark ? "🌙" : "☀️";
+    }
+
+    (function () {
+      var t = localStorage.getItem("theme");
+      if (t === "dark" || (!t && window.matchMedia("(prefers-color-scheme:dark)").matches)) {
+        document.documentElement.setAttribute("data-theme", "dark");
+        var btn = document.getElementById("themeBtn");
+        if (btn) btn.textContent = "☀️";
+      }
+    })();
+
+    /* ================= AUTH ================= */
+    var API_BASE = "";
+
+    function getAccessToken() {
+      return sessionStorage.getItem("access_token") || "";
+    }
+
+    function authHeaders() {
+      var h = { "Content-Type": "application/json", "X-Access-Token": getAccessToken() };
+      var sn = sessionStorage.getItem("student_name");
+      if (sn) h["X-Student-Name"] = encodeURIComponent(sn);
+      return h;
+    }
+
+    /* ================= FACH-LABELS ================= */
+    var SUBJECT_PREFIX = {
+      deutsch: { name: "Deutsch", emoji: "📕" },
+      mathe: { name: "Mathematik", emoji: "📐" },
+      englisch: { name: "Englisch", emoji: "🇬🇧" }, english: { name: "Englisch", emoji: "🇬🇧" },
+      francais: { name: "Französisch", emoji: "🇫🇷" }, french: { name: "Französisch", emoji: "🇫🇷" },
+      spanisch: { name: "Spanisch", emoji: "🇪🇸" }, italiano: { name: "Italienisch", emoji: "🇮🇹" },
+      latein: { name: "Latein", emoji: "🏛️" },
+      ethik: { name: "Ethik", emoji: "⚖️" },
+      katholisch: { name: "Kath. Religion", emoji: "✝️" }, religion: { name: "Ev. Religion", emoji: "✝️" },
+      geschichte: { name: "Geschichte", emoji: "📜" }, history: { name: "Geschichte", emoji: "📜" },
+      wr: { name: "Wirtschaft & Recht", emoji: "💼" }, pug: { name: "Politik & Gesellschaft", emoji: "🏛️" },
+      physik: { name: "Physik", emoji: "🔬" }, chemie: { name: "Chemie", emoji: "⚗️" },
+      biologie: { name: "Biologie", emoji: "🧬" }, bio: { name: "Biologie", emoji: "🧬" },
+      informatik: { name: "Informatik", emoji: "💻" }, kunst: { name: "Kunst", emoji: "🎨" },
+      sport: { name: "Sport", emoji: "🏅" }, geographie: { name: "Geographie", emoji: "🌍" }
+    };
+
+    var SUFFIX_LABELS = {
+      "analyse": "Analyse", "interpretation": "Interpretation", "eroerterung": "Erörterung",
+      "materialgestuetzt-informierend": "Materialgestützt (informierend)",
+      "materialgestuetzt-argumentierend": "Materialgestützt (argumentierend)",
+      "mediation": "Mediation", "schreiben": "Schreiben", "writing": "Schreiben",
+      "listening": "Hörverstehen", "reading": "Leseverstehen"
+    };
+
+    function subjectInfo(type) {
+      type = (type || "").toLowerCase();
+      var prefix = type.split("-")[0];
+      var info = SUBJECT_PREFIX[prefix] || { name: prefix ? prefix.charAt(0).toUpperCase() + prefix.slice(1) : "Übung", emoji: "📝" };
+      // Untertyp ableiten
+      var rest = type.indexOf("-") !== -1 ? type.slice(type.indexOf("-") + 1) : "";
+      var sub = SUFFIX_LABELS[rest] || (rest ? rest.replace(/-/g, " ").replace(/\b\w/g, function (c) { return c.toUpperCase(); }) : "");
+      return { name: info.name, emoji: info.emoji, sub: sub };
+    }
+
+    function escapeHtml(s) {
+      return (s || "").replace(/[&<>"']/g, function (c) {
+        return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+      });
+    }
+
+    function formatDate(iso) {
+      var d = new Date(iso);
+      if (isNaN(d)) return "";
+      return d.toLocaleDateString("de-DE", { day: "2-digit", month: "short", year: "numeric" });
+    }
+
+    function dateGroup(iso) {
+      var d = new Date(iso); d.setHours(0, 0, 0, 0);
+      var today = new Date(); today.setHours(0, 0, 0, 0);
+      var diff = Math.floor((today - d) / 86400000);
+      if (diff <= 0) return "Heute";
+      if (diff === 1) return "Gestern";
+      if (diff < 7) return "Diese Woche";
+      if (diff < 30) return "Diesen Monat";
+      return formatDate(iso).replace(/^\d+\.?\s*/, "").trim() || "Früher";
+    }
+
+    /* ================= LADEN ================= */
+    async function loadKorrekturen() {
+      var name = sessionStorage.getItem("student_name");
+      var token = getAccessToken();
+      if (!name || !token) {
+        // Nicht eingeloggt → zur Startseite (dort Login-Flow)
+        window.location.href = "index.html";
+        return;
+      }
+
+      try {
+        var res = await fetch(API_BASE + "/api/student-results", {
+          method: "POST",
+          headers: authHeaders(),
+          body: JSON.stringify({ student_name: name })
+        });
+        if (res.status === 401) { window.location.href = "index.html"; return; }
+        var data = await res.json();
+        renderList((data.results || []));
+      } catch (e) {
+        document.getElementById("korrLoading").innerHTML =
+          '<p style="color:var(--warning)">Konnte Korrekturen nicht laden. Bitte später erneut versuchen.</p>';
+      }
+    }
+
+    function renderList(results) {
+      document.getElementById("korrLoading").style.display = "none";
+
+      if (!results.length) {
+        document.getElementById("korrEmpty").style.display = "";
+        return;
+      }
+
+      // Neueste zuerst
+      results.sort(function (a, b) { return new Date(b.date) - new Date(a.date); });
+
+      var listEl = document.getElementById("korrList");
+      var html = "";
+      var lastGroup = null;
+
+      results.forEach(function (r) {
+        var group = dateGroup(r.date);
+        if (group !== lastGroup) {
+          html += '<div class="korr-group-label">' + escapeHtml(group) + '</div>';
+          lastGroup = group;
+        }
+
+        var info = subjectInfo(r.type);
+        var hasFb = r.has_feedback == 1 || r.has_feedback === true;
+        var score = (r.total != null) ? (Math.round(r.total * 10) / 10) + ' NP' : '';
+        var topicLine = info.sub
+          ? info.sub + (r.topic && r.topic !== "–" ? " · " + escapeHtml(r.topic) : "")
+          : (r.topic && r.topic !== "–" ? escapeHtml(r.topic) : "");
+
+        if (hasFb) {
+          html += '<button class="korr-item" onclick="openKorrektur(\'' + escapeHtml(r.id) + '\')">' +
+            '<span class="korr-emoji">' + info.emoji + '</span>' +
+            '<span class="korr-main">' +
+            '<span class="korr-subject">' + escapeHtml(info.name) + '</span>' +
+            '<span class="korr-topic">' + topicLine + '</span>' +
+            '</span>' +
+            '<span class="korr-meta">' +
+            (score ? '<span class="korr-score">' + score + '</span>' : '') +
+            '<span class="korr-date">' + formatDate(r.date) + '</span>' +
+            '</span>' +
+            '<span class="korr-chevron">›</span>' +
+            '</button>';
+        } else {
+          html += '<div class="korr-item" disabled>' +
+            '<span class="korr-emoji">' + info.emoji + '</span>' +
+            '<span class="korr-main">' +
+            '<span class="korr-subject">' + escapeHtml(info.name) + '</span>' +
+            '<span class="korr-topic">' + topicLine + '</span>' +
+            '<span class="korr-unavailable">Korrektur nicht gespeichert</span>' +
+            '</span>' +
+            '<span class="korr-meta">' +
+            (score ? '<span class="korr-score">' + score + '</span>' : '') +
+            '<span class="korr-date">' + formatDate(r.date) + '</span>' +
+            '</span>' +
+            '</div>';
+        }
+      });
+
+      listEl.innerHTML = html;
+      listEl.style.display = "";
+    }
+
+    /* ================= DETAIL ================= */
+    async function openKorrektur(resultId) {
+      var overlay = document.getElementById("korrOverlay");
+      var body = document.getElementById("korrSheetBody");
+      var title = document.getElementById("korrSheetTitle");
+      var sub = document.getElementById("korrSheetSub");
+
+      title.textContent = "Korrektur";
+      sub.textContent = "";
+      body.innerHTML = '<div class="korr-state"><div class="spinner"></div><p>Korrektur wird geladen…</p></div>';
+      overlay.classList.add("open");
+      document.body.style.overflow = "hidden";
+
+      try {
+        var res = await fetch(API_BASE + "/api/student-result-detail", {
+          method: "POST",
+          headers: authHeaders(),
+          body: JSON.stringify({ student_name: sessionStorage.getItem("student_name"), result_id: resultId })
+        });
+        var data = await res.json();
+        var r = data.result;
+        if (!r || !r.feedback_html) {
+          body.innerHTML = '<div class="korr-state"><p>Für diese Aufgabe wurde keine Korrektur gespeichert.</p></div>';
+          return;
+        }
+        var info = subjectInfo(r.type);
+        title.textContent = info.name + (info.sub ? " · " + info.sub : "");
+        sub.textContent = formatDate(r.date) + (r.total != null ? " · " + (Math.round(r.total * 10) / 10) + " NP" : "");
+        var safe = (typeof DOMPurify !== "undefined") ? DOMPurify.sanitize(r.feedback_html) : r.feedback_html;
+        body.innerHTML = safe;
+        body.scrollTop = 0;
+      } catch (e) {
+        body.innerHTML = '<div class="korr-state"><p style="color:var(--warning)">Korrektur konnte nicht geladen werden.</p></div>';
+      }
+    }
+
+    function closeKorrektur() {
+      document.getElementById("korrOverlay").classList.remove("open");
+      document.body.style.overflow = "";
+    }
+
+    // Overlay schließen: Klick auf Hintergrund oder ESC
+    document.getElementById("korrOverlay").addEventListener("click", function (e) {
+      if (e.target === this) closeKorrektur();
+    });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") closeKorrektur();
+    });
+
+    window.addEventListener("DOMContentLoaded", loadKorrekturen);
+  </script>
+</body>
+
+</html>

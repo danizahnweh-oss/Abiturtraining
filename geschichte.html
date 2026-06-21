@@ -508,7 +508,7 @@ Struktur:
           <div class="feedback-body" id="feedbackBody"></div>
         </div>
         <div class="card" id="korrekturCard" style="display:none">
-          <h2 class="card-header">Dein Text — Fehlerkorrektur</h2>
+          <h2 class="card-header">Dein Text – Fehlerkorrektur</h2>
           <div class="korrektur-legende"><span class="fehler-rs-demo">Rechtschreibung</span><span
               class="fehler-gr-demo">Grammatik</span></div>
           <div class="korrektur-body" id="korrekturBody"></div>
@@ -602,7 +602,7 @@ DARSTELLUNGSKOMPETENZ (darstellung_np, 30%):
 - Argumentative Stringenz und logischer Aufbau
 - Sprachrichtigkeit und Ausdruck
 
-WICHTIG – GANZE SÄTZE: Antworten sollen in vollständigen Sätzen formuliert sein, nicht in Stichpunkten oder reinen Aufzählungen. Fußnoten und Quellenverweise sind erlaubt. Es muss kein perfekt strukturierter Aufsatz sein — entscheidend ist die Formulierung in ganzen Sätzen.
+WICHTIG – GANZE SÄTZE: Antworten sollen in vollständigen Sätzen formuliert sein, nicht in Stichpunkten oder reinen Aufzählungen. Fußnoten und Quellenverweise sind erlaubt. Es muss kein perfekt strukturierter Aufsatz sein – entscheidend ist die Formulierung in ganzen Sätzen.
 
 Antworte NUR mit validem JSON:
 {"verstehen_np":<0-15>,"darstellung_np":<0-15>,"gesamt_np":<0-15>,"feedback":"<Markdown-Feedback>"}
@@ -799,20 +799,20 @@ gesamt_np = round(verstehen_np * 0.7 + darstellung_np * 0.3)`;
 
       if (pType === "statistik") {
         var normPrimary = normalizeStatistik(d.primary_text || "");
-        titleEl.textContent = "Material M 1 — Statistik";
+        titleEl.textContent = "Material M 1 – Statistik";
         sourceEl.innerHTML = DOMPurify.sanitize(marked.parse(normPrimary));
         sourceEl.innerHTML += `<div class="material-chart"><canvas id="chart-primary"></canvas></div>`;
         metaEl.textContent = d.primary_meta ? `Quelle: ${d.primary_meta}` : "";
         document.getElementById("writeSourceRef").innerHTML = sourceEl.innerHTML;
         setTimeout(() => renderStatistikChart(normPrimary, "chart-primary"), 100);
       } else if (pType === "foto" || pType === "bild") {
-        titleEl.textContent = "Material M 1 — " + (pType === "foto" ? "Historisches Foto" : "Bild");
+        titleEl.textContent = "Material M 1 – " + (pType === "foto" ? "Historisches Foto" : "Bild");
         sourceEl.innerHTML = `<div class="material-img-loading" id="img-primary"><div class="loader-spinner"></div><span>${pType === "foto" ? "Foto" : "Bild"} wird generiert...</span></div>`;
         metaEl.textContent = d.primary_meta ? `${d.primary_meta}` : "";
         document.getElementById("writeSourceRef").innerHTML = `<em>${escapeHtml(d.primary_meta || "Historisches Bildmaterial")}</em>`;
         loadEducationalImage(d.primary_text, "img-primary", d.primary_bild_labels || null);
       } else {
-        // Standard: Textquelle — formatSourceText nutzt Zeilennummern bei Fliesstext,
+        // Standard: Textquelle – formatSourceText nutzt Zeilennummern bei Fliesstext,
         // bleibt bei Markdown-Tabellen/Bildern auf Markdown-Rendering
         titleEl.textContent = "Material M 1";
         const sourceHtml = formatSourceText(d.primary_text || "");
@@ -891,7 +891,7 @@ gesamt_np = round(verstehen_np * 0.7 + darstellung_np * 0.3)`;
         });
 
         fullTaskHtml += `<div class="multi-aufgabe-block" style="margin-bottom:1.5rem;${idx > 0 ? 'padding-top:1.5rem;border-top:2px solid var(--border);' : ''}">
-          <h3 style="color:var(--accent);margin-bottom:0.75rem;">Aufgabe ${nr}${t.thema ? ' — ' + escapeHtml(t.thema) : ''}</h3>
+          <h3 style="color:var(--accent);margin-bottom:0.75rem;">Aufgabe ${nr}${t.thema ? ' – ' + escapeHtml(t.thema) : ''}</h3>
           <div class="task-text">${taskText}</div>
           <div class="card" style="margin-top:1rem;">
             ${materialHtml}

@@ -1,5 +1,5 @@
 /* ============================
-   shared.js — Abitur Trainer
+   shared.js – Abitur Trainer
    Gemeinsame Funktionen für alle Module
    ============================
 
@@ -24,7 +24,7 @@ const CONFIG = { storedData: null };
 const _urlParams = new URLSearchParams(window.location.search);
 const isTeacherMode = _urlParams.get("mode") === "teacher";
 // Teacher-Token kommt NICHT mehr aus der URL (URL leakt in History/Logs/Referrer),
-// sondern wird vom Parent-Frame per postMessage gesetzt — siehe _teacherTokenReady unten.
+// sondern wird vom Parent-Frame per postMessage gesetzt – siehe _teacherTokenReady unten.
 let _teacherToken = "";
 let _teacherTokenResolve = null;
 const _teacherTokenReady = new Promise(function(resolve) { _teacherTokenResolve = resolve; });
@@ -48,7 +48,7 @@ function _showTeacherAdoptBanner() {
   var banner = document.createElement("div");
   banner.id = "teacherAdoptBanner";
   banner.style.cssText = "position:sticky;top:0;z-index:9999;background:linear-gradient(135deg,#4f46e5,#7c3aed);color:#fff;padding:.8rem 1.2rem;display:flex;align-items:center;justify-content:space-between;gap:.8rem;flex-wrap:wrap;font-size:.9rem;box-shadow:0 2px 8px rgba(0,0,0,.2);";
-  banner.innerHTML = '<span style="font-weight:600;">Aufgabe generiert — so sehen es deine Schueler.</span>'
+  banner.innerHTML = '<span style="font-weight:600;">Aufgabe generiert – so sehen es deine Schueler.</span>'
     + '<button onclick="_teacherAdoptTask()" style="background:#fff;color:#4f46e5;border:none;padding:.5rem 1.2rem;border-radius:8px;font-weight:700;font-size:.85rem;cursor:pointer;min-height:44px;white-space:nowrap;">Aufgabe uebernehmen</button>';
   document.body.prepend(banner);
 }
@@ -57,7 +57,7 @@ function _teacherAdoptTask() {
   // Same-Origin statt "*", damit Aufgabendaten nicht versehentlich an Drittseiten gehen.
   window.parent.postMessage({ type: "task-generated", data: CONFIG.storedData }, window.location.origin);
   var banner = document.getElementById("teacherAdoptBanner");
-  if (banner) { banner.innerHTML = '<span style="font-weight:600;">Aufgabe uebernommen — du kannst den iFrame jetzt schliessen.</span>'; }
+  if (banner) { banner.innerHTML = '<span style="font-weight:600;">Aufgabe uebernommen – du kannst den iFrame jetzt schliessen.</span>'; }
 }
 
 // Wartet im Teacher-Mode bis zu 5s auf das per postMessage gesetzte Lehrer-Token,
@@ -285,9 +285,59 @@ async function apiCall(endpoint, body, _isRetry) {
       }).catch(function(e) { console.warn("submit-shared-task:", e); });
       sessionStorage.removeItem("_shared_task_id");
     }
+    // Korrektur als HTML-Snapshot archivieren, damit die Schuelerin sie
+    // spaeter unter "Meine Korrekturen" erneut aufrufen kann.
+    _archiveCorrection(json.result_id);
   }
 
   return json;
+}
+
+/* ================= KORREKTUR-ARCHIVIERUNG =================
+ * Erfasst nach dem Abgeben die gerenderte Korrektur (#feedbackContent) als
+ * bereinigten HTML-Snapshot und speichert sie zum Ergebnis. Zentral hier,
+ * weil ALLE Fachseiten denselben #feedbackContent-Container verwenden – so
+ * muss keine einzelne Fachseite angefasst werden. Darf den Abgabe-Flow nie
+ * stoeren: alles in try/catch, Fehler werden verschluckt. */
+function _archiveCorrection(resultId) {
+  if (!resultId || isTeacherMode) return;
+  // Die Korrektur wird je nach Seite synchron oder leicht verzoegert gerendert
+  // (Math-Rendering, Lazy-Feedback). 1,8s ist robust ueber alle Fachseiten.
+  setTimeout(function () {
+    try {
+      var el = document.getElementById("feedbackContent");
+      if (!el) return;
+      // Im Fehlerfall bleibt der Container leer/versteckt -> nichts archivieren
+      if (el.style.display === "none") return;
+
+      var clone = el.cloneNode(true);
+      // Buttons, Loader und Skripte raus (nicht archivierbar / interaktiv)
+      clone.querySelectorAll("button, .loader, .feedback-load-detail, script, style, .btn").forEach(function (n) {
+        n.remove();
+      });
+      // Verbleibende onclick-Attribute entfernen
+      clone.querySelectorAll("[onclick]").forEach(function (n) { n.removeAttribute("onclick"); });
+      // Aufklappbares im Archiv geoeffnet darstellen
+      clone.querySelectorAll("details").forEach(function (d) { d.setAttribute("open", ""); });
+      // Leere Aktions-Container (nach Button-Entfernung) entsorgen
+      clone.querySelectorAll("div").forEach(function (d) {
+        if (!d.children.length && !(d.textContent || "").trim() && !d.querySelector("img,svg")) d.remove();
+      });
+
+      var html = clone.innerHTML || "";
+      if (typeof DOMPurify !== "undefined") html = DOMPurify.sanitize(html);
+      html = (html || "").trim();
+      if (html.length < 40) return; // nichts Sinnvolles gerendert
+      if (html.length > 240000) html = html.slice(0, 240000);
+
+      var sn = sessionStorage.getItem("student_name") || "";
+      fetch(API_BASE + "/api/save-result-feedback", {
+        method: "POST",
+        headers: _apiHeaders("application/json"),
+        body: JSON.stringify({ result_id: resultId, feedback_html: html, student_name: sn })
+      }).catch(function () { /* still */ });
+    } catch (e) { /* Archivierung darf den Flow nie stoeren */ }
+  }, 1800);
 }
 
 /* ================= SUBSCRIPTION CHECK ================= */
@@ -477,7 +527,7 @@ function _renderTrialBanner(container, phase, daysLeft) {
       '<div style="color:var(--ink,#1e293b);">' + c.body + '</div>' +
     '</div>' +
     '<a href="' + c.ctaHref + '" ' +
-    'style="background:var(--accent,#4f46e5);color:#fff;padding:.6rem 1.1rem;border-radius:10px;font-weight:700;font-size:.88rem;text-decoration:none;white-space:nowrap;min-height:44px;display:inline-flex;align-items:center;">' +
+    'style="background:var(--accent,#4f46e5);color:var(--on-accent);padding:.6rem 1.1rem;border-radius:10px;font-weight:700;font-size:.88rem;text-decoration:none;white-space:nowrap;min-height:44px;display:inline-flex;align-items:center;">' +
     c.ctaLabel + '</a>' +
     dismissBtn;
 
@@ -1283,7 +1333,7 @@ function showRewriteOverlay(result) {
   if (btnCard) {
     btnCard.innerHTML = '<span style="font-size:1.4rem">✨</span>' +
       '<div style="flex:1"><strong>Verbesserungsvorschläge</strong><br>' +
-      '<small style="color:var(--ink-muted)">' + result.suggestions.length + ' Vorschläge — nochmal anzeigen</small></div>' +
+      '<small style="color:var(--ink-muted)">' + result.suggestions.length + ' Vorschläge – nochmal anzeigen</small></div>' +
       '<span style="color:var(--ink-muted);font-size:1.2rem">→</span>';
     btnCard.style.cursor = "pointer";
     btnCard.onclick = function () { showRewriteOverlay(result); };
@@ -1448,20 +1498,28 @@ function restoreSession() {
     const s = JSON.parse(localStorage.getItem(key));
     if (s) {
       if (s.studentText) document.getElementById("studentText").value = s.studentText;
-      if (s.storedData && typeof renderTask === "function") {
+      if (s.storedData && typeof _renderSharedTask === "function") {
         CONFIG.storedData = s.storedData;
-        renderTask(s.storedData);
+        _renderSharedTask(s.storedData);
       }
       updateWordCount();
       // Dezenter Hinweis: gespeicherte Aufgabe wurde wiederhergestellt
       if ((s.studentText && s.studentText.length > 50) || s.storedData) {
-        try { showToast("Gespeicherte Aufgabe wiederhergestellt — du kannst direkt weiterarbeiten."); } catch (e) {}
+        try { showToast("Gespeicherte Aufgabe wiederhergestellt – du kannst direkt weiterarbeiten."); } catch (e) {}
       }
     }
   } catch (e) { console.warn("restoreSession failed:", e); }
 }
 
 /* ================= SHARED TASK LOADING ================= */
+// Geteilte Aufgabe rendern. Analyse/Eroerterung etc. haben renderTask(),
+// Mediation + Sprach-/Schreib-Seiten haben stattdessen renderExam(). Fallback noetig,
+// sonst bleibt die Aufgabenstellung leer ("–"), obwohl der Quelltext da ist.
+function _renderSharedTask(data) {
+  if (typeof renderTask === "function") return renderTask(data);
+  if (typeof renderExam === "function") return renderExam(data);
+}
+
 async function loadSharedTask() {
   const taskId = sharedTaskId || sessionStorage.getItem("_shared_task_id");
   if (!taskId) return false;
@@ -1471,7 +1529,7 @@ async function loadSharedTask() {
       CONFIG.storedData = data.task_data;
       // _shared_task_id merken fuer spaetere Zuordnung nach Grading
       sessionStorage.setItem("_shared_task_id", data.task_id);
-      if (typeof renderTask === "function") renderTask(data.task_data);
+      if (typeof _renderSharedTask === "function") _renderSharedTask(data.task_data);
       nav("task");
       return true;
     }
@@ -2359,7 +2417,7 @@ function clearOCR() {
   });
 })();
 
-// beforeunload protection — only warn when actively writing
+// beforeunload protection – only warn when actively writing
 window.addEventListener("beforeunload", function (e) {
   if (currentStep !== "write") return;
   const ta = document.getElementById("studentText");
@@ -2508,7 +2566,7 @@ function updateTeacherCodeBtn(code) {
   btn.style.borderColor = code ? "var(--accent)" : "var(--border)";
 }
 
-// Main init — only for module pages (deutsch.html, etc.), not index.html
+// Main init – only for module pages (deutsch.html, etc.), not index.html
 if (typeof MODULE_CONFIG !== 'undefined') window.addEventListener("load", function () {
   initTheme();
 
@@ -2753,10 +2811,15 @@ async function loadEducationalImage(prompt, containerId, labels, style, _isRetry
       }
     }
 
-    // KI-Hinweis
-    var noticeText = hasNumberedLegend
-      ? 'KI-generiertes Bild — Beschriftungen siehe Legende.'
-      : 'KI-generiertes Bild — Texte und Beschriftungen können Fehler enthalten.';
+    // KI-Hinweis (Karikaturen klar als synthetische Übungsmaterialien kennzeichnen)
+    var noticeText;
+    if (style === 'karikatur') {
+      noticeText = 'KI-generierte Übungskarikatur – kein historisches Original. Symbole und Texte können Fehler enthalten.';
+    } else if (hasNumberedLegend) {
+      noticeText = 'KI-generiertes Bild – Beschriftungen siehe Legende.';
+    } else {
+      noticeText = 'KI-generiertes Bild – Texte und Beschriftungen können Fehler enthalten.';
+    }
     var aiNoticeHtml =
       '<div class="edu-img-ai-notice">' +
         '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="edu-img-ai-notice-icon"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>' +
@@ -2848,7 +2911,7 @@ function _ensureLoginModal() {
     '<h2 style="font-size:1.2rem;margin:0 0 .3rem;text-align:center;">Anmeldung erforderlich</h2>' +
     '<p style="color:var(--ink-muted);text-align:center;font-size:.85rem;margin:0 0 1.2rem;">Um eine Aufgabe zu generieren, melde dich bitte an.</p>' +
     '<div style="display:flex;gap:.3rem;margin-bottom:1rem;">' +
-    '<button id="slModeLogin" type="button" style="flex:1;padding:.5rem;border:1px solid var(--border);border-radius:8px;background:var(--accent);color:#fff;font-weight:600;cursor:pointer;min-height:44px;font-family:inherit;font-size:.85rem;" onclick="_setLoginModalMode(\'login\')">Anmelden</button>' +
+    '<button id="slModeLogin" type="button" style="flex:1;padding:.5rem;border:1px solid var(--border);border-radius:8px;background:var(--accent);color:var(--on-accent);font-weight:600;cursor:pointer;min-height:44px;font-family:inherit;font-size:.85rem;" onclick="_setLoginModalMode(\'login\')">Anmelden</button>' +
     '<button id="slModeRegister" type="button" style="flex:1;padding:.5rem;border:1px solid var(--border);border-radius:8px;background:var(--surface);color:var(--ink);font-weight:600;cursor:pointer;min-height:44px;font-family:inherit;font-size:.85rem;" onclick="_setLoginModalMode(\'register\')">Registrieren</button>' +
     '</div>' +
     '<input type="text" id="slModalName" placeholder="Dein Name …" style="width:100%;padding:.7rem .9rem;font-size:16px;border:1px solid var(--border);border-radius:10px;margin-bottom:.6rem;background:var(--surface);color:var(--ink);box-sizing:border-box;min-height:44px;font-family:inherit;">' +
@@ -2859,7 +2922,7 @@ function _ensureLoginModal() {
     '<p style="font-size:.82rem;color:var(--ink-muted);margin-top:.2rem;text-align:center;">Schulcode? Gibst du sp\u00e4ter beim Abo ein.</p>' +
     '</div>' +
     '<div id="slModalError" style="display:none;color:#ef4444;font-size:.82rem;margin-bottom:.6rem;text-align:center;"></div>' +
-    '<button id="slModalBtn" type="button" onclick="_doLoginModal()" style="width:100%;padding:.85rem;background:var(--accent);color:#fff;border:none;border-radius:12px;font-size:1rem;font-weight:600;cursor:pointer;min-height:52px;font-family:inherit;">Anmelden</button>' +
+    '<button id="slModalBtn" type="button" onclick="_doLoginModal()" style="width:100%;padding:.85rem;background:var(--accent);color:var(--on-accent);border:none;border-radius:12px;font-size:1rem;font-weight:600;cursor:pointer;min-height:52px;font-family:inherit;">Anmelden</button>' +
     '<button type="button" onclick="_closeLoginModal()" style="width:100%;padding:.5rem;background:none;border:none;color:var(--ink-muted);font-size:.82rem;cursor:pointer;margin-top:.5rem;min-height:44px;font-family:inherit;">Abbrechen</button>' +
     '</div>';
   document.body.appendChild(overlay);
@@ -3066,7 +3129,7 @@ function _showVerificationPendingModal(studentName, password, maskedEmail, after
     '<p style="margin:0 0 1rem;font-size:.88rem;color:var(--ink-muted,#666);line-height:1.5;text-align:center;">' + intro + '</p>' +
     '<p style="margin:0 0 1.2rem;font-size:.78rem;color:var(--ink-muted,#888);line-height:1.5;text-align:center;">Tipp: Schau auch in deinem Spam-Ordner nach. Der Link ist 24 Stunden gültig.</p>' +
     '<div id="verifyPendingStatus" style="display:none;font-size:.85rem;text-align:center;margin-bottom:.8rem;"></div>' +
-    '<button id="verifyResendBtn" type="button" style="width:100%;padding:.85rem;background:var(--accent,#4f6ef7);color:#fff;border:none;border-radius:12px;font-size:1rem;font-weight:600;cursor:pointer;min-height:52px;font-family:inherit;">E-Mail erneut senden</button>' +
+    '<button id="verifyResendBtn" type="button" style="width:100%;padding:.85rem;background:var(--accent,#4f6ef7);color:var(--on-accent);border:none;border-radius:12px;font-size:1rem;font-weight:600;cursor:pointer;min-height:52px;font-family:inherit;">E-Mail erneut senden</button>' +
     '<button id="verifyCloseBtn" type="button" style="width:100%;padding:.6rem;background:none;border:none;color:var(--ink-muted,#666);font-size:.85rem;cursor:pointer;margin-top:.4rem;font-family:inherit;">Schließen</button>' +
     '</div>';
   document.body.appendChild(overlay);
@@ -3126,7 +3189,7 @@ function _showEmailCollectModal(callback) {
     '<p style="margin:0 0 1rem;font-size:.88rem;color:var(--ink-muted,#666);">Bitte hinterlege deine E-Mail-Adresse, damit wir dir bei Bedarf Erinnerungen schicken können.</p>' +
     '<input type="email" id="emailCollectInput" placeholder="Deine E-Mail-Adresse …" style="width:100%;padding:.7rem .9rem;font-size:16px;border:1px solid var(--border,#ddd);border-radius:10px;margin-bottom:.6rem;background:var(--surface,#fff);color:var(--ink,#1a1a1a);box-sizing:border-box;min-height:44px;font-family:inherit;">' +
     '<div id="emailCollectError" style="display:none;color:#ef4444;font-size:.82rem;margin-bottom:.6rem;text-align:center;"></div>' +
-    '<button id="emailCollectBtn" type="button" style="width:100%;padding:.85rem;background:var(--accent,#4f6ef7);color:#fff;border:none;border-radius:12px;font-size:1rem;font-weight:600;cursor:pointer;min-height:52px;font-family:inherit;">Speichern</button>' +
+    '<button id="emailCollectBtn" type="button" style="width:100%;padding:.85rem;background:var(--accent,#4f6ef7);color:var(--on-accent);border:none;border-radius:12px;font-size:1rem;font-weight:600;cursor:pointer;min-height:52px;font-family:inherit;">Speichern</button>' +
     '<button id="emailCollectSkip" type="button" style="width:100%;padding:.6rem;background:none;border:none;color:var(--ink-muted,#666);font-size:.82rem;cursor:pointer;margin-top:.4rem;">Später</button>' +
     '</div>';
   document.body.appendChild(overlay);
@@ -3237,7 +3300,7 @@ function showProfileModal() {
 
       '<div id="profMsg" style="display:none;font-size:.82rem;margin-bottom:.8rem;text-align:center;padding:.5rem;border-radius:8px;"></div>' +
 
-      '<button type="button" onclick="_saveProfileChanges()" style="width:100%;padding:.75rem;background:var(--accent);color:#fff;border:none;border-radius:12px;font-size:.95rem;font-weight:600;cursor:pointer;min-height:48px;font-family:inherit;margin-bottom:1rem;">Änderungen speichern</button>' +
+      '<button type="button" onclick="_saveProfileChanges()" style="width:100%;padding:.75rem;background:var(--accent);color:var(--on-accent);border:none;border-radius:12px;font-size:.95rem;font-weight:600;cursor:pointer;min-height:48px;font-family:inherit;margin-bottom:1rem;">Änderungen speichern</button>' +
 
       // Passwort ändern (aufklappbar)
       '<details style="margin-bottom:1rem;">' +
@@ -3665,7 +3728,7 @@ function showFeedbackNudge() {
   // Schließen-Button
   modal.querySelector(".feedback-nudge-close").addEventListener("click", closeNudge);
 
-  // "Später erinnern" — nächstes Mal in 3 Tagen
+  // "Später erinnern" – nächstes Mal in 3 Tagen
   modal.querySelector(".feedback-nudge-later").addEventListener("click", function() {
     localStorage.setItem("feedback_nudge_last", String(Date.now() - (4 * 24 * 60 * 60 * 1000)));
     closeNudge();
@@ -3830,7 +3893,7 @@ function initConsentBanner() {
     '</p>' +
     '<div style="display:flex;gap:.5rem;flex-shrink:0;">' +
       '<button id="consentReject" style="background:transparent;color:var(--ink-light,#475569);border:1px solid var(--border,#e2e8f0);padding:.5rem 1rem;border-radius:8px;font-size:.85rem;cursor:pointer;min-height:44px;min-width:44px;font-family:inherit;">Ablehnen</button>' +
-      '<button id="consentAccept" style="background:var(--accent,#4f46e5);color:#fff;border:none;padding:.5rem 1.2rem;border-radius:8px;font-weight:600;font-size:.85rem;cursor:pointer;min-height:44px;min-width:44px;font-family:inherit;">Akzeptieren</button>' +
+      '<button id="consentAccept" style="background:var(--accent,#4f46e5);color:var(--on-accent);border:none;padding:.5rem 1.2rem;border-radius:8px;font-weight:600;font-size:.85rem;cursor:pointer;min-height:44px;min-width:44px;font-family:inherit;">Akzeptieren</button>' +
     '</div>';
 
   document.body.appendChild(banner);

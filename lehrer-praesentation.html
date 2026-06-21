@@ -432,7 +432,7 @@
     right: -4px;
     top: -4px;
     width: 0; height: 0;
-    border-left: 8px solid var(--accent);
+    border-left: 4px solid var(--accent);
     border-top: 5px solid transparent;
     border-bottom: 5px solid transparent;
   }
@@ -810,9 +810,16 @@
     height: 3px;
     background: linear-gradient(90deg, #4f46e5, #7c3aed);
     z-index: 200;
-    width: 0%;
-    transition: width .1s linear;
+    width: 100%;
+    transform: scaleX(0);
+    transform-origin: left;
+    will-change: transform;
+    transition: transform .1s linear;
   }
+  @supports (animation-timeline: scroll()) {
+    .scroll-progress { animation: scroll-progress-grow linear; animation-timeline: scroll(root); }
+  }
+  @keyframes scroll-progress-grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 
   /* ====== PRINT ====== */
   @media print {
@@ -1246,12 +1253,18 @@ revealEls.forEach(el => revealObserver.observe(el));
 
 /* ====== SCROLL PROGRESS ====== */
 const progressBar = document.getElementById('scrollProgress');
-window.addEventListener('scroll', () => {
-  const scrollTop = document.documentElement.scrollTop;
-  const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
-  const progress = (scrollTop / scrollHeight) * 100;
-  progressBar.style.width = progress + '%';
-}, { passive: true });
+if (!(window.CSS && CSS.supports && CSS.supports('animation-timeline: scroll()'))) {
+  let _pbTicking = false;
+  const _updateProgress = () => {
+    const scrollTop = document.documentElement.scrollTop;
+    const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+    progressBar.style.transform = 'scaleX(' + (scrollHeight > 0 ? scrollTop / scrollHeight : 0) + ')';
+    _pbTicking = false;
+  };
+  window.addEventListener('scroll', () => {
+    if (!_pbTicking) { requestAnimationFrame(_updateProgress); _pbTicking = true; }
+  }, { passive: true });
+}
 
 /* ====== STICKY NAV ====== */
 const stickyNav = document.getElementById('stickyNav');

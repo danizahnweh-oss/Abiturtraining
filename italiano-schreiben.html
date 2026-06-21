@@ -32,7 +32,7 @@
   <link rel="stylesheet" href="shared-v4.css">
 
   <style>
-    /* Page-specific overrides — base styles from shared-v4.css */
+    /* Page-specific overrides – base styles from shared-v4.css */
     #login-screen {
       position: fixed;
       inset: 0;
@@ -653,7 +653,7 @@
 
           <!-- Korrektur & Aspekte -->
           <div class="card" id="korrekturCard" style="display:none">
-            <h2 class="card-header">Dein Text — Fehlerkorrektur</h2>
+            <h2 class="card-header">Dein Text – Fehlerkorrektur</h2>
             <div class="korrektur-legende"><span class="fehler-rs-demo">Rechtschreibung</span><span
                 class="fehler-gr-demo">Grammatik</span></div>
             <div class="korrektur-body" id="korrekturBody"></div>
@@ -897,7 +897,7 @@ ZUSATZKRITERIUM für Aufgabe 3.1 (Discussione): Ist die Argumentation ausgewogen
 
 ZUSATZKRITERIUM für Aufgabe 3.2 (Scrittura creativa): Werden die Genrekonventionen der geforderten Textsorte eingehalten? Zeigt der Text Kreativität, sprachliche Originalität und Einfühlungsvermögen?
 
-=== SPRACHE (60%) — Bewertungskriterien für Italienisch ===
+=== SPRACHE (60%) – Bewertungskriterien für Italienisch ===
 
 15-13 NP: Vocabolario ricco, preciso e idiomatico. Grammatica e sintassi in gran parte corrette, strutture complesse padroneggiate. Ortografia e coniugazione molto sicure. Connettivi logici vari e ben impiegati. Registro linguistico adeguato. Formulazioni autonome ed eleganti.
 
@@ -924,7 +924,7 @@ Liste Sprachfehler auf: "Fehler" -> "Korrektur" (Erklärung). Gehe auf folgende 
 
 WICHTIG: Nenne KEINE Gesamtpunktzahl und KEINE Schulnote im Feedback.
 
-WICHTIG – GANZE SÄTZE: Antworten sollen in vollständigen Sätzen formuliert sein, nicht in Stichpunkten oder reinen Aufzählungen. Fußnoten und Quellenverweise sind erlaubt. Es muss kein perfekt strukturierter Aufsatz sein — entscheidend ist die Formulierung in ganzen Sätzen.
+WICHTIG – GANZE SÄTZE: Antworten sollen in vollständigen Sätzen formuliert sein, nicht in Stichpunkten oder reinen Aufzählungen. Fußnoten und Quellenverweise sind erlaubt. Es muss kein perfekt strukturierter Aufsatz sein – entscheidend ist die Formulierung in ganzen Sätzen.
 
 Schreibe das Feedback auf DEUTSCH, zitiere den Schülertext auf ITALIENISCH.`;
 
@@ -1176,7 +1176,7 @@ Schreibe das Feedback auf DEUTSCH, zitiere den Schülertext auf ITALIENISCH.`;
       if (document.getElementById("doTask1")?.checked) tasks.push("1. " + (d.task_1 || ""));
       if (document.getElementById("doTask2")?.checked) tasks.push("2. " + (d.task_2 || ""));
       if (document.getElementById("doTask31")?.checked) {
-        const q = d.task_3_1_quote ? `« ${d.task_3_1_quote} » — ` : "";
+        const q = d.task_3_1_quote ? `« ${d.task_3_1_quote} » – ` : "";
         tasks.push("3.1 " + q + (d.task_3_1 || ""));
       } else if (document.getElementById("doTask32")?.checked) {
         const s = d.task_3_2_situation ? d.task_3_2_situation + " " : "";
@@ -1229,7 +1229,7 @@ Schreibe das Feedback auf DEUTSCH, zitiere den Schülertext auf ITALIENISCH.`;
 
         // Save to history (local)
         saveToHistory({
-          topic: CONFIG.storedData.headline || document.getElementById("topicSelect")?.value || "—",
+          topic: CONFIG.storedData.headline || document.getElementById("topicSelect")?.value || "–",
           content: cs,
           language: ls,
           total: ts
@@ -1240,7 +1240,7 @@ Schreibe das Feedback auf DEUTSCH, zitiere den Schülertext auf ITALIENISCH.`;
           student_name: sessionStorage.getItem("student_name") || "Unbekannt",
           course: sessionStorage.getItem("student_course") || "",
           type: "italian-writing",
-          topic: CONFIG.storedData.headline || "—",
+          topic: CONFIG.storedData.headline || "–",
           content: cs,
           language: ls,
           total: ts,
@@ -1355,7 +1355,7 @@ Schreibe das Feedback auf DEUTSCH, zitiere den Schülertext auf ITALIENISCH.`;
       btn.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg> Musterlösung zeigen`;
     }
 
-    /* ================= TIMER (custom — different UI from shared.js) ================= */
+    /* ================= TIMER (custom – different UI from shared.js) ================= */
     function startTimer() {
       const minutes = parseInt(document.getElementById("timerMinutes").value) || 60;
       timerSeconds = minutes * 60;

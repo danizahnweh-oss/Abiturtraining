@@ -1409,7 +1409,7 @@
       if (mf) { mf.value = ""; updateFormelPreviewFor(feIdx); mf.focus(); }
     }
 
-    /* ====== OVERRIDE: updateWordCount — per-Textarea + Gesamtsumme ====== */
+    /* ====== OVERRIDE: updateWordCount – per-Textarea + Gesamtsumme ====== */
     function updateWordCount() {
       var total = 0;
       document.querySelectorAll('#studentTextareas textarea').forEach(function (ta) {
@@ -1421,7 +1421,7 @@
       document.getElementById("wordCount").textContent = total;
     }
 
-    /* ====== OVERRIDE: useOCRText — insert into last-focused textarea ====== */
+    /* ====== OVERRIDE: useOCRText – insert into last-focused textarea ====== */
     function useOCRText() {
       var t = document.getElementById("ocrText").value;
       if (!t.trim()) { showToast("Kein Text vorhanden."); return; }
@@ -1446,7 +1446,7 @@
             {
               type: "welcome",
               title: "Mathematik-Trainer",
-              text: "Hier übst du Mathe-Aufgaben — entweder KI-generiert oder eigene Aufgaben hochgeladen."
+              text: "Hier übst du Mathe-Aufgaben – entweder KI-generiert oder eigene Aufgaben hochgeladen."
             },
             {
               target: ".hj-grid",

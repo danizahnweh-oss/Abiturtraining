@@ -371,7 +371,7 @@ function initWidgetDrag(widget) {
     var header = widget.querySelector(".ai-chat-header");
     if (header) header.classList.add("dragging");
 
-    // Nur bei Maus preventDefault — bei Touch wird es erst in onMove aufgerufen,
+    // Nur bei Maus preventDefault – bei Touch wird es erst in onMove aufgerufen,
     // damit der Click-Event auf Tablets nicht blockiert wird
     if (!e.touches) e.preventDefault();
   }
@@ -541,7 +541,7 @@ function detectPageInfo() {
 }
 
 /**
- * Liest den aktuellen Aufgabentext von der Seite — funktioniert für alle Seitentypen.
+ * Liest den aktuellen Aufgabentext von der Seite – funktioniert für alle Seitentypen.
  * Sendet IMMER mindestens Fach + Seite + Schritt, auch ohne generierte Aufgabe.
  */
 function getCurrentTaskContext() {

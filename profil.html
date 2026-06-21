@@ -623,7 +623,7 @@
         <h3>Noch keine Daten vorhanden</h3>
         <p>Absolviere zuerst einige Aufgaben, damit die KI dein Kompetenzprofil erstellen kann.</p>
         <a href="index.html"
-          style="display:inline-block;margin-top:1rem;padding:.7rem 1.5rem;background:var(--accent);color:#fff;border-radius:12px;text-decoration:none;font-weight:600;min-height:44px;line-height:44px;">
+          style="display:inline-block;margin-top:1rem;padding:.7rem 1.5rem;background:var(--accent);color:var(--on-accent);border-radius:12px;text-decoration:none;font-weight:600;min-height:44px;line-height:44px;">
           Jetzt loslegen
         </a>
       </div>
@@ -677,7 +677,7 @@
           <div id="lernplanContent">
             <div id="lernplanEmpty" style="text-align:center;padding:1.5rem">
               <p style="color:var(--ink-muted);margin-bottom:1rem">
-                Lass dir von der KI einen personalisierten Wochenplan erstellen — basierend auf deinem Kompetenzprofil.
+                Lass dir von der KI einen personalisierten Wochenplan erstellen – basierend auf deinem Kompetenzprofil.
               </p>
               <button id="btnLernplan" onclick="generateLernplan()" class="lp-btn">
                 Wochenplan erstellen
@@ -820,7 +820,7 @@
         console.error("Profil laden fehlgeschlagen:", e);
         document.getElementById("profilLoading").innerHTML =
           '<div class="empty-icon">⚠️</div><h3>Fehler beim Laden</h3><p>' + e.message + '</p>' +
-          '<a href="index.html" style="display:inline-block;margin-top:1rem;padding:.7rem 1.5rem;background:var(--accent);color:#fff;border-radius:12px;text-decoration:none;font-weight:600;">Zurück</a>';
+          '<a href="index.html" style="display:inline-block;margin-top:1rem;padding:.7rem 1.5rem;background:var(--accent);color:var(--on-accent);border-radius:12px;text-decoration:none;font-weight:600;">Zurück</a>';
       }
     }
 

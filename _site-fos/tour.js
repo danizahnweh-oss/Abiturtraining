@@ -1,4 +1,4 @@
-/* ====== tour.js — Wiederverwendbare Onboarding-Tour-Engine ====== */
+/* ====== tour.js – Wiederverwendbare Onboarding-Tour-Engine ====== */
 (function () {
   "use strict";
 

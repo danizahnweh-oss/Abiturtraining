@@ -3964,7 +3964,7 @@
             <input type="text" id="examTeacherCode" placeholder="z.B. ABC123"
               style="flex:1;padding:.45rem .6rem;font-size:.9rem;font-family:var(--font-mono);text-transform:uppercase;letter-spacing:.1em;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);min-height:44px;box-sizing:border-box;"
               maxlength="6" autocomplete="off">
-            <button class="btn-small" id="examCodeSaveBtn" onclick="saveExamTeacherCode()" style="flex-shrink:0;min-height:44px;padding:.45rem .8rem;font-size:.82rem;background:var(--accent);color:#fff;border:none;border-radius:var(--radius-sm);cursor:pointer;font-weight:600;">OK</button>
+            <button class="btn-small" id="examCodeSaveBtn" onclick="saveExamTeacherCode()" style="flex-shrink:0;min-height:44px;padding:.45rem .8rem;font-size:.82rem;background:var(--accent);color:var(--on-accent);border:none;border-radius:var(--radius-sm);cursor:pointer;font-weight:600;">OK</button>
           </div>
           <div id="examCodeStatus" style="font-size:.78rem;margin-top:.4rem;color:var(--ink-muted);"></div>
         </div>
@@ -5358,12 +5358,12 @@
           var buttons = '';
           if (!m.reply) {
             buttons = '<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:.5rem;">'
-              + '<button onclick="toggleReplyBox(\'' + m.id + '\')" style="background:var(--accent, #4f46e5);color:#fff;border:none;padding:6px 16px;border-radius:8px;cursor:pointer;font-size:.85rem;font-weight:600;min-height:44px;">Antworten</button>'
+              + '<button onclick="toggleReplyBox(\'' + m.id + '\')" style="background:var(--accent, #4f46e5);color:var(--on-accent);border:none;padding:6px 16px;border-radius:8px;cursor:pointer;font-size:.85rem;font-weight:600;min-height:44px;">Antworten</button>'
               + '<button onclick="markMessageRead(\'' + m.id + '\', this)" style="background:none;border:1px solid var(--border, #ccc);color:var(--ink-muted);padding:6px 16px;border-radius:8px;cursor:pointer;font-size:.85rem;min-height:44px;">Gelesen</button>'
               + '</div>'
               + '<div id="reply-box-' + m.id + '" style="display:none;margin-top:.75rem;">'
               + '<textarea id="reply-text-' + m.id + '" rows="3" placeholder="Deine Antwort…" style="width:100%;padding:10px 12px;border:1px solid var(--border, #ccc);border-radius:8px;background:var(--bg, #fff);color:var(--ink);font-size:16px;resize:vertical;" maxlength="5000"></textarea>'
-              + '<button onclick="sendReply(\'' + m.id + '\')" style="margin-top:.5rem;background:var(--accent, #4f46e5);color:#fff;border:none;padding:8px 20px;border-radius:8px;cursor:pointer;font-size:.85rem;font-weight:600;min-height:44px;">Absenden</button>'
+              + '<button onclick="sendReply(\'' + m.id + '\')" style="margin-top:.5rem;background:var(--accent, #4f46e5);color:var(--on-accent);border:none;padding:8px 20px;border-radius:8px;cursor:pointer;font-size:.85rem;font-weight:600;min-height:44px;">Absenden</button>'
               + '</div>';
           } else {
             buttons = '<button onclick="markMessageRead(\'' + m.id + '\', this)" style="margin-top:.5rem;background:none;border:1px solid var(--border, #ccc);color:var(--ink-muted);padding:6px 16px;border-radius:8px;cursor:pointer;font-size:.85rem;min-height:44px;">Ausblenden</button>';
@@ -6652,7 +6652,7 @@
         '<p style="margin:0 0 1rem;font-size:.88rem;color:var(--ink-muted,#666);">Bitte hinterlege deine E-Mail-Adresse, damit wir dir bei Bedarf Erinnerungen schicken können.</p>' +
         '<input type="email" id="emailCollectInput" placeholder="Deine E-Mail-Adresse …" style="width:100%;padding:.7rem .9rem;font-size:16px;border:1px solid var(--border,#ddd);border-radius:10px;margin-bottom:.6rem;background:var(--surface,#fff);color:var(--ink,#1a1a1a);box-sizing:border-box;min-height:44px;font-family:inherit;">' +
         '<div id="emailCollectError" style="display:none;color:#ef4444;font-size:.82rem;margin-bottom:.6rem;text-align:center;"></div>' +
-        '<button id="emailCollectBtn" type="button" style="width:100%;padding:.85rem;background:var(--accent,#4f6ef7);color:#fff;border:none;border-radius:12px;font-size:1rem;font-weight:600;cursor:pointer;min-height:52px;font-family:inherit;">Speichern</button>' +
+        '<button id="emailCollectBtn" type="button" style="width:100%;padding:.85rem;background:var(--accent,#4f6ef7);color:var(--on-accent);border:none;border-radius:12px;font-size:1rem;font-weight:600;cursor:pointer;min-height:52px;font-family:inherit;">Speichern</button>' +
         '<button id="emailCollectSkip" type="button" style="width:100%;padding:.6rem;background:none;border:none;color:var(--ink-muted,#666);font-size:.82rem;cursor:pointer;margin-top:.4rem;">Später</button>' +
         '</div>';
       document.body.appendChild(overlay);

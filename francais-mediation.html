@@ -32,7 +32,7 @@
   <link rel="stylesheet" href="shared-v4.css">
 
   <style>
-    /* Page-specific overrides — base styles from shared-v4.css */
+    /* Page-specific overrides – base styles from shared-v4.css */
     #login-screen {
       position: fixed;
       inset: 0;
@@ -600,7 +600,7 @@
 
           <!-- Korrektur & Aspekte -->
           <div class="card" id="korrekturCard" style="display:none">
-            <h2 class="card-header">Dein Text — Fehlerkorrektur</h2>
+            <h2 class="card-header">Dein Text – Fehlerkorrektur</h2>
             <div class="korrektur-legende"><span class="fehler-rs-demo">Rechtschreibung</span><span
                 class="fehler-gr-demo">Grammatik</span></div>
             <div class="korrektur-body" id="korrekturBody"></div>
@@ -899,7 +899,7 @@ Hebe 2–3 besonders gelungene Formulierungen oder Strategien hervor (mit Zitat)
 
 WICHTIG: Nenne im Feedback KEINE Gesamtpunktzahl und KEINE Schulnote. Die Berechnung der Gesamtnote übernimmt das System automatisch. Beschränke dich auf die inhaltliche und sprachliche Analyse.
 
-WICHTIG – GANZE SÄTZE: Antworten sollen in vollständigen Sätzen formuliert sein, nicht in Stichpunkten oder reinen Aufzählungen. Fußnoten und Quellenverweise sind erlaubt. Es muss kein perfekt strukturierter Aufsatz sein — entscheidend ist die Formulierung in ganzen Sätzen.
+WICHTIG – GANZE SÄTZE: Antworten sollen in vollständigen Sätzen formuliert sein, nicht in Stichpunkten oder reinen Aufzählungen. Fußnoten und Quellenverweise sind erlaubt. Es muss kein perfekt strukturierter Aufsatz sein – entscheidend ist die Formulierung in ganzen Sätzen.
 
 Schreibe das gesamte Feedback auf DEUTSCH, aber zitiere den Schülertext natürlich auf Französisch.`;
 
@@ -1118,7 +1118,7 @@ Schreibe das gesamte Feedback auf DEUTSCH, aber zitiere den Schülertext natürl
         return;
       }
 
-      document.getElementById("taskInstruction").innerText = d.task_instruction || "—";
+      document.getElementById("taskInstruction").innerText = d.task_instruction || "–";
       document.getElementById("articleTitle").innerText = d.headline || "Quelltext";
       document.getElementById("articleBody").innerHTML =
         formatTextWithLineNumbers(d.article_text || "");
@@ -1175,7 +1175,7 @@ Schreibe das gesamte Feedback auf DEUTSCH, aber zitiere den Schülertext natürl
 
         // Save to history (local)
         saveToHistory({
-          topic: CONFIG.storedData.headline || document.getElementById("topicSelect")?.value || "—",
+          topic: CONFIG.storedData.headline || document.getElementById("topicSelect")?.value || "–",
           content: cs,
           language: ls,
           total: ts
@@ -1186,7 +1186,7 @@ Schreibe das gesamte Feedback auf DEUTSCH, aber zitiere den Schülertext natürl
           student_name: sessionStorage.getItem("student_name") || "Unbekannt",
           course: sessionStorage.getItem("student_course") || "",
           type: "french-mediation",
-          topic: CONFIG.storedData.headline || "—",
+          topic: CONFIG.storedData.headline || "–",
           content: cs,
           language: ls,
           total: ts,
@@ -1295,7 +1295,7 @@ Schreibe das gesamte Feedback auf DEUTSCH, aber zitiere den Schülertext natürl
       btn.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg> Musterlösung zeigen`;
     }
 
-    /* ================= TIMER (custom — different UI from shared.js) ================= */
+    /* ================= TIMER (custom – different UI from shared.js) ================= */
     function startTimer() {
       const minutes = parseInt(document.getElementById("timerMinutes").value) || 60;
       timerSeconds = minutes * 60;

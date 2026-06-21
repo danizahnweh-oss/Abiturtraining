@@ -482,7 +482,7 @@
     <!-- STEP 2: READ MATERIALS -->
     <section id="sec-task">
       <div class="card">
-        <h3 class="teil-header">Teil A — Quellenanalyse</h3>
+        <h3 class="teil-header">Teil A – Quellenanalyse</h3>
         <h2 class="card-header">Aufgabenstellung</h2>
         <div class="task-box" id="taskInstructionA">…</div>
       </div>
@@ -528,7 +528,7 @@
       </div>
 
       <div class="card">
-        <h3 class="teil-header">Teil B — Darstellung</h3>
+        <h3 class="teil-header">Teil B – Darstellung</h3>
         <div class="task-box" id="taskInstructionB" style="font-size:.95rem">…</div>
         <div id="materialImpulsB" style="margin-top:.8rem;display:none">
           <div class="material-card">
@@ -563,12 +563,12 @@
           <summary style="cursor:pointer;font-weight:600;color:var(--accent)">📋 Aufgabe & Material</summary>
           <div
             style="margin-top:1rem;padding:1rem;background:var(--bg-warm);border-radius:var(--radius-sm);max-height:350px;overflow-y:auto">
-            <div style="font-weight:600;color:var(--accent);margin-bottom:.3rem">Teil A — Quellenanalyse</div>
+            <div style="font-weight:600;color:var(--accent);margin-bottom:.3rem">Teil A – Quellenanalyse</div>
             <div class="task-box" id="writeTaskRefA" style="margin:0 0 1rem 0;font-size:.9rem"></div>
             <div class="source-text" id="writeSourceRef" style="font-size:.85rem;max-height:200px;overflow-y:auto">
             </div>
             <hr style="margin:1rem 0;border:none;border-top:1px solid var(--border)">
-            <div style="font-weight:600;color:var(--accent);margin-bottom:.3rem">Teil B — Darstellung</div>
+            <div style="font-weight:600;color:var(--accent);margin-bottom:.3rem">Teil B – Darstellung</div>
             <div class="task-box" id="writeTaskRefB" style="margin:0;font-size:.9rem"></div>
           </div>
         </details>
@@ -677,15 +677,15 @@ Tipp: Teil B geht über die Quelle hinaus.
           <div class="feedback-body" id="feedbackBody"></div>
         </div>
         <div class="card" id="korrekturCard" style="display:none">
-          <h2 class="card-header">Dein Text — Fehlerkorrektur</h2>
+          <h2 class="card-header">Dein Text – Fehlerkorrektur</h2>
           <div class="korrektur-legende"><span class="fehler-rs-demo">Rechtschreibung</span><span
               class="fehler-gr-demo">Grammatik</span></div>
           <div class="korrektur-teil">
-            <h3>Teil A — Quellenanalyse</h3>
+            <h3>Teil A – Quellenanalyse</h3>
             <div class="korrektur-body" id="korrekturBodyA"></div>
           </div>
           <div class="korrektur-teil">
-            <h3>Teil B — Darstellung</h3>
+            <h3>Teil B – Darstellung</h3>
             <div class="korrektur-body" id="korrekturBodyB"></div>
           </div>
         </div>
@@ -788,14 +788,14 @@ Die Prüfung besteht aus Teil A (Quellenanalyse) und Teil B (Darstellung).
 
 BEWERTUNGSKRITERIEN:
 
-TEIL A — SACHKOMPETENZ (Quellenanalyse):
+TEIL A – SACHKOMPETENZ (Quellenanalyse):
 - Korrekte Quelleneinordnung (Autor, Textsorte, Adressat, historischer Kontext)
 - Herausarbeitung der zentralen Aussagen und Argumentationsstruktur der Quelle
 - Korrekte Textbelege und Zitate
 - Historische Einordnung und Kontextualisierung
 - Operatorengerechte Bearbeitung aller Teilaufgaben
 
-TEIL B — SACHKOMPETENZ (Darstellung):
+TEIL B – SACHKOMPETENZ (Darstellung):
 - Eigenständige historische Darstellung über die Quelle hinaus
 - Korrekte Verwendung historischer Fakten und Zusammenhänge
 - Multiperspektivität und differenziertes historisches Urteil
@@ -812,7 +812,7 @@ ANFORDERUNGSBEREICHE:
 - II (Reorganisation/Transfer): Analysieren, Herausarbeiten, Einordnen, Vergleichen
 - III (Reflexion/Urteil): Beurteilen, Erörtern, Stellung nehmen, Bewerten
 
-WICHTIG – GANZE SÄTZE: Antworten sollen in vollständigen Sätzen formuliert sein, nicht in Stichpunkten oder reinen Aufzählungen. Fußnoten und Quellenverweise sind erlaubt. Es muss kein perfekt strukturierter Aufsatz sein — entscheidend ist die Formulierung in ganzen Sätzen.
+WICHTIG – GANZE SÄTZE: Antworten sollen in vollständigen Sätzen formuliert sein, nicht in Stichpunkten oder reinen Aufzählungen. Fußnoten und Quellenverweise sind erlaubt. Es muss kein perfekt strukturierter Aufsatz sein – entscheidend ist die Formulierung in ganzen Sätzen.
 
 Antworte NUR JSON: {"sach_a_np":<0-15>,"sach_b_np":<0-15>,"darstellung_np":<0-15>,"gesamt_np":<0-15>,"feedback":"<Markdown>"}
 gesamt_np = round(sach_a_np * 0.4 + sach_b_np * 0.3 + darstellung_np * 0.3)`;
@@ -1030,7 +1030,7 @@ gesamt_np = round(sach_a_np * 0.4 + sach_b_np * 0.3 + darstellung_np * 0.3)`;
         ? renderMd(taskB)
         : '<span style="color:var(--ink-muted)">Kein Teil B vorhanden.</span>';
 
-      // Quellenmaterial — formatSourceText nutzt Zeilennummern bei Fliesstext,
+      // Quellenmaterial – formatSourceText nutzt Zeilennummern bei Fliesstext,
       // bleibt bei Markdown-Tabellen/Bildern auf Markdown-Rendering
       const sourceText = d.primary_text_a || d.primary_text || "";
       const sourceHtml = formatSourceText(sourceText);
@@ -1040,7 +1040,7 @@ gesamt_np = round(sach_a_np * 0.4 + sach_b_np * 0.3 + darstellung_np * 0.3)`;
       const hjLabel = HJ_LABELS[d.schwerpunkt || CONFIG.halbjahr] || "";
       document.getElementById("textTitle").textContent = "Material M 1 – " + hjLabel;
 
-      // Material impuls for Teil B — auch mit Zeilennummern bei Fliesstext
+      // Material impuls for Teil B – auch mit Zeilennummern bei Fliesstext
       const impulsB = d.primary_text_b || "";
       const impulsContainer = document.getElementById("materialImpulsB");
       if (impulsB) {
