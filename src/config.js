@@ -3,7 +3,9 @@
 
 /* ---- Rate Limiting & Auth ---- */
 export const RATE_LIMIT_WINDOW = 60 * 1000;
-export const MAX_REQUESTS_PER_WINDOW = 25;
+// TEMPORÄR für Lehrer-Workshop 2026-06-22 hochgesetzt (10 Kollegen hinter EINER Schul-IP).
+// Standardwert ist 25 — nach dem Workshop (22.06. abends) wieder auf 25 zurücksetzen.
+export const MAX_REQUESTS_PER_WINDOW = 250;
 export const MAX_LOGIN_ATTEMPTS = 5;
 export const MAX_BODY_SIZE = 10 * 1024 * 1024; // 10 MB (Bilder + Text bei Grade-Requests)
 export const TOKEN_EXPIRY = 24 * 60 * 60 * 1000; // 24 Stunden

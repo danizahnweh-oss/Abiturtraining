@@ -95,7 +95,7 @@ export function startQueueWorker(executeGradeHandler, env) {
     console.log(`Queue: Job ${jobId} erfolgreich abgeschlossen`);
   }, {
     connection: redis,
-    concurrency: 1  // Wie max_batch_size = 1
+    concurrency: 4  // parallele Text-Korrekturen (Workshop-Last 2026-06-22). OpenAI verträgt parallele Calls.
   });
 
   // Fehler-Handling
