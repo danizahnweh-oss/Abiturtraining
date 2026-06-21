@@ -3,110 +3,67 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>myAbiFlow – Workshop-Handout für Lehrkräfte</title>
+<title>myAbiFlow – Schnellstart für Lehrkräfte</title>
 <style>
-  /* Design-Tokens analog shared-v4.css */
-  :root{
-    --accent:#4f46e5; --accent-soft:#e0e7ff; --ink:#0f172a; --ink-light:#475569;
-    --surface:#fff; --bg:#f8f9fa; --border:#e2e8f0; --radius:12px; --radius-sm:8px;
-  }
+  :root{--accent:#4f46e5;--ink:#0f172a;--ink-light:#64748b;--bg:#f8f9fa;--border:#e2e8f0}
   @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap');
   *{box-sizing:border-box;margin:0;padding:0}
   body{font-family:'DM Sans',system-ui,sans-serif;color:var(--ink);background:var(--bg);
-       line-height:1.5;font-size:15px;-webkit-print-color-adjust:exact;print-color-adjust:exact}
-  .page{max-width:780px;margin:0 auto;background:var(--surface);padding:32px 40px}
-  header{display:flex;align-items:baseline;justify-content:space-between;gap:16px;
-         border-bottom:3px solid var(--accent);padding-bottom:14px;margin-bottom:20px}
-  h1{font-size:26px;font-weight:700;letter-spacing:-.02em}
+       line-height:1.5;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .page{max-width:680px;margin:0 auto;background:#fff;padding:56px 56px 40px}
+  h1{font-size:28px;font-weight:700;letter-spacing:-.02em;margin-bottom:6px}
   h1 span{color:var(--accent)}
-  .sub{color:var(--ink-light);font-size:14px;text-align:right}
-  h2{font-size:16px;font-weight:700;margin:20px 0 8px;color:var(--accent);
-     display:flex;align-items:center;gap:8px}
-  h2 .n{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;
-        background:var(--accent);color:#fff;border-radius:50%;font-size:13px;flex:none}
-  ol,ul{margin:4px 0 4px 4px;padding-left:20px}
-  li{margin:5px 0}
-  .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:6px}
-  .card{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);
-        padding:14px 16px}
-  .card h3{font-size:14px;font-weight:700;margin-bottom:6px}
-  .url{font-family:'DM Sans',monospace;background:var(--accent-soft);color:var(--accent);
-       font-weight:700;padding:2px 8px;border-radius:6px;white-space:nowrap}
-  .note{background:#fff7ed;border:1px solid #fed7aa;border-radius:var(--radius-sm);
-        padding:12px 16px;margin-top:8px;font-size:14px}
-  .note strong{color:#b45309}
-  footer{margin-top:24px;border-top:1px solid var(--border);padding-top:14px;
-         display:flex;justify-content:space-between;align-items:center;
-         color:var(--ink-light);font-size:13px}
-  .qr{width:90px;height:90px;border:1px solid var(--border);border-radius:8px;
-      display:flex;align-items:center;justify-content:center;color:var(--ink-light);
-      font-size:11px;text-align:center;background:var(--bg)}
-  @media print{
-    body{background:#fff;font-size:12.5px}
-    .page{padding:0;max-width:100%}
-    @page{margin:14mm}
-  }
+  .tag{color:var(--ink-light);font-size:15px;margin-bottom:40px}
+
+  .url{text-align:center;background:var(--bg);border:1px solid var(--border);
+       border-radius:14px;padding:22px;margin-bottom:40px}
+  .url small{display:block;color:var(--ink-light);font-size:13px;
+             text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px}
+  .url b{font-size:24px;color:var(--accent);font-weight:700}
+
+  .step{display:flex;gap:18px;margin-bottom:26px;align-items:flex-start}
+  .step .n{flex:none;width:32px;height:32px;background:var(--accent);color:#fff;
+           border-radius:50%;display:flex;align-items:center;justify-content:center;
+           font-weight:700;font-size:15px}
+  .step h2{font-size:17px;font-weight:700;margin-bottom:2px}
+  .step p{color:var(--ink-light);font-size:15px}
+
+  footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--border);
+         color:var(--ink-light);font-size:14px;text-align:center}
+  footer b{color:var(--ink)}
+  @media print{body{background:#fff}.page{padding:0}@page{margin:20mm}}
 </style>
 </head>
 <body>
 <div class="page">
-  <header>
-    <h1>my<span>AbiFlow</span></h1>
-    <div class="sub">Workshop für Lehrkräfte<br>KI-gestützte Abiturvorbereitung · Bayern G9</div>
-  </header>
+  <h1>my<span>AbiFlow</span></h1>
+  <div class="tag">Schnellstart für Lehrkräfte</div>
 
-  <p style="font-size:15px;color:var(--ink-light)">
-    myAbiFlow erstellt lehrplankonforme Abituraufgaben in Sekunden, korrigiert
-    Schülerlösungen nach ISB-Kriterien und zeigt dir den Lernstand deiner Klasse im Dashboard.
-    Dieses Blatt führt dich durch die ersten 10 Minuten.
-  </p>
-
-  <h2><span class="n">1</span> Anmelden</h2>
-  <ol>
-    <li>Im Browser <span class="url">myabiflow.de/lehrer.html</span> öffnen.</li>
-    <li>Auf <strong>„Registrieren"</strong> tippen: Name, dienstliche E-Mail, Passwort (min. 8 Zeichen), Fächer wählen.</li>
-    <li>Kurz warten – dein Konto wird heute im Workshop freigeschaltet. Du bekommst eine Bestätigungs-Mail, danach einloggen.</li>
-  </ol>
-
-  <h2><span class="n">2</span> Erste Aufgabe erstellen</h2>
-  <ol>
-    <li>Fach + Aufgabentyp wählen → <strong>KI generiert</strong> eine vollständige, lehrplankonforme Aufgabe.</li>
-    <li>Alternativ <strong>eigenes Material hochladen</strong> (1–5 Fotos/PDFs) → die KI baut eine Aufgabe daraus.</li>
-    <li>Aufgabe ansehen, bei Bedarf neu generieren.</li>
-  </ol>
-
-  <h2><span class="n">3</span> An die Klasse verteilen</h2>
-  <div class="grid">
-    <div class="card">
-      <h3>Code erstellen</h3>
-      Im Lehrerbereich einen <strong>Klassen-Code</strong> anlegen (z.B. „Deutsch 12b").
-      Die Schüler brauchen <em>kein</em> eigenes Konto.
-    </div>
-    <div class="card">
-      <h3>Schüler legen los</h3>
-      Schüler öffnen <span class="url">myabiflow.de</span>, geben den Code + ihr Fach ein.
-      Ergebnisse fließen automatisch in dein Dashboard.
-    </div>
+  <div class="url">
+    <small>Hier anmelden</small>
+    <b>myabiflow.de/lehrer.html</b>
   </div>
 
-  <h2><span class="n">4</span> Korrigieren &amp; Lernstand sehen</h2>
-  <ul>
-    <li><strong>KI-Korrektur:</strong> Schülerlösung (getippt oder abfotografiert) → Punkte nach BE, markierte Fehler, Stärken/Schwächen, Übungsvorschläge.</li>
-    <li><strong>Dashboard:</strong> Durchschnitt, Heatmap (grün/gelb/rot), Warnsystem bei schwachen Leistungen, Kompetenzanalyse pro Schüler.</li>
-    <li><strong>Kolloquiumstrainer:</strong> KI stellt Prüferfragen, hört zu, bewertet die mündliche Leistung.</li>
-  </ul>
+  <div class="step">
+    <div class="n">1</div>
+    <div><h2>Registrieren</h2>
+    <p>Name, E-Mail, Passwort, Fächer. Freischaltung läuft heute im Workshop.</p></div>
+  </div>
 
-  <div class="note">
-    <strong>Datenschutz:</strong> Hosting in Deutschland (Hetzner, Nürnberg), DSGVO-konform.
-    Keine Weitergabe von Schülerdaten zu Werbezwecken. Schüler bleiben anonym (nur Vorname/Kürzel nötig).
+  <div class="step">
+    <div class="n">2</div>
+    <div><h2>Aufgabe erstellen</h2>
+    <p>Fach + Typ wählen – die KI generiert eine fertige Abituraufgabe. Oder eigenes Material hochladen.</p></div>
+  </div>
+
+  <div class="step">
+    <div class="n">3</div>
+    <div><h2>An die Klasse geben</h2>
+    <p>Klassen-Code anlegen, Schüler tippen ihn auf myabiflow.de ein. Ergebnisse landen in deinem Dashboard.</p></div>
   </div>
 
   <footer>
-    <div>
-      <strong>Fragen?</strong> info@myabiflow.de · myabiflow.de<br>
-      Heute im Workshop: jederzeit melden – wir helfen direkt am Gerät.
-    </div>
-    <div class="qr">QR:<br>myabiflow.de/<br>lehrer.html</div>
+    Fragen? <b>info@myabiflow.de</b> · Daten in Deutschland gehostet, DSGVO-konform
   </footer>
 </div>
 </body>
