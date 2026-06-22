@@ -277,12 +277,20 @@ export async function checkAuth(request, env) {
 /* ---- Rate Limiting ---- */
 const rateLimitMap = new Map();
 const loginRateLimitMap = new Map();
+const registerRateLimitMap = new Map();
 let requestCounter = 0;
 
-export { rateLimitMap, loginRateLimitMap };
+export { rateLimitMap, loginRateLimitMap, registerRateLimitMap };
 
 export function checkRateLimit(request, map, max, env) {
-  const ip = request.headers.get("CF-Connecting-IP") || "unknown";
+  // Hinter Nginx läuft die echte Client-IP über X-Real-IP / X-Forwarded-For.
+  // CF-Connecting-IP existiert seit dem Hetzner-Umzug (kein Cloudflare mehr) nicht
+  // mehr → früher landeten ALLE Nutzer im selben "unknown"-Eimer.
+  const ip =
+    request.headers.get("CF-Connecting-IP") ||
+    request.headers.get("X-Real-IP") ||
+    (request.headers.get("X-Forwarded-For") || "").split(",")[0].trim() ||
+    "unknown";
   const now = Date.now();
 
   if (!map.has(ip)) {
@@ -308,7 +316,7 @@ export function cleanupRateLimitMaps() {
   requestCounter++;
   if (requestCounter % 100 === 0) {
     const now = Date.now();
-    for (const map of [rateLimitMap, loginRateLimitMap]) {
+    for (const map of [rateLimitMap, loginRateLimitMap, registerRateLimitMap]) {
       for (const [ip, entry] of map) {
         if (now - entry.windowStart > RATE_LIMIT_WINDOW * 5) {
           map.delete(ip);
@@ -540,6 +548,9 @@ export async function ensureMigrations(env) {
 
     // Stripe-Customer-ID für Lehrer
     try { await env.DB.prepare("ALTER TABLE teachers ADD COLUMN stripe_customer_id TEXT DEFAULT NULL").run(); } catch (_) {}
+
+    // Vollstaendige KI-Korrektur als HTML-Snapshot (Schueler-Zugriff auf vorherige Korrekturen)
+    try { await env.DB.prepare("ALTER TABLE results ADD COLUMN feedback_html TEXT").run(); } catch (_) {}
 
     // Nachrichten (Admin → Schüler)
     await env.DB.prepare(`

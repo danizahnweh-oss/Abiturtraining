@@ -3,10 +3,10 @@
 
 // Basis-Module
 import { jsonResponse, corsHeaders, getAllowedOrigins, isOriginAllowed, checkBodySize, truncate } from './utils.js';
-import { MAX_BODY_SIZE, MAX_REQUESTS_PER_WINDOW, MAX_LOGIN_ATTEMPTS } from './config.js';
+import { MAX_BODY_SIZE, MAX_REQUESTS_PER_WINDOW, MAX_LOGIN_ATTEMPTS, MAX_REGISTER_ATTEMPTS } from './config.js';
 import {
   checkAuth, checkSubscriptionAccess, getSubjectFromPathname, checkRateLimit, cleanupRateLimitMaps,
-  rateLimitMap, loginRateLimitMap, ensureMigrations
+  rateLimitMap, loginRateLimitMap, registerRateLimitMap, ensureMigrations
 } from './auth.js';
 
 // Feedback Rate Limiting (eigene Map, max 5 pro Minute)
@@ -18,11 +18,11 @@ import { handleTeacherRegister, handleTeacherAuthLogin, handleTeacherCodes, hand
 import { handleTeacherProfile, handleTeacherTasks, handleTeacherTaskResults, handleGetSharedTask, handleSubmitSharedTask, handleGenerateFromMaterials } from './handlers/teacher-tasks.js';
 import { handleTeacherLogin, handleGetResults, handleDeleteResult, handleGetStudents, handleDeleteStudent, handleGrantFreeAccess, handleClassPasswords, handleSubjectLicenses, handleGetFeedback, handleToggleFeedbackValuable, handleGetTeachers, handleApproveTeacher, handleDeleteTeacher, handleActivityFeed } from './handlers/dashboard.js';
 import { handleSendMessage, handleSendGroupMessage, handleListMessages, handleDeleteMessage, handleStudentMessages, handleMarkMessageRead, handleReplyMessage } from './handlers/messages.js';
-import { handleStudentResults, handleCompetencyProfile, handleLearningPlan } from './handlers/analytics.js';
+import { handleStudentResults, handleStudentResultDetail, handleCompetencyProfile, handleLearningPlan } from './handlers/analytics.js';
 import { logActivationEvent, handleActivationFunnel } from './handlers/activation.js';
 import { setGradeHandlerMap, setFOSRouteHandler, handleGradeSubmit, handleGradeStatus, executeGradeHandler, cleanupOldGradingJobs, tryDeductTeacherCredit } from './handlers/grading.js';
 import { handleTeacherCreditBalance, handleTeacherCreditHistory } from './handlers/teacher-credits.js';
-import { handleGenerateImage, handleFetchUnsplash, handleSubmitResult } from './handlers/media.js';
+import { handleGenerateImage, handleFetchUnsplash, handleSubmitResult, handleSaveResultFeedback } from './handlers/media.js';
 import { handleDetailFeedback, handleRewrite } from './handlers/features.js';
 import { handleUnsubscribe, sendReminderEmails, sendRetentionEmails } from './handlers/email.js';
 import { handleForgotPassword, handleResetPassword, handleVerifyResetToken } from './handlers/password-reset.js';
@@ -432,8 +432,8 @@ export default {
         return await handleTeacherApprove(request, env);
       }
       if (pathname === "/api/teacher-register" && request.method === "POST") {
-        const loginLimit = checkRateLimit(request, loginRateLimitMap, MAX_LOGIN_ATTEMPTS, env);
-        if (loginLimit) return loginLimit;
+        const regLimit = checkRateLimit(request, registerRateLimitMap, MAX_REGISTER_ATTEMPTS, env);
+        if (regLimit) return regLimit;
         cleanupRateLimitMaps();
         return await handleTeacherRegister(request, env);
       }
@@ -612,6 +612,7 @@ ${photo ? `<div style="margin:12px 0"><p style="font-weight:600;margin-bottom:6p
 
       // ===== STUDENT RESULTS =====
       if (pathname === "/api/student-results" && request.method === "POST") return await handleStudentResults(request, env);
+      if (pathname === "/api/student-result-detail" && request.method === "POST") return await handleStudentResultDetail(request, env);
       if (pathname === "/api/competency-profile" && request.method === "POST") return await handleCompetencyProfile(request, env);
       if (pathname === "/api/learning-plan" && request.method === "POST") return await handleLearningPlan(request, env);
 
@@ -819,6 +820,7 @@ ${photo ? `<div style="margin:12px 0"><p style="font-weight:600;margin-bottom:6p
 
       // ===== SUBMIT RESULT =====
       if (pathname === "/api/submit-result" && request.method === "POST") return await handleSubmitResult(request, env);
+      if (pathname === "/api/save-result-feedback" && request.method === "POST") return await handleSaveResultFeedback(request, env);
 
       // ===== ASYNC GRADING: SUBMIT =====
       if (pathname === "/api/grade-submit" && request.method === "POST") return await handleGradeSubmit(request, env, ctx);
