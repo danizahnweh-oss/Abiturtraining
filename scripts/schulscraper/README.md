@@ -19,6 +19,11 @@ npm run emails
 # Schritt 3: Excel exportieren
 npm run excel
 # → output/gymnasien-bayern.xlsx
+
+# Schlanke Outreach-Arbeitsmappe für Woche 1 erzeugen
+npm run outreach
+# → output/myabiflow-outreach-woche-1.xlsx
+# → output/outreach-templates.md
 ```
 
 Oder alles in einem Rutsch: `npm run all`
@@ -30,6 +35,17 @@ Alle Zwischendateien und das finale `gymnasien-bayern.xlsx` liegen in `output/` 
 ### Excel-Spalten
 
 `Schulnummer | Schulname | Träger | Straße | PLZ | Ort | Regbezirk | Telefon | Website | E-Mail | E-Mail-Status | Quelle | Stand`
+
+### Outreach-Workflow
+
+`npm run outreach` erzeugt eine separate Woche-1-Arbeitsmappe mit maximal 50 priorisierten Schulen aus Oberbayern/München. Die Datei ist für den risikoarmen Telefon-First-Prozess gedacht:
+
+- pro Tag ein Batch mit 10 Schulen
+- nur kurze Zustimmung zur Info-Mail einholen
+- Zustimmung, Ansprechpartner und Follow-up direkt dokumentieren
+- Info-Mail nur nach Zustimmung oder bestehendem persönlichem Kontakt senden
+
+Die passenden Telefon-, Mail- und Kontaktformular-Texte stehen in `output/outreach-templates.md`.
 
 ### E-Mail-Status
 

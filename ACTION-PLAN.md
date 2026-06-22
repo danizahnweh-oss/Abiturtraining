@@ -29,15 +29,12 @@
 ### K3: Broken Link in `llms.txt` reparieren
 **Datei:** `llms.txt`
 ```
-# Vorher
-- Datenschutz: https://myabiflow.de/datenschutz.html
-# Nachher
 - Datenschutz & Impressum: https://myabiflow.de/impressum.html
 ```
 
 ### K4: Meta Description auf `abo.html` ergänzen
 ```html
-<meta name="description" content="Abitur-Endspurt-Plan für 25€ – voller KI-Zugang zu allen Fächern für das bayerische G9-Abitur. Jetzt sichern und optimal vorbereiten.">
+<meta name="description" content="KI-Abiturtraining Bayern – ab 15€/Monat. Alle Fächer, sofortiges Feedback, LehrplanPLUS-konform. Jetzt Abo sichern.">
 ```
 
 ---
@@ -183,8 +180,8 @@ Für alle `WebPage`- und `Article`-Schemas:
 ### N1: "Über uns"-Seite mit Person-Schema erstellen
 Gründer-Profil mit `Person`-Schema → wichtigster langfristiger E-E-A-T-Hebel.
 
-### N2: Datenschutz-Seite erstellen (`/datenschutz.html`)
-Für DSGVO-Konformität und korrekten `llms.txt`-Link.
+### N2: Eigenständige Datenschutz-Seite prüfen
+Aktuell verweist Datenschutz auf `impressum.html#datenschutz`. Eine eigene Seite kann später für B2B/Schulen sinnvoll sein.
 
 ### N3: FAQPage-Schema auf FOS-Fachseiten (37 Seiten)
 Je 3-4 fachspezifische Fragen.

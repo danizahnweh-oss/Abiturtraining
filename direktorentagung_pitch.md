@@ -72,14 +72,14 @@
 
 | Punkt | Detail |
 |---|---|
-| Keine Tracking-Cookies | Kein Google Analytics, keine Werbung |
-| Hosting in der EU | Cloudflare-Server in Europa |
+| Analyse & Marketing | Nur nach Einwilligung, keine Schülerantworten für Werbung |
+| Hosting in Deutschland | Hetzner-Server in Nürnberg |
 | DSGVO-konform | Minimale Daten (Vorname + Kursbezeichnung) |
 | Google Gemini API | Daten werden **nicht** zum KI-Training verwendet |
 
 **Preismodell:**
 
-> *"Einzelne Schüler:innen können myAbiFlow ab €8,33 im Monat nutzen. Aber für Ihre Schule gibt es eine deutlich günstigere Lösung:"*
+> *"Einzelne Schüler:innen können myAbiFlow ab 7,50 € im Monat im 24-Monats-Paket nutzen. Aber für Ihre Schule gibt es eine deutlich günstigere Lösung:"*
 
 | Schullizenz | Preis pro Schüler |
 |---|---|
@@ -118,12 +118,13 @@
 │   ✅ 17+ Fächer mit KI-Bewertung                │
 │   ✅ Kolloquiums-Trainer mit Sprach-KI           │
 │   ✅ Lehrer-Dashboard                            │
-│   ✅ DSGVO-konform, keine Cookies                │
+│   ✅ DSGVO-konform, Consent-basiert              │
 │   ✅ iPad, Laptop & Handy                        │
 │                                                 │
 │   ━━━ Preise ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━  │
 │                                                 │
-│   Einzeln:  ab €8,33/Mo (Jahres-Abo €100)      │
+│   Einzeln:  ab 7,50 €/Mo (24 Monate: 180 €)    │
+│             12 Monate: 120 €                   │
 │                                                 │
 │   🏫 SCHULLIZENZ (ab 100 Schüler:innen):        │
 │      €50 / Schüler / Jahr                       │
@@ -173,10 +174,10 @@
 
 | Frage | Antwort |
 |---|---|
-| *"Datenschutz?"* | "DSGVO-konform, keine Cookies, EU-Hosting. Gerne mit Ihrem DSB abstimmen." |
+| *"Datenschutz?"* | "DSGVO-konform, Hosting in Deutschland. Analyse und Marketing nur mit Einwilligung; Schülerantworten werden nicht für Werbung genutzt. Gerne mit Ihrem DSB abstimmen." |
 | *"Ersetzt das den Unterricht?"* | "Nein – Übungstool für zu Hause, wie ein digitales Übungsheft mit KI-Feedback." |
 | *"Was kostet die Schullizenz?"* | "€50 pro Schüler pro Jahr. Bei 200 Schülern = €10.000/Jahr – günstiger als ein Stark-Buch pro Fach." |
 | *"Gibt es Rabatt für kleinere Schulen?"* | "Ab 100 Schülern gilt die Schullizenz. Sprechen Sie mich gerne an, wir finden eine Lösung." |
-| *"Können Schüler es auch einzeln kaufen?"* | "Ja, ab €8,33/Mo im Jahres-Abo. Eltern bezahlen typischerweise." |
+| *"Können Schüler es auch einzeln kaufen?"* | "Ja, ab 7,50 €/Mo im 24-Monats-Paket oder 10 €/Mo im Jahrespaket. Eltern bezahlen typischerweise." |
 | *"Bleibt das langfristig bestehen?"* | "Ich bin verbeamtet und die Abo-Einnahmen sichern die KI-Kosten nachhaltig." |
 | *"Andere Bundesländer?"* | "Aktuell nur LehrplanPLUS Bayern. Erweiterung ist denkbar." |

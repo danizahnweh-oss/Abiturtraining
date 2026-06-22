@@ -26,6 +26,7 @@ CREATE TABLE IF NOT EXISTS results (
   content      TEXT,
   language     TEXT,
   total        REAL,
+  feedback_html TEXT,   -- Vollstaendige KI-Korrektur (HTML-Snapshot) fuer spaeteren Schueler-Zugriff
   created_at   TEXT NOT NULL
 );
 

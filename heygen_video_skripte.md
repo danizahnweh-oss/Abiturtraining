@@ -54,20 +54,20 @@
 >
 > myAbiFlow ist ein KI-gestützter Abiturtrainer, den ich als Gymnasiallehrer selbst entwickelt habe. Euer Kind kann damit Aufgaben in über 17 Fächern üben und bekommt sofort Feedback von der KI.
 >
-> Es gibt sogar einen Kolloquiums-Trainer, der die mündliche Prüfung simuliert. DSGVO-konform, keine Werbung, kein Tracking.
+> Es gibt sogar einen Kolloquiums-Trainer, der die mündliche Prüfung simuliert. DSGVO-konform, mit Analyse und Marketing nur nach Einwilligung.
 >
-> Ab 8,33 Euro im Monat. myabiflow.de – Link in der Bio.
+> Ab 7,50 Euro im Monat im 24-Monats-Paket. myabiflow.de – Link in der Bio.
 
 ---
 
 ## 🎯 Skript 5: Vergleich mit Nachhilfe
 
-**Titel:** "Nachhilfe kostet 120€ im Monat. Das hier 8€."
+**Titel:** "Nachhilfe kostet 120€ im Monat. Das hier ab 7,50€."
 **Dauer:** ~35 Sek
 
 > Eine Stunde Nachhilfe pro Woche kostet locker 120 Euro im Monat. Und das ist nur ein Fach.
 >
-> Bei myAbiFlow bekommst du für 8,33 Euro im Monat KI-Feedback in über 17 Fächern – plus einen Kolloquiums-Trainer, der mit dir die mündliche Prüfung übt.
+> Bei myAbiFlow bekommst du ab 7,50 Euro im Monat KI-Feedback in über 17 Fächern – plus einen Kolloquiums-Trainer, der mit dir die mündliche Prüfung übt.
 >
 > Ich sag nicht, dass es Nachhilfe ersetzt. Aber als Ergänzung? Unschlagbar. myabiflow.de.
 
@@ -171,7 +171,7 @@
 
 > Ein Stark-Abiturtrainer kostet 15 Euro – für ein einziges Fach.
 >
-> myAbiFlow kostet 8,33 Euro im Monat und deckt über 17 Fächer ab – mit KI-Feedback, das sich an dich anpasst, und einem Kolloquiums-Trainer obendrauf.
+> myAbiFlow startet ab 7,50 Euro im Monat und deckt über 17 Fächer ab – mit KI-Feedback, das sich an dich anpasst, und einem Kolloquiums-Trainer obendrauf.
 >
 > Und für Schulen gibt's eine Lizenz für 50 Euro pro Schüler pro Jahr. Günstiger geht Abi-Vorbereitung nicht. myabiflow.de.
 
@@ -186,7 +186,7 @@
 >
 > "Ist das seriös?" – Ja, ich bin verbeamteter Gymnasiallehrer und hab die Plattform selbst gebaut.
 >
-> "Ist das Datenschutz-konform?" – Ja, DSGVO-konform, keine Cookies, keine Werbung, Hosting in der EU.
+> "Ist das Datenschutz-konform?" – Ja, DSGVO-konform, Hosting in Deutschland. Analyse und Marketing nur nach Einwilligung.
 >
 > "Ersetzt das meinen Lehrer?" – Nein! Es ist ein Übungstool. Im Zweifelsfall immer deine Lehrkraft fragen.
 >
