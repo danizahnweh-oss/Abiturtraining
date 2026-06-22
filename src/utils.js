@@ -7,6 +7,13 @@ export function getAllowedOrigins(env) {
   if (env?.ALLOWED_ORIGIN_FOS) {
     origins.push(env.ALLOWED_ORIGIN_FOS);
   }
+  // www-Variante jedes Origins zulassen — manche Nutzer rufen www.myabiflow.de
+  // auf; ohne diese Variante gäbe es sonst 403 Forbidden (CSRF-Origin-Check).
+  for (const o of [...origins]) {
+    if (o.includes("://") && !o.includes("://www.")) {
+      origins.push(o.replace("://", "://www."));
+    }
+  }
   return origins;
 }
 
@@ -68,6 +75,25 @@ export async function checkBodySize(request, env, maxBodySize) {
 export function truncate(str, max) {
   if (typeof str !== "string") return str;
   return str.length > max ? str.slice(0, max) : str;
+}
+
+/* ---- Server-seitiger HTML-Sanitizer (Defense-in-Depth) ----
+ * Die Korrektur-HTML wird bereits clientseitig mit DOMPurify bereinigt.
+ * Hier entfernen wir serverseitig zusaetzlich aktive Inhalte, falls ein
+ * manipulierter Client rohes HTML schickt. Bewusst konservativ: <script>,
+ * <iframe>, <object>, Event-Handler (on*) und javascript:-URIs raus. */
+export function sanitizeStoredHtml(html, maxLen = 250000) {
+  if (typeof html !== "string") return "";
+  let s = html.slice(0, maxLen);
+  s = s.replace(/<\s*(script|iframe|object|embed|link|meta|style)\b[\s\S]*?<\s*\/\s*\1\s*>/gi, "");
+  s = s.replace(/<\s*(script|iframe|object|embed|link|meta|style)\b[^>]*>/gi, "");
+  // Event-Handler-Attribute (onclick, onload, ...) entfernen
+  s = s.replace(/\son[a-z]+\s*=\s*"[^"]*"/gi, "");
+  s = s.replace(/\son[a-z]+\s*=\s*'[^']*'/gi, "");
+  s = s.replace(/\son[a-z]+\s*=\s*[^\s>]+/gi, "");
+  // javascript:-URIs in href/src neutralisieren
+  s = s.replace(/(href|src)\s*=\s*("|')\s*javascript:[^"']*\2/gi, '$1=$2#$2');
+  return s;
 }
 
 /* ---- JSON-Parsing mit Reparatur ---- */
