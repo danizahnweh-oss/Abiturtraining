@@ -1,6 +1,6 @@
 // Handler: Lehrer-Aufgaben-Sharing (Erstellen, Teilen, Ergebnisse)
 import { jsonResponse, extractJSON, buildUserContent } from '../utils.js';
-import { verifyTeacherAuthToken, generateClassCode } from '../auth.js';
+import { verifyTeacherAuthToken, generateClassCode, resolveStudentIdentity } from '../auth.js';
 import { callOpenAI } from '../openai.js';
 
 // 8-stelliger Share-Code fuer Aufgaben (laenger als 6-stellige Lehrer-Codes)
@@ -264,12 +264,19 @@ export async function handleGetSharedTask(request, env) {
 
 // ===== Schueler: Ergebnis einer geteilten Aufgabe zuordnen =====
 export async function handleSubmitSharedTask(request, env) {
-  const { task_id, result_id, student_name } = await request.json();
-  if (!task_id || !result_id || !student_name) {
-    return jsonResponse({ error: "task_id, result_id und student_name erforderlich." }, 400, env);
+  const body = await request.json();
+  const { task_id, result_id } = body;
+  if (!task_id || !result_id) {
+    return jsonResponse({ error: "task_id und result_id erforderlich." }, 400, env);
   }
 
-  const nameLower = student_name.trim().toLowerCase();
+  const requestedNameLower = body.student_name?.trim()?.toLowerCase();
+  const ident = await resolveStudentIdentity(request, env, requestedNameLower);
+  if (!ident || ident.isTeacher) {
+    return jsonResponse({ error: "Bitte erneut anmelden." }, 401, env);
+  }
+  const nameLower = ident.nameLower;
+  const studentId = ident.studentId ? String(ident.studentId) : null;
   const id = Date.now().toString(36) + crypto.randomUUID().slice(0, 8);
   const task = await env.DB.prepare(
     "SELECT teacher_id, subject FROM teacher_tasks WHERE id = ? AND active = 1"
@@ -279,12 +286,14 @@ export async function handleSubmitSharedTask(request, env) {
   }
 
   const result = await env.DB.prepare(
-    "SELECT student_name FROM results WHERE id = ?"
+    "SELECT student_id, student_name FROM results WHERE id = ?"
   ).bind(result_id).first();
   if (!result) {
     return jsonResponse({ error: "Ergebnis nicht gefunden." }, 404, env);
   }
-  if ((result.student_name || "").trim().toLowerCase() !== nameLower) {
+  const resultStudentId = result.student_id != null ? String(result.student_id) : null;
+  const resultNameLower = (result.student_name || "").trim().toLowerCase();
+  if ((studentId && resultStudentId !== studentId) || (!studentId && resultNameLower !== nameLower)) {
     return jsonResponse({ error: "Result gehört nicht zu diesem Schüler." }, 403, env);
   }
 

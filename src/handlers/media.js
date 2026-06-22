@@ -1,5 +1,5 @@
 // Handler: Media (Image Generation, Unsplash Fetch, Submit Result)
-import { jsonResponse, truncate } from '../utils.js';
+import { jsonResponse, truncate, sanitizeStoredHtml } from '../utils.js';
 import { resolveStudentIdentity } from '../auth.js';
 
 /* ================= IMAGE GENERATION: NANO BANANA PRO + IDEOGRAM + FLASH FALLBACK ================= */
@@ -287,4 +287,40 @@ export async function handleSubmitResult(request, env) {
   }
 
   return jsonResponse({ success: true, result_id: id }, 200, env);
+}
+
+/* ================= KORREKTUR-SNAPSHOT SPEICHERN ================= */
+// Speichert die vollstaendige KI-Korrektur als HTML-Snapshot zu einem Ergebnis,
+// damit die Schuelerin sie spaeter erneut aufrufen kann. Wird vom Frontend
+// kurz nach submit-result aufgerufen (separater Call, da das HTML erst nach
+// dem Rendern der Korrektur vorliegt).
+export async function handleSaveResultFeedback(request, env) {
+  const body = await request.json().catch(() => ({}));
+  const { result_id, feedback_html, student_name } = body;
+  if (!result_id || typeof result_id !== "string") {
+    return jsonResponse({ error: "result_id erforderlich." }, 400, env);
+  }
+
+  const requestedNameLower = typeof student_name === "string" ? student_name.trim().toLowerCase() : "";
+  const ident = await resolveStudentIdentity(request, env, requestedNameLower);
+  if (!ident || ident.isTeacher) {
+    return jsonResponse({ error: "Bitte erneut anmelden." }, 401, env);
+  }
+
+  // Eigentumspruefung: Ergebnis muss zur angemeldeten Schuelerin gehoeren
+  const row = await env.DB.prepare("SELECT student_name FROM results WHERE id = ?").bind(result_id).first();
+  if (!row) {
+    return jsonResponse({ error: "Ergebnis nicht gefunden." }, 404, env);
+  }
+  if ((row.student_name || "").trim().toLowerCase() !== ident.nameLower) {
+    return jsonResponse({ error: "Kein Zugriff auf dieses Ergebnis." }, 403, env);
+  }
+
+  const clean = sanitizeStoredHtml(feedback_html, 250000);
+  if (!clean || clean.length < 20) {
+    return jsonResponse({ error: "Kein Korrektur-Inhalt." }, 400, env);
+  }
+
+  await env.DB.prepare("UPDATE results SET feedback_html = ? WHERE id = ?").bind(clean, result_id).run();
+  return jsonResponse({ success: true }, 200, env);
 }

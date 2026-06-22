@@ -11,10 +11,44 @@ export async function handleStudentResults(request, env) {
   if (!ident) return jsonResponse({ error: "Bitte erneut anmelden." }, 401, env);
   const nameLower = ident.nameLower;
   const { results } = await env.DB.prepare(
-    "SELECT id, student_name, course, type, topic, content, language, total, created_at AS date FROM results WHERE LOWER(TRIM(student_name)) = ? ORDER BY created_at ASC"
+    "SELECT id, student_name, course, type, topic, content, language, total, " +
+    "CASE WHEN feedback_html IS NOT NULL AND feedback_html != '' THEN 1 ELSE 0 END AS has_feedback, " +
+    "created_at AS date FROM results WHERE LOWER(TRIM(student_name)) = ? ORDER BY created_at ASC"
   ).bind(nameLower).all();
 
   return jsonResponse({ results: results || [] }, 200, env);
+}
+
+/* ================= EINZELNE KORREKTUR (DETAIL) ================= */
+// Liefert die gespeicherte vollstaendige Korrektur (HTML-Snapshot) zu EINEM
+// Ergebnis – nur fuer die Schuelerin, der das Ergebnis gehoert.
+export async function handleStudentResultDetail(request, env) {
+  const body = await request.json().catch(() => ({}));
+  const ident = await resolveStudentIdentity(request, env, body.student_name?.trim()?.toLowerCase());
+  if (!ident) return jsonResponse({ error: "Bitte erneut anmelden." }, 401, env);
+  const resultId = typeof body.result_id === "string" ? body.result_id : "";
+  if (!resultId) return jsonResponse({ error: "result_id erforderlich." }, 400, env);
+
+  const row = await env.DB.prepare(
+    "SELECT id, student_name, type, topic, total, feedback_html, created_at AS date FROM results WHERE id = ?"
+  ).bind(resultId).first();
+
+  if (!row) return jsonResponse({ error: "Ergebnis nicht gefunden." }, 404, env);
+  // Lehrer dürfen jedes Ergebnis sehen (Dashboard); Schüler nur eigene
+  if (!ident.isTeacher && (row.student_name || "").trim().toLowerCase() !== ident.nameLower) {
+    return jsonResponse({ error: "Kein Zugriff auf dieses Ergebnis." }, 403, env);
+  }
+
+  return jsonResponse({
+    result: {
+      id: row.id,
+      type: row.type,
+      topic: row.topic,
+      total: row.total,
+      date: row.date,
+      feedback_html: row.feedback_html || null
+    }
+  }, 200, env);
 }
 
 /* ================= KOMPETENZPROFIL ================= */
