@@ -395,6 +395,11 @@
             style="margin-top:1rem;padding:1rem;background:var(--bg-warm);border-radius:var(--radius-sm);max-height:350px;overflow-y:auto">
             <div class="task-box" id="writeTaskRef" style="margin:0 0 1rem 0;font-size:.9rem"></div>
             <div class="source-text" id="writeSourceRef" style="max-height:none;cursor:default;font-size:.9rem"></div>
+            <div id="writeCompareCard" style="display:none;margin-top:1rem">
+              <div style="font-weight:600;color:var(--accent);font-size:.9rem;margin-bottom:.5rem">Vergleichstext</div>
+              <div class="meta" id="writeCompareMeta" style="font-size:.85rem;margin-bottom:.5rem"></div>
+              <div class="source-text" id="writeCompareRef" style="max-height:none;cursor:default;font-size:.9rem"></div>
+            </div>
           </div>
         </details>
 
@@ -709,9 +714,10 @@ gesamt_np = round(verstehen_np * 0.7 + darstellung_np * 0.3)`;
       document.getElementById("sourceText").innerHTML = html;
       document.getElementById("sourceMeta").textContent = d.primary_meta || "";
 
+      const compareHtml = d.compare_text ? formatTextWithLineNumbers(d.compare_text || "", lineOpts) : "";
       if (d.compare_text) {
         document.getElementById("compareTextCard").style.display = "block";
-        document.getElementById("compareText").innerHTML = formatTextWithLineNumbers(d.compare_text || "", lineOpts);
+        document.getElementById("compareText").innerHTML = compareHtml;
         document.getElementById("compareMeta").textContent = d.compare_meta || "";
       } else {
         document.getElementById("compareTextCard").style.display = "none";
@@ -719,6 +725,13 @@ gesamt_np = round(verstehen_np * 0.7 + darstellung_np * 0.3)`;
 
       document.getElementById("writeTaskRef").innerHTML = escapeHtml(d.task_instruction || "").replace(/\n/g, "<br>");
       document.getElementById("writeSourceRef").innerHTML = html;
+      if (d.compare_text) {
+        document.getElementById("writeCompareCard").style.display = "block";
+        document.getElementById("writeCompareRef").innerHTML = compareHtml;
+        document.getElementById("writeCompareMeta").textContent = d.compare_meta || "";
+      } else {
+        document.getElementById("writeCompareCard").style.display = "none";
+      }
 
       initHL();
     }
@@ -756,7 +769,7 @@ gesamt_np = round(verstehen_np * 0.7 + darstellung_np * 0.3)`;
       if (card.style.display === "block") { card.style.display = "none"; return; }
       document.getElementById("showModelBtn").disabled = true;
       try {
-        const d = await apiCall("/api/model-answer-deutsch", { task_instruction: CONFIG.storedData.task_instruction, primary_text: CONFIG.storedData.primary_text, type: "interpretation" });
+        const d = await apiCall("/api/model-answer-deutsch", { task_instruction: CONFIG.storedData.task_instruction, primary_text: CONFIG.storedData.primary_text, compare_text: CONFIG.storedData.compare_text, compare_meta: CONFIG.storedData.compare_meta, type: "interpretation" });
         document.getElementById("modelAnswerBody").innerHTML = DOMPurify.sanitize(marked.parse(d.model_answer || ""));
         card.style.display = "block";
       } catch (e) { showToast(e.message); }
