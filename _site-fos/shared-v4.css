@@ -1736,6 +1736,7 @@ details table {
   border-radius: var(--radius-sm);
   overflow: hidden;
   border: 1px solid var(--border-light);
+  table-layout: fixed; /* Spalten teilen verfügbare Breite, kein Überlauf */
 }
 .card table th,
 details table th {
@@ -1745,14 +1746,33 @@ details table th {
   color: var(--ink);
   background: var(--bg-card);
   border-bottom: 2px solid var(--border);
-  white-space: nowrap;
+  white-space: normal; /* Text umbrechen statt horizontal scrollen */
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  vertical-align: top;
 }
 .card table td,
 details table td {
   padding: var(--space-2) var(--space-3);
   border-bottom: 1px solid var(--border-light);
   color: var(--ink-light);
-  white-space: nowrap;
+  white-space: normal; /* Text umbrechen statt horizontal scrollen */
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  vertical-align: top;
+}
+/* Schmale Viewports: Tabellen-Text etwas kleiner, damit alles untereinander lesbar bleibt */
+@media (max-width: 768px) {
+  .card table,
+  details table {
+    font-size: var(--text-xs, .8rem);
+  }
+  .card table th,
+  details table th,
+  .card table td,
+  details table td {
+    padding: var(--space-1, .35rem) var(--space-2);
+  }
 }
 .card table tr:nth-child(even) td,
 details table tr:nth-child(even) td {

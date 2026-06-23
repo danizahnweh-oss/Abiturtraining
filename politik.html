@@ -182,14 +182,18 @@
       width: 100%;
       border-collapse: collapse;
       margin: .8rem 0;
-      font-size: .85rem
+      font-size: .85rem;
+      table-layout: fixed
     }
 
     .material-card .material-body th,
     .material-card .material-body td {
       padding: .5rem .8rem;
       border: 1px solid var(--border);
-      text-align: left
+      text-align: left;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+      vertical-align: top
     }
 
     .material-card .material-body th {

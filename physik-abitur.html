@@ -238,14 +238,18 @@
       width: 100%;
       border-collapse: collapse;
       margin: .5rem 0;
-      font-size: .85rem
+      font-size: .85rem;
+      table-layout: fixed
     }
 
     .material-details .material-body th,
     .material-details .material-body td {
       border: 1px solid var(--border);
       padding: .3rem .5rem;
-      text-align: left
+      text-align: left;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+      vertical-align: top
     }
 
     .material-details .material-body th {
