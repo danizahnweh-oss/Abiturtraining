@@ -2558,6 +2558,13 @@
       color: var(--accent)
     }
 
+    /* Wortmarke im Dark-Mode lesbar halten (dunkler Schriftzug auf dunklem Grund) */
+    [data-theme="dark"] #role-screen .role-box > img,
+    [data-theme="dark"] #login-screen .login-box img,
+    [data-theme="dark"] .subject-header > img {
+      filter: brightness(0) invert(1);
+    }
+
     /* ====== SPLASH SCREEN ====== */
     #splash {
       position: fixed;
@@ -2596,7 +2603,6 @@
       height: auto;
       opacity: 0;
       visibility: hidden;
-      filter: drop-shadow(0 0 30px rgba(255, 255, 255, 0.6));
       transform-origin: center;
       /* Triggered by JS after video ends */
     }

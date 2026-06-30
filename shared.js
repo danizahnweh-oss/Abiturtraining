@@ -3892,8 +3892,8 @@ function initConsentBanner() {
       '<a href="/dsfa.html" style="color:var(--accent,#4f46e5);text-decoration:underline;">Mehr erfahren</a>' +
     '</p>' +
     '<div style="display:flex;gap:.5rem;flex-shrink:0;">' +
-      '<button id="consentReject" style="background:transparent;color:var(--ink-light,#475569);border:1px solid var(--border,#e2e8f0);padding:.5rem 1rem;border-radius:8px;font-size:.85rem;cursor:pointer;min-height:44px;min-width:44px;font-family:inherit;">Ablehnen</button>' +
-      '<button id="consentAccept" style="background:var(--accent,#4f46e5);color:var(--on-accent);border:none;padding:.5rem 1.2rem;border-radius:8px;font-weight:600;font-size:.85rem;cursor:pointer;min-height:44px;min-width:44px;font-family:inherit;">Akzeptieren</button>' +
+      '<button id="consentReject" style="background:#475569;color:#fff;border:none;padding:.5rem 1.2rem;border-radius:8px;font-weight:600;font-size:.85rem;cursor:pointer;min-height:44px;min-width:44px;font-family:inherit;">Ablehnen</button>' +
+      '<button id="consentAccept" style="background:var(--accent,#4f46e5);color:var(--on-accent,#fff);border:none;padding:.5rem 1.2rem;border-radius:8px;font-weight:600;font-size:.85rem;cursor:pointer;min-height:44px;min-width:44px;font-family:inherit;">Akzeptieren</button>' +
     '</div>';
 
   document.body.appendChild(banner);

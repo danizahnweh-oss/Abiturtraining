@@ -128,8 +128,8 @@ html {
 
 /* ====== TEAL ACCENT (Italienisch modules) ====== */
 [data-accent="teal"] {
-  --accent: #0d9488;
-  --accent-hover: #0f766e;
+  --accent: #0f766e;
+  --accent-hover: #115e59;
   --accent-soft: #ccfbf1;
   --accent-glow: rgba(13, 148, 136, 0.08);
 }
@@ -223,8 +223,8 @@ html {
 
 /* ====== CYAN ACCENT (Geographie modules) ====== */
 [data-accent="cyan"] {
-  --accent: #0891b2;
-  --accent-hover: #0e7490;
+  --accent: #0e7490;
+  --accent-hover: #155e75;
   --accent-soft: #cffafe;
   --accent-glow: rgba(8, 145, 178, 0.08);
 }
@@ -238,8 +238,8 @@ html {
 
 /* ====== EMERALD ACCENT (Mathematik modules) ====== */
 [data-accent="emerald"] {
-  --accent: #10b981;
-  --accent-hover: #059669;
+  --accent: #047857;
+  --accent-hover: #065f46;
   --accent-soft: #d1fae5;
   --accent-glow: rgba(16, 185, 129, 0.08);
 }
@@ -541,9 +541,9 @@ html {
   color: var(--accent);
 }
 
-/* Header-Logo (alle Seiten) */
+/* Header-Logo (alle Seiten) – Wellen-Marke, lesbar */
 .header-logo {
-  height: 15px;
+  height: 26px;
   width: auto;
 }
 
@@ -553,9 +553,9 @@ html {
   flex-shrink: 0;
 }
 
-/* Adjust for smaller contexts */
+/* Wellen-Marke im Header neben dem Schriftzug */
 header .logo-brand .logo-icon {
-  height: 15px;
+  height: 28px;
 }
 
 header .logo-brand .logo-text {
@@ -1269,7 +1269,7 @@ textarea:focus:not(:focus-visible) {
 /* ====== FEHLERKORREKTUR ====== */
 .fehler-rs {
   background: #fecdd3;
-  color: #be123c;
+  color: #9f1239;
   border-radius: 2px;
   padding: 0 2px;
   cursor: help;
@@ -1282,7 +1282,7 @@ textarea:focus:not(:focus-visible) {
 
 .fehler-gr {
   background: #fed7aa;
-  color: #c2410c;
+  color: #9a3412;
   border-radius: 2px;
   padding: 0 2px;
   cursor: help;
@@ -1302,7 +1302,7 @@ textarea:focus:not(:focus-visible) {
 
 .fehler-rs-demo {
   background: #fecdd3;
-  color: #be123c;
+  color: #9f1239;
   padding: 2px 8px;
   border-radius: var(--radius-xs);
 }
@@ -1314,7 +1314,7 @@ textarea:focus:not(:focus-visible) {
 
 .fehler-gr-demo {
   background: #fed7aa;
-  color: #c2410c;
+  color: #9a3412;
   padding: 2px 8px;
   border-radius: var(--radius-xs);
 }
@@ -1441,7 +1441,7 @@ textarea:focus:not(:focus-visible) {
   border: 1px solid var(--accent-soft);
   border-radius: var(--radius-sm);
   font-size: var(--text-sm);
-  color: var(--ink-light);
+  color: var(--ink);
 }
 
 @media (max-width: 768px) {
@@ -1458,7 +1458,7 @@ textarea:focus:not(:focus-visible) {
   border: 1px solid var(--accent-soft);
   border-radius: var(--radius-sm);
   font-size: var(--text-sm);
-  color: var(--ink-light);
+  color: var(--ink);
   display: flex;
   align-items: center;
   gap: var(--space-2);

@@ -1,4 +1,4 @@
-const CACHE_NAME = 'myabiflow-v153';
+const CACHE_NAME = 'myabiflow-v154';
 const STATIC_ASSETS = [
   './',
   './index.html',
@@ -6,7 +6,8 @@ const STATIC_ASSETS = [
   './shared-v4.css',
   './shared.js',
   './tour.js',
-  './logo.png'
+  './logo.png',
+  './wave-icon.webp'
 ];
 
 // Install: cache static assets
