@@ -226,6 +226,11 @@ export async function handleSubmitResult(request, env) {
   if (total == null) {
     return jsonResponse({ error: "total required" }, 400, env);
   }
+  // Score-Wertebereich validieren (Datenintegrität im Lehrer-Dashboard).
+  const totalNum = Number(total);
+  if (!Number.isFinite(totalNum) || totalNum < 0 || totalNum > 10000) {
+    return jsonResponse({ error: "Ungültiger Wert." }, 400, env);
+  }
 
   const requestedNameLower = typeof student_name === "string" ? student_name.trim().toLowerCase() : "";
   const ident = await resolveStudentIdentity(request, env, requestedNameLower);
@@ -250,7 +255,7 @@ export async function handleSubmitResult(request, env) {
     truncate(topic || "—", 500),
     content ?? null,
     language ?? null,
-    total,
+    totalNum,
     createdAt
   ).run();
 

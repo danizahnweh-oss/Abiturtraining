@@ -549,7 +549,11 @@ ${photo ? `<div style="margin:12px 0"><p style="font-weight:600;margin-bottom:6p
       }
 
       // ===== SHARED TASK (kein Auth noetig – Schueler geben nur einen Code ein) =====
-      if (pathname === "/api/get-shared-task" && request.method === "POST") return await handleGetSharedTask(request, env);
+      if (pathname === "/api/get-shared-task" && request.method === "POST") {
+        const rl = checkRateLimit(request, rateLimitMap, MAX_REQUESTS_PER_WINDOW, env);
+        if (rl) return rl;
+        return await handleGetSharedTask(request, env);
+      }
 
       // ===== AUTH CHECK für restliche /api/ Endpoints =====
       if (pathname.startsWith("/api/")) {
