@@ -1,6 +1,6 @@
 // Handler: Teacher Auth (Register, Login, Codes, Links, Results)
 import { jsonResponse } from '../utils.js';
-import { safeCompare, hashPassword, verifyPassword, generateTeacherToken, verifyTeacherAuthToken, generateClassCode } from '../auth.js';
+import { safeCompare, hashPassword, verifyPassword, generateTeacherToken, verifyTeacherAuthToken, generateClassCode, getStudentTokenIdentity } from '../auth.js';
 
 export async function handleTeacherRegister(request, env) {
   const { name, password, email, subjects } = await request.json();
@@ -221,7 +221,12 @@ export async function handleTeacherCodes(request, env) {
 // Schueler verlinkt sich mit Lehrer-Code (fachspezifisch)
 export async function handleLinkStudentCode(request, env) {
   const { student_name, code, subject } = await request.json();
-  if (!student_name || typeof student_name !== "string") {
+  // Identität aus dem Login-Token binden, wenn vorhanden (persönlicher Account).
+  // Beim geteilten Klassen-Passwort (kein sub) gibt es keine token-gebundene
+  // Identität → Rückfall auf den übermittelten Namen.
+  const ident = await getStudentTokenIdentity(request, env);
+  const boundName = ident?.nameLower || (typeof student_name === "string" ? student_name.trim().toLowerCase() : "");
+  if (!boundName) {
     return jsonResponse({ error: "student_name erforderlich." }, 400, env);
   }
   if (!code || typeof code !== "string") {
@@ -237,7 +242,7 @@ export async function handleLinkStudentCode(request, env) {
   if (!codeRow) {
     return jsonResponse({ error: "Ungueltiger oder deaktivierter Code." }, 404, env);
   }
-  const nameLower = student_name.trim().toLowerCase();
+  const nameLower = boundName;
   await env.DB.prepare(
     "INSERT INTO student_teacher_links (student_name_lower, code, teacher_id, subject, linked_at) VALUES (?, ?, ?, ?, ?) ON CONFLICT DO NOTHING"
   ).bind(nameLower, codeUpper, codeRow.teacher_id, subject.trim(), new Date().toISOString()).run();
@@ -288,10 +293,11 @@ export async function handleTeacherResults(request, env) {
 // Schueler: Eigene Code-Verlinkungen anzeigen
 export async function handleStudentCodes(request, env) {
   const { student_name } = await request.json();
-  if (!student_name || typeof student_name !== "string") {
+  const ident = await getStudentTokenIdentity(request, env);
+  const nameLower = ident?.nameLower || (typeof student_name === "string" ? student_name.trim().toLowerCase() : "");
+  if (!nameLower) {
     return jsonResponse({ error: "student_name erforderlich." }, 400, env);
   }
-  const nameLower = student_name.trim().toLowerCase();
   const { results: codes } = await env.DB.prepare(
     `SELECT stl.code, stl.subject, tc.label, t.name AS teacher_name
      FROM student_teacher_links stl

@@ -1,5 +1,6 @@
 // Handler: Lehrer-Korrekturguthaben (20 Gratis-Korrekturen pro Monat)
 import { jsonResponse } from '../utils.js';
+import { verifyTeacherAuthToken } from '../auth.js';
 
 const MONTHLY_FREE_CREDITS = 20;
 
@@ -15,10 +16,11 @@ function currentYearMonth() {
 
 /* ================= GUTHABEN ABFRAGEN ================= */
 export async function handleTeacherCreditBalance(request, env) {
-  const { teacher_id } = await request.json();
-
+  // Identität IMMER aus dem Token nehmen (nie aus dem Body) — sonst kann jeder
+  // fremde Guthaben-/PII-Daten abrufen.
+  const teacher_id = await verifyTeacherAuthToken(request.headers.get("X-Teacher-Auth-Token"), env);
   if (!teacher_id) {
-    return jsonResponse({ error: 'Teacher-ID erforderlich.' }, 400, env);
+    return jsonResponse({ error: 'Nicht autorisiert.' }, 401, env);
   }
 
   const yearMonth = currentYearMonth();
@@ -45,12 +47,12 @@ function nextMonthStart() {
 
 /* ================= NUTZUNGS-HISTORIE ================= */
 export async function handleTeacherCreditHistory(request, env) {
-  const { teacher_id, limit } = await request.json();
-
+  const teacher_id = await verifyTeacherAuthToken(request.headers.get("X-Teacher-Auth-Token"), env);
   if (!teacher_id) {
-    return jsonResponse({ error: 'Teacher-ID erforderlich.' }, 400, env);
+    return jsonResponse({ error: 'Nicht autorisiert.' }, 401, env);
   }
 
+  const { limit } = await request.json().catch(() => ({}));
   const maxEntries = Math.min(limit || 50, 200);
 
   const { results: usage } = await env.DB.prepare(`

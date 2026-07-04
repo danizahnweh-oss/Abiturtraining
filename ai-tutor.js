@@ -629,7 +629,10 @@ async function sendAiMessage() {
     console.log("Sending request to AI Tutor...");
     var res = await fetch("https://myabiflow.de/tutor/query", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        "X-Access-Token": sessionStorage.getItem("access_token") || ""
+      },
       body: JSON.stringify({ question: text, studentName: sName, taskContext: taskContext })
     });
 

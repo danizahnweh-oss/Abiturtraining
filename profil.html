@@ -998,9 +998,24 @@
     }
 
     function escapeHtml(str) {
-      var div = document.createElement("div");
-      div.textContent = str || "";
-      return div.innerHTML;
+      return String(str == null ? "" : str)
+        .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+    }
+
+    // Nur sichere Ziele für href zulassen: interne Pfade oder https-Links auf myabiflow.de.
+    // Blockiert javascript:/data: und fremde Hosts. Leerer Rückgabewert = kein Link.
+    function safeUrl(url) {
+      var raw = String(url == null ? "" : url).trim();
+      if (!raw) return "";
+      if (raw.charAt(0) === "/" && raw.charAt(1) !== "/") return raw; // interner Pfad
+      try {
+        var u = new URL(raw, window.location.origin);
+        if (u.protocol === "https:" && (u.hostname === "myabiflow.de" || u.hostname === window.location.hostname)) {
+          return u.href;
+        }
+      } catch (e) {}
+      return "";
     }
 
     /* ================= KI-LERNPLAN ================= */
@@ -1093,7 +1108,7 @@
             '</div>' +
             '<div class="lp-unit-desc">' + escapeHtml(u.description || "") + '</div>' +
             (u.goal ? '<div class="lp-unit-goal">Ziel: ' + escapeHtml(u.goal) + '</div>' : '') +
-            (u.page_url ? '<a href="' + escapeHtml(u.page_url) + '" class="lp-unit-link">Jetzt üben: ' + escapeHtml(u.page_label || u.subject_name || "") + '</a>' : '') +
+            (safeUrl(u.page_url) ? '<a href="' + escapeHtml(safeUrl(u.page_url)) + '" class="lp-unit-link">Jetzt üben: ' + escapeHtml(u.page_label || u.subject_name || "") + '</a>' : '') +
             '</div>';
         }
         html += '</div>';

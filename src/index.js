@@ -229,26 +229,6 @@ export default {
       const sizeError = await checkBodySize(request, env, MAX_BODY_SIZE);
       if (sizeError) return sizeError;
 
-      // ===== TEMPORÄRER DEBUG ENDPOINT =====
-      if (pathname === "/api/debug-license" && request.method === "POST") {
-        try {
-          const adminToken = request.headers.get("X-Admin-Token");
-          if (!env.ADMIN_TOKEN || adminToken !== env.ADMIN_TOKEN) {
-            return jsonResponse({ error: "Nicht autorisiert." }, 401, env);
-          }
-          const { name } = await request.json();
-          const nameLower = (name || "").trim().toLowerCase();
-          const student = await env.DB.prepare("SELECT id, subscription_status, subscription_plan, class_group FROM students WHERE name_lower = ?").bind(nameLower).first();
-          if (!student) return jsonResponse({ error: "nicht gefunden" }, 404, env);
-          let freeAccess = false;
-          let effectiveStatus = student.subscription_status || "none";
-          const cp = await env.DB.prepare("SELECT free_access FROM class_passwords WHERE label = ? AND active = 1").bind(student.class_group).first();
-          freeAccess = cp?.free_access === 1;
-          if (!freeAccess && student.subscription_plan === 'school') effectiveStatus = "none";
-          return jsonResponse({ student, cp, freeAccess, effectiveStatus }, 200, env);
-        } catch(e) { return jsonResponse({ error: "Interner Fehler." }, 500, env); }
-      }
-
       // ===== INTERNES ADMIN-DASHBOARD: BREAK-EVEN-TRACKER =====
       if (pathname === "/api/admin-stats" && request.method === "POST") {
         return await handleAdminStats(request, env);
@@ -533,6 +513,13 @@ export default {
           if (env.RESEND_API_KEY) {
             const catLabel = { bug: "🐛 Problem", wunsch: "💡 Wunsch", lob: "👍 Lob" }[category] || "Feedback";
             const ratingStars = "⭐".repeat(rating);
+            // User-Input vor der HTML-Interpolation escapen (verhindert Markup-/Link-Injection in der Admin-Mail).
+            const esc = (s) => String(s == null ? "" : s)
+              .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+              .replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+            const messageEsc = esc(message);
+            const pageEsc = esc(page);
+            const studentNameEsc = esc(studentName);
             fetch("https://api.resend.com/emails", {
               method: "POST",
               headers: { "Authorization": "Bearer " + env.RESEND_API_KEY, "Content-Type": "application/json" },
@@ -544,9 +531,9 @@ export default {
 <h2 style="color:#2563eb;margin-top:0">Neues Schüler-Feedback</h2>
 <p><strong>Bewertung:</strong> ${ratingStars} (${rating}/4)</p>
 <p><strong>Kategorie:</strong> ${catLabel}</p>
-${studentName ? `<p><strong>Schüler:</strong> ${studentName}</p>` : ''}
-${page ? `<p><strong>Seite:</strong> ${page}</p>` : ''}
-${message ? `<div style="background:#f8f9fa;padding:12px;border-radius:8px;margin:12px 0;white-space:pre-wrap">${message}</div>` : '<p style="color:#888">Keine Nachricht</p>'}
+${studentName ? `<p><strong>Schüler:</strong> ${studentNameEsc}</p>` : ''}
+${page ? `<p><strong>Seite:</strong> ${pageEsc}</p>` : ''}
+${message ? `<div style="background:#f8f9fa;padding:12px;border-radius:8px;margin:12px 0;white-space:pre-wrap">${messageEsc}</div>` : '<p style="color:#888">Keine Nachricht</p>'}
 ${photo ? `<div style="margin:12px 0"><p style="font-weight:600;margin-bottom:6px">📷 Foto:</p><img src="data:image/jpeg;base64,${photo}" style="max-width:480px;border-radius:8px;display:block" alt="Feedback-Foto"></div>` : ''}
 <p style="margin-top:16px"><a href="https://myabiflow.de/dashboard.html" style="background:#2563eb;color:#fff;padding:10px 20px;border-radius:8px;text-decoration:none;font-weight:600">Im Dashboard ansehen →</a></p>
 </div>`

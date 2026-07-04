@@ -3,9 +3,8 @@
 
 /* ---- Rate Limiting & Auth ---- */
 export const RATE_LIMIT_WINDOW = 60 * 1000;
-// TEMPORÄR für Lehrer-Workshop 2026-06-22 hochgesetzt (10 Kollegen hinter EINER Schul-IP).
-// Standardwert ist 25 — nach dem Workshop (22.06. abends) wieder auf 25 zurücksetzen.
-export const MAX_REQUESTS_PER_WINDOW = 250;
+// Standardwert 25 (Workshop-Ausnahme 2026-06-22 mit 250 ist abgelaufen, zurückgesetzt).
+export const MAX_REQUESTS_PER_WINDOW = 25;
 export const MAX_LOGIN_ATTEMPTS = 5;
 // Eigenes Limit für Registrierung: ganze Kollegien sitzen hinter EINER Schul-IP,
 // daher höher als der strenge Login-Schutz (5).

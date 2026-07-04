@@ -1,5 +1,6 @@
 // Handler: Email-Verifizierung (Double-Opt-In für neue Accounts)
 import { jsonResponse } from '../utils.js';
+import { getClientIp } from '../auth.js';
 
 const VERIFY_RATE_LIMIT_WINDOW = 15 * 60 * 1000;
 const VERIFY_RATE_LIMIT_MAX = 5;
@@ -28,7 +29,7 @@ function getVerifySecret(env) {
 }
 
 function checkVerifyRateLimit(request, env) {
-  const ip = request.headers.get("CF-Connecting-IP") || "unknown";
+  const ip = getClientIp(request);
   const now = Date.now();
   const entry = verifyRateLimitMap.get(ip);
   if (!entry || now - entry.windowStart > VERIFY_RATE_LIMIT_WINDOW) {

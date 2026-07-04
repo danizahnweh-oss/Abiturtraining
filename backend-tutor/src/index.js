@@ -1,5 +1,28 @@
 import { Ai } from '@cloudflare/ai'
 
+/* ───────── Access-Token-Verifikation (HMAC-SHA256, wie im Haupt-Backend) ───────── */
+async function verifyAccessToken(token, env) {
+  try {
+    const secret = env.ACCESS_TOKEN_SECRET || env.ACCESS_PASSWORD;
+    if (!secret || !token || typeof token !== "string") return false;
+    const parts = token.split(".");
+    if (parts.length !== 2) return false;
+    const [dataB64, sigHex] = parts;
+    const data = atob(dataB64);
+    const payload = JSON.parse(data);
+    // 24h-Gültigkeit (analog TOKEN_EXPIRY im Haupt-Backend)
+    if (!payload.iat || Date.now() - payload.iat > 24 * 60 * 60 * 1000) return false;
+    const key = await crypto.subtle.importKey(
+      "raw", new TextEncoder().encode(secret),
+      { name: "HMAC", hash: "SHA-256" }, false, ["verify"]
+    );
+    const sigBytes = new Uint8Array(sigHex.match(/.{2}/g).map(b => parseInt(b, 16)));
+    return await crypto.subtle.verify("HMAC", key, sigBytes, new TextEncoder().encode(data));
+  } catch {
+    return false;
+  }
+}
+
 /* ───────── Gemini 2.5 Flash Helper ───────── */
 async function callGemini(apiKey, systemPrompt, userMessage, maxTokens = 4000) {
     const res = await fetch(
@@ -35,11 +58,11 @@ export default {
     async fetch(request, env) {
         const url = new URL(request.url);
 
-        // HEADERS for CORS
+        // CORS: nur die eigene Origin, kein Wildcard mehr
         const headers = {
-            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Origin': env.ALLOWED_ORIGIN || 'https://myabiflow.de',
             'Access-Control-Allow-Methods': 'POST, OPTIONS',
-            'Access-Control-Allow-Headers': 'Content-Type',
+            'Access-Control-Allow-Headers': 'Content-Type, X-Access-Token',
         };
 
         if (request.method === 'OPTIONS') {
@@ -47,6 +70,13 @@ export default {
         }
 
         if (url.pathname === '/query' && request.method === 'POST') {
+            // Auth: nur eingeloggte Schüler (gültiges Access-Token) — kein offener Gemini-Proxy.
+            const authed = await verifyAccessToken(request.headers.get('X-Access-Token'), env);
+            if (!authed) {
+                return new Response(JSON.stringify({ error: 'Nicht autorisiert.' }), {
+                    status: 401, headers: { ...headers, 'Content-Type': 'application/json' }
+                });
+            }
             try {
                 const { prompt, studentName, taskContext } = await request.json();
                 const ai = new Ai(env.AI);
@@ -119,8 +149,7 @@ ${ragContext}
             } catch (err) {
                 console.error("Flowie Tutor Error:", err);
                 return new Response(JSON.stringify({
-                    answer: "Entschuldigung, ich habe gerade technische Probleme. Bitte versuche es gleich nochmal! 😓",
-                    error: err.message
+                    answer: "Entschuldigung, ich habe gerade technische Probleme. Bitte versuche es gleich nochmal! 😓"
                 }), {
                     status: 500,
                     headers: { ...headers, 'Content-Type': 'application/json' }
@@ -129,7 +158,13 @@ ${ragContext}
         }
 
         if (url.pathname === '/ingest' && request.method === 'POST') {
-            // PROTECT THIS ENDPOINT IN PRODUCTION! (For now open for setup)
+            // Nur mit Ingest-Secret (Server-seitig via scripts/ingest.mjs). Verhindert RAG-Poisoning.
+            const ingestKey = request.headers.get('X-Ingest-Key');
+            if (!env.INGEST_KEY || ingestKey !== env.INGEST_KEY) {
+                return new Response(JSON.stringify({ error: 'Nicht autorisiert.' }), {
+                    status: 401, headers: { ...headers, 'Content-Type': 'application/json' }
+                });
+            }
             const { text, id } = await request.json();
             const ai = new Ai(env.AI);
 

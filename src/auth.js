@@ -2,10 +2,32 @@
 import { jsonResponse } from './utils.js';
 import { TOKEN_EXPIRY, RATE_LIMIT_WINDOW } from './config.js';
 
+/* ---- Client-IP hinter Nginx (Hetzner) ---- */
+// Nginx setzt vertrauenswürdig X-Real-IP und hängt die echte Client-IP als LETZTES
+// Element an X-Forwarded-For an ($proxy_add_x_forwarded_for). Der frühere
+// CF-Connecting-IP-Header existiert seit dem Cloudflare-Abschied nicht mehr und war
+// zudem client-fälschbar → nicht mehr verwenden.
+export function getClientIp(request) {
+  const real = request.headers.get("X-Real-IP");
+  if (real) return real.trim();
+  const xff = request.headers.get("X-Forwarded-For");
+  if (xff) {
+    const parts = xff.split(",").map(s => s.trim()).filter(Boolean);
+    if (parts.length) return parts[parts.length - 1];
+  }
+  return "unknown";
+}
+
+// Eigener HMAC-Schlüssel für Login-Token (Fallback auf ACCESS_PASSWORD, falls Server-Env
+// noch nicht auf ein getrenntes, hochentropes Secret umgestellt ist).
+function getTokenSecret(env, secret) {
+  return secret || env.ACCESS_TOKEN_SECRET || env.ACCESS_PASSWORD;
+}
+
 /* ---- Token-System (HMAC-SHA256) ---- */
 // extra: optionale Felder, die in den Payload gemerged werden (z.B. { sub: nameLower, sid })
 export async function generateToken(env, secret, extra) {
-  const secretKey = secret || env.ACCESS_PASSWORD;
+  const secretKey = getTokenSecret(env, secret);
   const payload = JSON.stringify({
     iat: Date.now(),
     nonce: crypto.randomUUID(),
@@ -30,7 +52,7 @@ export async function verifyToken(token, env, secret) {
 // Liefert den Payload bei gültigem Token, sonst null (Signatur + TTL geprüft)
 export async function getTokenPayload(token, env, secret) {
   try {
-    const secretKey = secret || env.ACCESS_PASSWORD;
+    const secretKey = getTokenSecret(env, secret);
     if (!token || typeof token !== "string") return null;
     const parts = token.split(".");
     if (parts.length !== 2) return null;
@@ -77,7 +99,13 @@ export async function resolveStudentIdentity(request, env, requestedNameLower) {
     const teacherId = await verifyTeacherAuthToken(teacherToken, env);
     if (teacherId) {
       const requested = (requestedNameLower || "").trim().toLowerCase();
-      return requested ? { nameLower: requested, isTeacher: true, teacherId } : null;
+      if (!requested) return null;
+      // Lehrer darf nur auf Schüler zugreifen, die per Code mit ihm verknüpft sind.
+      const link = await env.DB.prepare(
+        "SELECT 1 FROM student_teacher_links WHERE teacher_id = ? AND student_name_lower = ? LIMIT 1"
+      ).bind(teacherId, requested).first();
+      if (!link) return null;
+      return { nameLower: requested, isTeacher: true, teacherId };
     }
   }
   const ident = await getStudentTokenIdentity(request, env);
@@ -283,14 +311,7 @@ let requestCounter = 0;
 export { rateLimitMap, loginRateLimitMap, registerRateLimitMap };
 
 export function checkRateLimit(request, map, max, env) {
-  // Hinter Nginx läuft die echte Client-IP über X-Real-IP / X-Forwarded-For.
-  // CF-Connecting-IP existiert seit dem Hetzner-Umzug (kein Cloudflare mehr) nicht
-  // mehr → früher landeten ALLE Nutzer im selben "unknown"-Eimer.
-  const ip =
-    request.headers.get("CF-Connecting-IP") ||
-    request.headers.get("X-Real-IP") ||
-    (request.headers.get("X-Forwarded-For") || "").split(",")[0].trim() ||
-    "unknown";
+  const ip = getClientIp(request);
   const now = Date.now();
 
   if (!map.has(ip)) {

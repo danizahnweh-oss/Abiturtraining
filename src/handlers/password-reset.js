@@ -1,6 +1,6 @@
 // Handler: Passwort-Reset (Passwort vergessen)
 import { jsonResponse } from '../utils.js';
-import { hashPassword } from '../auth.js';
+import { hashPassword, getClientIp } from '../auth.js';
 
 const RESET_RATE_LIMIT_WINDOW = 15 * 60 * 1000;
 const RESET_RATE_LIMIT_MAX = 5;
@@ -13,7 +13,7 @@ async function sha256Hex(value) {
 }
 
 function checkPasswordResetRateLimit(request, env) {
-  const ip = request.headers.get("CF-Connecting-IP") || "unknown";
+  const ip = getClientIp(request);
   const now = Date.now();
   const entry = passwordResetRateLimitMap.get(ip);
   if (!entry || now - entry.windowStart > RESET_RATE_LIMIT_WINDOW) {

@@ -1,6 +1,7 @@
 // Handler: Internes Admin-Dashboard – Break-even-Tracker
 // Schutz: X-Admin-Token (env.ADMIN_TOKEN). KEINE Schüler-/Lehrer-Tokens akzeptieren.
 import { jsonResponse } from '../utils.js';
+import { safeCompare } from '../auth.js';
 
 /* Break-even-Konstanten (synchron mit project_business.md halten) */
 const BREAKEVEN_TARGET   = 140;   // Zahlende Nutzer für Break-even
@@ -18,7 +19,7 @@ const B2C_PLANS = ['monthly', '6months', '12months', '24months', 'abitur'];
 /* ================= GET ADMIN STATS ================= */
 export async function handleAdminStats(request, env) {
   const adminToken = request.headers.get('X-Admin-Token');
-  if (!env.ADMIN_TOKEN || adminToken !== env.ADMIN_TOKEN) {
+  if (!env.ADMIN_TOKEN || !(await safeCompare(adminToken || '', env.ADMIN_TOKEN))) {
     return jsonResponse({ error: 'Nicht autorisiert.' }, 401, env);
   }
 
