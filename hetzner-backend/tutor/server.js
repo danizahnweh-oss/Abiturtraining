@@ -10,8 +10,29 @@
 import express from 'express';
 import pg from 'pg';
 import dotenv from 'dotenv';
+import crypto from 'node:crypto';
 
 dotenv.config({ path: '../.env' });
+
+// Access-Token-Verifikation (HMAC-SHA256, identisch zum Haupt-Backend src/auth.js).
+// Verhindert, dass /tutor/query ein offener, kostenloser Gemini-Proxy ist.
+function verifyAccessToken(token) {
+  try {
+    const secret = process.env.ACCESS_TOKEN_SECRET || process.env.ACCESS_PASSWORD;
+    if (!secret || !token || typeof token !== 'string') return false;
+    const parts = token.split('.');
+    if (parts.length !== 2) return false;
+    const [dataB64, sigHex] = parts;
+    const data = Buffer.from(dataB64, 'base64').toString('utf8');
+    const payload = JSON.parse(data);
+    if (!payload.iat || Date.now() - payload.iat > 24 * 60 * 60 * 1000) return false;
+    const expected = crypto.createHmac('sha256', secret).update(data).digest('hex');
+    if (expected.length !== sigHex.length) return false;
+    return crypto.timingSafeEqual(Buffer.from(expected, 'hex'), Buffer.from(sigHex, 'hex'));
+  } catch {
+    return false;
+  }
+}
 
 const app = express();
 const PORT = process.env.TUTOR_PORT || 3002;
@@ -34,7 +55,7 @@ function corsHeaders() {
   return {
     'Access-Control-Allow-Origin': ALLOWED_ORIGIN,
     'Access-Control-Allow-Methods': 'POST, OPTIONS',
-    'Access-Control-Allow-Headers': 'Content-Type',
+    'Access-Control-Allow-Headers': 'Content-Type, X-Access-Token, X-Ingest-Key',
   };
 }
 
@@ -136,6 +157,11 @@ async function vectorSearch(embedding, topK = 3, subject = null) {
 
 app.post('/tutor/query', async (req, res) => {
   try {
+    // Auth: nur eingeloggte Schüler (gültiges Access-Token) — kein offener Gemini-Proxy.
+    if (!verifyAccessToken(req.headers['x-access-token'])) {
+      return res.set(corsHeaders()).status(401).json({ error: 'Nicht autorisiert.' });
+    }
+
     const { question, subject, taskContext } = req.body;
 
     if (!question) {
@@ -194,8 +220,7 @@ ${taskInfo}${ragContext}`;
   } catch (err) {
     console.error('Tutor Query Fehler:', err.message);
     res.set(corsHeaders()).status(500).json({
-      error: 'Flowie hat gerade ein technisches Problem. Versuche es in ein paar Sekunden nochmal.',
-      details: err.message
+      error: 'Flowie hat gerade ein technisches Problem. Versuche es in ein paar Sekunden nochmal.'
     });
   }
 });
@@ -206,6 +231,11 @@ ${taskInfo}${ragContext}`;
 
 app.post('/tutor/ingest', async (req, res) => {
   try {
+    // Nur mit Ingest-Secret (server-seitiges Einspeisen). Verhindert RAG-Poisoning.
+    if (!process.env.INGEST_KEY || req.headers['x-ingest-key'] !== process.env.INGEST_KEY) {
+      return res.set(corsHeaders()).status(401).json({ error: 'Nicht autorisiert.' });
+    }
+
     const { id, text, title, subject, metadata } = req.body;
 
     if (!text || !id) {
@@ -231,7 +261,7 @@ app.post('/tutor/ingest', async (req, res) => {
     res.set(corsHeaders()).json({ success: true, id });
   } catch (err) {
     console.error('Tutor Ingest Fehler:', err.message);
-    res.set(corsHeaders()).status(500).json({ error: err.message });
+    res.set(corsHeaders()).status(500).json({ error: 'Ingest fehlgeschlagen.' });
   }
 });
 
