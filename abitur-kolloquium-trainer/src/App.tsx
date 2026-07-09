@@ -383,6 +383,8 @@ type SubjectSetup = {
   spHalbjahr: string;
   schwerpunkt: string;
   topicScope: TopicScope;
+  /** Optionale eigene Unterrichtsinhalte (Stichpunkte) für die KI-Schwerpunktsetzung */
+  unterrichtskontext?: string;
 };
 const SUBJECT_SETUP_KEY = 'kolloquium_subject_setup_v1';
 
@@ -463,6 +465,8 @@ export default function App() {
   const [customSp, setCustomSp] = useState(!!initialSetup.customSp);
   const [customSchwerpunkte, setCustomSchwerpunkte] = useState<Record<string, string[]>>(initialSetup.customSchwerpunkte ?? {});
   const [topicScope, setTopicScope] = useState<TopicScope>(initialSetup.topicScope ?? 'strikt');
+  // Optionale eigene Unterrichtsinhalte (MVP: Textfeld; später erweiterbar um Datei-Upload)
+  const [unterrichtskontext, setUnterrichtskontext] = useState(initialSetup.unterrichtskontext ?? '');
   // Verhindert, dass beim Subject-Wechsel (Auto-Load) der Save-Effect feuert und Defaults überschreibt
   const setupHydratingRef = useRef(false);
 
@@ -547,6 +551,13 @@ export default function App() {
   const [fbType, setFbType] = useState<'written' | 'oral' | null>(null);
   const [fbText, setFbText] = useState('');
   const [fbLoading, setFbLoading] = useState(false);
+  // Fehler der mündlichen Auswertung — getrennt von fbText/fbLoading, damit ein
+  // Fehlschlag der mündlichen Auswertung die schriftliche nie blockiert.
+  const [fbError, setFbError] = useState<string | null>(null);
+  // Unveränderliche Kopie des PRÜFUNGS-Transkripts (gesetzt in stopExam).
+  // Nach mündlichem Feedback enthält modelTx das Feedback-Gespräch — diese Ref
+  // stellt sicher, dass die schriftliche Auswertung immer das echte Prüfungstranskript nutzt.
+  const examTxRef = useRef<{ mTx: string[]; uTx: string[] } | null>(null);
 
   /* Timers */
   const prep = useCountdown(30 * 60);
@@ -775,6 +786,7 @@ export default function App() {
       setSpHalbjahr(setup.spHalbjahr ?? '');
       setSchwerpunkt(setup.schwerpunkt ?? '');
       setTopicScope(setup.topicScope ?? 'strikt');
+      setUnterrichtskontext(setup.unterrichtskontext ?? '');
     } else {
       setExamLevel(newSubject === 'Mathematik' ? 'eA' : 'gA');
       setGestrichen('');
@@ -783,6 +795,7 @@ export default function App() {
       setCustomSp(false);
       setCustomSchwerpunkte({});
       setTopicScope('strikt');
+      setUnterrichtskontext('');
     }
   };
 
@@ -795,9 +808,9 @@ export default function App() {
       return;
     }
     saveSubjectSetup(subject, {
-      examLevel, gestrichen, customSp, customSchwerpunkte, spHalbjahr, schwerpunkt, topicScope,
+      examLevel, gestrichen, customSp, customSchwerpunkte, spHalbjahr, schwerpunkt, topicScope, unterrichtskontext,
     });
-  }, [subject, examLevel, gestrichen, customSp, customSchwerpunkte, spHalbjahr, schwerpunkt, topicScope]);
+  }, [subject, examLevel, gestrichen, customSp, customSchwerpunkte, spHalbjahr, schwerpunkt, topicScope, unterrichtskontext]);
 
   const toggleCustomSp = () => {
     if (!customSp) {
@@ -844,6 +857,7 @@ export default function App() {
         try {
           impulse = await generateMaterialImpulse({
             subject, examLevel: level, schwerpunkt, schwerpunktHalbjahr: configHalbjahr, weitereHalbjahre: weitereHJ, isMathe,
+            unterrichtskontext: unterrichtskontext.trim() || undefined,
           });
         } catch { impulse = []; }
         setMatImpulse(impulse);
@@ -867,7 +881,9 @@ export default function App() {
         subject, examLevel: level, schwerpunkt, schwerpunktHalbjahr: configHalbjahr,
         weitereHalbjahre: weitereHJ, aufgabenstellung: '', material: '',
         materialImpulse: impulse.length > 0 ? impulse : undefined,
-        examMode, gender, prueferTyp, topicScope, topicsByHalbjahr, shouldPlayModelAudio: makeShouldPlayAudio(examMode),
+        examMode, gender, prueferTyp, topicScope, topicsByHalbjahr,
+        unterrichtskontext: unterrichtskontext.trim() || undefined,
+        shouldPlayModelAudio: makeShouldPlayAudio(examMode),
         getTranscripts,
         onStatusChange: s => setStatus(s),
         onModelTranscription: t => { modelTxCountRef.current++; setModelTx(prev => [...prev, t]); },
@@ -884,7 +900,7 @@ export default function App() {
     setShownImpulse(new Set());
     try {
       // Material + Impulse parallel generieren
-      const examConfigForGen = { subject, examLevel: level, schwerpunkt, schwerpunktHalbjahr: configHalbjahr, weitereHalbjahre: weitereHJ, isMathe };
+      const examConfigForGen = { subject, examLevel: level, schwerpunkt, schwerpunktHalbjahr: configHalbjahr, weitereHalbjahre: weitereHJ, isMathe, unterrichtskontext: unterrichtskontext.trim() || undefined };
       const promises: [Promise<ExamMaterial>, Promise<MaterialImpuls[]>] = [
         isMathe ? generateMatheAufgaben(examConfigForGen) : generateExamMaterial(examConfigForGen),
         mitMaterial ? generateMaterialImpulse(examConfigForGen) : Promise.resolve([]),
@@ -998,7 +1014,9 @@ export default function App() {
       subject, examLevel: level, schwerpunkt, schwerpunktHalbjahr: configHj,
       weitereHalbjahre: weitereHJ, aufgabenstellung: material.aufgabenstellung, material: material.material,
       materialImpulse: matImpulse.length > 0 ? matImpulse : undefined,
-      examMode, gender: examinerGender, prueferTyp, topicScope, topicsByHalbjahr, shouldPlayModelAudio: makeShouldPlayAudio(examMode),
+      examMode, gender: examinerGender, prueferTyp, topicScope, topicsByHalbjahr,
+      unterrichtskontext: unterrichtskontext.trim() || undefined,
+      shouldPlayModelAudio: makeShouldPlayAudio(examMode),
       getTranscripts,
       onStatusChange: s => setStatus(s),
       onModelTranscription: t => { modelTxCountRef.current++; setModelTx(prev => [...prev, t]); },
@@ -1011,6 +1029,8 @@ export default function App() {
 
   const stopExam = () => {
     // Transkripte sichern bevor Session gestoppt wird (für Feedback)
+    examTxRef.current = { mTx: [...modelTx], uTx: [...userTx] };
+    setFbError(null);
     try {
       localStorage.setItem('kolloquium_transcript_backup', JSON.stringify({
         modelTx, userTx, timestamp: Date.now(),
@@ -1039,8 +1059,12 @@ export default function App() {
     }
   };
 
-  /** Transkript-Fallback: Lokal → sessionStorage-Backup → Server (StatefulLiveSession) */
+  /** Transkript-Fallback: Prüfungs-Snapshot → Lokal → localStorage-Backup → Server (StatefulLiveSession) */
   const getTranscriptsWithFallback = async (): Promise<{ mTx: string[]; uTx: string[] }> => {
+    // 0) Unveränderlicher Prüfungs-Snapshot (überlebt mündliches Feedback, das modelTx überschreibt)
+    if (examTxRef.current && (examTxRef.current.mTx.length > 0 || examTxRef.current.uTx.length > 0)) {
+      return { mTx: [...examTxRef.current.mTx], uTx: [...examTxRef.current.uTx] };
+    }
     // 1) Lokale Transkripte
     if (modelTx.length > 0 || userTx.length > 0) return { mTx: [...modelTx], uTx: [...userTx] };
     // 2) sessionStorage-Backup
@@ -1062,6 +1086,7 @@ export default function App() {
   };
 
   const handleWrittenFb = async () => {
+    setFbError(null);
     setFbType('written');
     setFbLoading(true);
     setStep('feedback');
@@ -1085,6 +1110,7 @@ export default function App() {
           examMode,
           modelTranscription: mTx, userTranscription: uTx,
           materialImpulse: matImpulse.length > 0 ? matImpulse : undefined,
+          unterrichtskontext: unterrichtskontext.trim() || undefined,
         });
         setFbText(fb);
         setFbLoading(false);
@@ -1100,10 +1126,8 @@ export default function App() {
   };
 
   const handleOralFb = async () => {
-    setFbType('oral');
-    setStep('feedback');
-
-    // Transkript sichern BEVOR modelTx geleert wird
+    // Transkript-Check VOR dem Screen-Wechsel: bei Fehler bleibt der Nutzer auf
+    // 'feedback-choice' und kann jederzeit die schriftliche Auswertung wählen.
     const { mTx, uTx } = await getTranscriptsWithFallback();
     const transcript = mTx.map((m, i) => {
       const u = uTx[i] || '';
@@ -1111,31 +1135,63 @@ export default function App() {
     }).join('\n');
 
     if (!transcript.trim()) {
-      setModelTx(['Leider konnte kein Prüfungstranskript aufgezeichnet werden. Mündliches Feedback ist nur möglich, wenn die Prüfung vollständig durchgeführt wurde. Bitte starte eine neue Prüfung.']);
+      setFbError('Die mündliche Auswertung konnte gerade nicht erstellt werden, weil kein Prüfungstranskript verfügbar ist. Du kannst stattdessen die schriftliche Auswertung anzeigen lassen.');
       return;
     }
 
-    setModelTx([]); // Jetzt erst leeren für neue Feedback-Transkription
+    setFbError(null);
+    setFbType('oral');
+    setStep('feedback');
+    setModelTx([]); // Jetzt erst leeren für neue Feedback-Transkription (Prüfungstranskript liegt sicher in examTxRef + localStorage-Backup)
 
-    const SessionClass = USE_STATEFUL_SESSIONS ? StatefulLiveSession : LiveSession;
-    const session = new SessionClass({
-      subject, examLevel: level, schwerpunkt, schwerpunktHalbjahr: spHalbjahr,
-      weitereHalbjahre: weitereHJ, aufgabenstellung: material?.aufgabenstellung || '',
-      material: material?.material || '',
-      gender: examinerGender, feedbackMode: true, examTranscript: transcript,
-      getTranscripts,
-      onStatusChange: s => setStatus(s),
-      onModelTranscription: t => setModelTx(prev => [...prev, t]),
-      onUserTranscription: t => setUserTx(prev => [...prev, t]),
-    });
-    sessionRef.current = session;
-    await session.start();
+    try {
+      const SessionClass = USE_STATEFUL_SESSIONS ? StatefulLiveSession : LiveSession;
+      const session = new SessionClass({
+        subject, examLevel: level, schwerpunkt, schwerpunktHalbjahr: spHalbjahr,
+        weitereHalbjahre: weitereHJ, aufgabenstellung: material?.aufgabenstellung || '',
+        material: material?.material || '',
+        gender: examinerGender, feedbackMode: true, examTranscript: transcript,
+        unterrichtskontext: unterrichtskontext.trim() || undefined,
+        getTranscripts,
+        onStatusChange: s => setStatus(s),
+        onModelTranscription: t => setModelTx(prev => [...prev, t]),
+        onUserTranscription: t => setUserTx(prev => [...prev, t]),
+      });
+      sessionRef.current = session;
+      await session.start();
+    } catch (err) {
+      // Verbindung fehlgeschlagen → sauber aufräumen und zurück zur Auswahl.
+      // Transkripte/Backups bleiben unangetastet, schriftliche Auswertung bleibt möglich.
+      console.error('[Oral-Feedback] Start fehlgeschlagen:', err);
+      sessionRef.current?.stop();
+      sessionRef.current = null;
+      setStatus('disconnected');
+      setFbType(null);
+      setFbError('Die mündliche Auswertung konnte gerade nicht erstellt werden. Du kannst stattdessen die schriftliche Auswertung anzeigen lassen oder es erneut versuchen.');
+      setStep('feedback-choice');
+    }
   };
 
   const stopFeedback = () => {
     sessionRef.current?.stop();
     sessionRef.current = null;
     setStatus('disconnected');
+    // Zurück zur Auswahl statt in einem End-Screen ohne Ausweg zu hängen —
+    // die schriftliche Auswertung bleibt so jederzeit erreichbar.
+    setFbType(null);
+    setStep('feedback-choice');
+  };
+
+  /** Rückweg aus jedem Feedback-Zustand zur Auswahl — löscht KEINE Transkripte/Backups. */
+  const backToFeedbackChoice = () => {
+    sessionRef.current?.stop();
+    sessionRef.current = null;
+    setStatus('disconnected');
+    setFbType(null);
+    setFbText('');
+    setFbLoading(false);
+    setFbError(null);
+    setStep('feedback-choice');
   };
 
   const fullReset = () => {
@@ -1156,6 +1212,9 @@ export default function App() {
     setMitMaterial(true);
     setFbType(null);
     setFbText('');
+    setFbLoading(false);
+    setFbError(null);
+    examTxRef.current = null;
     setExamMode('gesamt');
     setPrueferTyp('standard');
     // Lehrer-Setup (gestrichen/Schwerpunkte/topicScope) NICHT zurücksetzen –
@@ -1170,6 +1229,7 @@ export default function App() {
         setSpHalbjahr(saved.spHalbjahr ?? '');
         setSchwerpunkt(saved.schwerpunkt ?? '');
         setTopicScope(saved.topicScope ?? 'strikt');
+        setUnterrichtskontext(saved.unterrichtskontext ?? '');
       } else {
         setGestrichen('');
         setSpHalbjahr('');
@@ -1177,12 +1237,14 @@ export default function App() {
         setCustomSp(false);
         setCustomSchwerpunkte({});
         setTopicScope('strikt');
+        setUnterrichtskontext('');
       }
     } else {
       setGestrichen('');
       setSpHalbjahr('');
       setSchwerpunkt('');
       setTopicScope('strikt');
+      setUnterrichtskontext('');
     }
     prep.reset(30 * 60);
     localStorage.removeItem('kolloquium_active_exam');
@@ -1516,9 +1578,9 @@ export default function App() {
                       {/* Eigene Schwerpunkte Eingabe */}
                       {customSp && availHJ.length > 0 && (
                         <div className="space-y-4">
-                          <p className="text-xs opacity-50 ml-1">Gib für jedes Halbjahr 3 Schwerpunktthemen ein:</p>
+                          <p className="text-xs opacity-50 ml-1">Gib für jedes Halbjahr 3 Schwerpunktthemen ein. Trage die Themen so ein, wie sie im Unterricht oder auf deinem Übersichtsblatt genannt wurden.</p>
                           {availHJ.map(hj => (
-                            <div key={hj} className="space-y-2 p-3 bg-gray-50 dark:bg-gray-800/50 rounded-xl">
+                            <div key={hj} className="space-y-2 p-3 bg-gray-50 rounded-xl">
                               <label className="text-xs font-semibold uppercase tracking-widest opacity-60 ml-1">{hj}</label>
                               {[0, 1, 2].map(i => (
                                 <input
@@ -1527,7 +1589,8 @@ export default function App() {
                                   value={customSchwerpunkte[hj]?.[i] || ''}
                                   onChange={e => updateCustomSp(hj, i, e.target.value)}
                                   placeholder={`Schwerpunkt ${i + 1}`}
-                                  className="w-full rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 px-4 py-3 text-[16px] outline-none focus:ring-2 focus:ring-emerald-400 min-h-[44px]"
+                                  aria-label={`Halbjahr ${hj} – Schwerpunkt ${i + 1}`}
+                                  className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-[16px] text-slate-800 placeholder:text-slate-400 caret-emerald-600 outline-none focus:ring-2 focus:ring-emerald-400 focus:border-emerald-300 min-h-[44px]"
                                 />
                               ))}
                             </div>
@@ -1581,6 +1644,32 @@ export default function App() {
                               <span className="font-medium">Auch andere Themen des Halbjahres</span>
                               <span className="block text-xs opacity-60 mt-0.5">Schwerpunktthema + verwandte Themen aus {spHalbjahr}</span>
                             </Pill>
+                          </div>
+                        </div>
+                      )}
+
+                      {/* Eigene Unterrichtsinhalte (optional) — fließen als Kontext in die KI-Fragen ein */}
+                      {schwerpunkt && (
+                        <div className="space-y-2">
+                          <label htmlFor="unterrichtskontext" className="text-xs font-semibold uppercase tracking-widest text-slate-500 ml-1">
+                            Eigene Unterrichtsinhalte ergänzen <span className="normal-case tracking-normal font-normal opacity-70">(optional)</span>
+                          </label>
+                          <p className="text-xs opacity-50 ml-1 -mt-1">Je genauer dein Unterrichtskontext ist, desto näher kann die Simulation an deinen tatsächlichen Kursinhalten bleiben.</p>
+                          <textarea
+                            id="unterrichtskontext"
+                            value={unterrichtskontext}
+                            onChange={e => setUnterrichtskontext(e.target.value)}
+                            rows={4}
+                            maxLength={2000}
+                            placeholder="Hier kannst du Stichpunkte, Tafelbilder, Kursnotizen oder Themen aus deinem Unterricht einfügen."
+                            aria-describedby="unterrichtskontext-hinweis"
+                            className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-[16px] text-slate-800 placeholder:text-slate-400 caret-emerald-600 outline-none focus:ring-2 focus:ring-emerald-400 focus:border-emerald-300 min-h-[44px] resize-y"
+                          />
+                          <div className="flex items-start justify-between gap-3 ml-1">
+                            <p id="unterrichtskontext-hinweis" className="text-xs opacity-50">
+                              Bitte füge keine sensiblen personenbezogenen Daten ein. Nutze am besten Stichpunkte, Themenübersichten oder anonymisierte Unterrichtsmaterialien.
+                            </p>
+                            <span className="text-xs opacity-40 whitespace-nowrap" aria-hidden="true">{unterrichtskontext.length}/2000</span>
                           </div>
                         </div>
                       )}
@@ -2118,6 +2207,26 @@ export default function App() {
                 <h2 className="text-2xl font-semibold mb-2 text-slate-800">Prüfung abgeschlossen!</h2>
                 <p className="opacity-60 mb-8 text-slate-600">Wie möchtest du dein Feedback erhalten?</p>
 
+                {fbError && (
+                  <div role="alert" className="mb-6 rounded-2xl border border-amber-200 bg-amber-50 p-5 text-left">
+                    <p className="text-sm text-amber-900">{fbError}</p>
+                    <div className="mt-4 flex flex-col sm:flex-row gap-3">
+                      <button
+                        onClick={handleWrittenFb}
+                        className="flex-1 min-h-[44px] px-4 py-2.5 rounded-xl bg-emerald-600 text-white font-medium text-sm hover:bg-emerald-700 transition active:scale-95"
+                      >
+                        Schriftliche Auswertung anzeigen
+                      </button>
+                      <button
+                        onClick={handleOralFb}
+                        className="flex-1 min-h-[44px] px-4 py-2.5 rounded-xl bg-white border border-amber-300 text-amber-800 font-medium text-sm hover:bg-amber-100 transition active:scale-95"
+                      >
+                        Erneut versuchen
+                      </button>
+                    </div>
+                  </div>
+                )}
+
                 <div className="grid grid-cols-2 gap-4">
                   <button
                     onClick={handleWrittenFb}
@@ -2136,7 +2245,17 @@ export default function App() {
                     <p className="text-xs opacity-60">{examinerGender === 'female' ? 'Die KI-Prüferin' : 'Der KI-Prüfer'} bespricht dein Ergebnis live mit dir.</p>
                   </button>
                 </div>
+
+                <p className="text-xs opacity-50 mt-6 text-slate-600">Du kannst jederzeit auf die schriftliche Auswertung zurückgreifen, falls eine andere Auswertungsform nicht verfügbar ist.</p>
               </div>
+
+              <button
+                onClick={fullReset}
+                className="mt-6 mx-auto flex items-center gap-2 text-sm font-medium text-emerald-600 hover:text-emerald-700 transition-colors min-h-[44px] px-2"
+              >
+                <RotateCcw size={16} />
+                Neue Prüfung starten
+              </button>
             </motion.div>
           )}
 
@@ -2194,7 +2313,25 @@ export default function App() {
 
                     <div className="w-full max-w-lg bg-gradient-to-b from-slate-50 to-white shadow-inner rounded-2xl p-6 min-h-[100px] flex flex-col justify-center border border-black/5 relative overflow-hidden" aria-live="polite" aria-atomic="true">
                       <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-emerald-100 to-transparent opacity-50" />
-                      {status === 'connecting' ? (
+                      {status === 'error' ? (
+                        <div className="text-center" role="alert">
+                          <p className="text-sm text-amber-900 mb-4">Die mündliche Auswertung konnte gerade nicht erstellt werden. Du kannst stattdessen die schriftliche Auswertung anzeigen lassen.</p>
+                          <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                            <button
+                              onClick={handleWrittenFb}
+                              className="min-h-[44px] px-4 py-2.5 rounded-xl bg-emerald-600 text-white font-medium text-sm hover:bg-emerald-700 transition active:scale-95"
+                            >
+                              Schriftliche Auswertung anzeigen
+                            </button>
+                            <button
+                              onClick={backToFeedbackChoice}
+                              className="min-h-[44px] px-4 py-2.5 rounded-xl bg-white border border-black/10 text-slate-600 font-medium text-sm hover:bg-slate-50 transition active:scale-95"
+                            >
+                              Zurück zur Auswahl
+                            </button>
+                          </div>
+                        </div>
+                      ) : status === 'connecting' ? (
                         <div className="text-center">
                           <Loader2 size={24} className="text-emerald-500 animate-spin mx-auto mb-3" />
                           <p className="text-sm opacity-50 italic">Verbindung wird hergestellt...</p>
@@ -2216,13 +2353,21 @@ export default function App() {
                 </div>
               )}
 
-              <button
-                onClick={fullReset}
-                className="mx-auto flex items-center gap-2 text-sm font-medium text-emerald-600 hover:text-emerald-700 transition-colors"
-              >
-                <RotateCcw size={16} />
-                Neue Prüfung starten
-              </button>
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <button
+                  onClick={backToFeedbackChoice}
+                  className="flex items-center gap-2 text-sm font-medium text-slate-500 hover:text-slate-700 transition-colors min-h-[44px] px-2"
+                >
+                  Zurück zur Feedback-Auswahl
+                </button>
+                <button
+                  onClick={fullReset}
+                  className="flex items-center gap-2 text-sm font-medium text-emerald-600 hover:text-emerald-700 transition-colors min-h-[44px] px-2"
+                >
+                  <RotateCcw size={16} />
+                  Neue Prüfung starten
+                </button>
+              </div>
             </motion.div>
           )}
 

@@ -138,3 +138,11 @@
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-display: "Outfit", sans-serif;
 }
+
+/* Die App ist durchgängig hell gestaltet (kein Dark-Mode-Support).
+ * color-scheme: light verhindert, dass der Browser bei System-Dark-Mode
+ * eigene dunkle UA-Styles auf Formularfelder anwendet (unsichtbarer Text
+ * in Inputs/Selects/Textareas). */
+:root {
+  color-scheme: light;
+}
