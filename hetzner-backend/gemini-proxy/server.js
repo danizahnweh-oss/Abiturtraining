@@ -135,7 +135,8 @@ function rateLimitIdentity(payload, token) {
     : `tok:${String(token).slice(0, 40)}`;
 }
 
-app.use(express.json());
+// Limit 10mb: PDF-Uploads (Unterrichtskontext) gehen als base64-inlineData an Gemini
+app.use(express.json({ limit: '10mb' }));
 
 // ============================================================
 // CORS

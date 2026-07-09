@@ -17,6 +17,7 @@ import {
 } from 'lucide-react';
 import {
   LiveSession, StatefulLiveSession, SUBJECTS, generateExamMaterial, generateMatheAufgaben, generateMaterialImpulse, generateWrittenFeedback,
+  extractUnterrichtskontextFromPdf,
   type ExamLevel, type ExamMode, type ExamMaterial, type MaterialImpuls, type PrueferTyp, type TopicScope,
 } from './lib/live-api';
 import { GeoGebraGraph } from './GeoGebraGraph';
@@ -465,8 +466,12 @@ export default function App() {
   const [customSp, setCustomSp] = useState(!!initialSetup.customSp);
   const [customSchwerpunkte, setCustomSchwerpunkte] = useState<Record<string, string[]>>(initialSetup.customSchwerpunkte ?? {});
   const [topicScope, setTopicScope] = useState<TopicScope>(initialSetup.topicScope ?? 'strikt');
-  // Optionale eigene Unterrichtsinhalte (MVP: Textfeld; später erweiterbar um Datei-Upload)
+  // Optionale eigene Unterrichtsinhalte (Textfeld + PDF-Upload, max. 3 PDFs)
   const [unterrichtskontext, setUnterrichtskontext] = useState(initialSetup.unterrichtskontext ?? '');
+  const [pdfNames, setPdfNames] = useState<string[]>([]);
+  const [pdfBusy, setPdfBusy] = useState(false);
+  const [pdfError, setPdfError] = useState<string | null>(null);
+  const pdfInputRef = useRef<HTMLInputElement | null>(null);
   // Verhindert, dass beim Subject-Wechsel (Auto-Load) der Save-Effect feuert und Defaults überschreibt
   const setupHydratingRef = useRef(false);
 
@@ -777,6 +782,8 @@ export default function App() {
   const applySubjectChange = (newSubject: string) => {
     setupHydratingRef.current = true;
     setSubject(newSubject);
+    setPdfNames([]);
+    setPdfError(null);
     const setup = newSubject ? loadSubjectSetup(newSubject) : null;
     if (setup) {
       setExamLevel(setup.examLevel ?? (newSubject === 'Mathematik' ? 'eA' : 'gA'));
@@ -828,6 +835,61 @@ export default function App() {
       ...prev,
       [hj]: (prev[hj] || ['', '', '']).map((s, i) => i === idx ? value : s),
     }));
+  };
+
+  /* ── PDF-Upload für Unterrichtskontext: Gemini extrahiert Stichpunkte,
+     das PDF selbst wird nirgends gespeichert. Max. 3 PDFs à 4 MB. ── */
+  const MAX_PDFS = 3;
+  const MAX_PDF_MB = 4;
+  const handlePdfUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = Array.from(e.target.files || []);
+    e.target.value = ''; // erlaubt erneute Auswahl derselben Datei
+    if (files.length === 0) return;
+    setPdfError(null);
+
+    const slots = MAX_PDFS - pdfNames.length;
+    if (slots <= 0) {
+      setPdfError(`Es sind maximal ${MAX_PDFS} PDFs möglich.`);
+      return;
+    }
+    if (files.length > slots) {
+      setPdfError(`Es sind maximal ${MAX_PDFS} PDFs möglich — die ersten ${slots} wurden übernommen.`);
+    }
+
+    setPdfBusy(true);
+    try {
+      for (const file of files.slice(0, slots)) {
+        if (file.type !== 'application/pdf' && !file.name.toLowerCase().endsWith('.pdf')) {
+          setPdfError(`„${file.name}" ist keine PDF-Datei.`);
+          continue;
+        }
+        if (file.size > MAX_PDF_MB * 1024 * 1024) {
+          setPdfError(`„${file.name}" ist größer als ${MAX_PDF_MB} MB. Bitte verkleinere die Datei oder füge die Inhalte als Text ein.`);
+          continue;
+        }
+        const base64 = await new Promise<string>((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = () => resolve(String(reader.result).split(',')[1] || '');
+          reader.onerror = () => reject(new Error('Datei konnte nicht gelesen werden'));
+          reader.readAsDataURL(file);
+        });
+        const extracted = await extractUnterrichtskontextFromPdf(base64, file.name);
+        if (!extracted) {
+          setPdfError(`Aus „${file.name}" konnten keine Unterrichtsinhalte gelesen werden.`);
+          continue;
+        }
+        setUnterrichtskontext(prev => {
+          const addition = `${prev.trim() ? '\n\n' : ''}— Aus „${file.name}":\n${extracted}`;
+          return (prev + addition).slice(0, 3000);
+        });
+        setPdfNames(prev => [...prev, file.name]);
+      }
+    } catch (err) {
+      console.error('[PDF-Upload]', err);
+      setPdfError('Die PDF konnte gerade nicht verarbeitet werden. Bitte versuche es erneut oder füge die Inhalte als Text ein.');
+    } finally {
+      setPdfBusy(false);
+    }
   };
 
   /* ── Actions ── */
@@ -1215,6 +1277,8 @@ export default function App() {
     setFbLoading(false);
     setFbError(null);
     examTxRef.current = null;
+    setPdfNames([]);
+    setPdfError(null);
     setExamMode('gesamt');
     setPrueferTyp('standard');
     // Lehrer-Setup (gestrichen/Schwerpunkte/topicScope) NICHT zurücksetzen –
@@ -1660,16 +1724,48 @@ export default function App() {
                             value={unterrichtskontext}
                             onChange={e => setUnterrichtskontext(e.target.value)}
                             rows={4}
-                            maxLength={2000}
+                            maxLength={3000}
                             placeholder="Hier kannst du Stichpunkte, Tafelbilder, Kursnotizen oder Themen aus deinem Unterricht einfügen."
                             aria-describedby="unterrichtskontext-hinweis"
                             className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-[16px] text-slate-800 placeholder:text-slate-400 caret-emerald-600 outline-none focus:ring-2 focus:ring-emerald-400 focus:border-emerald-300 min-h-[44px] resize-y"
                           />
+
+                          {/* PDF-Upload: Gemini extrahiert Stichpunkte in das Textfeld (PDF wird nicht gespeichert) */}
+                          <input
+                            ref={pdfInputRef}
+                            type="file"
+                            accept="application/pdf,.pdf"
+                            multiple
+                            onChange={handlePdfUpload}
+                            className="hidden"
+                            aria-hidden="true"
+                            tabIndex={-1}
+                          />
+                          <div className="flex flex-wrap items-center gap-2 ml-1">
+                            <button
+                              type="button"
+                              onClick={() => pdfInputRef.current?.click()}
+                              disabled={pdfBusy || pdfNames.length >= MAX_PDFS}
+                              className="flex items-center gap-2 min-h-[44px] px-4 py-2 rounded-xl border border-emerald-200 bg-white text-emerald-700 text-sm font-medium hover:bg-emerald-50 transition active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed"
+                            >
+                              {pdfBusy ? <Loader2 size={16} className="animate-spin" aria-hidden="true" /> : <FileText size={16} aria-hidden="true" />}
+                              {pdfBusy ? 'PDF wird gelesen…' : `PDF hochladen (${pdfNames.length}/${MAX_PDFS})`}
+                            </button>
+                            {pdfNames.map(name => (
+                              <span key={name} className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full bg-emerald-50 border border-emerald-100 text-emerald-800 text-xs max-w-[220px] truncate">
+                                {name}
+                              </span>
+                            ))}
+                          </div>
+                          {pdfError && (
+                            <p role="alert" className="text-xs text-amber-700 ml-1">{pdfError}</p>
+                          )}
+
                           <div className="flex items-start justify-between gap-3 ml-1">
                             <p id="unterrichtskontext-hinweis" className="text-xs opacity-50">
-                              Bitte füge keine sensiblen personenbezogenen Daten ein. Nutze am besten Stichpunkte, Themenübersichten oder anonymisierte Unterrichtsmaterialien.
+                              Aus PDFs werden nur die fachlichen Stichpunkte übernommen — sie erscheinen oben im Textfeld und bleiben dort bearbeitbar. Bitte füge keine sensiblen personenbezogenen Daten ein; nutze am besten Themenübersichten oder anonymisierte Unterrichtsmaterialien.
                             </p>
-                            <span className="text-xs opacity-40 whitespace-nowrap" aria-hidden="true">{unterrichtskontext.length}/2000</span>
+                            <span className="text-xs opacity-40 whitespace-nowrap" aria-hidden="true">{unterrichtskontext.length}/3000</span>
                           </div>
                         </div>
                       )}

@@ -303,6 +303,49 @@ async function geminiJSON(prompt: string): Promise<string> {
   return data?.candidates?.[0]?.content?.parts?.[0]?.text || '';
 }
 
+/**
+ * Extrahiert Unterrichtsinhalte aus einer hochgeladenen PDF (base64) via Gemini.
+ * Das PDF wird NICHT gespeichert — nur die extrahierten Stichpunkte landen im
+ * Unterrichtskontext-Feld (dort sichtbar und editierbar). Läuft über denselben
+ * Worker-Proxy wie alle anderen Gemini-Aufrufe.
+ */
+export async function extractUnterrichtskontextFromPdf(base64Data: string, filename: string): Promise<string> {
+  const headers: Record<string, string> = { 'Content-Type': 'application/json' };
+  const accessToken = getAccessToken();
+  if (accessToken) headers['X-Access-Token'] = accessToken;
+
+  const prompt = `Du bekommst ein Unterrichtsdokument (z.B. Tafelbild, Skript, Themenübersicht, Arbeitsblatt) aus der bayerischen Oberstufe.
+Extrahiere daraus KOMPAKT die fachlichen Unterrichtsinhalte als Stichpunktliste (deutsch):
+- Themen, Begriffe, Modelle, Theorien, Fallbeispiele, behandelte Quellen/Statistiken
+- Maximal 700 Zeichen, nur Stichpunkte mit "•", keine Einleitung, kein Fazit
+- LASS WEG: Namen von Schülern/Lehrkräften, Noten, organisatorische Hinweise, Seitenzahlen
+Wenn das Dokument keine fachlichen Inhalte enthält, antworte exakt: LEER`;
+
+  const resp = await fetch(`${WORKER_URL}/v1beta/models/gemini-2.5-flash:generateContent`, {
+    method: 'POST',
+    headers,
+    body: JSON.stringify({
+      contents: [{
+        role: 'user',
+        parts: [
+          { inlineData: { mimeType: 'application/pdf', data: base64Data } },
+          { text: prompt },
+        ],
+      }],
+    }),
+  });
+
+  if (!resp.ok) {
+    const errText = await resp.text().catch(() => '');
+    throw new Error(`PDF-Extraktion (${filename}) fehlgeschlagen: ${resp.status} ${errText.substring(0, 120)}`);
+  }
+
+  const data = await resp.json() as { candidates?: { content?: { parts?: { text?: string }[] } }[] };
+  const text = (data?.candidates?.[0]?.content?.parts?.[0]?.text || '').trim();
+  if (!text || text === 'LEER') return '';
+  return text.slice(0, 800);
+}
+
 /* ───────── Material generation ───────── */
 
 /** Prüft ob das generierte Material brauchbar ist (nicht leer / zu kurz / generisch) */
@@ -372,7 +415,7 @@ function parseExamMaterialResponse(text: string): ExamMaterial | null {
  * (Ausbaufähig: später kann ein Datei-Upload/OCR denselben String-Kanal befüllen.)
  */
 function buildUnterrichtskontextBlock(ctx?: string): string {
-  const text = (ctx || '').trim().slice(0, 2000);
+  const text = (ctx || '').trim().slice(0, 3000);
   if (!text) return '';
   return `
 
