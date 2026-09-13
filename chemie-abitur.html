@@ -33,7 +33,7 @@
   <script defer src="/vendor/katex/contrib/mhchem.min.js"></script>
   <script defer src="/vendor/katex/contrib/auto-render.min.js"></script>
   <link rel="stylesheet" href="/fonts/fonts.css">
-  <link rel="stylesheet" href="shared-v4.css">
+  <link rel="stylesheet" href="shared-v4.css?v=20260913-materials">
   <style>
     /* Orange accent override */
     :root {
@@ -591,7 +591,7 @@
     };
   </script>
   <script src="ai-tutor.js" defer></script>
-  <script src="shared.js"></script>
+  <script src="shared.js?v=20260913-materials"></script>
 
   <!-- MODULE-SPECIFIC CODE -->
   <script>
@@ -771,6 +771,7 @@
 
     /* ====== RENDER TASK ====== */
     function renderTask(d) {
+      prepareEducationalMaterials(d);
       var container = document.getElementById("aufgabengruppenContainer");
       var aufgaben = d.aufgaben || d.aufgabengruppen || [];
       var lc = getLevelConfig();
@@ -787,10 +788,10 @@
         if (mats.length) {
           mats.forEach(function (m, mi) {
             if (!m || typeof m !== "object") return;
-            var isBildOrFoto = m.type === "bild" || m.type === "foto";
+            var isBildOrFoto = ["bild", "karikatur"].includes(m.type) || m.type === "foto";
             html += '<details class="material-details"' + (isBildOrFoto ? ' open' : '') + '><summary>' + renderInlineKatex(m.titel || m.id || ("M" + (mi + 1))) + '</summary>';
             html += '<div class="material-body">';
-            if (m.type === "bild") {
+            if (["bild", "karikatur"].includes(m.type)) {
               html += '<div class="material-img-loading" id="img-che-' + idx + '-' + mi + '"><div class="loader-spinner"></div><span>Bild wird generiert\u2026</span></div>';
             } else if (m.type === "foto") {
               html += '<div class="material-img-loading" id="img-che-' + idx + '-' + mi + '"><div class="loader-spinner"></div><span>Foto wird geladen\u2026</span></div>';
@@ -836,7 +837,7 @@
       aufgaben.forEach(function (a, idx) {
         var mats = a.materialien || (Array.isArray(a.material) ? a.material : []);
         mats.forEach(function (m, mi) {
-          if ((m.type === "bild" || m.type === "foto") && (m.text || m.content)) {
+          if ((["bild", "karikatur"].includes(m.type) || m.type === "foto") && (m.text || m.content)) {
             loadEducationalImage(m.text || m.content, 'img-che-' + idx + '-' + mi, m.bild_labels || m.image_labels || null);
           }
         });
@@ -980,6 +981,7 @@
     /* Override nav to render textareas when entering write step */
     var _originalNav = nav;
     nav = function (step, _pushHistory) {
+      if ((step === "write" || step === "feedback") && !educationalMaterialsReady()) return;
       if (step === "write") {
         if (CONFIG.selectedAufgaben.size < AUFGABEN_NEEDED) {
           showToast("Bitte " + AUFGABEN_NEEDED + " Aufgabengruppen ausw\u00e4hlen");
@@ -1009,6 +1011,7 @@
 
     /* ====== SUBMIT FOR GRADING ====== */
     async function submitForGrading() {
+      if (!educationalMaterialsReady()) return;
       if (window.checkOcrPending && window.checkOcrPending()) return;
       var textareas = document.querySelectorAll("#studentTextareas textarea");
       var allText = "";

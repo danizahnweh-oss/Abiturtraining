@@ -3121,6 +3121,12 @@ footer a:focus-visible {
 }
 
 /* ====== Educational Image Overlays ====== */
+.educational-reference-has-images {
+  /* Ein Bild nicht in einem zweiten, nur 350px hohen Scrollbereich abschneiden. */
+  max-height: none !important;
+  overflow: visible !important;
+}
+
 .edu-img-figure {
   margin: 0;
   padding: 0;

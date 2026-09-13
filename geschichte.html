@@ -28,7 +28,7 @@
   <script src="/vendor/purify.min.js" defer></script>
   <script src="/vendor/chart.umd.min.js" defer></script>
   <link rel="stylesheet" href="/fonts/fonts.css">
-  <link rel="stylesheet" href="shared-v4.css">
+  <link rel="stylesheet" href="shared-v4.css?v=20260913-materials">
   <style>
     /* Halbjahr selection */
     .hj-grid {
@@ -586,7 +586,7 @@ Struktur:
     };
   </script>
   <script src="ai-tutor.js" defer></script>
-  <script src="shared.js"></script>
+  <script src="shared.js?v=20260913-materials"></script>
 
   <!-- MODULE-SPECIFIC CODE -->
   <script>
@@ -786,6 +786,7 @@ gesamt_np = round(verstehen_np * 0.7 + darstellung_np * 0.3)`;
     }
 
     function renderTask(d) {
+      prepareEducationalMaterials(d);
       // Multi-Aufgaben-Format: tasks-Array vom Backend
       if (d.tasks && d.tasks.length > 0) {
         return renderMultiTasks(d);
@@ -808,7 +809,7 @@ gesamt_np = round(verstehen_np * 0.7 + darstellung_np * 0.3)`;
         metaEl.textContent = d.primary_meta ? `Quelle: ${d.primary_meta}` : "";
         document.getElementById("writeSourceRef").innerHTML = sourceEl.innerHTML;
         setTimeout(() => renderStatistikChart(normPrimary, "chart-primary"), 100);
-      } else if (pType === "foto" || pType === "bild") {
+      } else if (pType === "foto" || (pType === "bild" || pType === "karikatur")) {
         titleEl.textContent = "Material M 1 – " + (pType === "foto" ? "Historisches Foto" : "Bild");
         sourceEl.innerHTML = `<div class="material-img-loading" id="img-primary"><div class="loader-spinner"></div><span>${pType === "foto" ? "Foto" : "Bild"} wird generiert...</span></div>`;
         metaEl.textContent = d.primary_meta ? `${d.primary_meta}` : "";
@@ -853,7 +854,7 @@ gesamt_np = round(verstehen_np * 0.7 + darstellung_np * 0.3)`;
             <div class="material-chart"><canvas id="chart-multi-${idx}"></canvas></div>
             ${meta}`;
           pendingCharts.push({ text: normMulti, id: `chart-multi-${idx}` });
-        } else if (pType === "foto" || pType === "bild") {
+        } else if (pType === "foto" || (pType === "bild" || pType === "karikatur")) {
           const imgId = `img-multi-${idx}`;
           materialHtml = `<h4 class="card-header">M ${mNr}: ${pType === "foto" ? "Historisches Foto" : "Bild"}</h4>
             <div class="material-img-loading" id="${imgId}"><div class="loader-spinner"></div><span>${pType === "foto" ? "Foto" : "Bild"} wird generiert...</span></div>
@@ -872,7 +873,7 @@ gesamt_np = round(verstehen_np * 0.7 + darstellung_np * 0.3)`;
         (t.zusatz_materialien || []).forEach((m, mi) => {
           const zmNr = materialNr;
           materialNr++;
-          const typeBadges = { statistik: 'Statistik', bild: 'Bild', foto: 'Foto' };
+          const typeBadges = { statistik: 'Statistik', bild: 'Bild', foto: 'Foto', karikatur: 'Karikatur' };
           const typeBadge = `<span class="material-type-badge">${typeBadges[m.type] || 'Text'}</span>`;
           let body;
           if (m.type === "statistik") {
@@ -880,7 +881,7 @@ gesamt_np = round(verstehen_np * 0.7 + darstellung_np * 0.3)`;
             body = DOMPurify.sanitize(marked.parse(normZm));
             body += `<div class="material-chart"><canvas id="chart-zm-${idx}-${mi}"></canvas></div>`;
             pendingCharts.push({ text: normZm, id: `chart-zm-${idx}-${mi}` });
-          } else if (m.type === "bild" || m.type === "foto") {
+          } else if ((m.type === "bild" || m.type === "karikatur") || m.type === "foto") {
             body = `<div class="material-img-loading" id="img-zm-${idx}-${mi}"><div class="loader-spinner"></div><span>${m.type === "foto" ? "Foto" : "Bild"} wird generiert...</span></div>`;
             pendingImages.push({ prompt: m.content, id: `img-zm-${idx}-${mi}`, labels: m.bild_labels || m.image_labels || null });
           } else {
@@ -926,14 +927,14 @@ gesamt_np = round(verstehen_np * 0.7 + darstellung_np * 0.3)`;
       const zmContainer = document.getElementById("zusatzMaterialien");
       if (zm.length) {
         zmContainer.innerHTML = '<div class="card"><h2 class="card-header">Ergänzende Materialien</h2>' + zm.map((m, i) => {
-          const typeBadges = { statistik: 'Statistik', bild: 'Bild', foto: 'Foto' };
+          const typeBadges = { statistik: 'Statistik', bild: 'Bild', foto: 'Foto', karikatur: 'Karikatur' };
           const typeBadge = `<span class="material-type-badge">${typeBadges[m.type] || 'Text'}</span>`;
           let body;
           if (m.type === "statistik") {
             var normZmContent = normalizeStatistik(m.content || "");
             body = DOMPurify.sanitize(marked.parse(normZmContent));
             body += `<div class="material-chart"><canvas id="chart-${prefix}-${i}"></canvas></div>`;
-          } else if (m.type === "bild") {
+          } else if ((m.type === "bild" || m.type === "karikatur")) {
             body = `<div class="material-img-loading" id="img-${prefix}-${i}"><div class="loader-spinner"></div><span>Bild wird generiert...</span></div>`;
           } else if (m.type === "foto") {
             body = `<div class="material-img-loading" id="img-${prefix}-${i}"><div class="loader-spinner"></div><span>Foto wird geladen...</span></div>`;
@@ -949,7 +950,7 @@ gesamt_np = round(verstehen_np * 0.7 + darstellung_np * 0.3)`;
         zm.forEach((m, i) => {
           if (m.type === "statistik") {
             renderStatistikChart(normalizeStatistik(m.content || ""), `chart-${prefix}-${i}`);
-          } else if (m.type === "bild") {
+          } else if ((m.type === "bild" || m.type === "karikatur")) {
             loadEducationalImage(m.content, `img-${prefix}-${i}`, m.bild_labels || m.image_labels || null);
           } else if (m.type === "foto") {
             loadEducationalImage(m.content, `img-${prefix}-${i}`, m.bild_labels || m.image_labels || null);
@@ -961,6 +962,7 @@ gesamt_np = round(verstehen_np * 0.7 + darstellung_np * 0.3)`;
     }
 
     async function submitForGrading() {
+      if (!educationalMaterialsReady()) return;
       if (window.checkOcrPending && window.checkOcrPending()) return;
       const t = document.getElementById("studentText").value;
       if (countWords(t) < 100) { showToast("Bitte mindestens 100 Wörter schreiben."); return; }

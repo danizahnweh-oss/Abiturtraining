@@ -28,7 +28,7 @@
   <script src="/vendor/purify.min.js" defer></script>
   <script src="/vendor/chart.umd.min.js" defer></script>
   <link rel="stylesheet" href="/fonts/fonts.css">
-  <link rel="stylesheet" href="shared-v4.css">
+  <link rel="stylesheet" href="shared-v4.css?v=20260913-materials">
   <style>
     /* Informatik accent – Sky Blue */
     :root {
@@ -615,7 +615,7 @@
     };
   </script>
   <script src="ai-tutor.js" defer></script>
-  <script src="shared.js"></script>
+  <script src="shared.js?v=20260913-materials"></script>
 
   <!-- MODULE-SPECIFIC CODE -->
   <script>
@@ -793,6 +793,7 @@
     }
 
     function renderTask(d) {
+      prepareEducationalMaterials(d);
       const instrEl = document.getElementById("taskInstruction");
       const raw = d.aufgabe || d.task_instruction || "";
 
@@ -826,7 +827,7 @@
       function fixMaterialType(m) {
         var t = (m.type || "").toLowerCase().trim();
         if (t === "image" || t === "photo") return "bild";
-        if (t === "bild" || t === "foto" || t === "statistik" || t === "diagramm") return t;
+        if (["bild", "karikatur"].includes(t) || t === "foto" || t === "statistik" || t === "diagramm") return t;
         var txt = (m.text || m.content || "").trim();
         if (txt && txt.length > 20 && txt.length < 800 && !/[äöüßÄÖÜ]/.test(txt) && /\b(detailed|showing|depicting|illustration|diagram|image|visual|scene|background|style|color|layout|depicting|arrows?|labels?|boxes?|flowchart|architecture|network)\b/i.test(txt)) {
           return "bild";
@@ -844,10 +845,10 @@
             var mType = fixMaterialType(m);
             var details = document.createElement("details");
             details.style.cssText = "border:1px solid var(--border);border-radius:var(--radius-sm);margin-bottom:.5rem";
-            if (mType === "bild" || mType === "foto") details.open = true;
+            if (["bild", "karikatur"].includes(mType) || mType === "foto") details.open = true;
             var summary = document.createElement("summary");
             summary.style.cssText = "padding:.8rem 1rem;cursor:pointer;font-weight:600;color:var(--accent)";
-            var typeIcon = mType === "statistik" ? "\uD83D\uDCCA " : mType === "diagramm" ? "\uD83D\uDCC8 " : (mType === "bild" || mType === "foto") ? "\uD83D\uDDBC\uFE0F " : "";
+            var typeIcon = mType === "statistik" ? "\uD83D\uDCCA " : mType === "diagramm" ? "\uD83D\uDCC8 " : (["bild", "karikatur"].includes(mType) || mType === "foto") ? "\uD83D\uDDBC\uFE0F " : "";
             summary.textContent = typeIcon + (m.id || "") + " " + (m.titel || "");
             var body = document.createElement("div");
             body.style.cssText = "padding:.5rem 1rem 1rem;line-height:1.7";
@@ -855,7 +856,7 @@
             if ((mType === "statistik" || mType === "diagramm") && (m.text || "").includes("|")) {
               body.innerHTML = DOMPurify.sanitize(marked.parse(m.text || ""));
               body.innerHTML += '<div class="material-chart"><canvas id="chart-inf-' + idx + '"></canvas></div>';
-            } else if (mType === "bild") {
+            } else if (["bild", "karikatur"].includes(mType)) {
               body.innerHTML = '<div class="material-img-loading" id="img-inf-' + idx + '"><div class="loader-spinner"></div><span>Bild wird generiert\u2026</span></div>';
             } else if (mType === "foto") {
               body.innerHTML = '<div class="material-img-loading" id="img-inf-' + idx + '"><div class="loader-spinner"></div><span>Foto wird geladen\u2026</span></div>';
@@ -879,7 +880,7 @@
             if ((mType === "statistik" || mType === "diagramm") && (m.text || "").includes("|")) {
               var chartType = m.chart_type || (mType === "statistik" ? "bar" : "line");
               renderMaterialChart(m.text, "chart-inf-" + idx, chartType);
-            } else if ((mType === "bild" || mType === "foto") && (m.text || m.content)) {
+            } else if ((["bild", "karikatur"].includes(mType) || mType === "foto") && (m.text || m.content)) {
               loadEducationalImage(m.text || m.content, "img-inf-" + idx, m.bild_labels || m.image_labels || null);
             }
           } catch (err) {
@@ -902,7 +903,7 @@
       if (d.material && d.material.length && matContainer) {
         writeMat.innerHTML = matContainer.innerHTML;
         writeMatDetails.style.display = "";
-        renderMath(writeMat);
+        if (typeof renderMath === 'function') renderMath(writeMat);
       } else {
         writeMatDetails.style.display = "none";
       }
@@ -1022,6 +1023,7 @@
     }
 
     async function submitForGrading() {
+      if (!educationalMaterialsReady()) return;
       if (window.checkOcrPending && window.checkOcrPending()) return;
       const textareas = document.querySelectorAll('#studentTextareas textarea');
       const teilaufgaben = CONFIG.storedData?.teilaufgaben || [];

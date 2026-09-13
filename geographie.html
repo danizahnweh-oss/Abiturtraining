@@ -28,7 +28,7 @@
   <script src="/vendor/purify.min.js" defer></script>
   <script src="/vendor/chart.umd.min.js" defer></script>
   <link rel="stylesheet" href="/fonts/fonts.css">
-  <link rel="stylesheet" href="shared-v4.css">
+  <link rel="stylesheet" href="shared-v4.css?v=20260913-materials">
   <style>
     /* Geographie accent override – cyan */
     :root {
@@ -706,7 +706,7 @@ Tipp: Strukturiere deinen Text:
     };
   </script>
   <script src="ai-tutor.js" defer></script>
-  <script src="shared.js"></script>
+  <script src="shared.js?v=20260913-materials"></script>
 
   <!-- MODULE-SPECIFIC CODE -->
   <script>
@@ -852,7 +852,7 @@ gesamt_np = round(verstehen_np * 0.7 + darstellung_np * 0.3)`;
           if (s.storedData) {
             CONFIG.storedData = s.storedData;
             renderTask(s.storedData);
-            if (s.hlMaterials) document.getElementById("materialsContainer").innerHTML = s.hlMaterials;
+            if (s.hlMaterials) restoreEducationalHighlights("materialsContainer", s.hlMaterials);
             syncHL();
           }
           if (s.halbjahr) selectHalbjahr(s.halbjahr);
@@ -922,6 +922,7 @@ gesamt_np = round(verstehen_np * 0.7 + darstellung_np * 0.3)`;
     }
 
     function renderTask(d) {
+      prepareEducationalMaterials(d);
       document.getElementById("taskInstruction").innerHTML = escapeHtml(d.task_instruction || "").replace(/\n/g, "<br>");
 
       const hjLabel = HJ_LABELS[d.halbjahr || CONFIG.halbjahr] || "";
@@ -942,7 +943,7 @@ gesamt_np = round(verstehen_np * 0.7 + darstellung_np * 0.3)`;
             body = `<div id="map-m-${i}" style="text-align:center;color:var(--ink-muted)">Karte wird geladen...</div>`;
           } else if (m.type === "klimadiagramm") {
             body = `<div class="material-klimadiagramm"><canvas id="klima-m-${i}"></canvas></div>`;
-          } else if (m.type === "bild") {
+          } else if ((m.type === "bild" || m.type === "karikatur")) {
             body = `<div class="material-img-loading" id="img-m-${i}"><div class="loader-spinner"></div><span>Bild wird generiert...</span></div>`;
           } else if (m.type === "foto") {
             body = `<div class="material-img-loading" id="img-m-${i}"><div class="loader-spinner"></div><span>Foto wird geladen...</span></div>`;
@@ -963,7 +964,7 @@ gesamt_np = round(verstehen_np * 0.7 + darstellung_np * 0.3)`;
             renderKarte(m.content, `map-m-${i}`);
           } else if (m.type === "klimadiagramm") {
             renderKlimadiagramm(m.content, `klima-m-${i}`);
-          } else if (m.type === "bild") {
+          } else if ((m.type === "bild" || m.type === "karikatur")) {
             loadEducationalImage(m.content, `img-m-${i}`, m.bild_labels || m.image_labels || null);
           } else if (m.type === "foto") {
             loadEducationalImage(m.content, `img-m-${i}`, m.bild_labels || m.image_labels || null);
@@ -998,6 +999,7 @@ gesamt_np = round(verstehen_np * 0.7 + darstellung_np * 0.3)`;
     }
 
     async function submitForGrading() {
+      if (!educationalMaterialsReady()) return;
       if (window.checkOcrPending && window.checkOcrPending()) return;
       const t = document.getElementById("studentText").value;
       if (countWords(t) < MODULE_CONFIG.minWords) { showToast("Min. " + MODULE_CONFIG.minWords + " W\u00f6rter"); return; }

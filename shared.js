@@ -1358,8 +1358,194 @@ function closeRewriteOverlay() {
 
 let currentStep = null;
 
+// Gemeinsamer Lebenszyklus für Bildmaterialien der Gymnasiums-Fachseiten.
+// Die Fach-Renderer behalten ihre Tabellen, Karten und Aufgabenformate.
+let educationalMaterialObserver = null;
+let educationalMaterialData = null;
+const educationalImageStyles = new Map();
+
+function normalizeEducationalMaterialType(material) {
+  const raw = material.type != null ? material.type : material.typ;
+  const type = String(raw || '').normalize('NFKC').toLowerCase().replace(/[\s\u200B-\u200D\uFEFF_-]+/g, '');
+  if (/^(karikatur|cartoon|caricature)s?$/.test(type)) return 'karikatur';
+  if (['image', 'illustration', 'abbildung'].includes(type)) return 'bild';
+  if (['photo', 'photograph', 'fotografie'].includes(type)) return 'foto';
+  // Nur ausdrücklich als Karikatur betitelte Materialien, nicht Texte ÜBER Karikaturen.
+  if ((!type || type === 'text') && /^(karikatur|cartoon)(?:\s*[:„"–-]|$)/i.test(String(material.title || material.titel || '').trim())) return 'karikatur';
+  return type;
+}
+
+function prepareEducationalMaterials(data) {
+  if (educationalMaterialObserver) educationalMaterialObserver.disconnect();
+  document.querySelectorAll('[data-required-material]').forEach(el => {
+    el._educationalImageRequest = null;
+    el.removeAttribute('data-required-material');
+    el.removeAttribute('data-image-state');
+    el.removeAttribute('aria-busy');
+  });
+  educationalMaterialData = data;
+  educationalImageStyles.clear();
+  function visit(value) {
+    if (!value || typeof value !== 'object') return;
+    if (!Array.isArray(value)) {
+      const type = normalizeEducationalMaterialType(value);
+      if (type) {
+        value.type = type;
+        if ('typ' in value) value.typ = type;
+      }
+      if (['bild', 'foto', 'karikatur'].includes(type)) {
+        const content = value.content || value.text || value.inhalt;
+        if (typeof content === 'string') {
+          // Beide von den Fach-Renderern verwendeten Feldnamen unterstützen.
+          if (!value.content) value.content = content;
+          if (!value.text) value.text = content;
+          educationalImageStyles.set(content, type === 'bild' ? 'diagram' : type);
+        }
+      }
+      if (value.primary_type) {
+        value.primary_type = normalizeEducationalMaterialType({ type: value.primary_type });
+        if (['bild', 'foto', 'karikatur'].includes(value.primary_type)) educationalImageStyles.set(value.primary_text, value.primary_type === 'bild' ? 'diagram' : value.primary_type);
+      }
+    }
+    Object.values(value).forEach(visit);
+  }
+  visit(data);
+  // Nach dem synchronen Fach-Rendering beobachten; keine zweite Bildgenerierung.
+  queueMicrotask(function () {
+    if (educationalMaterialData !== data) return;
+    const task = document.getElementById((MODULE_CONFIG.sectionPrefix || '') + 'task');
+    if (!task) return;
+    task.querySelectorAll('.material-img-loading').forEach(el => {
+      el.dataset.requiredMaterial = '';
+      if (!el.dataset.imageState) el.dataset.imageState = 'loading';
+    });
+    syncEducationalMaterialReferences();
+    educationalMaterialObserver = new MutationObserver(syncEducationalMaterialReferences);
+    educationalMaterialObserver.observe(task, { childList: true, subtree: true, attributes: true, attributeFilter: ['data-image-state', 'aria-busy'] });
+  });
+}
+
+function copyEducationalMaterial(source, target) {
+  const focusedButton = [...target.querySelectorAll('.edu-img-regen-btn')].indexOf(document.activeElement);
+  target.innerHTML = source.innerHTML;
+  if (source.dataset.imageState) {
+    target.dataset.imageState = source.dataset.imageState;
+    target.setAttribute('aria-busy', source.getAttribute('aria-busy') || 'false');
+  }
+  target.querySelectorAll('[id]').forEach(el => el.removeAttribute('id'));
+  // Canvas-Bitmaps werden von innerHTML nicht mitkopiert.
+  const canvases = source.querySelectorAll('canvas');
+  target.querySelectorAll('canvas').forEach((canvas, index) => {
+    const original = canvases[index];
+    if (original && original.width && original.height) {
+      canvas.width = original.width;
+      canvas.height = original.height;
+      canvas.getContext('2d').drawImage(original, 0, 0);
+    }
+  });
+  const buttons = source.querySelectorAll('.edu-img-regen-btn');
+  target.querySelectorAll('.edu-img-regen-btn').forEach((button, index) => {
+    button.addEventListener('click', () => buttons[index]?.click());
+    if (index === focusedButton) button.focus({ preventScroll: true });
+  });
+}
+
+function restoreEducationalHighlights(containerId, savedHtml) {
+  const current = document.getElementById(containerId);
+  if (!current || typeof savedHtml !== 'string') return;
+  const saved = document.createElement('template');
+  saved.innerHTML = DOMPurify.sanitize(savedHtml);
+  if (!current.querySelector('.material-img-loading, [data-required-material], canvas')) {
+    current.innerHTML = saved.innerHTML;
+    return;
+  }
+  // Text-Markierungen erhalten, aber niemals alte Bildprompts, Ladezustände oder
+  // handlerlose Bildkopien über frisch erzeugte Material-Elemente schreiben.
+  const oldBodies = saved.content.querySelectorAll('.material-body, .material-content');
+  current.querySelectorAll('.material-body, .material-content').forEach((body, index) => {
+    if (!body.querySelector('.material-img-loading, [data-required-material], canvas') && oldBodies[index]) body.innerHTML = oldBodies[index].innerHTML;
+  });
+}
+
+function syncEducationalMaterialReferences() {
+  if (!educationalMaterialData) return;
+  const write = document.getElementById((MODULE_CONFIG.sectionPrefix || '') + 'write');
+  if (!write) return;
+  const pairs = [['materialsContainer', 'writeMaterialsRef'], ['sourceText', 'writeSourceRef']];
+  if (educationalMaterialData.tasks) pairs.push(['taskInstruction', 'writeTaskRef']);
+  pairs.forEach(([sourceId, targetId]) => {
+    const source = document.getElementById(sourceId);
+    const target = document.getElementById(targetId);
+    if (source && target) {
+      copyEducationalMaterial(source, target);
+      target.parentElement.classList.toggle('educational-reference-has-images', !!source.querySelector('.material-img-loading, img'));
+    }
+  });
+  const extra = document.getElementById('zusatzMaterialien');
+  if (extra) {
+    let target = document.getElementById('writeZusatzMaterialien');
+    if (!target) {
+      target = document.createElement('div');
+      target.id = 'writeZusatzMaterialien';
+      const anchor = document.getElementById('writeSourceRef') || document.getElementById('writeTaskRef');
+      if (anchor) anchor.after(target); else write.prepend(target);
+    }
+    copyEducationalMaterial(extra, target);
+  }
+  const cartoon = document.getElementById('cartoonContainer');
+  const cartoonRef = document.getElementById('writeCartoonPreview');
+  if (cartoon && cartoonRef) {
+    const selected = !!educationalMaterialData.cartoon_prompt && document.getElementById('doTask31')?.checked;
+    cartoonRef.style.display = selected ? 'block' : 'none';
+    if (selected) copyEducationalMaterial(cartoon, cartoonRef); else cartoonRef.replaceChildren();
+  }
+  const task = document.getElementById((MODULE_CONFIG.sectionPrefix || '') + 'task');
+  const dynamic = task?.querySelector('.dynamic-material');
+  const dynamicRef = document.getElementById('writeMaterialRef');
+  if (dynamic && dynamicRef) copyEducationalMaterial(dynamic, dynamicRef);
+  // Naturwissenschaftliche Abiturseiten haben aufgabenweise Bildmaterialien.
+  const groups = document.getElementById('aufgabengruppenContainer');
+  if (groups) {
+    let gallery = document.getElementById('writeImageMaterials');
+    if (!gallery) {
+      gallery = document.createElement('div');
+      gallery.id = 'writeImageMaterials';
+      (document.getElementById('writeTaskRef') || write).append(gallery);
+    }
+    gallery.replaceChildren();
+    const sources = new Set();
+    groups.querySelectorAll('[data-required-material]').forEach(el => {
+      if (isRequiredEducationalMaterial(el)) sources.add(el.closest('details') || el);
+    });
+    sources.forEach(source => {
+      const target = document.createElement(source.tagName.toLowerCase());
+      target.className = source.className;
+      if (target.tagName === 'DETAILS') target.open = true;
+      copyEducationalMaterial(source, target);
+      gallery.append(target);
+    });
+  }
+}
+
+function isRequiredEducationalMaterial(el) {
+  const group = el.closest('.aufgabengruppe-card.selectable');
+  return !group || group.classList.contains('selected');
+}
+
+function educationalMaterialsReady() {
+  const task = document.getElementById((MODULE_CONFIG.sectionPrefix || '') + 'task');
+  const missing = [...(task?.querySelectorAll('[data-required-material]:not([data-image-state="ready"])') || [])].find(isRequiredEducationalMaterial);
+  if (!missing) return true;
+  showToast(missing.dataset.imageState === 'error'
+    ? 'Ein erforderliches Bild fehlt. Bitte lade es in der Aufgabenansicht erneut.'
+    : 'Die Bilder werden noch erstellt. Bitte warte, bis alle Materialien bereit sind.');
+  return false;
+}
+
 function nav(step, _pushHistory) {
+  if ((step === 'write' || step === 'feedback') && !educationalMaterialsReady()) return;
   if ((step === "write" || step === "feedback") && typeof ensureMaterialsReady === "function" && !ensureMaterialsReady()) return;
+  if (step === 'write') syncEducationalMaterialReferences();
   const prefix = MODULE_CONFIG.sectionPrefix || "";
   const steps = MODULE_CONFIG.steps;
   const idx = steps.indexOf(step);
@@ -1869,6 +2055,7 @@ function closePdfModal() {
 }
 
 function exportTaskPDF(mode) {
+  if (!educationalMaterialsReady()) return;
   if (typeof ensureMaterialsReady === "function" && !ensureMaterialsReady()) return;
   var prefix = MODULE_CONFIG.sectionPrefix || "";
   closePdfModal();
@@ -2050,12 +2237,14 @@ function syncHL() {
   // Use module-specific sync if defined
   if (MODULE_CONFIG.syncHL) {
     MODULE_CONFIG.syncHL();
+    syncEducationalMaterialReferences();
     return;
   }
   // Default: sync sourceText -> writeSourceRef
   const s = document.getElementById("sourceText");
   const w = document.getElementById("writeSourceRef");
   if (s && w) w.innerHTML = s.innerHTML;
+  syncEducationalMaterialReferences();
 }
 
 /* ================= OCR ================= */
@@ -2755,28 +2944,41 @@ if (typeof MODULE_CONFIG !== 'undefined') window.addEventListener("load", functi
    Ersetzt die inline loadDallEImage/loadUnsplashImage in allen Seiten.
    Generiert textfreie Bilder mit HTML-Label-Overlays.
    ============================ */
-async function loadEducationalImage(prompt, containerId, labels, style, _isRetry) {
+async function loadEducationalImage(prompt, containerId, labels, style, _isRetry, options) {
   var el = document.getElementById(containerId);
   if (!el) return;
+  style = educationalImageStyles.get(prompt) || style;
+  const requestToken = {};
+  el._educationalImageRequest = requestToken;
+  const isCurrent = () => el.isConnected && el._educationalImageRequest === requestToken;
+  el.dataset.requiredMaterial = '';
   el.dataset.imageState = "loading";
   el.setAttribute("aria-busy", "true");
+  let imageTimer;
   function imageFailed() {
-    if (!el.isConnected) return;
+    clearTimeout(imageTimer);
+    if (!isCurrent()) return;
     el.dataset.imageState = "error";
     el.setAttribute("aria-busy", "false");
     el.innerHTML = '<div class="edu-img-error" role="alert"><p>Das Bild konnte nicht geladen werden. Bitte versuche es erneut.</p><button type="button" class="edu-img-regen-btn" style="min-height:44px">Bild erneut laden</button></div>';
-    el.querySelector("button").addEventListener("click", function () {
-      loadEducationalImage(prompt, containerId, labels, style, true);
+    el.querySelector("button").addEventListener("click", function (event) {
+      event.stopPropagation();
+      loadEducationalImage(prompt, containerId, labels, style, true, options);
     });
   }
   function watchImage() {
+    if (options?.decorate) options.decorate(el);
     var img = el.querySelector("img");
     img.loading = "eager";
     img.onload = function () {
+      if (!isCurrent()) return;
+      clearTimeout(imageTimer);
       el.dataset.imageState = "ready";
       el.setAttribute("aria-busy", "false");
+      if (options?.onReady) options.onReady(img.src);
     };
     img.onerror = imageFailed;
+    imageTimer = setTimeout(imageFailed, 30000);
     if (img.complete) {
       if (img.naturalWidth > 0) img.onload();
       else imageFailed();
@@ -2813,11 +3015,11 @@ async function loadEducationalImage(prompt, containerId, labels, style, _isRetry
   try {
     var d = await apiCall("/api/generate-image", {
       prompt: actualPrompt,
-      noText: false,
+      noText: options?.noText === true,
       style: style || "diagram"
     });
 
-    if (!el.isConnected) return;
+    if (!isCurrent()) return;
     if (!d || typeof d.url !== "string" || !/^(data:image\/(?:png|jpeg|webp|gif);base64,|https?:\/\/)/i.test(d.url)) throw new Error("Bildadresse fehlt oder ist ungültig");
     var credit = d.credit
       ? '<div class="edu-img-credit">' + escapeHtml(d.credit) + '</div>'
@@ -2873,7 +3075,7 @@ async function loadEducationalImage(prompt, containerId, labels, style, _isRetry
 
     // KI-Hinweis (Karikaturen klar als synthetische Übungsmaterialien kennzeichnen)
     var noticeText;
-    if (style === 'karikatur') {
+    if (style === 'karikatur' || style === 'cartoon') {
       noticeText = 'KI-generierte Übungskarikatur – kein historisches Original. Symbole und Texte können Fehler enthalten.';
     } else if (hasNumberedLegend) {
       noticeText = 'KI-generiertes Bild – Beschriftungen siehe Legende.';
@@ -2909,8 +3111,9 @@ async function loadEducationalImage(prompt, containerId, labels, style, _isRetry
     // Klick-Handler für Neu-Generieren
     var regenBtn = el.querySelector('.edu-img-regen-btn');
     if (regenBtn) {
-      regenBtn.addEventListener('click', function() {
-        loadEducationalImage(prompt, containerId, labels, style, true);
+      regenBtn.addEventListener('click', function(event) {
+        event.stopPropagation();
+        loadEducationalImage(prompt, containerId, labels, style, true, options);
       });
     }
   } catch (e) {

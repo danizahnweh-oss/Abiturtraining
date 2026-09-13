@@ -28,7 +28,7 @@
   <script src="/vendor/purify.min.js" defer></script>
   <script src="/vendor/chart.umd.min.js" defer></script>
   <link rel="stylesheet" href="/fonts/fonts.css">
-  <link rel="stylesheet" href="shared-v4.css">
+  <link rel="stylesheet" href="shared-v4.css?v=20260913-materials">
   <style>
     /* Ethik accent override (indigo) */
     :root {
@@ -780,7 +780,7 @@ Tipp: Teil B geht über die Materialien hinaus.
     };
   </script>
   <script src="ai-tutor.js" defer></script>
-  <script src="shared.js"></script>
+  <script src="shared.js?v=20260913-materials"></script>
 
   <!-- MODULE-SPECIFIC CODE -->
   <script>
@@ -918,7 +918,7 @@ gesamt_np = round(teil_a_np * 0.5 + teil_b_np * 0.2 + darstellung_np * 0.3)`;
           if (s.storedData) {
             CONFIG.storedData = s.storedData;
             renderTask(s.storedData);
-            if (s.hlMaterials) document.getElementById("materialsContainer").innerHTML = s.hlMaterials;
+            if (s.hlMaterials) restoreEducationalHighlights("materialsContainer", s.hlMaterials);
             syncHL();
           }
           if (s.lernbereich) selectLernbereich(s.lernbereich);
@@ -1023,6 +1023,7 @@ gesamt_np = round(teil_a_np * 0.5 + teil_b_np * 0.2 + darstellung_np * 0.3)`;
     }
 
     function renderTask(d) {
+      prepareEducationalMaterials(d);
       // Hochgeladene Bilder: Original-Aufgabenblatt gross anzeigen
       if (d._uploadImages && d._uploadImages.length) {
         var imgHtml = d._uploadImages.map(function(url) {
@@ -1053,13 +1054,13 @@ gesamt_np = round(teil_a_np * 0.5 + teil_b_np * 0.2 + darstellung_np * 0.3)`;
       // Handle materials array (from AI generation)
       if (d.materials && d.materials.length) {
         container.innerHTML = d.materials.map((m, i) => {
-          const typeBadges = { statistik: 'Statistik', bild: 'Bild', foto: 'Foto' };
+          const typeBadges = { statistik: 'Statistik', bild: 'Bild', foto: 'Foto', karikatur: 'Karikatur' };
           const typeBadge = `<span class="material-type-badge">${typeBadges[m.type] || 'Text'}</span>`;
           let body;
           if (m.type === "statistik" && (m.content || "").includes("|")) {
             body = DOMPurify.sanitize(marked.parse(m.content || ""));
             body += `<div class="material-chart"><canvas id="chart-m-${i}"></canvas></div>`;
-          } else if (m.type === "bild") {
+          } else if ((m.type === "bild" || m.type === "karikatur")) {
             body = `<div class="material-img-loading" id="img-m-${i}"><div class="loader-spinner"></div><span>Bild wird generiert...</span></div>`;
           } else if (m.type === "foto") {
             body = `<div class="material-img-loading" id="img-m-${i}"><div class="loader-spinner"></div><span>Foto wird geladen...</span></div>`;
@@ -1075,7 +1076,7 @@ gesamt_np = round(teil_a_np * 0.5 + teil_b_np * 0.2 + darstellung_np * 0.3)`;
         d.materials.forEach((m, i) => {
           if (m.type === "statistik" && (m.content || "").includes("|")) {
             renderStatistikChart(m.content, `chart-m-${i}`);
-          } else if (m.type === "bild" || m.type === "foto") {
+          } else if ((m.type === "bild" || m.type === "karikatur") || m.type === "foto") {
             loadEducationalImage(m.content, `img-m-${i}`, m.bild_labels || m.image_labels || null);
           }
         });
@@ -1130,6 +1131,7 @@ gesamt_np = round(teil_a_np * 0.5 + teil_b_np * 0.2 + darstellung_np * 0.3)`;
     }
 
     async function submitForGrading() {
+      if (!educationalMaterialsReady()) return;
       if (window.checkOcrPending && window.checkOcrPending()) return;
       const tA = document.getElementById("studentTextA").value;
       const tB = document.getElementById("studentTextB").value;

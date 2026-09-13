@@ -11,14 +11,17 @@ export async function handleGenerateImage(request, env) {
   }
 
   // Stil normalisieren: "diagram" (Standard), "foto", "karikatur"
-  const styleKind = style === "karikatur" ? "karikatur" : style === "foto" ? "foto" : "diagram";
+  const englishCartoon = style === "cartoon";
+  const styleKind = style === "karikatur" || englishCartoon ? "karikatur" : style === "foto" ? "foto" : "diagram";
   // noText=true erzwingt nummern-basierte Beschriftung (Fallback-Sicherung für schwächere Modelle).
   // Standard: Nano Banana Pro rendert deutsche Beschriftungen direkt ins Bild.
   const allowText = noText !== true && styleKind !== "foto";
 
   // --- Stil-spezifische Anweisungen für Gemini (Nano Banana Pro + Flash) ---
   let styleInstruction;
-  if (styleKind === "karikatur") {
+  if (englishCartoon) {
+    styleInstruction = `Style: An original English editorial cartoon with satirical exaggeration, expressive figures and visual metaphor. Hand-drawn ink-and-wash newspaper style. Do not draw any text, letters, numbers or speech bubbles; the application adds English speech bubbles separately.`;
+  } else if (styleKind === "karikatur") {
     styleInstruction = `Style: A political/editorial cartoon (German "Karikatur") in the tradition of newspaper caricatures. Use satirical exaggeration, symbolic imagery, and visual metaphor appropriate for analysis in a German school exam. Hand-drawn ink-and-wash or pen style, expressive linework. German text in speech bubbles, signs and labels is allowed and should be spelled correctly and legibly. The cartoon must be a NEWLY DRAWN illustration in the style of the period — not a copy of any existing real artwork.`;
   } else if (styleKind === "foto") {
     styleInstruction = `Style: A realistic, high-quality photograph. Natural lighting, authentic detail. No text or words in the image.`;
@@ -38,13 +41,17 @@ ${styleInstruction}
 After generating the image, write a short factual German caption (max 15 words). Only the caption, no prefix.`;
 
   // --- Ideogram-Prompt (Provider-Fallback) ---
-  const ideogramPrompt = styleKind === "karikatur"
+  const ideogramPrompt = englishCartoon
+    ? `Original English editorial cartoon, satirical exaggeration and expressive ink linework: ${prompt}. No text, letters, numbers or speech bubbles; these are added separately.`
+    : styleKind === "karikatur"
     ? `Editorial political cartoon (Karikatur), hand-drawn satirical style with symbolic exaggeration: ${prompt}. Expressive ink linework, correctly spelled German text in speech bubbles where appropriate.`
     : styleKind === "foto"
       ? `Realistic high-quality photograph: ${prompt}. Natural lighting, authentic detail, no text.`
       : `Professional educational diagram: ${prompt}. Clean, precise illustration with vivid colors, sharp lines, white background.${allowText ? " Concise correctly spelled German labels." : " Label elements with numbers only (1, 2, 3)."}`;
   // Negative-Prompt nur außerhalb von Karikaturen einschränken (dort sind Personen/Text gewollt)
-  const ideogramNegative = styleKind === "karikatur"
+  const ideogramNegative = englishCartoon
+    ? "text, letters, numbers, speech bubbles, watermark, logo, blurry, low quality, signature"
+    : styleKind === "karikatur"
     ? "watermark, modern logo, blurry, low quality, signature"
     : (allowText
         ? "people, persons, faces, portraits, caricatures, watermark, logo, blurry, low quality, ugly, gibberish text, misspelled words"

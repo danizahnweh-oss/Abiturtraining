@@ -28,7 +28,7 @@
   <script src="/vendor/purify.min.js" defer></script>
   <script src="/vendor/chart.umd.min.js" defer></script>
   <link rel="stylesheet" href="/fonts/fonts.css">
-  <link rel="stylesheet" href="shared-v4.css">
+  <link rel="stylesheet" href="shared-v4.css?v=20260913-materials">
   <style>
     /* Sport accent – Orange-Rot */
     :root {
@@ -559,7 +559,7 @@
     };
   </script>
   <script src="ai-tutor.js" defer></script>
-  <script src="shared.js"></script>
+  <script src="shared.js?v=20260913-materials"></script>
 
   <!-- MODULE-SPECIFIC CODE -->
   <script>
@@ -724,6 +724,7 @@
     }
 
     function renderTask(d) {
+      prepareEducationalMaterials(d);
       const instrEl = document.getElementById("taskInstruction");
       const raw = d.aufgabe || d.task_instruction || "";
 
@@ -761,13 +762,13 @@
         d.material.forEach(function (m, mIdx) {
           var details = document.createElement("details");
           details.style.cssText = "border:1px solid var(--border);border-radius:var(--radius-sm);margin-bottom:.5rem";
-          if (m.type === "bild" || m.type === "foto") details.open = true;
+          if (["bild", "karikatur"].includes(m.type) || m.type === "foto") details.open = true;
           var summary = document.createElement("summary");
           summary.style.cssText = "padding:.8rem 1rem;cursor:pointer;font-weight:600;color:var(--accent)";
           summary.textContent = (m.id || "") + " " + (m.titel || "");
           var body = document.createElement("div");
           body.style.cssText = "padding:.5rem 1rem 1rem;line-height:1.7";
-          if (m.type === "bild") {
+          if (["bild", "karikatur"].includes(m.type)) {
             body.innerHTML = '<div class="material-img-loading" id="img-spo-' + mIdx + '"><div class="loader-spinner"></div><span>Bild wird generiert\u2026</span></div>';
           } else if (m.type === "foto") {
             body.innerHTML = '<div class="material-img-loading" id="img-spo-' + mIdx + '"><div class="loader-spinner"></div><span>Foto wird geladen\u2026</span></div>';
@@ -781,7 +782,7 @@
         instrEl.closest(".card").insertBefore(matContainer, container);
         // Bilder nach DOM-Einfügung laden
         d.material.forEach(function (m, mIdx) {
-          if ((m.type === "bild" || m.type === "foto") && (m.text || m.content)) {
+          if ((["bild", "karikatur"].includes(m.type) || m.type === "foto") && (m.text || m.content)) {
             loadEducationalImage(m.text || m.content, 'img-spo-' + mIdx, m.bild_labels || m.image_labels || null);
           }
         });
@@ -801,7 +802,7 @@
       if (d.material && d.material.length && matContainer) {
         writeMat.innerHTML = matContainer.innerHTML;
         writeMatDetails.style.display = "";
-        renderMath(writeMat);
+        if (typeof renderMath === 'function') renderMath(writeMat);
       } else {
         writeMatDetails.style.display = "none";
       }
@@ -921,6 +922,7 @@
     }
 
     async function submitForGrading() {
+      if (!educationalMaterialsReady()) return;
       if (window.checkOcrPending && window.checkOcrPending()) return;
       const textareas = document.querySelectorAll('#studentTextareas textarea');
       const teilaufgaben = CONFIG.storedData?.teilaufgaben || [];

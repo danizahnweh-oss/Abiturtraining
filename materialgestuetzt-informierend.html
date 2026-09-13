@@ -28,7 +28,7 @@
   <script src="/vendor/purify.min.js" defer></script>
   <script src="/vendor/chart.umd.min.js" defer></script>
   <link rel="stylesheet" href="/fonts/fonts.css">
-  <link rel="stylesheet" href="shared-v4.css">
+  <link rel="stylesheet" href="shared-v4.css?v=20260913-materials">
   <style>
     /* Module-specific styles */
     .material-box {
@@ -576,7 +576,7 @@ Denke an:
     };
   </script>
   <script src="ai-tutor.js" defer></script>
-  <script src="shared.js"></script>
+  <script src="shared.js?v=20260913-materials"></script>
 
   <!-- MODULE-SPECIFIC CODE -->
   <script>
@@ -627,7 +627,7 @@ gesamt_np = round(verstehen_np * 0.6 + darstellung_np * 0.4)`;
         const desc = afterTable.length ? `<p style="margin-top:.5rem;font-size:.85rem;color:var(--ink-light)">${escapeHtml(afterTable.join(" "))}</p>` : "";
         return tableHtml + desc + `<div class="material-chart"><canvas id="chart-mg-${idx}"></canvas></div>`;
       }
-      if (type === "bild") {
+      if ((type === "bild" || type === "karikatur")) {
         return `<div class="material-img-loading" id="img-mg-${idx}"><div class="loader-spinner"></div><span>Bild wird generiert...</span></div>`;
       }
       if (type === "foto") {
@@ -696,6 +696,7 @@ gesamt_np = round(verstehen_np * 0.6 + darstellung_np * 0.4)`;
     }
 
     function renderTask(d) {
+      prepareEducationalMaterials(d);
       document.getElementById("taskInstruction").innerHTML = escapeHtml(d.task_instruction || "").replace(/\n/g, "<br>");
       document.getElementById("zieltextInfo").textContent = d.zieltext || "–";
       document.getElementById("zielgruppeInfo").textContent = d.zielgruppe || "–";
@@ -715,7 +716,7 @@ gesamt_np = round(verstehen_np * 0.6 + darstellung_np * 0.4)`;
       materials.forEach((m, i) => {
         if (m.type === "statistik" && (m.content || "").includes("|")) {
           renderStatistikChart(m.content, `chart-mg-${i}`);
-        } else if (m.type === "bild" || m.type === "foto") {
+        } else if ((m.type === "bild" || m.type === "karikatur") || m.type === "foto") {
           loadEducationalImage(m.content, `img-mg-${i}`, m.bild_labels || m.image_labels || null);
         }
       });
@@ -732,6 +733,7 @@ gesamt_np = round(verstehen_np * 0.6 + darstellung_np * 0.4)`;
     }
 
     async function submitForGrading() {
+      if (!educationalMaterialsReady()) return;
       if (window.checkOcrPending && window.checkOcrPending()) return;
       const t = document.getElementById("studentText").value;
       if (countWords(t) < 150) { showToast("Bitte mindestens 150 Wörter schreiben."); return; }

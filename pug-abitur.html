@@ -28,7 +28,7 @@
   <script src="/vendor/purify.min.js" defer></script>
   <script src="/vendor/chart.umd.min.js" defer></script>
   <link rel="stylesheet" href="/fonts/fonts.css">
-  <link rel="stylesheet" href="shared-v4.css">
+  <link rel="stylesheet" href="shared-v4.css?v=20260913-materials">
   <style>
     /* PuG accent override */
     :root {
@@ -783,7 +783,7 @@ Tipp: Teil B geht über die Materialien hinaus.
     };
   </script>
   <script src="ai-tutor.js" defer></script>
-  <script src="shared.js"></script>
+  <script src="shared.js?v=20260913-materials"></script>
 
   <!-- MODULE-SPECIFIC CODE -->
   <script>
@@ -924,7 +924,7 @@ gesamt_np = round(teil_a_np * 0.5 + teil_b_np * 0.2 + darstellung_np * 0.3)`;
           if (s.storedData) {
             CONFIG.storedData = s.storedData;
             renderTask(s.storedData);
-            if (s.hlMaterials) document.getElementById("materialsContainer").innerHTML = s.hlMaterials;
+            if (s.hlMaterials) restoreEducationalHighlights("materialsContainer", s.hlMaterials);
             syncHL();
           }
           if (s.halbjahr) selectHalbjahr(s.halbjahr);
@@ -1021,6 +1021,7 @@ gesamt_np = round(teil_a_np * 0.5 + teil_b_np * 0.2 + darstellung_np * 0.3)`;
     }
 
     function renderTask(d) {
+      prepareEducationalMaterials(d);
       // Hochgeladene Bilder: Original-Aufgabenblatt gross anzeigen
       if (d._uploadImages && d._uploadImages.length) {
         var imgHtml = d._uploadImages.map(function(url) {
@@ -1132,6 +1133,7 @@ gesamt_np = round(teil_a_np * 0.5 + teil_b_np * 0.2 + darstellung_np * 0.3)`;
     }
 
     async function submitForGrading() {
+      if (!educationalMaterialsReady()) return;
       if (window.checkOcrPending && window.checkOcrPending()) return;
       const tA = document.getElementById("studentTextA").value;
       const tB = document.getElementById("studentTextB").value;

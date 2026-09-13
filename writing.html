@@ -29,7 +29,7 @@
   <script src="/vendor/purify.min.js" defer></script>
   <script src="/vendor/chart.umd.min.js" defer></script>
   <link rel="stylesheet" href="/fonts/fonts.css">
-  <link rel="stylesheet" href="shared-v4.css">
+  <link rel="stylesheet" href="shared-v4.css?v=20260913-materials">
 
   <style>
     /* Page-specific overrides – base styles from shared-v4.css */
@@ -224,6 +224,22 @@
     [data-theme="dark"] .cartoon-bubble.bottom-right::after { border-bottom-color: #888; }
 
     @media (max-width: 640px) {
+      #app-wrapper header {
+        flex-wrap: wrap;
+        gap: var(--space-2);
+      }
+
+      #app-wrapper header h1 {
+        flex: 1;
+        min-width: 0;
+      }
+
+      #app-wrapper .header-right {
+        width: 100%;
+        justify-content: flex-end;
+        flex-wrap: wrap;
+      }
+
       .scores-grid {
         grid-template-columns: 1fr;
       }
@@ -918,7 +934,7 @@
     };
   </script>
   <script src="ai-tutor.js" defer></script>
-  <script src="shared.js"></script>
+  <script src="shared.js?v=20260913-materials"></script>
   <script>
     /* ================= PROMPTS ================= */
 
@@ -1368,6 +1384,9 @@ Schreibe auf DEUTSCH, zitiere Schülertext auf Englisch.`;
 
     /* ================= RENDER ================= */
     function renderExam(d) {
+      prepareEducationalMaterials(d);
+      CONFIG.cartoonUrl = null;
+      document.getElementById('cartoonContainer').replaceChildren();
       // Hochgeladene Bilder: Original-Aufgabenblatt gross anzeigen
       if (d._uploadImages && d._uploadImages.length) {
         document.getElementById("taskInstruction").innerHTML = d._uploadImages.map(function(url) {
@@ -1416,79 +1435,29 @@ Schreibe auf DEUTSCH, zitiere Schülertext auf Englisch.`;
         `<strong>${escapeHtml(d.headline || "")}</strong><br><br>` +
         (d.article_text || "").split("\n").filter(p => p.trim()).map(p => `<p>${escapeHtml(p)}</p>`).join("");
 
-      // Cartoon auch in Schreib-Referenz anzeigen
-      const writeCartoon = document.getElementById("writeCartoonPreview");
-      if (hasCartoon && document.getElementById("doTask31")?.checked) {
-        writeCartoon.style.display = "block";
-        writeCartoon.innerHTML = '<div style="font-size:.85rem;color:var(--ink-muted);padding:.5rem;">Cartoon wird geladen…</div>';
-        const waitForCartoon = setInterval(function() {
-          if (CONFIG.cartoonUrl) {
-            clearInterval(waitForCartoon);
-            writeCartoon.innerHTML = '<img src="' + CONFIG.cartoonUrl + '" alt="Cartoon" style="max-width:100%;max-height:250px;border-radius:var(--radius-sm);border:1px solid var(--border);">';
-          }
-        }, 500);
-      } else {
-        writeCartoon.style.display = "none";
-        writeCartoon.innerHTML = "";
-      }
+      // Bild und Sprechblasen werden gemeinsam und ohne Polling synchronisiert.
+      syncEducationalMaterialReferences();
     }
 
     async function loadCartoonImage(prompt, containerId, bubbles, _isRetry) {
-      var el = document.getElementById(containerId);
-      if (!el) return;
-
-      if (_isRetry) {
-        el.innerHTML = '<div style="text-align:center;padding:1.5rem;"><div class="loader-spinner"></div><span style="display:block;margin-top:.5rem;font-size:.85rem;color:var(--ink-muted);">Cartoon wird neu generiert…</span></div>';
-      }
-
-      var actualPrompt = _isRetry
-        ? prompt + " --- IMPORTANT: Pay extra close attention to fine details, accuracy, proportions, and clarity. Make sure all elements are precisely rendered and clearly distinguishable. Improve the overall quality and visual precision compared to the previous attempt."
-        : prompt;
-
-      try {
-        const d = await apiCall("/api/generate-image", { prompt: actualPrompt, noText: true, style: "cartoon" });
-        const credit = d.credit ? '<div style="font-size:.7rem;color:var(--ink-muted);margin-top:.3rem;">' + escapeHtml(d.credit) + '</div>' : "";
-        const caption = d.caption ? '<figcaption style="font-size:.8rem;color:var(--ink-light);margin-top:.4rem;font-style:italic;">' + escapeHtml(d.caption) + '</figcaption>' : "";
-
-        // Sprechblasen als HTML-Overlays rendern
-        var bubblesHtml = "";
-        if (bubbles && bubbles.length) {
-          bubblesHtml = bubbles.map(function(b) {
-            var pos = ["top-left","top-right","bottom-left","bottom-right"].indexOf(b.position) !== -1 ? b.position : "top-left";
-            // Nur Sprechblasen-Text — keine Sprecher-Beschriftung über der Blase
-            return '<div class="cartoon-bubble ' + pos + '">' + escapeHtml(b.text || "") + '</div>';
-          }).join("");
-        }
-
-        var regenBtnHtml =
-          '<div style="text-align:center;">' +
-            '<button type="button" class="edu-img-regen-btn" title="Cartoon neu generieren">' +
-              '<svg class="regen-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>' +
-              'Neu generieren' +
-            '</button>' +
-          '</div>';
-
-        el.innerHTML =
-          '<figure style="margin:0;text-align:center;">' +
-          '<div class="cartoon-wrapper">' +
-          '<img src="' + d.url + '" alt="Cartoon">' +
-          bubblesHtml +
-          '</div>' +
-          caption + credit + regenBtnHtml + '</figure>';
-        CONFIG.cartoonUrl = d.url;
-
-        var regenBtn = el.querySelector('.edu-img-regen-btn');
-        if (regenBtn) {
-          regenBtn.addEventListener('click', function() {
-            loadCartoonImage(prompt, containerId, bubbles, true);
+      CONFIG.cartoonUrl = null;
+      return loadEducationalImage(prompt, containerId, null, "cartoon", _isRetry, {
+        noText: true,
+        onReady: function(url) { CONFIG.cartoonUrl = url; },
+        decorate: function(el) {
+          const wrapper = el.querySelector('.edu-img-wrapper');
+          if (!wrapper) return;
+          wrapper.classList.add('cartoon-wrapper');
+          wrapper.querySelector('img').alt = 'Cartoon zur Analyse';
+          (Array.isArray(bubbles) ? bubbles : []).forEach(function(b) {
+            const bubble = document.createElement('div');
+            const position = ['top-left', 'top-right', 'bottom-left', 'bottom-right'].includes(b.position) ? b.position : 'top-left';
+            bubble.className = 'cartoon-bubble ' + position;
+            bubble.textContent = b.text || '';
+            wrapper.appendChild(bubble);
           });
         }
-      } catch (e) {
-        console.error("Cartoon-Fehler:", e);
-        var el2 = document.getElementById(containerId);
-        if (el2) el2.innerHTML =
-          '<div style="color:var(--warning);font-size:.85rem;padding:.5rem;">Cartoon konnte nicht geladen werden.</div>';
-      }
+      });
     }
 
     function getSelectedTasks() {
@@ -1513,6 +1482,7 @@ Schreibe auf DEUTSCH, zitiere Schülertext auf Englisch.`;
 
     /* ================= SUBMIT FOR GRADING ================= */
     async function submitForCorrection() {
+      if (!educationalMaterialsReady()) return;
       const text = document.getElementById("studentText").value;
       if (countWords(text) < 30) {
         showToast("Dein Text ist zu kurz (mindestens 30 Wörter).");

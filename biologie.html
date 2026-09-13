@@ -33,7 +33,7 @@
   <script defer src="/vendor/katex/contrib/mhchem.min.js"></script>
   <script defer src="/vendor/katex/contrib/auto-render.min.js"></script>
   <link rel="stylesheet" href="/fonts/fonts.css">
-  <link rel="stylesheet" href="shared-v4.css">
+  <link rel="stylesheet" href="shared-v4.css?v=20260913-materials">
   <style>
     /* Green accent override */
     :root {
@@ -565,7 +565,7 @@
     };
   </script>
   <script src="ai-tutor.js" defer></script>
-  <script src="shared.js"></script>
+  <script src="shared.js?v=20260913-materials"></script>
 
   <!-- MODULE-SPECIFIC CODE -->
   <script>
@@ -1052,6 +1052,7 @@
     }
 
     function renderTask(d) {
+      prepareEducationalMaterials(d);
       const instrEl = document.getElementById("taskInstruction");
       const raw = d.aufgabe || d.task_instruction || "";
 
@@ -1093,7 +1094,7 @@
         d.material.forEach(function (m, mIdx) {
           var isChartMaterial = (m.type === "statistik" || m.type === "diagramm") && m.text;
           var isStammbaumMaterial = m.type === "stammbaum" && m.stammbaum_data;
-          var isBildMaterial = (m.type === "bild" || m.type === "foto") && m.text;
+          var isBildMaterial = (["bild", "karikatur"].includes(m.type) || m.type === "foto") && m.text;
 
           if (isStammbaumMaterial) {
             // Stammbaum: als SVG rendern
@@ -1307,6 +1308,7 @@
     }
 
     async function submitForGrading() {
+      if (!educationalMaterialsReady()) return;
       if (window.checkOcrPending && window.checkOcrPending()) return;
       // Collect per-textarea texts
       const textareas = document.querySelectorAll('#studentTextareas textarea');

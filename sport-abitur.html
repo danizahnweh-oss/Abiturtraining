@@ -32,7 +32,7 @@
   <script defer src="/vendor/katex/katex.min.js"></script>
   <script defer src="/vendor/katex/contrib/auto-render.min.js"></script>
   <link rel="stylesheet" href="/fonts/fonts.css">
-  <link rel="stylesheet" href="shared-v4.css">
+  <link rel="stylesheet" href="shared-v4.css?v=20260913-materials">
   <style>
     /* Rose/red accent override */
     :root {
@@ -666,7 +666,7 @@
     };
   </script>
   <script src="ai-tutor.js" defer></script>
-  <script src="shared.js"></script>
+  <script src="shared.js?v=20260913-materials"></script>
 
   <!-- MODULE-SPECIFIC CODE -->
   <script>
@@ -820,6 +820,7 @@
 
     /* ====== RENDER TASK ====== */
     function renderTask(d) {
+      prepareEducationalMaterials(d);
       var container = document.getElementById("aufgabengruppenContainer");
       var aufgaben = d.aufgaben || d.aufgabengruppen || [];
 
@@ -840,13 +841,13 @@
             if (!m || typeof m !== "object") return;
             if (m.text && typeof m.text === "string") m.text = normalizeMaterialText(m.text);
             var mtype = detectMaterialType(m);
-            var typeIcon = mtype === "statistik" ? "\ud83d\udcca " : mtype === "diagramm" ? "\ud83d\udcc8 " : (mtype === "bild" || mtype === "foto") ? "\ud83d\uddbc\ufe0f " : "";
+            var typeIcon = mtype === "statistik" ? "\ud83d\udcca " : mtype === "diagramm" ? "\ud83d\udcc8 " : (["bild", "karikatur"].includes(mtype) || mtype === "foto") ? "\ud83d\uddbc\ufe0f " : "";
             html += '<details class="material-details"><summary>' + typeIcon + renderInlineKatex(m.titel || m.id || ("Abb. " + (mi + 1))) + '</summary>';
             html += '<div class="material-body">';
             if (mtype === "statistik" || mtype === "diagramm") {
               if (m.text) html += DOMPurify.sanitize(safeMathParse(m.text));
               html += '<div class="material-chart"><canvas id="chart-spo-' + idx + '-' + mi + '"></canvas></div>';
-            } else if (mtype === "bild") {
+            } else if (["bild", "karikatur"].includes(mtype)) {
               html += '<div class="material-img-loading" id="img-spo-' + idx + '-' + mi + '"><div class="loader-spinner"></div><span>Bild wird generiert\u2026</span></div>';
             } else if (mtype === "foto") {
               html += '<div class="material-img-loading" id="img-spo-' + idx + '-' + mi + '"><div class="loader-spinner"></div><span>Foto wird geladen\u2026</span></div>';
@@ -892,7 +893,7 @@
         var mats = a.materialien || (Array.isArray(a.material) ? a.material : []);
         mats.forEach(function (m, mi) {
           var mtype = detectMaterialType(m);
-          if ((mtype === "bild" || mtype === "foto") && m.text) {
+          if ((["bild", "karikatur"].includes(mtype) || mtype === "foto") && m.text) {
             loadImage(m.text, 'img-spo-' + idx + '-' + mi);
           }
         });
@@ -1028,6 +1029,7 @@
     /* Override nav to render textareas when entering write step */
     var _originalNav = nav;
     nav = function (step, _pushHistory) {
+      if ((step === "write" || step === "feedback") && !educationalMaterialsReady()) return;
       if (step === "write") {
         if (CONFIG.selectedAufgaben.size < AUFGABEN_NEEDED) {
           showToast("Bitte 1 Aufgabe ausw\u00e4hlen");
@@ -1057,6 +1059,7 @@
 
     /* ====== SUBMIT FOR GRADING ====== */
     async function submitForGrading() {
+      if (!educationalMaterialsReady()) return;
       if (window.checkOcrPending && window.checkOcrPending()) return;
       var textareas = document.querySelectorAll("#studentTextareas textarea");
       var allText = "";
@@ -1180,7 +1183,7 @@
 
     /* ====== MATERIAL TYPE AUTO-DETECTION ====== */
     function detectMaterialType(m) {
-      if (m.type && (m.type === "statistik" || m.type === "diagramm" || m.type === "bild" || m.type === "foto" || m.type === "text")) return m.type;
+      if (m.type && (m.type === "statistik" || m.type === "diagramm" || ["bild", "karikatur"].includes(m.type) || m.type === "foto" || m.type === "text")) return m.type;
       if (!m.text || typeof m.text !== "string") return "text";
       var txt = normalizeMaterialText(m.text);
       var tableLines = txt.split("\n").filter(function (l) { return l.trim().startsWith("|") && l.trim().endsWith("|"); });
@@ -1233,41 +1236,7 @@
     }
 
     async function loadImage(prompt, containerId, _isRetry) {
-      var el = document.getElementById(containerId);
-      if (!el) return;
-
-      if (_isRetry) {
-        el.innerHTML = '<div style="text-align:center;padding:1.5rem;"><div class="loader-spinner"></div><span style="display:block;margin-top:.5rem;font-size:.85rem;color:var(--ink-muted);">Bild wird neu generiert…</span></div>';
-      }
-
-      var actualPrompt = _isRetry
-        ? prompt + " --- IMPORTANT: Pay extra close attention to fine details, accuracy, proportions, and clarity. Make sure all elements are precisely rendered and clearly distinguishable. Improve the overall quality and visual precision compared to the previous attempt."
-        : prompt;
-
-      try {
-        var d = await apiCall("/api/generate-image", { prompt: actualPrompt });
-        var credit = d.credit ? '<div class="material-credit">' + escapeHtml(d.credit) + '</div>' : "";
-        var caption = d.caption ? '<figcaption class="material-caption">' + escapeHtml(d.caption) + '</figcaption>' : "";
-        var regenBtnHtml =
-          '<div style="text-align:center;">' +
-            '<button type="button" class="edu-img-regen-btn" title="Bild neu generieren">' +
-              '<svg class="regen-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>' +
-              'Neu generieren' +
-            '</button>' +
-          '</div>';
-        el.innerHTML = '<figure class="material-figure"><img src="' + d.url + '" alt="Illustration" class="material-img">' + caption + credit + regenBtnHtml + '</figure>';
-
-        var regenBtn = el.querySelector('.edu-img-regen-btn');
-        if (regenBtn) {
-          regenBtn.addEventListener('click', function() {
-            loadImage(prompt, containerId, true);
-          });
-        }
-      } catch (e) {
-        console.error("Bild-Fehler:", e);
-        var el2 = document.getElementById(containerId);
-        if (el2) el2.innerHTML = '<div style="color:var(--warning);font-size:.8rem;text-align:center;padding:1rem">Bild konnte nicht geladen werden.</div>';
-      }
+      return loadEducationalImage(prompt, containerId, null, null, _isRetry);
     }
   </script>
 </body>

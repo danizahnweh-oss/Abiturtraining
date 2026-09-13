@@ -28,7 +28,7 @@
   <script src="/vendor/purify.min.js" defer></script>
   <script src="/vendor/chart.umd.min.js" defer></script>
   <link rel="stylesheet" href="/fonts/fonts.css">
-  <link rel="stylesheet" href="shared-v4.css">
+  <link rel="stylesheet" href="shared-v4.css?v=20260913-materials">
   <style>
     /* Sky accent override */
     :root {
@@ -640,7 +640,7 @@
     };
   </script>
   <script src="ai-tutor.js" defer></script>
-  <script src="shared.js"></script>
+  <script src="shared.js?v=20260913-materials"></script>
 
   <!-- MODULE-SPECIFIC CODE -->
   <script>
@@ -766,7 +766,7 @@
     function fixMaterialType(m) {
       var t = (m.type || "").toLowerCase().trim();
       if (t === "image" || t === "photo") return "bild";
-      if (t === "bild" || t === "foto" || t === "statistik" || t === "diagramm") return t;
+      if (["bild", "karikatur"].includes(t) || t === "foto" || t === "statistik" || t === "diagramm") return t;
       var txt = (m.text || m.content || "").trim();
       if (txt && txt.length > 20 && txt.length < 800 && !/[äöüßÄÖÜ]/.test(txt) && /\b(detailed|showing|depicting|illustration|diagram|image|visual|scene|background|style|color|layout|arrows?|labels?|boxes?|flowchart|architecture|network)\b/i.test(txt)) {
         return "bild";
@@ -776,6 +776,7 @@
 
     /* ====== RENDER TASK ====== */
     function renderTask(d) {
+      prepareEducationalMaterials(d);
       var container = document.getElementById("aufgabengruppenContainer");
       var aufgaben = d.aufgaben || d.aufgabengruppen || [];
       var lc = getLevelConfig();
@@ -794,13 +795,13 @@
           mats.forEach(function (m, mi) {
             if (!m || typeof m !== "object") return;
             var mType = fixMaterialType(m);
-            var typeIcon = mType === "statistik" ? "\uD83D\uDCCA " : mType === "diagramm" ? "\uD83D\uDCC8 " : (mType === "bild" || mType === "foto") ? "\uD83D\uDDBC\uFE0F " : "";
-            html += '<details class="material-details"' + ((mType === "bild" || mType === "foto") ? ' open' : '') + '><summary>' + typeIcon + escapeHtml(m.titel || m.id || ("M" + (mi + 1))) + '</summary>';
+            var typeIcon = mType === "statistik" ? "\uD83D\uDCCA " : mType === "diagramm" ? "\uD83D\uDCC8 " : (["bild", "karikatur"].includes(mType) || mType === "foto") ? "\uD83D\uDDBC\uFE0F " : "";
+            html += '<details class="material-details"' + ((["bild", "karikatur"].includes(mType) || mType === "foto") ? ' open' : '') + '><summary>' + typeIcon + escapeHtml(m.titel || m.id || ("M" + (mi + 1))) + '</summary>';
             html += '<div class="material-body">';
             if ((mType === "statistik" || mType === "diagramm") && (m.text || "").includes("|")) {
               html += DOMPurify.sanitize(marked.parse(m.text));
               html += '<div class="material-chart"><canvas id="chart-abi-' + idx + '-' + mi + '"></canvas></div>';
-            } else if (mType === "bild") {
+            } else if (["bild", "karikatur"].includes(mType)) {
               html += '<div class="material-img-loading" id="img-abi-' + idx + '-' + mi + '"><div class="loader-spinner"></div><span>Bild wird generiert\u2026</span></div>';
             } else if (mType === "foto") {
               html += '<div class="material-img-loading" id="img-abi-' + idx + '-' + mi + '"><div class="loader-spinner"></div><span>Foto wird geladen\u2026</span></div>';
@@ -845,7 +846,7 @@
             if ((mType === "statistik" || mType === "diagramm") && (m.text || "").includes("|")) {
               var chartType = m.chart_type || (mType === "statistik" ? "bar" : "line");
               renderMaterialChart(m.text, "chart-abi-" + idx + "-" + mi, chartType);
-            } else if ((mType === "bild" || mType === "foto") && (m.text || m.content)) {
+            } else if ((["bild", "karikatur"].includes(mType) || mType === "foto") && (m.text || m.content)) {
               loadEducationalImage(m.text || m.content, "img-abi-" + idx + "-" + mi, m.bild_labels || m.image_labels || null);
             }
           } catch (err) {
@@ -959,6 +960,7 @@
     /* Nav ueberschreiben: Textareas rendern beim Betreten des Write-Schritts */
     var _originalNav = nav;
     nav = function (step, _pushHistory) {
+      if ((step === "write" || step === "feedback") && !educationalMaterialsReady()) return;
       if (step === "write") {
         if (CONFIG.selectedAufgaben.size < AUFGABEN_NEEDED) {
           showToast("Bitte " + AUFGABEN_NEEDED + " Aufgabengruppen ausw\u00e4hlen");
@@ -988,6 +990,7 @@
 
     /* ====== SUBMIT FOR GRADING ====== */
     async function submitForGrading() {
+      if (!educationalMaterialsReady()) return;
       if (window.checkOcrPending && window.checkOcrPending()) return;
       var textareas = document.querySelectorAll("#studentTextareas textarea");
       var allText = "";

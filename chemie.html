@@ -33,7 +33,7 @@
   <script defer src="/vendor/katex/contrib/mhchem.min.js"></script>
   <script defer src="/vendor/katex/contrib/auto-render.min.js"></script>
   <link rel="stylesheet" href="/fonts/fonts.css">
-  <link rel="stylesheet" href="shared-v4.css">
+  <link rel="stylesheet" href="shared-v4.css?v=20260913-materials">
   <style>
     /* Orange accent override */
     :root {
@@ -585,7 +585,7 @@
     };
   </script>
   <script src="ai-tutor.js" defer></script>
-  <script src="shared.js"></script>
+  <script src="shared.js?v=20260913-materials"></script>
 
   <!-- MODULE-SPECIFIC CODE -->
   <script>
@@ -873,6 +873,7 @@
     }
 
     function renderTask(d) {
+      prepareEducationalMaterials(d);
       const instrEl = document.getElementById("taskInstruction");
       const raw = d.aufgabe || d.task_instruction || "";
 
@@ -942,13 +943,13 @@
         d.material.forEach(function (m, mIdx) {
           var details = document.createElement("details");
           details.style.cssText = "border:1px solid var(--border);border-radius:var(--radius-sm);margin-bottom:.5rem";
-          if (m.type === "bild" || m.type === "foto") details.open = true;
+          if (["bild", "karikatur"].includes(m.type) || m.type === "foto") details.open = true;
           var summary = document.createElement("summary");
           summary.style.cssText = "padding:.8rem 1rem;cursor:pointer;font-weight:600;color:var(--accent)";
           summary.innerHTML = renderInlineKatex((m.id || "") + " " + (m.titel || ""));
           var body = document.createElement("div");
           body.style.cssText = "padding:.5rem 1rem 1rem;line-height:1.7";
-          if (m.type === "bild") {
+          if (["bild", "karikatur"].includes(m.type)) {
             body.innerHTML = '<div class="material-img-loading" id="img-che-' + mIdx + '"><div class="loader-spinner"></div><span>Bild wird generiert\u2026</span></div>';
           } else if (m.type === "foto") {
             body.innerHTML = '<div class="material-img-loading" id="img-che-' + mIdx + '"><div class="loader-spinner"></div><span>Foto wird geladen\u2026</span></div>';
@@ -963,7 +964,7 @@
         instrEl.closest(".card").insertBefore(matContainer, container);
         // Bilder nach DOM-Einfügung laden
         d.material.forEach(function (m, mIdx) {
-          if ((m.type === "bild" || m.type === "foto") && (m.text || m.content)) {
+          if ((["bild", "karikatur"].includes(m.type) || m.type === "foto") && (m.text || m.content)) {
             loadEducationalImage(m.text || m.content, 'img-che-' + mIdx, m.bild_labels || m.image_labels || null);
           }
         });
@@ -1095,6 +1096,7 @@
     }
 
     async function submitForGrading() {
+      if (!educationalMaterialsReady()) return;
       if (window.checkOcrPending && window.checkOcrPending()) return;
       // Collect per-textarea texts
       const textareas = document.querySelectorAll('#studentTextareas textarea');
