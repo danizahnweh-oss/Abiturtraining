@@ -31,6 +31,8 @@
     <style>
         body { padding-bottom: 4rem; }
         .legal-container {
+            min-width: 0;
+            overflow-wrap: anywhere;
             max-width: 800px;
             margin: 2rem auto;
             padding: 0 1.5rem;
@@ -56,6 +58,11 @@
             border-radius: 0 8px 8px 0;
         }
         .info-box p { margin-bottom: 0.3rem; }
+    .legal-table-scroll { max-width:100%; overflow-x:auto; margin:1rem 0; }
+        .legal-table-scroll table { min-width:560px; margin:0; }
+        .legal-table-scroll:focus-visible { outline:2px solid var(--accent); outline-offset:2px; }
+    [data-theme="dark"] .risk-low { color: var(--success); }
+    [data-theme="dark"] .risk-medium { color: #fbbf24; }
     </style>
   <script type="application/ld+json">
 {
@@ -128,14 +135,14 @@
             Kolloquia per Echtzeit-Audio.</p>
 
         <h3>2.2 Kategorien betroffener Personen</h3>
-        <table>
+        <div class="legal-table-scroll" role="region" tabindex="0" aria-label="Tabelle, bei Bedarf seitlich scrollen"><table>
             <tr><th>Kategorie</th><th>Anzahl (ca.)</th><th>Besonderheit</th></tr>
             <tr><td>Sch&uuml;ler/innen</td><td>100&ndash;500 (Pilotphase)</td><td>Teilweise minderj&auml;hrig (unter 18)</td></tr>
             <tr><td>Lehrkr&auml;fte</td><td>10&ndash;30</td><td>Zugriff auf Sch&uuml;lerergebnisse</td></tr>
-        </table>
+        </table></div>
 
         <h3>2.3 Kategorien personenbezogener Daten</h3>
-        <table>
+        <div class="legal-table-scroll" role="region" tabindex="0" aria-label="Tabelle, bei Bedarf seitlich scrollen"><table>
             <tr><th>Datenkategorie</th><th>Beispiele</th><th>Sensibilit&auml;t</th></tr>
             <tr><td>Identifikation</td><td>Vorname, Klassen-Code</td><td><span class="risk-low">Niedrig</span></td></tr>
             <tr><td>Authentifizierung</td><td>Passwort-Hash, Token</td><td><span class="risk-medium">Mittel</span></td></tr>
@@ -144,7 +151,7 @@
             <tr><td>Bewertungen</td><td>Noten, Punktzahlen, Kompetenzprofile</td><td><span class="risk-medium">Mittel</span></td></tr>
             <tr><td>Audiodaten</td><td>Kolloquiums-Audio (nur Echtzeit-Streaming)</td><td><span class="risk-medium">Mittel</span></td></tr>
             <tr><td>Bilder</td><td>Hochgeladene handschriftliche L&ouml;sungen</td><td><span class="risk-low">Niedrig</span></td></tr>
-        </table>
+        </table></div>
         <p><strong>Hinweis:</strong> Es werden <strong>keine besonderen Kategorien</strong> personenbezogener Daten
             i.S.v. Art. 9 DSGVO verarbeitet (keine Gesundheitsdaten, keine politischen Meinungen, keine biometrischen Daten
             zur Identifizierung).</p>
@@ -162,7 +169,7 @@
         <h2>3. Risikobewertung</h2>
 
         <h3>3.1 Identifizierte Risiken und Bewertung</h3>
-        <table>
+        <div class="legal-table-scroll" role="region" tabindex="0" aria-label="Tabelle, bei Bedarf seitlich scrollen"><table>
             <tr>
                 <th>Nr.</th>
                 <th>Risiko</th>
@@ -219,10 +226,10 @@
                 <td>Mittel</td>
                 <td><span class="risk-low">Niedrig</span></td>
             </tr>
-        </table>
+        </table></div>
 
         <h3>3.2 Ma&szlig;nahmen zur Risikominderung</h3>
-        <table>
+        <div class="legal-table-scroll" role="region" tabindex="0" aria-label="Tabelle, bei Bedarf seitlich scrollen"><table>
             <tr><th>Risiko</th><th>Ma&szlig;nahme</th><th>Status</th></tr>
             <tr>
                 <td>R1 – Unbefugter Zugriff</td>
@@ -306,19 +313,19 @@
                 </td>
                 <td><span class="risk-low">Umgesetzt</span></td>
             </tr>
-        </table>
+        </table></div>
 
         <h2>4. Notwendigkeit und Verh&auml;ltnism&auml;&szlig;igkeit</h2>
 
         <h3>4.1 Erforderlichkeit der Datenverarbeitung</h3>
-        <table>
+        <div class="legal-table-scroll" role="region" tabindex="0" aria-label="Tabelle, bei Bedarf seitlich scrollen"><table>
             <tr><th>Verarbeitung</th><th>Erforderlichkeit</th></tr>
             <tr><td>Benutzername + Passwort</td><td>Notwendig f&uuml;r Kontozuordnung und Ergebnisspeicherung</td></tr>
             <tr><td>Eingereichte Texte</td><td>Notwendig f&uuml;r KI-Korrektur (Kernfunktion der Plattform)</td></tr>
             <tr><td>Bewertungen/Noten</td><td>Notwendig f&uuml;r Lernfortschrittskontrolle</td></tr>
             <tr><td>Audio (Kolloquium)</td><td>Notwendig f&uuml;r Echtzeit-Pr&uuml;fungssimulation (wird nicht dauerhaft gespeichert)</td></tr>
             <tr><td>E-Mail-Adresse</td><td>Optional &ndash; nur f&uuml;r Erinnerungsfunktion, jederzeit k&uuml;ndbar</td></tr>
-        </table>
+        </table></div>
 
         <h3>4.2 Datenminimierung</h3>
         <ul>
@@ -330,7 +337,7 @@
         </ul>
 
         <h2>5. Rechte der Betroffenen</h2>
-        <table>
+        <div class="legal-table-scroll" role="region" tabindex="0" aria-label="Tabelle, bei Bedarf seitlich scrollen"><table>
             <tr><th>Recht</th><th>Umsetzung</th></tr>
             <tr><td>Auskunft (Art. 15)</td><td>Per E-Mail an info@myabiflow.de &ndash; Lehrkr&auml;fte k&ouml;nnen Ergebnisse im Dashboard einsehen</td></tr>
             <tr><td>Berichtigung (Art. 16)</td><td>Per E-Mail &ndash; Benutzername kann ge&auml;ndert werden</td></tr>
@@ -338,7 +345,7 @@
             <tr><td>Einschr&auml;nkung (Art. 18)</td><td>Per E-Mail</td></tr>
             <tr><td>Daten&uuml;bertragbarkeit (Art. 20)</td><td>Export der Ergebnisse als JSON/PDF auf Anfrage</td></tr>
             <tr><td>Widerspruch (Art. 21)</td><td>Per E-Mail &ndash; f&uuml;hrt zur L&ouml;schung des Kontos</td></tr>
-        </table>
+        </table></div>
 
         <h2>6. Konsultation der Aufsichtsbeh&ouml;rde</h2>
         <p>Auf Basis dieser Folgenabsch&auml;tzung verbleibt nach Umsetzung aller Ma&szlig;nahmen <strong>kein

@@ -468,7 +468,7 @@
         <h2 class="card-header">Abiturprüfung konfigurieren</h2>
         <div class="form-row">
           <div class="form-group">
-            <label>Niveau</label>
+            <label for="niveauSelect">Niveau</label>
             <select id="niveauSelect" onchange="updateNiveau()">
               <option value="eA">Erhöhtes Anforderungsniveau (eA)</option>
               <option value="gA">Grundlegendes Anforderungsniveau (gA)</option>
@@ -478,7 +478,7 @@
         <div id="eaFachbereiche">
           <div class="form-row">
             <div class="form-group">
-              <label>Fachbereich Aufgabe 1</label>
+              <label for="fachbereich1Select">Fachbereich Aufgabe 1</label>
               <select id="fachbereich1Select">
                 <option value="bwl">BWL</option>
                 <option value="vwl">VWL</option>
@@ -486,7 +486,7 @@
               </select>
             </div>
             <div class="form-group">
-              <label>Fachbereich Aufgabe 2</label>
+              <label for="fachbereich2Select">Fachbereich Aufgabe 2</label>
               <select id="fachbereich2Select">
                 <option value="vwl">VWL</option>
                 <option value="bwl">BWL</option>
@@ -522,7 +522,7 @@
       </div>
 
       <div class="card">
-        <label>Bearbeitungszeit (Min.)</label>
+        <label for="timerMinutes">Bearbeitungszeit (Min.)</label>
         <input type="number" id="timerMinutes" value="270" min="60" max="315" style="max-width:120px">
         <div style="font-size:.8rem;color:var(--ink-muted);margin-top:.3rem">eA: 270 Min. / gA: 210 Min.</div>
       </div>
@@ -588,10 +588,12 @@
             <div style="font-weight:600;color:var(--accent);margin-bottom:.3rem">Aufgabe 1</div>
             <div class="task-box" id="writeTaskRef1" style="margin:0 0 1rem 0;font-size:.9rem"></div>
             <div id="writeAufgabenRef1" style="font-size:.85rem"></div>
+            <div id="writeMaterialRef1"></div>
             <hr style="margin:1rem 0;border:none;border-top:1px solid var(--border)">
             <div style="font-weight:600;color:var(--accent);margin-bottom:.3rem">Aufgabe 2</div>
             <div class="task-box" id="writeTaskRef2" style="margin:0;font-size:.9rem"></div>
             <div id="writeAufgabenRef2" style="font-size:.85rem"></div>
+            <div id="writeMaterialRef2"></div>
           </div>
         </details>
 
@@ -790,6 +792,7 @@ Tipp: Beachte den Fachbereich:
   </script>
   <script src="ai-tutor.js" defer></script>
   <script src="shared.js"></script>
+  <script src="wr-materials.js"></script>
 
   <!-- MODULE-SPECIFIC CODE -->
   <script>
@@ -906,75 +909,16 @@ Tipp: Beachte den Fachbereich:
       }).join("");
     }
 
-    let _wrAbiMatIdx = 0;
-    function normalizeWRMaterialType(material) {
-      const rawType = material && (material.typ != null ? material.typ : material.type);
-      const normalized = String(rawType || "")
-        .normalize("NFKC")
-        .toLowerCase()
-        .replace(/[\s\u200B-\u200D\uFEFF_-]+/g, "");
-
-      if (normalized.includes("karikatur") || normalized.includes("cartoon")) return "karikatur";
-      if (["bild", "image", "abbildung", "illustration", "grafik"].includes(normalized)) return "bild";
-      if (["foto", "photo", "photograph", "fotografie"].includes(normalized)) return "foto";
-      if (["statistik", "statistics", "tabelle", "table", "diagramm", "chart"].includes(normalized)) return "statistik";
-
-      // Letzte Sicherung: Ein ausdrücklich als Karikatur betiteltes Material darf nie
-      // als Text gerendert werden, selbst wenn das KI-Modell das Typ-Feld beschädigt.
-      const materialDescription = [material && material.titel, material && material.quelle]
-        .filter(Boolean)
-        .join(" ")
-        .toLowerCase();
-      if (/\b(karikatur|cartoon)\b/.test(materialDescription)) return "karikatur";
-
-      return normalized;
-    }
-
-    function renderMaterialsHtml(mats, prefix) {
-      const pfx = prefix || ('wra-' + (_wrAbiMatIdx++));
-      return (mats || []).map((m, idx) => {
-        const materialType = normalizeWRMaterialType(m);
-        let inhalt;
-        if ((materialType === "statistik" || (m.inhalt || "").includes("|")) && (m.inhalt || "").includes("|")) {
-          inhalt = DOMPurify.sanitize(marked.parse(m.inhalt || ""));
-          inhalt += `<div class="material-chart"><canvas id="chart-${pfx}-${idx}"></canvas></div>`;
-        } else if (materialType === "bild") {
-          inhalt = `<div class="material-img-loading" id="img-${pfx}-${idx}"><div class="loader-spinner"></div><span>Bild wird generiert...</span></div>`;
-        } else if (materialType === "foto") {
-          inhalt = `<div class="material-img-loading" id="img-${pfx}-${idx}"><div class="loader-spinner"></div><span>Foto wird geladen...</span></div>`;
-        } else if (materialType === "karikatur") {
-          inhalt = `<div class="material-img-loading" id="img-${pfx}-${idx}"><div class="loader-spinner"></div><span>Karikatur wird generiert...</span></div>`;
-        } else {
-          inhalt = formatTextWithLineNumbers(m.inhalt);
-        }
-        return `<details class="material-card" open>
-      <summary><span class="material-badge">${escapeHtml(m.nr || "")}</span> ${escapeHtml(m.titel || "")} <span style="margin-left:auto;font-size:.8rem;color:var(--ink-muted)">${escapeHtml(materialType || m.typ || m.type || "")}</span></summary>
-      <div class="material-body">${inhalt}<div class="material-source">${escapeHtml(m.quelle || "")}</div></div>
-    </details>`;
-      }).join("");
-    }
-    function loadMaterialAssets(mats, prefix) {
-      (mats || []).forEach((m, idx) => {
-        const materialType = normalizeWRMaterialType(m);
-        if ((materialType === "statistik" || (m.inhalt || "").includes("|")) && (m.inhalt || "").includes("|")) {
-          renderStatistikChart(m.inhalt, `chart-${prefix}-${idx}`);
-        } else if (materialType === "bild") {
-          loadEducationalImage(m.inhalt, `img-${prefix}-${idx}`, m.bild_labels || null);
-        } else if (materialType === "foto") {
-          loadEducationalImage(m.inhalt, `img-${prefix}-${idx}`, m.bild_labels || null, "foto");
-        } else if (materialType === "karikatur") {
-          loadEducationalImage(m.inhalt, `img-${prefix}-${idx}`, m.bild_labels || null, "karikatur");
-        }
-      });
-    }
-
     function renderTask(d) {
+      resetWRMaterials();
       // Hochgeladene Bilder: Original-Aufgabenblatt gross anzeigen
       if (d._uploadImages && d._uploadImages.length) {
         var imgHtml = d._uploadImages.map(function(url) {
           return '<img src="' + url + '" style="width:100%;max-width:800px;border-radius:var(--radius-sm);margin-bottom:1rem;display:block" alt="Aufgabenblatt">';
         }).join('');
         document.getElementById("taskInstruction1").innerHTML = imgHtml;
+        document.getElementById("writeTaskRef1").innerHTML = imgHtml;
+        ["writeAufgabenRef1", "writeAufgabenRef2", "writeTaskRef2", "writeMaterialRef1", "writeMaterialRef2"].forEach(id => document.getElementById(id).innerHTML = "");
         document.getElementById("aufgabenbloecke1Container").innerHTML = "";
         document.getElementById("materialien1Container").innerHTML = "";
         var ti2 = document.getElementById("taskInstruction2");
@@ -994,7 +938,8 @@ Tipp: Beachte den Fachbereich:
       document.getElementById("aufgabenbloecke1Container").innerHTML = renderBlocksHtml(d.aufgabenbloecke_1 || d.aufgabenbloecke || []);
       const mats1 = d.materialien_1 || d.materialien || [];
       document.getElementById("materialien1Container").innerHTML = renderMaterialsHtml(mats1, 'mat1') || "<p style='color:var(--ink-muted)'>Keine Materialien.</p>";
-      loadMaterialAssets(mats1, 'mat1');
+      document.getElementById('writeMaterialRef1').innerHTML = renderMaterialsHtml(mats1, 'write1');
+      loadMaterialAssets(mats1, 'mat1', 'write1');
 
       // Aufgabe 2
       document.getElementById("taskInstruction2").innerHTML = escapeHtml(d.task_instruction_2 || "").replace(/\n/g, "<br>");
@@ -1002,7 +947,8 @@ Tipp: Beachte den Fachbereich:
       const mats2 = d.materialien_2 || [];
       const mat2Html = renderMaterialsHtml(mats2, 'mat2');
       document.getElementById("materialien2Container").innerHTML = mat2Html || "<p style='color:var(--ink-muted)'>Keine eigenen Materialien (Transferaufgabe).</p>";
-      loadMaterialAssets(mats2, 'mat2');
+      document.getElementById('writeMaterialRef2').innerHTML = renderMaterialsHtml(mats2, 'write2');
+      loadMaterialAssets(mats2, 'mat2', 'write2');
 
       // BE badges
       const be1 = isEA ? 60 : (d.be_1 || 100);
@@ -1038,6 +984,7 @@ Tipp: Beachte den Fachbereich:
     }
 
     async function submitForGrading() {
+      if (!ensureMaterialsReady()) return;
       if (window.checkOcrPending && window.checkOcrPending()) return;
       const t1 = document.getElementById("studentText1").value;
       const t2 = document.getElementById("studentText2").value;

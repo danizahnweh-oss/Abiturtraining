@@ -4,7 +4,11 @@ import { TABLET_TEST_PAGES } from "../fixtures/pages";
 test.describe("Tablet-Optimierung", () => {
   for (const path of TABLET_TEST_PAGES) {
     test(`${path} – kein horizontaler Overflow`, async ({ page }) => {
-      await page.goto(path, { waitUntil: "domcontentloaded" });
+      await page.goto(path, { waitUntil: "load" });
+      // Die Gast-Weiterleitung der Startseite muss vor Layoutmessungen abgeschlossen sein.
+      if (path === "/") await page.waitForURL("**/landing.html");
+      await page.waitForLoadState("load");
+      await page.evaluate(() => document.fonts.ready);
 
       const hasOverflow = await page.evaluate(() =>
         document.documentElement.scrollWidth > document.documentElement.clientWidth
@@ -13,7 +17,11 @@ test.describe("Tablet-Optimierung", () => {
     });
 
     test(`${path} – Input-Felder font-size >= 16px (kein Auto-Zoom)`, async ({ page }) => {
-      await page.goto(path, { waitUntil: "domcontentloaded" });
+      await page.goto(path, { waitUntil: "load" });
+      // Die Gast-Weiterleitung der Startseite muss vor Layoutmessungen abgeschlossen sein.
+      if (path === "/") await page.waitForURL("**/landing.html");
+      await page.waitForLoadState("load");
+      await page.evaluate(() => document.fonts.ready);
 
       const tooSmallInputs = await page.evaluate(() => {
         const inputs = document.querySelectorAll("input, textarea, select");
@@ -39,7 +47,11 @@ test.describe("Tablet-Optimierung", () => {
     });
 
     test(`${path} – Touch-Targets >= 44x44px (Hauptaktionen)`, async ({ page }) => {
-      await page.goto(path, { waitUntil: "domcontentloaded" });
+      await page.goto(path, { waitUntil: "load" });
+      // Die Gast-Weiterleitung der Startseite muss vor Layoutmessungen abgeschlossen sein.
+      if (path === "/") await page.waitForURL("**/landing.html");
+      await page.waitForLoadState("load");
+      await page.evaluate(() => document.fonts.ready);
 
       const tooSmall = await page.evaluate(() => {
         // Nur Buttons und Submit-Inputs prüfen (nicht Footer-Links oder Header-Logo)
@@ -71,7 +83,11 @@ test.describe("Tablet-Optimierung", () => {
     });
 
     test(`${path} – Viewport-Meta korrekt gesetzt`, async ({ page }) => {
-      await page.goto(path, { waitUntil: "domcontentloaded" });
+      await page.goto(path, { waitUntil: "load" });
+      // Die Gast-Weiterleitung der Startseite muss vor Layoutmessungen abgeschlossen sein.
+      if (path === "/") await page.waitForURL("**/landing.html");
+      await page.waitForLoadState("load");
+      await page.evaluate(() => document.fonts.ready);
 
       const viewport = page.locator('meta[name="viewport"]');
       await expect(viewport).toHaveAttribute("content", /width=device-width/);

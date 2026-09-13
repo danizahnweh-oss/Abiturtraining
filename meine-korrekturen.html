@@ -348,7 +348,7 @@
     })();
 
     /* ================= AUTH ================= */
-    var API_BASE = "";
+    var RESULTS_API_ROOT = "";
 
     function getAccessToken() {
       return sessionStorage.getItem("access_token") || "";
@@ -431,7 +431,7 @@
       }
 
       try {
-        var res = await fetch(API_BASE + "/api/student-results", {
+        var res = await fetch(RESULTS_API_ROOT + "/api/student-results", {
           method: "POST",
           headers: authHeaders(),
           body: JSON.stringify({ student_name: name })
@@ -521,7 +521,7 @@
       document.body.style.overflow = "hidden";
 
       try {
-        var res = await fetch(API_BASE + "/api/student-result-detail", {
+        var res = await fetch(RESULTS_API_ROOT + "/api/student-result-detail", {
           method: "POST",
           headers: authHeaders(),
           body: JSON.stringify({ student_name: sessionStorage.getItem("student_name"), result_id: resultId })

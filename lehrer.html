@@ -541,7 +541,9 @@ main { max-width: 1100px; margin: 1.5rem auto; }
   #insightsGrid { grid-template-columns: 1fr; }
   .iframe-wrap iframe { min-height: 70vh; }
 }
-</style>
+:root:not([data-theme="dark"]) .school-badge, :root:not([data-theme="dark"]) .tab-btn.active { color: #1d4ed8; }
+  [data-theme="dark"] p > a { color: var(--accent); }
+  </style>
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -893,7 +895,7 @@ main { max-width: 1100px; margin: 1.5rem auto; }
 </div>
 
 <script>
-const API_BASE = "";
+const TEACHER_API_ROOT = "";
 
 let teacherAuthToken = "";
 let teacherName = "";
@@ -987,7 +989,7 @@ async function doAuth() {
     if (!selectedRegisterSubjects.length) { showError("Bitte mindestens ein Fach auswählen."); return; }
 
     try {
-      const res = await fetch(API_BASE + "/api/teacher-register", {
+      const res = await fetch(TEACHER_API_ROOT + "/api/teacher-register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, password: pw, email, subjects: selectedRegisterSubjects })
@@ -1008,7 +1010,7 @@ async function doAuth() {
     }
   } else {
     try {
-      const res = await fetch(API_BASE + "/api/teacher-auth-login", {
+      const res = await fetch(TEACHER_API_ROOT + "/api/teacher-auth-login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, password: pw })
@@ -1114,7 +1116,7 @@ function logout() {
 
 /* ====== API HELPER ====== */
 async function teacherApi(endpoint, body = {}) {
-  const res = await fetch(API_BASE + endpoint, {
+  const res = await fetch(TEACHER_API_ROOT + endpoint, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

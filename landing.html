@@ -532,7 +532,10 @@
 
     /* ===== MOBILE: Hero priorisieren ===== */
     @media (max-width: 600px) {
-      .lp-nav-inner { padding: 0 20px; }
+      .lp-nav { height: auto; min-height: 60px; }
+      .lp-nav-inner { padding: 8px 16px; flex-wrap: wrap; gap: 4px 12px; height: auto; }
+      .lp-nav-actions { margin-left: auto; flex-wrap: wrap; justify-content: flex-end; gap: 4px; }
+      #navPrimaryCta { white-space: nowrap; padding: 0 12px !important; }
       .lp-main { padding: 24px 20px 24px; gap: 24px; }
       .lp-h1 { font-size: 1.9rem; }
       .lp-sub { font-size: 1rem; }
@@ -547,6 +550,9 @@
       .lp-compare-row { grid-template-columns: 1fr; }
       .lp-compare-cell--left { border-right: none; border-bottom: 1px solid var(--border); }
     }
+
+    .lp-cta-sub a { color: var(--accent); text-decoration: underline; }
+    [data-theme="dark"] .lp-demo-subject { color: var(--ink); }
 
     /* ===== DARK MODE ===== */
     [data-theme="dark"] .lp-nav { background: rgba(20, 20, 31, 0.98); }
@@ -765,7 +771,7 @@
           <li>Feedback mit Punkten und konkreten Tipps</li>
         </ul>
         <div class="lp-pillar-cta">
-          <a href="kolloquium.html" class="btn btn-secondary">Kolloquium ausprobieren</a>
+          <a href="/abitur-kolloquium-trainer/dist/" class="btn btn-secondary">Kolloquium ausprobieren</a>
         </div>
       </article>
 

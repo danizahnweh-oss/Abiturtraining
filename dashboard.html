@@ -1230,7 +1230,7 @@ details[open] > .collapsible-header .collapsible-chevron {
 </div>
 
 <script>
-const API_BASE = "";
+const DASHBOARD_API_ROOT = "";
 let teacherToken = "";
 let allResults = [];
 
@@ -1240,7 +1240,7 @@ async function loginTeacher() {
   if (!pw) return;
   const err = document.getElementById("loginError");
   try {
-    const res = await fetch(API_BASE + "/api/teacher-login", {
+    const res = await fetch(DASHBOARD_API_ROOT + "/api/teacher-login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ teacher_password: pw })
@@ -1263,7 +1263,7 @@ async function loginTeacher() {
 async function loadResults() {
   const err = document.getElementById("loginError");
   try {
-    const res = await fetch(API_BASE + "/api/results", {
+    const res = await fetch(DASHBOARD_API_ROOT + "/api/results", {
       method: "POST",
       headers: { "Content-Type": "application/json", "X-Teacher-Token": teacherToken }
     });
@@ -1586,7 +1586,7 @@ function renderChart() {
 async function deleteResult(id) {
   if (!confirm("Ergebnis wirklich löschen?")) return;
   try {
-    const res = await fetch(API_BASE + "/api/delete-result", {
+    const res = await fetch(DASHBOARD_API_ROOT + "/api/delete-result", {
       method: "POST",
       headers: { "Content-Type": "application/json", "X-Teacher-Token": teacherToken },
       body: JSON.stringify({ result_id: id })
@@ -1664,7 +1664,7 @@ let allStudents = [];
 
 async function loadStudents() {
   try {
-    const res = await fetch(API_BASE + "/api/students", {
+    const res = await fetch(DASHBOARD_API_ROOT + "/api/students", {
       method: "POST",
       headers: { "Content-Type": "application/json", "X-Teacher-Token": teacherToken }
     });
@@ -1937,7 +1937,7 @@ async function submitFreeAccess(explicitUntil) {
   revokeBtn.disabled = true;
 
   try {
-    const res = await fetch(API_BASE + "/api/grant-free-access", {
+    const res = await fetch(DASHBOARD_API_ROOT + "/api/grant-free-access", {
       method: "POST",
       headers: { "Content-Type": "application/json", "X-Teacher-Token": teacherToken },
       body: JSON.stringify({ student_name: freeAccessTargetStudent, until })
@@ -1992,7 +1992,7 @@ document.addEventListener("DOMContentLoaded", () => {
 async function deleteStudent(name) {
   if (!confirm(`Schüler "${name}" wirklich entfernen? Diese Aktion kann nicht rückgängig gemacht werden.`)) return;
   try {
-    const res = await fetch(API_BASE + "/api/delete-student", {
+    const res = await fetch(DASHBOARD_API_ROOT + "/api/delete-student", {
       method: "POST",
       headers: { "Content-Type": "application/json", "X-Teacher-Token": teacherToken },
       body: JSON.stringify({ student_name: name })
@@ -2034,7 +2034,7 @@ function updateClassGroupFilters() {
 
 async function loadClassPasswords() {
   try {
-    const res = await fetch(API_BASE + "/api/class-passwords", {
+    const res = await fetch(DASHBOARD_API_ROOT + "/api/class-passwords", {
       method: "POST",
       headers: { "Content-Type": "application/json", "X-Teacher-Token": teacherToken },
       body: JSON.stringify({ action: "list" })
@@ -2099,7 +2099,7 @@ async function createClassPassword() {
   if (!password) { err.textContent = "Passwort eingeben."; err.style.display = "block"; return; }
   err.style.display = "none";
   try {
-    const res = await fetch(API_BASE + "/api/class-passwords", {
+    const res = await fetch(DASHBOARD_API_ROOT + "/api/class-passwords", {
       method: "POST",
       headers: { "Content-Type": "application/json", "X-Teacher-Token": teacherToken },
       body: JSON.stringify({ action: "create", label, password })
@@ -2116,7 +2116,7 @@ async function createClassPassword() {
 }
 
 async function toggleClassPassword(id) {
-  await fetch(API_BASE + "/api/class-passwords", {
+  await fetch(DASHBOARD_API_ROOT + "/api/class-passwords", {
     method: "POST",
     headers: { "Content-Type": "application/json", "X-Teacher-Token": teacherToken },
     body: JSON.stringify({ action: "toggle", id })
@@ -2125,7 +2125,7 @@ async function toggleClassPassword(id) {
 }
 
 async function toggleFreeAccess(id) {
-  await fetch(API_BASE + "/api/class-passwords", {
+  await fetch(DASHBOARD_API_ROOT + "/api/class-passwords", {
     method: "POST",
     headers: { "Content-Type": "application/json", "X-Teacher-Token": teacherToken },
     body: JSON.stringify({ action: "toggle-free-access", id })
@@ -2135,7 +2135,7 @@ async function toggleFreeAccess(id) {
 
 async function deleteClassPassword(id, label) {
   if (!confirm('Schulcode "' + label + '" wirklich löschen?')) return;
-  await fetch(API_BASE + "/api/class-passwords", {
+  await fetch(DASHBOARD_API_ROOT + "/api/class-passwords", {
     method: "POST",
     headers: { "Content-Type": "application/json", "X-Teacher-Token": teacherToken },
     body: JSON.stringify({ action: "delete", id })
@@ -2148,7 +2148,7 @@ let allSubjectLicenses = [];
 
 async function loadSubjectLicenses() {
   try {
-    const res = await fetch(API_BASE + "/api/subject-licenses", {
+    const res = await fetch(DASHBOARD_API_ROOT + "/api/subject-licenses", {
       method: "POST",
       headers: { "Content-Type": "application/json", "X-Teacher-Token": teacherToken },
       body: JSON.stringify({ action: "list" })
@@ -2212,7 +2212,7 @@ async function createSubjectLicense() {
   if (!subject) { err.textContent = "Fach auswählen."; err.style.display = "block"; return; }
   err.style.display = "none";
   try {
-    var res = await fetch(API_BASE + "/api/subject-licenses", {
+    var res = await fetch(DASHBOARD_API_ROOT + "/api/subject-licenses", {
       method: "POST",
       headers: { "Content-Type": "application/json", "X-Teacher-Token": teacherToken },
       body: JSON.stringify({ action: "create", label: label, code: code, subject: subject })
@@ -2230,7 +2230,7 @@ async function createSubjectLicense() {
 }
 
 async function toggleSubjectLicense(id) {
-  await fetch(API_BASE + "/api/subject-licenses", {
+  await fetch(DASHBOARD_API_ROOT + "/api/subject-licenses", {
     method: "POST",
     headers: { "Content-Type": "application/json", "X-Teacher-Token": teacherToken },
     body: JSON.stringify({ action: "toggle", id: id })
@@ -2240,7 +2240,7 @@ async function toggleSubjectLicense(id) {
 
 async function deleteSubjectLicense(id, label) {
   if (!confirm('Fachcode "' + label + '" wirklich löschen?')) return;
-  await fetch(API_BASE + "/api/subject-licenses", {
+  await fetch(DASHBOARD_API_ROOT + "/api/subject-licenses", {
     method: "POST",
     headers: { "Content-Type": "application/json", "X-Teacher-Token": teacherToken },
     body: JSON.stringify({ action: "delete", id: id })
@@ -2253,7 +2253,7 @@ let allTeachers = [];
 
 async function loadTeachers() {
   try {
-    const res = await fetch(API_BASE + "/api/dashboard-teachers", {
+    const res = await fetch(DASHBOARD_API_ROOT + "/api/dashboard-teachers", {
       method: "POST",
       headers: { "Content-Type": "application/json", "X-Teacher-Token": teacherToken }
     });
@@ -2322,7 +2322,7 @@ function renderTeachers() {
 async function approveTeacher(id, name) {
   if (!confirm('Lehrkraft "' + name + '" wirklich freischalten?')) return;
   try {
-    const res = await fetch(API_BASE + "/api/dashboard-approve-teacher", {
+    const res = await fetch(DASHBOARD_API_ROOT + "/api/dashboard-approve-teacher", {
       method: "POST",
       headers: { "Content-Type": "application/json", "X-Teacher-Token": teacherToken },
       body: JSON.stringify({ teacher_id: id })
@@ -2341,7 +2341,7 @@ async function approveTeacher(id, name) {
 async function deleteTeacher(id, name) {
   if (!confirm('Lehrkraft "' + name + '" wirklich entfernen? Diese Aktion kann nicht rückgängig gemacht werden.')) return;
   try {
-    const res = await fetch(API_BASE + "/api/dashboard-delete-teacher", {
+    const res = await fetch(DASHBOARD_API_ROOT + "/api/dashboard-delete-teacher", {
       method: "POST",
       headers: { "Content-Type": "application/json", "X-Teacher-Token": teacherToken },
       body: JSON.stringify({ teacher_id: id })
@@ -2426,7 +2426,7 @@ async function loadActivityFeed(force) {
   if (activityFeedLoaded && !force) return;
   const list = document.getElementById('activityFeedList');
   try {
-    const res = await fetch(API_BASE + "/api/activity-feed", {
+    const res = await fetch(DASHBOARD_API_ROOT + "/api/activity-feed", {
       method: "POST",
       headers: { "Content-Type": "application/json", "X-Teacher-Token": teacherToken }
     });
@@ -2503,7 +2503,7 @@ let feedbackLoaded = false;
 async function loadFeedback() {
   if (feedbackLoaded) return;
   try {
-    const res = await fetch(API_BASE + "/api/feedback-list", {
+    const res = await fetch(DASHBOARD_API_ROOT + "/api/feedback-list", {
       method: "POST",
       headers: { "Content-Type": "application/json", "X-Teacher-Token": teacherToken }
     });
@@ -2550,7 +2550,7 @@ function renderFeedback(items) {
 
 async function toggleValuable(id, valuable) {
   try {
-    const res = await fetch(API_BASE + "/api/feedback-valuable", {
+    const res = await fetch(DASHBOARD_API_ROOT + "/api/feedback-valuable", {
       method: "POST",
       headers: { "Content-Type": "application/json", "X-Teacher-Token": teacherToken },
       body: JSON.stringify({ id, valuable })
@@ -2642,7 +2642,7 @@ async function loadMessages() {
   }
   if (messagesLoaded) return;
   try {
-    const res = await fetch(API_BASE + "/api/messages/list", {
+    const res = await fetch(DASHBOARD_API_ROOT + "/api/messages/list", {
       method: "POST",
       headers: { "Content-Type": "application/json", "X-Teacher-Token": teacherToken }
     });
@@ -2699,7 +2699,7 @@ async function sendMessage() {
     if (!classGroup) { showMsgStatus("Bitte Schulcode wählen.", true); return; }
     if (!confirm("Nachricht an alle Schüler von \"" + classGroup + "\" senden?")) return;
     try {
-      const res = await fetch(API_BASE + "/api/messages/send-group", {
+      const res = await fetch(DASHBOARD_API_ROOT + "/api/messages/send-group", {
         method: "POST",
         headers: { "Content-Type": "application/json", "X-Teacher-Token": teacherToken },
         body: JSON.stringify({ class_group: classGroup, subject: subject || "Nachricht", body })
@@ -2720,7 +2720,7 @@ async function sendMessage() {
     const recipient = document.getElementById("msgRecipient").value.trim();
     if (!recipient) { showMsgStatus("Bitte Schülername eingeben.", true); return; }
     try {
-      const res = await fetch(API_BASE + "/api/messages/send", {
+      const res = await fetch(DASHBOARD_API_ROOT + "/api/messages/send", {
         method: "POST",
         headers: { "Content-Type": "application/json", "X-Teacher-Token": teacherToken },
         body: JSON.stringify({ student_name: recipient, subject: subject || "Nachricht", body })
@@ -2750,7 +2750,7 @@ function showMsgStatus(msg, isError) {
 async function deleteMessage(id) {
   if (!confirm("Nachricht wirklich löschen?")) return;
   try {
-    await fetch(API_BASE + "/api/messages/delete", {
+    await fetch(DASHBOARD_API_ROOT + "/api/messages/delete", {
       method: "POST",
       headers: { "Content-Type": "application/json", "X-Teacher-Token": teacherToken },
       body: JSON.stringify({ id })
@@ -2823,7 +2823,7 @@ async function loadActivationFunnel(force = false) {
   if (emptyEl) emptyEl.style.display = 'none';
 
   try {
-    const res = await fetch(API_BASE + '/api/activation-funnel', {
+    const res = await fetch(DASHBOARD_API_ROOT + '/api/activation-funnel', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'X-Teacher-Token': teacherToken },
       body: JSON.stringify({ weeks }),

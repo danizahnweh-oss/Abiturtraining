@@ -268,14 +268,19 @@
     }
 
     /* Halbjahr/Sachgebiet selection */
+    .hj-icon, .hj-name, .hj-desc { display: block; }
     .hj-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr));
       gap: 1rem;
       margin: 1rem 0
     }
 
     .hj-card {
+      min-width: 0;
+      font: inherit;
+      color: var(--ink);
+      overflow-wrap: anywhere;
       background: var(--bg-warm);
       border: 1px solid var(--border);
       border-radius: var(--radius-sm);
@@ -402,7 +407,7 @@
       <div class="card" id="setupGenerate">
         <h2 class="card-header">Neue Aufgabe generieren</h2>
         <div class="form-group">
-          <label>Niveau</label>
+          <label for="niveauSelect">Niveau</label>
           <select id="niveauSelect" onchange="updateNiveau()">
             <option value="eA">Erhöhtes Anforderungsniveau (eA)</option>
             <option value="gA">Grundlegendes Anforderungsniveau (gA)</option>
@@ -411,21 +416,21 @@
         <div class="form-group" id="fachbereichSection">
           <label>Fachbereich</label>
           <div class="hj-grid">
-            <div class="hj-card selected" data-hj="bwl" onclick="selectSachgebiet('bwl')">
-              <div class="hj-icon">📊</div>
-              <div class="hj-name">BWL</div>
-              <div class="hj-desc">Zielsetzungen, Break-even, Investition, Finanzierung</div>
-            </div>
-            <div class="hj-card" data-hj="vwl" onclick="selectSachgebiet('vwl')">
-              <div class="hj-icon">🏛️</div>
-              <div class="hj-name">VWL</div>
-              <div class="hj-desc">Konjunktur, Wirtschaftspolitik, Geldpolitik, Außenhandel</div>
-            </div>
-            <div class="hj-card" data-hj="recht" onclick="selectSachgebiet('recht')">
-              <div class="hj-icon">⚖️</div>
-              <div class="hj-name">Recht</div>
-              <div class="hj-desc">BGB, Leistungsstörungen, Strafrecht</div>
-            </div>
+            <button type="button" aria-pressed="true" class="hj-card selected" data-hj="bwl" onclick="selectSachgebiet('bwl')">
+              <span class="hj-icon">📊</span>
+              <span class="hj-name">BWL</span>
+              <span class="hj-desc">Zielsetzungen, Break-even, Investition, Finanzierung</span>
+            </button>
+            <button type="button" aria-pressed="false" class="hj-card" data-hj="vwl" onclick="selectSachgebiet('vwl')">
+              <span class="hj-icon">🏛️</span>
+              <span class="hj-name">VWL</span>
+              <span class="hj-desc">Konjunktur, Wirtschaftspolitik, Geldpolitik, Außenhandel</span>
+            </button>
+            <button type="button" aria-pressed="false" class="hj-card" data-hj="recht" onclick="selectSachgebiet('recht')">
+              <span class="hj-icon">⚖️</span>
+              <span class="hj-name">Recht</span>
+              <span class="hj-desc">BGB, Leistungsstörungen, Strafrecht</span>
+            </button>
           </div>
         </div>
         <div class="form-group" id="schwerpunkteSection">
@@ -442,15 +447,15 @@
         </div>
         <div style="display:flex;gap:2rem;flex-wrap:wrap">
           <div class="form-group" style="margin:0">
-            <label>Bewertungseinheiten (BE)</label>
+            <label for="totalBE">Bewertungseinheiten (BE)</label>
             <input type="number" id="totalBE" value="60" min="10" max="150" style="max-width:120px">
           </div>
           <div class="form-group" style="margin:0">
-            <label>Bearbeitungszeit (Min.)</label>
+            <label for="timerMinutes">Bearbeitungszeit (Min.)</label>
             <input type="number" id="timerMinutes" value="135" min="30" max="315" style="max-width:120px">
           </div>
           <div class="form-group" style="margin:0">
-            <label>Anzahl Aufgaben</label>
+            <label for="taskCount">Anzahl Aufgaben</label>
             <input type="number" id="taskCount" value="1" min="1" max="5" style="max-width:120px">
           </div>
         </div>
@@ -697,6 +702,7 @@ Struktur:
   </script>
   <script src="ai-tutor.js" defer></script>
   <script src="shared.js"></script>
+  <script src="wr-materials.js"></script>
 
   <!-- MODULE-SPECIFIC CODE -->
   <script>
@@ -784,6 +790,7 @@ Struktur:
       CONFIG.sachgebiet = CONFIG.selectedSachgebiete[0];
       document.querySelectorAll(".hj-card").forEach(function(c) {
         c.classList.toggle("selected", CONFIG.selectedSachgebiete.indexOf(c.dataset.hj) !== -1);
+        c.setAttribute("aria-pressed", String(CONFIG.selectedSachgebiete.indexOf(c.dataset.hj) !== -1));
       });
       renderSubtopics();
     }
@@ -801,6 +808,7 @@ Struktur:
         CONFIG.sachgebiet = "bwl";
         document.querySelectorAll(".hj-card").forEach(function(c) {
           c.classList.toggle("selected", CONFIG.selectedSachgebiete.indexOf(c.dataset.hj) !== -1);
+        c.setAttribute("aria-pressed", String(CONFIG.selectedSachgebiete.indexOf(c.dataset.hj) !== -1));
         });
       }
       renderSubtopics();
@@ -894,6 +902,7 @@ Struktur:
 
     /* ====== RENDER TASK ====== */
     function renderTask(d) {
+      resetWRMaterials();
       // Hochgeladene Bilder: Original-Aufgabenblatt gross anzeigen
       if (d._uploadImages && d._uploadImages.length) {
         var imgHtml = d._uploadImages.map(function(url) {
@@ -921,34 +930,11 @@ Struktur:
       document.getElementById("aufgabenbloeckeContainer").innerHTML = blocksHtml;
       document.getElementById("writeAufgabenRef").innerHTML = blocksHtml;
 
-      // Materialien
-      const matHtml = (d.materialien || []).map((m, idx) => {
-        let inhalt;
-        if ((m.typ === "statistik" || (m.inhalt || "").includes("|")) && (m.inhalt || "").includes("|")) {
-          inhalt = DOMPurify.sanitize(marked.parse(m.inhalt || ""));
-          inhalt += `<div class="material-chart"><canvas id="chart-wr-${idx}"></canvas></div>`;
-        } else if (m.typ === "bild") {
-          inhalt = `<div class="material-img-loading" id="img-wr-${idx}"><div class="loader-spinner"></div><span>Bild wird generiert...</span></div>`;
-        } else if (m.typ === "foto") {
-          inhalt = `<div class="material-img-loading" id="img-wr-${idx}"><div class="loader-spinner"></div><span>Foto wird geladen...</span></div>`;
-        } else {
-          inhalt = formatTextWithLineNumbers(m.inhalt);
-        }
-        return `<details class="material-card" open>
-      <summary><span class="material-badge">${escapeHtml(m.nr || "")}</span> ${escapeHtml(m.titel || "")} <span style="margin-left:auto;font-size:.8rem;color:var(--ink-muted)">${escapeHtml(m.typ || "")}</span></summary>
-      <div class="material-body">${inhalt}<div class="material-source">${escapeHtml(m.quelle || "")}</div></div>
-    </details>`;
-      }).join("");
-      document.getElementById("materialienContainer").innerHTML = matHtml || "<p style='color:var(--ink-muted)'>Keine Materialien vorhanden.</p>";
-      document.getElementById("writeMaterialRef").innerHTML = matHtml;
-      // Render charts and load images
-      (d.materialien || []).forEach((m, idx) => {
-        if ((m.typ === "statistik" || (m.inhalt || "").includes("|")) && (m.inhalt || "").includes("|")) {
-          renderStatistikChart(m.inhalt, `chart-wr-${idx}`);
-        } else if (m.typ === "bild" || m.typ === "foto") {
-          loadEducationalImage(m.inhalt, `img-wr-${idx}`, m.bild_labels || null);
-        }
-      });
+      // Eindeutige Container, dieselben Bilder in beiden Ansichten.
+      const mats = d.materialien || [];
+      document.getElementById("materialienContainer").innerHTML = renderMaterialsHtml(mats, "wr");
+      document.getElementById("writeMaterialRef").innerHTML = renderMaterialsHtml(mats, "writewr");
+      loadMaterialAssets(mats, "wr", "writewr");
 
       // Re-init highlighter for new material cards
       initHL();
@@ -956,6 +942,7 @@ Struktur:
 
     /* ====== SUBMIT FOR GRADING ====== */
     async function submitForGrading() {
+      if (!ensureMaterialsReady()) return;
       if (window.checkOcrPending && window.checkOcrPending()) return;
       const t = document.getElementById("studentText").value;
       if (countWords(t) < 50) { showToast("Bitte mindestens 50 Wörter schreiben."); return; }

@@ -31,6 +31,8 @@
     <style>
         body { padding-bottom: 4rem; }
         .legal-container {
+            min-width: 0;
+            overflow-wrap: anywhere;
             max-width: 800px;
             margin: 2rem auto;
             padding: 0 1.5rem;
@@ -47,6 +49,9 @@
         .badge { display: inline-block; padding: 0.15rem 0.5rem; border-radius: 4px; font-size: 0.8rem; font-weight: 600; }
         .badge-green { background: #dcfce7; color: #166534; }
         .badge-yellow { background: #fef9c3; color: #854d0e; }
+    .legal-table-scroll { max-width:100%; overflow-x:auto; margin:1rem 0; }
+        .legal-table-scroll table { min-width:560px; margin:0; }
+        .legal-table-scroll:focus-visible { outline:2px solid var(--accent); outline-offset:2px; }
     </style>
   <script type="application/ld+json">
 {
@@ -110,22 +115,22 @@
         </ul>
 
         <h3>1.2 Zugangskontrolle (logisch)</h3>
-        <table>
+        <div class="legal-table-scroll" role="region" tabindex="0" aria-label="Tabelle, bei Bedarf seitlich scrollen"><table>
             <tr><th>Ma&szlig;nahme</th><th>Umsetzung</th></tr>
             <tr><td>Passwort-Hashing</td><td>PBKDF2 mit 100.000 Iterationen + individueller Salt pro Nutzer. Klartext-Passw&ouml;rter werden zu keinem Zeitpunkt gespeichert.</td></tr>
             <tr><td>Token-Authentifizierung</td><td>HMAC-SHA256 signierte Tokens mit 24h G&uuml;ltigkeit. Tokens werden ausschlie&szlig;lich im Session Storage des Browsers gespeichert.</td></tr>
             <tr><td>Rate Limiting</td><td>Max. 25 API-Anfragen pro Minute und IP-Adresse. Max. 5 Login-Versuche pro Minute.</td></tr>
             <tr><td>CORS-Schutz</td><td>API akzeptiert nur Anfragen von <code>https://myabiflow.de</code> (Origin-Whitelist).</td></tr>
             <tr><td>Admin-Zugang</td><td>Server-Zugang ausschlie&szlig;lich &uuml;ber SSH mit Public-Key-Authentifizierung (kein Passwort-Login). Zugang nur f&uuml;r den Gesch&auml;ftsf&uuml;hrer.</td></tr>
-        </table>
+        </table></div>
 
         <h3>1.3 Zugriffskontrolle (Berechtigungen)</h3>
-        <table>
+        <div class="legal-table-scroll" role="region" tabindex="0" aria-label="Tabelle, bei Bedarf seitlich scrollen"><table>
             <tr><th>Rolle</th><th>Zugriff</th></tr>
             <tr><td>Sch&uuml;ler/in</td><td>Eigenes Konto, eigene Ergebnisse, eigene Lernpl&auml;ne</td></tr>
             <tr><td>Lehrkraft</td><td>Ergebnisse der zugeordneten Sch&uuml;ler (Zuordnung &uuml;ber Klassen-Code)</td></tr>
             <tr><td>Administrator</td><td>Server-Zugang via SSH, Datenbank-Zugang (nur Gesch&auml;ftsf&uuml;hrer)</td></tr>
-        </table>
+        </table></div>
         <ul>
             <li>Lehrkr&auml;fte sehen <strong>nur</strong> die Ergebnisse ihrer eigenen, per Code zugeordneten Sch&uuml;ler</li>
             <li>Sch&uuml;ler k&ouml;nnen F&auml;cher ausblenden, sodass Lehrkr&auml;fte diese nicht sehen</li>
@@ -142,13 +147,13 @@
         <h2>2. Integrit&auml;t (Art. 32 Abs. 1 lit. b DSGVO)</h2>
 
         <h3>2.1 Weitergabekontrolle</h3>
-        <table>
+        <div class="legal-table-scroll" role="region" tabindex="0" aria-label="Tabelle, bei Bedarf seitlich scrollen"><table>
             <tr><th>Ma&szlig;nahme</th><th>Umsetzung</th></tr>
             <tr><td>Transportverschl&uuml;sselung</td><td>Alle Verbindungen ausschlie&szlig;lich &uuml;ber HTTPS/TLS 1.3. HSTS aktiviert.</td></tr>
             <tr><td>API-Kommunikation</td><td>Alle Aufrufe an OpenAI und Gemini &uuml;ber HTTPS mit API-Key-Authentifizierung.</td></tr>
             <tr><td>WebSocket-Verbindungen</td><td>Kolloquiumstrainer nutzt WSS (WebSocket Secure) f&uuml;r Audio-Streaming.</td></tr>
             <tr><td>Datenminimierung bei KI</td><td>An KI-Anbieter werden <strong>keine</strong> Namen, Noten oder identifizierenden Daten &uuml;bermittelt.</td></tr>
-        </table>
+        </table></div>
 
         <h3>2.2 Eingabekontrolle</h3>
         <ul>
@@ -186,23 +191,23 @@
         </ul>
 
         <h3>4.2 Automatische L&ouml;schmechanismen</h3>
-        <table>
+        <div class="legal-table-scroll" role="region" tabindex="0" aria-label="Tabelle, bei Bedarf seitlich scrollen"><table>
             <tr><th>Datenart</th><th>L&ouml;schfrist</th></tr>
             <tr><td>Session-Tokens</td><td>24 Stunden (automatisch ung&uuml;ltig)</td></tr>
             <tr><td>Browser Session Storage</td><td>Beim Schlie&szlig;en des Browsers</td></tr>
             <tr><td>Asynchrone Korrektur-Jobs</td><td>30 Tage (automatische Bereinigung)</td></tr>
             <tr><td>Kolloquium-Sitzungen</td><td>1 Stunde nach Ende (automatisches Cleanup)</td></tr>
             <tr><td>Nutzerkonto + Ergebnisse</td><td>Bei L&ouml;schung durch Lehrkraft oder auf Anfrage</td></tr>
-        </table>
+        </table></div>
 
         <h2>5. &Uuml;bersicht Auftragsverarbeiter</h2>
-        <table>
+        <div class="legal-table-scroll" role="region" tabindex="0" aria-label="Tabelle, bei Bedarf seitlich scrollen"><table>
             <tr><th>Anbieter</th><th>Zweck</th><th>Standort</th><th>Garantie</th></tr>
             <tr><td>Hetzner Online GmbH</td><td>Hosting, Server, Datenbank</td><td>Deutschland (N&uuml;rnberg)</td><td>DPA</td></tr>
             <tr><td>OpenAI, L.L.C.</td><td>KI-Korrektur und Feedback</td><td>USA</td><td>DPF + DPA</td></tr>
             <tr><td>Google Ireland Ltd.</td><td>Kolloquiumstrainer, KI-Tutor</td><td>Irland/USA</td><td>SCCs + DPA</td></tr>
             <tr><td>Resend, Inc.</td><td>E-Mail-Versand</td><td>USA</td><td>DPF + DPA</td></tr>
-        </table>
+        </table></div>
 
         <hr style="margin: 3rem 0; border: none; border-top: 1px solid var(--border);">
 

@@ -722,14 +722,14 @@
     })();
 
     /* ================= AUTH ================= */
-    var API_BASE = "";
+    var PROFILE_API_ROOT = "";
 
     function getAccessToken() {
       return sessionStorage.getItem("access_token") || "";
     }
 
     async function apiCall(endpoint, body) {
-      var res = await fetch(API_BASE + endpoint, {
+      var res = await fetch(PROFILE_API_ROOT + endpoint, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

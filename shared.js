@@ -79,7 +79,7 @@ async function _ensureTeacherToken() {
 function trapFocus(container) {
   const focusable = 'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
   function getFocusable() {
-    return Array.from(container.querySelectorAll(focusable)).filter(el => !el.closest('[hidden]'));
+    return Array.from(container.querySelectorAll(focusable)).filter(el => !el.closest('[hidden], [inert]') && el.getClientRects().length > 0);
   }
   function handler(e) {
     if (e.key !== "Tab") return;
@@ -1359,6 +1359,7 @@ function closeRewriteOverlay() {
 let currentStep = null;
 
 function nav(step, _pushHistory) {
+  if ((step === "write" || step === "feedback") && typeof ensureMaterialsReady === "function" && !ensureMaterialsReady()) return;
   const prefix = MODULE_CONFIG.sectionPrefix || "";
   const steps = MODULE_CONFIG.steps;
   const idx = steps.indexOf(step);
@@ -1487,7 +1488,7 @@ function updateTimerDisplay() {
 function saveSession() {
   const key = MODULE_CONFIG.storagePrefix + "_session_" + getStudentKey();
   localStorage.setItem(key, JSON.stringify({
-    studentText: document.getElementById("studentText").value,
+    studentText: document.getElementById("studentText")?.value || "",
     storedData: CONFIG.storedData
   }));
 }
@@ -1868,6 +1869,7 @@ function closePdfModal() {
 }
 
 function exportTaskPDF(mode) {
+  if (typeof ensureMaterialsReady === "function" && !ensureMaterialsReady()) return;
   var prefix = MODULE_CONFIG.sectionPrefix || "";
   closePdfModal();
 
@@ -2420,11 +2422,42 @@ function clearOCR() {
 // beforeunload protection – only warn when actively writing
 window.addEventListener("beforeunload", function (e) {
   if (currentStep !== "write") return;
-  const ta = document.getElementById("studentText");
-  if (ta && ta.value.trim().length > 50) {
+  const hasDraft = Array.from(document.querySelectorAll('textarea[id^="studentText"]')).some(ta => ta.value.trim().length > 0);
+  if (hasDraft) {
     e.preventDefault();
     e.returnValue = "";
   }
+});
+
+// Entwürfe zeitnah sichern; Speicherfehler sichtbar machen.
+let _draftSaveTimer;
+function persistWritingDraft() {
+  if (typeof MODULE_CONFIG === "undefined" || !document.querySelector('textarea[id^="studentText"]')) return;
+  var status = document.getElementById("draftSaveStatus");
+  try {
+    saveSession();
+    if (status) status.textContent = "Entwurf auf diesem Gerät gespeichert";
+  } catch (error) {
+    if (status) status.textContent = "Speichern nicht möglich. Bitte kopiere deinen Text zur Sicherheit.";
+  }
+}
+document.addEventListener("input", function (event) {
+  if (!event.target.matches('textarea[id^="studentText"]')) return;
+  var status = document.getElementById("draftSaveStatus");
+  if (!status) {
+    status = document.createElement("p");
+    status.id = "draftSaveStatus";
+    status.setAttribute("role", "status");
+    status.style.cssText = "font-size:.85rem;color:var(--ink-muted);";
+    event.target.insertAdjacentElement("afterend", status);
+  }
+  status.textContent = "Entwurf wird gespeichert…";
+  clearTimeout(_draftSaveTimer);
+  _draftSaveTimer = setTimeout(persistWritingDraft, 350);
+});
+window.addEventListener("pagehide", persistWritingDraft);
+document.addEventListener("visibilitychange", function () {
+  if (document.visibilityState === "hidden") persistWritingDraft();
 });
 
 // bfcache handler
@@ -2725,9 +2758,33 @@ if (typeof MODULE_CONFIG !== 'undefined') window.addEventListener("load", functi
 async function loadEducationalImage(prompt, containerId, labels, style, _isRetry) {
   var el = document.getElementById(containerId);
   if (!el) return;
+  el.dataset.imageState = "loading";
+  el.setAttribute("aria-busy", "true");
+  function imageFailed() {
+    if (!el.isConnected) return;
+    el.dataset.imageState = "error";
+    el.setAttribute("aria-busy", "false");
+    el.innerHTML = '<div class="edu-img-error" role="alert"><p>Das Bild konnte nicht geladen werden. Bitte versuche es erneut.</p><button type="button" class="edu-img-regen-btn" style="min-height:44px">Bild erneut laden</button></div>';
+    el.querySelector("button").addEventListener("click", function () {
+      loadEducationalImage(prompt, containerId, labels, style, true);
+    });
+  }
+  function watchImage() {
+    var img = el.querySelector("img");
+    img.loading = "eager";
+    img.onload = function () {
+      el.dataset.imageState = "ready";
+      el.setAttribute("aria-busy", "false");
+    };
+    img.onerror = imageFailed;
+    if (img.complete) {
+      if (img.naturalWidth > 0) img.onload();
+      else imageFailed();
+    }
+  }
 
   // Bereits fertiges Bild (z.B. Lehrer-Upload als Data-URL)? Direkt anzeigen.
-  if (typeof prompt === "string" && prompt.startsWith("data:image")) {
+  if (typeof prompt === "string" && /^(data:image\/(?:png|jpeg|webp|gif);base64,|https?:\/\/)/i.test(prompt)) {
     var labelsHtml = '';
     if (labels && typeof labels === 'object') {
       var numKeys = Object.keys(labels).filter(function(k) { return /^\d+$/.test(k); });
@@ -2738,7 +2795,8 @@ async function loadEducationalImage(prompt, containerId, labels, style, _isRetry
           }).join('') + '</div>';
       }
     }
-    el.innerHTML = '<figure class="material-figure"><img src="' + prompt + '" class="material-img" alt="Material" style="max-width:100%;border-radius:var(--radius-sm);" loading="lazy" decoding="async">' + labelsHtml + '</figure>';
+    el.innerHTML = '<figure class="material-figure"><img src="' + escapeHtml(prompt) + '" class="material-img" alt="Material" style="max-width:100%;border-radius:var(--radius-sm);" decoding="async">' + labelsHtml + '</figure>';
+    watchImage();
     return;
   }
 
@@ -2759,6 +2817,8 @@ async function loadEducationalImage(prompt, containerId, labels, style, _isRetry
       style: style || "diagram"
     });
 
+    if (!el.isConnected) return;
+    if (!d || typeof d.url !== "string" || !/^(data:image\/(?:png|jpeg|webp|gif);base64,|https?:\/\/)/i.test(d.url)) throw new Error("Bildadresse fehlt oder ist ungültig");
     var credit = d.credit
       ? '<div class="edu-img-credit">' + escapeHtml(d.credit) + '</div>'
       : '';
@@ -2839,12 +2899,13 @@ async function loadEducationalImage(prompt, containerId, labels, style, _isRetry
     el.innerHTML =
       '<figure class="edu-img-figure">' +
         '<div class="edu-img-wrapper">' +
-          '<img src="' + d.url + '" alt="' + altText + '" class="edu-img" loading="lazy" decoding="async">' +
+          '<img src="' + escapeHtml(d.url) + '" alt="' + altText + '" class="edu-img" decoding="async">' +
         '</div>' +
         titleHtml + labelsHtml + numberedLegendHtml + caption + legendHtml + credit +
         aiNoticeHtml + regenBtnHtml +
       '</figure>';
 
+    watchImage();
     // Klick-Handler für Neu-Generieren
     var regenBtn = el.querySelector('.edu-img-regen-btn');
     if (regenBtn) {
@@ -2854,9 +2915,7 @@ async function loadEducationalImage(prompt, containerId, labels, style, _isRetry
     }
   } catch (e) {
     console.error('Bild-Fehler:', e);
-    var el2 = document.getElementById(containerId);
-    if (el2) el2.innerHTML =
-      '<div class="edu-img-error">Bild konnte nicht geladen werden.</div>';
+    imageFailed();
   }
 }
 
@@ -2873,6 +2932,8 @@ var loadUnsplashImage = loadDallEImage;
    ============================ */
 var _loginModalCallback = null;
 var _loginModalMode = "login";
+var _loginModalCleanup = null;
+var _loginModalPreviousFocus = null;
 
 async function requireLogin(callback) {
   if (sessionStorage.getItem("access") === "1" && sessionStorage.getItem("student_name")) {
@@ -2889,14 +2950,17 @@ async function requireLogin(callback) {
     callback();
     return;
   }
+  _loginModalPreviousFocus = document.activeElement;
   _loginModalCallback = callback;
   _loginModalMode = "login";
   _ensureLoginModal();
   document.getElementById("sharedLoginOverlay").style.display = "flex";
   _updateLoginModalUI();
+  if (_loginModalCleanup) _loginModalCleanup();
+  _loginModalCleanup = trapFocus(document.getElementById("sharedLoginOverlay"));
   setTimeout(function () {
     var nameInput = document.getElementById("slModalName");
-    if (nameInput) nameInput.focus();
+    if (nameInput && document.getElementById("sharedLoginOverlay").style.display !== "none") nameInput.focus();
   }, 100);
 }
 
@@ -2904,11 +2968,14 @@ function _ensureLoginModal() {
   if (document.getElementById("sharedLoginOverlay")) return;
   var overlay = document.createElement("div");
   overlay.id = "sharedLoginOverlay";
+  overlay.addEventListener("keydown", function (event) {
+    if (event.key === "Escape") { event.preventDefault(); _closeLoginModal(); }
+  });
   overlay.style.cssText = "display:none;position:fixed;inset:0;z-index:9800;background:rgba(0,0,0,.6);align-items:center;justify-content:center;padding:1rem;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);";
   overlay.addEventListener("click", function (e) { if (e.target === overlay) _closeLoginModal(); });
   overlay.innerHTML =
-    '<div style="background:var(--surface);border-radius:20px;padding:2rem;max-width:400px;width:100%;box-shadow:0 25px 60px rgba(0,0,0,.3);animation:slideUp .25s ease;">' +
-    '<h2 style="font-size:1.2rem;margin:0 0 .3rem;text-align:center;">Anmeldung erforderlich</h2>' +
+    '<div role="dialog" aria-modal="true" aria-labelledby="slModalTitle" style="background:var(--surface);border-radius:16px;padding:1.5rem;max-width:400px;width:100%;max-height:calc(100dvh - 2rem);overflow-y:auto;">' +
+    '<h2 id="slModalTitle" style="font-size:1.2rem;margin:0 0 .3rem;text-align:center;">Anmeldung erforderlich</h2>' +
     '<p style="color:var(--ink-muted);text-align:center;font-size:.85rem;margin:0 0 1.2rem;">Um eine Aufgabe zu generieren, melde dich bitte an.</p>' +
     '<div style="display:flex;gap:.3rem;margin-bottom:1rem;">' +
     '<button id="slModeLogin" type="button" style="flex:1;padding:.5rem;border:1px solid var(--border);border-radius:8px;background:var(--accent);color:var(--on-accent);font-weight:600;cursor:pointer;min-height:44px;font-family:inherit;font-size:.85rem;" onclick="_setLoginModalMode(\'login\')">Anmelden</button>' +
@@ -2926,6 +2993,15 @@ function _ensureLoginModal() {
     '<button type="button" onclick="_closeLoginModal()" style="width:100%;padding:.5rem;background:none;border:none;color:var(--ink-muted);font-size:.82rem;cursor:pointer;margin-top:.5rem;min-height:44px;font-family:inherit;">Abbrechen</button>' +
     '</div>';
   document.body.appendChild(overlay);
+  [["slModalName", "Name"], ["slModalPw", "Passwort"], ["slModalPwConfirm", "Passwort bestätigen"], ["slModalEmail", "E-Mail-Adresse"]].forEach(function (field) {
+    var input = document.getElementById(field[0]);
+    var label = document.createElement("label");
+    label.htmlFor = field[0];
+    label.textContent = field[1];
+    label.style.cssText = "display:block;font-size:.85rem;margin-bottom:4px;";
+    input.before(label);
+  });
+  document.getElementById("slModalError").setAttribute("role", "alert");
 }
 
 function _setLoginModalMode(mode) {
@@ -2941,12 +3017,12 @@ function _updateLoginModalUI() {
   var pwInput = document.getElementById("slModalPw");
   if (_loginModalMode === "register") {
     loginBtn.style.background = "var(--surface)"; loginBtn.style.color = "var(--ink)";
-    regBtn.style.background = "var(--accent)"; regBtn.style.color = "#fff";
+    regBtn.style.background = "var(--accent)"; regBtn.style.color = "var(--on-accent)";
     regFields.style.display = "block";
     submitBtn.textContent = "Registrieren";
     pwInput.placeholder = "Eigenes Passwort wählen …";
   } else {
-    loginBtn.style.background = "var(--accent)"; loginBtn.style.color = "#fff";
+    loginBtn.style.background = "var(--accent)"; loginBtn.style.color = "var(--on-accent)";
     regBtn.style.background = "var(--surface)"; regBtn.style.color = "var(--ink)";
     regFields.style.display = "none";
     submitBtn.textContent = "Anmelden";
@@ -3104,6 +3180,10 @@ async function _doLoginModal() {
 function _closeLoginModal() {
   var overlay = document.getElementById("sharedLoginOverlay");
   if (overlay) overlay.style.display = "none";
+  if (_loginModalCleanup) _loginModalCleanup();
+  _loginModalCleanup = null;
+  if (_loginModalPreviousFocus && _loginModalPreviousFocus.isConnected) _loginModalPreviousFocus.focus();
+  _loginModalPreviousFocus = null;
   _loginModalCallback = null;
 }
 
@@ -3517,6 +3597,7 @@ function initFeedbackWidget() {
 
   var fab = widget.querySelector(".feedback-fab");
   var panel = widget.querySelector(".feedback-panel");
+  panel.hidden = true;
   var closeBtn = widget.querySelector(".feedback-close");
   var emojis = widget.querySelectorAll(".feedback-emoji");
   var cats = widget.querySelectorAll(".feedback-cat");
@@ -3533,6 +3614,7 @@ function initFeedbackWidget() {
   var selectedPhoto = null; // base64 JPEG
 
   function togglePanel(open) {
+    panel.hidden = !open;
     if (open) {
       panel.classList.add("open");
       panel.setAttribute("aria-hidden", "false");

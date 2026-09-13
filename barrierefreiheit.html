@@ -31,6 +31,8 @@
   <style>
     body { padding-bottom: 4rem; }
     .legal-container {
+            min-width: 0;
+            overflow-wrap: anywhere;
       max-width: 800px;
       margin: 2rem auto;
       padding: 0 1.5rem;
@@ -121,7 +123,14 @@
     .toc li { margin-bottom: .25rem; }
     .toc a { color: var(--accent); text-decoration: none; font-size: .9rem; }
     .toc a:hover, .toc a:focus-visible { text-decoration: underline; }
-  </style>
+  .legal-table-scroll { max-width:100%; overflow-x:auto; margin:1rem 0; }
+        .legal-table-scroll table { min-width:560px; margin:0; }
+        .legal-table-scroll:focus-visible { outline:2px solid var(--accent); outline-offset:2px; }
+    [data-theme="dark"] .legal-container a:not(.btn) { color: var(--accent); }
+    [data-theme="dark"] .badge-ok { color: var(--success); }
+    [data-theme="dark"] .badge-partial { color: #fbbf24; }
+    [data-theme="dark"] .badge-no { color: var(--warning); }
+    </style>
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -167,7 +176,7 @@
       <h2>Erklärung zur Barrierefreiheit</h2>
       <p class="meta">
         Gemäß §&nbsp;12 Barrierefreiheitsstärkungsgesetz (BFSG) und der Durchführungsverordnung (EU)&nbsp;2018/1524
-        in Verbindung mit BITV&nbsp;2.0 · Stand: 17.&nbsp;März 2026
+        in Verbindung mit BITV&nbsp;2.0 · Stand: 13.&nbsp;September 2026
       </p>
 
       <!-- Inhaltsverzeichnis -->
@@ -226,7 +235,7 @@
         <h2 id="kriterien">3. WCAG-Kriterien im Detail</h2>
 
         <h3>Prinzip 1 – Wahrnehmbar</h3>
-        <table class="conformance-table">
+        <div class="legal-table-scroll" role="region" tabindex="0" aria-label="Tabelle, bei Bedarf seitlich scrollen"><table class="conformance-table">
           <caption class="sr-only">WCAG-Kriterien: Prinzip Wahrnehmbar</caption>
           <thead>
             <tr>
@@ -269,7 +278,7 @@
             <tr>
               <td>1.4.3 Kontrast (Minimum) (AA)</td>
               <td><span class="badge-ok">Konform</span></td>
-              <td>axe-Scan (17.03.2026) zeigt 0 Kontrast-Violations. --ink-muted (#475569 auf #fff) = 8,5:1. Alle Akzentfarben ≥ 4,5:1 geprüft und ggf. korrigiert.</td>
+              <td>Am 13.09.2026 wurden Kontraste auf ausgewählten Gymnasiumsseiten im hellen und dunklen Modus erneut geprüft und nachgebessert. Eine vollständige Prüfung aller Zustände steht noch aus.</td>
             </tr>
             <tr>
               <td>1.4.4 Textgröße ändern (AA)</td>
@@ -279,7 +288,7 @@
             <tr>
               <td>1.4.10 Umbruch (AA)</td>
               <td><span class="badge-ok">Konform</span></td>
-              <td>Responsive Flexbox/Grid-Layouts. Kein horizontales Scrollen bei 320 px Viewport-Breite erforderlich.</td>
+              <td>Die geprüften Seiten passen sich kleinen Bildschirmen an. Breite Datentabellen können innerhalb eines beschrifteten, per Tastatur erreichbaren Bereichs seitlich gescrollt werden.</td>
             </tr>
             <tr>
               <td>1.4.11 Nicht-Text-Kontrast (AA)</td>
@@ -292,10 +301,10 @@
               <td>Kein CSS, das Textabstand-Überschreibungen blockiert. Getestet mit Text Spacing Bookmarklet.</td>
             </tr>
           </tbody>
-        </table>
+        </table></div>
 
         <h3>Prinzip 2 – Bedienbar</h3>
-        <table class="conformance-table">
+        <div class="legal-table-scroll" role="region" tabindex="0" aria-label="Tabelle, bei Bedarf seitlich scrollen"><table class="conformance-table">
           <caption class="sr-only">WCAG-Kriterien: Prinzip Bedienbar</caption>
           <thead>
             <tr>
@@ -356,10 +365,10 @@
               <td>@media (prefers-reduced-motion: reduce) deaktiviert alle CSS-Animationen und Übergänge global.</td>
             </tr>
           </tbody>
-        </table>
+        </table></div>
 
         <h3>Prinzip 3 – Verständlich</h3>
-        <table class="conformance-table">
+        <div class="legal-table-scroll" role="region" tabindex="0" aria-label="Tabelle, bei Bedarf seitlich scrollen"><table class="conformance-table">
           <caption class="sr-only">WCAG-Kriterien: Prinzip Verständlich</caption>
           <thead>
             <tr>
@@ -385,10 +394,10 @@
               <td>Alle Formularfelder haben sichtbare Labels oder sr-only-Labels. Pflichtfelder sind kenntlich gemacht.</td>
             </tr>
           </tbody>
-        </table>
+        </table></div>
 
         <h3>Prinzip 4 – Robust</h3>
-        <table class="conformance-table">
+        <div class="legal-table-scroll" role="region" tabindex="0" aria-label="Tabelle, bei Bedarf seitlich scrollen"><table class="conformance-table">
           <caption class="sr-only">WCAG-Kriterien: Prinzip Robust</caption>
           <thead>
             <tr>
@@ -409,7 +418,7 @@
               <td>Toast-Nachrichten: role="status" aria-live="polite". Fehlermeldungen: role="alert" aria-live="polite". KI-Loading-States: role="status".</td>
             </tr>
           </tbody>
-        </table>
+        </table></div>
       </section>
 
       <!-- 4. Bekannte Einschränkungen -->
@@ -536,11 +545,11 @@
         <h2 id="pruefung">8. Prüfmethodik &amp; Zeitplan</h2>
         <h3>Zuletzt durchgeführte Prüfung</h3>
         <ul>
-          <li><strong>Datum:</strong> 17. März 2026</li>
+          <li><strong>Datum:</strong> 13. September 2026 (ergänzende Stichprobe der Gymnasiumsseiten)</li>
           <li><strong>Methode:</strong> Kombination aus automatisierter Prüfung (axe-core 4.11.1) und manueller Sichtprüfung</li>
-          <li><strong>Werkzeuge:</strong> axe DevTools (Browser-Extension), VoiceOver (macOS/iOS), Tastaturnavigation, Chrome Lighthouse</li>
-          <li><strong>Geprüfte Seiten:</strong> ethik.html, ethik-abitur.html, biologie-abitur.html sowie Stichproben aus allen Seitenkategorien</li>
-          <li><strong>Ergebnis:</strong> 0 automatisch erkannte axe-Violations auf geprüften Seiten</li>
+          <li><strong>Werkzeuge dieser Stichprobe:</strong> axe-core, automatisierte Browsertests, Tastatur- und Sichtprüfung. Keine vollständige Screenreader-Prüfung.</li>
+          <li><strong>Geprüfte Bereiche:</strong> unter anderem Wirtschaftstrainer, WR-Abitur, Startseite, Abo, Lehrer-Anmeldung und Informationsseiten. FOS/BOS war nicht Teil dieser ergänzenden Prüfung.</li>
+          <li><strong>Ergebnis:</strong> Gefundene Formular-, Kontrast- und Umbruchprobleme wurden gezielt nachgebessert. Die Stichprobe ist kein Nachweis vollständiger Barrierefreiheit.</li>
         </ul>
 
         <h3>Nächste planmäßige Prüfung</h3>

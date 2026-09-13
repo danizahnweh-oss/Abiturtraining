@@ -34,6 +34,8 @@
         }
 
         .legal-container {
+            min-width: 0;
+            overflow-wrap: anywhere;
             max-width: 800px;
             margin: 2rem auto;
             padding: 0 1.5rem;
@@ -67,6 +69,7 @@
         li {
             margin-bottom: 0.3rem;
         }
+    [data-theme="dark"] .legal-container a:not(.btn) { color: var(--accent); }
     </style>
   <script type="application/ld+json">
 {
