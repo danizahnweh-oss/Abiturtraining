@@ -9,7 +9,7 @@ export default defineConfig({
   fullyParallel: true,
   workers: 4,
   use: {
-    baseURL: "https://myabiflow.de",
+    baseURL: process.env.E2E_BASE_URL || "https://myabiflow.de",
     screenshot: "only-on-failure",
     trace: "on-first-retry",
     bypassCSP: true,
