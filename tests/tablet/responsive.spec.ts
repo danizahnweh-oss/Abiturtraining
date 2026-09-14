@@ -6,7 +6,7 @@ test.describe("Tablet-Optimierung", () => {
     test(`${path} – kein horizontaler Overflow`, async ({ page }) => {
       await page.goto(path, { waitUntil: "load" });
       // Die Gast-Weiterleitung der Startseite muss vor Layoutmessungen abgeschlossen sein.
-      if (path === "/") await page.waitForURL("**/landing.html");
+      if (path === "/" || path === "/profil.html") await page.waitForURL("**/landing.html");
       await page.waitForLoadState("load");
       await page.evaluate(() => document.fonts.ready);
 
@@ -19,7 +19,7 @@ test.describe("Tablet-Optimierung", () => {
     test(`${path} – Input-Felder font-size >= 16px (kein Auto-Zoom)`, async ({ page }) => {
       await page.goto(path, { waitUntil: "load" });
       // Die Gast-Weiterleitung der Startseite muss vor Layoutmessungen abgeschlossen sein.
-      if (path === "/") await page.waitForURL("**/landing.html");
+      if (path === "/" || path === "/profil.html") await page.waitForURL("**/landing.html");
       await page.waitForLoadState("load");
       await page.evaluate(() => document.fonts.ready);
 
@@ -49,7 +49,7 @@ test.describe("Tablet-Optimierung", () => {
     test(`${path} – Touch-Targets >= 44x44px (Hauptaktionen)`, async ({ page }) => {
       await page.goto(path, { waitUntil: "load" });
       // Die Gast-Weiterleitung der Startseite muss vor Layoutmessungen abgeschlossen sein.
-      if (path === "/") await page.waitForURL("**/landing.html");
+      if (path === "/" || path === "/profil.html") await page.waitForURL("**/landing.html");
       await page.waitForLoadState("load");
       await page.evaluate(() => document.fonts.ready);
 
@@ -85,7 +85,7 @@ test.describe("Tablet-Optimierung", () => {
     test(`${path} – Viewport-Meta korrekt gesetzt`, async ({ page }) => {
       await page.goto(path, { waitUntil: "load" });
       // Die Gast-Weiterleitung der Startseite muss vor Layoutmessungen abgeschlossen sein.
-      if (path === "/") await page.waitForURL("**/landing.html");
+      if (path === "/" || path === "/profil.html") await page.waitForURL("**/landing.html");
       await page.waitForLoadState("load");
       await page.evaluate(() => document.fonts.ready);
 

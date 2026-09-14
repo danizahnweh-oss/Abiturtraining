@@ -5,12 +5,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description"
-    content="Übe echte Abiturformate, lade deine Lösung hoch und erhalte sofort Punkte, Fehleranalyse, Musterlösung und konkrete Tipps, passend zum bayerischen Lehrplan. Für Bayern G9 & FOS/BOS.">
+    content="Übe fürs Bayern-Abitur. Lade deine Lösung hoch und erhalte KI-Feedback mit Punkten und konkreten Tipps. Für Bayern G9 & FOS/BOS.">
   <meta name="theme-color" content="#4f46e5">
   <meta name="color-scheme" content="light dark">
   <title>myAbiFlow: KI-Abiturvorbereitung für Bayern | G9 & FOS/BOS</title>
   <meta property="og:title" content="myAbiFlow: KI-Abiturvorbereitung für Bayern">
-  <meta property="og:description" content="Übe echte Abiturformate, lade deine Lösung hoch und erhalte sofort Punkte, Fehleranalyse, Musterlösung und konkrete Tipps, passend zum bayerischen Lehrplan.">
+  <meta property="og:description" content="Übe fürs Bayern-Abitur. Lade deine Lösung hoch und erhalte KI-Feedback mit Punkten und konkreten Tipps.">
   <meta property="og:image" content="https://myabiflow.de/og-image.png">
   <meta property="og:url" content="https://myabiflow.de/landing.html">
   <meta property="og:type" content="website">
@@ -554,6 +554,16 @@
     .lp-cta-sub a { color: var(--accent); text-decoration: underline; }
     [data-theme="dark"] .lp-demo-subject { color: var(--ink); }
 
+
+    .lp-feedback-preview { min-width: 0; padding: 24px; border: 1px solid var(--border); border-radius: var(--radius-lg); background: var(--surface); }
+    .lp-feedback-preview h2 { font-size: var(--text-xl); line-height: 1.3; margin: 8px 0 16px; }
+    .lp-feedback-preview p, .lp-feedback-preview small { color: var(--ink-light); }
+    .lp-feedback-preview blockquote { margin: 0 0 16px; font-size: var(--text-lg); line-height: 1.5; }
+    .lp-feedback-preview small { display: block; margin-top: 16px; font-size: var(--text-sm); }
+    .lp-feedback-preview .btn { white-space: normal; min-height: 48px; height: auto; padding: 12px 16px; }
+    .lp-experiences .lp-right { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 24px; }
+    .lp-experiences .lp-testimonial { box-shadow: none; border-radius: var(--radius-lg); }
+
     /* ===== DARK MODE ===== */
     [data-theme="dark"] .lp-nav { background: rgba(20, 20, 31, 0.98); }
     [data-theme="dark"] .lp-footer { background: rgba(20, 20, 31, 0.98); }
@@ -582,7 +592,7 @@
           <span id="themeIcon">☀️</span>
         </button>
         <a href="index.html?login=1" class="lp-nav-login" id="navLoginLink">Einloggen</a>
-        <a href="index.html?app=1" class="btn" id="navPrimaryCta" style="height:44px; padding:0 20px; font-size:0.875rem;">Kostenlos testen</a>
+        <a href="index.html?app=1&amp;role=student" class="btn" id="navPrimaryCta" style="height:44px; padding:0 20px; font-size:0.875rem;">Mein Fach wählen</a>
       </div>
     </div>
   </nav>
@@ -602,48 +612,25 @@
       </h1>
 
       <p class="lp-sub">
-        Übe echte Abiturformate, lade deine Lösung hoch und erhalte sofort Punkte, Fehleranalyse, Musterlösung und konkrete Tipps, passend zum bayerischen Lehrplan.
+        Übe fürs Bayern-Abitur. Lade deine Lösung hoch und erhalte KI-Feedback mit Punkten und konkreten Tipps.
       </p>
 
       <div class="lp-ctas">
-        <a href="index.html?app=1" class="btn" id="heroPrimaryCta">Mein Fach wählen <span aria-hidden="true">→</span></a>
+        <a href="index.html?app=1&amp;role=student" class="btn" id="heroPrimaryCta">Mein Fach wählen <span aria-hidden="true">→</span></a>
         <a href="demo.html" class="btn btn-secondary">Beispiel-Feedback ansehen</a>
       </div>
 
       <p class="lp-cta-sub">3 Tage kostenlos testen, keine Zahlungsdaten nötig. Für Lehrkräfte &amp; Schulen: <a href="lehrer.html">Zugang anfragen</a>.</p>
     </div>
 
-    <!-- RECHTE SPALTE: Testimonials (auf Mobile nach unten) -->
-    <div class="lp-right">
-
-      <div class="lp-testimonial">
-        <div class="lp-stars" aria-label="5 von 5 Sternen">★★★★★</div>
-        <p class="lp-quote-text">
-          Endlich bekomme ich nicht nur eine Aufgabe, sondern direkt Feedback, Punkte und konkrete Tipps für die nächste Klausur.
-        </p>
-        <div class="lp-quote-author">
-          <div class="lp-avatar" aria-hidden="true">A</div>
-          <div>
-            <div class="lp-author-name">Anja</div>
-            <div class="lp-author-role">Schülerin, Bayern G9 (Deutsch-Abitur)</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="lp-testimonial">
-        <p class="lp-quote-text" style="font-size:.93rem;">
-          Im Unterricht habe ich gesehen: Schüler schreiben einen Aufsatz und wissen danach oft trotzdem nicht, warum es keine 15 Punkte waren. Genau dieses Feedback liefert myAbiFlow sofort.
-        </p>
-        <div class="lp-quote-author">
-          <div class="lp-avatar" aria-hidden="true">D</div>
-          <div>
-            <div class="lp-author-name">Daniel Zahnweh</div>
-            <div class="lp-author-role">Gründer · Verbeamteter Lehrer, München</div>
-          </div>
-        </div>
-      </div>
-
-    </div>
+    <aside class="lp-feedback-preview" aria-labelledby="preview-title">
+      <p>Einblick ins Feedback</p>
+      <h2 id="preview-title">Was fehlt deiner Analyse?</h2>
+      <blockquote>„Erzählperspektive wird nur kurz benannt, Wirkung auf die Leserführung fehlt.“</blockquote>
+      <p>Der nächste Schritt: Erkläre die Wirkung und belege sie am Text.</p>
+      <a href="demo.html" class="btn btn-secondary">Feedback-Beispiele ansehen</a>
+      <small>Demo-Auszug zur Veranschaulichung. KI-Feedback kann Fehler enthalten.</small>
+    </aside>
   </main>
 
   <!-- ===== TRUST-BAND ===== -->
@@ -680,7 +667,7 @@
   <section class="lp-section lp-section-alt" aria-labelledby="demo-title">
     <div class="lp-section-head">
       <h2 class="lp-section-title" id="demo-title">So sieht dein Feedback aus</h2>
-      <p class="lp-section-sub">Ein echtes Beispiel aus dem Deutsch-Abitur: eingereichte Schülerantwort, KI-Bewertung und Musterlösung, ohne Registrierung.</p>
+      <p class="lp-section-sub">So ist eine Rückmeldung aufgebaut: Antwortauszug, Stärken und nächste Schritte. Die gekürzten Demo-Ausschnitte veranschaulichen die Darstellung, keine unabhängig geprüfte Bewertung.</p>
     </div>
 
     <div class="lp-demo-card">
@@ -730,8 +717,43 @@
       </div>
 
       <div class="lp-demo-cta">
-        <a href="index.html?app=1" class="btn" style="height:46px;">Eigenes Fach starten <span aria-hidden="true">→</span></a>
+        <a href="index.html?app=1&amp;role=student" class="btn" style="height:46px;">Mein Fach wählen <span aria-hidden="true">→</span></a>
       </div>
+    </div>
+  </section>
+
+  <section class="lp-section lp-experiences" aria-labelledby="experiences-title">
+    <h2 class="lp-section-title" id="experiences-title">Stimmen aus dem Schulalltag</h2>
+
+    <div class="lp-right">
+
+      <div class="lp-testimonial">
+        <div class="lp-stars" aria-label="5 von 5 Sternen">★★★★★</div>
+        <p class="lp-quote-text">
+          Endlich bekomme ich nicht nur eine Aufgabe, sondern direkt Feedback, Punkte und konkrete Tipps für die nächste Klausur.
+        </p>
+        <div class="lp-quote-author">
+          <div class="lp-avatar" aria-hidden="true">A</div>
+          <div>
+            <div class="lp-author-name">Anja</div>
+            <div class="lp-author-role">Schülerin, Bayern G9 (Deutsch-Abitur)</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="lp-testimonial">
+        <p class="lp-quote-text" style="font-size:.93rem;">
+          Im Unterricht habe ich gesehen: Schüler schreiben einen Aufsatz und wissen danach oft trotzdem nicht, warum es keine 15 Punkte waren. Genau dieses Feedback liefert myAbiFlow sofort.
+        </p>
+        <div class="lp-quote-author">
+          <div class="lp-avatar" aria-hidden="true">D</div>
+          <div>
+            <div class="lp-author-name">Daniel Zahnweh</div>
+            <div class="lp-author-role">Gründer · Verbeamteter Lehrer, München</div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </section>
 
@@ -749,7 +771,7 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>
         </div>
         <h3 class="lp-pillar-title">Schriftliches Abitur</h3>
-        <p class="lp-pillar-lead">Der Kern von myAbiFlow: echte Abi-Aufgaben bearbeiten, Lösung hochladen, sofort bewertet wie in der echten Prüfung.</p>
+        <p class="lp-pillar-lead">Abiturformate üben, Lösung hochladen und kriterienorientiertes KI-Feedback erhalten. Die Rückmeldung ist eine Lernhilfe, keine offizielle Prüfungsbewertung.</p>
         <ul class="lp-pillar-list">
           <li>Aufsätze, Klausurantworten, MINT-Aufgaben hochladen</li>
           <li>Punkte, Fehleranalyse und Musterlösung sofort</li>

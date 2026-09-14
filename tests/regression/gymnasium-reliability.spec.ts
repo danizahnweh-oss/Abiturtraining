@@ -104,7 +104,10 @@ test('WR-Abitur: beide Entwürfe zeitnah sichern und wiederherstellen', async ({
 
 test('Anmeldedialog: Fokus bleibt im Dialog, Escape kehrt zum Auslöser zurück', async ({ page }) => {
   await page.goto('/eroerterung.html');
-  await page.locator('#generateBtn').click();
+  // Safari fokussiert Schaltflächen bei Mausklick nicht automatisch.
+  // Der Tastaturtest startet deshalb mit einer echten Tastaturaktivierung.
+  await page.locator('#generateBtn').focus();
+  await page.keyboard.press('Enter');
   await expect(page.getByRole('dialog', { name: 'Anmeldung erforderlich' })).toBeVisible();
   await expect(page.locator('#slModalName')).toBeFocused();
   await page.getByRole('button', { name: 'Abbrechen', exact: true }).focus();

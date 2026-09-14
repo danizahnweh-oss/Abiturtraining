@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="KI-Abiturtraining Bayern – ab 15€/Monat. Alle Fächer, sofortiges Feedback, LehrplanPLUS-konform. Jetzt Abo sichern.">
+  <meta name="description" content="KI-Abiturtraining Bayern: Monatsabo für 15 Euro oder Einmalpakete ab 70 Euro für 6 Monate. Laufzeiten und Schulzugang vergleichen.">
   <meta name="theme-color" content="#4f46e5">
   <meta name="color-scheme" content="light dark">
   <title>Abo &amp; Preise – KI-Abiturtraining Bayern | myAbiFlow</title>
   <meta property="og:title" content="Abo & Preise – KI-Abiturtraining Bayern | myAbiFlow">
-  <meta property="og:description" content="Ab 15€/Monat – voller KI-Zugang zu allen Fächern für Bayern G9 & FOS/BOS. Jetzt sichern.">
+  <meta property="og:description" content="Monatsabo für 15 Euro oder Einmalpakete ab 70 Euro für 6 Monate. Laufzeiten und Schulzugang vergleichen.">
   <meta property="og:image" content="https://myabiflow.de/og-image.png">
   <meta property="og:url" content="https://myabiflow.de/abo.html">
   <meta property="og:type" content="website">
@@ -16,7 +16,7 @@
   <meta property="og:site_name" content="myAbiFlow">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Abo & Preise – KI-Abiturtraining Bayern | myAbiFlow">
-  <meta name="twitter:description" content="Ab 15€/Monat – voller KI-Zugang zu allen Fächern für Bayern G9 & FOS/BOS.">
+  <meta name="twitter:description" content="Monatsabo für 15 Euro oder Einmalpakete ab 70 Euro für 6 Monate.">
   <meta name="twitter:image" content="https://myabiflow.de/og-image.png">
   <link rel="canonical" href="https://myabiflow.de/abo.html">
   <link rel="icon" href="/favicon.ico" sizes="any">
@@ -398,12 +398,18 @@
       gap: 1rem;
       margin-bottom: 1.5rem;
     }
+    #privateOffer[hidden], #licenseSection[hidden], #purchaseTrust[hidden] { display: none !important; }
+    #pricingHeading { font-size: var(--text-xl); margin: 0 0 16px; }
+    #privateOffer > p { color: var(--ink-light); line-height: 1.6; margin-bottom: 24px; }
+    #planSummary { padding: 16px; background: var(--surface-alt); border-radius: var(--radius-sm); }
+    .license-input-row { flex-wrap: wrap; }
+    .license-input-row label { flex-basis: 100%; text-align: left; color: var(--ink); font-weight: 600; }
 
     @media (max-width: 900px) {
       .abo-container {
         max-width: 720px;
-        max-height: 95vh;
-        overflow-y: auto;
+        max-height: none;
+        overflow-y: visible;
         -webkit-overflow-scrolling: touch;
       }
 
@@ -869,7 +875,7 @@
         <!-- Hinweis: Trial bereits verbraucht (Re-Registration) -->
         <div id="trialUsedBanner" style="display:none;background:#fef3c7;border:1px solid #fcd34d;border-radius:12px;padding:1rem 1.25rem;margin-bottom:1.5rem;color:#78350f;">
           <p style="margin:0;font-weight:700;font-size:1rem;">Willkommen zurück! 👋</p>
-          <p style="margin:.4rem 0 0;font-size:.92rem;line-height:1.45;">Du hast die kostenlose 3-Tage-Testphase bereits getestet. Um weiterzulernen, wähle unten ein Abo, das zu dir passt.</p>
+          <p style="margin:.4rem 0 0;font-size:.92rem;line-height:1.45;">Du hast die kostenlose 3-Tage-Testphase bereits getestet. Zum Weiterlernen wähle ein Monatsabo, ein Einmalpaket oder löse einen gültigen Schulcode ein.</p>
         </div>
         <script>
           (function() {
@@ -886,7 +892,7 @@
         <div class="abo-header">
           <img src="wave-icon-new.png" alt="myAbiFlow App Icon" class="abo-logo" width="48" height="48" loading="eager" decoding="async">
           <h1 class="abo-title" id="pageTitle">Wie möchtest du myAbiFlow nutzen?</h1>
-          <p class="abo-subtitle" id="pageSubtitle">Wähle den Weg, der zu dir passt – danach siehst du die passenden Optionen.</p>
+          <p class="abo-subtitle" id="pageSubtitle">Wähle zuerst: selbst buchen, Schulcode einlösen oder eine Schullizenz anfragen.</p>
         </div>
 
         <!-- Entscheidungshilfe: Privat / Schulcode / Lehrkraft -->
@@ -895,14 +901,14 @@
             <a href="#pricingSection" class="decision-card" id="decisionPrivat">
               <div class="decision-card-icon" aria-hidden="true">🎓</div>
               <div class="decision-card-label">Ich lerne privat</div>
-              <p class="decision-card-text">Einzel-Abo buchen und sofort mit KI-Feedback lernen – monatlich oder als Laufzeitpaket.</p>
-              <span class="decision-card-arrow">Abo wählen →</span>
+              <p class="decision-card-text">Monatsabo oder Einmalpaket wählen. Gesamtpreis und Laufzeit stehen direkt dabei.</p>
+              <span class="decision-card-arrow">Preise vergleichen →</span>
             </a>
 
             <a href="#licenseSection" class="decision-card" id="decisionCode">
               <div class="decision-card-icon" aria-hidden="true">🏫</div>
               <div class="decision-card-label">Meine Schule hat einen Code</div>
-              <p class="decision-card-text">Kurs- oder Schulcode direkt einlösen – dein Zugang ist dann kostenlos.</p>
+              <p class="decision-card-text">Schul- oder Fachcode einlösen. Umfang und Laufzeit hängen von deiner Lizenz ab.</p>
               <span class="decision-card-arrow">Code eingeben →</span>
             </a>
 
@@ -926,7 +932,7 @@
           <span>&#9200;</span>
           <div>
             <strong>Testphase: noch <span id="trialDays">0</span> Tage.</strong>
-            Danach brauchst du ein Abo, um myAbiFlow weiter zu nutzen.
+            Danach brauchst du einen kostenpflichtigen Zugang oder eine gültige Schullizenz. Keine automatische Buchung.
           </div>
         </div>
 
@@ -936,7 +942,7 @@
             <span>&#9989;</span> <span id="subStatusText">Aktiv</span>
           </div>
           <div class="sub-plan-name" id="subPlanName">12 Monate</div>
-          <p class="sub-period" id="subPeriod">G&uuml;ltig bis 03.03.2027</p>
+          <p class="sub-period" id="subPeriod"></p>
           <div class="sub-actions">
             <button class="btn" id="manageBtn" type="button">Abo verwalten</button>
             <a href="/" id="continueLearningBtn" class="btn btn-secondary">Weiter lernen</a>
@@ -944,8 +950,15 @@
         </div>
 
         <!-- Pricing (versteckt wenn Abo aktiv) -->
+        <noscript>
+          <p>Hier siehst du alle Preise. Zum Buchen oder Einlösen eines Codes benötigst du JavaScript.</p>
+          <style>#privateOffer[hidden], #licenseSection[hidden] { display: block !important; }</style>
+        </noscript>
         <div class="pricing-section visible" id="pricingSection">
-          <div class="pricing-grid" role="radiogroup" aria-label="Abo-Laufzeit auswählen">
+          <div id="privateOffer" hidden>
+          <h2 id="pricingHeading" tabindex="-1">Monatsabo oder Einmalpaket</h2>
+          <p>Die Pakete werden einmal vollständig bezahlt. Nur das Monatsabo verlängert sich automatisch.</p>
+          <div class="pricing-grid" role="radiogroup" aria-label="Monatsabo oder Einmalpaket auswählen">
             <div class="pricing-card" data-plan="monthly" tabindex="-1" role="radio" aria-checked="false" aria-label="1 Monat, 15 Euro, automatische Verlängerung">
               <div class="pricing-check">&#10003;</div>
               <div class="pricing-plan">1 Monat</div>
@@ -984,26 +997,26 @@
           </div>
 
           <ul class="features-list">
-            <li>&Uuml;ber 14 F&auml;cher &ndash; passend zum LehrplanPLUS Bayern</li>
+            <li>Fächer passend zum LehrplanPLUS Bayern</li>
             <li>Sofortiges KI-Feedback zu jeder Aufgabe</li>
             <li>Mathematische Pr&uuml;fung durch Wolfram|Alpha in MINT-F&auml;chern</li>
             <li>M&uuml;ndliches Abitur &uuml;ben im Kolloquiumstrainer</li>
-            <li>Original-Abituraufgaben mit Musterl&ouml;sungen</li>
+            <li>Abiturformate mit KI-Feedback und Musterlösungen</li>
             <li>Dein pers&ouml;nlicher Lernfortschritt im &Uuml;berblick</li>
             <li>Erinnerungen, damit du am Ball bleibst</li>
           </ul>
 
-          <button class="cta-btn" id="checkoutBtn" type="button">
-            Jetzt Abo abschlie&szlig;en &rarr;
+          <p id="planSummary" role="status" aria-live="polite">12 Monate: 120 Euro einmalig. Endet automatisch, keine Verlängerung.</p>
+          <button class="cta-btn" id="checkoutBtn" type="button" aria-describedby="planSummary">
+            Weiter zum 12-Monats-Paket →
           </button>
+          </div>
 
-          <div class="divider">oder &uuml;ber deine Schule</div>
-
-          <div class="license-section" id="licenseSection">
+          <div class="license-section" id="licenseSection" hidden>
             <p style="font-size: .95rem; margin-bottom: .4rem;"><strong style="color: var(--ink);">Du hast einen Schul- oder Fachcode?</strong></p>
             <p>Gib den Code deiner Schule oder Fachschaft ein &ndash; damit bekommst du ggf. kostenlosen Zugang.</p>
             <div class="license-input-row">
-              <label for="licenseInput" class="sr-only">Lizenzcode</label>
+              <label for="licenseInput">Lizenzcode</label>
               <input type="text" class="license-input" id="licenseInput" name="license_code" placeholder="z.B. X7K9-2026-QM4P" maxlength="30" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" inputmode="text">
               <button class="license-btn" id="redeemBtn" type="button">Einl&ouml;sen</button>
             </div>
@@ -1013,16 +1026,16 @@
             </div>
           </div>
 
-          <div class="trust-row">
+          <div class="trust-row" id="purchaseTrust" hidden>
             <span class="trust-item">&#128274; Sichere Zahlung via Stripe</span>
-            <span class="trust-item">&#10060; Jederzeit k&uuml;ndbar</span>
+            <span class="trust-item">Monatsabo kündbar; Einmalpakete enden automatisch</span>
             <span class="trust-item">&#127979; Schullizenzen verf&uuml;gbar</span>
           </div>
 
           <!-- Social Proof -->
           <div class="social-proof" style="text-align:center;margin-top:1.5rem;padding:1rem;background:var(--accent-glow);border-radius:var(--radius-sm);border:1px solid var(--accent-soft);">
             <p style="font-size:.9rem;color:var(--ink-light);margin:0;line-height:1.5;">
-              &#127891; Schueler am <strong style="color:var(--ink);">St.-Anna-Gymnasium Muenchen</strong> lernen bereits mit myAbiFlow
+              &#127891; Schüler am <strong style="color:var(--ink);">St.-Anna-Gymnasium München</strong> lernen bereits mit myAbiFlow
             </p>
           </div>
         </div>
@@ -1035,6 +1048,46 @@
   <script>
     var ABO_API_ROOT = "";
     var selectedPlan = "12months";
+
+    // Bestehende Anker bleiben nutzbar, aber es erscheint nur die gewählte Zugangsmöglichkeit.
+    function showAccessChoice(focusTarget) {
+      var choice = location.hash;
+      var privateChoice = choice === '#pricingSection';
+      var codeChoice = choice === '#licenseSection';
+      document.getElementById('privateOffer').hidden = !privateChoice;
+      document.getElementById('licenseSection').hidden = !codeChoice;
+      document.getElementById('purchaseTrust').hidden = !privateChoice;
+      document.getElementById('decisionPrivat').setAttribute('aria-expanded', String(privateChoice));
+      document.getElementById('decisionCode').setAttribute('aria-expanded', String(codeChoice));
+      if (focusTarget && (privateChoice || codeChoice)) {
+        document.getElementById(privateChoice ? 'pricingHeading' : 'licenseInput').focus();
+      }
+    }
+    ['decisionPrivat', 'decisionCode'].forEach(function(id) {
+      var link = document.getElementById(id);
+      link.setAttribute('aria-controls', id === 'decisionPrivat' ? 'privateOffer' : 'licenseSection');
+      link.addEventListener('click', function(event) {
+        if (location.hash === link.getAttribute('href')) {
+          event.preventDefault();
+          showAccessChoice(true);
+        }
+      });
+    });
+    window.addEventListener('hashchange', function() { showAccessChoice(true); });
+    showAccessChoice(false);
+
+    function updatePlanCopy() {
+      var monthly = selectedPlan === 'monthly';
+      var months = { '6months': 6, '12months': 12, '24months': 24 }[selectedPlan];
+      var total = { '6months': 70, '12months': 120, '24months': 180 }[selectedPlan];
+      var label = monthly ? 'Weiter zum Monatsabo →' : 'Weiter zum ' + months + '-Monats-Paket →';
+      document.getElementById('planSummary').textContent = monthly
+        ? '15 Euro pro Monat. Automatische monatliche Verlängerung; kündbar zum Ende des bezahlten Zeitraums.'
+        : months + ' Monate: ' + total + ' Euro einmalig. Endet automatisch, keine Verlängerung.';
+      document.querySelectorAll('#checkoutBtn, .sticky-cta-btn').forEach(function(button) {
+        if (!button.disabled) button.textContent = label;
+      });
+    }
 
     // Student-ID und Token aus sessionStorage
     function getStudentId() {
@@ -1069,25 +1122,11 @@
       return data;
     }
 
-    // Schulcode-Karte: nach Klick Input fokussieren
-    (function() {
-      var codeCard = document.getElementById("decisionCode");
-      if (!codeCard) return;
-      codeCard.addEventListener("click", function() {
-        // kurz warten bis Browser zum Anker gescrollt hat
-        setTimeout(function() {
-          var input = document.getElementById("licenseInput");
-          if (input) {
-            try { input.focus({ preventScroll: true }); } catch (_) { input.focus(); }
-          }
-        }, 400);
-      });
-    })();
-
     // Plan-Karten
     var pricingCards = Array.prototype.slice.call(document.querySelectorAll(".pricing-card"));
 
     function selectPricingCard(card, shouldFocus) {
+      if (document.getElementById('checkoutBtn').disabled) return;
       pricingCards.forEach(function(c) {
         c.classList.remove("selected");
         c.setAttribute("aria-checked", "false");
@@ -1097,6 +1136,7 @@
       card.setAttribute("aria-checked", "true");
       card.setAttribute("tabindex", "0");
       selectedPlan = card.dataset.plan;
+      updatePlanCopy();
       if (shouldFocus) card.focus();
     }
 
@@ -1126,7 +1166,7 @@
 
       if (!studentId || !getAccessToken()) {
         showToast("Bitte melde dich zuerst an.", "error");
-        setTimeout(function() { window.location.href = "/"; }, 1500);
+        setTimeout(function() { window.location.href = "/index.html?login=1"; }, 1500);
         return;
       }
 
@@ -1164,7 +1204,7 @@
       } catch (err) {
         showToast(err.message || "Fehler beim Starten des Checkouts.", "error");
         btn.disabled = false;
-        btn.textContent = "Jetzt Abo abschließen \u2192";
+        updatePlanCopy();
       }
     });
 
@@ -1287,7 +1327,7 @@
           document.getElementById("pricingSection").classList.remove("visible");
           var decisionWrap = document.getElementById("decisionWrap");
           if (decisionWrap) { decisionWrap.style.display = "none"; }
-          document.getElementById("pageTitle").textContent = "Dein Abo";
+          document.getElementById("pageTitle").textContent = "Dein Zugang";
           document.getElementById("pageSubtitle").textContent = "Dein Zugang zu myAbiFlow ist aktiv.";
 
           var planNames = {
@@ -1354,7 +1394,7 @@
             banner.classList.add("success");
             document.getElementById("resultIcon").textContent = "\u2705";
             document.getElementById("resultText").textContent =
-              "Zahlung erfolgreich! Dein Abo ist jetzt aktiv. Viel Erfolg beim Lernen!";
+              "Zahlung erfolgreich! Dein Zugang ist jetzt aktiv. Viel Erfolg beim Lernen!";
             sessionStorage.setItem("subscription_status", statusData.status);
             sessionStorage.removeItem("free_access");
           } else {
@@ -1387,7 +1427,7 @@
     loadSubscriptionStatus();
 
     // Sticky CTA: erst zeigen, wenn der normale Checkout-Button nicht sichtbar ist
-    (function() {
+    document.addEventListener('DOMContentLoaded', function() {
       var stickyCta = document.getElementById("stickyCta");
       if (!stickyCta) return;
       var checkoutBtn = document.getElementById("checkoutBtn");
@@ -1401,7 +1441,7 @@
       }
 
       function updateStickyCta() {
-        var pricingVisible = pricingSection && pricingSection.classList.contains("visible");
+        var pricingVisible = pricingSection && pricingSection.classList.contains("visible") && !document.getElementById('privateOffer').hidden;
         var compactViewport = window.matchMedia("(max-width: 1024px)").matches;
         setStickyVisible(Boolean(pricingVisible && compactViewport && !checkoutVisible && checkoutAboveViewport));
       }
@@ -1429,15 +1469,17 @@
         updateStickyCta();
       });
       if (pricingSection) observer.observe(pricingSection, { attributes: true, attributeFilter: ["class"] });
+      observer.observe(document.getElementById('privateOffer'), { attributes: true, attributeFilter: ['hidden'] });
       window.addEventListener("resize", updateStickyCta);
       updateStickyCta();
-    })();
+    });
   </script>
 
   <!-- Sticky CTA fuer Mobile/Tablet -->
   <div class="sticky-cta" id="stickyCta">
-    <button class="sticky-cta-btn" type="button">Jetzt Abo abschlie&szlig;en &rarr;</button>
+    <button class="sticky-cta-btn" type="button">Weiter zum 12-Monats-Paket →</button>
   </div>
+  <script>updatePlanCopy();</script>
   <script src="shared.js"></script>
 </body>
 </html>

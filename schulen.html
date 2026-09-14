@@ -5,12 +5,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description"
-    content="myAbiFlow für bayerische Schulen: Fachschafts- und Schullizenzen mit Lehrer-Dashboard, Codes für Kurse und Jahrgänge, datenschutzkonform – passend zu Bayern G9 und FOS/BOS.">
+    content="myAbiFlow für bayerische Schulen: Fachschafts- und Schullizenzen mit Lehrer-Dashboard, Codes für Kurse und Jahrgänge, mit Unterlagen zur Datenschutzprüfung. Passend zu Bayern G9 und FOS/BOS.">
   <meta name="theme-color" content="#4f46e5">
   <meta name="color-scheme" content="light dark">
   <title>myAbiFlow für Schulen &amp; Fachschaften – Bayern G9 | FOS/BOS</title>
   <meta property="og:title" content="myAbiFlow für Schulen &amp; Fachschaften">
-  <meta property="og:description" content="Fachschafts- und Schullizenzen mit Lehrer-Dashboard und Codes für Kurse und Jahrgänge. Datenschutzkonform.">
+  <meta property="og:description" content="Fachschafts- und Schullizenzen mit Lehrer-Dashboard und Codes für Kurse und Jahrgänge. Mit Unterlagen zur Datenschutzprüfung.">
   <meta property="og:image" content="https://myabiflow.de/og-image.png">
   <meta property="og:url" content="https://myabiflow.de/schulen.html">
   <meta property="og:type" content="website">
@@ -292,22 +292,23 @@
     .sc-cta-big {
       max-width: 880px;
       margin: 0 auto;
-      background: linear-gradient(135deg, var(--accent), #6366f1);
-      color: white;
-      border-radius: 24px;
+      background: var(--surface);
+      color: var(--ink);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
       padding: 40px 32px;
       text-align: center;
-      box-shadow: var(--shadow-lg);
+      box-shadow: none;
     }
     .sc-cta-big h2 {
       font-size: clamp(1.5rem, 2.5vw, 2rem);
       font-weight: 800;
       letter-spacing: -.02em;
       margin: 0 0 12px;
-      color: white;
+      color: var(--ink);
     }
     .sc-cta-big p {
-      color: rgba(255, 255, 255, .88);
+      color: var(--ink-light);
       font-size: 1rem;
       margin: 0 0 24px;
       max-width: 540px;
@@ -315,13 +316,13 @@
       margin-right: auto;
     }
     .sc-cta-big .btn {
-      background: white;
-      color: var(--accent);
+      background: var(--accent);
+      color: var(--on-accent);
       height: 52px;
       padding: 0 32px;
       font-weight: 700;
     }
-    .sc-cta-big .btn:hover { background: #f3f4f6; }
+    .sc-cta-big .btn:hover { background: var(--accent-hover); }
 
     /* FOOTER */
     .sc-footer {
@@ -367,7 +368,7 @@
       </a>
       <div class="sc-nav-actions">
         <a href="lehrer.html" class="sc-nav-login">Lehrer-Login</a>
-        <a href="#anfragen" class="btn" style="height:40px; padding:0 20px; font-size:.875rem;">Pilot anfragen</a>
+        <a href="#anfragen" class="btn" style="min-height:44px; padding:0 20px; font-size:.875rem;">Pilot anfragen</a>
       </div>
     </div>
   </nav>
@@ -377,7 +378,7 @@
     <div class="sc-badge">Für bayerische Gymnasien &amp; FOS/BOS</div>
     <h1 class="sc-h1">myAbiFlow <span>für Schulen</span> &amp; Fachschaften</h1>
     <p class="sc-sub">
-      Fachschafts- oder Schullizenz mit Lehrer-Dashboard und Codes für Kurse und Jahrgänge. Ihre Schülerinnen und Schüler erhalten sofortiges KI-Feedback, Sie behalten den Lernstand im Blick – datenschutzkonform, ohne Registrierungshürden.
+      Ihre Schülerinnen und Schüler üben mit KI-Feedback. Sie behalten den Lernstand im Blick. Einführung und Datenschutzunterlagen klären wir gemeinsam.
     </p>
     <div class="sc-cta-row">
       <a href="#anfragen" class="btn">Pilot für meine Fachschaft anfragen</a>
@@ -537,9 +538,9 @@
     <div class="sc-privacy">
       <div class="sc-privacy-icon" aria-hidden="true">🔒</div>
       <div>
-        <h2 class="sc-privacy-title" id="privacy-title">Datenschutz konform zu bayerischen Schulen</h2>
+        <h2 class="sc-privacy-title" id="privacy-title">Datenschutz vor dem Schulstart klären</h2>
         <p class="sc-privacy-text">
-          Schüler melden sich über Codes an – keine E-Mail-Adresse nötig. Daten werden ausschließlich in der EU verarbeitet, Sprach- und Textdaten nicht für Werbung oder Training externer Modelle verwendet. AVV und DSFA-Baustein stellen wir für Schulleitung und Datenschutzbeauftragte bereit.
+          Das Hosting erfolgt in Deutschland. Für KI- und weitere Funktionen werden externe Dienste eingesetzt; die verlinkten Datenschutzunterlagen beschreiben dabei auch Übermittlungen in die USA. Hosting und Verarbeitung durch diese Dienste sind zu unterscheiden. AVV und DSFA-Baustein stellen wir für Schulleitung und Datenschutzbeauftragte bereit. Sie prüfen die Unterlagen vor der Freigabe für Ihre Schule.
           <br><br>
           Details: <a href="impressum.html#datenschutz">Datenschutzerklärung</a> · <a href="dsfa.html">DSFA-Baustein</a>
         </p>

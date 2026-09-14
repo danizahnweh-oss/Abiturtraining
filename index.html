@@ -35,13 +35,25 @@
     (function () {
       var isLoggedIn = sessionStorage.getItem('access') === '1' && sessionStorage.getItem('student_name');
       var isTeacher = sessionStorage.getItem('teacher_auth') === '1';
-      var params = window.location.search;
-      if (!isLoggedIn && !isTeacher && !params.includes('app') && !params.includes('login')) {
+      var params = new URLSearchParams(window.location.search);
+      if (params.get('role') === 'student' || params.get('login') === '1') document.documentElement.classList.add('student-entry');
+      if (!isLoggedIn && !isTeacher && !params.has('app') && !params.has('login')) {
         window.location.replace('landing.html');
       }
     })();
   </script>
   <style>
+    /* Direkter Schülereinstieg: kein zweiter Markenstart vor der Fachwahl. */
+    .student-entry #splash { display: none !important; }
+    .guest-subjects .subject-header { gap: 16px; flex-wrap: wrap; }
+    .guest-subjects .subject-header > img { height: 32px !important; max-width: 160px; object-fit: contain; }
+    .guest-subjects .dashboard-hero { background: var(--surface); color: var(--ink); box-shadow: none; padding: 24px; }
+    .guest-subjects .dashboard-hero::before, .guest-subjects .dashboard-hero::after { display: none; }
+    .guest-subjects #greetingText { color: var(--ink); font-size: var(--text-2xl); }
+    .guest-subjects #guestHint { color: var(--ink-light) !important; }
+    .guest-subjects .quick-actions-bar { display: none; }
+    html.guest-subjects .subject-countdown { display: none; }
+    .guest-subjects #guestLoginBtn, .guest-subjects .cat-filter-btn.active { color: var(--on-accent) !important; }
     /* German accent (index uses both EN blue + DE green + PuG red) */
     :root {
       --accent-de: #047857;
@@ -3078,7 +3090,7 @@
             "price": "0",
             "priceCurrency": "EUR",
             "availability": "https://schema.org/InStock",
-            "category": "Kostenlose Basisversion"
+            "category": "3 Tage kostenlos testen"
           }
         },
         {
@@ -3091,7 +3103,7 @@
           "inLanguage": "de",
           "educationalLevel": "Abitur (Gymnasium Bayern G9)",
           "about": "Deutsch",
-          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR", "availability": "https://schema.org/InStock" }
+          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR", "availability": "https://schema.org/InStock", "description": "3 Tage kostenlos testen; danach kostenpflichtiger Zugang oder gültige Schullizenz." }
         },
         {
           "@type": "Course",
@@ -3102,7 +3114,7 @@
           "provider": { "@id": "https://myabiflow.de/#organization" },
           "educationalLevel": "Abitur (Gymnasium Bayern G9)",
           "about": "Mathematik",
-          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR", "availability": "https://schema.org/InStock" }
+          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR", "availability": "https://schema.org/InStock", "description": "3 Tage kostenlos testen; danach kostenpflichtiger Zugang oder gültige Schullizenz." }
         },
         {
           "@type": "Course",
@@ -3113,7 +3125,7 @@
           "provider": { "@id": "https://myabiflow.de/#organization" },
           "educationalLevel": "Abitur (Gymnasium Bayern G9)",
           "about": "Geschichte",
-          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR", "availability": "https://schema.org/InStock" }
+          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR", "availability": "https://schema.org/InStock", "description": "3 Tage kostenlos testen; danach kostenpflichtiger Zugang oder gültige Schullizenz." }
         },
         {
           "@type": "Course",
@@ -3124,7 +3136,7 @@
           "provider": { "@id": "https://myabiflow.de/#organization" },
           "educationalLevel": "Abitur (Gymnasium Bayern G9)",
           "about": "Physik",
-          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR", "availability": "https://schema.org/InStock" }
+          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR", "availability": "https://schema.org/InStock", "description": "3 Tage kostenlos testen; danach kostenpflichtiger Zugang oder gültige Schullizenz." }
         },
         {
           "@type": "Course",
@@ -3135,7 +3147,7 @@
           "provider": { "@id": "https://myabiflow.de/#organization" },
           "educationalLevel": "Abitur (Gymnasium Bayern G9)",
           "about": "Biologie",
-          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR", "availability": "https://schema.org/InStock" }
+          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR", "availability": "https://schema.org/InStock", "description": "3 Tage kostenlos testen; danach kostenpflichtiger Zugang oder gültige Schullizenz." }
         },
         {
           "@type": "Course",
@@ -3146,7 +3158,7 @@
           "provider": { "@id": "https://myabiflow.de/#organization" },
           "educationalLevel": "Abitur (Gymnasium Bayern G9)",
           "about": "Chemie",
-          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR", "availability": "https://schema.org/InStock" }
+          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR", "availability": "https://schema.org/InStock", "description": "3 Tage kostenlos testen; danach kostenpflichtiger Zugang oder gültige Schullizenz." }
         },
         {
           "@type": "Course",
@@ -3157,7 +3169,7 @@
           "provider": { "@id": "https://myabiflow.de/#organization" },
           "educationalLevel": "Abitur (Gymnasium Bayern G9)",
           "about": "Geographie",
-          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR", "availability": "https://schema.org/InStock" }
+          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR", "availability": "https://schema.org/InStock", "description": "3 Tage kostenlos testen; danach kostenpflichtiger Zugang oder gültige Schullizenz." }
         },
         {
           "@type": "Course",
@@ -3168,7 +3180,7 @@
           "provider": { "@id": "https://myabiflow.de/#organization" },
           "educationalLevel": "Abitur (Gymnasium Bayern G9)",
           "about": "Wirtschaft und Recht",
-          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR", "availability": "https://schema.org/InStock" }
+          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR", "availability": "https://schema.org/InStock", "description": "3 Tage kostenlos testen; danach kostenpflichtiger Zugang oder gültige Schullizenz." }
         },
         {
           "@type": "Course",
@@ -3179,7 +3191,7 @@
           "provider": { "@id": "https://myabiflow.de/#organization" },
           "educationalLevel": "Abitur (Gymnasium Bayern G9)",
           "about": "Politik und Gesellschaft",
-          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR", "availability": "https://schema.org/InStock" }
+          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR", "availability": "https://schema.org/InStock", "description": "3 Tage kostenlos testen; danach kostenpflichtiger Zugang oder gültige Schullizenz." }
         },
         {
           "@type": "Course",
@@ -3190,7 +3202,7 @@
           "provider": { "@id": "https://myabiflow.de/#organization" },
           "educationalLevel": "Abitur (Gymnasium Bayern G9)",
           "about": "Informatik",
-          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR", "availability": "https://schema.org/InStock" }
+          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR", "availability": "https://schema.org/InStock", "description": "3 Tage kostenlos testen; danach kostenpflichtiger Zugang oder gültige Schullizenz." }
         },
         {
           "@type": "Course",
@@ -3201,7 +3213,7 @@
           "provider": { "@id": "https://myabiflow.de/#organization" },
           "educationalLevel": "Abitur (Gymnasium Bayern G9)",
           "about": "Ethik",
-          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR", "availability": "https://schema.org/InStock" }
+          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR", "availability": "https://schema.org/InStock", "description": "3 Tage kostenlos testen; danach kostenpflichtiger Zugang oder gültige Schullizenz." }
         },
         {
           "@type": "Course",
@@ -3212,7 +3224,7 @@
           "provider": { "@id": "https://myabiflow.de/#organization" },
           "educationalLevel": "Abitur (Gymnasium Bayern G9)",
           "about": "Französisch",
-          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR", "availability": "https://schema.org/InStock" }
+          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR", "availability": "https://schema.org/InStock", "description": "3 Tage kostenlos testen; danach kostenpflichtiger Zugang oder gültige Schullizenz." }
         },
         {
           "@type": "Course",
@@ -3223,7 +3235,7 @@
           "provider": { "@id": "https://myabiflow.de/#organization" },
           "educationalLevel": "Abitur (Gymnasium Bayern G9)",
           "about": "Latein",
-          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR", "availability": "https://schema.org/InStock" }
+          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR", "availability": "https://schema.org/InStock", "description": "3 Tage kostenlos testen; danach kostenpflichtiger Zugang oder gültige Schullizenz." }
         },
         {
           "@type": "Course",
@@ -3234,7 +3246,7 @@
           "provider": { "@id": "https://myabiflow.de/#organization" },
           "educationalLevel": "Abitur (Gymnasium Bayern G9)",
           "about": "Evangelische Religionslehre",
-          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR", "availability": "https://schema.org/InStock" }
+          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR", "availability": "https://schema.org/InStock", "description": "3 Tage kostenlos testen; danach kostenpflichtiger Zugang oder gültige Schullizenz." }
         },
         {
           "@type": "Course",
@@ -3245,7 +3257,7 @@
           "provider": { "@id": "https://myabiflow.de/#organization" },
           "educationalLevel": "Abitur (Gymnasium Bayern G9)",
           "about": "Katholische Religionslehre",
-          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR", "availability": "https://schema.org/InStock" }
+          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR", "availability": "https://schema.org/InStock", "description": "3 Tage kostenlos testen; danach kostenpflichtiger Zugang oder gültige Schullizenz." }
         }
       ]
     }
@@ -3262,7 +3274,7 @@
       "name": "Ist myAbiFlow kostenlos?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Ja, myAbiFlow bietet eine kostenlose Basisversion mit KI-gestütztem Klausur- und Abiturtraining für alle Fächer am bayerischen Gymnasium (G9) und der FOS."
+        "text": "Neue Konten können myAbiFlow 3 Tage kostenlos testen, ohne Zahlungsdaten. Danach brauchst du einen kostenpflichtigen Zugang oder einen gültigen Schul- bzw. Fachcode. Die Testphase wird nicht automatisch zu einem kostenpflichtigen Abo."
       }
     },
     {
@@ -3362,7 +3374,7 @@
       "@type": "Offer",
       "price": "0",
       "priceCurrency": "EUR",
-      "description": "Kostenlose Basisversion"
+      "description": "3 Tage kostenlos testen"
     },
     {
       "@type": "Offer",
@@ -3412,7 +3424,7 @@
     <script>
       (function () {
         // Splash nur beim allerersten Besuch zeigen
-        if (localStorage.getItem('splash_seen')) {
+        if (localStorage.getItem('splash_seen') || document.documentElement.classList.contains('student-entry')) {
           var sp = document.getElementById('splash');
           if (sp) sp.style.display = 'none';
           return;
@@ -3612,9 +3624,9 @@
     <div id="trialBannerContainer"></div>
     <div id="trialStatusCard"></div>
     <div class="dashboard-hero">
-      <h2 id="greetingText" role="heading" aria-level="2">Willkommen zurück!</h2>
+      <h2 id="greetingText" role="heading" aria-level="2">Wähle dein Fach</h2>
       <p id="guestHint" style="display:none; color:rgba(255,255,255,0.7); font-size:0.95rem; margin-top:0.3rem;">Wähle
-        ein Fach aus, um loszulegen. Melde dich an, um Aufgaben zu bearbeiten.</p>
+        dein Fach und die Übungsart. Zum Bearbeiten meldest du dich an. Neue Konten können 3 Tage kostenlos testen.</p>
       <div id="countdownToggle" style="display:none; margin-top:0.5rem;">
         <button type="button" onclick="enableCountdown()" aria-label="Prüfungs-Countdown anzeigen"
           style="background:rgba(255,255,255,0.15); border:1px solid rgba(255,255,255,0.25); padding:0.5rem 1rem; border-radius:20px; cursor:pointer; font-size:0.9rem; color:rgba(255,255,255,0.85); transition:background-color,border-color 0.2s;">
@@ -3992,7 +4004,7 @@
       <h2 style="font-size:1.3rem;font-weight:700;color:var(--ink);margin-bottom:1.2rem;text-align:center;">Häufige Fragen</h2>
       <details style="border:1px solid var(--border);border-radius:var(--radius-sm);margin-bottom:.5rem;background:var(--bg-card);">
         <summary style="padding:.8rem 1rem;cursor:pointer;font-weight:600;font-size:.95rem;color:var(--ink);">Ist myAbiFlow kostenlos?</summary>
-        <p style="padding:0 1rem .8rem;font-size:.9rem;color:var(--ink-light);line-height:1.6;">Ja, myAbiFlow bietet eine kostenlose Basisversion mit KI-gestütztem Klausur- und Abiturtraining für alle Fächer am bayerischen Gymnasium (G9) und der FOS.</p>
+        <p style="padding:0 1rem .8rem;font-size:.9rem;color:var(--ink-light);line-height:1.6;">Neue Konten können myAbiFlow 3 Tage kostenlos testen, ohne Zahlungsdaten. Danach brauchst du einen kostenpflichtigen Zugang oder einen gültigen Schul- bzw. Fachcode. Die Testphase wird nicht automatisch zu einem kostenpflichtigen Abo.</p>
       </details>
       <details style="border:1px solid var(--border);border-radius:var(--radius-sm);margin-bottom:.5rem;background:var(--bg-card);">
         <summary style="padding:.8rem 1rem;cursor:pointer;font-weight:600;font-size:.95rem;color:var(--ink);">Für welche Fächer gibt es Abiturtraining?</summary>
@@ -4029,7 +4041,7 @@
     </a>
     <div role="none" style="margin-top:2rem; text-align:center; font-size:.85rem; color:var(--ink-light); padding:1rem 0;">
       <div style="margin-bottom:.6rem;"><a href="abitur-vorbereitung.html" style="color:var(--ink-muted);text-decoration:underline;font-size:.82rem;">Abitur-Vorbereitung Bayern 2026</a> &middot; <a href="kolloquium-tipps.html" style="color:var(--ink-muted);text-decoration:underline;font-size:.82rem;">10 Tipps f&uuml;rs Kolloquium</a> &middot; <a href="abo.html" style="color:var(--ink-muted);text-decoration:underline;font-size:.82rem;">Abo &amp; Preise</a></div>
-      &copy; 2026 myAbiFlow &middot; Abitur Trainer &middot; <a href="impressum.html" style="text-decoration:underline; color:var(--ink-light);">Impressum</a> &middot; <a href="impressum.html#datenschutz" style="text-decoration:underline; color:var(--ink-light);">Datenschutz</a> &middot; <a href="agb.html" style="text-decoration:underline; color:var(--ink-light);">AGB</a> &middot; <a href="barrierefreiheit.html" style="text-decoration:underline; color:var(--ink-light);">Barrierefreiheit</a><br><span style="font-size:0.75rem; color:var(--ink-light); margin-top:0.3rem; display:inline-block;">DSGVO-konform &middot; Daten in der EU</span><br><a href="lehrer.html"
+      &copy; 2026 myAbiFlow &middot; Abitur Trainer &middot; <a href="impressum.html" style="text-decoration:underline; color:var(--ink-light);">Impressum</a> &middot; <a href="impressum.html#datenschutz" style="text-decoration:underline; color:var(--ink-light);">Datenschutz</a> &middot; <a href="agb.html" style="text-decoration:underline; color:var(--ink-light);">AGB</a> &middot; <a href="barrierefreiheit.html" style="text-decoration:underline; color:var(--ink-light);">Barrierefreiheit</a><br><span style="font-size:0.75rem; color:var(--ink-light); margin-top:0.3rem; display:inline-block;">Hosting in Deutschland. Details zu externen Diensten in den Datenschutzhinweisen.</span><br><a href="lehrer.html"
         style="font-size:0.75rem; color:var(--ink-light); text-decoration:underline; margin-top:0.3rem; display:inline-block;">F&uuml;r Lehrkr&auml;fte &rarr;</a>
     </div>
 
@@ -6748,6 +6760,7 @@
 
       var name = sessionStorage.getItem("student_name") || "";
       var isLoggedIn = sessionStorage.getItem("access") === "1" && name;
+      document.documentElement.classList.toggle('guest-subjects', !isLoggedIn);
       var now = new Date();
       var hrs = now.getHours();
       var greet = "Hallo";
@@ -6767,7 +6780,7 @@
           greetEl.appendChild(accentSpan);
           greetEl.appendChild(document.createTextNode("!"));
         } else {
-          greetEl.textContent = "Willkommen bei myAbiFlow!";
+          greetEl.textContent = "Wähle dein Fach";
         }
       }
 
@@ -7384,7 +7397,12 @@
         });
       } else {
         // Nicht eingeloggt
-        if (sessionStorage.getItem('role_selected') === '1') {
+        if (urlParams.get('login') === '1') {
+          document.getElementById('subject-screen').style.display = 'none';
+          document.getElementById('login-screen').style.display = 'flex';
+          document.getElementById('studentName').focus();
+        } else if (sessionStorage.getItem('role_selected') === '1' || urlParams.get('role') === 'student') {
+          sessionStorage.setItem('role_selected', '1');
           // Gast hatte bereits "Ich bin Schueler" geklickt → Fachauswahl zeigen
           showSubjectSelection();
           renderSubjectLayout();
@@ -7436,7 +7454,7 @@
       var splash = document.getElementById("splash");
       if (!splash) return;
       var reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      if (localStorage.getItem("splash_seen") || reducedMotion) {
+      if (localStorage.getItem("splash_seen") || reducedMotion || document.documentElement.classList.contains('student-entry')) {
         splash.style.display = "none";
         return;
       }

@@ -10,7 +10,7 @@
   <meta name="color-scheme" content="light dark">
   <title>Beispiel-Feedback ansehen – myAbiFlow</title>
   <meta property="og:title" content="So sieht dein Feedback aus – myAbiFlow">
-  <meta property="og:description" content="Echte Beispiele: Punkte, Fehleranalyse, Musterlösung. Ohne Registrierung.">
+  <meta property="og:description" content="Demo-Ausschnitte: Punkte, Fehleranalyse und Musterlösung zur Veranschaulichung. Ohne Registrierung.">
   <meta property="og:image" content="https://myabiflow.de/og-image.png">
   <meta property="og:url" content="https://myabiflow.de/demo.html">
   <meta property="og:type" content="website">
@@ -82,7 +82,7 @@
     .dm-hero {
       max-width: 880px;
       margin: 0 auto;
-      padding: 64px 32px 32px;
+      padding: 32px 24px 16px;
       text-align: center;
     }
     .dm-badge {
@@ -134,8 +134,9 @@
     .dm-tab[aria-selected="true"] {
       background: var(--accent);
       border-color: var(--accent);
-      color: white;
+      color: var(--on-accent);
     }
+    [data-theme="dark"] .dm-subject { color: var(--ink); }
     .dm-tab:hover:not([aria-selected="true"]) {
       border-color: var(--accent);
       color: var(--accent);
@@ -265,7 +266,7 @@
       </a>
       <div class="dm-nav-actions">
         <a href="landing.html" class="dm-nav-login">← Zurück</a>
-        <a href="index.html?app=1" class="btn" style="height:40px; padding:0 20px; font-size:.875rem;">Kostenlos testen</a>
+        <a href="index.html?app=1&amp;role=student" class="btn" style="min-height:44px; padding:0 16px; font-size:.875rem;">Mein Fach wählen</a>
       </div>
     </div>
   </nav>
@@ -274,12 +275,9 @@
     <div class="dm-badge">Ohne Registrierung ansehen</div>
     <h1 class="dm-h1">So sieht dein Feedback aus</h1>
     <p class="dm-sub">
-      Echte Beispiele aus unterschiedlichen Fächern. Jede Antwort kommt mit Punkten, Stärken, konkreten Verbesserungen und einer Musterlösung – genau so, wie du es in myAbiFlow bekommst.
+      Gekürzte Demo-Ausschnitte zeigen den Aufbau einer Rückmeldung. Sie veranschaulichen Punkte, Stärken und nächste Schritte; sie sind kein Nachweis unabhängig geprüfter Bewertungsqualität.
     </p>
-    <div class="dm-cta-row">
-      <a href="index.html?app=1" class="btn">Jetzt selbst ausprobieren →</a>
-      <a href="landing.html" class="btn btn-secondary">Zurück zur Startseite</a>
-    </div>
+    <p class="dm-sub">KI-Feedback ist eine Lernhilfe und ersetzt keine Lehrerkorrektur. Prüfe strittige Punkte mit deiner Lehrkraft.</p>
   </section>
 
   <!-- TABS -->
@@ -469,7 +467,7 @@
       <h2 class="dm-cta-title">Jetzt deine eigene Lösung hochladen</h2>
       <p class="dm-cta-text">Lade deine Klausur oder deinen Aufsatz hoch und bekomme Punkte, Fehleranalyse und Musterlösung in wenigen Minuten.</p>
       <div class="dm-cta-row">
-        <a href="index.html?app=1" class="btn">Kostenlos testen →</a>
+        <a href="index.html?app=1&amp;role=student" class="btn">Kostenlos testen →</a>
         <a href="abo.html" class="btn btn-secondary">Preise ansehen</a>
       </div>
     </div>

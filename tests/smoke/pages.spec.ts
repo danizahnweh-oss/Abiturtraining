@@ -11,6 +11,11 @@ test.describe("Smoke: Alle Seiten laden", () => {
 
       // HTTP-Status prüfen (404.html liefert trotzdem 200 auf statischem Hosting)
       expect(response?.status()).toBe(200);
+      // Gastseiten können über index.html zur Landingpage weiterleiten.
+      if (path === '/' || path === '/index.html' || path === '/profil.html') {
+        await page.waitForURL('**/landing.html');
+      }
+      await page.waitForLoadState('load');
 
       // Keine JavaScript-Fehler
       expect(jsErrors, `JS-Fehler auf ${path}: ${jsErrors.join(", ")}`).toEqual([]);
@@ -20,8 +25,7 @@ test.describe("Smoke: Alle Seiten laden", () => {
       await expect(viewport).toHaveAttribute("content", /width=device-width/);
 
       // Titel vorhanden
-      const title = await page.title();
-      expect(title.length, `Kein <title> auf ${path}`).toBeGreaterThan(0);
+      await expect(page).toHaveTitle(/\S/);
     });
   }
 });
