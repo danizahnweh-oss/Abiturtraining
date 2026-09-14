@@ -2979,12 +2979,13 @@ async function loadEducationalImage(prompt, containerId, labels, style, _isRetry
     if (options?.decorate) options.decorate(el);
     var img = el.querySelector("img");
     img.loading = "eager";
-    img.onload = function () {
+    img.onload = async function () {
       if (!isCurrent()) return;
       clearTimeout(imageTimer);
+      if (options?.onReady) await options.onReady(img.src, imageResponse);
+      if (!isCurrent()) return;
       el.dataset.imageState = "ready";
       el.setAttribute("aria-busy", "false");
-      if (options?.onReady) options.onReady(img.src, imageResponse);
     };
     img.onerror = imageFailed;
     imageTimer = setTimeout(imageFailed, 30000);

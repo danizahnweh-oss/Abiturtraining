@@ -47,6 +47,25 @@ function renderMaterialsHtml(mats, prefix) {
 }
 
 const _wrMaterialObservers = [];
+// Große Originalbilder gehören in IndexedDB, nicht in den begrenzten Textspeicher.
+async function wrImageStore(key, value) {
+  const db = await new Promise((resolve, reject) => {
+    const request = indexedDB.open('myabiflow-wr-images', 1);
+    request.onupgradeneeded = () => request.result.createObjectStore('images');
+    request.onsuccess = () => resolve(request.result);
+    request.onerror = () => reject(request.error);
+  });
+  try {
+    return await new Promise((resolve, reject) => {
+      const transaction = db.transaction('images', value ? 'readwrite' : 'readonly');
+      const store = transaction.objectStore('images');
+      const request = value ? store.put(value, key) : store.get(key);
+      transaction.oncomplete = () => resolve(request.result);
+      transaction.onerror = () => reject(transaction.error);
+      transaction.onabort = () => reject(transaction.error);
+    });
+  } finally { db.close(); }
+}
 function resetWRMaterials() {
   _wrMaterialObservers.splice(0).forEach(observer => observer.disconnect());
   document.getElementById('feedbackContent').style.display = 'none';
@@ -63,7 +82,7 @@ function ensureMaterialsReady() {
   return false;
 }
 function loadMaterialAssets(mats, prefix, mirrorPrefix) {
-  (mats || []).forEach((m, idx) => {
+  (mats || []).forEach(async (m, idx) => {
     const type = normalizeWRMaterialType(m);
     if (!["bild", "foto", "karikatur"].includes(type)) {
       if ((m.inhalt || "").includes("|")) {
@@ -92,12 +111,24 @@ function loadMaterialAssets(mats, prefix, mirrorPrefix) {
       _wrMaterialObservers.push(observer);
       sync();
     }
+    let cachedImage = m._generatedImage?.prompt === m.inhalt ? m._generatedImage : null;
+    if (cachedImage?.cacheKey) {
+      try { cachedImage = await wrImageStore(cachedImage.cacheKey); }
+      catch { cachedImage = null; }
+    }
+    if (!source.isConnected || document.getElementById(sourceId) !== source) return;
     loadEducationalImage(m.inhalt, sourceId, m.bild_labels || null, type === "bild" ? "diagram" : type, false, {
-      cachedImage: m._generatedImage?.prompt === m.inhalt ? m._generatedImage : null,
-      onReady: (url, response) => {
-        if (m._generatedImage?.url === url) return;
-        m._generatedImage = { prompt: m.inhalt, url, credit: response?.credit || '', caption: response?.caption || '' };
-        saveWRState();
+      cachedImage,
+      onReady: async (url, response) => {
+        if (cachedImage?.url === url && m._generatedImage?.cacheKey) return;
+        try {
+          const cacheKey = crypto.randomUUID();
+          const image = { prompt: m.inhalt, url, credit: response?.credit || '', caption: response?.caption || '' };
+          await wrImageStore(cacheKey, image);
+          m._generatedImage = { prompt: m.inhalt, cacheKey };
+          cachedImage = image;
+          saveWRState();
+        } catch { showToast('Das Bild konnte auf diesem Gerät nicht gespeichert werden. Bitte sichere die Aufgabe als PDF.'); }
       }
     });
   });

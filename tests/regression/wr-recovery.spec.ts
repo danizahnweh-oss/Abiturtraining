@@ -44,6 +44,18 @@ for (const path of ['wr', 'wr-abitur']) {
       await expect(page.locator('#feedbackBody')).toContainText('Gespeicherte Rückmeldung');
       await expect(page.locator('#scoreNP')).toHaveText('11');
     });
+    test('Großes Originalbild überlastet den Entwurfsspeicher nicht', async ({ page }) => {
+      const largeImage = 'data:image/png;base64,' + Buffer.concat([Buffer.from(image.split(',')[1], 'base64'), Buffer.alloc(4 * 1024 * 1024)]).toString('base64');
+      let calls = 0;
+      await page.route('**/api/generate-image', r => { calls++; return r.fulfill({ json: { url: largeImage } }); });
+      await setup(page);
+      await expect(page.locator('#sec-task [data-image-state=ready]')).toHaveCount(1);
+      const length = await page.evaluate(() => Object.keys(localStorage).filter(k => k.includes('_session_')).reduce((sum, k) => sum + (localStorage.getItem(k) || '').length, 0));
+      expect(length).toBeLessThan(5000);
+      await page.reload();
+      await expect(page.locator('#sec-task [data-image-state=ready]')).toHaveCount(1);
+      expect(calls).toBe(1);
+    });
     test('Laufende Korrektur nach Neuladen ohne zweiten Auftrag fortsetzen', async ({ page }) => {
       let submissions = 0;
       await page.route('**/api/grade-submit', r => { submissions++; return r.fulfill({ json: { job_id: 'unerwartet' } }); });
