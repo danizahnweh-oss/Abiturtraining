@@ -934,7 +934,8 @@
     };
   </script>
   <script src="ai-tutor.js" defer></script>
-  <script src="shared.js?v=20260913-materials"></script>
+  <script src="shared.js?v=gym-recovery-1"></script>
+  <script src="gymnasium-recovery.js?v=1"></script>
   <script>
     /* ================= PROMPTS ================= */
 
@@ -1094,12 +1095,12 @@ Schreibe auf DEUTSCH, zitiere Schülertext auf Englisch.`;
         timerSeconds: timerSeconds,
         timerRunning: !!timerInterval
       };
-      localStorage.setItem("session_" + getStudentKey(), JSON.stringify(session));
+      localStorage.setItem(MODULE_CONFIG.storagePrefix + "_session_" + getStudentKey(), JSON.stringify(session));
     }
 
     function restoreSession() {
       try {
-        const raw = localStorage.getItem("session_" + getStudentKey());
+        const raw = localStorage.getItem(MODULE_CONFIG.storagePrefix + "_session_" + getStudentKey());
         if (!raw) return false;
         const session = JSON.parse(raw);
 
@@ -1141,7 +1142,7 @@ Schreibe auf DEUTSCH, zitiere Schülertext auf Englisch.`;
         });
 
         CONFIG.storedData = data;
-        localStorage.setItem("exam_data", JSON.stringify(data));
+        localStorage.setItem(MODULE_CONFIG.storagePrefix + "_exam_" + getStudentKey(), JSON.stringify(data));
         renderExam(data);
         nav("task");
       } catch (e) {
@@ -1243,7 +1244,7 @@ Schreibe auf DEUTSCH, zitiere Schülertext auf Englisch.`;
         return "data:image/jpeg;base64," + p.base64;
       });
       CONFIG.storedData = content;
-      localStorage.setItem("exam_data", JSON.stringify(content));
+      localStorage.setItem(MODULE_CONFIG.storagePrefix + "_exam_" + getStudentKey(), JSON.stringify(content));
       renderExam(content);
       nav("task");
     }
@@ -1264,7 +1265,7 @@ Schreibe auf DEUTSCH, zitiere Schülertext auf Englisch.`;
         task_instruction: task
       };
       CONFIG.storedData = content;
-      localStorage.setItem("exam_data", JSON.stringify(content));
+      localStorage.setItem(MODULE_CONFIG.storagePrefix + "_exam_" + getStudentKey(), JSON.stringify(content));
       renderExam(content);
       nav("task");
     }
@@ -1356,7 +1357,7 @@ Schreibe auf DEUTSCH, zitiere Schülertext auf Englisch.`;
         const level = sessionStorage.getItem("student_level") || "gA";
         const data = await apiCall("/api/generate-from-text-writing", { custom_text: text, level });
         CONFIG.storedData = data;
-        localStorage.setItem("exam_data", JSON.stringify(data));
+        localStorage.setItem(MODULE_CONFIG.storagePrefix + "_exam_" + getStudentKey(), JSON.stringify(data));
         renderExam(data);
         nav("task");
         saveSession();
@@ -1570,9 +1571,9 @@ Schreibe auf DEUTSCH, zitiere Schülertext auf Englisch.`;
     /* ================= RESET ================= */
     function resetAll() {
       if (!confirm("Neue Aufgabe starten? Alle aktuellen Daten werden gelöscht.")) return;
-      localStorage.removeItem("exam_data");
+      localStorage.removeItem(MODULE_CONFIG.storagePrefix + "_exam_" + getStudentKey());
       localStorage.removeItem("student_text");
-      localStorage.removeItem("session_" + getStudentKey());
+      localStorage.removeItem(MODULE_CONFIG.storagePrefix + "_session_" + getStudentKey());
       CONFIG.storedData = {};
       document.getElementById("studentText").value = "";
       document.getElementById("feedbackContent").style.display = "none";

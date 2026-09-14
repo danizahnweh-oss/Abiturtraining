@@ -204,7 +204,7 @@ export async function handleGradeChemie(request, env) {
     return jsonResponse({ error: "student_text erforderlich." }, 400, env);
   }
 
-  const maxBE = gesamt_be || 10;
+  const maxBE = env.gymnasiumMaxBE ?? (gesamt_be || 10);
 
   let aufgabenInfo = `Aufgabe:\n${truncate(aufgabe, 5000)}\n\n`;
   if (material && material.length) {
@@ -291,7 +291,7 @@ Antworte NUR mit validem JSON:
   try {
     const parsed = extractJSON(openaiRes);
     const beErreicht = parsed.gesamt_be ?? null;
-    const beMax = parsed.max_be ?? maxBE;
+    const beMax = env.gymnasiumValidatedScores ? maxBE : parsed.max_be ?? maxBE;
     let np = parsed.note ?? null;
 
     if (np == null && beErreicht != null) {
@@ -632,7 +632,7 @@ export async function handleGradeAbiturChemie(request, env) {
   const lvl = level || "gA";
   const isEA = lvl === "eA";
   const beProAufgabe = isEA ? 40 : 30;
-  const maxBE = 3 * beProAufgabe;
+  const maxBE = env.gymnasiumMaxBE ?? (3 * beProAufgabe);
 
   let aufgabenInfo = "";
   if (aufgaben && aufgaben.length) {

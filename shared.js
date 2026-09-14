@@ -926,7 +926,7 @@ async function apiCallAsync(gradeEndpoint, body, options) {
 
     var submitData = await submitRes.json();
     jobId = submitData.job_id;
-    if (options.onJobSubmitted) options.onJobSubmitted(jobId);
+    if (options.onJobSubmitted) await options.onJobSubmitted(jobId);
     }
 
     // 2. Polling
@@ -961,7 +961,11 @@ async function apiCallAsync(gradeEndpoint, body, options) {
         continue;
       }
 
-      if ([401, 403, 404].includes(statusRes.status)) throw new Error("Die gespeicherte Korrektur ist nicht mehr abrufbar. Bitte melde dich erneut an oder gib deine gespeicherte Antwort erneut ab.");
+      if ([401, 403, 404].includes(statusRes.status)) {
+        const error = new Error("Die gespeicherte Korrektur ist nicht mehr abrufbar. Bitte melde dich erneut an oder gib deine gespeicherte Antwort erneut ab.");
+        error.gradeJobTerminal = statusRes.status === 404;
+        throw error;
+      }
       if (!statusRes.ok) continue;
 
       var statusData = await statusRes.json();
@@ -975,7 +979,9 @@ async function apiCallAsync(gradeEndpoint, body, options) {
       }
 
       if (statusData.status === "failed") {
-        throw new Error(statusData.error || "Korrektur fehlgeschlagen. Bitte erneut versuchen.");
+        const error = new Error(statusData.error || "Korrektur fehlgeschlagen. Bitte erneut versuchen.");
+        error.gradeJobTerminal = true;
+        throw error;
       }
 
       // Adaptives Polling: nach 30s langsamer
@@ -1473,6 +1479,16 @@ function restoreEducationalHighlights(containerId, savedHtml) {
   });
 }
 
+// Markierungen ohne große Bilddaten speichern. Die Fachansicht stellt Bilder separat wieder her.
+function educationalHighlightsHtml(containerId) {
+  const source = document.getElementById(containerId);
+  if (!source) return '';
+  const copy = source.cloneNode(true);
+  copy.querySelectorAll('[data-required-material], .edu-img-figure').forEach(el => el.replaceChildren());
+  copy.querySelectorAll('img').forEach(img => img.removeAttribute('src'));
+  return copy.innerHTML;
+}
+
 function syncEducationalMaterialReferences() {
   if (!educationalMaterialData) return;
   const write = document.getElementById((MODULE_CONFIG.sectionPrefix || '') + 'write');
@@ -1549,7 +1565,7 @@ function educationalMaterialsReady() {
 }
 
 function nav(step, _pushHistory) {
-  const restoringWRFeedback = step === 'feedback' && typeof restoreWRFeedback === 'function' && (CONFIG.storedData?._wrFeedback || CONFIG.storedData?._wrPendingGrade);
+  const restoringWRFeedback = step === 'feedback' && ((typeof restoreWRFeedback === 'function' && (CONFIG.storedData?._wrFeedback || CONFIG.storedData?._wrPendingGrade)) || (typeof gymRestoreFeedback === 'function' && CONFIG.storedData?._gymRecoveryId));
   if (!restoringWRFeedback && (step === 'write' || step === 'feedback') && !educationalMaterialsReady()) return;
   if (!restoringWRFeedback && (step === "write" || step === "feedback") && typeof ensureMaterialsReady === "function" && !ensureMaterialsReady()) return;
   if (step === 'write') syncEducationalMaterialReferences();
@@ -1587,6 +1603,7 @@ function nav(step, _pushHistory) {
 
   currentStep = step;
   if (step === 'feedback' && typeof restoreWRFeedback === 'function') restoreWRFeedback();
+  if (step === 'feedback' && typeof gymRestoreFeedback === 'function') gymRestoreFeedback();
   if (step === "task" || step === "reading") injectPdfButton();
   if (step === "progress") renderProgress();
   window.scrollTo({ top: 0, behavior: "smooth" });
@@ -3023,6 +3040,10 @@ async function loadEducationalImage(prompt, containerId, labels, style, _isRetry
     : prompt;
 
   try {
+    if (typeof gymImageOptions === 'function') {
+      options = await gymImageOptions(prompt, style, _isRetry, options);
+      if (!isCurrent()) return;
+    }
     var d = !_isRetry && options?.cachedImage ? options.cachedImage : await apiCall("/api/generate-image", {
       prompt: actualPrompt,
       noText: options?.noText === true,
@@ -3967,8 +3988,8 @@ document.addEventListener("DOMContentLoaded", initFeedbackWidget);
 function initFeedbackNudge() {
   // Nur auf Trainingsseiten (nicht auf Präsentation, Dashboard, etc.)
   var page = window.location.pathname;
-  // Eine laufende WR-Prüfung nicht mit einer Marketing-Abfrage unterbrechen.
-  if (/\/(?:wr|wr-abitur)\.html$/.test(page)) return;
+  // Laufende Gymnasiums-Übungen nicht mit einer Marketing-Abfrage unterbrechen.
+  if (typeof gymRestoreFeedback === 'function' || /\/(?:wr|wr-abitur)\.html$/.test(page)) return;
   if (/dashboard|lehrer|impressum|agb|barrierefreiheit|dsfa|tom|404|praesentation|datenschutz|features/.test(page)) return;
 
   var NUDGE_KEY = "feedback_nudge_last";

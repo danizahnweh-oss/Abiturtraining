@@ -33,6 +33,30 @@ Antworte NUR mit validem JSON:
 }
 
 /* ================= KUNST ABITUR: GENERATE ================= */
+export async function handleGenerateKunst(request, env) {
+  const { lernbereich = '12_1', schwerpunkt, zeit = 90, anzahl = 1 } = await request.json();
+  const themes = { '12_1': 'Objekt: Readymade, Assemblage, Installation, Design und Werkerschließung', '12_2': 'Raum: Architektur, Rauminstallation, Raumillusion und nachhaltiges Bauen', '13_1': 'Körper: Körperdarstellung, Figuration und Abstraktion, Inszenierung und Körper-Raum-Beziehung', '13_2': 'Interaktion und Transformation: Intervention, Performance, neue Medien und Kunstbegriff' };
+  const prompt = `Erstelle eine theoretische Übungsklausur im Fach Kunst für die gymnasiale Oberstufe.
+Themenbereich: ${themes[lernbereich] || themes['12_1']}.
+Schwerpunkt: ${truncate(schwerpunkt || 'passend zum Themenbereich', 300)}.
+Bearbeitungszeit: ${Math.max(15, Math.min(300, Number(zeit) || 90))} Minuten. Aufgabenanzahl: ${Math.max(1, Math.min(5, Number(anzahl) || 1))}.
+Aufgaben zur Beschreibung, formalen Analyse, Interpretation und begründeten Bewertung. Alle Aufgaben müssen mit den beigegebenen Materialien lösbar sein.
+Erstelle mindestens eine eigenständige fiktive Werkabbildung als englischen Bildprompt und eine passende Textquelle. Kennzeichne erfundene Quellen und KI-Material eindeutig. Gib eine erfundene Abbildung niemals als Originalwerk einer realen Person aus.
+Antworte nur als JSON: {"lernbereich":"${lernbereich}","task_instruction":"Nummerierte Aufgaben auf Deutsch","primary_text":"Einführender kunstbezogener Text","primary_meta":"Fiktives Übungsmaterial","materials":[{"type":"bild","title":"Fiktive Werkabbildung","content":"Detaillierter englischer Bildprompt ohne Lösungshinweise","source":"KI-generiertes Übungsmaterial"},{"type":"text","title":"Textquelle","content":"Vollständige Textquelle","source":"Fiktives Übungsmaterial"}]}`;
+  const response = await callOpenAI(env, [{ role: 'system', content: prompt }], 8000, { temperature: 0.7 });
+  return jsonResponse(extractJSON(response), 200, env);
+}
+
+export async function handleModelAnswerKunst(request, env) {
+  const { task_instruction, primary_text, materials } = await request.json();
+  if (!task_instruction) return jsonResponse({ error: 'Aufgabenstellung erforderlich.' }, 400, env);
+  const answer = await callOpenAI(env, [
+    { role: 'system', content: 'Verfasse eine kunstwissenschaftlich begründete Musterlösung auf Deutsch zur gegebenen Übungsaufgabe. Trenne Beschreibung, formale Analyse, Interpretation und Wertung. Beziehe dich nur auf die angegebenen Materialien; erfinde keine beobachteten Bilddetails. Kennzeichne Grenzen bei nur beschriebenen Abbildungen. Ausgabe als Markdown.' },
+    { role: 'user', content: truncate(JSON.stringify({ task_instruction, primary_text, materials }), 20000) }
+  ], 6000, { jsonMode: false });
+  return jsonResponse({ model_answer: answer }, 200, env);
+}
+
 export async function handleGenerateAbiturKunst(request, env) {
   const body = await request.json();
   const { lernbereich, schwerpunkt, bearbeitungszeit } = body;
@@ -205,7 +229,7 @@ export async function handleGradeAbiturKunst(request, env) {
     const teil_a = parsed.teil_a_np ?? null;
     const teil_b = parsed.teil_b_np ?? null;
     const darstellung = parsed.darstellung_np ?? null;
-    let gesamt = parsed.gesamt_np ?? null;
+    let gesamt = env.gymnasiumValidatedScores ? null : parsed.gesamt_np ?? null;
 
     if (gesamt == null && teil_a != null && teil_b != null && darstellung != null) {
       gesamt = Math.round(teil_a * 0.5 + teil_b * 0.2 + darstellung * 0.3);

@@ -730,7 +730,8 @@
       hasOwnLogin: true
     };
   </script>
-  <script src="shared.js"></script>
+  <script src="shared.js?v=gym-recovery-1"></script>
+  <script src="gymnasium-recovery.js?v=1"></script>
   <script>
     /* ================= LISTENING STATE ================= */
     let listeningData = null; // {title, transcript, questions, ...}
@@ -758,12 +759,12 @@
         notes: document.getElementById("listeningNotes").value,
         currentStep: document.querySelector("section.active")?.id || "setup"
       };
-      localStorage.setItem("session_" + getStudentKey(), JSON.stringify(session));
+      localStorage.setItem(MODULE_CONFIG.storagePrefix + "_session_" + getStudentKey(), JSON.stringify(session));
     }
 
     function restoreSession() {
       try {
-        const raw = localStorage.getItem("session_" + getStudentKey());
+        const raw = localStorage.getItem(MODULE_CONFIG.storagePrefix + "_session_" + getStudentKey());
         if (!raw) return false;
         const session = JSON.parse(raw);
 
@@ -1415,7 +1416,7 @@ OUTPUT FORMAT – Antworte NUR mit reinem JSON:
     /* ================= RESET ================= */
     function resetAll() {
       if (!confirm("Neue Aufgabe starten? Alle aktuellen Daten werden gelöscht.")) return;
-      localStorage.removeItem("session_" + getStudentKey());
+      localStorage.removeItem(MODULE_CONFIG.storagePrefix + "_session_" + getStudentKey());
       listeningData = null;
       CONFIG.storedData = null;
       audioUrl = null;

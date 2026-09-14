@@ -346,7 +346,7 @@ Antworte NUR mit validem JSON:
       const parsed = extractJSON(openaiRes);
       const verstehen = parsed.verstehen_np ?? null;
       const darstellung = parsed.darstellung_np ?? null;
-      let gesamt = parsed.gesamt_np ?? null;
+      let gesamt = env.gymnasiumValidatedScores ? null : parsed.gesamt_np ?? null;
 
       if (gesamt == null && verstehen != null && darstellung != null) {
         gesamt = Math.round(verstehen * 0.7 + darstellung * 0.3);
@@ -642,8 +642,8 @@ Antworte NUR mit validem JSON:
     const teil_a = parsed.teil_a_np ?? null;
     const teil_b = parsed.teil_b_np ?? null;
     const darstellung = parsed.darstellung_np ?? null;
-    let teil_b_gesamt = parsed.teil_b_gesamt_np ?? null;
-    let gesamt = parsed.gesamt_np ?? null;
+    let teil_b_gesamt = env.gymnasiumValidatedScores ? null : parsed.teil_b_gesamt_np ?? null;
+    let gesamt = env.gymnasiumValidatedScores ? null : parsed.gesamt_np ?? null;
 
     if (teil_b_gesamt == null && teil_b != null && darstellung != null) {
       teil_b_gesamt = Math.round(teil_b * 0.7 + darstellung * 0.3);
@@ -735,4 +735,3 @@ Formatiere als Markdown. Am Ende unter "---" eine kurze Reflexion.`;
 
   return jsonResponse({ model_answer: answer }, 200, env);
 }
-

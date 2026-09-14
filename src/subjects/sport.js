@@ -124,7 +124,7 @@ export async function handleGradeSport(request, env) {
     return jsonResponse({ error: "student_text erforderlich." }, 400, env);
   }
 
-  const maxBE = gesamt_be || 10;
+  const maxBE = env.gymnasiumMaxBE ?? (gesamt_be || 10);
 
   let aufgabenInfo = `Aufgabe:\n${truncate(aufgabe, 5000)}\n\n`;
   if (material && material.length) {
@@ -198,7 +198,7 @@ Antworte NUR mit validem JSON:
   try {
     const parsed = extractJSON(openaiRes);
     const beErreicht = parsed.gesamt_be ?? null;
-    const beMax = parsed.max_be ?? maxBE;
+    const beMax = env.gymnasiumValidatedScores ? maxBE : parsed.max_be ?? maxBE;
     let np = parsed.note ?? null;
 
     if (np == null && beErreicht != null) {
@@ -447,7 +447,7 @@ export async function handleGradeAbiturSport(request, env) {
     return jsonResponse({ error: "student_texts erforderlich." }, 400, env);
   }
 
-  const maxBE = 100;
+  const maxBE = env.gymnasiumMaxBE ?? (100);
 
   let aufgabenInfo = "";
   if (aufgaben && aufgaben.length) {

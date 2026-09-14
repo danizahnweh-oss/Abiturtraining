@@ -160,7 +160,7 @@ export async function handleGradeAbiturGeschichte(request, env) {
     const sach_a = parsed.sach_a_np ?? null;
     const sach_b = parsed.sach_b_np ?? null;
     const darstellung = parsed.darstellung_np ?? null;
-    let gesamt = parsed.gesamt_np ?? null;
+    let gesamt = env.gymnasiumValidatedScores ? null : parsed.gesamt_np ?? null;
 
     if (gesamt == null && sach_a != null && sach_b != null && darstellung != null) {
       gesamt = Math.round(sach_a * 0.4 + sach_b * 0.3 + darstellung * 0.3);
@@ -227,4 +227,3 @@ Formatiere als Markdown mit klaren Überschriften. Am Ende unter "---" eine kurz
 
   return jsonResponse({ model_answer: answer }, 200, env);
 }
-

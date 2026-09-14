@@ -3,6 +3,7 @@ import { jsonResponse, truncate, batchExtractFromImages } from '../utils.js';
 import { callOpenAI } from '../openai.js';
 import { findAvailableTeacherCredits, deductTeacherCredit } from './teacher-credits.js';
 import { isSchoolLicenseActive } from '../auth.js';
+import { gymnasiumMaximum, validateGymnasiumGrade } from '../subjects/gymnasium-points.js';
 
 /* ================= ASYNC GRADING: HANDLER ================= */
 
@@ -33,7 +34,9 @@ export async function handleGradeSubmit(request, env, ctx) {
 
   // Minimale Input-Validierung
   const hasText = inputData.student_text || inputData.student_texts || inputData.text_a ||
-                  inputData.student_text_en || inputData.rubric_prompt;
+                  inputData.student_text_en || inputData.student_text_a || inputData.student_text_b ||
+                  inputData.student_text_1 || inputData.student_text_2 || inputData.rubric_prompt ||
+                  (endpoint.startsWith('grade-listening') && Object.values(inputData.student_answers || {}).some(answer => String(answer).trim()));
   const hasImages = inputData.images && inputData.images.length;
   if (!hasText && !hasImages) {
     return jsonResponse({ error: "Kein Schülertext vorhanden." }, 400, env);
@@ -177,7 +180,7 @@ export async function executeGradeHandler(endpoint, inputData, env) {
     if (!handler) {
       throw new Error("Kein Handler für Endpoint: " + endpoint);
     }
-    response = await handler(fakeRequest, env);
+    response = await handler(fakeRequest, { ...env, gymnasiumValidatedScores: true, gymnasiumMaxBE: gymnasiumMaximum(endpoint, inputData) });
   }
 
   // Response-Body parsen
@@ -187,7 +190,7 @@ export async function executeGradeHandler(endpoint, inputData, env) {
     throw new Error(responseData.error || "Handler-Fehler (Status " + response.status + ")");
   }
 
-  return responseData;
+  return endpoint.startsWith('fos-') ? responseData : validateGymnasiumGrade(endpoint, inputData, responseData);
 }
 
 // Lehrer-Credit abbuchen, wenn Schüler kein eigenes Abo hat

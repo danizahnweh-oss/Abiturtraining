@@ -2,7 +2,7 @@ import { jsonResponse, truncate, extractJSON, buildUserContent } from '../utils.
 import { callOpenAI } from '../openai.js';
 import { BILDER_HINWEIS_TEXT, UEBUNGSAUFGABEN_ANWEISUNG } from '../config.js';
 
-export async function handleParseTaskFrench(request, env) {
+export async function handleParseTaskFrench(request, env, language = 'Französisch') {
   const { images } = await request.json();
   if (!images || !images.length) {
     return jsonResponse({ error: "images array required" }, 400, env);
@@ -14,9 +14,9 @@ export async function handleParseTaskFrench(request, env) {
   const content = [
     {
       type: "text",
-      text: `Diese Bilder zeigen eine Französisch-Abitur Aufgabe (Sprachmittlung oder Schreiben). Extrahiere:
-1. Die Aufgabenstellung (task_instruction) — kann auf Französisch oder Deutsch formuliert sein
-2. Den Quelltext (article_text) — bei Sprachmittlung auf Deutsch, bei Schreiben auf Französisch
+      text: `Diese Bilder zeigen eine ${language}-Abitur Aufgabe (Sprachmittlung oder Schreiben). Extrahiere:
+1. Die Aufgabenstellung (task_instruction) — kann auf ${language} oder Deutsch formuliert sein
+2. Den Quelltext (article_text) — bei Sprachmittlung auf Deutsch, bei Schreiben auf ${language}
 3. Die Überschrift/Titel (headline)
 4. Falls vorhanden: Quellenangabe (source_info)
 
@@ -32,14 +32,14 @@ Antworte NUR mit validem JSON:
 }
 
 /* ================= FRANZÖSISCH: MODEL ANSWER (Sprachmittlung) ================= */
-export async function handleModelAnswerFrench(request, env) {
+export async function handleModelAnswerFrench(request, env, language = 'Französisch') {
   const { source_text_de, task_fr } = await request.json();
   if (!source_text_de || !task_fr) {
     return jsonResponse({ error: "source_text_de and task_fr required" }, 400, env);
   }
 
-  const systemPrompt = `Du bist ein sehr guter Oberstufenschüler (Niveau B1+/B2 Französisch).
-Schreibe eine vorbildliche, vollständig ausformulierte Musterlösung für die Sprachmittlung-Aufgabe auf FRANZÖSISCH — so, wie ein Schüler sie in der Prüfung abgeben würde.
+  const systemPrompt = `Du bist ein sehr guter Oberstufenschüler (Niveau B1+/B2 ${language}).
+Schreibe eine vorbildliche, vollständig ausformulierte Musterlösung für die Sprachmittlung-Aufgabe auf ${language.toUpperCase()} — so, wie ein Schüler sie in der Prüfung abgeben würde.
 
 WICHTIG – GANZE SÄTZE:
 Verwende vollständige Sätze, keine Stichpunkte oder Aufzählungen. Fußnoten und Quellenverweise sind erlaubt.
@@ -49,10 +49,10 @@ Verwende vollständige Sätze, keine Stichpunkte oder Aufzählungen. Fußnoten u
 Inhaltlich:
 - Halte dich an die Aufgabenstellung
 - Paraphrasiere und vermittle die Inhalte, übersetze NICHT wörtlich
-- Verwende angemessenes, idiomatisches Französisch (registre courant/soutenu)
+- Verwende angemessenes, idiomatisches ${language} (registre courant/soutenu)
 - Zielumfang: 200–300 Wörter
 
-Formatiere als Markdown: Erst die Lösung auf Französisch, dann unter "---" eine kurze Erklärung auf Deutsch.`;
+Formatiere als Markdown: Erst die Lösung auf ${language}, dann unter "---" eine kurze Erklärung auf Deutsch.`;
 
   const answer = await callOpenAI(env, [
     { role: "system", content: systemPrompt },
@@ -63,11 +63,11 @@ Formatiere als Markdown: Erst die Lösung auf Französisch, dann unter "---" ein
 }
 
 /* ================= FRANZÖSISCH: MODEL ANSWER (Schreiben) ================= */
-export async function handleModelAnswerFrenchWriting(request, env) {
+export async function handleModelAnswerFrenchWriting(request, env, language = 'Französisch') {
   const { article_text, task_1, task_2, task_3, selected_tasks } = await request.json();
 
-  const systemPrompt = `Du bist ein sehr guter Oberstufenschüler am bayerischen Gymnasium (Leistungskurs Französisch, Niveau B2).
-Schreibe eine vorbildliche, vollständig ausformulierte Musterlösung auf FRANZÖSISCH — so, wie ein Schüler sie in der Prüfung abgeben würde.
+  const systemPrompt = `Du bist ein sehr guter Oberstufenschüler am bayerischen Gymnasium (Leistungskurs ${language}, Niveau B2).
+Schreibe eine vorbildliche, vollständig ausformulierte Musterlösung auf ${language.toUpperCase()} — so, wie ein Schüler sie in der Prüfung abgeben würde.
 
 WICHTIG – GANZE SÄTZE:
 Verwende vollständige Sätze, keine Stichpunkte oder Aufzählungen. Fußnoten und Quellenverweise sind erlaubt.
@@ -77,14 +77,14 @@ Verwende vollständige Sätze, keine Stichpunkte oder Aufzählungen. Fußnoten u
 Inhaltlich:
 - Bearbeite ALLE angegebenen Aufgaben
 - Belege Aussagen mit Textzitaten (citations)
-- Analysiere Stilmittel (procédés stylistiques) wenn gefordert
-- Verwende angemessenes, idiomatisches Französisch
+- Analysiere Stilmittel wenn gefordert
+- Verwende angemessenes, idiomatisches ${language}
 - Zielumfang: 600-1000 Wörter insgesamt
 
 Formatiere als Markdown mit klaren Überschriften für jede Aufgabe. Am Ende unter "---" eine kurze Reflexion auf Deutsch.`;
 
   let userContent = `AUSGANGSTEXT:\n${truncate(article_text, 15000)}\n\n`;
-  if (task_1) userContent += `AUFGABE 1 (Présentation):\n${truncate(task_1, 1000)}\n\n`;
+  if (task_1) userContent += `AUFGABE 1:\n${truncate(task_1, 1000)}\n\n`;
   if (task_2) userContent += `AUFGABE 2 (Analyse):\n${truncate(task_2, 1000)}\n\n`;
   if (task_3) userContent += `AUFGABE 3:\n${truncate(task_3, 1000)}\n\n`;
   if (selected_tasks) userContent += `Bearbeitete Aufgaben: ${selected_tasks}\n`;
@@ -98,7 +98,7 @@ Formatiere als Markdown mit klaren Überschriften für jede Aufgabe. Am Ende unt
 }
 
 /* ================= FRANZÖSISCH: GRADE ================= */
-export async function handleGradeFrench(request, env) {
+export async function handleGradeFrench(request, env, language = 'Französisch') {
   const body = await request.json();
   const { source_text_de, task_fr, task_en, student_text_fr, student_text_en, rubric_prompt, images } = body;
 
@@ -109,7 +109,7 @@ export async function handleGradeFrench(request, env) {
     return jsonResponse({ error: "student_text_fr erforderlich." }, 400, env);
   }
 
-  const systemPrompt = rubric_prompt || `Du bist ein erfahrener Französischlehrer am bayerischen Gymnasium.
+  const systemPrompt = rubric_prompt || `Du bist eine erfahrene Lehrkraft für ${language} am bayerischen Gymnasium.
 Bewerte die Schülerarbeit nach dem ISB-Bewertungsraster mit Notenpunkten (0-15 NP).
 Antworte NUR mit validem JSON:
 {
@@ -132,7 +132,7 @@ WICHTIG: korrektur_text MUSS den vollständigen Schülertext enthalten — auch 
       content: buildUserContent(
         `Deutscher Quelltext:\n${truncate(source_text_de, 15000)}\n\n` +
         `Aufgabenstellung:\n${truncate(task, 5000)}\n\n` +
-        `Schülertext (Französisch):\n${truncate(studentText, 15000)}`, images)
+        `Schülertext (${language}):\n${truncate(studentText, 15000)}`, images)
     }
   ];
 
@@ -142,7 +142,7 @@ WICHTIG: korrektur_text MUSS den vollständigen Schülertext enthalten — auch 
     const parsed = extractJSON(openaiRes);
     const inhalt = parsed.inhalt_np ?? parsed.content_textstructure ?? null;
     const sprache = parsed.sprache_np ?? parsed.language ?? null;
-    let gesamt = parsed.gesamt_np ?? null;
+    let gesamt = env.gymnasiumValidatedScores ? null : parsed.gesamt_np ?? null;
 
     if (gesamt == null && inhalt != null && sprache != null) {
       gesamt = Math.round(inhalt * 0.4 + sprache * 0.6);

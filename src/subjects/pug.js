@@ -256,7 +256,7 @@ export async function handleGradePuG(request, env) {
     const parsed = extractJSON(openaiRes);
     const verstehen = parsed.verstehen_np ?? null;
     const darstellung = parsed.darstellung_np ?? null;
-    let gesamt = parsed.gesamt_np ?? null;
+    let gesamt = env.gymnasiumValidatedScores ? null : parsed.gesamt_np ?? null;
 
     if (gesamt == null && verstehen != null && darstellung != null) {
       gesamt = Math.round(verstehen * 0.7 + darstellung * 0.3);
@@ -558,7 +558,7 @@ export async function handleGradeAbiturPuG(request, env) {
     const teil_a = parsed.teil_a_np ?? null;
     const teil_b = parsed.teil_b_np ?? null;
     const darstellung = parsed.darstellung_np ?? null;
-    let gesamt = parsed.gesamt_np ?? null;
+    let gesamt = env.gymnasiumValidatedScores ? null : parsed.gesamt_np ?? null;
 
     if (gesamt == null && teil_a != null && teil_b != null && darstellung != null) {
       gesamt = Math.round(teil_a * 0.5 + teil_b * 0.2 + darstellung * 0.3);
@@ -630,4 +630,3 @@ Formatiere als Markdown mit klaren Überschriften für jeden Prüfungsteil und j
 
   return jsonResponse({ model_answer: answer }, 200, env);
 }
-

@@ -738,7 +738,8 @@
     };
   </script>
   <script src="ai-tutor.js" defer></script>
-  <script src="shared.js"></script>
+  <script src="shared.js?v=gym-recovery-1"></script>
+  <script src="gymnasium-recovery.js?v=1"></script>
   <script>
     /* ================= PROMPTS ================= */
 
@@ -916,12 +917,12 @@ Schreibe das gesamte Feedback auf DEUTSCH, aber zitiere den Schülertext natürl
         timerSeconds: timerSeconds,
         timerRunning: !!timerInterval
       };
-      localStorage.setItem("session_" + getStudentKey(), JSON.stringify(session));
+      localStorage.setItem(MODULE_CONFIG.storagePrefix + "_session_" + getStudentKey(), JSON.stringify(session));
     }
 
     function restoreSession() {
       try {
-        const raw = localStorage.getItem("session_" + getStudentKey());
+        const raw = localStorage.getItem(MODULE_CONFIG.storagePrefix + "_session_" + getStudentKey());
         if (!raw) return false;
         const session = JSON.parse(raw);
 
@@ -966,7 +967,7 @@ Schreibe das gesamte Feedback auf DEUTSCH, aber zitiere den Schülertext natürl
         return "data:image/jpeg;base64," + p.base64;
       });
       CONFIG.storedData = content;
-        localStorage.setItem("exam_data", JSON.stringify(content));
+        localStorage.setItem(MODULE_CONFIG.storagePrefix + "_exam_" + getStudentKey(), JSON.stringify(content));
         renderExam(content);
         nav("task");
       } catch (e) {
@@ -1061,7 +1062,7 @@ Schreibe das gesamte Feedback auf DEUTSCH, aber zitiere den Schülertext natürl
         task_instruction: task
       };
       CONFIG.storedData = content;
-      localStorage.setItem("exam_data", JSON.stringify(content));
+      localStorage.setItem(MODULE_CONFIG.storagePrefix + "_exam_" + getStudentKey(), JSON.stringify(content));
       renderExam(content);
       nav("task");
     }
@@ -1082,7 +1083,7 @@ Schreibe das gesamte Feedback auf DEUTSCH, aber zitiere den Schülertext natürl
         task_instruction: task
       };
       CONFIG.storedData = content;
-      localStorage.setItem("exam_data", JSON.stringify(content));
+      localStorage.setItem(MODULE_CONFIG.storagePrefix + "_exam_" + getStudentKey(), JSON.stringify(content));
       renderExam(content);
       nav("task");
     }
@@ -1222,9 +1223,9 @@ Schreibe das gesamte Feedback auf DEUTSCH, aber zitiere den Schülertext natürl
     /* ================= RESET ================= */
     function resetAll() {
       if (!confirm("Neue Aufgabe starten? Alle aktuellen Daten werden gelöscht.")) return;
-      localStorage.removeItem("exam_data");
+      localStorage.removeItem(MODULE_CONFIG.storagePrefix + "_exam_" + getStudentKey());
       localStorage.removeItem("student_text");
-      localStorage.removeItem("session_" + getStudentKey());
+      localStorage.removeItem(MODULE_CONFIG.storagePrefix + "_session_" + getStudentKey());
       CONFIG.storedData = {};
       document.getElementById("studentText").value = "";
       document.getElementById("feedbackContent").style.display = "none";

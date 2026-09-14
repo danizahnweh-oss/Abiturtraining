@@ -786,7 +786,8 @@
     };
   </script>
   <script src="ai-tutor.js" defer></script>
-  <script src="shared.js"></script>
+  <script src="shared.js?v=gym-recovery-1"></script>
+  <script src="gymnasium-recovery.js?v=1"></script>
   <script>
     /* ================= PROMPTS ================= */
 
@@ -936,12 +937,12 @@ Schreibe das Feedback auf DEUTSCH, zitiere den Schülertext auf FRANZÖSISCH.`;
         timerSeconds: timerSeconds,
         timerRunning: !!timerInterval
       };
-      localStorage.setItem("session_" + getStudentKey(), JSON.stringify(session));
+      localStorage.setItem(MODULE_CONFIG.storagePrefix + "_session_" + getStudentKey(), JSON.stringify(session));
     }
 
     function restoreSession() {
       try {
-        const raw = localStorage.getItem("session_" + getStudentKey());
+        const raw = localStorage.getItem(MODULE_CONFIG.storagePrefix + "_session_" + getStudentKey());
         if (!raw) return false;
         const session = JSON.parse(raw);
 
@@ -983,7 +984,7 @@ Schreibe das Feedback auf DEUTSCH, zitiere den Schülertext auf FRANZÖSISCH.`;
         });
 
         CONFIG.storedData = data;
-        localStorage.setItem("exam_data", JSON.stringify(data));
+        localStorage.setItem(MODULE_CONFIG.storagePrefix + "_exam_" + getStudentKey(), JSON.stringify(data));
         renderExam(data);
         nav("task");
       } catch (e) {
@@ -1083,7 +1084,7 @@ Schreibe das Feedback auf DEUTSCH, zitiere den Schülertext auf FRANZÖSISCH.`;
         return "data:image/jpeg;base64," + p.base64;
       });
       CONFIG.storedData = content;
-      localStorage.setItem("exam_data", JSON.stringify(content));
+      localStorage.setItem(MODULE_CONFIG.storagePrefix + "_exam_" + getStudentKey(), JSON.stringify(content));
       renderExam(content);
       nav("task");
     }
@@ -1104,7 +1105,7 @@ Schreibe das Feedback auf DEUTSCH, zitiere den Schülertext auf FRANZÖSISCH.`;
         task_instruction: task
       };
       CONFIG.storedData = content;
-      localStorage.setItem("exam_data", JSON.stringify(content));
+      localStorage.setItem(MODULE_CONFIG.storagePrefix + "_exam_" + getStudentKey(), JSON.stringify(content));
       renderExam(content);
       nav("task");
     }
@@ -1271,9 +1272,9 @@ Schreibe das Feedback auf DEUTSCH, zitiere den Schülertext auf FRANZÖSISCH.`;
     /* ================= RESET ================= */
     function resetAll() {
       if (!confirm("Neue Aufgabe starten? Alle aktuellen Daten werden gelöscht.")) return;
-      localStorage.removeItem("exam_data");
+      localStorage.removeItem(MODULE_CONFIG.storagePrefix + "_exam_" + getStudentKey());
       localStorage.removeItem("student_text");
-      localStorage.removeItem("session_" + getStudentKey());
+      localStorage.removeItem(MODULE_CONFIG.storagePrefix + "_session_" + getStudentKey());
       CONFIG.storedData = {};
       document.getElementById("studentText").value = "";
       document.getElementById("feedbackContent").style.display = "none";

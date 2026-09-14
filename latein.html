@@ -733,7 +733,8 @@ Tipp: Strukturiere deinen Text sorgf&auml;ltig:
     };
   </script>
   <script src="ai-tutor.js" defer></script>
-  <script src="shared.js"></script>
+  <script src="shared.js?v=gym-recovery-1"></script>
+  <script src="gymnasium-recovery.js?v=1"></script>
 
   <!-- MODULE-SPECIFIC CODE -->
   <script>
@@ -868,7 +869,7 @@ gesamt_np = round(verstehen_np * 0.7 + darstellung_np * 0.3)`;
 
     function saveHL() {
       localStorage.setItem("hl_latein_" + getStudentKey(), JSON.stringify({
-        materials: document.getElementById("materialsContainer")?.innerHTML || ""
+        materials: educationalHighlightsHtml("materialsContainer")
       }));
     }
 
@@ -879,7 +880,7 @@ gesamt_np = round(verstehen_np * 0.7 + darstellung_np * 0.3)`;
         storedData: CONFIG.storedData,
         autor: CONFIG.autor,
         aufgabentyp: CONFIG.aufgabentyp,
-        hlMaterials: document.getElementById("materialsContainer")?.innerHTML || ""
+        hlMaterials: educationalHighlightsHtml("materialsContainer")
       }));
     }
 

@@ -144,7 +144,7 @@ import {
 // Fach-Handler: Kunst
 import {
   handleParseTaskKunst,
-  handleGenerateAbiturKunst, handleGradeAbiturKunst, handleModelAnswerAbiturKunst
+  handleGenerateAbiturKunst, handleGradeAbiturKunst, handleModelAnswerAbiturKunst, handleGenerateKunst, handleModelAnswerKunst
 } from './subjects/kunst.js';
 
 // FOS-System
@@ -153,12 +153,17 @@ import { handleFOSRoute } from './fos/index.js';
 /* ================= GRADE-HANDLER-MAP AUFBAUEN ================= */
 setGradeHandlerMap({
   "grade": handleGrade,
+  "grade-listening": handleGradeListening,
+  "grade-listening-french": handleGradeListeningFrench,
   "grade-deutsch": handleGradeDeutsch,
   "grade-pug": handleGradePuG,
   "grade-abitur-pug": handleGradeAbiturPuG,
   "grade-geschichte": handleGradeGeschichte,
   "grade-abitur-geschichte": handleGradeAbiturGeschichte,
   "grade-french": handleGradeFrench,
+  "grade-spanisch": (request, env) => handleGradeFrench(request, env, 'Spanisch'),
+  // Kunst liefert das eigene Bewertungsraster; dieser Handler wertet es fachneutral aus.
+  "grade-kunst": handleGradeEthik,
   "grade-italian": handleGradeItalian,
   "grade-abitur-wr": handleGradeAbiturWR,
   "grade-wr": handleGradeWR,
@@ -665,6 +670,10 @@ ${photo ? `<div style="margin:12px 0"><p style="font-weight:600;margin-bottom:6p
       if (pathname === "/api/model-answer-french-writing" && request.method === "POST") return await handleModelAnswerFrenchWriting(request, env);
       if (pathname === "/api/parse-task-french" && request.method === "POST") return await handleParseTaskFrench(request, env);
       if (pathname === "/api/grade-french" && request.method === "POST") return await handleGradeFrench(request, env);
+      if (pathname === "/api/grade-spanisch" && request.method === "POST") return await handleGradeFrench(request, env, 'Spanisch');
+      if (pathname === "/api/parse-task-spanisch" && request.method === "POST") return await handleParseTaskFrench(request, env, 'Spanisch');
+      if (pathname === "/api/model-answer-spanisch" && request.method === "POST") return await handleModelAnswerFrench(request, env, 'Spanisch');
+      if (pathname === "/api/model-answer-spanisch-writing" && request.method === "POST") return await handleModelAnswerFrenchWriting(request, env, 'Spanisch');
       if (pathname === "/api/grade-listening-french" && request.method === "POST") return await handleGradeListeningFrench(request, env);
 
       // ===== ITALIENISCH =====
@@ -795,6 +804,8 @@ ${photo ? `<div style="margin:12px 0"><p style="font-weight:600;margin-bottom:6p
       if (pathname === "/api/model-answer-abitur-informatik" && request.method === "POST") return await handleModelAnswerAbiturInformatik(request, env);
 
       // ===== KUNST ABITUR =====
+      if (pathname === "/api/generate-kunst" && request.method === "POST") return await handleGenerateKunst(request, env);
+      if (pathname === "/api/model-answer-kunst" && request.method === "POST") return await handleModelAnswerKunst(request, env);
       if (pathname === "/api/generate-abitur-kunst" && request.method === "POST") return await handleGenerateAbiturKunst(request, env);
       if (pathname === "/api/grade-abitur-kunst" && request.method === "POST") return await handleGradeAbiturKunst(request, env);
       if (pathname === "/api/model-answer-abitur-kunst" && request.method === "POST") return await handleModelAnswerAbiturKunst(request, env);

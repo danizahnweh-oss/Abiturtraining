@@ -142,7 +142,7 @@ WICHTIG: korrektur_text MUSS den vollständigen Schülertext enthalten — auch 
     const parsed = extractJSON(openaiRes);
     const inhalt = parsed.inhalt_np ?? parsed.content_textstructure ?? null;
     const sprache = parsed.sprache_np ?? parsed.language ?? null;
-    let gesamt = parsed.gesamt_np ?? null;
+    let gesamt = env.gymnasiumValidatedScores ? null : parsed.gesamt_np ?? null;
 
     if (gesamt == null && inhalt != null && sprache != null) {
       gesamt = Math.round(inhalt * 0.4 + sprache * 0.6);

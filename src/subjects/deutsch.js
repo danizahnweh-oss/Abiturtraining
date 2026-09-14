@@ -322,7 +322,7 @@ export async function handleGradeGeschichte(request, env) {
     const parsed = extractJSON(openaiRes);
     const verstehen = parsed.verstehen_np ?? null;
     const darstellung = parsed.darstellung_np ?? null;
-    let gesamt = parsed.gesamt_np ?? null;
+    let gesamt = env.gymnasiumValidatedScores ? null : parsed.gesamt_np ?? null;
 
     if (gesamt == null && verstehen != null && darstellung != null) {
       gesamt = Math.round(verstehen * 0.7 + darstellung * 0.3);
@@ -664,7 +664,7 @@ export async function handleGradeDeutsch(request, env) {
     const parsed = extractJSON(openaiRes);
     const verstehen = parsed.verstehen_np ?? null;
     const darstellung = parsed.darstellung_np ?? null;
-    let gesamt = parsed.gesamt_np ?? null;
+    let gesamt = env.gymnasiumValidatedScores ? null : parsed.gesamt_np ?? null;
 
     if (gesamt == null && verstehen != null && darstellung != null) {
       const weight = type === "materialgestuetzt" ? 0.6 : 0.7;
@@ -763,7 +763,7 @@ export async function handleGradeDeutschStream(request, env) {
         const parsed = extractJSON(openaiRes);
         const verstehen = parsed.verstehen_np ?? null;
         const darstellung = parsed.darstellung_np ?? null;
-        let gesamt = parsed.gesamt_np ?? null;
+        let gesamt = env.gymnasiumValidatedScores ? null : parsed.gesamt_np ?? null;
 
         if (gesamt == null && verstehen != null && darstellung != null) {
           const weight = type === "materialgestuetzt" ? 0.6 : 0.7;
@@ -844,4 +844,3 @@ Formatiere als Markdown. Am Ende unter "---" eine kurze Reflexion, welche Strate
 
   return jsonResponse({ model_answer: answer }, 200, env);
 }
-

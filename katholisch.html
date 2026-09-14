@@ -694,7 +694,8 @@ Tipp: Strukturiere deinen Text:
     };
   </script>
   <script src="ai-tutor.js" defer></script>
-  <script src="shared.js?v=20260913-materials"></script>
+  <script src="shared.js?v=gym-recovery-1"></script>
+  <script src="gymnasium-recovery.js?v=1"></script>
 
   <!-- MODULE-SPECIFIC CODE -->
   <script>
@@ -811,7 +812,7 @@ gesamt_np = round(verstehen_np * 0.7 + darstellung_np * 0.3)`;
 
     function saveHL() {
       localStorage.setItem("hl_katholisch_" + getStudentKey(), JSON.stringify({
-        materials: document.getElementById("materialsContainer")?.innerHTML || ""
+        materials: educationalHighlightsHtml("materialsContainer")
       }));
     }
 
@@ -821,7 +822,7 @@ gesamt_np = round(verstehen_np * 0.7 + darstellung_np * 0.3)`;
         studentText: document.getElementById("studentText").value,
         storedData: CONFIG.storedData,
         lernbereich: CONFIG.lernbereich,
-        hlMaterials: document.getElementById("materialsContainer")?.innerHTML || ""
+        hlMaterials: educationalHighlightsHtml("materialsContainer")
       }));
     }
 

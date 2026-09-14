@@ -770,7 +770,8 @@ Tipp: Teil B geht über die Quelle hinaus.
     };
   </script>
   <script src="ai-tutor.js" defer></script>
-  <script src="shared.js?v=20260913-materials"></script>
+  <script src="shared.js?v=gym-recovery-1"></script>
+  <script src="gymnasium-recovery.js?v=1"></script>
 
   <!-- MODULE-SPECIFIC CODE -->
   <script>
@@ -845,7 +846,7 @@ gesamt_np = round(sach_a_np * 0.4 + sach_b_np * 0.3 + darstellung_np * 0.3)`;
 
     function saveHL() {
       localStorage.setItem("hl_geschichte_abitur_" + getStudentKey(), JSON.stringify({
-        source: document.getElementById("sourceText")?.innerHTML || ""
+        source: educationalHighlightsHtml("sourceText")
       }));
     }
 
@@ -856,7 +857,7 @@ gesamt_np = round(sach_a_np * 0.4 + sach_b_np * 0.3 + darstellung_np * 0.3)`;
         studentTextB: document.getElementById("studentTextB").value,
         storedData: CONFIG.storedData,
         halbjahr: CONFIG.selectedHalbjahre.join(", "),
-        hlSource: document.getElementById("sourceText")?.innerHTML || ""
+        hlSource: educationalHighlightsHtml("sourceText")
       }));
     }
 
