@@ -957,14 +957,16 @@ Struktur:
         const niveau = CONFIG.storedData._niveau || document.getElementById("niveauSelect").value;
         const maxBE = CONFIG.storedData.gesamt_be || (niveau === "gA" ? 100 : 60);
 
-        const d = await apiCallAsync("grade-wr", {
+        const payload = {
           aufgabenbloecke: CONFIG.storedData.aufgabenbloecke || [],
           materialien: CONFIG.storedData.materialien || [],
           student_text: t,
           niveau: niveau,
           gesamt_be: maxBE,
           task_instruction: CONFIG.storedData.task_instruction || ""
-        });
+        };
+        const d = await apiCallAsync("grade-wr", payload, wrGradeOptions("grade-wr", payload));
+        rememberWRFeedback(d);
 
         const beErreicht = d.scores?.be_erreicht ?? "–";
         const beMax = d.scores?.be_max ?? maxBE;

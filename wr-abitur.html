@@ -1008,12 +1008,14 @@ Tipp: Beachte den Fachbereich:
           materialien_2: CONFIG.storedData.materialien_2 || [],
           student_text_1: t1,
           student_text_2: t2,
+          student_text: [t1, t2].join("\n\n"),
           niveau: niveau,
           gesamt_be: gesamt_be,
           type: "wr-abitur"
         };
 
-        const d = await apiCallAsync("grade-abitur-wr", payload);
+        const d = await apiCallAsync("grade-abitur-wr", payload, wrGradeOptions("grade-abitur-wr", payload));
+        rememberWRFeedback(d);
         const be1 = d.scores?.be_1 ?? "–";
         const beMax1 = d.scores?.be_max_1 ?? (niveau === "eA" ? 60 : gesamt_be);
         const be2 = d.scores?.be_2 ?? "–";

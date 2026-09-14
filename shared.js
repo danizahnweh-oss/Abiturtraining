@@ -833,7 +833,7 @@ async function apiCallAsync(gradeEndpoint, body, options) {
   await _ensureTeacherToken();
 
   // Abo-Check vor Korrektur
-  if (!isTeacherMode) {
+  if (!isTeacherMode && !options.resumeJobId) {
     var sub = await checkSubscription();
     if (sub.status !== "active" && sub.status !== "trialing" && !sub.teacher_credits_available) {
       window.location.href = "/abo.html";
@@ -846,7 +846,7 @@ async function apiCallAsync(gradeEndpoint, body, options) {
 
   // Streaming-Variante bevorzugen, wenn verfügbar (kein Timeout, Echtzeit-Fortschritt)
   var streamEndpoint = STREAM_ENDPOINTS[gradeEndpoint];
-  if (streamEndpoint && typeof ReadableStream !== "undefined") {
+  if (streamEndpoint && !options.forcePolling && !options.resumeJobId && typeof ReadableStream !== "undefined") {
     // Roboter-Animation zeigen
     var feedbackEl = document.getElementById("feedbackLoader");
     var origHTML = null;
@@ -882,6 +882,9 @@ async function apiCallAsync(gradeEndpoint, body, options) {
   }
 
   try {
+    // Bei Wiederherstellung nur den bestehenden, serverseitig autorisierten Job abfragen.
+    var jobId = options.resumeJobId;
+    if (!jobId) {
     // 1. Job erstellen
     var submitBody = Object.assign({}, body, {
       endpoint: gradeEndpoint,
@@ -922,7 +925,9 @@ async function apiCallAsync(gradeEndpoint, body, options) {
     }
 
     var submitData = await submitRes.json();
-    var jobId = submitData.job_id;
+    jobId = submitData.job_id;
+    if (options.onJobSubmitted) options.onJobSubmitted(jobId);
+    }
 
     // 2. Polling
     var startTime = Date.now();
@@ -956,6 +961,7 @@ async function apiCallAsync(gradeEndpoint, body, options) {
         continue;
       }
 
+      if ([401, 403, 404].includes(statusRes.status)) throw new Error("Die gespeicherte Korrektur ist nicht mehr abrufbar. Bitte melde dich erneut an oder gib deine gespeicherte Antwort erneut ab.");
       if (!statusRes.ok) continue;
 
       var statusData = await statusRes.json();
@@ -1543,8 +1549,9 @@ function educationalMaterialsReady() {
 }
 
 function nav(step, _pushHistory) {
-  if ((step === 'write' || step === 'feedback') && !educationalMaterialsReady()) return;
-  if ((step === "write" || step === "feedback") && typeof ensureMaterialsReady === "function" && !ensureMaterialsReady()) return;
+  const restoringWRFeedback = step === 'feedback' && typeof restoreWRFeedback === 'function' && (CONFIG.storedData?._wrFeedback || CONFIG.storedData?._wrPendingGrade);
+  if (!restoringWRFeedback && (step === 'write' || step === 'feedback') && !educationalMaterialsReady()) return;
+  if (!restoringWRFeedback && (step === "write" || step === "feedback") && typeof ensureMaterialsReady === "function" && !ensureMaterialsReady()) return;
   if (step === 'write') syncEducationalMaterialReferences();
   const prefix = MODULE_CONFIG.sectionPrefix || "";
   const steps = MODULE_CONFIG.steps;
@@ -1579,6 +1586,7 @@ function nav(step, _pushHistory) {
   }
 
   currentStep = step;
+  if (step === 'feedback' && typeof restoreWRFeedback === 'function') restoreWRFeedback();
   if (step === "task" || step === "reading") injectPdfButton();
   if (step === "progress") renderProgress();
   window.scrollTo({ top: 0, behavior: "smooth" });
@@ -2955,6 +2963,7 @@ async function loadEducationalImage(prompt, containerId, labels, style, _isRetry
   el.dataset.imageState = "loading";
   el.setAttribute("aria-busy", "true");
   let imageTimer;
+  let imageResponse;
   function imageFailed() {
     clearTimeout(imageTimer);
     if (!isCurrent()) return;
@@ -2975,7 +2984,7 @@ async function loadEducationalImage(prompt, containerId, labels, style, _isRetry
       clearTimeout(imageTimer);
       el.dataset.imageState = "ready";
       el.setAttribute("aria-busy", "false");
-      if (options?.onReady) options.onReady(img.src);
+      if (options?.onReady) options.onReady(img.src, imageResponse);
     };
     img.onerror = imageFailed;
     imageTimer = setTimeout(imageFailed, 30000);
@@ -3013,7 +3022,7 @@ async function loadEducationalImage(prompt, containerId, labels, style, _isRetry
     : prompt;
 
   try {
-    var d = await apiCall("/api/generate-image", {
+    var d = !_isRetry && options?.cachedImage ? options.cachedImage : await apiCall("/api/generate-image", {
       prompt: actualPrompt,
       noText: options?.noText === true,
       style: style || "diagram"
@@ -3021,6 +3030,7 @@ async function loadEducationalImage(prompt, containerId, labels, style, _isRetry
 
     if (!isCurrent()) return;
     if (!d || typeof d.url !== "string" || !/^(data:image\/(?:png|jpeg|webp|gif);base64,|https?:\/\/)/i.test(d.url)) throw new Error("Bildadresse fehlt oder ist ungültig");
+    imageResponse = d;
     var credit = d.credit
       ? '<div class="edu-img-credit">' + escapeHtml(d.credit) + '</div>'
       : '';
@@ -3956,6 +3966,8 @@ document.addEventListener("DOMContentLoaded", initFeedbackWidget);
 function initFeedbackNudge() {
   // Nur auf Trainingsseiten (nicht auf Präsentation, Dashboard, etc.)
   var page = window.location.pathname;
+  // Eine laufende WR-Prüfung nicht mit einer Marketing-Abfrage unterbrechen.
+  if (/\/(?:wr|wr-abitur)\.html$/.test(page)) return;
   if (/dashboard|lehrer|impressum|agb|barrierefreiheit|dsfa|tom|404|praesentation|datenschutz|features/.test(page)) return;
 
   var NUDGE_KEY = "feedback_nudge_last";

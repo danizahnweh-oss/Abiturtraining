@@ -1,6 +1,20 @@
 import { jsonResponse, truncate, extractJSON, buildUserContent } from '../utils.js';
 import { callOpenAI } from '../openai.js';
+import { sumWRPoints, validateWRPoints, wrNotenpunkte } from './wr-points.js';
 import { BILDER_HINWEIS_TEXT, UEBUNGSAUFGABEN_ANWEISUNG, KORREKTURHILFE_GEWAEHRLEISTUNG, zeitanpassung, klausurZeitHinweis, skaliereTokens } from '../config.js';
+
+async function generateValidatedWR(env, messages, tokens, targets) {
+  let raw = await callOpenAI(env, messages, tokens);
+  for (let attempt = 0; attempt < 2; attempt++) {
+    try { return jsonResponse(validateWRPoints(extractJSON(raw), targets), 200, env); }
+    catch (error) {
+      if (attempt === 1) return jsonResponse({ error: 'Die KI-Aufgabe enthält widersprüchliche Bewertungseinheiten. Bitte generiere die Aufgabe erneut; diese Fassung wird nicht verwendet.' }, 502, env);
+      raw = await callOpenAI(env, [...messages, { role: 'assistant', content: raw }, {
+        role: 'user', content: `Korrigiere die Punktverteilung: ${error.message} Verbindliche Summen: ${JSON.stringify(targets)}. Jede Teilaufgabe benötigt positive ganzzahlige BE. Gib das vollständige korrigierte Aufgaben-JSON inklusive aller Materialien zurück.`
+      }], tokens);
+    }
+  }
+}
 
 export async function handleGenerateWR(request, env) {
   const body = await request.json();
@@ -11,7 +25,8 @@ export async function handleGenerateWR(request, env) {
 
   const isGA = (niveau || "gA").toLowerCase() === "ga";
   const niveauLabel = isGA ? "grundlegendes Anforderungsniveau (gA)" : "erhöhtes Anforderungsniveau (eA)";
-  const gesamtBE = be || (isGA ? 100 : 60);
+  const gesamtBE = Number(be || (isGA ? 100 : 60));
+  if (!Number.isInteger(gesamtBE) || gesamtBE < 10 || gesamtBE > 150) return jsonResponse({ error: 'Bitte 10 bis 150 ganze Bewertungseinheiten wählen.' }, 400, env);
   const zeitMinuten = zeit || (isGA ? 210 : 135);
   const zeitHinweis = klausurZeitHinweis(zeitMinuten, gesamtBE, 2.5);
   const aufgabenAnzahl = Math.min(Math.max(anzahl || 1, 1), 5);
@@ -147,13 +162,10 @@ KRITISCH: Jedes Textmaterial MUSS 300-600 Wörter lang sein! Vollständige Texte
 AUFGABENBEZUG: JEDES bereitgestellte Material MUSS in mindestens einer Teilaufgabe direkt referenziert und verwendet werden. Es darf KEINE Materialien ohne Aufgabenbezug geben!
 ${isGA ? `STRENG BEACHTEN: Dies ist eine gA-Aufgabe! Verwende NUR Stoff aus dem gA-Lehrplan. Themen mit "nur eA" dürfen NICHT vorkommen!` : ""}`;
 
-  const openaiRes = await callOpenAI(env, [
+  return generateValidatedWR(env, [
     { role: "system", content: systemPrompt },
     { role: "user", content: userPrompt }
-  ], 14000);
-
-  const content = extractJSON(openaiRes);
-  return jsonResponse(content, 200, env);
+  ], 14000, { aufgabenbloecke: gesamtBE });
 }
 
 /* ================= WIRTSCHAFT UND RECHT: GRADE ================= */
@@ -165,7 +177,11 @@ export async function handleGradeWR(request, env) {
     return jsonResponse({ error: "student_text erforderlich." }, 400, env);
   }
 
-  const maxBE = gesamt_be || (niveau === "gA" ? 100 : 60);
+  let maxBE = gesamt_be || (niveau === "gA" ? 100 : 60);
+  if (aufgabenbloecke?.length) {
+    try { maxBE = sumWRPoints(aufgabenbloecke); }
+    catch { return jsonResponse({ error: 'Die Punktverteilung der Aufgabe ist ungültig.' }, 400, env); }
+  }
 
   let aufgabenInfo = "";
   if (task_instruction) aufgabenInfo += `Situationstext:\n${truncate(task_instruction, 3000)}\n\n`;
@@ -233,15 +249,8 @@ Antworte NUR mit validem JSON:
   try {
     const parsed = extractJSON(openaiRes);
     const beErreicht = parsed.be_erreicht ?? null;
-    const beMax = parsed.be_max ?? maxBE;
-    let np = parsed.notenpunkte ?? null;
-
-    if (np == null && beErreicht != null) {
-      const pct = (beErreicht / beMax) * 100;
-      const table = [[95, 15], [90, 14], [85, 13], [80, 12], [75, 11], [70, 10], [65, 9], [60, 8], [55, 7], [50, 6], [45, 5], [40, 4], [33, 3], [27, 2], [20, 1], [0, 0]];
-      np = 0;
-      for (const [th, n] of table) { if (pct >= th) { np = n; break; } }
-    }
+    const beMax = maxBE;
+    const np = wrNotenpunkte(beErreicht, beMax);
 
     return jsonResponse({
       scores: { be_erreicht: beErreicht, be_max: beMax, notenpunkte: np, total: np },
@@ -1050,13 +1059,10 @@ KRITISCH: Jedes Textmaterial MUSS 300-600 Wörter lang sein! Vollständige Texte
 AUFGABENBEZUG: JEDES bereitgestellte Material MUSS in mindestens einer Teilaufgabe direkt referenziert und verwendet werden. Es darf KEINE Materialien ohne Aufgabenbezug geben!
 ${!isEA ? `STRENG BEACHTEN: Dies ist eine gA-Prüfung! Verwende NUR Stoff aus dem gA-Lehrplan. Themen mit "nur eA" dürfen NICHT vorkommen!` : ""}`;
 
-  const openaiRes = await callOpenAI(env, [
+  return generateValidatedWR(env, [
     { role: "system", content: systemPrompt + zeitHinweis },
     { role: "user", content: userPrompt }
-  ], skaliereTokens(16000, bearbeitungszeit, refZeit));
-
-  const content = extractJSON(openaiRes);
-  return jsonResponse(content, 200, env);
+  ], skaliereTokens(16000, bearbeitungszeit, refZeit), { aufgabenbloecke_1: isEA ? 60 : 75, aufgabenbloecke_2: isEA ? 60 : 25 });
 }
 
 /* ================= WR ABITUR: GRADE ================= */
@@ -1069,9 +1075,13 @@ export async function handleGradeAbiturWR(request, env) {
   }
 
   const isEA = (niveau || "eA").toLowerCase() === "ea";
-  const maxBE = gesamt_be || (isEA ? 120 : 100);
-  const be1Max = isEA ? 60 : 75;
-  const be2Max = isEA ? 60 : 25;
+  let be1Max = isEA ? 60 : 75;
+  let be2Max = isEA ? 60 : 25;
+  try {
+    if (aufgabenbloecke_1?.length) be1Max = sumWRPoints(aufgabenbloecke_1);
+    if (aufgabenbloecke_2?.length) be2Max = sumWRPoints(aufgabenbloecke_2);
+  } catch { return jsonResponse({ error: 'Die Punktverteilung der Aufgabe ist ungültig.' }, 400, env); }
+  const maxBE = be1Max + be2Max;
 
   let contextInfo = "=== AUFGABE 1 ===\n";
   if (task_instruction_1) contextInfo += `Situationstext:\n${truncate(task_instruction_1, 3000)}\n\n`;
@@ -1161,15 +1171,9 @@ Antworte NUR mit validem JSON:
     const parsed = extractJSON(openaiRes);
     const be1 = parsed.be_1 ?? null;
     const be2 = parsed.be_2 ?? null;
-    const beGesamt = parsed.be_gesamt ?? (be1 != null && be2 != null ? be1 + be2 : null);
-    let np = parsed.notenpunkte ?? null;
-
-    if (np == null && beGesamt != null) {
-      const pct = (beGesamt / maxBE) * 100;
-      const table = [[95, 15], [90, 14], [85, 13], [80, 12], [75, 11], [70, 10], [65, 9], [60, 8], [55, 7], [50, 6], [45, 5], [40, 4], [33, 3], [27, 2], [20, 1], [0, 0]];
-      np = 0;
-      for (const [th, n] of table) { if (pct >= th) { np = n; break; } }
-    }
+    const beGesamt = Number.isFinite(be1) && Number.isFinite(be2) ? be1 + be2 : null;
+    const np = wrNotenpunkte(be1, be1Max) !== null && wrNotenpunkte(be2, be2Max) !== null
+      ? wrNotenpunkte(beGesamt, maxBE) : null;
 
     return jsonResponse({
       scores: { be_1: be1, be_max_1: be1Max, be_2: be2, be_max_2: be2Max, be_gesamt: beGesamt, be_max_gesamt: maxBE, notenpunkte: np, total: np },

@@ -49,6 +49,10 @@ function renderMaterialsHtml(mats, prefix) {
 const _wrMaterialObservers = [];
 function resetWRMaterials() {
   _wrMaterialObservers.splice(0).forEach(observer => observer.disconnect());
+  document.getElementById('feedbackContent').style.display = 'none';
+  document.getElementById('feedbackBody').textContent = '';
+  document.querySelectorAll('[id^="scoreBE"], #scoreNP').forEach(el => { el.textContent = '–'; });
+  queueMicrotask(() => persistWritingDraft());
 }
 function ensureMaterialsReady() {
   const missing = document.querySelector('#sec-task [data-required-material]:not([data-image-state="ready"])');
@@ -88,7 +92,94 @@ function loadMaterialAssets(mats, prefix, mirrorPrefix) {
       _wrMaterialObservers.push(observer);
       sync();
     }
-    loadEducationalImage(m.inhalt, sourceId, m.bild_labels || null, type === "bild" ? "diagram" : type);
+    loadEducationalImage(m.inhalt, sourceId, m.bild_labels || null, type === "bild" ? "diagram" : type, false, {
+      cachedImage: m._generatedImage?.prompt === m.inhalt ? m._generatedImage : null,
+      onReady: (url, response) => {
+        if (m._generatedImage?.url === url) return;
+        m._generatedImage = { prompt: m.inhalt, url, credit: response?.credit || '', caption: response?.caption || '' };
+        saveWRState();
+      }
+    });
   });
 }
 
+// Rohdaten statt HTML sichern: Feedback bleibt sicher renderbar und wird nicht erneut bewertet.
+let wrRestoringGrade = null;
+function saveWRState() {
+  try { saveSession(); }
+  catch { showToast('Speicher voll oder nicht verfügbar. Bitte sichere deine Antwort und das Feedback als PDF, bevor du diese Seite schließt.'); }
+}
+function wrGradeOptions(endpoint, body) {
+  const task = CONFIG.storedData;
+  return {
+    forcePolling: true,
+    onJobSubmitted: jobId => {
+      // Fertige Bilddaten sind bereits am Material gespeichert, nicht doppelt im Auftrag.
+      const savedBody = JSON.parse(JSON.stringify(body, (key, value) => key === '_generatedImage' ? undefined : value));
+      task._wrPendingGrade = { jobId, endpoint, body: savedBody };
+      delete task._wrFeedback;
+      saveWRState();
+    }
+  };
+}
+function rememberWRFeedback(result) {
+  CONFIG.storedData._wrGradeBody = CONFIG.storedData._wrPendingGrade?.body || CONFIG.storedData._wrGradeBody;
+  CONFIG.storedData._wrFeedback = result;
+  delete CONFIG.storedData._wrPendingGrade;
+  saveWRState();
+}
+function displayWRFeedback(result) {
+  if (CONFIG.storedData._wrGradeBody) _lastGradeBody = CONFIG.storedData._wrGradeBody;
+  const s = result.scores || {};
+  const fields = MODULE_CONFIG.storagePrefix === 'wr' ? {
+    scoreBE: s.be_erreicht, scoreBEMax: s.be_max, scoreNP: s.notenpunkte ?? s.total
+  } : {
+    scoreBE1: s.be_1, scoreBEMax1: s.be_max_1, scoreBE2: s.be_2,
+    scoreBEMax2: s.be_max_2, scoreBEGesamt: s.be_gesamt,
+    scoreBEMaxGesamt: s.be_max_gesamt, scoreNP: s.notenpunkte
+  };
+  Object.entries(fields).forEach(([id, value]) => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = value ?? '–';
+  });
+  const blocks = document.getElementById('blockScoresContainer');
+  if (blocks) blocks.innerHTML = (result.bewertung_bloecke || []).map(b =>
+    `<div class="block-score"><span class="block-name">Block ${escapeHtml(String(b.block_nr))}</span><span class="block-be">${escapeHtml(String(b.be_erreicht))} / ${escapeHtml(String(b.be_max))} BE</span></div>`).join('');
+  document.getElementById('feedbackBody').innerHTML = DOMPurify.sanitize(marked.parse(result.feedback || 'Zu dieser Korrektur liegt kein ausführlicher Rückmeldungstext vor.'));
+  renderKorrekturFeedback(result);
+  document.getElementById('feedbackLoader').style.display = 'none';
+  document.getElementById('feedbackContent').style.display = 'block';
+}
+async function restoreWRFeedback() {
+  const task = CONFIG.storedData;
+  if (!task) return;
+  if (task._wrFeedback) { displayWRFeedback(task._wrFeedback); return; }
+  if (document.getElementById('submitBtn').disabled || wrRestoringGrade === task) return;
+  const pending = task._wrPendingGrade;
+  if (!pending) {
+    document.getElementById('feedbackLoader').style.display = 'none';
+    document.getElementById('feedbackContent').style.display = 'block';
+    document.getElementById('feedbackBody').textContent = 'Für diese Aufgabe ist auf diesem Gerät noch kein vollständiges Feedback gespeichert. Deine Antwort findest du unter „Schreiben“. Bereits vorhandene Punkte bleiben im Fortschritt erhalten.';
+    return;
+  }
+  wrRestoringGrade = task;
+  document.getElementById('submitBtn').disabled = true;
+  document.getElementById('feedbackLoader').style.display = 'block';
+  document.getElementById('feedbackContent').style.display = 'none';
+  try {
+    const result = await apiCallAsync(pending.endpoint, pending.body, { resumeJobId: pending.jobId });
+    if (CONFIG.storedData !== task) return;
+    rememberWRFeedback(result);
+    displayWRFeedback(result);
+  } catch (error) {
+    if (CONFIG.storedData !== task) return;
+    document.getElementById('feedbackContent').style.display = 'block';
+    document.getElementById('feedbackBody').textContent = 'Korrektur konnte nicht wiederhergestellt werden: ' + error.message;
+  } finally {
+    wrRestoringGrade = null;
+    if (CONFIG.storedData === task) {
+      document.getElementById('feedbackLoader').style.display = 'none';
+      document.getElementById('submitBtn').disabled = false;
+    }
+  }
+}
