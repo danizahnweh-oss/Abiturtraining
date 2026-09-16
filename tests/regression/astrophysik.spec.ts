@@ -60,7 +60,7 @@ for(const width of [390,768,1024,1440])for(const colorScheme of ['light','dark']
  await expect(page.locator('.aufgabengruppe-card')).toHaveCount(4);
  await expect(page.locator('html')).toHaveAttribute('data-theme', colorScheme);
  if (await page.getByRole('button', { name: 'Ablehnen', exact: true }).isVisible()) await page.getByRole('button', { name: 'Ablehnen', exact: true }).click();
- await page.screenshot({path:test.info().outputPath('viewport.png')});
+ await page.screenshot({path:test.info().outputPath('viewport.png'),animations:'disabled'});
  await page.screenshot({path:test.info().outputPath('layout.png'),fullPage:true});
  expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1)).toBe(true);
  });
