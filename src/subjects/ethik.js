@@ -1,3 +1,4 @@
+import { CHOICE_FORMAT, generateChoiceExam, gradeChoiceExam, modelChoiceExam } from './choice-exam.js';
 import { jsonResponse, truncate, extractJSON, buildUserContent } from '../utils.js';
 import { callOpenAI } from '../openai.js';
 import { KORREKTUR_SINGLE, BILDER_HINWEIS_TEXT, zeitanpassung, klausurZeitHinweis, skaliereTokens } from '../config.js';
@@ -339,6 +340,7 @@ Formatiere als Markdown mit klaren Überschriften für jede Teilaufgabe. Am Ende
 /* ================= ETHIK ABITUR: GENERATE (Teil A + B) ================= */
 export async function handleGenerateAbiturEthik(request, env) {
   const body = await request.json();
+  if (body.exam_format === CHOICE_FORMAT && (body.level || 'eA').toLowerCase() === 'ea') return generateChoiceExam(body, env, 'ethik');
   const { lernbereich, schwerpunkt, level, bearbeitungszeit } = body;
 
   const isEA = (level || "eA").toLowerCase() === "ea";
@@ -467,6 +469,7 @@ ${!isEA ? `STRENG BEACHTEN: Dies ist eine gA-Prüfung! Verwende NUR Stoff aus de
 /* ================= ETHIK ABITUR: GRADE ================= */
 export async function handleGradeAbiturEthik(request, env) {
   const body = await request.json();
+  if (body.exam_format === CHOICE_FORMAT) return gradeChoiceExam(body, env, 'ethik');
   const { task_instruction_a, task_instruction_b, primary_text, student_text_a, student_text_b, rubric_prompt, materials, images } = body;
 
   if ((!student_text_a && !student_text_b) || !rubric_prompt) {
@@ -528,7 +531,9 @@ export async function handleGradeAbiturEthik(request, env) {
 
 /* ================= ETHIK ABITUR: MODEL ANSWER ================= */
 export async function handleModelAnswerAbiturEthik(request, env) {
-  const { task_instruction_a, task_instruction_b, primary_text, materials } = await request.json();
+  const body = await request.json();
+  if (body.exam_format === CHOICE_FORMAT) return modelChoiceExam(body, env, 'ethik');
+  const { task_instruction_a, task_instruction_b, primary_text, materials } = body;
 
   const systemPrompt = `Du bist ein sehr guter Oberstufenschüler am bayerischen Gymnasium im Fach Ethik (Leistungsfach).
 Schreibe eine vorbildliche Musterlösung für die GESAMTE Abiturprüfung (Teil A + Teil B) auf DEUTSCH.

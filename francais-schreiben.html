@@ -58,6 +58,13 @@
       backdrop-filter: blur(12px);
     }
 
+    @media (max-width: 640px) {
+      #app-wrapper > header { flex-wrap: wrap; gap: .5rem; }
+      #app-wrapper > header h1 { min-width: 0; flex: 1; font-size: 1.1rem; overflow-wrap: anywhere; }
+      #app-wrapper > header .header-right { width: 100%; min-width: 0; flex-wrap: wrap; justify-content: flex-end; }
+      #app-wrapper > header .header-meta { overflow-wrap: anywhere; }
+    }
+
     [data-theme="dark"] header {
       background: rgba(30, 30, 46, 0.92);
     }
@@ -467,7 +474,7 @@
               onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">
               <input type="checkbox" id="doTask1" style="margin-top:.2rem;" checked>
               <div>
-                <strong style="color:var(--accent);">Aufgabe 1 (25-30%) – Présentation</strong>
+                <strong id="weightLabel1" style="color:var(--accent);">Aufgabe 1 (25–30%) – Présentation</strong>
                 <div style="font-size:.88rem;color:var(--ink-light);margin-top:.2rem;" id="taskInstruction1">–</div>
               </div>
             </label>
@@ -477,7 +484,7 @@
               onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">
               <input type="checkbox" id="doTask2" style="margin-top:.2rem;" checked>
               <div>
-                <strong style="color:var(--accent);">Aufgabe 2 (35-40%) – Analyse</strong>
+                <strong id="weightLabel2" style="color:var(--accent);">Aufgabe 2 (35–40%) – Analyse</strong>
                 <div style="font-size:.88rem;color:var(--ink-light);margin-top:.2rem;" id="taskInstruction2">–</div>
               </div>
             </label>
@@ -487,7 +494,7 @@
               onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">
               <input type="radio" name="task3" id="doTask31" value="3.1" style="margin-top:.2rem;" checked>
               <div>
-                <strong style="color:var(--accent);">Aufgabe 3.1 (30-40%) – Discussion</strong>
+                <strong id="weightLabel31" style="color:var(--accent);">Aufgabe 3.1 (30–40%) – Discussion</strong>
                 <div style="font-size:.88rem;color:var(--ink-light);margin-top:.2rem;" id="taskInstruction31">–</div>
               </div>
             </label>
@@ -497,7 +504,7 @@
               onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">
               <input type="radio" name="task3" id="doTask32" value="3.2" style="margin-top:.2rem;">
               <div>
-                <strong style="color:var(--accent);">Aufgabe 3.2 (30-40%) – Écriture créative</strong>
+                <strong id="weightLabel32" style="color:var(--accent);">Aufgabe 3.2 (30–40%) – Écriture créative</strong>
                 <div style="font-size:.88rem;color:var(--ink-light);margin-top:.2rem;" id="taskInstruction32">–</div>
               </div>
             </label>
@@ -803,26 +810,26 @@ WENN TEXTART = "non-littéraire":
 - Schreibe einen authentisch wirkenden französischen Sachtext (article de journal, essai, reportage, chronique).
 - Ca. 700 Wörter (Toleranz ±10%). Durchgängiger Fließtext, sprachlich anspruchsvoll, klare Argumentation.
 - Verwende analysierbare Stilmittel (métaphores, questions rhétoriques, ironie, contrastes, anaphores, énumérations etc.).
-- Erfinde einen plausiblen Autor und eine Quelle (z.B. "Marie Dupont, Le Monde, 15.03.2025").
+- Kennzeichne Autor und Werk ausdrücklich als fiktiv. Erfinde keine Veröffentlichung in einem echten Verlag oder einer echten Zeitung.
 
 WENN TEXTART = "littéraire":
 - Schreibe einen Auszug aus einem fiktiven französischsprachigen Roman oder einer Kurzgeschichte (nouvelle).
 - Ca. 700 Wörter. Erzählerischer Text mit Figurenentwicklung, Atmosphäre, Dialogen.
 - Verwende literarische Stilmittel (images, symbolisme, point de vue narratif, monologue intérieur, contrastes, anticipation etc.).
 - Gib eine kurze Kontextinfo am Anfang (1-2 Sätze kursiv, z.B. "L'extrait suivant se situe dans...").
-- Erfinde einen plausiblen Autor (z.B. "Claire Lefèvre, Les murs de verre, 2023").
+- Kennzeichne Autor und Werk ausdrücklich als fiktiv. Erfinde keine Veröffentlichung in einem echten Verlag oder einer echten Zeitung.
 
 TEIL 2 – DREI AUFGABEN (auf Französisch formuliert):
 
-Aufgabe 1 (25-30%): Compréhension / Présentation.
+Aufgabe 1 ({weight1}%): Compréhension / Présentation.
 - Bei non-littéraire: z.B. "Présentez les idées principales de l'article et la position de l'auteur sur [Thema]."
 - Bei littéraire: z.B. "Présentez ce que le lecteur apprend sur [personnage] et son état d'esprit."
 
-Aufgabe 2 (35-40%): Analyse mit Stilmitteln. MAXIMAL 1-2 Sätze!
+Aufgabe 2 ({weight2}%): Analyse mit Stilmitteln. MAXIMAL 1-2 Sätze!
 - Bei non-littéraire: z.B. "Analysez l'attitude de l'auteur en tenant compte des procédés stylistiques utilisés."
 - Bei littéraire: z.B. "Analysez comment l'atmosphère est créée dans cet extrait. Tenez compte des procédés stylistiques."
 
-Aufgabe 3 (30-40%): ZWEI Wahlaufgaben (3.1 und 3.2):
+Aufgabe 3 ({weight3}%): ZWEI Wahlaufgaben (3.1 und 3.2):
 - 3.1: Ein Zitat aus dem Text + "En vous appuyant sur cette citation, discutez..." (1 Satz)
 - 3.2: Situationsbeschreibung (1-2 Sätze) + "Rédigez un/une [genre textuel] dans lequel/laquelle vous..." (1 Satz)
 
@@ -972,7 +979,10 @@ Schreibe das Feedback auf DEUTSCH, zitiere den Schülertext auf FRANZÖSISCH.`;
         // Build prompt with level and text type substituted
         const prompt = GENERATION_PROMPT_TEMPLATE
           .replace(/\{level\}/g, level === "eA" ? "erhöhtes Anforderungsniveau (eA)" : "grundlegendes Anforderungsniveau (gA)")
-          .replace(/\{texttype\}/g, textType);
+          .replace(/\{texttype\}/g, textType)
+          .replace(/\{weight1\}/g, level === 'eA' ? '30' : '25–30')
+          .replace(/\{weight2\}/g, level === 'eA' ? '40' : '35–40')
+          .replace(/\{weight3\}/g, level === 'eA' ? '30' : '30–40');
 
         const data = await apiCall("/api/generate", {
           topic,
@@ -980,6 +990,8 @@ Schreibe das Feedback auf DEUTSCH, zitiere den Schülertext auf FRANZÖSISCH.`;
           prompt_template: prompt
         });
 
+        if (level === 'eA') { data.writing_format = 'fr-ea-2026'; data.task_weights = WRITING_2026_WEIGHTS[data.writing_format].slice(); }
+        data.source_info = 'Fiktiver KI-Übungstext, keine Originalveröffentlichung';
         CONFIG.storedData = data;
         localStorage.setItem(MODULE_CONFIG.storagePrefix + "_exam_" + getStudentKey(), JSON.stringify(data));
         renderExam(data);
@@ -1205,6 +1217,8 @@ Schreibe das Feedback auf DEUTSCH, zitiere den Schülertext auf FRANZÖSISCH.`;
           source_text_de: CONFIG.storedData.article_text,
           task_fr: getSelectedTasks(),
           student_text_fr: text,
+          ...writing2026Payload(CONFIG.storedData),
+          material_images: collectExamMaterialImages(),
           rubric_prompt: CORRECTION_RUBRIC_PROMPT
         });
 
@@ -1444,6 +1458,8 @@ Schreibe das Feedback auf DEUTSCH, zitiere den Schülertext auf FRANZÖSISCH.`;
     }
   </script>
 
+  <script src="exam-material-context.js?v=1"></script>
+  <script src="writing-2026.js?v=1"></script>
 </body>
 
 </html>

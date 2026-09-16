@@ -353,6 +353,8 @@ export async function handleGradeGeschichte(request, env) {
 export async function handleGenerateDeutsch(request, env) {
   const body = await request.json();
   const { type, gattung, epoche, schreibauftrag, thema, textsorte, typ, aufgabentyp, bearbeitungszeit } = body;
+  const vergleich = body.vergleichswerk && body.vergleichswerk !== 'frei' ? truncate(body.vergleichswerk, 200) : '';
+  const vergleichRegel = vergleich ? 'Verbindlicher Werkvergleich mit ' + vergleich + '. Nenne dieses Werk ausdrücklich in Teil 2 und wähle einen passenden Vergleichsaspekt. Keine freie Werkwahl. Kein zusätzlicher Textauszug notwendig.' : 'Vergleich mit einem vom Schüler frei gewählten anderen literarischen Werk; kein Vergleichstext erforderlich.';
   const refZeit = 315;
   const refBE = 100;
   const zeitHinweis = zeitanpassung(bearbeitungszeit, refZeit, refBE);
@@ -373,14 +375,14 @@ TEXTLÄNGE:
       : gattung === "drama"
       ? `AUFGABENSTRUKTUR FÜR DRAMA:
 - Teil 1 (Schwerpunkt): KURZE, fokussierte Aufgabenstellung! Nur 1-2 Sätze. Beispiel: "Interpretieren Sie den vorliegenden Auszug aus [Autor] '[Werk]'. Arbeiten Sie dabei insbesondere heraus, wie [EIN konkreter Aspekt, z.B. 'der Protagonist dargestellt wird' oder 'der Konflikt zwischen X und Y gestaltet wird']."
-- Teil 2: KURZ! Vergleich mit einem ANDEREN literarischen Werk (KEIN Vergleichstext mitgeliefert — der Schüler wählt selbst). Nur 1-2 Sätze. Beispiel: "Zeigen Sie ausgehend von Ihren Ergebnissen vergleichend auf, wie in einem anderen literarischen Werk [ein Protagonist/eine Figur] mit einer Situation [des Konflikts/der Überforderung/etc.] umgeht."
+- Teil 2: KURZ! Nur 1–2 Sätze. ${vergleichRegel}
 - KEIN Vergleichstext bei Drama! compare_text und compare_meta müssen null sein.
 
 TEXTLÄNGE:
 - Szenenausschnitt: 100-150 Zeilen Dialog mit Regieanweisungen (800-1200 Wörter)`
       : `AUFGABENSTRUKTUR FÜR EPIK:
 - Teil 1 (Schwerpunkt): KURZE, fokussierte Aufgabenstellung! Nur 1-2 Sätze. Beispiel: "Interpretieren Sie den vorliegenden Auszug aus [Autor] '[Werk]'. Arbeiten Sie dabei insbesondere heraus, wie [EIN konkreter Aspekt, z.B. 'die Erzählperspektive die Darstellung der Figur prägt' oder 'das Motiv der Entfremdung gestaltet wird']."
-- Teil 2: KURZ! Vergleich mit einem ANDEREN literarischen Werk (KEIN Vergleichstext mitgeliefert — der Schüler wählt selbst). Nur 1-2 Sätze. Beispiel: "Zeigen Sie ausgehend von Ihren Ergebnissen vergleichend auf, wie in einem anderen literarischen Werk [Thema/Motiv] dargestellt wird."
+- Teil 2: KURZ! Nur 1–2 Sätze. ${vergleichRegel}
 - KEIN Vergleichstext bei Epik! compare_text und compare_meta müssen null sein.
 
 TEXTLÄNGE:
@@ -427,7 +429,7 @@ AUFGABENSTELLUNG — ORIENTIERE DICH AN ECHTEN ABITURAUFGABEN:
 ${gattung === "lyrik" ? `- Teil 1: "Erschließen und interpretieren Sie das vorliegende Gedicht. Arbeiten Sie dabei [Aspekt] heraus und zeigen Sie, wie [...]."
 - Teil 2: Motivvergleich mit dem Vergleichsgedicht. "Vergleichen Sie die Funktion und Gestaltung des Motivs X im Gedicht mit dem Motiv X im Vergleichstext."
 - Liefere ein Vergleichsgedicht in compare_text!` : `- Teil 1: KURZ! Nur 1-2 Sätze. "Interpretieren Sie den vorliegenden Auszug aus [Autor] '[Werk]'. Arbeiten Sie dabei insbesondere heraus, [EIN Aspekt]."
-- Teil 2: KURZ! Nur 1-2 Sätze. Vergleich mit einem anderen Werk (Schüler wählt selbst). "Zeigen Sie vergleichend auf, wie in einem anderen literarischen Werk [Motiv/Thema] dargestellt wird."
+- Teil 2: KURZ! Nur 1–2 Sätze. ${vergleichRegel}
 - KEIN Vergleichstext! compare_text = null, compare_meta = null`}
 
 EPOCHEN-ZUORDNUNG:

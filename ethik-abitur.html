@@ -947,6 +947,8 @@ gesamt_np = round(teil_a_np * 0.5 + teil_b_np * 0.2 + darstellung_np * 0.3)`;
       try {
         const level = sessionStorage.getItem("student_level") || "eA";
         const raw = await apiCall("/api/generate-abitur-ethik", {
+          exam_format: "choice-ea-2026-v1",
+          laengsschnittthema: document.getElementById("laengsschnittthema")?.value || "",
           lernbereich: CONFIG.lernbereich,
           schwerpunkt: document.getElementById("schwerpunktSelect").value,
           level: level,
@@ -954,6 +956,7 @@ gesamt_np = round(teil_a_np * 0.5 + teil_b_np * 0.2 + darstellung_np * 0.3)`;
         });
         // Flatten nested teil_a/teil_b from API into flat structure for renderTask
         const d = {
+          ...raw,
           task_instruction_a: raw.teil_a?.task_instruction || raw.task_instruction_a || "",
           materials: raw.teil_a?.materials || raw.materials || [],
           task_instruction_b: raw.teil_b?.task_instruction || raw.task_instruction_b || "",
@@ -1148,6 +1151,7 @@ gesamt_np = round(teil_a_np * 0.5 + teil_b_np * 0.2 + darstellung_np * 0.3)`;
         const taskB = CONFIG.storedData.task_instruction_b || "";
 
         const payload = {
+          ...choice2026Payload(CONFIG.storedData),
           task_instruction_a: taskA,
           task_instruction_b: taskB,
           primary_text: CONFIG.storedData.primary_text || "",
@@ -1200,6 +1204,7 @@ gesamt_np = round(teil_a_np * 0.5 + teil_b_np * 0.2 + darstellung_np * 0.3)`;
         const taskB = CONFIG.storedData.task_instruction_b || "";
 
         const payload = {
+          ...choice2026Payload(CONFIG.storedData),
           task_instruction_a: taskA,
           task_instruction_b: taskB,
           primary_text: CONFIG.storedData.primary_text || "",
@@ -1255,6 +1260,8 @@ gesamt_np = round(teil_a_np * 0.5 + teil_b_np * 0.2 + darstellung_np * 0.3)`;
     updateTimerDefault();
     updateBEBadges();
   </script>
+  <script src="exam-material-context.js?v=1"></script>
+  <script src="abitur-choice-2026.js?v=1"></script>
 </body>
 
 </html>

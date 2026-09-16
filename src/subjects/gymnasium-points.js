@@ -1,4 +1,5 @@
 import { wrNotenpunkte } from './wr-points.js';
+import { CHOICE_FORMAT, validateChoiceGrade } from './choice-exam.js';
 
 // Nur tatsächlich eingereichte Aufgaben zählen, niemals ungewählte Alternativen.
 export function sumGymnasiumBE(tasks) {
@@ -19,6 +20,7 @@ export function gymnasiumMaximum(endpoint, data) {
 }
 
 export function validateGymnasiumGrade(endpoint, input, result) {
+  if (['grade-abitur-ethik', 'grade-abitur-religion'].includes(endpoint) && input.exam_format === CHOICE_FORMAT) return validateChoiceGrade(input, result);
   const maximum = gymnasiumMaximum(endpoint, input);
   const isBE = /^grade-(?:abitur-)?(?:mathe|bio|biologie|chemie|physik|astrophysik|informatik|sport)$/.test(endpoint);
   if (isBE) {

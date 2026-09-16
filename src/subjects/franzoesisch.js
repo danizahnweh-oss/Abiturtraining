@@ -1,3 +1,4 @@
+import { gradeWriting2026 } from './writing-2026.js';
 import { jsonResponse, truncate, extractJSON, buildUserContent } from '../utils.js';
 import { callOpenAI } from '../openai.js';
 import { BILDER_HINWEIS_TEXT, UEBUNGSAUFGABEN_ANWEISUNG } from '../config.js';
@@ -100,6 +101,7 @@ Formatiere als Markdown mit klaren Überschriften für jede Aufgabe. Am Ende unt
 /* ================= FRANZÖSISCH: GRADE ================= */
 export async function handleGradeFrench(request, env, language = 'Französisch') {
   const body = await request.json();
+  if (body.writing_format && language === 'Französisch') return gradeWriting2026(body, env);
   const { source_text_de, task_fr, task_en, student_text_fr, student_text_en, rubric_prompt, images } = body;
 
   const task = task_fr || task_en;

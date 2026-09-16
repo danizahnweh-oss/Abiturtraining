@@ -1067,7 +1067,7 @@ gesamt_np = round(teil_a_np * 0.5 + teil_b_np * 0.2 + darstellung_np * 0.3)`;
             body = formatTextWithLineNumbers(m.content);
           }
           return `<div class="material-card">
-        <h4>M ${i + 1}: ${escapeHtml(m.title || "")} ${typeBadge}</h4>
+        <h4>${escapeHtml(m.id || ("M " + (i + 1)))}${m.part ? " · Teil " + escapeHtml(m.part) : ""}: ${escapeHtml(m.title || "")} ${typeBadge}</h4>
         <div class="source-text material-body">${body}</div>
         ${m.source ? `<div class="material-source">${escapeHtml(m.source)}</div>` : ""}
       </div>`;
@@ -1105,7 +1105,7 @@ gesamt_np = round(teil_a_np * 0.5 + teil_b_np * 0.2 + darstellung_np * 0.3)`;
       const refContainer = document.getElementById("writeMaterialsRef");
       if (d.materials && d.materials.length) {
         refContainer.innerHTML = d.materials.map((m, i) =>
-          `<div style="margin-bottom:.8rem"><strong>M ${i + 1}: ${escapeHtml(m.title || "")}</strong><br><span style="color:var(--ink-muted);font-size:.8rem">${escapeHtml((m.content || "").substring(0, 150))}…</span></div>`
+          `<div style="margin-bottom:.8rem"><strong>${escapeHtml(m.id || ("M " + (i + 1)))}${m.part ? " · Teil " + escapeHtml(m.part) : ""}: ${escapeHtml(m.title || "")}</strong><br><span style="color:var(--ink-muted);font-size:.8rem">${escapeHtml((m.content || "").substring(0, 150))}…</span></div>`
         ).join("");
       } else if (d.primary_text) {
         refContainer.innerHTML = `<span style="color:var(--ink-muted)">${escapeHtml(d.primary_text.substring(0, 200))}…</span>`;
@@ -1150,6 +1150,7 @@ gesamt_np = round(teil_a_np * 0.5 + teil_b_np * 0.2 + darstellung_np * 0.3)`;
         const taskB = CONFIG.storedData.task_instruction_b || "";
 
         const payload = {
+          material_images: collectExamMaterialImages(),
           task_instruction_a: taskA,
           task_instruction_b: taskB,
           primary_text: CONFIG.storedData.primary_text || "",
@@ -1202,6 +1203,7 @@ gesamt_np = round(teil_a_np * 0.5 + teil_b_np * 0.2 + darstellung_np * 0.3)`;
         const taskB = CONFIG.storedData.task_instruction_b || "";
 
         const payload = {
+          material_images: collectExamMaterialImages(),
           task_instruction_a: taskA,
           task_instruction_b: taskB,
           primary_text: CONFIG.storedData.primary_text || "",
@@ -1257,6 +1259,7 @@ gesamt_np = round(teil_a_np * 0.5 + teil_b_np * 0.2 + darstellung_np * 0.3)`;
     updateTimerDefault();
     updateBEBadges();
   </script>
+<script src="exam-material-context.js?v=1"></script>
 </body>
 
 </html>

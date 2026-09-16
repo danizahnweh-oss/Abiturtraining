@@ -432,6 +432,7 @@
             </div>
           </div>
         </div>
+        <label for="primaryTypeSelect">Hauptquelle M1</label><select id="primaryTypeSelect" style="min-height:44px;font-size:16px"><option value="text">Textquelle (fiktives Übungsmaterial)</option><option value="karikatur">Karikatur (KI-generiertes Übungsmaterial)</option></select>
         <button class="btn" id="generateBtn" onclick="generateTask()">✨ Abituraufgabe generieren</button>
         <div class="loader" id="setupLoader">
           <div class="loader-spinner"></div>
@@ -898,6 +899,7 @@ gesamt_np = round(sach_a_np * 0.4 + sach_b_np * 0.3 + darstellung_np * 0.3)`;
       try {
         const level = sessionStorage.getItem("student_level") || "eA";
         const d = await apiCall("/api/generate-abitur-geschichte", {
+          primary_type_a: document.getElementById("primaryTypeSelect").value,
           schwerpunkt: CONFIG.selectedHalbjahre.join(", "),
           level: level,
           bearbeitungszeit: parseInt(document.getElementById("timerMinutes").value) || 270
@@ -1009,6 +1011,7 @@ gesamt_np = round(sach_a_np * 0.4 + sach_b_np * 0.3 + darstellung_np * 0.3)`;
     }
 
     function renderTask(d) {
+      if (d.primary_type_a === "karikatur") d.primary_material = { type:"karikatur", content:d.primary_text_a };
       prepareEducationalMaterials(d);
       // Hochgeladene Bilder: Original-Aufgabenblatt gross anzeigen
       if (d._uploadImages && d._uploadImages.length) {
@@ -1038,8 +1041,9 @@ gesamt_np = round(sach_a_np * 0.4 + sach_b_np * 0.3 + darstellung_np * 0.3)`;
       // Quellenmaterial – formatSourceText nutzt Zeilennummern bei Fliesstext,
       // bleibt bei Markdown-Tabellen/Bildern auf Markdown-Rendering
       const sourceText = d.primary_text_a || d.primary_text || "";
-      const sourceHtml = formatSourceText(sourceText);
+      const sourceHtml = d.primary_type_a === "karikatur" ? '<div id="primaryImageA" class="material-img-loading">Karikatur wird geladen …</div>' : formatSourceText(sourceText);
       document.getElementById("sourceText").innerHTML = sourceHtml;
+      if (d.primary_type_a === "karikatur") loadEducationalImage(sourceText, "primaryImageA", null, "karikatur");
       document.getElementById("sourceMeta").textContent = d.primary_meta_a || d.primary_meta || "";
 
       const hjLabel = HJ_LABELS[d.schwerpunkt || CONFIG.halbjahr] || "";
@@ -1142,6 +1146,8 @@ gesamt_np = round(sach_a_np * 0.4 + sach_b_np * 0.3 + darstellung_np * 0.3)`;
         const taskB = CONFIG.storedData.task_instruction_b || "";
 
         const payload = {
+          material_images: collectExamMaterialImages(),
+          materials: [].concat(CONFIG.storedData.zusatz_materialien || [], CONFIG.storedData.zusatz_materialien_a || [], CONFIG.storedData.zusatz_materialien_b || []),
           task_instruction_a: taskA,
           task_instruction_b: taskB,
           primary_text_a: CONFIG.storedData.primary_text_a || CONFIG.storedData.primary_text || "",
@@ -1194,6 +1200,8 @@ gesamt_np = round(sach_a_np * 0.4 + sach_b_np * 0.3 + darstellung_np * 0.3)`;
         const taskB = CONFIG.storedData.task_instruction_b || "";
 
         const payload = {
+          material_images: collectExamMaterialImages(),
+          materials: [].concat(CONFIG.storedData.zusatz_materialien || [], CONFIG.storedData.zusatz_materialien_a || [], CONFIG.storedData.zusatz_materialien_b || []),
           task_instruction_a: taskA,
           task_instruction_b: taskB,
           primary_text_a: CONFIG.storedData.primary_text_a || CONFIG.storedData.primary_text || "",
@@ -1246,6 +1254,7 @@ gesamt_np = round(sach_a_np * 0.4 + sach_b_np * 0.3 + darstellung_np * 0.3)`;
     // Init
     updateTimerDefault();
   </script>
+<script src="exam-material-context.js?v=1"></script>
 </body>
 
 </html>

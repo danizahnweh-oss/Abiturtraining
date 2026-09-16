@@ -495,6 +495,8 @@
       <div class="card">
         <label>Bearbeitungszeit (Min.)</label>
         <input type="number" id="timerMinutes" value="270" min="60" max="315" style="max-width:120px">
+        <label for="laengsschnittthema" style="margin-top:16px">Längsschnittthema deines Kurses (für eA erforderlich)</label>
+        <input id="laengsschnittthema" type="text" maxlength="500" style="font-size:16px;min-height:44px;width:100%" placeholder="Das tatsächlich im Kurs behandelte Thema">
         <div style="font-size:.8rem;color:var(--ink-muted);margin-top:.3rem">eA: 270 Min. / gA: 210 Min.</div>
       </div>
     </section>
@@ -946,12 +948,15 @@ gesamt_np = round(teil_a_np * 0.5 + teil_b_np * 0.2 + darstellung_np * 0.3)`;
       try {
         const level = sessionStorage.getItem("student_level") || "eA";
         const raw = await apiCall("/api/generate-abitur-religion", {
+          exam_format: "choice-ea-2026-v1",
+          laengsschnittthema: document.getElementById("laengsschnittthema")?.value || "",
           lernbereich: CONFIG.lernbereich,
           schwerpunkt: document.getElementById("schwerpunktSelect").value,
           level: level,
           bearbeitungszeit: parseInt(document.getElementById("timerMinutes").value) || 270
         });
         const d = {
+          ...raw,
           task_instruction_a: raw.teil_a?.task_instruction || raw.task_instruction_a || "",
           materials: raw.teil_a?.materials || raw.materials || [],
           task_instruction_b: raw.teil_b?.task_instruction || raw.task_instruction_b || "",
@@ -1129,6 +1134,7 @@ gesamt_np = round(teil_a_np * 0.5 + teil_b_np * 0.2 + darstellung_np * 0.3)`;
         const taskB = CONFIG.storedData.task_instruction_b || "";
 
         const payload = {
+          ...choice2026Payload(CONFIG.storedData),
           task_instruction_a: taskA,
           task_instruction_b: taskB,
           primary_text: CONFIG.storedData.primary_text || "",
@@ -1181,6 +1187,7 @@ gesamt_np = round(teil_a_np * 0.5 + teil_b_np * 0.2 + darstellung_np * 0.3)`;
         const taskB = CONFIG.storedData.task_instruction_b || "";
 
         const payload = {
+          ...choice2026Payload(CONFIG.storedData),
           task_instruction_a: taskA,
           task_instruction_b: taskB,
           primary_text: CONFIG.storedData.primary_text || "",
@@ -1236,6 +1243,8 @@ gesamt_np = round(teil_a_np * 0.5 + teil_b_np * 0.2 + darstellung_np * 0.3)`;
     updateTimerDefault();
     updateBEBadges();
   </script>
+  <script src="exam-material-context.js?v=1"></script>
+  <script src="abitur-choice-2026.js?v=1"></script>
 </body>
 
 </html>

@@ -1,3 +1,4 @@
+import { withMaterialImages } from './material-context.js';
 import { jsonResponse, truncate, extractJSON, buildUserContent } from '../utils.js';
 import { callOpenAI } from '../openai.js';
 import { KORREKTUR_SINGLE, KORREKTUR_AB, BILDER_HINWEIS_TEXT, zeitanpassung, klausurZeitHinweis, skaliereTokens } from '../config.js';
@@ -451,16 +452,16 @@ Erstelle eine VOLLSTÄNDIGE Abituraufgabe bestehend aus Prüfungsteil A UND Prü
 STRUKTUR:
 - 2-4 Teilaufgaben mit steigendem Anforderungsniveau
 - Teilaufgabe 1: Reproduktion (Ebene I) – z.B. "Stellen Sie … dar!", "Beschreiben Sie …"
-- Teilaufgaben 2-3: Reorganisation und Transfer (Ebene II) – z.B. "Ermitteln Sie aus M1 …", "Arbeiten Sie … heraus!"
+- Teilaufgaben 2-3: Reorganisation und Transfer (Ebene II) – z.B. "Ermitteln Sie aus A1 …", "Arbeiten Sie … heraus!"
 - Letzte Teilaufgabe: Reflexion und Problemlösung (Ebene III) – z.B. "Beurteilen Sie …", "Diskutieren Sie …"
 - Gib bei jeder Teilaufgabe die BE an, Summe = ${bePruefungA}
 - Verwende offizielle Operatoren: darstellen, beschreiben, nennen, ermitteln, erarbeiten, erläutern, analysieren, vergleichen, begründen, beurteilen, bewerten, diskutieren, Stellung nehmen
 
-MATERIALIEN (nur für Teil A):
+MATERIALIEN ZU TEIL A (eigene Materialien zu Teil B siehe unten):
 - 2-3 realistische Materialien (Texte, Statistiken, Bilder)
 - Textmaterialien: MINDESTENS 400-800 Wörter pro Material! Vollständige, ausführliche Quellentexte — NICHT Zusammenfassungen! Die Materialien sollen MEHR Informationen enthalten als strikt nötig, damit Schüler die relevanten Inhalte selbst herausarbeiten müssen.
 - Statistiken: Als Markdown-Tabelle mit plausiblen Zahlen, mindestens 6-10 Datenzeilen
-- Erstelle ergänzende Materialien NUR wenn sie in den Aufgabenstellungen referenziert werden ("mithilfe von M 2", "anhand von M 2"). Keine ungenutzten Materialien! BEVORZUGE "foto" (Parlamentsgebäude, Gerichtssäle, Institutionen), "statistik" (Tabellen mit echten Daten) oder "karikatur" (politische Karikatur — klassische Analysequelle, wenn thematisch passend). Verwende "bild" für Schaubilder/Infografiken:
+- Erstelle ergänzende Materialien NUR wenn sie in den Aufgabenstellungen referenziert werden ("mithilfe von A2", "anhand von A2"). Keine ungenutzten Materialien! BEVORZUGE "foto" (Parlamentsgebäude, Gerichtssäle, Institutionen), "statistik" (Tabellen mit echten Daten) oder "karikatur" (politische Karikatur — klassische Analysequelle, wenn thematisch passend). Verwende "bild" für Schaubilder/Infografiken:
   - type "foto": Realistisches Foto. content = Prompt KOMPLETT auf Englisch (5-10 Sätze). Z.B. Parlamentsgebäude, Institutionen, Gerichtssäle, Alltagsszenen. KEINE Personen! Falls das Foto beschriftete Elemente zeigt, optional "bild_labels" mitliefern.
   - type "bild": Schaubild/Infografik/Diagramm. content = Bildprompt KOMPLETT auf Englisch (5-10 Sätze). Korrekt geschriebene DEUTSCHE Beschriftungen (Achsen, Pfeile, Bezeichnungen) dürfen direkt im Bild stehen — erfinde dabei KEINE Zahlenwerte (Zahlen gehören in "statistik"-Tabellen). "bild_labels" optional als Fallback.
   - type "karikatur": Politische Karikatur als Analysequelle. content = Bildprompt KOMPLETT auf Englisch (5-10 Sätze): Motiv, Symbolik, Übertreibung und den deutschen Text in Sprechblasen/Bildunterschrift beschreiben. Es entsteht eine KI-generierte Übungskarikatur — "source" z.B. "Karikatur, KI-generiert".
@@ -483,19 +484,19 @@ ${!isEA ? `⚠️ STRENGE gA-BESCHRÄNKUNG: Diese Aufgabe ist für das GRUNDLEGE
 - Möglicher Transferbezug: ${transferHJ.replace("_", "/")} – ${transferThema}
 - 1-2 Teilaufgaben auf Ebene II-III
 - Gib BE an, Summe = ${bePruefungB}
-- Teil B hat KEINE eigenen Materialien
+- Teil B DARF eigene Materialien haben. Im eA-Training 2026 liefere einen vollständig lesbaren fiktiven Flyer als eigenes Material B1 (type "bild", ausführlicher Bildprompt mit dem vollständigen deutschen Flyertext). In mindestens einer B-Teilaufgabe wird B1 ausdrücklich analysiert. Keine Behauptung eines Originalflyers.
 - Typische Formulierungen: "Unabhängig von den Materialien …", "Unter Rückgriff auf Ihre Kenntnisse aus … erörtern Sie …"
 
 Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
 {
   "task_instruction_a": "Vollständige Aufgabenstellung Teil A mit allen Teilaufgaben und BE-Angaben",
   "materials": [
-    {"title": "Titel", "type": "text", "content": "Ausführlicher Materialtext (400-800 Wörter!)", "source": "Autor, Quelle, Datum"},
+    {"id": "A1", "part": "A", "title": "Titel", "type": "text", "content": "Ausführlicher Materialtext (400-800 Wörter!)", "source": "Autor, Quelle, Datum"},
     {"title": "Titel", "type": "statistik", "content": "| Spalte1 | Spalte2 |\\n|---|---|\\n| ... | ... |", "source": "Institut, Jahr"},
     {"title": "Schaubild: ...", "type": "bild", "content": "Bildprompt auf Englisch. Visuellen Inhalt beschreiben; korrekt geschriebene deutsche Beschriftungen dürfen direkt im Bild stehen.", "source": ""},
     {"title": "Karikatur: ...", "type": "karikatur", "content": "Bildprompt auf Englisch (5-10 Sätze): Motiv, Symbolik, Übertreibung und deutschen Sprechblasen-/Bildunterschrift-Text beschreiben.", "source": "Karikatur, KI-generiert"}
   ],
-  "task_instruction_b": "Vollständige Aufgabenstellung Teil B (Ausweitung) mit BE-Angaben",
+  "task_instruction_b": "Vollständige Aufgabenstellung Teil B mit BE-Angaben und ausdrücklichem Bezug auf Material B1, falls vorhanden",
   "halbjahr": "${halbjahr || "12_1"}",
   "thema": "Konkretes Thema der Aufgabe"
 }`;
@@ -507,19 +508,24 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
 - Gesamt-BE: ${beGesamt} (Teil A: ${bePruefungA}, Teil B: ${bePruefungB})
 
 Teil A: 2-4 Teilaufgaben mit Materialien, steigendes Anforderungsniveau.
-Teil B: Eigenständige Transferaufgabe OHNE Materialien, Bezug zu einem anderen Halbjahr oder übergreifende Reflexion.
+Teil B: Eigenständige Transferaufgabe mit möglichen eigenen Materialien. Bei eA: B1-Flyer mit direktem Aufgabenbezug. Kennzeichne im materials-Array jedes Material mit part "A" oder "B" und id "A1", "A2", "B1" usw.; verwende genau diese Kennungen in den Aufgaben.
 
 KRITISCH: Jedes Textmaterial MUSS 400-800 Wörter lang sein! Vollständige Quellentexte, NICHT Zusammenfassungen. Die Materialien sollen MEHR Informationen enthalten als nötig — Schüler müssen die relevanten Inhalte herausarbeiten. Erstelle Bilder als Material NUR wenn sie in den Aufgabenstellungen referenziert werden. Keine ungenutzten Materialien!
 AUFGABENBEZUG: JEDES bereitgestellte Material MUSS in mindestens einer Teilaufgabe direkt referenziert und verwendet werden. Es darf KEINE Materialien ohne Aufgabenbezug geben!
 ${!isEA ? `STRENG BEACHTEN: Dies ist eine gA-Aufgabe! Verwende NUR Stoff aus dem gA-Lehrplan. Keine eA-exklusiven Lernbereiche oder Themen!` : ""}`;
 
-  const openaiRes = await callOpenAI(env, [
-    { role: "system", content: systemPrompt + zeitHinweis },
-    { role: "user", content: userPrompt }
-  ], skaliereTokens(14000, bearbeitungszeit, refZeit));
-
-  const content = extractJSON(openaiRes);
-  return jsonResponse(content, 200, env);
+  let validationError;
+  for (let attempt = 0; attempt < 2; attempt++) {
+    const answer = await callOpenAI(env, [
+      { role: "system", content: systemPrompt + zeitHinweis },
+      { role: "user", content: userPrompt + (validationError ? '\nKorrigiere die vollständige Prüfung: ' + validationError : '') }
+    ], skaliereTokens(14000, bearbeitungszeit, refZeit));
+    try {
+      const content = validatePuGMaterials(extractJSON(answer), isEA);
+      return jsonResponse(content, 200, env);
+    } catch (error) { validationError = error.message; }
+  }
+  return jsonResponse({error:'Die Materialien waren nicht vollständig den Aufgaben zugeordnet. Bitte erneut erstellen.'},422,env);
 }
 
 /* ================= PUG ABITUR: GRADE ================= */
@@ -538,7 +544,7 @@ export async function handleGradeAbiturPuG(request, env) {
   }
 
   if (materials && materials.length) {
-    contextInfo += `Materialien:\n${materials.slice(0, 10).map((m, i) => `Material ${i + 1}: ${truncate(m.title, 200)}\n${truncate(m.content, 3000)}`).join("\n\n")}\n\n`;
+    contextInfo += `Materialien:\n${materials.slice(0, 10).map((m, i) => `Material ${m.id || i + 1}, Teil ${m.part || "A"}: ${truncate(m.title, 200)}\n${truncate(m.content, 3000)}`).join("\n\n")}\n\n`;
   }
 
   contextInfo += `=== PRÜFUNGSTEIL B (Ausweitung) ===\nAufgabenstellung:\n${truncate(task_instruction_b, 3000)}\n\n`;
@@ -548,7 +554,7 @@ export async function handleGradeAbiturPuG(request, env) {
   const bilderHinweis = (images && images.length) ? BILDER_HINWEIS_TEXT : "";
   const messages = [
     { role: "system", content: truncate(rubric_prompt, 5000) + bilderHinweis + korrekturAnweisung },
-    { role: "user", content: buildUserContent(`${contextInfo}\nSchülertext Teil A:\n${truncate(student_text_a, 15000)}\n\nSchülertext Teil B:\n${truncate(student_text_b, 10000)}`, images) }
+    { role: "user", content: withMaterialImages(buildUserContent(`${contextInfo}\nSchülertext Teil A:\n${truncate(student_text_a, 15000)}\n\nSchülertext Teil B:\n${truncate(student_text_b, 10000)}`, images), body.material_images) }
   ];
 
   const openaiRes = await callOpenAI(env, messages, 10000, { temperature: 0.3 });
@@ -589,7 +595,8 @@ export async function handleGradeAbiturPuG(request, env) {
 
 /* ================= PUG ABITUR: MODEL ANSWER ================= */
 export async function handleModelAnswerAbiturPuG(request, env) {
-  const { task_instruction_a, task_instruction_b, primary_text, materials } = await request.json();
+  const body = await request.json();
+  const { task_instruction_a, task_instruction_b, primary_text, materials } = body;
 
   const systemPrompt = `Du bist ein sehr guter Oberstufenschüler am bayerischen Gymnasium im Fach Politik und Gesellschaft (Leistungsfach).
 Schreibe eine vorbildliche, vollständig ausformulierte Musterlösung für eine VOLLSTÄNDIGE Abiturprüfung (Teil A + Teil B) auf DEUTSCH — so, wie ein Schüler sie in der Prüfung abgeben würde.
@@ -610,7 +617,7 @@ PRÜFUNGSTEIL B (Ausweitung):
 - Bearbeite die Transferaufgabe eigenständig
 - Beziehe Fachwissen aus anderen Halbjahren ein
 - Zeige politikwissenschaftliche Urteilsfähigkeit
-- Teil B hat KEINE Materialien – nutze dein Fachwissen
+- Beziehe die ausdrücklich Teil B zugeordneten Materialien ein, sofern vorhanden. Nutze darüber hinaus dein Fachwissen.
 
 Zielumfang: Teil A ca. 800-1200 Wörter, Teil B ca. 400-600 Wörter.
 
@@ -619,14 +626,28 @@ Formatiere als Markdown mit klaren Überschriften für jeden Prüfungsteil und j
   let userContent = `PRÜFUNGSTEIL A – AUFGABE:\n${truncate(task_instruction_a, 5000)}`;
   if (primary_text) userContent += `\n\nMATERIAL:\n${truncate(primary_text, 15000)}`;
   if (materials && materials.length) {
-    userContent += `\n\nMATERIALIEN:\n${materials.slice(0, 10).map((m, i) => `Material ${i + 1}: ${truncate(m.title, 200)}\n${truncate(m.content, 3000)}`).join("\n\n")}`;
+    userContent += `\n\nMATERIALIEN:\n${materials.slice(0, 10).map((m, i) => `Material ${m.id || i + 1}, Teil ${m.part || "A"}: ${truncate(m.title, 200)}\n${truncate(m.content, 3000)}`).join("\n\n")}`;
   }
   userContent += `\n\nPRÜFUNGSTEIL B – AUFGABE (Ausweitung):\n${truncate(task_instruction_b, 3000)}`;
 
   const answer = await callOpenAI(env, [
     { role: "system", content: systemPrompt },
-    { role: "user", content: userContent }
+    { role: "user", content: withMaterialImages(userContent, body.material_images) }
   ], 8000, { jsonMode: false });
 
   return jsonResponse({ model_answer: answer }, 200, env);
+}
+
+/** Vollständige Zuordnungen verhindern, dass Bildmaterial ohne passende Aufgabe erscheint. */
+export function validatePuGMaterials(data, isEA) {
+  if (!data?.task_instruction_a || !data.task_instruction_b || !Array.isArray(data.materials) || !data.materials.length) throw new Error('Aufgaben oder Materialien fehlen.');
+  const ids = new Set();
+  for (const m of data.materials) {
+    if (!['A','B'].includes(m.part) || typeof m.id !== 'string' || !m.id.startsWith(m.part) || ids.has(m.id) || !m.content?.trim()) throw new Error('Jedes Material benötigt eine eindeutige Kennung und Teil A oder B.');
+    ids.add(m.id);
+    const instruction = m.part === 'A' ? data.task_instruction_a : data.task_instruction_b;
+    if (!instruction.replace(/\s+/g,'').includes(m.id)) throw new Error('Material '+m.id+' wird nicht im zugehörigen Aufgabenteil verwendet.');
+  }
+  if (isEA && !data.materials.some(m=>m.id==='B1' && m.part==='B' && m.type==='bild')) throw new Error('Der in Teil B verwendete B1-Flyer fehlt.');
+  return data;
 }

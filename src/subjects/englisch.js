@@ -1,3 +1,4 @@
+import { gradeWriting2026, WRITING_WEIGHTS } from './writing-2026.js';
 import { jsonResponse, truncate, extractJSON, buildUserContent } from '../utils.js';
 import { callOpenAI } from '../openai.js';
 import { BILDER_HINWEIS_TEXT, UEBUNGSAUFGABEN_ANWEISUNG } from '../config.js';
@@ -80,6 +81,7 @@ export async function handleGenerateFromTextWriting(request, env) {
     return jsonResponse({ error: "Bitte einen englischen Text mit mindestens 50 Zeichen eingeben." }, 400, env);
   }
   const level = body.level || "gA";
+  const weights = level === "eA" ? WRITING_WEIGHTS[body.writing_format] : null;
   const levelDesc = level === "eA" ? "erhöhtes Anforderungsniveau (eA)" : "grundlegendes Anforderungsniveau (gA)";
 
   const systemPrompt = `Du bist ein Experte für das bayerische Abitur im Fach Englisch (Prüfungsteil B: Schreiben).
@@ -91,10 +93,10 @@ NIVEAU: ${levelDesc}
 
 Erstelle DREI Aufgaben zum Text:
 
-Aufgabe 1 (30%): Eine kurze, präzise Outline-Aufgabe (1-2 Sätze).
+Aufgabe 1 (${weights?.[0] || 30}%): Eine kurze, präzise Outline-Aufgabe (1-2 Sätze).
 - z.B. "Outline the main arguments presented in the article."
 
-Aufgabe 2 (30%): Eine kurze, präzise Analyse-Aufgabe (1-2 Sätze).
+Aufgabe 2 (${weights?.[1] || 30}%): Eine kurze, präzise Analyse-Aufgabe (1-2 Sätze).
 - z.B. "Analyse the writer's attitude. Focus on the use of language."
 
 Aufgabe 3 (40%): ZWEI Wahlaufgaben (3.1 und 3.2):
@@ -130,7 +132,7 @@ Der Text oben soll UNVERÄNDERT als "article_text" im JSON erscheinen.`;
     { role: "user", content: userPrompt }
   ], 6000);
 
-  return jsonResponse(extractJSON(openaiRes), 200, env);
+  return jsonResponse({ ...extractJSON(openaiRes), article_text: customText, ...(weights ? { writing_format: body.writing_format, task_weights: weights } : {}) }, 200, env);
 }
 
 /* ================= ENGLISCH: MEDIATION AUS EIGENEM TEXT GENERIEREN ================= */
@@ -215,6 +217,7 @@ Antworte NUR mit validem JSON:
 /* ================= ENGLISCH: GRADE ================= */
 export async function handleGrade(request, env) {
   const body = await request.json();
+  if (body.writing_format) return gradeWriting2026(body, env);
   const { source_text_de, task_en, student_text_en, rubric_prompt, images } = body;
 
   const messages = [

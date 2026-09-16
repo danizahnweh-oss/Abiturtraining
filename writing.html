@@ -540,6 +540,7 @@
           </p>
 
           <div class="form-group">
+            <label for="ownTextFormat">Aufgabenformat für deinen Text (eA)</label><select id="ownTextFormat" style="font-size:16px;min-height:44px"><option value="en-ea-2026-I">Text I: 30/30/40</option><option value="en-ea-2026-II">Text II: 20/40/40</option></select>
             <label for="ownTextArea" style="font-weight:600;">Englischer Text</label>
             <textarea id="ownTextArea" style="min-height:250px;font-size:.95rem;line-height:1.7;"
               placeholder="Paste your English text here …"></textarea>
@@ -616,7 +617,7 @@
               onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">
               <input type="checkbox" id="doTask1" style="margin-top:.2rem;" checked>
               <div>
-                <strong style="color:var(--accent);">Aufgabe 1 (30%)</strong>
+                <strong id="weightLabel1" style="color:var(--accent);">Aufgabe 1 (30%)</strong>
                 <div style="font-size:.88rem;color:var(--ink-light);margin-top:.2rem;" id="taskInstruction1">–</div>
               </div>
             </label>
@@ -626,7 +627,7 @@
               onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">
               <input type="checkbox" id="doTask2" style="margin-top:.2rem;" checked>
               <div>
-                <strong style="color:var(--accent);">Aufgabe 2 (30%)</strong>
+                <strong id="weightLabel2" style="color:var(--accent);">Aufgabe 2 (30%)</strong>
                 <div style="font-size:.88rem;color:var(--ink-light);margin-top:.2rem;" id="taskInstruction2">–</div>
               </div>
             </label>
@@ -636,7 +637,7 @@
               onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">
               <input type="radio" name="task3" id="doTask31" value="3.1" style="margin-top:.2rem;" checked>
               <div style="flex:1;">
-                <strong style="color:var(--accent);">Aufgabe 3.1 (40%)</strong> – <span id="task31TypeLabel">Persönliche Stellungnahme</span>
+                <strong id="weightLabel31" style="color:var(--accent);">Aufgabe 3.1 (40%)</strong> – <span id="task31TypeLabel">Persönliche Stellungnahme</span>
                 <div id="cartoonContainer" style="display:none;margin:.8rem 0;border-radius:var(--radius-sm);overflow:hidden;background:var(--surface-alt,#f5f5f5);padding:.5rem;"></div>
                 <div style="font-size:.88rem;color:var(--ink-light);margin-top:.2rem;" id="taskInstruction31">–</div>
               </div>
@@ -647,7 +648,7 @@
               onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">
               <input type="radio" name="task3" id="doTask32" value="3.2" style="margin-top:.2rem;">
               <div>
-                <strong style="color:var(--accent);">Aufgabe 3.2 (40%)</strong> – Gestaltendes Schreiben
+                <strong id="weightLabel32" style="color:var(--accent);">Aufgabe 3.2 (40%)</strong> – Gestaltendes Schreiben
                 <div style="font-size:.88rem;color:var(--ink-light);margin-top:.2rem;" id="taskInstruction32">–</div>
               </div>
             </label>
@@ -954,22 +955,22 @@ WENN TEXTART = "nicht-literarisch":
 - Schreibe einen authentisch wirkenden englischen Sachtext (Zeitungsartikel, Essay, Feature, Reportage).
 - Ca. 700 Wörter (Toleranz ±10%). Durchgängiger Fließtext, sprachlich anspruchsvoll, klare Argumentation.
 - Verwende analysierbare Stilmittel (Metaphern, rhetorische Fragen, Ironie, Kontraste etc.).
-- Erfinde einen plausiblen Autor und eine Quelle (z.B. "Sarah Mitchell, The Guardian, 15.03.2025").
+- Kennzeichne Autor und Werk ausdrücklich als fiktiv. Erfinde keine Veröffentlichung in einem echten Verlag oder einer echten Zeitung.
 
 WENN TEXTART = "literarisch":
 - Schreibe einen Auszug aus einem fiktiven englischsprachigen Roman oder einer Kurzgeschichte.
 - Ca. 700 Wörter. Erzählerischer Text mit Figurenentwicklung, Atmosphäre, Dialogen.
 - Verwende literarische Stilmittel (Bildsprache, Symbolik, Erzählperspektive, Stream of Consciousness, Kontraste, Foreshadowing etc.).
 - Gib eine kurze Kontextinfo am Anfang (1-2 Sätze kursiv, z.B. "The following passage is set in...").
-- Erfinde einen plausiblen Autor (z.B. "Emma Whitfield, The Glass Between Us, 2023").
+- Kennzeichne Autor und Werk ausdrücklich als fiktiv. Erfinde keine Veröffentlichung in einem echten Verlag oder einer echten Zeitung.
 
 TEIL 2 – DREI AUFGABEN:
 
-Aufgabe 1 (30%): Eine kurze, präzise Outline-Aufgabe.
+Aufgabe 1 ({weight1}%): Eine kurze, präzise Outline-Aufgabe.
 - Bei nicht-literarisch: z.B. "Outline the main arguments presented in the article and the author's stance on [Thema]."
 - Bei literarisch: z.B. "Outline what the reader learns about [Figur] and [his/her] state of mind."
 
-Aufgabe 2 (30%): Eine kurze, präzise Analyse-Aufgabe. MAXIMAL 1-2 Sätze!
+Aufgabe 2 ({weight2}%): Eine kurze, präzise Analyse-Aufgabe. MAXIMAL 1-2 Sätze!
 - Bei nicht-literarisch: z.B. "Analyse the writer's attitude. Focus on the use of language."
 - Bei literarisch: z.B. "Analyse how the setting is used to create atmosphere. Focus on the author's use of language."
 
@@ -1133,7 +1134,9 @@ Schreibe auf DEUTSCH, zitiere Schülertext auf Englisch.`;
         // Build prompt with level and text type substituted
         const prompt = GENERATION_PROMPT_TEMPLATE
           .replace(/\{level\}/g, level === "eA" ? "erhöhtes Anforderungsniveau (eA)" : "grundlegendes Anforderungsniveau (gA)")
-          .replace(/\{texttype\}/g, textType);
+          .replace(/\{texttype\}/g, textType)
+          .replace(/\{weight1\}/g, level === 'eA' && textType === 'literarisch' ? '20' : '30')
+          .replace(/\{weight2\}/g, level === 'eA' && textType === 'literarisch' ? '40' : '30');
 
         const data = await apiCall("/api/generate", {
           topic,
@@ -1141,6 +1144,8 @@ Schreibe auf DEUTSCH, zitiere Schülertext auf Englisch.`;
           prompt_template: prompt
         });
 
+        if (level === 'eA') { data.writing_format = textType === 'literarisch' ? 'en-ea-2026-II' : 'en-ea-2026-I'; data.task_weights = WRITING_2026_WEIGHTS[data.writing_format].slice(); }
+        data.source_info = 'Fiktiver KI-Übungstext, keine Originalveröffentlichung';
         CONFIG.storedData = data;
         localStorage.setItem(MODULE_CONFIG.storagePrefix + "_exam_" + getStudentKey(), JSON.stringify(data));
         renderExam(data);
@@ -1355,7 +1360,7 @@ Schreibe auf DEUTSCH, zitiere Schülertext auf Englisch.`;
 
       try {
         const level = sessionStorage.getItem("student_level") || "gA";
-        const data = await apiCall("/api/generate-from-text-writing", { custom_text: text, level });
+        const data = await apiCall("/api/generate-from-text-writing", { custom_text: text, level, writing_format: level === 'eA' ? document.getElementById('ownTextFormat').value : undefined });
         CONFIG.storedData = data;
         localStorage.setItem(MODULE_CONFIG.storagePrefix + "_exam_" + getStudentKey(), JSON.stringify(data));
         renderExam(data);
@@ -1507,6 +1512,8 @@ Schreibe auf DEUTSCH, zitiere Schülertext auf Englisch.`;
           source_text_de: CONFIG.storedData.article_text,
           task_en: getSelectedTasks(),
           student_text_en: text,
+          ...writing2026Payload(CONFIG.storedData),
+          material_images: collectExamMaterialImages(),
           rubric_prompt: CORRECTION_RUBRIC_PROMPT
         });
 
@@ -1751,6 +1758,8 @@ Schreibe auf DEUTSCH, zitiere Schülertext auf Englisch.`;
     }
   </script>
 
+  <script src="exam-material-context.js?v=1"></script>
+  <script src="writing-2026.js?v=1"></script>
 </body>
 
 </html>

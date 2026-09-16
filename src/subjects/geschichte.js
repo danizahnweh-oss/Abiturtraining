@@ -1,3 +1,4 @@
+import { withMaterialImages } from './material-context.js';
 import { jsonResponse, truncate, extractJSON, buildUserContent } from '../utils.js';
 import { callOpenAI } from '../openai.js';
 import { KORREKTUR_AB, BILDER_HINWEIS_TEXT, zeitanpassung, skaliereTokens } from '../config.js';
@@ -5,6 +6,7 @@ import { KORREKTUR_AB, BILDER_HINWEIS_TEXT, zeitanpassung, skaliereTokens } from
 export async function handleGenerateAbiturGeschichte(request, env) {
   const body = await request.json();
   const { schwerpunkt, level, bearbeitungszeit } = body;
+  const primaryType = body.primary_type_a === 'karikatur' ? 'karikatur' : 'text';
 
   const isEA = (level || "eA").toLowerCase() === "ea";
   const niveauLabel = isEA ? "erhöhtes Anforderungsniveau (eA)" : "grundlegendes Anforderungsniveau (gA)";
@@ -50,12 +52,9 @@ export async function handleGenerateAbiturGeschichte(request, env) {
 
 === TEIL A — QUELLENANALYSE ===
 1. EINLEITUNG (2-4 Sätze): Historischer Kontext, Hinführung zur Quelle
-2. QUELLENMATERIAL (M 1) — ZWINGEND eine substanzielle TEXTQUELLE von 400-800 Wörtern:
-   - Genres: Rede, Zeitungsartikel, Denkschrift, Brief, Memoiren, Flugblatt, Erlass
-   - MUSS einen REALEN historischen Autor und korrekten Kontext haben
-   - Sprache muss dem Entstehungszeitraum entsprechen
-   - Vollständige Quellenangabe
-   - Optional: 0-2 ergänzende Materialien (M 2, M 3) als "zusatz_materialien" Array: Schaubilder, Infografiken, Statistiken
+2. QUELLENMATERIAL M1:
+${primaryType === 'karikatur' ? '- M1 ist eine KI-generierte ÜBUNGSKARIKATUR zum historischen Kontext. primary_text_a enthält ausschließlich einen vollständigen englischen Bildprompt mit Motiv, Symbolik, Überzeichnung und deutschem Bildtext. Aufgaben verlangen Bildanalyse, Einordnung und Urteil. Quelle ausdrücklich als KI-Übungskarikatur kennzeichnen, kein echter historischer Zeichner oder Publikationsort vortäuschen.' : '- M1 ist ein eigenständig verfasster historisch kontextualisierter Übungstext (400–800 Wörter), klar als fiktiv gekennzeichnet. Keine erfundene Rede oder wörtliche Quelle einem realen historischen Autor zuschreiben.'}
+- Ergänzende Materialien M2, M3 optional, aber mit konkretem Aufgabenbezug.
 3. TEILAUFGABEN (3 Stück, steigende AFB) MIT BE-ANGABEN (inkl. Darstellungsleistung):
    - Teilaufgabe 1 (AFB I/II, ca. ${isEA ? "20" : "16"} BE): "Arbeiten Sie aus M 1 heraus …" / "Stellen Sie dar …"
    - Teilaufgabe 2 (AFB II, ca. ${isEA ? "24" : "20"} BE): "Ordnen Sie ein …" / "Erläutern Sie …"
@@ -88,7 +87,8 @@ ${!isEA ? `⚠️ STRENGE gA-BESCHRÄNKUNG: Diese Aufgabe ist für das GRUNDLEGE
 Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
 {
   "task_instruction_a": "Vollständige Aufgabenstellung Teil A: Einleitung + 3 nummerierte Teilaufgaben mit BE-Angaben in Klammern",
-  "primary_text_a": "Die historische Textquelle M 1 (400-800 Wörter) MIT Quelleneinleitung",
+  "primary_type_a": "${primaryType}",
+  "primary_text_a": "Vollständiger Inhalt von M1: Quellentext oder Bildprompt entsprechend primary_type_a",
   "primary_meta_a": "Quellenangabe: Autor, Textsorte, Datum",
   "zusatz_materialien": [
     {"title": "Statistik: ...", "type": "statistik", "content": "| Jahr | Wert A (%) | Wert B (%) |\\n|---|---|---|\\n| 1871 | 4,8 | 3,2 |\\n| 1880 | 7,6 | 6,8 |", "source": "Quelle: ..."},
@@ -108,7 +108,7 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
 ${!isEA ? `- WICHTIG: Dies ist eine gA-Aufgabe! Verwende NUR Stoff aus dem gA-Lehrplan. Keine eA-Vertiefungsmodule oder eA-exklusive Themen!` : ""}
 
 KRITISCH:
-- Die Textquelle M 1 MUSS mindestens 500-800 Wörter lang sein! Die Quelle soll MEHR Informationen enthalten als strikt nötig — Schüler müssen die relevanten Inhalte herausarbeiten.
+- ${primaryType === 'karikatur' ? 'M1 muss eine Karikatur sein. Gib den vollständigen Bildprompt an, keine Textquelle als Ersatz.' : 'M1 ist ein vollständiger fiktiver Übungstext mit 400–800 Wörtern.'}
 - Verwende eine REALE historische Persönlichkeit als Autor
 - Teil A: 3 Teilaufgaben mit steigendem AFB und BE-Angaben in Klammern
 - Teil B: Eigenständige Darstellungsaufgabe mit BE-Angaben, ggf. mit Transfer zu ${transferSP.replace("_", "/")}
@@ -125,6 +125,7 @@ AUFGABENBEZUG: JEDES bereitgestellte Material (inkl. Zusatzmaterialien) MUSS in 
   ], skaliereTokens(14000, bearbeitungszeit, refZeit));
 
   const content = extractJSON(openaiRes);
+  content.primary_type_a = primaryType;
   return jsonResponse(content, 200, env);
 }
 
@@ -137,7 +138,7 @@ export async function handleGradeAbiturGeschichte(request, env) {
     return jsonResponse({ error: "student_text_a/b und rubric_prompt erforderlich." }, 400, env);
   }
 
-  let contextInfo = `=== TEIL A — QUELLENANALYSE ===\nAufgabenstellung:\n${truncate(task_instruction_a, 5000)}\n\n`;
+  let contextInfo = `Ergänzende Materialien: ${JSON.stringify(body.materials || [])}\n=== TEIL A — QUELLENANALYSE ===\nAufgabenstellung:\n${truncate(task_instruction_a, 5000)}\n\n`;
   contextInfo += `Quellenmaterial M 1:\n${truncate(primary_text_a, 15000)}\n\n`;
 
   contextInfo += `=== TEIL B — DARSTELLUNG ===\nAufgabenstellung:\n${truncate(task_instruction_b, 3000)}\n\n`;
@@ -150,7 +151,7 @@ export async function handleGradeAbiturGeschichte(request, env) {
   const bilderHinweis = (images && images.length) ? BILDER_HINWEIS_TEXT : "";
   const messages = [
     { role: "system", content: truncate(rubric_prompt, 5000) + bilderHinweis + korrekturAnweisung },
-    { role: "user", content: buildUserContent(`${contextInfo}\nSchülertext Teil A (Quellenanalyse):\n${truncate(student_text_a, 15000)}\n\nSchülertext Teil B (Darstellung):\n${truncate(student_text_b, 10000)}`, images) }
+    { role: "user", content: withMaterialImages(buildUserContent(`${contextInfo}\nSchülertext Teil A (Quellenanalyse):\n${truncate(student_text_a, 15000)}\n\nSchülertext Teil B (Darstellung):\n${truncate(student_text_b, 10000)}`, images), body.material_images) }
   ];
 
   const openaiRes = await callOpenAI(env, messages, 10000, { temperature: 0.3 });
@@ -191,7 +192,8 @@ export async function handleGradeAbiturGeschichte(request, env) {
 
 /* ================= GESCHICHTE ABITUR: MODEL ANSWER ================= */
 export async function handleModelAnswerAbiturGeschichte(request, env) {
-  const { task_instruction_a, task_instruction_b, primary_text_a, primary_text_b } = await request.json();
+  const body = await request.json();
+  const { task_instruction_a, task_instruction_b, primary_text_a, primary_text_b } = body;
 
   const systemPrompt = `Du bist ein sehr guter Oberstufenschüler am bayerischen Gymnasium im Fach Geschichte (Leistungsfach).
 Schreibe eine vorbildliche, vollständig ausformulierte Musterlösung für eine VOLLSTÄNDIGE Abiturprüfung (Teil A + Teil B) auf DEUTSCH — so, wie ein Schüler sie in der Prüfung abgeben würde.
@@ -216,13 +218,13 @@ TEIL B — DARSTELLUNG:
 
 Formatiere als Markdown mit klaren Überschriften. Am Ende unter "---" eine kurze Reflexion.`;
 
-  let userContent = `TEIL A – AUFGABE:\n${truncate(task_instruction_a, 5000)}\n\nQUELLE M 1:\n${truncate(primary_text_a, 15000)}`;
+  let userContent = `Ergänzende Materialien: ${JSON.stringify(body.materials || [])}\nTEIL A – AUFGABE:\n${truncate(task_instruction_a, 5000)}\n\nQUELLE M 1:\n${truncate(primary_text_a, 15000)}`;
   userContent += `\n\nTEIL B – AUFGABE:\n${truncate(task_instruction_b, 3000)}`;
   if (primary_text_b) userContent += `\n\nMATERIALIMPULS:\n${truncate(primary_text_b, 3000)}`;
 
   const answer = await callOpenAI(env, [
     { role: "system", content: systemPrompt },
-    { role: "user", content: userContent }
+    { role: "user", content: withMaterialImages(userContent, body.material_images) }
   ], 8000, { jsonMode: false });
 
   return jsonResponse({ model_answer: answer }, 200, env);

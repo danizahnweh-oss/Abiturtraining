@@ -1,3 +1,4 @@
+import { CHOICE_FORMAT, generateChoiceExam, gradeChoiceExam, modelChoiceExam } from './choice-exam.js';
 import { jsonResponse, truncate, extractJSON, buildUserContent } from '../utils.js';
 import { callOpenAI } from '../openai.js';
 import { KORREKTUR_SINGLE, KORREKTUR_AB, BILDER_HINWEIS_TEXT, zeitanpassung, klausurZeitHinweis } from '../config.js';
@@ -306,6 +307,7 @@ Formatiere als Markdown mit klaren Überschriften für jede Teilaufgabe. Am Ende
 /* ================= EV. RELIGION ABITUR: GENERATE (Teil A + B) ================= */
 export async function handleGenerateAbiturReligion(request, env) {
   const body = await request.json();
+  if (body.exam_format === CHOICE_FORMAT && (body.level || 'eA').toLowerCase() === 'ea') return generateChoiceExam(body, env, 'religion');
   const { lernbereich, schwerpunkt, level, bearbeitungszeit } = body;
 
   const isEA = (level || "eA").toLowerCase() === "ea";
@@ -392,6 +394,7 @@ Antworte NUR mit validem JSON:
 /* ================= EV. RELIGION ABITUR: GRADE ================= */
 export async function handleGradeAbiturReligion(request, env) {
   const body = await request.json();
+  if (body.exam_format === CHOICE_FORMAT) return gradeChoiceExam(body, env, 'religion');
   const { task_instruction_a, task_instruction_b, primary_text, student_text_a, student_text_b, rubric_prompt, materials, images } = body;
 
   if ((!student_text_a && !student_text_b) || !rubric_prompt) {
@@ -450,7 +453,9 @@ export async function handleGradeAbiturReligion(request, env) {
 
 /* ================= EV. RELIGION ABITUR: MODEL ANSWER ================= */
 export async function handleModelAnswerAbiturReligion(request, env) {
-  const { task_instruction_a, task_instruction_b, primary_text, materials } = await request.json();
+  const body = await request.json();
+  if (body.exam_format === CHOICE_FORMAT) return modelChoiceExam(body, env, 'religion');
+  const { task_instruction_a, task_instruction_b, primary_text, materials } = body;
 
   const systemPrompt = `Du bist ein sehr guter Oberstufenschüler am bayerischen Gymnasium im Fach Evangelische Religionslehre (Leistungsfach).
 Schreibe eine vorbildliche Musterlösung für die GESAMTE Abiturprüfung (Teil A + Teil B) auf DEUTSCH.

@@ -978,11 +978,8 @@ export async function handleGenerateAbiturMathe(request, env) {
   const systemPrompt = `Du bist ein Experte für das bayerische Mathematik-Abitur (eA, G9, ab 2026).
 Erstelle eine VOLLSTÄNDIGE, ANSPRUCHSVOLLE Abiturprüfung mit 100 BE auf ECHTEM PRÜFUNGSNIVEAU.
 
-WICHTIGSTE REGEL — KONTEXTGEBUNDENE AUFGABEN:
-ALLE Teilaufgaben müssen im Sachkontext formuliert sein! Der Schüler muss SELBST erkennen, welche mathematische Methode nötig ist.
-VERBOTEN: "Bestimmen Sie f'(x)", "Berechnen Sie die Nullstellen", "Bestimmen Sie das Integral"
-STATTDESSEN: "Bestimmen Sie, wann die Temperatur am höchsten ist", "Ermitteln Sie, an welcher Stelle der Radweg am steilsten ansteigt", "Berechnen Sie die Gesamtmenge an Wasser in den ersten fünf Stunden"
-Die mathematische Methode (Ableiten, Integrieren, Nullstellen, ...) wird NICHT genannt — der Schüler erkennt sie selbst!
+AUFGABENARTEN:
+Kombiniere innermathematische Aufgaben mit Sachkontexten, entsprechend dem MMS-Abitur 2026. Direkte Aufträge wie "Bestimmen Sie f'(x)", "Berechnen Sie die Nullstellen" oder "Bestimmen Sie das Integral" sind ausdrücklich zulässig. In geeigneten Sachkontexten müssen die Prüflinge die passende Methode selbst auswählen. Keine einseitige Beschränkung auf Sachkontexte.
 
 PRÜFUNGSSTRUKTUR:
 
