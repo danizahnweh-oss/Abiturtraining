@@ -13,14 +13,14 @@ export function sumGymnasiumBE(tasks) {
 }
 
 export function gymnasiumMaximum(endpoint, data) {
-  if (!/^grade-(?:abitur-)?(?:mathe|bio|biologie|chemie|physik|informatik|sport)$/.test(endpoint)) return null;
+  if (!/^grade-(?:abitur-)?(?:mathe|bio|biologie|chemie|physik|astrophysik|informatik|sport)$/.test(endpoint)) return null;
   if (endpoint === 'grade-abitur-mathe') return sumGymnasiumBE([...(data.teil_a_pflicht || []), ...(data.teil_a_wahl || []), ...(data.teil_b || [])]);
   return sumGymnasiumBE(data.teilaufgaben || data.aufgaben);
 }
 
 export function validateGymnasiumGrade(endpoint, input, result) {
   const maximum = gymnasiumMaximum(endpoint, input);
-  const isBE = /^grade-(?:abitur-)?(?:mathe|bio|biologie|chemie|physik|informatik|sport)$/.test(endpoint);
+  const isBE = /^grade-(?:abitur-)?(?:mathe|bio|biologie|chemie|physik|astrophysik|informatik|sport)$/.test(endpoint);
   if (isBE) {
     const max = maximum ?? result.max_be ?? result.scores?.be_max;
     const parts = result.teilbewertungen || result.aufgaben_be;

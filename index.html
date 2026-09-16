@@ -3921,6 +3921,13 @@
         <span class="subject-countdown" data-subject="physik"></span>
         <span class="subject-last-activity" data-activity="physik"></span>
       </button>
+      <button class="subject-card astrophysik physik" type="button" data-category="nawi" onclick="selectSubject('astrophysik', true)" aria-label="Physik mit Astrophysik">
+        <div class="subject-icon" aria-hidden="true">🔭</div>
+        <div class="subject-title">Physik mit Astrophysik</div>
+        <div class="subject-desc">Eigenes Fach: Induktion, Wellen und Sternsysteme. Drei aus vier Aufgaben mit vollständigen Übungsdaten.</div>
+        <div class="subject-badge">Abiturtraining gA</div>
+        <span class="subject-last-activity" data-activity="astrophysik"></span>
+      </button>
       <button class="subject-card biologie" type="button" data-category="nawi" onclick="selectSubject('biologie', true)"
         aria-label="Biologie">
         <div class="subject-icon" aria-hidden="true">🧬</div>
@@ -4961,6 +4968,7 @@
       mathe: ["mathe", "mathe-abitur"],
       chemie: ["chemie", "chemie-abitur"],
       physik: ["physik", "physik-abitur"],
+      astrophysik: ["astrophysik-abitur"],
       biologie: ["biologie", "biologie-abitur"]
     };
 
@@ -5078,7 +5086,7 @@
 
     /* ====== SUBJECT FILTER ====== */
     var hiddenSubjectsCache = [];
-    var VALID_SUBJECTS = ["english", "german", "history", "pug", "wr", "french", "italian", "spanisch", "ethik", "religion", "katholisch", "geographie", "latein", "mathe", "chemie", "physik", "biologie", "kunst", "sport", "informatik"];
+    var VALID_SUBJECTS = ["english", "german", "history", "pug", "wr", "french", "italian", "spanisch", "ethik", "religion", "katholisch", "geographie", "latein", "mathe", "chemie", "physik", "astrophysik", "biologie", "kunst", "sport", "informatik"];
 
     function getSubjectKey(card) {
       var classes = card.className.split(" ");
@@ -5681,7 +5689,7 @@
       french: "Französisch", italian: "Italienisch", spanisch: "Spanisch", ethik: "Ethik",
       religion: "Ev. Religion", katholisch: "Kath. Religion",
       geographie: "Geographie", latein: "Latein", mathe: "Mathematik",
-      chemie: "Chemie", physik: "Physik", biologie: "Biologie",
+      chemie: "Chemie", physik: "Physik", astrophysik: "Physik mit Astrophysik", biologie: "Biologie",
       kunst: "Kunst", sport: "Sport", informatik: "Informatik"
     };
 
@@ -5689,7 +5697,7 @@
       english: "🇬🇧", german: "📖", history: "📜", geschichte: "📜", pug: "🏛️", wr: "⚖️",
       french: "🇫🇷", italian: "🇮🇹", spanisch: "🇪🇸", ethik: "🧠", religion: "✝️",
       katholisch: "⛪", geographie: "🌍", latein: "🏺", mathe: "📐",
-      chemie: "🧪", physik: "⚛️", biologie: "🧬", kunst: "🎨", sport: "⚽", informatik: "💻"
+      chemie: "🧪", physik: "⚛️", astrophysik: "🔭", biologie: "🧬", kunst: "🎨", sport: "⚽", informatik: "💻"
     };
 
     /* ====== DATENSCHICHT: localStorage fuer alle Nutzer ====== */
@@ -5702,7 +5710,7 @@
     var SUBJECT_CATEGORY = {
       english: "sprachen", german: "sprachen", french: "sprachen",
       italian: "sprachen", spanisch: "sprachen", latein: "sprachen",
-      mathe: "nawi", chemie: "nawi", physik: "nawi",
+      mathe: "nawi", chemie: "nawi", physik: "nawi", astrophysik: "nawi",
       biologie: "nawi", informatik: "nawi",
       history: "gewi", pug: "gewi", wr: "gewi",
       ethik: "gewi", religion: "gewi", katholisch: "gewi",
@@ -6799,7 +6807,7 @@
       religion: "Evangelische Religionslehre",
       katholisch: "Katholische Religionslehre",
       geographie: "Geographie", latein: "Latein", mathe: "Mathematik",
-      chemie: "Chemie", physik: "Physik", biologie: "Biologie",
+      chemie: "Chemie", physik: "Physik", astrophysik: "Physik mit Astrophysik", biologie: "Biologie",
       kunst: "Kunst", sport: "Sport", informatik: "Informatik"
     };
     var subjectTitleMap = {
@@ -6809,7 +6817,7 @@
       religion: "Ev. Religion",
       katholisch: "Kath. Religion",
       geographie: "Geographie", latein: "Latein", mathe: "Mathematik",
-      chemie: "Chemie", physik: "Physik", biologie: "Biologie",
+      chemie: "Chemie", physik: "Physik", astrophysik: "Physik mit Astrophysik", biologie: "Biologie",
       kunst: "Kunst", sport: "Sport", informatik: "Informatik"
     };
     var _pendingSubjectForModal = null;
@@ -6831,6 +6839,7 @@
       mathe: ["mathe", "mathe-abitur"],
       chemie: ["chemie", "chemie-abitur"],
       physik: ["physik", "physik-abitur"],
+      astrophysik: ["astrophysik-abitur"],
       biologie: ["biologie", "biologie-abitur"],
       sport: ["sport", "sport-abitur"],
       informatik: ["informatik", "informatik-abitur"],
@@ -6941,6 +6950,10 @@
     }
 
     function selectSubject(subject, _push) {
+      if (subject === "astrophysik") {
+        window.location.href = "astrophysik-abitur.html";
+        return;
+      }
       // Kein Login-Check mehr – Gaeste koennen Faecher anklicken
       // Show exam type modal
       _pendingSubjectForModal = subject;

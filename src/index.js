@@ -147,6 +147,8 @@ import {
   handleGenerateAbiturKunst, handleGradeAbiturKunst, handleModelAnswerAbiturKunst, handleGenerateKunst, handleModelAnswerKunst
 } from './subjects/kunst.js';
 
+import { handleGenerateAbiturAstrophysik, handleGradeAbiturAstrophysik, handleModelAnswerAbiturAstrophysik } from './subjects/astrophysik.js';
+
 // FOS-System
 import { handleFOSRoute } from './fos/index.js';
 
@@ -187,6 +189,7 @@ setGradeHandlerMap({
   "grade-informatik": handleGradeInformatik,
   "grade-abitur-chemie": handleGradeAbiturChemie,
   "grade-abitur-physik": handleGradeAbiturPhysik,
+  "grade-abitur-astrophysik": handleGradeAbiturAstrophysik,
   "grade-abitur-biologie": handleGradeAbiturBiologie,
   "grade-abitur-informatik": handleGradeAbiturInformatik,
   "grade-abitur-kunst": handleGradeAbiturKunst,
@@ -790,6 +793,9 @@ ${photo ? `<div style="margin:12px 0"><p style="font-weight:600;margin-bottom:6p
 
       // ===== PHYSIK ABITUR =====
       if (pathname === "/api/generate-abitur-physik" && request.method === "POST") return await handleGenerateAbiturPhysik(request, env);
+      if (pathname === "/api/generate-abitur-astrophysik" && request.method === "POST") return await handleGenerateAbiturAstrophysik(request, env);
+      if (pathname === "/api/grade-abitur-astrophysik" && request.method === "POST") return await handleGradeAbiturAstrophysik(request, env);
+      if (pathname === "/api/model-answer-abitur-astrophysik" && request.method === "POST") return await handleModelAnswerAbiturAstrophysik(request, env);
       if (pathname === "/api/grade-abitur-physik" && request.method === "POST") return await handleGradeAbiturPhysik(request, env);
       if (pathname === "/api/model-answer-abitur-physik" && request.method === "POST") return await handleModelAnswerAbiturPhysik(request, env);
 

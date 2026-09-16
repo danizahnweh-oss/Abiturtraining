@@ -1181,6 +1181,7 @@ var REWRITE_TYPE_MAP = {
   "mathe": "mathe", "mathe-abitur": "mathe-abitur",
   "chemie": "chemie", "chemie-abitur": "chemie-abitur",
   "physik": "physik", "physik-abitur": "physik-abitur",
+  "astrophysik-abitur": "astrophysik-abitur",
   "biologie": "biologie", "biologie-abitur": "biologie-abitur",
   "sport": "sport", "sport-abitur": "sport-abitur",
   "informatik": "informatik", "informatik-abitur": "informatik-abitur"
@@ -2528,6 +2529,7 @@ function clearOCR() {
     { file: "chemie-abitur.html", name: "Chemie Abitur", cat: "nawi" },
     { file: "chemie.html", name: "Chemie Training", cat: "nawi" },
     { file: "physik-abitur.html", name: "Physik Abitur", cat: "nawi" },
+    { file: "astrophysik-abitur.html", name: "Physik mit Astrophysik Abitur (gA)", cat: "nawi" },
     { file: "physik.html", name: "Physik Training", cat: "nawi" },
     { file: "informatik-abitur.html", name: "Informatik Abitur", cat: "nawi" },
     { file: "informatik.html", name: "Informatik Training", cat: "nawi" },
