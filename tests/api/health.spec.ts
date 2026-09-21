@@ -45,8 +45,8 @@ test.describe("API Health-Checks", () => {
     expect(res.status()).toBeLessThan(500);
   });
 
-  test("Kolloquiumstrainer – /kolloquium/ lädt", async ({ request }) => {
-    const res = await request.get(`${API}/kolloquium/`);
+  test("Kolloquiumstrainer – /abitur-kolloquium-trainer/dist/ lädt", async ({ request }) => {
+    const res = await request.get(`${API}/abitur-kolloquium-trainer/dist/`);
     expect(res.status()).toBe(200);
   });
 });
