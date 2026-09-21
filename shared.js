@@ -2986,6 +2986,12 @@ async function loadEducationalImage(prompt, containerId, labels, style, _isRetry
   function imageFailed() {
     clearTimeout(imageTimer);
     if (!isCurrent()) return;
+    // Ein kurzzeitiger Provider- oder Ladefehler wird genau einmal automatisch
+    // aufgefangen. Erst danach muss der Nutzer bewusst erneut anstoßen.
+    if (!_isRetry) {
+      loadEducationalImage(prompt, containerId, labels, style, true, options);
+      return;
+    }
     el.dataset.imageState = "error";
     el.setAttribute("aria-busy", "false");
     el.innerHTML = '<div class="edu-img-error" role="alert"><p>Das Bild konnte nicht geladen werden. Bitte versuche es erneut.</p><button type="button" class="edu-img-regen-btn" style="min-height:44px">Bild erneut laden</button></div>';

@@ -57,9 +57,11 @@ for (const path of ['wr', 'wr-abitur']) {
     await expect(page.locator(`${mirror} [data-image-state=ready]`)).toHaveCount(1);
   });
   test(`${path}: fehlerhafte Bildantwort blockiert Schreiben und lässt sich wiederholen`, async ({ page }) => {
-    await page.route('**/api/generate-image', route => route.fulfill({ json: {} }));
+    let failedRequests = 0;
+    await page.route('**/api/generate-image', route => { failedRequests++; return route.fulfill({ json: {} }); });
     await render(page, 'karikatur');
     await expect(page.locator(`${source} [data-image-state=error]`)).toHaveCount(1);
+    expect(failedRequests).toBe(2);
     await page.evaluate(() => (window as any).nav('write'));
     await expect(page.locator('#sec-task')).toHaveClass(/active/);
     await page.route('**/api/generate-image', route => route.fulfill({ json: { url: image } }));
@@ -100,6 +102,21 @@ test('WR-Abitur: beide Entwürfe zeitnah sichern und wiederherstellen', async ({
   await page.reload();
   await expect(page.locator('#studentText1')).toHaveValue('Mein erster Entwurf');
   await expect(page.locator('#studentText2')).toHaveValue('Mein zweiter Entwurf');
+});
+
+test('Gymnasium: nicht verwendete Materialien werden vor der Anzeige abgelehnt', async ({ page }) => {
+  await page.goto('/chemie.html');
+  expect(await page.evaluate(() => {
+    try {
+      (window as any).gymValidateTaskPoints({
+        task_instruction: 'Bearbeiten Sie die Aufgabe mithilfe von M1.',
+        materialien: [{ nr: 'M1', inhalt: 'Text' }, { nr: 'M2', inhalt: 'Ungenutzter Text' }]
+      });
+      return false;
+    } catch (error) {
+      return String(error).includes('M2');
+    }
+  })).toBe(true);
 });
 
 test('Anmeldedialog: Fokus bleibt im Dialog, Escape kehrt zum Auslöser zurück', async ({ page }) => {

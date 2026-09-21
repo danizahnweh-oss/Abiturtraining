@@ -24,7 +24,7 @@ test('Eigene Bewertung und Musterlösung erhalten genau drei vollständige Aufga
  await page.reload();await page.evaluate(()=>(window as any).nav('feedback'));
  await expect(page.locator('#feedbackBody')).toContainText('Gesicherte Astro-Rückmeldung');
 });
-const exam={aufgaben:['Induktion','Wellen','Sterne','Sternsysteme'].map((titel,i)=>({id:String(i+1),titel,sachgebiet:titel,text:'Kontext der Aufgabe',gesamt_be:30,material:[{id:'M1',type:'diagramm',chart_type:'line',titel:'Versuchsdaten',text:'Vollständige fiktive Daten: Die Entfernung beträgt 20 Lichtjahre.\n\n| Zeit (s) | Spannung (V) |\n| --- | --- |\n| 0 | 1 |\n| 2 | 4 |\n| 10 | 2 |'}],teilaufgaben:[{id:'a',text:'Erklären Sie die Beobachtung.',be:30}]}))};
+const exam={aufgaben:['Induktion','Wellen','Sterne','Sternsysteme'].map((titel,i)=>({id:String(i+1),titel,sachgebiet:titel,text:'Kontext der Aufgabe',gesamt_be:30,material:[{id:'M1',type:'diagramm',chart_type:'line',titel:'Versuchsdaten',text:'Vollständige fiktive Daten: Die Entfernung beträgt 20 Lichtjahre.\n\n| Zeit (s) | Spannung (V) |\n| --- | --- |\n| 0 | 1 |\n| 2 | 4 |\n| 10 | 2 |'}],teilaufgaben:[{id:'a',text:'Erklären Sie die Beobachtung mithilfe von M1.',be:30}]}))};
 test.beforeEach(async({page})=>{
  await page.addInitScript(()=>{for(const [k,v]of Object.entries({access:'1',free_access:'1',student_name:'Fachtest',student_id:'fachtest',access_token:'test-token',student_level:'eA'}))sessionStorage.setItem(k,v);});
  await page.route('**/api/**',route=>route.fulfill({json:{status:'active',plan:'monthly'}}));

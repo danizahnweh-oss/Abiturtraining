@@ -4,6 +4,31 @@ import { resolveStudentIdentity } from '../auth.js';
 
 /* ================= IMAGE GENERATION: NANO BANANA PRO + IDEOGRAM + FLASH FALLBACK ================= */
 // Hinweis: Imagen wurde am 24.06.2026 von Google abgeschaltet → komplett auf Gemini-Image-Modelle migriert.
+function supportedImageMime(mimeType) {
+  return String(mimeType || '').split(';')[0].trim().toLowerCase();
+}
+
+/**
+ * Provider-Antworten gelten erst als Bild, wenn Base64, Dateigröße und
+ * Dateisignatur zusammenpassen. Dadurch kann niemals ein Text-/Fehlerpayload
+ * als Karikatur an die Fachseiten weitergereicht werden.
+ */
+export function validateGeneratedImage(mimeType, base64) {
+  const mime = supportedImageMime(mimeType);
+  if (!['image/png', 'image/jpeg', 'image/webp'].includes(mime) || typeof base64 !== 'string' || !/^[A-Za-z0-9+/]+={0,2}$/.test(base64)) return null;
+  try {
+    const binary = atob(base64);
+    if (binary.length < 64) return null;
+    const byte = index => binary.charCodeAt(index);
+    const png = mime === 'image/png' && [0x89,0x50,0x4e,0x47,0x0d,0x0a,0x1a,0x0a].every((value, index) => byte(index) === value);
+    const jpeg = mime === 'image/jpeg' && byte(0) === 0xff && byte(1) === 0xd8 && byte(2) === 0xff;
+    const webp = mime === 'image/webp' && binary.slice(0, 4) === 'RIFF' && binary.slice(8, 12) === 'WEBP';
+    return png || jpeg || webp ? { mime, base64 } : null;
+  } catch {
+    return null;
+  }
+}
+
 export async function handleGenerateImage(request, env) {
   const { prompt, noText, style } = await request.json();
   if (!prompt) {
@@ -115,8 +140,13 @@ After generating the image, write a short factual German caption (max 15 words).
         return null;
       }
 
-      const mimeType = img.inlineData.mimeType || "image/png";
-      const dataUrl = `data:${mimeType};base64,${img.inlineData.data}`;
+      const verified = validateGeneratedImage(img.inlineData.mimeType || "image/png", img.inlineData.data);
+      if (!verified) {
+        lastError = `${modelId}: Ungültige Bilddaten`;
+        console.log(`Gemini ${modelId}: ungültige Bilddaten`);
+        return null;
+      }
+      const dataUrl = `data:${verified.mime};base64,${verified.base64}`;
 
       // Caption aus dem Textteil derselben Antwort
       const textPart = parts.find(p => p.text);
@@ -178,12 +208,17 @@ After generating the image, write a short factual German caption (max 15 words).
             let binary = "";
             for (let i = 0; i < bytes.length; i++) binary += String.fromCharCode(bytes[i]);
             const base64 = btoa(binary);
-            const contentType = imgFetch.headers.get("content-type") || "image/png";
-            const dataUrl = `data:${contentType};base64,${base64}`;
-            const caption = await generateCaption();
-            return jsonResponse({ url: dataUrl, credit: "Ideogram", caption }, 200, env);
+            const verified = validateGeneratedImage(imgFetch.headers.get("content-type") || "image/png", base64);
+            if (!verified) {
+              lastError = "Ideogram: Heruntergeladene Datei ist kein gültiges Bild";
+            } else {
+              const dataUrl = `data:${verified.mime};base64,${verified.base64}`;
+              const caption = await generateCaption();
+              return jsonResponse({ url: dataUrl, credit: "Ideogram", caption }, 200, env);
+            }
+          } else {
+            lastError = "Ideogram: Bild-Download fehlgeschlagen";
           }
-          lastError = "Ideogram: Bild-Download fehlgeschlagen";
         } else {
           lastError = "Ideogram: Kein Bild in Antwort";
         }

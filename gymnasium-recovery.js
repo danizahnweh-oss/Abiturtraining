@@ -262,6 +262,23 @@ apiCallAsync = async function(endpoint, body, options) {
 
 const gymOriginalApi = apiCall;
 function gymValidateTaskPoints(data) {
+  function taskText(value) {
+    if (!value || typeof value !== 'object') return '';
+    return Object.entries(value).filter(([key]) => /(?:task|instruction|aufgab|teilaufgab)/i.test(key)).map(([, item]) => {
+      if (typeof item === 'string') return item;
+      if (Array.isArray(item)) return item.map(entry => typeof entry === 'string' ? entry : (entry?.text || entry?.aufgabe || entry?.instruction || '')).join(' ');
+      return item?.text || item?.aufgabe || item?.instruction || '';
+    }).join(' ');
+  }
+  function validateMaterialReferences(value) {
+    if (!value || typeof value !== 'object' || Array.isArray(value)) return;
+    const instructions = taskText(value).replace(/\s+/g, ' ');
+    if (!instructions) return;
+    Object.entries(value).filter(([key, materials]) => /^(?:materials?|materialien(?:_\d+)?|zusatz_materialien)$/i.test(key) && Array.isArray(materials)).forEach(([, materials]) => {
+      const missing = materials.map(material => String(material?.id || material?.nr || '').trim()).filter(id => /^(?:M|A|B)\s*\d+$/i.test(id)).filter(id => !new RegExp('\\b' + id.replace(/\s+/g, '\\s*') + '\\b', 'i').test(instructions));
+      if (missing.length) throw new Error('Die erzeugte Aufgabe verwendet ' + missing.join(', ') + ' nicht in der Aufgabenstellung. Bitte erstelle die Aufgabe erneut.');
+    });
+  }
   function visit(value) {
     if (!value || typeof value !== 'object') return;
     if (Array.isArray(value.teilaufgaben) && value.teilaufgaben.length && value.teilaufgaben.every(task => Number.isFinite(task.be))) {
@@ -271,6 +288,7 @@ function gymValidateTaskPoints(data) {
         throw new Error('Die erzeugte Aufgabe enthält widersprüchliche Punktesummen. Bitte erstelle die Aufgabe erneut.');
       }
     }
+    validateMaterialReferences(value);
     Object.values(value).forEach(visit);
   }
   visit(data);
