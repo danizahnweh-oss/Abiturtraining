@@ -3,10 +3,10 @@
 
 // Basis-Module
 import { jsonResponse, corsHeaders, getAllowedOrigins, isOriginAllowed, checkBodySize, truncate } from './utils.js';
-import { MAX_BODY_SIZE, MAX_REQUESTS_PER_WINDOW, MAX_LOGIN_ATTEMPTS, MAX_REGISTER_ATTEMPTS } from './config.js';
+import { MAX_BODY_SIZE, MAX_REQUESTS_PER_WINDOW, MAX_LOGIN_ATTEMPTS, MAX_REGISTER_ATTEMPTS, getStudentLoginLimit } from './config.js';
 import {
   checkAuth, checkSubscriptionAccess, getSubjectFromPathname, checkRateLimit, cleanupRateLimitMaps,
-  rateLimitMap, loginRateLimitMap, registerRateLimitMap, ensureMigrations
+  rateLimitMap, loginRateLimitMap, studentLoginRateLimitMap, registerRateLimitMap, ensureMigrations
 } from './auth.js';
 
 // Feedback Rate Limiting (eigene Map, max 5 pro Minute)
@@ -250,7 +250,7 @@ export default {
         return await handleLogin(request, env);
       }
       if (pathname === "/api/check-student" && request.method === "POST") {
-        const loginLimit = checkRateLimit(request, loginRateLimitMap, MAX_LOGIN_ATTEMPTS, env);
+        const loginLimit = checkRateLimit(request, studentLoginRateLimitMap, getStudentLoginLimit(), env);
         if (loginLimit) return loginLimit;
         cleanupRateLimitMaps();
         return await handleCheckStudent(request, env);

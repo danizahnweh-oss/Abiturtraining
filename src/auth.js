@@ -305,10 +305,11 @@ export async function checkAuth(request, env) {
 /* ---- Rate Limiting ---- */
 const rateLimitMap = new Map();
 const loginRateLimitMap = new Map();
+const studentLoginRateLimitMap = new Map();
 const registerRateLimitMap = new Map();
 let requestCounter = 0;
 
-export { rateLimitMap, loginRateLimitMap, registerRateLimitMap };
+export { rateLimitMap, loginRateLimitMap, studentLoginRateLimitMap, registerRateLimitMap };
 
 export function checkRateLimit(request, map, max, env) {
   const ip = getClientIp(request);
@@ -337,7 +338,7 @@ export function cleanupRateLimitMaps() {
   requestCounter++;
   if (requestCounter % 100 === 0) {
     const now = Date.now();
-    for (const map of [rateLimitMap, loginRateLimitMap, registerRateLimitMap]) {
+    for (const map of [rateLimitMap, loginRateLimitMap, studentLoginRateLimitMap, registerRateLimitMap]) {
       for (const [ip, entry] of map) {
         if (now - entry.windowStart > RATE_LIMIT_WINDOW * 5) {
           map.delete(ip);
