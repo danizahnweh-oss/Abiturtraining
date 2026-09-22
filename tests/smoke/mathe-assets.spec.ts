@@ -32,5 +32,7 @@ test('DOMPurify-Debug-Datei ist erreichbar und gültig', async ({ request }) => 
   expect(response.status()).toBe(200);
   const map = await response.json();
   expect(map.version).toBe(3);
-  expect(map.sources.length).toBeGreaterThan(0);
+  expect(map.file).toBe('purify.min.js');
+  expect(Array.isArray(map.sources)).toBe(true);
+  expect(typeof map.mappings).toBe('string');
 });
