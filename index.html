@@ -3612,7 +3612,6 @@
       <div class="header-right">
         <span id="userInfo" style="font-size:.85rem;color:var(--ink-muted)"></span>
         <button class="logout-btn" id="pwaInstallBtn" onclick="pwaInstallPrompt()" aria-label="App installieren" style="display:none; background:var(--accent); color:#fff;">📲 App installieren</button>
-        <button class="tour-restart-btn" onclick="toggleTour()" title="Tour nochmal zeigen" aria-label="Onboarding-Tour neu starten">❓</button>
         <button class="theme-toggle" onclick="toggleDark()" id="themeBtn" aria-label="Dark Mode umschalten">🌙</button>
         <button class="logout-btn" id="profileBtn" onclick="showProfileModal()" aria-label="Profil öffnen" style="display:none">👤 Profil</button>
         <button class="logout-btn" id="logoutBtn" onclick="logout()" aria-label="Abmelden">Abmelden</button>
@@ -5779,12 +5778,6 @@
       localStorage.setItem(LS_WIZARD_KEY, "1");
       document.getElementById("abiWizardOverlay").style.display = "none";
       renderSubjectLayout();
-      // Tour nach Wizard starten
-      if (!isTourDone("onboarding_done")) {
-        setTimeout(function () {
-          startTour({ steps: indexTourSteps, storageKey: "onboarding_done" });
-        }, 500);
-      }
     }
 
     function finishAbiWizard() {
@@ -5794,12 +5787,6 @@
       saveAllPreferences();
       document.getElementById("abiWizardOverlay").style.display = "none";
       renderSubjectLayout();
-      // Tour nach Wizard starten
-      if (!isTourDone("onboarding_done")) {
-        setTimeout(function () {
-          startTour({ steps: indexTourSteps, storageKey: "onboarding_done" });
-        }, 500);
-      }
     }
 
     function wizardGoToStep1() {
@@ -7225,109 +7212,6 @@
     /* ================= AI TUTOR EXTERN ================= */
     /* Logic moved to ai-tutor.js */
 
-    /* ====== ONBOARDING TOUR (#10) ====== */
-    var indexTourSteps = [
-      {
-        type: "welcome",
-        title: "Willkommen bei myAbiFlow!",
-        text: "Dein persönlicher Abitur-Trainer mit KI-Bewertung. Lass uns dir kurz zeigen, wie alles funktioniert."
-      },
-      {
-        target: ".training-card",
-        title: "Training starten",
-        text: "Starte direkt mit dem Üben – wähle ein Fach und los geht's mit schriftlichen Aufgaben, Abiturtraining und mehr.",
-        pos: "bottom"
-      },
-      {
-        target: "a.kolloquium-card:not(.profil-card)",
-        title: "Kolloquiumstrainer",
-        text: "Übe mündliche Prüfungen mit dem KI-Prüfer. Er stellt dir Fragen und gibt Feedback – wie im echten Kolloquium.",
-        pos: "bottom"
-      },
-      {
-        target: "#profilLink",
-        title: "Dein Kompetenzprofil",
-        text: "Nach ein paar Aufgaben erstellt die KI eine Analyse deiner Stärken und Schwächen – mit personalisierten Empfehlungen.",
-        pos: "bottom",
-        condition: function () {
-          var el = document.getElementById("profilLink");
-          return el && el.style.display !== "none";
-        }
-      },
-      {
-        target: "#progressBar",
-        title: "Dein Fortschritt",
-        text: "Hier siehst du deine Gesamtstatistik: bearbeitete Aufgaben, Notendurchschnitt und deinen Übungs-Streak.",
-        pos: "bottom"
-      },
-      {
-        target: "#countdownToggle",
-        title: "Abi-Countdown",
-        text: "Aktiviere den Countdown, um zu sehen wie viele Tage noch bis zu deinen Prüfungen bleiben.",
-        pos: "bottom",
-        condition: function () {
-          var el = document.getElementById("countdownToggle");
-          return el && el.style.display !== "none";
-        }
-      },
-      {
-        target: ".category-filters",
-        title: "Fächer filtern",
-        text: "Filtere nach Kategorie: Sprachen, Naturwissenschaften oder Geisteswissenschaften.",
-        pos: "bottom"
-      },
-      {
-        target: "#examSubjectSection",
-        title: "Deine Abiturfächer",
-        text: "Hier siehst du deine gewählten Abiturfächer auf einen Blick. Du kannst Prüfungstermine eintragen und Erinnerungen aktivieren.",
-        pos: "bottom",
-        scrollTo: true,
-        condition: function () {
-          var el = document.getElementById("examSubjectSection");
-          return el && el.style.display !== "none";
-        }
-      },
-      {
-        target: ".subject-grid",
-        title: "Deine Fächer",
-        text: "Wähle ein Fach, um mit dem Üben zu beginnen. Jedes Fach hat verschiedene Aufgabentypen.",
-        pos: "top",
-        scrollTo: true
-      },
-      {
-        target: ".subject-grid",
-        title: "Fächer sortieren",
-        text: "Halte ein Fach länger gedrückt und ziehe es an eine neue Position – so schiebst du wichtige Fächer nach oben.",
-        pos: "top"
-      },
-      {
-        target: "#ai-tutor-widget",
-        title: "Flowie – Dein KI-Tutor",
-        text: "Klicke auf Flowie, um jederzeit Fragen zu stellen. Sie erklärt dir Themen, hilft bei Aufgaben und gibt Tipps.",
-        pos: "left",
-        condition: function () {
-          return !!document.getElementById("ai-tutor-widget");
-        }
-      },
-      {
-        target: "#themeBtn",
-        title: "Dark Mode",
-        text: "Wechsle zwischen hellem und dunklem Design – je nachdem was für deine Augen angenehmer ist.",
-        pos: "left"
-      },
-      {
-        target: ".tour-restart-btn",
-        title: "Tour wiederholen",
-        text: "Klicke jederzeit auf das Fragezeichen, um diese Tour nochmal zu starten. Viel Erfolg beim Üben!",
-        pos: "bottom"
-      }
-    ];
-
-    function toggleTour() {
-      resetTour("onboarding_done");
-      startTour({ steps: indexTourSteps, storageKey: "onboarding_done", force: true });
-    }
-
     // Rollen-Auswahl ein-/ausblenden inkl. Body-Scroll-Sperre,
     // damit man hinter dem Vollbild-Overlay nicht ins Leere scrollt
     function showRoleScreen() {
@@ -7531,7 +7415,6 @@
       if (btn) btn.style.display = "none";
     }
   </script>
-  <script src="tour.js" defer></script>
   <script src="ai-tutor.js" defer></script>
   <script src="shared.js?v=school-limits-1"></script>
 </body>

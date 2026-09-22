@@ -774,7 +774,6 @@
       loginPage: "index.html"
     };
   </script>
-  <script src="tour.js"></script>
   <script src="ai-tutor.js"></script>
   <script src="shared.js?v=school-limits-1"></script>
 
@@ -1755,39 +1754,6 @@
       }).join("");
     }
 
-    /* ====== ONBOARDING TOUR ====== */
-    if (typeof startTour === "function" && !isTourDone("fos_englisch_abi13_tour_done")) {
-      setTimeout(function () {
-        startTour({
-          steps: [
-            {
-              type: "welcome",
-              title: "Englisch Abitur 13. Klasse",
-              text: "Simuliere eine vollst\u00e4ndige Abiturpr\u00fcfung zum Erwerb der fachgebundenen/allgemeinen Hochschulreife (60 BE)."
-            },
-            {
-              target: "#generateBtn",
-              title: "Pr\u00fcfung generieren",
-              text: "Generiere eine komplette Pr\u00fcfung: 3 Reading-Texte + Mediation D\u2192E + Material-Based Writing.",
-              pos: "bottom"
-            },
-            {
-              target: "#timerMinutes",
-              title: "Bearbeitungszeit",
-              text: "Standard sind 210 Minuten (90 Min. Reading + 30 Min. Pause + 90 Min. Writing).",
-              pos: "right"
-            },
-            {
-              target: "nav",
-              title: "Pr\u00fcfungsablauf",
-              text: "Bearbeite erst die Reading-Aufgaben, dann im Writing die Mediation D\u2192E und das Material-Based Writing.",
-              pos: "bottom"
-            }
-          ],
-          storageKey: "fos_englisch_abi13_tour_done"
-        });
-      }, 500);
-    }
   </script>
 </body>
 

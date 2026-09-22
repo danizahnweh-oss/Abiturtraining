@@ -604,7 +604,6 @@
       ocrEndpoint: "/api/ocr-bwr"
     };
   </script>
-  <script src="tour.js"></script>
   <script src="ai-tutor.js"></script>
   <script src="shared.js?v=school-limits-1"></script>
 
@@ -909,39 +908,6 @@
       }).join("");
     }
 
-    // Onboarding-Tour
-    if (typeof startTour === "function" && !isTourDone("fos_bwr_abi_tour_done")) {
-      setTimeout(function () {
-        startTour({
-          steps: [
-            {
-              type: "welcome",
-              title: "BwR-Abiturtraining",
-              text: "Simuliere eine vollst\u00e4ndige BwR-Fachabiturpr\u00fcfung mit drei Aufgabenbl\u00f6cken: Bilanzierung, Kostenrechnung und Marketing."
-            },
-            {
-              target: "#generateBtn",
-              title: "Pr\u00fcfung generieren",
-              text: "Klicke hier, um eine komplette BwR-Fachabiturpr\u00fcfung zu generieren \u2014 inklusive aller Teilaufgaben und Bewertungseinheiten.",
-              pos: "bottom"
-            },
-            {
-              target: "#timerMinutes",
-              title: "Bearbeitungszeit",
-              text: "Stelle die Zeit ein. Standard sind 180 Minuten f\u00fcr die BwR-Fachabiturpr\u00fcfung.",
-              pos: "right"
-            },
-            {
-              target: "nav",
-              title: "Pr\u00fcfungsablauf",
-              text: "Nach dem Generieren folgst du dem Ablauf: Pr\u00fcfung ansehen, L\u00f6sung schreiben und KI-Feedback erhalten.",
-              pos: "bottom"
-            }
-          ],
-          storageKey: "fos_bwr_abi_tour_done"
-        });
-      }, 500);
-    }
   </script>
 </body>
 

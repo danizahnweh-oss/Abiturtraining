@@ -641,7 +641,6 @@ Struktur:
       loginPage: "index.html"
     };
   </script>
-  <script src="tour.js"></script>
   <script src="ai-tutor.js"></script>
   <script src="shared.js?v=school-limits-1"></script>
 
@@ -1031,39 +1030,6 @@ Struktur:
       }).join("");
     }
 
-    /* ====== ONBOARDING TOUR ====== */
-    if (typeof startTour === "function" && !isTourDone("fos_deutsch_abi_tour_done")) {
-      setTimeout(function () {
-        startTour({
-          steps: [
-            {
-              type: "welcome",
-              title: "Deutsch-Fachabiturtraining",
-              text: "Simuliere eine vollst\u00e4ndige Deutsch-Fachabiturpr\u00fcfung mit 3 Aufgaben zur Auswahl."
-            },
-            {
-              target: "#generateBtn",
-              title: "Pr\u00fcfung generieren",
-              text: "Klicke hier, um eine komplette Fachabiturpr\u00fcfung zu generieren. Du erh\u00e4ltst 3 Aufgaben und w\u00e4hlst eine davon.",
-              pos: "bottom"
-            },
-            {
-              target: "#timerMinutes",
-              title: "Bearbeitungszeit",
-              text: "Standard sind 240 Minuten (4 Stunden). Hilfsmittel: Rechtschreibw\u00f6rterbuch.",
-              pos: "right"
-            },
-            {
-              target: "nav",
-              title: "Pr\u00fcfungsablauf",
-              text: "Nach dem Generieren: Aufgabe w\u00e4hlen, Text schreiben und KI-Feedback erhalten.",
-              pos: "bottom"
-            }
-          ],
-          storageKey: "fos_deutsch_abi_tour_done"
-        });
-      }, 500);
-    }
   </script>
 </body>
 

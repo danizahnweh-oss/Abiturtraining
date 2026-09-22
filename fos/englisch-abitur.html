@@ -710,7 +710,6 @@
       loginPage: "index.html"
     };
   </script>
-  <script src="tour.js"></script>
   <script src="ai-tutor.js"></script>
   <script src="shared.js?v=school-limits-1"></script>
 
@@ -1638,39 +1637,6 @@
       }).join("");
     }
 
-    /* ====== ONBOARDING TOUR ====== */
-    if (typeof startTour === "function" && !isTourDone("fos_englisch_abi_tour_done")) {
-      setTimeout(function () {
-        startTour({
-          steps: [
-            {
-              type: "welcome",
-              title: "Englisch-Fachabiturtraining",
-              text: "Simuliere eine vollst\u00e4ndige Englisch-Fachabiturpr\u00fcfung mit Reading Comprehension und Writing."
-            },
-            {
-              target: "#generateBtn",
-              title: "Pr\u00fcfung generieren",
-              text: "Klicke hier, um eine komplette Pr\u00fcfung mit 3 Lesetexten, interaktiven Aufgaben und 2 Schreibaufgaben zu generieren.",
-              pos: "bottom"
-            },
-            {
-              target: "#timerMinutes",
-              title: "Bearbeitungszeit",
-              text: "Stelle die Zeit ein. Standard sind 150 Minuten (90 Min. Reading + 60 Min. Writing).",
-              pos: "right"
-            },
-            {
-              target: "nav",
-              title: "Pr\u00fcfungsablauf",
-              text: "Bearbeite zuerst die Reading-Aufgaben (Multiple Choice, Matching, etc.), dann w\u00e4hle eine Writing-Aufgabe und schreibe deinen Text.",
-              pos: "bottom"
-            }
-          ],
-          storageKey: "fos_englisch_abi_tour_done"
-        });
-      }, 500);
-    }
   </script>
 </body>
 
