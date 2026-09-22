@@ -1,4 +1,5 @@
 import { API_TIMEOUT } from './config.js';
+import { extractZeitbudget, priorisiereZeitbudget, pruefeZeitbudget } from './time-budget.js';
 
 /* ================= TELEGRAM ERROR-ALERT ================= */
 // Throttle: pro (status+errorType)-Kombi max. 1 Alert / 30 min, damit ein
@@ -103,10 +104,12 @@ function userFriendlyError(status) {
 
 /* ================= OPENAI CALL ================= */
 
-export async function callOpenAI(env, messages, maxTokens = 4000, { model = "gpt-5.2", temperature = 0.7, jsonMode = true } = {}) {
+export async function callOpenAI(env, messages, maxTokens = 4000, { model = "gpt-5.2", temperature = 0.7, jsonMode = true, timeBudgetRetries = 2 } = {}) {
   const t0 = Date.now();
   let phase = "fetch";
   try {
+    const timeBudget = extractZeitbudget(messages);
+    const originalMessages = messages;
     // Defensive Prüfung: gpt-5.2 erfordert das Wort "json" in den Messages bei json_object
     if (jsonMode) {
       const hasJson = messages.some(m => {
@@ -124,6 +127,7 @@ export async function callOpenAI(env, messages, maxTokens = 4000, { model = "gpt
         }
       }
     }
+    messages = priorisiereZeitbudget(messages, timeBudget);
     const reqBody = {
       model,
       messages,
@@ -162,6 +166,22 @@ export async function callOpenAI(env, messages, maxTokens = 4000, { model = "gpt
     const finishReason = data.choices[0].finish_reason;
     if (finishReason === "length") {
       console.warn(`[callOpenAI] Antwort abgeschnitten (finish_reason=length, model=${model}, tokens=${maxTokens})`);
+    }
+    const budgetProblem = jsonMode ? pruefeZeitbudget(content, timeBudget) : null;
+    if (budgetProblem) {
+      const detail = budgetProblem.problems.join('; ');
+      console.warn(`[callOpenAI] Zeitbudget verletzt: ${detail}`);
+      if (timeBudgetRetries > 0) {
+        const retryMessages = [
+          ...originalMessages,
+          {
+            role: 'system',
+            content: `Die vorige Generierung hat das verbindliche Zeitbudget verletzt (${detail}). Erzeuge die vollstaendige JSON-Antwort neu. Kuerze und buendele die Quellen inhaltlich, statt Texte lediglich abzuschneiden. Halte diesmal alle Zeitbudget-Grenzen exakt ein.`
+          }
+        ];
+        return callOpenAI(env, retryMessages, maxTokens, { model, temperature, jsonMode, timeBudgetRetries: timeBudgetRetries - 1 });
+      }
+      throw new Error(`Die KI konnte den Materialumfang fuer ${timeBudget.minutes} Minuten nicht verlaesslich einhalten. Bitte erneut versuchen.`);
     }
     return content;
   } catch (err) {

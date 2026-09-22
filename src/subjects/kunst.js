@@ -1,6 +1,7 @@
 import { jsonResponse, truncate, extractJSON, buildUserContent } from '../utils.js';
 import { callOpenAI } from '../openai.js';
 import { KORREKTUR_SINGLE, BILDER_HINWEIS_TEXT, zeitanpassung, skaliereTokens } from '../config.js';
+import { zeitbudgetPrompt } from '../time-budget.js';
 
 /* ================= KUNST ABITUR: PARSE TASK ================= */
 export async function handleParseTaskKunst(request, env) {
@@ -35,11 +36,12 @@ Antworte NUR mit validem JSON:
 /* ================= KUNST ABITUR: GENERATE ================= */
 export async function handleGenerateKunst(request, env) {
   const { lernbereich = '12_1', schwerpunkt, zeit = 90, anzahl = 1 } = await request.json();
+  const zeitMinuten = Math.max(15, Math.min(300, Number(zeit) || 90));
   const themes = { '12_1': 'Objekt: Readymade, Assemblage, Installation, Design und Werkerschließung', '12_2': 'Raum: Architektur, Rauminstallation, Raumillusion und nachhaltiges Bauen', '13_1': 'Körper: Körperdarstellung, Figuration und Abstraktion, Inszenierung und Körper-Raum-Beziehung', '13_2': 'Interaktion und Transformation: Intervention, Performance, neue Medien und Kunstbegriff' };
   const prompt = `Erstelle eine theoretische Übungsklausur im Fach Kunst für die gymnasiale Oberstufe.
 Themenbereich: ${themes[lernbereich] || themes['12_1']}.
 Schwerpunkt: ${truncate(schwerpunkt || 'passend zum Themenbereich', 300)}.
-Bearbeitungszeit: ${Math.max(15, Math.min(300, Number(zeit) || 90))} Minuten. Aufgabenanzahl: ${Math.max(1, Math.min(5, Number(anzahl) || 1))}.
+Bearbeitungszeit: ${zeitMinuten} Minuten. Aufgabenanzahl: ${Math.max(1, Math.min(5, Number(anzahl) || 1))}.${zeitbudgetPrompt(zeitMinuten)}
 Aufgaben zur Beschreibung, formalen Analyse, Interpretation und begründeten Bewertung. Alle Aufgaben müssen mit den beigegebenen Materialien lösbar sein.
 Erstelle mindestens eine eigenständige fiktive Werkabbildung als englischen Bildprompt und eine passende Textquelle. Kennzeichne erfundene Quellen und KI-Material eindeutig. Gib eine erfundene Abbildung niemals als Originalwerk einer realen Person aus.
 Antworte nur als JSON: {"lernbereich":"${lernbereich}","task_instruction":"Nummerierte Aufgaben auf Deutsch","primary_text":"Einführender kunstbezogener Text","primary_meta":"Fiktives Übungsmaterial","materials":[{"type":"bild","title":"Fiktive Werkabbildung","content":"Detaillierter englischer Bildprompt ohne Lösungshinweise","source":"KI-generiertes Übungsmaterial"},{"type":"text","title":"Textquelle","content":"Vollständige Textquelle","source":"Fiktives Übungsmaterial"}]}`;

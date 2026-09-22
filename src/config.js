@@ -1,6 +1,8 @@
 /* ================= CONFIG ================= */
 /* Konstanten, Prompt-Templates und Zeitanpassungs-Funktionen */
 
+import { materialZeitbudget, zeitbudgetPrompt } from './time-budget.js';
+
 /* ---- Rate Limiting & Auth ---- */
 export const RATE_LIMIT_WINDOW = 60 * 1000;
 // IP-Schutz für öffentliche Endpunkte und alte Token ohne Konto-Identität.
@@ -125,12 +127,10 @@ export function zeitanpassung(bearbeitungszeit, referenzzeit, referenzBE) {
   if (!bearbeitungszeit || bearbeitungszeit >= referenzzeit * 0.8) return '';
 
   const faktor = bearbeitungszeit / referenzzeit;
-
-  const textMin = Math.max(100, Math.round(400 * faktor));
-  const textMax = Math.max(200, Math.round(800 * faktor));
-  const maxMaterialien = Math.max(1, Math.round(3 * faktor));
-  const maxTeilaufgaben = Math.max(2, Math.round(4 * faktor));
-  const skalBE = Math.max(20, Math.round(referenzBE * faktor));
+  const budget = materialZeitbudget(bearbeitungszeit);
+  const maxMaterialien = budget?.maxMaterials || Math.max(1, Math.round(3 * faktor));
+  const maxTeilaufgaben = budget?.maxTasks || Math.max(2, Math.round(4 * faktor));
+  const skalBE = Math.max(8, Math.round(referenzBE * faktor));
 
   let teilB = '';
   if (bearbeitungszeit < 90) {
@@ -140,19 +140,19 @@ export function zeitanpassung(bearbeitungszeit, referenzzeit, referenzBE) {
   }
 
   return `\n\nWICHTIG – ZEITANPASSUNG: Diese Prüfung dauert nur ${bearbeitungszeit} Minuten (statt der üblichen ${referenzzeit} Min.). Passe den Umfang STRIKT an:
-- Textmaterialien: ${textMin}–${textMax} Wörter pro Text (statt 400–800)
 - Anzahl Materialien: maximal ${maxMaterialien}
 - Teilaufgaben: maximal ${maxTeilaufgaben}
 - Bewertungseinheiten: insgesamt ca. ${skalBE} BE${teilB}
-Die Aufgabenqualität und Anforderungsniveaus (AFB I–III) bleiben gleich — nur der UMFANG wird reduziert.`;
+Die Aufgabenqualität und Anforderungsniveaus (AFB I–III) bleiben gleich — nur der UMFANG wird reduziert.${zeitbudgetPrompt(bearbeitungszeit)}`;
 }
 
-export function klausurZeitHinweis(zeitMinuten, totalBE, minProBE) {
+export function klausurZeitHinweis(zeitMinuten, totalBE, minProBE, { quellenBudget = true } = {}) {
   if (!zeitMinuten || !totalBE || !minProBE) return '';
   const erwarteteZeit = totalBE * minProBE;
   const faktor = zeitMinuten / erwarteteZeit;
+  const quellenBudgetHinweis = quellenBudget ? zeitbudgetPrompt(zeitMinuten) : '';
 
-  if (faktor >= 0.75 && faktor <= 1.25) return '';
+  if (faktor >= 0.75 && faktor <= 1.25) return quellenBudgetHinweis;
 
   if (faktor < 0.75) {
     const maxTeilaufgaben = Math.max(2, Math.round((totalBE / 5) * faktor));
@@ -161,12 +161,12 @@ export function klausurZeitHinweis(zeitMinuten, totalBE, minProBE) {
 - Maximal ${maxTeilaufgaben} Teilaufgaben
 - Materialien auf das Nötigste reduzieren
 - Mehr AFB I/II, weniger AFB III (zeitaufwändig)
-- Berechnungen mit einfachen Zahlenwerten`;
+- Berechnungen mit einfachen Zahlenwerten${quellenBudgetHinweis}`;
   } else {
     return `\n\nZEIT-HINWEIS: ${zeitMinuten} Min. für ${totalBE} BE ist großzügig bemessen (üblich wären ca. ${Math.round(erwarteteZeit)} Min.).
 - Aufgaben dürfen ausführlichere Kontexte und Materialien enthalten
 - Mehr Raum für Transfer- und Diskussionsaufgaben (AFB III)
-- Komplexere Berechnungen und mehrstufige Lösungswege möglich`;
+- Komplexere Berechnungen und mehrstufige Lösungswege möglich${quellenBudgetHinweis}`;
   }
 }
 

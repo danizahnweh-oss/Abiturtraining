@@ -578,7 +578,7 @@ async function handleFOSGenerateMathe(body, env) {
   const sg = sachgebiet || "analysis";
   const totalBE = be || 25;
   const zeitMinuten = zeit || 45;
-  const zeitHinweis = klausurZeitHinweis(zeitMinuten, totalBE, 2);
+  const zeitHinweis = klausurZeitHinweis(zeitMinuten, totalBE, 2, { quellenBudget: false });
   const aufgabenAnzahl = Math.min(Math.max(anzahl || 1, 1), 5);
   const minTeilaufgaben = Math.max(3, Math.ceil(totalBE / 6));
   const maxTeilaufgaben = Math.max(minTeilaufgaben, Math.ceil(totalBE / 3));
@@ -2249,7 +2249,7 @@ async function handleFOSTextGenerate(config, body, env) {
 
   const gesamtBE = be || 60;
   const zeitMinuten = zeit || 135;
-  const zeitHinweis = klausurZeitHinweis(zeitMinuten, gesamtBE, 2.5);
+  const zeitHinweis = klausurZeitHinweis(zeitMinuten, gesamtBE, 2.5, { quellenBudget: false });
   const aufgabenAnzahl = Math.min(Math.max(anzahl || 1, 1), 5);
 
   // Fachbereich-Inhalte zusammenstellen
