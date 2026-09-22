@@ -432,7 +432,7 @@ const SUBJECT_GROUP_TO_PROMPT = {
   history: "history",
   german: "german",
   mathe: "science", chemie: "science", physik: "science", biologie: "science", informatik: "science",
-  english: "languages", french: "languages", italian: "languages", latein: "languages",
+  english: "languages", french: "languages", italian: "languages", spanisch: "languages", latein: "languages",
   ethik: "default", religion: "default", katholisch: "default", geographie: "default", sport: "default"
 };
 

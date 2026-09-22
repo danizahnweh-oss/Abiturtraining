@@ -31,7 +31,9 @@ const _teacherTokenReady = new Promise(function(resolve) { _teacherTokenResolve 
 if (isTeacherMode) {
   window.addEventListener("message", function(e) {
     // Nur Nachrichten von der eigenen Origin akzeptieren (kein Cross-Origin-Token-Leak).
-    if (e.origin !== window.location.origin) return;
+    if (e.origin !== window.location.origin || e.source !== window.parent) return;
+    if (e.data && e.data.type === "teacher-adopt-task") _teacherAdoptTask();
+    if (e.data && e.data.type === "teacher-task-state-request") _updateTeacherTaskState();
     if (e.data && e.data.type === "teacher-token" && typeof e.data.token === "string") {
       _teacherToken = e.data.token;
       if (_teacherTokenResolve) { _teacherTokenResolve(_teacherToken); _teacherTokenResolve = null; }
@@ -42,22 +44,65 @@ if (isTeacherMode) {
 }
 const sharedTaskId = _urlParams.get("task_id") || null;
 
-// Teacher-Mode: Banner zum Uebernehmen der Aufgabe
+// Der Lehrerbereich bietet die Übernahme außerhalb des scrollbaren iFrames an.
+let _teacherTaskSection = null;
+let _teacherTaskObserver = null;
+let _teacherGenerationPending = 0;
+let _teacherTaskState = { ready: false, message: "Bitte zuerst eine Aufgabe erstellen oder auswählen." };
+function _updateTeacherTaskState() {
+  if (!isTeacherMode) return;
+  const hasTask = !!(_teacherTaskSection && CONFIG.storedData && Object.keys(CONFIG.storedData).length);
+  const missing = hasTask && [..._teacherTaskSection.querySelectorAll('[data-required-material]:not([data-image-state="ready"])')].find(isRequiredEducationalMaterial);
+  const ready = hasTask && !missing && !_teacherGenerationPending;
+  const message = _teacherGenerationPending ? "Die Aufgabe wird erstellt. Bitte warte einen Moment."
+    : !hasTask ? "Bitte zuerst eine Aufgabe erstellen oder auswählen."
+    : missing ? (missing.dataset.imageState === "error"
+      ? "Ein erforderliches Bild fehlt. Bitte lade es in der Aufgabe erneut."
+      : "Die Bilder werden noch erstellt. Danach kannst du die Aufgabe übernehmen.")
+    : "Aufgabe bereit. Du kannst sie jetzt übernehmen und bearbeiten.";
+  _teacherTaskState = { ready: ready, message: message };
+  const banner = document.getElementById("teacherAdoptBanner");
+  if (banner) {
+    banner.hidden = !hasTask;
+    banner.querySelector("span").textContent = message;
+    banner.querySelector("button").disabled = !ready;
+  }
+  window.parent.postMessage({ type: "teacher-task-state", ready: ready, message: message }, window.location.origin);
+}
+
 function _showTeacherAdoptBanner() {
   if (document.getElementById("teacherAdoptBanner")) return;
-  var banner = document.createElement("div");
+  const banner = document.createElement("div");
   banner.id = "teacherAdoptBanner";
-  banner.style.cssText = "position:sticky;top:0;z-index:9999;background:linear-gradient(135deg,#4f46e5,#7c3aed);color:#fff;padding:.8rem 1.2rem;display:flex;align-items:center;justify-content:space-between;gap:.8rem;flex-wrap:wrap;font-size:.9rem;box-shadow:0 2px 8px rgba(0,0,0,.2);";
-  banner.innerHTML = '<span style="font-weight:600;">Aufgabe generiert – so sehen es deine Schueler.</span>'
-    + '<button onclick="_teacherAdoptTask()" style="background:#fff;color:#4f46e5;border:none;padding:.5rem 1.2rem;border-radius:8px;font-weight:700;font-size:.85rem;cursor:pointer;min-height:44px;white-space:nowrap;">Aufgabe uebernehmen</button>';
+  // Im eingebetteten Modus liegt der primäre Button dauerhaft im Lehrerbereich.
+  banner.style.cssText = "position:sticky;top:0;z-index:100;background:var(--surface);color:var(--ink);padding:.8rem 1.2rem;border-bottom:1px solid var(--border);font-size:.9rem;";
+  banner.innerHTML = '<div style="display:flex;align-items:center;justify-content:space-between;gap:.8rem;flex-wrap:wrap;">'
+    + '<span role="status" style="font-weight:600;"></span>'
+    + '<button type="button" class="btn" onclick="_teacherAdoptTask()" style="min-height:44px;white-space:nowrap;">Aufgabe übernehmen</button></div>';
   document.body.prepend(banner);
 }
 
+function _syncTeacherTaskNavigation(step) {
+  if (!isTeacherMode) return;
+  if (_teacherTaskObserver) _teacherTaskObserver.disconnect();
+  const prefix = MODULE_CONFIG.sectionPrefix || "";
+  const taskStep = MODULE_CONFIG.steps.find(s => ["task", "reading", "listen"].includes(s));
+  _teacherTaskSection = step !== "setup" && taskStep ? document.getElementById(prefix + taskStep) : null;
+  if (_teacherTaskSection && CONFIG.storedData) {
+    _showTeacherAdoptBanner();
+    _teacherTaskObserver = new MutationObserver(_updateTeacherTaskState);
+    _teacherTaskObserver.observe(_teacherTaskSection, { subtree: true, childList: true, attributes: true, attributeFilter: ["data-image-state", "data-required-material", "class"] });
+  }
+  _updateTeacherTaskState();
+}
+
 function _teacherAdoptTask() {
-  // Same-Origin statt "*", damit Aufgabendaten nicht versehentlich an Drittseiten gehen.
+  _updateTeacherTaskState();
+  if (!_teacherTaskState.ready) return;
+  // Zusätzlich die fachbezogenen Materialprüfungen vor dem Übertragen ausführen.
+  if (!educationalMaterialsReady()) return;
+  if (typeof ensureMaterialsReady === "function" && !ensureMaterialsReady()) return;
   window.parent.postMessage({ type: "task-generated", data: CONFIG.storedData }, window.location.origin);
-  var banner = document.getElementById("teacherAdoptBanner");
-  if (banner) { banner.innerHTML = '<span style="font-weight:600;">Aufgabe uebernommen – du kannst den iFrame jetzt schliessen.</span>'; }
 }
 
 // Wartet im Teacher-Mode bis zu 5s auf das per postMessage gesetzte Lehrer-Token,
@@ -1574,11 +1619,6 @@ function nav(step, _pushHistory) {
   const steps = MODULE_CONFIG.steps;
   const idx = steps.indexOf(step);
 
-  // Teacher-Mode: Aufgabe normal anzeigen, aber "Uebernehmen"-Banner einblenden
-  if (isTeacherMode && step === "task" && CONFIG.storedData) {
-    _showTeacherAdoptBanner();
-  }
-
   // Guard: steps 1-3 need a generated task
   if (idx >= 1 && idx <= 3 && !CONFIG.storedData) {
     showToast("Bitte zuerst eine Aufgabe generieren.");
@@ -1603,6 +1643,7 @@ function nav(step, _pushHistory) {
   }
 
   currentStep = step;
+  _syncTeacherTaskNavigation(step);
   if (step === 'feedback' && typeof restoreWRFeedback === 'function') restoreWRFeedback();
   if (step === 'feedback' && typeof gymRestoreFeedback === 'function') gymRestoreFeedback();
   if (step === "task" || step === "reading") injectPdfButton();
@@ -2844,6 +2885,22 @@ if (typeof MODULE_CONFIG !== 'undefined') window.addEventListener("load", functi
       }).then(function(r) { return r.json(); }).then(function(d) {
         if (d.name) sessionStorage.setItem("student_name", "Lehrer: " + d.name);
       }).catch(function() {});
+    });
+    // Fachseiten verwenden unterschiedliche Namen für die Generierung.
+    // Die alte Aufgabe bleibt bei Fehlern erhalten, ist währenddessen aber gesperrt.
+    ["generateTask", "generateExam", "generateFromOwnText"].forEach(function(name) {
+      const generate = window[name];
+      if (typeof generate !== "function") return;
+      window[name] = async function(...args) {
+        _teacherGenerationPending++;
+        _updateTeacherTaskState();
+        try {
+          return await generate.apply(this, args);
+        } finally {
+          _teacherGenerationPending--;
+          _syncTeacherTaskNavigation(currentStep);
+        }
+      };
     });
     nav(MODULE_CONFIG.steps[0]);
     initHL();

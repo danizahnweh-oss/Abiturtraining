@@ -500,6 +500,14 @@ main { max-width: 1100px; margin: 1.5rem auto; }
 .task-meta { font-size: .78rem; color: var(--ink-light); }
 
 /* iFrame Container */
+.task-iframe-toolbar {
+  position: sticky; top: 0; z-index: 10; background: var(--surface);
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: .5rem; padding: .5rem 0;
+}
+.task-iframe-actions { display: flex; flex-wrap: wrap; gap: .5rem; }
+.task-iframe-actions button { min-height: 44px; }
+
 .iframe-wrap {
   position: relative; border: 1px solid var(--border); border-radius: var(--radius);
   overflow: hidden; background: var(--bg); margin-top: 1rem;
@@ -803,10 +811,14 @@ main { max-width: 1100px; margin: 1.5rem auto; }
 
         <!-- Schritt 2: iFrame mit Fachseite -->
         <div id="taskStep2" style="display:none;">
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem;">
+          <div class="task-iframe-toolbar">
             <span style="font-size:.85rem;font-weight:600;color:var(--ink-muted);" id="iframeSubjectLabel"></span>
-            <button class="btn-small btn-secondary" onclick="closeTaskIframe()">Abbrechen</button>
+            <div class="task-iframe-actions">
+              <button type="button" class="btn-small btn-secondary" onclick="closeTaskIframe()">Abbrechen</button>
+              <button type="button" class="btn" id="btnAdoptTask" onclick="adoptTaskFromIframe()" aria-describedby="taskAdoptStatus" disabled>Aufgabe übernehmen</button>
+            </div>
           </div>
+          <p id="taskAdoptStatus" role="status" style="font-size:.85rem;color:var(--ink-muted);">Bitte zuerst eine Aufgabe erstellen oder auswählen.</p>
           <div class="iframe-wrap">
             <div class="iframe-loading" id="iframeLoading">Fachseite wird geladen...</div>
             <iframe id="taskIframe" sandbox="allow-scripts allow-same-origin allow-forms allow-popups" title="Aufgabengenerierung"></iframe>
@@ -1268,6 +1280,10 @@ const SUBJECT_TASK_TYPES = {
     { label: "Mediation", type: "italian-mediation", url: "/italiano-mediation.html" },
     { label: "Schreiben", type: "italian-writing", url: "/italiano-schreiben.html" }
   ],
+  spanisch: [
+    { label: "Mediation", type: "spanisch-mediation", url: "/spanisch-mediation.html" },
+    { label: "Schreiben", type: "spanisch-writing", url: "/spanisch-schreiben.html" }
+  ],
   ethik: [
     { label: "Klausur", type: "ethik", url: "/ethik.html" },
     { label: "Abitur", type: "ethik-abitur", url: "/ethik-abitur.html" }
@@ -1304,6 +1320,10 @@ const SUBJECT_TASK_TYPES = {
     { label: "Klausur", type: "biologie", url: "/biologie.html" },
     { label: "Abitur", type: "biologie-abitur", url: "/biologie-abitur.html" }
   ],
+  kunst: [
+    { label: "Klausur", type: "kunst", url: "/kunst.html" },
+    { label: "Abitur", type: "kunst-abitur", url: "/kunst-abitur.html" }
+  ],
   sport: [
     { label: "Klausur", type: "sport", url: "/sport.html" },
     { label: "Abitur", type: "sport-abitur", url: "/sport-abitur.html" }
@@ -1323,6 +1343,7 @@ const SUBJECT_TYPES_MAP = {
   wr: ["wr", "wr-abitur"],
   french: ["french-mediation", "french-writing"],
   italian: ["italian-mediation", "italian-writing"],
+  spanisch: ["spanisch-mediation", "spanisch-writing", "spanisch-listening"],
   ethik: ["ethik", "ethik-abitur"],
   religion: ["religion", "religion-abitur"],
   katholisch: ["katholisch", "katholisch-abitur"],
@@ -1332,24 +1353,25 @@ const SUBJECT_TYPES_MAP = {
   chemie: ["chemie", "chemie-abitur"],
   physik: ["physik", "physik-abitur"],
   biologie: ["biologie", "biologie-abitur"],
+  kunst: ["kunst", "kunst-abitur"],
   sport: ["sport", "sport-abitur"],
   informatik: ["informatik", "informatik-abitur"]
 };
 const SUBJECT_NAMES = {
   english: "Englisch", german: "Deutsch", history: "Geschichte",
-  pug: "PuG", wr: "WR", french: "Franzoesisch", italian: "Italienisch",
+  pug: "PuG", wr: "WR", french: "Franzoesisch", italian: "Italienisch", spanisch: "Spanisch",
   ethik: "Ethik", religion: "Ev. Reli", katholisch: "Kath. Reli",
   geographie: "Geo", latein: "Latein", mathe: "Mathe",
   chemie: "Chemie", physik: "Physik", biologie: "Bio",
-  sport: "Sport", informatik: "Info"
+  kunst: "Kunst", sport: "Sport", informatik: "Info"
 };
 const SUBJECT_COLORS = {
   english: "#4f46e5", german: "#059669", history: "#b45309",
   pug: "#9f1239", wr: "#7c3aed", french: "#db2777",
-  italian: "#0d9488", ethik: "#4f46e5", religion: "#d97706",
+  italian: "#0d9488", spanisch: "#b45309", ethik: "#4f46e5", religion: "#d97706",
   katholisch: "#7c3aed", geographie: "#0891b2", latein: "#dc2626",
   mathe: "#10b981", chemie: "#ea580c", physik: "#2563eb",
-  biologie: "#16a34a", sport: "#f59e0b", informatik: "#6366f1"
+  biologie: "#16a34a", kunst: "#be185d", sport: "#f59e0b", informatik: "#6366f1"
 };
 
 function typeToSubject(type) {
@@ -1877,6 +1899,18 @@ async function generateFromMaterials() {
   document.getElementById("matLoader").style.display = "none";
 }
 
+function setTaskAdoptState(ready, message) {
+  document.getElementById("btnAdoptTask").disabled = !ready;
+  document.getElementById("taskAdoptStatus").textContent = message || "Bitte zuerst eine Aufgabe erstellen oder auswählen.";
+}
+
+function adoptTaskFromIframe() {
+  if (document.getElementById("btnAdoptTask").disabled) return;
+  document.getElementById("taskIframe").contentWindow.postMessage(
+    { type: "teacher-adopt-task" }, window.location.origin
+  );
+}
+
 function openTaskIframe() {
   const subj = document.getElementById("taskSubjectSelect").value;
   const typeSel = document.getElementById("taskTypeSelect");
@@ -1897,7 +1931,7 @@ function openTaskIframe() {
   const iframe = document.getElementById("taskIframe");
   // Token NICHT mehr in die URL - das leakt in Browser-History/Logs/Referrer.
   // Stattdessen via postMessage same-origin an das geladene iFrame pushen.
-  iframe.src = url + "?mode=teacher";
+  setTaskAdoptState(false);
   document.getElementById("iframeLoading").style.display = "flex";
   iframe.onload = () => {
     document.getElementById("iframeLoading").style.display = "none";
@@ -1906,22 +1940,30 @@ function openTaskIframe() {
         { type: "teacher-token", token: teacherAuthToken },
         window.location.origin
       );
+      iframe.contentWindow.postMessage({ type: "teacher-task-state-request" }, window.location.origin);
     } catch (e) { /* ignore */ }
   };
+  iframe.src = url + "?mode=teacher";
 }
 
 function closeTaskIframe() {
+  setTaskAdoptState(false);
   document.getElementById("taskStep2").style.display = "none";
   document.getElementById("taskStep1").style.display = "block";
   const iframe = document.getElementById("taskIframe");
   iframe.src = "about:blank";
+  document.getElementById("btnOpenIframe").focus();
 }
 
 // postMessage von iFrame empfangen
 window.addEventListener("message", function(e) {
-  // Nur Same-Origin-Nachrichten verarbeiten.
-  if (e.origin !== window.location.origin) return;
-  if (e.data && e.data.type === "task-generated" && e.data.data) {
+  // Nur das aktuell geöffnete Fach-iFrame darf Daten oder Token anfordern.
+  const iframe = document.getElementById("taskIframe");
+  if (e.origin !== window.location.origin || e.source !== iframe.contentWindow || document.getElementById("taskStep2").style.display === "none") return;
+  if (e.data && e.data.type === "teacher-task-state") {
+    setTaskAdoptState(e.data.ready === true, typeof e.data.message === "string" ? e.data.message : "");
+  }
+  if (e.data && e.data.type === "task-generated" && e.data.data && typeof e.data.data === "object" && !Array.isArray(e.data.data) && Object.keys(e.data.data).length) {
     pendingTaskData = e.data.data;
     showTaskPreview();
   }
@@ -1932,6 +1974,7 @@ window.addEventListener("message", function(e) {
 });
 
 function showTaskPreview() {
+  setTaskAdoptState(false);
   document.getElementById("taskStep2").style.display = "none";
   document.getElementById("taskStep3").style.display = "block";
   const iframe = document.getElementById("taskIframe");
@@ -2057,6 +2100,7 @@ function showTaskPreview() {
   // Auto-Titel
   const titleInput = document.getElementById("taskTitleInput");
   titleInput.value = (SUBJECT_NAMES[pendingTaskSubjectGroup] || "") + " – " + (d.topic || d.thema || d.title || d.sachgebiet || d.fachbereich || pendingTaskSubject).slice(0, 60);
+  titleInput.focus();
 }
 
 // Rohtext mit LaTeX in ein Vorschau-Element rendern – gleiche Delimiter wie echte Aufgabe
@@ -2079,6 +2123,7 @@ function renderTaskPreview(text, target, _attempt) {
 }
 
 function resetTaskCreation() {
+  setTaskAdoptState(false);
   pendingTaskData = null;
   editingTaskId = null;
   materialUploadFiles = [];
