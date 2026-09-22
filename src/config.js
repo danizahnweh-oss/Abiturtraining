@@ -3,8 +3,10 @@
 
 /* ---- Rate Limiting & Auth ---- */
 export const RATE_LIMIT_WINDOW = 60 * 1000;
-// Standardwert 25 (Workshop-Ausnahme 2026-06-22 mit 250 ist abgelaufen, zurückgesetzt).
+// IP-Schutz für öffentliche Endpunkte und alte Token ohne Konto-Identität.
 export const MAX_REQUESTS_PER_WINDOW = 25;
+// Getrennte Budgets pro verifiziertem Konto, jeweils pro 60 Sekunden.
+export const ACCOUNT_RATE_LIMITS = Object.freeze({ status: 120, general: 60, ai: 10 });
 export const MAX_LOGIN_ATTEMPTS = 5;
 // Workshop: bis 24.09.2026, 00:00 Uhr Europe/Berlin mehr Schüler-Anmeldungen
 // hinter derselben Schul-IP. Bei jedem Request prüfen, damit kein Neustart nötig ist.

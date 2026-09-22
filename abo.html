@@ -895,6 +895,11 @@
           <p class="abo-subtitle" id="pageSubtitle">Wähle zuerst: selbst buchen, Schulcode einlösen oder eine Schullizenz anfragen.</p>
         </div>
 
+        <div id="subscriptionStatusNotice" hidden style="padding:1.5rem;margin-bottom:1.5rem;border:1px solid var(--border);border-radius:16px;background:var(--surface);">
+          <p id="subscriptionStatusMessage" role="status" style="margin:0 0 1rem;line-height:1.6;"></p>
+          <button class="btn" id="subscriptionStatusRetry" type="button">Erneut prüfen</button>
+        </div>
+
         <!-- Entscheidungshilfe: Privat / Schulcode / Lehrkraft -->
         <div class="decision-wrap" id="decisionWrap">
           <div class="decision-cards">
@@ -1117,8 +1122,11 @@
         },
         body: JSON.stringify(body)
       });
-      var data = await res.json();
-      if (!res.ok) throw new Error(data.error || "HTTP " + res.status);
+      var data = await res.json().catch(function() { return {}; });
+      if (!res.ok) {
+        if (res.status === 429 || res.status === 503) throw _requestBusyError(res);
+        throw new Error(data.error || "HTTP " + res.status);
+      }
       return data;
     }
 
@@ -1313,13 +1321,41 @@
       } catch (e) {}
     })();
 
+    // Statusausfälle sind kein fehlendes Abo. Kaufentscheidung erst nach erfolgreicher Prüfung.
+    var subscriptionRetryTimer;
+    function showSubscriptionStatusProblem(data) {
+      document.getElementById("subscriptionStatusNotice").hidden = false;
+      document.getElementById("subscriptionStatusMessage").textContent = data.message;
+      document.getElementById("decisionWrap").style.display = "none";
+      document.getElementById("pricingSection").classList.remove("visible");
+      document.getElementById("pageSubtitle").textContent = "Dein Zugang wird geprüft.";
+      var button = document.getElementById("subscriptionStatusRetry");
+      clearTimeout(subscriptionRetryTimer);
+      if (data.status === "authentication_required") {
+        button.disabled = false;
+        button.textContent = "Erneut anmelden";
+        button.onclick = function() { _resetStudentAuthentication(); window.location.href = "/index.html?login=1"; };
+      } else {
+        button.textContent = "Erneut prüfen";
+        button.disabled = true;
+        button.onclick = loadSubscriptionStatus;
+        subscriptionRetryTimer = setTimeout(function() { button.disabled = false; }, (data.retry_after || 5) * 1000);
+      }
+    }
+
     // Abo-Status laden & UI aktualisieren
     async function loadSubscriptionStatus() {
       var studentId = getStudentId();
       if (!studentId || !getAccessToken()) return;
 
       try {
-        var data = await aboApi("/api/stripe/subscription-status", { student_id: studentId });
+        document.getElementById("subscriptionStatusRetry").disabled = true;
+        var data = await checkSubscription();
+        if (_subscriptionNeedsRetry(data)) { showSubscriptionStatusProblem(data); return; }
+        document.getElementById("subscriptionStatusNotice").hidden = true;
+        document.getElementById("decisionWrap").style.display = "";
+        document.getElementById("pricingSection").classList.add("visible");
+        document.getElementById("pageSubtitle").textContent = "Wähle zuerst: selbst buchen, Schulcode einlösen oder eine Schullizenz anfragen.";
 
         if (data.status === "active") {
           // Aktives Abo anzeigen
@@ -1376,8 +1412,7 @@
           }
         }
       } catch (err) {
-        // Kein aktives Abo – Pricing zeigen (Standard)
-        console.log("Abo-Status nicht verfügbar:", err.message);
+        showSubscriptionStatusProblem(_subscriptionUnavailable(5));
       }
     }
 
@@ -1423,8 +1458,8 @@
       }
     })();
 
-    // Status laden
-    loadSubscriptionStatus();
+    // Shared-Statusprüfung steht nach dem Laden aller Skripte bereit.
+    document.addEventListener("DOMContentLoaded", loadSubscriptionStatus);
 
     // Sticky CTA: erst zeigen, wenn der normale Checkout-Button nicht sichtbar ist
     document.addEventListener('DOMContentLoaded', function() {
@@ -1480,6 +1515,6 @@
     <button class="sticky-cta-btn" type="button">Weiter zum 12-Monats-Paket →</button>
   </div>
   <script>updatePlanCopy();</script>
-  <script src="shared.js"></script>
+  <script src="shared.js?v=school-limits-1"></script>
 </body>
 </html>

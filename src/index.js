@@ -5,7 +5,7 @@
 import { jsonResponse, corsHeaders, getAllowedOrigins, isOriginAllowed, checkBodySize, truncate } from './utils.js';
 import { MAX_BODY_SIZE, MAX_REQUESTS_PER_WINDOW, MAX_LOGIN_ATTEMPTS, MAX_REGISTER_ATTEMPTS, getStudentLoginLimit } from './config.js';
 import {
-  checkAuth, checkSubscriptionAccess, getSubjectFromPathname, checkRateLimit, cleanupRateLimitMaps,
+  checkAuthenticatedRateLimit, checkSubscriptionAccess, getSubjectFromPathname, checkRateLimit, cleanupRateLimitMaps,
   rateLimitMap, loginRateLimitMap, studentLoginRateLimitMap, registerRateLimitMap, ensureMigrations
 } from './auth.js';
 
@@ -432,53 +432,45 @@ export default {
         return await handleTeacherAuthLogin(request, env);
       }
       if (pathname === "/api/teacher-codes" && request.method === "POST") {
-        const rl = checkRateLimit(request, rateLimitMap, MAX_REQUESTS_PER_WINDOW, env);
+        const { error: rl } = await checkAuthenticatedRateLimit(request, env, { teacherOnly: true });
         if (rl) return rl;
-        cleanupRateLimitMaps();
         return await handleTeacherCodes(request, env);
       }
       if (pathname === "/api/teacher-results" && request.method === "POST") {
-        const rl = checkRateLimit(request, rateLimitMap, MAX_REQUESTS_PER_WINDOW, env);
+        const { error: rl } = await checkAuthenticatedRateLimit(request, env, { teacherOnly: true });
         if (rl) return rl;
-        cleanupRateLimitMaps();
         return await handleTeacherResults(request, env);
       }
       if (pathname === "/api/teacher-profile" && request.method === "POST") {
-        const rl = checkRateLimit(request, rateLimitMap, MAX_REQUESTS_PER_WINDOW, env);
+        const { error: rl } = await checkAuthenticatedRateLimit(request, env, { teacherOnly: true });
         if (rl) return rl;
-        cleanupRateLimitMaps();
         return await handleTeacherProfile(request, env);
       }
       // Lehrer-Korrekturguthaben (20 Gratis pro Monat)
       if (pathname === "/api/teacher/credit-balance" && request.method === "POST") {
-        const rl = checkRateLimit(request, rateLimitMap, MAX_REQUESTS_PER_WINDOW, env);
+        const { error: rl } = await checkAuthenticatedRateLimit(request, env, { teacherOnly: true });
         if (rl) return rl;
-        cleanupRateLimitMaps();
         return await handleTeacherCreditBalance(request, env);
       }
       if (pathname === "/api/teacher/credit-history" && request.method === "POST") {
-        const rl = checkRateLimit(request, rateLimitMap, MAX_REQUESTS_PER_WINDOW, env);
+        const { error: rl } = await checkAuthenticatedRateLimit(request, env, { teacherOnly: true });
         if (rl) return rl;
-        cleanupRateLimitMaps();
         return await handleTeacherCreditHistory(request, env);
       }
 
       if (pathname === "/api/teacher-tasks" && request.method === "POST") {
-        const rl = checkRateLimit(request, rateLimitMap, MAX_REQUESTS_PER_WINDOW, env);
+        const { error: rl } = await checkAuthenticatedRateLimit(request, env, { teacherOnly: true });
         if (rl) return rl;
-        cleanupRateLimitMaps();
         return await handleTeacherTasks(request, env);
       }
       if (pathname === "/api/teacher-task-results" && request.method === "POST") {
-        const rl = checkRateLimit(request, rateLimitMap, MAX_REQUESTS_PER_WINDOW, env);
+        const { error: rl } = await checkAuthenticatedRateLimit(request, env, { teacherOnly: true });
         if (rl) return rl;
-        cleanupRateLimitMaps();
         return await handleTeacherTaskResults(request, env);
       }
       if (pathname === "/api/generate-from-materials" && request.method === "POST") {
-        const rl = checkRateLimit(request, rateLimitMap, MAX_REQUESTS_PER_WINDOW, env);
+        const { error: rl } = await checkAuthenticatedRateLimit(request, env, { teacherOnly: true });
         if (rl) return rl;
-        cleanupRateLimitMaps();
         return await handleGenerateFromMaterials(request, env);
       }
 
@@ -489,8 +481,8 @@ export default {
 
       // ===== ASYNC GRADING: STATUS (vor Auth-Check) =====
       if (pathname.startsWith("/api/grade-status/") && request.method === "GET") {
-        const authError = await checkAuth(request, env);
-        if (authError) return authError;
+        const { error: rateLimitError } = await checkAuthenticatedRateLimit(request, env);
+        if (rateLimitError) return rateLimitError;
         const jobId = pathname.replace("/api/grade-status/", "");
         return await handleGradeStatus(jobId, env);
       }
@@ -565,13 +557,10 @@ ${photo ? `<div style="margin:12px 0"><p style="font-weight:600;margin-bottom:6p
 
       // ===== AUTH CHECK für restliche /api/ Endpoints =====
       if (pathname.startsWith("/api/")) {
-        // Lehrer-Token: kein Abo-Check nötig
-        const isTeacherRequest = !!request.headers.get("X-Teacher-Auth-Token");
-        const authError = await checkAuth(request, env);
-        if (authError) return authError;
-        const rateLimitError = checkRateLimit(request, rateLimitMap, MAX_REQUESTS_PER_WINDOW, env);
+        const { identity, error: rateLimitError } = await checkAuthenticatedRateLimit(request, env);
         if (rateLimitError) return rateLimitError;
-        cleanupRateLimitMaps();
+        // Nur ein verifiziertes Lehrer-Konto überspringt den Abo-Check.
+        const isTeacherRequest = identity.kind === "teacher";
 
         // Abo-Check für generate/grade Endpoints (nicht für Lehrer)
         if (!isTeacherRequest && /^\/(api)\/(fos-)?(generate|grade)/.test(pathname) && request.method === "POST") {

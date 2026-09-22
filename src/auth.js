@@ -1,6 +1,6 @@
 /* ================= AUTH & RATE LIMITING ================= */
 import { jsonResponse } from './utils.js';
-import { TOKEN_EXPIRY, RATE_LIMIT_WINDOW } from './config.js';
+import { TOKEN_EXPIRY, RATE_LIMIT_WINDOW, ACCOUNT_RATE_LIMITS, MAX_REQUESTS_PER_WINDOW } from './config.js';
 
 /* ---- Client-IP hinter Nginx (Hetzner) ---- */
 // Nginx setzt vertrauenswürdig X-Real-IP und hängt die echte Client-IP als LETZTES
@@ -86,11 +86,22 @@ export async function getTokenPayload(token, env, secret) {
   }
 }
 
+// Nur innerhalb desselben HTTP-Requests wiederverwenden. Der nächste Request
+// prüft das Konto erneut, damit eine Löschung weiterhin sofort greift.
+const requestStudentPayloads = new WeakMap();
+function getRequestStudentPayload(request, env) {
+  const token = request.headers.get("X-Access-Token") || "";
+  const cached = requestStudentPayloads.get(request);
+  if (cached && cached.env === env && cached.token === token) return cached.promise;
+  const promise = getTokenPayload(token, env);
+  requestStudentPayloads.set(request, { env, token, promise });
+  return promise;
+}
+
 // Liest den im Login-Token gebundenen Schüler-Identitätsanteil (sub = name_lower, sid = id).
 // Gibt null zurück, wenn kein Token, ungültig, abgelaufen oder ohne sub-Feld (alter Token vor IDOR-Fix).
 export async function getStudentTokenIdentity(request, env) {
-  const token = request.headers.get("X-Access-Token") || "";
-  const payload = await getTokenPayload(token, env);
+  const payload = await getRequestStudentPayload(request, env);
   if (!payload || !payload.sub) return null;
   return {
     nameLower: String(payload.sub),
@@ -305,7 +316,7 @@ export async function checkAuth(request, env) {
   if (!env.ACCESS_PASSWORD) {
     return jsonResponse({ error: "Server nicht konfiguriert." }, 500, env);
   }
-  if (!token || !(await verifyToken(token, env))) {
+  if (!token || !(await getRequestStudentPayload(request, env))) {
     return jsonResponse({ error: "Nicht autorisiert." }, 401, env);
   }
   return null;
@@ -320,34 +331,81 @@ let requestCounter = 0;
 
 export { rateLimitMap, loginRateLimitMap, studentLoginRateLimitMap, registerRateLimitMap };
 
-export function checkRateLimit(request, map, max, env) {
-  const ip = getClientIp(request);
+// Status-Abfragen verbrauchen weder das allgemeine noch das KI-Budget.
+export function getRateLimitScope(pathname) {
+  if (pathname.startsWith("/api/grade-status/") || [
+    "/api/stripe/subscription-status", "/api/colloquium/status",
+    "/api/teacher/credit-balance", "/api/get-preferences", "/api/check-reminders",
+  ].includes(pathname)) return "status";
+  if (/^\/api\/(?:fos-)?(?:generate|grade|ocr|parse|model-answer)(?:-|\/|$)/.test(pathname) || [
+    "/api/detail-feedback", "/api/rewrite", "/api/learning-plan",
+    "/api/fetch-unsplash", "/api/colloquium/start",
+  ].includes(pathname)) return "ai";
+  return "general";
+}
+
+function rateLimitResponse(env, scope, remainingMs) {
+  const retryAfter = Math.max(1, Math.ceil(remainingMs / 1000));
+  const error = scope === "ai"
+    ? `Du hast gerade viele KI-Anfragen gestartet. Bitte warte ${retryAfter} Sekunden und versuche es erneut.`
+    : `Zu viele Anfragen in kurzer Zeit. Bitte warte ${retryAfter} Sekunden und versuche es erneut.`;
+  const response = jsonResponse({ error, code: "rate_limited", scope, retry_after: retryAfter }, 429, env);
+  response.headers.set("Retry-After", String(retryAfter));
+  response.headers.set("Access-Control-Expose-Headers", "Retry-After");
+  return response;
+}
+
+function checkRateLimitBucket(key, map, max, env, scope) {
   const now = Date.now();
-
-  if (!map.has(ip)) {
-    map.set(ip, { count: 1, windowStart: now });
+  let entry = map.get(key);
+  if (!entry || now - entry.windowStart >= RATE_LIMIT_WINDOW) {
+    entry = { count: 1, windowStart: now };
+    map.set(key, entry);
     return null;
   }
-
-  const entry = map.get(ip);
-  if (now - entry.windowStart > RATE_LIMIT_WINDOW) {
-    entry.count = 1;
-    entry.windowStart = now;
-    return null;
-  }
-
+  if (entry.count >= max) return rateLimitResponse(env, scope, RATE_LIMIT_WINDOW - (now - entry.windowStart));
   entry.count++;
-  if (entry.count > max) {
-    return jsonResponse({ error: "Zu viele Anfragen. Bitte warte eine Minute." }, 429, env);
-  }
   return null;
+}
+
+export function checkRateLimit(request, map, max, env) {
+  return checkRateLimitBucket(getClientIp(request), map, max, env, "ip");
+}
+
+export const accountRateLimitMap = new Map();
+
+// Die Schlüssel entstehen ausschließlich nach erfolgreicher Signatur-/Kontoprüfung.
+// Rotierende Tokens, Body-Namen und gefälschte Header schaffen keine neuen Budgets.
+export async function checkAuthenticatedRateLimit(request, env, { teacherOnly = false } = {}) {
+  let identity = null;
+  const teacherToken = request.headers.get("X-Teacher-Auth-Token") || "";
+  if (teacherToken) {
+    const teacherId = await verifyTeacherAuthToken(teacherToken, env);
+    if (teacherId) identity = { kind: "teacher", id: String(teacherId) };
+  }
+  if (!identity && !teacherOnly) {
+    // checkAuth bleibt die zentrale Prüfung einschließlich Konfigurationsfehlern.
+    const authError = await checkAuth(request, env);
+    if (authError) return { identity: null, error: authError };
+    const payload = await getRequestStudentPayload(request, env);
+    identity = payload?.sub && payload.sid != null
+      ? { kind: "student", id: String(payload.sid) }
+      : { kind: "legacy" };
+  }
+  if (!identity) return { identity: null, error: jsonResponse({ error: "Nicht autorisiert." }, 401, env) };
+  const scope = getRateLimitScope(new URL(request.url).pathname);
+  const error = identity.kind === "legacy"
+    ? checkRateLimit(request, rateLimitMap, MAX_REQUESTS_PER_WINDOW, env)
+    : checkRateLimitBucket(JSON.stringify([identity.kind, identity.id, scope]), accountRateLimitMap, ACCOUNT_RATE_LIMITS[scope], env, scope);
+  cleanupRateLimitMaps();
+  return { identity, error };
 }
 
 export function cleanupRateLimitMaps() {
   requestCounter++;
   if (requestCounter % 100 === 0) {
     const now = Date.now();
-    for (const map of [rateLimitMap, loginRateLimitMap, studentLoginRateLimitMap, registerRateLimitMap]) {
+    for (const map of [rateLimitMap, loginRateLimitMap, studentLoginRateLimitMap, registerRateLimitMap, accountRateLimitMap]) {
       for (const [ip, entry] of map) {
         if (now - entry.windowStart > RATE_LIMIT_WINDOW * 5) {
           map.delete(ip);

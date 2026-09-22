@@ -284,6 +284,13 @@ async function apiCall(endpoint, body, _isRetry) {
   // Abo-Check vor kostenpflichtigen Endpoints (generate/grade)
   if (/\/api\/(fos-)?(generate|grade)/.test(endpoint) && !isTeacherMode) {
     var sub = await checkSubscription();
+    if (sub.status === "unavailable") throw new Error(sub.message);
+    if (sub.status === "authentication_required") {
+      _resetStudentAuthentication();
+      return new Promise(function(resolve, reject) {
+        requireLogin(function() { apiCall(endpoint, body, true).then(resolve).catch(reject); });
+      });
+    }
     var isGrade = /\/api\/(fos-)?grade/.test(endpoint);
     // Generierung: nur mit Abo/Trial. Korrektur: auch mit Lehrer-Credits.
     var hasAccess = sub.status === "active" || sub.status === "trialing" || (isGrade && sub.teacher_credits_available);
@@ -315,6 +322,7 @@ async function apiCall(endpoint, body, _isRetry) {
   }
   if (!res.ok) {
     const err = await res.json().catch(() => ({}));
+    if (res.status === 429 || res.status === 503) throw _requestBusyError(res);
     throw new Error(err.error || `HTTP ${res.status}`);
   }
   const json = await res.json();
@@ -387,69 +395,118 @@ function _archiveCorrection(resultId) {
 
 /* ================= SUBSCRIPTION CHECK ================= */
 
-// Abo-Status im Cache halten (pro Session)
+// Status wird pro Anmeldung geteilt; vorübergehende Fehler sind kein fehlender Zugang.
 var _subscriptionCache = null;
 var _subscriptionCacheTime = 0;
-var SUBSCRIPTION_CACHE_TTL = 30 * 1000; // 30 Sekunden
+var _subscriptionIdentity = "";
+var _subscriptionPending = null;
+var _subscriptionRetryAt = 0;
+var SUBSCRIPTION_CACHE_TTL = 30 * 1000;
+
+function _subscriptionRetrySeconds(response) {
+  var value = response && response.headers.get("Retry-After");
+  if (value && /^\d+$/.test(value)) return Math.max(1, Number(value));
+  var date = value && Date.parse(value);
+  return date && date > Date.now() ? Math.ceil((date - Date.now()) / 1000) : 5;
+}
+
+function _subscriptionUnavailable(seconds) {
+  seconds = Math.max(1, seconds || 5);
+  return { status: "unavailable", retry_after: seconds,
+    message: "Dein Zugang konnte gerade nicht geprüft werden. Bitte warte " + seconds + (seconds === 1 ? " Sekunde" : " Sekunden") + " und versuche es erneut." };
+}
+
+function _requestBusyError(response) {
+  var seconds = _subscriptionRetrySeconds(response);
+  var error = new Error("Der Server ist gerade stark ausgelastet. Bitte warte " + seconds + (seconds === 1 ? " Sekunde" : " Sekunden") + " und versuche es erneut.");
+  error.retryable = true;
+  error.retryAfter = seconds;
+  return error;
+}
+
+function _subscriptionNeedsRetry(sub) {
+  return sub.status === "unavailable" || sub.status === "authentication_required";
+}
+
+function _resetStudentAuthentication() {
+  sessionStorage.removeItem("access");
+  sessionStorage.removeItem("access_token");
+  _subscriptionCache = null;
+  _subscriptionRetryAt = 0;
+}
 
 async function checkSubscription() {
   var studentId = sessionStorage.getItem("student_id") || "";
   var token = getAccessToken();
   if (!studentId || !token) return { status: "none", plan: "free" };
-
-  // Cache prüfen (Cache invalidieren wenn sessionStorage 'active' sagt aber Cache noch 'trialing')
+  var identity = studentId + ":" + token;
+  if (_subscriptionIdentity !== identity) {
+    _subscriptionIdentity = identity;
+    _subscriptionCache = null;
+    _subscriptionPending = null;
+    _subscriptionRetryAt = 0;
+  }
   var ssStatus = sessionStorage.getItem("subscription_status") || "";
-  if (_subscriptionCache && (Date.now() - _subscriptionCacheTime < SUBSCRIPTION_CACHE_TTL)) {
-    if (ssStatus === "active" && _subscriptionCache.status === "trialing") {
-      _subscriptionCache = null; // Cache invalidieren
-    } else {
-      return _subscriptionCache;
-    }
+  if (_subscriptionCache && Date.now() - _subscriptionCacheTime < SUBSCRIPTION_CACHE_TTL) {
+    if (ssStatus === "active" && _subscriptionCache.status === "trialing") _subscriptionCache = null;
+    else return _subscriptionCache;
   }
+  if (_subscriptionPending) return _subscriptionPending;
+  if (_subscriptionRetryAt > Date.now()) return _subscriptionUnavailable(Math.ceil((_subscriptionRetryAt - Date.now()) / 1000));
 
-  // Fallback bei Netzwerkfehler: sessionStorage nutzen, aber nur für Stripe-Abos (nicht Schullizenzen)
-  var ssPlan = sessionStorage.getItem("subscription_plan") || "";
-  var ssFallback = ((ssStatus === "active" || ssStatus === "trialing") && ssPlan !== "school")
-    ? { status: ssStatus, plan: ssPlan || "unknown", teacher_credits_available: sessionStorage.getItem("teacher_credits_available") === "1" }
-    : { status: "none", plan: "free" };
-
-  try {
-    var res = await fetch(API_BASE + "/api/stripe/subscription-status", {
-      method: "POST",
-      headers: { "Content-Type": "application/json", "X-Access-Token": token },
-      body: JSON.stringify({ student_id: studentId })
-    });
-    if (!res.ok) return ssFallback;
-    var data = await res.json();
-    // Lehrer-Credits in sessionStorage speichern
-    if (data.teacher_credits_available) {
-      sessionStorage.setItem("teacher_credits_available", "1");
-      if (data.teacher_credits_name) sessionStorage.setItem("teacher_credits_name", data.teacher_credits_name);
-    } else {
-      sessionStorage.removeItem("teacher_credits_available");
-      sessionStorage.removeItem("teacher_credits_name");
+  var pending = (async function() {
+    try {
+      var res = await fetch(API_BASE + "/api/stripe/subscription-status", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "X-Access-Token": token },
+        body: JSON.stringify({ student_id: studentId })
+      });
+      if (_subscriptionIdentity !== identity || getAccessToken() !== token || sessionStorage.getItem("student_id") !== studentId) return _subscriptionUnavailable(1);
+      if (res.status === 401) return { status: "authentication_required", message: "Deine Anmeldung ist abgelaufen. Bitte melde dich erneut an." };
+      if (!res.ok) {
+        var seconds = _subscriptionRetrySeconds(res);
+        if (_subscriptionIdentity === identity) _subscriptionRetryAt = Date.now() + seconds * 1000;
+        return _subscriptionUnavailable(seconds);
+      }
+      var data = await res.json();
+      var knownStatuses = ["active", "trialing", "none", "trial_expired", "expired", "canceled", "past_due", "unpaid", "incomplete", "incomplete_expired", "paused"];
+      if (!data || knownStatuses.indexOf(data.status) === -1) throw new Error("Ungültige Statusantwort");
+      if (_subscriptionIdentity !== identity || getAccessToken() !== token || sessionStorage.getItem("student_id") !== studentId) return _subscriptionUnavailable(1);
+      if (data.teacher_credits_available) {
+        sessionStorage.setItem("teacher_credits_available", "1");
+        if (data.teacher_credits_name) sessionStorage.setItem("teacher_credits_name", data.teacher_credits_name);
+      } else {
+        sessionStorage.removeItem("teacher_credits_available");
+        sessionStorage.removeItem("teacher_credits_name");
+      }
+      if (Array.isArray(data.subject_licenses)) {
+        sessionStorage.setItem("subject_licenses", JSON.stringify(data.subject_licenses.map(function(s) { return s.subject; })));
+      }
+      sessionStorage.setItem("subscription_status", data.status);
+      if (data.status !== "active" && data.status !== "trialing") sessionStorage.removeItem("free_access");
+      _subscriptionCache = data;
+      _subscriptionCacheTime = Date.now();
+      _subscriptionRetryAt = 0;
+      return data;
+    } catch (e) {
+      if (_subscriptionIdentity === identity) _subscriptionRetryAt = Date.now() + 5000;
+      return _subscriptionUnavailable(5);
     }
-    // Fach-Lizenzen in sessionStorage speichern
-    if (data.subject_licenses && data.subject_licenses.length) {
-      sessionStorage.setItem("subject_licenses", JSON.stringify(data.subject_licenses.map(function(s) { return s.subject; })));
-    }
-    // SessionStorage mit Backend-Antwort synchronisieren
-    sessionStorage.setItem("subscription_status", data.status || "none");
-    if (data.status !== "active" && data.status !== "trialing") {
-      sessionStorage.removeItem("free_access");
-    }
-    _subscriptionCache = data;
-    _subscriptionCacheTime = Date.now();
-    return data;
-  } catch (e) {
-    return ssFallback;
-  }
+  })();
+  _subscriptionPending = pending;
+  try { return await pending; }
+  finally { if (_subscriptionPending === pending) _subscriptionPending = null; }
 }
 
 // Prüft ob der Nutzer ein aktives Abo hat. Gibt true zurück wenn Zugriff erlaubt.
 // Bei abgelaufenem Trial/keinem Abo wird zur Abo-Seite weitergeleitet.
 async function requireSubscription() {
   var sub = await checkSubscription();
+  if (_subscriptionNeedsRetry(sub)) {
+    showToast(sub.message);
+    if (sub.status === "authentication_required") { _resetStudentAuthentication(); requireLogin(function() {}); }
+    return false;
+  }
   if (sub.status === "active" || sub.status === "trialing") {
     return true;
   }
@@ -704,6 +761,7 @@ function _computeTrialUsageStats(results) {
 async function showTrialConversionUI(containerId, opts) {
   opts = opts || {};
   var sub = await checkSubscription();
+  if (_subscriptionNeedsRetry(sub)) return;
 
   // Lehrer-Credits-Banner (nur wenn kein eigenes Abo/Trial)
   if (sub.teacher_credits_available && sub.status !== "active" && sub.status !== "trialing") {
@@ -775,6 +833,7 @@ async function apiCallStream(streamEndpoint, body) {
   });
 
   if (!response.ok) {
+    if (response.status === 429 || response.status === 503) throw _requestBusyError(response);
     var err = await response.json().catch(function() { return {}; });
     throw new Error(err.error || "HTTP " + response.status);
   }
@@ -880,6 +939,13 @@ async function apiCallAsync(gradeEndpoint, body, options) {
   // Abo-Check vor Korrektur
   if (!isTeacherMode && !options.resumeJobId) {
     var sub = await checkSubscription();
+    if (sub.status === "unavailable") throw new Error(sub.message);
+    if (sub.status === "authentication_required") {
+      _resetStudentAuthentication();
+      return new Promise(function(resolve, reject) {
+        requireLogin(function() { apiCallAsync(gradeEndpoint, body, options).then(resolve).catch(reject); });
+      });
+    }
     if (sub.status !== "active" && sub.status !== "trialing" && !sub.teacher_credits_available) {
       window.location.href = "/abo.html";
       throw new Error("Kein aktives Abo.");
@@ -905,6 +971,10 @@ async function apiCallAsync(gradeEndpoint, body, options) {
       if (feedbackEl && origHTML !== null) feedbackEl.innerHTML = origHTML;
       return streamResult;
     } catch (streamErr) {
+      if (streamErr.retryable) {
+        if (feedbackEl && origHTML !== null) feedbackEl.innerHTML = origHTML;
+        throw streamErr; // Bei Begrenzung nicht sofort einen zweiten Korrekturauftrag starten.
+      }
       console.warn("Streaming fehlgeschlagen, Fallback auf Polling:", streamErr.message);
       // Loader zurücksetzen für Polling-Fallback
       if (feedbackEl && origHTML !== null) feedbackEl.innerHTML = origHTML;
@@ -965,6 +1035,7 @@ async function apiCallAsync(gradeEndpoint, body, options) {
     }
 
     if (!submitRes.ok) {
+      if (submitRes.status === 429 || submitRes.status === 503) throw _requestBusyError(submitRes);
       var submitErr = await submitRes.json().catch(function() { return {}; });
       throw new Error(submitErr.error || "HTTP " + submitRes.status);
     }
@@ -1011,6 +1082,7 @@ async function apiCallAsync(gradeEndpoint, body, options) {
         error.gradeJobTerminal = statusRes.status === 404;
         throw error;
       }
+      if (statusRes.status === 429 || statusRes.status === 503) throw _requestBusyError(statusRes);
       if (!statusRes.ok) continue;
 
       var statusData = await statusRes.json();
@@ -3237,18 +3309,16 @@ var _loginModalPreviousFocus = null;
 
 async function requireLogin(callback) {
   if (sessionStorage.getItem("access") === "1" && sessionStorage.getItem("student_name")) {
-    // Paywall-Check: Frischen Abo-Status vom Server holen statt nur sessionStorage zu vertrauen
-    var freeAccess = sessionStorage.getItem("free_access") === "1";
-    if (!freeAccess) {
-      var sub = await checkSubscription();
+    var sub = await checkSubscription();
+    if (sub.status === "unavailable") { showToast(sub.message); return; }
+    if (sub.status === "authentication_required") {
+      _resetStudentAuthentication();
+    } else {
       var hasAccess = sub.status === "active" || sub.status === "trialing" || sub.teacher_credits_available;
-      if (!hasAccess) {
-        window.location.href = "/abo.html";
-        return;
-      }
+      if (!hasAccess) { window.location.href = "/abo.html"; return; }
+      callback();
+      return;
     }
-    callback();
-    return;
   }
   _loginModalPreviousFocus = document.activeElement;
   _loginModalCallback = callback;
@@ -3423,10 +3493,18 @@ async function _doLoginModal() {
       }
       _makeProfileGreetingClickable();
 
-      _closeLoginModal();
+      _closeLoginModal(true);
 
       // Lehrer-Credits synchron prüfen bevor Paywall-Check
       var subData = await checkSubscription();
+      if (_subscriptionNeedsRetry(subData)) {
+        _loginModalCallback = null;
+        showToast(subData.message);
+        if (subData.status === "authentication_required") _resetStudentAuthentication();
+        btn.disabled = false;
+        btn.textContent = "Anmelden";
+        return;
+      }
 
       // E-Mail nachtragen falls fehlend
       if (data.email_missing) {
@@ -3477,14 +3555,14 @@ async function _doLoginModal() {
   btn.textContent = _loginModalMode === "register" ? "Registrieren" : "Anmelden";
 }
 
-function _closeLoginModal() {
+function _closeLoginModal(preserveCallback) {
   var overlay = document.getElementById("sharedLoginOverlay");
   if (overlay) overlay.style.display = "none";
   if (_loginModalCleanup) _loginModalCleanup();
   _loginModalCleanup = null;
   if (_loginModalPreviousFocus && _loginModalPreviousFocus.isConnected) _loginModalPreviousFocus.focus();
   _loginModalPreviousFocus = null;
-  _loginModalCallback = null;
+  if (!preserveCallback) _loginModalCallback = null;
 }
 
 /* ================= E-MAIL-BESTÄTIGUNG AUSSTEHEND ================= */
@@ -3733,6 +3811,10 @@ async function _loadProfileData() {
     var sub = await checkSubscription();
     var aboEl = document.getElementById("profAbo");
     if (!aboEl) return;
+    if (_subscriptionNeedsRetry(sub)) {
+      aboEl.textContent = sub.message;
+      return;
+    }
     var planNames = { monthly: "Monatsabo", "6months": "6-Monats-Abo", "12months": "12-Monats-Abo", "24months": "24-Monats-Abo", abitur: "Abiturendspurt", school: "Schullizenz", trial: "Testphase" };
     var manageBtn = '';
     if (sub.has_stripe_customer && (sub.status === "active" || sub.status === "trialing")) {
