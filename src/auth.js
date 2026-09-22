@@ -49,7 +49,7 @@ export async function verifyToken(token, env, secret) {
   return !!(await getTokenPayload(token, env, secret));
 }
 
-// Liefert den Payload bei gültigem Token, sonst null (Signatur + TTL geprüft)
+// Liefert den Payload bei gültigem Token, sonst null (Signatur, TTL und gebundenes Schülerkonto geprüft)
 export async function getTokenPayload(token, env, secret) {
   try {
     const secretKey = getTokenSecret(env, secret);
@@ -71,7 +71,16 @@ export async function getTokenPayload(token, env, secret) {
     );
     const sigBytes = new Uint8Array(sigHex.match(/.{2}/g).map(b => parseInt(b, 16)));
     const valid = await crypto.subtle.verify("HMAC", key, sigBytes, new TextEncoder().encode(data));
-    return valid ? payload : null;
+    if (!valid) return null;
+    // Gelöschte Konten verlieren sofort auch bestehende Sitzungen. Die ID verhindert,
+    // dass ein später neu angelegtes Konto gleichen Namens alte Token reaktiviert.
+    if (payload.sub && payload.sid != null) {
+      const student = await env.DB.prepare(
+        "SELECT 1 FROM students WHERE id = ? AND name_lower = ? LIMIT 1"
+      ).bind(String(payload.sid), String(payload.sub)).first();
+      if (!student) return null;
+    }
+    return payload;
   } catch {
     return null;
   }
