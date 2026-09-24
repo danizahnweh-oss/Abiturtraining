@@ -2,7 +2,7 @@ import { expect, test } from '@playwright/test';
 
 test.beforeEach(async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' });
-  await page.route('**/api/**', route => route.fulfill({ json: { status: 'inactive' } }));
+  await page.route('**/api/**', route => route.fulfill({ json: { status: 'none' } }));
 });
 
 test('Schüler-CTA führt ohne Rollenwahl und Wizard zur Fachwahl', async ({ page }) => {
