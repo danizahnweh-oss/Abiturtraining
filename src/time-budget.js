@@ -135,7 +135,7 @@ function collectTaskQuality(parsed) {
 
   const arrayTaskCount = taskArrays.reduce((sum, tasks) => sum + tasks.length, 0);
   const textTaskCount = Math.max(0, ...taskTexts.map(taskCountFromText));
-  const taskCount = arrayTaskCount || textTaskCount;
+  const taskCount = arrayTaskCount || textTaskCount || (taskTexts.some(text => text.trim()) ? 1 : 0);
   const combinedTaskText = taskTexts.join('\n');
   const unreferencedMaterials = [];
 
@@ -188,6 +188,12 @@ export function pruefeZeitbudget(outputText, budget, { includeValid = false } = 
     if (typeof text !== 'string' || !text.trim()) continue;
     if (type || materialArrays.size === 0) primaryMaterials += 1;
     if (type === 'text' || (!type && suffix === '')) textMaterials.push(text);
+  }
+  for (const key of ['latin_text', 'article_text', 'source_text']) {
+    const text = parsed[key];
+    if (typeof text !== 'string' || !text.trim()) continue;
+    primaryMaterials += 1;
+    textMaterials.push(text);
   }
 
   const lengths = textMaterials.map(wordCount);

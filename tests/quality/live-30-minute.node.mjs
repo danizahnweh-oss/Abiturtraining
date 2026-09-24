@@ -41,8 +41,62 @@ const cases = [
     subject: 'Geographie',
     endpoint: '/api/generate-geographie',
     payload: { halbjahr: '12_1', schwerpunkt: 'random', level: 'gA', be: 12, zeit: 30, anzahl: 1 }
+  },
+  {
+    subject: 'Geschichte',
+    endpoint: '/api/generate-geschichte',
+    payload: { halbjahr: '12_1', schwerpunkt: '12_1', level: 'gA', be: 12, zeit: 30, anzahl: 1 }
+  },
+  {
+    subject: 'Evangelische Religion',
+    endpoint: '/api/generate-religion',
+    payload: { lernbereich: '12_1', schwerpunkt: 'random', level: 'gA', be: 12, zeit: 30, anzahl: 1 }
+  },
+  {
+    subject: 'Katholische Religion',
+    endpoint: '/api/generate-katholisch',
+    payload: { lernbereich: '12_1', schwerpunkt: 'random', level: 'gA', be: 12, zeit: 30, anzahl: 1 }
+  },
+  {
+    subject: 'Latein',
+    endpoint: '/api/generate-latein',
+    payload: { autor: 'cicero', aufgabentyp: 'uebersetzung', schwerpunkt: 'random', level: 'gA', be: 12, zeit: 30, anzahl: 1 }
+  },
+  {
+    subject: 'Chemie',
+    endpoint: '/api/generate-chemie',
+    payload: { sachgebiet: 'elektrochemie', be: 12, zeit: 30, anzahl: 1 }
+  },
+  {
+    subject: 'Physik',
+    endpoint: '/api/generate-physik',
+    payload: { sachgebiet: 'elektrostatik', be: 12, zeit: 30, anzahl: 1 }
+  },
+  {
+    subject: 'Informatik',
+    endpoint: '/api/generate-informatik',
+    payload: { sachgebiet: 'rekursion-listen', be: 12, zeit: 30, anzahl: 1 }
+  },
+  {
+    subject: 'Sport',
+    endpoint: '/api/generate-sport',
+    payload: { sachgebiet: 'gesundheit', be: 12, zeit: 30, anzahl: 1 }
+  },
+  {
+    subject: 'Kunst',
+    endpoint: '/api/generate-kunst',
+    payload: { lernbereich: '12_1', schwerpunkt: 'random', zeit: 30, anzahl: 1 }
   }
 ];
+
+const requestedSubjects = new Set((process.env.QUALITY_SUBJECTS || '')
+  .split(',')
+  .map(value => value.trim().toLocaleLowerCase('de'))
+  .filter(Boolean));
+const selectedCases = requestedSubjects.size
+  ? cases.filter(testCase => requestedSubjects.has(testCase.subject.toLocaleLowerCase('de')))
+  : cases;
+assert.ok(selectedCases.length, 'QUALITY_SUBJECTS passt zu keinem Testfach.');
 
 const loginResponse = await fetch(`${BASE_URL}/api/check-student`, {
   method: 'POST',
@@ -61,7 +115,7 @@ const headers = {
 const budget = materialZeitbudget(30);
 const results = [];
 
-for (const testCase of cases) {
+for (const testCase of selectedCases) {
   const started = Date.now();
   const response = await fetch(`${BASE_URL}${testCase.endpoint}`, {
     method: 'POST',
