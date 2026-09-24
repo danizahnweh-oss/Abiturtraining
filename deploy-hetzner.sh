@@ -117,8 +117,8 @@ echo "║  Deployment abgeschlossen!               ║"
 echo "╚══════════════════════════════════════════╝"
 echo ""
 log "Health-Check..."
-STATUS=$(curl -s -o /dev/null -w "%{http_code}" https://staging.myabiflow.de/)
-API=$(curl -s https://staging.myabiflow.de/health 2>/dev/null)
+STATUS=$(curl -s -o /dev/null -w "%{http_code}" https://myabiflow.de/)
+API=$(curl -s https://myabiflow.de/health 2>/dev/null)
 
 if [ "$STATUS" = "200" ]; then
     log "Frontend: ✅ OK ($STATUS)"
