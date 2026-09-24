@@ -115,13 +115,28 @@ const headers = {
 const budget = materialZeitbudget(30);
 const results = [];
 
+async function generate(testCase) {
+  let lastError;
+  for (let attempt = 1; attempt <= 2; attempt++) {
+    try {
+      return await fetch(`${BASE_URL}${testCase.endpoint}`, {
+        method: 'POST',
+        headers,
+        body: JSON.stringify(testCase.payload),
+        signal: AbortSignal.timeout(240_000)
+      });
+    } catch (error) {
+      lastError = error;
+      if (attempt < 2) await new Promise(resolve => setTimeout(resolve, 2_000));
+    }
+  }
+  throw lastError;
+}
+
 for (const testCase of selectedCases) {
   const started = Date.now();
-  const response = await fetch(`${BASE_URL}${testCase.endpoint}`, {
-    method: 'POST',
-    headers,
-    body: JSON.stringify(testCase.payload)
-  });
+  process.stderr.write(`[live-quality] ${testCase.subject}: gestartet\n`);
+  const response = await generate(testCase);
   const body = await response.json().catch(() => ({}));
   const durationMs = Date.now() - started;
   const budgetAnalysis = response.ok ? pruefeZeitbudget(JSON.stringify(body), budget, { includeValid: true }) : null;
@@ -135,6 +150,7 @@ for (const testCase of selectedCases) {
     totalMaterials: budgetAnalysis?.totalMaterials ?? null,
     taskCount: budgetAnalysis?.taskCount ?? null
   });
+  process.stderr.write(`[live-quality] ${testCase.subject}: ${results.at(-1).passed ? 'bestanden' : 'fehlgeschlagen'} (${durationMs} ms)\n`);
 }
 
 console.log(JSON.stringify({ generatedAt: new Date().toISOString(), baseUrl: BASE_URL, budget, results }, null, 2));
