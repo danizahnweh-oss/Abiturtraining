@@ -2,6 +2,9 @@ import { defineConfig, devices } from "@playwright/test";
 
 export default defineConfig({
   testDir: "./tests",
+  // Browser-E2E-Tests use *.spec.ts. Reine Node-Unit- und Live-Quality-Tests
+  // werden separat ausgeführt und dürfen nicht von Playwright eingesammelt werden.
+  testMatch: "**/*.spec.ts",
   timeout: 60_000,
   expect: { timeout: 10_000 },
   retries: 1,
