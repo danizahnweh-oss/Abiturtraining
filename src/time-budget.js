@@ -96,7 +96,7 @@ function textFromMaterial(material) {
 
 function taskCountFromText(value) {
   if (typeof value !== 'string' || !value.trim()) return 0;
-  const matches = value.match(/(?:^|\s)(?:Aufgabe\s*)?(?:\d+(?:\.\d+)+|\d+[.)]|[a-z][.)])(?=\s)/gimu);
+  const matches = value.match(/^\s*(?:(?:Aufgabe|Teilaufgabe)\s*)?(?:\d+(?:\.\d+)*(?:[.)])?|[a-z][.)])(?:\s+|:)/gimu);
   return matches ? matches.length : 0;
 }
 

@@ -76,13 +76,14 @@ test('zu lange oder zu viele Materialien werden erkannt', () => {
 test('kompakte 30-Minuten-Aufgabe besteht die Umfangspruefung', () => {
   const text = Array.from({ length: 180 }, (_, index) => `Wort${index}`).join(' ');
   const output = JSON.stringify({
-    task_instruction: '1. Analysieren Sie M1. (8 BE) 2. Beurteilen Sie die Statistik M2. (4 BE)',
+    task_instruction: '1. Analysieren Sie M1. Beachten Sie dabei Art. 1 GG. (8 BE)\n2. Beurteilen Sie die Statistik M2. (4 BE)',
     materials: [
       { type: 'text', content: text },
       { type: 'statistik', content: '| A | B |' }
     ]
   });
   assert.equal(pruefeZeitbudget(output, materialZeitbudget(30)), null);
+  assert.equal(pruefeZeitbudget(output, materialZeitbudget(30), { includeValid: true }).taskCount, 2);
 });
 
 test('zu viele Teilaufgaben werden auch bei kompakten Quellen erkannt', () => {
