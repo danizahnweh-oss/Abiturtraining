@@ -105,7 +105,7 @@ function userFriendlyError(status) {
 
 /* ================= OPENAI CALL ================= */
 
-export async function callOpenAI(env, messages, maxTokens = 4000, { model, temperature = 0.7, jsonMode = true, timeBudgetRetries = 2, qualityRetries = 2 } = {}) {
+export async function callOpenAI(env, messages, maxTokens = 4000, { model, temperature = 0.7, jsonMode = true, timeBudgetRetries = 3, qualityRetries = 2 } = {}) {
   model = model || env.OPENAI_QUALITY_MODEL || env.OPENAI_MODEL || "gpt-5.2";
   const t0 = Date.now();
   let phase = "fetch";
@@ -176,12 +176,13 @@ export async function callOpenAI(env, messages, maxTokens = 4000, { model, tempe
       if (timeBudgetRetries > 0) {
         const retryMessages = [
           ...originalMessages,
+          { role: 'assistant', content },
           {
             role: 'system',
-            content: `Die vorige Generierung hat das verbindliche Zeitbudget verletzt (${detail}). Erzeuge die vollstaendige JSON-Antwort neu. Kuerze und buendele die Quellen inhaltlich, statt Texte lediglich abzuschneiden. Halte diesmal alle Zeitbudget-Grenzen exakt ein.`
+            content: `REPARIERE DIE DIREKT VORHERIGE JSON-AUSGABE. Sie verletzt das verbindliche Zeitbudget (${detail}). Behalte Thema, Niveau, JSON-Struktur und Gesamt-BE bei, aber reduziere sie exakt auf hoechstens ${timeBudget.maxTasks} Teilaufgaben, ${timeBudget.maxMaterials} Materialien, ${timeBudget.maxTextMaterials} Textquelle(n) und ${timeBudget.maxTextWords} Textwoerter insgesamt. Entferne ungenutzte Materialien und verweise in den verbleibenden Aufgaben explizit auf jedes Material. Ersetze jeden Platzhalter durch fertigen Inhalt. Buendele Anforderungen sinnvoll; schneide keinen Satz mitten ab. Gib ausschliesslich das vollstaendige reparierte JSON aus.`
           }
         ];
-        return callOpenAI(env, retryMessages, maxTokens, { model, temperature, jsonMode, timeBudgetRetries: timeBudgetRetries - 1, qualityRetries });
+        return callOpenAI(env, retryMessages, maxTokens, { model, temperature: Math.min(temperature, 0.3), jsonMode, timeBudgetRetries: timeBudgetRetries - 1, qualityRetries });
       }
       throw new Error(`Die KI konnte den Materialumfang fuer ${timeBudget.minutes} Minuten nicht verlaesslich einhalten. Bitte erneut versuchen.`);
     }

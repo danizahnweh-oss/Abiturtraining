@@ -158,7 +158,10 @@ test('zu lange KI-Ausgabe wird automatisch komplett neu erzeugt', async () => {
     );
     assert.equal(requests.length, 2);
     assert.match(requests[0].messages.at(-1).content, /maximal 220 Woerter/);
-    assert.match(requests[1].messages.at(-2).content, /vorige Generierung hat das verbindliche Zeitbudget verletzt/);
+    assert.equal(requests[1].messages.at(-3).role, 'assistant');
+    assert.match(requests[1].messages.at(-2).content, /REPARIERE DIE DIREKT VORHERIGE JSON-AUSGABE/);
+    assert.match(requests[1].messages.at(-1).content, /LETZTE VERBINDLICHE UMFANGSKONTROLLE/);
+    assert.equal(requests[1].temperature, 0.3);
     assert.equal(pruefeZeitbudget(result, materialZeitbudget(30)), null);
   } finally {
     globalThis.fetch = originalFetch;
