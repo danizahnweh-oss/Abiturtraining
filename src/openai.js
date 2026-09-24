@@ -1,5 +1,6 @@
 import { API_TIMEOUT } from './config.js';
 import { extractZeitbudget, priorisiereZeitbudget, pruefeZeitbudget } from './time-budget.js';
+import { pruefeKorrekturqualitaet } from './response-quality.js';
 
 /* ================= TELEGRAM ERROR-ALERT ================= */
 // Throttle: pro (status+errorType)-Kombi max. 1 Alert / 30 min, damit ein
@@ -104,7 +105,8 @@ function userFriendlyError(status) {
 
 /* ================= OPENAI CALL ================= */
 
-export async function callOpenAI(env, messages, maxTokens = 4000, { model = "gpt-5.2", temperature = 0.7, jsonMode = true, timeBudgetRetries = 2 } = {}) {
+export async function callOpenAI(env, messages, maxTokens = 4000, { model, temperature = 0.7, jsonMode = true, timeBudgetRetries = 2, qualityRetries = 2 } = {}) {
+  model = model || env.OPENAI_QUALITY_MODEL || env.OPENAI_MODEL || "gpt-5.2";
   const t0 = Date.now();
   let phase = "fetch";
   try {
@@ -179,9 +181,26 @@ export async function callOpenAI(env, messages, maxTokens = 4000, { model = "gpt
             content: `Die vorige Generierung hat das verbindliche Zeitbudget verletzt (${detail}). Erzeuge die vollstaendige JSON-Antwort neu. Kuerze und buendele die Quellen inhaltlich, statt Texte lediglich abzuschneiden. Halte diesmal alle Zeitbudget-Grenzen exakt ein.`
           }
         ];
-        return callOpenAI(env, retryMessages, maxTokens, { model, temperature, jsonMode, timeBudgetRetries: timeBudgetRetries - 1 });
+        return callOpenAI(env, retryMessages, maxTokens, { model, temperature, jsonMode, timeBudgetRetries: timeBudgetRetries - 1, qualityRetries });
       }
       throw new Error(`Die KI konnte den Materialumfang fuer ${timeBudget.minutes} Minuten nicht verlaesslich einhalten. Bitte erneut versuchen.`);
+    }
+    const gradingProblem = jsonMode ? pruefeKorrekturqualitaet(content) : null;
+    if (gradingProblem?.blocking) {
+      const detail = gradingProblem.problems.join('; ');
+      console.warn(`[callOpenAI] Korrekturqualitaet verletzt: ${detail}`);
+      if (qualityRetries > 0) {
+        const retryMessages = [
+          ...originalMessages,
+          { role: 'assistant', content },
+          {
+            role: 'system',
+            content: `Die vorige Korrektur war rechnerisch oder inhaltlich nicht konsistent (${detail}). Pruefe jede Teilbewertung erneut, begruende sie anhand der Schuelerleistung und gib das vollstaendige korrigierte JSON mit exakt stimmigen Summen aus.`
+          }
+        ];
+        return callOpenAI(env, retryMessages, maxTokens, { model, temperature, jsonMode, timeBudgetRetries, qualityRetries: qualityRetries - 1 });
+      }
+      throw new Error('Die KI-Korrektur war nach mehreren Kontrollen nicht konsistent. Bitte erneut versuchen.');
     }
     return content;
   } catch (err) {
@@ -193,7 +212,8 @@ export async function callOpenAI(env, messages, maxTokens = 4000, { model = "gpt
 /* ================= OPENAI STREAMING CALL ================= */
 // Streamt die OpenAI-Antwort chunk-weise. Ruft onChunk(delta) für jedes Text-Fragment auf.
 // Gibt den vollständigen Content-String zurück.
-export async function callOpenAIStream(env, messages, maxTokens = 4000, { model = "gpt-5.2", temperature = 0.7, jsonMode = true } = {}, onChunk) {
+export async function callOpenAIStream(env, messages, maxTokens = 4000, { model, temperature = 0.7, jsonMode = true } = {}, onChunk) {
+  model = model || env.OPENAI_QUALITY_MODEL || env.OPENAI_MODEL || "gpt-5.2";
   const t0 = Date.now();
   let reader = null;
   const controller = new AbortController();

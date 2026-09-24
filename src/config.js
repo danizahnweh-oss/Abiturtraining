@@ -2,6 +2,7 @@
 /* Konstanten, Prompt-Templates und Zeitanpassungs-Funktionen */
 
 import { materialZeitbudget, zeitbudgetPrompt } from './time-budget.js';
+import { KORREKTUR_QUALITAETSHINWEIS } from './response-quality.js';
 
 /* ---- Rate Limiting & Auth ---- */
 export const RATE_LIMIT_WINDOW = 60 * 1000;
@@ -40,7 +41,7 @@ export const KEINE_LOESUNGSHINWEISE = KEINE_LOESUNGSHINWEISE_BASE;
 export const ERWARTUNGSHORIZONT = `\n\nBEWERTUNGSMETHODE: Erstelle ZUERST intern einen Erwartungshorizont für JEDE Teilaufgabe, BEVOR du die Schülerlösung bewertest:
 1. Welche konkreten Inhalte, Fachbegriffe und Lösungsschritte werden für volle BE erwartet?
 2. Wie verteilen sich die BE auf die einzelnen erwarteten Inhaltspunkte?
-3. Bewerte dann die Schülerlösung Punkt für Punkt GEGEN diesen Erwartungshorizont — wie ein Lehrer mit Korrekturschlüssel.`;
+3. Bewerte dann die Schülerlösung Punkt für Punkt GEGEN diesen Erwartungshorizont — wie ein Lehrer mit Korrekturschlüssel.${KORREKTUR_QUALITAETSHINWEIS}`;
 
 export const KORREKTUR_SINGLE = ERWARTUNGSHORIZONT + `\n\nZUSÄTZLICH im JSON-Output:
 - "feedback_kurz": Array mit 3–5 kurzen Stichpunkten (je max. 1 Satz). Fasse die wichtigsten Stärken und Schwächen der Arbeit zusammen. Format: ["Stärke/Schwäche 1", "Stärke/Schwäche 2", ...]. Beginne positive Punkte mit ✓ und negative mit ✗.

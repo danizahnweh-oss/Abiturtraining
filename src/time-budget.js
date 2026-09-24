@@ -94,6 +94,66 @@ function textFromMaterial(material) {
   return '';
 }
 
+function taskCountFromText(value) {
+  if (typeof value !== 'string' || !value.trim()) return 0;
+  const matches = value.match(/(?:^|\s)(?:Aufgabe\s*)?(?:\d+(?:\.\d+)+|\d+[.)]|[a-z][.)])(?=\s)/gimu);
+  return matches ? matches.length : 0;
+}
+
+function collectTaskQuality(parsed) {
+  const taskArrays = [];
+  const taskTexts = [];
+  const materialGroups = [];
+  const placeholders = [];
+  const seen = new Set();
+
+  function walk(value, key = '', path = '') {
+    if (typeof value === 'string') {
+      if (/(?:task_instruction|aufgabe|teilaufgabe)/i.test(key)) taskTexts.push(value);
+      if (/\b(?:EIGENER WERT|PLATZHALTER|LOREM IPSUM|TODO|HIER EINFUEGEN)\b/i.test(value)) {
+        placeholders.push(path || key || 'Ausgabe');
+      }
+      return;
+    }
+    if (!value || typeof value !== 'object' || seen.has(value)) return;
+    seen.add(value);
+
+    if (Array.isArray(value)) {
+      if (/teilaufgaben/i.test(key)) taskArrays.push(value);
+      if (/material/i.test(key)) materialGroups.push(value);
+      value.forEach((item, index) => walk(item, key, `${path || key}[${index}]`));
+      return;
+    }
+
+    for (const [childKey, child] of Object.entries(value)) {
+      walk(child, childKey, path ? `${path}.${childKey}` : childKey);
+    }
+  }
+
+  walk(parsed);
+
+  const arrayTaskCount = taskArrays.reduce((sum, tasks) => sum + tasks.length, 0);
+  const textTaskCount = Math.max(0, ...taskTexts.map(taskCountFromText));
+  const taskCount = arrayTaskCount || textTaskCount;
+  const combinedTaskText = taskTexts.join('\n');
+  const unreferencedMaterials = [];
+
+  for (const materials of materialGroups) {
+    materials.forEach((material, index) => {
+      if (!material || typeof material !== 'object') return;
+      const id = String(material.id || `M${index + 1}`).trim();
+      if (!/^M\s*\d+/i.test(id)) return;
+      const compactId = id.replace(/\s+/g, '');
+      const referencePattern = new RegExp(`\\b${compactId.replace(/([.*+?^${}()|[\\]\\])/g, '\\$1')}\\b`, 'i');
+      if (combinedTaskText && !referencePattern.test(combinedTaskText.replace(/M\s+(\d+)/gi, 'M$1'))) {
+        unreferencedMaterials.push(id);
+      }
+    });
+  }
+
+  return { taskCount, placeholders, unreferencedMaterials };
+}
+
 export function pruefeZeitbudget(outputText, budget) {
   if (!budget) return null;
   const parsed = parseJson(outputText);
@@ -132,6 +192,7 @@ export function pruefeZeitbudget(outputText, budget) {
   const lengths = textMaterials.map(wordCount);
   const totalWords = lengths.reduce((sum, length) => sum + length, 0);
   const totalMaterials = primaryMaterials + [...materialArrays].reduce((sum, materials) => sum + materials.length, 0);
+  const taskQuality = collectTaskQuality(parsed);
   const problems = [];
 
   if (lengths.length > budget.maxTextMaterials) problems.push(`${lengths.length} Textquellen statt maximal ${budget.maxTextMaterials}`);
@@ -139,6 +200,16 @@ export function pruefeZeitbudget(outputText, budget) {
   const longest = lengths.length ? Math.max(...lengths) : 0;
   if (longest > budget.maxWordsPerText) problems.push(`${longest} Woerter in einer Textquelle statt maximal ${budget.maxWordsPerText}`);
   if (totalMaterials > budget.maxMaterials) problems.push(`${totalMaterials} Materialien statt maximal ${budget.maxMaterials}`);
+  if (taskQuality.taskCount > budget.maxTasks) problems.push(`${taskQuality.taskCount} Teilaufgaben statt maximal ${budget.maxTasks}`);
+  if (taskQuality.placeholders.length) problems.push(`Platzhalter statt fertiger Inhalte in ${taskQuality.placeholders.slice(0, 3).join(', ')}`);
+  if (budget.minutes <= 60 && taskQuality.unreferencedMaterials.length) problems.push(`nicht verwendete Materialien: ${taskQuality.unreferencedMaterials.join(', ')}`);
 
-  return problems.length ? { problems, totalWords, totalMaterials, textMaterials: lengths.length } : null;
+  return problems.length ? {
+    problems,
+    totalWords,
+    totalMaterials,
+    textMaterials: lengths.length,
+    taskCount: taskQuality.taskCount,
+    unreferencedMaterials: taskQuality.unreferencedMaterials
+  } : null;
 }

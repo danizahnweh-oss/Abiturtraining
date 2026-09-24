@@ -76,13 +76,43 @@ test('zu lange oder zu viele Materialien werden erkannt', () => {
 test('kompakte 30-Minuten-Aufgabe besteht die Umfangspruefung', () => {
   const text = Array.from({ length: 180 }, (_, index) => `Wort${index}`).join(' ');
   const output = JSON.stringify({
-    task_instruction: '1. Analysieren Sie M1. (8 BE) 2. Beurteilen Sie. (4 BE)',
+    task_instruction: '1. Analysieren Sie M1. (8 BE) 2. Beurteilen Sie die Statistik M2. (4 BE)',
     materials: [
       { type: 'text', content: text },
       { type: 'statistik', content: '| A | B |' }
     ]
   });
   assert.equal(pruefeZeitbudget(output, materialZeitbudget(30)), null);
+});
+
+test('zu viele Teilaufgaben werden auch bei kompakten Quellen erkannt', () => {
+  const output = JSON.stringify({
+    aufgabe: 'Kurze Aufgabe',
+    teilaufgaben: [
+      { id: 'a)', text: 'Nennen Sie einen Aspekt.', be: 2 },
+      { id: 'b)', text: 'Erklaeren Sie den Zusammenhang.', be: 4 },
+      { id: 'c)', text: 'Beurteilen Sie die Aussage.', be: 6 }
+    ],
+    materials: []
+  });
+  const problem = pruefeZeitbudget(output, materialZeitbudget(30));
+  assert.ok(problem);
+  assert.equal(problem.taskCount, 3);
+  assert.match(problem.problems.join(' '), /3 Teilaufgaben statt maximal 2/);
+});
+
+test('Platzhalter und ungenutzte Materialien werden abgelehnt', () => {
+  const output = JSON.stringify({
+    task_instruction: '1. Analysieren Sie M1. 2. Beurteilen Sie die Aussage.',
+    materials: [
+      { id: 'M1', type: 'text', content: 'Kurzer echter Text.' },
+      { id: 'M2', type: 'statistik', content: '| Jahr | EIGENER WERT |' }
+    ]
+  });
+  const problem = pruefeZeitbudget(output, materialZeitbudget(30));
+  assert.ok(problem);
+  assert.match(problem.problems.join(' '), /Platzhalter/);
+  assert.match(problem.problems.join(' '), /nicht verwendete Materialien: M2/);
 });
 
 test('Hauptmaterial und Zusatzmaterialien zaehlen gemeinsam', () => {
