@@ -2,6 +2,7 @@ import { CHOICE_FORMAT, generateChoiceExam, gradeChoiceExam, modelChoiceExam } f
 import { jsonResponse, truncate, extractJSON, buildUserContent } from '../utils.js';
 import { callOpenAI } from '../openai.js';
 import { KORREKTUR_SINGLE, BILDER_HINWEIS_TEXT, zeitanpassung, klausurZeitHinweis, skaliereTokens } from '../config.js';
+import { materialZeitbudget } from '../time-budget.js';
 
 export async function handleParseTaskEthik(request, env) {
   const { images } = await request.json();
@@ -165,6 +166,13 @@ export async function handleGenerateEthik(request, env) {
   const schwerpunktLabel = (schwerpunkt && schwerpunkt !== "random" && lb.schwerpunkte[schwerpunkt])
     ? lb.schwerpunkte[schwerpunkt]
     : "frei wählbar innerhalb des Lernbereichs";
+  const shortBudget = materialZeitbudget(zeitMinuten);
+  const structureRule = shortBudget
+    ? `Die Aufgabe besteht aus GENAU ${shortBudget.maxTasks} Teilaufgaben. Bündele AFB I/II sinnvoll in der ersten und AFB II/III in der zweiten Teilaufgabe.`
+    : 'Die Aufgabe besteht aus 3-4 Teilaufgaben mit steigendem Anforderungsniveau.';
+  const textRule = shortBudget
+    ? `Textmaterialien: insgesamt höchstens ${shortBudget.maxTextWords} Wörter; keine Mindestlänge.`
+    : 'Textmaterialien: MINDESTENS 400-800 Wörter pro Material! Authentische, ausführliche philosophische Quellentexte. NICHT kürzer als 400 Wörter!';
 
   const systemPrompt = `Du bist ein Experte für das bayerische Abitur im Fach Ethik (ab 2026, G9).
 Erstelle eine authentische Prüfungsaufgabe für Prüfungsteil A auf ${niveauLabel}.
@@ -177,16 +185,17 @@ ${aufgabenAnzahl > 1 ? `- Erstelle ${aufgabenAnzahl} separate Aufgaben (je ca. $
 - Jede Aufgabe kompakt und kleinschrittiger` : '- Erstelle GENAU 1 Hauptaufgabe mit Teilaufgaben. KEINE separaten Aufgaben 1, 2, 3!'}
 
 STRUKTUR DER AUFGABE:
-- Die Aufgabe besteht aus 3-4 Teilaufgaben mit steigendem Anforderungsniveau
-- Teilaufgabe 1: Anforderungsbereich I (Reproduktion) – z.B. "Geben Sie … wieder!", "Stellen Sie … dar!"
+- ${structureRule}
+${shortBudget ? `- Teilaufgabe 1: kompakte Reproduktion und Analyse mit Materialbezug
+- Teilaufgabe 2: begründete Reflexion oder Beurteilung mit Materialbezug` : `- Teilaufgabe 1: Anforderungsbereich I (Reproduktion) – z.B. "Geben Sie … wieder!", "Stellen Sie … dar!"
 - Teilaufgaben 2-3: Anforderungsbereich II (Transfer/Reorganisation) – z.B. "Erläutern Sie …", "Analysieren Sie …", "Vergleichen Sie …"
-- Letzte Teilaufgabe: Anforderungsbereich III (Reflexion/Problemlösung) – z.B. "Erörtern Sie …", "Beurteilen Sie …", "Nehmen Sie Stellung …"
+- Letzte Teilaufgabe: Anforderungsbereich III (Reflexion/Problemlösung) – z.B. "Erörtern Sie …", "Beurteilen Sie …", "Nehmen Sie Stellung …"`}
 - Verwende die offiziellen Operatoren: wiedergeben, darstellen, beschreiben, erläutern, analysieren, vergleichen, herausarbeiten, erörtern, beurteilen, bewerten, Stellung nehmen, gestalten
 - Gib bei jeder Teilaufgabe die BE (Bewertungseinheiten) an, Summe = ${bePruefungA}
 
 MATERIALIEN:
 - Materialien: ${totalBE < 20 ? '1 Material (philosophischer Text ODER Statistik)' : totalBE < 40 ? '1-2 Materialien (philosophische Texte, Statistiken)' : '2-3 Materialien (philosophische Texte, literarische Auszüge, Statistiken)'}
-- Textmaterialien: MINDESTENS 400-800 Wörter pro Material! Authentische, ausführliche philosophische Quellentexte (Essays, Fachtexte, Zeitungsartikel zu ethischen Themen, Auszüge aus philosophischen Werken). NICHT kürzer als 400 Wörter!
+- ${textRule}
 - Statistiken: Als Markdown-Tabelle mit plausiblen Zahlen, mindestens 6-10 Datenzeilen
 - Materialien werden in der Aufgabenstellung mit M 1, M 2 etc. referenziert
 - Erstelle ergänzende Materialien NUR wenn sie in den Aufgabenstellungen referenziert werden ("mithilfe von M 2", "anhand von M 2"). Keine ungenutzten Materialien! BEVORZUGE "foto" (Alltagssituationen, Symbolbilder, Natur) oder "statistik" (Tabellen mit echten Daten). Verwende "bild" NUR wenn ein Schaubild wirklich nötig ist:
@@ -210,10 +219,7 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
 {
   "task_instruction": "Vollständige Aufgabenstellung mit allen Teilaufgaben, BE-Angaben und Materialverweisen",
   "materials": [
-    {"title": "Titel des Materials", "type": "text", "content": "Ausführlicher Materialtext (400-800 Wörter)", "source": "Autor, Quelle, Datum"},
-    {"title": "Statistik: ...", "type": "statistik", "content": "| Spalte1 | Spalte2 |\\n|---|---|\\n| Daten | ... |", "source": "Institut, Jahr"},
-    {"title": "Schaubild: ...", "type": "bild", "content": "Bildprompt auf Englisch. Visuellen Inhalt beschreiben; korrekt geschriebene deutsche Beschriftungen dürfen direkt im Bild stehen.", "bild_labels": {"1": "Beschriftung 1", "2": "Beschriftung 2"}, "source": ""},
-    {"title": "Foto: ...", "type": "foto", "content": "Prompt KOMPLETT auf Englisch (5-10 Sätze). Realistisches Foto. KEINE Personen!", "source": ""}
+    {"title": "Titel des erforderlichen Materials", "type": "text", "content": "Vollständiger Materialinhalt innerhalb des Zeitbudgets", "source": "Autor, Quelle, Datum oder fiktives Übungsmaterial"}
   ],
   "lernbereich": "${lernbereich || "12_1"}",
   "thema": "Konkretes Thema der Aufgabe"
@@ -224,9 +230,9 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
 - Schwerpunkt: ${schwerpunktLabel}
 - Niveau: ${niveauLabel}
 
-Die Aufgabe soll 3-4 Teilaufgaben umfassen mit steigendem Anforderungsniveau (AFB I → II → III).
+${shortBudget ? `Die Aufgabe hat GENAU ${shortBudget.maxTasks} Teilaufgaben und höchstens ${shortBudget.maxMaterials} Materialien. Alle Textquellen zusammen haben höchstens ${shortBudget.maxTextWords} Wörter. Keine Mindestlänge, kein zusätzliches Bild.` : `Die Aufgabe soll 3-4 Teilaufgaben umfassen mit steigendem Anforderungsniveau (AFB I → II → III).
 Erstelle 2-3 passende Materialien (philosophische Texte, Statistiken, plus 1 Bild).
-KRITISCH: Jedes Textmaterial MUSS 400-800 Wörter lang sein — vollständige, ausführliche Quellentexte, NICHT Zusammenfassungen! Die Materialien sollen MEHR Informationen enthalten als für die Aufgaben nötig — Schüler müssen die relevanten Inhalte selbst herausarbeiten.
+KRITISCH: Jedes Textmaterial MUSS 400-800 Wörter lang sein — vollständige, ausführliche Quellentexte, NICHT Zusammenfassungen! Die Materialien sollen MEHR Informationen enthalten als für die Aufgaben nötig — Schüler müssen die relevanten Inhalte selbst herausarbeiten.`}
 AUFGABENBEZUG: JEDES bereitgestellte Material MUSS in mindestens einer Teilaufgabe direkt referenziert und verwendet werden. Es darf KEINE Materialien ohne Aufgabenbezug geben!
 Summe der BE für Prüfungsteil A: ${bePruefungA}.
 ${!isEA ? `STRENG BEACHTEN: Dies ist eine gA-Aufgabe! Verwende NUR Stoff aus dem gA-Lehrplan. Keine eA-exklusiven Lernbereiche oder Themen!` : ""}`;
