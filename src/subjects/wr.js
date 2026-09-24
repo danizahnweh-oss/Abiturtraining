@@ -2,6 +2,7 @@ import { jsonResponse, truncate, extractJSON, buildUserContent } from '../utils.
 import { callOpenAI } from '../openai.js';
 import { sumWRPoints, validateWRPoints, wrNotenpunkte } from './wr-points.js';
 import { BILDER_HINWEIS_TEXT, UEBUNGSAUFGABEN_ANWEISUNG, KORREKTURHILFE_GEWAEHRLEISTUNG, zeitanpassung, klausurZeitHinweis, skaliereTokens } from '../config.js';
+import { materialZeitbudget } from '../time-budget.js';
 
 async function generateValidatedWR(env, messages, tokens, targets) {
   let raw = await callOpenAI(env, messages, tokens);
@@ -29,9 +30,20 @@ export async function handleGenerateWR(request, env) {
   if (!Number.isInteger(gesamtBE) || gesamtBE < 10 || gesamtBE > 150) return jsonResponse({ error: 'Bitte 10 bis 150 ganze Bewertungseinheiten wählen.' }, 400, env);
   const zeitMinuten = zeit || (isGA ? 210 : 135);
   const zeitHinweis = klausurZeitHinweis(zeitMinuten, gesamtBE, 2.5);
+  const shortBudget = materialZeitbudget(zeitMinuten);
   const aufgabenAnzahl = Math.min(Math.max(anzahl || 1, 1), 5);
-  const bloecke = isGA ? "2-3 Aufgabenblöcke (integriert: BWL+VWL+Recht)" : "2-3 Aufgabenblöcke";
-  const materialCount = isGA ? "4-5 Materialien" : "3-4 Materialien";
+  const bloecke = shortBudget
+    ? "genau 1 kompakten Aufgabenblock"
+    : isGA ? "2-3 Aufgabenblöcke (integriert: BWL+VWL+Recht)" : "2-3 Aufgabenblöcke";
+  const materialCount = shortBudget
+    ? `höchstens ${shortBudget.maxMaterials} Materialien insgesamt`
+    : isGA ? "4-5 Materialien" : "3-4 Materialien";
+  const taskCountRule = shortBudget
+    ? `Der einzige Aufgabenblock hat insgesamt GENAU ${shortBudget.maxTasks} Teilaufgaben.`
+    : 'Jeder Aufgabenblock hat 2-4 Teilaufgaben mit steigendem Anforderungsniveau.';
+  const textLengthRule = shortBudget
+    ? `Textmaterialien: insgesamt höchstens ${shortBudget.maxTextWords} Wörter; keine Mindestlänge.`
+    : 'Textmaterialien: MINDESTENS 300-600 Wörter pro Material! Vollständige, ausführliche Texte — NICHT Zusammenfassungen oder Stichpunkte! Die Materialien sollen MEHR Informationen enthalten als strikt nötig, damit Schüler die relevanten Inhalte selbst herausarbeiten müssen.';
 
   const fachbereiche = {
     bwl: {
@@ -94,7 +106,7 @@ ${aufgabenAnzahl > 1 ? `- Erstelle ${aufgabenAnzahl} separate Aufgabenblöcke (j
 - Jeder Block kompakt und kleinschrittiger` : ''}
 
 AUFGABENSTRUKTUR:
-- Jeder Aufgabenblock hat 2-4 Teilaufgaben mit steigendem Anforderungsniveau
+- ${taskCountRule}
 - AFB I (ca. 20% der BE):
   Wirtschaft: nennen/wiedergeben/zusammenfassen, beschreiben/darstellen, berechnen/ermitteln
   Recht: nennen/aufzählen/wiedergeben/zusammenfassen, beschreiben/schildern/kennzeichnen/darstellen, ermitteln
@@ -115,7 +127,7 @@ MATERIALIEN:
 - Materialien (M1, M2, …) sind der Kern der Aufgabe
 - AUFGABENBEZUG: JEDES bereitgestellte Material MUSS in mindestens einer Teilaufgabe direkt referenziert und verwendet werden. Es darf KEINE Materialien ohne Aufgabenbezug geben!
 - Typen: Zeitungsartikel, Tabellen/Statistiken, Bilanzen, Gesetzestexte, Schaubilder, Fallbeispiele
-- Textmaterialien: MINDESTENS 300-600 Wörter pro Material! Vollständige, ausführliche Texte — NICHT Zusammenfassungen oder Stichpunkte! Die Materialien sollen MEHR Informationen enthalten als strikt nötig, damit Schüler die relevanten Inhalte selbst herausarbeiten müssen.
+- ${textLengthRule}
 - Tabellen/Statistiken: Als Markdown-Tabelle mit plausiblen Zahlen, mindestens 6-10 Datenzeilen
 - Gesetzestexte: Korrekte §-Angaben mit vereinfachtem Wortlaut (150-300 Wörter)
 - Jedes Material hat einen Titel und eine Quellenangabe
@@ -140,7 +152,7 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
     }
   ],
   "materialien": [
-    {"nr": "M1", "titel": "Titel des Materials", "typ": "text", "inhalt": "Ausführlicher Materialtext (300-600 Wörter!)", "quelle": "Quellenangabe"},
+    {"nr": "M1", "titel": "Titel des Materials", "typ": "text", "inhalt": "Vollständiger Materialtext innerhalb des Zeitbudgets", "quelle": "Quellenangabe"},
     {"nr": "M2", "titel": "Statistik: ...", "typ": "statistik", "inhalt": "| Spalte1 | Spalte2 |\\n|---|---|\\n| ... | ... |", "quelle": "Institut, Jahr"},
     {"nr": "M3", "titel": "Schaubild: ...", "typ": "bild", "inhalt": "Bildprompt auf Englisch. Visuellen Inhalt beschreiben; korrekt geschriebene deutsche Beschriftungen dürfen direkt im Bild stehen.", "bild_labels": {"1": "Beschriftung 1", "2": "Beschriftung 2"}, "quelle": ""},
     {"nr": "M4", "titel": "Foto: ...", "typ": "foto", "inhalt": "Prompt KOMPLETT auf Englisch (5-10 Sätze). Realistisches Foto. KEINE Personen!", "quelle": ""}
@@ -157,8 +169,8 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
 - Gesamt-BE: ${gesamtBE}
 
 Die Aufgabe soll ${bloecke} mit insgesamt ${gesamtBE} BE umfassen.
-Erstelle ${materialCount} (Texte, Tabellen, ggf. Gesetzestexte) plus 1 Bild.
-KRITISCH: Jedes Textmaterial MUSS 300-600 Wörter lang sein! Vollständige Texte, NICHT Zusammenfassungen. Die Materialien sollen MEHR Informationen enthalten als nötig — Schüler müssen die relevanten Inhalte herausarbeiten. Erstelle Bilder als Material NUR wenn sie in den Aufgabenstellungen referenziert werden. Keine ungenutzten Materialien!
+Erstelle ${materialCount} (Texte, Tabellen, ggf. Gesetzestexte)${shortBudget ? '.' : ' plus 1 Bild.'}
+${shortBudget ? `KRITISCH: Insgesamt GENAU ${shortBudget.maxTasks} Teilaufgaben und höchstens ${shortBudget.maxTextWords} Wörter fortlaufender Quellentext. Keine Mindestlänge und kein zusätzliches Bild.` : 'KRITISCH: Jedes Textmaterial MUSS 300-600 Wörter lang sein! Vollständige Texte, NICHT Zusammenfassungen. Die Materialien sollen MEHR Informationen enthalten als nötig — Schüler müssen die relevanten Inhalte herausarbeiten. Erstelle Bilder als Material NUR wenn sie in den Aufgabenstellungen referenziert werden. Keine ungenutzten Materialien!'}
 AUFGABENBEZUG: JEDES bereitgestellte Material MUSS in mindestens einer Teilaufgabe direkt referenziert und verwendet werden. Es darf KEINE Materialien ohne Aufgabenbezug geben!
 ${isGA ? `STRENG BEACHTEN: Dies ist eine gA-Aufgabe! Verwende NUR Stoff aus dem gA-Lehrplan. Themen mit "nur eA" dürfen NICHT vorkommen!` : ""}`;
 

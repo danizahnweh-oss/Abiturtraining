@@ -107,9 +107,9 @@ function collectTaskQuality(parsed) {
   const placeholders = [];
   const seen = new Set();
 
-  function walk(value, key = '', path = '') {
+  function walk(value, key = '', path = '', inTask = false) {
     if (typeof value === 'string') {
-      if (/(?:task_instruction|aufgabe|teilaufgabe)/i.test(key)) taskTexts.push(value);
+      if (inTask || /(?:task_instruction|aufgabe|teilaufgabe)/i.test(key)) taskTexts.push(value);
       if (/\b(?:EIGENER WERT|PLATZHALTER|LOREM IPSUM|TODO|HIER EINFUEGEN)\b/i.test(value)) {
         placeholders.push(path || key || 'Ausgabe');
       }
@@ -121,12 +121,13 @@ function collectTaskQuality(parsed) {
     if (Array.isArray(value)) {
       if (/teilaufgaben/i.test(key)) taskArrays.push(value);
       if (/material/i.test(key)) materialGroups.push(value);
-      value.forEach((item, index) => walk(item, key, `${path || key}[${index}]`));
+      const childIsTask = inTask || /teilaufgaben/i.test(key);
+      value.forEach((item, index) => walk(item, key, `${path || key}[${index}]`, childIsTask));
       return;
     }
 
     for (const [childKey, child] of Object.entries(value)) {
-      walk(child, childKey, path ? `${path}.${childKey}` : childKey);
+      walk(child, childKey, path ? `${path}.${childKey}` : childKey, inTask);
     }
   }
 
@@ -141,7 +142,7 @@ function collectTaskQuality(parsed) {
   for (const materials of materialGroups) {
     materials.forEach((material, index) => {
       if (!material || typeof material !== 'object') return;
-      const id = String(material.id || `M${index + 1}`).trim();
+      const id = String(material.id || material.nr || `M${index + 1}`).trim();
       if (!/^M\s*\d+/i.test(id)) return;
       const compactId = id.replace(/\s+/g, '');
       const referencePattern = new RegExp(`\\b${compactId.replace(/([.*+?^${}()|[\\]\\])/g, '\\$1')}\\b`, 'i');
@@ -154,7 +155,7 @@ function collectTaskQuality(parsed) {
   return { taskCount, placeholders, unreferencedMaterials };
 }
 
-export function pruefeZeitbudget(outputText, budget) {
+export function pruefeZeitbudget(outputText, budget, { includeValid = false } = {}) {
   if (!budget) return null;
   const parsed = parseJson(outputText);
   if (!parsed) return null;
@@ -204,12 +205,14 @@ export function pruefeZeitbudget(outputText, budget) {
   if (taskQuality.placeholders.length) problems.push(`Platzhalter statt fertiger Inhalte in ${taskQuality.placeholders.slice(0, 3).join(', ')}`);
   if (budget.minutes <= 60 && taskQuality.unreferencedMaterials.length) problems.push(`nicht verwendete Materialien: ${taskQuality.unreferencedMaterials.join(', ')}`);
 
-  return problems.length ? {
+  const result = {
     problems,
+    valid: problems.length === 0,
     totalWords,
     totalMaterials,
     textMaterials: lengths.length,
     taskCount: taskQuality.taskCount,
     unreferencedMaterials: taskQuality.unreferencedMaterials
-  } : null;
+  };
+  return problems.length || includeValid ? result : null;
 }

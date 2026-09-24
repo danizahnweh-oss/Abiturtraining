@@ -2,6 +2,7 @@ import { jsonResponse, truncate, extractJSON, buildUserContent } from '../utils.
 import { callOpenAI } from '../openai.js';
 import { BILDER_HINWEIS_MINT, UEBUNGSAUFGABEN_ANWEISUNG, klausurZeitHinweis, KEINE_LOESUNGSHINWEISE } from '../config.js';
 import { repairPlaceholderMaterials } from './physik.js';
+import { materialZeitbudget } from '../time-budget.js';
 
 export async function handleGenerateBio(request, env) {
   const body = await request.json();
@@ -14,6 +15,7 @@ export async function handleGenerateBio(request, env) {
   const totalBE = be || 20;
   const zeitMinuten = zeit || 45;
   const zeitHinweis = klausurZeitHinweis(zeitMinuten, totalBE, 2);
+  const shortBudget = materialZeitbudget(zeitMinuten);
   const aufgabenAnzahl = Math.min(Math.max(anzahl || 1, 1), 5);
 
   const sgThemen = {
@@ -52,7 +54,7 @@ ${aufgabenAnzahl > 1 ? `Erstelle ${aufgabenAnzahl} separate Aufgaben (je ~${Math
 
 ANFORDERUNGEN:
 - Bette die Aufgabe in einen KONKRETEN, ALLTAGSNAHEN Kontext ein (z.B. ein bestimmter Organismus, ein Experiment, ein aktuelles Forschungsergebnis)
-- Erstelle MINDESTENS 3 Teilaufgaben mit steigendem Anforderungsniveau (AFB I → II → III)
+- ${shortBudget ? `Erstelle insgesamt GENAU ${shortBudget.maxTasks} Teilaufgaben. Bündele die Anforderungsbereiche sinnvoll.` : 'Erstelle MINDESTENS 3 Teilaufgaben mit steigendem Anforderungsniveau (AFB I → II → III)'}
 - Operatoren gezielt nach ISB-Definition einsetzen — der Operator bestimmt EXAKT, was erwartet wird. Verlange NICHT mehr als der Operator vorgibt!
   • AFB I (Reproduktion):
     - "Nennen/Angeben Sie" = Begriffe, Sachverhalte oder Daten OHNE weitere Erklärungen aufzählen
@@ -136,24 +138,33 @@ Antworte NUR mit validem JSON (kein Markdown-Codeblock). EXAKTES Format:
   ]
 }`;
 
+  const referenceExample = shortBudget ? {
+    aufgabe: 'Eine Forschungsgruppe untersucht eine genetisch bedingte Stoffwechselstörung.',
+    teilaufgaben: [
+      { id: 'a)', text: 'Analysieren Sie den beschriebenen Erbgang.', be: Math.floor(totalBE / 2) },
+      { id: 'b)', text: 'Beurteilen Sie die Aussagekraft der Untersuchung.', be: totalBE - Math.floor(totalBE / 2) }
+    ],
+    gesamt_be: totalBE,
+    sachgebiet: sg,
+    material: []
+  } : {
+    aufgabe: 'In einem Ökologiepraktikum untersucht eine Schülergruppe die Fotosyntheseleistung der Wasserpflanze Elodea canadensis bei verschiedenen Temperaturen. Sie messen die Sauerstoffentwicklung über jeweils 10 Minuten.',
+    teilaufgaben: [
+      { id: 'a)', text: 'Beschreiben Sie den im Material M1 dargestellten Zusammenhang zwischen Temperatur und Sauerstoffentwicklung.', be: 4 },
+      { id: 'b)', text: 'Erläutern Sie unter Verwendung des Enzymbegriffs die Veränderung der Fotosyntheserate oberhalb von 35°C.', be: 6 },
+      { id: 'c)', text: 'Beurteilen Sie, ob der Versuchsaufbau geeignet ist, um ausschließlich den Einfluss der Temperatur auf die Fotosynthese nachzuweisen.', be: 5 }
+    ],
+    gesamt_be: 15,
+    sachgebiet: 'stoffwechsel',
+    material: [{ id: 'M1', titel: 'Sauerstoffentwicklung von Elodea', type: 'diagramm', chart_type: 'line', text: '| Temperatur (°C) | O₂-Entwicklung (µmol/h) |\\n|---|---|\\n| 5 | 12 |\\n| 25 | 89 |\\n| 35 | 118 |\\n| 45 | 41 |' }]
+  };
+
   const userPrompt = `Erstelle ${aufgabenAnzahl > 1 ? aufgabenAnzahl + ' Aufgaben' : 'eine Aufgabe'} (${totalBE} BE gesamt) im Sachgebiet ${sgInfo.title}.
 Die Aufgabe${aufgabenAnzahl > 1 ? 'n sollen' : ' soll'} abwechslungsreich und abiturrelevant sein.
 KRITISCH: Mathematische Formeln in LaTeX ($...$). Einheiten und Summenformeln als Unicode-Text (°C, µmol, CO₂, m⁻²).
 
 REFERENZBEISPIEL (Orientiere dich an diesem Qualitätsniveau):
-{
-  "aufgabe": "In einem Ökologiepraktikum untersucht eine Schülergruppe die Fotosyntheseleistung der Wasserpflanze Elodea canadensis bei verschiedenen Temperaturen. Sie messen die Sauerstoffentwicklung über jeweils 10 Minuten.",
-  "teilaufgaben": [
-    {"id": "a)", "text": "Beschreiben Sie den im Material M1 dargestellten Zusammenhang zwischen Temperatur und Sauerstoffentwicklung.", "be": 4},
-    {"id": "b)", "text": "Erläutern Sie unter Verwendung des Enzymbegriffs die Veränderung der Fotosyntheserate oberhalb von 35°C.", "be": 6},
-    {"id": "c)", "text": "Beurteilen Sie, ob der Versuchsaufbau geeignet ist, um ausschließlich den Einfluss der Temperatur auf die Fotosynthese nachzuweisen.", "be": 5}
-  ],
-  "gesamt_be": 15,
-  "sachgebiet": "stoffwechsel",
-  "material": [
-    {"id": "M1", "titel": "Sauerstoffentwicklung von Elodea bei verschiedenen Temperaturen", "type": "diagramm", "chart_type": "line", "text": "| Temperatur (°C) | O₂-Entwicklung (µmol/h) |\\n|---|---|\\n| 5 | 12 |\\n| 10 | 28 |\\n| 15 | 45 |\\n| 20 | 68 |\\n| 25 | 89 |\\n| 30 | 105 |\\n| 35 | 118 |\\n| 40 | 95 |\\n| 45 | 41 |"}
-  ]
-}`;
+${JSON.stringify(referenceExample, null, 2)}`;
 
   let openaiRes;
   try {
