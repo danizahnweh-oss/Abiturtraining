@@ -695,7 +695,7 @@ Struktur:
     };
   </script>
   <script src="ai-tutor.js"></script>
-  <script src="shared.js"></script>
+  <script src="shared.js?v=school-limits-1"></script>
 
   <!-- MODULE-SPECIFIC CODE -->
   <script>
@@ -1053,33 +1053,6 @@ Struktur:
     }
 
     /* ====== INIT ====== */
-    // Onboarding-Tour
-    if (typeof startTour === "function" && !isTourDone("fos_recht_tour_done")) {
-      setTimeout(function () {
-        startTour({
-          steps: [
-            {
-              type: "welcome",
-              title: "Rechtslehre Klausurtraining",
-              text: "Trainiere mit KI-generierten Rechtslehre-Klausuraufgaben oder lade eigene Aufgaben hoch."
-            },
-            {
-              el: "#fachbereichSection",
-              title: "Rechtsgebiet wählen",
-              text: "Wähle ein oder mehrere Rechtsgebiete für deine Klausuraufgabe.",
-              pos: "bottom"
-            },
-            {
-              el: "#generateBtn",
-              title: "Aufgabe generieren",
-              text: "Klicke hier, um eine neue Klausuraufgabe zu generieren.",
-              pos: "top"
-            }
-          ],
-          storageKey: "fos_recht_tour_done"
-        });
-      }, 500);
-    }
   </script>
 </body>
 

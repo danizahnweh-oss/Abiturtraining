@@ -711,9 +711,8 @@ Struktur:
       loginPage: "index.html"
     };
   </script>
-  <script src="tour.js"></script>
   <script src="ai-tutor.js"></script>
-  <script src="shared.js"></script>
+  <script src="shared.js?v=school-limits-1"></script>
 
   <!-- MODULE-SPECIFIC CODE -->
   <script>
@@ -1093,33 +1092,6 @@ Struktur:
 
     /* ====== INIT ====== */
 
-    // Onboarding-Tour
-    if (typeof startTour === "function" && !isTourDone("fos_vwl_tour_done")) {
-      setTimeout(function () {
-        startTour({
-          steps: [
-            {
-              type: "welcome",
-              title: "VWL Klausurtraining",
-              text: "Trainiere mit KI-generierten VWL-Klausuraufgaben oder lade eigene Aufgaben hoch."
-            },
-            {
-              el: "#fachbereichSection",
-              title: "Sachgebiet wählen",
-              text: "Wähle ein oder mehrere VWL-Sachgebiete für deine Klausuraufgabe.",
-              pos: "bottom"
-            },
-            {
-              el: "#generateBtn",
-              title: "Aufgabe generieren",
-              text: "Klicke hier, um eine neue Klausuraufgabe zu generieren.",
-              pos: "top"
-            }
-          ],
-          storageKey: "fos_vwl_tour_done"
-        });
-      }, 500);
-    }
   </script>
 </body>
 

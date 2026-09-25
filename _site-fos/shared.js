@@ -31,7 +31,9 @@ const _teacherTokenReady = new Promise(function(resolve) { _teacherTokenResolve 
 if (isTeacherMode) {
   window.addEventListener("message", function(e) {
     // Nur Nachrichten von der eigenen Origin akzeptieren (kein Cross-Origin-Token-Leak).
-    if (e.origin !== window.location.origin) return;
+    if (e.origin !== window.location.origin || e.source !== window.parent) return;
+    if (e.data && e.data.type === "teacher-adopt-task") _teacherAdoptTask();
+    if (e.data && e.data.type === "teacher-task-state-request") _updateTeacherTaskState();
     if (e.data && e.data.type === "teacher-token" && typeof e.data.token === "string") {
       _teacherToken = e.data.token;
       if (_teacherTokenResolve) { _teacherTokenResolve(_teacherToken); _teacherTokenResolve = null; }
@@ -42,22 +44,65 @@ if (isTeacherMode) {
 }
 const sharedTaskId = _urlParams.get("task_id") || null;
 
-// Teacher-Mode: Banner zum Uebernehmen der Aufgabe
+// Der Lehrerbereich bietet die Übernahme außerhalb des scrollbaren iFrames an.
+let _teacherTaskSection = null;
+let _teacherTaskObserver = null;
+let _teacherGenerationPending = 0;
+let _teacherTaskState = { ready: false, message: "Bitte zuerst eine Aufgabe erstellen oder auswählen." };
+function _updateTeacherTaskState() {
+  if (!isTeacherMode) return;
+  const hasTask = !!(_teacherTaskSection && CONFIG.storedData && Object.keys(CONFIG.storedData).length);
+  const missing = hasTask && [..._teacherTaskSection.querySelectorAll('[data-required-material]:not([data-image-state="ready"])')].find(isRequiredEducationalMaterial);
+  const ready = hasTask && !missing && !_teacherGenerationPending;
+  const message = _teacherGenerationPending ? "Die Aufgabe wird erstellt. Bitte warte einen Moment."
+    : !hasTask ? "Bitte zuerst eine Aufgabe erstellen oder auswählen."
+    : missing ? (missing.dataset.imageState === "error"
+      ? "Ein erforderliches Bild fehlt. Bitte lade es in der Aufgabe erneut."
+      : "Die Bilder werden noch erstellt. Danach kannst du die Aufgabe übernehmen.")
+    : "Aufgabe bereit. Du kannst sie jetzt übernehmen und bearbeiten.";
+  _teacherTaskState = { ready: ready, message: message };
+  const banner = document.getElementById("teacherAdoptBanner");
+  if (banner) {
+    banner.hidden = !hasTask;
+    banner.querySelector("span").textContent = message;
+    banner.querySelector("button").disabled = !ready;
+  }
+  window.parent.postMessage({ type: "teacher-task-state", ready: ready, message: message }, window.location.origin);
+}
+
 function _showTeacherAdoptBanner() {
   if (document.getElementById("teacherAdoptBanner")) return;
-  var banner = document.createElement("div");
+  const banner = document.createElement("div");
   banner.id = "teacherAdoptBanner";
-  banner.style.cssText = "position:sticky;top:0;z-index:9999;background:linear-gradient(135deg,#4f46e5,#7c3aed);color:#fff;padding:.8rem 1.2rem;display:flex;align-items:center;justify-content:space-between;gap:.8rem;flex-wrap:wrap;font-size:.9rem;box-shadow:0 2px 8px rgba(0,0,0,.2);";
-  banner.innerHTML = '<span style="font-weight:600;">Aufgabe generiert – so sehen es deine Schueler.</span>'
-    + '<button onclick="_teacherAdoptTask()" style="background:#fff;color:#4f46e5;border:none;padding:.5rem 1.2rem;border-radius:8px;font-weight:700;font-size:.85rem;cursor:pointer;min-height:44px;white-space:nowrap;">Aufgabe uebernehmen</button>';
+  // Im eingebetteten Modus liegt der primäre Button dauerhaft im Lehrerbereich.
+  banner.style.cssText = "position:sticky;top:0;z-index:100;background:var(--surface);color:var(--ink);padding:.8rem 1.2rem;border-bottom:1px solid var(--border);font-size:.9rem;";
+  banner.innerHTML = '<div style="display:flex;align-items:center;justify-content:space-between;gap:.8rem;flex-wrap:wrap;">'
+    + '<span role="status" style="font-weight:600;"></span>'
+    + '<button type="button" class="btn" onclick="_teacherAdoptTask()" style="min-height:44px;white-space:nowrap;">Aufgabe übernehmen</button></div>';
   document.body.prepend(banner);
 }
 
+function _syncTeacherTaskNavigation(step) {
+  if (!isTeacherMode) return;
+  if (_teacherTaskObserver) _teacherTaskObserver.disconnect();
+  const prefix = MODULE_CONFIG.sectionPrefix || "";
+  const taskStep = MODULE_CONFIG.steps.find(s => ["task", "reading", "listen"].includes(s));
+  _teacherTaskSection = step !== "setup" && taskStep ? document.getElementById(prefix + taskStep) : null;
+  if (_teacherTaskSection && CONFIG.storedData) {
+    _showTeacherAdoptBanner();
+    _teacherTaskObserver = new MutationObserver(_updateTeacherTaskState);
+    _teacherTaskObserver.observe(_teacherTaskSection, { subtree: true, childList: true, attributes: true, attributeFilter: ["data-image-state", "data-required-material", "class"] });
+  }
+  _updateTeacherTaskState();
+}
+
 function _teacherAdoptTask() {
-  // Same-Origin statt "*", damit Aufgabendaten nicht versehentlich an Drittseiten gehen.
+  _updateTeacherTaskState();
+  if (!_teacherTaskState.ready) return;
+  // Zusätzlich die fachbezogenen Materialprüfungen vor dem Übertragen ausführen.
+  if (!educationalMaterialsReady()) return;
+  if (typeof ensureMaterialsReady === "function" && !ensureMaterialsReady()) return;
   window.parent.postMessage({ type: "task-generated", data: CONFIG.storedData }, window.location.origin);
-  var banner = document.getElementById("teacherAdoptBanner");
-  if (banner) { banner.innerHTML = '<span style="font-weight:600;">Aufgabe uebernommen – du kannst den iFrame jetzt schliessen.</span>'; }
 }
 
 // Wartet im Teacher-Mode bis zu 5s auf das per postMessage gesetzte Lehrer-Token,
@@ -79,7 +124,7 @@ async function _ensureTeacherToken() {
 function trapFocus(container) {
   const focusable = 'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
   function getFocusable() {
-    return Array.from(container.querySelectorAll(focusable)).filter(el => !el.closest('[hidden]'));
+    return Array.from(container.querySelectorAll(focusable)).filter(el => !el.closest('[hidden], [inert]') && el.getClientRects().length > 0);
   }
   function handler(e) {
     if (e.key !== "Tab") return;
@@ -239,6 +284,13 @@ async function apiCall(endpoint, body, _isRetry) {
   // Abo-Check vor kostenpflichtigen Endpoints (generate/grade)
   if (/\/api\/(fos-)?(generate|grade)/.test(endpoint) && !isTeacherMode) {
     var sub = await checkSubscription();
+    if (sub.status === "unavailable") throw new Error(sub.message);
+    if (sub.status === "authentication_required") {
+      _resetStudentAuthentication();
+      return new Promise(function(resolve, reject) {
+        requireLogin(function() { apiCall(endpoint, body, true).then(resolve).catch(reject); });
+      });
+    }
     var isGrade = /\/api\/(fos-)?grade/.test(endpoint);
     // Generierung: nur mit Abo/Trial. Korrektur: auch mit Lehrer-Credits.
     var hasAccess = sub.status === "active" || sub.status === "trialing" || (isGrade && sub.teacher_credits_available);
@@ -270,6 +322,7 @@ async function apiCall(endpoint, body, _isRetry) {
   }
   if (!res.ok) {
     const err = await res.json().catch(() => ({}));
+    if (res.status === 429 || res.status === 503) throw _requestBusyError(res);
     throw new Error(err.error || `HTTP ${res.status}`);
   }
   const json = await res.json();
@@ -342,69 +395,118 @@ function _archiveCorrection(resultId) {
 
 /* ================= SUBSCRIPTION CHECK ================= */
 
-// Abo-Status im Cache halten (pro Session)
+// Status wird pro Anmeldung geteilt; vorübergehende Fehler sind kein fehlender Zugang.
 var _subscriptionCache = null;
 var _subscriptionCacheTime = 0;
-var SUBSCRIPTION_CACHE_TTL = 30 * 1000; // 30 Sekunden
+var _subscriptionIdentity = "";
+var _subscriptionPending = null;
+var _subscriptionRetryAt = 0;
+var SUBSCRIPTION_CACHE_TTL = 30 * 1000;
+
+function _subscriptionRetrySeconds(response) {
+  var value = response && response.headers.get("Retry-After");
+  if (value && /^\d+$/.test(value)) return Math.max(1, Number(value));
+  var date = value && Date.parse(value);
+  return date && date > Date.now() ? Math.ceil((date - Date.now()) / 1000) : 5;
+}
+
+function _subscriptionUnavailable(seconds) {
+  seconds = Math.max(1, seconds || 5);
+  return { status: "unavailable", retry_after: seconds,
+    message: "Dein Zugang konnte gerade nicht geprüft werden. Bitte warte " + seconds + (seconds === 1 ? " Sekunde" : " Sekunden") + " und versuche es erneut." };
+}
+
+function _requestBusyError(response) {
+  var seconds = _subscriptionRetrySeconds(response);
+  var error = new Error("Der Server ist gerade stark ausgelastet. Bitte warte " + seconds + (seconds === 1 ? " Sekunde" : " Sekunden") + " und versuche es erneut.");
+  error.retryable = true;
+  error.retryAfter = seconds;
+  return error;
+}
+
+function _subscriptionNeedsRetry(sub) {
+  return sub.status === "unavailable" || sub.status === "authentication_required";
+}
+
+function _resetStudentAuthentication() {
+  sessionStorage.removeItem("access");
+  sessionStorage.removeItem("access_token");
+  _subscriptionCache = null;
+  _subscriptionRetryAt = 0;
+}
 
 async function checkSubscription() {
   var studentId = sessionStorage.getItem("student_id") || "";
   var token = getAccessToken();
   if (!studentId || !token) return { status: "none", plan: "free" };
-
-  // Cache prüfen (Cache invalidieren wenn sessionStorage 'active' sagt aber Cache noch 'trialing')
+  var identity = studentId + ":" + token;
+  if (_subscriptionIdentity !== identity) {
+    _subscriptionIdentity = identity;
+    _subscriptionCache = null;
+    _subscriptionPending = null;
+    _subscriptionRetryAt = 0;
+  }
   var ssStatus = sessionStorage.getItem("subscription_status") || "";
-  if (_subscriptionCache && (Date.now() - _subscriptionCacheTime < SUBSCRIPTION_CACHE_TTL)) {
-    if (ssStatus === "active" && _subscriptionCache.status === "trialing") {
-      _subscriptionCache = null; // Cache invalidieren
-    } else {
-      return _subscriptionCache;
-    }
+  if (_subscriptionCache && Date.now() - _subscriptionCacheTime < SUBSCRIPTION_CACHE_TTL) {
+    if (ssStatus === "active" && _subscriptionCache.status === "trialing") _subscriptionCache = null;
+    else return _subscriptionCache;
   }
+  if (_subscriptionPending) return _subscriptionPending;
+  if (_subscriptionRetryAt > Date.now()) return _subscriptionUnavailable(Math.ceil((_subscriptionRetryAt - Date.now()) / 1000));
 
-  // Fallback bei Netzwerkfehler: sessionStorage nutzen, aber nur für Stripe-Abos (nicht Schullizenzen)
-  var ssPlan = sessionStorage.getItem("subscription_plan") || "";
-  var ssFallback = ((ssStatus === "active" || ssStatus === "trialing") && ssPlan !== "school")
-    ? { status: ssStatus, plan: ssPlan || "unknown", teacher_credits_available: sessionStorage.getItem("teacher_credits_available") === "1" }
-    : { status: "none", plan: "free" };
-
-  try {
-    var res = await fetch(API_BASE + "/api/stripe/subscription-status", {
-      method: "POST",
-      headers: { "Content-Type": "application/json", "X-Access-Token": token },
-      body: JSON.stringify({ student_id: studentId })
-    });
-    if (!res.ok) return ssFallback;
-    var data = await res.json();
-    // Lehrer-Credits in sessionStorage speichern
-    if (data.teacher_credits_available) {
-      sessionStorage.setItem("teacher_credits_available", "1");
-      if (data.teacher_credits_name) sessionStorage.setItem("teacher_credits_name", data.teacher_credits_name);
-    } else {
-      sessionStorage.removeItem("teacher_credits_available");
-      sessionStorage.removeItem("teacher_credits_name");
+  var pending = (async function() {
+    try {
+      var res = await fetch(API_BASE + "/api/stripe/subscription-status", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "X-Access-Token": token },
+        body: JSON.stringify({ student_id: studentId })
+      });
+      if (_subscriptionIdentity !== identity || getAccessToken() !== token || sessionStorage.getItem("student_id") !== studentId) return _subscriptionUnavailable(1);
+      if (res.status === 401) return { status: "authentication_required", message: "Deine Anmeldung ist abgelaufen. Bitte melde dich erneut an." };
+      if (!res.ok) {
+        var seconds = _subscriptionRetrySeconds(res);
+        if (_subscriptionIdentity === identity) _subscriptionRetryAt = Date.now() + seconds * 1000;
+        return _subscriptionUnavailable(seconds);
+      }
+      var data = await res.json();
+      var knownStatuses = ["active", "trialing", "none", "trial_expired", "expired", "canceled", "past_due", "unpaid", "incomplete", "incomplete_expired", "paused"];
+      if (!data || knownStatuses.indexOf(data.status) === -1) throw new Error("Ungültige Statusantwort");
+      if (_subscriptionIdentity !== identity || getAccessToken() !== token || sessionStorage.getItem("student_id") !== studentId) return _subscriptionUnavailable(1);
+      if (data.teacher_credits_available) {
+        sessionStorage.setItem("teacher_credits_available", "1");
+        if (data.teacher_credits_name) sessionStorage.setItem("teacher_credits_name", data.teacher_credits_name);
+      } else {
+        sessionStorage.removeItem("teacher_credits_available");
+        sessionStorage.removeItem("teacher_credits_name");
+      }
+      if (Array.isArray(data.subject_licenses)) {
+        sessionStorage.setItem("subject_licenses", JSON.stringify(data.subject_licenses.map(function(s) { return s.subject; })));
+      }
+      sessionStorage.setItem("subscription_status", data.status);
+      if (data.status !== "active" && data.status !== "trialing") sessionStorage.removeItem("free_access");
+      _subscriptionCache = data;
+      _subscriptionCacheTime = Date.now();
+      _subscriptionRetryAt = 0;
+      return data;
+    } catch (e) {
+      if (_subscriptionIdentity === identity) _subscriptionRetryAt = Date.now() + 5000;
+      return _subscriptionUnavailable(5);
     }
-    // Fach-Lizenzen in sessionStorage speichern
-    if (data.subject_licenses && data.subject_licenses.length) {
-      sessionStorage.setItem("subject_licenses", JSON.stringify(data.subject_licenses.map(function(s) { return s.subject; })));
-    }
-    // SessionStorage mit Backend-Antwort synchronisieren
-    sessionStorage.setItem("subscription_status", data.status || "none");
-    if (data.status !== "active" && data.status !== "trialing") {
-      sessionStorage.removeItem("free_access");
-    }
-    _subscriptionCache = data;
-    _subscriptionCacheTime = Date.now();
-    return data;
-  } catch (e) {
-    return ssFallback;
-  }
+  })();
+  _subscriptionPending = pending;
+  try { return await pending; }
+  finally { if (_subscriptionPending === pending) _subscriptionPending = null; }
 }
 
 // Prüft ob der Nutzer ein aktives Abo hat. Gibt true zurück wenn Zugriff erlaubt.
 // Bei abgelaufenem Trial/keinem Abo wird zur Abo-Seite weitergeleitet.
 async function requireSubscription() {
   var sub = await checkSubscription();
+  if (_subscriptionNeedsRetry(sub)) {
+    showToast(sub.message);
+    if (sub.status === "authentication_required") { _resetStudentAuthentication(); requireLogin(function() {}); }
+    return false;
+  }
   if (sub.status === "active" || sub.status === "trialing") {
     return true;
   }
@@ -659,6 +761,7 @@ function _computeTrialUsageStats(results) {
 async function showTrialConversionUI(containerId, opts) {
   opts = opts || {};
   var sub = await checkSubscription();
+  if (_subscriptionNeedsRetry(sub)) return;
 
   // Lehrer-Credits-Banner (nur wenn kein eigenes Abo/Trial)
   if (sub.teacher_credits_available && sub.status !== "active" && sub.status !== "trialing") {
@@ -730,6 +833,7 @@ async function apiCallStream(streamEndpoint, body) {
   });
 
   if (!response.ok) {
+    if (response.status === 429 || response.status === 503) throw _requestBusyError(response);
     var err = await response.json().catch(function() { return {}; });
     throw new Error(err.error || "HTTP " + response.status);
   }
@@ -833,8 +937,15 @@ async function apiCallAsync(gradeEndpoint, body, options) {
   await _ensureTeacherToken();
 
   // Abo-Check vor Korrektur
-  if (!isTeacherMode) {
+  if (!isTeacherMode && !options.resumeJobId) {
     var sub = await checkSubscription();
+    if (sub.status === "unavailable") throw new Error(sub.message);
+    if (sub.status === "authentication_required") {
+      _resetStudentAuthentication();
+      return new Promise(function(resolve, reject) {
+        requireLogin(function() { apiCallAsync(gradeEndpoint, body, options).then(resolve).catch(reject); });
+      });
+    }
     if (sub.status !== "active" && sub.status !== "trialing" && !sub.teacher_credits_available) {
       window.location.href = "/abo.html";
       throw new Error("Kein aktives Abo.");
@@ -846,7 +957,7 @@ async function apiCallAsync(gradeEndpoint, body, options) {
 
   // Streaming-Variante bevorzugen, wenn verfügbar (kein Timeout, Echtzeit-Fortschritt)
   var streamEndpoint = STREAM_ENDPOINTS[gradeEndpoint];
-  if (streamEndpoint && typeof ReadableStream !== "undefined") {
+  if (streamEndpoint && !options.forcePolling && !options.resumeJobId && typeof ReadableStream !== "undefined") {
     // Roboter-Animation zeigen
     var feedbackEl = document.getElementById("feedbackLoader");
     var origHTML = null;
@@ -860,6 +971,10 @@ async function apiCallAsync(gradeEndpoint, body, options) {
       if (feedbackEl && origHTML !== null) feedbackEl.innerHTML = origHTML;
       return streamResult;
     } catch (streamErr) {
+      if (streamErr.retryable) {
+        if (feedbackEl && origHTML !== null) feedbackEl.innerHTML = origHTML;
+        throw streamErr; // Bei Begrenzung nicht sofort einen zweiten Korrekturauftrag starten.
+      }
       console.warn("Streaming fehlgeschlagen, Fallback auf Polling:", streamErr.message);
       // Loader zurücksetzen für Polling-Fallback
       if (feedbackEl && origHTML !== null) feedbackEl.innerHTML = origHTML;
@@ -882,6 +997,9 @@ async function apiCallAsync(gradeEndpoint, body, options) {
   }
 
   try {
+    // Bei Wiederherstellung nur den bestehenden, serverseitig autorisierten Job abfragen.
+    var jobId = options.resumeJobId;
+    if (!jobId) {
     // 1. Job erstellen
     var submitBody = Object.assign({}, body, {
       endpoint: gradeEndpoint,
@@ -917,12 +1035,15 @@ async function apiCallAsync(gradeEndpoint, body, options) {
     }
 
     if (!submitRes.ok) {
+      if (submitRes.status === 429 || submitRes.status === 503) throw _requestBusyError(submitRes);
       var submitErr = await submitRes.json().catch(function() { return {}; });
       throw new Error(submitErr.error || "HTTP " + submitRes.status);
     }
 
     var submitData = await submitRes.json();
-    var jobId = submitData.job_id;
+    jobId = submitData.job_id;
+    if (options.onJobSubmitted) await options.onJobSubmitted(jobId);
+    }
 
     // 2. Polling
     var startTime = Date.now();
@@ -956,6 +1077,12 @@ async function apiCallAsync(gradeEndpoint, body, options) {
         continue;
       }
 
+      if ([401, 403, 404].includes(statusRes.status)) {
+        const error = new Error("Die gespeicherte Korrektur ist nicht mehr abrufbar. Bitte melde dich erneut an oder gib deine gespeicherte Antwort erneut ab.");
+        error.gradeJobTerminal = statusRes.status === 404;
+        throw error;
+      }
+      if (statusRes.status === 429 || statusRes.status === 503) throw _requestBusyError(statusRes);
       if (!statusRes.ok) continue;
 
       var statusData = await statusRes.json();
@@ -969,7 +1096,9 @@ async function apiCallAsync(gradeEndpoint, body, options) {
       }
 
       if (statusData.status === "failed") {
-        throw new Error(statusData.error || "Korrektur fehlgeschlagen. Bitte erneut versuchen.");
+        const error = new Error(statusData.error || "Korrektur fehlgeschlagen. Bitte erneut versuchen.");
+        error.gradeJobTerminal = true;
+        throw error;
       }
 
       // Adaptives Polling: nach 30s langsamer
@@ -1169,6 +1298,7 @@ var REWRITE_TYPE_MAP = {
   "mathe": "mathe", "mathe-abitur": "mathe-abitur",
   "chemie": "chemie", "chemie-abitur": "chemie-abitur",
   "physik": "physik", "physik-abitur": "physik-abitur",
+  "astrophysik-abitur": "astrophysik-abitur",
   "biologie": "biologie", "biologie-abitur": "biologie-abitur",
   "sport": "sport", "sport-abitur": "sport-abitur",
   "informatik": "informatik", "informatik-abitur": "informatik-abitur"
@@ -1358,15 +1488,208 @@ function closeRewriteOverlay() {
 
 let currentStep = null;
 
+// Gemeinsamer Lebenszyklus für Bildmaterialien der Gymnasiums-Fachseiten.
+// Die Fach-Renderer behalten ihre Tabellen, Karten und Aufgabenformate.
+let educationalMaterialObserver = null;
+let educationalMaterialData = null;
+const educationalImageStyles = new Map();
+
+function normalizeEducationalMaterialType(material) {
+  const raw = material.type != null ? material.type : material.typ;
+  const type = String(raw || '').normalize('NFKC').toLowerCase().replace(/[\s\u200B-\u200D\uFEFF_-]+/g, '');
+  if (/^(karikatur|cartoon|caricature)s?$/.test(type)) return 'karikatur';
+  if (['image', 'illustration', 'abbildung'].includes(type)) return 'bild';
+  if (['photo', 'photograph', 'fotografie'].includes(type)) return 'foto';
+  // Nur ausdrücklich als Karikatur betitelte Materialien, nicht Texte ÜBER Karikaturen.
+  if ((!type || type === 'text') && /^(karikatur|cartoon)(?:\s*[:„"–-]|$)/i.test(String(material.title || material.titel || '').trim())) return 'karikatur';
+  return type;
+}
+
+function prepareEducationalMaterials(data) {
+  if (educationalMaterialObserver) educationalMaterialObserver.disconnect();
+  document.querySelectorAll('[data-required-material]').forEach(el => {
+    el._educationalImageRequest = null;
+    el.removeAttribute('data-required-material');
+    el.removeAttribute('data-image-state');
+    el.removeAttribute('aria-busy');
+  });
+  educationalMaterialData = data;
+  educationalImageStyles.clear();
+  function visit(value) {
+    if (!value || typeof value !== 'object') return;
+    if (!Array.isArray(value)) {
+      const type = normalizeEducationalMaterialType(value);
+      if (type) {
+        value.type = type;
+        if ('typ' in value) value.typ = type;
+      }
+      if (['bild', 'foto', 'karikatur'].includes(type)) {
+        const content = value.content || value.text || value.inhalt;
+        if (typeof content === 'string') {
+          // Beide von den Fach-Renderern verwendeten Feldnamen unterstützen.
+          if (!value.content) value.content = content;
+          if (!value.text) value.text = content;
+          educationalImageStyles.set(content, type === 'bild' ? 'diagram' : type);
+        }
+      }
+      if (value.primary_type) {
+        value.primary_type = normalizeEducationalMaterialType({ type: value.primary_type });
+        if (['bild', 'foto', 'karikatur'].includes(value.primary_type)) educationalImageStyles.set(value.primary_text, value.primary_type === 'bild' ? 'diagram' : value.primary_type);
+      }
+    }
+    Object.values(value).forEach(visit);
+  }
+  visit(data);
+  // Nach dem synchronen Fach-Rendering beobachten; keine zweite Bildgenerierung.
+  queueMicrotask(function () {
+    if (educationalMaterialData !== data) return;
+    const task = document.getElementById((MODULE_CONFIG.sectionPrefix || '') + 'task');
+    if (!task) return;
+    task.querySelectorAll('.material-img-loading').forEach(el => {
+      el.dataset.requiredMaterial = '';
+      if (!el.dataset.imageState) el.dataset.imageState = 'loading';
+    });
+    syncEducationalMaterialReferences();
+    educationalMaterialObserver = new MutationObserver(syncEducationalMaterialReferences);
+    educationalMaterialObserver.observe(task, { childList: true, subtree: true, attributes: true, attributeFilter: ['data-image-state', 'aria-busy'] });
+  });
+}
+
+function copyEducationalMaterial(source, target) {
+  const focusedButton = [...target.querySelectorAll('.edu-img-regen-btn')].indexOf(document.activeElement);
+  target.innerHTML = source.innerHTML;
+  if (source.dataset.imageState) {
+    target.dataset.imageState = source.dataset.imageState;
+    target.setAttribute('aria-busy', source.getAttribute('aria-busy') || 'false');
+  }
+  target.querySelectorAll('[id]').forEach(el => el.removeAttribute('id'));
+  // Canvas-Bitmaps werden von innerHTML nicht mitkopiert.
+  const canvases = source.querySelectorAll('canvas');
+  target.querySelectorAll('canvas').forEach((canvas, index) => {
+    const original = canvases[index];
+    if (original && original.width && original.height) {
+      canvas.width = original.width;
+      canvas.height = original.height;
+      canvas.getContext('2d').drawImage(original, 0, 0);
+    }
+  });
+  const buttons = source.querySelectorAll('.edu-img-regen-btn');
+  target.querySelectorAll('.edu-img-regen-btn').forEach((button, index) => {
+    button.addEventListener('click', () => buttons[index]?.click());
+    if (index === focusedButton) button.focus({ preventScroll: true });
+  });
+}
+
+function restoreEducationalHighlights(containerId, savedHtml) {
+  const current = document.getElementById(containerId);
+  if (!current || typeof savedHtml !== 'string') return;
+  const saved = document.createElement('template');
+  saved.innerHTML = DOMPurify.sanitize(savedHtml);
+  if (!current.querySelector('.material-img-loading, [data-required-material], canvas')) {
+    current.innerHTML = saved.innerHTML;
+    return;
+  }
+  // Text-Markierungen erhalten, aber niemals alte Bildprompts, Ladezustände oder
+  // handlerlose Bildkopien über frisch erzeugte Material-Elemente schreiben.
+  const oldBodies = saved.content.querySelectorAll('.material-body, .material-content');
+  current.querySelectorAll('.material-body, .material-content').forEach((body, index) => {
+    if (!body.querySelector('.material-img-loading, [data-required-material], canvas') && oldBodies[index]) body.innerHTML = oldBodies[index].innerHTML;
+  });
+}
+
+// Markierungen ohne große Bilddaten speichern. Die Fachansicht stellt Bilder separat wieder her.
+function educationalHighlightsHtml(containerId) {
+  const source = document.getElementById(containerId);
+  if (!source) return '';
+  const copy = source.cloneNode(true);
+  copy.querySelectorAll('[data-required-material], .edu-img-figure').forEach(el => el.replaceChildren());
+  copy.querySelectorAll('img').forEach(img => img.removeAttribute('src'));
+  return copy.innerHTML;
+}
+
+function syncEducationalMaterialReferences() {
+  if (!educationalMaterialData) return;
+  const write = document.getElementById((MODULE_CONFIG.sectionPrefix || '') + 'write');
+  if (!write) return;
+  const pairs = [['materialsContainer', 'writeMaterialsRef'], ['sourceText', 'writeSourceRef']];
+  if (educationalMaterialData.tasks) pairs.push(['taskInstruction', 'writeTaskRef']);
+  pairs.forEach(([sourceId, targetId]) => {
+    const source = document.getElementById(sourceId);
+    const target = document.getElementById(targetId);
+    if (source && target) {
+      copyEducationalMaterial(source, target);
+      target.parentElement.classList.toggle('educational-reference-has-images', !!source.querySelector('.material-img-loading, img'));
+    }
+  });
+  const extra = document.getElementById('zusatzMaterialien');
+  if (extra) {
+    let target = document.getElementById('writeZusatzMaterialien');
+    if (!target) {
+      target = document.createElement('div');
+      target.id = 'writeZusatzMaterialien';
+      const anchor = document.getElementById('writeSourceRef') || document.getElementById('writeTaskRef');
+      if (anchor) anchor.after(target); else write.prepend(target);
+    }
+    copyEducationalMaterial(extra, target);
+  }
+  const cartoon = document.getElementById('cartoonContainer');
+  const cartoonRef = document.getElementById('writeCartoonPreview');
+  if (cartoon && cartoonRef) {
+    const selected = !!educationalMaterialData.cartoon_prompt && document.getElementById('doTask31')?.checked;
+    cartoonRef.style.display = selected ? 'block' : 'none';
+    if (selected) copyEducationalMaterial(cartoon, cartoonRef); else cartoonRef.replaceChildren();
+  }
+  const task = document.getElementById((MODULE_CONFIG.sectionPrefix || '') + 'task');
+  const dynamic = task?.querySelector('.dynamic-material');
+  const dynamicRef = document.getElementById('writeMaterialRef');
+  if (dynamic && dynamicRef) copyEducationalMaterial(dynamic, dynamicRef);
+  // Naturwissenschaftliche Abiturseiten haben aufgabenweise Bildmaterialien.
+  const groups = document.getElementById('aufgabengruppenContainer');
+  if (groups) {
+    let gallery = document.getElementById('writeImageMaterials');
+    if (!gallery) {
+      gallery = document.createElement('div');
+      gallery.id = 'writeImageMaterials';
+      (document.getElementById('writeTaskRef') || write).append(gallery);
+    }
+    gallery.replaceChildren();
+    const sources = new Set();
+    groups.querySelectorAll('[data-required-material]').forEach(el => {
+      if (isRequiredEducationalMaterial(el)) sources.add(el.closest('details') || el);
+    });
+    sources.forEach(source => {
+      const target = document.createElement(source.tagName.toLowerCase());
+      target.className = source.className;
+      if (target.tagName === 'DETAILS') target.open = true;
+      copyEducationalMaterial(source, target);
+      gallery.append(target);
+    });
+  }
+}
+
+function isRequiredEducationalMaterial(el) {
+  const group = el.closest('.aufgabengruppe-card.selectable');
+  return !group || group.classList.contains('selected');
+}
+
+function educationalMaterialsReady() {
+  const task = document.getElementById((MODULE_CONFIG.sectionPrefix || '') + 'task');
+  const missing = [...(task?.querySelectorAll('[data-required-material]:not([data-image-state="ready"])') || [])].find(isRequiredEducationalMaterial);
+  if (!missing) return true;
+  showToast(missing.dataset.imageState === 'error'
+    ? 'Ein erforderliches Bild fehlt. Bitte lade es in der Aufgabenansicht erneut.'
+    : 'Die Bilder werden noch erstellt. Bitte warte, bis alle Materialien bereit sind.');
+  return false;
+}
+
 function nav(step, _pushHistory) {
+  const restoringWRFeedback = step === 'feedback' && ((typeof restoreWRFeedback === 'function' && (CONFIG.storedData?._wrFeedback || CONFIG.storedData?._wrPendingGrade)) || (typeof gymRestoreFeedback === 'function' && CONFIG.storedData?._gymRecoveryId));
+  if (!restoringWRFeedback && (step === 'write' || step === 'feedback') && !educationalMaterialsReady()) return;
+  if (!restoringWRFeedback && (step === "write" || step === "feedback") && typeof ensureMaterialsReady === "function" && !ensureMaterialsReady()) return;
+  if (step === 'write') syncEducationalMaterialReferences();
   const prefix = MODULE_CONFIG.sectionPrefix || "";
   const steps = MODULE_CONFIG.steps;
   const idx = steps.indexOf(step);
-
-  // Teacher-Mode: Aufgabe normal anzeigen, aber "Uebernehmen"-Banner einblenden
-  if (isTeacherMode && step === "task" && CONFIG.storedData) {
-    _showTeacherAdoptBanner();
-  }
 
   // Guard: steps 1-3 need a generated task
   if (idx >= 1 && idx <= 3 && !CONFIG.storedData) {
@@ -1392,6 +1715,9 @@ function nav(step, _pushHistory) {
   }
 
   currentStep = step;
+  _syncTeacherTaskNavigation(step);
+  if (step === 'feedback' && typeof restoreWRFeedback === 'function') restoreWRFeedback();
+  if (step === 'feedback' && typeof gymRestoreFeedback === 'function') gymRestoreFeedback();
   if (step === "task" || step === "reading") injectPdfButton();
   if (step === "progress") renderProgress();
   window.scrollTo({ top: 0, behavior: "smooth" });
@@ -1487,7 +1813,7 @@ function updateTimerDisplay() {
 function saveSession() {
   const key = MODULE_CONFIG.storagePrefix + "_session_" + getStudentKey();
   localStorage.setItem(key, JSON.stringify({
-    studentText: document.getElementById("studentText").value,
+    studentText: document.getElementById("studentText")?.value || "",
     storedData: CONFIG.storedData
   }));
 }
@@ -1868,6 +2194,8 @@ function closePdfModal() {
 }
 
 function exportTaskPDF(mode) {
+  if (!educationalMaterialsReady()) return;
+  if (typeof ensureMaterialsReady === "function" && !ensureMaterialsReady()) return;
   var prefix = MODULE_CONFIG.sectionPrefix || "";
   closePdfModal();
 
@@ -2048,12 +2376,14 @@ function syncHL() {
   // Use module-specific sync if defined
   if (MODULE_CONFIG.syncHL) {
     MODULE_CONFIG.syncHL();
+    syncEducationalMaterialReferences();
     return;
   }
   // Default: sync sourceText -> writeSourceRef
   const s = document.getElementById("sourceText");
   const w = document.getElementById("writeSourceRef");
   if (s && w) w.innerHTML = s.innerHTML;
+  syncEducationalMaterialReferences();
 }
 
 /* ================= OCR ================= */
@@ -2312,6 +2642,7 @@ function clearOCR() {
     { file: "chemie-abitur.html", name: "Chemie Abitur", cat: "nawi" },
     { file: "chemie.html", name: "Chemie Training", cat: "nawi" },
     { file: "physik-abitur.html", name: "Physik Abitur", cat: "nawi" },
+    { file: "astrophysik-abitur.html", name: "Physik mit Astrophysik Abitur (gA)", cat: "nawi" },
     { file: "physik.html", name: "Physik Training", cat: "nawi" },
     { file: "informatik-abitur.html", name: "Informatik Abitur", cat: "nawi" },
     { file: "informatik.html", name: "Informatik Training", cat: "nawi" },
@@ -2420,11 +2751,42 @@ function clearOCR() {
 // beforeunload protection – only warn when actively writing
 window.addEventListener("beforeunload", function (e) {
   if (currentStep !== "write") return;
-  const ta = document.getElementById("studentText");
-  if (ta && ta.value.trim().length > 50) {
+  const hasDraft = Array.from(document.querySelectorAll('textarea[id^="studentText"]')).some(ta => ta.value.trim().length > 0);
+  if (hasDraft) {
     e.preventDefault();
     e.returnValue = "";
   }
+});
+
+// Entwürfe zeitnah sichern; Speicherfehler sichtbar machen.
+let _draftSaveTimer;
+function persistWritingDraft() {
+  if (typeof MODULE_CONFIG === "undefined" || !document.querySelector('textarea[id^="studentText"]')) return;
+  var status = document.getElementById("draftSaveStatus");
+  try {
+    saveSession();
+    if (status) status.textContent = "Entwurf auf diesem Gerät gespeichert";
+  } catch (error) {
+    if (status) status.textContent = "Speichern nicht möglich. Bitte kopiere deinen Text zur Sicherheit.";
+  }
+}
+document.addEventListener("input", function (event) {
+  if (!event.target.matches('textarea[id^="studentText"]')) return;
+  var status = document.getElementById("draftSaveStatus");
+  if (!status) {
+    status = document.createElement("p");
+    status.id = "draftSaveStatus";
+    status.setAttribute("role", "status");
+    status.style.cssText = "font-size:.85rem;color:var(--ink-muted);";
+    event.target.insertAdjacentElement("afterend", status);
+  }
+  status.textContent = "Entwurf wird gespeichert…";
+  clearTimeout(_draftSaveTimer);
+  _draftSaveTimer = setTimeout(persistWritingDraft, 350);
+});
+window.addEventListener("pagehide", persistWritingDraft);
+document.addEventListener("visibilitychange", function () {
+  if (document.visibilityState === "hidden") persistWritingDraft();
 });
 
 // bfcache handler
@@ -2596,6 +2958,22 @@ if (typeof MODULE_CONFIG !== 'undefined') window.addEventListener("load", functi
         if (d.name) sessionStorage.setItem("student_name", "Lehrer: " + d.name);
       }).catch(function() {});
     });
+    // Fachseiten verwenden unterschiedliche Namen für die Generierung.
+    // Die alte Aufgabe bleibt bei Fehlern erhalten, ist währenddessen aber gesperrt.
+    ["generateTask", "generateExam", "generateFromOwnText"].forEach(function(name) {
+      const generate = window[name];
+      if (typeof generate !== "function") return;
+      window[name] = async function(...args) {
+        _teacherGenerationPending++;
+        _updateTeacherTaskState();
+        try {
+          return await generate.apply(this, args);
+        } finally {
+          _teacherGenerationPending--;
+          _syncTeacherTaskNavigation(currentStep);
+        }
+      };
+    });
     nav(MODULE_CONFIG.steps[0]);
     initHL();
     return;
@@ -2722,12 +3100,57 @@ if (typeof MODULE_CONFIG !== 'undefined') window.addEventListener("load", functi
    Ersetzt die inline loadDallEImage/loadUnsplashImage in allen Seiten.
    Generiert textfreie Bilder mit HTML-Label-Overlays.
    ============================ */
-async function loadEducationalImage(prompt, containerId, labels, style, _isRetry) {
+async function loadEducationalImage(prompt, containerId, labels, style, _isRetry, options) {
   var el = document.getElementById(containerId);
   if (!el) return;
+  style = educationalImageStyles.get(prompt) || style;
+  const requestToken = {};
+  el._educationalImageRequest = requestToken;
+  const isCurrent = () => el.isConnected && el._educationalImageRequest === requestToken;
+  el.dataset.requiredMaterial = '';
+  el.dataset.imageState = "loading";
+  el.setAttribute("aria-busy", "true");
+  let imageTimer;
+  let imageResponse;
+  function imageFailed() {
+    clearTimeout(imageTimer);
+    if (!isCurrent()) return;
+    // Ein kurzzeitiger Provider- oder Ladefehler wird genau einmal automatisch
+    // aufgefangen. Erst danach muss der Nutzer bewusst erneut anstoßen.
+    if (!_isRetry) {
+      loadEducationalImage(prompt, containerId, labels, style, true, options);
+      return;
+    }
+    el.dataset.imageState = "error";
+    el.setAttribute("aria-busy", "false");
+    el.innerHTML = '<div class="edu-img-error" role="alert"><p>Das Bild konnte nicht geladen werden. Bitte versuche es erneut.</p><button type="button" class="edu-img-regen-btn" style="min-height:44px">Bild erneut laden</button></div>';
+    el.querySelector("button").addEventListener("click", function (event) {
+      event.stopPropagation();
+      loadEducationalImage(prompt, containerId, labels, style, true, options);
+    });
+  }
+  function watchImage() {
+    if (options?.decorate) options.decorate(el);
+    var img = el.querySelector("img");
+    img.loading = "eager";
+    img.onload = async function () {
+      if (!isCurrent()) return;
+      clearTimeout(imageTimer);
+      if (options?.onReady) await options.onReady(img.src, imageResponse);
+      if (!isCurrent()) return;
+      el.dataset.imageState = "ready";
+      el.setAttribute("aria-busy", "false");
+    };
+    img.onerror = imageFailed;
+    imageTimer = setTimeout(imageFailed, 30000);
+    if (img.complete) {
+      if (img.naturalWidth > 0) img.onload();
+      else imageFailed();
+    }
+  }
 
   // Bereits fertiges Bild (z.B. Lehrer-Upload als Data-URL)? Direkt anzeigen.
-  if (typeof prompt === "string" && prompt.startsWith("data:image")) {
+  if (typeof prompt === "string" && /^(data:image\/(?:png|jpeg|webp|gif);base64,|https?:\/\/)/i.test(prompt)) {
     var labelsHtml = '';
     if (labels && typeof labels === 'object') {
       var numKeys = Object.keys(labels).filter(function(k) { return /^\d+$/.test(k); });
@@ -2738,7 +3161,8 @@ async function loadEducationalImage(prompt, containerId, labels, style, _isRetry
           }).join('') + '</div>';
       }
     }
-    el.innerHTML = '<figure class="material-figure"><img src="' + prompt + '" class="material-img" alt="Material" style="max-width:100%;border-radius:var(--radius-sm);" loading="lazy" decoding="async">' + labelsHtml + '</figure>';
+    el.innerHTML = '<figure class="material-figure"><img src="' + escapeHtml(prompt) + '" class="material-img" alt="Material" style="max-width:100%;border-radius:var(--radius-sm);" decoding="async">' + labelsHtml + '</figure>';
+    watchImage();
     return;
   }
 
@@ -2753,12 +3177,19 @@ async function loadEducationalImage(prompt, containerId, labels, style, _isRetry
     : prompt;
 
   try {
-    var d = await apiCall("/api/generate-image", {
+    if (typeof gymImageOptions === 'function') {
+      options = await gymImageOptions(prompt, style, _isRetry, options);
+      if (!isCurrent()) return;
+    }
+    var d = !_isRetry && options?.cachedImage ? options.cachedImage : await apiCall("/api/generate-image", {
       prompt: actualPrompt,
-      noText: false,
+      noText: options?.noText === true,
       style: style || "diagram"
     });
 
+    if (!isCurrent()) return;
+    if (!d || typeof d.url !== "string" || !/^(data:image\/(?:png|jpeg|webp|gif);base64,|https?:\/\/)/i.test(d.url)) throw new Error("Bildadresse fehlt oder ist ungültig");
+    imageResponse = d;
     var credit = d.credit
       ? '<div class="edu-img-credit">' + escapeHtml(d.credit) + '</div>'
       : '';
@@ -2813,7 +3244,7 @@ async function loadEducationalImage(prompt, containerId, labels, style, _isRetry
 
     // KI-Hinweis (Karikaturen klar als synthetische Übungsmaterialien kennzeichnen)
     var noticeText;
-    if (style === 'karikatur') {
+    if (style === 'karikatur' || style === 'cartoon') {
       noticeText = 'KI-generierte Übungskarikatur – kein historisches Original. Symbole und Texte können Fehler enthalten.';
     } else if (hasNumberedLegend) {
       noticeText = 'KI-generiertes Bild – Beschriftungen siehe Legende.';
@@ -2839,24 +3270,24 @@ async function loadEducationalImage(prompt, containerId, labels, style, _isRetry
     el.innerHTML =
       '<figure class="edu-img-figure">' +
         '<div class="edu-img-wrapper">' +
-          '<img src="' + d.url + '" alt="' + altText + '" class="edu-img" loading="lazy" decoding="async">' +
+          '<img src="' + escapeHtml(d.url) + '" alt="' + altText + '" class="edu-img" decoding="async">' +
         '</div>' +
         titleHtml + labelsHtml + numberedLegendHtml + caption + legendHtml + credit +
         aiNoticeHtml + regenBtnHtml +
       '</figure>';
 
+    watchImage();
     // Klick-Handler für Neu-Generieren
     var regenBtn = el.querySelector('.edu-img-regen-btn');
     if (regenBtn) {
-      regenBtn.addEventListener('click', function() {
-        loadEducationalImage(prompt, containerId, labels, style, true);
+      regenBtn.addEventListener('click', function(event) {
+        event.stopPropagation();
+        loadEducationalImage(prompt, containerId, labels, style, true, options);
       });
     }
   } catch (e) {
     console.error('Bild-Fehler:', e);
-    var el2 = document.getElementById(containerId);
-    if (el2) el2.innerHTML =
-      '<div class="edu-img-error">Bild konnte nicht geladen werden.</div>';
+    imageFailed();
   }
 }
 
@@ -2873,30 +3304,33 @@ var loadUnsplashImage = loadDallEImage;
    ============================ */
 var _loginModalCallback = null;
 var _loginModalMode = "login";
+var _loginModalCleanup = null;
+var _loginModalPreviousFocus = null;
 
 async function requireLogin(callback) {
   if (sessionStorage.getItem("access") === "1" && sessionStorage.getItem("student_name")) {
-    // Paywall-Check: Frischen Abo-Status vom Server holen statt nur sessionStorage zu vertrauen
-    var freeAccess = sessionStorage.getItem("free_access") === "1";
-    if (!freeAccess) {
-      var sub = await checkSubscription();
+    var sub = await checkSubscription();
+    if (sub.status === "unavailable") { showToast(sub.message); return; }
+    if (sub.status === "authentication_required") {
+      _resetStudentAuthentication();
+    } else {
       var hasAccess = sub.status === "active" || sub.status === "trialing" || sub.teacher_credits_available;
-      if (!hasAccess) {
-        window.location.href = "/abo.html";
-        return;
-      }
+      if (!hasAccess) { window.location.href = "/abo.html"; return; }
+      callback();
+      return;
     }
-    callback();
-    return;
   }
+  _loginModalPreviousFocus = document.activeElement;
   _loginModalCallback = callback;
   _loginModalMode = "login";
   _ensureLoginModal();
   document.getElementById("sharedLoginOverlay").style.display = "flex";
   _updateLoginModalUI();
+  if (_loginModalCleanup) _loginModalCleanup();
+  _loginModalCleanup = trapFocus(document.getElementById("sharedLoginOverlay"));
   setTimeout(function () {
     var nameInput = document.getElementById("slModalName");
-    if (nameInput) nameInput.focus();
+    if (nameInput && document.getElementById("sharedLoginOverlay").style.display !== "none") nameInput.focus();
   }, 100);
 }
 
@@ -2904,11 +3338,14 @@ function _ensureLoginModal() {
   if (document.getElementById("sharedLoginOverlay")) return;
   var overlay = document.createElement("div");
   overlay.id = "sharedLoginOverlay";
+  overlay.addEventListener("keydown", function (event) {
+    if (event.key === "Escape") { event.preventDefault(); _closeLoginModal(); }
+  });
   overlay.style.cssText = "display:none;position:fixed;inset:0;z-index:9800;background:rgba(0,0,0,.6);align-items:center;justify-content:center;padding:1rem;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);";
   overlay.addEventListener("click", function (e) { if (e.target === overlay) _closeLoginModal(); });
   overlay.innerHTML =
-    '<div style="background:var(--surface);border-radius:20px;padding:2rem;max-width:400px;width:100%;box-shadow:0 25px 60px rgba(0,0,0,.3);animation:slideUp .25s ease;">' +
-    '<h2 style="font-size:1.2rem;margin:0 0 .3rem;text-align:center;">Anmeldung erforderlich</h2>' +
+    '<div role="dialog" aria-modal="true" aria-labelledby="slModalTitle" style="background:var(--surface);border-radius:16px;padding:1.5rem;max-width:400px;width:100%;max-height:calc(100dvh - 2rem);overflow-y:auto;">' +
+    '<h2 id="slModalTitle" style="font-size:1.2rem;margin:0 0 .3rem;text-align:center;">Anmeldung erforderlich</h2>' +
     '<p style="color:var(--ink-muted);text-align:center;font-size:.85rem;margin:0 0 1.2rem;">Um eine Aufgabe zu generieren, melde dich bitte an.</p>' +
     '<div style="display:flex;gap:.3rem;margin-bottom:1rem;">' +
     '<button id="slModeLogin" type="button" style="flex:1;padding:.5rem;border:1px solid var(--border);border-radius:8px;background:var(--accent);color:var(--on-accent);font-weight:600;cursor:pointer;min-height:44px;font-family:inherit;font-size:.85rem;" onclick="_setLoginModalMode(\'login\')">Anmelden</button>' +
@@ -2926,6 +3363,15 @@ function _ensureLoginModal() {
     '<button type="button" onclick="_closeLoginModal()" style="width:100%;padding:.5rem;background:none;border:none;color:var(--ink-muted);font-size:.82rem;cursor:pointer;margin-top:.5rem;min-height:44px;font-family:inherit;">Abbrechen</button>' +
     '</div>';
   document.body.appendChild(overlay);
+  [["slModalName", "Name"], ["slModalPw", "Passwort"], ["slModalPwConfirm", "Passwort bestätigen"], ["slModalEmail", "E-Mail-Adresse"]].forEach(function (field) {
+    var input = document.getElementById(field[0]);
+    var label = document.createElement("label");
+    label.htmlFor = field[0];
+    label.textContent = field[1];
+    label.style.cssText = "display:block;font-size:.85rem;margin-bottom:4px;";
+    input.before(label);
+  });
+  document.getElementById("slModalError").setAttribute("role", "alert");
 }
 
 function _setLoginModalMode(mode) {
@@ -2941,12 +3387,12 @@ function _updateLoginModalUI() {
   var pwInput = document.getElementById("slModalPw");
   if (_loginModalMode === "register") {
     loginBtn.style.background = "var(--surface)"; loginBtn.style.color = "var(--ink)";
-    regBtn.style.background = "var(--accent)"; regBtn.style.color = "#fff";
+    regBtn.style.background = "var(--accent)"; regBtn.style.color = "var(--on-accent)";
     regFields.style.display = "block";
     submitBtn.textContent = "Registrieren";
     pwInput.placeholder = "Eigenes Passwort wählen …";
   } else {
-    loginBtn.style.background = "var(--accent)"; loginBtn.style.color = "#fff";
+    loginBtn.style.background = "var(--accent)"; loginBtn.style.color = "var(--on-accent)";
     regBtn.style.background = "var(--surface)"; regBtn.style.color = "var(--ink)";
     regFields.style.display = "none";
     submitBtn.textContent = "Anmelden";
@@ -3047,10 +3493,18 @@ async function _doLoginModal() {
       }
       _makeProfileGreetingClickable();
 
-      _closeLoginModal();
+      _closeLoginModal(true);
 
       // Lehrer-Credits synchron prüfen bevor Paywall-Check
       var subData = await checkSubscription();
+      if (_subscriptionNeedsRetry(subData)) {
+        _loginModalCallback = null;
+        showToast(subData.message);
+        if (subData.status === "authentication_required") _resetStudentAuthentication();
+        btn.disabled = false;
+        btn.textContent = "Anmelden";
+        return;
+      }
 
       // E-Mail nachtragen falls fehlend
       if (data.email_missing) {
@@ -3101,10 +3555,14 @@ async function _doLoginModal() {
   btn.textContent = _loginModalMode === "register" ? "Registrieren" : "Anmelden";
 }
 
-function _closeLoginModal() {
+function _closeLoginModal(preserveCallback) {
   var overlay = document.getElementById("sharedLoginOverlay");
   if (overlay) overlay.style.display = "none";
-  _loginModalCallback = null;
+  if (_loginModalCleanup) _loginModalCleanup();
+  _loginModalCleanup = null;
+  if (_loginModalPreviousFocus && _loginModalPreviousFocus.isConnected) _loginModalPreviousFocus.focus();
+  _loginModalPreviousFocus = null;
+  if (!preserveCallback) _loginModalCallback = null;
 }
 
 /* ================= E-MAIL-BESTÄTIGUNG AUSSTEHEND ================= */
@@ -3186,7 +3644,7 @@ function _showEmailCollectModal(callback) {
   overlay.innerHTML =
     '<div style="background:var(--surface,#fff);border-radius:16px;padding:1.8rem;max-width:400px;width:100%;box-shadow:0 8px 32px rgba(0,0,0,.15);">' +
     '<h3 style="margin:0 0 .5rem;font-size:1.1rem;color:var(--ink,#1a1a1a);">E-Mail-Adresse ergänzen</h3>' +
-    '<p style="margin:0 0 1rem;font-size:.88rem;color:var(--ink-muted,#666);">Bitte hinterlege deine E-Mail-Adresse, damit wir dir bei Bedarf Erinnerungen schicken können.</p>' +
+    '<p style="margin:0 0 1rem;font-size:.88rem;color:var(--ink-muted,#666);">Bitte hinterlege deine E-Mail-Adresse für Kontobestätigung und Passwort-Wiederherstellung. Lern- und Erinnerungs-E-Mails erhältst du nur nach einer gesonderten freiwilligen Zustimmung im Profil.</p>' +
     '<input type="email" id="emailCollectInput" placeholder="Deine E-Mail-Adresse …" style="width:100%;padding:.7rem .9rem;font-size:16px;border:1px solid var(--border,#ddd);border-radius:10px;margin-bottom:.6rem;background:var(--surface,#fff);color:var(--ink,#1a1a1a);box-sizing:border-box;min-height:44px;font-family:inherit;">' +
     '<div id="emailCollectError" style="display:none;color:#ef4444;font-size:.82rem;margin-bottom:.6rem;text-align:center;"></div>' +
     '<button id="emailCollectBtn" type="button" style="width:100%;padding:.85rem;background:var(--accent,#4f6ef7);color:var(--on-accent);border:none;border-radius:12px;font-size:1rem;font-weight:600;cursor:pointer;min-height:52px;font-family:inherit;">Speichern</button>' +
@@ -3263,12 +3721,15 @@ function showProfileModal() {
 
   var overlay = document.createElement("div");
   overlay.id = "profileModalOverlay";
+  overlay.setAttribute("role", "dialog");
+  overlay.setAttribute("aria-modal", "true");
+  overlay.setAttribute("aria-labelledby", "profileModalTitle");
   overlay.style.cssText = "display:flex;position:fixed;inset:0;z-index:9900;background:rgba(0,0,0,.6);align-items:center;justify-content:center;padding:1rem;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);";
   overlay.addEventListener("click", function (e) { if (e.target === overlay) overlay.remove(); });
 
   overlay.innerHTML =
     '<div style="background:var(--surface);border-radius:20px;padding:2rem;max-width:440px;width:100%;box-shadow:0 25px 60px rgba(0,0,0,.3);animation:slideUp .25s ease;max-height:90vh;overflow-y:auto;-webkit-overflow-scrolling:touch;">' +
-      '<h2 style="font-size:1.2rem;margin:0 0 1.2rem;text-align:center;font-family:var(--font-display);">Mein Profil</h2>' +
+      '<h2 id="profileModalTitle" style="font-size:1.2rem;margin:0 0 1.2rem;text-align:center;font-family:var(--font-display);">Mein Profil</h2>' +
 
       // Profil-Info
       '<div id="profileInfo" style="margin-bottom:1.2rem;">' +
@@ -3286,8 +3747,12 @@ function showProfileModal() {
         '</div>' +
         '<div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.8rem;">' +
           '<label for="profEmail" style="font-size:.82rem;color:var(--ink-muted);min-width:80px;">E-Mail</label>' +
-          '<input type="email" id="profEmail" placeholder="Optional – für Erinnerungen" style="flex:1;padding:.5rem .7rem;font-size:16px;border:1px solid var(--border);border-radius:10px;background:var(--surface);color:var(--ink);box-sizing:border-box;min-height:44px;font-family:inherit;">' +
+          '<input type="email" id="profEmail" placeholder="E-Mail-Adresse des Kontos" style="flex:1;padding:.5rem .7rem;font-size:16px;border:1px solid var(--border);border-radius:10px;background:var(--surface);color:var(--ink);box-sizing:border-box;min-height:44px;font-family:inherit;">' +
         '</div>' +
+        '<label for="profEmailUpdatesOptin" style="display:flex;align-items:flex-start;gap:.65rem;margin:.2rem 0 .9rem;cursor:pointer;font-size:.82rem;color:var(--ink-muted);line-height:1.45;">' +
+          '<input type="checkbox" id="profEmailUpdatesOptin" style="width:20px;height:20px;min-width:20px;margin-top:1px;accent-color:var(--accent);">' +
+          '<span>Freiwillige Lernhinweise und Prüfungserinnerungen per E-Mail erhalten</span>' +
+        '</label>' +
         '<div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.8rem;">' +
           '<span style="font-size:.82rem;color:var(--ink-muted);min-width:80px;">Dabei seit</span>' +
           '<span id="profSince" style="font-size:.85rem;color:var(--ink-muted);">–</span>' +
@@ -3314,6 +3779,22 @@ function showProfileModal() {
         '</div>' +
       '</details>' +
 
+      '<details style="margin-bottom:1rem;">' +
+        '<summary style="cursor:pointer;font-size:.9rem;font-weight:600;color:var(--ink);padding:.6rem 0;min-height:44px;display:flex;align-items:center;">Datenschutz und Daten</summary>' +
+        '<div style="padding-top:.5rem;display:grid;gap:.6rem;">' +
+          '<button type="button" onclick="_exportOwnData()" id="profExportData" style="width:100%;padding:.65rem;background:none;border:1px solid var(--accent);color:var(--accent);border-radius:10px;font-size:.88rem;font-weight:600;cursor:pointer;min-height:44px;font-family:inherit;">Meine Daten herunterladen</button>' +
+          '<button type="button" onclick="_clearLocalStudentData(true)" style="width:100%;padding:.65rem;background:none;border:1px solid var(--border);color:var(--ink);border-radius:10px;font-size:.88rem;font-weight:600;cursor:pointer;min-height:44px;font-family:inherit;">Lokale Lerndaten löschen</button>' +
+          '<div style="margin-top:.35rem;padding:1rem;border:1px solid #fecaca;border-radius:12px;background:#fff7f7;">' +
+            '<p style="margin:0 0 .65rem;font-size:.8rem;line-height:1.45;color:#991b1b;">Die Kontolöschung entfernt Lernstände, Ergebnisse und Verknüpfungen. Aktive Zahlungen solltest du vorher im Kundenportal prüfen.</p>' +
+            '<label for="profDeletePw" style="display:block;font-size:.78rem;font-weight:600;color:#7f1d1d;margin-bottom:.25rem;">Aktuelles Passwort</label>' +
+            '<input type="password" id="profDeletePw" autocomplete="current-password" style="width:100%;padding:.6rem .8rem;font-size:16px;border:1px solid #fecaca;border-radius:10px;margin-bottom:.5rem;background:var(--surface);color:var(--ink);box-sizing:border-box;min-height:44px;font-family:inherit;">' +
+            '<label for="profDeleteConfirm" style="display:block;font-size:.78rem;font-weight:600;color:#7f1d1d;margin-bottom:.25rem;">Zur Bestätigung LÖSCHEN eingeben</label>' +
+            '<input type="text" id="profDeleteConfirm" autocomplete="off" style="width:100%;padding:.6rem .8rem;font-size:16px;border:1px solid #fecaca;border-radius:10px;margin-bottom:.6rem;background:var(--surface);color:var(--ink);box-sizing:border-box;min-height:44px;font-family:inherit;">' +
+            '<button type="button" onclick="_deleteOwnAccount()" id="profDeleteAccount" style="width:100%;padding:.65rem;background:#b91c1c;border:1px solid #b91c1c;color:#fff;border-radius:10px;font-size:.88rem;font-weight:700;cursor:pointer;min-height:44px;font-family:inherit;">Konto endgültig löschen</button>' +
+          '</div>' +
+        '</div>' +
+      '</details>' +
+
       // Aktionen
       '<div style="display:flex;gap:.5rem;">' +
         '<button type="button" onclick="_doLogout()" style="flex:1;padding:.6rem;background:none;border:1px solid #ef4444;color:#ef4444;border-radius:10px;font-size:.85rem;font-weight:600;cursor:pointer;min-height:44px;font-family:inherit;">Abmelden</button>' +
@@ -3322,6 +3803,9 @@ function showProfileModal() {
     '</div>';
 
   document.body.appendChild(overlay);
+  overlay.addEventListener("keydown", function(e) {
+    if (e.key === "Escape") overlay.remove();
+  });
   _loadProfileData();
 }
 
@@ -3343,6 +3827,8 @@ async function _loadProfileData() {
     }
     if (data.preferences) {
       document.getElementById("profEmail").value = data.preferences.email || "";
+      var emailOptin = document.getElementById("profEmailUpdatesOptin");
+      if (emailOptin) emailOptin.checked = data.preferences.email_updates_optin === true;
     }
   } catch (e) {
     _showProfileMsg("profMsg", "Profil konnte nicht geladen werden.", true);
@@ -3353,6 +3839,10 @@ async function _loadProfileData() {
     var sub = await checkSubscription();
     var aboEl = document.getElementById("profAbo");
     if (!aboEl) return;
+    if (_subscriptionNeedsRetry(sub)) {
+      aboEl.textContent = sub.message;
+      return;
+    }
     var planNames = { monthly: "Monatsabo", "6months": "6-Monats-Abo", "12months": "12-Monats-Abo", "24months": "24-Monats-Abo", abitur: "Abiturendspurt", school: "Schullizenz", trial: "Testphase" };
     var manageBtn = '';
     if (sub.has_stripe_customer && (sub.status === "active" || sub.status === "trialing")) {
@@ -3407,9 +3897,15 @@ async function _saveProfileChanges() {
   var name = sessionStorage.getItem("student_name");
   var school = document.getElementById("profSchool").value.trim();
   var email = document.getElementById("profEmail").value.trim();
+  var emailUpdatesOptin = document.getElementById("profEmailUpdatesOptin").checked === true;
 
   try {
     await apiCall("/api/update-profile", { student_name: name, school: school, email: email });
+    await apiCall("/api/save-preferences", {
+      student_name: name,
+      email_updates_optin: emailUpdatesOptin,
+      reminder_interval: emailUpdatesOptin ? 3 : 0
+    });
 
     _showProfileMsg("profMsg", "Änderungen gespeichert!", false);
   } catch (e) {
@@ -3458,7 +3954,107 @@ function _showProfileMsg(id, msg, isError) {
   if (!isError) setTimeout(function () { el.style.display = "none"; }, 3000);
 }
 
+function _clearLocalStudentData(showMessage) {
+  var keep = {
+    "theme": true,
+    "splash_seen": true,
+    "myabiflow_trial_used": true,
+    "myabiflow_tracking_consent": true,
+    "myabiflow_tracking_preferences": true,
+    "myabiflow_local_data_last_used": true
+  };
+  try {
+    for (var i = localStorage.length - 1; i >= 0; i--) {
+      var key = localStorage.key(i);
+      if (key && !keep[key]) localStorage.removeItem(key);
+    }
+  } catch (e) {}
+  if (showMessage) _showProfileMsg("profMsg", "Lokale Lerndaten wurden von diesem Gerät gelöscht.", false);
+}
+
+function _expireLocalStudentData() {
+  try {
+    var key = "myabiflow_local_data_last_used";
+    var lastUsed = parseInt(localStorage.getItem(key) || "0", 10);
+    var maxAge = 30 * 24 * 60 * 60 * 1000;
+    if (lastUsed && Date.now() - lastUsed > maxAge) _clearLocalStudentData(false);
+    localStorage.setItem(key, String(Date.now()));
+  } catch (e) {}
+}
+
+function _addUploadPrivacyHints() {
+  document.querySelectorAll('input[type="file"]').forEach(function(input) {
+    if (input.dataset.privacyHintAdded === "1") return;
+    input.dataset.privacyHintAdded = "1";
+    var hint = document.createElement("p");
+    hint.className = "upload-privacy-hint";
+    hint.style.cssText = "font-size:.78rem;line-height:1.45;color:var(--ink-muted,#64748b);margin:.4rem 0 0;";
+    hint.textContent = "Datenschutzhinweis: Bitte entferne Namen und andere persönliche oder sensible Angaben vor dem Hochladen.";
+    if (input.parentElement) input.parentElement.insertAdjacentElement("afterend", hint);
+  });
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+  _expireLocalStudentData();
+  _addUploadPrivacyHints();
+});
+
+async function _exportOwnData() {
+  var btn = document.getElementById("profExportData");
+  if (btn) { btn.disabled = true; btn.textContent = "Export wird erstellt ..."; }
+  try {
+    var res = await fetch(API_BASE + "/api/account/export", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "X-Access-Token": getAccessToken() },
+      body: "{}"
+    });
+    if (!res.ok) {
+      var err = await res.json().catch(function() { return {}; });
+      throw new Error(err.error || "Export konnte nicht erstellt werden.");
+    }
+    var blob = await res.blob();
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement("a");
+    a.href = url;
+    a.download = "myabiflow-daten-" + new Date().toISOString().slice(0, 10) + ".json";
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+    _showProfileMsg("profMsg", "Dein Datenexport wurde heruntergeladen.", false);
+  } catch (e) {
+    _showProfileMsg("profMsg", e.message || "Export konnte nicht erstellt werden.", true);
+  }
+  if (btn) { btn.disabled = false; btn.textContent = "Meine Daten herunterladen"; }
+}
+
+async function _deleteOwnAccount() {
+  var password = document.getElementById("profDeletePw").value;
+  var confirmation = document.getElementById("profDeleteConfirm").value.trim();
+  var btn = document.getElementById("profDeleteAccount");
+  if (!password) { _showProfileMsg("profMsg", "Bitte gib dein aktuelles Passwort ein.", true); return; }
+  if (confirmation !== "LÖSCHEN") { _showProfileMsg("profMsg", "Bitte gib zur Bestätigung LÖSCHEN ein.", true); return; }
+  if (!window.confirm("Konto und Lernstände jetzt endgültig löschen? Dieser Vorgang kann nicht rückgängig gemacht werden.")) return;
+  if (btn) { btn.disabled = true; btn.textContent = "Konto wird gelöscht ..."; }
+  try {
+    var res = await fetch(API_BASE + "/api/account/delete", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "X-Access-Token": getAccessToken() },
+      body: JSON.stringify({ password: password, confirmation: confirmation })
+    });
+    var data = await res.json().catch(function() { return {}; });
+    if (!res.ok || !data.success) throw new Error(data.error || "Konto konnte nicht gelöscht werden.");
+    _clearLocalStudentData(false);
+    sessionStorage.clear();
+    window.location.href = "/?account_deleted=1";
+  } catch (e) {
+    _showProfileMsg("profMsg", e.message || "Konto konnte nicht gelöscht werden.", true);
+    if (btn) { btn.disabled = false; btn.textContent = "Konto endgültig löschen"; }
+  }
+}
+
 function _doLogout() {
+  _clearLocalStudentData(false);
   sessionStorage.removeItem("access");
   sessionStorage.removeItem("access_token");
   sessionStorage.removeItem("student_name");
@@ -3517,6 +4113,7 @@ function initFeedbackWidget() {
 
   var fab = widget.querySelector(".feedback-fab");
   var panel = widget.querySelector(".feedback-panel");
+  panel.hidden = true;
   var closeBtn = widget.querySelector(".feedback-close");
   var emojis = widget.querySelectorAll(".feedback-emoji");
   var cats = widget.querySelectorAll(".feedback-cat");
@@ -3533,6 +4130,7 @@ function initFeedbackWidget() {
   var selectedPhoto = null; // base64 JPEG
 
   function togglePanel(open) {
+    panel.hidden = !open;
     if (open) {
       panel.classList.add("open");
       panel.setAttribute("aria-hidden", "false");
@@ -3632,7 +4230,6 @@ function initFeedbackWidget() {
           category: selectedCategory,
           message: textarea.value.trim() || null,
           page: window.location.pathname,
-          studentName: sessionStorage.getItem("student_name") || localStorage.getItem("myabiflow_student_name") || null,
           photo: selectedPhoto || null
         })
       });
@@ -3671,6 +4268,8 @@ document.addEventListener("DOMContentLoaded", initFeedbackWidget);
 function initFeedbackNudge() {
   // Nur auf Trainingsseiten (nicht auf Präsentation, Dashboard, etc.)
   var page = window.location.pathname;
+  // Laufende Gymnasiums-Übungen nicht mit einer Marketing-Abfrage unterbrechen.
+  if (typeof gymRestoreFeedback === 'function' || /\/(?:wr|wr-abitur)\.html$/.test(page)) return;
   if (/dashboard|lehrer|impressum|agb|barrierefreiheit|dsfa|tom|404|praesentation|datenschutz|features/.test(page)) return;
 
   var NUDGE_KEY = "feedback_nudge_last";
@@ -3793,37 +4392,77 @@ var TRACKING_CONFIG = {
   META_PIXEL_ID: "XXXXXXXXXXXXXXX"          // Meta/Facebook Pixel
 };
 
-function getTrackingConsent() {
-  return localStorage.getItem("myabiflow_tracking_consent");
+function getTrackingPreferences() {
+  try {
+    var saved = localStorage.getItem("myabiflow_tracking_preferences");
+    if (saved) {
+      var parsed = JSON.parse(saved);
+      return {
+        analytics: parsed.analytics === true,
+        marketing: parsed.marketing === true,
+        version: 2
+      };
+    }
+    // Bestehende Entscheidungen einmalig in das granulare Format überführen.
+    var legacy = localStorage.getItem("myabiflow_tracking_consent");
+    if (legacy === "accepted") return { analytics: true, marketing: true, version: 2 };
+    if (legacy === "rejected") return { analytics: false, marketing: false, version: 2 };
+  } catch (e) {}
+  return null;
 }
 
-function setTrackingConsent(value) {
-  localStorage.setItem("myabiflow_tracking_consent", value);
+function setTrackingPreferences(preferences) {
+  var value = {
+    analytics: preferences.analytics === true,
+    marketing: preferences.marketing === true,
+    version: 2,
+    saved_at: new Date().toISOString()
+  };
+  localStorage.setItem("myabiflow_tracking_preferences", JSON.stringify(value));
+  localStorage.removeItem("myabiflow_tracking_consent");
+}
+
+function getTrackingConsent(category) {
+  var preferences = getTrackingPreferences();
+  if (!preferences) return false;
+  if (category === "marketing") return preferences.marketing === true;
+  return preferences.analytics === true;
 }
 
 // Google Tag (gtag.js) laden
 function loadGoogleTag() {
-  if (TRACKING_CONFIG.GA_MEASUREMENT_ID === "G-XXXXXXXXXX") return;
+  var analyticsAllowed = getTrackingConsent("analytics");
+  var marketingAllowed = getTrackingConsent("marketing");
+  if (!analyticsAllowed && !marketingAllowed) return;
   if (document.getElementById("gtag-script")) return;
 
   var s = document.createElement("script");
   s.id = "gtag-script";
   s.async = true;
-  s.src = "https://www.googletagmanager.com/gtag/js?id=" + TRACKING_CONFIG.GA_MEASUREMENT_ID;
+  s.src = "https://www.googletagmanager.com/gtag/js?id=" + (analyticsAllowed ? TRACKING_CONFIG.GA_MEASUREMENT_ID : TRACKING_CONFIG.AW_CONVERSION_ID);
   document.head.appendChild(s);
 
   window.dataLayer = window.dataLayer || [];
   window.gtag = function() { window.dataLayer.push(arguments); };
+  window.gtag("consent", "default", {
+    analytics_storage: analyticsAllowed ? "granted" : "denied",
+    ad_storage: marketingAllowed ? "granted" : "denied",
+    ad_user_data: marketingAllowed ? "granted" : "denied",
+    ad_personalization: marketingAllowed ? "granted" : "denied"
+  });
   window.gtag("js", new Date());
-  window.gtag("config", TRACKING_CONFIG.GA_MEASUREMENT_ID, { anonymize_ip: true });
+  if (analyticsAllowed && TRACKING_CONFIG.GA_MEASUREMENT_ID !== "G-XXXXXXXXXX") {
+    window.gtag("config", TRACKING_CONFIG.GA_MEASUREMENT_ID, { anonymize_ip: true });
+  }
 
-  if (TRACKING_CONFIG.AW_CONVERSION_ID !== "AW-XXXXXXXXXX") {
+  if (marketingAllowed && TRACKING_CONFIG.AW_CONVERSION_ID !== "AW-XXXXXXXXXX") {
     window.gtag("config", TRACKING_CONFIG.AW_CONVERSION_ID);
   }
 }
 
 // Meta Pixel laden
 function loadMetaPixel() {
+  if (!getTrackingConsent("marketing")) return;
   if (TRACKING_CONFIG.META_PIXEL_ID === "XXXXXXXXXXXXXXX") return;
   if (window.fbq) return;
 
@@ -3839,26 +4478,25 @@ function loadMetaPixel() {
 
 function loadTrackingScripts() {
   loadGoogleTag();
-  loadMetaPixel();
+  if (getTrackingConsent("marketing")) loadMetaPixel();
 }
 
 // Tracking-Event senden (nur wenn Consent gegeben)
 function trackEvent(eventName, params) {
-  if (getTrackingConsent() !== "accepted") return;
-
-  // Google Analytics / Ads
-  if (window.gtag) {
+  if (getTrackingConsent("analytics") && window.gtag) {
     window.gtag("event", eventName, params || {});
   }
-
-  // Meta Pixel
-  if (window.fbq) {
+  if (getTrackingConsent("marketing") && window.fbq) {
     window.fbq("track", eventName, params || {});
   }
 }
 
 // UTM-Parameter aus URL lesen
 function getUtmParams() {
+  if (!getTrackingConsent("marketing")) {
+    try { sessionStorage.removeItem("myabiflow_utm"); } catch (e) {}
+    return {};
+  }
   var params = new URLSearchParams(window.location.search);
   var utm = {};
   ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"].forEach(function(key) {
@@ -3872,11 +4510,98 @@ function getUtmParams() {
   return JSON.parse(sessionStorage.getItem("myabiflow_utm") || "{}");
 }
 
+function clearTrackingCookies() {
+  try {
+    document.cookie.split(";").forEach(function(cookie) {
+      var name = cookie.split("=")[0].trim();
+      if (/^(_ga|_gid|_gat|_gcl_|_fbp|_fbc)/.test(name)) {
+        document.cookie = name + "=; Max-Age=0; path=/; SameSite=Lax";
+        document.cookie = name + "=; Max-Age=0; path=/; domain=.myabiflow.de; SameSite=Lax";
+      }
+    });
+    sessionStorage.removeItem("myabiflow_utm");
+  } catch (e) {}
+}
+
+function closePrivacySettings() {
+  var modal = document.getElementById("privacySettingsModal");
+  if (modal) modal.remove();
+}
+
+function showPrivacySettings() {
+  closePrivacySettings();
+  var current = getTrackingPreferences() || { analytics: false, marketing: false };
+  var overlay = document.createElement("div");
+  overlay.id = "privacySettingsModal";
+  overlay.setAttribute("role", "dialog");
+  overlay.setAttribute("aria-modal", "true");
+  overlay.setAttribute("aria-labelledby", "privacySettingsTitle");
+  overlay.style.cssText = "position:fixed;inset:0;z-index:100001;display:flex;align-items:center;justify-content:center;background:rgba(15,23,42,.58);padding:16px;font-family:var(--font-body,'DM Sans',sans-serif);";
+  overlay.innerHTML =
+    '<div style="background:var(--surface,#fff);color:var(--ink,#0f172a);border:1px solid var(--border,#e2e8f0);border-radius:16px;box-shadow:0 24px 64px rgba(15,23,42,.24);padding:24px;max-width:520px;width:100%;max-height:90vh;overflow:auto;">' +
+      '<h2 id="privacySettingsTitle" style="font-size:1.25rem;margin:0 0 8px;">Datenschutz-Einstellungen</h2>' +
+      '<p style="font-size:.875rem;line-height:1.55;color:var(--ink-muted,#64748b);margin:0 0 20px;">Notwendige Speicherungen sind immer aktiv. Analyse und Werbung sind freiwillig und getrennt wählbar.</p>' +
+      '<div style="display:grid;gap:12px;">' +
+        '<div style="padding:16px;border:1px solid var(--border,#e2e8f0);border-radius:12px;background:var(--surface-soft,#f8fafc);">' +
+          '<strong style="display:block;font-size:.95rem;">Notwendige Funktionen</strong>' +
+          '<span style="display:block;font-size:.8rem;line-height:1.5;color:var(--ink-muted,#64748b);margin-top:4px;">Anmeldung, Sicherheit, gewählte Darstellung und Einwilligungsstatus. Immer aktiv.</span>' +
+        '</div>' +
+        '<label for="privacyAnalytics" style="display:flex;align-items:flex-start;gap:12px;padding:16px;border:1px solid var(--border,#e2e8f0);border-radius:12px;cursor:pointer;">' +
+          '<input id="privacyAnalytics" type="checkbox" style="width:20px;height:20px;min-width:20px;margin-top:1px;accent-color:var(--accent,#4f46e5);"' + (current.analytics ? ' checked' : '') + '>' +
+          '<span><strong style="display:block;font-size:.95rem;">Anonyme Nutzungsanalyse</strong><span style="display:block;font-size:.8rem;line-height:1.5;color:var(--ink-muted,#64748b);margin-top:4px;">Google Analytics hilft uns zu verstehen, welche öffentlichen Seiten genutzt werden.</span></span>' +
+        '</label>' +
+        '<label for="privacyMarketing" style="display:flex;align-items:flex-start;gap:12px;padding:16px;border:1px solid var(--border,#e2e8f0);border-radius:12px;cursor:pointer;">' +
+          '<input id="privacyMarketing" type="checkbox" style="width:20px;height:20px;min-width:20px;margin-top:1px;accent-color:var(--accent,#4f46e5);"' + (current.marketing ? ' checked' : '') + '>' +
+          '<span><strong style="display:block;font-size:.95rem;">Werbung und Kampagnenmessung</strong><span style="display:block;font-size:.8rem;line-height:1.5;color:var(--ink-muted,#64748b);margin-top:4px;">Google Ads und gegebenenfalls Meta messen, ob eine Kampagne zu einem Besuch oder Kauf geführt hat.</span></span>' +
+        '</label>' +
+      '</div>' +
+      '<p style="font-size:.78rem;line-height:1.5;color:var(--ink-muted,#64748b);margin:16px 0;"><a href="/impressum.html#datenschutz" style="color:var(--accent,#4f46e5);text-decoration:underline;">Details in der Datenschutzerklärung</a></p>' +
+      '<div style="display:flex;gap:8px;flex-wrap:wrap;">' +
+        '<button id="privacyRejectAll" type="button" style="flex:1;min-width:130px;min-height:48px;padding:10px 14px;border-radius:10px;border:1px solid var(--border,#cbd5e1);background:var(--surface,#fff);color:var(--ink,#0f172a);font:inherit;font-weight:700;cursor:pointer;">Alle ablehnen</button>' +
+        '<button id="privacySave" type="button" style="flex:1;min-width:130px;min-height:48px;padding:10px 14px;border-radius:10px;border:none;background:var(--accent,#4f46e5);color:var(--on-accent,#fff);font:inherit;font-weight:700;cursor:pointer;">Auswahl speichern</button>' +
+        '<button id="privacyAcceptAll" type="button" style="flex:1;min-width:130px;min-height:48px;padding:10px 14px;border-radius:10px;border:1px solid var(--accent,#4f46e5);background:var(--surface,#fff);color:var(--accent,#4f46e5);font:inherit;font-weight:700;cursor:pointer;">Alle erlauben</button>' +
+      '</div>' +
+    '</div>';
+  document.body.appendChild(overlay);
+  var hadPreferences = !!getTrackingPreferences();
+  var save = function(preferences) {
+    setTrackingPreferences(preferences);
+    if (!preferences.analytics || !preferences.marketing) clearTrackingCookies();
+    closePrivacySettings();
+    var banner = document.getElementById("consentBanner");
+    if (banner) banner.remove();
+    if (preferences.analytics || preferences.marketing) loadTrackingScripts();
+    if (hadPreferences) window.location.reload();
+  };
+  document.getElementById("privacyRejectAll").onclick = function() { save({ analytics: false, marketing: false }); };
+  document.getElementById("privacyAcceptAll").onclick = function() { save({ analytics: true, marketing: true }); };
+  document.getElementById("privacySave").onclick = function() {
+    save({
+      analytics: document.getElementById("privacyAnalytics").checked,
+      marketing: document.getElementById("privacyMarketing").checked
+    });
+  };
+  overlay.addEventListener("keydown", function(e) { if (e.key === "Escape" && hadPreferences) closePrivacySettings(); });
+  setTimeout(function() { document.getElementById("privacyAnalytics").focus(); }, 0);
+}
+
+function addPrivacySettingsButton() {
+  if (document.getElementById("privacySettingsButton")) return;
+  var button = document.createElement("button");
+  button.id = "privacySettingsButton";
+  button.type = "button";
+  button.textContent = "Datenschutz-Einstellungen";
+  button.style.cssText = "position:fixed;left:8px;bottom:8px;z-index:9000;min-height:44px;padding:8px 12px;border:1px solid var(--border,#cbd5e1);border-radius:10px;background:var(--surface,#fff);color:var(--ink,#0f172a);font:600 12px var(--font-body,'DM Sans',sans-serif);box-shadow:0 4px 16px rgba(15,23,42,.12);cursor:pointer;";
+  button.addEventListener("click", showPrivacySettings);
+  document.body.appendChild(button);
+}
+
 // Consent-Banner anzeigen
 function initConsentBanner() {
-  if (getTrackingConsent()) {
-    // Consent schon gegeben oder abgelehnt
-    if (getTrackingConsent() === "accepted") loadTrackingScripts();
+  var preferences = getTrackingPreferences();
+  addPrivacySettingsButton();
+  if (preferences) {
+    if (preferences.analytics || preferences.marketing) loadTrackingScripts();
     return;
   }
 
@@ -3888,30 +4613,33 @@ function initConsentBanner() {
 
   banner.innerHTML =
     '<p style="flex:1;min-width:200px;margin:0;line-height:1.5;">' +
-      'Wir nutzen Cookies fuer Analyse und Marketing, um myAbiFlow zu verbessern. ' +
-      '<a href="/dsfa.html" style="color:var(--accent,#4f46e5);text-decoration:underline;">Mehr erfahren</a>' +
+      'Analyse und Werbung sind freiwillig. Notwendige Funktionen laufen ohne Tracking. ' +
+      '<a href="/impressum.html#datenschutz" style="color:var(--accent,#4f46e5);text-decoration:underline;">Mehr erfahren</a>' +
     '</p>' +
-    '<div style="display:flex;gap:.5rem;flex-shrink:0;">' +
-      '<button id="consentReject" style="background:transparent;color:var(--ink-light,#475569);border:1px solid var(--border,#e2e8f0);padding:.5rem 1rem;border-radius:8px;font-size:.85rem;cursor:pointer;min-height:44px;min-width:44px;font-family:inherit;">Ablehnen</button>' +
-      '<button id="consentAccept" style="background:var(--accent,#4f46e5);color:var(--on-accent);border:none;padding:.5rem 1.2rem;border-radius:8px;font-weight:600;font-size:.85rem;cursor:pointer;min-height:44px;min-width:44px;font-family:inherit;">Akzeptieren</button>' +
+    '<div style="display:flex;gap:.5rem;flex:1 1 360px;flex-wrap:wrap;max-width:100%;">' +
+      '<button id="consentSettings" style="flex:1 1 105px;background:var(--surface,#fff);color:var(--ink,#0f172a);border:1px solid var(--border,#cbd5e1);padding:.5rem .8rem;border-radius:8px;font-weight:600;font-size:.85rem;cursor:pointer;min-height:44px;min-width:44px;font-family:inherit;">Auswählen</button>' +
+      '<button id="consentReject" style="flex:1 1 120px;background:#475569;color:#fff;border:none;padding:.5rem .8rem;border-radius:8px;font-weight:600;font-size:.85rem;cursor:pointer;min-height:44px;min-width:44px;font-family:inherit;">Alle ablehnen</button>' +
+      '<button id="consentAccept" style="flex:1 1 120px;background:var(--accent,#4f46e5);color:var(--on-accent,#fff);border:none;padding:.5rem .8rem;border-radius:8px;font-weight:600;font-size:.85rem;cursor:pointer;min-height:44px;min-width:44px;font-family:inherit;">Alle erlauben</button>' +
     '</div>';
 
   document.body.appendChild(banner);
 
   document.getElementById("consentAccept").addEventListener("click", function() {
-    setTrackingConsent("accepted");
+    setTrackingPreferences({ analytics: true, marketing: true });
     loadTrackingScripts();
     banner.remove();
   });
 
   document.getElementById("consentReject").addEventListener("click", function() {
-    setTrackingConsent("rejected");
+    setTrackingPreferences({ analytics: false, marketing: false });
+    clearTrackingCookies();
     banner.remove();
   });
+  document.getElementById("consentSettings").addEventListener("click", showPrivacySettings);
 }
 
 // UTM-Parameter beim Laden erfassen + Consent-Banner initialisieren
 document.addEventListener("DOMContentLoaded", function() {
-  getUtmParams();
   initConsentBanner();
+  getUtmParams();
 });

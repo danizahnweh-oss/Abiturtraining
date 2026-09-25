@@ -619,9 +619,8 @@
       loginPage: "index.html"
     };
   </script>
-  <script src="tour.js"></script>
   <script src="ai-tutor.js"></script>
-  <script src="shared.js"></script>
+  <script src="shared.js?v=school-limits-1"></script>
 
   <!-- MODULE-SPECIFIC CODE -->
   <script>
@@ -951,39 +950,6 @@
       }).join("");
     }
 
-    /* ====== ONBOARDING TOUR ====== */
-    if (typeof startTour === "function" && !isTourDone("fos_gestaltung_abi_tour_done")) {
-      setTimeout(function () {
-        startTour({
-          steps: [
-            {
-              type: "welcome",
-              title: "Gestaltung-Fachabiturtraining",
-              text: "Simuliere eine vollst\u00e4ndige Gestaltung-Fachabiturpr\u00fcfung mit 3 Pflichtaufgaben."
-            },
-            {
-              target: "#generateBtn",
-              title: "Pr\u00fcfung generieren",
-              text: "Klicke hier, um eine komplette Fachabiturpr\u00fcfung zu generieren. Du bearbeitest alle 3 Aufgaben.",
-              pos: "bottom"
-            },
-            {
-              target: "#timerMinutes",
-              title: "Bearbeitungszeit",
-              text: "Standard sind 240 Minuten (4 Stunden). Insgesamt 80 BE.",
-              pos: "right"
-            },
-            {
-              target: "nav",
-              title: "Pr\u00fcfungsablauf",
-              text: "Nach dem Generieren: Aufgaben lesen, L\u00f6sungen schreiben und KI-Feedback erhalten.",
-              pos: "bottom"
-            }
-          ],
-          storageKey: "fos_gestaltung_abi_tour_done"
-        });
-      }, 500);
-    }
   </script>
 </body>
 

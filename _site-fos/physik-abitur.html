@@ -525,9 +525,8 @@
       loginPage: "index.html"
     };
   </script>
-  <script src="tour.js"></script>
   <script src="ai-tutor.js"></script>
-  <script src="shared.js"></script>
+  <script src="shared.js?v=school-limits-1"></script>
 
   <!-- MODULE-SPECIFIC CODE -->
   <script>
@@ -852,39 +851,6 @@
       }).join("");
     }
 
-    // Onboarding-Tour
-    if (typeof startTour === "function" && !isTourDone("fos_physik_abi_tour_done")) {
-      setTimeout(function () {
-        startTour({
-          steps: [
-            {
-              type: "welcome",
-              title: "Physik-Abiturtraining",
-              text: "Simuliere eine vollst\u00e4ndige Physik-Fachabiturpr\u00fcfung mit 3 Pflichtaufgaben (100 BE, 180 min)."
-            },
-            {
-              target: "#generateBtn",
-              title: "Pr\u00fcfung generieren",
-              text: "Klicke hier, um eine komplette Fachabiturpr\u00fcfung zu generieren \u2014 inklusive aller Teilaufgaben und Bewertungseinheiten.",
-              pos: "bottom"
-            },
-            {
-              target: "#timerMinutes",
-              title: "Bearbeitungszeit",
-              text: "Stelle die Zeit ein. Standard sind 180 Minuten.",
-              pos: "right"
-            },
-            {
-              target: "nav",
-              title: "Pr\u00fcfungsablauf",
-              text: "Nach dem Generieren folgst du dem Ablauf: Pr\u00fcfung ansehen, L\u00f6sung schreiben und KI-Feedback erhalten.",
-              pos: "bottom"
-            }
-          ],
-          storageKey: "fos_physik_abi_tour_done"
-        });
-      }, 500);
-    }
   </script>
 </body>
 
