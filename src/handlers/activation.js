@@ -21,7 +21,7 @@ export async function logActivationEvent(env, eventName, ref, meta) {
     if (!env?.DB || !eventName || !ref) return;
 
     let studentId = ref.studentId != null ? Number(ref.studentId) : null;
-    let studentName = ref.studentName || null;
+    const studentName = ref.studentName || null;
     const nameLower = (ref.nameLower || (studentName ? String(studentName).trim().toLowerCase() : "")) || null;
 
     // student_id ist Pflicht fuer den Unique-Index → ggf. ueber name_lower nachladen
@@ -31,7 +31,6 @@ export async function logActivationEvent(env, eventName, ref, meta) {
       ).bind(nameLower).first();
       if (row?.id) {
         studentId = Number(row.id);
-        if (!studentName) studentName = row.name || null;
       }
     }
     if (!studentId) return; // Ohne Schueler-Referenz kein Aktivierungs-Event
@@ -39,9 +38,9 @@ export async function logActivationEvent(env, eventName, ref, meta) {
     const metaJson = meta && typeof meta === "object" ? JSON.stringify(meta).slice(0, 2000) : null;
     await env.DB.prepare(`
       INSERT INTO analytics_events (event_name, student_id, student_name, meta, created_at)
-      VALUES (?, ?, ?, ?, ?)
+      VALUES (?, ?, NULL, ?, ?)
       ON CONFLICT DO NOTHING
-    `).bind(eventName, studentId, studentName, metaJson, new Date().toISOString()).run();
+    `).bind(eventName, studentId, metaJson, new Date().toISOString()).run();
   } catch (e) {
     console.error("logActivationEvent failed:", e?.message || e);
   }

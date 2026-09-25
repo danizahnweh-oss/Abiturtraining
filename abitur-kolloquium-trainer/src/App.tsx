@@ -449,6 +449,9 @@ export default function App() {
   /* Config state */
   const [step, setStep] = useState<Step>('setup');
   const [showProfile, setShowProfile] = useState(false);
+  const [ageConfirmed, setAgeConfirmed] = useState(
+    () => sessionStorage.getItem('kolloquium_age_18_confirmed') === '1',
+  );
   // Initial-Setup aus LocalStorage laden (pro Fach gespeichert)
   const initialSetup = useMemo<Partial<SubjectSetup>>(
     () => (fachFromUrl ? loadSubjectSetup(fachFromUrl) || {} : {}),
@@ -676,6 +679,13 @@ export default function App() {
   /* ── Prüfungs-Wiederherstellung nach Seiten-Reload ── */
   useEffect(() => {
     try {
+      const transcriptRaw = localStorage.getItem('kolloquium_transcript_backup');
+      if (transcriptRaw) {
+        const transcript = JSON.parse(transcriptRaw);
+        if (!transcript.timestamp || Date.now() - transcript.timestamp > 24 * 60 * 60 * 1000) {
+          localStorage.removeItem('kolloquium_transcript_backup');
+        }
+      }
       const raw = localStorage.getItem('kolloquium_active_exam');
       if (!raw) return;
       const data = JSON.parse(raw);
@@ -689,7 +699,7 @@ export default function App() {
   }, []);
 
   const resumeExam = async () => {
-    if (!recoveryData) return;
+    if (!recoveryData || !ageConfirmed) return;
 
     const d = recoveryData;
     const phase: 'preparation' | 'exam' = d.phase === 'preparation' ? 'preparation' : 'exam';
@@ -894,7 +904,7 @@ export default function App() {
 
   /* ── Actions ── */
   const handleGenerate = async () => {
-    if (!canGenerate) return;
+    if (!canGenerate || !ageConfirmed) return;
 
     // Einwilligung zum Mikrofonzugriff einholen (einmalig pro Gerät)
     try {
@@ -998,7 +1008,7 @@ export default function App() {
   };
 
   const startExam = async () => {
-    if (!material) return;
+    if (!material || !ageConfirmed) return;
 
     // Pre-Flight: Trial-Limit prüfen / Zugang verifizieren (zählt Trial-Counter atomar hoch).
     // Bei requires_subscription wird einmalig der Abo-Status neu geprüft (Race-Condition mit
@@ -1008,7 +1018,7 @@ export default function App() {
       const res = await fetch(`${API_BASE}/api/colloquium/start`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'X-Access-Token': token! },
-        body: JSON.stringify({ subject }),
+        body: JSON.stringify({ subject, age_confirmed: true }),
       });
       const data = await res.json().catch(() => ({} as any));
       return { res, data };
@@ -1129,10 +1139,13 @@ export default function App() {
     }
     // 1) Lokale Transkripte
     if (modelTx.length > 0 || userTx.length > 0) return { mTx: [...modelTx], uTx: [...userTx] };
-    // 2) sessionStorage-Backup
+    // 2) Kurzfristiges lokales Backup, maximal 24 Stunden
     try {
       const backup = JSON.parse(localStorage.getItem('kolloquium_transcript_backup') || '{}');
-      if (backup.modelTx?.length > 0) return { mTx: backup.modelTx, uTx: backup.userTx || [] };
+      if (backup.timestamp && Date.now() - backup.timestamp <= 24 * 60 * 60 * 1000 && backup.modelTx?.length > 0) {
+        return { mTx: backup.modelTx, uTx: backup.userTx || [] };
+      }
+      localStorage.removeItem('kolloquium_transcript_backup');
     } catch { /* ignorieren */ }
     // 3) Server-Transkript (StatefulLiveSession)
     if (sessionRef.current && 'getServerTranscript' in sessionRef.current) {
@@ -1423,6 +1436,52 @@ export default function App() {
       </header>
 
       {showProfile && <ProfileModal onClose={() => setShowProfile(false)} />}
+
+      {!ageConfirmed && (
+        <div
+          className="fixed inset-0 z-[70] flex items-center justify-center p-4 bg-slate-950/60 backdrop-blur-sm"
+          role="alertdialog"
+          aria-modal="true"
+          aria-labelledby="age-check-title"
+          aria-describedby="age-check-description"
+        >
+          <div className="bg-white rounded-3xl shadow-2xl max-w-md w-full p-6 sm:p-8 border border-black/5">
+            <div className="flex items-start gap-3 mb-4">
+              <div className="shrink-0 w-11 h-11 rounded-2xl bg-amber-50 flex items-center justify-center text-amber-700">
+                <ShieldCheck size={22} aria-hidden="true" />
+              </div>
+              <div>
+                <h2 id="age-check-title" className="text-xl font-bold text-slate-900 leading-tight">
+                  Kolloquium erst ab 18 Jahren
+                </h2>
+                <p className="text-xs text-slate-500 mt-1">Altersbeschränkung des eingesetzten Live-KI-Dienstes</p>
+              </div>
+            </div>
+            <p id="age-check-description" className="text-sm text-slate-700 leading-relaxed mb-6">
+              Der Kolloquiumstrainer verwendet die Google Gemini Live API. Dieses Angebot darf derzeit nicht von Minderjährigen genutzt werden. Nutze für andere Fächer weiterhin die normalen Übungsseiten von myAbiFlow.
+            </p>
+            <div className="grid gap-3">
+              <button
+                type="button"
+                autoFocus
+                onClick={() => {
+                  sessionStorage.setItem('kolloquium_age_18_confirmed', '1');
+                  setAgeConfirmed(true);
+                }}
+                className="w-full bg-emerald-700 hover:bg-emerald-800 text-white font-semibold rounded-xl py-3 px-4 min-h-[48px] transition-colors"
+              >
+                Ich bin mindestens 18 Jahre alt
+              </button>
+              <a
+                href="/"
+                className="w-full text-center border border-slate-300 hover:bg-slate-50 text-slate-800 font-semibold rounded-xl py-3 px-4 min-h-[48px] flex items-center justify-center transition-colors"
+              >
+                Zurück zu den Übungsfächern
+              </a>
+            </div>
+          </div>
+        </div>
+      )}
 
       {showMicConsent && (
         <div
@@ -1865,7 +1924,7 @@ export default function App() {
 
                 <button
                   onClick={handleGenerate}
-                  disabled={!canGenerate}
+                  disabled={!canGenerate || !ageConfirmed}
                   className="w-full mt-4 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-2xl py-4 font-medium flex items-center justify-center gap-2 hover:from-emerald-600 hover:to-emerald-700 disabled:from-gray-300 disabled:to-gray-300 disabled:shadow-none transition shadow-lg shadow-emerald-500/25 hover:shadow-emerald-500/40 active:scale-[0.98]"
                 >
                   <Play size={18} fill="currentColor" />

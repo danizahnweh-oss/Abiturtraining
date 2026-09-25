@@ -13,7 +13,7 @@ import {
 const feedbackRateLimitMap = new Map();
 
 // Handler
-import { handleLogin, handleCheckStudent, handleGetPreferences, handleSavePreferences, handleCheckReminders, handleChangePassword, handleUpdateProfile } from './handlers/student.js';
+import { handleLogin, handleCheckStudent, handleGetPreferences, handleSavePreferences, handleCheckReminders, handleChangePassword, handleUpdateProfile, handleExportOwnData, handleDeleteOwnAccount } from './handlers/student.js';
 import { handleTeacherRegister, handleTeacherAuthLogin, handleTeacherCodes, handleLinkStudentCode, handleTeacherResults, handleStudentCodes, handleTeacherApprove } from './handlers/teacher.js';
 import { handleTeacherProfile, handleTeacherTasks, handleTeacherTaskResults, handleGetSharedTask, handleSubmitSharedTask, handleGenerateFromMaterials } from './handlers/teacher-tasks.js';
 import { handleTeacherLogin, handleGetResults, handleDeleteResult, handleGetStudents, handleDeleteStudent, handleGrantFreeAccess, handleClassPasswords, handleSubjectLicenses, handleGetFeedback, handleToggleFeedbackValuable, handleGetTeachers, handleApproveTeacher, handleDeleteTeacher, handleActivityFeed } from './handlers/dashboard.js';
@@ -31,6 +31,7 @@ import { handleCreateCheckout, handleStripeWebhook, handleSubscriptionStatus, ha
 import { handleAdminStats } from './handlers/admin-stats.js';
 import { handleColloquiumStart, handleColloquiumStatus, handleColloquiumEnd } from './handlers/colloquium.js';
 import { handleHealth } from './handlers/health.js';
+import { cleanupExpiredPrivacyData } from './handlers/privacy.js';
 
 // Fach-Handler: Englisch
 import {
@@ -501,13 +502,13 @@ export default {
           const category = body.category || null;
           const message = body.message ? String(body.message).slice(0, 2000) : null;
           const page = body.page ? String(body.page).slice(0, 200) : null;
-          const studentName = body.studentName ? String(body.studentName).slice(0, 100) : null;
           // Foto: base64 JPEG, max ~500KB base64 (~375KB Bild)
           const photo = (body.photo && typeof body.photo === "string" && body.photo.length < 700000)
             ? body.photo : null;
+          // Feedback absichtlich nicht mit einem Kontonamen verknuepfen.
           await env.DB.prepare(
-            "INSERT INTO feedback (rating, category, message, page, student_name) VALUES (?, ?, ?, ?, ?)"
-          ).bind(rating, category, message, page, studentName).run();
+            "INSERT INTO feedback (rating, category, message, page, student_name) VALUES (?, ?, ?, ?, NULL)"
+          ).bind(rating, category, message, page).run();
 
           // Email-Benachrichtigung an Admin
           if (env.RESEND_API_KEY) {
@@ -519,7 +520,6 @@ export default {
               .replace(/"/g, "&quot;").replace(/'/g, "&#39;");
             const messageEsc = esc(message);
             const pageEsc = esc(page);
-            const studentNameEsc = esc(studentName);
             fetch("https://api.resend.com/emails", {
               method: "POST",
               headers: { "Authorization": "Bearer " + env.RESEND_API_KEY, "Content-Type": "application/json" },
@@ -531,7 +531,6 @@ export default {
 <h2 style="color:#2563eb;margin-top:0">Neues Schüler-Feedback</h2>
 <p><strong>Bewertung:</strong> ${ratingStars} (${rating}/4)</p>
 <p><strong>Kategorie:</strong> ${catLabel}</p>
-${studentName ? `<p><strong>Schüler:</strong> ${studentNameEsc}</p>` : ''}
 ${page ? `<p><strong>Seite:</strong> ${pageEsc}</p>` : ''}
 ${message ? `<div style="background:#f8f9fa;padding:12px;border-radius:8px;margin:12px 0;white-space:pre-wrap">${messageEsc}</div>` : '<p style="color:#888">Keine Nachricht</p>'}
 ${photo ? `<div style="margin:12px 0"><p style="font-weight:600;margin-bottom:6px">📷 Foto:</p><img src="data:image/jpeg;base64,${photo}" style="max-width:480px;border-radius:8px;display:block" alt="Feedback-Foto"></div>` : ''}
@@ -833,6 +832,8 @@ ${photo ? `<div style="margin:12px 0"><p style="font-weight:600;margin-bottom:6p
         return await handleChangePassword(request, env);
       }
       if (pathname === "/api/update-profile" && request.method === "POST") return await handleUpdateProfile(request, env);
+      if (pathname === "/api/account/export" && request.method === "POST") return await handleExportOwnData(request, env);
+      if (pathname === "/api/account/delete" && request.method === "POST") return await handleDeleteOwnAccount(request, env);
 
       // ===== DETAIL-FEEDBACK =====
       if (pathname === "/api/detail-feedback" && request.method === "POST") return await handleDetailFeedback(request, env);
@@ -867,6 +868,7 @@ ${photo ? `<div style="margin:12px 0"><p style="font-weight:600;margin-bottom:6p
     ctx.waitUntil(sendReminderEmails(env));
     ctx.waitUntil(sendRetentionEmails(env));
     ctx.waitUntil(cleanupOldGradingJobs(env));
+    ctx.waitUntil(cleanupExpiredPrivacyData(env));
   },
 
   // Queue-Consumer für asynchrone KI-Korrekturen

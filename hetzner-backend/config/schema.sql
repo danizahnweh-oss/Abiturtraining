@@ -20,6 +20,11 @@ CREATE TABLE IF NOT EXISTS students (
     exam_subjects TEXT DEFAULT '{}',
     exam_dates TEXT DEFAULT '{}',
     reminder_interval INTEGER DEFAULT 0,
+    email_updates_optin INTEGER NOT NULL DEFAULT 0,
+    email_updates_consent_at TEXT,
+    email_updates_consent_version TEXT,
+    retention_optout INTEGER DEFAULT 1,
+    onboarding_stage INTEGER DEFAULT 0,
     last_reminder_sent TEXT,
     created_at TEXT DEFAULT (TO_CHAR(NOW(), 'YYYY-MM-DD"T"HH24:MI:SS"Z"'))
 );

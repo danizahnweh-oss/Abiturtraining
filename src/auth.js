@@ -691,9 +691,19 @@ export async function ensureMigrations(env) {
       await env.DB.prepare("ALTER TABLE students ALTER COLUMN email SET DEFAULT ''").run();
     } catch (_) { /* Constraint existiert bereits oder D1 unterstützt es nicht */ }
 
-    // Retention-Emails: Onboarding-Stage + Opt-out
+    // Freiwillige Lern-E-Mails: Bestandskonten bleiben standardmaessig abgemeldet.
+    // Die Einwilligung wird getrennt von der technisch notwendigen Konto-E-Mail gespeichert.
     await addCol("onboarding_stage", "INTEGER DEFAULT 0");
-    await addCol("retention_optout", "INTEGER DEFAULT 0");
+    await addCol("retention_optout", "INTEGER DEFAULT 1");
+    await addCol("email_updates_optin", "INTEGER NOT NULL DEFAULT 0");
+    await addCol("email_updates_consent_at", "TEXT DEFAULT NULL");
+    await addCol("email_updates_consent_version", "TEXT DEFAULT NULL");
+    try { await env.DB.prepare("ALTER TABLE students ALTER COLUMN retention_optout SET DEFAULT 1").run(); } catch (_) {}
+    try {
+      await env.DB.prepare(
+        "UPDATE students SET retention_optout = 1, reminder_interval = 0 WHERE COALESCE(email_updates_optin, 0) = 0"
+      ).run();
+    } catch (_) {}
 
     // Kolloquium-Sessions (Start/Ende fuer Activity Feed)
     // Wichtig: students.id ist INTEGER (SERIAL) – student_id muss daher INTEGER sein,
@@ -730,6 +740,8 @@ export async function ensureMigrations(env) {
     try { await env.DB.prepare("CREATE INDEX IF NOT EXISTS idx_ae_student ON analytics_events (student_id)").run(); } catch (_) {}
     try { await env.DB.prepare("CREATE INDEX IF NOT EXISTS idx_ae_created ON analytics_events (created_at)").run(); } catch (_) {}
     try { await env.DB.prepare("CREATE UNIQUE INDEX IF NOT EXISTS idx_ae_first_per_student ON analytics_events (event_name, student_id)").run(); } catch (_) {}
+    try { await env.DB.prepare("UPDATE analytics_events SET student_name = NULL WHERE student_name IS NOT NULL").run(); } catch (_) {}
+    try { await env.DB.prepare("UPDATE colloquium_sessions SET student_name = NULL WHERE student_name IS NOT NULL").run(); } catch (_) {}
 
     _migrated = true;
   } catch (e) {

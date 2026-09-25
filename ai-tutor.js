@@ -276,6 +276,7 @@ function initAiTutor() {
         <input type="text" id="ai-input" aria-label="Deine Frage an den KI-Assistenten" placeholder="Deine Frage zu ${pageInfo.isIndex ? "den Fächern" : pageInfo.subject}..." onkeypress="handleAiEnter(event)">
         <button id="ai-send-btn" onclick="sendAiMessage()">➤</button>
       </div>
+      <p style="margin:.15rem .8rem .65rem;font-size:.68rem;line-height:1.35;color:var(--ink-muted,#64748b);">Bitte keine Namen, E-Mail-Adressen oder sensiblen Angaben eingeben.</p>
     </div>
   `;
   document.body.appendChild(widget);
@@ -622,7 +623,6 @@ async function sendAiMessage() {
 
   // Show typing indicator
   var loadingId = addAiMessage("...", "ai");
-  var sName = sessionStorage.getItem("student_name") ? sessionStorage.getItem("student_name").split(" ")[0] : "";
   var taskContext = getCurrentTaskContext();
 
   try {
@@ -633,7 +633,7 @@ async function sendAiMessage() {
         "Content-Type": "application/json",
         "X-Access-Token": sessionStorage.getItem("access_token") || ""
       },
-      body: JSON.stringify({ question: text, studentName: sName, taskContext: taskContext })
+      body: JSON.stringify({ question: text, taskContext: taskContext })
     });
 
     if (!res.ok) {

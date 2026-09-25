@@ -3644,7 +3644,7 @@ function _showEmailCollectModal(callback) {
   overlay.innerHTML =
     '<div style="background:var(--surface,#fff);border-radius:16px;padding:1.8rem;max-width:400px;width:100%;box-shadow:0 8px 32px rgba(0,0,0,.15);">' +
     '<h3 style="margin:0 0 .5rem;font-size:1.1rem;color:var(--ink,#1a1a1a);">E-Mail-Adresse ergänzen</h3>' +
-    '<p style="margin:0 0 1rem;font-size:.88rem;color:var(--ink-muted,#666);">Bitte hinterlege deine E-Mail-Adresse, damit wir dir bei Bedarf Erinnerungen schicken können.</p>' +
+    '<p style="margin:0 0 1rem;font-size:.88rem;color:var(--ink-muted,#666);">Bitte hinterlege deine E-Mail-Adresse für Kontobestätigung und Passwort-Wiederherstellung. Lern- und Erinnerungs-E-Mails erhältst du nur nach einer gesonderten freiwilligen Zustimmung im Profil.</p>' +
     '<input type="email" id="emailCollectInput" placeholder="Deine E-Mail-Adresse …" style="width:100%;padding:.7rem .9rem;font-size:16px;border:1px solid var(--border,#ddd);border-radius:10px;margin-bottom:.6rem;background:var(--surface,#fff);color:var(--ink,#1a1a1a);box-sizing:border-box;min-height:44px;font-family:inherit;">' +
     '<div id="emailCollectError" style="display:none;color:#ef4444;font-size:.82rem;margin-bottom:.6rem;text-align:center;"></div>' +
     '<button id="emailCollectBtn" type="button" style="width:100%;padding:.85rem;background:var(--accent,#4f6ef7);color:var(--on-accent);border:none;border-radius:12px;font-size:1rem;font-weight:600;cursor:pointer;min-height:52px;font-family:inherit;">Speichern</button>' +
@@ -3721,12 +3721,15 @@ function showProfileModal() {
 
   var overlay = document.createElement("div");
   overlay.id = "profileModalOverlay";
+  overlay.setAttribute("role", "dialog");
+  overlay.setAttribute("aria-modal", "true");
+  overlay.setAttribute("aria-labelledby", "profileModalTitle");
   overlay.style.cssText = "display:flex;position:fixed;inset:0;z-index:9900;background:rgba(0,0,0,.6);align-items:center;justify-content:center;padding:1rem;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);";
   overlay.addEventListener("click", function (e) { if (e.target === overlay) overlay.remove(); });
 
   overlay.innerHTML =
     '<div style="background:var(--surface);border-radius:20px;padding:2rem;max-width:440px;width:100%;box-shadow:0 25px 60px rgba(0,0,0,.3);animation:slideUp .25s ease;max-height:90vh;overflow-y:auto;-webkit-overflow-scrolling:touch;">' +
-      '<h2 style="font-size:1.2rem;margin:0 0 1.2rem;text-align:center;font-family:var(--font-display);">Mein Profil</h2>' +
+      '<h2 id="profileModalTitle" style="font-size:1.2rem;margin:0 0 1.2rem;text-align:center;font-family:var(--font-display);">Mein Profil</h2>' +
 
       // Profil-Info
       '<div id="profileInfo" style="margin-bottom:1.2rem;">' +
@@ -3744,8 +3747,12 @@ function showProfileModal() {
         '</div>' +
         '<div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.8rem;">' +
           '<label for="profEmail" style="font-size:.82rem;color:var(--ink-muted);min-width:80px;">E-Mail</label>' +
-          '<input type="email" id="profEmail" placeholder="Optional – für Erinnerungen" style="flex:1;padding:.5rem .7rem;font-size:16px;border:1px solid var(--border);border-radius:10px;background:var(--surface);color:var(--ink);box-sizing:border-box;min-height:44px;font-family:inherit;">' +
+          '<input type="email" id="profEmail" placeholder="E-Mail-Adresse des Kontos" style="flex:1;padding:.5rem .7rem;font-size:16px;border:1px solid var(--border);border-radius:10px;background:var(--surface);color:var(--ink);box-sizing:border-box;min-height:44px;font-family:inherit;">' +
         '</div>' +
+        '<label for="profEmailUpdatesOptin" style="display:flex;align-items:flex-start;gap:.65rem;margin:.2rem 0 .9rem;cursor:pointer;font-size:.82rem;color:var(--ink-muted);line-height:1.45;">' +
+          '<input type="checkbox" id="profEmailUpdatesOptin" style="width:20px;height:20px;min-width:20px;margin-top:1px;accent-color:var(--accent);">' +
+          '<span>Freiwillige Lernhinweise und Prüfungserinnerungen per E-Mail erhalten</span>' +
+        '</label>' +
         '<div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.8rem;">' +
           '<span style="font-size:.82rem;color:var(--ink-muted);min-width:80px;">Dabei seit</span>' +
           '<span id="profSince" style="font-size:.85rem;color:var(--ink-muted);">–</span>' +
@@ -3772,6 +3779,22 @@ function showProfileModal() {
         '</div>' +
       '</details>' +
 
+      '<details style="margin-bottom:1rem;">' +
+        '<summary style="cursor:pointer;font-size:.9rem;font-weight:600;color:var(--ink);padding:.6rem 0;min-height:44px;display:flex;align-items:center;">Datenschutz und Daten</summary>' +
+        '<div style="padding-top:.5rem;display:grid;gap:.6rem;">' +
+          '<button type="button" onclick="_exportOwnData()" id="profExportData" style="width:100%;padding:.65rem;background:none;border:1px solid var(--accent);color:var(--accent);border-radius:10px;font-size:.88rem;font-weight:600;cursor:pointer;min-height:44px;font-family:inherit;">Meine Daten herunterladen</button>' +
+          '<button type="button" onclick="_clearLocalStudentData(true)" style="width:100%;padding:.65rem;background:none;border:1px solid var(--border);color:var(--ink);border-radius:10px;font-size:.88rem;font-weight:600;cursor:pointer;min-height:44px;font-family:inherit;">Lokale Lerndaten löschen</button>' +
+          '<div style="margin-top:.35rem;padding:1rem;border:1px solid #fecaca;border-radius:12px;background:#fff7f7;">' +
+            '<p style="margin:0 0 .65rem;font-size:.8rem;line-height:1.45;color:#991b1b;">Die Kontolöschung entfernt Lernstände, Ergebnisse und Verknüpfungen. Aktive Zahlungen solltest du vorher im Kundenportal prüfen.</p>' +
+            '<label for="profDeletePw" style="display:block;font-size:.78rem;font-weight:600;color:#7f1d1d;margin-bottom:.25rem;">Aktuelles Passwort</label>' +
+            '<input type="password" id="profDeletePw" autocomplete="current-password" style="width:100%;padding:.6rem .8rem;font-size:16px;border:1px solid #fecaca;border-radius:10px;margin-bottom:.5rem;background:var(--surface);color:var(--ink);box-sizing:border-box;min-height:44px;font-family:inherit;">' +
+            '<label for="profDeleteConfirm" style="display:block;font-size:.78rem;font-weight:600;color:#7f1d1d;margin-bottom:.25rem;">Zur Bestätigung LÖSCHEN eingeben</label>' +
+            '<input type="text" id="profDeleteConfirm" autocomplete="off" style="width:100%;padding:.6rem .8rem;font-size:16px;border:1px solid #fecaca;border-radius:10px;margin-bottom:.6rem;background:var(--surface);color:var(--ink);box-sizing:border-box;min-height:44px;font-family:inherit;">' +
+            '<button type="button" onclick="_deleteOwnAccount()" id="profDeleteAccount" style="width:100%;padding:.65rem;background:#b91c1c;border:1px solid #b91c1c;color:#fff;border-radius:10px;font-size:.88rem;font-weight:700;cursor:pointer;min-height:44px;font-family:inherit;">Konto endgültig löschen</button>' +
+          '</div>' +
+        '</div>' +
+      '</details>' +
+
       // Aktionen
       '<div style="display:flex;gap:.5rem;">' +
         '<button type="button" onclick="_doLogout()" style="flex:1;padding:.6rem;background:none;border:1px solid #ef4444;color:#ef4444;border-radius:10px;font-size:.85rem;font-weight:600;cursor:pointer;min-height:44px;font-family:inherit;">Abmelden</button>' +
@@ -3780,6 +3803,9 @@ function showProfileModal() {
     '</div>';
 
   document.body.appendChild(overlay);
+  overlay.addEventListener("keydown", function(e) {
+    if (e.key === "Escape") overlay.remove();
+  });
   _loadProfileData();
 }
 
@@ -3801,6 +3827,8 @@ async function _loadProfileData() {
     }
     if (data.preferences) {
       document.getElementById("profEmail").value = data.preferences.email || "";
+      var emailOptin = document.getElementById("profEmailUpdatesOptin");
+      if (emailOptin) emailOptin.checked = data.preferences.email_updates_optin === true;
     }
   } catch (e) {
     _showProfileMsg("profMsg", "Profil konnte nicht geladen werden.", true);
@@ -3869,9 +3897,15 @@ async function _saveProfileChanges() {
   var name = sessionStorage.getItem("student_name");
   var school = document.getElementById("profSchool").value.trim();
   var email = document.getElementById("profEmail").value.trim();
+  var emailUpdatesOptin = document.getElementById("profEmailUpdatesOptin").checked === true;
 
   try {
     await apiCall("/api/update-profile", { student_name: name, school: school, email: email });
+    await apiCall("/api/save-preferences", {
+      student_name: name,
+      email_updates_optin: emailUpdatesOptin,
+      reminder_interval: emailUpdatesOptin ? 3 : 0
+    });
 
     _showProfileMsg("profMsg", "Änderungen gespeichert!", false);
   } catch (e) {
@@ -3920,7 +3954,107 @@ function _showProfileMsg(id, msg, isError) {
   if (!isError) setTimeout(function () { el.style.display = "none"; }, 3000);
 }
 
+function _clearLocalStudentData(showMessage) {
+  var keep = {
+    "theme": true,
+    "splash_seen": true,
+    "myabiflow_trial_used": true,
+    "myabiflow_tracking_consent": true,
+    "myabiflow_tracking_preferences": true,
+    "myabiflow_local_data_last_used": true
+  };
+  try {
+    for (var i = localStorage.length - 1; i >= 0; i--) {
+      var key = localStorage.key(i);
+      if (key && !keep[key]) localStorage.removeItem(key);
+    }
+  } catch (e) {}
+  if (showMessage) _showProfileMsg("profMsg", "Lokale Lerndaten wurden von diesem Gerät gelöscht.", false);
+}
+
+function _expireLocalStudentData() {
+  try {
+    var key = "myabiflow_local_data_last_used";
+    var lastUsed = parseInt(localStorage.getItem(key) || "0", 10);
+    var maxAge = 30 * 24 * 60 * 60 * 1000;
+    if (lastUsed && Date.now() - lastUsed > maxAge) _clearLocalStudentData(false);
+    localStorage.setItem(key, String(Date.now()));
+  } catch (e) {}
+}
+
+function _addUploadPrivacyHints() {
+  document.querySelectorAll('input[type="file"]').forEach(function(input) {
+    if (input.dataset.privacyHintAdded === "1") return;
+    input.dataset.privacyHintAdded = "1";
+    var hint = document.createElement("p");
+    hint.className = "upload-privacy-hint";
+    hint.style.cssText = "font-size:.78rem;line-height:1.45;color:var(--ink-muted,#64748b);margin:.4rem 0 0;";
+    hint.textContent = "Datenschutzhinweis: Bitte entferne Namen und andere persönliche oder sensible Angaben vor dem Hochladen.";
+    if (input.parentElement) input.parentElement.insertAdjacentElement("afterend", hint);
+  });
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+  _expireLocalStudentData();
+  _addUploadPrivacyHints();
+});
+
+async function _exportOwnData() {
+  var btn = document.getElementById("profExportData");
+  if (btn) { btn.disabled = true; btn.textContent = "Export wird erstellt ..."; }
+  try {
+    var res = await fetch(API_BASE + "/api/account/export", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "X-Access-Token": getAccessToken() },
+      body: "{}"
+    });
+    if (!res.ok) {
+      var err = await res.json().catch(function() { return {}; });
+      throw new Error(err.error || "Export konnte nicht erstellt werden.");
+    }
+    var blob = await res.blob();
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement("a");
+    a.href = url;
+    a.download = "myabiflow-daten-" + new Date().toISOString().slice(0, 10) + ".json";
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+    _showProfileMsg("profMsg", "Dein Datenexport wurde heruntergeladen.", false);
+  } catch (e) {
+    _showProfileMsg("profMsg", e.message || "Export konnte nicht erstellt werden.", true);
+  }
+  if (btn) { btn.disabled = false; btn.textContent = "Meine Daten herunterladen"; }
+}
+
+async function _deleteOwnAccount() {
+  var password = document.getElementById("profDeletePw").value;
+  var confirmation = document.getElementById("profDeleteConfirm").value.trim();
+  var btn = document.getElementById("profDeleteAccount");
+  if (!password) { _showProfileMsg("profMsg", "Bitte gib dein aktuelles Passwort ein.", true); return; }
+  if (confirmation !== "LÖSCHEN") { _showProfileMsg("profMsg", "Bitte gib zur Bestätigung LÖSCHEN ein.", true); return; }
+  if (!window.confirm("Konto und Lernstände jetzt endgültig löschen? Dieser Vorgang kann nicht rückgängig gemacht werden.")) return;
+  if (btn) { btn.disabled = true; btn.textContent = "Konto wird gelöscht ..."; }
+  try {
+    var res = await fetch(API_BASE + "/api/account/delete", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "X-Access-Token": getAccessToken() },
+      body: JSON.stringify({ password: password, confirmation: confirmation })
+    });
+    var data = await res.json().catch(function() { return {}; });
+    if (!res.ok || !data.success) throw new Error(data.error || "Konto konnte nicht gelöscht werden.");
+    _clearLocalStudentData(false);
+    sessionStorage.clear();
+    window.location.href = "/?account_deleted=1";
+  } catch (e) {
+    _showProfileMsg("profMsg", e.message || "Konto konnte nicht gelöscht werden.", true);
+    if (btn) { btn.disabled = false; btn.textContent = "Konto endgültig löschen"; }
+  }
+}
+
 function _doLogout() {
+  _clearLocalStudentData(false);
   sessionStorage.removeItem("access");
   sessionStorage.removeItem("access_token");
   sessionStorage.removeItem("student_name");
@@ -4096,7 +4230,6 @@ function initFeedbackWidget() {
           category: selectedCategory,
           message: textarea.value.trim() || null,
           page: window.location.pathname,
-          studentName: sessionStorage.getItem("student_name") || localStorage.getItem("myabiflow_student_name") || null,
           photo: selectedPhoto || null
         })
       });
@@ -4259,37 +4392,77 @@ var TRACKING_CONFIG = {
   META_PIXEL_ID: "XXXXXXXXXXXXXXX"          // Meta/Facebook Pixel
 };
 
-function getTrackingConsent() {
-  return localStorage.getItem("myabiflow_tracking_consent");
+function getTrackingPreferences() {
+  try {
+    var saved = localStorage.getItem("myabiflow_tracking_preferences");
+    if (saved) {
+      var parsed = JSON.parse(saved);
+      return {
+        analytics: parsed.analytics === true,
+        marketing: parsed.marketing === true,
+        version: 2
+      };
+    }
+    // Bestehende Entscheidungen einmalig in das granulare Format überführen.
+    var legacy = localStorage.getItem("myabiflow_tracking_consent");
+    if (legacy === "accepted") return { analytics: true, marketing: true, version: 2 };
+    if (legacy === "rejected") return { analytics: false, marketing: false, version: 2 };
+  } catch (e) {}
+  return null;
 }
 
-function setTrackingConsent(value) {
-  localStorage.setItem("myabiflow_tracking_consent", value);
+function setTrackingPreferences(preferences) {
+  var value = {
+    analytics: preferences.analytics === true,
+    marketing: preferences.marketing === true,
+    version: 2,
+    saved_at: new Date().toISOString()
+  };
+  localStorage.setItem("myabiflow_tracking_preferences", JSON.stringify(value));
+  localStorage.removeItem("myabiflow_tracking_consent");
+}
+
+function getTrackingConsent(category) {
+  var preferences = getTrackingPreferences();
+  if (!preferences) return false;
+  if (category === "marketing") return preferences.marketing === true;
+  return preferences.analytics === true;
 }
 
 // Google Tag (gtag.js) laden
 function loadGoogleTag() {
-  if (TRACKING_CONFIG.GA_MEASUREMENT_ID === "G-XXXXXXXXXX") return;
+  var analyticsAllowed = getTrackingConsent("analytics");
+  var marketingAllowed = getTrackingConsent("marketing");
+  if (!analyticsAllowed && !marketingAllowed) return;
   if (document.getElementById("gtag-script")) return;
 
   var s = document.createElement("script");
   s.id = "gtag-script";
   s.async = true;
-  s.src = "https://www.googletagmanager.com/gtag/js?id=" + TRACKING_CONFIG.GA_MEASUREMENT_ID;
+  s.src = "https://www.googletagmanager.com/gtag/js?id=" + (analyticsAllowed ? TRACKING_CONFIG.GA_MEASUREMENT_ID : TRACKING_CONFIG.AW_CONVERSION_ID);
   document.head.appendChild(s);
 
   window.dataLayer = window.dataLayer || [];
   window.gtag = function() { window.dataLayer.push(arguments); };
+  window.gtag("consent", "default", {
+    analytics_storage: analyticsAllowed ? "granted" : "denied",
+    ad_storage: marketingAllowed ? "granted" : "denied",
+    ad_user_data: marketingAllowed ? "granted" : "denied",
+    ad_personalization: marketingAllowed ? "granted" : "denied"
+  });
   window.gtag("js", new Date());
-  window.gtag("config", TRACKING_CONFIG.GA_MEASUREMENT_ID, { anonymize_ip: true });
+  if (analyticsAllowed && TRACKING_CONFIG.GA_MEASUREMENT_ID !== "G-XXXXXXXXXX") {
+    window.gtag("config", TRACKING_CONFIG.GA_MEASUREMENT_ID, { anonymize_ip: true });
+  }
 
-  if (TRACKING_CONFIG.AW_CONVERSION_ID !== "AW-XXXXXXXXXX") {
+  if (marketingAllowed && TRACKING_CONFIG.AW_CONVERSION_ID !== "AW-XXXXXXXXXX") {
     window.gtag("config", TRACKING_CONFIG.AW_CONVERSION_ID);
   }
 }
 
 // Meta Pixel laden
 function loadMetaPixel() {
+  if (!getTrackingConsent("marketing")) return;
   if (TRACKING_CONFIG.META_PIXEL_ID === "XXXXXXXXXXXXXXX") return;
   if (window.fbq) return;
 
@@ -4305,26 +4478,25 @@ function loadMetaPixel() {
 
 function loadTrackingScripts() {
   loadGoogleTag();
-  loadMetaPixel();
+  if (getTrackingConsent("marketing")) loadMetaPixel();
 }
 
 // Tracking-Event senden (nur wenn Consent gegeben)
 function trackEvent(eventName, params) {
-  if (getTrackingConsent() !== "accepted") return;
-
-  // Google Analytics / Ads
-  if (window.gtag) {
+  if (getTrackingConsent("analytics") && window.gtag) {
     window.gtag("event", eventName, params || {});
   }
-
-  // Meta Pixel
-  if (window.fbq) {
+  if (getTrackingConsent("marketing") && window.fbq) {
     window.fbq("track", eventName, params || {});
   }
 }
 
 // UTM-Parameter aus URL lesen
 function getUtmParams() {
+  if (!getTrackingConsent("marketing")) {
+    try { sessionStorage.removeItem("myabiflow_utm"); } catch (e) {}
+    return {};
+  }
   var params = new URLSearchParams(window.location.search);
   var utm = {};
   ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"].forEach(function(key) {
@@ -4338,11 +4510,98 @@ function getUtmParams() {
   return JSON.parse(sessionStorage.getItem("myabiflow_utm") || "{}");
 }
 
+function clearTrackingCookies() {
+  try {
+    document.cookie.split(";").forEach(function(cookie) {
+      var name = cookie.split("=")[0].trim();
+      if (/^(_ga|_gid|_gat|_gcl_|_fbp|_fbc)/.test(name)) {
+        document.cookie = name + "=; Max-Age=0; path=/; SameSite=Lax";
+        document.cookie = name + "=; Max-Age=0; path=/; domain=.myabiflow.de; SameSite=Lax";
+      }
+    });
+    sessionStorage.removeItem("myabiflow_utm");
+  } catch (e) {}
+}
+
+function closePrivacySettings() {
+  var modal = document.getElementById("privacySettingsModal");
+  if (modal) modal.remove();
+}
+
+function showPrivacySettings() {
+  closePrivacySettings();
+  var current = getTrackingPreferences() || { analytics: false, marketing: false };
+  var overlay = document.createElement("div");
+  overlay.id = "privacySettingsModal";
+  overlay.setAttribute("role", "dialog");
+  overlay.setAttribute("aria-modal", "true");
+  overlay.setAttribute("aria-labelledby", "privacySettingsTitle");
+  overlay.style.cssText = "position:fixed;inset:0;z-index:100001;display:flex;align-items:center;justify-content:center;background:rgba(15,23,42,.58);padding:16px;font-family:var(--font-body,'DM Sans',sans-serif);";
+  overlay.innerHTML =
+    '<div style="background:var(--surface,#fff);color:var(--ink,#0f172a);border:1px solid var(--border,#e2e8f0);border-radius:16px;box-shadow:0 24px 64px rgba(15,23,42,.24);padding:24px;max-width:520px;width:100%;max-height:90vh;overflow:auto;">' +
+      '<h2 id="privacySettingsTitle" style="font-size:1.25rem;margin:0 0 8px;">Datenschutz-Einstellungen</h2>' +
+      '<p style="font-size:.875rem;line-height:1.55;color:var(--ink-muted,#64748b);margin:0 0 20px;">Notwendige Speicherungen sind immer aktiv. Analyse und Werbung sind freiwillig und getrennt wählbar.</p>' +
+      '<div style="display:grid;gap:12px;">' +
+        '<div style="padding:16px;border:1px solid var(--border,#e2e8f0);border-radius:12px;background:var(--surface-soft,#f8fafc);">' +
+          '<strong style="display:block;font-size:.95rem;">Notwendige Funktionen</strong>' +
+          '<span style="display:block;font-size:.8rem;line-height:1.5;color:var(--ink-muted,#64748b);margin-top:4px;">Anmeldung, Sicherheit, gewählte Darstellung und Einwilligungsstatus. Immer aktiv.</span>' +
+        '</div>' +
+        '<label for="privacyAnalytics" style="display:flex;align-items:flex-start;gap:12px;padding:16px;border:1px solid var(--border,#e2e8f0);border-radius:12px;cursor:pointer;">' +
+          '<input id="privacyAnalytics" type="checkbox" style="width:20px;height:20px;min-width:20px;margin-top:1px;accent-color:var(--accent,#4f46e5);"' + (current.analytics ? ' checked' : '') + '>' +
+          '<span><strong style="display:block;font-size:.95rem;">Anonyme Nutzungsanalyse</strong><span style="display:block;font-size:.8rem;line-height:1.5;color:var(--ink-muted,#64748b);margin-top:4px;">Google Analytics hilft uns zu verstehen, welche öffentlichen Seiten genutzt werden.</span></span>' +
+        '</label>' +
+        '<label for="privacyMarketing" style="display:flex;align-items:flex-start;gap:12px;padding:16px;border:1px solid var(--border,#e2e8f0);border-radius:12px;cursor:pointer;">' +
+          '<input id="privacyMarketing" type="checkbox" style="width:20px;height:20px;min-width:20px;margin-top:1px;accent-color:var(--accent,#4f46e5);"' + (current.marketing ? ' checked' : '') + '>' +
+          '<span><strong style="display:block;font-size:.95rem;">Werbung und Kampagnenmessung</strong><span style="display:block;font-size:.8rem;line-height:1.5;color:var(--ink-muted,#64748b);margin-top:4px;">Google Ads und gegebenenfalls Meta messen, ob eine Kampagne zu einem Besuch oder Kauf geführt hat.</span></span>' +
+        '</label>' +
+      '</div>' +
+      '<p style="font-size:.78rem;line-height:1.5;color:var(--ink-muted,#64748b);margin:16px 0;"><a href="/impressum.html#datenschutz" style="color:var(--accent,#4f46e5);text-decoration:underline;">Details in der Datenschutzerklärung</a></p>' +
+      '<div style="display:flex;gap:8px;flex-wrap:wrap;">' +
+        '<button id="privacyRejectAll" type="button" style="flex:1;min-width:130px;min-height:48px;padding:10px 14px;border-radius:10px;border:1px solid var(--border,#cbd5e1);background:var(--surface,#fff);color:var(--ink,#0f172a);font:inherit;font-weight:700;cursor:pointer;">Alle ablehnen</button>' +
+        '<button id="privacySave" type="button" style="flex:1;min-width:130px;min-height:48px;padding:10px 14px;border-radius:10px;border:none;background:var(--accent,#4f46e5);color:var(--on-accent,#fff);font:inherit;font-weight:700;cursor:pointer;">Auswahl speichern</button>' +
+        '<button id="privacyAcceptAll" type="button" style="flex:1;min-width:130px;min-height:48px;padding:10px 14px;border-radius:10px;border:1px solid var(--accent,#4f46e5);background:var(--surface,#fff);color:var(--accent,#4f46e5);font:inherit;font-weight:700;cursor:pointer;">Alle erlauben</button>' +
+      '</div>' +
+    '</div>';
+  document.body.appendChild(overlay);
+  var hadPreferences = !!getTrackingPreferences();
+  var save = function(preferences) {
+    setTrackingPreferences(preferences);
+    if (!preferences.analytics || !preferences.marketing) clearTrackingCookies();
+    closePrivacySettings();
+    var banner = document.getElementById("consentBanner");
+    if (banner) banner.remove();
+    if (preferences.analytics || preferences.marketing) loadTrackingScripts();
+    if (hadPreferences) window.location.reload();
+  };
+  document.getElementById("privacyRejectAll").onclick = function() { save({ analytics: false, marketing: false }); };
+  document.getElementById("privacyAcceptAll").onclick = function() { save({ analytics: true, marketing: true }); };
+  document.getElementById("privacySave").onclick = function() {
+    save({
+      analytics: document.getElementById("privacyAnalytics").checked,
+      marketing: document.getElementById("privacyMarketing").checked
+    });
+  };
+  overlay.addEventListener("keydown", function(e) { if (e.key === "Escape" && hadPreferences) closePrivacySettings(); });
+  setTimeout(function() { document.getElementById("privacyAnalytics").focus(); }, 0);
+}
+
+function addPrivacySettingsButton() {
+  if (document.getElementById("privacySettingsButton")) return;
+  var button = document.createElement("button");
+  button.id = "privacySettingsButton";
+  button.type = "button";
+  button.textContent = "Datenschutz-Einstellungen";
+  button.style.cssText = "position:fixed;left:8px;bottom:8px;z-index:9000;min-height:44px;padding:8px 12px;border:1px solid var(--border,#cbd5e1);border-radius:10px;background:var(--surface,#fff);color:var(--ink,#0f172a);font:600 12px var(--font-body,'DM Sans',sans-serif);box-shadow:0 4px 16px rgba(15,23,42,.12);cursor:pointer;";
+  button.addEventListener("click", showPrivacySettings);
+  document.body.appendChild(button);
+}
+
 // Consent-Banner anzeigen
 function initConsentBanner() {
-  if (getTrackingConsent()) {
-    // Consent schon gegeben oder abgelehnt
-    if (getTrackingConsent() === "accepted") loadTrackingScripts();
+  var preferences = getTrackingPreferences();
+  addPrivacySettingsButton();
+  if (preferences) {
+    if (preferences.analytics || preferences.marketing) loadTrackingScripts();
     return;
   }
 
@@ -4354,30 +4613,33 @@ function initConsentBanner() {
 
   banner.innerHTML =
     '<p style="flex:1;min-width:200px;margin:0;line-height:1.5;">' +
-      'Wir nutzen Cookies fuer Analyse und Marketing, um myAbiFlow zu verbessern. ' +
-      '<a href="/dsfa.html" style="color:var(--accent,#4f46e5);text-decoration:underline;">Mehr erfahren</a>' +
+      'Analyse und Werbung sind freiwillig. Notwendige Funktionen laufen ohne Tracking. ' +
+      '<a href="/impressum.html#datenschutz" style="color:var(--accent,#4f46e5);text-decoration:underline;">Mehr erfahren</a>' +
     '</p>' +
-    '<div style="display:flex;gap:.5rem;flex-shrink:0;">' +
-      '<button id="consentReject" style="background:#475569;color:#fff;border:none;padding:.5rem 1.2rem;border-radius:8px;font-weight:600;font-size:.85rem;cursor:pointer;min-height:44px;min-width:44px;font-family:inherit;">Ablehnen</button>' +
-      '<button id="consentAccept" style="background:var(--accent,#4f46e5);color:var(--on-accent,#fff);border:none;padding:.5rem 1.2rem;border-radius:8px;font-weight:600;font-size:.85rem;cursor:pointer;min-height:44px;min-width:44px;font-family:inherit;">Akzeptieren</button>' +
+    '<div style="display:flex;gap:.5rem;flex:1 1 360px;flex-wrap:wrap;max-width:100%;">' +
+      '<button id="consentSettings" style="flex:1 1 105px;background:var(--surface,#fff);color:var(--ink,#0f172a);border:1px solid var(--border,#cbd5e1);padding:.5rem .8rem;border-radius:8px;font-weight:600;font-size:.85rem;cursor:pointer;min-height:44px;min-width:44px;font-family:inherit;">Auswählen</button>' +
+      '<button id="consentReject" style="flex:1 1 120px;background:#475569;color:#fff;border:none;padding:.5rem .8rem;border-radius:8px;font-weight:600;font-size:.85rem;cursor:pointer;min-height:44px;min-width:44px;font-family:inherit;">Alle ablehnen</button>' +
+      '<button id="consentAccept" style="flex:1 1 120px;background:var(--accent,#4f46e5);color:var(--on-accent,#fff);border:none;padding:.5rem .8rem;border-radius:8px;font-weight:600;font-size:.85rem;cursor:pointer;min-height:44px;min-width:44px;font-family:inherit;">Alle erlauben</button>' +
     '</div>';
 
   document.body.appendChild(banner);
 
   document.getElementById("consentAccept").addEventListener("click", function() {
-    setTrackingConsent("accepted");
+    setTrackingPreferences({ analytics: true, marketing: true });
     loadTrackingScripts();
     banner.remove();
   });
 
   document.getElementById("consentReject").addEventListener("click", function() {
-    setTrackingConsent("rejected");
+    setTrackingPreferences({ analytics: false, marketing: false });
+    clearTrackingCookies();
     banner.remove();
   });
+  document.getElementById("consentSettings").addEventListener("click", showPrivacySettings);
 }
 
 // UTM-Parameter beim Laden erfassen + Consent-Banner initialisieren
 document.addEventListener("DOMContentLoaded", function() {
-  getUtmParams();
   initConsentBanner();
+  getUtmParams();
 });

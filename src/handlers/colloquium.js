@@ -67,13 +67,12 @@ async function hasUnlimitedAccess(student, env) {
 // Failure-tolerant: wenn das Loggen fehlschlaegt, wird der Kolloquium-Start NICHT blockiert.
 async function logColloquiumStart(env, studentId, subject) {
   try {
-    const student = await env.DB.prepare('SELECT name FROM students WHERE id = ?').bind(studentId).first();
     const sessionId = crypto.randomUUID();
     const subjectClean = (typeof subject === 'string' && subject.trim()) ? subject.trim().slice(0, 64) : null;
     await env.DB.prepare(
       `INSERT INTO colloquium_sessions (id, student_id, student_name, subject, started_at)
        VALUES ($1, $2, $3, $4, $5)`
-    ).bind(sessionId, studentId, student?.name || null, subjectClean, new Date().toISOString()).run();
+    ).bind(sessionId, studentId, null, subjectClean, new Date().toISOString()).run();
     return sessionId;
   } catch (e) {
     console.error('logColloquiumStart failed:', e);
@@ -89,10 +88,15 @@ export async function handleColloquiumStart(request, env) {
 
   // Subject aus Body lesen (optional) – fuer Activity Feed
   let subject = null;
+  let ageConfirmed = false;
   try {
     const body = await request.json();
     if (body && typeof body.subject === 'string') subject = body.subject;
+    ageConfirmed = body?.age_confirmed === true;
   } catch (_) { /* kein Body / kein JSON → ok */ }
+  if (!ageConfirmed) {
+    return jsonResponse({ error: 'Der Kolloquiumstrainer ist derzeit nur für Personen ab 18 Jahren verfügbar.', age_confirmation_required: true }, 403, env);
+  }
 
   const student = await env.DB.prepare(
     'SELECT id, subscription_status, trial_end, trial_colloquium_count, class_group, free_access_until FROM students WHERE id = ?'

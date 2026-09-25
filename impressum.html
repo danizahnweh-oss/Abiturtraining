@@ -197,11 +197,12 @@
         <h2>4. Welche Daten wir speichern</h2>
         <p><strong>Bei der Registrierung:</strong></p>
         <ul style="color: var(--ink-light); margin-bottom: 1rem; padding-left: 1.5rem;">
-            <li>Benutzername (Vorname)</li>
+            <li>Benutzername (bitte nur Vorname oder Pseudonym verwenden)</li>
             <li>Passwort (wird ausschließlich als kryptografischer Hash gespeichert – PBKDF2 mit 100.000 Iterationen.
                 Das Klartext-Passwort ist zu keinem Zeitpunkt einsehbar oder wiederherstellbar)</li>
             <li>Kursbezeichnung / Klassenstufe</li>
-            <li>E-Mail-Adresse (optional, nur für Erinnerungsfunktion)</li>
+            <li>E-Mail-Adresse (für Anmeldung, Verifizierung, Sicherheit und Passwort-Wiederherstellung erforderlich)</li>
+            <li>Freiwillige Einwilligung in Lernhinweise, falls diese ausdrücklich aktiviert wird</li>
             <li>Zeitpunkt der Registrierung</li>
         </ul>
 
@@ -224,7 +225,9 @@
 
         <p><strong>Speicherdauer:</strong> Nutzerdaten werden für die Dauer der Nutzung gespeichert.
             Ergebnisse bleiben bis zur Löschung des Kontos erhalten, damit Lernfortschritte nachvollziehbar sind.
-            Asynchrone Korrektur-Aufträge werden nach 30 Tagen automatisch bereinigt.</p>
+            Asynchrone Korrektur-Aufträge werden nach spätestens 24 Stunden automatisch bereinigt. Kurzfristige
+            lokale Kolloquiums-Backups laufen nach 24 Stunden ab. Sitzungsmetadaten des Kolloquiums werden nach
+            30 Tagen, Aktivierungsstatistiken nach 180 Tagen sowie Nachrichten und Feedback nach 365 Tagen gelöscht.</p>
 
         <h2>5. Künstliche Intelligenz – Auftragsverarbeiter</h2>
         <p>myAbiFlow setzt mehrere KI-Dienste ein. Dabei werden <strong>keine Namen, Noten oder
@@ -245,13 +248,14 @@
             Anbieter: OpenAI, L.L.C., 3180 18th Street, San Francisco, CA 94110, USA.<br>
             Datenschutzerklärung: <a href="https://openai.com/policies/privacy-policy" target="_blank" rel="noopener">openai.com/policies/privacy-policy</a></p>
 
-        <h3 style="font-size: 1.05rem; margin-top: 1.2rem;">5b. Google Gemini (Kolloquiumstrainer und KI-Tutor)</h3>
+        <h3 style="font-size: 1.05rem; margin-top: 1.2rem;">5b. Google Gemini (Kolloquiumstrainer und Bildfunktionen)</h3>
         <p>Für den Kolloquiumstrainer (Echtzeit-Audio-Prüfungssimulation) und den KI-Tutor „Flowie" nutzt
-            myAbiFlow die <strong>Google Gemini API</strong>.</p>
+            myAbiFlow die <strong>Google Gemini API</strong>. Der Kolloquiumstrainer ist aufgrund der derzeitigen
+            Anbieterbedingungen ausschließlich für Personen ab 18 Jahren freigeschaltet.</p>
         <ul style="color: var(--ink-light); margin-bottom: 1rem; padding-left: 1.5rem;">
             <li>Beim Kolloquiumstrainer werden Audiodaten in Echtzeit an Google übermittelt und verarbeitet</li>
-            <li>Google nutzt API-Daten <strong>nicht</strong> zum Trainieren seiner KI-Modelle
-                (vgl. <a href="https://ai.google.dev/gemini-api/terms" target="_blank" rel="noopener">Gemini API Terms</a>)</li>
+            <li>Google nutzt Daten aus bezahlten API-Diensten nach den einschlägigen Bedingungen nicht zum allgemeinen Modelltraining</li>
+            <li>Für Missbrauchserkennung können Eingaben, Kontext und Ausgaben bis zu 55 Tage aufbewahrt und bei Auffälligkeiten geprüft werden</li>
             <li>Es werden keine Namen, Noten oder sonstige identifizierende Daten übermittelt</li>
         </ul>
         <p>Die Datenverarbeitung erfolgt über <strong>Google Ireland Limited</strong> (EU-Niederlassung).
@@ -270,12 +274,33 @@
         <p>Anbieter: Wolfram Alpha LLC, 100 Trade Center Drive, Champaign, IL 61820, USA.<br>
             Datenschutzerklärung: <a href="https://www.wolfram.com/legal/privacy/wolfram/" target="_blank" rel="noopener">wolfram.com/legal/privacy</a></p>
 
+        <h3 style="font-size: 1.05rem; margin-top: 1.2rem;">5d. Ideogram (Bilderzeugung)</h3>
+        <p>Ideogram kann als Ersatzdienst für die Erzeugung von Aufgabenbildern verwendet werden. Übermittelt werden
+            ausschließlich der Bildauftrag und fachliche Aufgabeninformationen. Nutzerinnen und Nutzer sollen keine
+            Namen oder persönlichen Angaben in Bildaufträge aufnehmen. Anbieter: Ideogram AI, Inc., Kanada/USA.
+            Datenschutzhinweise: <a href="https://about.ideogram.ai/legal/privacy-policy" target="_blank" rel="noopener">Ideogram Privacy Policy</a>.</p>
+
+        <h3 style="font-size: 1.05rem; margin-top: 1.2rem;">5e. Hugging Face (Tutor-Suche)</h3>
+        <p>Der KI-Tutor kann Textfragen zur Berechnung eines mathematischen Suchvektors an die Hugging Face
+            Inference API übermitteln. Dieser Vektor dient dazu, passende Inhalte aus der Wissensdatenbank zu finden.
+            Bitte geben Sie im Tutor keine Namen oder sensiblen persönlichen Angaben ein. Anbieter: Hugging Face, Inc., USA.
+            Datenschutzhinweise: <a href="https://huggingface.co/privacy" target="_blank" rel="noopener">huggingface.co/privacy</a>.</p>
+
+        <h3 style="font-size: 1.05rem; margin-top: 1.2rem;">5f. Stripe (Zahlungsabwicklung)</h3>
+        <p>Bei einem Kauf oder Abonnement verarbeitet Stripe Zahlungs-, Vertrags- und Abrechnungsdaten. myAbiFlow
+            übermittelt hierzu die interne Konto-ID, den gewählten Tarif und die für die Zahlung erforderlichen Angaben.
+            Kampagnenparameter werden nur bei erteilter Marketing-Einwilligung übermittelt. Gesetzlich erforderliche
+            Zahlungsnachweise können trotz Kontolöschung für gesetzliche Fristen aufbewahrt werden. Anbieter:
+            Stripe Payments Europe, Limited, Irland. Datenschutzhinweise:
+            <a href="https://stripe.com/de/privacy" target="_blank" rel="noopener">stripe.com/de/privacy</a>.</p>
+
         <h2>6. E-Mail-Versand (Resend)</h2>
-        <p>Für den Versand von Erinnerungs-E-Mails (optionale Funktion) nutzen wir den Dienst <strong>Resend</strong>.</p>
+        <p>Für notwendige Konto-E-Mails sowie freiwillige Lernhinweise nutzen wir den Dienst <strong>Resend</strong>.</p>
         <ul style="color: var(--ink-light); margin-bottom: 1rem; padding-left: 1.5rem;">
-            <li>Übermittelt werden: E-Mail-Adresse und Erinnerungsinhalt (Fach, letzte Aktivität)</li>
-            <li>E-Mails werden nur versendet, wenn eine E-Mail-Adresse hinterlegt und die Funktion aktiviert wurde</li>
-            <li>Abmeldung ist jederzeit über den Link in der E-Mail möglich</li>
+            <li>Notwendige E-Mails: Verifizierung, Passwort-Wiederherstellung, Sicherheit und unmittelbar bestellte Leistungen</li>
+            <li>Freiwillige E-Mails: Lernhinweise, Inaktivitäts- und Prüfungserinnerungen nur nach ausdrücklicher Einwilligung</li>
+            <li>Übermittelt werden E-Mail-Adresse, Anzeigename und der jeweilige Nachrichteninhalt</li>
+            <li>Die Einwilligung ist jederzeit im Profil oder über einen dauerhaft gültigen Abmeldelink widerrufbar</li>
         </ul>
         <p>Anbieter: Resend, Inc., San Francisco, CA, USA.<br>
             Resend ist unter dem <strong>EU-U.S. Data Privacy Framework (DPF)</strong> zertifiziert.<br>
@@ -294,7 +319,7 @@
             Ohne Einwilligung findet keine Analyse- oder Marketingmessung über diese Dienste statt.</p>
         <ul style="color: var(--ink-light); margin-bottom: 1rem; padding-left: 1.5rem;">
             <li><strong>Session Storage:</strong> Login-Status – wird beim Schließen des Browsers automatisch gelöscht</li>
-            <li><strong>Local Storage:</strong> Darstellungseinstellung (Hell-/Dunkelmodus), Schülerprofil, Consent-Entscheidung – bleibt bis zur manuellen Löschung</li>
+            <li><strong>Local Storage:</strong> Darstellung, Consent-Entscheidung sowie gegebenenfalls Prüfungen, Entwürfe, Antworten und kurzfristige Kolloquiums-Backups. Personenbezogene Lerndaten werden bei Abmeldung oder über „Lokale Lerndaten löschen" entfernt und nach 30 Tagen Inaktivität automatisch bereinigt</li>
             <li><strong>Service Worker Cache:</strong> Offline-Verfügbarkeit der Seite – rein technisch, keine personenbezogenen Daten</li>
         </ul>
         <p>Diese Speicherungen sind technisch notwendig (Art. 6 Abs. 1 lit. f DSGVO) und erfordern keine Einwilligung
@@ -303,8 +328,7 @@
             Google Analytics 4, Google Ads Conversion Tracking und Meta Pixel, um Reichweite,
             Kampagnenerfolg und Nutzung der öffentlichen Seiten besser zu verstehen. Rechtsgrundlage
             ist Ihre Einwilligung (Art. 6 Abs. 1 lit. a DSGVO; § 25 Abs. 1 TDDDG). Die Einwilligung
-            kann jederzeit widerrufen werden, indem die Browserdaten für myabiflow.de gelöscht oder
-            der Consent erneut abgelehnt wird.</p>
+            kann jederzeit über den auf jeder Seite erreichbaren Schalter „Datenschutz-Einstellungen" widerrufen werden.</p>
         <ul style="color: var(--ink-light); margin-bottom: 1rem; padding-left: 1.5rem;">
             <li><strong>Google Analytics 4 / Google Ads:</strong> Anbieter ist Google Ireland Limited,
                 Gordon House, Barrow Street, Dublin 4, Irland. IP-Adressen werden gekürzt verarbeitet;
@@ -324,11 +348,11 @@
             (Art. 6 Abs. 1 lit. f DSGVO).</p>
 
         <h2>10. Verarbeitung von Daten Minderjähriger</h2>
-        <p>Die Plattform richtet sich primär an Schülerinnen und Schüler der gymnasialen Oberstufe (in der Regel 16–18 Jahre).
-            Die Nutzung erfolgt im schulischen Kontext auf Veranlassung der Lehrkraft.
-            Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an der schulischen Förderung).
-            Bei Schülerinnen und Schülern unter 16 Jahren erfolgt die Einbindung über die Schule im Rahmen
-            des pädagogischen Auftrags.</p>
+        <p>Die allgemeinen Lernseiten richten sich an Schülerinnen und Schüler der gymnasialen Oberstufe. Die Nutzung
+            kann direkt oder im Rahmen einer Schule erfolgen; die jeweilige Rechtsgrundlage richtet sich nach dem
+            konkreten Vertrags- und Nutzungskontext. Einwilligungen Minderjähriger werden nur eingesetzt, soweit die
+            gesetzlichen Voraussetzungen einschließlich Art. 8 DSGVO erfüllt sind. Der mit Google Gemini Live
+            betriebene <strong>Kolloquiumstrainer ist derzeit ausschließlich ab 18 Jahren verfügbar</strong>.</p>
 
         <h2>11. Ihre Rechte</h2>
         <p>Sie haben jederzeit folgende Rechte:</p>
@@ -345,12 +369,14 @@
         <h2>12. Löschung und Aufbewahrung</h2>
         <p>Konten und zugehörige Ergebnisse können jederzeit gelöscht werden:</p>
         <ul style="color: var(--ink-light); margin-bottom: 1rem; padding-left: 1.5rem;">
+            <li>Eigenständig im Profil über „Konto endgültig löschen"</li>
             <li>Durch die zugeordnete Lehrkraft über das Dashboard</li>
             <li>Per E-Mail-Anfrage an info@myabiflow.de</li>
         </ul>
-        <p>Bei der Löschung eines Kontos werden <strong>alle zugehörigen Daten unwiderruflich entfernt</strong>
-            (Konto, Ergebnisse, Bewertungen, Kompetenzprofile, Lernpläne).
-            Es bestehen keine gesetzlichen Aufbewahrungspflichten für diese Daten.</p>
+        <p>Bei der Löschung werden Konto, Ergebnisse, Bewertungen, Kompetenzprofile, Lernpläne, Verknüpfungen,
+            Nachrichten und lokale Lerndaten entfernt. Das verknüpfte Stripe-Kundenprofil wird zur Löschung
+            angefragt. Zahlungs- und Rechnungsdaten, die gesetzlichen Aufbewahrungspflichten unterliegen, können
+            gesperrt bis zum Ablauf dieser Fristen fortbestehen.</p>
 
         <h2>13. Datensicherheit (Art. 32 DSGVO)</h2>
         <p>Wir schützen Ihre Daten durch folgende technische und organisatorische Maßnahmen:</p>
@@ -372,16 +398,18 @@
             <li><strong>Hetzner Online GmbH</strong> – Hosting, Server, Datenbank (DPA, Standort: Deutschland)</li>
             <li><strong>OpenAI, L.L.C.</strong> – KI-Korrektur und Feedback (DPA + DPF-zertifiziert)</li>
             <li><strong>Google Ireland Ltd.</strong> – KI-Tutor und Kolloquiumstrainer (DPA + SCCs)</li>
+            <li><strong>Ideogram AI, Inc.</strong> – Erzeugung von Aufgabenbildern</li>
+            <li><strong>Hugging Face, Inc.</strong> – Suchvektoren für den KI-Tutor</li>
             <li><strong>Wolfram Alpha LLC</strong> – Mathematische Verifikation in MINT-Fächern (nur Formeln, keine personenbezogenen Daten)</li>
             <li><strong>Resend, Inc.</strong> – E-Mail-Versand (DPA + DPF-zertifiziert)</li>
+            <li><strong>Stripe Payments Europe, Limited</strong> – Zahlungs- und Abonnementabwicklung</li>
             <li><strong>Google Ireland Ltd.</strong> – Google Analytics 4 und Google Ads Conversion Tracking (nur nach Einwilligung)</li>
             <li><strong>Meta Platforms Ireland Ltd.</strong> – Meta Pixel (nur nach Einwilligung)</li>
         </ul>
-        <p>Mit allen Auftragsverarbeitern bestehen Verträge gemäß Art. 28 DSGVO. Das Hosting erfolgt
-            vollständig in Deutschland. Für die Übermittlung an US-Dienstleister (OpenAI, Resend) greift das
-            EU-U.S. Data Privacy Framework (Angemessenheitsbeschluss). Für Google gelten
-            EU-Standardvertragsklauseln (SCCs). An Wolfram Alpha werden ausschließlich mathematische Ausdrücke
-            ohne Personenbezug übermittelt.</p>
+        <p>Das Hosting erfolgt vollständig in Deutschland. Bei externen Diensten werden je nach Anbieter
+            Auftragsverarbeitungsverträge, das EU-U.S. Data Privacy Framework und/oder EU-Standardvertragsklauseln
+            eingesetzt. Details und die jeweils aktuelle Rolle des Anbieters werden im Verzeichnis der
+            Verarbeitungstätigkeiten dokumentiert.</p>
 
         <h2>15. Beschwerderecht</h2>
         <p>Sie haben das Recht, sich bei einer Datenschutz-Aufsichtsbehörde zu beschweren:</p>
@@ -398,7 +426,7 @@
             <a href="https://www.datenschutz-bayern.de" target="_blank" rel="noopener">www.datenschutz-bayern.de</a>
         </p>
 
-        <p style="margin-top: 2rem; font-size: 0.9rem; color: var(--ink-lighter);">Stand: Juni 2026</p>
+        <p style="margin-top: 2rem; font-size: 0.9rem; color: var(--ink-lighter);">Stand: 25. September 2026</p>
 
         <div style="margin-top: 3rem; text-align: center;">
             <a href="index.html" class="btn">Zurück zur Startseite</a>

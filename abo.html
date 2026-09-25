@@ -1197,7 +1197,7 @@
         if (typeof trackEvent === "function") {
           trackEvent("InitiateCheckout", { plan: selectedPlan, value: selectedPlan });
           // Google Ads Conversion
-          if (window.gtag && TRACKING_CONFIG && TRACKING_CONFIG.AW_CONVERSION_ID !== "AW-XXXXXXXXXX") {
+          if (typeof getTrackingConsent === "function" && getTrackingConsent("marketing") && window.gtag && TRACKING_CONFIG && TRACKING_CONFIG.AW_CONVERSION_ID !== "AW-XXXXXXXXXX") {
             window.gtag("event", "conversion", {
               send_to: TRACKING_CONFIG.AW_CONVERSION_ID + "/checkout",
               value: 1.0,

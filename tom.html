@@ -141,7 +141,7 @@
         <ul>
             <li>Sch&uuml;lerdaten sind durch <code>student_id</code> logisch getrennt</li>
             <li>Lehrkr&auml;fte-Zugriff ist durch <code>student_teacher_links</code> auf zugeordnete Sch&uuml;ler beschr&auml;nkt</li>
-            <li>API-Keys f&uuml;r KI-Dienste (OpenAI, Gemini) sind als Umgebungsvariablen auf dem Server gespeichert und nicht im Code</li>
+            <li>API-Keys f&uuml;r externe Dienste sind als Umgebungsvariablen auf dem Server gespeichert und nicht im Frontend-Code</li>
         </ul>
 
         <h2>2. Integrit&auml;t (Art. 32 Abs. 1 lit. b DSGVO)</h2>
@@ -150,7 +150,7 @@
         <div class="legal-table-scroll" role="region" tabindex="0" aria-label="Tabelle, bei Bedarf seitlich scrollen"><table>
             <tr><th>Ma&szlig;nahme</th><th>Umsetzung</th></tr>
             <tr><td>Transportverschl&uuml;sselung</td><td>Alle Verbindungen ausschlie&szlig;lich &uuml;ber HTTPS/TLS 1.3. HSTS aktiviert.</td></tr>
-            <tr><td>API-Kommunikation</td><td>Alle Aufrufe an OpenAI und Gemini &uuml;ber HTTPS mit API-Key-Authentifizierung.</td></tr>
+            <tr><td>API-Kommunikation</td><td>Alle Aufrufe an KI-, Bild-, E-Mail- und Zahlungsdienste &uuml;ber verschl&uuml;sselte Verbindungen und serverseitige Zugangsdaten.</td></tr>
             <tr><td>WebSocket-Verbindungen</td><td>Kolloquiumstrainer nutzt WSS (WebSocket Secure) f&uuml;r Audio-Streaming.</td></tr>
             <tr><td>Datenminimierung bei KI</td><td>An KI-Anbieter werden <strong>keine</strong> Namen, Noten oder identifizierenden Daten &uuml;bermittelt.</td></tr>
         </table></div>
@@ -185,7 +185,7 @@
 
         <h3>4.1 Datenschutz-Management</h3>
         <ul>
-            <li>Regelm&auml;&szlig;ige &Uuml;berpr&uuml;fung der Auftragsverarbeitungsvertr&auml;ge mit Hetzner, OpenAI, Google und Resend</li>
+            <li>Regelm&auml;&szlig;ige &Uuml;berpr&uuml;fung der Vertr&auml;ge, Rollen und Drittlandgarantien aller eingesetzten Anbieter</li>
             <li>&Uuml;berpr&uuml;fung der DPF-Zertifizierungen der US-Dienstleister</li>
             <li>Datenschutz-Folgenabsch&auml;tzung (DSFA) wurde durchgef&uuml;hrt und wird bei wesentlichen &Auml;nderungen aktualisiert</li>
         </ul>
@@ -195,9 +195,14 @@
             <tr><th>Datenart</th><th>L&ouml;schfrist</th></tr>
             <tr><td>Session-Tokens</td><td>24 Stunden (automatisch ung&uuml;ltig)</td></tr>
             <tr><td>Browser Session Storage</td><td>Beim Schlie&szlig;en des Browsers</td></tr>
-            <tr><td>Asynchrone Korrektur-Jobs</td><td>30 Tage (automatische Bereinigung)</td></tr>
-            <tr><td>Kolloquium-Sitzungen</td><td>1 Stunde nach Ende (automatisches Cleanup)</td></tr>
-            <tr><td>Nutzerkonto + Ergebnisse</td><td>Bei L&ouml;schung durch Lehrkraft oder auf Anfrage</td></tr>
+            <tr><td>Asynchrone Korrektur-Jobs</td><td>24 Stunden (automatische Bereinigung)</td></tr>
+            <tr><td>Kolloquiums-Transkript im Browser</td><td>24 Stunden oder beim L&ouml;schen lokaler Lerndaten</td></tr>
+            <tr><td>Kolloquiums-Metadaten</td><td>30 Tage (automatische Bereinigung)</td></tr>
+            <tr><td>Passwort-Reset-Token</td><td>24 Stunden; Verifikations-Token sp&auml;testens nach 7 Tagen</td></tr>
+            <tr><td>Technische Aktivierungsereignisse</td><td>180 Tage</td></tr>
+            <tr><td>Nachrichten und Feedback</td><td>365 Tage</td></tr>
+            <tr><td>Lokale Lerndaten</td><td>Nach 30 Tagen Inaktivit&auml;t oder manuell im Profil</td></tr>
+            <tr><td>Nutzerkonto + Ergebnisse</td><td>Bei Selbstl&ouml;schung im Profil, durch berechtigte Lehrkraft oder auf Anfrage</td></tr>
         </table></div>
 
         <h2>5. &Uuml;bersicht Auftragsverarbeiter</h2>
@@ -206,13 +211,17 @@
             <tr><td>Hetzner Online GmbH</td><td>Hosting, Server, Datenbank</td><td>Deutschland (N&uuml;rnberg)</td><td>DPA</td></tr>
             <tr><td>OpenAI, L.L.C.</td><td>KI-Korrektur und Feedback</td><td>USA</td><td>DPF + DPA</td></tr>
             <tr><td>Google Ireland Ltd.</td><td>Kolloquiumstrainer, KI-Tutor</td><td>Irland/USA</td><td>SCCs + DPA</td></tr>
+            <tr><td>Ideogram AI, Inc.</td><td>Erzeugung von Aufgabenbildern</td><td>Kanada/USA</td><td>Vertrag und Transfergrundlage zu dokumentieren</td></tr>
+            <tr><td>Hugging Face, Inc.</td><td>Suchvektoren f&uuml;r den KI-Tutor</td><td>USA</td><td>Vertrag und Transfergrundlage zu dokumentieren</td></tr>
+            <tr><td>Wolfram Alpha LLC</td><td>Mathematische Verifikation</td><td>USA</td><td>Datenminimierung; Rolle zu dokumentieren</td></tr>
             <tr><td>Resend, Inc.</td><td>E-Mail-Versand</td><td>USA</td><td>DPF + DPA</td></tr>
+            <tr><td>Stripe Payments Europe, Limited</td><td>Zahlungen und Abonnements</td><td>EU/USA</td><td>Vertragliche Datenschutzgarantien</td></tr>
         </table></div>
 
         <hr style="margin: 3rem 0; border: none; border-top: 1px solid var(--border);">
 
         <p style="font-size: 0.9rem; color: var(--ink-lighter);">
-            Dokument erstellt: M&auml;rz 2026 | Version 1.0<br>
+            Dokument erstellt: M&auml;rz 2026 | Aktualisiert: September 2026 | Version 2.0<br>
             Verantwortlich: Daniel Zahnweh, Gesch&auml;ftsf&uuml;hrer myAbiFlow UG (haftungsbeschr&auml;nkt)<br>
             Dieses Dokument wird bei wesentlichen &Auml;nderungen der technischen Infrastruktur aktualisiert.
         </p>

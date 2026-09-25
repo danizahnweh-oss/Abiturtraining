@@ -122,6 +122,12 @@ async function generateEmbedding(text) {
   return Array.isArray(embedding[0]) ? embedding[0] : embedding;
 }
 
+function removeDirectIdentifiers(value) {
+  return String(value || '')
+    .replace(/\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b/gi, '[E-Mail entfernt]')
+    .replace(/(?:\+?49|0)[\s()\-/]*\d(?:[\s()\-/]*\d){6,}/g, '[Telefonnummer entfernt]');
+}
+
 // ============================================================
 // VECTOR SEARCH (ersetzt Cloudflare Vectorize)
 // ============================================================
@@ -168,8 +174,11 @@ app.post('/tutor/query', async (req, res) => {
       return res.set(corsHeaders()).status(400).json({ error: 'question ist erforderlich' });
     }
 
-    // 1. Embedding generieren
-    const embedding = await generateEmbedding(question);
+    const safeQuestion = removeDirectIdentifiers(question).slice(0, 4000);
+    const safeTaskContext = removeDirectIdentifiers(taskContext).slice(0, 12000);
+
+    // 1. Embedding ohne direkt erkennbare Kontaktangaben generieren
+    const embedding = await generateEmbedding(safeQuestion);
 
     // 2. Ähnliche Dokumente suchen
     const matches = await vectorSearch(embedding, 3, subject);
@@ -186,8 +195,8 @@ app.post('/tutor/query', async (req, res) => {
 
     // 4. Task-Kontext (falls vorhanden)
     let taskInfo = '';
-    if (taskContext) {
-      taskInfo = `\n\nAKTUELLE AUFGABE DES SCHÜLERS:\n${taskContext}\n`;
+    if (safeTaskContext) {
+      taskInfo = `\n\nAKTUELLE AUFGABE DES SCHÜLERS:\n${safeTaskContext}\n`;
     }
 
     // 5. System-Prompt (Flowie-Charakter)
@@ -206,7 +215,7 @@ WICHTIGE REGELN:
 ${taskInfo}${ragContext}`;
 
     // 6. Gemini aufrufen
-    const answer = await callGemini(systemPrompt, question);
+    const answer = await callGemini(systemPrompt, safeQuestion);
 
     res.set(corsHeaders()).json({
       answer,

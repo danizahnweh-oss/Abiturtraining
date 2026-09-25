@@ -293,7 +293,7 @@ Orange Theme (#ea580c). Separate Login-Seite, eigene CSS.
 | Google Analytics (GA4) | Event-Tracking + UTM |
 | Meta Pixel | Conversion-Tracking (nach Consent) |
 | Unsplash | Bilder für Aufgaben |
-| Telegram Bot | Admin-Alerts (API-Fehler, Feedback) |
+| Admin-E-Mail | Freigaben und technische API-Fehler über Resend |
 | Hetzner | Hosting (Static + API + PostgreSQL) |
 
 ---

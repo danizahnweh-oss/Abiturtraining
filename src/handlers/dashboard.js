@@ -563,10 +563,11 @@ export async function handleActivityFeed(request, env) {
     SELECT * FROM (
       SELECT 'colloquium_started' AS type,
              COALESCE(cs.subject, '–') AS label,
-             COALESCE(cs.student_name, '–') AS actor,
+             COALESCE(s.name, '–') AS actor,
              '' AS detail,
              cs.started_at AS ts
       FROM colloquium_sessions cs
+      LEFT JOIN students s ON s.id = cs.student_id
       WHERE cs.started_at IS NOT NULL
       ORDER BY cs.started_at DESC LIMIT 15
     )
@@ -574,10 +575,11 @@ export async function handleActivityFeed(request, env) {
     SELECT * FROM (
       SELECT 'colloquium_ended' AS type,
              COALESCE(cs.subject, '–') AS label,
-             COALESCE(cs.student_name, '–') AS actor,
+             COALESCE(s.name, '–') AS actor,
              CAST(cs.duration_s AS TEXT) AS detail,
              cs.ended_at AS ts
       FROM colloquium_sessions cs
+      LEFT JOIN students s ON s.id = cs.student_id
       WHERE cs.ended_at IS NOT NULL
       ORDER BY cs.ended_at DESC LIMIT 15
     )

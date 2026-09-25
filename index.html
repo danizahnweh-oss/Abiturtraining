@@ -2814,12 +2814,26 @@
 
       /* ===== MOBILE: Subject-Header ===== */
       .subject-header {
-        padding: .6rem 1rem
+        padding: .6rem 1rem;
+        flex-wrap: wrap;
+        gap: .5rem
       }
 
       .subject-header img {
         height: 38px !important;
         width: auto !important
+      }
+
+      .subject-header .header-right {
+        width: 100%;
+        min-width: 0;
+        justify-content: flex-end;
+        flex-wrap: wrap;
+        gap: .35rem
+      }
+
+      .subject-header .logout-btn {
+        padding: .45rem .6rem
       }
 
       /* ===== MOBILE: Kolloquium & Training Cards ===== */
@@ -3596,6 +3610,12 @@
         <label for="registerEmail" class="sr-only">E-Mail-Adresse</label>
         <input type="email" id="registerEmail" class="login-input" placeholder="Deine E-Mail-Adresse ..."
           autocomplete="email" style="font-size:16px;">
+        <p style="font-size:.78rem;color:var(--ink-muted);margin:.35rem 0 .75rem;line-height:1.45;text-align:left;">Die E-Mail-Adresse wird für Anmeldung, Sicherheit und Passwort-Wiederherstellung benötigt.</p>
+        <label for="registerEmailUpdates" style="display:flex;align-items:flex-start;gap:.65rem;font-size:.82rem;color:var(--ink-muted);line-height:1.45;text-align:left;cursor:pointer;margin:.25rem 0 .75rem;">
+          <input type="checkbox" id="registerEmailUpdates" style="width:20px;height:20px;min-width:20px;margin-top:1px;accent-color:var(--accent);">
+          <span>Ich möchte freiwillig Lernhinweise und Prüfungserinnerungen per E-Mail erhalten. Die Einwilligung kann ich jederzeit widerrufen.</span>
+        </label>
+        <p style="font-size:.78rem;color:var(--ink-muted);margin:.35rem 0 .75rem;line-height:1.45;text-align:left;">Mit der Registrierung bestätigst du, die <a href="impressum.html#datenschutz" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:underline;">Datenschutzerklärung</a> gelesen zu haben.</p>
         <p style="font-size:.82rem;color:var(--ink-muted);margin-top:.4rem;text-align:center;">Hast du einen Schulcode? Den gibst du sp&auml;ter beim Abo ein.</p>
       </div>
       <br>
@@ -3680,6 +3700,12 @@
     <!-- Abifächer-Einstellungen (Frequenz + Email) -->
     <div id="examSettings" class="exam-settings" style="display:none;">
       <div class="exam-settings-row">
+        <label for="reminderOptIn" style="display:flex;align-items:flex-start;gap:.65rem;cursor:pointer;">
+          <input type="checkbox" id="reminderOptIn" onchange="saveExamPreferences()" style="width:20px;height:20px;min-width:20px;accent-color:var(--accent);">
+          <span>Lernhinweise und Prüfungserinnerungen per E-Mail erhalten</span>
+        </label>
+      </div>
+      <div class="exam-settings-row">
         <label for="reminderInterval">Erinnere mich, wenn ich ein Abifach nicht geübt habe seit:</label>
         <select id="reminderInterval" onchange="saveExamPreferences()">
           <option value="1">1 Tag</option>
@@ -3691,7 +3717,7 @@
         </select>
       </div>
       <div class="exam-settings-row">
-        <label for="reminderEmail">Email für Erinnerungen (optional):</label>
+        <label for="reminderEmail">E-Mail-Adresse des Kontos:</label>
         <input type="email" id="reminderEmail" placeholder="deine@email.de" onchange="saveExamPreferences()" style="font-size:16px;">
       </div>
       <div class="exam-info">
@@ -3713,6 +3739,13 @@
       </div>
       <div id="examReminderSettings" class="exam-settings" style="display:none;">
         <div class="exam-settings-row">
+          <label for="reminderOptIn2" style="display:flex;align-items:flex-start;gap:.65rem;cursor:pointer;">
+            <input type="checkbox" id="reminderOptIn2" onchange="saveReminderFromNewPanel()" style="width:20px;height:20px;min-width:20px;accent-color:var(--accent);">
+            <span>Lernhinweise und Prüfungserinnerungen per E-Mail erhalten</span>
+          </label>
+          <p style="font-size:.78rem;color:var(--ink-muted);margin:.35rem 0 0;line-height:1.45;">Freiwillig und jederzeit widerrufbar. Konto- und Sicherheits-E-Mails bleiben davon unberührt.</p>
+        </div>
+        <div class="exam-settings-row">
           <label for="reminderInterval2">Erinnere mich, wenn ich ein Abifach nicht geübt habe seit:</label>
           <select id="reminderInterval2" onchange="saveReminderFromNewPanel()">
             <option value="1">1 Tag</option>
@@ -3724,7 +3757,7 @@
           </select>
         </div>
         <div class="exam-settings-row">
-          <label for="reminderEmail2">Email für Erinnerungen (optional):</label>
+          <label for="reminderEmail2">E-Mail-Adresse des Kontos:</label>
           <input type="email" id="reminderEmail2" placeholder="deine@email.de" onchange="saveReminderFromNewPanel()" style="font-size:16px;">
         </div>
       </div>
@@ -5679,8 +5712,9 @@
 
     /* ====== ABIFÄCHER-AUSWAHL ====== */
     var examSubjectsCache = { written: [], oral: [], ea: "" };
-    var reminderIntervalCache = 3;
+    var reminderIntervalCache = 0;
     var reminderEmailCache = "";
+    var reminderOptInCache = false;
 
     var SUBJECT_DISPLAY = {
       english: "Englisch", german: "Deutsch", history: "Geschichte", geschichte: "Geschichte",
@@ -6142,8 +6176,9 @@
             if (examSubjectsCache.ea) {
               sessionStorage.setItem("student_level", "gA");
             }
-            reminderIntervalCache = data.preferences.reminder_interval ?? 3;
+            reminderIntervalCache = data.preferences.reminder_interval ?? 0;
             reminderEmailCache = data.preferences.email || "";
+            reminderOptInCache = data.preferences.email_updates_optin === true;
 
             // Eigene Prüfungstermine vom Server in den Browser übernehmen (Geräte-Sync)
             if (data.preferences.exam_dates && typeof data.preferences.exam_dates === "object") {
@@ -6152,6 +6187,7 @@
 
             document.getElementById("reminderInterval").value = String(reminderIntervalCache);
             document.getElementById("reminderEmail").value = reminderEmailCache;
+            document.getElementById("reminderOptIn").checked = reminderOptInCache;
             applyExamBadges();
             updateExamCounter();
             saveLocalPreferences();
@@ -6288,7 +6324,9 @@
       var token = sessionStorage.getItem("access_token");
       if (!name || !token) return;
 
-      var interval = parseInt(document.getElementById("reminderInterval").value, 10);
+      var optedIn = document.getElementById("reminderOptIn").checked;
+      var interval = optedIn ? parseInt(document.getElementById("reminderInterval").value, 10) : 0;
+      if (optedIn && interval === 0) interval = 3;
       var email = document.getElementById("reminderEmail").value.trim();
 
       fetch(API_BASE + "/api/save-preferences", {
@@ -6299,6 +6337,7 @@
           exam_subjects: examSubjectsCache,
           exam_dates: loadCustomExamDates(),
           reminder_interval: interval,
+          email_updates_optin: optedIn,
           email: email
         })
       }).catch(function () { });
@@ -6314,8 +6353,10 @@
     function saveReminderFromNewPanel() {
       var interval = document.getElementById("reminderInterval2").value;
       var email = document.getElementById("reminderEmail2").value;
+      var optedIn = document.getElementById("reminderOptIn2").checked;
       document.getElementById("reminderInterval").value = interval;
       document.getElementById("reminderEmail").value = email;
+      document.getElementById("reminderOptIn").checked = optedIn;
       saveExamPreferences();
     }
 
@@ -6324,8 +6365,11 @@
       var el2 = document.getElementById("reminderInterval2");
       var em1 = document.getElementById("reminderEmail");
       var em2 = document.getElementById("reminderEmail2");
+      var op1 = document.getElementById("reminderOptIn");
+      var op2 = document.getElementById("reminderOptIn2");
       if (el1 && el2) el2.value = el1.value;
       if (em1 && em2) em2.value = em1.value;
+      if (op1 && op2) op2.checked = op1.checked;
     }
 
     /* ====== PRÜFUNGSTERMINE ====== */
@@ -6606,6 +6650,7 @@
         if (personalPw !== confirmPw) { err.textContent = "Passw\u00f6rter stimmen nicht \u00fcberein."; err.style.display = "block"; return; }
         if (!regEmail || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(regEmail)) { err.textContent = "Bitte gib eine g\u00fcltige E-Mail-Adresse ein."; err.style.display = "block"; return; }
         body.email = regEmail;
+        body.email_updates_optin = document.getElementById("registerEmailUpdates").checked === true;
         try { if (localStorage.getItem("myabiflow_trial_used")) body.trial_used = true; } catch(e) {}
       }
 
@@ -7153,6 +7198,7 @@
     }
 
     function logout() {
+      if (typeof _clearLocalStudentData === "function") _clearLocalStudentData(false);
       sessionStorage.clear();
       document.querySelectorAll("[id^='module-screen-']").forEach(function (el) { el.style.display = "none"; });
       document.getElementById("studentName").value = "";

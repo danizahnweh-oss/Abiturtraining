@@ -29,18 +29,18 @@ export async function handleTeacherRegister(request, env) {
     "INSERT INTO teachers (id, name, name_lower, email, salt, hash, subjects, status, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, 'pending', ?)"
   ).bind(id, name.trim(), nameLower, email, salt, hash, subjectsJson, new Date().toISOString()).run();
 
-  // Telegram-Benachrichtigung an Admin
+  // Freigabelink ausschließlich per Admin-E-Mail senden.
   sendTeacherApprovalNotification(env, id, name.trim(), email, JSON.parse(subjectsJson));
 
   return jsonResponse({ success: true, pending: true, message: "Registrierung erfolgreich! Dein Konto wird in Kürze freigeschaltet." }, 200, env);
 }
 
-// Telegram-Benachrichtigung bei neuer Lehrer-Registrierung
+// Admin-E-Mail bei neuer Lehrer-Registrierung
 async function sendTeacherApprovalNotification(env, teacherId, name, email, subjects) {
   try {
-    const botToken = env.TELEGRAM_BOT_TOKEN;
-    const chatId = env.TELEGRAM_CHAT_ID;
-    if (!botToken || !chatId) return;
+    const adminEmail = env.ADMIN_EMAIL || 'info@myabiflow.de';
+    const resendKey = env.RESEND_API_KEY;
+    if (!adminEmail || !resendKey) return;
 
     const allowedOrigin = env.ALLOWED_ORIGIN || 'https://myabiflow.de';
     const approvalToken = crypto.randomUUID();
@@ -52,23 +52,29 @@ async function sendTeacherApprovalNotification(env, teacherId, name, email, subj
     const approveUrl = `${allowedOrigin}/api/approve-teacher?token=${approvalToken}`;
     const subjectList = subjects.length ? subjects.join(', ') : 'keine';
 
-    const text = `📋 *Neue Lehrer-Registrierung*\n\n` +
-      `👤 *Name:* ${name}\n` +
-      `📧 *E-Mail:* ${email}\n` +
-      `📚 *Fächer:* ${subjectList}\n\n` +
-      `[✅ Freischalten](${approveUrl})`;
-
-    await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+    const escape = value => String(value).replace(/[<>&"]/g, char => ({ '<': '&lt;', '>': '&gt;', '&': '&amp;', '"': '&quot;' }[char]));
+    await fetch('https://api.resend.com/emails', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ chat_id: chatId, text, parse_mode: 'Markdown' }),
+      headers: { 'Authorization': `Bearer ${resendKey}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        from: 'myAbiFlow Administration <admin@myabiflow.de>',
+        reply_to: 'info@myabiflow.de',
+        to: [adminEmail],
+        subject: 'Neue Lehrkraft wartet auf Freigabe',
+        html: `<!doctype html><html lang="de"><body style="font-family:system-ui,sans-serif;line-height:1.5;color:#172033">
+          <h2>Neue Lehrkraft wartet auf Freigabe</h2>
+          <p><strong>Name:</strong> ${escape(name)}<br><strong>E-Mail:</strong> ${escape(email)}<br><strong>Fächer:</strong> ${escape(subjectList)}</p>
+          <p><a href="${escape(approveUrl)}" style="display:inline-block;padding:12px 18px;border-radius:8px;background:#1d4ed8;color:#fff;text-decoration:none;font-weight:700">Lehrkraft freischalten</a></p>
+          <p style="font-size:12px;color:#64748b">Der Link ist sieben Tage gültig.</p>
+        </body></html>`
+      }),
     });
   } catch (e) {
-    console.error('Telegram-Benachrichtigung fehlgeschlagen:', e.message);
+    console.error('Admin-Freigabe-E-Mail fehlgeschlagen:', e.message);
   }
 }
 
-// Lehrer-Konto freischalten (GET/POST — klickbar aus Telegram)
+// Lehrer-Konto freischalten (GET/POST, klickbar aus der Admin-E-Mail)
 export async function handleTeacherApprove(request, env) {
   let token = null;
   if (request.method === "GET") {

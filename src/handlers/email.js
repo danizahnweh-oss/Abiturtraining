@@ -24,10 +24,9 @@ export async function handleUnsubscribe(request, env) {
     const ts = parseInt(parts.pop(), 10);
     const nameLower = parts.join(":");
 
-    // Token max 7 Tage gültig
-    if (Date.now() - ts > 7 * 86400000) {
-      return new Response(unsubscribePage("Dieser Link ist abgelaufen."), { status: 400, headers: { "Content-Type": "text/html; charset=utf-8" } });
-    }
+    // Abmeldelinks laufen bewusst nicht ab: Der Widerruf soll dauerhaft
+    // genauso einfach bleiben wie die ursprüngliche Einwilligung.
+    if (!Number.isFinite(ts) || ts <= 0 || ts > Date.now() + 300000) throw new Error("Ungültig");
 
     // HMAC verifizieren
     const key = await crypto.subtle.importKey("raw", new TextEncoder().encode(env.ACCESS_PASSWORD), { name: "HMAC", hash: "SHA-256" }, false, ["verify"]);
@@ -36,7 +35,9 @@ export async function handleUnsubscribe(request, env) {
     const valid = await crypto.subtle.verify("HMAC", key, sigBytes, new TextEncoder().encode(payload));
     if (!valid) throw new Error("Ungültig");
 
-    await env.DB.prepare("UPDATE students SET reminder_interval = 0, retention_optout = 1 WHERE name_lower = ?").bind(nameLower).run();
+    await env.DB.prepare(
+      "UPDATE students SET reminder_interval = 0, retention_optout = 1, email_updates_optin = 0, email_updates_consent_at = NULL, email_updates_consent_version = NULL WHERE name_lower = ?"
+    ).bind(nameLower).run();
 
     return new Response(unsubscribePage("Du erhältst ab sofort keine Emails mehr von myAbiFlow. Du kannst die Erinnerungen jederzeit in der App wieder aktivieren."), {
       status: 200, headers: { "Content-Type": "text/html; charset=utf-8" }
@@ -342,7 +343,7 @@ export async function sendRetentionEmails(env) {
     `SELECT name, name_lower, email, created_at, onboarding_stage, retention_optout, exam_subjects, exam_dates
      FROM students
      WHERE email IS NOT NULL AND email != '' AND email != 'fehlt@unbekannt.de'
-       AND retention_optout = 0`
+       AND retention_optout = 0 AND email_updates_optin = 1`
   ).all();
 
   if (!students || students.length === 0) {
@@ -362,7 +363,7 @@ export async function sendRetentionEmails(env) {
 
       // ── Onboarding-Mail 1: Willkommen (nach 1 Tag) ──
       if (stage === 0 && daysSinceRegister >= 1) {
-        console.log(`Sende Willkommens-Mail an ${student.name_lower}`);
+        console.log("Cron: Willkommens-Mail wird gesendet");
         await sendEmail(env, student.email, "Willkommen bei myAbiFlow – so startest du am besten", buildWelcomeEmail(student.name, unsubUrl));
         await env.DB.prepare("UPDATE students SET onboarding_stage = 1 WHERE name_lower = ?").bind(student.name_lower).run();
         sentCount++;
@@ -377,7 +378,7 @@ export async function sendRetentionEmails(env) {
         const hasResults = activityRows?.[0]?.cnt > 0;
 
         if (!hasResults) {
-          console.log(`Sende Nudge-Mail an ${student.name_lower}`);
+          console.log("Cron: Aktivierungs-Mail wird gesendet");
           await sendEmail(env, student.email, "myAbiFlow – Starte deine erste Übung", buildNudgeEmail(student.name, unsubUrl));
         }
         await env.DB.prepare("UPDATE students SET onboarding_stage = 2 WHERE name_lower = ?").bind(student.name_lower).run();
@@ -414,7 +415,7 @@ export async function sendRetentionEmails(env) {
           const daysSinceLastMail = lastSent ? Math.floor((now - new Date(lastSent).getTime()) / 86400000) : 999;
 
           if (daysSinceLastMail >= 14) {
-            console.log(`Sende Inaktivitäts-Mail an ${student.name_lower} (${daysSinceActivity} Tage inaktiv)`);
+            console.log(`Cron: Inaktivitäts-Mail wird gesendet (${daysSinceActivity} Tage)`);
             await sendEmail(env, student.email, "myAbiFlow – Wir vermissen dich!", buildInactivityEmail(student.name, daysSinceActivity, unsubUrl));
             await env.DB.prepare("UPDATE students SET last_reminder_sent = ? WHERE name_lower = ?").bind(new Date().toISOString(), student.name_lower).run();
             sentCount++;
@@ -435,7 +436,7 @@ export async function sendRetentionEmails(env) {
         if (daysSinceLastMail >= 6) { // Max 1 pro Woche
           const weekNum = Math.floor(now / (7 * 86400000));
           const tip = WEEKLY_TIPS[weekNum % WEEKLY_TIPS.length];
-          console.log(`Sende Lernimpuls an ${student.name_lower}: ${tip.subject}`);
+          console.log(`Cron: Lernimpuls wird gesendet (${tip.subject})`);
           await sendEmail(env, student.email, `myAbiFlow – Lernimpuls: ${tip.subject}`, buildWeeklyEmail(student.name, tip, unsubUrl));
           await env.DB.prepare("UPDATE students SET last_reminder_sent = ? WHERE name_lower = ?").bind(new Date().toISOString(), student.name_lower).run();
           sentCount++;
@@ -443,7 +444,7 @@ export async function sendRetentionEmails(env) {
       }
 
     } catch (err) {
-      console.error(`Retention-Email-Fehler für ${student.name_lower}:`, err.message);
+      console.error("Retention-Email-Fehler:", err.message);
     }
   }
 
@@ -453,7 +454,8 @@ export async function sendRetentionEmails(env) {
     `SELECT name, name_lower, email, exam_subjects, exam_dates
      FROM students
      WHERE email IS NOT NULL AND email != '' AND email != 'fehlt@unbekannt.de'
-       AND retention_optout = 0 AND exam_subjects IS NOT NULL AND exam_subjects != '{}'`
+       AND retention_optout = 0 AND email_updates_optin = 1
+       AND exam_subjects IS NOT NULL AND exam_subjects != '{}'`
   ).all();
 
   if (examStudents && examStudents.length > 0) {
@@ -474,14 +476,14 @@ export async function sendRetentionEmails(env) {
             const unsubToken = await generateUnsubscribeToken(student.name_lower, env);
             const unsubUrl = `${BASE_URL}/unsubscribe?token=${encodeURIComponent(unsubToken)}`;
             const subjectName = SUBJECT_NAMES[subj] || subj;
-            console.log(`Sende Viel-Erfolg-Mail an ${student.name_lower} für ${subjectName} (Prüfung: ${examDateStr})`);
+            console.log(`Cron: Prüfungs-Mail wird gesendet (${subjectName}, ${examDateStr})`);
             await sendEmail(env, student.email, `Morgen ist ${subjectName}-Abitur – Viel Erfolg! 💪`, buildExamGoodLuckEmail(student.name, subj, examDateStr, unsubUrl));
             sentCount++;
             break; // Max 1 Viel-Erfolg-Mail pro Schüler pro Tag
           }
         }
       } catch (err) {
-        console.error(`Viel-Erfolg-Mail-Fehler für ${student.name_lower}:`, err.message);
+        console.error("Prüfungs-Mail-Fehler:", err.message);
       }
     }
   }
@@ -500,7 +502,7 @@ export async function sendReminderEmails(env) {
 
   // Alle Schüler mit Email + aktiver Erinnerung laden
   const { results: students } = await env.DB.prepare(
-    "SELECT name, name_lower, email, exam_subjects, exam_dates, reminder_interval, last_reminder_sent FROM students WHERE email IS NOT NULL AND email != '' AND reminder_interval > 0"
+    "SELECT name, name_lower, email, exam_subjects, exam_dates, reminder_interval, last_reminder_sent FROM students WHERE email IS NOT NULL AND email != '' AND reminder_interval > 0 AND email_updates_optin = 1 AND retention_optout = 0"
   ).all();
 
   console.log(`Cron: ${students?.length || 0} Schüler mit aktiver Erinnerung gefunden`);
@@ -569,14 +571,14 @@ export async function sendReminderEmails(env) {
 
     // Via gemeinsame sendEmail-Funktion (mit Throttling + Retry bei 429)
     try {
-      console.log(`Sende Erinnerungsmail an ${student.name_lower} (${student.email}), ${overdue.length} Fächer überfällig`);
+      console.log(`Cron: Erinnerungsmail wird gesendet (${overdue.length} Fächer)`);
       await sendEmail(env, student.email, subject, html);
-      console.log(`Email erfolgreich gesendet an ${student.name_lower}`);
+      console.log("Cron: Erinnerungsmail erfolgreich gesendet");
       await env.DB.prepare(
         "UPDATE students SET last_reminder_sent = ? WHERE name_lower = ?"
       ).bind(new Date().toISOString(), student.name_lower).run();
     } catch (err) {
-      console.error(`Email-Fehler für ${student.name_lower}:`, err.message);
+      console.error("Erinnerungsmail-Fehler:", err.message);
       // last_reminder_sent bleibt unverändert → nächster Versuch morgen
     }
   }

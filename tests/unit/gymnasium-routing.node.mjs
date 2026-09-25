@@ -20,7 +20,11 @@ test('Kunst erzeugt Kunstmaterial statt Ethik; Spanisch-Hilfen verwenden Spanisc
   const original = globalThis.fetch;
   const prompts = [];
   globalThis.fetch = async (url, options) => {
-    prompts.push(JSON.stringify(JSON.parse(options.body).messages));
+    const messages = JSON.parse(options.body).messages;
+    if (messages.some(message => typeof message.content === 'string' && message.content.includes('Themenkonformität'))) {
+      return new Response(JSON.stringify({ choices: [{ message: { content: JSON.stringify({ conforms: true, violations: [] }) }, finish_reason: 'stop' }] }));
+    }
+    prompts.push(JSON.stringify(messages));
     return new Response(JSON.stringify({ choices: [{ message: { content: JSON.stringify({ task_instruction: 'Werk analysieren', materials: [{ type: 'bild', content: 'An original fictional sculpture' }] }) }, finish_reason: 'stop' }] }));
   };
   const env = { OPENAI_API_KEY: 'test-only' };

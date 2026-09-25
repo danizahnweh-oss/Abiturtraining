@@ -2,9 +2,9 @@ import { API_TIMEOUT } from './config.js';
 import { extractZeitbudget, priorisiereZeitbudget, pruefeZeitbudget } from './time-budget.js';
 import { pruefeKorrekturqualitaet } from './response-quality.js';
 
-/* ================= TELEGRAM ERROR-ALERT ================= */
+/* ================= ADMIN ERROR-ALERT ================= */
 // Throttle: pro (status+errorType)-Kombi max. 1 Alert / 30 min, damit ein
-// anhaltender 429-/Quota-Sturm nicht hunderte Telegram-Nachrichten erzeugt.
+// anhaltender 429-/Quota-Sturm nicht hunderte Nachrichten erzeugt.
 const _alertThrottle = new Map();
 const ALERT_THROTTLE_MS = 30 * 60 * 1000;
 
@@ -22,39 +22,15 @@ function shouldSendAlert(key) {
   return true;
 }
 
-// Sendet API-Fehler an den Admin (fire-and-forget, throttled).
-// Unterstützt parallel Telegram (TELEGRAM_BOT_TOKEN+TELEGRAM_CHAT_ID) und
-// E-Mail (ADMIN_EMAIL+RESEND_API_KEY). Beide unabhängig konfigurierbar.
+// Sendet API-Fehler datensparsam per E-Mail an den Admin.
 async function notifyApiError(env, model, status, detail, elapsed, errorType) {
   const isQuotaError = errorType === 'insufficient_quota';
   const throttleKey = `${status}:${errorType || 'unknown'}`;
   if (!shouldSendAlert(throttleKey)) return;
 
-  // ---- Telegram ----
-  try {
-    const botToken = env.TELEGRAM_BOT_TOKEN;
-    const chatId = env.TELEGRAM_CHAT_ID;
-    if (botToken && chatId) {
-      const headline = isQuotaError
-        ? `🔥 *KRITISCH — OpenAI Quota erschöpft*\n\nKein Schüler/Lehrer kann gerade KI-Aufgaben/Korrekturen nutzen.\n\n*Aktion:* https://platform.openai.com/settings/organization/billing`
-        : `🚨 *OpenAI API Fehler*`;
-      const text = `${headline}\n\n` +
-        `📌 *Status:* ${status}${errorType ? ' (' + errorType + ')' : ''}\n` +
-        `🤖 *Modell:* ${model}\n` +
-        `⏱ *Dauer:* ${elapsed}ms\n` +
-        `🔇 *Nächster Alert für diesen Fehler:* frühestens in 30 min\n\n` +
-        `\`\`\`\n${detail.substring(0, 800)}\n\`\`\``;
-      await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ chat_id: chatId, text, parse_mode: 'Markdown' }),
-      });
-    }
-  } catch { /* Telegram-Fehler nicht eskalieren */ }
-
   // ---- E-Mail (Resend) ----
   try {
-    const adminEmail = env.ADMIN_EMAIL;
+    const adminEmail = env.ADMIN_EMAIL || 'info@myabiflow.de';
     const resendKey = env.RESEND_API_KEY;
     if (adminEmail && resendKey) {
       const subject = isQuotaError
@@ -157,7 +133,7 @@ export async function callOpenAI(env, messages, maxTokens = 4000, { model, tempe
       const detail = data?.error?.message || JSON.stringify(data).substring(0, 200);
       const errorType = data?.error?.type;
       const elapsed = Date.now() - t0;
-      // Admin per Telegram benachrichtigen (fire-and-forget, throttled)
+      // Admin datensparsam per E-Mail benachrichtigen (fire-and-forget, throttled)
       notifyApiError(env, model, response.status, detail, elapsed, errorType);
       // Benutzerfreundliche Meldung wenn möglich
       const friendly = userFriendlyError(response.status);

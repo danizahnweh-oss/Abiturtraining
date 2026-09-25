@@ -24,7 +24,7 @@
 **Backend (erledigt ✅)**
 - [ ] Rate-Limit 25→**250**/Min (live bestätigt)
 - [ ] Korrektur-Queue 1→**4 parallel** (live bestätigt)
-- [ ] **Telegram-App am Handy offen** – du schaltest jedes Konto mit einem Tap frei
+- [ ] **Admin-E-Mail-Postfach offen** - neue Lehrkraftkonten werden dort freigeschaltet
 
 > Nach dem Workshop zurücksetzen (250→25, 4→1). Sag „Backend zurücksetzen" – ich mach's.
 
@@ -59,7 +59,7 @@ Du fährst, alle schauen. **Eine durchgehende Schüler-Reise**, am konkreten Nut
 
 **Phase A – Einloggen (0:30–0:40)**
 - Alle öffnen `myabiflow.de/lehrer.html` → **Registrieren** (Name, E-Mail, Passwort, Fächer).
-- Du hast Telegram offen: pro Registrierung kommt eine Nachricht → **„✅ Freischalten" tippen.**
+- Du hast das Admin-E-Mail-Postfach offen: pro Registrierung kommt eine Freigabe-E-Mail.
   Laut sagen: *„Ich schalte euch grad frei – kurz neu einloggen."*
 - Stockt jemand? Reihenfolge halten, niemand bleibt hängen.
 
@@ -99,7 +99,7 @@ Nachzügler-Fragen, Einzelgespräche, Technik-Reste. Lieber Puffer als Hetze.
 | Live-Generierung hängt | Vorab generierte Aufgabe sofort einspringen lassen |
 | 10× gleichzeitig = Überlast | Rate-Limit 250 + Queue 4 parallel (live) ✅ |
 | WLAN schwach / 10 Geräte | Notfalls Handy-Hotspot; Demo zur Not nur über dein Gerät |
-| Telegram-Freischaltung stockt | Du bist Admin – Konten der Reihe nach durchklicken |
+| Lehrkraft-Freischaltung stockt | Admin-E-Mail prüfen und den Freigabelink öffnen |
 | Korrektur „dauert lange" | Ist normal (KI rechnet) – ansagen, nicht doppelt klicken lassen |
 | Kollege bleibt skeptisch | Nicht überzeugen – es soll helfen, nicht gewinnen. Nutzen sprechen lassen |
 

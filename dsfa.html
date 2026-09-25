@@ -112,7 +112,7 @@
         <div class="info-box">
             <p><strong>Verarbeitung:</strong> KI-gest&uuml;tzte Abitur-Trainingsplattform f&uuml;r Sch&uuml;lerinnen und Sch&uuml;ler</p>
             <p><strong>Verantwortlicher:</strong> myAbiFlow UG (haftungsbeschr&auml;nkt), Daniel Zahnweh</p>
-            <p><strong>Erstellt:</strong> M&auml;rz 2026 | <strong>Version:</strong> 1.0</p>
+            <p><strong>Erstellt:</strong> M&auml;rz 2026 | <strong>Aktualisiert:</strong> September 2026 | <strong>Version:</strong> 2.0</p>
         </div>
 
         <h2>1. Erforderlichkeit der DSFA</h2>
@@ -123,7 +123,7 @@
                 Sch&uuml;lern (in der Regel 16&ndash;18 Jahre, teils unter 16)</li>
             <li><strong>KI-basierte Bewertung:</strong> Automatisierte Bewertung von Sch&uuml;lerleistungen durch KI-Modelle</li>
             <li><strong>Systematische Verarbeitung:</strong> Regelm&auml;&szlig;ige, strukturierte Erfassung von Lernleistungen</li>
-            <li><strong>Daten&uuml;bermittlung in Drittl&auml;nder:</strong> &Uuml;bermittlung an US-Dienstleister (OpenAI, Wolfram|Alpha, Resend) f&uuml;r KI-Korrektur, mathematische Verifikation und E-Mail-Versand</li>
+            <li><strong>Daten&uuml;bermittlung in Drittl&auml;nder:</strong> &Uuml;bermittlung an externe Dienstleister unter anderem f&uuml;r KI-Korrektur, Bildgenerierung, Tutor-Suche, mathematische Verifikation, Zahlungen und E-Mail-Versand</li>
         </ul>
 
         <h2>2. Beschreibung der Verarbeitung</h2>
@@ -144,25 +144,29 @@
         <h3>2.3 Kategorien personenbezogener Daten</h3>
         <div class="legal-table-scroll" role="region" tabindex="0" aria-label="Tabelle, bei Bedarf seitlich scrollen"><table>
             <tr><th>Datenkategorie</th><th>Beispiele</th><th>Sensibilit&auml;t</th></tr>
-            <tr><td>Identifikation</td><td>Vorname, Klassen-Code</td><td><span class="risk-low">Niedrig</span></td></tr>
+            <tr><td>Identifikation</td><td>Kontoname, Klassen-Code</td><td><span class="risk-low">Niedrig</span></td></tr>
             <tr><td>Authentifizierung</td><td>Passwort-Hash, Token</td><td><span class="risk-medium">Mittel</span></td></tr>
-            <tr><td>Kontaktdaten</td><td>E-Mail (optional)</td><td><span class="risk-low">Niedrig</span></td></tr>
+            <tr><td>Kontaktdaten</td><td>E-Mail f&uuml;r Konto und Verifikation; Lern-E-Mails nur nach gesonderter Einwilligung</td><td><span class="risk-low">Niedrig</span></td></tr>
             <tr><td>Lerninhalte</td><td>Eingereichte Texte, Aufgabenl&ouml;sungen</td><td><span class="risk-medium">Mittel</span></td></tr>
             <tr><td>Bewertungen</td><td>Noten, Punktzahlen, Kompetenzprofile</td><td><span class="risk-medium">Mittel</span></td></tr>
             <tr><td>Audiodaten</td><td>Kolloquiums-Audio (nur Echtzeit-Streaming)</td><td><span class="risk-medium">Mittel</span></td></tr>
             <tr><td>Bilder</td><td>Hochgeladene handschriftliche L&ouml;sungen</td><td><span class="risk-low">Niedrig</span></td></tr>
         </table></div>
-        <p><strong>Hinweis:</strong> Es werden <strong>keine besonderen Kategorien</strong> personenbezogener Daten
-            i.S.v. Art. 9 DSGVO verarbeitet (keine Gesundheitsdaten, keine politischen Meinungen, keine biometrischen Daten
-            zur Identifizierung).</p>
+        <p><strong>Hinweis:</strong> Die Eingabe besonderer Kategorien personenbezogener Daten i.S.v. Art. 9 DSGVO ist
+            nicht vorgesehen. Da Freitext, Bilder und Unterrichtsmaterial hochgeladen werden k&ouml;nnen, kann eine
+            unbeabsichtigte Eingabe technisch nicht vollst&auml;ndig ausgeschlossen werden. Die Oberfl&auml;che weist deshalb
+            darauf hin, keine Namen oder sensiblen Angaben einzugeben.</p>
 
         <h3>2.4 Datenfl&uuml;sse</h3>
         <ol>
             <li><strong>Sch&uuml;ler &rarr; myAbiFlow (Hetzner, Deutschland):</strong> Registrierung, Login, Aufgabenabgabe &ndash; HTTPS-verschl&uuml;sselt</li>
             <li><strong>myAbiFlow &rarr; OpenAI (USA):</strong> Aufgabentexte + Bilder zur Korrektur &ndash; <em>ohne Namen/Noten</em></li>
             <li><strong>myAbiFlow &rarr; Google Gemini (EU/USA):</strong> Texte und Audio f&uuml;r Kolloquium/Tutor &ndash; <em>ohne Namen/Noten</em></li>
+            <li><strong>myAbiFlow &rarr; Ideogram (Kanada/USA):</strong> abstrahierte Bildbeschreibungen zur Erzeugung von Aufgabenbildern</li>
+            <li><strong>myAbiFlow &rarr; Hugging Face (USA):</strong> Tutor-Fragen zur Berechnung von Suchvektoren (Embeddings)</li>
             <li><strong>myAbiFlow &rarr; Wolfram|Alpha (USA):</strong> Mathematische Ausdr&uuml;cke und Formeln zur Verifikation &ndash; <em>kein Personenbezug</em></li>
             <li><strong>myAbiFlow &rarr; Resend (USA):</strong> E-Mail-Adresse + Fach f&uuml;r Erinnerungen &ndash; <em>nur bei Aktivierung</em></li>
+            <li><strong>myAbiFlow &rarr; Stripe (EU/USA):</strong> Zahlungs- und Abonnementdaten bei kostenpflichtigen Vertr&auml;gen</li>
             <li><strong>Lehrkraft &rarr; myAbiFlow:</strong> Dashboard-Zugriff auf zugeordnete Sch&uuml;lerergebnisse &ndash; HTTPS + Token-Auth</li>
         </ol>
 
@@ -249,8 +253,8 @@
                 <td>
                     <ul style="margin: 0; padding-left: 1.2rem;">
                         <li>Datenbank und Server in <strong>Deutschland</strong> gehostet (Hetzner, N&uuml;rnberg)</li>
-                        <li>EU-US Data Privacy Framework (DPF) f&uuml;r verbleibende US-Anbieter (OpenAI, Resend)</li>
-                        <li>Datenminimierung: Nur Vornamen, keine Nachnamen oder Adressen</li>
+                        <li>Pr&uuml;fung und Dokumentation von DPA, DPF und/oder Standardvertragsklauseln je Anbieter</li>
+                        <li>Datenminimierung: Kontoname und E-Mail werden nicht in KI-Anfragen aufgenommen</li>
                         <li>Hosting-Migration von Cloudflare (USA) auf Hetzner (Deutschland) abgeschlossen (M&auml;rz 2026)</li>
                     </ul>
                 </td>
@@ -261,7 +265,7 @@
                 <td>
                     <ul style="margin: 0; padding-left: 1.2rem;">
                         <li>OpenAI API: Daten werden nicht zum Training verwendet (API-TOS)</li>
-                        <li>Google Gemini API: Daten werden nicht zum Training verwendet (Gemini API Terms)</li>
+                        <li>Google Gemini API: Verwendung nur serverseitig und nach den jeweils vereinbarten API-Bedingungen; tempor&auml;re Anbieterprotokolle sind m&ouml;glich</li>
                         <li>Wolfram|Alpha API: Nur mathematische Ausdr&uuml;cke ohne Personenbezug &uuml;bermittelt</li>
                         <li>Keine Namen/Noten in KI-Anfragen enthalten</li>
                     </ul>
@@ -324,16 +328,16 @@
             <tr><td>Eingereichte Texte</td><td>Notwendig f&uuml;r KI-Korrektur (Kernfunktion der Plattform)</td></tr>
             <tr><td>Bewertungen/Noten</td><td>Notwendig f&uuml;r Lernfortschrittskontrolle</td></tr>
             <tr><td>Audio (Kolloquium)</td><td>Notwendig f&uuml;r Echtzeit-Pr&uuml;fungssimulation (wird nicht dauerhaft gespeichert)</td></tr>
-            <tr><td>E-Mail-Adresse</td><td>Optional &ndash; nur f&uuml;r Erinnerungsfunktion, jederzeit k&uuml;ndbar</td></tr>
+            <tr><td>E-Mail-Adresse</td><td>Erforderlich f&uuml;r Konto, Verifikation und Wiederherstellung; Lern- und Erinnerungs-E-Mails sind freiwillig und jederzeit abw&auml;hlbar</td></tr>
         </table></div>
 
         <h3>4.2 Datenminimierung</h3>
         <ul>
-            <li>Nur <strong>Vornamen</strong> als Identifikation &ndash; keine Nachnamen, keine Adressen, keine Geburtsdaten</li>
+            <li>Frei w&auml;hlbarer <strong>Kontoname</strong>; die Oberfl&auml;che empfiehlt ein K&uuml;rzel statt des Klarnamens</li>
             <li>An KI-Anbieter werden <strong>keine identifizierenden Daten</strong> &uuml;bermittelt</li>
             <li>Audio-Daten werden <strong>nur in Echtzeit</strong> gestreamt, nicht dauerhaft gespeichert</li>
-            <li>E-Mail-Adresse ist <strong>optional</strong></li>
-            <li>Asynchrone Jobs werden nach <strong>30 Tagen automatisch gel&ouml;scht</strong></li>
+            <li>Lern- und Erinnerungs-E-Mails sind standardm&auml;&szlig;ig deaktiviert und erfordern eine gesonderte Einwilligung</li>
+            <li>Asynchrone Korrektur-Jobs werden nach <strong>24 Stunden</strong>, Kolloquiums-Metadaten nach 30 Tagen und lokale Lerndaten nach 30 Tagen Inaktivit&auml;t bereinigt</li>
         </ul>
 
         <h2>5. Rechte der Betroffenen</h2>
@@ -341,17 +345,18 @@
             <tr><th>Recht</th><th>Umsetzung</th></tr>
             <tr><td>Auskunft (Art. 15)</td><td>Per E-Mail an info@myabiflow.de &ndash; Lehrkr&auml;fte k&ouml;nnen Ergebnisse im Dashboard einsehen</td></tr>
             <tr><td>Berichtigung (Art. 16)</td><td>Per E-Mail &ndash; Benutzername kann ge&auml;ndert werden</td></tr>
-            <tr><td>L&ouml;schung (Art. 17)</td><td>Per E-Mail oder durch Lehrkraft im Dashboard &ndash; vollst&auml;ndige L&ouml;schung aller Daten</td></tr>
+            <tr><td>L&ouml;schung (Art. 17)</td><td>Eigenst&auml;ndig im Profil, per E-Mail oder durch Lehrkraft; gesetzlich aufzubewahrende Zahlungsbelege bleiben gesperrt erhalten</td></tr>
             <tr><td>Einschr&auml;nkung (Art. 18)</td><td>Per E-Mail</td></tr>
-            <tr><td>Daten&uuml;bertragbarkeit (Art. 20)</td><td>Export der Ergebnisse als JSON/PDF auf Anfrage</td></tr>
+            <tr><td>Daten&uuml;bertragbarkeit (Art. 20)</td><td>JSON-Export der Kontodaten im Profil; weitere Auskunft auf Anfrage</td></tr>
             <tr><td>Widerspruch (Art. 21)</td><td>Per E-Mail &ndash; f&uuml;hrt zur L&ouml;schung des Kontos</td></tr>
         </table></div>
 
         <h2>6. Konsultation der Aufsichtsbeh&ouml;rde</h2>
-        <p>Auf Basis dieser Folgenabsch&auml;tzung verbleibt nach Umsetzung aller Ma&szlig;nahmen <strong>kein
-            hohes Restrisiko</strong> f&uuml;r die Rechte und Freiheiten der betroffenen Personen.
-            Eine vorherige Konsultation der Aufsichtsbeh&ouml;rde gem&auml;&szlig; Art. 36 DSGVO ist daher
-            <strong>nicht erforderlich</strong>.</p>
+        <p>Die abschlie&szlig;ende Bewertung des Restrisikos setzt voraus, dass die Vertr&auml;ge, Rollen und
+            Drittlandgarantien aller eingesetzten KI- und Infrastrukturanbieter dokumentiert und die Nutzung
+            durch Minderj&auml;hrige verbindlich geregelt sind. Der Kolloquiumstrainer ist bis zu einer passenden
+            Anbieter- oder Schulvereinbarung technisch auf vollj&auml;hrige Nutzende beschr&auml;nkt. Ob eine Konsultation
+            nach Art. 36 DSGVO erforderlich ist, muss nach dieser Dokumentation erneut bewertet werden.</p>
         <p>Die DSFA wird jedoch dem zust&auml;ndigen schulischen Datenschutzbeauftragten bzw. der Schulleitung
             auf Anfrage zur Verf&uuml;gung gestellt.</p>
 
@@ -360,28 +365,28 @@
             <li><strong>&#10003; Migration auf deutschen Hosting-Anbieter abgeschlossen</strong> (M&auml;rz 2026) &ndash;
                 Datenbank, Backend und statische Dateien laufen auf einem Hetzner-Server in N&uuml;rnberg (Deutschland).
                 Die Abh&auml;ngigkeit von US-Hosting-Anbietern wurde vollst&auml;ndig beseitigt.</li>
-            <li><strong>Datenexport-Funktion</strong> &ndash; Automatisierter Export aller Sch&uuml;lerdaten
-                in einem maschinenlesbaren Format (Art. 20 DSGVO)</li>
-            <li><strong>Selbstl&ouml;schung</strong> &ndash; Sch&uuml;ler sollen ihr Konto eigenst&auml;ndig
-                in der App l&ouml;schen k&ouml;nnen</li>
+            <li><strong>&#10003; Datenexport-Funktion</strong> &ndash; Automatisierter JSON-Export der zum Konto gespeicherten Daten</li>
+            <li><strong>&#10003; Selbstl&ouml;schung</strong> &ndash; Konten k&ouml;nnen nach erneuter Passwortbest&auml;tigung im Profil gel&ouml;scht werden</li>
+            <li><strong>&#10003; Getrennte E-Mail-Einwilligung</strong> &ndash; Konto-E-Mail und freiwillige Lern-E-Mails werden getrennt behandelt</li>
+            <li><strong>&#10003; Getrennte Tracking-Einwilligungen</strong> &ndash; Analyse und Marketing lassen sich unabh&auml;ngig ausw&auml;hlen und widerrufen</li>
+            <li><strong>Offen:</strong> Anbieterakten, Transfer Impact Assessments und Vertr&auml;ge f&uuml;r alle KI-Dienste vollst&auml;ndig dokumentieren</li>
         </ul>
 
         <h2>8. Ergebnis</h2>
         <div class="info-box">
-            <p><strong>Gesamtbewertung: Akzeptables Restrisiko</strong></p>
-            <p>Die identifizierten Risiken werden durch die umgesetzten technischen und organisatorischen
-                Ma&szlig;nahmen auf ein akzeptables Niveau gesenkt. Die Verarbeitung ist erforderlich,
-                verh&auml;ltnism&auml;&szlig;ig und mit angemessenen Schutzma&szlig;nahmen versehen.</p>
-            <p>Durch die erfolgte Migration auf einen deutschen Hosting-Anbieter (Hetzner, N&uuml;rnberg)
-                wurde das Schutzniveau weiter erh&ouml;ht. S&auml;mtliche Nutzerdaten verbleiben in Deutschland.</p>
+            <p><strong>Gesamtbewertung: Technische Risiken deutlich reduziert; rechtliche Anbieterpr&uuml;fung noch abzuschlie&szlig;en</strong></p>
+            <p>Hosting und Datenbank befinden sich in Deutschland. F&uuml;r KI, E-Mail, Zahlungen und optionale
+                Reichweitenmessung werden jedoch externe Anbieter eingebunden; die daf&uuml;r &uuml;bermittelten Daten
+                verbleiben daher nicht ausnahmslos in Deutschland. Die DSFA ist nach Abschluss der Anbieter- und
+                Minderj&auml;hrigenregelung erneut freizugeben.</p>
         </div>
 
         <hr style="margin: 3rem 0; border: none; border-top: 1px solid var(--border);">
 
         <p style="font-size: 0.9rem; color: var(--ink-lighter);">
-            Dokument erstellt: M&auml;rz 2026 | Version 1.0<br>
+            Dokument erstellt: M&auml;rz 2026 | Aktualisiert: September 2026 | Version 2.0<br>
             Verantwortlich: Daniel Zahnweh, Gesch&auml;ftsf&uuml;hrer myAbiFlow UG (haftungsbeschr&auml;nkt)<br>
-            N&auml;chste &Uuml;berpr&uuml;fung: September 2026 oder bei wesentlichen &Auml;nderungen der Verarbeitung.
+            N&auml;chste &Uuml;berpr&uuml;fung: vor Freigabe des Kolloquiumstrainers f&uuml;r Minderj&auml;hrige oder bei wesentlichen &Auml;nderungen der Verarbeitung.
         </p>
 
         <div style="margin-top: 3rem; text-align: center;">

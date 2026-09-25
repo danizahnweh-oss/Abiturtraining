@@ -36,7 +36,7 @@ export async function handleLogin(request, env) {
 
 /* ================= CHECK STUDENT (Register / Login) ================= */
 export async function handleCheckStudent(request, env) {
-  const { password, personal_password, student_name, mode, level, email, trial_used } = await request.json();
+  const { password, personal_password, student_name, mode, level, email, trial_used, email_updates_optin } = await request.json();
 
   if (!env.ACCESS_PASSWORD) {
     return jsonResponse({ error: "Server nicht konfiguriert." }, 500, env);
@@ -110,9 +110,22 @@ export async function handleCheckStudent(request, env) {
     const salt = crypto.randomUUID();
     const hash = await hashPassword(personal_password, salt);
     // Neuer Account: email_verified = 0 → Login erst nach Bestätigung möglich
+    const wantsEmailUpdates = email_updates_optin === true;
+    const consentAt = wantsEmailUpdates ? new Date().toISOString() : null;
     await env.DB.prepare(
-      "INSERT INTO students (name, name_lower, level, salt, hash, hidden_subjects, email, created_at, email_verified) VALUES (?, ?, ?, ?, ?, '[]', ?, ?, 0)"
-    ).bind(student_name.trim(), nameLower, level || "", salt, hash, emailLower, new Date().toISOString()).run();
+      `INSERT INTO students (
+        name, name_lower, level, salt, hash, hidden_subjects, email, created_at, email_verified,
+        email_updates_optin, email_updates_consent_at, email_updates_consent_version,
+        retention_optout, reminder_interval
+      ) VALUES (?, ?, ?, ?, ?, '[]', ?, ?, 0, ?, ?, ?, ?, ?)`
+    ).bind(
+      student_name.trim(), nameLower, level || "", salt, hash, emailLower, new Date().toISOString(),
+      wantsEmailUpdates ? 1 : 0,
+      consentAt,
+      wantsEmailUpdates ? "learning-emails-v1-2026-09-25" : null,
+      wantsEmailUpdates ? 0 : 1,
+      wantsEmailUpdates ? 3 : 0
+    ).run();
 
     const newStudent = await env.DB.prepare(
       "SELECT id FROM students WHERE name_lower = ?"
@@ -256,7 +269,7 @@ export async function handleGetPreferences(request, env) {
   const nameLower = ident.nameLower;
 
   const student = await env.DB.prepare(
-    "SELECT name, level, class_group, school, created_at, hidden_subjects, exam_subjects, exam_dates, reminder_interval, email FROM students WHERE name_lower = ?"
+    "SELECT name, level, class_group, school, created_at, hidden_subjects, exam_subjects, exam_dates, reminder_interval, email, email_updates_optin FROM students WHERE name_lower = ?"
   ).bind(nameLower).first();
   if (!student) return jsonResponse({ error: "Schüler nicht gefunden." }, 404, env);
 
@@ -273,7 +286,8 @@ export async function handleGetPreferences(request, env) {
       hidden_subjects: safeJsonParse(student.hidden_subjects, []),
       exam_subjects: safeJsonParse(student.exam_subjects, {}),
       exam_dates: safeJsonParse(student.exam_dates, {}),
-      reminder_interval: student.reminder_interval ?? 3,
+      reminder_interval: student.reminder_interval ?? 0,
+      email_updates_optin: student.email_updates_optin === 1 || student.email_updates_optin === true,
       email: student.email || ""
     }
   }, 200, env);
@@ -281,7 +295,7 @@ export async function handleGetPreferences(request, env) {
 
 export async function handleSavePreferences(request, env) {
   const body = await request.json().catch(() => ({}));
-  const { hidden_subjects, exam_subjects, exam_dates, reminder_interval, email } = body;
+  const { hidden_subjects, exam_subjects, exam_dates, reminder_interval, email, email_updates_optin } = body;
   // Schreiboperation: nur Schüler selbst, kein Lehrer-Bypass
   const ident = await resolveStudentIdentity(request, env);
   if (!ident || ident.isTeacher) return jsonResponse({ error: "Bitte erneut anmelden." }, 401, env);
@@ -325,8 +339,29 @@ export async function handleSavePreferences(request, env) {
     if (isNaN(ri) || ri < 0 || ri > 30) {
       return jsonResponse({ error: "reminder_interval muss zwischen 0 und 30 liegen." }, 400, env);
     }
+    if (ri > 0 && email_updates_optin !== true) {
+      return jsonResponse({ error: "Bitte stimme Lern-E-Mails ausdrücklich zu." }, 400, env);
+    }
     updates.push("reminder_interval = ?");
     binds.push(ri);
+  }
+  if (email_updates_optin !== undefined) {
+    if (typeof email_updates_optin !== "boolean") {
+      return jsonResponse({ error: "email_updates_optin muss true oder false sein." }, 400, env);
+    }
+    const enabled = email_updates_optin === true;
+    updates.push("email_updates_optin = ?");
+    binds.push(enabled ? 1 : 0);
+    updates.push("retention_optout = ?");
+    binds.push(enabled ? 0 : 1);
+    updates.push("email_updates_consent_at = ?");
+    binds.push(enabled ? new Date().toISOString() : null);
+    updates.push("email_updates_consent_version = ?");
+    binds.push(enabled ? "learning-emails-v1-2026-09-25" : null);
+    if (!enabled && reminder_interval === undefined) {
+      updates.push("reminder_interval = ?");
+      binds.push(0);
+    }
   }
   if (email !== undefined) {
     // Spalte ist NOT NULL → leerer String darf nicht als NULL gespeichert werden.
@@ -486,7 +521,7 @@ export async function handleCheckReminders(request, env) {
   if (!ident) return jsonResponse({ error: "Bitte erneut anmelden." }, 401, env);
   const nameLower = ident.nameLower;
   const student = await env.DB.prepare(
-    "SELECT exam_subjects, reminder_interval FROM students WHERE name_lower = ?"
+    "SELECT exam_subjects, reminder_interval, email_updates_optin FROM students WHERE name_lower = ?"
   ).bind(nameLower).first();
   if (!student) return jsonResponse({ error: "Schüler nicht gefunden." }, 404, env);
 
@@ -496,8 +531,8 @@ export async function handleCheckReminders(request, env) {
     return jsonResponse({ success: true, reminders: [] }, 200, env);
   }
 
-  const interval = student.reminder_interval ?? 3;
-  if (interval === 0) {
+  const interval = student.reminder_interval ?? 0;
+  if (interval === 0 || !(student.email_updates_optin === 1 || student.email_updates_optin === true)) {
     return jsonResponse({ success: true, reminders: [] }, 200, env);
   }
 
@@ -535,4 +570,155 @@ export async function handleCheckReminders(request, env) {
   }
 
   return jsonResponse({ success: true, reminders }, 200, env);
+}
+
+/* ================= DATENEXPORT ================= */
+async function safeAll(env, sql, ...binds) {
+  try {
+    const result = await env.DB.prepare(sql).bind(...binds).all();
+    return result?.results || [];
+  } catch {
+    return [];
+  }
+}
+
+export async function handleExportOwnData(request, env) {
+  const ident = await resolveStudentIdentity(request, env);
+  if (!ident || ident.isTeacher) return jsonResponse({ error: "Bitte erneut anmelden." }, 401, env);
+
+  const student = await env.DB.prepare(
+    `SELECT id, name, level, class_group, school, email, exam_subjects, exam_dates,
+            reminder_interval, email_updates_optin, created_at, subscription_status,
+            subscription_plan, trial_end, free_access_until
+     FROM students WHERE name_lower = ?`
+  ).bind(ident.nameLower).first();
+  if (!student) return jsonResponse({ error: "Konto nicht gefunden." }, 404, env);
+
+  const [results, learningPlans, messages, submissions, feedback, colloquiumSessions, subscriptions] = await Promise.all([
+    safeAll(env, `SELECT r.id, r.course, r.type, r.topic, r.content, r.language, r.total, r.created_at,
+                         d.strengths, d.weaknesses, d.error_types, d.afb_scores, d.missing_topics
+                  FROM results r LEFT JOIN result_details d ON d.result_id = r.id
+                  WHERE r.student_id = ? OR LOWER(TRIM(r.student_name)) = ? ORDER BY r.created_at`, student.id, ident.nameLower),
+    safeAll(env, "SELECT plan_json, expires_at, created_at FROM learning_plans WHERE student_name_lower = ? ORDER BY created_at", ident.nameLower),
+    safeAll(env, "SELECT subject, body, is_read, created_at, read_at, reply, reply_at FROM messages WHERE recipient_name_lower = ? ORDER BY created_at", ident.nameLower),
+    safeAll(env, "SELECT task_id, result_id, submitted_at FROM task_submissions WHERE student_name_lower = ? ORDER BY submitted_at", ident.nameLower),
+    safeAll(env, "SELECT rating, category, message, page, valuable, created_at FROM feedback WHERE LOWER(TRIM(student_name)) = ? ORDER BY created_at", ident.nameLower),
+    safeAll(env, "SELECT subject, started_at, ended_at, duration_s FROM colloquium_sessions WHERE student_id = ? ORDER BY started_at", student.id),
+    safeAll(env, "SELECT plan, status, trial_end, current_period_end, cancel_at_period_end, school_license_code, created_at, updated_at FROM subscriptions WHERE student_id = ? ORDER BY created_at", student.id),
+  ]);
+
+  const payload = {
+    exported_at: new Date().toISOString(),
+    service: "myAbiFlow",
+    account: {
+      name: student.name,
+      email: student.email,
+      level: student.level,
+      class_group: student.class_group,
+      school: student.school,
+      created_at: student.created_at,
+      exam_subjects: safeJsonParse(student.exam_subjects, {}),
+      exam_dates: safeJsonParse(student.exam_dates, {}),
+      learning_emails_enabled: student.email_updates_optin === 1 || student.email_updates_optin === true,
+      reminder_interval_days: student.reminder_interval || 0,
+      subscription_status: student.subscription_status,
+      subscription_plan: student.subscription_plan,
+      trial_end: student.trial_end,
+      free_access_until: student.free_access_until,
+    },
+    results,
+    learning_plans: learningPlans,
+    messages,
+    task_submissions: submissions,
+    feedback,
+    colloquium_sessions: colloquiumSessions,
+    subscriptions,
+  };
+
+  return new Response(JSON.stringify(payload, null, 2), {
+    status: 200,
+    headers: {
+      "Content-Type": "application/json; charset=utf-8",
+      "Content-Disposition": `attachment; filename="myabiflow-daten-${new Date().toISOString().slice(0, 10)}.json"`,
+      "Cache-Control": "no-store",
+    },
+  });
+}
+
+/* ================= SELBSTLOESCHUNG ================= */
+async function deleteStripeCustomer(customerId, env) {
+  if (!customerId || !env.STRIPE_SECRET_KEY) return;
+  const response = await fetch(`https://api.stripe.com/v1/customers/${encodeURIComponent(customerId)}`, {
+    method: "DELETE",
+    headers: { "Authorization": `Bearer ${env.STRIPE_SECRET_KEY}` },
+  });
+  if (!response.ok && response.status !== 404) {
+    throw new Error("Das Zahlungsprofil konnte nicht gelöscht werden.");
+  }
+}
+
+export async function handleDeleteOwnAccount(request, env) {
+  const body = await request.json().catch(() => ({}));
+  const ident = await resolveStudentIdentity(request, env);
+  if (!ident || ident.isTeacher) return jsonResponse({ error: "Bitte erneut anmelden." }, 401, env);
+  if (body.confirmation !== "LÖSCHEN") {
+    return jsonResponse({ error: "Bitte bestätige die Löschung mit LÖSCHEN." }, 400, env);
+  }
+  if (!body.password || typeof body.password !== "string") {
+    return jsonResponse({ error: "Bitte gib dein aktuelles Passwort ein." }, 400, env);
+  }
+
+  const student = await env.DB.prepare(
+    "SELECT id, name, name_lower, salt, hash, stripe_customer_id FROM students WHERE name_lower = ?"
+  ).bind(ident.nameLower).first();
+  if (!student) return jsonResponse({ error: "Konto nicht gefunden." }, 404, env);
+  if (!(await verifyPassword(body.password, student.salt, student.hash))) {
+    return jsonResponse({ error: "Das Passwort ist nicht korrekt." }, 401, env);
+  }
+
+  // Externes Zahlungsprofil zuerst entfernen. Gesetzlich aufzubewahrende
+  // Rechnungsdaten bleiben bei Stripe gesperrt bzw. nach Stripe-Vorgaben erhalten.
+  try {
+    await deleteStripeCustomer(student.stripe_customer_id, env);
+  } catch (error) {
+    console.error("Kontolöschung: externes Zahlungsprofil konnte nicht entfernt werden");
+    return jsonResponse({ error: error.message || "Zahlungsprofil konnte nicht gelöscht werden." }, 502, env);
+  }
+
+  const id = student.id;
+  const nameLower = student.name_lower;
+  const fullNameLower = String(student.name || "").trim().toLowerCase();
+
+  // Abhaengige Datensaetze ohne Foreign-Key-Cascade zuerst entfernen.
+  const deletions = [
+    ["DELETE FROM grading_jobs WHERE result_id IN (SELECT id FROM results WHERE student_id = ? OR LOWER(TRIM(student_name)) = ?)", [id, nameLower]],
+    ["DELETE FROM result_details WHERE result_id IN (SELECT id FROM results WHERE student_id = ? OR LOWER(TRIM(student_name)) = ?)", [id, nameLower]],
+    ["DELETE FROM results WHERE student_id = ? OR LOWER(TRIM(student_name)) = ?", [id, nameLower]],
+    ["DELETE FROM learning_plans WHERE student_name_lower = ?", [nameLower]],
+    ["DELETE FROM task_submissions WHERE student_name_lower = ?", [nameLower]],
+    ["DELETE FROM teacher_credit_usage WHERE student_name_lower = ?", [nameLower]],
+    ["DELETE FROM password_reset_tokens WHERE name_lower = ?", [nameLower]],
+    ["DELETE FROM email_verification_tokens WHERE name_lower = ?", [nameLower]],
+    ["DELETE FROM messages WHERE recipient_name_lower = ?", [nameLower]],
+    ["DELETE FROM feedback WHERE LOWER(TRIM(student_name)) IN (?, ?)", [nameLower, fullNameLower]],
+    ["DELETE FROM analytics_events WHERE student_id = ? OR LOWER(TRIM(student_name)) IN (?, ?)", [id, nameLower, fullNameLower]],
+    ["DELETE FROM colloquium_sessions WHERE student_id = ?", [id]],
+    ["DELETE FROM student_teacher_links WHERE student_name_lower = ?", [nameLower]],
+    ["DELETE FROM student_teacher_links WHERE student_id = ?", [id]],
+    ["DELETE FROM student_subject_licenses WHERE student_id = ?", [id]],
+    ["DELETE FROM subscriptions WHERE student_id = ?", [id]],
+  ];
+
+  try {
+    for (const [sql, binds] of deletions) {
+      try { await env.DB.prepare(sql).bind(...binds).run(); } catch (_) { /* optionale/alte Tabelle */ }
+    }
+    const result = await env.DB.prepare("DELETE FROM students WHERE id = ? AND name_lower = ?").bind(id, nameLower).run();
+    if (!result.meta?.changes) return jsonResponse({ error: "Konto konnte nicht gelöscht werden." }, 500, env);
+  } catch {
+    console.error("Kontolöschung: interner Löschvorgang fehlgeschlagen");
+    return jsonResponse({ error: "Kontolöschung konnte nicht vollständig abgeschlossen werden." }, 500, env);
+  }
+
+  return jsonResponse({ success: true }, 200, env);
 }

@@ -101,7 +101,7 @@ export class ColloquiumSession {
 
     // WebSocket-Upgrade
     if (request.headers.get('Upgrade')?.toLowerCase() === 'websocket') {
-      return this.handleWebSocket();
+      return this.handleWebSocket(request);
     }
 
     return new Response('Not Found', { status: 404 });
@@ -161,7 +161,7 @@ export class ColloquiumSession {
   }
 
   // ---- WebSocket-Verbindung ----
-  private async handleWebSocket(): Promise<Response> {
+  private async handleWebSocket(request: Request): Promise<Response> {
     // Config aus Storage laden falls nicht im Memory
     if (!this.config) {
       this.config = await this.state.storage.get('config') as SessionConfig | null;
