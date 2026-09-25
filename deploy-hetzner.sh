@@ -97,9 +97,11 @@ if [ "$DEPLOY_BACKEND" = true ]; then
         --exclude='.DS_Store' \
         "$LOCAL_DIR/src/" "$SERVER:/app/src/"
 
-    # 2. Dependencies installieren (nur wenn package.json sich geändert hat)
+    # 2. Produktions-Dependencies installieren.
+    # Im Backend-Verzeichnis gibt es bewusst kein package-lock.json; deshalb
+    # npm install statt npm ci verwenden und Fehler nicht durch eine Pipe verdecken.
     log "Prüfe Dependencies..."
-    ssh $SERVER "cd $REMOTE_BACKEND && npm ci --production 2>&1 | tail -3"
+    ssh $SERVER "cd $REMOTE_BACKEND && npm install --omit=dev"
 
     # 3. Services neustarten
     log "Starte Services neu..."
