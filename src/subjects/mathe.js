@@ -1,3 +1,4 @@
+import { callTopicScopedOpenAI } from '../topic-scope.js';
 import { jsonResponse, truncate, extractJSON, buildUserContent } from '../utils.js';
 import { callOpenAI } from '../openai.js';
 import { gradeWithWolframVerification } from '../handlers/wolfram-grading.js';
@@ -768,7 +769,7 @@ KRITISCH: Alle Formeln in LaTeX-Notation ($...$, $$...$$).
 PFLICHT: Die Summe aller Teilaufgaben-BE muss EXAKT ${totalBE} ergeben.${unterpunkteHinweis}`;
 
   const maxTokens = Math.max(6000, 3000 + aufgabenAnzahl * 2000 + totalBE * 80);
-  const openaiRes = await callOpenAI(env, [
+  const openaiRes = await callTopicScopedOpenAI(env, body, [
     { role: "system", content: systemPrompt },
     { role: "user", content: userPrompt }
   ], Math.min(maxTokens, 16000));

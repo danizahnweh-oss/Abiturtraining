@@ -1,3 +1,4 @@
+import { callTopicScopedOpenAI } from '../topic-scope.js';
 import { jsonResponse, truncate, extractJSON, buildUserContent, corsHeaders } from '../utils.js';
 import { callOpenAI, callOpenAIStream } from '../openai.js';
 import { KORREKTUR_SINGLE, BILDER_HINWEIS_TEXT, zeitanpassung, klausurZeitHinweis, skaliereTokens } from '../config.js';
@@ -237,7 +238,7 @@ KRITISCH:
     ];
     const promises = Array.from({length: aufgabenAnzahl}, (_, i) => {
       const variantPrompt = userPrompt + `\n\nWICHTIG: ${themenHinweise[i % themenHinweise.length]} Verwende eine ANDERE historische Quelle und ein ANDERES Unterthema als andere Aufgaben zum selben Schwerpunkt.`;
-      return callOpenAI(env, [
+      return callTopicScopedOpenAI(env, body, [
         { role: "system", content: systemPrompt },
         { role: "user", content: variantPrompt }
       ], 10000).then(res => {
@@ -271,7 +272,7 @@ KRITISCH:
   // Einzelaufgabe: Standard-Aufruf
   let openaiRes;
   try {
-    openaiRes = await callOpenAI(env, [
+    openaiRes = await callTopicScopedOpenAI(env, body, [
       { role: "system", content: systemPrompt },
       { role: "user", content: userPrompt }
     ], 10000);
@@ -560,7 +561,7 @@ AUFGABENBEZUG: JEDES bereitgestellte Material MUSS in der Aufgabenstellung direk
   // Längere Texte brauchen mehr Tokens (Epik/Analyse/Erörterung: 1000-1500 Wörter ≈ 10000+ Tokens)
   const tokenMap = { interpretation: 10000, analyse: 10000, eroerterung: 10000, materialgestuetzt: 16000 };
   const maxTokens = tokenMap[type] || 8000;
-  const openaiRes = await callOpenAI(env, [
+  const openaiRes = await callTopicScopedOpenAI(env, body, [
     { role: "system", content: systemPrompt + zeitHinweis },
     { role: "user", content: userPrompt }
   ], skaliereTokens(maxTokens, bearbeitungszeit, refZeit));

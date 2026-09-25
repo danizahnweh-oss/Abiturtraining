@@ -1,3 +1,4 @@
+import { callTopicScopedOpenAI } from '../topic-scope.js';
 import { jsonResponse, truncate, extractJSON, buildUserContent } from '../utils.js';
 import { callOpenAI } from '../openai.js';
 import { BILDER_HINWEIS_MINT, UEBUNGSAUFGABEN_ANWEISUNG, klausurZeitHinweis, KEINE_LOESUNGSHINWEISE } from '../config.js';
@@ -168,7 +169,7 @@ ${JSON.stringify(referenceExample, null, 2)}`;
 
   let openaiRes;
   try {
-    openaiRes = await callOpenAI(env, [
+    openaiRes = await callTopicScopedOpenAI(env, body, [
       { role: "system", content: systemPrompt },
       { role: "user", content: userPrompt }
     ], 12000, { model: "gpt-5.2", temperature: 0.7 });
@@ -598,7 +599,7 @@ KRITISCH: Jedes Material MUSS ein "type"-Feld haben! Verwende die 4 Typen:
 ABSOLUT VERBOTEN: Platzhalter wie "Ein Fachtext, der..." oder "Eine Tabelle mit..." — das "text"-Feld MUSS den TATSÄCHLICHEN Inhalt enthalten!
 Pro Aufgabengruppe: mindestens 1x statistik/diagramm + 1x text. Optional 1x bild.`;
 
-  const openaiRes = await callOpenAI(env, [
+  const openaiRes = await callTopicScopedOpenAI(env, body, [
     { role: "system", content: systemPrompt },
     { role: "user", content: userPrompt }
   ], 16000, { model: "gpt-5.2", temperature: 0.7 });

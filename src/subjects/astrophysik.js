@@ -1,3 +1,4 @@
+import { callTopicScopedOpenAI } from '../topic-scope.js';
 import { jsonResponse, extractJSON, buildUserContent } from '../utils.js';
 import { callOpenAI } from '../openai.js';
 import { sumGymnasiumBE, validateGymnasiumGrade } from './gymnasium-points.js';
@@ -47,7 +48,7 @@ export async function handleGenerateAbiturAstrophysik(request, env) {
   if (body.level && body.level.toLowerCase() !== 'ga') return jsonResponse({ error: 'Für dieses Fach ist derzeit das geprüfte gA-Format verfügbar.' }, 400, env);
   let lastError;
   for (let attempt = 0; attempt < 2; attempt++) {
-    const answer = await callOpenAI(env, [
+    const answer = await callTopicScopedOpenAI(env, body, [
       { role: 'system', content: GENERATE_PROMPT },
       { role: 'user', content: 'Erstelle eine neue vollständige Prüfung.' + (attempt ? '\nDie vorige Ausgabe war strukturell unvollständig: ' + lastError.message + ' Erstelle alle Gruppen vollständig neu.' : '') }
     ], 16000);

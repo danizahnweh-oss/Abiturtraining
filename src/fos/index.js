@@ -1,3 +1,4 @@
+import { callTopicScopedOpenAI } from '../topic-scope.js';
 import { jsonResponse, truncate, extractJSON, buildUserContent } from '../utils.js';
 import { callOpenAI } from '../openai.js';
 import { KEINE_LOESUNGSHINWEISE, BILDER_HINWEIS_MINT, UEBUNGSAUFGABEN_ANWEISUNG, klausurZeitHinweis } from '../config.js';
@@ -649,7 +650,7 @@ ${totalBE >= 15 ? 'Die Aufgabe MUSS in einen konkreten Sachkontext eingebettet s
 Jede Teilaufgabe braucht einen klaren Operator. Alle Formeln in LaTeX.`;
 
   const maxTokens = Math.max(6000, 3000 + aufgabenAnzahl * 2000 + totalBE * 80);
-  const openaiRes = await callOpenAI(env, [
+  const openaiRes = await callTopicScopedOpenAI(env, body, [
     { role: "system", content: systemPrompt },
     { role: "user", content: userPrompt }
   ], Math.min(maxTokens, 16000));
@@ -707,7 +708,7 @@ Teil 1 (34 BE): Analysis 22 BE + Stochastik 12 BE, ohne CAS
 Teil 2 (66 BE): Analysis 43 BE + Stochastik 23 BE, mit CAS
 KEINE Geometrie! Jede Teilaufgabe braucht einen klaren Operator.`;
 
-  const openaiRes = await callOpenAI(env, [
+  const openaiRes = await callTopicScopedOpenAI(env, body, [
     { role: "system", content: systemPrompt },
     { role: "user", content: userPrompt }
   ], 16000);
@@ -784,7 +785,7 @@ Teil 1 (34 BE): Analysis 22 BE + Lineare Algebra/Analytische Geometrie 12 BE, oh
 Teil 2 (66 BE): Analysis 43 BE + Lineare Algebra/Analytische Geometrie 23 BE, mit Hilfsmitteln
 KEINE Stochastik! Jede Teilaufgabe mit Operator. Sachkontexte in Teil 2. Mögliche Teilergebnisse angeben.`;
 
-  const openaiRes = await callOpenAI(env, [
+  const openaiRes = await callTopicScopedOpenAI(env, body, [
     { role: "system", content: systemPrompt },
     { role: "user", content: userPrompt }
   ], 16000);
@@ -1112,7 +1113,7 @@ Aufgabe III: Marketing, Finanzierung & Investition (~25 BE) – nur BwR 12 LB2 +
 Jede Aufgabe braucht einen eigenen Unternehmenskontext, realistische Zahlen und BE an jeder Teilaufgabe.
 KEINE Themen aus BwR 13 verwenden!`;
 
-  const openaiRes = await callOpenAI(env, [
+  const openaiRes = await callTopicScopedOpenAI(env, body, [
     { role: "system", content: systemPrompt },
     { role: "user", content: userPrompt }
   ], 16000);
@@ -1276,7 +1277,7 @@ Aufgabe I (~55 BE): Bilanzanalyse mit Ergebnisverwendungsrechnung AG + Strukturb
 Aufgabe II (~45 BE): Plankostenrechnung mit Abweichungsanalyse + Skizze-Aufgabe (~14 BE) + BSC mit strategischem Ziel + Kennzahl + Maßnahmen (~7 BE) + Personalmanagement mit Führungsstil oder Motivationstheorie + PE-Maßnahme + Ursache-Wirkungskette (~16 BE) + Strategisches Management mit Portfolio-Analyse oder optimaler Bestellmenge (~8 BE). Anderer Unternehmenskontext mit Stärken-Schwächen-Profil oder SWOT-Analyse.
 Realistische Zahlen, vollständige Bilanz mit 2 Jahren, Markdown-Tabellen.`;
 
-  const openaiRes = await callOpenAI(env, [
+  const openaiRes = await callTopicScopedOpenAI(env, body, [
     { role: "system", content: systemPrompt },
     { role: "user", content: userPrompt }
   ], 16000);
@@ -1421,7 +1422,7 @@ Aufgabe III: Internationales Marketing, Finanzierung & VWL (~25 BE) – nur IBV 
 Jede Aufgabe braucht einen eigenen internationalen Unternehmenskontext, realistische Zahlen und BE an jeder Teilaufgabe.
 KEINE Themen aus IBV 13 verwenden!`;
 
-  const openaiRes = await callOpenAI(env, [
+  const openaiRes = await callTopicScopedOpenAI(env, body, [
     { role: "system", content: systemPrompt },
     { role: "user", content: userPrompt }
   ], 16000);
@@ -1512,7 +1513,7 @@ Antworte NUR mit validem JSON:
 3. Literarische Analyse (Prosaauszug 500-700 Wörter)
 Alle Texte müssen vollständig und realistisch sein!`;
 
-  const openaiRes = await callOpenAI(env, [
+  const openaiRes = await callTopicScopedOpenAI(env, body, [
     { role: "system", content: systemPrompt },
     { role: "user", content: userPrompt }
   ], 16000);
@@ -1672,7 +1673,7 @@ Part 2 Writing (24 BE): 2 tasks to choose from (essay, 300+ words, 3 materials e
 IMPORTANT for Writing materials: Use max. 1 text per task. Other materials MUST be quotes, statistics, chart/graph descriptions, or cartoon descriptions. Each task should use a DIFFERENT combination.
 ALL texts complete and realistic. Include correct answers for Reading.`;
 
-  const openaiRes = await callOpenAI(env, [
+  const openaiRes = await callTopicScopedOpenAI(env, body, [
     { role: "system", content: systemPrompt },
     { role: "user", content: userPrompt }
   ], 16000);
@@ -1814,7 +1815,7 @@ Part 1 Reading (24 BE): Text I (~900 words, 850-950) with Multiple Matching (6 B
 Part 2 Writing (36 BE): Task IV Mediation D→E (12 BE, 2 German source texts ~250-300 words each, student writes ~150 words English), Task V Material-Based Writing (24 BE, 2 tasks to choose from, 300+ words, 3 materials each).
 ALL texts complete, realistic, C1 level. Reading texts MUST be at least 850 words. Include correct answers for Reading. Use current, relevant topics.`;
 
-  const openaiRes = await callOpenAI(env, [
+  const openaiRes = await callTopicScopedOpenAI(env, body, [
     { role: "system", content: systemPrompt },
     { role: "user", content: userPrompt }
   ], 16000);
@@ -1955,7 +1956,7 @@ Antworte NUR mit validem JSON:
   const userPrompt = `Erstelle einen Reading-Comprehension-Test (${niveau}-Niveau, ${klasse}) mit folgenden Aufgabentypen: ${taskTypes.join(", ")}.
 Ein Text (~${is13 ? "900-1000" : "900"} Wörter, mindestens 850), dazu die passenden Aufgaben. Alle Antworten angeben.`;
 
-  const openaiRes = await callOpenAI(env, [
+  const openaiRes = await callTopicScopedOpenAI(env, body, [
     { role: "system", content: systemPrompt },
     { role: "user", content: userPrompt }
   ], is13 ? 12000 : 10000);
@@ -2043,7 +2044,7 @@ Antworte NUR mit validem JSON:
 
   const userPrompt = `Erstelle eine Englisch-Klausur (${niveau}, ${klasse}): 1 Text + ${chosenRC.replace(/_/g, " ")} + Mediation. Alle Antworten angeben.`;
 
-  const openaiRes = await callOpenAI(env, [
+  const openaiRes = await callTopicScopedOpenAI(env, body, [
     { role: "system", content: systemPrompt },
     { role: "user", content: userPrompt }
   ], is13 ? 12000 : 10000);
@@ -2232,7 +2233,7 @@ Antworte NUR mit validem JSON:
 ${aufgabenBeschreibung}.
 Jede Aufgabe braucht einen eigenen Kontext, BE an jeder Teilaufgabe, steigende AFB.`;
 
-  const openaiRes = await callOpenAI(env, [
+  const openaiRes = await callTopicScopedOpenAI(env, body, [
     { role: "system", content: systemPrompt },
     { role: "user", content: userPrompt }
   ], 16000);
@@ -2306,7 +2307,7 @@ Antworte NUR mit validem JSON:
 - Erstelle 3-4 Materialien (Texte 300-600 Wörter, Tabellen, 1 Bild).
 Jedes Textmaterial MUSS ausführlich sein (300-600 Wörter).`;
 
-  const openaiRes = await callOpenAI(env, [
+  const openaiRes = await callTopicScopedOpenAI(env, body, [
     { role: "system", content: systemPrompt },
     { role: "user", content: userPrompt }
   ], 14000);

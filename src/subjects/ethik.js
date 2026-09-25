@@ -1,3 +1,4 @@
+import { callTopicScopedOpenAI } from '../topic-scope.js';
 import { CHOICE_FORMAT, generateChoiceExam, gradeChoiceExam, modelChoiceExam } from './choice-exam.js';
 import { jsonResponse, truncate, extractJSON, buildUserContent } from '../utils.js';
 import { callOpenAI } from '../openai.js';
@@ -237,7 +238,7 @@ AUFGABENBEZUG: JEDES bereitgestellte Material MUSS in mindestens einer Teilaufga
 Summe der BE für Prüfungsteil A: ${bePruefungA}.
 ${!isEA ? `STRENG BEACHTEN: Dies ist eine gA-Aufgabe! Verwende NUR Stoff aus dem gA-Lehrplan. Keine eA-exklusiven Lernbereiche oder Themen!` : ""}`;
 
-  const openaiRes = await callOpenAI(env, [
+  const openaiRes = await callTopicScopedOpenAI(env, body, [
     { role: "system", content: systemPrompt },
     { role: "user", content: userPrompt }
   ], 14000);
@@ -463,7 +464,7 @@ AUFGABENBEZUG: JEDES bereitgestellte Material MUSS in mindestens einer Teilaufga
 Teil B soll eine thematische Vertiefung oder Erweiterung darstellen.
 ${!isEA ? `STRENG BEACHTEN: Dies ist eine gA-Prüfung! Verwende NUR Stoff aus dem gA-Lehrplan. Keine eA-exklusiven Lernbereiche oder Themen!` : ""}`;
 
-  const openaiRes = await callOpenAI(env, [
+  const openaiRes = await callTopicScopedOpenAI(env, body, [
     { role: "system", content: systemPrompt + zeitHinweis },
     { role: "user", content: userPrompt }
   ], skaliereTokens(16000, bearbeitungszeit, refZeit));

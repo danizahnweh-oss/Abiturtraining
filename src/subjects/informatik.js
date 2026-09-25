@@ -1,3 +1,4 @@
+import { callTopicScopedOpenAI } from '../topic-scope.js';
 import { jsonResponse, truncate, extractJSON, buildUserContent } from '../utils.js';
 import { callOpenAI } from '../openai.js';
 import { BILDER_HINWEIS_MINT, UEBUNGSAUFGABEN_ANWEISUNG, klausurZeitHinweis, KEINE_LOESUNGSHINWEISE } from '../config.js';
@@ -108,7 +109,7 @@ Die Aufgabe${aufgabenAnzahl > 1 ? 'n sollen' : ' soll'} abwechslungsreich und ab
 
   let openaiRes;
   try {
-    openaiRes = await callOpenAI(env, [
+    openaiRes = await callTopicScopedOpenAI(env, body, [
       { role: "system", content: systemPrompt },
       { role: "user", content: userPrompt }
     ], 8000, { model: "gpt-5.2", temperature: 0.7 });
@@ -428,7 +429,7 @@ Verwende 4 verschiedene Sachgebiete. Jede Aufgabe mit praxisnahem Kontext, Mater
 Pseudocode in Codeblöcken. KEIN LaTeX nötig.
 ${!isEA ? `STRENG BEACHTEN: Dies ist eine gA-Prüfung! Verwende NUR Stoff aus dem gA-Lehrplan.` : ""}`;
 
-  const openaiRes = await callOpenAI(env, [
+  const openaiRes = await callTopicScopedOpenAI(env, body, [
     { role: "system", content: systemPrompt },
     { role: "user", content: userPrompt }
   ], 16000);

@@ -1,3 +1,4 @@
+import { callTopicScopedOpenAI } from '../topic-scope.js';
 import { jsonResponse, truncate, extractJSON, buildUserContent } from '../utils.js';
 import { callOpenAI } from '../openai.js';
 import { KORREKTUR_SINGLE, KORREKTUR_AB, BILDER_HINWEIS_TEXT, klausurZeitHinweis, zeitanpassung, skaliereTokens } from '../config.js';
@@ -185,7 +186,7 @@ AUFGABENBEZUG: JEDES bereitgestellte Material MUSS in mindestens einer Teilaufga
 Summe der BE für Prüfungsteil A: ${bePruefungA}.
 ${!isEA ? `STRENG BEACHTEN: Dies ist eine gA-Aufgabe!` : ""}`;
 
-  const openaiRes = await callOpenAI(env, [
+  const openaiRes = await callTopicScopedOpenAI(env, body, [
     { role: "system", content: systemPrompt },
     { role: "user", content: userPrompt }
   ], 14000);
@@ -368,7 +369,7 @@ Antworte NUR mit validem JSON:
   "thema": "Thema"
 }`;
 
-  const openaiRes = await callOpenAI(env, [
+  const openaiRes = await callTopicScopedOpenAI(env, body, [
     { role: "system", content: systemPrompt },
     { role: "user", content: `Erstelle eine vollständige Abiturprüfung für Kath. Religionslehre, Lernbereich ${lernbereich?.replace("_", "/") || "12/1"}, ${niveauLabel}.` }
   ], 14000);

@@ -1,3 +1,4 @@
+import { callTopicScopedOpenAI } from '../topic-scope.js';
 import { jsonResponse, truncate, extractJSON, buildUserContent } from '../utils.js';
 import { callOpenAI } from '../openai.js';
 import { KORREKTUR_SINGLE, BILDER_HINWEIS_TEXT, zeitanpassung, skaliereTokens } from '../config.js';
@@ -35,7 +36,8 @@ Antworte NUR mit validem JSON:
 
 /* ================= KUNST ABITUR: GENERATE ================= */
 export async function handleGenerateKunst(request, env) {
-  const { lernbereich = '12_1', schwerpunkt, zeit = 90, anzahl = 1 } = await request.json();
+  const body = await request.json();
+  const { lernbereich = '12_1', schwerpunkt, zeit = 90, anzahl = 1 } = body;
   const zeitMinuten = Math.max(15, Math.min(300, Number(zeit) || 90));
   const shortBudget = materialZeitbudget(zeitMinuten);
   const themes = { '12_1': 'Objekt: Readymade, Assemblage, Installation, Design und Werkerschließung', '12_2': 'Raum: Architektur, Rauminstallation, Raumillusion und nachhaltiges Bauen', '13_1': 'Körper: Körperdarstellung, Figuration und Abstraktion, Inszenierung und Körper-Raum-Beziehung', '13_2': 'Interaktion und Transformation: Intervention, Performance, neue Medien und Kunstbegriff' };
@@ -46,7 +48,7 @@ Bearbeitungszeit: ${zeitMinuten} Minuten. Aufgabenanzahl: ${Math.max(1, Math.min
 Aufgaben zur Beschreibung, formalen Analyse, Interpretation und begründeten Bewertung. Alle Aufgaben müssen mit den beigegebenen Materialien lösbar sein.
 ${shortBudget ? `Erstelle GENAU ${shortBudget.maxTasks} Teilaufgaben. Verwende genau zwei Materialien: primary_text ist die einzige kurze Textquelle (maximal ${shortBudget.maxTextWords} Wörter); materials enthält ausschließlich die fiktive Werkabbildung mit id "M1". Beide Teilaufgaben müssen "M1" ausdrücklich nennen. Erstelle kein zweites Textmaterial.` : 'Erstelle mindestens eine eigenständige fiktive Werkabbildung als englischen Bildprompt und eine passende Textquelle. Kennzeichne erfundene Quellen und KI-Material eindeutig. Gib eine erfundene Abbildung niemals als Originalwerk einer realen Person aus.'}
 Antworte nur als JSON: ${shortBudget ? `{"lernbereich":"${lernbereich}","task_instruction":"1. Analysieren Sie M1.\\n2. Beurteilen Sie M1 unter Einbezug des Einführungstextes.","primary_type":"text","primary_text":"Einzige kurze Textquelle","primary_meta":"Fiktives Übungsmaterial","materials":[{"id":"M1","type":"bild","title":"Fiktive Werkabbildung","content":"Detaillierter englischer Bildprompt ohne Lösungshinweise","source":"KI-generiertes Übungsmaterial"}]}` : `{"lernbereich":"${lernbereich}","task_instruction":"Nummerierte Aufgaben auf Deutsch","primary_text":"Einführender kunstbezogener Text","primary_meta":"Fiktives Übungsmaterial","materials":[{"id":"M1","type":"bild","title":"Fiktive Werkabbildung","content":"Detaillierter englischer Bildprompt ohne Lösungshinweise","source":"KI-generiertes Übungsmaterial"},{"id":"M2","type":"text","title":"Textquelle","content":"Vollständige Textquelle","source":"Fiktives Übungsmaterial"}]}`}`;
-  const response = await callOpenAI(env, [{ role: 'system', content: prompt }], 8000, { temperature: 0.7 });
+  const response = await callTopicScopedOpenAI(env, body, [{ role: 'system', content: prompt }], 8000, { temperature: 0.7 });
   return jsonResponse(extractJSON(response), 200, env);
 }
 
@@ -188,7 +190,7 @@ KRITISCH:
 - Jedes Material MUSS in mindestens einer Teilaufgabe referenziert werden
 - Textmaterialien MÜSSEN 200-500 Wörter lang sein`;
 
-  const openaiRes = await callOpenAI(env, [
+  const openaiRes = await callTopicScopedOpenAI(env, body, [
     { role: "system", content: systemPrompt + zeitHinweis },
     { role: "user", content: userPrompt }
   ], skaliereTokens(16000, bearbeitungszeit, refZeit));

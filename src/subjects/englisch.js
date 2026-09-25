@@ -1,3 +1,4 @@
+import { callTopicScopedOpenAI } from '../topic-scope.js';
 import { gradeWriting2026, WRITING_WEIGHTS } from './writing-2026.js';
 import { jsonResponse, truncate, extractJSON, buildUserContent } from '../utils.js';
 import { callOpenAI } from '../openai.js';
@@ -60,7 +61,7 @@ export async function handleGenerate(request, env) {
   const estimatedTokens = Math.round(wordTarget * 1.5) + 1200;
   const maxTokens = Math.min(Math.max(estimatedTokens, 2500), 8000);
 
-  const openaiRes = await callOpenAI(env, [
+  const openaiRes = await callTopicScopedOpenAI(env, body, [
     {
       role: "system",
       content: `You are an Abitur exam generator. Return valid JSON only. No markdown fences. No preamble.
@@ -127,7 +128,7 @@ ${customText.substring(0, 8000)}
 Erstelle drei Schreibaufgaben (Outline, Analyse, Stellungnahme/Gestaltendes Schreiben) im Abitur-Stil.
 Der Text oben soll UNVERÄNDERT als "article_text" im JSON erscheinen.`;
 
-  const openaiRes = await callOpenAI(env, [
+  const openaiRes = await callTopicScopedOpenAI(env, body, [
     { role: "system", content: systemPrompt },
     { role: "user", content: userPrompt }
   ], 6000);
@@ -170,7 +171,7 @@ ${customText.substring(0, 8000)}
 Erstelle eine authentische Mediation-Aufgabenstellung im bayerischen Abitur-Stil.
 Der Text oben soll UNVERÄNDERT als "article_text" im JSON erscheinen.`;
 
-  const openaiRes = await callOpenAI(env, [
+  const openaiRes = await callTopicScopedOpenAI(env, body, [
     { role: "system", content: systemPrompt },
     { role: "user", content: userPrompt }
   ], 4000);
@@ -383,7 +384,7 @@ OUTPUT FORMAT – Antworte NUR mit reinem JSON:
 }`;
   }
 
-  const openaiRes = await callOpenAI(env, [
+  const openaiRes = await callTopicScopedOpenAI(env, body, [
     {
       role: "system",
       content: "You are a Listening Comprehension exam generator for the Bavarian Abitur. Return valid JSON only. No markdown fences. No preamble. All questions must be in English."

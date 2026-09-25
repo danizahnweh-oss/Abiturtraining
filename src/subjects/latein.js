@@ -1,3 +1,4 @@
+import { callTopicScopedOpenAI } from '../topic-scope.js';
 import { jsonResponse, truncate, extractJSON, buildUserContent } from '../utils.js';
 import { callOpenAI } from '../openai.js';
 import { KORREKTUR_SINGLE, KORREKTUR_LATEIN, BILDER_HINWEIS_TEXT, klausurZeitHinweis, zeitanpassung, skaliereTokens } from '../config.js';
@@ -102,7 +103,7 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
 
 KRITISCH: Der lateinische Text muss AUTHENTISCH im Stil des Autors verfasst sein — grammatisch korrekt, mit typischen Stilmitteln und Konstruktionen. Er soll wie ein echter Abiturtext wirken.`;
 
-    const openaiRes = await callOpenAI(env, [
+    const openaiRes = await callTopicScopedOpenAI(env, body, [
       { role: "system", content: systemPrompt },
       { role: "user", content: userPrompt }
     ], 8000);
@@ -205,7 +206,7 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
 KRITISCH: Der lateinische Text muss AUTHENTISCH im Stil des Autors verfasst sein. Die Aufgaben müssen den bayerischen Abitur-Anforderungen entsprechen.
 Abschnitt III: Erstelle ${anzahlWeiterfuehrendGesamt} Aufgaben, von denen ${anzahlWeiterfuehrendWahl} zu bearbeiten sind.`;
 
-    const openaiRes = await callOpenAI(env, [
+    const openaiRes = await callTopicScopedOpenAI(env, body, [
       { role: "system", content: systemPrompt },
       { role: "user", content: userPrompt }
     ], 10000);
@@ -551,7 +552,7 @@ WICHTIG: Generiere ALLE Texte, Übersetzungen und Aufgaben vollständig ausformu
 KRITISCH: Beide lateinischen Texte müssen AUTHENTISCH im Stil des Autors verfasst sein — grammatisch korrekt, mit typischen Stilmitteln.
 Teil B Abschnitt III: Erstelle ${anzahlWeiterfuehrendGesamt} Aufgaben, von denen ${anzahlWeiterfuehrendWahl} zu bearbeiten sind.`;
 
-  const openaiRes = await callOpenAI(env, [
+  const openaiRes = await callTopicScopedOpenAI(env, body, [
     { role: "system", content: systemPrompt + zeitHinweis },
     { role: "user", content: userPrompt }
   ], skaliereTokens(16000, bearbeitungszeit, refZeit));

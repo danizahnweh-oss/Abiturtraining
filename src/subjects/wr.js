@@ -1,16 +1,17 @@
+import { callTopicScopedOpenAI } from '../topic-scope.js';
 import { jsonResponse, truncate, extractJSON, buildUserContent } from '../utils.js';
 import { callOpenAI } from '../openai.js';
 import { sumWRPoints, validateWRPoints, wrNotenpunkte } from './wr-points.js';
 import { BILDER_HINWEIS_TEXT, UEBUNGSAUFGABEN_ANWEISUNG, KORREKTURHILFE_GEWAEHRLEISTUNG, zeitanpassung, klausurZeitHinweis, skaliereTokens } from '../config.js';
 import { materialZeitbudget } from '../time-budget.js';
 
-async function generateValidatedWR(env, messages, tokens, targets) {
-  let raw = await callOpenAI(env, messages, tokens);
+async function generateValidatedWR(env, body, messages, tokens, targets) {
+  let raw = await callTopicScopedOpenAI(env, body, messages, tokens);
   for (let attempt = 0; attempt < 2; attempt++) {
     try { return jsonResponse(validateWRPoints(extractJSON(raw), targets), 200, env); }
     catch (error) {
       if (attempt === 1) return jsonResponse({ error: 'Die KI-Aufgabe enthält widersprüchliche Bewertungseinheiten. Bitte generiere die Aufgabe erneut; diese Fassung wird nicht verwendet.' }, 502, env);
-      raw = await callOpenAI(env, [...messages, { role: 'assistant', content: raw }, {
+      raw = await callTopicScopedOpenAI(env, body, [...messages, { role: 'assistant', content: raw }, {
         role: 'user', content: `Korrigiere die Punktverteilung: ${error.message} Verbindliche Summen: ${JSON.stringify(targets)}. Jede Teilaufgabe benötigt positive ganzzahlige BE. Gib das vollständige korrigierte Aufgaben-JSON inklusive aller Materialien zurück.`
       }], tokens);
     }
@@ -174,7 +175,7 @@ ${shortBudget ? `KRITISCH: Insgesamt GENAU ${shortBudget.maxTasks} Teilaufgaben 
 AUFGABENBEZUG: JEDES bereitgestellte Material MUSS in mindestens einer Teilaufgabe direkt referenziert und verwendet werden. Es darf KEINE Materialien ohne Aufgabenbezug geben!
 ${isGA ? `STRENG BEACHTEN: Dies ist eine gA-Aufgabe! Verwende NUR Stoff aus dem gA-Lehrplan. Themen mit "nur eA" dürfen NICHT vorkommen!` : ""}`;
 
-  return generateValidatedWR(env, [
+  return generateValidatedWR(env, body, [
     { role: "system", content: systemPrompt },
     { role: "user", content: userPrompt }
   ], 14000, { aufgabenbloecke: gesamtBE });
@@ -1071,7 +1072,7 @@ KRITISCH: Jedes Textmaterial MUSS 300-600 Wörter lang sein! Vollständige Texte
 AUFGABENBEZUG: JEDES bereitgestellte Material MUSS in mindestens einer Teilaufgabe direkt referenziert und verwendet werden. Es darf KEINE Materialien ohne Aufgabenbezug geben!
 ${!isEA ? `STRENG BEACHTEN: Dies ist eine gA-Prüfung! Verwende NUR Stoff aus dem gA-Lehrplan. Themen mit "nur eA" dürfen NICHT vorkommen!` : ""}`;
 
-  return generateValidatedWR(env, [
+  return generateValidatedWR(env, body, [
     { role: "system", content: systemPrompt + zeitHinweis },
     { role: "user", content: userPrompt }
   ], skaliereTokens(16000, bearbeitungszeit, refZeit), { aufgabenbloecke_1: isEA ? 60 : 75, aufgabenbloecke_2: isEA ? 60 : 25 });

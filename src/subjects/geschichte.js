@@ -1,3 +1,4 @@
+import { callTopicScopedOpenAI } from '../topic-scope.js';
 import { withMaterialImages } from './material-context.js';
 import { jsonResponse, truncate, extractJSON, buildUserContent } from '../utils.js';
 import { callOpenAI } from '../openai.js';
@@ -42,11 +43,9 @@ export async function handleGenerateAbiturGeschichte(request, env) {
     : schwerpunkt;
   const sp = schwerpunkte[selectedSP] || schwerpunkte["12_1"];
 
-  // Determine a different Schwerpunkt for Teil B
-  const allSP = Object.keys(schwerpunkte);
-  const otherSP = allSP.filter(s => s !== selectedSP);
-  const transferSP = otherSP[Math.floor(Math.random() * otherSP.length)];
-  const transferThema = schwerpunkte[transferSP]?.titel || "";
+  // Transfer remains inside the selected topic, including Teil B.
+  const transferSP = selectedSP || "12_1";
+  const transferThema = sp.titel;
 
   const systemPrompt = `Du bist ein Experte für das bayerische Geschichte-Abitur (ab 2026, G9). Erstelle eine VOLLSTÄNDIGE Abituraufgabe bestehend aus Teil A (Quellenanalyse) UND Teil B (Darstellung) auf ${niveauLabel}.
 
@@ -119,7 +118,7 @@ KRITISCH:
 - KARIKATUR-PROMPT ("karikatur"): auf Englisch (5-10 Sätze), beschreibt Motiv, Symbolik, Übertreibung und den deutschen Text in Sprechblasen/Bildunterschrift. Es entsteht eine NACHEMPFUNDENE, KI-generierte Übungskarikatur (KEIN historisches Original) — "source" stets z.B. "Karikatur, KI-generiert im Stil der Zeit". Sehr wertvoll für die Quellenanalyse.
 AUFGABENBEZUG: JEDES bereitgestellte Material (inkl. Zusatzmaterialien) MUSS in mindestens einer Teilaufgabe direkt referenziert und verwendet werden. Es darf KEINE Materialien ohne Aufgabenbezug geben!`;
 
-  const openaiRes = await callOpenAI(env, [
+  const openaiRes = await callTopicScopedOpenAI(env, body, [
     { role: "system", content: systemPrompt + zeitHinweis },
     { role: "user", content: userPrompt }
   ], skaliereTokens(14000, bearbeitungszeit, refZeit));
