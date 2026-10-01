@@ -517,8 +517,10 @@ main { max-width: 1100px; margin: 1.5rem auto; }
 }
 .iframe-loading {
   position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+  flex-direction: column; gap: .75rem; padding: 1.5rem; text-align: center;
   background: var(--bg); font-size: .9rem; color: var(--ink-muted);
 }
+.iframe-loading button { min-height: 44px; }
 
 /* Vorschau-Bereich */
 .preview-box {
@@ -820,7 +822,10 @@ main { max-width: 1100px; margin: 1.5rem auto; }
           </div>
           <p id="taskAdoptStatus" role="status" style="font-size:.85rem;color:var(--ink-muted);">Bitte zuerst eine Aufgabe erstellen oder auswählen.</p>
           <div class="iframe-wrap">
-            <div class="iframe-loading" id="iframeLoading">Fachseite wird geladen...</div>
+            <div class="iframe-loading" id="iframeLoading" role="status" aria-live="polite">
+              <span id="iframeLoadingText">Fachseite wird geladen...</span>
+              <button type="button" class="btn-small btn-secondary" id="iframeRetryBtn" onclick="retryTaskIframe()" hidden>Erneut laden</button>
+            </div>
             <iframe id="taskIframe" sandbox="allow-scripts allow-same-origin allow-forms allow-popups" title="Aufgabengenerierung"></iframe>
           </div>
         </div>
@@ -1911,6 +1916,60 @@ function adoptTaskFromIframe() {
   );
 }
 
+let currentTaskIframeUrl = "";
+let taskIframeLoadSequence = 0;
+
+function setTaskIframeLoading(message, canRetry) {
+  const loading = document.getElementById("iframeLoading");
+  document.getElementById("iframeLoadingText").textContent = message;
+  document.getElementById("iframeRetryBtn").hidden = !canRetry;
+  loading.style.display = "flex";
+}
+
+function loadTaskIframe(url) {
+  const iframe = document.getElementById("taskIframe");
+  const loadSequence = ++taskIframeLoadSequence;
+  currentTaskIframeUrl = url;
+  setTaskIframeLoading("Fachseite wird geladen...", false);
+
+  iframe.onload = () => {
+    if (loadSequence !== taskIframeLoadSequence || !currentTaskIframeUrl) return;
+    window.setTimeout(() => {
+      if (loadSequence !== taskIframeLoadSequence || document.getElementById("taskStep2").style.display === "none") return;
+      let frameReady = false;
+      try {
+        const frameDocument = iframe.contentDocument;
+        frameReady = !!(frameDocument && frameDocument.body && frameDocument.body.childElementCount && frameDocument.location.href !== "about:blank");
+      } catch (e) { /* Browser blockiert den Zugriff auf das iFrame. */ }
+
+      if (!frameReady) {
+        setTaskIframeLoading("Die Fachseite konnte nicht angezeigt werden. Bitte lade sie erneut.", true);
+        return;
+      }
+
+      document.getElementById("iframeLoading").style.display = "none";
+      try {
+        iframe.contentWindow.postMessage(
+          { type: "teacher-token", token: teacherAuthToken },
+          window.location.origin
+        );
+        iframe.contentWindow.postMessage({ type: "teacher-task-state-request" }, window.location.origin);
+      } catch (e) { /* ignore */ }
+    }, 100);
+  };
+  iframe.onerror = () => {
+    if (loadSequence === taskIframeLoadSequence) {
+      setTaskIframeLoading("Die Fachseite konnte nicht geladen werden. Bitte prüfe deine Verbindung und versuche es erneut.", true);
+    }
+  };
+  iframe.src = url;
+}
+
+function retryTaskIframe() {
+  if (!currentTaskIframeUrl) return;
+  loadTaskIframe(currentTaskIframeUrl);
+}
+
 function openTaskIframe() {
   const subj = document.getElementById("taskSubjectSelect").value;
   const typeSel = document.getElementById("taskTypeSelect");
@@ -1928,22 +1987,10 @@ function openTaskIframe() {
   document.getElementById("taskStep2").style.display = "block";
   document.getElementById("iframeSubjectLabel").textContent = SUBJECT_NAMES[subj] + " – " + typeOpt.textContent;
 
-  const iframe = document.getElementById("taskIframe");
   // Token NICHT mehr in die URL - das leakt in Browser-History/Logs/Referrer.
   // Stattdessen via postMessage same-origin an das geladene iFrame pushen.
   setTaskAdoptState(false);
-  document.getElementById("iframeLoading").style.display = "flex";
-  iframe.onload = () => {
-    document.getElementById("iframeLoading").style.display = "none";
-    try {
-      iframe.contentWindow.postMessage(
-        { type: "teacher-token", token: teacherAuthToken },
-        window.location.origin
-      );
-      iframe.contentWindow.postMessage({ type: "teacher-task-state-request" }, window.location.origin);
-    } catch (e) { /* ignore */ }
-  };
-  iframe.src = url + "?mode=teacher";
+  loadTaskIframe(url + "?mode=teacher");
 }
 
 function closeTaskIframe() {
@@ -1951,6 +1998,8 @@ function closeTaskIframe() {
   document.getElementById("taskStep2").style.display = "none";
   document.getElementById("taskStep1").style.display = "block";
   const iframe = document.getElementById("taskIframe");
+  currentTaskIframeUrl = "";
+  taskIframeLoadSequence++;
   iframe.src = "about:blank";
   document.getElementById("btnOpenIframe").focus();
 }
@@ -1978,6 +2027,8 @@ function showTaskPreview() {
   document.getElementById("taskStep2").style.display = "none";
   document.getElementById("taskStep3").style.display = "block";
   const iframe = document.getElementById("taskIframe");
+  currentTaskIframeUrl = "";
+  taskIframeLoadSequence++;
   iframe.src = "about:blank";
 
   // Button-Text anpassen

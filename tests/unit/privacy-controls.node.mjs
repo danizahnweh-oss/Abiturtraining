@@ -31,3 +31,11 @@ test('Tutor übermittelt keinen Kontonamen und entfernt direkte Kontaktdaten', (
   assert.match(tutor, /removeDirectIdentifiers/);
   assert.match(tutor, /\[E-Mail entfernt\]/);
 });
+
+test('Fachseiten dürfen ausschließlich same-origin in der Lehreransicht eingebettet werden', () => {
+  const nginx = read('hetzner-backend/config/nginx.conf');
+  const htmlLocation = nginx.match(/location ~\* \\.html\$ \{[\s\S]*?\n    \}/)?.[0] || '';
+  assert.match(htmlLocation, /X-Frame-Options "SAMEORIGIN"/);
+  assert.match(htmlLocation, /Content-Security-Policy "frame-ancestors 'self'"/);
+  assert.doesNotMatch(htmlLocation, /X-Frame-Options "DENY"/);
+});
