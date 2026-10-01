@@ -81,11 +81,17 @@ function userFriendlyError(status) {
 
 /* ================= OPENAI CALL ================= */
 
-export async function callOpenAI(env, messages, maxTokens = 4000, { model, temperature = 0.7, jsonMode = true, timeBudgetRetries = 3, qualityRetries = 2 } = {}) {
+export async function callOpenAI(env, messages, maxTokens = 4000, { model, temperature = 0.7, jsonMode = true, timeBudgetRetries = 3, qualityRetries = 2, deadline } = {}) {
   model = model || env.OPENAI_QUALITY_MODEL || env.OPENAI_MODEL || "gpt-5.2";
   const t0 = Date.now();
   let phase = "fetch";
+  let timeout;
   try {
+    if (deadline !== undefined && Date.now() >= deadline) {
+      const error = new Error('Die Aufgabenerstellung dauert zu lange. Bitte versuche es erneut.');
+      error.code = 'GENERATION_TIMEOUT';
+      throw error;
+    }
     const timeBudget = extractZeitbudget(messages);
     const originalMessages = messages;
     // Defensive Prüfung: gpt-5.2 erfordert das Wort "json" in den Messages bei json_object
@@ -115,8 +121,9 @@ export async function callOpenAI(env, messages, maxTokens = 4000, { model, tempe
     if (jsonMode) reqBody.response_format = { type: "json_object" };
     const controller = new AbortController();
     // Timeout: bei großen Anfragen (>10k tokens) auf 180s, sonst 95s
-    const timeoutMs = maxTokens > 10000 ? 180000 : 95000;
-    const timeout = setTimeout(() => controller.abort(), timeoutMs);
+    const perCallTimeout = maxTokens > 10000 ? 180000 : 95000;
+    const timeoutMs = deadline === undefined ? perCallTimeout : Math.min(perCallTimeout, Math.max(1, deadline - Date.now()));
+    timeout = setTimeout(() => controller.abort(), timeoutMs);
     const response = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
       signal: controller.signal,
@@ -126,7 +133,6 @@ export async function callOpenAI(env, messages, maxTokens = 4000, { model, tempe
       },
       body: JSON.stringify(reqBody)
     });
-    clearTimeout(timeout);
     phase = "json";
     const data = await response.json();
     if (!response.ok) {
@@ -158,7 +164,7 @@ export async function callOpenAI(env, messages, maxTokens = 4000, { model, tempe
             content: `REPARIERE DIE DIREKT VORHERIGE JSON-AUSGABE. Sie verletzt das verbindliche Zeitbudget (${detail}). Behalte Thema, Niveau, JSON-Struktur und Gesamt-BE bei, aber reduziere sie exakt auf hoechstens ${timeBudget.maxTasks} Teilaufgaben, ${timeBudget.maxMaterials} Materialien, ${timeBudget.maxTextMaterials} Textquelle(n) und ${timeBudget.maxTextWords} Textwoerter insgesamt. Entferne ungenutzte Materialien und verweise in den verbleibenden Aufgaben explizit auf jedes Material. Ersetze jeden Platzhalter durch fertigen Inhalt. Buendele Anforderungen sinnvoll; schneide keinen Satz mitten ab. Gib ausschliesslich das vollstaendige reparierte JSON aus.`
           }
         ];
-        return callOpenAI(env, retryMessages, maxTokens, { model, temperature: Math.min(temperature, 0.3), jsonMode, timeBudgetRetries: timeBudgetRetries - 1, qualityRetries });
+        return callOpenAI(env, retryMessages, maxTokens, { model, temperature: Math.min(temperature, 0.3), jsonMode, timeBudgetRetries: timeBudgetRetries - 1, qualityRetries, deadline });
       }
       throw new Error(`Die KI konnte den Materialumfang fuer ${timeBudget.minutes} Minuten nicht verlaesslich einhalten. Bitte erneut versuchen.`);
     }
@@ -175,14 +181,21 @@ export async function callOpenAI(env, messages, maxTokens = 4000, { model, tempe
             content: `Die vorige Korrektur war rechnerisch oder inhaltlich nicht konsistent (${detail}). Pruefe jede Teilbewertung erneut, begruende sie anhand der Schuelerleistung und gib das vollstaendige korrigierte JSON mit exakt stimmigen Summen aus.`
           }
         ];
-        return callOpenAI(env, retryMessages, maxTokens, { model, temperature, jsonMode, timeBudgetRetries, qualityRetries: qualityRetries - 1 });
+        return callOpenAI(env, retryMessages, maxTokens, { model, temperature, jsonMode, timeBudgetRetries, qualityRetries: qualityRetries - 1, deadline });
       }
       throw new Error('Die KI-Korrektur war nach mehreren Kontrollen nicht konsistent. Bitte erneut versuchen.');
     }
     return content;
   } catch (err) {
     const elapsed = Date.now() - t0;
+    if (err.code === 'GENERATION_TIMEOUT' || err.name === 'AbortError') {
+      const error = new Error('Die Aufgabenerstellung dauert zu lange. Bitte versuche es erneut.');
+      error.code = 'GENERATION_TIMEOUT';
+      throw error;
+    }
     throw new Error(`[${phase} ${elapsed}ms ${model}] ${err.message || err}`);
+  } finally {
+    clearTimeout(timeout);
   }
 }
 

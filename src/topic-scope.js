@@ -51,7 +51,7 @@ export async function callTopicScopedOpenAI(env, body, messages, maxTokens = 400
     const report = await callOpenAI(env, [
       { role: 'system', content: REVIEW_SYSTEM },
       { role: 'user', content: JSON.stringify({ selection: scope, reference, examination: content }) }
-    ], 2200, { model: options.model, temperature: 0, jsonMode: true, timeBudgetRetries: 0, qualityRetries: 0 });
+    ], 2200, { model: options.model, temperature: 0, jsonMode: true, timeBudgetRetries: 0, qualityRetries: 0, deadline: options.deadline });
     let review;
     try { review = JSON.parse(report); } catch { /* Fail closed on an invalid review. */ }
     if (review?.conforms === true && Array.isArray(review.violations) && review.violations.length === 0) return content;

@@ -6,19 +6,23 @@ import { BILDER_HINWEIS_TEXT, UEBUNGSAUFGABEN_ANWEISUNG, KORREKTURHILFE_GEWAEHRL
 import { materialZeitbudget } from '../time-budget.js';
 
 async function generateValidatedWR(env, body, messages, tokens, targets) {
+  // One deadline for generation, topic review and all repairs; below Nginx's 300s.
+  const deadline = Date.now() + 270000;
   const generate = async (prompts) => {
-    try { return await callTopicScopedOpenAI(env, body, prompts, tokens); }
+    try { return await callTopicScopedOpenAI(env, body, prompts, tokens, { deadline }); }
     catch (error) {
-      if (error.code === 'TOPIC_SCOPE_REJECTED') return null;
+      if (error.code === 'TOPIC_SCOPE_REJECTED' || error.code === 'GENERATION_TIMEOUT') return { error };
       throw error;
     }
   };
-  const rejected = () => jsonResponse({
+  const rejected = (error) => error.code === 'GENERATION_TIMEOUT'
+    ? jsonResponse({ error: error.message, code: error.code }, 503, env)
+    : jsonResponse({
     error: 'Die erstellte Aufgabe passte nicht vollständig zu deiner Themenauswahl. Bitte versuche es erneut; die unpassende Aufgabe wurde verworfen.',
     code: 'TOPIC_SCOPE_REJECTED'
   }, 502, env);
   let raw = await generate(messages);
-  if (raw === null) return rejected();
+  if (raw?.error) return rejected(raw.error);
   for (let attempt = 0; attempt < 2; attempt++) {
     try { return jsonResponse(validateWRPoints(extractJSON(raw), targets), 200, env); }
     catch (error) {
@@ -26,7 +30,7 @@ async function generateValidatedWR(env, body, messages, tokens, targets) {
       raw = await generate([...messages, { role: 'assistant', content: raw }, {
         role: 'user', content: `Korrigiere die Punktverteilung: ${error.message} Verbindliche Summen: ${JSON.stringify(targets)}. Jede Teilaufgabe benötigt positive ganzzahlige BE. Gib das vollständige korrigierte Aufgaben-JSON inklusive aller Materialien zurück.`
       }]);
-      if (raw === null) return rejected();
+      if (raw?.error) return rejected(raw.error);
     }
   }
 }
