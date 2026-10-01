@@ -57,9 +57,12 @@ export async function callTopicScopedOpenAI(env, body, messages, maxTokens = 400
     if (review?.conforms === true && Array.isArray(review.violations) && review.violations.length === 0) return content;
     const violations = Array.isArray(review?.violations) && review.violations.every(v => typeof v === 'string')
       ? review.violations.join('; ') : 'Die Themenkonformität konnte nicht bestätigt werden.';
+    console.warn('[topic-scope] Prüfung abgelehnt:', violations.slice(0, 2000));
     generationMessages = [...messages, { role: 'assistant', content }, {
       role: 'system', content: `Überarbeite die gesamte Prüfung. Die Themenprüfung hat sie abgelehnt: ${violations}. Ersetze alle unzulässigen Anforderungen durch Aufgaben innerhalb der Auswahl. Behalte JSON-Struktur, Zeit, Gesamt-BE und Niveau bei.`
     }, boundary];
   }
-  throw new Error('Die Klausur konnte nicht sicher auf deine Themenauswahl begrenzt werden. Bitte erneut erstellen.');
+  const error = new Error('Die Klausur konnte nicht sicher auf deine Themenauswahl begrenzt werden. Bitte erneut erstellen.');
+  error.code = 'TOPIC_SCOPE_REJECTED';
+  throw error;
 }

@@ -52,3 +52,56 @@ test('WR-Abitur: Gesamtergebnis wird aus beiden Bewertungen berechnet', async ()
     assert.equal(data.scores.notenpunkte, 6);
   });
 });
+
+async function captureGeneration(body) {
+  const original = globalThis.fetch;
+  const calls = [];
+  globalThis.fetch = async (_url, init) => {
+    const call = JSON.parse(init.body);
+    calls.push(call);
+    const review = call.messages[0].content.startsWith('Du prüfst ausschließlich');
+    const content = review ? { conforms: true, violations: [] } : { aufgabenbloecke: blocks(60) };
+    return new Response(JSON.stringify({ choices: [{ message: { content: JSON.stringify(content) }, finish_reason: 'stop' }] }));
+  };
+  try {
+    assert.equal((await handleGenerateWR(request({ be: 60, zeit: 180, ...body }), env)).status, 200);
+    return calls;
+  } finally { globalThis.fetch = original; }
+}
+
+test('gA single-topic selection removes all mandatory cross-subject instructions', async () => {
+  const calls = await captureGeneration({ niveau: 'gA', fachbereich: 'integriert', sachgebiet: 'integriert', unterpunkte: ['Break-even-Analyse'] });
+  const generation = calls[0].messages.map(m => m.content).join('\n');
+  assert.doesNotMatch(generation, /muss alle drei Fachbereiche|integriert: BWL\+VWL\+Recht/);
+  assert.match(generation, /Erlaubte Prüfungsinhalte: Break-even-Analyse/);
+  assert.match(generation, /Thema: Break-even-Analyse/);
+  assert.equal(calls.length, 2, 'topic review stays enabled');
+});
+
+test('eA multi-selection includes every chosen area instead of falling back to BWL', async () => {
+  const calls = await captureGeneration({ niveau: 'eA', sachgebiet: 'vwl, recht', fachbereich: 'vwl, recht' });
+  const generation = calls[0].messages[0].content;
+  assert.match(generation, /Fachbereich: Volkswirtschaftslehre \+ Recht/);
+  assert.match(generation, /Erlaubte Prüfungsinhalte:.*Magisches Viereck/);
+  assert.doesNotMatch(generation, /Fachbereich: Betriebswirtschaftslehre/);
+});
+
+test('unrestricted integrated gA exam still covers all three areas', async () => {
+  const calls = await captureGeneration({ niveau: 'gA', fachbereich: 'integriert', sachgebiet: 'integriert', unterpunkte: [] });
+  assert.match(calls[0].messages[0].content, /muss alle drei Fachbereiche/);
+  assert.equal(calls.length, 1);
+});
+
+test('rejected topic checks return a controlled error and never an off-topic exam', async () => {
+  await withResponses([
+    { aufgabenbloecke: blocks(60) }, { conforms: false, violations: ['Fremdes Thema'] },
+    { aufgabenbloecke: blocks(60) }, { conforms: false, violations: ['Fremdes Thema'] }
+  ], async calls => {
+    const response = await handleGenerateWR(request({ niveau: 'gA', be: 60, zeit: 180, unterpunkte: ['Break-even-Analyse'] }), env);
+    assert.equal(response.status, 502);
+    const data = await response.json();
+    assert.equal(data.code, 'TOPIC_SCOPE_REJECTED');
+    assert.equal(data.aufgabenbloecke, undefined);
+    assert.equal(calls(), 4);
+  });
+});

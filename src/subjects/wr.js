@@ -1,4 +1,4 @@
-import { callTopicScopedOpenAI } from '../topic-scope.js';
+import { callTopicScopedOpenAI, extractTopicScope } from '../topic-scope.js';
 import { jsonResponse, truncate, extractJSON, buildUserContent } from '../utils.js';
 import { callOpenAI } from '../openai.js';
 import { sumWRPoints, validateWRPoints, wrNotenpunkte } from './wr-points.js';
@@ -6,14 +6,27 @@ import { BILDER_HINWEIS_TEXT, UEBUNGSAUFGABEN_ANWEISUNG, KORREKTURHILFE_GEWAEHRL
 import { materialZeitbudget } from '../time-budget.js';
 
 async function generateValidatedWR(env, body, messages, tokens, targets) {
-  let raw = await callTopicScopedOpenAI(env, body, messages, tokens);
+  const generate = async (prompts) => {
+    try { return await callTopicScopedOpenAI(env, body, prompts, tokens); }
+    catch (error) {
+      if (error.code === 'TOPIC_SCOPE_REJECTED') return null;
+      throw error;
+    }
+  };
+  const rejected = () => jsonResponse({
+    error: 'Die erstellte Aufgabe passte nicht vollständig zu deiner Themenauswahl. Bitte versuche es erneut; die unpassende Aufgabe wurde verworfen.',
+    code: 'TOPIC_SCOPE_REJECTED'
+  }, 502, env);
+  let raw = await generate(messages);
+  if (raw === null) return rejected();
   for (let attempt = 0; attempt < 2; attempt++) {
     try { return jsonResponse(validateWRPoints(extractJSON(raw), targets), 200, env); }
     catch (error) {
       if (attempt === 1) return jsonResponse({ error: 'Die KI-Aufgabe enthält widersprüchliche Bewertungseinheiten. Bitte generiere die Aufgabe erneut; diese Fassung wird nicht verwendet.' }, 502, env);
-      raw = await callTopicScopedOpenAI(env, body, [...messages, { role: 'assistant', content: raw }, {
+      raw = await generate([...messages, { role: 'assistant', content: raw }, {
         role: 'user', content: `Korrigiere die Punktverteilung: ${error.message} Verbindliche Summen: ${JSON.stringify(targets)}. Jede Teilaufgabe benötigt positive ganzzahlige BE. Gib das vollständige korrigierte Aufgaben-JSON inklusive aller Materialien zurück.`
-      }], tokens);
+      }]);
+      if (raw === null) return rejected();
     }
   }
 }
@@ -25,6 +38,9 @@ export async function handleGenerateWR(request, env) {
     ? '\n\n⚠️ STRIKTE THEMENEINSCHRÄNKUNG — NUR DIESE UNTERPUNKTE VERWENDEN:\n' + unterpunkte.join(', ') + '\nALLE Teilaufgaben müssen sich direkt auf diese Unterpunkte beziehen. Erstelle KEINE Aufgaben zu anderen Themen des Lehrplans, auch wenn sie im selben Sachgebiet liegen!'
     : '';
 
+  const selectedScope = extractTopicScope(body);
+  const hasTopicSelection = Boolean(selectedScope);
+  const integrateAll = !hasTopicSelection && (niveau || "gA").toLowerCase() === "ga";
   const isGA = (niveau || "gA").toLowerCase() === "ga";
   const niveauLabel = isGA ? "grundlegendes Anforderungsniveau (gA)" : "erhöhtes Anforderungsniveau (eA)";
   const gesamtBE = Number(be || (isGA ? 100 : 60));
@@ -35,7 +51,7 @@ export async function handleGenerateWR(request, env) {
   const aufgabenAnzahl = Math.min(Math.max(anzahl || 1, 1), 5);
   const bloecke = shortBudget
     ? "genau 1 kompakten Aufgabenblock"
-    : isGA ? "2-3 Aufgabenblöcke (integriert: BWL+VWL+Recht)" : "2-3 Aufgabenblöcke";
+    : integrateAll ? "2-3 Aufgabenblöcke (integriert: BWL+VWL+Recht)" : "2-3 Aufgabenblöcke";
   const materialCount = shortBudget
     ? `höchstens ${shortBudget.maxMaterials} Materialien insgesamt`
     : isGA ? "4-5 Materialien" : "3-4 Materialien";
@@ -79,20 +95,17 @@ export async function handleGenerateWR(request, env) {
     }
   };
 
-  let fbLabel, fbThemen;
   const fbKey = sachgebiet || fachbereich || "bwl";
-  if (isGA) {
-    fbLabel = "Integriert (BWL + VWL + Recht)";
-    fbThemen = "Integrierte Aufgabe über alle drei Fachbereiche";
-  } else {
-    const fb = fachbereiche[fbKey] || fachbereiche.bwl;
-    fbLabel = fb.label;
-    fbThemen = Object.values(fb.themen).join(", ");
-  }
-
-  const themaLabel = (thema && thema !== "random")
-    ? truncate(thema, 200)
-    : "frei wählbar (abiturrelevant)";
+  // The UI sends multiple subject areas as a comma-separated string.
+  const selectedAreas = String(fbKey).split(',').map(key => key.trim()).filter(key => fachbereiche[key]);
+  const areaKeys = selectedAreas.length ? selectedAreas : (isGA ? Object.keys(fachbereiche) : ['bwl']);
+  const explicitTopics = selectedScope?.unterpunkte || selectedScope?.thema;
+  const fbLabel = explicitTopics && !selectedAreas.length ? "Themengebundene Auswahl" : integrateAll ? "Integriert (BWL + VWL + Recht)"
+    : areaKeys.map(key => fachbereiche[key].label).join(' + ');
+  const fbThemen = explicitTopics ? explicitTopics.join('; ')
+    : areaKeys.map(key => Object.values(fachbereiche[key].themen).join('; ')).join('\n');
+  const themaLabel = explicitTopics ? explicitTopics.join('; ')
+    : "frei wählbar innerhalb der gewählten Fachbereiche";
 
   const systemPrompt = `Du bist ein Experte für das bayerische Abitur 2026 im Fach Wirtschaft und Recht (G9).
 Erstelle eine authentische Abituraufgabe.
@@ -103,6 +116,8 @@ PRÜFUNGSFORMAT:
 - ${bloecke}
 - ${materialCount}
 - Fachbereich: ${fbLabel}${schwerpunktZusatz}
+- Erlaubte Prüfungsinhalte: ${fbThemen}
+${hasTopicSelection ? "- Alle Aufgabenblöcke bleiben innerhalb der Auswahl. Keine zusätzlichen Fachbereiche für einen integrierten Aufbau ergänzen." : ""}
 ${aufgabenAnzahl > 1 ? `- Erstelle ${aufgabenAnzahl} separate Aufgabenblöcke (je ca. ${Math.round(gesamtBE / aufgabenAnzahl)} BE)
 - Jeder Block kompakt und kleinschrittiger` : ''}
 
@@ -136,7 +151,7 @@ MATERIALIEN:
   - typ "foto": Realistisches Foto. inhalt = Prompt KOMPLETT auf Englisch (5-10 Sätze). Z.B. Unternehmen, Fabriken, Märkte, Produkte, Büros, Gerichtssaal. KEINE Personen! Falls das Foto beschriftete Elemente zeigt, optional "bild_labels" mitliefern.
   - typ "bild": Schaubild/Diagramm. inhalt = Bildprompt KOMPLETT auf Englisch (5-10 Sätze). Korrekt geschriebene DEUTSCHE Beschriftungen (Achsen, Pfeile, Bezeichnungen) dürfen direkt im Bild stehen — erfinde dabei KEINE Zahlenwerte (Zahlen gehören in "statistik"-Tabellen). "bild_labels" optional als Fallback.
   - typ "karikatur": Wirtschafts-/Gesellschaftskarikatur als Analysequelle. inhalt = Bildprompt KOMPLETT auf Englisch (5-10 Sätze): Motiv, Symbolik, Übertreibung und den deutschen Text in Sprechblasen/Bildunterschrift beschreiben. Es entsteht eine KI-generierte Übungskarikatur — "quelle" z.B. "Karikatur, KI-generiert".
-${isGA ? "\n- Bei gA: Die Aufgabe muss alle drei Fachbereiche (BWL, VWL, Recht) integrieren" : ""}
+${integrateAll ? "\n- Die Aufgabe muss alle drei Fachbereiche (BWL, VWL, Recht) integrieren" : ""}
 
 Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
 {
@@ -159,7 +174,7 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
     {"nr": "M4", "titel": "Foto: ...", "typ": "foto", "inhalt": "Prompt KOMPLETT auf Englisch (5-10 Sätze). Realistisches Foto. KEINE Personen!", "quelle": ""}
   ],
   "gesamt_be": ${gesamtBE},
-  "fachbereich": "${isGA ? "integriert" : (fachbereich || "bwl")}",
+  "fachbereich": "${integrateAll ? "integriert" : areaKeys.join(", ")}",
   "thema": "Konkretes Thema"
 }`;
 
