@@ -1,3 +1,4 @@
+import { withGenerationRuntime } from './generation-runtime.js';
 /* ================= myAbiFlow API Router ================= */
 /* Schlanker Einstiegspunkt — importiert alle Handler aus Modulen */
 
@@ -209,7 +210,7 @@ const fosRouteWrapper = (pathname, request, env) => handleFOSRoute(pathname, req
 setFOSRouteHandler(fosRouteWrapper);
 
 /* ================= MAIN HANDLER ================= */
-export default {
+const worker = {
   async fetch(request, env, ctx) {
     const { pathname } = new URL(request.url);
 
@@ -920,5 +921,13 @@ ${photo ? `<div style="margin:12px 0"><p style="font-weight:600;margin-bottom:6p
         message.retry();
       }
     }
+  }
+};
+
+
+export default {
+  ...worker,
+  fetch(request, env, ctx) {
+    return withGenerationRuntime(request, env, ctx, (scopedRequest, scopedEnv, scopedCtx) => worker.fetch(scopedRequest, scopedEnv, scopedCtx));
   }
 };

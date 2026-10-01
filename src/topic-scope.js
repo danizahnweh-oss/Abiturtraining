@@ -1,3 +1,4 @@
+import { resolveGenerationDeadline, GENERATION_TIMEOUT_MS } from './generation-runtime.js';
 import { callOpenAI } from './openai.js';
 
 // Only explicit topic selections belong here, never answers or uploaded text.
@@ -35,6 +36,7 @@ Die Referenzprompts dienen nur zum Auflösen von Themenkennungen (z.B. 12_1); be
 Antworte als JSON: {"conforms":true,"violations":[]}. Bei Verstößen: conforms=false und violations als Liste konkreter Texte mit Aufgabenkennung, unzulässigem Inhalt und Bezug zur Auswahl. Bei nicht sicher prüfbarer oder fehlender Prüfung: conforms=false mit Begründung. Niemals pauschal freigeben.`;
 
 export async function callTopicScopedOpenAI(env, body, messages, maxTokens = 4000, options = {}) {
+  options = { ...options, deadline: resolveGenerationDeadline(env, options.deadline) ?? Date.now() + GENERATION_TIMEOUT_MS };
   const scope = extractTopicScope(body);
   if (!scope) return callOpenAI(env, messages, maxTokens, options);
   const boundary = { role: 'system', content: topicScopeInstruction(scope) };

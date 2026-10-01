@@ -1,3 +1,4 @@
+import { resolveGenerationDeadline, generationTimeoutError } from './generation-runtime.js';
 import { API_TIMEOUT } from './config.js';
 import { extractZeitbudget, priorisiereZeitbudget, pruefeZeitbudget } from './time-budget.js';
 import { pruefeKorrekturqualitaet } from './response-quality.js';
@@ -82,15 +83,14 @@ function userFriendlyError(status) {
 /* ================= OPENAI CALL ================= */
 
 export async function callOpenAI(env, messages, maxTokens = 4000, { model, temperature = 0.7, jsonMode = true, timeBudgetRetries = 3, qualityRetries = 2, deadline } = {}) {
+  deadline = resolveGenerationDeadline(env, deadline);
   model = model || env.OPENAI_QUALITY_MODEL || env.OPENAI_MODEL || "gpt-5.2";
   const t0 = Date.now();
   let phase = "fetch";
   let timeout;
   try {
     if (deadline !== undefined && Date.now() >= deadline) {
-      const error = new Error('Die Aufgabenerstellung dauert zu lange. Bitte versuche es erneut.');
-      error.code = 'GENERATION_TIMEOUT';
-      throw error;
+      throw generationTimeoutError();
     }
     const timeBudget = extractZeitbudget(messages);
     const originalMessages = messages;
@@ -189,9 +189,7 @@ export async function callOpenAI(env, messages, maxTokens = 4000, { model, tempe
   } catch (err) {
     const elapsed = Date.now() - t0;
     if (err.code === 'GENERATION_TIMEOUT' || err.name === 'AbortError') {
-      const error = new Error('Die Aufgabenerstellung dauert zu lange. Bitte versuche es erneut.');
-      error.code = 'GENERATION_TIMEOUT';
-      throw error;
+      throw generationTimeoutError();
     }
     throw new Error(`[${phase} ${elapsed}ms ${model}] ${err.message || err}`);
   } finally {
@@ -202,12 +200,15 @@ export async function callOpenAI(env, messages, maxTokens = 4000, { model, tempe
 /* ================= OPENAI STREAMING CALL ================= */
 // Streamt die OpenAI-Antwort chunk-weise. Ruft onChunk(delta) für jedes Text-Fragment auf.
 // Gibt den vollständigen Content-String zurück.
-export async function callOpenAIStream(env, messages, maxTokens = 4000, { model, temperature = 0.7, jsonMode = true } = {}, onChunk) {
+export async function callOpenAIStream(env, messages, maxTokens = 4000, { model, temperature = 0.7, jsonMode = true, deadline } = {}, onChunk) {
   model = model || env.OPENAI_QUALITY_MODEL || env.OPENAI_MODEL || "gpt-5.2";
   const t0 = Date.now();
   let reader = null;
   const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), API_TIMEOUT);
+  deadline = resolveGenerationDeadline(env, deadline);
+  if (deadline !== undefined && Date.now() >= deadline) throw generationTimeoutError();
+  const timeoutMs = deadline === undefined ? API_TIMEOUT : Math.min(API_TIMEOUT, Math.max(1, deadline - Date.now()));
+  const timeout = setTimeout(() => controller.abort(), timeoutMs);
   try {
     // Defensive Prüfung: gpt-5.2 erfordert das Wort "json" in den Messages bei json_object
     if (jsonMode) {
@@ -294,6 +295,7 @@ export async function callOpenAIStream(env, messages, maxTokens = 4000, { model,
     clearTimeout(timeout);
     try { await reader?.cancel(); } catch {}
     const elapsed = Date.now() - t0;
+    if (err.name === 'AbortError' || err.code === 'GENERATION_TIMEOUT') throw generationTimeoutError();
     throw new Error(`[stream ${elapsed}ms ${model}] ${err.message || err}`);
   }
 }

@@ -1,3 +1,4 @@
+import { resolveGenerationDeadline, GENERATION_TIMEOUT_MS } from '../generation-runtime.js';
 import { callTopicScopedOpenAI, extractTopicScope } from '../topic-scope.js';
 import { jsonResponse, truncate, extractJSON, buildUserContent } from '../utils.js';
 import { callOpenAI } from '../openai.js';
@@ -7,7 +8,7 @@ import { materialZeitbudget } from '../time-budget.js';
 
 async function generateValidatedWR(env, body, messages, tokens, targets) {
   // One deadline for generation, topic review and all repairs; below Nginx's 300s.
-  const deadline = Date.now() + 270000;
+  const deadline = resolveGenerationDeadline(env) ?? Date.now() + GENERATION_TIMEOUT_MS;
   const generate = async (prompts) => {
     try { return await callTopicScopedOpenAI(env, body, prompts, tokens, { deadline }); }
     catch (error) {
