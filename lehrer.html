@@ -553,7 +553,20 @@ main { max-width: 1100px; margin: 1.5rem auto; }
 }
 :root:not([data-theme="dark"]) .school-badge, :root:not([data-theme="dark"]) .tab-btn.active { color: #1d4ed8; }
   [data-theme="dark"] p > a { color: var(--accent); }
-  </style>
+
+.task-revision { display: block; animation: none; margin: 1.5rem 0; padding: 1rem 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.task-revision h3 { margin: 0 0 .5rem; font-size: 1.2rem; }
+.task-revision p { color: var(--ink-muted); font-size: .9rem; max-width: 70ch; }
+.task-revision label { display: block; margin: 1rem 0 .5rem; font-weight: 600; }
+.task-revision textarea { box-sizing: border-box; width: 100%; min-height: 6rem; padding: .75rem; border: 1px solid var(--border); border-radius: var(--radius-sm); color: var(--ink); background: var(--bg); font: inherit; font-size: 16px; resize: vertical; }
+.revision-actions { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: .75rem; }
+.revision-actions button { min-height: 44px; white-space: normal; }
+.revision-change { display: block; animation: none; padding: 1rem 0; border-top: 1px solid var(--border); }
+.revision-comparison { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+.revision-comparison pre { white-space: pre-wrap; overflow-wrap: anywhere; font: inherit; font-size: .9rem; margin: .5rem 0; }
+.task-revision [hidden] { display: none !important; }
+@media (max-width: 640px) { .revision-comparison { grid-template-columns: 1fr; } }
+</style>
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -842,6 +855,31 @@ main { max-width: 1100px; margin: 1.5rem auto; }
             <input type="text" id="taskTitleInput" placeholder="z.B. Klausur Analyse – Rede Bildung"
                    style="width:100%;padding:.6rem .8rem;border:1px solid var(--border);border-radius:var(--radius);background:var(--surface);color:var(--ink);font-size:16px;min-height:44px;box-sizing:border-box;">
           </div>
+          <section class="task-revision" aria-labelledby="revisionHeading">
+            <h3 id="revisionHeading">Mit KI verbessern</h3>
+            <p>Formulierungen und Anforderungen gezielt überarbeiten. Thema, Niveau, Punkte und Materialien bleiben erhalten. Du prüfst jeden Vorschlag vor dem Übernehmen.</p>
+            <div class="revision-actions" aria-label="Vorschläge für Änderungswünsche">
+              <button type="button" class="btn-small btn-secondary" data-revision-preset="Formuliere die Aufgaben klarer und eindeutiger. Behalte den fachlichen Anspruch bei.">Klarer formulieren</button>
+              <button type="button" class="btn-small btn-secondary" data-revision-preset="Vereinfache die Sprache der Aufgabenstellungen, ohne den fachlichen Anspruch zu senken.">Sprache vereinfachen</button>
+              <button type="button" class="btn-small btn-secondary" data-revision-preset="Mache die Aufgaben innerhalb des gewählten Niveaus anspruchsvoller, ohne zusätzliche Themen oder Punkte einzuführen.">Anspruchsvoller machen</button>
+            </div>
+            <label for="revisionInstructions">Was soll verbessert werden?</label>
+            <textarea id="revisionInstructions" rows="3" maxlength="2000" placeholder="Zum Beispiel: Formuliere Teilaufgabe b eindeutiger und verwende einen passenden Operator."></textarea>
+            <div class="revision-actions">
+              <button type="button" class="btn" id="revisionGenerate">Vorschlag erstellen</button>
+              <button type="button" class="btn-small btn-secondary" id="revisionUndo" hidden>Letzte Übernahme rückgängig machen</button>
+            </div>
+            <p id="revisionStatus" role="status" aria-live="polite"></p>
+            <div id="revisionProposal" hidden>
+              <h4 tabindex="-1" id="revisionResultHeading">Änderungen prüfen</h4>
+              <div id="revisionChanges"></div>
+              <div class="revision-actions">
+                <button type="button" class="btn" id="revisionApply">Vorschlag übernehmen</button>
+                <button type="button" class="btn-small btn-secondary" id="revisionDiscard">Vorschlag verwerfen</button>
+              </div>
+              <p>Erst mit „Änderungen speichern“ bzw. „Speichern &amp; Code erstellen“ wird die Aufgabe gespeichert.</p>
+            </div>
+          </section>
           <div id="taskEditFields"></div>
           <button class="btn" id="taskSaveBtn" style="margin-top:1rem;width:100%;" onclick="saveTask()">Speichern &amp; Code erstellen</button>
         </div>
@@ -2023,6 +2061,7 @@ window.addEventListener("message", function(e) {
 });
 
 function showTaskPreview() {
+  window.taskRevision?.reset();
   setTaskAdoptState(false);
   document.getElementById("taskStep2").style.display = "none";
   document.getElementById("taskStep3").style.display = "block";
@@ -2174,6 +2213,7 @@ function renderTaskPreview(text, target, _attempt) {
 }
 
 function resetTaskCreation() {
+  window.taskRevision?.reset();
   setTaskAdoptState(false);
   pendingTaskData = null;
   editingTaskId = null;
@@ -2189,11 +2229,8 @@ function resetTaskCreation() {
   iframe.src = "about:blank";
 }
 
-async function saveTask() {
-  if (!pendingTaskData) { showToast("Keine Aufgabe vorhanden.", "error"); return; }
-  const title = document.getElementById("taskTitleInput").value.trim();
-  if (!title) { showToast("Bitte einen Titel eingeben.", "error"); return; }
-
+function syncTaskEdits() {
+  if (!pendingTaskData) return;
   // Bearbeitete Felder aus dem Formular übernehmen
   document.querySelectorAll("#taskEditFields textarea[data-field]").forEach(ta => {
     const field = ta.dataset.field;
@@ -2231,6 +2268,15 @@ async function saveTask() {
       }
     }
   });
+
+}
+
+async function saveTask() {
+  if (!pendingTaskData) { showToast("Keine Aufgabe vorhanden.", "error"); return; }
+  const title = document.getElementById("taskTitleInput").value.trim();
+  if (!title) { showToast("Bitte einen Titel eingeben.", "error"); return; }
+
+  syncTaskEdits();
 
   try {
     if (editingTaskId) {
@@ -2479,5 +2525,6 @@ function showToast(msg, type) {
 }
 </script>
   <script src="shared.js"></script>
+<script src="teacher-task-revision.js?v=1"></script>
 </body>
 </html>

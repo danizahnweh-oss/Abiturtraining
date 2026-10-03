@@ -1,3 +1,4 @@
+import { handleTeacherRevision } from './handlers/teacher-revision.js';
 import { withGenerationRuntime } from './generation-runtime.js';
 /* ================= myAbiFlow API Router ================= */
 /* Schlanker Einstiegspunkt — importiert alle Handler aus Modulen */
@@ -469,6 +470,11 @@ const worker = {
         const { error: rl } = await checkAuthenticatedRateLimit(request, env, { teacherOnly: true });
         if (rl) return rl;
         return await handleTeacherTaskResults(request, env);
+      }
+      if (pathname === "/api/generate-teacher-revision" && request.method === "POST") {
+        const { error: rl } = await checkAuthenticatedRateLimit(request, env, { teacherOnly: true });
+        if (rl) return rl;
+        return await handleTeacherRevision(request, env);
       }
       if (pathname === "/api/generate-from-materials" && request.method === "POST") {
         const { error: rl } = await checkAuthenticatedRateLimit(request, env, { teacherOnly: true });
