@@ -62,7 +62,7 @@ const genericRateLimit = new Map();
 function getTokenPayload(token) {
   try {
     if (!token || typeof token !== 'string') return null;
-    const secret = process.env.ACCESS_PASSWORD;
+    const secret = process.env.ACCESS_TOKEN_SECRET || process.env.ACCESS_PASSWORD;
     if (!secret) return null;
     const parts = token.split('.');
     if (parts.length !== 2) return null;
@@ -83,6 +83,23 @@ function getTokenPayload(token) {
   } catch {
     return null;
   }
+}
+
+// Session-Zugriffe benötigen ein noch vorhandenes, persönlich gebundenes Konto.
+async function getSessionIdentity(token) {
+  const payload = getTokenPayload(token);
+  if (!payload?.sub || payload.sid == null) return null;
+  try {
+    const { rows } = await pool.query(
+      'SELECT id FROM students WHERE id = $1 AND name_lower = $2',
+      [String(payload.sid), String(payload.sub)]
+    );
+    return rows.length ? String(payload.sid) : null;
+  } catch (_) { return null; }
+}
+
+function ownsSession(session, studentId) {
+  return !!studentId && session?.ownerStudentId === studentId;
 }
 
 // base64url → String. Der Token wird im URL-key-Parameter transportiert, weil das
@@ -144,6 +161,7 @@ app.use(express.json({ limit: '10mb' }));
 
 function corsHeaders() {
   return {
+    'Cache-Control': 'no-store',
     'Access-Control-Allow-Origin': ALLOWED_ORIGIN,
     'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
     'Access-Control-Allow-Headers': 'Content-Type, X-Access-Token',
@@ -305,21 +323,13 @@ async function checkStudentAccess(studentId, subject) {
 // Neue Session erstellen
 app.post('/session/create', async (req, res) => {
   try {
-    const accessToken = req.headers['x-access-token'];
-    if (typeof accessToken !== 'string' || !getTokenPayload(accessToken.trim())) {
+    const studentId = await getSessionIdentity(getRestAccessToken(req));
+    if (!studentId) {
       return res.set(corsHeaders()).status(401).json({ error: 'Unauthorized' });
     }
 
-    const config = req.body || {};
-
-    // Subscription-Check: student_id muss mitgeschickt werden
-    const studentId = config.student_id;
-    if (!studentId) {
-      return res.set(corsHeaders()).status(403).json({
-        error: 'Kein Zugang. Bitte melde dich an.',
-        requires_subscription: true,
-      });
-    }
+    // Client-ID immer durch die geprüfte Konto-ID ersetzen.
+    const config = { ...(req.body || {}), student_id: studentId };
 
     if (isSessionCreateRateLimited(studentId)) {
       return res.set(corsHeaders()).status(429).json({
@@ -337,6 +347,7 @@ app.post('/session/create', async (req, res) => {
 
     const sessionId = crypto.randomUUID();
     const session = {
+      ownerStudentId: studentId,
       studentId,
       config,
       transcript: [],
@@ -361,11 +372,14 @@ app.post('/session/create', async (req, res) => {
 // Session-Status abfragen
 app.get('/session/:id/status', async (req, res) => {
   try {
+    const studentId = await getSessionIdentity(getRestAccessToken(req));
+    if (!studentId) return res.set(corsHeaders()).status(401).json({ error: 'Unauthorized' });
     const data = await redis.get(`session:${req.params.id}`);
     if (!data) {
       return res.set(corsHeaders()).status(404).json({ error: 'Session not found' });
     }
     const session = JSON.parse(data);
+    if (!ownsSession(session, studentId)) return res.set(corsHeaders()).status(404).json({ error: 'Session not found' });
     res.set(corsHeaders()).json({
       status: 'active',
       reconnectCount: session.reconnectCount,
@@ -380,11 +394,14 @@ app.get('/session/:id/status', async (req, res) => {
 // Transkript abrufen
 app.get('/session/:id/transcript', async (req, res) => {
   try {
+    const studentId = await getSessionIdentity(getRestAccessToken(req));
+    if (!studentId) return res.set(corsHeaders()).status(401).json({ error: 'Unauthorized' });
     const data = await redis.get(`session:${req.params.id}`);
     if (!data) {
       return res.set(corsHeaders()).status(404).json({ error: 'Session not found' });
     }
     const session = JSON.parse(data);
+    if (!ownsSession(session, studentId)) return res.set(corsHeaders()).status(404).json({ error: 'Session not found' });
     res.set(corsHeaders()).json({ transcript: session.transcript });
   } catch (err) {
     res.set(corsHeaders()).status(500).json({ error: err.message });
@@ -419,6 +436,8 @@ server.on('upgrade', async (request, socket, head) => {
       socket.destroy();
       return;
     }
+    const studentId = await getSessionIdentity(accessTokenData.token);
+    if (!studentId) { socket.destroy(); return; }
     request.selectedProtocol = accessTokenData.selectedProtocol;
 
     const sessionId = sessionMatch[1];
@@ -429,6 +448,7 @@ server.on('upgrade', async (request, socket, head) => {
     }
 
     const session = JSON.parse(rawData);
+    if (!ownsSession(session, studentId)) { socket.destroy(); return; }
     const hasAccess = await checkStudentAccess(
       session.studentId || session.config?.student_id,
       session.config?.subject
