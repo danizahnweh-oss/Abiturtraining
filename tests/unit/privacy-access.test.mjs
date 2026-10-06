@@ -17,6 +17,7 @@ function fixture() {
         bind(...values) { args = values; return this; },
         async first() {
           queries.push({ sql, args });
+          if (sql.includes('FROM teachers WHERE id')) return args[0] === 'teacher-a' ? { id: 'teacher-a' } : null;
           if (sql.includes('FROM students WHERE id')) return args[0] === '1' && args[1] === 'alice' ? { found: 1 } : null;
           if (sql.includes('FROM student_teacher_links')) {
             return args[0] === 'teacher-a' && args[1] === 'alice' && (args.length === 2 || args[2] === 'mathe') ? { found: 1 } : null;

@@ -20,7 +20,7 @@ function fixture() {
           return students.some(s => s.id === args[0] && s.name_lower === args[1]) ? { found: 1 } : null;
         }
         if (sql.includes('FROM students WHERE name_lower = ?')) return students.find(s => s.name_lower === args[0]) || null;
-        if (sql.includes('FROM grading_jobs')) return { status: 'processing', created_at: new Date().toISOString() };
+        if (sql.includes('FROM grading_jobs')) return { input_data: JSON.stringify({_jobOwner:'student:' + (String(args[0]).split('-')[1] || '1')}), status: 'processing', created_at: new Date().toISOString() };
         if (sql.includes('FROM teachers WHERE id = ?')) return { name: 'Teacher', subjects: '[]' };
         return null;
       },
@@ -120,13 +120,13 @@ test('actual router allows 60 students on one IP and limits grade polling separa
   for (let id = 1; id <= 60; id++) {
     const token = await tokenFor(env, id);
     assert.equal((await router.fetch(request('/api/get-preferences', token), env)).status, 200);
-    assert.equal((await router.fetch(request('/api/grade-status/job', token, { method: 'GET' }), env)).status, 200);
+    assert.equal((await router.fetch(request('/api/grade-status/job-' + id, token, { method: 'GET' }), env)).status, 200);
     assert.equal((await router.fetch(request('/api/ocr', token), env)).status, 400);
   }
   const token = await tokenFor(env);
   // Two status requests already used above.
-  for (let n = 2; n < 120; n++) assert.equal((await router.fetch(request('/api/grade-status/job', token, { method: 'GET' }), env)).status, 200);
-  assert.equal((await router.fetch(request('/api/grade-status/job', token, { method: 'GET' }), env)).status, 429);
+  for (let n = 2; n < 120; n++) assert.equal((await router.fetch(request('/api/grade-status/job-1', token, { method: 'GET' }), env)).status, 200);
+  assert.equal((await router.fetch(request('/api/grade-status/job-1', token, { method: 'GET' }), env)).status, 429);
   assert.equal((await router.fetch(request('/api/ocr', token), env)).status, 400);
 });
 

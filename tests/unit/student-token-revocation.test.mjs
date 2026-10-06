@@ -88,12 +88,9 @@ test('database failure denies a bound student token', async () => {
   assert.equal((await checkAuth(requestFor(token), env)).status, 401);
 });
 
-test('teacher tokens and legacy tokens without student identity keep their behavior', async () => {
+test('legacy tokens without student identity keep their behavior', async () => {
   const env = makeEnv([]);
   env.DB.prepare = () => { throw new Error('student lookup must not happen'); };
-  const teacherToken = await generateTeacherToken(env, 'teacher-test');
-  assert.equal(await verifyTeacherAuthToken(teacherToken, env), 'teacher-test');
-  assert.equal(await checkAuth(new Request('https://myabiflow.de/api/test', { headers: { 'X-Teacher-Auth-Token': teacherToken } }), env), null);
   const legacy = await generateToken(env);
   assert.ok(await getTokenPayload(legacy, env));
   assert.equal(await getStudentTokenIdentity(requestFor(legacy), env), null);

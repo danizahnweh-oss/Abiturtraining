@@ -149,6 +149,7 @@ export async function handleTeacherAuthLogin(request, env) {
   if (teacher.status === 'pending') {
     return jsonResponse({ error: "Dein Konto wird noch geprüft. Du wirst benachrichtigt, sobald es freigeschaltet ist.", pending: true }, 403, env);
   }
+  if (teacher.status !== 'approved') return jsonResponse({ error: 'Dieses Lehrkraftkonto ist nicht freigeschaltet.' }, 403, env);
   const match = await verifyPassword(password, teacher.salt, teacher.hash);
   if (!match) {
     return jsonResponse({ error: "Falsches Passwort." }, 401, env);

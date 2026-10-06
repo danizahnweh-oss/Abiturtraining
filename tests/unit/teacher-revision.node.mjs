@@ -13,7 +13,7 @@ test('patch validation rejects protected fields, unknown paths and duplicates', 
   assert.throws(()=>validateRevision({edits:[edit,edit]},fields));
   assert.equal(validateRevision({edits:[edit]},fields)[0].before,task.aufgabe);
 });
-const env={TEACHER_AUTH_SECRET:'test-only',OPENAI_API_KEY:'test-only'};
+const env={TEACHER_AUTH_SECRET:'test-only',OPENAI_API_KEY:'test-only', DB:{prepare(sql){assert.match(sql,/FROM teachers/);return {bind(){return {async first(){return {id:'teacher'}}}}}}}};
 const req=(body,token='')=>new Request('https://example.test/api/generate-teacher-revision',{method:'POST',headers:{'X-Teacher-Auth-Token':token},body:JSON.stringify(body)});
 test('unauthenticated users cannot request a revision',async()=>{
   assert.equal((await handleTeacherRevision(req({task_data:task,instructions:'Klarer formulieren'}),env)).status,401);

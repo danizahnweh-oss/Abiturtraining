@@ -448,7 +448,12 @@ export async function verifyTeacherAuthToken(token, env) {
     );
     const sigBytes = new Uint8Array(sigHex.match(/.{2}/g).map(b => parseInt(b, 16)));
     const valid = await crypto.subtle.verify("HMAC", key, sigBytes, new TextEncoder().encode(data));
-    return valid ? payload.tid : null;
+    if (!valid) return null;
+    // Eine gültige Signatur darf ein gelöschtes oder gesperrtes Konto nicht reaktivieren.
+    const teacher = await env.DB.prepare(
+      "SELECT id FROM teachers WHERE id = ? AND status = 'approved' LIMIT 1"
+    ).bind(String(payload.tid)).first();
+    return teacher ? payload.tid : null;
   } catch {
     return null;
   }

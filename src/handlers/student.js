@@ -574,13 +574,10 @@ export async function handleCheckReminders(request, env) {
 }
 
 /* ================= DATENEXPORT ================= */
-async function safeAll(env, sql, ...binds) {
-  try {
-    const result = await env.DB.prepare(sql).bind(...binds).all();
-    return result?.results || [];
-  } catch {
-    return [];
-  }
+async function exportRows(env, sql, ...binds) {
+  const result = await env.DB.prepare(sql).bind(...binds).all();
+  if (!Array.isArray(result?.results)) throw new Error('Exportabfrage unvollständig');
+  return result.results;
 }
 
 export async function handleExportOwnData(request, env) {
@@ -590,23 +587,32 @@ export async function handleExportOwnData(request, env) {
   const student = await env.DB.prepare(
     `SELECT id, name, level, class_group, school, email, exam_subjects, exam_dates,
             reminder_interval, email_updates_optin, created_at, subscription_status,
-            subscription_plan, trial_end, free_access_until
+            subscription_plan, trial_end, free_access_until, hidden_subjects,
+            email_updates_consent_at, email_updates_consent_version
      FROM students WHERE name_lower = ?`
   ).bind(ident.nameLower).first();
   if (!student) return jsonResponse({ error: "Konto nicht gefunden." }, 404, env);
 
-  const [results, learningPlans, messages, submissions, feedback, colloquiumSessions, subscriptions] = await Promise.all([
-    safeAll(env, `SELECT r.id, r.course, r.type, r.topic, r.content, r.language, r.total, r.created_at,
-                         d.strengths, d.weaknesses, d.error_types, d.afb_scores, d.missing_topics
-                  FROM results r LEFT JOIN result_details d ON d.result_id = r.id
-                  WHERE r.student_id = ? OR LOWER(TRIM(r.student_name)) = ? ORDER BY r.created_at`, student.id, ident.nameLower),
-    safeAll(env, "SELECT plan_json, expires_at, created_at FROM learning_plans WHERE student_name_lower = ? ORDER BY created_at", ident.nameLower),
-    safeAll(env, "SELECT subject, body, is_read, created_at, read_at, reply, reply_at FROM messages WHERE recipient_name_lower = ? ORDER BY created_at", ident.nameLower),
-    safeAll(env, "SELECT task_id, result_id, submitted_at FROM task_submissions WHERE student_name_lower = ? ORDER BY submitted_at", ident.nameLower),
-    safeAll(env, "SELECT rating, category, message, page, valuable, created_at FROM feedback WHERE LOWER(TRIM(student_name)) = ? ORDER BY created_at", ident.nameLower),
-    safeAll(env, "SELECT subject, started_at, ended_at, duration_s FROM colloquium_sessions WHERE student_id = ? ORDER BY started_at", student.id),
-    safeAll(env, "SELECT plan, status, trial_end, current_period_end, cancel_at_period_end, school_license_code, created_at, updated_at FROM subscriptions WHERE student_id = ? ORDER BY created_at", student.id),
-  ]);
+  let exported;
+  try {
+    exported = await Promise.all([
+      exportRows(env, `SELECT r.id, r.course, r.type, r.topic, r.content, r.language, r.total, r.created_at, r.feedback_html,
+                           d.afb1_score, d.afb2_score, d.afb3_score, d.language_score, d.content_score, d.structure_score,
+                           d.strengths, d.weaknesses, d.error_types, d.afb_scores, d.missing_topics
+                    FROM results r LEFT JOIN result_details d ON d.result_id = r.id
+                    WHERE r.student_id = ? OR LOWER(TRIM(r.student_name)) = ? ORDER BY r.created_at`, student.id, ident.nameLower),
+      exportRows(env, "SELECT plan_json, expires_at, created_at FROM learning_plans WHERE student_name_lower = ? ORDER BY created_at", ident.nameLower),
+      exportRows(env, "SELECT subject, body, is_read, created_at, read_at, reply, reply_at FROM messages WHERE recipient_name_lower = ? ORDER BY created_at", ident.nameLower),
+      exportRows(env, "SELECT task_id, result_id, submitted_at FROM task_submissions WHERE student_name_lower = ? ORDER BY submitted_at", ident.nameLower),
+      exportRows(env, "SELECT rating, category, message, page, valuable, created_at FROM feedback WHERE LOWER(TRIM(student_name)) = ? ORDER BY created_at", ident.nameLower),
+      exportRows(env, "SELECT subject, started_at, ended_at, duration_s FROM colloquium_sessions WHERE student_id = ? ORDER BY started_at", student.id),
+      exportRows(env, "SELECT plan, status, trial_end, current_period_end, cancel_at_period_end, school_license_code, created_at, updated_at FROM subscriptions WHERE student_id = ? ORDER BY created_at", student.id),
+    ]);
+  } catch (_) {
+    // Keine scheinbar vollständige Datei ausgeben, wenn ein Teilbereich nicht lesbar ist.
+    return jsonResponse({ error: "Der Datenexport konnte nicht vollständig erstellt werden. Bitte erneut versuchen oder info@myabiflow.de kontaktieren." }, 503, env);
+  }
+  const [results, learningPlans, messages, submissions, feedback, colloquiumSessions, subscriptions] = exported;
 
   const payload = {
     exported_at: new Date().toISOString(),
@@ -620,6 +626,9 @@ export async function handleExportOwnData(request, env) {
       created_at: student.created_at,
       exam_subjects: safeJsonParse(student.exam_subjects, {}),
       exam_dates: safeJsonParse(student.exam_dates, {}),
+      hidden_subjects: safeJsonParse(student.hidden_subjects, []),
+      learning_email_consent_at: student.email_updates_consent_at,
+      learning_email_consent_version: student.email_updates_consent_version,
       learning_emails_enabled: student.email_updates_optin === 1 || student.email_updates_optin === true,
       reminder_interval_days: student.reminder_interval || 0,
       subscription_status: student.subscription_status,

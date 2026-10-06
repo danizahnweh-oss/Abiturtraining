@@ -10,6 +10,7 @@ function fixture() {
     DB: { prepare(sql) { let args;
       return { bind(...values) { args = values; return this; },
         async first() {
+          if (sql.includes('FROM teachers')) return { id: args[0] };
           if (sql.includes('FROM students')) return { found: 1 };
           return jobs.get(args[0]);
         },
