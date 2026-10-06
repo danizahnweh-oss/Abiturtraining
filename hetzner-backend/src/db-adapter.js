@@ -37,16 +37,31 @@ export function initDB(databaseUrl) {
  * Erstellt ein Objekt das die D1-API nachbildet:
  * db.prepare(sql).bind(...args).first() / .all() / .run()
  */
-function createD1Adapter() {
+export function createD1Adapter(executor = pool) {
   return {
     prepare(sql) {
-      return new D1Statement(sql);
+      return new D1Statement(sql, executor);
+    },
+    async transaction(callback) {
+      const client = await executor.connect();
+      try {
+        await client.query('BEGIN');
+        const result = await callback(createD1Adapter(client));
+        await client.query('COMMIT');
+        return result;
+      } catch (error) {
+        await client.query('ROLLBACK');
+        throw error;
+      } finally {
+        client.release();
+      }
     }
   };
 }
 
 class D1Statement {
-  constructor(sql) {
+  constructor(sql, executor) {
+    this._executor = executor;
     // ? Platzhalter zu $1, $2, $3 ... konvertieren
     this._originalSql = sql;
     this._sql = convertPlaceholders(sql);
@@ -63,7 +78,7 @@ class D1Statement {
    * Entspricht D1's .first()
    */
   async first(column) {
-    const { rows } = await pool.query(this._sql, this._params);
+    const { rows } = await this._executor.query(this._sql, this._params);
     if (rows.length === 0) return null;
     if (column) return rows[0][column];
     return rows[0];
@@ -73,7 +88,7 @@ class D1Statement {
    * Gibt alle Zeilen zurück im D1-Format: { results: [...], success: true }
    */
   async all() {
-    const { rows } = await pool.query(this._sql, this._params);
+    const { rows } = await this._executor.query(this._sql, this._params);
     return { results: rows, success: true };
   }
 
@@ -82,7 +97,7 @@ class D1Statement {
    * Gibt { success: true, meta: { changes: N } } zurück
    */
   async run() {
-    const result = await pool.query(this._sql, this._params);
+    const result = await this._executor.query(this._sql, this._params);
     return {
       success: true,
       meta: {

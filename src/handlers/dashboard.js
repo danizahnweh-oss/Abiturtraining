@@ -1,3 +1,4 @@
+import { deleteStudentRecords, deleteStripeCustomer } from "../account-deletion.js";
 // Handler: Dashboard (Teacher Login, Results, Students, Class Passwords)
 import { jsonResponse } from '../utils.js';
 import { generateToken, verifyToken, safeCompare } from '../auth.js';
@@ -133,11 +134,21 @@ export async function handleDeleteStudent(request, env) {
     return jsonResponse({ error: "student_name required" }, 400, env);
   }
 
-  const result = await env.DB.prepare("DELETE FROM students WHERE name = ?").bind(student_name).run();
-  if (result.meta.changes === 0) {
-    return jsonResponse({ error: "Schüler nicht gefunden." }, 404, env);
+  const student = await env.DB.prepare(
+    "SELECT id, name, name_lower, stripe_customer_id FROM students WHERE name = ?"
+  ).bind(student_name).first();
+  if (!student) return jsonResponse({ error: "Schüler nicht gefunden." }, 404, env);
+  if (typeof env.DB.transaction !== "function") {
+    return jsonResponse({ error: "Kontolöschung ist vorübergehend nicht verfügbar." }, 503, env);
   }
-  // CASCADE loescht automatisch zugehoerige Results
+  try {
+    await deleteStripeCustomer(student.stripe_customer_id, env);
+    if (!(await deleteStudentRecords(env, student))) {
+      return jsonResponse({ error: "Schüler nicht gefunden." }, 404, env);
+    }
+  } catch {
+    return jsonResponse({ error: "Kontolöschung konnte nicht vollständig abgeschlossen werden." }, 500, env);
+  }
 
   const countResult = await env.DB.prepare("SELECT COUNT(*) as cnt FROM students").first();
   return jsonResponse({ success: true, remaining: countResult.cnt }, 200, env);

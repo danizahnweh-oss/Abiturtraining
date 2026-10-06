@@ -1,3 +1,4 @@
+import { deleteStudentRecords, deleteStripeCustomer } from "../account-deletion.js";
 // Handler: Student (Login, Check, Preferences, Reminders)
 import { jsonResponse, safeJsonParse } from '../utils.js';
 import { generateToken, safeCompare, hashPassword, verifyPassword, resolveStudentIdentity } from '../auth.js';
@@ -646,17 +647,6 @@ export async function handleExportOwnData(request, env) {
 }
 
 /* ================= SELBSTLOESCHUNG ================= */
-async function deleteStripeCustomer(customerId, env) {
-  if (!customerId || !env.STRIPE_SECRET_KEY) return;
-  const response = await fetch(`https://api.stripe.com/v1/customers/${encodeURIComponent(customerId)}`, {
-    method: "DELETE",
-    headers: { "Authorization": `Bearer ${env.STRIPE_SECRET_KEY}` },
-  });
-  if (!response.ok && response.status !== 404) {
-    throw new Error("Das Zahlungsprofil konnte nicht gelöscht werden.");
-  }
-}
-
 export async function handleDeleteOwnAccount(request, env) {
   const body = await request.json().catch(() => ({}));
   const ident = await resolveStudentIdentity(request, env);
@@ -676,6 +666,10 @@ export async function handleDeleteOwnAccount(request, env) {
     return jsonResponse({ error: "Das Passwort ist nicht korrekt." }, 401, env);
   }
 
+  if (typeof env.DB.transaction !== "function") {
+    return jsonResponse({ error: "Kontolöschung ist vorübergehend nicht verfügbar. Bitte kontaktiere info@myabiflow.de." }, 503, env);
+  }
+
   // Externes Zahlungsprofil zuerst entfernen. Gesetzlich aufzubewahrende
   // Rechnungsdaten bleiben bei Stripe gesperrt bzw. nach Stripe-Vorgaben erhalten.
   try {
@@ -685,39 +679,12 @@ export async function handleDeleteOwnAccount(request, env) {
     return jsonResponse({ error: error.message || "Zahlungsprofil konnte nicht gelöscht werden." }, 502, env);
   }
 
-  const id = student.id;
-  const nameLower = student.name_lower;
-  const fullNameLower = String(student.name || "").trim().toLowerCase();
-
-  // Abhaengige Datensaetze ohne Foreign-Key-Cascade zuerst entfernen.
-  const deletions = [
-    ["DELETE FROM grading_jobs WHERE result_id IN (SELECT id FROM results WHERE student_id = ? OR LOWER(TRIM(student_name)) = ?)", [id, nameLower]],
-    ["DELETE FROM result_details WHERE result_id IN (SELECT id FROM results WHERE student_id = ? OR LOWER(TRIM(student_name)) = ?)", [id, nameLower]],
-    ["DELETE FROM results WHERE student_id = ? OR LOWER(TRIM(student_name)) = ?", [id, nameLower]],
-    ["DELETE FROM learning_plans WHERE student_name_lower = ?", [nameLower]],
-    ["DELETE FROM task_submissions WHERE student_name_lower = ?", [nameLower]],
-    ["DELETE FROM teacher_credit_usage WHERE student_name_lower = ?", [nameLower]],
-    ["DELETE FROM password_reset_tokens WHERE name_lower = ?", [nameLower]],
-    ["DELETE FROM email_verification_tokens WHERE name_lower = ?", [nameLower]],
-    ["DELETE FROM messages WHERE recipient_name_lower = ?", [nameLower]],
-    ["DELETE FROM feedback WHERE LOWER(TRIM(student_name)) IN (?, ?)", [nameLower, fullNameLower]],
-    ["DELETE FROM analytics_events WHERE student_id = ? OR LOWER(TRIM(student_name)) IN (?, ?)", [id, nameLower, fullNameLower]],
-    ["DELETE FROM colloquium_sessions WHERE student_id = ?", [id]],
-    ["DELETE FROM student_teacher_links WHERE student_name_lower = ?", [nameLower]],
-    ["DELETE FROM student_teacher_links WHERE student_id = ?", [id]],
-    ["DELETE FROM student_subject_licenses WHERE student_id = ?", [id]],
-    ["DELETE FROM subscriptions WHERE student_id = ?", [id]],
-  ];
-
   try {
-    for (const [sql, binds] of deletions) {
-      try { await env.DB.prepare(sql).bind(...binds).run(); } catch (_) { /* optionale/alte Tabelle */ }
-    }
-    const result = await env.DB.prepare("DELETE FROM students WHERE id = ? AND name_lower = ?").bind(id, nameLower).run();
-    if (!result.meta?.changes) return jsonResponse({ error: "Konto konnte nicht gelöscht werden." }, 500, env);
+    const deleted = await deleteStudentRecords(env, student);
+    if (!deleted) return jsonResponse({ error: "Konto nicht gefunden." }, 404, env);
   } catch {
-    console.error("Kontolöschung: interner Löschvorgang fehlgeschlagen");
-    return jsonResponse({ error: "Kontolöschung konnte nicht vollständig abgeschlossen werden." }, 500, env);
+    console.error("Kontolöschung: interne Transaktion fehlgeschlagen; keine Teillöschung bestätigt");
+    return jsonResponse({ error: "Kontolöschung konnte nicht vollständig abgeschlossen werden. Bitte kontaktiere info@myabiflow.de." }, 500, env);
   }
 
   return jsonResponse({ success: true }, 200, env);
