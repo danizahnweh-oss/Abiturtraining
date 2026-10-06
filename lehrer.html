@@ -408,6 +408,7 @@ main { max-width: 1100px; margin: 1.5rem auto; }
 /* Toast */
 .toast {
   position: fixed;
+  top: auto;
   bottom: 2rem;
   left: 50%;
   transform: translateX(-50%);
@@ -964,6 +965,7 @@ let authMode = "login";
 let pendingTaskData = null; // Zwischenspeicher für generierte Aufgabe
 let pendingTaskSubject = "";
 let pendingTaskSubjectGroup = "";
+let materialEditFields = [];
 let editingTaskId = null; // ID der Aufgabe die gerade bearbeitet wird
 
 /* ====== THEME ====== */
@@ -2076,7 +2078,7 @@ function showTaskPreview() {
 
   const d = pendingTaskData;
   const container = document.getElementById("taskEditFields");
-  const taStyle = 'width:100%;padding:.6rem .8rem;border:1px solid var(--border);border-radius:var(--radius);background:var(--surface);color:var(--ink);font-size:16px;box-sizing:border-box;resize:vertical;font-family:inherit;';
+  const taStyle = 'width:100%;min-height:0;padding:.6rem .8rem;border:1px solid var(--border);border-radius:var(--radius);background:var(--surface);color:var(--ink);font-size:16px;box-sizing:border-box;resize:vertical;font-family:inherit;';
   const pvStyle = 'margin-top:.35rem;padding:.5rem .75rem;background:var(--bg);border:1px dashed var(--border);border-radius:var(--radius-sm);font-size:.95rem;line-height:1.55;color:var(--ink);white-space:pre-wrap;word-break:break-word;overflow-x:auto;-webkit-overflow-scrolling:touch;';
   let html = "";
 
@@ -2100,12 +2102,6 @@ function showTaskPreview() {
   html += field("task_instruction_a", "Teil A – Quellenanalyse", d.task_instruction_a);
   html += field("task_instruction_b", "Teil B – Darstellung", d.task_instruction_b);
   html += field("aufgabe", "Aufgabentext", d.aufgabe);
-
-  // === Primaertexte ===
-  html += field("primary_text", "Text" + (d.primary_meta ? " (" + d.primary_meta + ")" : ""), d.primary_text);
-  html += field("primary_text_a", "Quelle M 1" + (d.primary_meta_a ? " (" + d.primary_meta_a + ")" : ""), d.primary_text_a);
-  html += field("primary_text_b", "Materialimpuls" + (d.primary_meta_b ? " (" + d.primary_meta_b + ")" : ""), d.primary_text_b);
-  html += field("compare_text", "Vergleichstext" + (d.compare_meta ? " (" + d.compare_meta + ")" : ""), d.compare_text);
 
   // === Teilaufgaben (Mathe/Chemie/Physik/Bio) ===
   if (d.teilaufgaben && Array.isArray(d.teilaufgaben) && d.teilaufgaben.length) {
@@ -2140,33 +2136,28 @@ function showTaskPreview() {
     });
   }
 
-  // === Materialien (WR / Geschichte / Chemie) ===
-  const matKey = d.materialien ? "materialien" : d.zusatz_materialien ? "zusatz_materialien" : d.material ? "material" : null;
-  const mats = matKey ? d[matKey] : [];
-  if (Array.isArray(mats) && mats.length) {
-    html += `<div style="margin-bottom:.8rem;"><label style="font-size:.82rem;font-weight:600;display:block;margin-bottom:.5rem;">Materialien</label>`;
-    mats.forEach((m, mi) => {
-      const mTitle = m.titel || m.title || m.nr || m.id || 'Material ' + (mi+1);
-      const mType = m.typ || m.type || '';
-      const content = m.inhalt || m.content || m.text || '';
-      html += `<div style="margin-bottom:.6rem;padding:.5rem;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);">
-        <span style="font-size:.82rem;font-weight:700;">${esc(mTitle)}</span>
-        <span style="font-size:.72rem;color:var(--ink-light);margin-left:.3rem;">${esc(mType)}</span>`;
-      if (mType === 'text' || mType === 'statistik' || (!mType && content)) {
-        const p = pv(content);
-        html += `<textarea data-field="${matKey}" data-mat="${mi}"${p.attr} rows="${Math.min(6, Math.max(2, Math.ceil(content.length / 80)))}" style="${taStyle}margin-top:.3rem;">${esc(content)}</textarea>${p.div}`;
-      } else if (mType === 'bild' || mType === 'foto') {
-        const imgId = 'matImg_' + matKey + '_' + mi;
-        if (m.image_url && m.image_url !== '[KV]') {
-          html += `<img id="${imgId}" src="${m.image_url}" style="max-width:100%;max-height:200px;border-radius:var(--radius-sm);margin-top:.3rem;display:block;" alt="${esc(mTitle)}" loading="lazy" decoding="async">`;
-        } else {
-          html += `<div id="${imgId}" style="margin-top:.3rem;padding:1.5rem;background:var(--bg);border:2px dashed var(--border);border-radius:var(--radius-sm);text-align:center;color:var(--ink-light);font-size:.82rem;">KI-Bild (wird beim Teilen generiert)</div>`;
-        }
-        html += `<div style="margin-top:.4rem;"><label class="btn-small btn-secondary" style="cursor:pointer;display:inline-flex;align-items:center;min-height:44px;">Bild ersetzen<input type="file" accept="image/*" style="display:none;" onchange="replaceTaskImage('${matKey}',${mi},this,'${imgId}')"></label></div>`;
-      }
-      html += `</div>`;
+  // All material collections and source texts, including nested exam choices.
+  materialEditFields = TeacherMaterialEditor.collect(d);
+  if (materialEditFields.length) {
+    html += '<h3 style="font-size:1rem;margin:1.5rem 0 .5rem;">Materialtexte bearbeiten</h3><p style="font-size:.85rem;color:var(--ink-muted);">Ändere die Texte direkt in den Feldern. Mit dem Speichern der Aufgabe werden auch deine Materialänderungen übernommen.</p>';
+    materialEditFields.forEach((entry, index) => {
+      const preview = pv(entry.value);
+      const id = 'materialTextEdit_' + index;
+      html += `<div style="margin:1rem 0;"><label for="${id}" style="display:block;font-weight:600;margin-bottom:.5rem;">${esc(entry.label)}</label><textarea id="${id}" data-material-field="${index}"${preview.attr} rows="${Math.min(12, Math.max(4, Math.ceil(entry.value.length / 100)))}" style="${taStyle}">${esc(entry.value)}</textarea>${preview.div}</div>`;
     });
-    html += `</div>`;
+  }
+  // Retain the existing image replacement controls for every top-level collection.
+  for (const matKey of Object.keys(d).filter(key => /^(materials|materialien|material|zusatz_materialien)(_[a-z0-9]+)?$/.test(key))) {
+    if (!Array.isArray(d[matKey])) continue;
+    d[matKey].forEach((m, mi) => {
+      if (!m || !/^(bild|foto|image|karikatur)$/.test(m.typ || m.type || '')) return;
+      const title = String(m.titel || m.title || m.nr || m.id || 'Material ' + (mi + 1));
+      const imgId = 'matImg_' + matKey + '_' + mi;
+      const url = typeof m.image_url === 'string' && /^(https?:\/\/|data:image\/)/.test(m.image_url) ? m.image_url : null;
+      html += `<div style="margin:1rem 0;"><strong>${esc(title)}</strong>`;
+      html += url ? `<img id="${imgId}" src="${esc(url)}" style="max-width:100%;max-height:200px;display:block;" alt="${esc(title)}" loading="lazy">` : `<div id="${imgId}">Bildmaterial</div>`;
+      html += `<label class="btn-small btn-secondary" style="cursor:pointer;display:inline-flex;align-items:center;min-height:44px;">Bild ersetzen<input type="file" accept="image/*" style="display:none;" onchange="replaceTaskImage('${matKey}',${mi},this,'${imgId}')"></label></div>`;
+    });
   }
 
   if (!html) html = '<p style="color:var(--ink-muted);">Keine bearbeitbaren Felder gefunden.</p>';
@@ -2231,6 +2222,10 @@ function resetTaskCreation() {
 
 function syncTaskEdits() {
   if (!pendingTaskData) return;
+  document.querySelectorAll('#taskEditFields textarea[data-material-field]').forEach(ta => {
+    const descriptor = materialEditFields[Number(ta.dataset.materialField)];
+    if (descriptor) TeacherMaterialEditor.apply(pendingTaskData, descriptor, ta.value);
+  });
   // Bearbeitete Felder aus dem Formular übernehmen
   document.querySelectorAll("#taskEditFields textarea[data-field]").forEach(ta => {
     const field = ta.dataset.field;
@@ -2525,6 +2520,7 @@ function showToast(msg, type) {
 }
 </script>
   <script src="shared.js"></script>
+<script src="teacher-material-editor.js?v=1"></script>
 <script src="teacher-task-revision.js?v=1"></script>
 </body>
 </html>
