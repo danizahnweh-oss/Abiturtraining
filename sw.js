@@ -1,4 +1,4 @@
-const CACHE_NAME = 'myabiflow-v168';
+const CACHE_NAME = 'myabiflow-v169-privacy';
 const STATIC_ASSETS = [
   './',
   './index.html',
@@ -36,42 +36,22 @@ self.addEventListener('activate', event => {
 self.addEventListener('fetch', event => {
   const url = new URL(event.request.url);
 
-  // API calls auf gleicher Origin: network only, JSON-Fehler bei offline
-  // WICHTIG: Origin-Check zuerst, sonst werden externe Worker-APIs (z.B. CF-Worker
-  // unter *.workers.dev) fälschlich als "Offline" gemeldet, sobald deren Response
-  // den SW passiert.
-  if (url.origin === location.origin && url.pathname.startsWith('/api/')) {
-    event.respondWith(fetch(event.request).catch(() =>
-      new Response(JSON.stringify({ error: 'Offline' }), {
-        status: 503,
-        headers: { 'Content-Type': 'application/json' }
-      })
-    ));
-    return;
-  }
-
-  // External resources (fonts, CDN scripts/CSS): cache-first with network fallback
-  if (url.hostname !== location.hostname) {
-    event.respondWith(
-      caches.match(event.request).then(cached => {
-        if (cached) return cached;
-        return fetch(event.request).then(response => {
-          if (response.ok && event.request.method === 'GET') {
-            const clone = response.clone();
-            caches.open(CACHE_NAME).then(cache => cache.put(event.request, clone));
-          }
-          return response;
-        });
-      }).catch(() => new Response('', { status: 503 }))
-    );
-    return;
-  }
+  // Nur öffentliche, statische Dateien ohne Parameter dürfen in den Offline-Cache.
+  // Insbesondere Transkripte (/session/), Tutor, KI-Proxy und externe Antworten
+  // bleiben im Netzwerk. Ein angemeldeter Request wird niemals zwischengespeichert.
+  const privateRequest = ['Authorization', 'X-Access-Token', 'X-Teacher-Token', 'X-Teacher-Auth-Token']
+    .some(header => event.request.headers.has(header));
+  const dynamicPath = /^\/(api|session|ws|v1beta|tutor|health)(\/|$)/.test(url.pathname);
+  const staticPath = url.pathname === '/' || url.pathname === '/manifest.json' ||
+    /\.(html|js|css|woff2?|png|jpe?g|gif|ico|svg|webp|mp4)$/.test(url.pathname);
+  if (event.request.method !== 'GET' || url.origin !== location.origin ||
+      url.search || privateRequest || dynamicPath || !staticPath) return;
 
   // HTML + shared.js: network-first so updates arrive immediately
   if (event.request.mode === 'navigate' || url.pathname.endsWith('.html') || url.pathname.endsWith('/shared.js') || url.pathname.endsWith('/wr-materials.js')) {
     event.respondWith(
       fetch(event.request).then(response => {
-        if (response.ok) {
+        if (response.ok && !response.headers.get('Cache-Control')?.includes('no-store')) {
           const clone = response.clone();
           caches.open(CACHE_NAME).then(cache => cache.put(event.request, clone));
         }
@@ -105,7 +85,7 @@ self.addEventListener('fetch', event => {
         const ct = response.headers.get('Content-Type') || '';
         const isJsOrCss = url.pathname.endsWith('.js') || url.pathname.endsWith('.css');
         const wrongMime = isJsOrCss && ct.includes('text/html');
-        if (response.ok && event.request.method === 'GET' && !wrongMime) {
+        if (response.ok && !response.headers.get('Cache-Control')?.includes('no-store') && !wrongMime) {
           const clone = response.clone();
           caches.open(CACHE_NAME).then(cache => cache.put(event.request, clone));
         }
