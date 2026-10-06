@@ -4392,11 +4392,28 @@ var TRACKING_CONFIG = {
   META_PIXEL_ID: "XXXXXXXXXXXXXXX"          // Meta/Facebook Pixel
 };
 
+// Freigabe nur für öffentliche Informationsseiten; neue Seiten sind automatisch gesperrt.
+function isPublicTrackingPage() {
+  var publicPages = ['/', '/landing.html', '/schulen.html', '/ueber-uns.html', '/abitur-vorbereitung.html', '/demo.html'];
+  if (publicPages.indexOf(window.location.pathname) === -1) return false;
+  var search = new URLSearchParams(window.location.search);
+  var allowedParams = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'];
+  for (var key of search.keys()) if (allowedParams.indexOf(key) === -1) return false;
+  try {
+    if (sessionStorage.getItem('access') || sessionStorage.getItem('access_token') ||
+        sessionStorage.getItem('student_name') || sessionStorage.getItem('teacher_auth_token') ||
+        sessionStorage.getItem('teacher_token')) return false;
+  } catch (e) { return false; }
+  return true;
+}
+
 function getTrackingPreferences() {
   try {
     var saved = localStorage.getItem("myabiflow_tracking_preferences");
     if (saved) {
       var parsed = JSON.parse(saved);
+      var age = Date.now() - Date.parse(parsed.saved_at);
+      if (parsed.version !== 2 || !Number.isFinite(age) || age < 0 || age > 180 * 86400000) return null;
       return {
         analytics: parsed.analytics === true,
         marketing: parsed.marketing === true,
@@ -4405,7 +4422,7 @@ function getTrackingPreferences() {
     }
     // Bestehende Entscheidungen einmalig in das granulare Format überführen.
     var legacy = localStorage.getItem("myabiflow_tracking_consent");
-    if (legacy === "accepted") return { analytics: true, marketing: true, version: 2 };
+    if (legacy === "accepted") return null;
     if (legacy === "rejected") return { analytics: false, marketing: false, version: 2 };
   } catch (e) {}
   return null;
@@ -4423,6 +4440,7 @@ function setTrackingPreferences(preferences) {
 }
 
 function getTrackingConsent(category) {
+  if (!isPublicTrackingPage()) return false;
   var preferences = getTrackingPreferences();
   if (!preferences) return false;
   if (category === "marketing") return preferences.marketing === true;
@@ -4450,9 +4468,11 @@ function loadGoogleTag() {
     ad_user_data: marketingAllowed ? "granted" : "denied",
     ad_personalization: marketingAllowed ? "granted" : "denied"
   });
+  // URL-Parameter und vorherige Lernseiten nicht an Messdienste weitergeben.
+  window.gtag("set", { page_location: window.location.origin + window.location.pathname, page_referrer: "" });
   window.gtag("js", new Date());
   if (analyticsAllowed && TRACKING_CONFIG.GA_MEASUREMENT_ID !== "G-XXXXXXXXXX") {
-    window.gtag("config", TRACKING_CONFIG.GA_MEASUREMENT_ID, { anonymize_ip: true });
+    window.gtag("config", TRACKING_CONFIG.GA_MEASUREMENT_ID, { allow_google_signals: marketingAllowed, allow_ad_personalization_signals: marketingAllowed });
   }
 
   if (marketingAllowed && TRACKING_CONFIG.AW_CONVERSION_ID !== "AW-XXXXXXXXXX") {
@@ -4540,7 +4560,7 @@ function showPrivacySettings() {
   overlay.innerHTML =
     '<div style="background:var(--surface,#fff);color:var(--ink,#0f172a);border:1px solid var(--border,#e2e8f0);border-radius:16px;box-shadow:0 24px 64px rgba(15,23,42,.24);padding:24px;max-width:520px;width:100%;max-height:90vh;overflow:auto;">' +
       '<h2 id="privacySettingsTitle" style="font-size:1.25rem;margin:0 0 8px;">Datenschutz-Einstellungen</h2>' +
-      '<p style="font-size:.875rem;line-height:1.55;color:var(--ink-muted,#64748b);margin:0 0 20px;">Notwendige Speicherungen sind immer aktiv. Analyse und Werbung sind freiwillig und getrennt wählbar.</p>' +
+      '<p style="font-size:.875rem;line-height:1.55;color:var(--ink-muted,#64748b);margin:0 0 20px;">Notwendige Speicherungen sind immer aktiv. Analyse und Werbung sind freiwillig und getrennt wählbar. Sie gelten nur auf öffentlichen Informationsseiten. Lernseiten und angemeldete Konten bleiben von diesen Diensten ausgeschlossen.</p>' +
       '<div style="display:grid;gap:12px;">' +
         '<div style="padding:16px;border:1px solid var(--border,#e2e8f0);border-radius:12px;background:var(--surface-soft,#f8fafc);">' +
           '<strong style="display:block;font-size:.95rem;">Notwendige Funktionen</strong>' +
@@ -4548,7 +4568,7 @@ function showPrivacySettings() {
         '</div>' +
         '<label for="privacyAnalytics" style="display:flex;align-items:flex-start;gap:12px;padding:16px;border:1px solid var(--border,#e2e8f0);border-radius:12px;cursor:pointer;">' +
           '<input id="privacyAnalytics" type="checkbox" style="width:20px;height:20px;min-width:20px;margin-top:1px;accent-color:var(--accent,#4f46e5);"' + (current.analytics ? ' checked' : '') + '>' +
-          '<span><strong style="display:block;font-size:.95rem;">Anonyme Nutzungsanalyse</strong><span style="display:block;font-size:.8rem;line-height:1.5;color:var(--ink-muted,#64748b);margin-top:4px;">Google Analytics hilft uns zu verstehen, welche öffentlichen Seiten genutzt werden.</span></span>' +
+          '<span><strong style="display:block;font-size:.95rem;">Nutzungsanalyse</strong><span style="display:block;font-size:.8rem;line-height:1.5;color:var(--ink-muted,#64748b);margin-top:4px;">Google Analytics hilft uns zu verstehen, welche öffentlichen Seiten genutzt werden.</span></span>' +
         '</label>' +
         '<label for="privacyMarketing" style="display:flex;align-items:flex-start;gap:12px;padding:16px;border:1px solid var(--border,#e2e8f0);border-radius:12px;cursor:pointer;">' +
           '<input id="privacyMarketing" type="checkbox" style="width:20px;height:20px;min-width:20px;margin-top:1px;accent-color:var(--accent,#4f46e5);"' + (current.marketing ? ' checked' : '') + '>' +
@@ -4600,6 +4620,10 @@ function addPrivacySettingsButton() {
 function initConsentBanner() {
   var preferences = getTrackingPreferences();
   addPrivacySettingsButton();
+  if (!isPublicTrackingPage()) {
+    clearTrackingCookies();
+    return;
+  }
   if (preferences) {
     if (preferences.analytics || preferences.marketing) loadTrackingScripts();
     return;

@@ -16,8 +16,8 @@ test.beforeEach(async ({ page }) => {
 
 test('Tracking-Zwecke sind getrennt und dauerhaft wieder erreichbar', async ({ page }) => {
   await page.goto('/index.html?app=1&role=student');
-  await expect(page.getByRole('button', { name: 'Alle ablehnen', exact: true })).toBeVisible();
-  await page.getByRole('button', { name: 'Auswählen', exact: true }).click();
+  await expect(page.getByRole('button', { name: 'Alle ablehnen', exact: true })).toHaveCount(0);
+  await page.getByRole('button', { name: 'Datenschutz-Einstellungen', exact: true }).click();
   const dialog = page.getByRole('dialog', { name: 'Datenschutz-Einstellungen' });
   await expect(dialog).toBeVisible();
   await expect(dialog.getByLabel(/Analyse/i)).not.toBeChecked();
