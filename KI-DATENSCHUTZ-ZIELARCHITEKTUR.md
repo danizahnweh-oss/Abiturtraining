@@ -1,3 +1,5 @@
+> Historischer Arbeitsstand. Für den aktuellen Befund und noch offene Schulvoraussetzungen siehe [Prüfbericht vom 6. Oktober 2026](docs/datenschutz/PRUEFBERICHT-2026-10-06.md). Dieses ältere Dokument ist keine aktuelle Freigabe.
+
 # KI-Datenschutz-Zielarchitektur
 
 Stand: 25. September 2026
