@@ -95,140 +95,42 @@
     </header>
 
     <main id="main-content" class="legal-container">
-        <h1>Technisch-Organisatorische Ma&szlig;nahmen (TOM)</h1>
-        <p>gem&auml;&szlig; Art. 32 DSGVO &ndash; myAbiFlow UG (haftungsbeschr&auml;nkt)</p>
-        <p style="font-size: 0.9rem; color: var(--ink-lighter);">
-            Dieses Dokument beschreibt die technischen und organisatorischen Ma&szlig;nahmen zum Schutz
-            personenbezogener Daten auf der Plattform myAbiFlow. Es richtet sich an Schulen,
-            Datenschutzbeauftragte und Aufsichtsbeh&ouml;rden.
-        </p>
-
-        <h2>1. Vertraulichkeit (Art. 32 Abs. 1 lit. b DSGVO)</h2>
-
-        <h3>1.1 Zutrittskontrolle</h3>
-        <p>Physischer Zugang zu Servern:</p>
+        <h1>Technische und organisatorische Maßnahmen</h1>
+        <p>Arbeitsstand gemäß Art. 32 DSGVO · myAbiFlow UG (haftungsbeschränkt) · 6. Oktober 2026</p>
+        <p><strong>Diese Übersicht trennt überprüfte Maßnahmen von noch offenen Nachweisen.</strong> Sie ist keine Zertifizierung und bestätigt keine Freigabe für den verbindlichen Schuleinsatz. Die vertragliche TOM-Anlage muss den tatsächlich vereinbarten Schulbetrieb beschreiben.</p>
+        <h2>1. Überprüfter technischer Stand</h2>
         <ul>
-            <li>Der Server wird von <strong>Hetzner Online GmbH</strong> in einem zertifizierten Rechenzentrum in <strong>N&uuml;rnberg, Deutschland</strong> betrieben (ISO 27001)</li>
-            <li>Die Datenbank (PostgreSQL) liegt auf demselben Server in <strong>Deutschland</strong></li>
-            <li>Zugang zum Rechenzentrum nur f&uuml;r autorisiertes Hetzner-Personal</li>
-            <li>myAbiFlow-Mitarbeiter haben <strong>keinen physischen Zugang</strong> zu Servern</li>
+            <li>Hauptanwendung und Datenbank werden bei Hetzner in Deutschland betrieben. Externe KI-, E-Mail- und Zahlungsdienste sind davon getrennt zu beurteilen.</li>
+            <li>Die öffentliche Website verwendet HTTPS. Die geprüfte Firewall lässt von außen Webzugriffe und den administrativen SSH-Zugang zu; Datenbank und Redis sind lokal gebunden.</li>
+            <li>Kontopasswörter werden mit individuellem Salt und PBKDF2 gehasht. Anwendungstoken sind signiert und zeitlich begrenzt.</li>
+            <li>Die Haupt-API prüft bei persönlich gebundenen Schülertoken zusätzlich, ob das zugehörige Konto noch existiert. Das ersetzt keine Prüfung sämtlicher anderer Dienste.</li>
+            <li>Schülerbezogene Konto- und Lerndatenzugriffe werden an die angemeldete Identität gebunden. Bei der freigegebenen Ergebnisdetailansicht wird die Zuordnung zur Person und zum Fach geprüft.</li>
+            <li>Neue asynchrone Korrekturaufträge sind ihrem Ersteller zugeordnet. Die Kenntnis einer Auftragskennung allein erlaubt keinen Abruf.</li>
+            <li>JSON-Antworten der Haupt-API tragen eine Speicherbeschränkung. Der Service Worker speichert nur erlaubte öffentliche statische Dateien und berücksichtigt entsprechende Cache-Vorgaben.</li>
+            <li>Zentrale Analyse- und Werbeskripte sind auf ausgewählte öffentliche Seiten beschränkt. Lern- und Kontobereiche bleiben auch bei gespeicherter Einwilligung ausgeschlossen.</li>
+            <li>Schülerkontolöschungen verwenden eine Datenbanktransaktion. Bei Fehlern wird die lokale Transaktion zurückgerollt. Externe Löschvorgänge sind davon getrennt.</li>
+            <li>Verschlüsselte Sicherungsdateien sind vorhanden. Die Konfiguration sieht tägliche, wöchentliche und monatliche Rotation vor. Ein aktueller vollständiger Wiederherstellungstest ist damit nicht nachgewiesen.</li>
         </ul>
-
-        <h3>1.2 Zugangskontrolle (logisch)</h3>
-        <div class="legal-table-scroll" role="region" tabindex="0" aria-label="Tabelle, bei Bedarf seitlich scrollen"><table>
-            <tr><th>Ma&szlig;nahme</th><th>Umsetzung</th></tr>
-            <tr><td>Passwort-Hashing</td><td>PBKDF2 mit 100.000 Iterationen + individueller Salt pro Nutzer. Klartext-Passw&ouml;rter werden zu keinem Zeitpunkt gespeichert.</td></tr>
-            <tr><td>Token-Authentifizierung</td><td>HMAC-SHA256 signierte Tokens mit 24h G&uuml;ltigkeit. Tokens werden ausschlie&szlig;lich im Session Storage des Browsers gespeichert.</td></tr>
-            <tr><td>Rate Limiting</td><td>Max. 25 API-Anfragen pro Minute und IP-Adresse. Max. 5 Login-Versuche pro Minute.</td></tr>
-            <tr><td>CORS-Schutz</td><td>API akzeptiert nur Anfragen von <code>https://myabiflow.de</code> (Origin-Whitelist).</td></tr>
-            <tr><td>Admin-Zugang</td><td>Server-Zugang ausschlie&szlig;lich &uuml;ber SSH mit Public-Key-Authentifizierung (kein Passwort-Login). Zugang nur f&uuml;r den Gesch&auml;ftsf&uuml;hrer.</td></tr>
-        </table></div>
-
-        <h3>1.3 Zugriffskontrolle (Berechtigungen)</h3>
-        <div class="legal-table-scroll" role="region" tabindex="0" aria-label="Tabelle, bei Bedarf seitlich scrollen"><table>
-            <tr><th>Rolle</th><th>Zugriff</th></tr>
-            <tr><td>Sch&uuml;ler/in</td><td>Eigenes Konto, eigene Ergebnisse, eigene Lernpl&auml;ne</td></tr>
-            <tr><td>Lehrkraft</td><td>Ergebnisse der zugeordneten Sch&uuml;ler (Zuordnung &uuml;ber Klassen-Code)</td></tr>
-            <tr><td>Administrator</td><td>Server-Zugang via SSH, Datenbank-Zugang (nur Gesch&auml;ftsf&uuml;hrer)</td></tr>
-        </table></div>
+        <h2>2. Grenzen der überprüften Maßnahmen</h2>
+        <p>Pseudonyme, Freitextfilter und das Weglassen von Kontonamen ergeben keine sichere Anonymisierung. KI-Anfragen können Texte, Bilder, Sprache, Leistungsdaten und fachliche Schwächen enthalten. Auch eine verschlüsselte Übertragung lässt die Verarbeitung beim empfangenden Dienst zu.</p>
+        <p>Der technische Teststand erfasst ausgewählte Zugriffs-, Lösch-, Cache- und Trackingabläufe. Er ist kein vollständiger Penetrationstest. Schulübergreifende Trennung, sämtliche Echtzeitsitzungen, administrative Rechte und externe Anbieter benötigen weitere Abnahmeprüfungen.</p>
+        <h2>3. Vor dem verbindlichen Schulbetrieb zu ergänzen</h2>
         <ul>
-            <li>Lehrkr&auml;fte sehen <strong>nur</strong> die Ergebnisse ihrer eigenen, per Code zugeordneten Sch&uuml;ler</li>
-            <li>Sch&uuml;ler k&ouml;nnen F&auml;cher ausblenden, sodass Lehrkr&auml;fte diese nicht sehen</li>
-            <li>Kein &uuml;bergreifender Admin-Zugang f&uuml;r Lehrkr&auml;fte</li>
+            <li>Schulbezogene Mandanten, dokumentierte Rollen, überprüfte Zuweisung von Lehrkräften und stabile Personenkennungen statt freier Namenszuordnung.</li>
+            <li>Widerruf von Sitzungen und Berechtigungen über sämtliche Dienste, minimale Administratorrechte, Mehrfaktor-Authentifizierung und nachvollziehbare privilegierte Zugriffe.</li>
+            <li>Ein Schulzugang ohne private E-Mail-Adresse, eigenes Kaufabonnement oder Werbeeinwilligung; geregelte Wiederherstellung und Austrittsprozesse.</li>
+            <li>Ein vollständiges Löschkonzept einschließlich Warteschlangen, Sitzungsdaten, Backups, Protokollen, externen Empfängern und Wiederherstellungen.</li>
+            <li>Überwachung von Bereinigungsläufen, Wiederherstellungsübungen und dokumentierte Reaktion auf fehlgeschlagene Löschungen.</li>
+            <li>Dokumentiertes Sicherheits- und Datenschutzvorfallverfahren mit Verantwortlichkeiten, Kontaktwegen und Fristen.</li>
+            <li>Nachweise zur Vertraulichkeitsverpflichtung, Schulung, regelmäßigen Berechtigungsprüfung und zum sicheren Änderungsbetrieb.</li>
         </ul>
-
-        <h3>1.4 Trennungskontrolle</h3>
-        <ul>
-            <li>Sch&uuml;lerdaten sind durch <code>student_id</code> logisch getrennt</li>
-            <li>Lehrkr&auml;fte-Zugriff ist durch <code>student_teacher_links</code> auf zugeordnete Sch&uuml;ler beschr&auml;nkt</li>
-            <li>API-Keys f&uuml;r externe Dienste sind als Umgebungsvariablen auf dem Server gespeichert und nicht im Frontend-Code</li>
-        </ul>
-
-        <h2>2. Integrit&auml;t (Art. 32 Abs. 1 lit. b DSGVO)</h2>
-
-        <h3>2.1 Weitergabekontrolle</h3>
-        <div class="legal-table-scroll" role="region" tabindex="0" aria-label="Tabelle, bei Bedarf seitlich scrollen"><table>
-            <tr><th>Ma&szlig;nahme</th><th>Umsetzung</th></tr>
-            <tr><td>Transportverschl&uuml;sselung</td><td>Alle Verbindungen ausschlie&szlig;lich &uuml;ber HTTPS/TLS 1.3. HSTS aktiviert.</td></tr>
-            <tr><td>API-Kommunikation</td><td>Alle Aufrufe an KI-, Bild-, E-Mail- und Zahlungsdienste &uuml;ber verschl&uuml;sselte Verbindungen und serverseitige Zugangsdaten.</td></tr>
-            <tr><td>WebSocket-Verbindungen</td><td>Kolloquiumstrainer nutzt WSS (WebSocket Secure) f&uuml;r Audio-Streaming.</td></tr>
-            <tr><td>Datenminimierung bei KI</td><td>An KI-Anbieter werden <strong>keine</strong> Namen, Noten oder identifizierenden Daten &uuml;bermittelt.</td></tr>
-        </table></div>
-
-        <h3>2.2 Eingabekontrolle</h3>
-        <ul>
-            <li>Alle Ergebnisse werden mit Zeitstempel und Student-ID protokolliert</li>
-            <li>KI-Bewertungen werden als <code>result_details</code> gespeichert und sind r&uuml;ckverfolgbar</li>
-            <li>Asynchrone Korrektur-Auftr&auml;ge werden mit Status-Verlauf protokolliert (queued &rarr; processing &rarr; completed/failed)</li>
-            <li>Content-Length-Limit: Max. 10 MB pro Anfrage</li>
-        </ul>
-
-        <h2>3. Verf&uuml;gbarkeit und Belastbarkeit (Art. 32 Abs. 1 lit. b+c DSGVO)</h2>
-
-        <h3>3.1 Verf&uuml;gbarkeitskontrolle</h3>
-        <ul>
-            <li><strong>Hetzner Cloud Server:</strong> Dedizierter Server in N&uuml;rnberg mit Nginx als Reverse Proxy, Firewall (UFW) und automatischen Sicherheitsupdates</li>
-            <li><strong>Service Worker:</strong> Progressive Web App (PWA) mit Offline-Cache f&uuml;r statische Inhalte</li>
-            <li><strong>Prozess-Management:</strong> PM2 &uuml;berwacht alle Services und startet sie bei Absturz automatisch neu</li>
-            <li><strong>Asynchrone Verarbeitung:</strong> Korrektur-Auftr&auml;ge werden in einer Queue (BullMQ/Redis) verarbeitet &ndash; bei Ausfall der KI-API wird der Auftrag automatisch wiederholt (max. 2 Versuche)</li>
-            <li><strong>Dead Letter Queue:</strong> Fehlgeschlagene Auftr&auml;ge werden zur manuellen Pr&uuml;fung gesichert</li>
-        </ul>
-
-        <h3>3.2 Wiederherstellbarkeit</h3>
-        <ul>
-            <li>PostgreSQL-Datenbank auf Hetzner-Server in Deutschland mit Snapshot-M&ouml;glichkeit</li>
-            <li>Quellcode wird in einem Git-Repository (GitHub) versioniert</li>
-            <li>Deployment &uuml;ber automatisiertes Deploy-Script mit Rollback-M&ouml;glichkeit &uuml;ber Git</li>
-        </ul>
-
-        <h2>4. Verfahren zur regelm&auml;&szlig;igen &Uuml;berpr&uuml;fung (Art. 32 Abs. 1 lit. d DSGVO)</h2>
-
-        <h3>4.1 Datenschutz-Management</h3>
-        <ul>
-            <li>Regelm&auml;&szlig;ige &Uuml;berpr&uuml;fung der Vertr&auml;ge, Rollen und Drittlandgarantien aller eingesetzten Anbieter</li>
-            <li>&Uuml;berpr&uuml;fung der DPF-Zertifizierungen der US-Dienstleister</li>
-            <li>Datenschutz-Folgenabsch&auml;tzung (DSFA) wurde durchgef&uuml;hrt und wird bei wesentlichen &Auml;nderungen aktualisiert</li>
-        </ul>
-
-        <h3>4.2 Automatische L&ouml;schmechanismen</h3>
-        <div class="legal-table-scroll" role="region" tabindex="0" aria-label="Tabelle, bei Bedarf seitlich scrollen"><table>
-            <tr><th>Datenart</th><th>L&ouml;schfrist</th></tr>
-            <tr><td>Session-Tokens</td><td>24 Stunden (automatisch ung&uuml;ltig)</td></tr>
-            <tr><td>Browser Session Storage</td><td>Beim Schlie&szlig;en des Browsers</td></tr>
-            <tr><td>Asynchrone Korrektur-Jobs</td><td>24 Stunden (automatische Bereinigung)</td></tr>
-            <tr><td>Kolloquiums-Transkript im Browser</td><td>24 Stunden oder beim L&ouml;schen lokaler Lerndaten</td></tr>
-            <tr><td>Kolloquiums-Metadaten</td><td>30 Tage (automatische Bereinigung)</td></tr>
-            <tr><td>Passwort-Reset-Token</td><td>24 Stunden; Verifikations-Token sp&auml;testens nach 7 Tagen</td></tr>
-            <tr><td>Technische Aktivierungsereignisse</td><td>180 Tage</td></tr>
-            <tr><td>Nachrichten und Feedback</td><td>365 Tage</td></tr>
-            <tr><td>Lokale Lerndaten</td><td>Nach 30 Tagen Inaktivit&auml;t oder manuell im Profil</td></tr>
-            <tr><td>Nutzerkonto + Ergebnisse</td><td>Bei Selbstl&ouml;schung im Profil, durch berechtigte Lehrkraft oder auf Anfrage</td></tr>
-        </table></div>
-
-        <h2>5. &Uuml;bersicht Auftragsverarbeiter</h2>
-        <div class="legal-table-scroll" role="region" tabindex="0" aria-label="Tabelle, bei Bedarf seitlich scrollen"><table>
-            <tr><th>Anbieter</th><th>Zweck</th><th>Standort</th><th>Garantie</th></tr>
-            <tr><td>Hetzner Online GmbH</td><td>Hosting, Server, Datenbank</td><td>Deutschland (N&uuml;rnberg)</td><td>DPA</td></tr>
-            <tr><td>OpenAI, L.L.C.</td><td>KI-Korrektur und Feedback</td><td>USA</td><td>DPF + DPA</td></tr>
-            <tr><td>Google Ireland Ltd.</td><td>Kolloquiumstrainer, KI-Tutor</td><td>Irland/USA</td><td>SCCs + DPA</td></tr>
-            <tr><td>Ideogram AI, Inc.</td><td>Erzeugung von Aufgabenbildern</td><td>Kanada/USA</td><td>Vertrag und Transfergrundlage zu dokumentieren</td></tr>
-            <tr><td>Hugging Face, Inc.</td><td>Suchvektoren f&uuml;r den KI-Tutor</td><td>USA</td><td>Vertrag und Transfergrundlage zu dokumentieren</td></tr>
-            <tr><td>Wolfram Alpha LLC</td><td>Mathematische Verifikation</td><td>USA</td><td>Datenminimierung; Rolle zu dokumentieren</td></tr>
-            <tr><td>Resend, Inc.</td><td>E-Mail-Versand</td><td>USA</td><td>DPF + DPA</td></tr>
-            <tr><td>Stripe Payments Europe, Limited</td><td>Zahlungen und Abonnements</td><td>EU/USA</td><td>Vertragliche Datenschutzgarantien</td></tr>
-        </table></div>
-
-        <hr style="margin: 3rem 0; border: none; border-top: 1px solid var(--border);">
-
-        <p style="font-size: 0.9rem; color: var(--ink-lighter);">
-            Dokument erstellt: M&auml;rz 2026 | Aktualisiert: September 2026 | Version 2.0<br>
-            Verantwortlich: Daniel Zahnweh, Gesch&auml;ftsf&uuml;hrer myAbiFlow UG (haftungsbeschr&auml;nkt)<br>
-            Dieses Dokument wird bei wesentlichen &Auml;nderungen der technischen Infrastruktur aktualisiert.
-        </p>
-
-        <div style="margin-top: 3rem; text-align: center;">
-            <a href="impressum.html#datenschutz" class="btn">Zur&uuml;ck zur Datenschutzerkl&auml;rung</a>
-        </div>
+        <h2>4. Anbieter und Verträge</h2>
+        <p>Im Code sind Hetzner, OpenAI, Google Gemini, Hugging Face, Wolfram, Ideogram, Resend und Stripe sowie auf erlaubten öffentlichen Seiten Google-Analyse- und Werbedienste vorgesehen. Pro Dienst sind Zweck, Datenarten, konkrete Vertragspartei, datenschutzrechtliche Rolle, Unterauftragnehmer, Verarbeitungsorte, Speicherfristen, Minderjährigennutzung und Drittlandgrundlage nachzuweisen.</p>
+        <p>Online bereitgestellte Bedingungen können Vertragsbestandteil sein. Die bloße Existenz einer DPA-Webseite beweist jedoch nicht, welche Fassung und Einstellungen für das konkrete Kundenkonto gelten. Eine vollständig geprüfte Vertragskette liegt diesem Arbeitsstand nicht zugrunde.</p>
+        <h2>5. Datenschutzorganisation und Fortschreibung</h2>
+        <p>Ein Verzeichnis der Verarbeitungstätigkeiten, der schulbezogene AVV, die DSFA und die Zuständigkeit beziehungsweise Benennung eines Datenschutzbeauftragten sind zu vervollständigen. Die Zuständigkeit der schulischen Datenschutzbeauftragten ersetzt nicht die Prüfung der Pflichten des Anbieters.</p>
+        <p>Freigaben müssen vor dem Schuleinsatz und nach wesentlichen Änderungen an Zwecken, KI-Anbietern, Datenflüssen oder Sicherheitsmaßnahmen erneut geprüft und dokumentiert werden. Verantwortlicher Ansprechpartner beim Anbieter: Daniel Zahnweh, <a href="mailto:info@myabiflow.de">info@myabiflow.de</a>.</p>
+        <p><a href="impressum.html#datenschutz">Datenschutzerklärung</a> · <a href="dsfa.html">DSFA-Arbeitsstand</a></p>
     </main>
 
     <footer>
