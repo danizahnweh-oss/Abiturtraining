@@ -24,7 +24,7 @@ export async function handleStudentResults(request, env) {
 // Ergebnis – nur fuer die Schuelerin, der das Ergebnis gehoert.
 export async function handleStudentResultDetail(request, env) {
   const body = await request.json().catch(() => ({}));
-  const ident = await resolveStudentIdentity(request, env, body.student_name?.trim()?.toLowerCase());
+  const ident = await resolveStudentIdentity(request, env, body.student_name?.trim()?.toLowerCase(), { allowTeacher: true });
   if (!ident) return jsonResponse({ error: "Bitte erneut anmelden." }, 401, env);
   const resultId = typeof body.result_id === "string" ? body.result_id : "";
   if (!resultId) return jsonResponse({ error: "result_id erforderlich." }, 400, env);
@@ -34,9 +34,16 @@ export async function handleStudentResultDetail(request, env) {
   ).bind(resultId).first();
 
   if (!row) return jsonResponse({ error: "Ergebnis nicht gefunden." }, 404, env);
-  // Lehrer dürfen jedes Ergebnis sehen (Dashboard); Schüler nur eigene
-  if (!ident.isTeacher && (row.student_name || "").trim().toLowerCase() !== ident.nameLower) {
+  // Auch Lehrkräfte dürfen nur Ergebnisse genau der angefragten Person lesen.
+  if ( (row.student_name || "").trim().toLowerCase() !== ident.nameLower) {
     return jsonResponse({ error: "Kein Zugriff auf dieses Ergebnis." }, 403, env);
+  }
+
+  if (ident.isTeacher) {
+    const link = await env.DB.prepare(
+      "SELECT 1 FROM student_teacher_links WHERE teacher_id = ? AND student_name_lower = ? AND subject = ? LIMIT 1"
+    ).bind(ident.teacherId, ident.nameLower, row.type).first();
+    if (!link) return jsonResponse({ error: "Kein Zugriff auf dieses Ergebnis." }, 403, env);
   }
 
   return jsonResponse({

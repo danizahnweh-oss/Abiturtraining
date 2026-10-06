@@ -111,11 +111,12 @@ export async function getStudentTokenIdentity(request, env) {
 
 // Vereinheitlichter Identitäts-Resolver für Schüler-Endpunkte.
 // Schüler-Token: zwingend der gebundene Name (Body wird ignoriert).
-// Lehrer-Token (X-Teacher-Auth-Token): erlaubt Lesezugriff auf den im Body angegebenen Schüler.
+// Lehrerzugriff ist standardmäßig gesperrt; ausdrücklich freigegebene Aufrufer
+// müssen zusätzlich das konkrete Ergebnis und das verknüpfte Fach prüfen.
 // Rückgabe: { nameLower } oder null (Aufrufer antwortet dann mit 401).
-export async function resolveStudentIdentity(request, env, requestedNameLower) {
+export async function resolveStudentIdentity(request, env, requestedNameLower, { allowTeacher = false } = {}) {
   const teacherToken = request.headers.get("X-Teacher-Auth-Token") || "";
-  if (teacherToken) {
+  if (teacherToken && allowTeacher) {
     const teacherId = await verifyTeacherAuthToken(teacherToken, env);
     if (teacherId) {
       const requested = (requestedNameLower || "").trim().toLowerCase();

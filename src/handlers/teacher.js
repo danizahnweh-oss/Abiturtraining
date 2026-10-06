@@ -227,14 +227,10 @@ export async function handleTeacherCodes(request, env) {
 // Schueler verlinkt sich mit Lehrer-Code (fachspezifisch)
 export async function handleLinkStudentCode(request, env) {
   const { student_name, code, subject } = await request.json();
-  // Identität aus dem Login-Token binden, wenn vorhanden (persönlicher Account).
-  // Beim geteilten Klassen-Passwort (kein sub) gibt es keine token-gebundene
-  // Identität → Rückfall auf den übermittelten Namen.
+  // Eine Kursfreigabe darf ausschließlich das angemeldete eigene Konto betreffen.
   const ident = await getStudentTokenIdentity(request, env);
-  const boundName = ident?.nameLower || (typeof student_name === "string" ? student_name.trim().toLowerCase() : "");
-  if (!boundName) {
-    return jsonResponse({ error: "student_name erforderlich." }, 400, env);
-  }
+  if (!ident) return jsonResponse({ error: "Bitte mit deinem persönlichen Konto anmelden." }, 401, env);
+  const boundName = ident.nameLower;
   if (!code || typeof code !== "string") {
     return jsonResponse({ error: "Code erforderlich." }, 400, env);
   }
@@ -300,10 +296,8 @@ export async function handleTeacherResults(request, env) {
 export async function handleStudentCodes(request, env) {
   const { student_name } = await request.json();
   const ident = await getStudentTokenIdentity(request, env);
-  const nameLower = ident?.nameLower || (typeof student_name === "string" ? student_name.trim().toLowerCase() : "");
-  if (!nameLower) {
-    return jsonResponse({ error: "student_name erforderlich." }, 400, env);
-  }
+  if (!ident) return jsonResponse({ error: "Bitte mit deinem persönlichen Konto anmelden." }, 401, env);
+  const nameLower = ident.nameLower;
   const { results: codes } = await env.DB.prepare(
     `SELECT stl.code, stl.subject, tc.label, t.name AS teacher_name
      FROM student_teacher_links stl

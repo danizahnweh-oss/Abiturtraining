@@ -27,6 +27,7 @@ export function corsHeaders(env, requestOrigin) {
   const origin = (requestOrigin && isOriginAllowed(requestOrigin, env)) ? requestOrigin : primary;
   return {
     "Content-Type": "application/json; charset=utf-8",
+    "Cache-Control": "no-store",
     "Access-Control-Allow-Origin": origin,
     "Access-Control-Allow-Headers": "Content-Type, X-Access-Token, X-Teacher-Token, X-Teacher-Auth-Token, X-Student-Name, X-Admin-Token",
     "Access-Control-Allow-Methods": "POST, OPTIONS",
