@@ -2,7 +2,7 @@
 import { jsonResponse, truncate, batchExtractFromImages } from '../utils.js';
 import { callOpenAI } from '../openai.js';
 import { findAvailableTeacherCredits, deductTeacherCredit } from './teacher-credits.js';
-import { isSchoolLicenseActive } from '../auth.js';
+import { isSchoolLicenseActive, getTokenPayload, verifyTeacherAuthToken } from '../auth.js';
 import { gymnasiumMaximum, validateGymnasiumGrade } from '../subjects/gymnasium-points.js';
 
 /* ================= ASYNC GRADING: HANDLER ================= */
@@ -22,9 +22,31 @@ export function isValidGradeEndpoint(endpoint) {
   return false;
 }
 
+// Aufträge gehören ausschließlich ihrem Ersteller. Gruppenzugänge bleiben auf
+// die konkrete Sitzung begrenzt; eine zufällige Job-ID ersetzt keine Berechtigung.
+async function gradingIdentity(request, env) {
+  const teacherToken = request.headers.get('X-Teacher-Auth-Token');
+  if (teacherToken) {
+    const teacherId = await verifyTeacherAuthToken(teacherToken, env);
+    if (teacherId) return { owner: 'teacher:' + teacherId };
+  }
+  const token = request.headers.get('X-Access-Token') || '';
+  const payload = await getTokenPayload(token, env);
+  if (!payload) return null;
+  if (payload.sub && payload.sid != null) {
+    return { owner: 'student:' + payload.sid, name: String(payload.sub) };
+  }
+  const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(token));
+  return { owner: 'session:' + Array.from(new Uint8Array(digest), b => b.toString(16).padStart(2, '0')).join('') };
+}
+
 export async function handleGradeSubmit(request, env, ctx) {
+  const identity = await gradingIdentity(request, env);
+  if (!identity) return jsonResponse({ error: "Bitte erneut anmelden." }, 401, env);
   const body = await request.json();
   const { endpoint, student_name, ...inputData } = body;
+  // Vom Client übermittelte Metadaten werden immer überschrieben.
+  inputData._jobOwner = identity.owner;
 
   if (!endpoint || !isValidGradeEndpoint(endpoint)) {
     return jsonResponse({ error: "Ungültiger Endpoint: " + (endpoint || "(leer)") }, 400, env);
@@ -48,7 +70,7 @@ export async function handleGradeSubmit(request, env, ctx) {
 
   const jobId = crypto.randomUUID();
   const now = new Date().toISOString();
-  const sName = truncate(student_name || "Unbekannt", 100);
+  const sName = truncate(identity.name || student_name || "Unbekannt", 100);
 
   // Job in D1 anlegen (ohne Bilder — passen nicht in SQLite)
   await env.DB.prepare(
@@ -124,17 +146,22 @@ export async function processGradeDirectly(jobId, endpoint, inputData, images, e
   }
 }
 
-export async function handleGradeStatus(jobId, env) {
+export async function handleGradeStatus(jobId, request, env) {
+  const identity = await gradingIdentity(request, env);
+  if (!identity) return jsonResponse({ error: "Bitte erneut anmelden." }, 401, env);
   if (!jobId || jobId.length > 50) {
     return jsonResponse({ error: "Ungültige Job-ID." }, 400, env);
   }
 
   const job = await env.DB.prepare(
-    "SELECT status, result_data, error_msg, created_at FROM grading_jobs WHERE id = ?"
+    "SELECT status, result_data, error_msg, created_at, input_data FROM grading_jobs WHERE id = ?"
   ).bind(jobId).first();
 
-  if (!job) {
-    return jsonResponse({ error: "Job nicht gefunden." }, 404, env);
+  let owner;
+  try { owner = JSON.parse(job?.input_data || '{}')._jobOwner; } catch (_) {}
+  // Auch Altaufträge ohne Eigentümer bleiben gesperrt; keine Datenoffenlegung.
+  if (!job || owner !== identity.owner) {
+    return jsonResponse({ error: "Job nicht gefunden oder nicht zugänglich." }, 404, env);
   }
 
   if (job.status === "completed") {
@@ -167,6 +194,9 @@ export function setFOSRouteHandler(handler) {
 }
 
 export async function executeGradeHandler(endpoint, inputData, env) {
+  // Interne Zugriffsmetadaten niemals an einen KI-Dienst weitergeben.
+  const { _jobOwner, ...gradingInput } = inputData;
+  inputData = gradingInput;
   // Fake-Request für bestehende Handler (rufen request.json() auf)
   const fakeRequest = { json: async () => inputData, headers: new Headers() };
   let response;

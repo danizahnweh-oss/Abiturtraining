@@ -492,7 +492,7 @@ const worker = {
         const { error: rateLimitError } = await checkAuthenticatedRateLimit(request, env);
         if (rateLimitError) return rateLimitError;
         const jobId = pathname.replace("/api/grade-status/", "");
-        return await handleGradeStatus(jobId, env);
+        return await handleGradeStatus(jobId, request, env);
       }
 
       // ===== FEEDBACK (kein Auth nötig, eigenes Rate Limit) =====
