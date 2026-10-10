@@ -34,12 +34,58 @@
 
 ### Hetzner Storage Box
 
-- Kostet grob 3.20 EUR pro Monat fuer 1 TB und liegt im gleichen Hetzner-Umfeld.
-- `rclone config` starten und einen Remote mit Typ `sftp` anlegen.
-- Host ist dein Storage-Box-Hostname, Nutzername und Passwort kommen aus dem Hetzner-Panel.
-- Zielpfad z. B. `storagebox:myabiflow-backups`.
-- Danach Cron-Umgebung oder Wrapper mit `OFFSITE_RCLONE_REMOTE=storagebox:myabiflow-backups` setzen.
-- Ein manueller Test mit `rclone lsd storagebox:` und dann `/usr/local/bin/myabiflow-backup-db` reicht fuer die Erstpruefung.
+Für die vorhandene Installation wird `rsync` über SSH-Port 23 verwendet. Die
+Storage Box muss an einem anderen Standort als der Produktivserver liegen.
+Ein eigener Sub-Account wird auf seinen Sicherungsordner begrenzt: SSH aktiviert,
+„Nur lesen“ deaktiviert; SMB, WebDAV und externe Erreichbarkeit sind nicht nötig,
+wenn die Übertragung von einem Hetzner-Server ausgeht.
+
+Einen eigenen SSH-Key auf dem Produktivserver erzeugen und dessen öffentlichen
+Teil beim Sub-Account hinterlegen. Den Host-Key unabhängig prüfen und in
+`known_hosts` festhalten. Passwort und private Schlüssel gehören niemals ins Git.
+
+Die Datei `/etc/myabiflow-offsite.conf` als root mit Modus 600 anlegen:
+
+```bash
+OFFSITE_TARGET='uXXXX-sub1@uXXXX-sub1.your-storagebox.de:database'
+OFFSITE_SSH_KEY='/root/.ssh/myabiflow_storagebox'
+OFFSITE_KNOWN_HOSTS='/root/.ssh/known_hosts'
+```
+
+`database` ist ein ausschließlich für diese Sicherungen verwendeter Unterordner
+im Basisverzeichnis des Sub-Accounts. Keine anderen Backups dort ablegen.
+
+```bash
+install -m 700 scripts/backup/backup-offsite.sh /usr/local/bin/myabiflow-backup-offsite
+install -m 700 scripts/backup/backup-job.sh /usr/local/bin/myabiflow-backup-job
+```
+
+Nach erfolgreichem Test den bisherigen Cron-Aufruf **ersetzen**, nicht ergänzen:
+
+```cron
+5 3 * * * /usr/local/bin/myabiflow-backup-job >> /var/log/myabiflow/backup.log 2>&1
+```
+
+Der Job erzeugt zuerst die lokale Sicherung, überträgt anschließend ausschließlich
+`daily-*.dump.enc`, `weekly-*.dump.enc` und `monthly-*.dump.enc` und überprüft
+die Kopien durch Prüfsummen. Die lokale Aufbewahrung von 7/4/3 Dateien gilt auch
+extern: ältere passende Dateien im Zielordner werden nach der Übertragung
+entfernt. Ausgeschlossene Dateien werden nicht übertragen oder gelöscht.
+Leere Quellen werden abgelehnt. Ein Übertragungsfehler beendet den Job mit
+Fehlerstatus und erhält die lokalen Sicherungen. Nicht gleichzeitig den älteren
+`OFFSITE_RCLONE_REMOTE`-Hook aktivieren.
+
+Die tägliche Uhrzeit ist 03:05 UTC (05:05 MESZ bzw. 04:05 MEZ). Der Job verhindert
+über eine Sperre gleichzeitige Läufe. Fehlschläge stehen im Backup-Log; eine aktive
+Benachrichtigung ist damit noch nicht eingerichtet.
+
+Zur Abnahme eine externe Datei zurückladen, ihre SHA-256-Prüfsumme mit der Quelle
+vergleichen und Entschlüsselung/Archivlesbarkeit prüfen. Das ersetzt keinen
+vollständigen Restore in einer isolierten Datenbank. Den Verschlüsselungsschlüssel
+separat vom Server extern sichern. Eine Storage Box beim gleichen Anbieter bietet
+Standorttrennung, aber keine Unabhängigkeit vom Anbieter oder Hauptkonto. Gegen
+Löschung durch kompromittierte Zugangsdaten braucht es zusätzliche Schutzmaßnahmen
+(z. B. separat verwaltete Snapshots); diese Einrichtung aktiviert sie nicht.
 
 ### Backblaze B2
 
