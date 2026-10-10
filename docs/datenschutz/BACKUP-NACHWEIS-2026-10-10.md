@@ -55,10 +55,20 @@ Der Betreiber hat die separate Speicherung des Entschlüsselungsschlüssels im
 Passwortmanager nach eigener Durchführung bestätigt. Das ist eine Rückmeldung
 des Betreibers; der Inhalt des Passwortmanagers wurde nicht eingesehen.
 
+### Snapshot-Zeitplan laut Betreiber
+
+Der Betreiber bestätigte anschließend die Aktivierung automatischer Storage-
+Box-Snapshots: täglich um 04:00 UTC, maximal 10 automatische Snapshots. Der
+Zeitpunkt liegt 55 Minuten nach Beginn des Backup-Jobs. Eine erfolgreiche erste
+Ausführung und ein Snapshot-Restore wurden noch nicht überprüft. Snapshots
+bewahren auch zwischenzeitlich gelöschte Backup-Dateien bis zur Snapshot-Rotation;
+diese zusätzliche Aufbewahrung ist im Löschkonzept zu berücksichtigen. Sie liegen
+auf derselben Storage Box und sind keine zusätzliche externe Datenkopie.
+
 ## Noch nicht bestätigt
 
 Die Vollständigkeit der Sicherung für Dateien, Konfigurationen, produktive
 Datenbankrollen und weitere Datenspeicher ist noch nicht bestätigt. Eine aktive
-Fehlermeldung an den Betreiber und separat verwaltete Schutzkopien gegen
-Löschung durch kompromittierte Zugangsdaten sind noch nicht eingerichtet.
+Fehlermeldung an den Betreiber ist noch nicht eingerichtet. Die tatsächliche
+Snapshot-Ausführung und der Schutz des Hauptkontos sind noch zu prüfen.
 Die Standorttrennung bietet keine Unabhängigkeit vom Anbieter oder Hauptkonto.
