@@ -39,11 +39,26 @@ Daten nach einem Restore müssen gesondert festgelegt werden.
 - Installierte Skripte stimmen per SHA-256 mit Git-Commit `888a48f0` überein.
 - Vorheriger Zeitplan wurde vor Änderung serverseitig gesichert; kein API-Neustart.
 
+### Vollständiger Datenbank-Restore
+
+Anschließend wurde die externe Sicherung erneut heruntergeladen und per SHA-256
+mit der lokalen Quelle verglichen. In einer neu initialisierten PostgreSQL-16-
+Testinstanz ohne Netzwerk-Listener wurde das entschlüsselte Archiv vollständig
+mit `pg_restore --exit-on-error --no-owner --no-acl` eingespielt. Ergebnis:
+Exit-Code 0, alle 28 im Archiv enthaltenen Tabellen vorhanden. Die Testinstanz
+hatte ein separates Datenverzeichnis und einen nur lokal zugänglichen Socket.
+Produktive Datenbanken wurden nicht verändert. Testinstanz und sämtliche
+temporären Dateien wurden danach entfernt. Dieser Test stellt keine Prüfung
+der produktiven Rollen, Dateiuploads oder des kompletten Anwendungsstarts dar.
+
+Der Betreiber hat die separate Speicherung des Entschlüsselungsschlüssels im
+Passwortmanager nach eigener Durchführung bestätigt. Das ist eine Rückmeldung
+des Betreibers; der Inhalt des Passwortmanagers wurde nicht eingesehen.
+
 ## Noch nicht bestätigt
 
-Ein vollständiger Restore in einer isolierten Datenbank, die separate externe
-Aufbewahrung des Entschlüsselungsschlüssels und die Vollständigkeit für Dateien,
-Konfigurationen sowie weitere Datenspeicher sind nicht bestätigt. Eine aktive
+Die Vollständigkeit der Sicherung für Dateien, Konfigurationen, produktive
+Datenbankrollen und weitere Datenspeicher ist noch nicht bestätigt. Eine aktive
 Fehlermeldung an den Betreiber und separat verwaltete Schutzkopien gegen
 Löschung durch kompromittierte Zugangsdaten sind noch nicht eingerichtet.
 Die Standorttrennung bietet keine Unabhängigkeit vom Anbieter oder Hauptkonto.
